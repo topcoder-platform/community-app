@@ -8,6 +8,7 @@ New version of Topcoder Community website.
 -   [CDN: User Avatars](docs/cdn-user-avatars.md)
 -   [Code Splitting](docs/code-splitting.md)
 -   [Coding Standards](docs/coding-standards.md)
+-   [Contentful CMS](docs/contentful/index.md)
 -   [Dashboard Announcements](docs/dashboard-announcements.md)
 -   [How to Add a New Topcoder Community?](docs/how-to-add-a-new-topcoder-community.md)
 -   [How To Deep-Link (Correct Use of URL Query Params Within The App)](docs/how-to-deep-link.md)
