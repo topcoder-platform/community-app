@@ -15,7 +15,7 @@ import defaultStyle from './style.scss';
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * mailchimp APIs. */
-const PROXY_ENDPOINT = '/api/cdn/public/mailchimp';
+const PROXY_ENDPOINT = '/api/mailchimp';
 
 class NewsletterSignup extends React.Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class NewsletterSignup extends React.Component {
     }).then(result => result.json()).then((dataResponse) => {
       if (dataResponse.status === 'subscribed') {
         // regist success
-        this.setState({ message: 'Success' });
+        this.setState({ message: 'Subcribed successfully' });
       } else {
         // regist fail
         this.setState({ message: dataResponse.title });

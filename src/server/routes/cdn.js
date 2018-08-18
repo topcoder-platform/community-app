@@ -7,7 +7,6 @@ import path from 'path';
 
 import avatarRoutes from './avatar';
 import contentfulRoutes from './contentful';
-import mailchimpRoutes from './mailchimp';
 
 import getExchangeRates from '../services/money';
 
@@ -17,7 +16,6 @@ router.use('/public/ping', (req, res) => res.send('PONG!'));
 
 router.use('/public/avatar', avatarRoutes);
 router.use('/public/contentful', contentfulRoutes);
-router.use('/public/mailchimp', mailchimpRoutes);
 
 router.use('/public/exchange-rates', (req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
