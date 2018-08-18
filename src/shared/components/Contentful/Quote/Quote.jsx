@@ -18,11 +18,11 @@ function Quote({
     <div>
       <div
         className={theme.container}
-        style={quote.extraStylesForContainer}
+        style={quote.containerStyles}
       >
         <div
           className={theme.contentWrapper}
-          style={quote.extraStylesForContentWrapper}
+          style={quote.contentWrapperStyles}
         >
           <div className={`${theme.avatarContainer} ${(avatar ? '' : theme.noImage)}`}>
             { avatar ? <img alt="Quote author avatar" src={avatar.file.url} /> : null }
@@ -38,7 +38,7 @@ function Quote({
           </div>
           <div
             className={theme.content}
-            style={quote.extraStylesForContent}
+            style={quote.contentStyles}
           >
             <div className={theme.quoteTextWrapper}>
               <MarkdownRenderer markdown={quote.text} />

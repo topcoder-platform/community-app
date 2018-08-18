@@ -148,6 +148,9 @@ class Community extends ConsentComponent {
           <h1>
             Community
           </h1>
+          <div styleName="sub-title">
+            Your communities
+          </div>
           <div styleName="list">
             {
               _.map(data, (item) => {

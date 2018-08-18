@@ -285,7 +285,7 @@ export default class Skills extends ConsentComponent {
       if (currentIndex < totalPage) {
         this.setState({
           indexList:
-          filterUserSkills.slice(currentIndex * pageSize, currentIndex * pageSize + pageSize),
+            filterUserSkills.slice(currentIndex * pageSize, currentIndex * pageSize + pageSize),
         });
       } else {
         this.setState({
@@ -368,7 +368,93 @@ export default class Skills extends ConsentComponent {
           <h1>
             Skill
           </h1>
-          <div styleName={`form-container ${list.length > 0 ? '' : 'no-skills'}`}>
+          <div styleName={`sub-title ${list.length > 0 ? '' : 'hidden'}`}>
+            Your skills
+          </div>
+          <div styleName={`skill-list ${list.length > 0 ? '' : 'hide'}`}>
+            <ul>
+              {
+                _.map(list, (skill) => {
+                  let linkStyle = '';
+                  if (skill.hidden) {
+                    linkStyle = 'skill-hidden';
+                  }
+                  if (skill.isNew) {
+                    linkStyle += ' new';
+                  }
+
+                  let FallbackIcon;
+                  const category = skill.categories.length > 0 ? skill.categories[0].toUpperCase() : '';
+                  switch (category) {
+                    case 'DATA_SCIENCE':
+                      FallbackIcon = DataFallbackIcon;
+                      break;
+                    case 'DESIGN':
+                      FallbackIcon = DesignFallbackIcon;
+                      break;
+                    default:
+                      FallbackIcon = DevFallbackIcon;
+                      break;
+                  }
+
+                  return (
+                    <li key={skill.id}>
+                      <div styleName="skill-tile">
+                        <a role="link" onClick={e => this.toggleSkill(e, skill)} styleName={linkStyle}>
+                          <div styleName="skill-icon">
+                            <div styleName="remove-indicator" />
+                            <div styleName="hidden-indicator" />
+                            { imageExist(`id-${skill.id}.svg`) ? getImage(`id-${skill.id}.svg`) : <FallbackIcon /> }
+                          </div>
+                          <div styleName="name">
+                            {_.truncate(skill.name, { length: 18, separator: ' ' })}
+                          </div>
+                        </a>
+                      </div>
+                    </li>
+                  );
+                })
+              }
+            </ul>
+          </div>
+          <div styleName={`sub-title ${list.length > 0 ? 'second' : 'first'}`}>
+            Add a new skill
+          </div>
+          <div styleName="form-container-default">
+            <form name="device-form" noValidate autoComplete="off">
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="skill">
+                    Skill
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <Select
+                    name="skills"
+                    options={lookupSkills}
+                    onChange={this.onUpdateSelect}
+                    placeholder="Start typing a skill then select from the list"
+                    matchPos="start"
+                    matchProp="name"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                    value={selectedSkill.name}
+                  />
+                </div>
+              </div>
+            </form>
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onShowUserConsent}
+              >
+                Add skill to your list
+              </PrimaryButton>
+            </div>
+          </div>
+          <div styleName={`form-container-mobile ${list.length > 0 ? '' : 'no-skills'}`}>
             <form name="skill-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>

@@ -118,8 +118,11 @@ export default class EmailPreferences extends ConsentComponent {
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
-Email Preferences
+          Email Preferences
         </h1>
+        <div styleName="sub-title">
+          Your preferences
+        </div>
         <div styleName="preferences-container">
           {
             this.shouldRenderConsent() && this.renderConsent()

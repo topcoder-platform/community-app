@@ -5,6 +5,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -28,6 +29,7 @@ export default class Education extends ConsentComponent {
     this.onHandleAddEducation = this.onHandleAddEducation.bind(this);
     this.onAddEducation = this.onAddEducation.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -43,7 +45,14 @@ export default class Education extends ConsentComponent {
         timePeriodTo: '',
         graduated: false,
       },
+      isMobileView: false,
+      screenSM: 768,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,6 +72,10 @@ export default class Education extends ConsentComponent {
         graduated: false,
       },
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
   }
 
   /**
@@ -281,12 +294,18 @@ export default class Education extends ConsentComponent {
     return _.assign({}, personalization);
   }
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
     const {
       settingsUI,
     } = this.props;
     const {
       educationTrait,
+      isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -308,7 +327,121 @@ export default class Education extends ConsentComponent {
           <h1>
             Education
           </h1>
-          <div styleName="form-container">
+          <div styleName={`sub-title ${educationItems.length > 0 ? '' : 'hidden'}`}>
+            Your education
+          </div>
+          {
+            !isMobileView && educationItems.length > 0
+            && (
+              <EducationList
+                educationList={{ items: educationItems }}
+                onDeleteItem={this.onDeleteEducation}
+              />
+            )
+          }
+          <div styleName={`sub-title ${educationItems.length > 0 ? 'second' : 'first'}`}>
+            Add a new education
+          </div>
+          <div styleName="form-container-default">
+            <form name="device-form" noValidate autoComplete="off">
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="educationType">
+                    Type
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <Select
+                    name="type"
+                    options={dropdowns.type}
+                    onChange={this.onUpdateSelect}
+                    value={newEducation.type}
+                    placeholder="School"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="name">
+                    Name
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="schoolCollegeName" name="schoolCollegeName" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newEducation.schoolCollegeName} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="major">
+                    Major
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="major" name="major" type="text" placeholder="Major" onChange={this.onUpdateInput} value={newEducation.major} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodFrom">
+                    From
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodFrom} required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodTo">
+                    To
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodTo} required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="graduated">
+                    Graduated
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <div styleName="tc-checkbox">
+                    <input
+                      name="graduated"
+                      checked={newEducation.graduated}
+                      id="graduated"
+                      onChange={this.onUpdateInput}
+                      type="checkbox"
+                    />
+                    <label htmlFor="graduated">
+                      <div styleName="tc-checkbox-label">
+                        &nbsp;
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onShowUserConsent}
+              >
+                Add education to your list
+              </PrimaryButton>
+            </div>
+          </div>
+          <div styleName="form-container-mobile">
             <form name="education-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
@@ -384,10 +517,15 @@ export default class Education extends ConsentComponent {
               </PrimaryButton>
             </div>
           </div>
-          <EducationList
-            educationList={{ items: educationItems }}
-            onDeleteItem={this.onHandleDeleteEducation}
-          />
+          {
+            isMobileView && educationItems.length > 0
+            && (
+              <EducationList
+                educationList={{ items: educationItems }}
+                onDeleteItem={this.onHandleDeleteEducation}
+              />
+            )
+          }
         </div>
       </div>
     );
