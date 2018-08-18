@@ -97,7 +97,7 @@ export default class Software extends ConsentComponent {
   }
 
   onHandleDeleteSoftware(indexNo) {
-    this.showConsent(this.onDeleteSoftware.bind(indexNo));
+    this.showConsent(this.onDeleteSoftware.bind(this, indexNo));
   }
 
   /**

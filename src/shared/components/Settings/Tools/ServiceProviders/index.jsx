@@ -97,7 +97,7 @@ export default class ServiceProviders extends ConsentComponent {
   }
 
   onHandleDeleteServiceProvider(indexNo) {
-    this.showConsent(this.onDeleteServiceProvider.bind(indexNo));
+    this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo));
   }
 
   /**

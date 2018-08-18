@@ -88,7 +88,7 @@ export default class Subscription extends ConsentComponent {
   }
 
   onHandleDeleteSubscription(indexNo) {
-    this.showConsent(this.onDeleteSubscription.bind(indexNo));
+    this.showConsent(this.onDeleteSubscription.bind(this, indexNo));
   }
 
   /**
