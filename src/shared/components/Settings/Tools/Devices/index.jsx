@@ -452,7 +452,12 @@ export default class Devices extends ConsentComponent {
         </div>
         {
           isMobileView
-          && (<DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onHandleDeleteDevice} />)
+          && (
+            <DeviceList
+              deviceList={{ items: deviceItems }}
+              onDeleteItem={this.onHandleDeleteDevice}
+            />
+          )
         }
       </div>
     );
