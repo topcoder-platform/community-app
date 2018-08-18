@@ -16,7 +16,7 @@ import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import ImageInput from '../ImageInput';
 import Track from './Track';
-
+import DefaultImageInput from './ImageInput';
 import dropdowns from './dropdowns.json';
 import tracks from './tracks';
 
@@ -437,7 +437,223 @@ export default class BasicInfo extends React.Component {
         {
           showUserConsent && (<UserConsentModal onSaveTrait={this.onSaveBasicInfo} />)
         }
-        <div styleName="about-me-container">
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          { errorMessage }
+        </div>
+        <h1>
+          Basic Info
+        </h1>
+        <div styleName="sub-title first">
+          Avatar
+        </div>
+        <div styleName="user-icon">
+          <DefaultImageInput
+            {...this.props}
+          />
+        </div>
+        <div styleName="sub-title second">
+          Personal details
+        </div>
+        <div styleName="form-container-default">
+          <form name="basic-info-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="firstName">
+                  Firstname
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="lastName">
+                  Lastname
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="birthDate">
+                  Birth Date
+                </label>
+              </div>
+              <div styleName="field col-percent50">
+                <span styleName="text-required">* Required</span>
+                <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={newBasicInfo.birthDate} required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="address">
+                  Address
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="address" name="streetAddr1" type="text" placeholder="Your address" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="address2">
+                  Address 2
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-optional">Optional</span>
+                <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Your address continued" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="city">
+                  City
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="city" name="city" type="text" placeholder="Which city do you live in?" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="state">
+                  State
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="state" name="stateCode" type="text" placeholder="State" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="zipCode">
+                  ZIP
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="zipCode" name="zip" type="text" placeholder="ZIP/Postal Code" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="country">
+                  Country
+                </label>
+              </div>
+              <div styleName="field col-percent50">
+                <span styleName="text-required">* Required</span>
+                <Select
+                  name="country"
+                  options={countries}
+                  value={newBasicInfo.country}
+                  onChange={this.onUpdateCountry}
+                  placeholder="Country"
+                  matchPos="start"
+                  matchProp="name"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div styleName="sub-title second">
+          About you
+        </div>
+        <div styleName="form-container-default">
+          <form name="basic-info-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="gender">
+                  Gender
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <Select
+                  name="gender"
+                  options={dropdowns.gender}
+                  value={newBasicInfo.gender}
+                  onChange={this.onUpdateSelect}
+                  placeholder="Gender"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="tshirtSize">
+                  T-shirt size
+                </label>
+              </div>
+              <div styleName="field col-percent35">
+                <span styleName="text-required">* Required</span>
+                <Select
+                  name="tshirtSize"
+                  options={dropdowns.tshirtSize}
+                  value={newBasicInfo.tshirtSize}
+                  onChange={this.onUpdateSelect}
+                  placeholder="Select your size from chart"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="currentLocation">
+                  Current Location
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="currentLocation" name="currentLocation" type="text" placeholder="Where in the world are you currently?" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="primaryInterestInTopcoder">
+                  Primary interests
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-optional">Optional</span>
+                <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="List several of your interests, like &quot;Design&quot;, &quot;Development&quot;, &quot;Data Science&quot;" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="bio">
+                  Short bio
+                </label>
+              </div>
+              <div styleName="field description">
+                <div styleName="first-line">
+                  <span styleName="description-counts">
+                    {newBasicInfo.description.length}/240
+                  </span>
+                  <span styleName="text-optional">Optional</span>
+                </div>
+                <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div styleName="about-me-container-mobile">
           <div styleName="user-icon">
             <ImageInput
               {...this.props}

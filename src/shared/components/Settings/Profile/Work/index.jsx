@@ -5,6 +5,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -24,6 +25,7 @@ export default class Work extends React.Component {
     this.onAddWork = this.onAddWork.bind(this);
     this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
     this.state = {
       formInvalid: false,
       showUserConsent: false,
@@ -38,7 +40,14 @@ export default class Work extends React.Component {
         timePeriodTo: '',
         industry: '',
       },
+      isMobileView: false,
+      screenSM: 768,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,6 +67,10 @@ export default class Work extends React.Component {
         industry: '',
       },
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
   }
 
   /**
@@ -255,6 +268,11 @@ export default class Work extends React.Component {
     return _.assign({}, personalization);
   }
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
     const {
       settingsUI,
@@ -262,6 +280,7 @@ export default class Work extends React.Component {
     const {
       workTrait,
       showUserConsent,
+      isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -282,7 +301,100 @@ export default class Work extends React.Component {
           <h1>
             Work
           </h1>
-          <div styleName="form-container">
+          <div styleName={`sub-title ${workItems.length > 0 ? '' : 'hidden'}`}>
+            Your workplaces
+          </div>
+          {
+            !isMobileView && workItems.length > 0
+            && (
+              <WorkList
+                workList={{ items: workItems }}
+                onDeleteItem={this.onDeleteWork}
+              />
+            )
+          }
+          <div styleName={`sub-title ${workItems.length > 0 ? 'second' : 'first'}`}>
+            Add a new workplace
+          </div>
+          <div styleName="form-container-default">
+            <form name="device-form" noValidate autoComplete="off">
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="company">
+                    Company
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="position">
+                    Position
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="position" name="position" type="text" placeholder="Position" onChange={this.onUpdateInput} value={newWork.position} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="industry">
+                    Industry
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="industry" name="industry" type="text" placeholder="Industry" onChange={this.onUpdateInput} value={newWork.industry} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="cityTown">
+                    City
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="cityTown" name="cityTown" type="text" placeholder="City" onChange={this.onUpdateInput} value={newWork.cityTown} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodFrom">
+                    From
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodFrom} required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodTo">
+                    To
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodTo} required />
+                </div>
+              </div>
+            </form>
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onShowUserConsent}
+              >
+                Add workplace to your list
+              </PrimaryButton>
+            </div>
+          </div>
+          <div styleName="form-container-mobile">
             <form name="work-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
@@ -339,10 +451,15 @@ export default class Work extends React.Component {
               </PrimaryButton>
             </div>
           </div>
-          <WorkList
-            workList={{ items: workItems }}
-            onDeleteItem={this.onDeleteWork}
-          />
+          {
+            isMobileView && workItems.length > 0
+            && (
+              <WorkList
+                workList={{ items: workItems }}
+                onDeleteItem={this.onDeleteWork}
+              />
+            )
+          }
         </div>
       </div>
     );
