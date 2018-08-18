@@ -190,7 +190,10 @@ export default class BasicInfo extends React.Component {
     } = this.props;
     newBasicInfo.birthDate = new Date(newBasicInfo.birthDate).toISOString();
 
-    if (basicInfoTrait.traits && basicInfoTrait.traits.data.length > 0) {
+    // FIXME: Remove the following gender check.
+    // It's used as a temporary hack as the backend needs some fixes
+    if (basicInfoTrait.traits
+      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.traits.data[0].gender) {
       const newBasicInfoTrait = { ...basicInfoTrait };
       newBasicInfoTrait.traits.data = [];
       newBasicInfoTrait.traits.data.push(newBasicInfo);
