@@ -26,19 +26,31 @@ class DateRangePicker extends React.Component {
   }
 
   render() {
+    const {
+      endDate,
+      onDatesChange,
+      numberOfMonths,
+      readOnly,
+      startDate,
+    } = this.props;
+    const {
+      focusedInput,
+    } = this.state;
     return (
       <WrappedDateRangePicker
         hideKeyboardShortcutsPanel
-        numberOfMonths={this.props.numberOfMonths}
-        focusedInput={this.state.focusedInput}
+        numberOfMonths={numberOfMonths}
+        focusedInput={focusedInput}
         isOutsideRange={() => false}
-        onDatesChange={this.props.onDatesChange}
-        onFocusChange={(focusedInput) => { this.setState({ focusedInput }); }}
-        startDate={this.props.startDate}
-        endDate={this.props.endDate}
+        onDatesChange={onDatesChange}
+        onFocusChange={(newFocusedInput) => {
+          this.setState({ focusedInput: newFocusedInput });
+        }}
+        startDate={startDate}
+        endDate={endDate}
         anchorDirection="right"
         displayFormat="MMM DD, YYYY"
-        readOnly={this.props.readOnly}
+        readOnly={readOnly}
       />
     );
   }

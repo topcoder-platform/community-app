@@ -7,13 +7,11 @@
 
 import _ from 'lodash';
 import fs from 'fs';
-import logger from 'utils/logger';
+import { logger, services } from 'topcoder-react-lib';
 import path from 'path';
-import {
-  addDescendantGroups,
-  getService as getGroupsService,
-} from 'services/groups';
 import { isomorphy } from 'topcoder-react-utils';
+
+const { addDescendantGroups, getService } = services.groups;
 
 /* Holds the mapping between subdomains and communities. It is automatically
  * generated at startup, using "subdomains" property from community configs */
@@ -58,7 +56,7 @@ function addUnknown(ids, known, unknown) {
 export default class Communities {
   constructor(tokenV3) {
     this.private = {
-      groupsService: getGroupsService(tokenV3),
+      groupsService: getService(tokenV3),
       tokenV3,
     };
 
@@ -92,8 +90,7 @@ export default class Communities {
         }
       });
 
-      return promise.then(metadata =>
-        this.private.getGroomedMetadata(metadata, knownGroups));
+      return promise.then(metadata => this.private.getGroomedMetadata(metadata, knownGroups));
     };
 
     this.private.getGroomedMetadata = (metadata, knownGroups) => {
@@ -113,15 +110,18 @@ export default class Communities {
           .then(map => _.assign(knownGroups, map))
       ) : null).then(() => {
         if (groomedMetadata.authorizedGroupIds) {
-          groomedMetadata.authorizedGroupIds =
-            addDescendantGroups(groomedMetadata.authorizedGroupIds, knownGroups);
+          groomedMetadata.authorizedGroupIds = addDescendantGroups(
+            groomedMetadata.authorizedGroupIds, knownGroups,
+          );
         }
         if (groomedMetadata.groupIds) {
           groomedMetadata.groupIds = addDescendantGroups(groomedMetadata.groupIds, knownGroups);
         }
         if (challengeGroupIds) {
-          groomedMetadata.challengeFilter.groupIds =
-            addDescendantGroups(challengeGroupIds, knownGroups);
+          groomedMetadata.challengeFilter.groupIds = addDescendantGroups(
+            challengeGroupIds,
+            knownGroups,
+          );
         }
         return groomedMetadata;
       });
@@ -137,10 +137,10 @@ export default class Communities {
   getList(userGroupIds) {
     const list = [];
     const knownGroups = {};
-    return Promise.all(VALID_IDS.map(id =>
-      this.private.getMetadata(id, knownGroups).then((data) => {
-        if (!data.authorizedGroupIds ||
-          _.intersection(data.authorizedGroupIds, userGroupIds).length) {
+    return Promise.all(
+      VALID_IDS.map(id => this.private.getMetadata(id, knownGroups).then((data) => {
+        if (!data.authorizedGroupIds
+            || _.intersection(data.authorizedGroupIds, userGroupIds).length) {
           list.push({
             challengeFilter: data.challengeFilter || {},
             communityId: data.communityId,
@@ -152,8 +152,10 @@ export default class Communities {
             mainSubdomain: _.get(data, 'subdomains[0]', ''),
           });
         }
-      }).catch(() => null))).then(() =>
-      list.sort((a, b) => a.communityName.localeCompare(b.communityName)));
+      }).catch(() => null)),
+    ).then(
+      () => list.sort((a, b) => a.communityName.localeCompare(b.communityName)),
+    );
   }
 
   /**

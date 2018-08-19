@@ -35,12 +35,16 @@ export default class Carousel extends React.Component {
    * be shown.
    */
   check() {
+    const {
+      showNext: stateShowNext,
+      showPrev: stateShowPrev,
+    } = this.state;
     if (!this.carousel) return;
     const st = this.carousel.state;
     const showNext = st.currentSlide < st.slideCount - st.slidesToScroll;
     const showPrev = st.left < 0;
-    if (showNext !== this.state.showNext
-    || showPrev !== this.state.showPrev) {
+    if (showNext !== stateShowNext
+    || showPrev !== stateShowPrev) {
       this.setState({ showPrev, showNext });
     }
   }
@@ -92,7 +96,8 @@ export default class Carousel extends React.Component {
           display: 'flex',
           justifyContent: 'center',
         }}
-      >{children}
+      >
+        {children}
       </Nuka>
     );
   }

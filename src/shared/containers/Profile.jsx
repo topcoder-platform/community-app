@@ -5,7 +5,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import actions from 'actions/profile';
+import { actions } from 'topcoder-react-lib';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
@@ -48,10 +48,26 @@ class ProfileContainer extends React.Component {
       return <Error404 />;
     }
 
-    return achievements && info && skills && stats ?
-      <ProfilePage
-        {...this.props}
-      /> : <LoadingIndicator />;
+    if (info && info.tracks && info.tracks.length > 0) {
+      const trackRankings = {
+        COPILOT: 0,
+        DATA_SCIENCE: 1,
+        DESIGN: 2,
+        DEVELOP: 3,
+      };
+      info.tracks.sort((track1, track2) => {
+        const track1Ranking = trackRankings[track1];
+        const track2Ranking = trackRankings[track2];
+        return track2Ranking - track1Ranking;
+      });
+    }
+
+    return achievements && info && skills && stats
+      ? (
+        <ProfilePage
+          {...this.props}
+        />
+      ) : <LoadingIndicator />;
   }
 }
 
@@ -100,6 +116,7 @@ function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   return {
     loadProfile: (handle) => {
+      dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
       dispatch(a.getExternalAccountsInit());

@@ -10,15 +10,31 @@ import { connect } from 'react-redux';
 
 class DataFetch extends React.Component {
   componentDidMount() {
-    if (!this.props.data && !this.props.loading) this.props.loadData();
+    const { data, loadData, loading } = this.props;
+    if (!data && !loading) loadData();
   }
 
   render() {
-    if (this.props.data) {
-      return <pre>{JSON.stringify(this.props.data, null, 2)}</pre>;
+    const { data, loading } = this.props;
+    if (data) {
+      return (
+        <pre>
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      );
     }
-    if (this.props.loading) return <div>Loading...</div>;
-    return <div>Initial State: no data, and not loading yet.</div>;
+    if (loading) {
+      return (
+        <div>
+Loading...
+        </div>
+      );
+    }
+    return (
+      <div>
+Initial State: no data, and not loading yet.
+      </div>
+    );
   }
 }
 

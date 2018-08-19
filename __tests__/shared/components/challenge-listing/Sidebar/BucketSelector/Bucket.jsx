@@ -28,8 +28,7 @@ const onClick = jest.fn();
 
 test('handle key press', () => {
   const instance = TU.renderIntoDocument((<Wrapper challenges={[]} onClick={onClick} bucket={{ name: 'name' }} />));
-  const matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.className && item.className.match('bucket'));
+  const matches = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('bucket'));
   expect(matches).toHaveLength(1);
   expect(onClick).toHaveBeenCalledTimes(0);
   TU.Simulate.keyPress(matches[0], { key: 'Enter' });

@@ -31,25 +31,25 @@ export default function ScreeningDetails(props) {
         classname: 'pending',
         message: 'Your submission has been received, and will be screened after the end of the phase',
       };
-    } else if (hasStatusPassed && !hasWarnings) {
+    } if (hasStatusPassed && !hasWarnings) {
       return {
         title: 'Passed Screening',
         classname: 'passed',
         message: 'You have passed screening.',
       };
-    } else if (hasStatusFailed && !hasWarnings) {
+    } if (hasStatusFailed && !hasWarnings) {
       return {
         title: 'Failed Screening',
         classname: 'failed',
         message: 'You have failed screening',
       };
-    } else if (hasStatusPassed && hasWarnings) {
+    } if (hasStatusPassed && hasWarnings) {
       return {
         title: 'Passed Screening with Warnings',
         classname: 'passed',
         message: `You have passed screening, but the screener has given you ${warnLength} warnings that you must fix in round 2.`,
       };
-    } else if (hasStatusFailed && hasWarnings) {
+    } if (hasStatusFailed && hasWarnings) {
       return {
         title: 'Failed Screening with Warnings',
         classname: 'failed',
@@ -67,15 +67,25 @@ export default function ScreeningDetails(props) {
   if (screeningObject.warnings) {
     warnings = screeningObject.warnings.map((warning, i) => (
       <div styleName="screening-warning" key={shortid.generate()}>
-        <div styleName="warning-bold"><span>Warning</span> {`${1 + i} : ${warning.brief}`}</div>
-        <p>{warning.details}</p>
+        <div styleName="warning-bold">
+          <span>
+Warning
+          </span>
+          {' '}
+          {`${1 + i} : ${warning.brief}`}
+        </div>
+        <p>
+          {warning.details}
+        </p>
       </div>
     ));
   }
   return (
-    <div styleName="screening-details" >
+    <div styleName="screening-details">
       <div styleName="screening-details-head">
-        <p styleName={`status-title ${setStatusInfo().classname}`}>{setStatusInfo().title}</p>
+        <p styleName={`status-title ${setStatusInfo().classname}`}>
+          {setStatusInfo().title}
+        </p>
         {/*
           NOTE: TonyJ asked to remove the OR links from the page to keep
           users within the new Topcoder site as much as we can. Not wiping
@@ -85,15 +95,22 @@ export default function ScreeningDetails(props) {
         </a>
         */}
       </div>
-      <p>{setStatusInfo().message}</p>
+      <p>
+        {setStatusInfo().message}
+      </p>
       <div styleName="screening-warning">
         {warnings}
-        {((hasStatusFailed) || (hasStatusPassed && hasWarnings)) &&
-          <p styleName="more-info">Need more info on how to pass screening?
+        {((hasStatusFailed) || (hasStatusPassed && hasWarnings))
+          && (
+          <p styleName="more-info">
+Need more info on how to pass screening?
              Go to help to read Rules & Policies.
-          </p>}
+          </p>
+          )}
         <div styleName="help-btn">
-          <a href={helpPageUrl} styleName="help-link" className="tc-btn-default">Help</a>
+          <a href={helpPageUrl} styleName="help-link" className="tc-btn-default">
+Help
+          </a>
         </div>
       </div>
     </div>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/skills/id-114</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" id="radialGradient-1">
+            <stop stop-color="#2C2C2C" offset="0%"></stop>
+            <stop stop-color="#434343" stop-opacity="0.608891217" offset="39.7592905%"></stop>
+            <stop stop-color="#FDFDFD" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="30.3185096%" y1="90.4365044%" x2="85.6535457%" y2="81.8525119%" id="linearGradient-2">
+            <stop stop-color="#28358B" offset="0%"></stop>
+            <stop stop-color="#1272B9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="14.375%" y1="92.415688%" x2="54.5432692%" y2="5.39454592%" id="linearGradient-3">
+            <stop stop-color="#272466" offset="0%"></stop>
+            <stop stop-color="#27489A" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Brands" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-114">
+            <g id="Group-9" transform="translate(15.000000, 4.000000)">
+                <g id="Group-8">
+                    <ellipse id="Oval-12" fill="url(#radialGradient-1)" cx="17.1428571" cy="51.7714286" rx="17.1428571" ry="4.22857143"></ellipse>
+                    <g id="Group-7" transform="translate(2.285714, 0.000000)">
+                        <path d="M0,52.1142857 C8.45714286,26.8571429 12.6857143,-2.24576397e-14 14.9714286,-2.48689958e-14 C17.2571429,-2.72803518e-14 24,33.8285714 29.7142857,50.4 C29.7142857,50.4 23.7714286,55.6571429 15.6571429,55.3142857 C7.54285714,54.9714286 1.82857147,53.0285714 0,52.1142857 Z" id="Path-1111" fill="url(#linearGradient-2)"></path>
+                        <path d="M0,52.1142857 C8.45714286,26.8571429 12.6857143,-2.24328492e-14 14.9714286,-2.48689958e-14 C15.2668255,-2.52750202e-14 15.6571429,0.685714286 16.1142857,1.6 C15.2,0.685714286 14.6644459,1.05811765 14.5142857,1.6 C11.8857143,11.0857143 3.88571429,42.433039 3.88571429,50.4 C7.88571429,52 17.4857143,55.3142857 29.7142857,50.4 C29.7142857,50.4 23.7714286,55.6571429 15.6571429,55.3142857 C7.54285714,54.9714286 1.82857147,53.0285714 0,52.1142857 Z" id="Path-1111" fill="url(#linearGradient-3)"></path>
+                    </g>
+                    <path d="M15.3142857,20.1142857 L13.9428571,22.6285714 L15.0857143,26.4 L16.6857143,23.2 L15.3142857,20.1142857 Z" id="Path-1113" fill="#FFF200"></path>
+                    <path d="M10.9714286,40.2285714 L9.6,42.7428571 L10.7428571,46.5142857 L12.3428571,43.3142857 L10.9714286,40.2285714 Z" id="Path-1113" fill="#FFF200"></path>
+                    <path d="M23.7714286,30.4 L22.4,32.9142857 L23.5428571,36.6857143 L25.1428571,33.4857143 L23.7714286,30.4 Z" id="Path-1113" fill="#FFF200"></path>
+                </g>
+                <path d="M29.3714286,47.3142857 C24.1142857,50.5142857 15.6571429,50.7428571 12.1142857,50.0571429 C16.5714286,52.2285714 26.7428571,51.4285714 29.3714286,47.3142857 Z" id="Path-1116" fill="#262465"></path>
+            </g>
+        </g>
+    </g>
+</svg>

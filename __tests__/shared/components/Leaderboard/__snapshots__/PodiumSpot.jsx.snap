@@ -17,33 +17,44 @@ exports[`Matches shallow shapshot 1`] = `
         }
       }
       themePriority="adhoc-context-default"
-      url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=160"
     />
+    <div
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+    >
+      1
+    </div>
   </span>
-  <div
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
-  >
-    1st
-  </div>
   <div>
     <a
       className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
-      href="https://www.topcoder-dev.com/members/winner/"
-    >
-      winner
-    </a>
+      href="https://www.topcoder-dev.com/members/undefined/"
+    />
   </div>
   <div
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
   >
-    <span>
-      0
-       points
-    </span>
-    <span>
-      0
-       challenges
-    </span>
+    <div
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+    >
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+      />
+      <span>
+        challenges
+      </span>
+    </div>
+    <div
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+    >
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+      >
+        0
+      </span>
+      <span>
+        points
+      </span>
+    </div>
   </div>
 </div>
 `;
@@ -65,33 +76,44 @@ exports[`Matches shallow shapshot 2`] = `
         }
       }
       themePriority="adhoc-context-default"
-      url="https://d1aahxkjiobka8.cloudfront.net/avatar/%2Fassets%2Fa.jpg?size=160"
     />
+    <div
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+    >
+      1
+    </div>
   </span>
-  <div
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
-  >
-    1st
-  </div>
   <div>
     <a
       className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
-      href="https://www.topcoder-dev.com/members/winner/"
-    >
-      winner
-    </a>
+      href="https://www.topcoder-dev.com/members/undefined/"
+    />
   </div>
   <div
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
   >
-    <span>
-      0
-       points
-    </span>
-    <span>
-      0
-       challenges
-    </span>
+    <div
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+    >
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+      />
+      <span>
+        challenges
+      </span>
+    </div>
+    <div
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+    >
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+      >
+        0
+      </span>
+      <span>
+        points
+      </span>
+    </div>
   </div>
 </div>
 `;

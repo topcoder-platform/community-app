@@ -4,7 +4,9 @@
 
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
-import { getUserSettingsService } from 'services/user-settings';
+import { services } from 'topcoder-react-lib';
+
+const { getUserSettingsService } = services.userSetting;
 
 /**
  * Changes name of the specified filter (but does not save it to the backend).
@@ -107,8 +109,7 @@ function saveFilter(name, filter, tokenV2) {
  */
 function updateAllSavedFilters(savedFilters, tokenV2) {
   const service = getUserSettingsService(tokenV2);
-  savedFilters.forEach(filter =>
-    service.updateFilter(filter.id, filter.name, filter.filter));
+  savedFilters.forEach(filter => service.updateFilter(filter.id, filter.name, filter.filter));
 }
 
 /**

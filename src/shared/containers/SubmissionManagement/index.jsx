@@ -15,10 +15,10 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
+import { actions } from 'topcoder-react-lib';
 
 import './styles.scss';
-import challengeActions from '../../actions/challenge';
-import smpActions from '../../actions/smp';
+import smpActions from '../../actions/page/submission_management';
 
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
@@ -45,51 +45,71 @@ class SubmissionManagementPageContainer extends React.Component {
 
   render() {
     const {
+      authTokens,
       challenge,
+      challengeId,
       challengesUrl,
+      deleting,
       loadingSubmissionsForChallengeId,
       submissionPhaseStartDate,
       handle,
+      isLoadingChallenge,
+      mySubmissions,
+      onCancelSubmissionDelete,
+      onDownloadSubmission,
+      onShowDetails,
+      onSubmissionDelete,
+      onSubmissionDeleteConfirmed,
       registrants,
+      showDetails,
+      showModal,
+      toBeDeletedId,
     } = this.props;
     const isRegistered = registrants.find(r => r.handle === handle);
     if (!isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
-    const isEmpty = _.isEmpty(this.props.challenge);
+    const isEmpty = _.isEmpty(challenge);
     const smConfig = {
-      onShowDetails: this.props.onShowDetails,
-      onDelete: this.props.onSubmissionDelete,
-      onDownload: () => this.props.onDownloadSubmission(0, this.props.authTokens),
-      onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
-      challengeUrl: `${challengesUrl}/${this.props.challengeId}`,
-      addSumissionUrl: `${config.URL.BASE}/challenges/${this.props.challengeId}/submit`,
+      onShowDetails,
+      onDelete: onSubmissionDelete,
+      onDownload: () => onDownloadSubmission(0, authTokens),
+      onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${challengeId}`,
+      challengeUrl: `${challengesUrl}/${challengeId}`,
+      addSumissionUrl: `${config.URL.BASE}/challenges/${challengeId}/submit`,
       helpPageUrl: config.URL.HELP,
     };
 
     return (
       <div styleName="outer-container">
         <div styleName="submission-management-container">
-          {!isEmpty &&
+          {!isEmpty
+            && (
             <SubmissionManagement
-              challenge={this.props.challenge}
+              challenge={challenge}
               challengesUrl={challengesUrl}
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
-              submissions={this.props.mySubmissions}
-              showDetails={this.props.showDetails}
+              submissions={mySubmissions}
+              showDetails={showDetails}
               submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}
-            />}
-          {this.props.isLoadingChallenge && <LoadingIndicator />}
+            />
+            )}
+          {isLoadingChallenge && <LoadingIndicator />}
           {/* TODO: The modal should be split out as a separate component.
             * Not critical though, so keeping it here for the moment. */}
-          {this.props.showModal &&
+          {showModal && (
           <Modal
-            onCancel={this.props.deleting ? _.noop : this.props.onCancelSubmissionDelete}
+            onCancel={deleting ? _.noop : onCancelSubmissionDelete}
           >
             <div styleName="modal-content">
               <p styleName="are-you-sure">
                 Are you sure you want to delete
-                submission <span styleName="id">{this.props.toBeDeletedId}</span>?
+                submission
+                {' '}
+                <span styleName="id">
+                  {toBeDeletedId}
+                </span>
+?
               </p>
               <p styleName="remove-warn">
                 This will permanently remove all
@@ -102,32 +122,36 @@ class SubmissionManagementPageContainer extends React.Component {
                  * element from the beginning to ensure that the image is
                  * downloaded in background, and will be shown immediately,
                  * when needed. */
-                className={this.props.deleting ? '' : 'hidden'}
+                className={deleting ? '' : 'hidden'}
                 styleName="deletingIndicator"
-              ><LoadingIndicator />
+              >
+                <LoadingIndicator />
               </div>
               <div
-                className={this.props.deleting ? 'hidden' : ''}
+                className={deleting ? 'hidden' : ''}
                 styleName="action-btns"
               >
                 <Button
                   className="tc-btn-sm tc-btn-default"
-                  onClick={() => this.props.onCancelSubmissionDelete()}
-                >Cancel
+                  onClick={() => onCancelSubmissionDelete()}
+                >
+Cancel
                 </Button>
                 <Button
                   className="tc-btn-sm tc-btn-warning"
                   onClick={
-                    () => this.props.onSubmissionDeleteConfirmed(
-                      this.props.authTokens.tokenV3,
-                      this.props.toBeDeletedId,
-)
+                    () => onSubmissionDeleteConfirmed(
+                      authTokens.tokenV3,
+                      toBeDeletedId,
+                    )
                   }
-                >Delete Submission
+                >
+Delete Submission
                 </Button>
               </div>
             </div>
-          </Modal>}
+          </Modal>
+          )}
         </div>
       </div>
     );
@@ -176,15 +200,14 @@ function mapStateToProps(state, props) {
   mySubmissions = challengeId === mySubmissions.challengeId
     ? mySubmissions.v2 : null;
 
-  const submissionPhase = state.challenge.details.allPhases.find(phase =>
-    ['Submission', 'Checkpoint Submission'].includes(phase.phaseType) && phase.phaseStatus === 'Open') || {};
+  const submissionPhase = state.challenge.details.allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.phaseType) && phase.phaseStatus === 'Open') || {};
 
   return {
     challengeId: Number(challengeId),
     challenge: state.challenge.details,
     challengesUrl: props.challengesUrl,
 
-    deleting: state.challenge.mySubmissionsManagement.deletingSubmission,
+    deleting: state.page.submissionManagement.deletingSubmission,
 
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
 
@@ -194,10 +217,10 @@ function mapStateToProps(state, props) {
 
     submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
 
-    showDetails: new Set(state.challenge.mySubmissionsManagement.showDetails),
+    showDetails: state.page.submissionManagement.showDetails,
 
-    showModal: state.challenge.mySubmissionsManagement.showModal,
-    toBeDeletedId: state.challenge.mySubmissionsManagement.toBeDeletedId,
+    showModal: state.page.submissionManagement.showModal,
+    toBeDeletedId: state.page.submissionManagement.toBeDeletedId,
 
     authTokens: state.auth,
     registrants: state.challenge.details.registrants,
@@ -207,34 +230,34 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = dispatch => ({
   onShowDetails: (submissionId) => {
-    dispatch(smpActions.smp.showDetails(submissionId));
+    dispatch(smpActions.page.submissionManagement.showDetails(submissionId));
   },
 
   onSubmissionDelete: (submissionId) => {
-    dispatch(smpActions.smp.confirmDelete(submissionId));
+    dispatch(smpActions.page.submissionManagement.confirmDelete(submissionId));
   },
 
   onCancelSubmissionDelete: () => {
-    dispatch(smpActions.smp.cancelDelete());
+    dispatch(smpActions.page.submissionManagement.cancelDelete());
   },
 
   onSubmissionDeleteConfirmed: (challengeId, submissionId) => {
-    dispatch(smpActions.smp.deleteSubmissionInit());
-    dispatch(smpActions.smp.deleteSubmissionDone(challengeId, submissionId));
+    dispatch(actions.smp.deleteSubmissionInit());
+    dispatch(actions.smp.deleteSubmissionDone(challengeId, submissionId));
   },
 
   onDownloadSubmission: (...payload) => {
-    dispatch(smpActions.smp.downloadSubmission(...payload));
+    dispatch(actions.smp.downloadSubmission(...payload));
   },
 
   loadChallengeDetails: (tokens, challengeId) => {
-    const a = challengeActions.challenge;
+    const a = actions.challenge;
     dispatch(a.getDetailsInit(challengeId));
     dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
   },
 
   loadMySubmissions: (tokens, challengeId) => {
-    const a = challengeActions.challenge;
+    const a = actions.challenge;
     dispatch(a.getSubmissionsInit(challengeId));
     dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV2));
   },

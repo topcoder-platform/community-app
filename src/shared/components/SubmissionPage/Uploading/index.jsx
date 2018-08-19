@@ -30,113 +30,163 @@ const Uploading = ({
   <div styleName="container">
     <div styleName="uploading">
       {
-        isSubmitting &&
-          <h3>UPLOADING SUBMISSION FOR</h3>
+        isSubmitting
+          && (
+          <h3>
+UPLOADING SUBMISSION FOR
+          </h3>
+          )
       }
       {
-        submitDone &&
-        <h3>SUBMISSION COMPLETED FOR</h3>
+        submitDone
+        && (
+        <h3>
+SUBMISSION COMPLETED FOR
+        </h3>
+        )
       }
       {
-        error &&
-          <h3>ERROR SUBMITTING FOR</h3>
+        error
+          && (
+          <h3>
+ERROR SUBMITTING FOR
+          </h3>
+          )
       }
       {
-        isSubmitting &&
-          <h3>&ldquo;{challengeName }&rdquo;</h3>
+        isSubmitting
+          && (
+          <h3>
+&ldquo;
+            {challengeName }
+&rdquo;
+          </h3>
+          )
       }
       {
-        (submitDone || error) &&
+        (submitDone || error)
+          && (
           <Link
             styleName="link"
             to={`${challengesUrl}/${challengeId}`}
-          >{challengeName}
+          >
+            {challengeName}
           </Link>
+          )
       }
       {
-        (isSubmitting || submitDone) &&
-          <RobotHappy />
+        (isSubmitting || submitDone)
+          && <RobotHappy />
       }
       {
-        error &&
-          <RobotSad />
+        error
+          && <RobotSad />
       }
       {
-        isSubmitting &&
-          <p>Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
+        isSubmitting
+          && (
+          <p>
+Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
             working, you&#39;ll lose all files!
           </p>
+          )
       }
       {
-        isSubmitting && !submitDone &&
+        isSubmitting && !submitDone
+        && (
         <div styleName="progress-container">
           <div styleName="progress-bar" style={{ width: `${(100 * uploadProgress).toFixed()}%` }} />
         </div>
+        )
       }
       {
-        isSubmitting && !submitDone &&
-          <p styleName="submitting">Uploaded: {(100 * uploadProgress).toFixed()}%</p>
+        isSubmitting && !submitDone
+          && (
+          <p styleName="submitting">
+Uploaded:
+            {(100 * uploadProgress).toFixed()}
+%
+          </p>
+          )
       }
       {
-        error &&
-          <p>Oh, that’s embarrassing! The file couldn’t be
+        error
+          && (
+          <p>
+Oh, that’s embarrassing! The file couldn’t be
              uploaded, I’m so sorry.
           </p>
+          )
       }
       {
-        error &&
+        error
+          && (
           <div styleName="error-msg">
             {error}
           </div>
+          )
       }
       {
-        error &&
+        error
+          && (
           <div styleName="button-container">
             <Button
               onClick={() => reset()}
-            >Cancel
+            >
+Cancel
             </Button>
             <PrimaryButton
               onClick={() => retry()}
-            >Try Again
+            >
+Try Again
             </PrimaryButton>
           </div>
+          )
       }
       {
-        submitDone && !error &&
-          <p>Thanks for participating! We’ve received your submission and will
+        submitDone && !error
+          && (
+          <p>
+Thanks for participating! We’ve received your submission and will
             send you an email shortly to confirm and explain what happens next.
           </p>
+          )
       }
       {
-        submitDone && !error &&
+        submitDone && !error
+          && (
           <div styleName="button-container">
             { track === 'DESIGN' ? (
               <span>
                 <Button
                   onClick={() => reset()}
-                >Add Another Submission
+                >
+Add Another Submission
                 </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}/my-submissions`}
                   onClick={() => back()}
-                >View My Submissions
+                >
+View My Submissions
                 </PrimaryButton>
               </span>
             ) : (
               <span>
                 <Button
                   onClick={() => reset()}
-                >Submit Again
+                >
+Submit Again
                 </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}`}
                   onClick={() => back()}
-                >Back to Challenge
+                >
+Back to Challenge
                 </PrimaryButton>
               </span>
             )}
           </div>
+          )
       }
     </div>
   </div>

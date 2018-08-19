@@ -2,8 +2,10 @@
  * Routing of Wipro Community.
  */
 
+import Catalog from 'components/tc-communities/communities/cs/Catalog';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
+import ChallengeListingBanner from 'components/tc-communities/communities/cs/ChallengeListingBanner';
 import Error404 from 'components/Error404';
 import FAQ from 'components/tc-communities/communities/cs/FAQ';
 import Footer from 'components/tc-communities/communities/cs/Footer';
@@ -25,7 +27,7 @@ export default function CS({ base, meta }) {
   return (
     <Route
       component={({ match }) => (
-        <ThemeProvider theme={theme} >
+        <ThemeProvider theme={theme}>
           <div>
             <Header
               baseUrl={base}
@@ -35,6 +37,8 @@ export default function CS({ base, meta }) {
               <Route
                 component={() => ChallengeListing({
                   challengesUrl: `${base}/challenges`,
+                  ChallengeListingBanner,
+                  listingOnly: true,
                   meta,
                   newChallengeDetails: true,
                 })}
@@ -49,6 +53,11 @@ export default function CS({ base, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})`}
+              />
+              <Route
+                component={Catalog}
+                exact
+                path={`${base}/catalog`}
               />
               <Route
                 component={routeProps => Submission({

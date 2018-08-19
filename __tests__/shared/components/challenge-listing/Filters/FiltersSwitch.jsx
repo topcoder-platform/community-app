@@ -27,4 +27,3 @@ test('handle events', () => {
   JU.simulate.click(matches);
   expect(onSwitch).toHaveBeenCalledTimes(1);
 });
-

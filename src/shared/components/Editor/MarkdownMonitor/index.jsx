@@ -7,7 +7,9 @@ import style from './style.scss';
 export default function MarkdownMonitor({ connector }) {
   return (
     <div styleName="container">
-      <div styleName="title">Markdown Rendering Preview</div>
+      <div styleName="title">
+Markdown Rendering Preview
+      </div>
       <Editor
         ref={(node) => {
           if (connector) connector.setMarkdownMonitor(node);

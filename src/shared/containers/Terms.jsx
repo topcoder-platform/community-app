@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Terms from 'components/Terms';
 import termsActions from 'actions/terms';
+import { actions } from 'topcoder-react-lib';
 
 let isAnyTermModalOpen = false;
 
@@ -41,9 +42,31 @@ class TermsPageContainer extends React.Component {
 
   render() {
     const {
+      agreeingTerm,
+      agreeTerm,
+      authTokens,
+      canRegister,
+      checkingStatus,
+      checkStatus,
       closeTermsModal,
+      defaultTitle,
+      description,
+      docuSignUrl,
+      entity,
+      getDocuSignUrl,
       instanceId,
+      isLoadingTerms,
+      loadingDocuSignUrl,
+      loadingTermId,
+      loadTermDetails,
       openTermsModalUuid,
+      register,
+      selectedTerm,
+      selectTerm,
+      signDocu,
+      termDetails,
+      terms,
+      viewOnly,
     } = this.props;
 
     if (openTermsModalUuid === 'ANY' && !isAnyTermModalOpen) {
@@ -58,34 +81,34 @@ class TermsPageContainer extends React.Component {
         {
           open ? (
             <Terms
-              agreeingTerm={this.props.agreeingTerm}
-              agreeTerm={termId => this.props.agreeTerm(this.props.authTokens, termId)}
-              canRegister={this.props.canRegister}
-              checkingStatus={this.props.checkingStatus}
-              checkStatus={() => this.props.checkStatus(this.props.authTokens, this.props.entity)}
-              defaultTitle={this.props.defaultTitle}
-              description={this.props.description}
-              details={this.props.termDetails}
-              docuSignUrl={this.props.docuSignUrl}
+              agreeingTerm={agreeingTerm}
+              agreeTerm={termId => agreeTerm(authTokens, termId)}
+              canRegister={canRegister}
+              checkingStatus={checkingStatus}
+              checkStatus={() => checkStatus(authTokens, entity)}
+              defaultTitle={defaultTitle}
+              description={description}
+              details={termDetails}
+              docuSignUrl={docuSignUrl}
               getDocuSignUrl={(templateId) => {
                 const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-                return this.props.getDocuSignUrl(
-                  this.props.authTokens,
+                return getDocuSignUrl(
+                  authTokens,
                   templateId,
                   `${base}/community-app-assets/iframe-break`,
                 );
               }}
-              isLoadingTerms={this.props.isLoadingTerms}
-              loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}
-              loadingDocuSignUrl={this.props.loadingDocuSignUrl}
-              loadingTermId={this.props.loadingTermId}
+              isLoadingTerms={isLoadingTerms}
+              loadDetails={termId => loadTermDetails(authTokens, termId)}
+              loadingDocuSignUrl={loadingDocuSignUrl}
+              loadingTermId={loadingTermId}
               onCancel={() => closeTermsModal(instanceId)}
-              register={this.props.register}
-              selectedTerm={this.props.selectedTerm}
-              selectTerm={this.props.selectTerm}
-              signDocu={this.props.signDocu}
-              terms={this.props.terms}
-              viewOnly={this.props.viewOnly}
+              register={register}
+              selectedTerm={selectedTerm}
+              selectTerm={selectTerm}
+              signDocu={signDocu}
+              terms={terms}
+              viewOnly={viewOnly}
             />
           ) : null
         }
@@ -157,57 +180,59 @@ TermsPageContainer.propTypes = {
   viewOnly: PT.bool,
 };
 
-const mapStateToProps = (state, props) => ({
-  agreeingTerm: state.terms.agreeingTerm,
-  authTokens: state.auth,
-  canRegister: state.terms.canRegister,
-  checkingStatus: state.terms.checkingStatus,
-  docuSignUrl: state.terms.docuSignUrl,
-  isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, props.entity),
-  loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
-  loadingTermId: state.terms.loadingDetailsForTermId,
-  openTermsModalUuid: state.terms.openTermsModalUuid,
-  selectedTerm: state.terms.selectedTerm,
-  termDetails: state.terms.details,
-  terms: state.terms.terms,
-  termsForEntity: state.terms.entity,
-  viewOnly: state.terms.viewOnly,
-});
+function mapStateToProps(state, props) {
+  const { entity } = props;
+  return {
+    agreeingTerm: state.terms.agreeingTerm,
+    authTokens: state.auth,
+    canRegister: state.terms.canRegister,
+    checkingStatus: state.terms.checkingStatus,
+    docuSignUrl: state.terms.docuSignUrl,
+    isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, entity),
+    loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
+    loadingTermId: state.terms.loadingDetailsForTermId,
+    openTermsModalUuid: state.terms.openTermsModalUuid,
+    selectedTerm: state.terms.selectedTerm,
+    termDetails: state.terms.details,
+    terms: state.terms.terms,
+    termsForEntity: state.terms.entity,
+    viewOnly: state.terms.viewOnly,
+  };
+}
 
-const mapDispatchToProps = (dispatch) => {
-  const t = termsActions.terms;
+function mapDispatchToProps(dispatch) {
   return {
     closeTermsModal: (uuid) => {
-      dispatch(t.closeTermsModal(uuid));
+      dispatch(termsActions.terms.closeTermsModal(uuid));
     },
     selectTerm: (term) => {
-      dispatch(t.selectTerm(term));
+      dispatch(termsActions.terms.selectTerm(term));
     },
     loadTermDetails: (tokens, termId) => {
-      dispatch(t.getTermDetailsInit(termId));
-      dispatch(t.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.getTermDetailsInit(termId));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
-      dispatch(t.getDocuSignUrlInit(templateId));
-      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(actions.terms.getDocuSignUrlInit(templateId));
+      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
     },
     agreeTerm: (tokens, termId) => {
-      dispatch(t.agreeTermInit(termId));
-      dispatch(t.agreeTermDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.agreeTermInit(termId));
+      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
     },
     signDocu: (id) => {
-      dispatch(t.signDocu(id));
+      dispatch(termsActions.terms.signDocu(id));
     },
     checkStatus: (tokens, entity) => {
-      dispatch(t.checkStatusInit());
-      dispatch(t.checkStatusDone(entity, tokens));
+      dispatch(actions.terms.checkStatusInit());
+      dispatch(actions.terms.checkStatusDone(entity, tokens));
     },
     loadTerms: (tokens, entity) => {
-      dispatch(t.getTermsInit(entity));
-      dispatch(t.getTermsDone(entity, tokens));
+      dispatch(actions.terms.getTermsInit(entity));
+      dispatch(actions.terms.getTermsDone(entity, tokens));
     },
   };
-};
+}
 
 const TermsContainer = connect(
   mapStateToProps,

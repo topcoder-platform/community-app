@@ -29,13 +29,14 @@ import styles from './styles.scss'; // eslint-disable-line
 export default function LeaderboardTable(props) {
   const {
     competitors,
+    isCopilot,
   } = props;
   const renderTableRows = comps => (
     comps.map((competitor) => {
-      let photoUrl = competitor['challenge_stats.photo_url'];
+      let photoUrl = competitor.avatar;
       if (photoUrl) {
         photoUrl = `${config.CDN.PUBLIC}/avatar/${
-          encodeURIComponent(photoUrl)}?size=65`;
+          encodeURIComponent(photoUrl)}?size=40`;
       }
       return (
         <tr key={competitor.rank}>
@@ -51,13 +52,19 @@ export default function LeaderboardTable(props) {
             </span>
           </td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>{competitor['challenge_stats.winner_handle']}</a>
+            <a href={`${config.URL.BASE}/members/${competitor.handle}/`}>{competitor.handle}</a>
             <div styleName="styles.winnings-info">
+              {competitor.fulfillment && (<span>{competitor.fulfillment} fulfillment</span>)}
               <span>{competitor.points} points</span>
-              <span>{competitor['challenge_stats.count']} challenges</span>
+              <span>{competitor.challengecount} challenges</span>
             </div>
           </td>
-          <td styleName="styles.col-challenges">{competitor['challenge_stats.count']}</td>
+          {
+            isCopilot ? (
+              <td styleName="styles.col-fulfillment">{competitor.fulfillment}</td>
+            ) : null
+          }
+          <td styleName="styles.col-challenges">{competitor.challengecount}</td>
           <td styleName="styles.col-points">{competitor.points}</td>
         </tr>
       );
@@ -69,8 +76,12 @@ export default function LeaderboardTable(props) {
       <thead>
         <tr>
           <th styleName="styles.col-rank">Rank</th>
-          <th>&nbsp;</th>
-          <th styleName="styles.col-handle">Handle</th>
+          <th styleName="styles.col-handle" colSpan="2">Handle</th>
+          {
+            isCopilot ? (
+              <th styleName="styles.col-fulfillment">Fulfillment</th>
+            ) : null
+          }
           <th styleName="styles.col-challenges"># of Challenges</th>
           <th styleName="styles.col-points">Points</th>
         </tr>
@@ -84,12 +95,18 @@ export default function LeaderboardTable(props) {
 
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
-  'challenge_stats.photo_url': PT.string,
-  'challenge_stats.winner_handle': PT.string.isRequired,
-  'challenge_stats.count': PT.number.isRequired,
+  avatar: PT.string,
+  handle: PT.string.isRequired,
+  challengecount: PT.number.isRequired,
   points: PT.number.isRequired,
+  fulfillment: PT.number,
 });
 
 LeaderboardTable.propTypes = {
   competitors: PT.arrayOf(CompetitorShape).isRequired,
+  isCopilot: PT.bool,
+};
+
+LeaderboardTable.defaultProps = {
+  isCopilot: false,
 };

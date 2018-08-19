@@ -61,7 +61,11 @@ describe('full render connnected component and dispatch actions', () => {
       json: () => ({ result: { status: 200, metadata: {}, content: [] } }),
     });
     store = mockStore(initialState);
-    instance = mount(<Provider store={store}><ConnectedJoinCommunity /></Provider>);
+    instance = mount((
+      <Provider store={store}>
+        <ConnectedJoinCommunity />
+      </Provider>
+    ));
     joinCommunity = instance.find(JoinCommunity);
     store.clearActions();
   });
@@ -79,7 +83,11 @@ describe('full render connnected component and dispatch actions', () => {
       },
     };
     store = mockStore(newStore);
-    instance = mount(<Provider store={store}><ConnectedJoinCommunity /></Provider>);
+    instance = mount((
+      <Provider store={store}>
+        <ConnectedJoinCommunity />
+      </Provider>
+    ));
   });
 
   test('hideJoinButton', () => {

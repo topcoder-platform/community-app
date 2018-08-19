@@ -16,27 +16,36 @@ import './styles.scss';
 /**
  * SubmissionsPage Component
  */
-const SubmissionsPage = props => (
-  <div styleName="container">
-    <div styleName="content">
-      <Header
-        challengeId={props.challengeId}
-        challengesUrl={props.challengesUrl}
-        title={props.challengeName}
-      />
-      {
-        props.track === 'DEVELOP' &&
-        props.status === 'ACTIVE' &&
-        <Develop {...props} />
-      }
-      {
-        props.track === 'DESIGN' &&
-        props.status === 'ACTIVE' &&
-        <Design {...props} />
-      }
+function SubmissionsPage(props) {
+  const {
+    challengeId,
+    challengeName,
+    challengesUrl,
+    status,
+    track,
+  } = props;
+  return (
+    <div styleName="container">
+      <div styleName="content">
+        <Header
+          challengeId={challengeId}
+          challengesUrl={challengesUrl}
+          title={challengeName}
+        />
+        {
+          track === 'DEVELOP'
+          && status === 'ACTIVE'
+          && <Develop {...props} />
+        }
+        {
+          track === 'DESIGN'
+          && status === 'ACTIVE'
+          && <Design {...props} />
+        }
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 /* Reusable prop validation for Filestack data objects */
 const filestackDataProp = PT.shape({

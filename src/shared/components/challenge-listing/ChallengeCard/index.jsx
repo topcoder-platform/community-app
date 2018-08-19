@@ -3,7 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { convertNow as convertMoney } from 'services/money';
 import { config, Link } from 'topcoder-react-utils';
 
@@ -20,6 +20,9 @@ export const PRIZE_MODE = {
   MONEY_INR: 'money-inr',
   MONEY_USD: 'money-usd',
 };
+
+// Constants
+const ID_LENGTH = 6;
 
 // Get the End date of a challenge
 const getEndDate = (c) => {
@@ -55,21 +58,22 @@ function ChallengeCard({
     challenge.isDataScience = true;
   }
   challenge.prize = challenge.prizes || [];
-
-  const {
-    isLegacy,
-    roundId,
-    subTrack,
-  } = challenge;
-
-  const legacyChallengeDetailsLink =
-    `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
-  const mmRegLink =
-    `${config.URL.COMMUNITY}/tc?module=ViewReg&rd=${roundId}`;
-
-  const challengeDetailLink = subTrack === 'MARATHON_MATCH'
-    && isLegacy ? legacyChallengeDetailsLink :
-    `${challengesUrl}/${challenge.id}`;
+  // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
+  const isMM = _.toString(challenge.id).length < ID_LENGTH;
+  let challengeDetailLink;
+  {
+    const challengeUrl = newChallengeDetails
+      ? `${challengesUrl}/` : `${config.URL.BASE}/challenge-details/`;
+    if (challenge.track === 'DATA_SCIENCE') {
+      const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
+      /* TODO: Don't we have a better way, whether a challenge is MM or not? */
+      challengeDetailLink = isMM
+        ? `${mmDetailUrl}${challenge.rounds[0].id}`
+        : `${challengeUrl}${challenge.id}`;
+    } else {
+      challengeDetailLink = `${challengeUrl}${challenge.id}`;
+    }
+  }
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -114,14 +118,11 @@ function ChallengeCard({
     <div styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip
-            subTrack={subTrack}
-            track={challenge.track}
-          >
+          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
             <span>
               <TrackIcon
                 track={challenge.track}
-                subTrack={subTrack}
+                subTrack={challenge.subTrack}
                 tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />
@@ -131,11 +132,13 @@ function ChallengeCard({
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
           <Link
+            enforceA={isMM}
             onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
-          >{challenge.name}
+          >
+            {challenge.name}
           </Link>
           <div styleName="details-footer">
             <span styleName="date">
@@ -155,7 +158,8 @@ function ChallengeCard({
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
           {
-            totalPrize >= 1 &&
+            totalPrize >= 1
+              && (
               <Prize
                 bonuses={bonuses}
                 label="Purse"
@@ -163,23 +167,25 @@ function ChallengeCard({
                 prizeUnitSymbol={prizeUnitSymbol}
                 totalPrize={totalPrize}
               />
+              )
           }
           {
-            challenge.pointPrizes && challenge.pointPrizes.length > 0 &&
+            challenge.pointPrizes && challenge.pointPrizes.length > 0
+              && (
               <Prize
                 label="Points"
                 prizes={challenge.pointPrizes}
                 prizeUnitSymbol=""
                 totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
               />
+              )
           }
         </div>
 
         <ChallengeStatus
           challenge={challenge}
           challengesUrl={challengesUrl}
-          detailLink={subTrack === 'MARATHON_MATCH' ? legacyChallengeDetailsLink : challengeDetailLink}
-          mmRegLink={mmRegLink}
+          detailLink={challengeDetailLink}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}

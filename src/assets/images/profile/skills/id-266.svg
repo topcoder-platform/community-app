@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/skills/id-266</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#2487D4" offset="0%"></stop>
+            <stop stop-color="#01357A" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Languages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-266">
+            <g id="Group-2" transform="translate(2.000000, 3.000000)">
+                <ellipse id="Oval-3" fill="url(#linearGradient-1)" cx="29.9114816" cy="29.1428571" rx="29.9114816" ry="29.1428571"></ellipse>
+                <path d="M30.8713728,9.42857143 L38.2094789,9.42857143 L31.0994699,26.3152902 L35.8611049,26.3152902 L21.4285714,48.5030692 L28.5326451,30.577567 L23.1984542,30.577567 L30.8713728,9.42857143 Z" id="Path-310" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

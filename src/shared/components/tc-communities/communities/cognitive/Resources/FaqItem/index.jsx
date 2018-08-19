@@ -25,7 +25,11 @@ export default function FaqItem({
           transform={open ? null : 'scale(1, -1)'}
         />
       </div>
-      { open ? <div styleName="answer">{children}</div> : null }
+      { open ? (
+        <div styleName="answer">
+          {children}
+        </div>
+      ) : null }
     </div>
   );
 }

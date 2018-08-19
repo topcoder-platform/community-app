@@ -98,104 +98,91 @@ describe.skip('User input handling', () => {
   });
 
   test.skip('main-menu-item opens sub-menu when hovered', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/main-menu-item/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/main-menu-item/));
     expect(items.length).toBeGreaterThan(1);
     TU.Simulate.mouseEnter(items[0]);
     expect(mockOpenMenu).toHaveBeenCalled();
   });
 
   test.skip('main-menu-item closes sub-menu when mouse leaves downward', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/main-menu-item/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/main-menu-item/));
     expect(items.length).toBeGreaterThan(1);
     TU.Simulate.mouseLeave(items[0], { pageY: -1 });
     expect(mockCloseMenu).not.toHaveBeenCalled();
   });
 
   test.skip('main-menu-item closes sub-menu when mouse leaves not downards', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/main-menu-item/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/main-menu-item/));
     expect(items.length).toBeGreaterThan(1);
     TU.Simulate.mouseLeave(items[0], { pageY: -2 });
     expect(mockCloseMenu).toHaveBeenCalled();
   });
 
   test.skip('user-menu handle opens sub-menu when hovered', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/user-menu/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/user-menu/));
     expect(items.length).toBeGreaterThan(1);
     TU.Simulate.mouseEnter(items[0]);
     expect(mockOpenMenu).toHaveBeenCalled();
   });
 
   test.skip('user-menu handle closes sub-menu when mouse leaves downwards', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/user-menu/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/user-menu/));
     expect(items.length).toBeGreaterThan(1);
     TU.Simulate.mouseLeave(items[0], { pageY: -1 });
     expect(mockCloseMenu).not.toHaveBeenCalled();
   });
 
   test.skip('user-menu closes sub-menu when mouse leaves not downards', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/user-menu/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/user-menu/));
     expect(items.length).toBeGreaterThan(1);
     TU.Simulate.mouseLeave(items[0], { pageY: -2 });
     expect(mockCloseMenu).toHaveBeenCalled();
   });
 
   test('search-icon opens search when hovered', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/search-icon/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/search-icon/));
     expect(items.length).toBe(1);
     TU.Simulate.mouseEnter(items[0]);
     expect(mockOpenSearch).toHaveBeenCalled();
   });
 
   test('search-icon closes search when mouse leaves downwards', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/search-icon/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/search-icon/));
     expect(items.length).toBe(1);
     TU.Simulate.mouseLeave(items[0], { pageY: -1 });
     expect(mockCloseSearch).not.toHaveBeenCalled();
   });
 
   test('search-icon closes search when mouse leaves not downards', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      item && item.className && item.className.match(/search-icon/));
+    const items = TU.findAllInRenderedTree(dom, item => item && item.className && item.className.match(/search-icon/));
     expect(items.length).toBe(1);
     TU.Simulate.mouseLeave(items[0], { pageY: -2 });
     expect(mockCloseSearch).toHaveBeenCalled();
   });
 
   test('sub-menu closes when mouse leave downwards', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      styleNameMatch(item, 'closed-menu'));
+    const items = TU.findAllInRenderedTree(dom, item => styleNameMatch(item, 'closed-menu'));
     expect(items.length).toBe(1);
     TU.Simulate.mouseLeave(items[0], { pageY: 1 });
     expect(mockCloseMenu).toHaveBeenCalled();
   });
 
   test('search-field closes when mouse leaves downwards', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      styleNameMatch(item, 'search-field'));
+    const items = TU.findAllInRenderedTree(dom, item => styleNameMatch(item, 'search-field'));
     expect(items.length).toBe(1);
     TU.Simulate.mouseLeave(items[0], { pageY: 1 });
     expect(mockCloseSearch).toHaveBeenCalled();
   });
 
   test('search-field won\'t close', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      styleNameMatch(item, 'search-field'));
+    const items = TU.findAllInRenderedTree(dom, item => styleNameMatch(item, 'search-field'));
     expect(items.length).toBe(1);
     TU.Simulate.mouseLeave(items[0], { pageY: -1 });
     expect(mockCloseSearch).not.toHaveBeenCalled();
   });
 
   test('Enter submits search field', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      styleNameMatch(item, 'search-field'));
+    const items = TU.findAllInRenderedTree(dom, item => styleNameMatch(item, 'search-field'));
     expect(items.length).toBe(1);
     expect(items[0].children.length).toBe(1);
     const input = items[0].children[0];
@@ -214,8 +201,7 @@ describe.skip('User input handling', () => {
   });
 
   test('Other key won\'t submit', () => {
-    const items = TU.findAllInRenderedTree(dom, item =>
-      styleNameMatch(item, 'search-field'));
+    const items = TU.findAllInRenderedTree(dom, item => styleNameMatch(item, 'search-field'));
     expect(items.length).toBe(1);
     expect(items[0].children.length).toBe(1);
     const input = items[0].children[0];

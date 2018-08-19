@@ -25,7 +25,7 @@ export default class GenericEditor extends React.Component {
   }
 
   componentWillReceiveProps({ connector, id }) {
-    const prevConnector = this.props.connector;
+    const { connector: prevConnector } = this.props;
     this.id = id;
     if (connector !== prevConnector) {
       if (prevConnector) prevConnector.removeEditor(this);
@@ -51,9 +51,12 @@ export default class GenericEditor extends React.Component {
       editorState,
       onChange,
     } = this.props;
+    const {
+      editor,
+    } = this.state;
 
     let containerStyles = style.container;
-    if (this.state.editor.getSelection().getHasFocus()) {
+    if (editor.getSelection().getHasFocus()) {
       containerStyles += ` ${style.focused}`;
     }
 
@@ -70,7 +73,7 @@ export default class GenericEditor extends React.Component {
           blockRendererFn={blockRendererFn}
           blockRenderMap={DefaultDraftBlockRenderMap.merge(blockRenderMap)}
           blockStyleFn={blockStyleFn}
-          editorState={editorState || this.state.editor}
+          editorState={editorState || editor}
           onChange={(state) => {
             if (connector) connector.setFocusedEditor(this, state);
             if (onChange) onChange(state);

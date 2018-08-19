@@ -23,7 +23,8 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.resetDesignStoreSegment();
+    const { resetDesignStoreSegment } = this.props;
+    resetDesignStoreSegment();
   }
 
   /* A child component has called their submitForm() prop, prepare the passed
@@ -180,14 +181,11 @@ function mapDispatchToProps(dispatch) {
     setFilePickerError: (id, error) => dispatch(a.setFilePickerError(id, error)),
     setFilePickerFileName: (id, fileName) => dispatch(a.setFilePickerFileName(id, fileName)),
     setFilePickerDragged: (id, dragged) => dispatch(a.setFilePickerDragged(id, dragged)),
-    setFilePickerUploadProgress: (id, p) =>
-      dispatch(a.setFilePickerUploadProgress(id, p)),
+    setFilePickerUploadProgress: (id, p) => dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
     resetDesignStoreSegment: () => dispatch(a.design.reset()),
-    setStockArtRecord: (index, record) =>
-      dispatch(a.design.setStockArtRecord(index, record)),
-    setCustomFontRecord: (index, record) =>
-      dispatch(a.design.setCustomFontRecord(index, record)),
+    setStockArtRecord: (index, record) => dispatch(a.design.setStockArtRecord(index, record)),
+    setCustomFontRecord: (index, record) => dispatch(a.design.setCustomFontRecord(index, record)),
     setSubmissionFilestackData: (id, data) => dispatch(a.setSubmissionFilestackData(id, data)),
     setSourceFilestackData: (id, data) => dispatch(a.setSourceFilestackData(id, data)),
     setPreviewFilestackData: (id, data) => dispatch(a.setPreviewFilestackData(id, data)),

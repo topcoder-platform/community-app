@@ -4,9 +4,10 @@
 
 import _ from 'lodash';
 import actions from 'actions/rss';
-import logger from 'utils/logger';
+import { logger, errors } from 'topcoder-react-lib';
 import { handleActions } from 'redux-actions';
-import { fireErrorMessage } from 'utils/errors';
+
+const { fireErrorMessage } = errors;
 
 /**
  * Removes a feed from the state, which also silently cancels any pending data

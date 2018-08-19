@@ -15,7 +15,9 @@ export default function InputBlock({
   return (
     <div>
       <div styleName="container">
-        <span styleName="desc">FILE URL</span>
+        <span styleName="desc">
+FILE URL
+        </span>
         <input
           data-type="photoNumber"
           onChange={e => set({ ...record, url: e.target.value })}
@@ -42,7 +44,10 @@ export default function InputBlock({
         styleName="close"
         type="button"
         onClick={() => set()}
-      ><span>&#10799;</span>
+      >
+        <span>
+&#10799;
+        </span>
       </button>
     </div>
   );

@@ -19,13 +19,18 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import './styles.scss';
 
-export default function Button(props) {
+export default function Button({
+  children,
+  className,
+  onClick,
+}) {
   return (
     <button
-      className={`tc-btn ${props.className}`}
-      onClick={() => props.onClick()}
+      className={`tc-btn ${className}`}
+      onClick={() => onClick()}
+      type="button"
     >
-      {props.children}
+      {children}
     </button>
   );
 }

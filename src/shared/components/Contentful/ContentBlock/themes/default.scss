@@ -1,0 +1,43 @@
+@import "~styles/mixins";
+
+.contentWrapper {
+  display: flex;
+  margin: 0 auto;
+  max-width: $screen-md;
+  padding: 15px;
+  color: black;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.container {
+  align-content: center;
+  background: white;
+  padding: 10px 0;
+
+  &:nth-child(even) .contentWrapper {
+    flex-direction: row-reverse;
+
+    @include xs-to-sm {
+      flex-direction: column;
+    }
+  }
+}
+
+.content {
+  @include tc-typography;
+
+  flex: 1;
+  padding: 15px;
+}
+
+.image {
+  flex: 1;
+  margin: 15px;
+
+  img {
+    width: 100%;
+  }
+}

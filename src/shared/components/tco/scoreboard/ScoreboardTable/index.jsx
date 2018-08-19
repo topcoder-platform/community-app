@@ -49,9 +49,13 @@ export default function ScoreboardTable(props) {
     subs.map((submission, index) => { // eslint-disable-line
       return (
         <tr key={submission.id}>
-          <td styleName="styles.col-rank">{index + 1}</td>
+          <td styleName="styles.col-rank">
+            {index + 1}
+          </td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${submission.handle}/`}>{submission.handle}</a>
+            <a href={`${config.URL.BASE}/members/${submission.handle}/`}>
+              {submission.handle}
+            </a>
           </td>
           {getTemplateValues(fields, challenge.type === 'Code' ? submission.submissionCode : submission.submissionDesign)}
         </tr>
@@ -62,7 +66,9 @@ export default function ScoreboardTable(props) {
   /* eslint-disable react/no-array-index-key */
   const getTemplateHeader = fields2 => (
     fields2.map((field, index) => (
-      <th key={index}>{field.fieldText}</th>
+      <th key={index}>
+        {field.fieldText}
+      </th>
     ))
   );
   /* eslint-enable react/no-array-index-key */
@@ -71,8 +77,12 @@ export default function ScoreboardTable(props) {
     <table styleName="styles.LeaderboardTable">
       <thead>
         <tr>
-          <th styleName="styles.col-rank">Rank</th>
-          <th styleName="styles.col-handle">Handle</th>
+          <th styleName="styles.col-rank">
+Rank
+          </th>
+          <th styleName="styles.col-handle">
+Handle
+          </th>
           {getTemplateHeader(fields)}
         </tr>
       </thead>

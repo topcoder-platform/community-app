@@ -95,3 +95,11 @@
   background-size: $width, $height;
   background-repeat: no-repeat;
 }
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

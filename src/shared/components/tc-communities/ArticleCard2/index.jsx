@@ -16,7 +16,9 @@ function ArticleCard(props) {
     <div className={theme.container}>
       <div className={theme.image} style={{ backgroundImage: `url(${imageSrc})` }} />
       <div className={theme.content}>
-        <h3 className={theme.title}>{title}</h3>
+        <h3 className={theme.title}>
+          {title}
+        </h3>
         {children}
       </div>
     </div>

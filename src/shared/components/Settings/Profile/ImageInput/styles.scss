@@ -1,0 +1,86 @@
+@import "../../style";
+
+.image {
+  @include md-to-lg {
+    margin-right: 20px;
+  }
+
+  .edit-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include xs-to-sm {
+      flex-direction: row;
+    }
+
+    p.handle {
+      display: none;
+
+      @include xs-to-sm {
+        @include roboto-regular;
+
+        display: block;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 35px;
+        color: $tc-black;
+        margin-bottom: 10px;
+      }
+    }
+
+    .profile-circle {
+      margin-top: 10px;
+      border-radius: 50%;
+      border: 1px solid #d1d3d4;
+      width: 120px;
+      height: 120px;
+      padding: 2px;
+
+      @include xs-to-sm {
+        width: 80px;
+        height: 80px;
+        margin-right: 10px;
+        margin-top: 0;
+      }
+    }
+
+    .buttons {
+      .file-upload {
+        @include roboto-medium;
+
+        position: relative;
+        overflow: hidden;
+        width: 120px;
+        text-transform: capitalize;
+        font-weight: 500;
+        font-size: 13px;
+        min-height: 30px;
+        padding: 0;
+        background-color: #fff;
+        color: #47474f;
+        border-radius: 6px;
+        border: 1px solid #47474f;
+        box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
+
+        @include xs-to-sm {
+          width: 95px;
+        }
+      }
+
+      .file-delete {
+        display: none;
+        width: 80px;
+        margin-left: 0;
+        text-transform: uppercase;
+        font-size: 12px;
+        min-height: 30px;
+        padding: 0;
+
+        &:hover {
+          background: $tc-dark-blue;
+        }
+      }
+    }
+  }
+}

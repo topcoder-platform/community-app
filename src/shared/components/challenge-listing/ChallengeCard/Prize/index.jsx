@@ -17,15 +17,23 @@ export default function Prize({
   prizeUnitSymbol,
   totalPrize,
   withoutTooltip,
+  isMM,
 }) {
   const component = (
+    !isMM
+    && (
     <div>
       <div styleName="prize">
-        <span styleName="symbol">{prizeUnitSymbol}</span>
+        <span styleName="symbol">
+          {prizeUnitSymbol}
+        </span>
         {totalPrize.toLocaleString()}
       </div>
-      <div styleName="label">{label}</div>
+      <div styleName="label">
+        {label}
+      </div>
     </div>
+    )
   );
   if (withoutTooltip) return component;
   const tip = (
@@ -35,13 +43,18 @@ export default function Prize({
       prizeUnitSymbol={prizeUnitSymbol}
     />
   );
-  return <Tooltip content={tip}>{component}</Tooltip>;
+  return (
+    <Tooltip content={tip}>
+      {component}
+    </Tooltip>
+  );
 }
 
 Prize.defaultProps = {
   bonuses: [],
   prizes: [],
   withoutTooltip: false,
+  isMM: false,
 };
 
 Prize.propTypes = {
@@ -51,4 +64,5 @@ Prize.propTypes = {
   prizeUnitSymbol: PT.string.isRequired,
   totalPrize: PT.number.isRequired,
   withoutTooltip: PT.bool,
+  isMM: PT.bool,
 };

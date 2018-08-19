@@ -39,24 +39,36 @@ const PastSRMCard = () => (
           </TrackAbbreviationTooltip>
         </div>
         <div className="SRM-details">
-          <p className="past-title">Competitive Programming - Single Round Match 679</p>
+          <p className="past-title">
+Competitive Programming - Single Round Match 679
+          </p>
         </div>
       </div>
       <div className="right-panel past">
         <div className="past-info">
-          <div className="SRM-date">Aug 31, 2015</div>
+          <div className="SRM-date">
+Aug 31, 2015
+          </div>
           <span className="challenge-stats">
             <span>
               <Tooltip content={numRegistrantsTipText(NUM_REGISTRANTS)}>
                 <a className="num-reg" href="">
-                  <RegistrantsIcon /> <span className="number">{NUM_REGISTRANTS}</span>
+                  <RegistrantsIcon />
+                  {' '}
+                  <span className="number">
+                    {NUM_REGISTRANTS}
+                  </span>
                 </a>
               </Tooltip>
             </span>
             <span>
               <Tooltip content={numSubmissionsTipText(NUM_SUBMISSION)}>
                 <a className="num-sub" href="">
-                  <SubmissionsIcon /> <span className="number">{NUM_SUBMISSION}</span>
+                  <SubmissionsIcon />
+                  {' '}
+                  <span className="number">
+                    {NUM_SUBMISSION}
+                  </span>
                 </a>
               </Tooltip>
             </span>

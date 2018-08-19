@@ -39,7 +39,7 @@ export default class MultiEditor extends React.Component {
   }
 
   componentWillReceiveProps({ connector, id }) {
-    const prevConnector = this.props.connector;
+    const { connector: prevConnector } = this.props;
     this.id = id;
     if (connector !== prevConnector) {
       if (prevConnector) prevConnector.removeEditor(this);
@@ -69,7 +69,8 @@ export default class MultiEditor extends React.Component {
   }
 
   setMode(value) {
-    if (value === this.state.mode) return;
+    const { mode } = this.state;
+    if (value === mode) return;
     const { connector } = this.props;
     const state = this.editor.getHtml();
     this.setState({ mode: value }, () => {
@@ -79,21 +80,25 @@ export default class MultiEditor extends React.Component {
   }
 
   applyBlockStyle(type) {
-    if (this.state.mode === MODES.WYSIWYG) this.editor.applyBlockStyle(type);
+    const { mode } = this.state;
+    if (mode === MODES.WYSIWYG) this.editor.applyBlockStyle(type);
   }
 
   applyColorStyle(type, color) {
-    if (this.state.mode === MODES.WYSIWYG) {
+    const { mode } = this.state;
+    if (mode === MODES.WYSIWYG) {
       this.editor.applyColorStyle(type, color);
     }
   }
 
   focus() {
-    if (this.state.mode === MODES.WYSIWYG) this.editor.focus();
+    const { mode } = this.state;
+    if (mode === MODES.WYSIWYG) this.editor.focus();
   }
 
   insertImage(src, triggerModal) {
-    switch (this.state.mode) {
+    const { mode } = this.state;
+    switch (mode) {
       case MODES.WYSIWYG: return this.editor.insertImage(src, triggerModal);
       case MODES.MARKDOWN: return this.editor.insertImage();
       default: return undefined;
@@ -101,20 +106,23 @@ export default class MultiEditor extends React.Component {
   }
 
   insertLink(title, href, triggerPopup) {
-    if (this.state.mode === MODES.WYSIWYG) {
+    const { mode } = this.state;
+    if (mode === MODES.WYSIWYG) {
       this.editor.insertLink(title, href, triggerPopup);
     }
   }
 
   toggleInlineStyle(styleName) {
-    if (this.state.mode === MODES.WYSIWYG) {
+    const { mode } = this.state;
+    if (mode === MODES.WYSIWYG) {
       return this.editor.toggleInlineStyle(styleName);
     }
     return OrderedSet();
   }
 
   render() {
-    switch (this.state.mode) {
+    const { mode } = this.state;
+    switch (mode) {
       case MODES.MARKDOWN:
         return (
           <MarkdownEditor

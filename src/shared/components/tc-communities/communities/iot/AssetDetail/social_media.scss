@@ -1,0 +1,24 @@
+@import "~styles/mixins";
+$tc-fb-blue: #325fba;
+
+.tc-share-social {
+  margin-top: 10px;
+  white-space: nowrap;
+}
+
+.social_container {
+  margin: auto;
+  display: table;
+}
+
+.facebook-icon {
+  @include roboto-bold;
+
+  width: 35px;
+  height: 35px;
+  background: $tc-fb-blue;
+  border-radius: 18px;
+  padding: 0 13px;
+  color: $tc-white;
+  font-size: 25px;
+}

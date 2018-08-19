@@ -9,7 +9,10 @@ export default function Color({
   return (
     <div styleName="container">
       <div styleName={name} />
-      <p styleName="name">${name}</p>
+      <p styleName="name">
+$
+        {name}
+      </p>
     </div>
   );
 }

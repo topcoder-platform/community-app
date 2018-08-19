@@ -71,8 +71,8 @@ export default class Terms extends React.Component {
       selectedTerm, loadDetails, terms,
       checkStatus, canRegister, onCancel, register,
     } = this.props;
-    if (nextProps.selectedTerm && !_.isEqual(selectedTerm, nextProps.selectedTerm) &&
-      nextProps.loadingTermId !== _.toString(nextProps.selectedTerm.termsOfUseId)) {
+    if (nextProps.selectedTerm && !_.isEqual(selectedTerm, nextProps.selectedTerm)
+      && nextProps.loadingTermId !== _.toString(nextProps.selectedTerm.termsOfUseId)) {
       loadDetails(nextProps.selectedTerm.termsOfUseId);
     }
     if (!_.every(terms, 'agreed') && _.every(nextProps.terms, 'agreed') && !nextProps.checkingStatus) {
@@ -152,19 +152,21 @@ export default class Terms extends React.Component {
     };
 
     return (
-      <div styleName="container" key={(selectedTerm || {}).termsOfUseId}>
+      <div key={(selectedTerm || {}).termsOfUseId}>
         <Modal
           onCancel={onCancel}
           theme={{ container: style['modal-container'] }}
         >
           {
-            isLoadingTerms &&
-            <LoadingIndicator />
+            isLoadingTerms
+            && <LoadingIndicator />
           }
           {
             !isLoadingTerms && (
               <div styleName="modal-content">
-                <div styleName="title">{terms.length > 1 ? defaultTitle : terms[0].title}</div>
+                <div styleName="title">
+                  {terms.length > 1 ? defaultTitle : terms[0].title}
+                </div>
                 <div
                   onScroll={handleVerticalScroll}
                   ref={(node) => { this.vScrollArea = node; }}
@@ -172,13 +174,16 @@ export default class Terms extends React.Component {
                 >
                   <div styleName="mask-v top" />
                   <div styleName="mask-v bottom" />
-                  <div styleName="desc">{description}</div>
+                  <div styleName="desc">
+                    {description}
+                  </div>
                   {
-                    checkingStatus &&
-                    <LoadingIndicator />
+                    checkingStatus
+                    && <LoadingIndicator />
                   }
                   {
-                    !checkingStatus && terms.length > 1 &&
+                    !checkingStatus && terms.length > 1
+                      && (
                       <div styleName="tabs-outer">
                         <div styleName="mask-h left" />
                         <div styleName="mask-h right" />
@@ -218,50 +223,61 @@ export default class Terms extends React.Component {
                                   {t.title}
                                 </div>
                                 {
-                                  index < terms.length - 1 &&
-                                  <div styleName="tab-bar" />
+                                  index < terms.length - 1
+                                  && <div styleName="tab-bar" />
                                 }
                               </div>
                             ))
                           }
                         </div>
                       </div>
+                      )
                   }
                   {
-                    !checkingStatus && selectedTerm &&
+                    !checkingStatus && selectedTerm
+                    && (
                     <div
                       /* TODO: Most probably, can be replaced with
                        * :only-child selector. */
                       styleName={terms.length === 1 ? 'single' : ''}
                     >
                       {
-                        terms.length > 1 && <div styleName="sub-title">{selectedTerm.title}</div>
+                        terms.length > 1 && (
+                        <div styleName="sub-title">
+                          {selectedTerm.title}
+                        </div>
+                        )
                       }
                       {
-                        loadingTermId === _.toString(selectedTerm.termsOfUseId) &&
-                        <LoadingIndicator />
+                        loadingTermId === _.toString(selectedTerm.termsOfUseId)
+                        && <LoadingIndicator />
                       }
                       {
-                        loadingTermId !== _.toString(selectedTerm.termsOfUseId) && details &&
+                        loadingTermId !== _.toString(selectedTerm.termsOfUseId) && details
+                        && (
                         <TermDetails
                           details={details}
                           docuSignUrl={docuSignUrl}
                           getDocuSignUrl={getDocuSignUrl}
                           loadingDocuSignUrl={loadingDocuSignUrl}
                         />
+                        )
                       }
                     </div>
+                    )
                   }
-                </div> { /* The end of scrollable area */ }
+                </div>
+                {' '}
+                { /* The end of scrollable area */ }
                 {
                   !isLoadingTerms && !checkingStatus && selectedTerm && details
-                    && !viewOnly &&
-                    loadingTermId !== _.toString(selectedTerm.termsOfUseId) &&
-                    details.agreeabilityType === 'Electronically-agreeable' ? (
+                    && !viewOnly
+                    && loadingTermId !== _.toString(selectedTerm.termsOfUseId)
+                    && details.agreeabilityType === 'Electronically-agreeable' ? (
                       <div styleName="buttons">
                         {
-                          selectedTerm.agreed ?
-                            (
+                          selectedTerm.agreed
+                            ? (
                               <PrimaryButton
                                 theme={style}
                                 onClick={(e) => {
@@ -273,8 +289,8 @@ export default class Terms extends React.Component {
                               >
                                 Next
                               </PrimaryButton>
-                            ) :
-                            (
+                            )
+                            : (
                               <div>
                                 <PrimaryButton
                                   disabled={agreeingTerm === details.termsOfUseId}
@@ -285,12 +301,14 @@ export default class Terms extends React.Component {
                                     }
                                   }}
                                   theme={style}
-                                >I Agree
+                                >
+                                  I Agree
                                 </PrimaryButton>
                                 <Button
                                   onClick={onCancel}
                                   theme={style}
-                                >I Disagree
+                                >
+                                  I Disagree
                                 </Button>
                               </div>
                             )

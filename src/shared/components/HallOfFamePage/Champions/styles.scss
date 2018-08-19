@@ -1,0 +1,23 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-grow: 1;
+  flex-wrap: wrap;
+
+  @include xs-to-lg {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 6px;
+  }
+
+  &.centered {
+    justify-content: center;
+
+    > div {
+      margin: 20px;
+    }
+  }
+}

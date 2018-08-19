@@ -66,34 +66,56 @@ export default function SubmissionManagement(props) {
     <div styleName="submission-management">
       <div styleName="submission-management-header">
         <div styleName="left-col">
-          <h4 styleName="name">{challenge.name}</h4>
+          <h4 styleName="name">
+            {challenge.name}
+          </h4>
           <a href={challengeUrl} styleName="back-btn">
             &lt; Back
           </a>
         </div>
         <div styleName="right-col">
-          <p styleName="round">{currentPhase.phaseType}</p>
+          <p styleName="round">
+            {currentPhase.phaseType}
+          </p>
           {
             challenge.status !== 'COMPLETED' ? (
               <div>
                 <p styleName="time-left">
-                  {days > 0 && (`${days}D`)} {hours}H {minutes}M
+                  {days > 0 && (`${days}D`)}
+                  {' '}
+                  {hours}
+H
+                  {' '}
+                  {minutes}
+M
                 </p>
-                <p styleName="left-label">left</p>
+                <p styleName="left-label">
+left
+                </p>
               </div>
             ) : (
-              <p styleName="time-left">The challenge has ended</p>
+              <p styleName="time-left">
+The challenge has ended
+              </p>
             )
           }
         </div>
       </div>
       <div styleName="submission-management-content">
         <div styleName="content-head">
-          <p styleName="title">Manage your submissions</p>
+          <p styleName="title">
+Manage your submissions
+          </p>
           {
             isDesign && (
               <p styleName="round-ends">
-                <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.format('dddd MM/DD/YY hh:mm A')}
+                <span styleName="ends-label">
+                  {currentPhase.phaseType}
+                  {' '}
+Ends:
+                </span>
+                {' '}
+                {end.format('dddd MM/DD/YY hh:mm A')}
               </p>
             )
           }
@@ -120,7 +142,8 @@ export default function SubmissionManagement(props) {
           )
         }
         {loadingSubmissions && <LoadingIndicator />}
-        {!loadingSubmissions &&
+        {!loadingSubmissions
+          && (
           <SubmissionsTable
             submissionObjects={submissions}
             showDetails={showDetails}
@@ -129,6 +152,7 @@ export default function SubmissionManagement(props) {
             submissionPhaseStartDate={submissionPhaseStartDate}
             {...componentConfig}
           />
+          )
         }
       </div>
       {now.isBefore(challenge.submissionEndDate) && (
@@ -153,7 +177,6 @@ export default function SubmissionManagement(props) {
 SubmissionManagement.defaultProps = {
   onDelete: _.noop,
   onShowDetails: _.noop,
-  showDetails: new Set(),
   onDownload: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
@@ -162,7 +185,7 @@ SubmissionManagement.defaultProps = {
 };
 
 SubmissionManagement.propTypes = {
-  showDetails: PT.instanceOf(Set),
+  showDetails: PT.shape().isRequired,
   onDelete: PT.func,
   onlineReviewUrl: PT.string,
   helpPageUrl: PT.string,

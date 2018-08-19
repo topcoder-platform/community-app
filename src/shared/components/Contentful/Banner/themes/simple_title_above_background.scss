@@ -1,0 +1,41 @@
+/* Default banner styling. */
+
+@import "~styles/mixins";
+
+.container {
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 480px;
+  overflow: hidden;
+  position: relative;
+}
+
+.content {
+  @include roboto-regular;
+
+  color: white;
+
+  h1 {
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 75px;
+    font-weight: 900;
+    line-height: 1;
+    margin: 5px 0;
+  }
+}
+
+.contentWrapper {
+  background: transparent;
+  opacity: 1;
+  padding: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

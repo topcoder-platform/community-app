@@ -11,11 +11,12 @@ import _ from 'lodash';
 import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
-import { Avatar } from 'topcoder-react-ui-kit';
+import { Avatar, PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import { config, Link, NavLink } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
 import { themr } from 'react-css-super-themr';
+import Menu from 'components/Contentful/Menu';
 
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
@@ -75,7 +76,8 @@ function Header(props) {
           key={img}
           to={item.url}
           className={theme.logo}
-        >{logo}
+        >
+          {logo}
         </Link>
       );
     } else {
@@ -83,7 +85,8 @@ function Header(props) {
         <span
           key={img}
           className={theme.logo}
-        >{logo}
+        >
+          {logo}
         </span>
       );
     }
@@ -112,35 +115,39 @@ function Header(props) {
         {profile.handle}
       </div>
       {
-        chevronOverAvatar ?
-          <span className={theme.chevronDown} /> :
-          <div className={theme.avatar}>
-            <Avatar url={profile.photoURL} />
-          </div>
+        chevronOverAvatar
+          ? <span className={theme.chevronDown} />
+          : (
+            <div className={theme.avatar}>
+              <Avatar url={profile.photoURL} />
+            </div>
+          )
       }
     </div>
   ) : (
     <div className={theme.authorize}>
+      <Button
+        onClick={() => {
+          const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
+          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+        }}
+        size="sm"
+      >
+Log In
+      </Button>
       { hideJoinNow ? null : (
-        <button
+        <PrimaryButton
           onClick={() => {
             let url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
             url = encodeURIComponent(`${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
             url = encodeURIComponent(url);
             window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
           }}
-          className={theme.btnRegister}
-        >Join Now
-        </button>
+          size="sm"
+        >
+Join Topcoder
+        </PrimaryButton>
       )}
-      <button
-        onClick={() => {
-          const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
-          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
-        }}
-        className={theme.btnLogin}
-      >Login
-      </button>
     </div>
   );
 
@@ -153,9 +160,14 @@ function Header(props) {
           <button
             className={theme.mobileToggle}
             onClick={onMobileToggleClick}
+            type="button"
           >
-            <span>Toggle navigation</span>
-            <i /><i /><i />
+            <span>
+Toggle navigation
+            </span>
+            <i />
+            <i />
+            <i />
           </button>
           <div className={theme.logosWrap}>
             <div className={theme.logos}>
@@ -178,41 +190,48 @@ function Header(props) {
             )}
           </div>
         </div>
-        <div
-          className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}
-        >
-          <ul className={theme.menu}>
-            {_.map(menuItems, item => (
-              <li
-                className={theme.menuItem}
-                key={item.url}
-              >
-                <NavLink
-                  activeClassName={theme.menuLinkActive}
-                  className={theme.menuLink}
-                  openNewTab={item.openNewTab}
-                  isActive={() => `/${currentPage}` === item.url}
-                  to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
-                >
-                  {item.title}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+        <div className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}>
+          {
+            menuItems[0] && menuItems[0].navigationMenu ? (
+              <Menu id={menuItems[0].navigationMenu} baseUrl={baseUrl} />
+            ) : (
+              <ul className={theme.menu}>
+                {_.map(menuItems, item => (
+                  <li
+                    className={theme.menuItem}
+                    key={item.url}
+                  >
+                    <NavLink
+                      activeClassName={theme.menuLinkActive}
+                      className={theme.menuLink}
+                      openNewTab={item.openNewTab}
+                      isActive={() => `/${currentPage}` === item.url}
+                      to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
+                    >
+                      {item.title}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
         </div>
         <div className={theme.userWrap}>
           {loginState}
-          { !hideSearch && <div className={theme.search}><IconSearch /></div>}
+          { !hideSearch && (
+          <div className={theme.search}>
+            <IconSearch />
+          </div>
+          )}
           <div className={theme.additionalLogos}>
-            {_.map(additionalLogos, (logoUrl, index) =>
-              (
-                <span
-                  key={index}
-                  className={theme.logo}
-                >
-                  <img src={logoUrl} alt="Community logo" />
-                </span>
-              ))}
+            {_.map(additionalLogos, (logoUrl, index) => (
+              <span
+                key={index}
+                className={theme.logo}
+              >
+                <img src={logoUrl} alt="Community logo" />
+              </span>
+            ))}
           </div>
         </div>
       </header>
@@ -237,6 +256,7 @@ Header.defaultProps = {
   hideSearch: false,
   chevronOverAvatar: false,
   profile: null,
+  isMobileOpen: false,
 };
 
 Header.propTypes = {
@@ -246,11 +266,12 @@ Header.propTypes = {
   communityId: PT.string.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
   groupIds: PT.arrayOf(PT.string),
-  isMobileOpen: PT.bool.isRequired,
+  isMobileOpen: PT.bool,
 
   menuItems: PT.arrayOf(PT.shape({
-    title: PT.string.isRequired,
-    url: PT.string.isRequired,
+    title: PT.string,
+    url: PT.string,
+    navigationMenu: PT.string,
   })),
   logos: PT.arrayOf(PT.oneOfType([
     PT.string,

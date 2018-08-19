@@ -7,11 +7,13 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { getReviewOpportunitiesFilterFunction } from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
 import './style.scss';
+
+const Filter = challengeUtils.filter;
 
 const NO_RESULTS_MESSAGE = 'There are no review opportunities available';
 
@@ -41,10 +43,12 @@ export default function ReviewOpportunityBucket({
    * which means it can be done at render, rather than in the reducer,
    * which avoids reloading the review opportunities from server every time
    * a filter is changed.  */
-  const filteredOpportunities = sortedOpportunities.filter(getReviewOpportunitiesFilterFunction({
-    ...bucket.filter, // Default bucket filters from utils/buckets.js
-    ...filterState, // User selected filters
-  }));
+  const filteredOpportunities = sortedOpportunities.filter(
+    Filter.getReviewOpportunitiesFilterFunction({
+      ...bucket.filter, // Default bucket filters from utils/buckets.js
+      ...filterState, // User selected filters
+    }),
+  );
 
   const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
@@ -83,7 +87,9 @@ export default function ReviewOpportunityBucket({
       {cards}
       {
         !loading && filteredOpportunities.length === 0 && (
-          <div styleName="no-results">{NO_RESULTS_MESSAGE}</div>
+          <div styleName="no-results">
+            {NO_RESULTS_MESSAGE}
+          </div>
         )
       }
       {

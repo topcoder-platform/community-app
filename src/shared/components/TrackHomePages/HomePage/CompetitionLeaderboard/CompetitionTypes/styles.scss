@@ -1,0 +1,264 @@
+@import "../../../Themes/mixins";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 29px;
+
+  @media screen and (max-width: $screen-md) {
+    border: none;
+    border-bottom: 1px solid $tc-gray-10;
+    padding: 20px 20px 0 20px;
+  }
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 45px;
+
+  @media screen and (max-width: $screen-md) {
+    margin-top: 20px;
+    font-size: 28px;
+    line-height: 35px;
+  }
+}
+
+.text {
+  @include text;
+
+  color: $tc-black;
+  margin: 40px 0;
+
+  @media screen and (max-width: $screen-md) {
+    .text {
+      margin: 40px 0 20px 0;
+    }
+  }
+}
+
+.carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  max-width: 740px;
+
+  div:first-child {
+    margin-left: 0;
+  }
+
+  div:last-child {
+    margin-right: 0;
+  }
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  min-width: 48px;
+  width: 48px;
+  border: 1px solid $tc-gray-10;
+  border-radius: 50%;
+  margin: 0 20px;
+
+  @media screen and (max-width: $screen-md) {
+    display: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $tc-white;
+  }
+
+  &.active {
+    cursor: pointer;
+    pointer-events: all;
+
+    path {
+      fill: #0681ff;
+    }
+  }
+}
+
+.button-wrapper {
+  max-height: 40px;
+  width: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+
+  button,
+  a {
+    color: #fafafb;
+    font-size: 15px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    width: 180px;
+  }
+
+  @media screen and (max-width: $screen-md) {
+    margin-bottom: 40px;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    margin-top: 40px;
+
+    button,
+    a {
+      color: #fafafb;
+      font-size: 15px;
+      font-weight: bold;
+      height: 40px;
+      line-height: 40px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.track-icons {
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+
+  a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    outline-style: none;
+
+    @media screen and (max-width: $screen-md) {
+      margin-bottom: 10px;
+    }
+  }
+
+  a:last-child {
+    margin-right: 0;
+  }
+
+  a:hover {
+    background-color: $tc-white;
+  }
+
+  @media screen and (max-width: $screen-md) {
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+}
+
+.track-infos {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.info {
+  display: none;
+
+  &.active {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    width: 100%;
+
+    @media screen and (max-width: $screen-md) {
+      flex-direction: column;
+    }
+  }
+}
+
+.big-icon {
+  max-width: 125px;
+  max-height: 125px;
+  min-height: 125px;
+  min-width: 125px;
+  margin-right: 20px;
+
+  @media screen and (max-width: $screen-md) {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+
+  @media screen and (max-width: $screen-md) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .big-icon-mobile {
+      max-width: 60px;
+      max-height: 60px;
+      min-height: 60px;
+      min-width: 60px;
+      margin-right: 20px;
+    }
+
+    .mobile-title {
+      @include roboto-regular;
+
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-content: left;
+  text-align: left;
+}
+
+.title {
+  @include roboto-regular;
+
+  font-size: 28px;
+  line-height: 35px;
+  color: $tc-black;
+  word-wrap: break-word;
+
+  @media screen and (max-width: $screen-md) {
+    display: none;
+  }
+}
+
+.description {
+  @include roboto-regular;
+
+  font-size: 20px;
+  line-height: 25px;
+  color: $tc-gray-80;
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+  @media screen and (max-width: $screen-md) {
+    font-size: 15px;
+    margin-top: 0;
+  }
+}
+
+.period {
+  @include roboto-regular;
+
+  font-size: 15px;
+  line-height: 25px;
+  color: $tc-gray-50;
+}

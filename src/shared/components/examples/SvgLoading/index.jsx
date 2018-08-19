@@ -9,10 +9,22 @@ import SampleAsset from './sample-asset.svg';
 export default function SvgLoading() {
   return (
     <div>
-      <h1>SVG Loading</h1>
+      <h1>
+SVG Loading
+      </h1>
       <p>
-        This component show how to load <code>.svg</code> assets with use of
-        <code> babel-plugin-inline-react-svg</code>.
+        This component show how to load
+        {' '}
+        <code>
+.svg
+        </code>
+        {' '}
+assets with use of
+        <code>
+          {' '}
+babel-plugin-inline-react-svg
+        </code>
+.
       </p>
       <SampleAsset
         width="640px"

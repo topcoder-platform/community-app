@@ -26,9 +26,17 @@ export default function ScoreboardChallengeHeader(props) {
     <ThemeProvider>
       <div styleName="challenge-outer-container">
         <div styleName="important-detail">
-          <h1 styleName="challenge-header">{title}</h1>
-          <p>[{type}]</p>
-          <h3>{description}</h3>
+          <h1 styleName="challenge-header">
+            {title}
+          </h1>
+          <p>
+[
+            {type}
+]
+          </p>
+          <h3>
+            {description}
+          </h3>
         </div>
       </div>
     </ThemeProvider>

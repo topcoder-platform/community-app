@@ -4,5 +4,6 @@ exports[`Snapshot match 1`] = `
 <button
   className="tc-btn tc-blue-btn"
   onClick={[Function]}
+  type="button"
 />
 `;

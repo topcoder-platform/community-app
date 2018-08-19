@@ -7,7 +7,7 @@ import ChallengeListing from 'routes/Communities/ChallengeListing';
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/communities/veterans/Footer';
 import Header from 'containers/tc-communities/Header';
-import Home from 'containers/tc-communities/veterans/Home';
+import Home from 'components/tc-communities/communities/veterans/Home';
 import imageTextStyle from 'components/tc-communities/communities/veterans/themes/image-text.scss';
 import PreListingMsg from
   'components/tc-communities/communities/veterans/PreListingMsg';

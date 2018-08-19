@@ -7,14 +7,14 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { DETAIL_TABS } from 'actions/challenge';
-import { config, Link } from 'topcoder-react-utils';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
+import { config } from 'topcoder-react-utils';
 
 import style from './style.scss';
 
 function getSelectorStyle(selectedView, currentView) {
-  return `challenge-selector-common ${(selectedView === currentView ?
-    'challenge-selected-view' : 'challenge-unselected-view')}`;
+  return `challenge-selector-common ${(selectedView === currentView
+    ? 'challenge-selected-view' : 'challenge-unselected-view')}`;
 }
 
 export default function ChallengeViewSelector(props) {
@@ -64,12 +64,6 @@ export default function ChallengeViewSelector(props) {
     }
   };
 
-  /* This code use to marathon match registration/submission link in the future */
-  const isMM = challenge.subTrack === 'MARATHON_MATCH';
-
-  const registranstsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${challenge.roundId}`;
-  const submissionsLink = `${config.URL.COMMUNITY}/longcontest/?longcontest/?module=ViewRegistrants&rd=${challenge.roundId}`;
-
   return (
     <div
       styleName="container"
@@ -82,10 +76,11 @@ export default function ChallengeViewSelector(props) {
           onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS)}
-        >DETAILS
+        >
+DETAILS
         </a>
         {
-          (numRegistrants && !isMM) ? (
+          numRegistrants ? (
             <a
               onClick={(e) => {
                 handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
@@ -94,49 +89,38 @@ export default function ChallengeViewSelector(props) {
                 handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
               }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
-            >REGISTRANTS ({numRegistrants})
+            >
+REGISTRANTS (
+              {numRegistrants}
+)
             </a>
           ) : null
         }
         {
-          isMM ? (
-            <Link
-              forceA
-              to={registranstsLink}
-              styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
-            >
-              REGISTRANTS
-            </Link>
-          ) : null
-        }
-        {
-          trackLower === 'design' && checkpointCount > 0 &&
+          trackLower === 'design' && checkpointCount > 0
+          && (
           <a
             onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
-          >CHECKPOINTS ({checkpointCount})
+          >
+CHECKPOINTS (
+            {checkpointCount}
+)
           </a>
+          )
         }
         {
-          (numSubmissions && !isMM) ? (
+          numSubmissions ? (
             <a
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
-            >SUBMISSIONS ({numSubmissions})
-            </a>
-          ) : null
-        }
-        {
-          isMM ? (
-            <Link
-              forceA
-              to={submissionsLink}
-              styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >
-              SUBMISSIONS
-            </Link>
+SUBMISSIONS (
+              {numSubmissions}
+)
+            </a>
           ) : null
         }
         {
@@ -145,18 +129,21 @@ export default function ChallengeViewSelector(props) {
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS)}
-            >WINNERS ({ numWinners })
+            >
+WINNERS (
+              { numWinners }
+)
             </a>
           ) : null
         }
-        {
-          (hasRegistered || Boolean(roles.length)) && (
-            <a
-              href={`${config.URL.FORUMS}${forumEndpoint}`}
-              styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
-            >
-              CHALLENGE FORUM
-            </a>
+        { (hasRegistered || Boolean(roles.length))
+          && (
+          <a
+            href={`${config.URL.FORUMS}${forumEndpoint}`}
+            styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+          >
+CHALLENGE FORUM
+          </a>
           )
         }
       </div>

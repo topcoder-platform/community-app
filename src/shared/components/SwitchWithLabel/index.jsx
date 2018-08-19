@@ -11,22 +11,28 @@ import { themr } from 'react-css-super-themr';
 import Switch from '../Switch';
 import defaultStyle from './style.scss';
 
-function SwitchWithLabel(props) {
+function SwitchWithLabel({
+  enabled,
+  labelAfter,
+  labelBefore,
+  onSwitch,
+  theme,
+}) {
   return (
     <div
-      className={props.theme.wrapper}
-      onClick={() => props.onSwitch(!props.enabled)}
-      onKeyPress={() => props.onSwitch(!props.enabled)}
+      className={theme.wrapper}
+      onClick={() => onSwitch(!enabled)}
+      onKeyPress={() => onSwitch(!enabled)}
     >
-      {props.labelBefore}
+      {labelBefore}
       <Switch
-        enabled={props.enabled}
-        onSwitch={props.onSwitch}
+        enabled={enabled}
+        onSwitch={onSwitch}
         theme={{
-          switch: props.theme.switch,
+          switch: theme.switch,
         }}
       />
-      {props.labelAfter}
+      {labelAfter}
     </div>
   );
 }

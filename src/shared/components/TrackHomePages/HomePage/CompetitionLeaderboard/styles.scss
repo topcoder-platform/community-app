@@ -1,0 +1,31 @@
+@import "../../Themes/mixins";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 60px;
+
+  @media screen and (max-width: $screen-md) {
+    flex-direction: column;
+    margin: 0;
+  }
+}
+
+.competition {
+  width: 100%;
+
+  @media screen and (max-width: $screen-md) {
+    width: 100%;
+  }
+}
+
+.leaderboard {
+  margin: auto;
+
+  @media screen and (max-width: $screen-md) {
+    padding: 0 6px;
+    width: 100%;
+  }
+}

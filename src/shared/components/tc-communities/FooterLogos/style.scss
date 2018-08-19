@@ -1,0 +1,20 @@
+@import '~styles/mixins';
+
+.footerLogos {
+  background-color: $tc-black;
+  padding: $base-unit * 4 $base-unit * 3;
+}
+
+.logos {
+  margin: 0 auto;
+  max-width: 960px;
+
+  @include md-to-xl {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  img {
+    display: block;
+  }
+}

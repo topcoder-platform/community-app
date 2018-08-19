@@ -12,8 +12,7 @@ export default function Sandbox({ base }) {
   return (
     <AppChunk
       chunkName="sandbox/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "sandbox/chunk" */ './Router')
+      renderClientAsync={() => import(/* webpackChunkName: "sandbox/chunk" */ './Router')
         .then(({ default: Router }) => <Router base={base} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}

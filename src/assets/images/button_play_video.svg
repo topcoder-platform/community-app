@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>button_play_video</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.2-Desktop---How-to-Complete" transform="translate(-1025.000000, -4314.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Body" transform="translate(60.000000, 91.000000)">
+                <g id="How-to" transform="translate(0.000000, 3930.000000)">
+                    <g id="How-to-1" transform="translate(60.000000, 145.000000)">
+                        <g id="Video" transform="translate(754.000000, 74.000000)">
+                            <g id="button_play_video" transform="translate(151.000000, 74.000000)">
+                                <path d="M25,0 C11.25,0 0,11.25 0,25 C0,38.75 11.25,50 25,50 C38.75,50 50,38.75 50,25 C50,11.25 38.75,0 25,0 Z M33.75,26.25 L21.25,35.625 C20.9375,35.78125 20.625,35.9375 20.3125,35.9375 C20,35.9375 19.84375,35.9375 19.6875,35.78125 C19.0625,35.46875 18.75,35 18.75,34.375 L18.75,15.625 C18.75,15 19.0625,14.53125 19.6875,14.21875 C20.15625,13.90625 20.78125,14.0625 21.25,14.375 L33.75,23.75 C34.21875,24.0625 34.375,24.53125 34.375,25 C34.375,25.46875 34.21875,25.9375 33.75,26.25 Z" id="Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

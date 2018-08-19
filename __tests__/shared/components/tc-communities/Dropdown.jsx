@@ -34,6 +34,7 @@ test('Snapshot match', () => {
 
 class Wrapper extends React.Component {
   componentDidMount() {}
+
   render() {
     return <Dropdown {...this.props} />;
   }
@@ -42,8 +43,10 @@ class Wrapper extends React.Component {
 test('onChange', () => {
   const instance = TU.renderIntoDocument((
     <Wrapper options={dropdownOptions} value={dropdownOptions[0]} />));
-  const matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.props && item.props.onChange);
+  const matches = TU.findAllInRenderedTree(
+    instance,
+    item => item && item.props && item.props.onChange,
+  );
   expect(matches).toHaveLength(1);
   matches[0].props.onChange(dropdownOptions[1]);
   matches[0].props.onChange(dropdownOptions[2]);

@@ -26,7 +26,8 @@ export default function Menu({
           role="button"
           styleName="x-cross"
           tabIndex={0}
-        >&times;
+        >
+&times;
         </span>
       </div>
       <Search />

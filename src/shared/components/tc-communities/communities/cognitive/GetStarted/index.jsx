@@ -40,7 +40,9 @@ export default function GetStarted({ baseUrl }) {
             image: style.cardImage,
           }}
         >
-          <h1 styleName="style.cardHeading">Current Cognitive Challenges</h1>
+          <h1 styleName="style.cardHeading">
+Current Cognitive Challenges
+          </h1>
           <p styleName="style.cardText">
             Topcoder and IBM have partnered to roll out a series of educational
             challenges that will help you learn everything you need to know to
@@ -51,7 +53,8 @@ export default function GetStarted({ baseUrl }) {
           <PrimaryButton
             theme={{ button: style.cardButton }}
             to={`${baseUrl}/challenges`}
-          >View Challenges
+          >
+View Challenges
           </PrimaryButton>
         </ImageText>
         <ImageText
@@ -62,7 +65,9 @@ export default function GetStarted({ baseUrl }) {
             image: style.cardImage,
           }}
         >
-          <h1 styleName="style.cardHeading">Perks and Prizes</h1>
+          <h1 styleName="style.cardHeading">
+Perks and Prizes
+          </h1>
           <p styleName="style.cardText">
             The Topcoder Cognitive Community is free to join — no strings
             attached. Winning submissions receive financial prizes, which vary

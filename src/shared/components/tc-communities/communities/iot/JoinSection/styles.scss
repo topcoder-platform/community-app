@@ -1,0 +1,23 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.sectionContainer {
+  background: url(assets/themes/iot/home/prefooter.jpg) no-repeat center;
+  background-size: cover;
+  padding: 60px 0;
+  text-align: center;
+
+  h2 {
+    @include h2;
+
+    color: $tc-white;
+    margin-bottom: 50px;
+    padding: 0 15px;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

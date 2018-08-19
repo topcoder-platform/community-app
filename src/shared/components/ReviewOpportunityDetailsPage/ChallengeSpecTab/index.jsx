@@ -12,9 +12,12 @@ import './styles.scss';
 const ChallengeSpecTab = ({ challenge }) => (
   <div styleName="container">
     {
-      challenge.detailedRequirements &&
+      challenge.detailedRequirements
+      && (
       <article>
-        <h2 styleName="h2">Challenge Overview</h2>
+        <h2 styleName="h2">
+Challenge Overview
+        </h2>
         <div
           /* eslint-disable react/no-danger */
           dangerouslySetInnerHTML={{
@@ -24,11 +27,15 @@ const ChallengeSpecTab = ({ challenge }) => (
           styleName="rawHtml"
         />
       </article>
+      )
     }
     {
-      challenge.finalSubmissionGuidelines &&
+      challenge.finalSubmissionGuidelines
+      && (
       <article>
-        <h2 styleName="h2">Final Submission Guidelines</h2>
+        <h2 styleName="h2">
+Final Submission Guidelines
+        </h2>
         <div
           /* eslint-disable react/no-danger */
           dangerouslySetInnerHTML={{
@@ -38,6 +45,7 @@ const ChallengeSpecTab = ({ challenge }) => (
           styleName="rawHtml"
         />
       </article>
+      )
     }
   </div>
 );

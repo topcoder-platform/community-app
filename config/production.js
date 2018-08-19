@@ -3,6 +3,9 @@ module.exports = {
     V2: 'https://api.topcoder.com/v2',
     V3: 'https://api.topcoder.com/v3',
   },
+  AUTH0: {
+    DOMAIN: 'topcoder.auth0.com',
+  },
   CDN: {
     PUBLIC: 'https://d2nl5eqipnb33q.cloudfront.net',
   },
@@ -15,15 +18,19 @@ module.exports = {
   URL: {
     ARENA: 'https://arena.topcoder.com',
     APP: 'https://community-app.topcoder.com',
+
+    /* This is the same value as above, but it is used by topcoder-react-lib,
+     * as a more verbose name for the param. */
+    COMMUNITY_APP: 'https://community-app.topcoder.com',
+
     AUTH: 'https://accounts.topcoder.com',
     BASE: 'https://www.topcoder.com',
-    BLOG: 'https://www.topcoder.com/blog',
-    BLOG_FEED: 'https://www.topcoder.com/feed',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
     HELP: 'https://help.topcoder.com',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
+    PAYMENT_TOOL: 'https://payment.topcoder.com',
     STUDIO: 'https://studio.topcoder.com',
     IOS: 'https://ios.topcoder.com',
 

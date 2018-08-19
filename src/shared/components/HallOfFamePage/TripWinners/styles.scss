@@ -1,0 +1,12 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  flex-wrap: wrap;
+
+  @include xs-to-lg {
+    align-items: center;
+  }
+}

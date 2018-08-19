@@ -22,7 +22,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import LoadingIndicator from 'components/LoadingIndicator';
 import PodiumSpot from '../PodiumSpot';
 
 import './styles.scss';
@@ -33,23 +32,25 @@ export default function Podium(props) {
   } = props;
 
   const renderPodium = (comps) => {
-    if (comps.length === 0) {
-      return (
-        <LoadingIndicator />
-      );
+    let podiumSpots = comps.map(comp => (
+      <div key={comp.rank} styleName="podium-column">
+        <PodiumSpot competitor={comp} />
+      </div>
+    ));
+
+    if (comps.length === 3) {
+      podiumSpots = [
+        ...podiumSpots.slice(0, 0),
+        podiumSpots[1],
+        ...podiumSpots.slice(1, 1),
+        podiumSpots[0],
+        ...podiumSpots.slice(2),
+      ];
     }
 
     return (
-      <div>
-        <div styleName="podium-column">
-          <PodiumSpot competitor={comps[1]} />
-        </div>
-        <div styleName="podium-column">
-          <PodiumSpot competitor={comps[0]} />
-        </div>
-        <div styleName="podium-column">
-          <PodiumSpot competitor={comps[2]} />
-        </div>
+      <div styleName="PodiumWrap">
+        {podiumSpots}
       </div>
     );
   };
@@ -61,13 +62,7 @@ export default function Podium(props) {
   );
 }
 
-const CompetitorShape = PT.shape({
-  rank: PT.number.isRequired,
-  'challenge_stats.photo_url': PT.string,
-  'challenge_stats.winner_handle': PT.string.isRequired,
-  'challenge_stats.count': PT.number.isRequired,
-  points: PT.number.isRequired,
-});
+const CompetitorShape = PT.shape({});
 
 Podium.propTypes = {
   competitors: PT.arrayOf(CompetitorShape).isRequired,

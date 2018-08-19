@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
 import ChallengeSearchBar from './ChallengeSearchBar';
@@ -17,6 +17,8 @@ import FiltersSwitch from './FiltersSwitch';
 import FiltersCardsType from './FiltersCardsType';
 
 import './ChallengeFilters.scss';
+
+const Filter = challengeUtils.filter;
 
 export default function ChallengeFilters({
   communityFilters,
@@ -49,8 +51,7 @@ export default function ChallengeFilters({
   if (filterState.subtracks) filterRulesCount += 1;
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
 
-  const isTrackOn = track =>
-    !filterState.tracks || Boolean(filterState.tracks[track]);
+  const isTrackOn = track => !filterState.tracks || Boolean(filterState.tracks[track]);
 
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
@@ -72,8 +73,8 @@ export default function ChallengeFilters({
           setQuery={setSearchText}
         />
         {
-          isCardTypeSet === 'Challenges' ?
-            (
+          isCardTypeSet === 'Challenges'
+            ? (
               <span>
                 <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
@@ -101,8 +102,8 @@ export default function ChallengeFilters({
         }
         <span styleName="pulled-right">
           {
-            isCardTypeSet === 'Challenges' ?
-              (
+            isCardTypeSet === 'Challenges'
+              ? (
                 <span
                   onClick={() => showTrackModal(true)}
                   onKeyPress={() => showTrackModal(true)}
@@ -129,7 +130,9 @@ export default function ChallengeFilters({
             <FiltersIcon styleName="FiltersIcon" />
             {
               filterRulesCount ? (
-                <span styleName="filtersCount">{filterRulesCount}</span>
+                <span styleName="filtersCount">
+                  {filterRulesCount}
+                </span>
               ) : null
             }
           </span>

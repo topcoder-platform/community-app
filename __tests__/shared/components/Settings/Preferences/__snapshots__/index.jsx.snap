@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders preferences setting page correctly 1`] = `
+<div
+  className="src-shared-components-Settings-Preferences-___styles__preferences-container___m6Zzc"
+>
+  <div
+    className="src-shared-components-Settings-Preferences-___styles__mobile-view___C-Nae"
+  >
+    <Accordion
+      currentSidebarTab="e-mail"
+      icons={
+        Object {
+          "e-mail": <EmailIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "forum": <Forum
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "invitation letter": <Invletter
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "payment": <Payment
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "referrals": <Referral
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+        }
+      }
+      names={
+        Array [
+          "e-mail",
+          "forum",
+          "payment",
+          "invitation letter",
+          "referrals",
+        ]
+      }
+      renderTabContent={[Function]}
+      toggleSidebarTab={[Function]}
+    />
+  </div>
+  <div
+    className="src-shared-components-Settings-Preferences-___styles__col-bar___2Fr2T"
+  >
+    <SideBar
+      currentTab="e-mail"
+      icons={
+        Object {
+          "e-mail": <EmailIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "forum": <Forum
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "invitation letter": <Invletter
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "payment": <Payment
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "referrals": <Referral
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+        }
+      }
+      names={
+        Array [
+          "e-mail",
+          "forum",
+          "payment",
+          "invitation letter",
+          "referrals",
+        ]
+      }
+      toggle={[Function]}
+    />
+  </div>
+  <div
+    className="src-shared-components-Settings-Preferences-___styles__col-content___2OhJS"
+  >
+    <EmailPreferences />
+  </div>
+</div>
+`;

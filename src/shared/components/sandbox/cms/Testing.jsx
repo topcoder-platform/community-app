@@ -27,12 +27,20 @@ export default class Testing extends React.Component {
   }
 
   render() {
+    const {
+      assetQueries,
+      entryQueries,
+    } = this.state;
     return (
       <div>
         <ContentfulLoader
-          assetQueries={this.state.assetQueries}
-          entryQueries={this.state.entryQueries}
-          render={data => <pre>{JSON.stringify(data, null, '  ')}</pre>}
+          assetQueries={assetQueries}
+          entryQueries={entryQueries}
+          render={data => (
+            <pre>
+              {JSON.stringify(data, null, '  ')}
+            </pre>
+          )}
           renderPlaceholder={() => 'LOADING'}
         />
       </div>

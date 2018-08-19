@@ -26,10 +26,19 @@ export default function Item({
         top,
       }}
       target="_blank"
+      rel="noopener noreferrer"
     >
-      <h1 styleName="title">{title}</h1>
-      <div>Start Date: {moment(startDate).toString()}</div>
-      <div>End Date: {moment(endDate).toString()}</div>
+      <h1 styleName="title">
+        {title}
+      </h1>
+      <div>
+Start Date:
+        {moment(startDate).toString()}
+      </div>
+      <div>
+End Date:
+        {moment(endDate).toString()}
+      </div>
     </a>
   );
 }

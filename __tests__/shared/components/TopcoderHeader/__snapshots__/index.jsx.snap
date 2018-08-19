@@ -124,17 +124,6 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
-              "icon": <IconNavRocket
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/getting-started",
-              "title": "Getting Started",
-            },
-            Object {
-              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -182,17 +171,6 @@ exports[`Default render 1`] = `
         },
         Object {
           "items": Array [
-            Object {
-              "enforceA": true,
-              "icon": <IconNavMembers
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/members/",
-              "title": "Overview",
-            },
             Object {
               "enforceA": true,
               "icon": <IconNavTcoGeneric
@@ -406,17 +384,6 @@ exports[`Render with open menu 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
-              "icon": <IconNavRocket
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/getting-started",
-              "title": "Getting Started",
-            },
-            Object {
-              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -464,17 +431,6 @@ exports[`Render with open menu 1`] = `
         },
         Object {
           "items": Array [
-            Object {
-              "enforceA": true,
-              "icon": <IconNavMembers
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/members/",
-              "title": "Overview",
-            },
             Object {
               "enforceA": true,
               "icon": <IconNavTcoGeneric
@@ -629,7 +585,6 @@ exports[`Render with specified profile 1`] = `
             composeContextTheme="softly"
             mapThemrProps={[Function]}
             themePriority="adhoc-context-default"
-            url={undefined}
           />
         </div>
       </div>
@@ -697,17 +652,6 @@ exports[`Render with specified profile 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
-              "icon": <IconNavRocket
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/getting-started",
-              "title": "Getting Started",
-            },
-            Object {
-              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -755,17 +699,6 @@ exports[`Render with specified profile 1`] = `
         },
         Object {
           "items": Array [
-            Object {
-              "enforceA": true,
-              "icon": <IconNavMembers
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/members/",
-              "title": "Overview",
-            },
             Object {
               "enforceA": true,
               "icon": <IconNavTcoGeneric
@@ -861,7 +794,7 @@ exports[`Render with specified profile 1`] = `
               width="32"
               xmlns="http://www.w3.org/2000/svg"
             />,
-            "link": "https://www.topcoder-dev.com/members/undefined",
+            "link": "/members/undefined",
             "title": "My Profile",
           },
           Object {
@@ -882,7 +815,7 @@ exports[`Render with specified profile 1`] = `
               width="32"
               xmlns="http://www.w3.org/2000/svg"
             />,
-            "link": "https://www.topcoder-dev.com/settings/profile",
+            "link": "/settings/profile",
             "title": "Settings",
           },
           Object {

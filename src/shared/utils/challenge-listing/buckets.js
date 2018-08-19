@@ -135,8 +135,8 @@ export function getBuckets(userHandle) {
  * @param {String} bucket The bucket in question
  * @return {Boolean} True if the bucket contains Review Opportunities
  */
-export const isReviewOpportunitiesBucket = bucket =>
-  (bucket === BUCKETS.REVIEW_OPPORTUNITIES || bucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER);
+export const isReviewOpportunitiesBucket = bucket => (
+  bucket === BUCKETS.REVIEW_OPPORTUNITIES || bucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER);
 
 /**
  * Registers a new bucket.

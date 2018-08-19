@@ -5,19 +5,10 @@
 /* eslint-env browser */
 import _ from 'lodash';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Sticky from 'react-stickynode';
 
-import { getRatingColor } from 'utils/tc';
-import { config } from 'topcoder-react-utils';
-
-import ArrowNext from 'assets/images/arrow-next.svg';
-import CopilotIcon from 'assets/images/profile/ico-track-copilot.svg';
-import DataScienceIcon from 'assets/images/profile/ico-track-data.svg';
-import DesignIcon from 'assets/images/profile/ico-track-design.svg';
-import DevelopIcon from 'assets/images/profile/ico-track-develop.svg';
 import Robot from 'assets/images/robot-happy.svg';
 
 import BadgesModal from './BadgesModal';
@@ -26,17 +17,10 @@ import Header from './Header';
 import Skill from './Skill';
 
 import style from './styles.scss';
+import StatsCategory from './StatsCategory';
 
 // Number of skills to show before a 'VIEW MORE' button is created
 const MAX_SKILLS = 10;
-
-// Maps API track names to format in design
-const TRACK_NAMES = {
-  COPILOT: 'COPILOT',
-  DATA_SCIENCE: 'DATA SCIENCE',
-  DEVELOP: 'DEVELOPMENT',
-  DESIGN: 'DESIGN',
-};
 
 /**
  * Inspects a subtrack and determines if the member is active
@@ -51,7 +35,7 @@ const isActiveSubtrack = (subtrack) => {
   }
   if (subtrack.rank && subtrack.rank.rating > 0) {
     return true;
-  } else if (_.isNumber(subtrack.submissions)) {
+  } if (_.isNumber(subtrack.submissions)) {
     return subtrack.submissions > 0;
   }
   return subtrack.submissions && subtrack.submissions.submissions > 0;
@@ -129,7 +113,10 @@ class ProfilePage extends React.Component {
       achievements,
       copilot,
       country,
+      externalAccounts,
+      externalLinks,
       info,
+      skills: propSkills,
       stats,
     } = this.props;
 
@@ -140,14 +127,14 @@ class ProfilePage extends React.Component {
     } = this.state;
 
     // Convert skills from object to an array for easier iteration
-    let skills = _.map(this.props.skills, (skill, tagId) => ({ tagId, ...skill }));
+    let skills = _.map(propSkills, (skill, tagId) => ({ tagId, ...skill }));
     const showMoreButton = skills.length > MAX_SKILLS;
     if (!skillsExpanded) {
       skills = skills.slice(0, MAX_SKILLS);
     }
 
-    let externals = _.map(_.pick(this.props.externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
-    this.props.externalLinks.map(data => externals.push(({ type: 'weblink', data })));
+    let externals = _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
+    externalLinks.map(data => externals.push(({ type: 'weblink', data })));
     externals = _.filter(externals, 'data');
     externals = _.sortBy(externals, 'type');
 
@@ -156,7 +143,8 @@ class ProfilePage extends React.Component {
     return (
       <div styleName="outer-container">
         {
-          badgesModalOpen &&
+          badgesModalOpen
+          && (
           <BadgesModal
             achievements={achievements}
             handle={info.handle}
@@ -164,6 +152,7 @@ class ProfilePage extends React.Component {
             photoURL={info.photoURL}
             onClose={() => this.setState({ badgesModalOpen: false })}
           />
+          )
         }
         <div styleName="profile-container">
           <div styleName="about-container">
@@ -187,102 +176,78 @@ class ProfilePage extends React.Component {
             </div>
             <div styleName="profile-about-container">
               {
-                _.isEmpty(skills) && _.isEmpty(activeTracks) && _.isEmpty(externals) &&
+                _.isEmpty(skills) && _.isEmpty(activeTracks) && _.isEmpty(externals)
+                && (
                 <div styleName="empty-profile">
-                  <h2>BEEP. BEEP. HELLO!</h2>
+                  <h2>
+BEEP. BEEP. HELLO!
+                  </h2>
                   <Robot />
-                  <p>Seems like this member doesn’t have much information to share yet.</p>
-                  <PrimaryButton theme={style} to={`${config.URL.BASE}/community/members`}>VIEW OTHER MEMBERS</PrimaryButton>
+                  <p>
+Seems like this member doesn’t have much information to share yet.
+                  </p>
                 </div>
+                )
               }
               {
-                !_.isEmpty(skills) &&
+                !_.isEmpty(skills)
+                && (
                 <div id="profile-skills">
                   <div styleName="skills">
-                    <h3 styleName="activity">Skills</h3>
+                    <h3 styleName="activity">
+Skills
+                    </h3>
                     <div styleName="list">
                       {
                         skills.map(({ tagId, tagName, hidden }) => (
-                          !hidden &&
+                          !hidden
+                          && (
                           <div key={tagId} styleName="skill">
                             <Skill
                               tagId={tagId}
                               tagName={tagName}
                             />
                           </div>
+                          )
                         ))
                       }
                     </div>
                     {
-                      showMoreButton && !skillsExpanded &&
+                      showMoreButton && !skillsExpanded
+                      && (
                       <PrimaryButton
                         onClick={() => this.setState({ skillsExpanded: true })}
                         theme={style}
-                      >VIEW ALL
+                      >
+VIEW ALL
                       </PrimaryButton>
+                      )
                     }
                     {
-                      skillsExpanded &&
+                      skillsExpanded
+                      && (
                       <PrimaryButton
                         onClick={() => this.setState({ skillsExpanded: false })}
                         theme={style}
-                      >VIEW LESS
+                      >
+VIEW LESS
                       </PrimaryButton>
+                      )
                     }
                   </div>
                 </div>
+                )
               }
               <div id="profile-activity">
-                <div styleName="categories">
-                  {
-                    activeTracks.map(track => (
-                      <div id={track.name} key={track.name} styleName="track">
-                        <div styleName="name">
-                          { track.name === 'COPILOT' && <CopilotIcon /> }
-                          { track.name === 'DATA_SCIENCE' && <DataScienceIcon /> }
-                          { track.name === 'DESIGN' && <DesignIcon /> }
-                          { track.name === 'DEVELOP' && <DevelopIcon /> }
-                          <span>{TRACK_NAMES[track.name]} ACTIVITY</span>
-                        </div>
-                        {
-                          track.subTracks.map((subtrack, index) => (
-                            <Link to="#" key={subtrack.name} styleName={`subtrack ${index === 0 ? 'first' : ''}`}>
-                              <div styleName="name">{subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}</div>
-                              {
-                                subtrack.rank && !_.isNull(subtrack.rank.rating) &&
-                                  <div styleName="ranking">
-                                    <div style={{ color: getRatingColor(subtrack.rank.rating) }} styleName="number">{subtrack.rank.rating}</div>
-                                    <div styleName="tag">Rating</div>
-                                  </div>
-                              }
-                              {
-                                (!subtrack.rank || _.isNull(subtrack.rank.rating)) &&
-                                !subtrack.fulfillment &&
-                                <div styleName="ranking">
-                                  <div style={{ color: '#21b2f1' }} styleName="number">{subtrack.wins}</div>
-                                  <div styleName="tag">Wins</div>
-                                </div>
-                              }
-                              {
-                                subtrack.fulfillment &&
-                                <div styleName="ranking">
-                                  <div style={{ color: '#a3a3ae' }} styleName="number">{`${subtrack.fulfillment}%`}</div>
-                                  <div styleName="tag">Fulfillment</div>
-                                </div>
-                              }
-                              <ArrowNext styleName="arrow" />
-                            </Link>
-                          ))
-                        }
-                      </div>
-                    ))
-                  }
-                </div>
+                <StatsCategory handle={info.handle} stats={stats} />
               </div>
               {
-                !_.isEmpty(externals) &&
+                !_.isEmpty(externals)
+                && (
                 <div styleName="external-links-container">
-                  <h3>On The Web</h3>
+                  <h3>
+On The Web
+                  </h3>
                   <div styleName="external-links">
                     {
                       externals.map(external => (
@@ -295,6 +260,7 @@ class ProfilePage extends React.Component {
                     }
                   </div>
                 </div>
+                )
               }
             </div>
           </div>

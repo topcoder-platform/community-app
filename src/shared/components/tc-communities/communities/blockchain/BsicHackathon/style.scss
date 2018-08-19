@@ -71,32 +71,30 @@ $bannerBackgroundColor: #131a24;
   }
 }
 
-/* TIMELINE CARD */
+/* FACTS */
 
-.timelineCardContainer {
-  border-radius: 4px;
-  border-top: solid 10px $tc-dark-blue;
-  box-shadow: 5px 5px 10px $tc-gray-10, -5px 5px 10px $tc-gray-10;
-  margin-right: 30px;
-  padding: 20px;
+.facts {
+  color: $tc-black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
-  @include xs-to-sm {
-    margin-bottom: 60px;
-    width: 100%;
+  &.wide {
+    justify-content: space-between;
   }
-}
 
-.timelinePhaseName {
-  @include body-text;
+  :first-child {
+    margin-left: 0;
+  }
 
-  display: inline;
-  font-weight: bold;
-  line-height: 100%;
-}
+  :last-child {
+    margin-right: 0;
+  }
 
-.nowrap {
-  @include md-to-xl {
-    white-space: nowrap;
+  > * {
+    font: 28px 'Open Sans', sans-serif;
+    line-height: 1.2;
+    margin: 20px;
   }
 }
 
@@ -121,6 +119,10 @@ $bannerBackgroundColor: #131a24;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.paragraph {
+  margin-bottom: 10px;
 }
 
 .regButtonsW {

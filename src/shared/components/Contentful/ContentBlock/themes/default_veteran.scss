@@ -1,0 +1,45 @@
+@import "~styles/mixins";
+
+.contentWrapper {
+  background-color: rgb(189, 115, 30);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.container {
+  background: white;
+  align-content: center;
+
+  &:nth-child(even) .contentWrapper {
+    background-color: rgb(37, 192, 137);
+  }
+}
+
+.content {
+  @include tc-typography;
+
+  flex: 1;
+  padding: 30px;
+
+  a {
+    text-decoration: underline;
+  }
+
+  a,
+  a:hover,
+  a:visited,
+  h1,
+  p {
+    color: white;
+  }
+}
+
+.image {
+  margin: 0;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}

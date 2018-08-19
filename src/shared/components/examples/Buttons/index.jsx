@@ -31,16 +31,31 @@ import style from './style.scss'; // eslint-disable-line no-unused-vars
 export default function Buttons() {
   return (
     <div styleName="style.container">
-      <h1 styleName="style.title">Buttons</h1>
+      <h1 styleName="style.title">
+Buttons
+      </h1>
 
       <p styleName="style.text">
         All buttons in this page are instances of the generic button,
-        implemented in <code>/src/topcoder-react-ui-kit</code> and wrapped
+        implemented in
+        {' '}
+        <code>
+/src/topcoder-react-ui-kit
+        </code>
+        {' '}
+and wrapped
         into different style themes with help
-        of <code>react-css-super-themr</code>.
+        of
+        {' '}
+        <code>
+react-css-super-themr
+        </code>
+.
       </p>
 
-      <h2 styleName="style.subsection">Standard Buttons from TC UI Kit</h2>
+      <h2 styleName="style.subsection">
+Standard Buttons from TC UI Kit
+      </h2>
 
       <Sample Button={Button} title="Default Button" />
       <Sample Button={PrimaryButton} title="Primary Button" />
@@ -48,7 +63,9 @@ export default function Buttons() {
       <Sample Button={DangerButton} title="Danger Button" />
       <Sample Button={GhostButton} title="Ghost Button" />
 
-      <h2 styleName="style.subsection">Outline Buttons</h2>
+      <h2 styleName="style.subsection">
+Outline Buttons
+      </h2>
 
       <p styleName="style.text">
         Various styles of outline buttons, that are not a part of the official

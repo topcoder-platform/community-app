@@ -1,0 +1,240 @@
+@import "~styles/mixins";
+
+@mixin module-s {
+  margin-top: 6px;
+  background-color: $tc-white;
+}
+
+@mixin module-l {
+  @include module-s;
+
+  max-width: 1242px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 30px;
+
+  @media only screen and (min-width: 900px) {
+    padding-top: 30px;
+  }
+}
+
+.categories {
+  @include module-l;
+
+  margin-left: auto;
+  margin-right: auto;
+  padding: 15px 15px 0 15px;
+  align-self: center;
+  background: $tc-white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    padding: 15px 30px 0 30px;
+  }
+
+  .track {
+    width: 100%;
+    margin-top: 22.4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+
+    &.noclick {
+      cursor: default;
+    }
+
+    .name {
+      margin: auto;
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 10.6px;
+
+      @include sofia-pro-extra-light;
+    }
+
+    svg {
+      height: 20px;
+      width: 20px;
+      margin-right: 7px;
+      margin-bottom: -2px;
+    }
+
+    .subtrack {
+      text-decoration: none;
+      color: $tc-black;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 52px;
+      border-bottom: 1px solid $tc-gray-neutral-dark;
+
+      &.first {
+        border-top: 1px solid $tc-gray-neutral-dark;
+      }
+
+      &:hover {
+        background-color: $tc-gray-neutral-dark;
+      }
+
+      .name {
+        margin-left: 15px;
+        align-self: center;
+        flex-basis: 250px;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 14px;
+        line-height: 18px;
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 12px;
+
+        @include sofia-pro-light;
+      }
+
+      .ranking {
+        margin: auto;
+        margin-right: 15px;
+        color: $tc-gray-80;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        @include sofia-pro-medium;
+
+        .number {
+          text-align: center;
+          font-size: 13.4px;
+          line-height: 16px;
+
+          span.square {
+            position: absolute;
+            margin-left: 5px;
+            width: 6px;
+            height: 6px;
+          }
+        }
+
+        .tag {
+          text-transform: uppercase;
+          margin: 5px auto 0 auto;
+
+          @include sofia-pro-regular;
+
+          font-size: 12px;
+          line-height: 10px;
+          color: $tc-gray-60;
+        }
+      }
+
+      .arrow {
+        @include sofia-pro-extra-light;
+
+        color: $tc-gray-80;
+        height: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin: auto;
+    }
+  }
+}
+
+@mixin md-to-xl {
+  .categories {
+    margin-top: 1px;
+    padding-top: 0;
+
+    .activity {
+      font-size: 28px;
+      line-height: 34px;
+
+      @include sofia-pro-bold;
+
+      text-transform: uppercase;
+    }
+
+    .track {
+      width: 100%;
+      padding-top: 30px;
+
+      .name {
+        svg {
+          height: 30px;
+          width: 30px;
+          margin-right: 7px;
+          margin-bottom: -4px;
+        }
+
+        background-size: 30px;
+        background-position: 16px 4px;
+        font-weight: 200;
+        font-size: 24px;
+        line-height: 30px;
+        margin-bottom: 30px;
+        margin-top: 0;
+
+        @include sofia-pro-medium;
+      }
+
+      .subtrack {
+        align-items: center;
+        width: 75%;
+        height: 60px;
+
+        .name {
+          font-size: 18px;
+          flex-basis: 350px;
+          line-height: 24px;
+          margin-top: 17px;
+          margin-bottom: 20px;
+        }
+
+        .ranking {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+
+          .number {
+            font-size: 18px;
+            line-height: 23px;
+          }
+
+          .tag {
+            margin-top: 2px;
+            font-size: 12px;
+            line-height: 14px;
+            color: $tc-gray-60;
+          }
+        }
+
+        .arrow {
+          color: $tc-gray-30;
+          height: 15px;
+          margin-right: 10px;
+        }
+      }
+
+      .icon {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+      }
+    }
+  }
+}

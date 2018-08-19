@@ -68,13 +68,15 @@ export default function Learn({
                 href="https://hbr.org/2017/02/a-brief-history-of-blockchain"
                 rel="noopener noreferrer"
                 target="_blank"
-              >A Brief History of Blockchain
+              >
+A Brief History of Blockchain
               </a>
             </li>
             <li>
               <a
                 href="https://www.youtube.com/embed/7Y3fWXA6d5k"
-              >History of Blockchain (Video)
+              >
+History of Blockchain (Video)
               </a>
             </li>
             <li>
@@ -82,7 +84,8 @@ export default function Learn({
                 href="https://hbr.org/2017/03/the-promise-of-blockchain-is-a-world-without-middlemen"
                 rel="noopener noreferrer"
                 target="_blank"
-              >A World Without Middleman
+              >
+A World Without Middleman
               </a>
             </li>
             <li>
@@ -90,7 +93,8 @@ export default function Learn({
                 href="https://medium.com/@mattcondon/getting-up-to-speed-on-ethereum-63ed28821bbe"
                 rel="noopener noreferrer"
                 target="_blank"
-              >Getting Up to Speed on Ethereum
+              >
+Getting Up to Speed on Ethereum
               </a>
             </li>
           </ul>
@@ -105,7 +109,8 @@ export default function Learn({
                 href="https://www.coindesk.com/information/what-is-ethereum/"
                 rel="noopener noreferrer"
                 target="_blank"
-              >What Is Ethereum
+              >
+What Is Ethereum
               </a>
             </li>
             <li>
@@ -113,7 +118,8 @@ export default function Learn({
                 href="https://medium.com/@VitalikButerin/the-meaning-of-decentralization-a0c92b76a274"
                 rel="noopener noreferrer"
                 target="_blank"
-              >The Meaning of Decentralization
+              >
+The Meaning of Decentralization
               </a>
             </li>
             <li>
@@ -121,7 +127,8 @@ export default function Learn({
                 href="https://medium.com/@ConsenSys/welcome-to-3-0-f4552fb02302"
                 rel="noopener noreferrer"
                 target="_blank"
-              >Welcome to 3.0
+              >
+Welcome to 3.0
               </a>
             </li>
             <li>
@@ -129,7 +136,8 @@ export default function Learn({
                 href="https://medium.com/@wen_xs/what-is-blockchain-really-an-intro-for-regular-people-e51578d98a96"
                 rel="noopener noreferrer"
                 target="_blank"
-              >What Is Blockchain, Really? (An&nbsp;Intro For Regular People)
+              >
+What Is Blockchain, Really? (An&nbsp;Intro For Regular People)
               </a>
             </li>
           </ul>
@@ -144,7 +152,8 @@ export default function Learn({
                 href="https://www.youtube.com/embed/fgSvXFZ1GuU?start=1005&end=1187&version=3"
                 rel="noopener noreferrer"
                 target="_blank"
-              >Cryptographic Identity in Blockchain
+              >
+Cryptographic Identity in Blockchain
               </a>
             </li>
             <li>
@@ -152,7 +161,8 @@ export default function Learn({
                 href="https://www.youtube.com/watch?v=Aq3a-_O2NcI&feature=youtu.be"
                 rel="noopener noreferrer"
                 target="_blank"
-              >Bitcoin - Digital Signatures
+              >
+Bitcoin - Digital Signatures
               </a>
             </li>
             <li>
@@ -160,7 +170,8 @@ export default function Learn({
                 href="https://decentralize.today/if-you-understand-hash-functions-youll-understand-blockchains-9088307b745d"
                 rel="noopener noreferrer"
                 target="_blank"
-              >Hash Functions
+              >
+Hash Functions
               </a>
             </li>
             <li>
@@ -168,7 +179,8 @@ export default function Learn({
                 href="https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b"
                 rel="noopener noreferrer"
                 target="_blank"
-              >Blockchain Underpinnings: Hashing
+              >
+Blockchain Underpinnings: Hashing
               </a>
             </li>
             <li>
@@ -176,7 +188,8 @@ export default function Learn({
                 href="https://media.consensys.net/guide-hashing-33dc0467c126"
                 rel="noopener noreferrer"
                 target="_blank"
-              >Guide: Hashing
+              >
+Guide: Hashing
               </a>
             </li>
           </ul>

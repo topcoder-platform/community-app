@@ -60,13 +60,23 @@ export default function Announcement({
           role="button"
           styleName="hide"
           tabIndex={0}
-        >+
+        >
++
         </div>
-        { type ? <div styleName="type">{type}</div> : null }
-        <h1 styleName="title">{publicTitle || title}</h1>
+        { type ? (
+          <div styleName="type">
+            {type}
+          </div>
+        ) : null }
+        <h1
+          styleName="title"
+        >
+          {publicTitle || title}
+        </h1>
         <div
           styleName="text"
-        >{text}
+        >
+          {text}
         </div>
       </div>
     );
@@ -82,7 +92,11 @@ export default function Announcement({
           backgroundPosition: backgroundImagePosition,
         }}
       >
-        { preview ? <h1 styleName="previewLabel">Preview</h1> : null }
+        { preview ? (
+          <h1 styleName="previewLabel">
+Preview
+          </h1>
+        ) : null }
         <div styleName="details">
           <div
             onClick={() => switchShow(false)}
@@ -90,9 +104,14 @@ export default function Announcement({
             role="button"
             styleName="hide"
             tabIndex={0}
-          >&times;
+          >
+&times;
           </div>
-          { type ? <div styleName="type">{type}</div> : null }
+          { type ? (
+            <div styleName="type">
+              {type}
+            </div>
+          ) : null }
           <h1
             styleName="title"
             style={{
@@ -120,7 +139,8 @@ export default function Announcement({
                   button: style.readMore,
                 }}
                 to={readMore}
-              >{readMoreLabel || 'Read more'}
+              >
+                {readMoreLabel || 'Read more'}
               </PrimaryButton>
             ) : null
           }
@@ -141,12 +161,29 @@ export default function Announcement({
   if (preview && !hidePreviewMetaData) {
     res = (
       <div styleName="preview">
-        <div>Created: {moment(createdAt).toLocaleString()}</div>
-        <div>Last update: {moment(updatedAt).toLocaleString()}</div>
-        <div>Revision: {revision}</div>
-        <div>Display start date: {moment(startDate).toLocaleString()}</div>
-        <div>Display end date: {moment(endDate).toLocaleString()}</div>
-        <div styleName="previewContent">{res}</div>
+        <div>
+Created:
+          {moment(createdAt).toLocaleString()}
+        </div>
+        <div>
+Last update:
+          {moment(updatedAt).toLocaleString()}
+        </div>
+        <div>
+Revision:
+          {revision}
+        </div>
+        <div>
+Display start date:
+          {moment(startDate).toLocaleString()}
+        </div>
+        <div>
+Display end date:
+          {moment(endDate).toLocaleString()}
+        </div>
+        <div styleName="previewContent">
+          {res}
+        </div>
       </div>
     );
   }

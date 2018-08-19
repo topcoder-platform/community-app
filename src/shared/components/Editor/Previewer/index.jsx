@@ -17,21 +17,25 @@ export default class Previewer extends React.Component {
     setImmediate(() => this.setState({ content }));
   }
 
-  setVisible(visible) {
-    if (visible === this.state.visible) return;
-    setImmediate(() => this.setState({ visible }));
+  setVisible(newVisible) {
+    const { visible } = this.state;
+    if (newVisible === visible) return;
+    setImmediate(() => this.setState({ visible: newVisible }));
   }
 
   render() {
+    const { content, visible } = this.state;
     return (
       <div styleName="container">
         {
-          this.state.visible ? (
+          visible ? (
             <div>
-              <div styleName="title">Rendering Preview</div>
+              <div styleName="title">
+Rendering Preview
+              </div>
               <div
                 /* eslint-disable react/no-danger */
-                dangerouslySetInnerHTML={{ __html: this.state.content }}
+                dangerouslySetInnerHTML={{ __html: content }}
                 /* eslint-enable react/no-danger */
                 styleName="content"
               />

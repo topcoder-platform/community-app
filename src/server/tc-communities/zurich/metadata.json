@@ -1,0 +1,45 @@
+{
+  "authorizedGroupIds": [
+    "20000044"
+  ],
+  "challengeFilter": {
+    "groupIds": ["20000044"]
+  },
+  "challengeListing": {
+    "ignoreCommunityFilterByDefault": true,
+    "openChallengesInNewTabs": false
+  },
+  "communityId": "zurich",
+  "communityName": "Zurich Community",
+  "groupIds": ["20000044"],
+  "logos": [{
+    "img": "/community-app-assets/themes/zurich/credit-suisse-logo.jpg",
+    "url": "https://www.credit-suisse.com"
+  }, {
+    "img": "/community-app-assets/themes/zurich/logo_topcoder_with_name.svg",
+    "url": "https://www.topcoder.com"
+  }],
+  "footerText": "© Copyright Topcoder, 2018",
+  "menuItems": [
+    {
+      "title": "Home",
+      "url": "/"
+    }, {
+      "title": "Learn",
+      "url": "/learn"
+    }, {
+      "title": "Catalog",
+      "url": "/catalog"
+    }, {
+      "title": "FAQ",
+      "url": "/faq"
+    }, {
+      "title": "Challenges",
+      "url": "/challenges"
+    }
+  ],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["zurich"],
+  "description": "Zurich Community.",
+  "image":"wipro.jpg"
+}

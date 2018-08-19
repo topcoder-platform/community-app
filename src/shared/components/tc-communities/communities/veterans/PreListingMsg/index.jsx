@@ -13,7 +13,8 @@ export default function PreListingMsg() {
           container: style.joinContainer,
           link: { button: style.join },
         }}
-      />&zwnj;
+      />
+&zwnj;
       to access challenges that are exclusively available for US veterans.
     </div>
   );

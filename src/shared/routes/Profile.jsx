@@ -11,17 +11,15 @@ export default function ProfileLoader(props) {
   return (
     <AppChunk
       chunkName="profile/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "profile/chunk" */ 'containers/Profile')
-          .then(({ default: ProfileContainer }) => (
-            <ProfileContainer {...props} />
+      renderClientAsync={() => import(/* webpackChunkName: "profile/chunk" */ 'containers/Profile')
+        .then(({ default: ProfileContainer }) => (
+          <ProfileContainer {...props} />
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
         const p = webpack.resolveWeak('containers/Profile');
-        const ProfileContainer =
-          webpack.requireWeak(path.resolve(__dirname, p));
+        const ProfileContainer = webpack.requireWeak(path.resolve(__dirname, p));
         return <ProfileContainer {...props} />;
       }}
     />
