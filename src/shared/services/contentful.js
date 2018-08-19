@@ -14,10 +14,10 @@ import { config, isomorphy } from 'topcoder-react-utils';
 
 /* Service-side Contentful services module. Some of its functionality will be
  * reused by our isomorphic code when executed at the server-side. */
-let ss;
+let ssContentfull;
 if (isomorphy.isServerSide()) {
   /* eslint-disable global-require */
-  ss = require('server/services/contentful');
+  ssContentfull = require('server/services/contentful');
   /* eslint-enable global-require */
 }
 
@@ -100,11 +100,31 @@ async function getIndex() {
 class Service {
   /**
    * Creates a new Service instance.
+   * @param {Object} spaceConfig Contentful space configuration details.
+   * @param {String} spaceName Optional. If not provided, the service is
+   * configured to work against default configured space; otherwise - against provided
+   * spaceName.
+   * @param {String} environment Optional. If not provided, the service is
+   * configured to work against default configured environment; otherwise - against
+   * provided contentful environment.
    * @param {Boolean} preview Optional. If true, the service is configured to
    *  work against Contentful Preview API; otherwise - against their CDN API.
    */
-  constructor(preview) {
-    this.private = { preview };
+  constructor(spaceConfig) {
+    const { spaceName, environment, preview } = spaceConfig;
+
+    let ss;
+    if (isomorphy.isServerSide()) {
+      ss = ssContentfull.getService(spaceName, environment, preview);
+    }
+    this.private = {
+      spaceName: spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME,
+      environment: environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT,
+      preview,
+      ss,
+    };
+
+    this.private.baseUrl = `${PROXY_ENDPOINT}/${this.private.spaceName}/${this.private.environment}`;
   }
 
   /**
@@ -116,14 +136,14 @@ class Service {
     let res;
     if (this.private.preview) {
       if (isomorphy.isServerSide()) {
-        return ss.previewService.getAsset(id, true);
+        return this.private.ss.getAsset(id, true);
       }
-      res = await fetch(`${PROXY_ENDPOINT}/preview/assets/${id}`);
+      res = await fetch(`${this.private.baseUrl}/preview/assets/${id}`);
     } else {
       if (isomorphy.isServerSide()) {
-        return ss.cdnService.getAsset(id, true);
+        return this.private.ss.getAsset(id, true);
       }
-      res = await fetch(`${PROXY_ENDPOINT}/published/assets/${id}`);
+      res = await fetch(`${this.private.baseUrl}/published/assets/${id}`);
 
       /*
       const index = await getIndex();
@@ -148,14 +168,14 @@ class Service {
     let res;
     if (this.private.preview) {
       if (isomorphy.isServerSide()) {
-        return ss.previewService.getEntry(id);
+        return this.private.ss.getEntry(id);
       }
-      res = await fetch(`${PROXY_ENDPOINT}/preview/entries/${id}`);
+      res = await fetch(`${this.private.baseUrl}/preview/entries/${id}`);
     } else {
       if (isomorphy.isServerSide()) {
-        return ss.cdnService.getEntry(id);
+        return this.private.ss.getEntry(id);
       }
-      res = await fetch(`${PROXY_ENDPOINT}/published/entries/${id}`);
+      res = await fetch(`${this.private.baseUrl}/published/entries/${id}`);
 
       /*
       const index = await getIndex();
@@ -186,15 +206,14 @@ class Service {
     /* At server-side we just directly call server-side service,
      * to query assets from Contentful API. */
     if (isomorphy.isServerSide()) {
-      const service = this.private.preview ? ss.previewService : ss.cdnService;
-      return service.queryAssets(query, true);
+      return this.private.ss.queryAssets(query, true);
     }
 
     /* At client-side we send HTTP request to Community App server,
      * which proxies it to Contentful API, via the same server-side service
      * used above. */
-    let url = this.private.preview ? 'preview' : 'published';
-    url = `${PROXY_ENDPOINT}/${url}/assets`;
+    let url = this.private.baseUrl;
+    url += this.private.preview ? '/preview' : '/published';
     if (query) url += `?${_.isString(query) ? query : qs.stringify(query)}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(res.statusText);
@@ -211,15 +230,15 @@ class Service {
     /* At server-side we just directly call server-side service,
      * to query entries from Contentful API. */
     if (isomorphy.isServerSide()) {
-      const service = this.private.preview ? ss.previewService : ss.cdnService;
-      return service.queryEntries(query);
+      return this.private.ss.queryEntries(query);
     }
 
     /* At client-side we send HTTP request to Community App server,
      * which proxies it to Contentful API via the same server-side service
      * used above. */
-    let url = this.private.preview ? 'preview' : 'published';
-    url = `${PROXY_ENDPOINT}/${url}/entries`;
+    let url = this.private.baseUrl;
+    url += this.private.preview ? '/preview' : '/published';
+    url += '/entries';
     if (query) url += `?${qs.stringify(query)}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(res.statusText);
@@ -227,13 +246,19 @@ class Service {
   }
 }
 
-export const cdnService = new Service();
-export const previewService = new Service(true);
-
 /**
  * Returns an intance of CDN or Preview service.
+ * @param {String} spaceName
+ * @param {String} environment
  * @param {Boolean} preview
  */
-export function getService(preview) {
-  return preview ? previewService : cdnService;
+export function getService({ spaceName, environment, preview }) {
+  return new Service({
+    spaceName: spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME,
+    environment: environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT,
+    preview,
+  });
 }
+
+/* Using default export would be confusing in this case. */
+export default undefined;

@@ -3,6 +3,7 @@
 exports[`Match shadow snapshot 1`] = `
 <ViewportLoader
   baseUrl=""
+  environment={null}
   id={null}
   preview={false}
   query={
@@ -10,5 +11,6 @@ exports[`Match shadow snapshot 1`] = `
       "fields.name": "Community 2 - Home Page",
     }
   }
+  spaceName={null}
 />
 `;

@@ -24,12 +24,16 @@ const THEMES = {
 
 /* Loads banner background asset. */
 function BackgroundLoader(props) {
-  const { banner, preview } = props;
+  const {
+    banner, preview, spaceName, environment,
+  } = props;
   const assetId = banner.backgroundImage.sys.id;
   return (
     <ContentfulLoader
       assetIds={assetId}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
         <Banner
           {...props}
@@ -42,19 +46,31 @@ function BackgroundLoader(props) {
   );
 }
 
+
+BackgroundLoader.defaultProps = {
+  spaceName: null,
+  environment: null,
+};
+
 BackgroundLoader.propTypes = {
   banner: PT.shape().isRequired,
   id: PT.string.isRequired,
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 /* Loads the main banner entry. */
 export default function BannerLoader(props) {
-  const { id, preview } = props;
+  const {
+    id, preview, spaceName, environment,
+  } = props;
   return (
     <ContentfulLoader
       entryIds={id}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
         <BackgroundLoader
           {...props}
@@ -68,9 +84,13 @@ export default function BannerLoader(props) {
 
 BannerLoader.defaultProps = {
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 BannerLoader.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

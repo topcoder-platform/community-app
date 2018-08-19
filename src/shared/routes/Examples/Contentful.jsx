@@ -36,6 +36,17 @@ export default function Contentful({ match }) {
         component={p => <Accordion id={p.match.params.id} preview />}
       />
       <Route
+        path={`${base}/accordion2/:id`}
+        component={p => (
+          <Accordion
+            id={p.match.params.id}
+            spaceName="tcdeveloper"
+            environment="development"
+            preview
+          />
+        )}
+      />
+      <Route
         path={`${base}/menu/:id`}
         component={p => <Menu id={p.match.params.id} preview />}
       />
@@ -44,8 +55,30 @@ export default function Contentful({ match }) {
         component={p => <Banner id={p.match.params.id} preview />}
       />
       <Route
+        path={`${base}/banner2/:id`}
+        component={p => (
+          <Banner
+            id={p.match.params.id}
+            spaceName="tcdeveloper"
+            environment="development"
+            preview
+          />
+        )}
+      />
+      <Route
         path={`${base}/contentblock/:id`}
         component={p => <ContentBlock id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/contentblock2/:id`}
+        component={p => (
+          <ContentBlock
+            id={p.match.params.id}
+            spaceName="tcdeveloper"
+            environment="development"
+            preview
+          />
+        )}
       />
       <Route
         path={`${base}/blogpost/:id`}
@@ -77,7 +110,6 @@ export default function Contentful({ match }) {
               render={(data) => {
                 const blogPost = _.values(data.entries.items)[0];
                 if (!blogPost) return Error404();
-
                 return (
                   <HeroImageLoader
                     blogPost={blogPost.fields}
@@ -97,16 +129,61 @@ export default function Contentful({ match }) {
         component={p => <Quote id={p.match.params.id} preview />}
       />
       <Route
+        path={`${base}/quote2/:id`}
+        component={p => (
+          <Quote
+            id={p.match.params.id}
+            spaceName="tcdeveloper"
+            environment="development"
+            preview
+          />
+        )}
+      />
+      <Route
         path={`${base}/video/:id`}
         component={p => <Video id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/video2/:id`}
+        component={p => (
+          <Video
+            id={p.match.params.id}
+            spaceName="tcdeveloper"
+            environment="development"
+            preview
+          />
+        )}
       />
       <Route
         path={`${base}/route/:id`}
         component={p => <ContentfulRoute baseUrl={p.match.url} id={p.match.params.id} preview />}
       />
       <Route
+        path={`${base}/route2/:id`}
+        component={p => (
+          <ContentfulRoute
+            baseUrl={p.match.url}
+            id={p.match.params.id}
+            spaceName="tcdeveloper"
+            environment="development"
+            preview
+          />
+        )}
+      />
+      <Route
         path={`${base}/viewport/:id`}
         component={p => <Viewport id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/viewport2/:id`}
+        component={p => (
+          <Viewport
+            id={p.match.params.id}
+            spaceName="tcdeveloper"
+            environment="development"
+            preview
+          />
+        )}
       />
       <Route
         path={`${base}/tabs/:id`}

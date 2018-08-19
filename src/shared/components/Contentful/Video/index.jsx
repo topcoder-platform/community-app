@@ -10,11 +10,15 @@ import YouTubeVideo from 'components/YouTubeVideo';
 
 /* Loads the video entry and render the YouTubeVideo component. */
 export default function VideoLoader(props) {
-  const { id, preview } = props;
+  const {
+    id, preview, spaceName, environment,
+  } = props;
   return (
     <ContentfulLoader
       entryIds={id}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={(data) => {
         const video = data.entries.items[id].fields;
         return (
@@ -33,9 +37,13 @@ export default function VideoLoader(props) {
 
 VideoLoader.defaultProps = {
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 VideoLoader.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

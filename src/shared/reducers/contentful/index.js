@@ -19,6 +19,7 @@
 import _ from 'lodash';
 import actions from 'actions/contentful';
 import { errors } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
 
 import space from './space';
 
@@ -27,13 +28,29 @@ const { fireErrorMessage } = errors;
 const validActions = new Set(_.values(actions.contentful)
   .filter(_.isFunction).map(action => action.toString()));
 
+
+function getDefaultState(action) {
+  const contentfulConfig = config.SECRET.CONTENTFUL;
+  const def = {};
+  _.map(contentfulConfig, (spaceConfig, spaceName) => {
+    def[spaceName] = {};
+    _.map(_.keys(spaceConfig), (name) => {
+      if (name !== 'SPACE_ID') {
+        const environment = name;
+        def[spaceName][environment] = {
+          preview: space(undefined, action),
+          published: space(undefined, action),
+        };
+      }
+    });
+  });
+  return def;
+}
+
 function create(init) {
   return (state, action) => {
     if (!state) {
-      const def = {
-        preview: space(undefined, action),
-        published: space(undefined, action),
-      };
+      const def = getDefaultState(action);
       return init ? _.defaults(init, def) : def;
     }
 
@@ -41,24 +58,27 @@ function create(init) {
 
     const { error, payload } = action;
 
-    if (error) {
+    const newState = _.clone(state);
+    const spaceName = payload.spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
+    const environment = payload.environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
+    const res = _.get(newState, `${spaceName}.${environment}`);
+    if (error || !res) {
       fireErrorMessage('CMS-related error', '');
       return state;
     }
-
-    const res = _.clone(state);
+    const st = state[spaceName][environment];
     switch (action.type) {
       case actions.contentful.getContentDone.toString():
       case actions.contentful.queryContentDone.toString():
-        res.preview = space(state.preview, actions.contentful.cleanState());
-        res.published = space(state.published, actions.contentful.cleanState());
+        res.preview = space(st.preview, actions.contentful.cleanState());
+        res.published = space(st.published, actions.contentful.cleanState());
         break;
       default:
     }
 
     const key = payload.preview ? 'preview' : 'published';
     res[key] = space(res[key], action);
-    return res;
+    return newState;
   };
 }
 
