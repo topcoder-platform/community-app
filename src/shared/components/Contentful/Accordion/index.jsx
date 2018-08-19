@@ -15,6 +15,8 @@ function AccordionItemsLoader(props) {
   const {
     ids,
     preview,
+    spaceName,
+    environment,
     title,
   } = props;
 
@@ -22,6 +24,8 @@ function AccordionItemsLoader(props) {
     <ContentfulLoader
       entryIds={ids}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
         <Accordion title={title}>
           {
@@ -44,9 +48,16 @@ function AccordionItemsLoader(props) {
   );
 }
 
+AccordionItemsLoader.defaultProps = {
+  spaceName: null,
+  environment: null,
+};
+
 AccordionItemsLoader.propTypes = {
   ids: PT.arrayOf(PT.string).isRequired,
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
   title: PT.string.isRequired,
 };
 
@@ -54,12 +65,16 @@ export default function ContentfulAccordion(props) {
   const {
     id,
     preview,
+    spaceName,
+    environment,
   } = props;
 
   return (
     <ContentfulLoader
       entryIds={id}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={(data) => {
         const { fields } = Object.values(data.entries.items)[0];
         if (!fields) return null;
@@ -68,6 +83,8 @@ export default function ContentfulAccordion(props) {
           <AccordionItemsLoader
             ids={_.map(fields.items, 'sys.id')}
             preview={preview}
+            spaceName={spaceName}
+            environment={environment}
             title={fields.title || fields.name}
           />
         );
@@ -79,9 +96,13 @@ export default function ContentfulAccordion(props) {
 
 ContentfulAccordion.defaultProps = {
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 ContentfulAccordion.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

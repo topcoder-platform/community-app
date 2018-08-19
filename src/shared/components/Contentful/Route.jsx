@@ -21,6 +21,8 @@ function ChildRoutesLoader(props) {
     error404,
     fields,
     preview,
+    spaceName,
+    environment,
     url,
   } = props;
 
@@ -30,6 +32,8 @@ function ChildRoutesLoader(props) {
     <ContentfulLoader
       entryIds={ids}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
         <Switch>
           <Route
@@ -48,7 +52,14 @@ function ChildRoutesLoader(props) {
                 />
                 {
                   fields.viewport
-                    ? <Viewport id={fields.viewport.sys.id} preview={preview} /> : <Error404 />
+                    ? (
+                      <Viewport
+                        id={fields.viewport.sys.id}
+                        preview={preview}
+                        spaceName={spaceName}
+                        environment={environment}
+                      />
+                    ) : <Error404 />
                 }
               </React.Fragment>
             )}
@@ -62,10 +73,12 @@ function ChildRoutesLoader(props) {
                 // determine if any Routes have matched
                 path={buildUrl(url, childRoute.fields.url)}
                 preview={preview}
+                spaceName={spaceName}
+                environment={environment}
               />
             )))
           }
-          { error404 || <Route component={error404 || Error404} /> }
+          {error404 || <Route component={error404 || Error404} />}
         </Switch>
       )}
       renderPlaceholder={LoadingIndicator}
@@ -75,12 +88,16 @@ function ChildRoutesLoader(props) {
 
 ChildRoutesLoader.defaultProps = {
   error404: null,
+  spaceName: null,
+  environment: null,
 };
 
 ChildRoutesLoader.propTypes = {
   error404: PT.node,
   fields: PT.shape().isRequired,
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
   url: PT.string.isRequired,
 };
 
@@ -92,6 +109,8 @@ export default function ContentfulRoute(props) {
     name,
     path,
     preview,
+    spaceName,
+    environment,
   } = props;
 
   const queries = [];
@@ -105,6 +124,8 @@ export default function ContentfulRoute(props) {
     <ContentfulLoader
       entryQueries={queries}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={(data) => {
         const { fields } = Object.values(data.entries.items)[0];
         const url = path || buildUrl(baseUrl, fields.url);
@@ -118,6 +139,8 @@ export default function ContentfulRoute(props) {
                 error404={error404}
                 fields={fields}
                 preview={preview}
+                spaceName={spaceName}
+                environment={environment}
                 url={url}
               />
             )}
@@ -136,6 +159,8 @@ ContentfulRoute.defaultProps = {
   name: '',
   path: '',
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 ContentfulRoute.propTypes = {
@@ -145,4 +170,6 @@ ContentfulRoute.propTypes = {
   name: PT.string,
   path: PT.string, // This can also be used to override the url from Contentful
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

@@ -39,6 +39,8 @@ module.exports = {
 
   CONTENTFUL: {
     LOCAL_MODE: false,
+    DEFAULT_SPACE_NAME: 'default',
+    DEFAULT_ENVIRONMENT: 'master',
   },
 
   /* API token for logentries.com. The token below is just for local testing of
@@ -115,7 +117,7 @@ module.exports = {
       RELIABILITY_RATINGS_AND_BONUSES: 'https://help.topcoder.com/hc/en-us/articles/219240797-Development-Reliability-Ratings-and-Bonuses',
       STOCK_ART_POLICY: 'http://help.topcoder.com/hc/en-us/articles/217481408-Policy-for-Stock-Artwork-in-Design-Submissions',
       STUDIO_FONTS_POLICY:
-      'http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges',
+        'http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges',
       TOPCODER_TERMS: 'https://www.topcoder.com/community/how-it-works/terms/',
     },
 
@@ -151,11 +153,21 @@ module.exports = {
   /* Secret part of the configuration. Nest into this section any sensitive
    * parameters that should never be send to the client side. */
   SECRET: {
-    /* Space ID and API keys for Contenful CMS. */
     CONTENTFUL: {
-      CDN_API_KEY: '',
-      PREVIEW_API_KEY: '',
-      SPACE_ID: '',
+      default: { // Human-readable name of space
+        SPACE_ID: '',
+        master: { // Name of an environment
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
+      tcdeveloper: { // Name of another space
+        SPACE_ID: '',
+        development: { // Name of an environment
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
     },
 
     OPEN_EXCHANGE_RATES_KEY: '',

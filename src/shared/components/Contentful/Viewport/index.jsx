@@ -36,6 +36,8 @@ function ViewportContentLoader(props) {
   const {
     contentIds,
     preview,
+    spaceName,
+    environment,
     themeName,
     grid,
   } = props;
@@ -60,41 +62,91 @@ function ViewportContentLoader(props) {
     <ContentfulLoader
       entryIds={contentIds}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
         <Viewport extraStylesForContainer={fixStyle(extraStylesForContainer)} theme={theme}>
           {
             contentIds.map((id) => {
               if (data.entries.items[id].sys.contentType.sys.id === 'accordion') {
                 return (
-                  <Accordion id={id} key={id} preview={preview} />
+                  <Accordion
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'banner') {
                 return (
-                  <Banner id={id} key={id} preview={preview} />
+                  <Banner
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
                 return (
-                  <ContentBlock id={id} key={id} preview={preview} />
+                  <ContentBlock
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
                 return (
-                  <Quote id={id} key={id} preview={preview} />
+                  <Quote
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'video') {
                 return (
-                  <Video id={id} key={id} preview={preview} />
+                  <Video
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'viewport') {
                 return (
-                  <ViewportLoader id={id} key={id} preview={preview} />
+                  <ViewportLoader
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'appComponent') {
                 return (
-                  <AppComponentLoader id={id} key={id} preview={preview} />
+                  <AppComponentLoader
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'countdown') {
                 return (
-                  <Countdown id={id} key={id} preview={preview} />
+                  <Countdown
+                    id={id}
+                    key={id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
                 );
               }
               fireErrorMessage('Unsupported content type from contentful', '');
@@ -112,6 +164,8 @@ function AppComponentLoader(props) {
   const {
     id,
     preview,
+    spaceName,
+    environment,
   } = props;
 
   const queries = [];
@@ -124,6 +178,8 @@ function AppComponentLoader(props) {
     <ContentfulLoader
       entryQueries={queries}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => _.map(data.entries.items, (appComponent) => {
         if (appComponent.fields.type === 'TCO-Leaderboard') {
           return (
@@ -156,15 +212,21 @@ function AppComponentLoader(props) {
 AppComponentLoader.defaultProps = {
   id: null,
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 AppComponentLoader.propTypes = {
   id: PT.string,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
+  spaceName: null,
+  environment: null,
   themeName: 'Column',
   grid: PT.shape({
     columns: 3,
@@ -176,6 +238,8 @@ ViewportContentLoader.propTypes = {
   contentIds: PT.arrayOf(PT.string.isRequired).isRequired,
   extraStylesForContainer: PT.shape(),
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
   themeName: PT.string,
   grid: PT.shape(),
 };
@@ -185,6 +249,8 @@ function ViewportLoader(props) {
   const {
     id,
     preview,
+    spaceName,
+    environment,
     query,
   } = props;
 
@@ -202,6 +268,8 @@ function ViewportLoader(props) {
     <ContentfulLoader
       entryQueries={queries}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => _.map(data.entries.items, viewport => (
         <ViewportContentLoader
           {...props}
@@ -209,6 +277,8 @@ function ViewportLoader(props) {
           extraStylesForContainer={viewport.fields.extraStylesForContainer}
           key={viewport.sys.id}
           preview={preview}
+          spaceName={spaceName}
+          environment={environment}
           themeName={viewport.fields.theme}
           grid={{
             columns: viewport.fields.gridColumns,
@@ -224,12 +294,16 @@ function ViewportLoader(props) {
 ViewportLoader.defaultProps = {
   id: null,
   preview: false,
+  spaceName: null,
+  environment: null,
   query: null,
 };
 
 ViewportLoader.propTypes = {
   id: PT.string,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
   query: PT.shape(),
 };
 

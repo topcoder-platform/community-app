@@ -20,7 +20,9 @@ const THEMES = {
 
 /* Loads content block background asset. */
 function BackgroundLoader(props) {
-  const { contentBlock, preview } = props;
+  const {
+    contentBlock, preview, spaceName, environment,
+  } = props;
   const { image } = contentBlock;
   if (image) {
     const assetId = image.sys.id;
@@ -28,6 +30,8 @@ function BackgroundLoader(props) {
       <ContentfulLoader
         assetIds={assetId}
         preview={preview}
+        spaceName={spaceName}
+        environment={environment}
         render={data => (
           <ContentBlock
             {...props}
@@ -42,19 +46,31 @@ function BackgroundLoader(props) {
   return <ContentBlock {...props} theme={THEMES[contentBlock.baseTheme]} />;
 }
 
+
+BackgroundLoader.defaultProps = {
+  spaceName: null,
+  environment: null,
+};
+
 BackgroundLoader.propTypes = {
   contentBlock: PT.shape().isRequired,
   id: PT.string.isRequired,
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 /* Loads the main content block entry. */
 export default function ContentBlockLoader(props) {
-  const { id, preview } = props;
+  const {
+    id, preview, spaceName, environment,
+  } = props;
   return (
     <ContentfulLoader
       entryIds={id}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
         <BackgroundLoader
           {...props}
@@ -68,9 +84,13 @@ export default function ContentBlockLoader(props) {
 
 ContentBlockLoader.defaultProps = {
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 ContentBlockLoader.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };
