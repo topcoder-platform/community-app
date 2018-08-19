@@ -199,7 +199,7 @@ export function getSpaceId(spaceName) {
  * @param {String} environment
  * @param {Boolean} preview
  */
-export function getService({ spaceName, environment, preview }) {
+export function getService(spaceName, environment, preview) {
   if (!services) {
     services = initServiceInstances();
   }

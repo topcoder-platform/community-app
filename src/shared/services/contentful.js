@@ -112,7 +112,11 @@ class Service {
    */
   constructor(spaceConfig) {
     const { spaceName, environment, preview } = spaceConfig;
-    const ss = ssContentfull.getService({ spaceName, environment, preview });
+
+    let ss;
+    if (isomorphy.isServerSide()) {
+      ss = ssContentfull.getService(spaceName, environment, preview);
+    }
     this.private = {
       spaceName: spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME,
       environment: environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT,
@@ -242,26 +246,6 @@ class Service {
   }
 }
 
-let services;
-
-function initServiceInstances() {
-  const contentfulConfig = config.SECRET.CONTENTFUL;
-  services = {};
-  _.map(contentfulConfig, (spaceConfig, spaceName) => {
-    services[spaceName] = {};
-    _.map(spaceConfig, (env, name) => {
-      if (name !== 'SPACE_ID') {
-        const environment = name;
-        const svcs = {};
-        svcs.previewService = new Service({ spaceName, environment, preview: true });
-        svcs.cdnService = new Service({ spaceName, environment, preview: false });
-        services[spaceName][environment] = svcs;
-      }
-    });
-  });
-  return services;
-}
-
 /**
  * Returns an intance of CDN or Preview service.
  * @param {String} spaceName
@@ -269,22 +253,12 @@ function initServiceInstances() {
  * @param {Boolean} preview
  */
 export function getService({ spaceName, environment, preview }) {
-  const space = spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
-  const env = environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
-
-  if (!services) {
-    services = initServiceInstances();
-  }
-  if (!services[space]) {
-    throw new Error(`space : '${space}' is not configured.`);
-  }
-  if (!services[space][env]) {
-    throw new Error(`environment  : '${env}' is not configured for space : '${space}.`);
-  }
-  const service = services[space][env];
-  return preview ? service.previewService : service.cdnService;
+  return new Service({
+    spaceName: spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME,
+    environment: environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT,
+    preview,
+  });
 }
-
 
 /* Using default export would be confusing in this case. */
 export default undefined;
