@@ -101,7 +101,6 @@ export default function PodiumSpot(props) {
           <span styleName="styles.value">{competitor.points}</span>
           <span>points</span>
         </div>
-        <div styleName="styles.clear" />
       </div>
     </div>
   );

@@ -99,8 +99,6 @@ SettingsContainer.propTypes = {
   uploadPhoto: PT.func.isRequired,
   deletePhoto: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
-  addSkill: PT.func.isRequired,
-  hideSkill: PT.func.isRequired,
   addWebLink: PT.func.isRequired,
   deleteWebLink: PT.func.isRequired,
   linkExternalAccount: PT.func.isRequired,
@@ -133,11 +131,13 @@ function mapStateToProps(state) {
     settingsUI: state.page.ui.settings,
     settings: state.settings,
     userTraits: state.settings.userTraits,
+    skills: state.profile.skills,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   const profileActions = actions.profile;
+  const lookupActions = actions.lookup;
 
   const loadTabData = ({
     handle,
@@ -146,28 +146,14 @@ function mapDispatchToProps(dispatch) {
     settingsTab,
   }) => {
     dispatch(profileActions.loadProfile(handle));
-
     if (settingsTab === TABS.PROFILE) {
-      dispatch(profileActions.getSkillsInit());
-      dispatch(profileActions.getCredentialInit());
-      dispatch(profileActions.getLinkedAccountsInit());
-      dispatch(profileActions.getExternalAccountsInit());
-      dispatch(profileActions.getExternalLinksInit());
-      dispatch(profileActions.getCredentialDone(profile, tokenV3));
-      dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
-      dispatch(profileActions.getExternalAccountsDone(handle));
-      dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getSkillsDone(handle));
+      dispatch(lookupActions.getSkillTagsInit());
+      dispatch(lookupActions.getSkillTagsDone());
     } else if (settingsTab === TABS.PREFERENCES) {
-      dispatch(profileActions.getEmailPreferencesInit());
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
-      dispatch(profileActions.getCredentialInit());
-      dispatch(profileActions.getLinkedAccountsInit());
-      dispatch(profileActions.getExternalAccountsInit());
-      dispatch(profileActions.getExternalLinksInit());
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
-      dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
     }
@@ -196,14 +182,6 @@ function mapDispatchToProps(dispatch) {
     updateProfile: (profile, tokenV3) => {
       dispatch(profileActions.updateProfileInit());
       dispatch(profileActions.updateProfileDone(profile, tokenV3));
-    },
-    addSkill: (handle, tokenV3, skill) => {
-      dispatch(profileActions.addSkillInit());
-      dispatch(profileActions.addSkillDone(handle, tokenV3, skill));
-    },
-    hideSkill: (handle, tokenV3, skill) => {
-      dispatch(profileActions.hideSkillInit());
-      dispatch(profileActions.hideSkillDone(handle, tokenV3, skill));
     },
     linkExternalAccount: (profile, tokenV3, providerType, callbackUrl) => {
       dispatch(profileActions.linkExternalAccountInit());
@@ -237,11 +215,21 @@ function mapDispatchToProps(dispatch) {
     addUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.addUserTrait(handle, traitId, data, tokenV3));
     },
+    addUserSkill: (handle, skill, tokenV3) => {
+      dispatch(actions.profile.addSkillInit());
+      dispatch(actions.profile.addSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })));
+    },
     updateUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.updateUserTrait(handle, traitId, data, tokenV3));
     },
     deleteUserTrait: (handle, traitId, tokenV3) => {
       dispatch(actions.settings.deleteUserTrait(handle, traitId, tokenV3));
+    },
+    deleteUserSkill: (handle, skill, tokenV3) => {
+      dispatch(actions.profile.hideSkillInit());
+      dispatch(
+        actions.profile.hideSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })),
+      );
     },
   };
 }

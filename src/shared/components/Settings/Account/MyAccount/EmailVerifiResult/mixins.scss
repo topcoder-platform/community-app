@@ -2,7 +2,7 @@
  Common mixins for Email Verification Result Page
  */
 
-@import '~styles/mixins';
+@import '../../../style';
 
 @mixin outer-container {
   background-color: $tc-gray-neutral-dark;

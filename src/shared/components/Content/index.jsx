@@ -250,10 +250,14 @@ export default function Content() {
           </code>
           {' '}
           endpoint.
-                    Valid link on dev
-          {' '}
+          Valid links on dev:
+          <br />
           <Link to="/members/TonyJ">
-            here.
+            Profile 1.
+          </Link>
+          <br />
+          <Link to="/members/mess">
+            Profile 2.
           </Link>
         </li>
         <li>
@@ -408,6 +412,13 @@ export default function Content() {
       </h3>
       <ul>
         <li>
+          <Link to="/examples/contentful/slider/6VvsA1RgkwaEamS66wiEMy">
+            <code>
+ContentSlider
+            </code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm">
             <code>
               Accordion
@@ -425,6 +436,20 @@ export default function Content() {
           <Link to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS">
             <code>
               ContentBlock
+            </code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/blogpost/1tKTZsVzk40kSYgG0imCKS">
+            <code>
+BlogPost
+            </code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/blog/TCO Blog/1">
+            <code>
+Blog
             </code>
           </Link>
         </li>

@@ -37,6 +37,7 @@ export default class DistributionGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.mobileWidth = 0;
     this.graphRef = React.createRef();
   }
 
@@ -45,7 +46,9 @@ export default class DistributionGraph extends React.Component {
     $scope.desktop = window.innerWidth >= 900;
     this.draw();
     this.resizeHandle = () => {
-      if (window.innerWidth < 900 && $scope.desktop) {
+      if (window.innerWidth < 900
+        && ($scope.desktop
+        || (this.mobileWidth !== DistributionGraph.getMobileWidthGrapthMeasurements()))) {
         $scope.desktop = false;
         this.draw();
       } else if (window.innerWidth >= 900 && !$scope.desktop) {
@@ -65,6 +68,13 @@ export default class DistributionGraph extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeHandle);
+  }
+
+  static getMobileWidthGrapthMeasurements() {
+    if (window.innerWidth < 400) {
+      return 250;
+    }
+    return 370;
   }
 
   draw() {
@@ -87,7 +97,7 @@ export default class DistributionGraph extends React.Component {
     };
 
     const mobileMeasurements = {
-      w: 370,
+      w: 0,
       h: 200,
       padding: {
         top: 50,
@@ -98,7 +108,12 @@ export default class DistributionGraph extends React.Component {
     };
 
     d3.select($scope.graphRef.current).select('svg').remove();
-    const { w, h, padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    let { w } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    const { h, padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    if (!$scope.desktop) {
+      w = DistributionGraph.getMobileWidthGrapthMeasurements();
+      this.mobileWidth = w;
+    }
     const totalW = w + padding.left + padding.right;
     const totalH = h + padding.top + padding.bottom;
 

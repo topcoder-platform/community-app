@@ -10,10 +10,10 @@ const TABS = {
   PROFILE: {
     BASIC: 'basic info',
     LANGUAGE: 'language',
+    SKILL: 'skill',
     EDUCATION: 'education',
     WORK: 'work',
     ORGANIZATION: 'organization',
-    SKILL: 'skill',
     HOBBY: 'hobby',
     COMMUNITY: 'community',
   },

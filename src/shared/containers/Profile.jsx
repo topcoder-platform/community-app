@@ -48,6 +48,20 @@ class ProfileContainer extends React.Component {
       return <Error404 />;
     }
 
+    if (info && info.tracks && info.tracks.length > 0) {
+      const trackRankings = {
+        COPILOT: 0,
+        DATA_SCIENCE: 1,
+        DESIGN: 2,
+        DEVELOP: 3,
+      };
+      info.tracks.sort((track1, track2) => {
+        const track1Ranking = trackRankings[track1];
+        const track2Ranking = trackRankings[track2];
+        return track2Ranking - track1Ranking;
+      });
+    }
+
     return achievements && info && skills && stats
       ? (
         <ProfilePage
@@ -102,6 +116,7 @@ function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   return {
     loadProfile: (handle) => {
+      dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
       dispatch(a.getExternalAccountsInit());

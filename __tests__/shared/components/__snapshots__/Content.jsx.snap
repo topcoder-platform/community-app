@@ -263,13 +263,20 @@ exports[`Matches shallow shapshot 1`] = `
         /members/:handle
       </code>
        
-      endpoint. Valid link on dev
-       
+      endpoint. Valid links on dev:
+      <br />
       <Link
         replace={false}
         to="/members/TonyJ"
       >
-        here.
+        Profile 1.
+      </Link>
+      <br />
+      <Link
+        replace={false}
+        to="/members/mess"
+      >
+        Profile 2.
       </Link>
     </li>
     <li>
@@ -476,6 +483,16 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/contentful/slider/6VvsA1RgkwaEamS66wiEMy"
+      >
+        <code>
+          ContentSlider
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm"
       >
         <code>
@@ -500,6 +517,26 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <code>
           ContentBlock
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/blogpost/1tKTZsVzk40kSYgG0imCKS"
+      >
+        <code>
+          BlogPost
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/blog/TCO Blog/1"
+      >
+        <code>
+          Blog
         </code>
       </Link>
     </li>

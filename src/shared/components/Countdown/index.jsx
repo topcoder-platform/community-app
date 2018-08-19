@@ -22,6 +22,7 @@ export default class Countdown extends React.Component {
   }
 
   componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   tick() {

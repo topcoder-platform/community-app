@@ -71,8 +71,9 @@ function mapStateToProps(state, ownProps) {
   const { joinGroupId } = ownProps;
   let canJoin = !state.auth.profile || !state.auth.profile.groups;
   if (!canJoin) {
+    const communityGroupIds = _.get(state, 'tcCommunties.meta.data.groupIds');
     const int = _.intersection(
-      joinGroupId ? [joinGroupId] : state.tcCommunities.meta.data.groupIds,
+      joinGroupId ? [joinGroupId] : communityGroupIds,
       state.auth.profile.groups.map(g => g.id),
     );
     canJoin = !int.length;
@@ -83,9 +84,9 @@ function mapStateToProps(state, ownProps) {
   else canJoin = JOIN_COMMUNITY.HIDDEN;
 
   return {
-    communityName: state.tcCommunities.meta.data.communityName,
-    communityId: state.tcCommunities.meta.data.communityId,
-    groupIds: state.tcCommunities.meta.data.groupIds,
+    communityName: _.get(state, 'tcCommunities.meta.data.communityName'),
+    communityId: _.get(state, 'tcCommunities.meta.data.communityId'),
+    groupIds: _.get(state, 'tcCommunities.meta.data.groupIds'),
     label: ownProps.label,
     theme: ownProps.theme,
     token: state.auth.tokenV3,

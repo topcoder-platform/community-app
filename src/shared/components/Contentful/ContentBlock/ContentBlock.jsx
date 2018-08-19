@@ -6,9 +6,9 @@ import PT from 'prop-types';
 import React from 'react';
 
 import MarkdownRenderer from 'components/MarkdownRenderer';
+import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
 
-import { themr } from 'react-css-super-themr';
 import defaultTheme from './themes/default.scss';
 
 function ContentBlock({

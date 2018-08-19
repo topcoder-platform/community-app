@@ -4,12 +4,13 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { isomorphy } from 'topcoder-react-utils';
+import Accordion from 'components/Settings/Accordion';
+import MyAccountIcon from 'assets/images/account/sideicons/myaccount.svg';
+import LinkedAccountIcon from 'assets/images/account/sideicons/linkedaccount.svg';
 import SideBar from '../SideBar';
 import ComingSoon from '../ComingSoon';
 import MyAccount from './MyAccount';
 import LinkedAccount from './LinkedAccount';
-
 
 import './styles.scss';
 
@@ -22,20 +23,13 @@ export default function Account(props) {
   const names = Object.keys(tabs).map(key => tabs[key]);
   const currentTab = settingsUI.currentAccountTab;
 
-  let assets;
-  const sideIcons = {};
-  if (isomorphy.isClientSide()) {
-    assets = require.context('assets/images/account/sideicons', false, /svg/);
+  const icons = {
+    'my account': <MyAccountIcon />,
+    'linked account': <LinkedAccountIcon />,
+  };
 
-    if (assets) {
-      names.forEach((name) => {
-        sideIcons[name] = assets(`./${name}.svg`);
-      });
-    }
-  }
-
-  const renderView = () => {
-    switch (currentTab) {
+  const renderTabContent = (tab) => {
+    switch (tab) {
       case 'my account':
         return <MyAccount {...props} />;
       case 'linked account':
@@ -47,16 +41,25 @@ export default function Account(props) {
 
   return (
     <div styleName="account-container">
+      <div styleName="mobile-view">
+        <Accordion
+          icons={icons}
+          names={names}
+          currentSidebarTab={currentTab}
+          renderTabContent={renderTabContent}
+          toggleSidebarTab={toggleAccountSideTab}
+        />
+      </div>
       <div styleName="col-bar">
         <SideBar
-          icons={sideIcons}
+          icons={icons}
           names={names}
           currentTab={currentTab}
           toggle={toggleAccountSideTab}
         />
       </div>
       <div styleName="col-content">
-        {renderView()}
+        { renderTabContent(currentTab) }
       </div>
     </div>
   );

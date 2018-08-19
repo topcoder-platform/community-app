@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import "../../style";
 
 $checkbox-size: $base-unit * 4;
 $checkbox-bg-empty: $tc-gray-neutral-light;
@@ -26,6 +26,33 @@ $checkbox-bg-selected: $tc-dark-blue;
       display: none;
     }
   }
+
+  .sub-title {
+    @include roboto-light;
+
+    color: #888894;
+    line-height: 35px;
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 10px;
+
+    &.second {
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    &.first {
+      margin-bottom: 30px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
 }
 
 .error-message {
@@ -44,17 +71,42 @@ $checkbox-bg-selected: $tc-dark-blue;
   }
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  border-radius: 6px;
-  border: 1px solid $tc-gray-10;
-  padding: 20px 20px 20px 20px;
-  background-color: $tc-gray-neutral-light;
+.form-container-default {
+  @include form-container-default;
+
+  input {
+    @include roboto-regular;
+
+    height: 40px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-bottom: 0;
+  }
+
+  .text-required {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: $tc-red-110;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+}
+
+.form-container-mobile {
+  display: none;
 
   @include xs-to-sm {
     border: 0;
     border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 20px 20px;
+    background-color: $tc-gray-neutral-light;
   }
 
   p {
@@ -207,7 +259,11 @@ $checkbox-bg-selected: $tc-dark-blue;
     font-weight: 500;
     margin: 0;
     padding: 0;
-    width: 156px;
+    width: 250px;
+
+    @include xs-to-sm {
+      width: 156px;
+    }
   }
 
   .complete {

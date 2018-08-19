@@ -94,7 +94,7 @@ Step by Step
               </div>
               <div styleName="how-to-extras">
                 <h1>
-Extras
+                  Extras
                 </h1>
                 <FAQ data={howToExtras} />
               </div>
@@ -103,7 +103,7 @@ Extras
 FAQ
                 </h1>
                 <div styleName="text">
-Here’s a few answers to our most common questions
+Here are a few answers to our most common questions
                 </div>
                 <FAQ data={faq} />
               </div>

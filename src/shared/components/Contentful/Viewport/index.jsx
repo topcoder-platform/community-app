@@ -5,17 +5,22 @@
 import _ from 'lodash';
 import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
+import ChallengesBlock from 'containers/ChallengesBlock';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
+import Menu from 'components/Contentful/Menu';
 import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { AppChunk } from 'topcoder-react-utils';
 import Countdown from 'components/Contentful/Countdown';
+import Tabs from 'components/Contentful/Tabs';
+import AppComponentLoader from 'components/Contentful/AppComponent';
+import ContentSlider from 'components/Contentful/ContentSlider';
 
 import Viewport from './Viewport';
 
@@ -24,6 +29,22 @@ import rowTheme from './themes/row.scss';
 import gridTheme from './themes/grid.scss';
 
 const { fireErrorMessage } = errors;
+
+const COMPONENTS = {
+  accordion: Accordion,
+  appComponent: AppComponentLoader,
+  banner: Banner,
+  blogPost: BlogPost,
+  challengesBlock: ChallengesBlock,
+  contentBlock: ContentBlock,
+  countdown: Countdown,
+  navigationMenu: Menu,
+  quote: Quote,
+  tabs: Tabs,
+  video: Video,
+  viewport: null, /* Assigned to ViewportLoader below. */
+  contentSlider: ContentSlider,
+};
 
 const THEMES = {
   Column: columnTheme,
@@ -40,6 +61,7 @@ function ViewportContentLoader(props) {
     environment,
     themeName,
     grid,
+    baseUrl,
   } = props;
   let {
     extraStylesForContainer,
@@ -65,92 +87,30 @@ function ViewportContentLoader(props) {
       spaceName={spaceName}
       environment={environment}
       render={data => (
-        <Viewport extraStylesForContainer={fixStyle(extraStylesForContainer)} theme={theme}>
+        <Viewport
+          extraStylesForContainer={fixStyle(extraStylesForContainer)}
+          theme={theme}
+        >
           {
             contentIds.map((id) => {
-              if (data.entries.items[id].sys.contentType.sys.id === 'accordion') {
+              const type = data.entries.items[id].sys.contentType.sys.id;
+              const Component = COMPONENTS[type];
+              if (Component) {
                 return (
-                  <Accordion
+                  <Component
+                    baseUrl={baseUrl}
+                    environment={environment}
                     id={id}
                     key={id}
                     preview={preview}
                     spaceName={spaceName}
-                    environment={environment}
-                  />
-                );
-              } if (data.entries.items[id].sys.contentType.sys.id === 'banner') {
-                return (
-                  <Banner
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                    environment={environment}
-                  />
-                );
-              } if (data.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
-                return (
-                  <ContentBlock
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                    environment={environment}
-                  />
-                );
-              } if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
-                return (
-                  <Quote
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                    environment={environment}
-                  />
-                );
-              } if (data.entries.items[id].sys.contentType.sys.id === 'video') {
-                return (
-                  <Video
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                    environment={environment}
-                  />
-                );
-              } if (data.entries.items[id].sys.contentType.sys.id === 'viewport') {
-                return (
-                  <ViewportLoader
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                    environment={environment}
-                  />
-                );
-              } if (data.entries.items[id].sys.contentType.sys.id === 'appComponent') {
-                return (
-                  <AppComponentLoader
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                    environment={environment}
-                  />
-                );
-              } if (data.entries.items[id].sys.contentType.sys.id === 'countdown') {
-                return (
-                  <Countdown
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                    environment={environment}
                   />
                 );
               }
-              fireErrorMessage('Unsupported content type from contentful', '');
-              return null;
+              return fireErrorMessage(
+                'Unsupported content type from contentful',
+                '',
+              );
             })
           }
         </Viewport>
@@ -159,69 +119,6 @@ function ViewportContentLoader(props) {
     />
   );
 }
-
-function AppComponentLoader(props) {
-  const {
-    id,
-    preview,
-    spaceName,
-    environment,
-  } = props;
-
-  const queries = [];
-
-  if (id) {
-    queries.push({ 'sys.id': id, content_type: 'appComponent' });
-  }
-
-  return (
-    <ContentfulLoader
-      entryQueries={queries}
-      preview={preview}
-      spaceName={spaceName}
-      environment={environment}
-      render={data => _.map(data.entries.items, (appComponent) => {
-        if (appComponent.fields.type === 'TCO-Leaderboard') {
-          return (
-            <AppChunk
-              chunkName="leaderboard/chunk"
-              renderClientAsync={() => import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/tco/Leaderboard')
-                .then(({ default: Leaderboard }) => (
-                  <Leaderboard
-                    apiUrl={appComponent.fields.props.leaderboardApiUrl}
-                    title={appComponent.fields.props.title}
-                    podiumSpots={appComponent.fields.props.podiumSpots}
-                    isCopilot={appComponent.fields.props.isCopilot}
-                    key={appComponent.sys.id}
-                  />
-                ))
-              }
-              renderPlaceholder={() => <LoadingIndicator />}
-              key={appComponent.sys.id}
-            />
-          );
-        }
-        fireErrorMessage('Unsupported app component type from contentful', '');
-        return null;
-      })}
-      renderPlaceholder={LoadingIndicator}
-    />
-  );
-}
-
-AppComponentLoader.defaultProps = {
-  id: null,
-  preview: false,
-  spaceName: null,
-  environment: null,
-};
-
-AppComponentLoader.propTypes = {
-  id: PT.string,
-  preview: PT.bool,
-  spaceName: PT.string,
-  environment: PT.string,
-};
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
@@ -242,6 +139,7 @@ ViewportContentLoader.propTypes = {
   environment: PT.string,
   themeName: PT.string,
   grid: PT.shape(),
+  baseUrl: PT.string.isRequired,
 };
 
 /* Loads the main viewport entry. */
@@ -252,6 +150,7 @@ function ViewportLoader(props) {
     spaceName,
     environment,
     query,
+    baseUrl,
   } = props;
 
   const queries = [];
@@ -284,6 +183,7 @@ function ViewportLoader(props) {
             columns: viewport.fields.gridColumns,
             gap: viewport.fields.gridGap,
           }}
+          baseUrl={baseUrl}
         />
       ))}
       renderPlaceholder={LoadingIndicator}
@@ -291,12 +191,15 @@ function ViewportLoader(props) {
   );
 }
 
+COMPONENTS.viewport = ViewportLoader;
+
 ViewportLoader.defaultProps = {
   id: null,
   preview: false,
   spaceName: null,
   environment: null,
   query: null,
+  baseUrl: '',
 };
 
 ViewportLoader.propTypes = {
@@ -305,6 +208,7 @@ ViewportLoader.propTypes = {
   spaceName: PT.string,
   environment: PT.string,
   query: PT.shape(),
+  baseUrl: PT.string,
 };
 
 export default ViewportLoader;

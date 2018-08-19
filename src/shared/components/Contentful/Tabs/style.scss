@@ -1,0 +1,70 @@
+@import "~styles/mixins";
+
+$container-background-gray: #ebebeb;
+$text-color-black: #262628;
+$text-color-gray: #888894;
+$text-color-pannel: #4a4a4a;
+
+.container {
+  @include roboto-regular;
+}
+
+.tablist {
+  @include roboto-regular;
+
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  -webkit-flex-direction: row; /* Safari */
+  flex-direction: row;
+  -webkit-justify-content: center; /* Safari */
+  justify-content: center;
+  padding: 20px;
+  background: $container-background-gray;
+  list-style-type: none;
+
+  @include xs-to-sm {
+    -webkit-flex-direction: column; /* Safari */
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.tab {
+  text-align: center;
+  margin: 0 20px;
+  color: $text-color-black;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  padding: 5px 15px;
+  cursor: pointer;
+
+  @include xs-to-sm {
+    margin: 2px;
+  }
+
+  &:hover,
+  &.selected {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px 0 rgba(38, 38, 40, 0.1);
+  }
+
+  p {
+    small {
+      color: #888894;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 25px;
+      text-align: left;
+    }
+  }
+}
+
+.tabpannel {
+  display: none;
+}
+
+.selectedTabPanel {
+  display: block;
+}

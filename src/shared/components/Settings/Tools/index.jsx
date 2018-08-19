@@ -12,6 +12,8 @@ import SubscriptionsIcon from 'assets/images/tools/sideicons/subscriptions.svg';
 import Devices from 'components/Settings/Tools/Devices';
 import ComingSoon from 'components/Settings/ComingSoon';
 import Software from 'components/Settings/Tools/Software';
+import ServiceProviders from 'components/Settings/Tools/ServiceProviders';
+import Subscriptions from 'components/Settings/Tools/Subscriptions';
 
 import './styles.scss';
 
@@ -37,6 +39,10 @@ export default function Tools(props) {
         return <Devices {...props} />;
       case 'software':
         return <Software {...props} />;
+      case 'service providers':
+        return <ServiceProviders {...props} />;
+      case 'subscriptions':
+        return <Subscriptions {...props} />;
       default:
         return <ComingSoon />;
     }

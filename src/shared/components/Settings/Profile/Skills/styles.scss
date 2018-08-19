@@ -1,43 +1,247 @@
-@import "~styles/mixins";
+@import "../../style";
 
-.edit-skills {
+.hide {
+  display: none;
+}
+
+.skill-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+  @include xs-to-sm {
+    padding-bottom: 0;
+    border-bottom: 1px solid #c3c3c8;
+
+    &.no-skills {
+      border-bottom: none;
+    }
+  }
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .sub-title {
+    @include roboto-light;
+
+    color: #888894;
+    line-height: 35px;
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 10px;
+
+    &.second {
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    &.first {
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+}
+
+.error-message {
+  display: none;
+
+  &.active {
+    @include roboto-medium;
+
+    display: block;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.form-container-default {
+  @include form-container-default;
+
   input {
-    width: 790px;
-    margin: 16px 0 16px 0;
+    @include roboto-regular;
+
+    height: 40px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-bottom: 0;
+  }
+
+  .text-required {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: $tc-red-110;
+    margin-bottom: 5px;
+    text-align: right;
   }
 }
 
-.skills .Select-menu-outer {
-  z-index: 101;
-}
+.form-container-mobile {
+  display: none;
 
-.skills {
-  border-top: 1px solid $tc-gray-20;
-  padding-top: 20px;
-
-  @media screen and (min-width: 768) {
-    padding-top: 30px;
-  }
-
-  .skills-section-fields {
+  @include xs-to-sm {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #c3c3c8;
     display: flex;
     flex-direction: column;
+    padding: 20px 20px 20px 20px;
+    background-color: $tc-gray-neutral-light;
 
-    .list {
+    &.no-skills {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  p {
+    @include roboto-regular;
+
+    font-size: 20px;
+    line-height: 30px;
+    color: $tc-black;
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-content: space-between;
+    width: 100%;
+
+    @include xs-to-sm {
+      display: block;
+      margin-bottom: 0;
+    }
+
+    .field {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin-top: 20px;
+      flex-direction: column;
+      margin-right: 10px;
+      align-content: space-between;
+      width: 100%;
 
-      .skill {
-        margin: 0 20px 10px;
-
-        @media only screen and (min-width: 768px) {
-          margin: 0;
-          margin-right: 30px;
-          margin-bottom: 60px;
-        }
+      @include xs-to-sm {
+        display: block;
+        padding-bottom: 10px;
       }
+
+      label {
+        @include roboto-medium;
+
+        font-size: 12px;
+        line-height: 15px;
+        color: $tc-gray-80;
+        margin-bottom: 6px;
+      }
+
+      .col-1,
+      .col-2 {
+        width: auto;
+      }
+    }
+
+    div.field:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.button-save {
+  align-self: center;
+
+  @include xs-to-sm {
+    margin-top: 10px;
+  }
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+
+    @include xs-to-sm {
+      width: 156px;
+    }
+  }
+
+  .complete {
+    color: $tc-white;
+  }
+}
+
+.skill-list {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 0;
+    margin: 0 -10px;
+
+    @include xs-to-lg {
+      margin: 0 -15px;
+    }
+
+    @include xs-to-sm {
+      width: 300px;
+      padding: 0 22px;
+      margin: 0 -8px;
+    }
+  }
+
+  li {
+    margin: 0 10px 55px;
+    border-radius: 6px;
+
+    @include xs-to-lg {
+      margin: 0 15px 75px;
+    }
+
+    @include xs-to-sm {
+      margin: 0 8px 75px;
+    }
+  }
+
+  @include xs-to-sm {
+    &.hide {
+      display: none;
     }
   }
 }
@@ -46,13 +250,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 106px;
-  width: 80px;
-
-  @media (min-width: 768px) {
-    width: 100px;
-    height: 128px;
-  }
+  height: 75px;
+  width: 75px;
 
   a {
     cursor: pointer;
@@ -71,19 +270,15 @@
     background-color: #fbfbfb;
     padding: 10px;
     border: 1px solid $tc-gray-20;
-    height: 80px;
-    width: 80px;
-
-    @media (min-width: 768px) {
-      height: 100px;
-      width: 100px;
-    }
+    border-radius: 6px;
+    height: 75px;
+    width: 75px;
 
     .remove-indicator {
       position: absolute;
       display: none;
-      top: 34px;
-      left: 30px;
+      top: 20px;
+      left: 17px;
 
       @include background-image-size(40px, 50px);
 
@@ -122,16 +317,13 @@
   }
 
   .name {
-    @include sofia-pro-light;
+    @include roboto-regular;
 
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 12px;
-    color: #3a3c3e;
+    line-height: 15px;
+    color: #262628;
     text-align: center;
-
-    @media (min-width: 768px) {
-      font-size: 14px;
-    }
   }
 
   a.skill-hidden {
@@ -163,5 +355,78 @@
     img {
       opacity: 0.3;
     }
+  }
+}
+
+.mobile-buttons {
+  display: none;
+
+  @include xs-to-sm {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    &.hide {
+      display: none;
+    }
+  }
+}
+
+.mobile-button {
+  background-color: #b3bac5;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 10px;
+  margin: 0 6px;
+  outline: none;
+  width: 10px;
+
+  &.mobile-active {
+    background-color: #0681ff;
+  }
+}
+
+/*
+ * React Select component styling
+ */
+.skill-container .form-container .row .field :global .Select,
+.skill-container .form-container .row .field :global .Select-value span,
+.skill-container.form-container .row .field :global .Select-menu-outer,
+.skill-container.form-container .row .field :global .Select-placeholder,
+.skill-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
+  font-size: 15px;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
+.skill-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 38px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
+.skill-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
+
+  @include xs-to-sm {
+    margin-top: 5px;
   }
 }

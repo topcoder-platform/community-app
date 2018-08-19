@@ -52,7 +52,7 @@
 @media (min-width: 768px) {
   .deletion-confirmation {
     width: 520px;
-    height: 256px;
+    min-height: 256px;
   }
 }
 
@@ -68,8 +68,12 @@
 .deletion-confirmation-message {
   @include merriweather-sans-light;
 
+  margin: 10px 0;
+  width: 100%;
+
   .deletion-confirmation-account-title {
     font-style: italic;
+    word-wrap: break-word;
   }
 }
 

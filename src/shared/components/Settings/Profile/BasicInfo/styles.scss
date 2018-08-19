@@ -1,8 +1,146 @@
-@import "~styles/mixins";
+@import "../../style";
 
 .basic-info-container {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+
+  @include xs-to-sm {
+    padding: 20px;
+    border-bottom: 1px solid $tc-gray-10;
+  }
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .sub-title {
+    @include roboto-light;
+
+    color: #888894;
+    line-height: 35px;
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 10px;
+
+    &.second {
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+
+    &.first {
+      margin-bottom: 30px;
+      margin-top: 10px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+}
+
+.error-message {
+  display: none;
+
+  &.active {
+    @include roboto-medium;
+
+    display: block;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.form-container-default {
+  @include form-container-default;
+
+  input {
+    @include roboto-regular;
+
+    height: 40px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-bottom: 0;
+  }
+
+  .text-required {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: $tc-red-110;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+
+  .text-optional {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: #888894;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+
+    .first-line {
+      display: flex;
+      justify-content: flex-end;
+
+      .description-counts {
+        @include roboto-medium;
+
+        font-size: 11px;
+        color: $tc-dark-blue-110;
+        text-align: right;
+        margin-right: 10px;
+      }
+    }
+
+    .bio-text {
+      height: 169px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
+
+  .user-icon {
+    width: 100%;
+  }
+}
+
+.about-me-container-mobile {
+  display: none;
+
+  @include xs-to-sm {
+    display: flex;
+    align-items: flex-start;
+  }
 
   @include sofia-pro-light;
 
@@ -18,15 +156,26 @@
     }
   }
 
+  .error-message {
+    display: none;
+
+    &.active {
+      @include roboto-medium;
+
+      display: block;
+      border-radius: 5px;
+      background-color: $tc-red-10;
+      color: $tc-red-110;
+      font-size: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
   .form-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-
-    @include xs-to-sm {
-      padding: 20px;
-      border-bottom: 1px solid $tc-gray-10;
-    }
 
     .handle {
       @include sofia-pro-medium;
@@ -77,6 +226,12 @@
           font-weight: 500;
           color: $tc-gray-80;
           margin-bottom: 5px;
+
+          .text-required {
+            font-size: 10px;
+            color: $tc-red-110;
+            margin-left: 5px;
+          }
         }
       }
     }
@@ -103,6 +258,10 @@
       @include xs-to-sm {
         margin-top: 5px;
       }
+    }
+
+    .second-addr {
+      margin-top: 10px;
     }
 
     .mb-user-card {
@@ -182,13 +341,112 @@
   }
 }
 
-.save-button {
+.tracks-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
-  height: 40px;
-  width: 190px;
+
+  .title-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .title {
+      @include sofia-pro-medium;
+
+      font-size: 16px;
+      font-weight: 500;
+      color: $tc-black;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      @include merriweather-sans-regular;
+
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 20px;
+      color: $tc-gray-40;
+      font-style: italic;
+    }
+  }
+
+  .track-list {
+    border-top: 1px solid $tc-gray-neutral-dark;
+  }
+}
+
+.button-save {
+  align-self: center;
+  margin-top: 20px;
+
+  div:first-child {
+    margin: 0;
+  }
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    width: 170px;
+  }
+
+  .white-label {
+    color: $tc-white;
+    margin: 0;
+  }
+}
+
+/*
+ * React Select component styling
+ */
+.basic-info-container .form-container .row .field :global .Select,
+.basic-info-container .form-container .row .field :global .Select-value span,
+.basic-info-container .form-container .row .field :global .Select-menu-outer,
+.basic-info-container.form-container .row .field :global .Select-placeholder,
+.basic-info-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
   font-size: 15px;
 
   @include xs-to-sm {
-    margin-top: 10px;
+    margin-top: 5px;
   }
+}
+
+.basic-info-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 38px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
+.basic-info-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
+}
+
+.col-1,
+.col-2,
+.col-percent50,
+.col-percent35 {
+  width: auto;
 }

@@ -159,6 +159,7 @@ Add a web link
         </div>
         <AddWebLink
           {...props}
+          allLinks={allLinks}
         />
         <div className="form-label">
 Link Your Accounts

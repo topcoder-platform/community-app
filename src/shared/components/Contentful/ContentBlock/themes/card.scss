@@ -1,18 +1,43 @@
 @import "~styles/mixins";
 
+.contentWrapper {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 6px 20px 0 rgba(101, 101, 112, 0.2);
+  border-top: 9px solid $tc-dark-blue;
+  flex-direction: column;
+  padding: 0;
+}
+
 .container {
-  .contentWrapper {
-    background: #fff;
-    border-radius: 7px;
-    box-shadow: 0 6px 20px 0 rgba(101, 101, 112, 0.2);
-    border-top: 9px solid $tc-dark-blue;
+  flex: 1;
+  justify-content: flex-end;
+  margin: 5px;
+  padding: 0;
 
-    .content {
-      @include roboto-regular;
+  &:nth-child(even) .contentWrapper {
+    flex-direction: column;
+  }
+}
 
-      button {
-        margin-left: 0;
-      }
-    }
+.content {
+  @include tc-typography;
+
+  padding: 15px 30px;
+
+  button {
+    margin-left: 0;
+  }
+}
+
+.image {
+  flex: 1;
+  height: 320px;
+  margin: 0;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
   }
 }

@@ -1,7 +1,7 @@
 /* TCO19 banner styling. */
 
 @import "~styles/mixins";
-$contentWrapperPadding: 60px;
+$contentWrapperPadding: 0;
 
 .container {
   background-position: 50% 50%;
@@ -16,11 +16,14 @@ $contentWrapperPadding: 60px;
     opacity: 1;
     position: static;
     transform: none;
-    box-sizing: content-box;
-    padding: $contentWrapperPadding;
+    padding: 120px $contentWrapperPadding;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    @include xs {
-      padding: 15px;
+    @include xs-to-md {
+      padding: 60px 15px;
     }
 
     width: $screen-lg;
@@ -38,11 +41,12 @@ $contentWrapperPadding: 60px;
       }
 
       h1 {
-        font-size: 48px;
+        font-size: 42px;
+        font-weight: 300;
       }
 
       h2 {
-        font-size: 36px;
+        font-size: 20px;
       }
 
       h3 {
@@ -50,7 +54,7 @@ $contentWrapperPadding: 60px;
       }
 
       p {
-        font-size: 14px;
+        font-size: 15px;
         margin-bottom: 1em;
         line-height: 25px;
       }
@@ -58,6 +62,7 @@ $contentWrapperPadding: 60px;
       ul {
         list-style: disc;
         margin-bottom: 1em;
+        margin-left: 20px;
 
         li {
           p {
@@ -68,13 +73,8 @@ $contentWrapperPadding: 60px;
       }
 
       input {
-        width: auto;
+        max-width: 350px;
         margin-right: 5px;
-      }
-
-      small {
-        font-size: 13px;
-        font-weight: 300;
       }
 
       button {

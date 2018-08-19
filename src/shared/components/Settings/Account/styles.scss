@@ -1,18 +1,47 @@
-@import "~styles/mixins";
+@import "../style";
 
 .account-container {
   display: flex;
   flex-direction: row;
   align-content: space-between;
-  padding: 60px 50px 55px 50px;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
 
+  .mobile-view {
+    display: none;
+
+    @include md-to-lg {
+      display: none;
+    }
+
+    @include xs-to-sm {
+      display: block;
+      width: 100%;
+    }
+  }
+
   .col-bar {
-    width: 23%;
-    margin-right: 70px;
+    width: 250px;
+    background-color: #fafafb;
+    padding: 30px;
+    border-bottom-left-radius: 6px;
+
+    @include md-to-lg {
+      width: 90px;
+      padding-right: 30px;
+      margin-right: 0;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 
   .col-content {
-    width: 77%;
+    flex: 1;
+    padding: 30px 80px;
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 }

@@ -34,4 +34,16 @@ export function updateQuery(update) {
   window.history.replaceState(window.history.state, '', query);
 }
 
+/**
+ * Cleans/removes trailing slash from url
+ *
+ * @param  {String} url The url to clean
+ * @return {String}
+ */
+export function removeTrailingSlash(url) {
+  return url.charAt(url.length - 1) === '/'
+    ? url.slice(0, -1)
+    : url;
+}
+
 export default undefined;
