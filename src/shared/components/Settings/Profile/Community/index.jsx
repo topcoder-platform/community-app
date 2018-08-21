@@ -136,8 +136,6 @@ class Community extends React.Component {
     const communities = trait.length === 0 ? {
       cognitive: false,
       blockchain: false,
-      ios: false,
-      predix: false,
     } : trait[0].traits.data[0];
     return _.assign({}, communities);
   }
