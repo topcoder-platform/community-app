@@ -99,9 +99,7 @@ export default class BasicInfo extends React.Component {
 
   onCheckFormValue(newBasicInfo) {
     let invalid = false;
-    let birthDateInvalid = false;
     let errorMessage = '';
-    let dateError = '';
 
     if (!_.trim(newBasicInfo.firstName).length) {
       errorMessage += 'FirstName, ';
@@ -113,43 +111,13 @@ export default class BasicInfo extends React.Component {
       invalid = true;
     }
 
-    if (!_.trim(newBasicInfo.gender).length) {
-      errorMessage += 'Gender, ';
-      invalid = true;
-    }
-
-    if (!_.trim(newBasicInfo.tshirtSize).length) {
-      errorMessage += 'T shirt size, ';
-      invalid = true;
-    }
-
-    if (!_.trim(newBasicInfo.addresses[0].streetAddr1).length
-        || !_.trim(newBasicInfo.addresses[0].city).length
-        || !_.trim(newBasicInfo.addresses[0].stateCode).length
-        || !_.trim(newBasicInfo.addresses[0].zip).length) {
-      errorMessage += 'Address Information, ';
-      invalid = true;
-    }
-
-    if (!_.trim(newBasicInfo.currentLocation).length) {
-      errorMessage += 'Current Location, ';
+    if (!_.trim(newBasicInfo.country).length) {
+      errorMessage += 'Country, ';
       invalid = true;
     }
 
     if (errorMessage.length > 0) {
       errorMessage += 'cannot be empty';
-    }
-
-    if (!_.trim(newBasicInfo.birthDate).length) {
-      dateError += 'Birth Date is incomplete or have an invalid date';
-      birthDateInvalid = true;
-    }
-
-    if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}.${dateError}`;
-    } else if (dateError.length > 0) {
-      errorMessage = dateError;
-      invalid = birthDateInvalid;
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
@@ -488,7 +456,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-percent50">
-                <span styleName="text-required">* Required</span>
                 <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={newBasicInfo.birthDate} required />
               </div>
             </div>
@@ -499,7 +466,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input id="address" name="streetAddr1" type="text" placeholder="Your address" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
               </div>
             </div>
@@ -521,7 +487,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input id="city" name="city" type="text" placeholder="Which city do you live in?" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
               </div>
             </div>
@@ -532,7 +497,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input id="state" name="stateCode" type="text" placeholder="State" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
               </div>
             </div>
@@ -543,7 +507,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input id="zipCode" name="zip" type="text" placeholder="ZIP/Postal Code" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
               </div>
             </div>
@@ -583,7 +546,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <Select
                   name="gender"
                   options={dropdowns.gender}
@@ -603,7 +565,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-percent35">
-                <span styleName="text-required">* Required</span>
                 <Select
                   name="tshirtSize"
                   options={dropdowns.tshirtSize}
@@ -623,7 +584,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input id="currentLocation" name="currentLocation" type="text" placeholder="Where in the world are you currently?" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
               </div>
             </div>
@@ -721,14 +681,12 @@ export default class BasicInfo extends React.Component {
                 <div styleName="field">
                   <label htmlFor="birthDate">
                     Birth Date
-                    <span styleName="text-required">* Required</span>
                   </label>
                   <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={newBasicInfo.birthDate} required />
                 </div>
                 <div styleName="field">
                   <label htmlFor="gender">
                     Gender
-                    <span styleName="text-required">* Required</span>
                   </label>
                   <Select
                     name="gender"
@@ -744,7 +702,6 @@ export default class BasicInfo extends React.Component {
                 <div styleName="field">
                   <label htmlFor="tshirtSize">
                     T-Shirt-Size
-                    <span styleName="text-required">* Required</span>
                   </label>
                   <Select
                     name="tshirtSize"
@@ -762,7 +719,6 @@ export default class BasicInfo extends React.Component {
                 <div styleName="field">
                   <label htmlFor="address">
                     Address
-                    <span styleName="text-required">* Required</span>
                   </label>
                   <input id="address" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
                   <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
@@ -772,6 +728,7 @@ export default class BasicInfo extends React.Component {
                 <div styleName="field">
                   <label htmlFor="country">
                     Country
+                    <span styleName="text-required">* Required</span>
                   </label>
                   <Select
                     name="country"
@@ -811,7 +768,6 @@ export default class BasicInfo extends React.Component {
                 <div styleName="field">
                   <label htmlFor="currentLocation">
                     Current Location
-                    <span styleName="text-required">* Required</span>
                   </label>
                   <input id="currentLocation" name="currentLocation" type="text" placeholder="current Location" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
                 </div>
