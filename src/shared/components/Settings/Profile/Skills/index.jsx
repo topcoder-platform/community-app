@@ -356,7 +356,7 @@ export default class Skills extends React.Component {
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.SKILL ? '' : 'hide';
     // All lookup skills
-    const lookupSkills = lookupData.skillTags || [];
+    const lookupSkills = lookupData.skillTags ? _.sortBy(lookupData.skillTags, s => s.name) : [];
     const buttons = userSkills.slice(0, totalPage);
     const list = isMobileView ? indexList : userSkills;
 
