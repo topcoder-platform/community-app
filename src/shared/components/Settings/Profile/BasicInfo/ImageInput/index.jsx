@@ -152,4 +152,5 @@ ImageInput.propTypes = {
   userTraits: PT.array.isRequired,
   profileState: PT.shape().isRequired,
   uploadPhoto: PT.func.isRequired,
+  profile: PT.shape().isRequired,
 };
