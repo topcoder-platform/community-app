@@ -18,7 +18,7 @@ export default function UserConsentModal(props) {
                         to make your experience more personal.
           </div>
           <div styleName="modal.userconsent-confirmation-message">
-                        You can opt out from personalisation any time in the
+                        You can opt out from personalization any time in the
                         future in at Preferences &gt; Personalization.
           </div>
           <div styleName="modal.userconsent-confirmation-buttons">
