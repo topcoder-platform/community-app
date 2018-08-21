@@ -1,7 +1,5 @@
 import ethereum from 'assets/images/profile/community/ico-ethereum.png';
 import ibmCloud from 'assets/images/profile/community/ico-ibmcloud.png';
-import ios from 'assets/images/profile/community/ico-ios.png';
-import predix from 'assets/images/profile/community/ico-predix.png';
 
 const data = [
   {
