@@ -66,7 +66,7 @@ class FilestackFilePicker extends React.Component {
     setFilestackData({
       filename,
       challengeId,
-      fileUrl: file.url,
+      fileUrl: this.getPath(),
       mimetype,
       size,
       key,
