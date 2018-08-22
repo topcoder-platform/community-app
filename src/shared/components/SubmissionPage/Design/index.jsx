@@ -191,6 +191,7 @@ class Design extends React.Component {
       setSubmissionFilestackData,
       setSourceFilestackData,
       setPreviewFilestackData,
+      submitForm,
     } = this.props;
 
     // Find the state for the FilePickers
@@ -250,6 +251,7 @@ Learn more about formatting your submission file.
                   title="SUBMISSION"
                   fileExtensions={['.zip']}
                   id="file-picker-submission"
+                  challengeId={challengeId}
                   error={fpSubmission.error}
                   // Bind the set functions to the FilePicker's ID
                   setError={_.partial(setFilePickerError, 'file-picker-submission')}
@@ -261,12 +263,14 @@ Learn more about formatting your submission file.
                   setDragged={_.partial(setFilePickerDragged, 'file-picker-submission')}
                   setFilestackData={setSubmissionFilestackData}
                   userId={userId}
+                  submitForm={submitForm}
                 />
                 <FilestackFilePicker
                   mandatory
                   title="SOURCE"
                   fileExtensions={['.zip']}
                   id="file-picker-source"
+                  challengeId={challengeId}
                   error={fpSource.error}
                   setError={_.partial(setFilePickerError, 'file-picker-source')}
                   fileName={fpSource.fileName}
@@ -277,12 +281,14 @@ Learn more about formatting your submission file.
                   setDragged={_.partial(setFilePickerDragged, 'file-picker-source')}
                   setFilestackData={setSourceFilestackData}
                   userId={userId}
+                  submitForm={submitForm}
                 />
                 <FilestackFilePicker
                   mandatory
                   title="PREVIEW"
                   fileExtensions={['.jpg', '.png']}
                   id="file-picker-preview"
+                  challengeId={challengeId}
                   error={fpPreview.error}
                   setError={_.partial(setFilePickerError, 'file-picker-preview')}
                   fileName={fpPreview.fileName}
@@ -293,6 +299,7 @@ Learn more about formatting your submission file.
                   setDragged={_.partial(setFilePickerDragged, 'file-picker-preview')}
                   setFilestackData={setPreviewFilestackData}
                   userId={userId}
+                  submitForm={submitForm}
                 />
               </div>
               <span styleName="desc">
@@ -418,6 +425,8 @@ const filestackDataProp = PT.shape({
   size: PT.number.isRequired,
   key: PT.string.isRequired,
   container: PT.string.isRequired,
+  challengeId: PT.number.isRequired,
+  fileUrl: PT.string.isRequired,
 });
 
 /**

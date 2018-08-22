@@ -15,7 +15,8 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 
-import FilePicker from '../FilePicker';
+import FilestackFilePicker from '../FilestackFilePicker';
+
 import Uploading from '../Uploading';
 import './styles.scss';
 
@@ -30,11 +31,27 @@ class Develop extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.retry = this.retry.bind(this);
     this.back = this.back.bind(this);
+    this.getFormData = this.getFormData.bind(this);
   }
 
   componentWillUnmount() {
     const { resetForm } = this.props;
     resetForm();
+  }
+
+  getFormData() {
+    const {
+      submissionFilestackData: sub,
+      challengeId,
+      userId,
+    } = this.props;
+
+    const formData = new FormData();
+    formData.append('url', sub.fileUrl);
+    formData.append('type', 'ContestSubmission');
+    formData.append('memberId', userId);
+    formData.append('challengeId', challengeId);
+    return formData;
   }
 
   reset() {
@@ -47,14 +64,13 @@ class Develop extends React.Component {
   handleSubmit(e) {
     const { submitForm } = this.props;
     e.preventDefault();
-    this.formData = new FormData(document.getElementById('submit-form'));
-    submitForm(this.formData);
+    submitForm(this.getFormData());
   }
 
   /* User has clicked to go retry the submission after an error */
   retry() {
     const { submitForm } = this.props;
-    submitForm(this.formData);
+    submitForm(this.getFormData());
   }
 
   /* User has clicked to go back to a new submission after a successful submit */
@@ -65,6 +81,7 @@ class Develop extends React.Component {
 
   render() {
     const {
+      userId,
       challengeId,
       challengeName,
       challengesUrl,
@@ -78,10 +95,13 @@ class Develop extends React.Component {
       filePickers,
       setFilePickerError,
       setFilePickerFileName,
+      setFilePickerUploadProgress,
       setFilePickerDragged,
+      setSubmissionFilestackData,
+      submitForm,
     } = this.props;
 
-    const id = '1';
+    const id = 'file-picker-submission';
 
     // Find the state for FilePicker with id of 1 or assign default values
     const fpState = filePickers.find(fp => fp.id === id) || ({
@@ -113,18 +133,24 @@ Please follow the instructions on the Challenge Details page regarding
               </div>
               <div styleName="right">
                 <div styleName="file-picker-container">
-                  <FilePicker
+                  <FilestackFilePicker
                     mandatory
-                    id={id}
-                    title="SUBMISSION"
+                    title="SUBMISSION-DEV"
                     fileExtensions={['.zip']}
+                    id={id}
+                    challengeId={challengeId}
                     error={fpState.error}
                     // Bind the set functions to the FilePicker's ID
                     setError={_.partial(setFilePickerError, id)}
                     fileName={fpState.fileName}
+                    uploadProgress={fpState.uploadProgress}
                     setFileName={_.partial(setFilePickerFileName, id)}
+                    setUploadProgress={_.partial(setFilePickerUploadProgress, id)}
                     dragged={fpState.dragged}
                     setDragged={_.partial(setFilePickerDragged, id)}
+                    setFilestackData={setSubmissionFilestackData}
+                    userId={userId}
+                    submitForm={submitForm}
                   />
                 </div>
                 <p>
@@ -201,16 +227,32 @@ I UNDERSTAND AND AGREE
   }
 }
 
+Develop.defaultProps = {
+  errorMsg: '',
+};
+
+/* Reusable prop validation for Filestack data objects */
+const filestackDataProp = PT.shape({
+  filename: PT.string.isRequired,
+  mimetype: PT.string.isRequired,
+  size: PT.number.isRequired,
+  key: PT.string.isRequired,
+  container: PT.string.isRequired,
+  challengeId: PT.number.isRequired,
+  fileUrl: PT.string.isRequired,
+});
+
 /**
  * Prop Validation
  */
 Develop.propTypes = {
+  userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
-  errorMsg: PT.string.isRequired,
+  errorMsg: PT.string,
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
   track: PT.string.isRequired,
@@ -224,7 +266,10 @@ Develop.propTypes = {
   }).isRequired).isRequired,
   setFilePickerError: PT.func.isRequired,
   setFilePickerFileName: PT.func.isRequired,
+  setFilePickerUploadProgress: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
+  setSubmissionFilestackData: PT.func.isRequired,
+  submissionFilestackData: filestackDataProp.isRequired,
 };
 
 export default Develop;
