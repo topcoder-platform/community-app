@@ -207,6 +207,9 @@ Your Design Files:
               <li>
                 {'Create a JPG preview file.'}
               </li>
+              <li>
+                {'Place the 3 files you just created into a single zip file. This will be what you upload.'}
+              </li>
             </ol>
             <p styleName="link-like-paragraph">
               Trouble formatting your submission or want to learn more?
