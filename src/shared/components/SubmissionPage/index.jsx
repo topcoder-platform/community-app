@@ -9,7 +9,6 @@
 import React from 'react';
 import PT from 'prop-types';
 import Header from './Header';
-import Design from './Design';
 import Develop from './Develop';
 import './styles.scss';
 
@@ -22,7 +21,6 @@ function SubmissionsPage(props) {
     challengeName,
     challengesUrl,
     status,
-    track,
   } = props;
   return (
     <div styleName="container">
@@ -33,14 +31,8 @@ function SubmissionsPage(props) {
           title={challengeName}
         />
         {
-          track === 'DEVELOP'
-          && status === 'ACTIVE'
+          status === 'ACTIVE'
           && <Develop {...props} />
-        }
-        {
-          track === 'DESIGN'
-          && status === 'ACTIVE'
-          && <Design {...props} />
         }
       </div>
     </div>

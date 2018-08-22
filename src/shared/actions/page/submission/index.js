@@ -12,7 +12,6 @@ import { config } from 'topcoder-react-utils';
 
 import design from './design';
 
-const getChallengesService = services.challenge.getService;
 const Api = services.api.default;
 
 /**
@@ -27,9 +26,6 @@ const Api = services.api.default;
  * @return Promise
  */
 function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
-  if (track === 'DESIGN') {
-    return getChallengesService(tokenV3, tokenV2).submit(body, submissionId, track, progress);
-  }
   const api = new Api(config.API.V5, tokenV3);
   const url = '/submissions/';
   return api.upload(url, {
