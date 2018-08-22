@@ -132,6 +132,20 @@ Please follow the instructions on the Challenge Details page regarding
                 </p>
               </div>
               <div styleName="right">
+                <div styleName="submission-hints">
+                  { track === 'DEVELOP' ? (
+                    <div>
+                      <h1>Develop hints title here</h1>
+                      <p>Develop hints text here</p>
+                    </div>
+                  ) : null }
+                  { track === 'DESIGN' ? (
+                    <div>
+                      <h1>Design hints title here</h1>
+                      <p>Design hints text here</p>
+                    </div>
+                  ) : null }
+                </div>
                 <div styleName="file-picker-container">
                   <FilestackFilePicker
                     mandatory
