@@ -1,0 +1,9 @@
+@import "~styles/mixins";
+
+.container {
+  margin: 2em 0;
+
+  @include xl {
+    width: $screen-lg;
+  }
+}

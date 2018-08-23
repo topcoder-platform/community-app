@@ -2,41 +2,40 @@
  * components.page.challenge-details.submission Index Component
  *
  * Description:
- *   Top-level component for the Develop or Design submission components.
- *   Primary purpose is to choose between the above components based on project type
- *   and pass properties from Redux store to the component.
+ *   Top-level component for the Submit component.
  */
 import React from 'react';
 import PT from 'prop-types';
 import Header from './Header';
-import Design from './Design';
-import Develop from './Develop';
+import Submit from './Submit';
 import './styles.scss';
 
 /**
  * SubmissionsPage Component
  */
-const SubmissionsPage = props => (
-  <div styleName="container">
-    <div styleName="content">
-      <Header
-        challengeId={props.challengeId}
-        challengesUrl={props.challengesUrl}
-        title={props.challengeName}
-      />
-      {
-        props.track === 'DEVELOP' &&
-        props.status === 'ACTIVE' &&
-        <Develop {...props} />
-      }
-      {
-        props.track === 'DESIGN' &&
-        props.status === 'ACTIVE' &&
-        <Design {...props} />
-      }
+function SubmissionsPage(props) {
+  const {
+    challengeId,
+    challengeName,
+    challengesUrl,
+    status,
+  } = props;
+  return (
+    <div styleName="container">
+      <div styleName="content">
+        <Header
+          challengeId={challengeId}
+          challengesUrl={challengesUrl}
+          title={challengeName}
+        />
+        {
+          status === 'ACTIVE'
+          && <Submit {...props} />
+        }
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 /* Reusable prop validation for Filestack data objects */
 const filestackDataProp = PT.shape({
@@ -74,11 +73,7 @@ SubmissionsPage.propTypes = {
   setFilePickerFileName: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
-  setSourceFilestackData: PT.func.isRequired,
-  setPreviewFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
-  sourceFilestackData: filestackDataProp.isRequired,
-  previewFilestackData: filestackDataProp.isRequired,
 };
 
 export default SubmissionsPage;

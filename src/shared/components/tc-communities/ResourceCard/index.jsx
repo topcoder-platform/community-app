@@ -16,17 +16,24 @@ function ResourceCard(props) {
   return (
     <div className={theme.container}>
       {Boolean(Icon) && <Icon className={theme.icon} />}
-      <h3 className={theme.title}>{title}</h3>
-      <p className={theme.text}>{text}</p>
-      {link &&
+      <h3 className={theme.title}>
+        {title}
+      </h3>
+      <p className={theme.text}>
+        {text}
+      </p>
+      {link
+        && (
         <div className={theme.linkWrap}>
           <Link
             className={theme.link}
             openNewTab={link.openNewTab}
             to={link.url}
-          >{link.title}
+          >
+            {link.title}
           </Link>
         </div>
+        )
       }
     </div>
   );

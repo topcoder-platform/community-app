@@ -34,24 +34,33 @@ class ErrorMessage extends React.Component {
           styleName="container"
           onWheel={event => event.stopPropagation()}
         >
-          <p styleName="title">{title}</p>
-          <p styleName="details">{details}</p>
+          <p styleName="title">
+            {title}
+          </p>
+          <p styleName="details">
+            {details}
+          </p>
           <p styleName="details">
             We are sorry that you have encountered this problem. Please, contact
             our support
-            &zwnj;{
+            &zwnj;
+            {
               <a
                 href="mailto:support@topcoder.com"
-              >support@topcoder.com
+              >
+support@topcoder.com
               </a>
-            } to help us resolve it as soon as possible.
+            }
+            {' '}
+to help us resolve it as soon as possible.
           </p>
           <DangerButton
             onClick={(e) => {
               e.preventDefault();
               onOk();
             }}
-          >OK
+          >
+OK
           </DangerButton>
         </div>
       </div>

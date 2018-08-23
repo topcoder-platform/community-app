@@ -1,0 +1,24 @@
+@import "~styles/mixins";
+
+.container {
+  margin: 0 auto 60px;
+  max-width: $screen-md;
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 40px;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.title {
+  @include tc-title;
+
+  margin-bottom: 40px;
+}

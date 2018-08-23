@@ -17,31 +17,46 @@ import style from './styles.scss';
 // The container component
 class LeaderboardPageContainer extends React.Component {
   componentDidMount() {
-    if (!(this.props.apiUrl === this.props.loadedApiUrl || this.props.isLoadingLeaderboard)) {
-      this.props.loadLeaderboard(this.props.auth, this.props.apiUrl);
+    const {
+      apiUrl,
+      auth,
+      isLoadingLeaderboard,
+      loadLeaderboard,
+      loadedApiUrl,
+    } = this.props;
+    if (!(apiUrl === loadedApiUrl || isLoadingLeaderboard)) {
+      loadLeaderboard(auth, apiUrl);
     }
   }
 
   render() {
+    const { HeadBanner, leaderboardData } = this.props;
+    const ld = leaderboardData || [];
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
         {/* eslint-disable max-len */}
-        <Banner
-          title="Leaderboard"
-          text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
-          theme={{
-            container: style.bannerContainer,
-            content: style.bannerContent,
-            contentInner: style.bannerContentInner,
-          }}
-          imageSrc="/community-app-assets/themes/wipro/leaderboard/banner.jpg"
-        />
+        {
+          HeadBanner ? <HeadBanner /> : (
+            <Banner
+              title="Leaderboard"
+              text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
+              theme={{
+                container: style.bannerContainer,
+                content: style.bannerContent,
+                contentInner: style.bannerContentInner,
+              }}
+              imageSrc="/community-app-assets/themes/wipro/leaderboard/banner.jpg"
+            />
+          )
+        }
         {/* eslint-enable max-len */}
         <div styleName="Leaderboard">
-          <h2 styleName="section-title">Leaderboard</h2>
-          <Podium competitors={this.props.leaderboardData.slice(0, 3)} />
-          <LeaderboardTable competitors={this.props.leaderboardData.slice(3)} />
+          <h2 styleName="section-title">
+Leaderboard
+          </h2>
+          <Podium competitors={ld.slice(0, 3)} />
+          <LeaderboardTable competitors={ld.slice(3)} />
         </div>
         <NewsletterSignup
           title="Sign up for our newsletter"
@@ -54,6 +69,7 @@ class LeaderboardPageContainer extends React.Component {
 }
 
 LeaderboardPageContainer.defaultProps = {
+  HeadBanner: null,
   leaderboardData: [],
   isLoadingLeaderboard: false,
   loadedApiUrl: null,
@@ -64,6 +80,7 @@ LeaderboardPageContainer.defaultProps = {
 };
 
 LeaderboardPageContainer.propTypes = {
+  HeadBanner: PT.func,
   leaderboardData: PT.arrayOf(PT.shape()),
   isLoadingLeaderboard: PT.bool,
   loadLeaderboard: PT.func.isRequired,
@@ -73,7 +90,7 @@ LeaderboardPageContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  leaderboardData: state.leaderboard.data || [],
+  leaderboardData: state.leaderboard.data,
   isLoadingLeaderboard: state.leaderboard.loading,
   loadedApiUrl: state.leaderboard.loadedApiUrl,
   auth: state.auth,

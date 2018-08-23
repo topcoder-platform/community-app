@@ -21,7 +21,9 @@ export default function AccessDenied({ cause, communityId, redirectLink }) {
       return (
         <div styleName="access-denied">
           <TopcoderLogo />
-          <div styleName="msg">You must be authenticated to access this page.</div>
+          <div styleName="msg">
+You must be authenticated to access this page.
+          </div>
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
@@ -31,7 +33,8 @@ export default function AccessDenied({ cause, communityId, redirectLink }) {
                 window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${communityId}`;
                 event.preventDefault();
               }}
-            >Log In Here
+            >
+Log In Here
             </a>
           </div>
         </div>
@@ -41,17 +44,22 @@ export default function AccessDenied({ cause, communityId, redirectLink }) {
       return (
         <div styleName="access-denied">
           <TopcoderLogo />
-          <div styleName="msg">You are not authorized to access this page.</div>
+          <div styleName="msg">
+You are not authorized to access this page.
+          </div>
         </div>
       );
     case CAUSE.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE:
       return (
         <div styleName="access-denied">
           <TopcoderLogo />
-          <div styleName="msg">You have not submitted to this challenge</div>
+          <div styleName="msg">
+You have not submitted to this challenge
+          </div>
           <PrimaryButton
             to={redirectLink}
-          >Back to the challenge
+          >
+Back to the challenge
           </PrimaryButton>
         </div>
       );

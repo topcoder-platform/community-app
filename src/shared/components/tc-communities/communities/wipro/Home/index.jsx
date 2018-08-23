@@ -5,10 +5,12 @@
  * thus we disable max-len eslint rule for this file
  */
 
+import Banner from 'components/Contentful/Banner';
+import ContentfulLoader from 'containers/ContentfulLoader';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
-import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
+import LoadingIndicator from 'components/LoadingIndicator';
 /*
 import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
@@ -25,8 +27,6 @@ import PT from 'prop-types';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import CommunityStats from 'containers/tc-communities/CommunityStats';
 
-import bannerImage from 'assets/images/communities/wipro/home/banner.jpg';
-
 /*
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
@@ -34,7 +34,6 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 */
 
 import style from './style.scss';
-import bannerStyle from './themes/banner.scss';
 import IconStatStyles from './themes/IconStatStyles.scss';
 // import NewsletterSignupStyle from './themes/newsletter_signup.scss';
 import ImageTextStyles from './themes/imageTextStyle.scss';
@@ -49,19 +48,27 @@ const COMMUNITY_STATS_ICONS = {
   openPrizes: '../../../../../community-app-assets/themes/wipro/prizes.png',
 };
 
-function PrevArrow(props) {
+function PrevArrow({
+  className,
+  onClick,
+}) {
   return (
     <button
-      onClick={props.onClick}
-      className={`${style.PrevArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      onClick={onClick}
+      className={`${style.PrevArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      type="button"
     />);
 }
 
-function NextArrow(props) {
+function NextArrow({
+  className,
+  onClick,
+}) {
   return (
     <button
-      onClick={props.onClick}
-      className={`${style.NextArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      onClick={onClick}
+      className={`${style.NextArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      type="button"
     />);
 }
 
@@ -118,23 +125,14 @@ export default function Home(props) {
 
   return (
     <main>
-      <Banner
-        title="Wipro crowd"
-        link={{
-          title: 'Compete Now',
-          url: 'challenges',
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'banner',
+          'fields.name': 'TopGear - Home - Banner',
         }}
-        imageSrc={bannerImage}
-        theme={bannerStyle}
-      >
-        <p>
-          Compete & win in fun and exciting challenges and join the community
-          of winners!
-        </p>
-        <p styleName="style.banner-highlighted-text">
-          Nova Challenge Series on <span styleName="style.banner-highlighted-text-2">topgear.topcoder.com</span>
-        </p>
-      </Banner>
+        render={d => d.entries.matches[0].items.map(id => <Banner id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
 
       <CommunityStats theme={IconStatStyles} icons={COMMUNITY_STATS_ICONS} />
 
@@ -204,7 +202,8 @@ export default function Home(props) {
             onClick={() => props.resetChallengeListing()}
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
-          >View All Public Challenges
+          >
+View All Public Challenges
           </Link>
         </div>
       </Section>

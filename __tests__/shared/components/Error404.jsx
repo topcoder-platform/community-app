@@ -11,18 +11,17 @@ function render(context) {
   )).toJSON();
 }
 
-test('renders correctly with context', () =>
-  expect(render({})).toMatchSnapshot());
+test('renders correctly with context', () => expect(render({})).toMatchSnapshot());
 
-test('renders correctly without context', () =>
-  expect(renderer.create((
-    <BrowserRouter>
-      <Error404 />
-    </BrowserRouter>
-  )).toJSON()).toMatchSnapshot());
+test('renders correctly without context', () => expect(renderer.create((
+  <BrowserRouter>
+    <Error404 />
+  </BrowserRouter>
+)).toJSON()).toMatchSnapshot());
 
 test('writes error to the context, if provided', () => {
   const context = {};
   render(context);
-  expect(context.status).toBe(404);
+  const { status } = context;
+  expect(status).toBe(404);
 });

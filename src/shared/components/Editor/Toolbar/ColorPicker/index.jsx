@@ -14,15 +14,17 @@ import './style.scss';
 const ColorPicker = ({ onChange, style, visible }) => (
   <div className={style}>
     {
-      visible ?
-        <GithubPicker
-          colors={_.values(EDITOR_COLOR_MAP)}
-          onChange={({ hex }, e) => {
-            e.preventDefault();
-            onChange(_.findKey(EDITOR_COLOR_MAP, value => value === hex));
-          }}
-          styleName="color-picker"
-        />
+      visible
+        ? (
+          <GithubPicker
+            colors={_.values(EDITOR_COLOR_MAP)}
+            onChange={({ hex }, e) => {
+              e.preventDefault();
+              onChange(_.findKey(EDITOR_COLOR_MAP, value => value === hex));
+            }}
+            styleName="color-picker"
+          />
+        )
         : null
     }
   </div>

@@ -41,10 +41,16 @@ const ReviewOpportunityDetailsPage = ({
     <div styleName="page">
 
       <div styleName="header">
-        <h1 styleName="challenge-title">{details.challenge.title}</h1>
+        <h1 styleName="challenge-title">
+          {details.challenge.title}
+        </h1>
         <div styleName="tags">
-          <div styleName="review-opportunity-tag">Review Opportunities</div>
-          <div styleName="subtrack-tag">{details.challenge.subTrack}</div>
+          <div styleName="review-opportunity-tag">
+Review Opportunities
+          </div>
+          <div styleName="subtrack-tag">
+            {details.challenge.subTrack}
+          </div>
         </div>
 
         <Header
@@ -63,7 +69,9 @@ const ReviewOpportunityDetailsPage = ({
               role="link"
               tabIndex="0"
             >
-              REVIEW APPLICATIONS {`(${details.applications ? details.applications.filter(app => app.status !== 'Cancelled').length : 0})`}
+              REVIEW APPLICATIONS
+              {' '}
+              {`(${details.applications ? details.applications.filter(app => app.status !== 'Cancelled').length : 0})`}
             </a>
           </div>
           <div styleName={`tab ${selectedTab === TABS.CHALLENGE_SPEC ? 'selected-tab' : ''}`}>
@@ -77,19 +85,21 @@ const ReviewOpportunityDetailsPage = ({
             </a>
           </div>
           <div styleName="tab">
-            <a href="https://help.topcoder.com/hc/en-us/articles/222503827-Development-Reviewer-Role-Responsibilities" target="_blank" rel="noopener noreferrer">REVIEW PROCESS AND RULES</a>
+            <a href="https://help.topcoder.com/hc/en-us/articles/222503827-Development-Reviewer-Role-Responsibilities" target="_blank" rel="noopener noreferrer">
+REVIEW PROCESS AND RULES
+            </a>
           </div>
         </div>
       </div>
 
       <div styleName="tab-container">
         {
-          selectedTab === TABS.APPLICATIONS ?
-            <ApplicationsTab applications={details.applications} /> : null
+          selectedTab === TABS.APPLICATIONS
+            ? <ApplicationsTab applications={details.applications} /> : null
         }
         {
-          selectedTab === TABS.CHALLENGE_SPEC ?
-            <ChallengeSpecTab challenge={details.challenge} /> : null
+          selectedTab === TABS.CHALLENGE_SPEC
+            ? <ChallengeSpecTab challenge={details.challenge} /> : null
         }
         <Sidebar terms={_.isEmpty(terms) ? requiredTerms : terms} />
       </div>
@@ -102,7 +112,8 @@ const ReviewOpportunityDetailsPage = ({
       register={onHeaderApply}
     />
     {
-      applyModalOpened &&
+      applyModalOpened
+      && (
       <ApplyModal
         details={details}
         handle={handle}
@@ -112,6 +123,7 @@ const ReviewOpportunityDetailsPage = ({
         setRoles={setRoles}
         toggleRole={toggleRole}
       />
+      )
     }
   </div>
 );

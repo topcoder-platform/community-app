@@ -52,7 +52,7 @@ export default function CommunityStats({
           icon={ICON}
           key={key}
           label={LABEL}
-          number={value}
+          number={value.toLocaleString()}
           theme={theme}
         />
       ));
@@ -64,7 +64,8 @@ export default function CommunityStats({
         container: style.container,
         content: style.content,
       }}
-    >{iconsToRender}
+    >
+      {iconsToRender}
     </Section>
   ) : null;
 }

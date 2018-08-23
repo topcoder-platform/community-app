@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="46px" height="46px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Dashboard-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="Dashboard-Cards" transform="translate(-2518.000000, -645.000000)" stroke="#B7B7B7" stroke-width="2">
+            <g id="ico-invite-only-prj" transform="translate(2519.000000, 646.000000)">
+                <path d="M0,0 L44,0 L44,44 L0,44 L0,0 Z" id="Stroke-141" stroke-linecap="square"></path>
+                <path d="M30.89225,8 L17.78425,21.047 C14.92625,20.286 11.75225,21.018 9.51025,23.26 C6.16325,26.607 6.16325,32.034 9.51025,35.382 C12.85825,38.729 18.28525,38.729 21.63225,35.382 C23.87425,33.14 24.60625,29.966 23.84525,27.108 L26.89225,24 L26.89225,20 L30.89225,20 L30.89225,16 L34.89225,16 L36.89225,14 L36.89225,8 L30.89225,8 L30.89225,8 Z" id="Stroke-4332" stroke-linecap="round"></path>
+                <path d="M13.732,31.268 C12.756,30.292 12.756,28.709 13.732,27.732 C14.708,26.756 16.291,26.756 17.268,27.732 C18.244,28.709 18.244,30.292 17.268,31.268 C16.291,32.244 14.708,32.244 13.732,31.268 L13.732,31.268 Z" id="Stroke-4333" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

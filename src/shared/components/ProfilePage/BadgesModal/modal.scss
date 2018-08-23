@@ -1,0 +1,29 @@
+@import "~styles/mixins";
+
+.container {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  max-height: 95vh;
+  max-width: $screen-md;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0;
+
+  @include xs-to-lg {
+    max-width: 95vw;
+  }
+
+  @include xs-to-sm {
+    padding: 40px 10px;
+  }
+}

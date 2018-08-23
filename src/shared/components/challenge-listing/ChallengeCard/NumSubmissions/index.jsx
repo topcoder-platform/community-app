@@ -4,10 +4,11 @@
  * in the challenge yet). Shows a tooltip when hovered.
  */
 
+import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config, Link } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the
@@ -16,18 +17,15 @@ import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 
 import './style.scss';
 
+const ID_LENGTH = 6;
+const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
+
 export default function NumSubmissions({
   challenge: {
-    componentId,
-    contestId,
-    id,
-    isLegacy,
-    numSubmissions,
-    roundId,
-    status,
-    subTrack,
+    id, numSubmissions, rounds, status, track,
   },
   challengesUrl,
+  newChallengeDetails,
   selectChallengeDetailsTab,
 }) {
   let tip;
@@ -36,35 +34,34 @@ export default function NumSubmissions({
     case 1: tip = '1 total submission'; break;
     default: tip = `${numSubmissions} total submissions`;
   }
-
   const query = numSubmissions && status === 'COMPLETED'
     ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-
-  let link = `${challengesUrl}/${id}${query}`;
-
-  if (subTrack === 'MARATHON_MATCH' && isLegacy) {
-    link = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${
-      roundId}&compid=${componentId}&cd=${contestId}`;
+  let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
+    ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
+  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
+    link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
-
   return (
     <div styleName="container">
       <Tooltip
-        content={
-          <div styleName="tooltip">{tip}</div>
-        }
+        content={(
+          <div styleName="tooltip">
+            {tip}
+          </div>
+)}
       >
         <Link
-          forceA={subTrack === 'MARATHON_MATCH' && isLegacy}
           onClick={() => (
-            selectChallengeDetailsTab(numSubmissions ?
-              DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
+            selectChallengeDetailsTab(numSubmissions
+              ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
         >
           <SubmissionsIcon />
-          <span styleName="number">{numSubmissions}</span>
+          <span styleName="number">
+            {numSubmissions}
+          </span>
         </Link>
       </Tooltip>
     </div>
@@ -80,5 +77,6 @@ NumSubmissions.propTypes = {
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
+  newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

@@ -1,0 +1,65 @@
+@import "../../Themes/mixins";
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  max-width: 980px;
+  margin-bottom: 60px;
+
+  @media screen and (max-width: $screen-sm) {
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+}
+
+.policy {
+  @include tc-body-md;
+
+  width: 25%;
+  align-items: center;
+
+  @media screen and (max-width: $screen-sm) {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+}
+
+.title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  line-height: 30px;
+  display: block;
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+.icon {
+  height: 96px;
+  width: 96px;
+  display: inline-block;
+
+  &:hover {
+    background: transparent;
+  }
+
+  @media screen and (max-width: $screen-md) {
+    height: 72px;
+    width: 72px;
+  }
+}
+
+.text {
+  margin: auto;
+  max-width: 200px;
+
+  @media screen and (max-width: $screen-sm) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

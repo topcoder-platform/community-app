@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getCommunitiesService } from 'services/communities';
-import { getService as getGroupService } from 'services/groups';
+import { services } from 'topcoder-react-lib';
+
+const getGroupService = services.groups.getService;
 
 /**
  * Creates the action for joining the group.

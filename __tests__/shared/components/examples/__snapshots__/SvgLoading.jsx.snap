@@ -6,13 +6,16 @@ exports[`matches snapshots 1`] = `
     SVG Loading
   </h1>
   <p>
-    This component show how to load 
+    This component show how to load
+     
     <code>
       .svg
     </code>
-     assets with use of
+     
+    assets with use of
     <code>
-       babel-plugin-inline-react-svg
+       
+      babel-plugin-inline-react-svg
     </code>
     .
   </p>

@@ -132,12 +132,10 @@ exports[`Matches shallow shapshot 1`] = `
           Date range
         </label>
         <DateRangePicker
-          endDate={undefined}
           id="date-range-picker-one-month"
           numberOfMonths={1}
           onDatesChange={[Function]}
           readOnly={true}
-          startDate={undefined}
         />
       </div>
       <div
@@ -149,12 +147,10 @@ exports[`Matches shallow shapshot 1`] = `
           Date range
         </label>
         <DateRangePicker
-          endDate={undefined}
           id="date-range-picker-two-months"
           numberOfMonths={2}
           onDatesChange={[Function]}
           readOnly={true}
-          startDate={undefined}
         />
       </div>
     </div>
@@ -181,6 +177,7 @@ exports[`Matches shallow shapshot 1`] = `
       }
       themePriority="adhoc-default-context"
       to={null}
+      type="button"
     >
       Clear filters
     </ThemedButton>
@@ -203,6 +200,7 @@ exports[`Matches shallow shapshot 1`] = `
       }
       themePriority="adhoc-context-default"
       to={null}
+      type="button"
     >
       Save filter
     </ThemedButton>
@@ -320,12 +318,10 @@ exports[`Matches shallow shapshot 2`] = `
           Date range
         </label>
         <DateRangePicker
-          endDate={undefined}
           id="date-range-picker-one-month"
           numberOfMonths={1}
           onDatesChange={[Function]}
           readOnly={true}
-          startDate={undefined}
         />
       </div>
       <div
@@ -337,12 +333,10 @@ exports[`Matches shallow shapshot 2`] = `
           Date range
         </label>
         <DateRangePicker
-          endDate={undefined}
           id="date-range-picker-two-months"
           numberOfMonths={2}
           onDatesChange={[Function]}
           readOnly={true}
-          startDate={undefined}
         />
       </div>
     </div>
@@ -369,6 +363,7 @@ exports[`Matches shallow shapshot 2`] = `
       }
       themePriority="adhoc-default-context"
       to={null}
+      type="button"
     >
       Clear filters
     </ThemedButton>
@@ -391,6 +386,7 @@ exports[`Matches shallow shapshot 2`] = `
       }
       themePriority="adhoc-context-default"
       to={null}
+      type="button"
     >
       Save filter
     </ThemedButton>

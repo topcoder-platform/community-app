@@ -22,9 +22,7 @@ class SubmissionsPageContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    this.props.resetDesignStoreSegment();
-  }
+  componentDidMount() { }
 
   /* A child component has called their submitForm() prop, prepare the passed
      form data for submission and create a submit action */
@@ -75,10 +73,6 @@ const filestackDataProp = PT.shape({
  */
 SubmissionsPageContainer.propTypes = {
   currentPhases: PT.arrayOf(PT.object).isRequired,
-  stockArtRecords: PT.arrayOf(PT.object).isRequired,
-  setStockArtRecord: PT.func.isRequired,
-  customFontRecords: PT.arrayOf(PT.object).isRequired,
-  setCustomFontRecord: PT.func.isRequired,
 
   /* Older stuff */
   userId: PT.string.isRequired,
@@ -109,13 +103,8 @@ SubmissionsPageContainer.propTypes = {
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
-  resetDesignStoreSegment: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
-  setSourceFilestackData: PT.func.isRequired,
-  setPreviewFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
-  sourceFilestackData: filestackDataProp.isRequired,
-  previewFilestackData: filestackDataProp.isRequired,
   registrants: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
 };
@@ -131,8 +120,6 @@ const mapStateToProps = (state, ownProps) => {
   const { submission } = state.page;
   return {
     currentPhases: state.challenge.details.currentPhases,
-    stockArtRecords: submission.design.stockArtRecords,
-    customFontRecords: submission.design.customFontRecords,
 
     /* Older stuff below. */
     userId: state.auth.user.userId,
@@ -151,8 +138,6 @@ const mapStateToProps = (state, ownProps) => {
     filePickers: submission.filePickers,
     notesLength: submission.notesLength,
     submissionFilestackData: submission.submissionFilestackData,
-    sourceFilestackData: submission.sourceFilestackData,
-    previewFilestackData: submission.previewFilestackData,
     registrants: state.challenge.details.registrants,
     handle: state.auth.user ? state.auth.user.handle : '',
   };
@@ -180,17 +165,9 @@ function mapDispatchToProps(dispatch) {
     setFilePickerError: (id, error) => dispatch(a.setFilePickerError(id, error)),
     setFilePickerFileName: (id, fileName) => dispatch(a.setFilePickerFileName(id, fileName)),
     setFilePickerDragged: (id, dragged) => dispatch(a.setFilePickerDragged(id, dragged)),
-    setFilePickerUploadProgress: (id, p) =>
-      dispatch(a.setFilePickerUploadProgress(id, p)),
+    setFilePickerUploadProgress: (id, p) => dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
-    resetDesignStoreSegment: () => dispatch(a.design.reset()),
-    setStockArtRecord: (index, record) =>
-      dispatch(a.design.setStockArtRecord(index, record)),
-    setCustomFontRecord: (index, record) =>
-      dispatch(a.design.setCustomFontRecord(index, record)),
     setSubmissionFilestackData: (id, data) => dispatch(a.setSubmissionFilestackData(id, data)),
-    setSourceFilestackData: (id, data) => dispatch(a.setSourceFilestackData(id, data)),
-    setPreviewFilestackData: (id, data) => dispatch(a.setPreviewFilestackData(id, data)),
   };
 }
 

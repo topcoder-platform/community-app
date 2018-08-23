@@ -10,7 +10,9 @@ import './style.scss';
 export default function SamplesGroup({ children, title }) {
   return (
     <div styleName="container">
-      <h3 styleName="title">{title}</h3>
+      <h3 styleName="title">
+        {title}
+      </h3>
       {children}
     </div>
   );

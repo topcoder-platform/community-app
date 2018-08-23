@@ -23,42 +23,66 @@ import FiltersEditor from './FiltersEditor';
 import Footer from './Footer';
 import './style.scss';
 
-export default function SideBarFilters(props) {
+export default function SideBarFilters({
+  activeBucket,
+  activeSavedFilter,
+  buckets,
+  challenges,
+  changeFilterName,
+  communityFilter,
+  deleteSavedFilter,
+  disabled,
+  dragSavedFilterMove,
+  dragSavedFilterStart,
+  dragState,
+  editSavedFiltersMode,
+  extraBucket,
+  filterState,
+  hideTcLinksInFooter,
+  isAuth,
+  resetFilterName,
+  savedFilters,
+  selectBucket,
+  selectSavedFilter,
+  setEditSavedFiltersMode,
+  updateAllSavedFilters,
+  updateSavedFilter,
+}) {
   return (
     <div styleName="SideBarFilters">
       <div styleName="FilterBox">
-        { props.editSavedFiltersMode ? (
+        { editSavedFiltersMode ? (
           <FiltersEditor
-            changeFilterName={props.changeFilterName}
-            deleteSavedFilter={props.deleteSavedFilter}
-            dragState={props.dragState}
-            dragSavedFilterMove={props.dragSavedFilterMove}
-            dragSavedFilterStart={props.dragSavedFilterStart}
-            resetFilterName={props.resetFilterName}
-            savedFilters={props.savedFilters}
-            setEditSavedFiltersMode={props.setEditSavedFiltersMode}
-            updateAllSavedFilters={props.updateAllSavedFilters}
-            updateSavedFilter={props.updateSavedFilter}
+            changeFilterName={changeFilterName}
+            deleteSavedFilter={deleteSavedFilter}
+            dragState={dragState}
+            dragSavedFilterMove={dragSavedFilterMove}
+            dragSavedFilterStart={dragSavedFilterStart}
+            resetFilterName={resetFilterName}
+            savedFilters={savedFilters}
+            setEditSavedFiltersMode={setEditSavedFiltersMode}
+            updateAllSavedFilters={updateAllSavedFilters}
+            updateSavedFilter={updateSavedFilter}
           />
         ) : (
           <BucketSelector
-            activeBucket={props.activeBucket}
-            activeSavedFilter={props.activeSavedFilter}
-            buckets={props.buckets}
-            challenges={props.challenges}
-            communityFilter={props.communityFilter}
-            disabled={props.disabled}
-            extraBucket={props.extraBucket}
-            filterState={props.filterState}
-            isAuth={props.isAuth}
-            savedFilters={props.savedFilters}
-            selectBucket={props.selectBucket}
-            selectSavedFilter={props.selectSavedFilter}
-            setEditSavedFiltersMode={props.setEditSavedFiltersMode}
+            activeBucket={activeBucket}
+            activeSavedFilter={activeSavedFilter}
+            buckets={buckets}
+            challenges={challenges}
+            communityFilter={communityFilter}
+            disabled={disabled}
+            extraBucket={extraBucket}
+            filterState={filterState}
+            isAuth={isAuth}
+            savedFilters={savedFilters}
+            selectBucket={selectBucket}
+            selectSavedFilter={selectSavedFilter}
+            setEditSavedFiltersMode={setEditSavedFiltersMode}
           />
         )}
       </div>
-      <Footer hideTcLinksInFooter={props.hideTcLinksInFooter} />
+      <Footer hideTcLinksInFooter={hideTcLinksInFooter} />
     </div>
   );
 }

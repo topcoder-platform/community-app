@@ -13,45 +13,56 @@ import './style.scss';
 export default function Prize({
   bonuses,
   label,
-  points,
   prizes,
   prizeUnitSymbol,
   totalPrize,
   withoutTooltip,
+  isMM,
 }) {
   const component = (
+    !isMM
+    && (
     <div>
       <div styleName="prize">
-        <span styleName="symbol">{prizeUnitSymbol}</span>
+        <span styleName="symbol">
+          {prizeUnitSymbol}
+        </span>
         {totalPrize.toLocaleString()}
       </div>
-      <div styleName="label">{label}</div>
+      <div styleName="label">
+        {label}
+      </div>
     </div>
+    )
   );
   if (withoutTooltip) return component;
   const tip = (
     <Tip
       bonuses={bonuses}
-      points={points}
       prizes={prizes}
       prizeUnitSymbol={prizeUnitSymbol}
     />
   );
-  return <Tooltip content={tip}>{component}</Tooltip>;
+  return (
+    <Tooltip content={tip}>
+      {component}
+    </Tooltip>
+  );
 }
 
 Prize.defaultProps = {
+  bonuses: [],
   prizes: [],
-  points: null,
   withoutTooltip: false,
+  isMM: false,
 };
 
 Prize.propTypes = {
-  bonuses: PT.arrayOf(PT.object).isRequired,
+  bonuses: PT.arrayOf(PT.object),
   label: PT.string.isRequired,
-  points: PT.number,
   prizes: PT.arrayOf(PT.number),
   prizeUnitSymbol: PT.string.isRequired,
   totalPrize: PT.number.isRequired,
   withoutTooltip: PT.bool,
+  isMM: PT.bool,
 };

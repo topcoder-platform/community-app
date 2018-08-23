@@ -48,7 +48,8 @@ exports[`Matches shallow shapshot 1`] = `
   <p
     className="src-shared-components-challenge-listing-Sidebar-Footer-___style__copyright___ghkHg"
   >
-    Topcoder © 2017
+    Topcoder ©
+    2018
   </p>
 </div>
 `;

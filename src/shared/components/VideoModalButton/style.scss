@@ -1,0 +1,30 @@
+@import "~styles/mixins";
+
+.closeWhatIsTopcoderVideoCross {
+  cursor: pointer;
+  font-size: 36px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.whatIsTopcoderVideo {
+  max-width: 66vw;
+  width: 66vw;
+}
+
+.watchVideoButton {
+  @include tc-label-lg;
+
+  background: none !important;
+  border: 1px solid $tc-white !important;
+  border-radius: 4px;
+  color: white !important;
+  padding: 10px 15px;
+  margin: 5px 15px;
+
+  &:hover {
+    border-color: $tc-dark-blue-70 !important;
+    color: $tc-dark-blue-70 !important;
+  }
+}

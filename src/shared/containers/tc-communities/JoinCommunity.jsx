@@ -12,8 +12,8 @@ import shortId from 'shortid';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 
-import JoinCommunity, { STATE as JOIN_COMMUNITY } from
-  'components/tc-communities/JoinCommunity';
+import JoinCommunity, { STATE as JOIN_COMMUNITY }
+  from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
 class JoinCommunityContainer extends React.Component {
@@ -24,19 +24,13 @@ class JoinCommunityContainer extends React.Component {
 
   render() {
     const {
-      token,
-      groupIds,
-      userId,
-      terms,
-      openTermsModal,
-      communityId,
-      join,
-      joinCommunityWrapper,
+      token, groupIds, userId, terms, openTermsModal,
+      communityId, join, joinCommunityWrapper,
     } = this.props;
 
     const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
-    const onJoinClick = hasNotAgreedTerms ?
-      () => openTermsModal(this.instanceId) : join;
+    const onJoinClick = hasNotAgreedTerms
+      ? () => openTermsModal(this.instanceId) : join;
 
     return (
       <div className={joinCommunityWrapper}>
@@ -77,8 +71,9 @@ function mapStateToProps(state, ownProps) {
   const { joinGroupId } = ownProps;
   let canJoin = !state.auth.profile || !state.auth.profile.groups;
   if (!canJoin) {
+    const communityGroupIds = _.get(state, 'tcCommunties.meta.data.groupIds');
     const int = _.intersection(
-      joinGroupId ? [joinGroupId] : state.tcCommunities.meta.data.groupIds,
+      joinGroupId ? [joinGroupId] : communityGroupIds,
       state.auth.profile.groups.map(g => g.id),
     );
     canJoin = !int.length;
@@ -89,9 +84,9 @@ function mapStateToProps(state, ownProps) {
   else canJoin = JOIN_COMMUNITY.HIDDEN;
 
   return {
-    communityName: state.tcCommunities.meta.data.communityName,
-    communityId: state.tcCommunities.meta.data.communityId,
-    groupIds: state.tcCommunities.meta.data.groupIds,
+    communityName: _.get(state, 'tcCommunities.meta.data.communityName'),
+    communityId: _.get(state, 'tcCommunities.meta.data.communityId'),
+    groupIds: _.get(state, 'tcCommunities.meta.data.groupIds'),
     label: ownProps.label,
     theme: ownProps.theme,
     token: state.auth.tokenV3,
@@ -103,7 +98,6 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const a = actions.tcCommunity;
-  const t = termsActions.terms;
   return {
     hideJoinButton: () => dispatch(a.hideJoinButton()),
     join: (...args) => {
@@ -114,7 +108,7 @@ function mapDispatchToProps(dispatch) {
     showJoinConfirmModal: () => dispatch(a.showJoinConfirmModal()),
     openTermsModal: (uuid) => {
       dispatch(a.resetJoinButton());
-      dispatch(t.openTermsModal(uuid));
+      dispatch(termsActions.terms.openTermsModal(uuid));
     },
   };
 }

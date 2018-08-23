@@ -26,6 +26,7 @@ exports[`Matches shallow shapshot 1`] = `
     }
     themePriority="adhoc-context-default"
     to={null}
+    type="button"
   >
     Done
   </ThemedButton>

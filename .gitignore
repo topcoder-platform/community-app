@@ -48,4 +48,5 @@ jspm_packages
 # Misc files
 .build-info
 .vscode
-set-env.sh
+set-env*.sh
+set-test-env.sh

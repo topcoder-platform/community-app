@@ -1,0 +1,26 @@
+$winner: #15acec;
+$border: #bce6f9;
+$finalists: #e9f6fc;
+$empty: #f8fcfe;
+
+.track {
+  background-color: $winner;
+}
+
+.winner {
+  border-left: solid 1px $border;
+  border-right: solid 1px $border;
+  color: $winner;
+}
+
+.finalist {
+  background-color: $finalists;
+}
+
+.filler {
+  background-color: $finalists;
+}
+
+.empty {
+  background-color: $empty;
+}

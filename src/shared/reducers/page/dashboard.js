@@ -95,6 +95,7 @@ function create(state = {}) {
     challengeFilter: '',
     tab: TABS.MY_ACTIVE_CHALLENGES,
     showAnnouncement: true,
+    showChallengeFilter: false,
     xlBadge: '',
   }));
 }

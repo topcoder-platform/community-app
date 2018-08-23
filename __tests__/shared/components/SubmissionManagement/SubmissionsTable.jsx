@@ -6,7 +6,7 @@ test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
   renderer.render((
     <SubmissionsTable
-      showDetails={new Set([12345])}
+      showDetails={{ 12345: true }}
       submissionObjects={[{
         submissionId: 12345,
       }]}
@@ -17,7 +17,7 @@ test('Matches shallow shapshot', () => {
 
   renderer.render((
     <SubmissionsTable
-      showDetails={new Set([12345])}
+      showDetails={{ 12345: true }}
       type="DESIGN"
     />
   ));

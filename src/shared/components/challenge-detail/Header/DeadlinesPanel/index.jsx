@@ -11,13 +11,16 @@ import './style.scss';
 
 export default function DeadlinesPanel({ deadlines }) {
   /* Calculates challenge start time. */
-  let start = deadlines[0];
+  let start = deadlines[0] || {};
   start = start.actualStartTime || start.scheduledStartTime;
   const started = moment(start).isBefore(moment());
 
   return (
     <div styleName="panel">
-      <p styleName="timezone">Timezone: {moment.tz.guess()}</p>
+      <p styleName="timezone">
+Timezone:
+        {moment.tz.guess()}
+      </p>
       <Card
         past={started}
         time={start}

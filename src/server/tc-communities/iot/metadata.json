@@ -1,0 +1,41 @@
+{
+  "authorizedGroupIds": ["20000014"],
+  "challengeFilter": {
+    "groupIds": ["20000045"],
+    "or": [{
+      "tags": ["IoT", "Predix"]
+    }]
+  },
+  "communityId": "iot",
+  "communityName": "IoT Community",
+  "groupIds": ["20000045"],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/iot/logo_topcoder_with_name.svg",
+    "url": "https://www.topcoder.com"
+  }],
+  "menuItems": [{
+    "title": "Home",
+    "url": "/"
+  },{
+    "title": "Get Started",
+    "url": "/get-started"
+  },{
+    "title": "About",
+    "url": "/about"
+  },{
+    "title": "Assets",
+    "url": "/assets"
+  },{
+    "title": "Resources",
+    "url": "https://www.predix.io/resources",
+    "openNewTab": true
+  },{
+    "title": "Compete",
+    "url": "/challenges"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["iot"],
+  "description": "Predix is GE’s platform for the Industrial Internet of Things (IIoT).",
+  "image": "iot.jpg"
+}

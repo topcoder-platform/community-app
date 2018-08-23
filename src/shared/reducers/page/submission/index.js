@@ -8,12 +8,10 @@
 
 import _ from 'lodash';
 import actions from 'actions/page/submission';
-import logger from 'utils/logger';
-
-import { fireErrorMessage } from 'utils/errors';
+import { logger, errors } from 'topcoder-react-lib';
 import { redux } from 'topcoder-react-utils';
 
-import design from './design';
+const { fireErrorMessage } = errors;
 
 /**
  * Handles results of PAGE/CHALLENGE_DETAILS/SUBMISSION/SUBMIT_DONE action.
@@ -160,10 +158,6 @@ function create(initialState) {
     [a.updateNotesLength]: (state, action) => ({ ...state, notesLength: action.payload }),
     [a.setSubmissionFilestackData]:
       (state, { payload }) => ({ ...state, submissionFilestackData: payload }),
-    [a.setSourceFilestackData]:
-      (state, { payload }) => ({ ...state, sourceFilestackData: payload }),
-    [a.setPreviewFilestackData]:
-      (state, { payload }) => ({ ...state, previewFilestackData: payload }),
   }, _.defaults(_.clone(initialState) || {}, {
     isSubmitting: false,
     submitDone: false,
@@ -173,20 +167,8 @@ function create(initialState) {
     uploadProgress: 0,
     filePickers: [],
     submissionFilestackData: {
-      filename: '',
-      mimetype: '',
-      size: 0,
-      key: '',
-      container: '',
-    },
-    sourceFilestackData: {
-      filename: '',
-      mimetype: '',
-      size: 0,
-      key: '',
-      container: '',
-    },
-    previewFilestackData: {
+      challengeId: 0,
+      fileUrl: '',
       filename: '',
       mimetype: '',
       size: 0,
@@ -198,9 +180,7 @@ function create(initialState) {
 
 export function factory() {
   // Server-side rendering not implemented yet
-  return Promise.resolve(redux.combineReducers(create(), { design }));
+  return Promise.resolve(redux.combineReducers(create()));
 }
 
-export default redux.combineReducers(create(), {
-  design,
-});
+export default redux.combineReducers(create());

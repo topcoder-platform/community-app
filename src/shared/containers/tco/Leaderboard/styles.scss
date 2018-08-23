@@ -1,0 +1,17 @@
+@import '~styles/mixins';
+
+.Leaderboard {
+  padding: 0 15px;
+  margin: 20px auto;
+  max-width: $screen-md;
+}
+
+.Leaderboard .section-title {
+  @include roboto-light;
+
+  font-size: 36px;
+  line-height: 45px;
+  text-align: center;
+  color: #4a4a4a;
+  margin: 2em 0;
+}

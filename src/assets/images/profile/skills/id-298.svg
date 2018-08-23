@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Skills---Develop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-298">
+            <rect id="Rectangle-7" fill="#787B84" x="9" y="9" width="50" height="50" rx="4"></rect>
+            <rect id="Rectangle-7" fill="#A3A3AE" x="5" y="5" width="50" height="50" rx="4"></rect>
+            <path d="M12,32.1858222 C12,22.1422886 20.1422886,14 30.1858222,14 C40.2293558,14 48.3716444,22.1422886 48.3716444,32.1858222 C48.3716444,42.2293558 40.2293558,50.3716444 30.1858222,50.3716444 C20.1422886,50.3716444 12,42.2293558 12,32.1858222 L12,32.1858222 Z" id="Stroke-5347" fill="#F6F6F6"></path>
+            <path d="M38.9999998,26 L30,40.9999998" id="Stroke-5345" stroke="#05C14F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M47.0518858,39 C44.3553732,45.6675509 37.8198066,50.3716444 30.1858222,50.3716444 C22.5518378,50.3716444 16.0162712,45.6675509 13.3197586,39 L47.0518858,39 Z" id="Stroke-5347" fill="#394146"></path>
+            <path d="M12,32.1858222 C12,22.1422886 20.1422886,14 30.1858222,14 C40.2293558,14 48.3716444,22.1422886 48.3716444,32.1858222 C48.3716444,42.2293558 40.2293558,50.3716444 30.1858222,50.3716444 C20.1422886,50.3716444 12,42.2293558 12,32.1858222 L12,32.1858222 Z" id="Stroke-5347" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

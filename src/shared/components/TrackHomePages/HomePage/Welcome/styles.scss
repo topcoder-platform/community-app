@@ -1,0 +1,239 @@
+@import "../../Themes/mixins";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  @media screen and (max-width: $screen-sm) {
+    flex-direction: column;
+  }
+}
+
+.left {
+  h1 {
+    color: #fff;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  margin-right: 60px;
+  text-align: left;
+
+  @media screen and (max-width: $screen-sm) {
+    display: none;
+  }
+}
+
+.videoPlayButton {
+  background: url(assets/images/button_play_video.svg) no-repeat center;
+  background-size: cover;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &::after {
+    background: url(assets/images/button_play_video.svg) no-repeat;
+    content: '';
+    height: 160px;
+    left: calc(50% - 80px);
+    opacity: 0.75;
+    position: absolute;
+    top: calc(50% - 80px);
+    width: 160px;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+.button-register {
+  width: 204px;
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    width: 204px;
+  }
+
+  margin: 20px 20px 20px 0;
+
+  @include xs-to-lg {
+    margin-top: 29px;
+  }
+}
+
+.button-complete {
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    width: 180px;
+  }
+
+  margin: 20px 0;
+
+  @include xs-to-lg {
+    margin-top: 29px;
+  }
+}
+
+.text {
+  @include roboto-regular;
+
+  font-size: 15px;
+  line-height: 25px;
+
+  p {
+    margin: 0;
+    color: $tc-white;
+  }
+
+  a,
+  a:visited {
+    color: $tc-dark-blue-110;
+  }
+
+  a:hover {
+    background-color: $tc-black;
+  }
+}
+
+.right {
+  flex: 1;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    display: none;
+  }
+}
+
+.register {
+  color: #47474f;
+  margin-left: 7px;
+}
+
+.complete {
+  color: #fafafb;
+}
+
+/* mobile */
+.mobile {
+  display: none;
+
+  @media screen and (max-width: $screen-sm) {
+    display: inline;
+    font-size: 28px;
+    line-height: 35px;
+    margin: 40px auto;
+    color: $tc-white;
+  }
+}
+
+.video-mobile {
+  display: none;
+  padding: 20px;
+
+  @media screen and (max-width: $screen-sm) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.text-mobile {
+  display: none;
+
+  @media screen and (max-width: $screen-sm) {
+    display: inline;
+    margin: 20px;
+
+    p {
+      @include roboto-regular;
+
+      font-size: 15px;
+      line-height: 25px;
+      color: $tc-white;
+    }
+  }
+}
+
+.button-register-mobile {
+  display: none;
+
+  @media screen and (max-width: $screen-sm) {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 20px;
+
+    button,
+    a {
+      height: 40px;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 40px;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+  }
+}
+
+.button-complete-mobile {
+  display: none;
+
+  @media screen and (max-width: $screen-sm) {
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+
+    button,
+    a {
+      height: 40px;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 40px;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    a:focus {
+      background-color: $tc-dark-blue-110;
+    }
+  }
+}

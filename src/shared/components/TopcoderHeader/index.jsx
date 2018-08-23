@@ -15,7 +15,6 @@ import IconNavBoolDevelop from '../../../assets/images/nav/book-develop.svg';
 import IconNavCP from '../../../assets/images/nav/track-cp.svg';
 import IconNavEvents from '../../../assets/images/nav/events.svg';
 import IconNavForums from '../../../assets/images/nav/forums.svg';
-import IconNavMembers from '../../../assets/images/nav/members.svg';
 import IconNavPrograms from '../../../assets/images/nav/programs.svg';
 import IconNavRocket from '../../../assets/images/nav/rocket.svg';
 import IconNavStatistics from '../../../assets/images/nav/statistics.svg';
@@ -58,40 +57,37 @@ const MENU = [{
   }],
 }, {
   title: 'Learn',
-  items: [{
+  items: [
+  /* {
     enforceA: true,
     icon: <IconNavRocket />,
     link: `${BASE_URL}/getting-started`,
     title: 'Getting Started',
-  }, {
-    enforceA: true,
-    icon: <IconNavBookDesign />,
-    link: `${BASE_URL}/community/design`,
-    title: 'Design',
-  }, {
-    enforceA: true,
-    icon: <IconNavBoolDevelop />,
-    link: `${BASE_URL}/community/development`,
-    title: 'Development',
-  }, {
-    enforceA: true,
-    icon: <IconNavBookData />,
-    link: `${BASE_URL}/community/data-science/`,
-    title: 'Data Science',
-  }, {
-    enforceA: true,
-    icon: <IconNavBookCP />,
-    link: `${BASE_URL}/community/competitive-programming`,
-    title: 'Competitive Programming',
-  }],
+  }, */
+    {
+      enforceA: true,
+      icon: <IconNavBookDesign />,
+      link: `${BASE_URL}/community/design`,
+      title: 'Design',
+    }, {
+      enforceA: true,
+      icon: <IconNavBoolDevelop />,
+      link: `${BASE_URL}/community/development`,
+      title: 'Development',
+    }, {
+      enforceA: true,
+      icon: <IconNavBookData />,
+      link: `${BASE_URL}/community/data-science/`,
+      title: 'Data Science',
+    }, {
+      enforceA: true,
+      icon: <IconNavBookCP />,
+      link: `${BASE_URL}/community/competitive-programming`,
+      title: 'Competitive Programming',
+    }],
 }, {
   title: 'Community',
   items: [{
-    enforceA: true,
-    icon: <IconNavMembers />,
-    link: `${BASE_URL}/community/members/`,
-    title: 'Overview',
-  }, {
     enforceA: true,
     icon: <IconNavTcoGeneric />,
     link: config.URL.TCO,
@@ -137,8 +133,9 @@ export default class TopcoderHeader extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.closeMenu();
-    this.props.closeSearch();
+    const { closeMenu, closeSearch } = this.props;
+    closeMenu();
+    closeSearch();
     this.removeGlobalTouchListener();
   }
 
@@ -183,8 +180,9 @@ export default class TopcoderHeader extends React.Component {
   }
 
   closeSearch() {
+    const { closeSearch } = this.props;
     this.searchInput.blur();
-    this.props.closeSearch();
+    closeSearch();
   }
 
   render() {
@@ -224,8 +222,8 @@ export default class TopcoderHeader extends React.Component {
             /* False when mouse cursor leaves from the main menu element to the
              * sub-menu. In that case we keep the sub-menu opened, and responsible
              * for further tracking of the mouse cursor. */
-            if (!isMobile && activeTrigger &&
-              1 + event.pageY < activeTrigger.bottom) closeMenu();
+            if (!isMobile && activeTrigger
+              && 1 + event.pageY < activeTrigger.bottom) closeMenu();
           }}
           onTouchStart={(event) => {
             if (isMobile && openedMenu && openedMenu.title === item.title) {
@@ -237,7 +235,8 @@ export default class TopcoderHeader extends React.Component {
             }
           }}
           styleName={styleName}
-        >{item.title}
+        >
+          {item.title}
         </li>
       );
     });
@@ -264,7 +263,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavProfile />,
-          link: `${BASE_URL}/members/${normalizedProfile.handle}`,
+          link: `/members/${normalizedProfile.handle}`,
           title: 'My Profile',
         }, {
           icon: <IconNavWallet />,
@@ -273,7 +272,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavSettings />,
-          link: `${BASE_URL}/settings/profile`,
+          link: '/settings/profile',
           title: 'Settings',
         }, {
           enforceA: true,
@@ -292,8 +291,8 @@ export default class TopcoderHeader extends React.Component {
             /* False when mouse cursor leaves from the main menu element to the
              * sub-menu. In that case we keep the sub-menu opened, and responsible
              * for further tracking of the mouse cursor. */
-            if (!isMobile && activeTrigger &&
-              1 + event.pageY < activeTrigger.bottom) closeMenu();
+            if (!isMobile && activeTrigger
+              && 1 + event.pageY < activeTrigger.bottom) closeMenu();
           }}
           onTouchStart={(event) => {
             if (isMobile && openedMenu && openedMenu.title === userSubMenu.title) {
@@ -317,7 +316,13 @@ export default class TopcoderHeader extends React.Component {
           {userAvatar}
         </div>
       );
-    } else authButtons = <span styleName="auth-align"><Auth /></span>;
+    } else {
+      authButtons = (
+        <span styleName="auth-align">
+          <Auth />
+        </span>
+      );
+    }
 
     return (
       <div
@@ -347,8 +352,8 @@ export default class TopcoderHeader extends React.Component {
               className={searchOpened ? 'opened' : ''}
               onMouseEnter={event => !isMobile && openSearch(event.target)}
               onMouseLeave={(event) => {
-                if (!isMobile && activeTrigger &&
-                  1 + event.pageY < activeTrigger.bottom) closeSearch();
+                if (!isMobile && activeTrigger
+                  && 1 + event.pageY < activeTrigger.bottom) closeSearch();
               }}
               onTouchStart={(event) => {
                 if (isMobile && searchOpened) {
@@ -360,7 +365,8 @@ export default class TopcoderHeader extends React.Component {
                 }
               }}
               styleName="search-icon"
-            ><MagnifyingGlass />
+            >
+              <MagnifyingGlass />
             </div>
           </div>
         </div>

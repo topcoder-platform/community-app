@@ -1,0 +1,201 @@
+@import "../Themes/mixins";
+
+.outer-container {
+  @include outer-container;
+}
+
+.page {
+  @include page;
+}
+
+.button-wrapper-learn-more {
+  max-height: 40px;
+  width: 136px;
+  margin-left: auto;
+  margin-right: auto;
+
+  button,
+  a {
+    color: #fafafb;
+    font-size: 15px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    width: 136px;
+  }
+
+  @media screen and (max-width: $screen-md) {
+    margin-bottom: 40px;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    width: 128px;
+    margin-top: 20px;
+
+    button,
+    a {
+      color: #fafafb;
+      font-size: 15px;
+      font-weight: bold;
+      height: 40px;
+      line-height: 40px;
+      margin: 0;
+      padding: 0;
+      width: 128px;
+    }
+  }
+}
+
+.button-wrapper-view-all {
+  max-height: 40px;
+  width: 136px;
+
+  button,
+  a {
+    color: #fafafb;
+    font-size: 15px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    width: 136px;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    margin-bottom: 0;
+  }
+}
+
+.welcome {
+  background-color: $tc-black;
+  border-top-left-radius: 4 * $corner-radius;
+  border-top-right-radius: 4 * $corner-radius;
+  padding: 60px;
+
+  @media screen and (max-width: $screen-sm) {
+    padding: 0;
+  }
+}
+
+.body {
+  text-align: center;
+}
+
+.text {
+  @include text;
+
+  margin: 40px 0;
+}
+
+.tips-quotes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: solid 1px #ededf2;
+  padding: 60px 60px 40px 60px;
+  text-align: center;
+  background-image: linear-gradient(rgba(239, 239, 242, 0.6), rgba(239, 239, 242, 0.6)), url('assets/images/track-homepages/bg.png');
+  background-repeat: repeat;
+
+  @media screen and (max-width: $screen-sm) {
+    padding: 40px 0 9px 0;
+
+    h1 {
+      font-size: 28px;
+      line-height: 35px;
+    }
+
+    .text {
+      margin: 40px 20px 20px 20px;
+    }
+  }
+}
+
+.important-policies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: solid 1px #ededf2;
+  text-align: center;
+  padding: 60px;
+
+  @media screen and (max-width: $screen-sm) {
+    padding: 40px 0 9px 0;
+
+    h1 {
+      font-size: 28px;
+      line-height: 35px;
+    }
+
+    .text {
+      margin: 40px 20px;
+    }
+  }
+}
+
+.tutorials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: solid 1px #ededf2;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('assets/images/track-homepages/bg.png');
+  background-repeat: repeat;
+  text-align: center;
+  padding: 60px;
+
+  &.last-section {
+    border-bottom-left-radius: 4 * $corner-radius;
+    border-bottom-right-radius: 4 * $corner-radius;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    padding: 40px 10px 0 10px;
+
+    h1 {
+      font-size: 28px;
+      line-height: 35px;
+    }
+
+    .text {
+      margin: 40px 20px 20px 20px;
+    }
+  }
+}
+
+.sign-up {
+  @include roboto-regular;
+
+  border-top: solid 1px #ededf2;
+  align-items: center;
+  border-bottom-left-radius: 4 * $corner-radius;
+  border-bottom-right-radius: 4 * $corner-radius;
+  display: flex;
+  flex-direction: column;
+  padding: 60px;
+
+  p {
+    font-size: 20px;
+    line-height: 25px;
+    color: $tc-gray-80;
+    margin: 0;
+    margin-bottom: 40px;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    padding: 40px 20px;
+
+    p {
+      max-width: 260px;
+      text-align: center;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+  }
+}

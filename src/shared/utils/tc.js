@@ -8,6 +8,10 @@ import moment from 'moment-timezone';
 import { isTokenExpired } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
 
+import { tc } from 'topcoder-react-lib';
+
+export const { COMPETITION_TRACKS, REVIEW_OPPORTUNITY_TYPES } = tc;
+
 /**
  * Possible phase types (at the moment, this map does not cover all
  * possibilities).
@@ -20,14 +24,6 @@ export const CHALLENGE_PHASE_TYPES = {
 /**
  * Codes of the Topcoder communities.
  */
-/* TODO: These are originally motivated by Topcoder API v2. Topcoder API v3
- * uses upper-case literals to encode the tracks. At some point, we should
- * update it in this code as well! */
-export const COMPETITION_TRACKS = {
-  DATA_SCIENCE: 'data_science',
-  DESIGN: 'design',
-  DEVELOP: 'develop',
-};
 
 export const COMPETITION_TRACKS_V3 = {
   DESIGN: 'DESIGN',
@@ -57,9 +53,9 @@ export const USER_ROLES = {
  * @return {String}
  */
 export function getSubCommunityBaseUrl(community) {
-  return community.mainSubdomain ?
-    config.URL.BASE.replace('www', community.mainSubdomain) :
-    `/community/${community.communityId}`;
+  return community.mainSubdomain
+    ? config.URL.BASE.replace('www', community.mainSubdomain)
+    : `/community/${community.communityId}`;
 }
 
 /**
@@ -84,9 +80,9 @@ export function getCdnAvatarUrl(apiUrl, size = 100) {
  */
 export function getRatingLevel(rating) {
   if (rating < 900) return 1;
-  else if (rating < 1200) return 2;
-  else if (rating < 1500) return 3;
-  else if (rating < 2200) return 4;
+  if (rating < 1200) return 2;
+  if (rating < 1500) return 3;
+  if (rating < 2200) return 4;
   return 5;
 }
 
@@ -101,7 +97,7 @@ export function getRatingLevel(rating) {
  */
 /* TODO: The actual color values below are taken from topcoder-app. Probably,
  * they don't match colors in the current Topcoder style guide. */
-const RATING_COLORS = [{
+export const RATING_COLORS = [{
   color: '#9D9FA0' /* Grey */,
   limit: 900,
 }, {
@@ -122,15 +118,6 @@ export function getRatingColor(rating) {
   while (RATING_COLORS[i].limit <= r) i += 1;
   return RATING_COLORS[i].color || 'black';
 }
-
-/**
- * Review Opportunity types
- */
-export const REVIEW_OPPORTUNITY_TYPES = {
-  'Contest Review': 'Review',
-  'Spec Review': 'Specification Review',
-  'Iterative Review': 'Iterative Review',
-};
 
 /**
  * Given ExpressJS HTTP request it extracts Topcoder auth tokens from cookies,
@@ -166,19 +153,6 @@ export function goToLogin(utmSource = '') {
 }
 
 /**
- * Gets payload from a standard success response from TC API v3; or throws
- * an error in case of a failure response.
- * @param {Object} res
- * @return {Promise} Resolves to the payload.
- */
-export async function getApiResponsePayloadV3(res) {
-  if (!res.ok) throw new Error(res.statusText);
-  const x = (await res.json()).result;
-  if (!x.success) throw new Error(x.content);
-  return x.content;
-}
-
-/**
  * Calculate the difference from now to a specified date
  * adopt from topcoder-app repo
  * @param  {Date} input the date to diff
@@ -196,7 +170,7 @@ export function timeDiff(input, type) {
   }
   if (type === 'quantity') {
     return timeAndUnit[0];
-  } else if (type === 'unit') {
+  } if (type === 'unit') {
     return timeAndUnit[1];
   }
   return timeAndUnit;
@@ -274,6 +248,43 @@ export function processSRM(s) {
     srm.currentPhase = 'CODING';
   }
   return srm;
+}
+
+/**
+ * Compare two strings, null/undefined/empty are considered as equal.
+ * @param {String} str1 One string
+ * @param {String} str2 Another string
+ * @returns {Boolean} true if two strings equal, false otherwise
+ */
+export function looseEqual(str1, str2) {
+  return (!str1 && !str2) || str1 === str2;
+}
+
+/**
+ * Format a UTC date string to a more readable date string
+ * @param {String} date string
+ * @param {Boolean} whether to abbreviate month string
+ * @param {Boolean} whether to showDay
+ * @returns {String} formatted date string
+ */
+export function formatDate(date, abbreviate, showDay) {
+  const monthNames = [
+    'January', 'February', 'March',
+    'April', 'May', 'June', 'July',
+    'August', 'September', 'October',
+    'November', 'December',
+  ];
+  const [y, m, d] = date.split('T')[0].split('-');
+  let month = `${monthNames[m - 1]}`;
+  if (abbreviate) {
+    month = month.substr(0, 3);
+  }
+
+  if (showDay) {
+    return `${month} ${d}, ${y}`;
+  }
+
+  return `${month} ${y}`;
 }
 
 export default undefined;

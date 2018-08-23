@@ -34,7 +34,9 @@ test('Matches shallow shapshot', () => {
   _.forEach(mockDatas, (data) => {
     renderer.render((
       <ProgressBarTooltip {...data}>
-        <div className="mock-class">abcedfghik</div>
+        <div className="mock-class">
+abcedfghik
+        </div>
       </ProgressBarTooltip>
     ));
     expect(renderer.getRenderOutput()).toMatchSnapshot();
@@ -47,7 +49,9 @@ class Wrapper extends React.Component {
   render() {
     return (
       <ProgressBarTooltip {...this.props}>
-        <div className="mock-class">abcedfghik</div>
+        <div className="mock-class">
+abcedfghik
+        </div>
       </ProgressBarTooltip>
     );
   }
@@ -55,20 +59,17 @@ class Wrapper extends React.Component {
 
 test('handle events', () => {
   let instance = TU.renderIntoDocument((<Wrapper {...mockDatas[0]} />));
-  let matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.className && item.className.match('mock-class'));
+  let matches = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('mock-class'));
   expect(matches).toHaveLength(1);
   TU.Simulate.mouseEnter(matches[0].parentNode);
 
   instance = TU.renderIntoDocument((<Wrapper {...mockDatas[1]} />));
-  matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.className && item.className.match('mock-class'));
+  matches = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('mock-class'));
   expect(matches).toHaveLength(1);
   TU.Simulate.mouseEnter(matches[0].parentNode);
 
   instance = TU.renderIntoDocument((<Wrapper {...mockDatas[2]} />));
-  matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.className && item.className.match('mock-class'));
+  matches = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('mock-class'));
   expect(matches).toHaveLength(1);
   TU.Simulate.mouseEnter(matches[0].parentNode);
 });

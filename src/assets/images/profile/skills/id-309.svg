@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Skills---Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-309">
+            <rect id="Rectangle-7" fill="#4379A8" x="9" y="9" width="50" height="50" rx="4"></rect>
+            <rect id="Rectangle-7" fill="#4A9FEA" x="5" y="5" width="50" height="50" rx="4"></rect>
+            <path d="M35,35 L25,35 L25,25 L35,25 L35,35 Z" id="Stroke-1920" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M17,21 C17,18.791 18.791,17 21,17 C23.209,17 25,18.791 25,21 L25,25 L21,25 C18.791,25 17,23.209 17,21 L17,21 Z" id="Stroke-1921" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M43,21 C43,18.791 41.209,17 39,17 C36.791,17 35,18.791 35,21 L35,25 L39,25 C41.209,25 43,23.209 43,21 L43,21 Z" id="Stroke-1922" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M43,39 C43,41.209 41.209,43 39,43 C36.791,43 35,41.209 35,39 L35,35 L39,35 C41.209,35 43,36.791 43,39 L43,39 Z" id="Stroke-1923" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M17,39 C17,41.209 18.791,43 21,43 C23.209,43 25,41.209 25,39 L25,35 L21,35 C18.791,35 17,36.791 17,39 L17,39 Z" id="Stroke-1924" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

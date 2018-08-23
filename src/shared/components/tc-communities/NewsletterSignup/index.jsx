@@ -9,12 +9,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { themr } from 'react-css-super-themr';
-import { fireErrorMessage } from 'utils/errors';
+import { errors } from 'topcoder-react-lib';
 import qs from 'qs';
 
 import { config } from 'topcoder-react-utils';
 
 import defaultStyle from './style.scss';
+
+const { fireErrorMessage } = errors;
 
 class NewsletterSignup extends React.Component {
   subscribe() {
@@ -53,8 +55,12 @@ class NewsletterSignup extends React.Component {
         style={{ backgroundImage: `url(${imageSrc})` }}
       >
         <div className={theme.content}>
-          <h2 className={theme.title}>{title}</h2>
-          <p className={theme.text}>{text}</p>
+          <h2 className={theme.title}>
+            {title}
+          </h2>
+          <p className={theme.text}>
+            {text}
+          </p>
           <div className={theme.form}>
             <input
               className={theme.formEmail}
@@ -69,7 +75,8 @@ class NewsletterSignup extends React.Component {
               onClick={() => this.subscribe()}
               size="md"
               theme={{ button: theme.formButton }}
-            >{buttonText}
+            >
+              {buttonText}
             </PrimaryButton>
           </div>
         </div>

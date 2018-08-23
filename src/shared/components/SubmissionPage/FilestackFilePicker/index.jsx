@@ -16,9 +16,11 @@ import PT from 'prop-types';
 import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import { fireErrorMessage } from 'utils/errors';
+import { errors } from 'topcoder-react-lib';
 
 import './styles.scss';
+
+const { fireErrorMessage } = errors;
 
 /**
  * FilestackFilePicker component
@@ -51,12 +53,20 @@ class FilestackFilePicker extends React.Component {
       size,
       key,
       container,
+
     } = file;
+    const {
+      setFileName,
+      setFilestackData,
+      challengeId,
+    } = this.props;
 
-    this.props.setFileName(filename);
+    setFileName(filename);
 
-    this.props.setFilestackData({
+    setFilestackData({
       filename,
+      challengeId,
+      fileUrl: file.url,
       mimetype,
       size,
       key,
@@ -70,15 +80,8 @@ class FilestackFilePicker extends React.Component {
    * @return {String}
    */
   getPath() {
-    const { title, userId } = this.props;
-    switch (title) {
-      case 'PREVIEW': return 'DESIGN_COVER/';
-      case 'SUBMISSION':
-        return `SUBMISSION_ZIP/${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
-      case 'SOURCE':
-        return `SOURCE_ZIP/${userId}-SOURCE_ZIP-${Date.now()}.zip`;
-      default: throw new Error('Unknown file type');
-    }
+    const { userId, challengeId } = this.props;
+    return `SUBMISSION_ZIP/${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
   }
 
   render() {
@@ -98,29 +101,56 @@ class FilestackFilePicker extends React.Component {
     return (
       <div styleName="container">
         <div styleName="desc">
-          <p>{title}</p>
+          <p>
+            {title}
+          </p>
           {
-            mandatory && <p styleName="mandatory">*mandatory</p>
+            mandatory && (
+            <p styleName="mandatory">
+*mandatory
+            </p>
+            )
           }
         </div>
         <div
           styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
         >
           {
-            !fileName && <p>Drag and drop your {fileExtensions.join(' or ')} file here.</p>
+            !fileName && (
+            <p>
+Drag and drop your
+              {fileExtensions.join(' or ')}
+              {' '}
+file here.
+            </p>
+            )
           }
           {
-            !fileName && <span>or</span>
+            !fileName && (
+            <span>
+or
+            </span>
+            )
           }
           {
-            fileName && <p styleName="file-name">{fileName}</p>
+            fileName && (
+            <p styleName="file-name">
+              {fileName}
+            </p>
+            )
           }
           {
             _.isNumber(uploadProgress) && uploadProgress < 100 ? (
-              <p styleName="file-name">Uploading: {uploadProgress}%</p>
+              <p styleName="file-name">
+Uploading:
+                {uploadProgress}
+%
+              </p>
             ) : null
           }
-          <PrimaryButton onClick={this.onClickPick}>Pick a File</PrimaryButton>
+          <PrimaryButton onClick={this.onClickPick}>
+Pick a File
+          </PrimaryButton>
           <div
             onClick={() => this.filestack.pick({
               accept: fileExtensions,
@@ -196,8 +226,12 @@ class FilestackFilePicker extends React.Component {
           />
         </div>
         {
-          error &&
-          <div styleName="error-container">{error}</div>
+          error
+          && (
+          <div styleName="error-container">
+            {error}
+          </div>
+          )
         }
       </div>
     );
@@ -216,6 +250,7 @@ FilestackFilePicker.defaultProps = {
 FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
+  challengeId: PT.number.isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,

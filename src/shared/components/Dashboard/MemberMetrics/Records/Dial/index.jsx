@@ -34,18 +34,23 @@ export default function Dial({
   return (
     <a
       href={
-        `${config.URL.BASE}/members/${handle}/details/` +
-          `?track=${track}&subTrack=${subTrack}`
+        `${config.URL.BASE}/members/${handle}/details/`
+          + `?track=${track}&subTrack=${subTrack}`
       }
       styleName="container"
       key={track + subTrack}
     >
-      <p styleName="title" title={title}>{_.startCase(title)}</p>
+      <p styleName="title" title={title}>
+        {_.startCase(title)}
+      </p>
       <p
         styleName={ratingType}
-      >{value.toLocaleString()}
+      >
+        {value.toLocaleString()}
       </p>
-      <p styleName="label">{metric}</p>
+      <p styleName="label">
+        {metric}
+      </p>
     </a>
   );
 }

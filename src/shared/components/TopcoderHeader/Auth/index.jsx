@@ -23,7 +23,8 @@ export default function Auth({ column }) {
       <a
         className="tc-btn-sm tc-btn-primary"
         href={`${config.URL.AUTH}/member/registration?utm_source=community-app-main`}
-      >Join
+      >
+Join
       </a>
       <a
         className="tc-btn-sm tc-btn-default"
@@ -33,7 +34,8 @@ export default function Auth({ column }) {
           window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=community-app-main`;
           event.preventDefault();
         }}
-      >Log In
+      >
+Log In
       </a>
     </div>
   );

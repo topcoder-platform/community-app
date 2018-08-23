@@ -14,6 +14,7 @@ function getId(submissions, placement) {
 export default function Winner({
   isDesign,
   last,
+  pointPrizes,
   prizes,
   submissions,
   viewable,
@@ -30,28 +31,36 @@ export default function Winner({
       encodeURIComponent(avatarUrl)}?size=65`;
   }
 
-  const prize = winner.placement <= prizes.length
-    ? `${prizes[winner.placement - 1].toLocaleString()}` : 'N/A';
+  const pair = [];
+  const prizeIndex = winner.placement - 1;
+  if (prizes[prizeIndex]) pair.push(prizes[prizeIndex].toLocaleString());
+  if (pointPrizes[prizeIndex]) pair.push(`${pointPrizes[prizeIndex]}pts`);
+
+  const prize = pair.join(' + ') || 'N/A';
 
   return (
     <div styleName={`winner ${placeStyle}`}>
       {
         <div styleName="thumbnail">
-          <div styleName="flag">{winner.placement}</div>
+          <div styleName="flag">
+            {winner.placement}
+          </div>
           {
-            (viewable && isDesign) ?
-              (
+            (viewable && isDesign)
+              ? (
                 <img
                   styleName="preview"
                   alt=""
-                  src={`${config.URL.STUDIO}/studio.jpg` +
-                    `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
+                  src={`${config.URL.STUDIO}/studio.jpg`
+                    + `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
                 />
-              ) :
-              (
+              )
+              : (
                 <div styleName="lock">
                   <Lock styleName="lock-icon" />
-                  <div styleName="text">LOCKED</div>
+                  <div styleName="text">
+LOCKED
+                  </div>
                 </div>
               )
           }
@@ -67,23 +76,40 @@ export default function Winner({
             <a
               href={`${config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
-            >{winner.handle}
+            >
+              {winner.handle}
             </a>
-            <div styleName="prize">${prize}</div>
+            <div styleName="prize">
+$
+              {prize}
+            </div>
           </div>
         </div>
         {
-          submissionId &&
-          <div styleName="id">ID: <span>#{getId(submissions, winner.placement)}</span></div>
+          submissionId
+          && (
+          <div styleName="id">
+ID:
+            <span>
+#
+              {getId(submissions, winner.placement)}
+            </span>
+          </div>
+          )
         }
         {
-          (winner.submissionDownloadLink && viewable) &&
+          (winner.submissionDownloadLink && viewable)
+          && (
           <a
+            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
             styleName="download"
             target="_blank"
-            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
-          >Download
+            challenge
+            rel="noopener noreferrer"
+          >
+Download
           </a>
+          )
         }
         {
           /*
@@ -98,10 +124,16 @@ export default function Winner({
   );
 }
 
+Winner.defaultProps = {
+  pointPrizes: [],
+  prizes: [],
+};
+
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
   last: PT.bool.isRequired,
-  prizes: PT.arrayOf(PT.number).isRequired,
+  pointPrizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,
   winner: PT.shape({

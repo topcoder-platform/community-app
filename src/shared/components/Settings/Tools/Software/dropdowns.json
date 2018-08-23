@@ -1,0 +1,24 @@
+{
+    "type": [
+        {
+            "key": "softwareType",
+            "name": "Developer Tools"
+        },
+        {
+            "key": "softwareType",
+            "name": "Browser"
+        },
+        {
+            "key": "softwareType",
+            "name": "Productivity"
+        },
+        {
+            "key": "softwareType",
+            "name": "Graphics & Design"
+        },
+        {
+            "key": "softwareType",
+            "name": "Utilities"
+        }
+    ]
+}

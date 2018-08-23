@@ -1,0 +1,227 @@
+@import "../../style";
+
+.subscription-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .sub-title {
+    @include roboto-light;
+
+    color: #888894;
+    line-height: 35px;
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 10px;
+
+    &.second {
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    &.first {
+      margin-bottom: 30px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+}
+
+.error-message {
+  display: none;
+
+  &.active {
+    @include roboto-medium;
+
+    display: block;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.form-container-default {
+  @include form-container-default;
+
+  input {
+    @include roboto-regular;
+
+    height: 40px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-bottom: 0;
+  }
+
+  .text-required {
+    @include roboto-medium;
+
+    font-size: 10px;
+    color: $tc-red-110;
+    margin-bottom: 5px;
+    text-align: right;
+  }
+}
+
+.form-container-mobile {
+  display: none;
+
+  @include xs-to-sm {
+    border: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: $tc-gray-neutral-light;
+    width: 100%;
+  }
+
+  p {
+    @include roboto-regular;
+
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 400;
+    color: $tc-black;
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-content: space-between;
+
+    @include xs-to-sm {
+      width: 100%;
+      display: block;
+      margin-bottom: 0;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-right: 10px;
+
+      @include xs-to-sm {
+        display: block;
+        padding-bottom: 10px;
+      }
+
+      label {
+        @include roboto-medium;
+
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 500;
+        color: $tc-gray-80;
+        margin-bottom: 5px;
+      }
+
+      &.col-1 {
+        width: 100%;
+      }
+
+      &.col-2 {
+        width: auto;
+      }
+    }
+
+    div.field:last-child {
+      margin-right: 0;
+    }
+  }
+
+  input {
+    @include roboto-regular;
+
+    margin: 0;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+
+    @include xs-to-sm {
+      margin-top: 5px;
+    }
+  }
+}
+
+.button-save {
+  align-self: center;
+
+  @include xs-to-sm {
+    margin-top: 10px;
+  }
+
+  .complete {
+    color: $tc-white;
+
+    button {
+      height: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 40px;
+      margin: 0;
+      padding: 0 0;
+      width: 200px;
+
+      @include xs-to-sm {
+        width: 156px;
+      }
+
+      @include roboto-medium;
+    }
+  }
+}
+
+/*
+ * React Select component styling
+ */
+.subscription-container .form-container .row .field :global .Select,
+.subscription-container .form-container .row .field :global .Select-value span,
+.subscription-container .form-container .row .field :global .Select-menu-outer,
+.subscription-container .form-container .row .field :global .Select-placeholder,
+.subscription-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
+  font-size: 15px;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
+.subscription-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
+}

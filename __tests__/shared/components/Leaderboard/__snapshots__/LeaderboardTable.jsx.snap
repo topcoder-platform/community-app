@@ -11,11 +11,9 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Rank
       </th>
-      <th>
-         
-      </th>
       <th
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+        colSpan="2"
       >
         Handle
       </th>
@@ -54,7 +52,6 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
           />
         </span>
       </td>
@@ -62,10 +59,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/winnner/"
-        >
-          winnner
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
@@ -74,16 +69,13 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-            0
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        0
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
@@ -112,7 +104,6 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
           />
         </span>
       </td>
@@ -120,10 +111,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/winnner/"
-        >
-          winnner
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
@@ -132,16 +121,13 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-            0
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        0
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
@@ -170,7 +156,6 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
           />
         </span>
       </td>
@@ -178,10 +163,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/winnner/"
-        >
-          winnner
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
@@ -190,16 +173,13 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-            0
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        0
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
@@ -228,7 +208,6 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="https://d1aahxkjiobka8.cloudfront.net/avatar/%2Fassets%2Fa.jpg?size=65"
           />
         </span>
       </td>
@@ -236,10 +215,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/winnner/"
-        >
-          winnner
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
@@ -248,16 +225,13 @@ exports[`Matches shallow shapshot 1`] = `
              points
           </span>
           <span>
-            0
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        0
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >

@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders profile about header correctly 1`] = `
+<div
+  className="src-shared-components-ProfilePage-Header-___styles__container___1p5md"
+>
+  <div>
+    <DefaultPortrait
+      className="src-shared-components-ProfilePage-Header-___styles__profile-circle___JesRL"
+      height="141"
+      viewBox="0 0 141 141"
+      width="141"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    />
+  </div>
+  <div
+    className="src-shared-components-ProfilePage-Header-___styles__info___fH1uR"
+  >
+    <h1
+      className="src-shared-components-ProfilePage-Header-___styles__handle___-v11j"
+      style={
+        Object {
+          "color": "#9D9FA0",
+        }
+      }
+    >
+      testHandle
+    </h1>
+    <h3
+      className="src-shared-components-ProfilePage-Header-___styles__location-challenges___a6sow"
+    >
+      United States
+    </h3>
+    <h3
+      className="src-shared-components-ProfilePage-Header-___styles__tenure___3ODNv"
+    >
+      Member Since
+      March, 2004
+    </h3>
+  </div>
+  <div
+    className="src-shared-components-ProfilePage-Header-___styles__tracks-links___2XGAb"
+  >
+    <div
+      className="src-shared-components-ProfilePage-Header-___styles__tracks___3H9JW"
+    >
+      <a
+        className="src-shared-components-ProfilePage-Header-___styles__track___394U5"
+        href="#DATA_SCIENCE"
+      >
+        <DataScienceIcon
+          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3veQu"
+          height="32"
+          viewBox="0 0 32 32"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <div
+          className="src-shared-components-ProfilePage-Header-___styles__text___ubgLp"
+        >
+          DATA SCIENTIST
+        </div>
+      </a>
+      <a
+        className="src-shared-components-ProfilePage-Header-___styles__track___394U5"
+        href="#DESIGN"
+      >
+        <DesignIcon
+          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3veQu"
+          height="32"
+          viewBox="0 0 32 32"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <div
+          className="src-shared-components-ProfilePage-Header-___styles__text___ubgLp"
+        >
+          DESIGNER
+        </div>
+      </a>
+      <a
+        className="src-shared-components-ProfilePage-Header-___styles__track___394U5"
+        href="#DEVELOP"
+      >
+        <DevelopIcon
+          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3veQu"
+          height="32"
+          viewBox="0 0 32 32"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <div
+          className="src-shared-components-ProfilePage-Header-___styles__text___ubgLp"
+        >
+          DEVELOPER
+        </div>
+      </a>
+    </div>
+  </div>
+  <p
+    className="src-shared-components-ProfilePage-Header-___styles__description___1tUAe"
+  >
+    Test Description
+  </p>
+  <div
+    className="src-shared-components-ProfilePage-Header-___styles__links___3_yVL"
+  >
+    <a
+      className="src-shared-components-ProfilePage-Header-___styles__link___1S7ii"
+      href="https://apps.topcoder-dev.com/forums/?module=History&userID=200000"
+    >
+      Forum Posts
+    </a>
+  </div>
+</div>
+`;

@@ -28,8 +28,10 @@ export default function Earnings({ finances, showEarnings }) {
         <Link
           styleName="link"
           to="/challenges"
-        >Start competing today
-        </Link>&zwnj;
+        >
+Start competing today
+        </Link>
+&zwnj;
         to gain experience and win prize money!
       </div>
     );

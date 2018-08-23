@@ -4,27 +4,24 @@
  * client- and server-side rendering.
  */
 
-import React from 'react';
+/* Entry point that ensures correct ordering of imported external styles. */
 
-import Routes from 'routes';
-import ErrorMessage from 'containers/ErrorMessage';
-import ErrorIcons from 'containers/ErrorIcons';
-
-import { DevTools, isomorphy } from 'topcoder-react-utils';
-
-import 'topcoder-react-ui-kit/dist/style.css';
-
-import 'styles/global.scss';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
-export default function App() {
-  return (
-    <div>
-      <Routes />
-      <ErrorMessage />
-      <ErrorIcons />
-      { isomorphy.isDevBuild() ? <DevTools /> : undefined }
-    </div>
-  );
+/* eslint-disable global-require */
+if (process.env.NODE_ENV === 'production') {
+  require('topcoder-react-ui-kit/dist/prod/style.css');
+} else {
+  require('topcoder-react-ui-kit/dist/dev/style.css');
 }
+/* eslint-enable global-require */
+
+require('react-redux-toastr/lib/css/react-redux-toastr.min.css');
+
+require('styles/awesome.css');
+
+require('styles/global.scss');
+require('slick-carousel/slick/slick.css');
+require('slick-carousel/slick/slick-theme.css');
+
+const App = require('./app').default;
+
+export default App;

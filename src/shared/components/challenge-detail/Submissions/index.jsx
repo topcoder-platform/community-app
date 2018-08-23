@@ -14,15 +14,21 @@ import './style.scss';
 function renderSubmission(s) {
   return (
     <div styleName="submission" key={s.submissionId}>
-      <a target="_blank" href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>
+      <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`} target="_blank" rel="noopener noreferrer">
         <img alt="" src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.submissionId}&sbt=small&sfi=1`} />
       </a>
       <div styleName="bottom-info">
         <div styleName="links">
-          <a target="_blank" href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>{`#${s.submissionId}`}</a>
-          <a styleName="handle" target="_blank" href={`${config.URL.BASE}/members/${s.submitter}`}>{s.submitter}</a>
+          <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`} target="_blank" rel="noopener noreferrer">
+            {`#${s.submissionId}`}
+          </a>
+          <a href={`${config.URL.BASE}/members/${s.submitter}`} target="_blank" rel="noopener noreferrer" styleName="handle">
+            {s.submitter}
+          </a>
         </div>
-        <div>{moment(s.submissionTime).format('MMM DD,YYYY HH:mm')}</div>
+        <div>
+          {moment(s.submissionTime).format('MMM DD,YYYY HH:mm')}
+        </div>
       </div>
     </div>
   );
@@ -36,32 +42,45 @@ export default function Submissions(props) {
   if (challenge.track.toLowerCase() === 'design') {
     return challenge.submissionViewable === 'true' ? (
       <div styleName="container view">
-        <div styleName="title">ROUND 2 (FINAL) SUBMISSIONS</div>
+        <div styleName="title">
+ROUND 2 (FINAL) SUBMISSIONS
+        </div>
         <div styleName="content">
           {
             submissions.map(renderSubmission)
           }
         </div>
         {
-          checkpoints.length > 0 &&
-            <div styleName="title">ROUND 1 (CHECKPOINT) SUBMISSIONS</div>
+          checkpoints.length > 0
+            && (
+            <div styleName="title">
+ROUND 1 (CHECKPOINT) SUBMISSIONS
+            </div>
+            )
         }
         {
-          checkpoints.length > 0 &&
+          checkpoints.length > 0
+            && (
             <div styleName="content">
               {
                 checkpoints.map(renderSubmission)
               }
             </div>
+            )
         }
       </div>
-    ) :
-      (
+    )
+      : (
         <div styleName="container no-view">
           <Lock styleName="lock" />
-          <div styleName="title">Private Challenge</div>
-          <div styleName="subtitle">Submissions are not viewable for this challenge</div>
-          <div styleName="desc">There are many reason why the submissions may not be viewable, such
+          <div styleName="title">
+Private Challenge
+          </div>
+          <div styleName="subtitle">
+Submissions are not viewable for this challenge
+          </div>
+          <div styleName="desc">
+There are many reason why the submissions may not be viewable, such
         as the allowance of stock art, or a client&apos;s desire to keep the work private.
           </div>
         </div>
@@ -72,21 +91,33 @@ export default function Submissions(props) {
   return (
     <div styleName="container dev">
       <div styleName="head">
-        <div styleName="col-1">Username</div>
-        <div styleName="col-2">Submission Date</div>
-        <div styleName="col-3">Initial / Final Score</div>
+        <div styleName="col-1">
+Username
+        </div>
+        <div styleName="col-2">
+Submission Date
+        </div>
+        <div styleName="col-3">
+Initial / Final Score
+        </div>
       </div>
       {
         submissions.map(s => (
           <div key={s.handle + s.submissionDate} styleName="row">
             <div styleName="col-1">
-              <a styleName="handle" target="_blank" href={`${config.URL.BASE}/member-profile/${s.handle}/develop`}>{s.handle}</a>
+              <a href={`${config.URL.BASE}/member-profile/${s.handle}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle">
+                {s.handle}
+              </a>
             </div>
-            <div styleName="col-2">{moment(s.submissionDate).format('MMM DD, YYYY HH:mm')}</div>
+            <div styleName="col-2">
+              {moment(s.submissionDate).format('MMM DD, YYYY HH:mm')}
+            </div>
             <div styleName="col-3">
-              {s.initialScore ? s.initialScore.toFixed(2) : 'N/A'}&zwnj;
+              {s.initialScore ? s.initialScore.toFixed(2) : 'N/A'}
+&zwnj;
               &zwnj;/
-              &zwnj;{s.finalScore ? s.finalScore.toFixed(2) : 'N/A'}
+              &zwnj;
+              {s.finalScore ? s.finalScore.toFixed(2) : 'N/A'}
             </div>
           </div>
         ))

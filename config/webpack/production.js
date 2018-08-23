@@ -2,10 +2,15 @@ const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-
 
 const path = require('path');
 
-const configFactory
-  = require('topcoder-react-utils/config/webpack/app-production');
+const configFactory = require('topcoder-react-utils/config/webpack/app-production');
+
+const webpack = require('webpack');
 
 const defaultConfig = require('./default');
+
+let publicPath = process.env.CDN_URL;
+if (publicPath) publicPath += '/static-assets';
+else publicPath = '/api/cdn/public/static-assets';
 
 const standardDevelopmentConfig = configFactory({
   context: path.resolve(__dirname, '../..'),
@@ -14,15 +19,18 @@ const standardDevelopmentConfig = configFactory({
     main: './src/client',
   },
   keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
-  publicPath: '/community-app-assets',
+  publicPath,
 });
 
-const jsxRule = standardDevelopmentConfig.module.rules.find(rule =>
-  rule.loader === 'babel-loader');
+const jsxRule = standardDevelopmentConfig.module.rules.find(rule => rule.loader === 'babel-loader');
 jsxRule.exclude = [
   /node_modules[\\/](?!appirio-tech.*|topcoder|tc-)/,
   /src[\\/]assets[\\/]fonts/,
   /src[\\/]assets[\\/]images[\\/]dashboard/,
 ];
+
+standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
+  PUBLIC_PATH: JSON.stringify(publicPath),
+}));
 
 module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);

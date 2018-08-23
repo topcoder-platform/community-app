@@ -312,3 +312,15 @@
     }
   }
 }
+
+.left-arrow {
+  margin: 25px;
+}
+
+.title-wrapper {
+  align-items: center;
+  display: flex;
+  left: -25px;
+  position: relative;
+  top: -5px;
+}

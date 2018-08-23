@@ -1,0 +1,16 @@
+@import '~styles/mixins';
+@import '../../themes/mixins';
+
+.sectionContainer {
+  background-color: $tc-light-blue-100;
+
+  h2 {
+    @include h2;
+
+    color: $tc-white;
+  }
+}
+
+.buttonContainer {
+  width: 70%;
+}

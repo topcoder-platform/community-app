@@ -6,6 +6,13 @@ module.exports = {
   API: {
     V2: 'https://api.topcoder-dev.com/v2',
     V3: 'https://api.topcoder-dev.com/v3',
+    V5: 'https://api.topcoder-dev.com/v5',
+  },
+
+  /* Auth0 config */
+  AUTH0: {
+    DOMAIN: 'topcoder-dev.auth0.com',
+    CLIENT_ID: 'JFDo7HMkf0q2CkVFHojy3zHWafziprhT',
   },
 
   /* Amount of time [seconds] before expiration of authentication tokens,
@@ -31,6 +38,12 @@ module.exports = {
    * challenges once per this amount of seconds. */
   CHALLENGE_LISTING_AUTO_REFRESH: 300,
 
+  CONTENTFUL: {
+    LOCAL_MODE: false,
+    DEFAULT_SPACE_NAME: 'default',
+    DEFAULT_ENVIRONMENT: 'master',
+  },
+
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   LOG_ENTRIES_TOKEN: '816f5574-0d4a-49f9-ab3b-00d791f7c1f7',
@@ -47,17 +60,6 @@ module.exports = {
       APIKEY: '',
       URL: '',
     },
-  },
-
-  /* Configuration related to https://openexchangerates.org. This is the
-   * service which provides currency exchange rates. */
-  OPEN_EXCHANGE: {
-    /* Once the app is running, currency rates are cached server-side and
-     * refreshed each X hours, where X is the number configured here. */
-    MAXAGE: 12,
-
-    /* API token. */
-    TOKEN: '3fcd4a89fca148fa9e8537550d29410f',
   },
 
   /* Amount of time [seconds] before expiration of authentication tokens,
@@ -88,11 +90,15 @@ module.exports = {
     /* The remote address where the app is deployed. */
     APP: 'https://community-app.topcoder-dev.com',
 
+    /* This is the same value as above, but it is used by topcoder-react-lib,
+     * as a more verbose name for the param. */
+    COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
+
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
-    BLOG: 'https://www.topcoder-dev.com/blog',
-    BLOG_FEED: 'https://www.topcoder-dev.com/feed',
+    BLOG: 'https://www.topcoder.com/blog',
+    BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     HELP: 'https://help.topcoder-dev.com',
@@ -112,13 +118,14 @@ module.exports = {
       RELIABILITY_RATINGS_AND_BONUSES: 'https://help.topcoder.com/hc/en-us/articles/219240797-Development-Reliability-Ratings-and-Bonuses',
       STOCK_ART_POLICY: 'http://help.topcoder.com/hc/en-us/articles/217481408-Policy-for-Stock-Artwork-in-Design-Submissions',
       STUDIO_FONTS_POLICY:
-      'http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges',
+        'http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges',
       TOPCODER_TERMS: 'https://www.topcoder.com/community/how-it-works/terms/',
     },
 
     IOS: 'https://ios.topcoder-dev.com',
     MEMBER: 'https://members.topcoder-dev.com',
     ONLINE_REVIEW: 'https://software.topcoder-dev.com',
+    PAYMENT_TOOL: 'https://payment.topcoder-dev.com',
     STUDIO: 'https://studio.topcoder-dev.com',
     TCO: 'https://www.topcoder.com/tco',
     TCO17: 'https://tco17.topcoder.com/',
@@ -147,11 +154,23 @@ module.exports = {
   /* Secret part of the configuration. Nest into this section any sensitive
    * parameters that should never be send to the client side. */
   SECRET: {
-    /* Space ID and API keys for Contenful CMS. */
     CONTENTFUL: {
-      CDN_API_KEY: '',
-      PREVIEW_API_KEY: '',
-      SPACE_ID: '',
+      default: { // Human-readable name of space
+        SPACE_ID: '',
+        master: { // Name of an environment
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
+      tcdeveloper: { // Name of another space
+        SPACE_ID: '',
+        development: { // Name of an environment
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
     },
+
+    OPEN_EXCHANGE_RATES_KEY: '',
   },
 };

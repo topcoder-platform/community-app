@@ -1,5 +1,4 @@
-export default returnUrl =>
-  `<!DOCTYPE html>
+export default returnUrl => `<!DOCTYPE html>
   <html>
     <head>
       <title>Simple Mock of DocuSign page</title>

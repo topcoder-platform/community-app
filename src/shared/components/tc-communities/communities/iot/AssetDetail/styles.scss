@@ -1,0 +1,152 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.main {
+  @include main;
+
+  overflow: hidden;
+}
+
+.assets-header {
+  background-color: $tc-light-blue-100;
+  height: 200px;
+  padding-left: 100px;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: $screen-md) {
+    padding-left: 10px;
+  }
+
+  h1 {
+    @include h1;
+
+    color: $tc-white;
+
+    @media screen and (max-width: $screen-sm) {
+      font-size: 29px;
+    }
+  }
+
+  .folder {
+    background: #60bd68 url(assets/themes/iot/assets/assets-folder.png) 50% 50% no-repeat;
+    border-radius: 50%;
+    content: '';
+    height: 80px;
+    width: 80px;
+    margin-right: 15px;
+    flex: 0 0 auto;
+  }
+}
+
+article {
+  display: flex;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.detail {
+  @include text;
+
+  padding: 8 * $base-unit;
+  flex: 1 1 60%;
+  box-sizing: border-box;
+  border-right: 1px $tc-gray-10 solid;
+
+  a {
+    color: $tc-light-blue-100;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 2 * $base-unit;
+  }
+
+  h3 {
+    font-size: 22px;
+    margin-bottom: 2 * $base-unit;
+  }
+
+  .github {
+    background: url(assets/themes/iot/assets/github.png) 0 50% no-repeat;
+    display: inline-block;
+    height: 31px;
+    line-height: 31px;
+    padding-left: 40px;
+  }
+}
+
+aside {
+  flex: 1 1 40%;
+  padding: 8 * $base-unit;
+
+  h4 {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-top: 0;
+  }
+}
+
+.author {
+  display: flex;
+
+  a {
+    color: $tc-light-blue-100;
+  }
+
+  .user-photo {
+    border-radius: 50%;
+    height: 80px;
+    overflow: hidden;
+    width: 80px;
+    margin-right: 2 * $base-unit;
+
+    img {
+      height: auto;
+      width: 100%;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.technologies,
+.platforms {
+  display: block;
+  margin-top: 3 * $base-unit;
+
+  span,
+  a {
+    background: #eee;
+    border-radius: 15px;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin: 5px 2px;
+    padding: 0 15px;
+  }
+
+  a {
+    color: $tc-light-blue-100;
+  }
+}
+
+.buttonContainer {
+  a {
+    flex: 1;
+  }
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3 * $base-unit;
+}

@@ -7,11 +7,13 @@
 import PT from 'prop-types';
 import React from 'react';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { getFilterFunction } from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import Bucket from './Bucket';
 
 import './style.scss';
+
+const Filter = challengeUtils.filter;
 
 const RSS_LINK = 'http://feeds.topcoder.com/challenges/feed?list=active&contestType=all';
 
@@ -30,10 +32,10 @@ export default function BucketSelector({
   selectSavedFilter,
   setEditSavedFiltersMode,
 }) {
-  let filteredChallenges = challenges.filter(getFilterFunction(filterState));
+  let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
 
   if (communityFilter) {
-    filteredChallenges = filteredChallenges.filter(getFilterFunction(communityFilter));
+    filteredChallenges = filteredChallenges.filter(Filter.getFilterFunction(communityFilter));
   }
 
   const getBucket = bucket => (
@@ -60,8 +62,8 @@ export default function BucketSelector({
       }
       bucket={{
         hideCount: true,
-        name: item.filter.isForReviewOpportunities ?
-          `${item.name} (Review Opportunities)` : item.name,
+        name: item.filter.isForReviewOpportunities
+          ? `${item.name} (Review Opportunities)` : item.name,
         error: item.filterError,
       }}
       challenges={[]}
@@ -85,26 +87,32 @@ export default function BucketSelector({
           getBucket(BUCKETS.UPCOMING) */
       }
       {
-        savedFilters.length ?
-          <div>
-            <div styleName="my-filters">
-              <h1>My filters</h1>
-              <a
-                onClick={() => setEditSavedFiltersMode(true)}
-                onKeyPress={() => setEditSavedFiltersMode(true)}
-                role="button"
-                styleName="edit-link"
-                tabIndex={0}
-              >
+        savedFilters.length
+          ? (
+            <div>
+              <div styleName="my-filters">
+                <h1>
+My filters
+                </h1>
+                <a
+                  onClick={() => setEditSavedFiltersMode(true)}
+                  onKeyPress={() => setEditSavedFiltersMode(true)}
+                  role="button"
+                  styleName="edit-link"
+                  tabIndex={0}
+                >
                 edit
-              </a>
+                </a>
+              </div>
+              {savedFiltersRender}
             </div>
-            {savedFiltersRender}
-          </div> : ''
+          ) : ''
       }
       <hr />
       <div styleName="get-rss">
-        <a href={RSS_LINK}>Get the RSS feed</a>
+        <a href={RSS_LINK}>
+Get the RSS feed
+        </a>
       </div>
     </div>
   );

@@ -1,0 +1,49 @@
+@import "~styles/mixins";
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  color: #888894;
+  font-size: 13px;
+  line-height: 20px;
+  min-width: 173px;
+  margin-bottom: 22px;
+
+  @include xs-to-lg {
+    margin: 4px;
+    width: 45%;
+
+    &:nth-child(3) {
+      margin-right: calc(45% + 8px);
+    }
+  }
+}
+
+.role {
+  color: #fff;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+  line-height: 30px;
+  width: 100%;
+}
+
+.filler {
+  flex: 1;
+  width: calc(100% - 2px);
+}
+
+.winner {
+  border: solid 1px #fff;
+  color: #262628;
+  display: block;
+  height: 30px;
+  font-size: 15px;
+  text-align: left;
+  line-height: 30px;
+  width: 100%;
+  padding: 0 10px;
+}

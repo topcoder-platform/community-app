@@ -4,11 +4,13 @@
 
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
-import Error404 from 'components/Error404';
+import ChallengeListingBanner from 'components/tc-communities/communities/wipro/ChallengeListingBanner';
+import ContentfulRoute from 'components/Contentful/Route';
 import FAQ from 'components/tc-communities/communities/wipro/FAQ';
 import Footer from 'components/tc-communities/communities/wipro/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/wipro/Home';
+import LeaderboardBanner from 'components/tc-communities/communities/wipro/LeaderboardBanner';
 import Learn from 'components/tc-communities/communities/wipro/Learn';
 import PT from 'prop-types';
 import React from 'react';
@@ -25,7 +27,7 @@ export default function Wipro({ base, meta }) {
   return (
     <Route
       component={({ match }) => (
-        <ThemeProvider theme={theme} >
+        <ThemeProvider theme={theme}>
           <div>
             <Header
               baseUrl={base}
@@ -35,6 +37,7 @@ export default function Wipro({ base, meta }) {
               <Route
                 component={() => ChallengeListing({
                   challengesUrl: `${base}/challenges`,
+                  ChallengeListingBanner,
                   meta,
                   newChallengeDetails: true,
                 })}
@@ -77,7 +80,12 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/faq`}
               />
               <Route
-                component={() => <Leaderboard meta={meta} />}
+                component={() => (
+                  <Leaderboard
+                    HeadBanner={LeaderboardBanner}
+                    meta={meta}
+                  />
+                )}
                 exact
                 path={`${base}/leaderboard`}
               />
@@ -92,13 +100,13 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/home`}
               />
               <Route
-                component={Error404}
-                path={`${base}/:any`}
-              />
-              <Route
                 component={Home}
                 exact
-                path={`${base}`}
+                path={`${base || '/'}`}
+              />
+              <ContentfulRoute
+                baseUrl={base}
+                id="1VXRAIxJdi6eCeeyKCmicK"
               />
             </Switch>
             <Footer />

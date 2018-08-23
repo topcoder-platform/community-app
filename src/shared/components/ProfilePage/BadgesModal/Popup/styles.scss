@@ -1,0 +1,31 @@
+@import "~styles/mixins";
+
+.container {
+  @include sofia-pro-regular;
+
+  border-radius: $corner-radius;
+  font-size: 11px;
+  padding: $base-unit * 3;
+  width: 280px;
+}
+
+.name {
+  background-color: $tc-dark-blue;
+  border-top-left-radius: $corner-radius;
+  border-top-right-radius: $corner-radius;
+  color: $tc-white;
+  font-weight: bold;
+  padding: $base-unit;
+  width: 100%;
+}
+
+.date {
+  background-color: $tc-white;
+  border-bottom-left-radius: $corner-radius;
+  border-bottom-right-radius: $corner-radius;
+  color: $tc-gray-90;
+  height: 100%;
+  padding: 3 * $base-unit;
+  text-align: center;
+  width: 100%;
+}

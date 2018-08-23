@@ -21,7 +21,8 @@ export default function ChallengeFilter({
       <div
         onMouseEnter={() => expand(true)}
         styleName="button"
-      ><FilterIcon />
+      >
+        <FilterIcon />
       </div>
     );
   }
@@ -42,8 +43,12 @@ export default function ChallengeFilter({
               onKeyPress={() => switchChallengeFilter(community.communityId)}
               styleName={`row ${community.communityId === challengeFilter ? 'selected' : ''}`}
             >
-              <span>{community.communityName}</span>
-              <span>{community.number}</span>
+              <span>
+                {community.communityName}
+              </span>
+              <span>
+                {community.number}
+              </span>
             </div>
           ))
         )

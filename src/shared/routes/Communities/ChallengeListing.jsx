@@ -7,9 +7,10 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
-import { SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function ChallengeListingRoute({
+  ChallengeListingBanner,
   challengesUrl,
   extraBucket,
   hideSrm,
@@ -19,11 +20,9 @@ export default function ChallengeListingRoute({
   preListingMsg,
 }) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="challenge-listing/chunk"
-      renderClientAsync={routeProps =>
-        import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
+      renderClientAsync={routeProps => import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
         .then(({ default: ChallengeListing }) => {
           let query = routeProps.location.search;
           query = query ? qs.parse(query.slice(1)) : {};
@@ -39,6 +38,7 @@ export default function ChallengeListingRoute({
           return (
             <ChallengeListing
               {...routeProps}
+              ChallengeListingBanner={ChallengeListingBanner}
               challengesUrl={challengesUrl}
               communityId={communityId}
               communityName={meta.communityName}
@@ -68,6 +68,7 @@ export default function ChallengeListingRoute({
 }
 
 ChallengeListingRoute.defaultProps = {
+  ChallengeListingBanner: null,
   challengesUrl: '/challenges',
   extraBucket: null,
   hideSrm: false,
@@ -77,6 +78,7 @@ ChallengeListingRoute.defaultProps = {
 };
 
 ChallengeListingRoute.propTypes = {
+  ChallengeListingBanner: PT.node,
   challengesUrl: PT.string,
   extraBucket: PT.string,
   hideSrm: PT.bool,

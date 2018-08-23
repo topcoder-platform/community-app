@@ -1,7 +1,7 @@
 @mixin avatar {
   border-radius: 50%;
   border-style: solid;
-  border-width: 5px;
+  border-width: 3px;
   height: 100%;
   width: 100%;
 }
@@ -9,7 +9,7 @@
 .bronze {
   @include avatar;
 
-  border-color: #bd731e;
+  border-color: #d98f64;
 }
 
 .default {
@@ -21,11 +21,11 @@
 .gold {
   @include avatar;
 
-  border-color: #fce217;
+  border-color: #ffd84d;
 }
 
 .silver {
   @include avatar;
 
-  border-color: #a9bcd4;
+  border-color: #d1d0cf;
 }

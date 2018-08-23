@@ -1,0 +1,23 @@
+{
+  "challengeFilter": {
+    "groupIds": ["20000078"],
+    "or": [{
+      "tags": ["TCO", "TCO19"]
+    }]
+  },
+  "communityId": "tco19",
+  "communityName": "TCO19",
+  "groupIds": ["20000078"],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco19/TCO19-white.svg",
+    "url": "https://tco19.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "2Q7PFVzaoEGK0SciSceoew"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco19"],
+  "description": "2019 Topcoder Open. The Ultimate Programming & Design Tournament",
+  "image": "tco19.jpg"
+}

@@ -11,7 +11,9 @@ import 'moment-duration-format';
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
-import { config } from 'topcoder-react-utils';
+import { Link } from 'topcoder-react-utils';
+
+import LeftArrow from 'assets/images/arrow-prev.svg';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';
@@ -34,24 +36,25 @@ export default function ChallengeHeader(props) {
     checkpoints,
     hasRegistered,
     numWinners,
+    onSelectorClicked,
+    onToggleDeadlines,
     registering,
     registerForChallenge,
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
     challengeSubtracksMap,
+    selectedView,
+    showDeadlineDetail,
   } = props;
 
   const {
-    componentId,
-    contestId,
     drPoints,
     id: challengeId,
     name,
-    roundId,
     subTrack,
     track,
-
+    pointPrizes,
     events,
     technologies,
     platforms,
@@ -69,9 +72,11 @@ export default function ChallengeHeader(props) {
   } = challenge;
 
   const phases = {};
-  allPhases.forEach((phase) => {
-    phases[_.camelCase(phase.phaseType)] = phase;
-  });
+  if (allPhases) {
+    allPhases.forEach((phase) => {
+      phases[_.camelCase(phase.phaseType)] = phase;
+    });
+  }
 
   let registrationEnded = true;
   const regPhase = phases.registration;
@@ -79,14 +84,13 @@ export default function ChallengeHeader(props) {
     registrationEnded = regPhase.phaseStatus !== 'Open';
   }
 
-  const submissionEnded =
-    status === 'COMPLETED' ||
-    (_.get(phases, 'submission.phaseStatus') !== 'Open' &&
-      _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
+  const submissionEnded = status === 'COMPLETED'
+    || (_.get(phases, 'submission.phaseStatus') !== 'Open'
+      && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
-    trackLower = 'data_science';
+    trackLower = 'datasci';
   }
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -131,7 +135,7 @@ export default function ChallengeHeader(props) {
 
   let relevantPhases = [];
 
-  if (props.showDeadlineDetail) {
+  if (showDeadlineDetail) {
     relevantPhases = (allPhases || []).filter((phase) => {
       if (phase.phaseType === 'Iterative Review') {
         const end = phase.actualEndTime || phase.scheduledEndTime;
@@ -141,8 +145,8 @@ export default function ChallengeHeader(props) {
       if (phaseLowerCase.includes('screening') || phaseLowerCase.includes('specification')) {
         return false;
       }
-      if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint') ||
-        phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
+      if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint')
+        || phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
         return true;
       }
       return false;
@@ -155,14 +159,14 @@ export default function ChallengeHeader(props) {
       if (b.phaseType.toLowerCase().includes('registration')) {
         return 1;
       }
-      return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime() -
-        (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
+      return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime()
+        - (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
     if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
       const phases2 = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
       const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndTime)));
-      relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration') ||
-        new Date(p.scheduledEndTime).getTime() < endPhaseDate));
+      relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration')
+        || new Date(p.scheduledEndTime).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
         phaseType: 'Winners',
@@ -191,7 +195,9 @@ export default function ChallengeHeader(props) {
     case 'active':
       nextDeadlineMsg = (
         <div styleName="next-deadline">
-          Next Deadline: {
+          Next Deadline:
+          {' '}
+          {
             <span styleName="deadline-highlighted">
               {nextDeadline || '-'}
             </span>
@@ -210,7 +216,8 @@ export default function ChallengeHeader(props) {
       nextDeadlineMsg = (
         <div>
           Status:
-          &zwnj;{
+          &zwnj;
+          {
             <span styleName="deadline-highlighted">
               {_.upperFirst(_.lowerCase(status))}
             </span>
@@ -220,46 +227,67 @@ export default function ChallengeHeader(props) {
       break;
   }
 
-  let mmRegLink;
-  let mmSubLink;
-  if (subTrack === 'MARATHON_MATCH') {
-    mmRegLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${roundId}`;
-    mmSubLink = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${roundId}&compid=${componentId}&cd=${contestId}`;
-  }
-
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
-        <h1 styleName="challenge-header">{name}</h1>
-        <ChallengeTags
-          subTrack={subTrack}
-          track={trackLower}
-          challengesUrl={challengesUrl}
-          challengeSubtracksMap={challengeSubtracksMap}
-          events={eventNames}
-          technPlatforms={miscTags}
-          setChallengeListingFilter={setChallengeListingFilter}
-        />
+        <div styleName="title-wrapper">
+          <Link to={challengesUrl}>
+            <LeftArrow styleName="left-arrow" />
+          </Link>
+          <div>
+            <h1 styleName="challenge-header">
+              {name}
+            </h1>
+            <ChallengeTags
+              subTrack={subTrack}
+              track={trackLower}
+              challengesUrl={challengesUrl}
+              challengeSubtracksMap={challengeSubtracksMap}
+              events={eventNames}
+              technPlatforms={miscTags}
+              setChallengeListingFilter={setChallengeListingFilter}
+            />
+          </div>
+        </div>
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
-            <h3 styleName="prizes-title">PRIZES</h3>
-            <Prizes prizes={prizes && prizes.length ? prizes : [0]} />
+            <h3 styleName="prizes-title">
+PRIZES
+            </h3>
+            <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
               bonusType ? (
                 <div id={`bonus-${trackLower}`} styleName="bonus-div">
                   {
-                    bonusType === 'Bonus' ?
-                      <p styleName="bonus-text">
-                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          BONUS: {numberOfCheckpointsPrizes}
-                        </span>CHECKPOINTS AWARDED
-                        WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
-                      </p> :
-                      <p styleName="bonus-text">
-                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
-                        </span>
-                      </p>
+                    bonusType === 'Bonus'
+                      ? (
+                        <p styleName="bonus-text">
+                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                          BONUS:
+                            {' '}
+                            {numberOfCheckpointsPrizes}
+                          </span>
+                        &zwnj;
+                        CHECKPOINTS AWARDED WORTH
+                        &zwnj;
+                          <span
+                            styleName={`bonus-highlight ${trackLower}-accent-color`}
+                          >
+                          $
+                            {topCheckPointPrize}
+                          </span>
+                        &zwnj;
+                        EACH
+                        </p>
+                      )
+                      : (
+                        <p styleName="bonus-text">
+                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                          RELIABILITY BONUS: $
+                            {reliabilityBonus.toFixed()}
+                          </span>
+                        </p>
+                      )
                   }
                 </div>
               ) : null
@@ -268,7 +296,10 @@ export default function ChallengeHeader(props) {
               drPoints ? (
                 <div styleName="bonus-div">
                   <p styleName="bonus-text">
-                    <span styleName={`bonus-highlight ${trackLower}-accent-color`}>POINTS: {drPoints}</span>
+                    <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+POINTS:
+                      {drPoints}
+                    </span>
                   </p>
                 </div>
               ) : null
@@ -279,34 +310,37 @@ export default function ChallengeHeader(props) {
               {hasRegistered ? (
                 <DangerButton
                   disabled={unregistering || registrationEnded
-                  || hasSubmissions}
-                  forceA
-                  onClick={mmRegLink ? null : unregisterFromChallenge}
+                    || hasSubmissions}
+                  onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
-                  to={mmRegLink}
                 >
-                  Unregister
+Unregister
                 </DangerButton>
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded}
-                  forceA
-                  onClick={mmRegLink ? null : registerForChallenge}
+                  onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
-                  to={mmRegLink}
                 >
-                  Register
+Register
                 </PrimaryButton>
               )}
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
-                to={mmSubLink || `${challengesUrl}/${challengeId}/submit`}
+                to={`${challengesUrl}/${challengeId}/submit`}
               >
-                Submit
+Submit
               </PrimaryButton>
-              { track === 'DESIGN' && hasRegistered && !unregistering
-              && hasSubmissions && (<PrimaryButton theme={{ button: style.challengeAction }} to={`${challengesUrl}/${challengeId}/my-submissions`}>View Submissions</PrimaryButton>
+              {
+                track === 'DESIGN' && hasRegistered && !unregistering
+                && hasSubmissions && (
+                  <PrimaryButton
+                    theme={{ button: style.challengeAction }}
+                    to={`${challengesUrl}/${challengeId}/my-submissions`}
+                  >
+View Submissions
+                  </PrimaryButton>
                 )
               }
             </div>
@@ -317,37 +351,51 @@ export default function ChallengeHeader(props) {
             <div styleName="deadlines-overview-text">
               {nextDeadlineMsg}
               {
-                (status || '').toLowerCase() === 'active' &&
+                (status || '').toLowerCase() === 'active'
+                && (
                 <div styleName="current-phase">
                   <span styleName="deadline-highlighted">
                     {timeLeft}
-                  </span> until current deadline ends
+                  </span>
+                  {' '}
+until current deadline ends
                 </div>
+                )
               }
             </div>
             <a
-              onClick={props.onToggleDeadlines}
-              onKeyPress={props.onToggleDeadlines}
+              onClick={onToggleDeadlines}
+              onKeyPress={onToggleDeadlines}
               role="button"
               styleName="deadlines-collapser"
               tabIndex={0}
             >
-              {props.showDeadlineDetail ?
-                <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
-                : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
+              {showDeadlineDetail
+                ? (
+                  <span styleName="collapse-text">
+Hide Deadlines
+                    <ArrowDown />
+                  </span>
+                )
+                : (
+                  <span styleName="collapse-text">
+Show Deadlines
+                    <ArrowUp />
+                  </span>
+                )
               }
             </a>
           </div>
           {
-            props.showDeadlineDetail &&
-            <DeadlinesPanel deadlines={relevantPhases} />
+            showDeadlineDetail
+            && <DeadlinesPanel deadlines={relevantPhases} />
           }
         </div>
         <TabSelector
           challenge={challenge}
-          onSelectorClicked={props.onSelectorClicked}
+          onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
-          selectedView={props.selectedView}
+          selectedView={selectedView}
           numRegistrants={numRegistrants}
           numWinners={numWinners}
           hasCheckpoints={checkpoints && checkpoints.length > 0}

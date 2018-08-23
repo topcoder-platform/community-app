@@ -3,6 +3,7 @@
 exports[`Snapshot match 1`] = `
 <button
   onClick={[Function]}
+  type="button"
 >
   <div
     className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__fail-with-no-warn___3zepk"
@@ -19,6 +20,7 @@ exports[`Snapshot match 1`] = `
 exports[`Snapshot match 2`] = `
 <button
   onClick={[Function]}
+  type="button"
 >
   <div
     className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
@@ -41,6 +43,7 @@ exports[`Snapshot match 2`] = `
 exports[`Snapshot match 3`] = `
 <button
   onClick={[Function]}
+  type="button"
 >
   <div
     className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pass-with-no-warn___2Lbv4"
@@ -57,6 +60,7 @@ exports[`Snapshot match 3`] = `
 exports[`Snapshot match 4`] = `
 <button
   onClick={[Function]}
+  type="button"
 >
   <div
     className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
@@ -79,6 +83,7 @@ exports[`Snapshot match 4`] = `
 exports[`Snapshot match 5`] = `
 <button
   onClick={[Function]}
+  type="button"
 >
   <div
     className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pending___2TqCq"
@@ -99,6 +104,7 @@ exports[`Snapshot match 5`] = `
 exports[`Snapshot match 6`] = `
 <button
   onClick={[Function]}
+  type="button"
 >
   <div
     className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"

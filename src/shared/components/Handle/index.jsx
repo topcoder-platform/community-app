@@ -8,7 +8,9 @@ const Handle = (props) => {
   const { handle, rating, size } = props;
   const color = getRatingColor(rating);
   return (
-    <a href="" styleName="handle" style={{ color, fontSize: `${size}px` }}>{handle}</a>
+    <a href="" styleName="handle" style={{ color, fontSize: `${size}px` }}>
+      {handle}
+    </a>
   );
 };
 

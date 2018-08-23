@@ -15,6 +15,7 @@ import FontsTest from 'components/examples/FontsTest';
 import LinkTest from 'components/examples/LinkTest';
 import LoadingIndicator from 'components/LoadingIndicator';
 import LoadingIndicators from 'components/examples/LoadingIndicators';
+import Markdown from 'components/examples/Markdown';
 import path from 'path';
 import PT from 'prop-types';
 import React from 'react';
@@ -23,38 +24,43 @@ import SvgLoading from 'components/examples/SvgLoading';
 import Tags from 'components/examples/Tags';
 import Themr from 'components/examples/Themr';
 import Typography from 'components/examples/Typography';
+import CountdownExample from 'components/examples/CountdownExample';
 
 import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
+import Contentful from './Contentful';
 import DataFetch from './DataFetch';
 
-export default function Examples(props) {
-  const base = props.match.url;
+export default function Examples({
+  match: {
+    url: base,
+  },
+}) {
   return (
     <Switch>
       <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
       <Route path={`${base}/carousel`} component={Carousel} />
-      <SplitRoute
-        cacheCss
+      <Route path={`${base}/countdown`} component={CountdownExample} />
+      <AppChunk
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
-        renderClientAsync={() =>
-          import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
+        renderClientAsync={() => import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
           .then(({ default: CodeSplitting }) => <CodeSplitting />)
         }
         renderPlaceholder={() => <LoadingIndicator />}
         renderServer={() => {
-          const p = resolveWeak('components/examples/CodeSplitting');
-          const CodeSplitting = requireWeak(path.resolve(__dirname, p));
+          const p = webpack.resolveWeak('components/examples/CodeSplitting');
+          const CodeSplitting = webpack.requireWeak(path.resolve(__dirname, p));
           return <CodeSplitting />;
         }}
       />
       <Route path={`${base}/color-mixins`} component={ColorMixins} />
+      <Route path={`${base}/contentful`} component={Contentful} />
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/editor`} component={Editor} />
@@ -71,6 +77,7 @@ export default function Examples(props) {
         component={LoadingIndicators}
         path={`${base}/loading-indicators`}
       />
+      <Route path={`${base}/markdown`} component={Markdown} />
       <Route path={`${base}/scalable-rect`} component={ScalableRect} />
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
       <Route path={`${base}/tags`} component={Tags} />

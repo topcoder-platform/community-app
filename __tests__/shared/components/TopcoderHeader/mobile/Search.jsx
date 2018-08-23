@@ -24,8 +24,7 @@ const page = TU.renderIntoDocument(<SearchWrapper />);
 
 test.skip('Handles Enter key', () => {
   const items = TU.scryRenderedDOMComponentsWithClass(page, 'search');
-  const input = _.find(items[0].children, item =>
-    item && item.tagName === 'INPUT');
+  const input = _.find(items[0].children, item => item && item.tagName === 'INPUT');
   TU.Simulate.keyPress(input, {
     key: 'Enter',
     target: {

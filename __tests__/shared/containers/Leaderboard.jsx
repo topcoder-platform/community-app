@@ -77,7 +77,8 @@ const obj = TU.renderIntoDocument((
 const { props } = obj.selector;
 
 test('loadLeaderboard dispatch', () => {
-  props.loadLeaderboard();
+  const { loadLeaderboard } = props;
+  loadLeaderboard();
   expect(mockLeaderboardActions.leaderboard.fetchLeaderboardInit).toHaveBeenCalled();
   expect(mockLeaderboardActions.leaderboard.fetchLeaderboardDone).toHaveBeenCalled();
 });

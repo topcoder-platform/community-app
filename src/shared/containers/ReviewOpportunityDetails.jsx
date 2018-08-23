@@ -8,13 +8,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import apiActions from 'actions/reviewOpportunity';
-import { fireErrorMessage } from 'utils/errors';
+import { actions, errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
 import termsActions from 'actions/terms';
+
+const { fireErrorMessage } = errors;
 
 /**
  * ReviewOpportunityDetails Container
@@ -37,14 +38,20 @@ class ReviewOpportunityDetailsContainer extends React.Component {
   }
 
   handleOnHeaderApply() {
-    if (this.props.termsFailure) {
+    const {
+      openTermsModal,
+      terms,
+      termsFailure,
+      toggleApplyModal,
+    } = this.props;
+    if (termsFailure) {
       fireErrorMessage('Error Getting Terms Details', '');
       return;
     }
-    if (this.props.terms.find(term => !term.agreed)) {
-      this.props.openTermsModal();
+    if (terms.find(term => !term.agreed)) {
+      openTermsModal();
     } else {
-      this.props.toggleApplyModal();
+      toggleApplyModal();
     }
   }
 
@@ -90,16 +97,26 @@ class ReviewOpportunityDetailsContainer extends React.Component {
   }
 
   render() {
-    if (this.props.authError) {
-      return <div>You are not authorized to access this page.</div>;
+    const {
+      authError,
+      details,
+    } = this.props;
+    if (authError) {
+      return (
+        <div>
+You are not authorized to access this page.
+        </div>
+      );
     }
 
-    return this.props.details ?
-      <ReviewOpportunityDetailsPage
-        onHeaderApply={() => this.handleOnHeaderApply()}
-        onModalApply={() => this.handleOnModalApply()}
-        {...this.props}
-      /> : <LoadingIndicator />;
+    return details
+      ? (
+        <ReviewOpportunityDetailsPage
+          onHeaderApply={() => this.handleOnHeaderApply()}
+          onModalApply={() => this.handleOnModalApply()}
+          {...this.props}
+        />
+      ) : <LoadingIndicator />;
   }
 }
 
@@ -180,9 +197,8 @@ const mapStateToProps = (state, ownProps) => {
  * @return {Object}
  */
 function mapDispatchToProps(dispatch) {
-  const api = apiActions.reviewOpportunity;
+  const api = actions.reviewOpportunity;
   const page = pageActions.page.reviewOpportunityDetails;
-  const { terms } = termsActions;
   return {
     cancelApplications: (challengeId, roleIds, tokenV3) => {
       dispatch(api.cancelApplicationsInit());
@@ -194,7 +210,7 @@ function mapDispatchToProps(dispatch) {
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {
-      dispatch(terms.openTermsModal('ANY'));
+      dispatch(termsActions.terms.openTermsModal('ANY'));
     },
     selectTab: tab => dispatch(page.selectTab(tab)),
     setRoles: roles => dispatch(page.setRoles(roles)),
