@@ -7,6 +7,8 @@ import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 
+import EligibleEvents from './EligibleEvents';
+
 import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
@@ -93,20 +95,7 @@ DOWNLOADS:
             </div>
           )
         }
-        {eventDetail && (
-          <div>
-            <h3>
-ELIGIBLE EVENTS:
-            </h3>
-            <p styleName="link-like-paragraph">
-              {/* TODO: It is not good to compose the event URL like this, as
-                * in general there is not guaranteed to be correct. */}
-              <a href={`//${eventDetail.eventName}.topcoder.com`}>
-                {eventDetail.description}
-              </a>
-            </p>
-          </div>
-        )}
+        <EligibleEvents eventDetails={eventDetail} />
         {
           !isDesign
           && (
