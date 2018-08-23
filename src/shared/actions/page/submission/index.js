@@ -10,8 +10,6 @@ import { createActions } from 'redux-actions';
 import { services } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
 
-import design from './design';
-
 const Api = services.api.default;
 
 /**
@@ -42,7 +40,7 @@ function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
 /**
  * Export Actions for usage by Redux
  */
-export default _.merge(createActions({
+export default createActions({
   PAGE: {
     SUBMISSION: {
       SUBMIT_INIT: _.noop,
@@ -56,8 +54,6 @@ export default _.merge(createActions({
       SET_FILE_PICKER_DRAGGED: (id, dragged) => ({ id, dragged }),
       UPDATE_NOTES_LENGTH: length => length,
       SET_SUBMISSION_FILESTACK_DATA: data => data,
-      SET_SOURCE_FILESTACK_DATA: data => data,
-      SET_PREVIEW_FILESTACK_DATA: data => data,
     },
   },
-}), design);
+});

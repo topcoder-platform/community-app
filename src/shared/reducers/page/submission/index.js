@@ -11,8 +11,6 @@ import actions from 'actions/page/submission';
 import { logger, errors } from 'topcoder-react-lib';
 import { redux } from 'topcoder-react-utils';
 
-import design from './design';
-
 const { fireErrorMessage } = errors;
 
 /**
@@ -160,10 +158,6 @@ function create(initialState) {
     [a.updateNotesLength]: (state, action) => ({ ...state, notesLength: action.payload }),
     [a.setSubmissionFilestackData]:
       (state, { payload }) => ({ ...state, submissionFilestackData: payload }),
-    [a.setSourceFilestackData]:
-      (state, { payload }) => ({ ...state, sourceFilestackData: payload }),
-    [a.setPreviewFilestackData]:
-      (state, { payload }) => ({ ...state, previewFilestackData: payload }),
   }, _.defaults(_.clone(initialState) || {}, {
     isSubmitting: false,
     submitDone: false,
@@ -181,28 +175,12 @@ function create(initialState) {
       key: '',
       container: '',
     },
-    sourceFilestackData: {
-      filename: '',
-      mimetype: '',
-      size: 0,
-      key: '',
-      container: '',
-    },
-    previewFilestackData: {
-      filename: '',
-      mimetype: '',
-      size: 0,
-      key: '',
-      container: '',
-    },
   }));
 }
 
 export function factory() {
   // Server-side rendering not implemented yet
-  return Promise.resolve(redux.combineReducers(create(), { design }));
+  return Promise.resolve(redux.combineReducers(create()));
 }
 
-export default redux.combineReducers(create(), {
-  design,
-});
+export default redux.combineReducers(create());

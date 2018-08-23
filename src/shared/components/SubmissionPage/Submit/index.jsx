@@ -1,11 +1,10 @@
 /**
- * components.page.challenge-details.Develop
- * <Develop> Component
+ * components.page.challenge-details.Submit
+ * <Submit> Component
  *
  * Description:
- *   Page that is shown when a user is trying to submit a Development Submission.
- *   Allows user to upload Submission.zip file using a conventional
- *   file input form.
+ *   Page that is shown when a user is trying to submit a Submission.
+ *   Allows user to upload Submission.zip file using a Filestack plugin.
  */
 /* eslint-env browser */
 
@@ -23,7 +22,7 @@ import './styles.scss';
 /**
  * Submissions Page shown to develop challengers.
  */
-class Develop extends React.Component {
+class Submit extends React.Component {
   constructor(props) {
     super(props);
 
@@ -260,7 +259,7 @@ I UNDERSTAND AND AGREE
   }
 }
 
-Develop.defaultProps = {
+Submit.defaultProps = {
   errorMsg: '',
 };
 
@@ -278,7 +277,7 @@ const filestackDataProp = PT.shape({
 /**
  * Prop Validation
  */
-Develop.propTypes = {
+Submit.propTypes = {
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
@@ -305,4 +304,4 @@ Develop.propTypes = {
   submissionFilestackData: filestackDataProp.isRequired,
 };
 
-export default Develop;
+export default Submit;

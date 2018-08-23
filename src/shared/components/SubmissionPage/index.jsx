@@ -2,14 +2,12 @@
  * components.page.challenge-details.submission Index Component
  *
  * Description:
- *   Top-level component for the Develop or Design submission components.
- *   Primary purpose is to choose between the above components based on project type
- *   and pass properties from Redux store to the component.
+ *   Top-level component for the Submit component.
  */
 import React from 'react';
 import PT from 'prop-types';
 import Header from './Header';
-import Develop from './Develop';
+import Submit from './Submit';
 import './styles.scss';
 
 /**
@@ -32,7 +30,7 @@ function SubmissionsPage(props) {
         />
         {
           status === 'ACTIVE'
-          && <Develop {...props} />
+          && <Submit {...props} />
         }
       </div>
     </div>
@@ -75,11 +73,7 @@ SubmissionsPage.propTypes = {
   setFilePickerFileName: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
-  setSourceFilestackData: PT.func.isRequired,
-  setPreviewFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
-  sourceFilestackData: filestackDataProp.isRequired,
-  previewFilestackData: filestackDataProp.isRequired,
 };
 
 export default SubmissionsPage;
