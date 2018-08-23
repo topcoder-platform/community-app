@@ -66,7 +66,7 @@ class FilestackFilePicker extends React.Component {
     setFilestackData({
       filename,
       challengeId,
-      fileUrl: this.getPath(),
+      fileUrl: file.url,
       mimetype,
       size,
       key,
@@ -80,17 +80,8 @@ class FilestackFilePicker extends React.Component {
    * @return {String}
    */
   getPath() {
-    const { title, userId, challengeId } = this.props;
-    switch (title) {
-      case 'PREVIEW': return 'DESIGN_COVER/';
-      case 'SUBMISSION-DEV':
-        return `SUBMISSION_DEV_ZIP/${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
-      case 'SUBMISSION':
-        return `SUBMISSION_ZIP/${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
-      case 'SOURCE':
-        return `SOURCE_ZIP/${userId}-SOURCE_ZIP-${Date.now()}.zip`;
-      default: throw new Error('Unknown file type');
-    }
+    const { userId, challengeId } = this.props;
+    return `SUBMISSION_ZIP/${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
   }
 
   render() {

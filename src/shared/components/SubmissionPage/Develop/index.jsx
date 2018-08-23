@@ -48,7 +48,7 @@ class Develop extends React.Component {
 
     const formData = new FormData();
     formData.append('url', sub.fileUrl);
-    formData.append('type', 'ContestSubmission');
+    formData.append('type', 'Contest Submission');
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
     return formData;
@@ -135,14 +135,33 @@ Please follow the instructions on the Challenge Details page regarding
                 <div styleName="submission-hints">
                   { track === 'DEVELOP' ? (
                     <div>
-                      <h1>Develop hints title here</h1>
-                      <p>Develop hints text here</p>
+                      <p>Upload your entire submission as a single zip file.</p>
                     </div>
                   ) : null }
                   { track === 'DESIGN' ? (
                     <div>
-                      <h1>Design hints title here</h1>
-                      <p>Design hints text here</p>
+                      <ol>
+                        <li>Place your submission files into a &quot;Submission.zip&quot; file.</li>
+                        <li>Place all of your source files into a &quot;Source.zip&quot; file.</li>
+                        <li>Create a JPG preview file.</li>
+                        <li>
+                          Zip the 3 files from the previous steps
+                           into a single zip file and upload below.
+                        </li>
+                      </ol>
+                      <p>For detailed information on packaging your submission, please visit the
+                      &zwnj;
+                        {
+                          <a
+                            href="https://help.topcoder.com/hc/en-us/articles/
+                              219122667-Formatting-Your-Submission-for-Design-Challenges"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            help center.
+                          </a>
+                        }
+                      </p>
                     </div>
                   ) : null }
                 </div>

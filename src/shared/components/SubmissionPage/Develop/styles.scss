@@ -15,7 +15,19 @@
   }
 
   .submission-hints {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
+    font-size: 15px;
+    color: #37373c;
+
+    ol {
+      list-style: decimal;
+      margin-left: 15px;
+      margin-bottom: 1em;
+
+      li {
+        line-height: 20px;
+      }
+    }
   }
 
   .row {
