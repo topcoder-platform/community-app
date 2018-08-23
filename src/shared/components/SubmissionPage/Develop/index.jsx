@@ -135,21 +135,31 @@ Please follow the instructions on the Challenge Details page regarding
                 <div styleName="submission-hints">
                   { track === 'DEVELOP' ? (
                     <div>
-                      <h1>Develop hints title here</h1>
-                      <p>Develop hints text here</p>
                     </div>
                   ) : null }
                   { track === 'DESIGN' ? (
                     <div>
-                      <h1>Design hints title here</h1>
-                      <p>Design hints text here</p>
+                      <p>1. Place your submission files into a "Submission.zip" file.</p>
+                      <p>2. Place all of your source files into a "Source.zip" file.</p>
+                      <p>3. Create a JPG preview file.</p>
+                      <p>4. Zip the 3 files from the previous steps into a single zip file and upload below.</p>
+                      <p>For detailed information on packaging your submission, please visit the
+                      &zwnj;
+                      {
+                        <a
+                          href="https://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges"
+                        >
+                          help center.
+                        </a>
+                      }
+                      </p>
                     </div>
                   ) : null }
                 </div>
                 <div styleName="file-picker-container">
                   <FilestackFilePicker
                     mandatory
-                    title="SUBMISSION-DEV"
+                    title="Submission Upload"
                     fileExtensions={['.zip']}
                     id={id}
                     challengeId={challengeId}
