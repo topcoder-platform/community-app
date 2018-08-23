@@ -225,6 +225,7 @@ Fonts:
               All fonts within your design must be declared when you submit.
               DO NOT include any font files in your submission or source files.
               Read about the font policy
+              {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges">
                 here.
               </a>
@@ -238,6 +239,7 @@ Screening:
               {"'"}
 t let your hard work go to waste.
               Learn more about how to pass screening
+              {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges">
                 here.
               </a>
