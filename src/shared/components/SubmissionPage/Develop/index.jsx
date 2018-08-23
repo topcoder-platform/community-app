@@ -134,6 +134,9 @@ Please follow the instructions on the Challenge Details page regarding
               <div styleName="right">
                 <div styleName="submission-hints">
                   { track === 'DEVELOP' ? (
+                    <div>
+                      <p>Upload your entire submission as a single zip file.</p>                    
+                    </div>
                   ) : null }
                   { track === 'DESIGN' ? (
                     <div>
