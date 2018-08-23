@@ -134,8 +134,6 @@ Please follow the instructions on the Challenge Details page regarding
               <div styleName="right">
                 <div styleName="submission-hints">
                   { track === 'DEVELOP' ? (
-                    <div>
-                    </div>
                   ) : null }
                   { track === 'DESIGN' ? (
                     <div>
@@ -147,7 +145,8 @@ Please follow the instructions on the Challenge Details page regarding
                       &zwnj;
                       {
                         <a
-                          href="https://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges"
+                          href="https://help.topcoder.com/hc/en-us/articles/
+                            219122667-Formatting-Your-Submission-for-Design-Challenges"
                         >
                           help center.
                         </a>
