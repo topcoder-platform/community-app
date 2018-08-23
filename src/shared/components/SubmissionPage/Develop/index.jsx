@@ -48,7 +48,7 @@ class Develop extends React.Component {
 
     const formData = new FormData();
     formData.append('url', sub.fileUrl);
-    formData.append('type', 'ContestSubmission');
+    formData.append('type', 'Contest Submission');
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
     return formData;
