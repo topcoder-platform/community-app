@@ -48,4 +48,9 @@ module.exports = {
       COGNITIVE: 'https://cognitive.topcoder.com',
     },
   },
+  /* Filestack configuration for uploading Submissions
+   * These are for the production back end */
+  FILESTACK: {
+    SUBMISSION_CONTAINER: 'submission-staging-prod',
+  },
 };

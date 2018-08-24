@@ -47,10 +47,39 @@ class Submit extends React.Component {
 
     const formData = new FormData();
     formData.append('url', sub.fileUrl);
-    formData.append('type', 'Contest Submission');
+    formData.append('type', this.getSubType());
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
     return formData;
+  }
+
+  getSubType() {
+    const {
+      currentPhases,
+    } = this.props;
+    const checkpoint = _.find(currentPhases, {
+      phaseType: 'Checkpoint Submission',
+    });
+    const submission = _.find(currentPhases, {
+      phaseType: 'Submission',
+    });
+    const finalFix = _.find(currentPhases, {
+      phaseType: 'Final Fix',
+    });
+    let subType;
+
+    // Submission type logic
+    if (checkpoint && checkpoint.phaseStatus === 'Open') {
+      subType = 'Checkpoint Submission';
+    } else if (checkpoint && checkpoint.phaseStatus === 'Close' && submission && submission.phaseStatus === 'Open') {
+      subType = 'Contest Submission';
+    } else if (finalFix && finalFix.phaseStatus === 'Open') {
+      subType = 'Studio Final Fix Submission';
+    } else {
+      subType = 'Contest Submission';
+    }
+
+    return subType;
   }
 
   reset() {
@@ -278,6 +307,7 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 Submit.propTypes = {
+  currentPhases: PT.arrayOf(PT.object).isRequired,
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
