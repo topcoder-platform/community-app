@@ -51,6 +51,6 @@ module.exports = {
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */
   FILESTACK: {
-    SUBMISSION_CONTAINER: 'submission-staging-prod',
+    SUBMISSION_CONTAINER: 'topcoder-submissions-dmz',
   },
 };
