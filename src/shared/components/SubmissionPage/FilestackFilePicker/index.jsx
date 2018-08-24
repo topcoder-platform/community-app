@@ -83,7 +83,7 @@ class FilestackFilePicker extends React.Component {
    */
   getPath() {
     const { userId, challengeId } = this.props;
-    return `SUBMISSION_ZIP/${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
+    return `${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
   }
 
   render() {
