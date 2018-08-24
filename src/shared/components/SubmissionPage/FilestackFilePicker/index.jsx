@@ -28,6 +28,7 @@ const { fireErrorMessage } = errors;
 class FilestackFilePicker extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { filePath: '' };
     this.onSuccess = this.onSuccess.bind(this);
   }
 
@@ -54,13 +55,12 @@ class FilestackFilePicker extends React.Component {
       key,
       container,
     } = file;
-
     const {
       setFileName,
       setFilestackData,
       challengeId,
     } = this.props;
-
+    const { filePath } = this.state;
     // container doesn't seem to get echoed from Drag and Drop
     const cont = container || config.FILESTACK.SUBMISSION_CONTAINER;
 
@@ -69,7 +69,7 @@ class FilestackFilePicker extends React.Component {
     setFilestackData({
       filename,
       challengeId,
-      fileUrl: `https://s3.amazonaws.com/${cont}/${this.getPath()}`,
+      fileUrl: `https://s3.amazonaws.com/${cont}/${filePath}`,
       mimetype,
       size,
       key,
@@ -83,7 +83,9 @@ class FilestackFilePicker extends React.Component {
    */
   getPath() {
     const { userId, challengeId } = this.props;
-    return `${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
+    const filePath = `${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
+    this.setState({ filePath });
+    return filePath;
   }
 
   render() {
