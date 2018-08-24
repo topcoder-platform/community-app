@@ -148,7 +148,7 @@ module.exports = {
   FILESTACK: {
     API_KEY: 'AzFINuQoqTmqw0QEoaw9az',
     REGION: 'us-east-1',
-    SUBMISSION_CONTAINER: 'submission-staging-dev',
+    SUBMISSION_CONTAINER: 'topcoder-dev-submissions-dmz',
   },
 
   /* Secret part of the configuration. Nest into this section any sensitive
