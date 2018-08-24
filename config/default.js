@@ -162,9 +162,10 @@ module.exports = {
           PREVIEW_API_KEY: '',
         },
       },
-      tcdeveloper: { // Name of another space
+      /* Contentful Space for TopGear community content. */
+      topgear: {
         SPACE_ID: '',
-        development: { // Name of an environment
+        master: {
           CDN_API_KEY: '',
           PREVIEW_API_KEY: '',
         },
