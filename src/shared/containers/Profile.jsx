@@ -118,18 +118,9 @@ function mapDispatchToProps(dispatch) {
     loadProfile: (handle) => {
       dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
-      dispatch(a.getAchievementsInit());
-      dispatch(a.getExternalAccountsInit());
-      dispatch(a.getExternalLinksInit());
-      dispatch(a.getInfoInit());
-      dispatch(a.getSkillsInit());
-      dispatch(a.getStatsInit());
-      dispatch(a.getAchievementsDone(handle));
-      dispatch(a.getExternalAccountsDone(handle));
       dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
       dispatch(a.getSkillsDone(handle));
-      dispatch(a.getStatsDone(handle));
     },
   };
 }
