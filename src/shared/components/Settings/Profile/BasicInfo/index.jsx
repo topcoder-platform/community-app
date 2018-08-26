@@ -12,7 +12,7 @@ import moment from 'moment';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { getAllCountryObjects } from 'utils/countries';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import ImageInput from '../ImageInput';
 import Track from './Track';
@@ -24,7 +24,7 @@ import './styles.scss';
 
 const countries = getAllCountryObjects();
 
-export default class BasicInfo extends React.Component {
+export default class BasicInfo extends ConsentComponent {
   constructor(props) {
     super(props);
 
@@ -32,19 +32,19 @@ export default class BasicInfo extends React.Component {
     this.onUpdateCountry = this.onUpdateCountry.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleSaveBasicInfo = this.onHandleSaveBasicInfo.bind(this);
     this.onSaveBasicInfo = this.onSaveBasicInfo.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCheckFormValue = this.onCheckFormValue.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
+    const { userTraits } = props;
     this.state = {
-      showUserConsent: false,
       savingBasicInfo: false,
       inputChanged: false,
       formInvalid: false,
       errorMessage: '',
-      basicInfoTrait: this.loadBasicInfoTraits(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      basicInfoTrait: this.loadBasicInfoTraits(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newBasicInfo: {
         handle: '',
         firstName: '',
@@ -128,26 +128,23 @@ export default class BasicInfo extends React.Component {
    * Show User Consent Modal
    * @param {*} e event
    */
-  onShowUserConsent(e) {
+  onHandleSaveBasicInfo(e) {
     e.preventDefault();
     const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onSaveBasicInfo.bind(this));
   }
 
   /**
    * Save Basic Info
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onSaveBasicInfo(e, answer) {
-    e.preventDefault();
+  onSaveBasicInfo(answer) {
     const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
     this.setState({
       savingBasicInfo: true,
-      showUserConsent: false,
     });
 
     const {
@@ -410,13 +407,12 @@ export default class BasicInfo extends React.Component {
       newBasicInfo,
       formInvalid,
       errorMessage,
-      showUserConsent,
     } = this.state;
 
     return (
       <div styleName="basic-info-container">
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onSaveBasicInfo} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           {errorMessage}
@@ -827,7 +823,7 @@ export default class BasicInfo extends React.Component {
           <PrimaryButton
             styleName="white-label"
             disabled={false}
-            onClick={this.onShowUserConsent}
+            onClick={this.onHandleSaveBasicInfo}
           >
             {
               'Save Changes'

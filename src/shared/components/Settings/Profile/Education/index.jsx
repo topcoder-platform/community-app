@@ -9,8 +9,8 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
 import EducationList from './List';
@@ -18,24 +18,25 @@ import EducationList from './List';
 import './styles.scss';
 
 
-export default class Education extends React.Component {
+export default class Education extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteEducation = this.onHandleDeleteEducation.bind(this);
     this.onDeleteEducation = this.onDeleteEducation.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadEducationTrait = this.loadEducationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddEducation = this.onHandleAddEducation.bind(this);
     this.onAddEducation = this.onAddEducation.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
-      educationTrait: this.loadEducationTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      educationTrait: this.loadEducationTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newEducation: {
         type: '',
         schoolCollegeName: '',
@@ -147,6 +148,10 @@ export default class Education extends React.Component {
     return invalid;
   }
 
+  onHandleDeleteEducation(indexNo) {
+    this.showConsent(this.onDeleteEducation.bind(this, indexNo));
+  }
+
   /**
    * Delete education by index
    * @param indexNo the education index no
@@ -175,12 +180,9 @@ export default class Education extends React.Component {
 
   /**
    * Add new education
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddEducation(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddEducation(answer) {
     const { newEducation, personalizationTrait } = this.state;
 
     if (this.onCheckFormValue(newEducation)) {
@@ -263,13 +265,13 @@ export default class Education extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddEducation(e) {
     e.preventDefault();
     const { newEducation } = this.state;
     if (this.onCheckFormValue(newEducation)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddEducation.bind(this));
   }
 
   /**
@@ -303,7 +305,6 @@ export default class Education extends React.Component {
     } = this.props;
     const {
       educationTrait,
-      showUserConsent,
       isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
@@ -317,7 +318,7 @@ export default class Education extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddEducation} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="education-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -434,7 +435,7 @@ export default class Education extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddEducation}
               >
                 Add education to your list
               </PrimaryButton>
@@ -510,7 +511,7 @@ export default class Education extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddEducation}
               >
                 Add Education
               </PrimaryButton>
@@ -521,7 +522,7 @@ export default class Education extends React.Component {
             && (
               <EducationList
                 educationList={{ items: educationItems }}
-                onDeleteItem={this.onDeleteEducation}
+                onDeleteItem={this.onHandleDeleteEducation}
               />
             )
           }
