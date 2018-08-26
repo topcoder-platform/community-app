@@ -156,12 +156,15 @@ export default class BasicInfo extends React.Component {
       addUserTrait,
       updateUserTrait,
     } = this.props;
-    newBasicInfo.birthDate = new Date(newBasicInfo.birthDate).toISOString();
+    try {
+      newBasicInfo.birthDate = new Date(newBasicInfo.birthDate).toISOString();
+    } catch (error) { // eslint-disable-line
+      newBasicInfo.birthDate = null;
+    }
 
-    // FIXME: Remove the following gender check.
-    // It's used as a temporary hack as the backend needs some fixes
+    // This is a hack to check if the user has an existing basic_info trait object
     if (basicInfoTrait.traits
-      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.traits.data[0].gender) {
+      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.createdAt) {
       const newBasicInfoTrait = { ...basicInfoTrait };
       newBasicInfoTrait.traits.data = [];
       newBasicInfoTrait.traits.data.push(newBasicInfo);
@@ -476,7 +479,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-optional">Optional</span>
                 <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Your address continued" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
               </div>
             </div>
@@ -594,7 +596,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-optional">Optional</span>
                 <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="List several of your interests, like &quot;Design&quot;, &quot;Development&quot;, &quot;Data Science&quot;" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
               </div>
             </div>
@@ -609,7 +610,6 @@ export default class BasicInfo extends React.Component {
                   <span styleName="description-counts">
                     {newBasicInfo.description.length}/240
                   </span>
-                  <span styleName="text-optional">Optional</span>
                 </div>
                 <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
               </div>
