@@ -389,7 +389,7 @@ export default class Work extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddWork}
               >
                 Add workplace to your list
               </PrimaryButton>

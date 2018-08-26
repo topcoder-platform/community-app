@@ -87,7 +87,7 @@ export default class Devices extends ConsentComponent {
     if (this.onCheckFormValue(newDevice)) {
       return;
     }
-    this.showConsent(this.onAddDevice.bind(this));
+    this.showConsent(this.onAddevice.bind(this));
   }
 
   onHandleDeleteDevice(indexNo) {
@@ -376,7 +376,7 @@ export default class Devices extends ConsentComponent {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddDevice}
             >
               Add device to your list
             </PrimaryButton>

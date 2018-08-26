@@ -304,7 +304,7 @@ export default class ServiceProviders extends ConsentComponent {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddServiceProvider}
             >
               Add service provider to your list
             </PrimaryButton>

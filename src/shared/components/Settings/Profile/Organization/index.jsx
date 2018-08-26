@@ -394,7 +394,7 @@ export default class Organization extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddOrganization}
               >
                 Add organizations to your list
               </PrimaryButton>

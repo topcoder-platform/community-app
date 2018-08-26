@@ -448,7 +448,7 @@ export default class Skills extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddSkill}
               >
                 Add skill to your list
               </PrimaryButton>

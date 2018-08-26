@@ -274,7 +274,7 @@ export default class Subscription extends ConsentComponent {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddSubscription}
             >
               Add subscription to your list
             </PrimaryButton>

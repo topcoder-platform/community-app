@@ -350,7 +350,7 @@ export default class Language extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddLanguage}
               >
                 Add language to your list
               </PrimaryButton>

@@ -304,7 +304,7 @@ export default class Software extends ConsentComponent {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddSoftware}
             >
               Add software to your list
             </PrimaryButton>

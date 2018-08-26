@@ -300,7 +300,7 @@ export default class Hobby extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddHobby}
               >
                 Add hobby to your list
               </PrimaryButton>

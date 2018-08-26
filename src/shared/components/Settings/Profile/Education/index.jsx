@@ -435,7 +435,7 @@ export default class Education extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddEducation}
               >
                 Add education to your list
               </PrimaryButton>
