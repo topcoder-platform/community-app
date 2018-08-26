@@ -87,7 +87,7 @@ export default class Devices extends ConsentComponent {
     if (this.onCheckFormValue(newDevice)) {
       return;
     }
-    this.showConsent(this.onAddevice.bind(this));
+    this.showConsent(this.onAddDevice.bind(this));
   }
 
   onHandleDeleteDevice(indexNo) {
