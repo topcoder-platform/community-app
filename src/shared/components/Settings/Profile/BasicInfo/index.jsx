@@ -162,6 +162,13 @@ export default class BasicInfo extends React.Component {
       newBasicInfo.birthDate = null;
     }
 
+    if (newBasicInfo.gender === '') {
+      newBasicInfo.gender = null;
+    }
+
+    if (newBasicInfo.tshirtSize === '') {
+      newBasicInfo.tshirtSize = null;
+    }
     // This is a hack to check if the user has an existing basic_info trait object
     if (basicInfoTrait.traits
       && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.createdAt) {
@@ -412,7 +419,7 @@ export default class BasicInfo extends React.Component {
           showUserConsent && (<UserConsentModal onSaveTrait={this.onSaveBasicInfo} />)
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
+          {errorMessage}
         </div>
         <h1>
           Basic Info
@@ -624,7 +631,7 @@ export default class BasicInfo extends React.Component {
           </div>
           <div styleName="form-container">
             <p styleName="handle">
-              { newBasicInfo.handle }
+              {newBasicInfo.handle}
             </p>
             <div styleName="mb-user-card">
               <ImageInput
@@ -640,10 +647,10 @@ export default class BasicInfo extends React.Component {
                 </div>
                 <div styleName="main">
                   <p styleName="user-handle">
-                    { newBasicInfo.handle }
+                    {newBasicInfo.handle}
                   </p>
                   <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-                    { errorMessage }
+                    {errorMessage}
                   </div>
                   <div styleName="row">
                     <div styleName="field">
