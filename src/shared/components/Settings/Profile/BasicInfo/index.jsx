@@ -11,7 +11,6 @@ import PT from 'prop-types';
 import moment from 'moment';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { getAllCountryObjects } from 'utils/countries';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import ImageInput from '../ImageInput';
@@ -21,8 +20,6 @@ import dropdowns from './dropdowns.json';
 import tracks from './tracks';
 
 import './styles.scss';
-
-const countries = getAllCountryObjects();
 
 export default class BasicInfo extends ConsentComponent {
   constructor(props) {
@@ -525,7 +522,7 @@ export default class BasicInfo extends ConsentComponent {
                 <span styleName="text-required">* Required</span>
                 <Select
                   name="country"
-                  options={countries}
+                  options={dropdowns.countries}
                   value={newBasicInfo.country}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
@@ -735,7 +732,7 @@ export default class BasicInfo extends ConsentComponent {
                   </label>
                   <Select
                     name="country"
-                    options={countries}
+                    options={dropdowns.countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
