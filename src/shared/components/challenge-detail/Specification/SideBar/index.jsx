@@ -214,8 +214,9 @@ Read the FAQ.
 Fonts, Stock Photos, and Icons:
             </h4>
             <p styleName="link-like-paragraph">
-              All fonts, stock photos, and icons within your design must be declared when you submit.
-              DO NOT include any 3rd party files in your submission or source files.
+              All fonts, stock photos, and icons within your design must be declared
+              when you submit. DO NOT include any 3rd party files in your
+              submission or source files.
               Read about the policy
               {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges">
