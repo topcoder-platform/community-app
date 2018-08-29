@@ -173,7 +173,11 @@ Please follow the instructions on the Challenge Details page regarding
                         <li>Place all of your source files into a &quot;Source.zip&quot; file.</li>
                         <li>Create a JPG preview file.</li>
                         <li>
-                          Zip the 3 files from the previous steps
+                          Create a declaration.txt file. Document fonts, stock art
+                           and icons used.
+                        </li>
+                        <li>
+                          Zip the 4 files from the previous steps
                            into a single zip file and upload below.
                         </li>
                       </ol>
