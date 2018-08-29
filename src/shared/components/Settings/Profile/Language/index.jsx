@@ -273,7 +273,7 @@ export default class Language extends ConsentComponent {
         }
         <div styleName="language-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
+            {errorMessage}
           </div>
           <h1>
             Language
@@ -303,7 +303,16 @@ export default class Language extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
-                  <input id="language" name="language" type="text" placeholder="Language" onChange={this.onUpdateInput} value={newLanguage.language} maxLength="300" required />
+                  <Select
+                    name="language"
+                    options={dropdowns.language}
+                    onChange={this.onUpdateSelect}
+                    value={newLanguage.language}
+                    placeholder="Language"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
                 </div>
               </div>
               <div styleName="row">
@@ -368,7 +377,16 @@ export default class Language extends ConsentComponent {
                   <label htmlFor="language">
                     Language
                   </label>
-                  <input id="language" name="language" type="text" placeholder="Language" onChange={this.onUpdateInput} value={newLanguage.language} maxLength="300" required />
+                  <Select
+                    name="language"
+                    options={dropdowns.language}
+                    onChange={this.onUpdateSelect}
+                    value={newLanguage.language}
+                    placeholder="Language"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="spokenLevel">
