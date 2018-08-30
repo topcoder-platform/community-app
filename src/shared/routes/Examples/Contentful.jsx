@@ -20,6 +20,7 @@ import Video from 'components/Contentful/Video';
 import Viewport from 'components/Contentful/Viewport';
 import Tabs from 'components/Contentful/Tabs';
 import Blog from 'components/Contentful/Blog';
+import BlogFeed from 'containers/Contentful/BlogFeed';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -188,6 +189,10 @@ export default function Contentful({ match }) {
       <Route
         path={`${base}/tabs/:id`}
         component={p => <Tabs id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/blog-feed/:id`}
+        component={p => <BlogFeed id={p.match.params.id} preview />}
       />
     </Switch>
   );

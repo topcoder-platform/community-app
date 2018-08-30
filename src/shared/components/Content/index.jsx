@@ -481,6 +481,13 @@ Blog
             </code>
           </Link>
         </li>
+        <li>
+          <Link to="/examples/contentful/blog-feed/1YdPFERC76cIsugoIMycoW">
+            <code>
+              BlogFeed
+            </code>
+          </Link>
+        </li>
       </ul>
 
       <h3>
