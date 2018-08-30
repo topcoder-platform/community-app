@@ -194,7 +194,7 @@ Your Design Files:
                 {'Place all of your source files into a "Source.zip" file.'}
               </li>
               <li>
-                {'Declare your fonts, stock photos, and icon in a "Declaration.zip" file.'}
+                {'Declare your fonts, stock photos, and icons in a "Declaration.txt" file.'}
               </li>
               <li>
                 {'Create a JPG preview file.'}
