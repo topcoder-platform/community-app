@@ -15,7 +15,7 @@
 
   h2 {
     text-align: center;
-    
+
     @include sm-to-md {
       font-size: 24px;
     }
@@ -27,7 +27,6 @@
     line-height: 20px;
     max-width: 450px;
     text-align: center;
-
     margin: 8 * $base-unit auto;
 
     a {
