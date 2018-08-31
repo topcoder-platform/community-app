@@ -37,7 +37,7 @@ class LeaderboardPageContainer extends React.Component {
       <div>
         <div styleName="Leaderboard">
           <h2 styleName="section-title">{title}</h2>
-          <Podium competitors={ld.slice(0, podiumSpots)} />
+          <Podium competitors={ld.slice(0, podiumSpots)} isCopilot={isCopilot} />
           <LeaderboardTable competitors={ld.slice(podiumSpots)} isCopilot={isCopilot} />
         </div>
       </div>

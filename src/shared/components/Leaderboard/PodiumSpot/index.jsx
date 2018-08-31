@@ -60,6 +60,7 @@ const DISPLAY_RANKING = {
 export default function PodiumSpot(props) {
   const {
     competitor,
+    isCopilot,
   } = props;
 
   let photoUrl = competitor.avatar;
@@ -86,7 +87,7 @@ export default function PodiumSpot(props) {
       </div>
       <div styleName="styles.winnings-info">
         {
-          competitor.fulfillment ? (
+          isCopilot ? (
             <div styleName="styles.stats">
               <span styleName="styles.value">{competitor.fulfillment}</span>
               <span>fulfillment</span>
@@ -116,4 +117,9 @@ const CompetitorShape = PT.shape({
 
 PodiumSpot.propTypes = {
   competitor: CompetitorShape.isRequired,
+  isCopilot: PT.bool,
+};
+
+PodiumSpot.defaultProps = {
+  isCopilot: false,
 };

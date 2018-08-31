@@ -29,12 +29,13 @@ import './styles.scss';
 export default function Podium(props) {
   const {
     competitors,
+    isCopilot,
   } = props;
 
   const renderPodium = (comps) => {
     let podiumSpots = comps.map(comp => (
       <div key={comp.rank} styleName="podium-column">
-        <PodiumSpot competitor={comp} />
+        <PodiumSpot competitor={comp} isCopilot={isCopilot} />
       </div>
     ));
 
@@ -66,4 +67,9 @@ const CompetitorShape = PT.shape({});
 
 Podium.propTypes = {
   competitors: PT.arrayOf(CompetitorShape).isRequired,
+  isCopilot: PT.bool,
+};
+
+Podium.defaultProps = {
+  isCopilot: false,
 };
