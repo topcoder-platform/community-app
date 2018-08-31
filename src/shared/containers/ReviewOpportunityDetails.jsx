@@ -13,6 +13,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
+import FailedToLoad from 'components/ReviewOpportunityDetailsPage/FailedToLoad';
 import termsActions from 'actions/terms';
 
 const { fireErrorMessage } = errors;
@@ -102,11 +103,7 @@ class ReviewOpportunityDetailsContainer extends React.Component {
       details,
     } = this.props;
     if (authError) {
-      return (
-        <div>
-You are not authorized to access this page.
-        </div>
-      );
+      return <FailedToLoad />;
     }
 
     return details

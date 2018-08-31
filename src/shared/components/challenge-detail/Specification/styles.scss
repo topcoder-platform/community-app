@@ -69,6 +69,7 @@ $tc-link-visited: #0c4e98;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  overflow: hidden;
   position: relative;
   align-items: baseline;
   word-break: break-word;
@@ -302,5 +303,9 @@ $tc-link-visited: #0c4e98;
 
   .note {
     @include noteStyle;
+  }
+
+  @include xs-to-sm {
+    max-width: 95vw;
   }
 }

@@ -27,12 +27,12 @@ export default class ImageInput extends React.Component {
   }
 
   componentDidMount() {
-    const { userTraits } = this.props;
-    this.loadBasicInfoTraits(userTraits);
+    const { userTraits, profile } = this.props;
+    this.loadBasicInfoTraits(userTraits, profile);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.loadBasicInfoTraits(nextProps.userTraits);
+    this.loadBasicInfoTraits(nextProps.userTraits, nextProps.profile);
     const {
       profileState,
     } = this.props;
@@ -73,11 +73,11 @@ export default class ImageInput extends React.Component {
    * Get basic info trait
    * @param userTraits the all user traits
    */
-  loadBasicInfoTraits = (userTraits) => {
+  loadBasicInfoTraits = (userTraits, profile) => {
     const trait = userTraits.filter(t => t.traitId === 'basic_info');
     const basicInfoTrait = trait.length === 0 ? {} : trait[0];
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
-    this.setState({ newBasicInfo: basicInfo });
+    this.setState({ newBasicInfo: { ...basicInfo, photoURL: profile.photoURL } });
   }
 
   render() {
@@ -152,4 +152,5 @@ ImageInput.propTypes = {
   userTraits: PT.array.isRequired,
   profileState: PT.shape().isRequired,
   uploadPhoto: PT.func.isRequired,
+  profile: PT.shape().isRequired,
 };

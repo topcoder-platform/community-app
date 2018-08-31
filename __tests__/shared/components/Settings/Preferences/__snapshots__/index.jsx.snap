@@ -30,9 +30,7 @@ exports[`renders preferences setting page correctly 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           />,
           "payment": <Payment
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
+            viewBox="0 0 34 30"
             xmlns="http://www.w3.org/2000/svg"
           />,
           "referrals": <Referral
@@ -82,9 +80,7 @@ exports[`renders preferences setting page correctly 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           />,
           "payment": <Payment
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
+            viewBox="0 0 34 30"
             xmlns="http://www.w3.org/2000/svg"
           />,
           "referrals": <Referral

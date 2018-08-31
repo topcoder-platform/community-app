@@ -10,12 +10,13 @@ $tip-radius-4: $corner-radius * 2;
 
 @mixin phase($bullet-color) {
   padding-left: 4 * $base-unit;
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
 
   .type {
     display: inline-block;
-    width: 44%;
+    width: 50%;
 
     &::before {
       content: "\2022";
@@ -29,11 +30,15 @@ $tip-radius-4: $corner-radius * 2;
   .date {
     display: inline-block;
     width: 30%;
+
+    @media (max-width: 768px) {
+      width: auto;
+    }
   }
 
   .duration {
     display: inline-block;
-    width: 25%;
+    width: 20%;
   }
 }
 
@@ -49,10 +54,9 @@ $tip-radius-4: $corner-radius * 2;
   border-radius: $corner-radius * 12;
   font-size: 13px;
   font-weight: 400;
-  height: 30px;
+  height: 20px;
   min-height: 30px;
   padding: 0 10px;
-  max-width: 140px;
 
   svg {
     height: auto;
@@ -82,6 +86,10 @@ $tip-radius-4: $corner-radius * 2;
   padding-top: 2 * $base-unit;
   text-align: left;
   width: 35%;
+
+  @include md-to-lg {
+    width: 48%;
+  }
 }
 
 .expanded {
@@ -104,4 +112,19 @@ $tip-radius-4: $corner-radius * 2;
 
 .phases {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    border-top: 1px solid $tc-gray-20;
+    border-left: none;
+    padding-top: 4 * $base-unit;
+    border-radius: unset;
+    box-shadow: none;
+
+    .duration {
+      display: none;
+    }
+  }
 }

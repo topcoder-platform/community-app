@@ -57,6 +57,10 @@ $tc-link-visited: #0c4e98;
   max-width: 1240px;
   padding: 8 * $base-unit 16 * $base-unit;
   width: 100%;
+
+  @include sm-to-md {
+    padding: 4 * $base-unit;
+  }
 }
 
 .h2 {

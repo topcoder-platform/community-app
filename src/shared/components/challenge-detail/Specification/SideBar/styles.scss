@@ -1,25 +1,4 @@
-@import "~styles/mixins";
-$tc-link-visited: #0c4e98;
-
-@mixin linkStyle {
-  a {
-    color: $tc-dark-blue;
-    word-wrap: break-word;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  a:active {
-    text-decoration: underline;
-    color: $tc-dark-blue-70;
-  }
-
-  a:visited {
-    color: $tc-link-visited;
-  }
-}
+@import "mixins";
 
 .challenge-spec-sidebar {
   background: $tc-dark-blue-10;
@@ -135,14 +114,7 @@ $tc-link-visited: #0c4e98;
   }
 
   .link-like-paragraph {
-    @include roboto-regular;
-
-    font-size: 13px;
-    color: $tc-gray-90;
-    line-height: 20px;
-    margin: 0 0 20px;
-
-    @include linkStyle;
+    @include linkLikeParagraph;
   }
 
   ol {

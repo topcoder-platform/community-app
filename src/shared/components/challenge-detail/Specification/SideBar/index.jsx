@@ -7,6 +7,8 @@ import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 
+import EligibleEvents from './EligibleEvents';
+
 import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
@@ -93,20 +95,7 @@ DOWNLOADS:
             </div>
           )
         }
-        {eventDetail && (
-          <div>
-            <h3>
-ELIGIBLE EVENTS:
-            </h3>
-            <p styleName="link-like-paragraph">
-              {/* TODO: It is not good to compose the event URL like this, as
-                * in general there is not guaranteed to be correct. */}
-              <a href={`//${eventDetail.eventName}.topcoder.com`}>
-                {eventDetail.description}
-              </a>
-            </p>
-          </div>
-        )}
+        <EligibleEvents eventDetails={eventDetail} />
         {
           !isDesign
           && (
@@ -205,10 +194,13 @@ Your Design Files:
                 {'Place all of your source files into a "Source.zip" file.'}
               </li>
               <li>
+                {'Declare your fonts, stock photos, and icons in a "Declaration.txt" file.'}
+              </li>
+              <li>
                 {'Create a JPG preview file.'}
               </li>
               <li>
-                {'Place the 3 files you just created into a single zip file. This will be what you upload.'}
+                {'Place the 4 files you just created into a single zip file. This will be what you upload.'}
               </li>
             </ol>
             <p styleName="link-like-paragraph">
@@ -219,12 +211,13 @@ Read the FAQ.
               </a>
             </p>
             <h4>
-Fonts:
+Fonts, Stock Photos, and Icons:
             </h4>
             <p styleName="link-like-paragraph">
-              All fonts within your design must be declared when you submit.
-              DO NOT include any font files in your submission or source files.
-              Read about the font policy
+              All fonts, stock photos, and icons within your design must be declared
+              when you submit. DO NOT include any 3rd party files in your
+              submission or source files.
+              Read about the policy
               {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges">
                 here.

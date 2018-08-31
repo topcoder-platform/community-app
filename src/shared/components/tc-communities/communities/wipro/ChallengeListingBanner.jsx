@@ -10,8 +10,10 @@ export default function ChallengeListingBanner() {
         content_type: 'banner',
         'fields.name': 'TopGear - Challenge Listing - Banner',
       }}
-      render={d => d.entries.matches[0].items.map(id => <Banner id={id} />)}
+      render={d => d.entries.matches[0].items
+        .map(id => <Banner id={id} spaceName="topgear" />)}
       renderPlaceholder={LoadingIndicator}
+      spaceName="topgear"
     />
   );
 }
