@@ -161,9 +161,10 @@ Pick a File
               fromSources: [
                 'local_file_system',
                 'googledrive',
-                'box',
                 'dropbox',
                 'onedrive',
+                'github',
+                'url',
               ],
               maxSize: 500 * 1024 * 1024,
               onFileUploadFailed: () => setDragged(false),
@@ -183,9 +184,10 @@ Pick a File
               fromSources: [
                 'local_file_system',
                 'googledrive',
-                'box',
                 'dropbox',
                 'onedrive',
+                'github',
+                'url',
               ],
               maxSize: 500 * 1024 * 1024,
               onFileUploadFailed: () => setDragged(false),
