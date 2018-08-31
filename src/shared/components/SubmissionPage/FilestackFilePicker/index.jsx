@@ -54,6 +54,8 @@ class FilestackFilePicker extends React.Component {
       size,
       key,
       container,
+      source,
+      originalPath,
     } = file;
     const {
       setFileName,
@@ -63,13 +65,15 @@ class FilestackFilePicker extends React.Component {
     const { filePath } = this.state;
     // container doesn't seem to get echoed from Drag and Drop
     const cont = container || config.FILESTACK.SUBMISSION_CONTAINER;
+    // In case of url we need to submit the original url not the S3
+    const fileUrl = source === 'url' ? originalPath : `https://s3.amazonaws.com/${cont}/${filePath}`;
 
     setFileName(filename);
 
     setFilestackData({
       filename,
       challengeId,
-      fileUrl: `https://s3.amazonaws.com/${cont}/${filePath}`,
+      fileUrl,
       mimetype,
       size,
       key,
