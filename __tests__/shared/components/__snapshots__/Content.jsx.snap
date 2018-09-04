@@ -583,7 +583,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/examples/contentful/blog-feed/1YdPFERC76cIsugoIMycoW"
+        to="/examples/contentful/blog-feed/6A61WFKFjimSWoe04ukOI4"
       >
         <code>
           BlogFeed
