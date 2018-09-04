@@ -10,12 +10,13 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 import Modal from 'components/Modal';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 // import qs from 'qs';
 import defaultStyle from './style.scss';
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * mailchimp APIs. */
-const PROXY_ENDPOINT = '/api/mailchimp';
+const PROXY_ENDPOINT = `${config.URL.COMMUNITY_APP}/api/mailchimp`;
 
 class NewsletterSignup extends React.Component {
   constructor(props) {

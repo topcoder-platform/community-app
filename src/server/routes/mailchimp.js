@@ -11,6 +11,7 @@ const routes = express.Router();
  * TODO: Replace the wildcard value by an appropriate origin filtering. */
 routes.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Headers', 'authorization, content-type');
   next();
 });
 

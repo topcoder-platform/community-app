@@ -30,7 +30,8 @@ Application Date
     </div>
     <div styleName="body">
       {
-        applications.filter(app => app.status !== 'Cancelled').map(app => (
+        applications
+        && applications.filter(app => app.status !== 'Cancelled').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
               <a href={`${config.URL.BASE}/members/${app.handle}`}>

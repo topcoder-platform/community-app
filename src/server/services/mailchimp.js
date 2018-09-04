@@ -37,4 +37,4 @@ class MailchimpService {
 }
 
 /* mailchimp CDN service. */
-export default new MailchimpService('https://us19.api.mailchimp.com/3.0');
+export default new MailchimpService('https://us13.api.mailchimp.com/3.0');

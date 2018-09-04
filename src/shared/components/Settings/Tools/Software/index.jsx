@@ -9,7 +9,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -18,24 +18,25 @@ import SoftwareList from './List';
 import './styles.scss';
 
 
-export default class Software extends React.Component {
+export default class Software extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteSoftware = this.onHandleDeleteSoftware.bind(this);
     this.onDeleteSoftware = this.onDeleteSoftware.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadSoftwareTrait = this.loadSoftwareTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddSoftware = this.onHandleAddSoftware.bind(this);
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
-      softwareTrait: this.loadSoftwareTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      softwareTrait: this.loadSoftwareTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newSoftware: {
         softwareType: '',
         name: '',
@@ -73,13 +74,13 @@ export default class Software extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddSoftware(e) {
     e.preventDefault();
     const { newSoftware } = this.state;
     if (this.onCheckFormValue(newSoftware)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddSoftware.bind(this));
   }
 
   /**
@@ -107,6 +108,10 @@ export default class Software extends React.Component {
 
     this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
+  }
+
+  onHandleDeleteSoftware(indexNo) {
+    this.showConsent(this.onDeleteSoftware.bind(this, indexNo));
   }
 
   /**
@@ -137,12 +142,9 @@ export default class Software extends React.Component {
 
   /**
    * Add new software
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddSoftware(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddSoftware(answer) {
     const { newSoftware, personalizationTrait } = this.state;
 
     const {
@@ -234,7 +236,7 @@ export default class Software extends React.Component {
   }
 
   render() {
-    const { softwareTrait, showUserConsent, isMobileView } = this.state;
+    const { softwareTrait, isMobileView } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
@@ -242,7 +244,7 @@ export default class Software extends React.Component {
     return (
       <div styleName="software-container">
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSoftware} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           { errorMessage }
@@ -302,7 +304,7 @@ export default class Software extends React.Component {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddSoftware}
             >
               Add software to your list
             </PrimaryButton>
@@ -342,7 +344,7 @@ export default class Software extends React.Component {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddSoftware}
             >
               Add Software
             </PrimaryButton>
@@ -353,7 +355,7 @@ export default class Software extends React.Component {
           && (
             <SoftwareList
               softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onDeleteSoftware}
+              onDeleteItem={this.onHandleDeleteSoftware}
             />
           )
         }

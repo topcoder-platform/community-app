@@ -9,29 +9,30 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import WorkList from './List';
 
 import './styles.scss';
 
 
-export default class Work extends React.Component {
+export default class Work extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteWork = this.onHandleDeleteWork.bind(this);
     this.onDeleteWork = this.onDeleteWork.bind(this);
     this.loadWorkTrait = this.loadWorkTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddWork = this.onHandleAddWork.bind(this);
     this.onAddWork = this.onAddWork.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
-      workTrait: this.loadWorkTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      workTrait: this.loadWorkTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newWork: {
         company: '',
         position: '',
@@ -77,13 +78,13 @@ export default class Work extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddWork(e) {
     e.preventDefault();
     const { newWork } = this.state;
     if (this.onCheckFormValue(newWork)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddWork.bind(this));
   }
 
   /**
@@ -162,6 +163,10 @@ export default class Work extends React.Component {
     return invalid;
   }
 
+  onHandleDeleteWork(indexNo) {
+    this.showConsent(this.onDeleteWork.bind(this, indexNo));
+  }
+
   /**
    * Delete work by index
    * @param indexNo the work index no
@@ -190,12 +195,9 @@ export default class Work extends React.Component {
 
   /**
    * Add new work
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddWork(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddWork(answer) {
     const { newWork, personalizationTrait } = this.state;
 
     const {
@@ -279,7 +281,6 @@ export default class Work extends React.Component {
     } = this.props;
     const {
       workTrait,
-      showUserConsent,
       isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
@@ -292,7 +293,7 @@ export default class Work extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddWork} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="work-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -388,7 +389,7 @@ export default class Work extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddWork}
               >
                 Add workplace to your list
               </PrimaryButton>
@@ -445,7 +446,7 @@ export default class Work extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddWork}
               >
                 Add Workplace
               </PrimaryButton>
@@ -456,7 +457,7 @@ export default class Work extends React.Component {
             && (
               <WorkList
                 workList={{ items: workItems }}
-                onDeleteItem={this.onDeleteWork}
+                onDeleteItem={this.onHandleDeleteWork}
               />
             )
           }

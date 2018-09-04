@@ -11,8 +11,7 @@ import PT from 'prop-types';
 import moment from 'moment';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { getAllCountryObjects } from 'utils/countries';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import ImageInput from '../ImageInput';
 import Track from './Track';
@@ -22,9 +21,7 @@ import tracks from './tracks';
 
 import './styles.scss';
 
-const countries = getAllCountryObjects();
-
-export default class BasicInfo extends React.Component {
+export default class BasicInfo extends ConsentComponent {
   constructor(props) {
     super(props);
 
@@ -32,19 +29,19 @@ export default class BasicInfo extends React.Component {
     this.onUpdateCountry = this.onUpdateCountry.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleSaveBasicInfo = this.onHandleSaveBasicInfo.bind(this);
     this.onSaveBasicInfo = this.onSaveBasicInfo.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCheckFormValue = this.onCheckFormValue.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
+    const { userTraits } = props;
     this.state = {
-      showUserConsent: false,
       savingBasicInfo: false,
       inputChanged: false,
       formInvalid: false,
       errorMessage: '',
-      basicInfoTrait: this.loadBasicInfoTraits(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      basicInfoTrait: this.loadBasicInfoTraits(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newBasicInfo: {
         handle: '',
         firstName: '',
@@ -128,26 +125,23 @@ export default class BasicInfo extends React.Component {
    * Show User Consent Modal
    * @param {*} e event
    */
-  onShowUserConsent(e) {
+  onHandleSaveBasicInfo(e) {
     e.preventDefault();
     const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onSaveBasicInfo.bind(this));
   }
 
   /**
    * Save Basic Info
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onSaveBasicInfo(e, answer) {
-    e.preventDefault();
+  onSaveBasicInfo(answer) {
     const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
     this.setState({
       savingBasicInfo: true,
-      showUserConsent: false,
     });
 
     const {
@@ -156,12 +150,22 @@ export default class BasicInfo extends React.Component {
       addUserTrait,
       updateUserTrait,
     } = this.props;
-    newBasicInfo.birthDate = new Date(newBasicInfo.birthDate).toISOString();
+    try {
+      newBasicInfo.birthDate = new Date(newBasicInfo.birthDate).toISOString();
+    } catch (error) { // eslint-disable-line
+      newBasicInfo.birthDate = null;
+    }
 
-    // FIXME: Remove the following gender check.
-    // It's used as a temporary hack as the backend needs some fixes
+    if (newBasicInfo.gender === '') {
+      newBasicInfo.gender = null;
+    }
+
+    if (newBasicInfo.tshirtSize === '') {
+      newBasicInfo.tshirtSize = null;
+    }
+    // This is a hack to check if the user has an existing basic_info trait object
     if (basicInfoTrait.traits
-      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.traits.data[0].gender) {
+      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.createdAt) {
       const newBasicInfoTrait = { ...basicInfoTrait };
       newBasicInfoTrait.traits.data = [];
       newBasicInfoTrait.traits.data.push(newBasicInfo);
@@ -400,16 +404,15 @@ export default class BasicInfo extends React.Component {
       newBasicInfo,
       formInvalid,
       errorMessage,
-      showUserConsent,
     } = this.state;
 
     return (
       <div styleName="basic-info-container">
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onSaveBasicInfo} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
+          {errorMessage}
         </div>
         <h1>
           Basic Info
@@ -476,7 +479,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-optional">Optional</span>
                 <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Your address continued" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
               </div>
             </div>
@@ -520,7 +522,7 @@ export default class BasicInfo extends React.Component {
                 <span styleName="text-required">* Required</span>
                 <Select
                   name="country"
-                  options={countries}
+                  options={dropdowns.countries}
                   value={newBasicInfo.country}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
@@ -594,7 +596,6 @@ export default class BasicInfo extends React.Component {
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-optional">Optional</span>
                 <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="List several of your interests, like &quot;Design&quot;, &quot;Development&quot;, &quot;Data Science&quot;" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
               </div>
             </div>
@@ -609,7 +610,6 @@ export default class BasicInfo extends React.Component {
                   <span styleName="description-counts">
                     {newBasicInfo.description.length}/240
                   </span>
-                  <span styleName="text-optional">Optional</span>
                 </div>
                 <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
               </div>
@@ -624,7 +624,7 @@ export default class BasicInfo extends React.Component {
           </div>
           <div styleName="form-container">
             <p styleName="handle">
-              { newBasicInfo.handle }
+              {newBasicInfo.handle}
             </p>
             <div styleName="mb-user-card">
               <ImageInput
@@ -640,10 +640,10 @@ export default class BasicInfo extends React.Component {
                 </div>
                 <div styleName="main">
                   <p styleName="user-handle">
-                    { newBasicInfo.handle }
+                    {newBasicInfo.handle}
                   </p>
                   <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-                    { errorMessage }
+                    {errorMessage}
                   </div>
                   <div styleName="row">
                     <div styleName="field">
@@ -732,7 +732,7 @@ export default class BasicInfo extends React.Component {
                   </label>
                   <Select
                     name="country"
-                    options={countries}
+                    options={dropdowns.countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
@@ -820,7 +820,7 @@ export default class BasicInfo extends React.Component {
           <PrimaryButton
             styleName="white-label"
             disabled={false}
-            onClick={this.onShowUserConsent}
+            onClick={this.onHandleSaveBasicInfo}
           >
             {
               'Save Changes'

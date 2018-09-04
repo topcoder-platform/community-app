@@ -10,29 +10,31 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import UserConsentModal from 'components/Settings/UserConsentModal';
 import HobbyList from './List';
 
 import './styles.scss';
 
 
-export default class Hobby extends React.Component {
+export default class Hobby extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteHobby = this.onHandleDeleteHobby.bind(this);
     this.onDeleteHobby = this.onDeleteHobby.bind(this);
     this.loadHobbyTrait = this.loadHobbyTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddHobby = this.onHandleAddHobby.bind(this);
     this.onAddHobby = this.onAddHobby.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+
+    const { userTraits } = props;
     this.state = {
-      showUserConsent: false,
       formInvalid: false,
       errorMessage: '',
-      hobbyTrait: this.loadHobbyTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      hobbyTrait: this.loadHobbyTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newHobby: {
         hobby: '',
         description: '',
@@ -70,13 +72,13 @@ export default class Hobby extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddHobby(e) {
     e.preventDefault();
     const { newHobby } = this.state;
     if (this.onCheckFormValue(newHobby)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddHobby.bind(this));
   }
 
   /**
@@ -104,6 +106,10 @@ export default class Hobby extends React.Component {
 
     this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
+  }
+
+  onHandleDeleteHobby(indexNo) {
+    this.showConsent(this.onDeleteHobby.bind(this, indexNo));
   }
 
   /**
@@ -134,12 +140,9 @@ export default class Hobby extends React.Component {
 
   /**
    * Add new hobby
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddHobby(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddHobby(answer) {
     const { newHobby, personalizationTrait, hobbyTrait } = this.state;
 
     const {
@@ -225,7 +228,6 @@ export default class Hobby extends React.Component {
     } = this.props;
     const {
       hobbyTrait,
-      showUserConsent,
       isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
@@ -238,7 +240,7 @@ export default class Hobby extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddHobby} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="hobby-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -298,7 +300,7 @@ export default class Hobby extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddHobby}
               >
                 Add hobby to your list
               </PrimaryButton>
@@ -338,7 +340,7 @@ Description
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddHobby}
               >
                 Add Hobby
               </PrimaryButton>
@@ -349,7 +351,7 @@ Description
             && (
               <HobbyList
                 hobbyList={{ items: hobbyItems }}
-                onDeleteItem={this.onDeleteHobby}
+                onDeleteItem={this.onHandleDeleteHobby}
               />
             )
           }
