@@ -102,7 +102,7 @@ export default class MyAccount extends React.Component {
     const newState = { ...this.state };
     const { updateProfile, profile, tokenV3 } = this.props;
 
-    const email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+    const email = /^([0-9A-Za-z\-_\.+]+)@([0-9A-Za-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
 
     if (newState.newEmail === '' || !email.test(newState.newEmail)) {
       newState.focus['new-email-input'] = true;

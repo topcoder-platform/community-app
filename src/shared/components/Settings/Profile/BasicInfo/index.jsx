@@ -217,7 +217,7 @@ export default class BasicInfo extends ConsentComponent {
   }
 
   onUpdateCountry(country) {
-    if (country && country.alpha3) {
+    if (country) {
       const { newBasicInfo: oldBasicInfo } = this.state;
       const newBasicInfo = { ...oldBasicInfo };
       newBasicInfo.country = country.name;
@@ -354,8 +354,8 @@ export default class BasicInfo extends ConsentComponent {
       this.setState({ newBasicInfo });
     } else {
       newBasicInfo.handle = handle;
-      newBasicInfo.gender = 'male';
-      newBasicInfo.tshirtSize = 'S';
+      newBasicInfo.gender = '';
+      newBasicInfo.tshirtSize = '';
       newBasicInfo.userId = profile.userId;
       newBasicInfo.status = profile.status;
       newBasicInfo.email = profile.email;
