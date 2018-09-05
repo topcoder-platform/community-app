@@ -127,23 +127,23 @@ workbox.routing.registerRoute(/\/challenges\/\d+(\/)?(.*)/, challengeDetailsHand
 
 // Cache fonts
 // (Note when deployed in production, the static assets will be served by cloudfront CDN)
-workbox.routing.registerRoute(/https:\/\/.*cloudfront\.net\/.*\.(?:woff|eot|ttf)(\?.*)?$/, workbox.strategies.cacheFirst({ cacheName: fontsCacheName, plugins: [expirationPlugin(10)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/.*cloudfront\.net\/.*\.(?:woff|eot|ttf)(\?.*)?$/, workbox.strategies.cacheFirst({ cacheName: fontsCacheName, plugins: [expirationPlugin(10)] }), 'GET');
 workbox.routing.registerRoute(/\.(?:woff|eot|ttf)(\?.*)?$/, workbox.strategies.cacheFirst({ cacheName: fontsCacheName, plugins: [expirationPlugin(10)] }), 'GET');
 
 // Cache js/css/images
 // (Note when deployed in production, the static assets will be served by cloudfront CDN)
-workbox.routing.registerRoute(/https:\/\/.*cloudfront\.net\/.*\.(?:js|css|png|jpg|jpeg|svg|gif)(\?.*)?$/, workbox.strategies.staleWhileRevalidate({ cacheName: jscssimagesCacheName, plugins: [expirationPlugin(100)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/.*cloudfront\.net\/.*\.(?:js|css|png|jpg|jpeg|svg|gif)(\?.*)?$/, workbox.strategies.staleWhileRevalidate({ cacheName: jscssimagesCacheName, plugins: [expirationPlugin(100)] }), 'GET');
 workbox.routing.registerRoute(/\.(?:js|css|png|jpg|jpeg|svg|gif)(\?.*)?$/, workbox.strategies.staleWhileRevalidate({ cacheName: jscssimagesCacheName, plugins: [expirationPlugin(100)] }), 'GET');
 
 // Cache api v2/v3/v4
-workbox.routing.registerRoute(/https:\/\/api\.(?:topcoder|topcoder-dev)\.com\/v2\/(.*)/, workbox.strategies.networkFirst({ cacheName: apiV2CacheName, plugins: [expirationPlugin(10)] }), 'GET');
-workbox.routing.registerRoute(/https:\/\/api\.(?:topcoder|topcoder-dev)\.com\/v3\/(.*)/, workbox.strategies.networkFirst({ cacheName: apiV3CacheName, plugins: [expirationPlugin(10)] }), 'GET');
-workbox.routing.registerRoute(/https:\/\/api\.(?:topcoder|topcoder-dev)\.com\/v4\/(.*)/, workbox.strategies.networkFirst({ cacheName: apiV4CacheName, plugins: [expirationPlugin(50)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/api\.(?:topcoder|topcoder-dev)\.com\/v2\/(.*)/, workbox.strategies.networkFirst({ cacheName: apiV2CacheName, plugins: [expirationPlugin(10)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/api\.(?:topcoder|topcoder-dev)\.com\/v3\/(.*)/, workbox.strategies.networkFirst({ cacheName: apiV3CacheName, plugins: [expirationPlugin(10)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/api\.(?:topcoder|topcoder-dev)\.com\/v4\/(.*)/, workbox.strategies.networkFirst({ cacheName: apiV4CacheName, plugins: [expirationPlugin(50)] }), 'GET');
 
 // Cache misc apis
-workbox.routing.registerRoute(/https:\/\/.*\.cloudfront\.net\/exchange-rates$/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(100)] }), 'GET');
-workbox.routing.registerRoute(/https:\/\/.*contentful\/published\/entries(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(100)] }), 'GET');
-workbox.routing.registerRoute(/https:\/\/.*community-app-assets\/api\/tc-communities(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(100)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/.*\.cloudfront\.net\/exchange-rates$/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(100)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/.*contentful\/published\/entries(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(100)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/.*community-app-assets\/api\/tc-communities(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(100)] }), 'GET');
 
 // Cache third part
 workbox.routing.registerRoute(/http(s)?:\/\/.*(?:google-analytics\.com|addthis\.com|addthisedge\.com|hotjar\.com|ravenjs\.com|trychameleon\.com|googletagmanager\.com|zendesk\.com|zdassets\.com|hotjar\.com|facebook\.net|hs-scripts\.com|hs-analytics\.net|hsadspixel\.net)\/.*\.(?:js|html|config_resp)(\?.*)?$/, workbox.strategies.staleWhileRevalidate({ cacheName: thirdpartCacheName, plugins: [expirationPlugin(50)] }), 'GET');
