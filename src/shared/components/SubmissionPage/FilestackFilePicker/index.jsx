@@ -28,7 +28,6 @@ const { fireErrorMessage } = errors;
 class FilestackFilePicker extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { filePath: '' };
     this.onSuccess = this.onSuccess.bind(this);
   }
 
@@ -47,7 +46,7 @@ class FilestackFilePicker extends React.Component {
   }
 
   /* Called when a file is successfully stored in the S3 container */
-  onSuccess(file) {
+  onSuccess(file, filePath) {
     const {
       filename,
       mimetype,
@@ -62,7 +61,6 @@ class FilestackFilePicker extends React.Component {
       setFilestackData,
       challengeId,
     } = this.props;
-    const { filePath } = this.state;
     // container doesn't seem to get echoed from Drag and Drop
     const cont = container || config.FILESTACK.SUBMISSION_CONTAINER;
     // In case of url we need to submit the original url not the S3
@@ -85,11 +83,9 @@ class FilestackFilePicker extends React.Component {
    * Returns the path where the picked up file should be stored.
    * @return {String}
    */
-  getPath() {
+  generateFilePath() {
     const { userId, challengeId } = this.props;
-    const filePath = `${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
-    this.setState({ filePath });
-    return filePath;
+    return `${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
   }
 
   render() {
@@ -160,58 +156,65 @@ Uploading:
 Pick a File
           </PrimaryButton>
           <div
-            onClick={() => this.filestack.pick({
-              accept: fileExtensions,
-              fromSources: [
-                'local_file_system',
-                'googledrive',
-                'dropbox',
-                'onedrive',
-                'github',
-                'url',
-              ],
-              maxSize: 500 * 1024 * 1024,
-              onFileUploadFailed: () => setDragged(false),
-              onFileUploadFinished: (file) => {
-                setDragged(false);
-                this.onSuccess(file);
-              },
-              startUploadingWhenMaxFilesReached: true,
-              storeTo: {
-                container: config.FILESTACK.SUBMISSION_CONTAINER,
-                path: this.getPath(),
-                region: config.FILESTACK.REGION,
-              },
-            })}
-            onKeyPress={() => this.filestack.pick({
-              accept: fileExtensions,
-              fromSources: [
-                'local_file_system',
-                'googledrive',
-                'dropbox',
-                'onedrive',
-                'github',
-                'url',
-              ],
-              maxSize: 500 * 1024 * 1024,
-              onFileUploadFailed: () => setDragged(false),
-              onFileUploadFinished: (file) => {
-                setDragged(false);
-                this.onSuccess(file);
-              },
-              startUploadingWhenMaxFilesReached: true,
-              storeTo: {
-                container: config.FILESTACK.SUBMISSION_CONTAINER,
-                path: this.getPath(),
-                region: config.FILESTACK.REGION,
-              },
-            })}
+            onClick={() => {
+              const path = this.generateFilePath();
+              this.filestack.pick({
+                accept: fileExtensions,
+                fromSources: [
+                  'local_file_system',
+                  'googledrive',
+                  'dropbox',
+                  'onedrive',
+                  'github',
+                  'url',
+                ],
+                maxSize: 500 * 1024 * 1024,
+                onFileUploadFailed: () => setDragged(false),
+                onFileUploadFinished: (file) => {
+                  setDragged(false);
+                  this.onSuccess(file, path);
+                },
+                startUploadingWhenMaxFilesReached: true,
+                storeTo: {
+                  container: config.FILESTACK.SUBMISSION_CONTAINER,
+                  path,
+                  region: config.FILESTACK.REGION,
+                },
+              });
+            }}
+            onKeyPress={() => {
+              const path = this.generateFilePath();
+              this.filestack.pick({
+                accept: fileExtensions,
+                fromSources: [
+                  'local_file_system',
+                  'googledrive',
+                  'dropbox',
+                  'onedrive',
+                  'github',
+                  'url',
+                ],
+                maxSize: 500 * 1024 * 1024,
+                onFileUploadFailed: () => setDragged(false),
+                onFileUploadFinished: (file) => {
+                  setDragged(false);
+                  this.onSuccess(file, path);
+                },
+                startUploadingWhenMaxFilesReached: true,
+                storeTo: {
+                  container: config.FILESTACK.SUBMISSION_CONTAINER,
+                  path,
+                  region: config.FILESTACK.REGION,
+                },
+              });
+            }}
             onDragEnter={() => setDragged(true)}
             onDragLeave={() => setDragged(false)}
             onDragOver={e => e.preventDefault()}
             onDrop={(e) => {
               setDragged(false);
               e.preventDefault();
+              const path = this.generateFilePath();
               const filename = e.dataTransfer.files[0].name;
               if (!fileExtensions.some(ext => filename.endsWith(ext))) {
                 return fireErrorMessage('Wrong file type!', '');
@@ -225,9 +228,9 @@ Pick a File
                 progressInterval: 1000,
               }, {
                 container: config.FILESTACK.SUBMISSION_CONTAINER,
-                path: this.getPath(),
+                path,
                 region: config.FILESTACK.REGION,
-              }).then(file => this.onSuccess(file));
+              }).then(file => this.onSuccess(file, path));
               return undefined;
             }}
             role="button"
