@@ -51,10 +51,6 @@ module.exports = {
    * Disable PWA service worker.
    */
   DISABLE_SERVICE_WORKER: false,
-  /**
-   * The service worker path.
-   */
-  SERVICE_WORKER_PATH: '/',
 
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */

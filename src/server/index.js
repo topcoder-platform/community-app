@@ -38,7 +38,7 @@ const swScope = '/challenges'; // we are currently only interested in improving 
 
 const EXTRA_SCRIPTS = [
   `<script type="application/javascript">
-  if('serviceWorker' in navigator){navigator.serviceWorker.register('${config.SERVICE_WORKER_PATH}${sw}', {scope: '${swScope}'}).then((res)=>{console.log('SW registered: ',res)}).catch((err)=>{console.log('SW registration failed: ',err)})}
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then((res)=>{console.log('SW registered: ',res)}).catch((err)=>{console.log('SW registration failed: ',err)})}
   </script>`,
   `<script
       src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
@@ -194,6 +194,17 @@ async function onExpressJsSetup(server) {
    * for static assets. */
   const url = path.resolve(__dirname, '../../build');
   server.use('/community-app-assets', express.static(url));
+
+  /* Serve sw.js */
+  server.use(`${swScope}/sw.js`, (req, res) => {
+    res.set('Service-Worker-Allowed', '/');
+
+    if (`${config.DISABLE_SERVICE_WORKER}`.toLowerCase() === 'true') {
+      res.sendFile(`${url}/noopsw.js`);
+    } else {
+      res.sendFile(`${url}/sw.js`);
+    }
+  });
 }
 
 global.KEEP_BUILD_INFO = true;
