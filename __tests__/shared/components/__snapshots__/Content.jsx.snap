@@ -580,6 +580,16 @@ exports[`Matches shallow shapshot 1`] = `
         </code>
       </Link>
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/blog-feed/6A61WFKFjimSWoe04ukOI4"
+      >
+        <code>
+          BlogFeed
+        </code>
+      </Link>
+    </li>
   </ul>
   <h3>
     Previews of Contentful Components with CMS SpaceName/Environment Props

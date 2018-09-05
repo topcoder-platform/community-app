@@ -1,0 +1,10 @@
+@import '~styles/mixins';
+@import './default';
+
+.container {
+  .cardsWrapper {
+    width: inherit;
+    margin: 0 15px;
+    flex-wrap: wrap;
+  }
+}

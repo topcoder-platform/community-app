@@ -20,69 +20,78 @@ import Video from 'components/Contentful/Video';
 import Viewport from 'components/Contentful/Viewport';
 import Tabs from 'components/Contentful/Tabs';
 import Blog from 'components/Contentful/Blog';
+import BlogFeed from 'containers/Contentful/BlogFeed';
+import qs from 'qs';
 
 import { Route, Switch } from 'react-router-dom';
 
-export default function Contentful({ match }) {
+export default function Contentful({ location, match }) {
+  let spaceName;
+  if (location.search) {
+    spaceName = qs.parse(location.search.slice(1)).space;
+  }
   const base = match.url;
   return (
     <Switch>
       <Route
         path={`${base}/slider/:id`}
-        component={p => <ContentSlider id={p.match.params.id} preview />}
+        component={p => (
+          <ContentSlider
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
       />
       <Route
         path={`${base}/accordion/:id`}
-        component={p => <Accordion id={p.match.params.id} preview />}
-      />
-      <Route
-        path={`${base}/accordion2/:id`}
         component={p => (
           <Accordion
             id={p.match.params.id}
-            spaceName="tcdeveloper"
-            environment="development"
             preview
+            spaceName={spaceName}
           />
         )}
       />
       <Route
         path={`${base}/menu/:id`}
-        component={p => <Menu id={p.match.params.id} preview />}
+        component={p => (
+          <Menu
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
       />
       <Route
         path={`${base}/banner/:id`}
-        component={p => <Banner id={p.match.params.id} preview />}
-      />
-      <Route
-        path={`${base}/banner2/:id`}
         component={p => (
           <Banner
             id={p.match.params.id}
-            spaceName="tcdeveloper"
-            environment="development"
             preview
+            spaceName={spaceName}
           />
         )}
       />
       <Route
         path={`${base}/contentblock/:id`}
-        component={p => <ContentBlock id={p.match.params.id} preview />}
-      />
-      <Route
-        path={`${base}/contentblock2/:id`}
         component={p => (
           <ContentBlock
             id={p.match.params.id}
-            spaceName="tcdeveloper"
-            environment="development"
             preview
+            spaceName={spaceName}
           />
         )}
       />
       <Route
         path={`${base}/blogpost/:id`}
-        component={p => <BlogPostLoader id={p.match.params.id} preview />}
+        component={p => (
+          <BlogPostLoader
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
       />
       <Route
         path={`${base}/blog/:id/:page?`}
@@ -126,74 +135,74 @@ export default function Contentful({ match }) {
       />
       <Route
         path={`${base}/quote/:id`}
-        component={p => <Quote id={p.match.params.id} preview />}
-      />
-      <Route
-        path={`${base}/quote2/:id`}
         component={p => (
           <Quote
             id={p.match.params.id}
-            spaceName="tcdeveloper"
-            environment="development"
             preview
+            spaceName={spaceName}
           />
         )}
       />
       <Route
         path={`${base}/video/:id`}
-        component={p => <Video id={p.match.params.id} preview />}
-      />
-      <Route
-        path={`${base}/video2/:id`}
         component={p => (
           <Video
             id={p.match.params.id}
-            spaceName="tcdeveloper"
-            environment="development"
             preview
+            spaceName={spaceName}
           />
         )}
       />
       <Route
         path={`${base}/route/:id`}
-        component={p => <ContentfulRoute baseUrl={p.match.url} id={p.match.params.id} preview />}
-      />
-      <Route
-        path={`${base}/route2/:id`}
         component={p => (
           <ContentfulRoute
             baseUrl={p.match.url}
             id={p.match.params.id}
-            spaceName="tcdeveloper"
-            environment="development"
             preview
+            spaceName={spaceName}
           />
         )}
       />
       <Route
         path={`${base}/viewport/:id`}
-        component={p => <Viewport id={p.match.params.id} preview />}
-      />
-      <Route
-        path={`${base}/viewport2/:id`}
         component={p => (
           <Viewport
             id={p.match.params.id}
-            spaceName="tcdeveloper"
-            environment="development"
             preview
+            spaceName={spaceName}
           />
         )}
       />
       <Route
         path={`${base}/tabs/:id`}
-        component={p => <Tabs id={p.match.params.id} preview />}
+        component={p => (
+          <Tabs
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/blog-feed/:id`}
+        component={p => (
+          <BlogFeed
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
       />
     </Switch>
   );
 }
 
+
 Contentful.propTypes = {
+  location: PT.shape({
+    search: PT.string.isRequired,
+  }).isRequired,
   match: PT.shape({
     url: PT.string.isRequired,
   }).isRequired,

@@ -13,6 +13,7 @@ import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
 import Menu from 'components/Contentful/Menu';
+import BlogFeed from 'containers/Contentful/BlogFeed';
 import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
@@ -35,6 +36,7 @@ const COMPONENTS = {
   appComponent: AppComponentLoader,
   banner: Banner,
   blogPost: BlogPost,
+  blogFeed: BlogFeed,
   challengesBlock: ChallengesBlock,
   contentBlock: ContentBlock,
   countdown: Countdown,
