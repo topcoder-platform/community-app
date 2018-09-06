@@ -3,8 +3,7 @@
  */
 import React from 'react';
 import PT from 'prop-types';
-import Modal from 'components/Modal';
-import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import modal from './styles.scss';
 
 export default function UserConsentModal(props) {
