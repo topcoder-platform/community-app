@@ -47,6 +47,11 @@ module.exports = {
     LOCAL_MODE: false,
   },
 
+  /**
+   * Disable PWA service worker.
+   */
+  DISABLE_SERVICE_WORKER: false,
+
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   LOG_ENTRIES_TOKEN: '816f5574-0d4a-49f9-ab3b-00d791f7c1f7',

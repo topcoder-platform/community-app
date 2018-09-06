@@ -1,4 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+
 const path = require('path');
 
 let publicPath = process.env.CDN_URL || '/api/cdn/public';
@@ -43,6 +46,33 @@ module.exports = {
     }, {
       from: path.resolve(__dirname, '../../src/assets/themes'),
       to: path.resolve(__dirname, '../../build/themes'),
+    }, {
+      from: path.resolve(__dirname, '../../src/server/noopsw.js'),
+      to: path.resolve(__dirname, '../../build/noopsw.js'),
     }]),
+    new WebpackPwaManifest({
+      name: 'TC Challenges',
+      short_name: 'Challenges',
+      start_url: '/challenges',
+      background_color: '#ffffff',
+      theme_color: '#ffffff',
+      scope: '/',
+      icons: [
+        {
+          src: path.resolve('src/assets/images/logo-192.png'),
+          size: 192,
+        },
+        {
+          src: path.resolve('src/assets/images/logo-512.png'),
+          size: 512,
+        },
+      ],
+      fingerprints: false,
+    }),
+    new WorkboxPlugin.InjectManifest({
+      swSrc: path.resolve('src/server/sw.js'),
+      swDest: path.resolve(__dirname, '../../build/sw.js'),
+      importWorkboxFrom: 'local',
+    }),
   ],
 };
