@@ -57,6 +57,7 @@ class SubmissionsPageContainer extends React.Component {
 SubmissionsPageContainer.defaultProps = {
   challengesUrl: '/challenges',
   uploadProgress: 0,
+  challengeGroupName: '',
 };
 
 /* Reusable prop validation for Filestack data objects */
@@ -77,6 +78,7 @@ SubmissionsPageContainer.propTypes = {
   /* Older stuff */
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
+  challengeGroupName: PT.string,
   tokenV2: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   submit: PT.func.isRequired,

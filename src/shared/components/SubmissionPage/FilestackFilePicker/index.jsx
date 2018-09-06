@@ -100,7 +100,20 @@ class FilestackFilePicker extends React.Component {
       setFileName,
       setUploadProgress,
       uploadProgress,
+      challengeGroupName,
     } = this.props;
+
+    let pickupSources = [
+      'local_file_system',
+      'googledrive',
+      'dropbox',
+      'onedrive',
+      'github',
+      'url',
+    ];
+    if (challengeGroupName === 'topGear') {
+      pickupSources = ['url'];
+    }
 
     return (
       <div styleName="container">
@@ -160,14 +173,7 @@ Pick a File
               const path = this.generateFilePath();
               this.filestack.pick({
                 accept: fileExtensions,
-                fromSources: [
-                  'local_file_system',
-                  'googledrive',
-                  'dropbox',
-                  'onedrive',
-                  'github',
-                  'url',
-                ],
+                fromSources: pickupSources,
                 maxSize: 500 * 1024 * 1024,
                 onFileUploadFailed: () => setDragged(false),
                 onFileUploadFinished: (file) => {
@@ -255,6 +261,7 @@ FilestackFilePicker.defaultProps = {
   error: '',
   fileName: '',
   uploadProgress: null,
+  challengeGroupName: '',
 };
 
 /**
@@ -275,6 +282,7 @@ FilestackFilePicker.propTypes = {
   setDragged: PT.func.isRequired,
   setFilestackData: PT.func.isRequired,
   uploadProgress: PT.number,
+  challengeGroupName: PT.string,
 };
 
 export default FilestackFilePicker;

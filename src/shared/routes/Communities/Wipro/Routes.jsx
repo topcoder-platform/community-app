@@ -57,6 +57,7 @@ export default function Wipro({ base, meta }) {
                 component={routeProps => Submission({
                   ...routeProps,
                   challengesUrl: `${base}/challenges`,
+                  challengeGroupName: 'topGear',
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})/submit`}
