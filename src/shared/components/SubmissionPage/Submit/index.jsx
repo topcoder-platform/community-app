@@ -296,6 +296,7 @@ I UNDERSTAND AND AGREE
 
 Submit.defaultProps = {
   errorMsg: '',
+  challengeGroupName: '',
 };
 
 /* Reusable prop validation for Filestack data objects */
@@ -307,7 +308,6 @@ const filestackDataProp = PT.shape({
   container: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   fileUrl: PT.string.isRequired,
-  challengeGroupName: '',
 });
 
 /**
