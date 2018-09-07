@@ -129,7 +129,7 @@ class FilestackFilePicker extends React.Component {
           });
         }
       } else {
-        // show loading indicator if communitiesList isn't up-to-date and
+        // show loading indicator if communitiesList isn't up-to-date
         return (<LoadingIndicator />);
       }
     }
