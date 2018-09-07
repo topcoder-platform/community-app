@@ -7,11 +7,16 @@
  *   Passes the relevent state and setters as properties to the UI components.
  */
 import actions from 'actions/page/submission';
+import communityActions from 'actions/tc-communities';
+import shortId from 'shortid';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
+
+/* Holds various time ranges in milliseconds. */
+const MIN = 60 * 1000;
 
 /**
  * SubmissionsPage Container
@@ -22,7 +27,18 @@ class SubmissionsPageContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    const {
+      auth,
+      communitiesList,
+      getCommunitiesList,
+    } = this.props;
+
+    if (!communitiesList.loadingUuid
+    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+      getCommunitiesList(auth);
+    }
+  }
 
   /* A child component has called their submitForm() prop, prepare the passed
      form data for submission and create a submit action */
@@ -57,7 +73,6 @@ class SubmissionsPageContainer extends React.Component {
 SubmissionsPageContainer.defaultProps = {
   challengesUrl: '/challenges',
   uploadProgress: 0,
-  challengeGroupName: '',
 };
 
 /* Reusable prop validation for Filestack data objects */
@@ -73,18 +88,24 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 SubmissionsPageContainer.propTypes = {
+  auth: PT.shape().isRequired,
   currentPhases: PT.arrayOf(PT.object).isRequired,
-
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.object).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
+  getCommunitiesList: PT.func.isRequired,
   /* Older stuff */
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
-  challengeGroupName: PT.string,
   tokenV2: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   submit: PT.func.isRequired,
   challengeId: PT.number.isRequired,
   track: PT.string.isRequired,
   status: PT.string.isRequired,
+  groups: PT.shape({}).isRequired,
   errorMsg: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
@@ -121,8 +142,9 @@ SubmissionsPageContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { submission } = state.page;
   return {
+    auth: state.auth,
     currentPhases: state.challenge.details.currentPhases,
-
+    communitiesList: state.tcCommunities.list,
     /* Older stuff below. */
     userId: state.auth.user.userId,
     challengeId: state.challenge.details.id,
@@ -132,6 +154,7 @@ const mapStateToProps = (state, ownProps) => {
     tokenV3: state.auth.tokenV3,
     track: state.challenge.details.track,
     status: state.challenge.details.status,
+    groups: state.challenge.details.groups,
     isSubmitting: submission.isSubmitting,
     submitDone: submission.submitDone,
     errorMsg: submission.submitErrorMsg,
@@ -153,9 +176,15 @@ const mapStateToProps = (state, ownProps) => {
  */
 function mapDispatchToProps(dispatch) {
   const a = actions.page.submission;
+  const ca = communityActions.tcCommunity;
   const progress = data => dispatch(a.uploadProgress(data));
 
   return {
+    getCommunitiesList: (auth) => {
+      const uuid = shortId();
+      dispatch(ca.getListInit(uuid));
+      dispatch(ca.getListDone(uuid, auth));
+    },
     submit: (tokenV3, tokenV2, submissionId, body, track) => {
       dispatch(a.submitInit());
       dispatch(a.submitDone(tokenV3, tokenV2, submissionId, body, track, progress));

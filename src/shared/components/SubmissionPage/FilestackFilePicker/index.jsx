@@ -100,7 +100,8 @@ class FilestackFilePicker extends React.Component {
       setFileName,
       setUploadProgress,
       uploadProgress,
-      challengeGroupName,
+      communitiesList,
+      groups,
     } = this.props;
 
     let pickupSources = [
@@ -111,8 +112,18 @@ class FilestackFilePicker extends React.Component {
       'github',
       'url',
     ];
-    if (challengeGroupName === 'topGear') {
-      pickupSources = ['url'];
+
+    if (communitiesList.data && communitiesList.data.length > 0) {
+      const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
+      if (topGearCommunity) {
+        _.forOwn(groups, (value, key) => {
+          if (value && _.includes(topGearCommunity.groupIds, key)) {
+            pickupSources = ['url'];
+            return false;
+          }
+          return true;
+        });
+      }
     }
 
     return (
@@ -261,7 +272,6 @@ FilestackFilePicker.defaultProps = {
   error: '',
   fileName: '',
   uploadProgress: null,
-  challengeGroupName: '',
 };
 
 /**
@@ -271,6 +281,8 @@ FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
+  communitiesList: PT.func.isRequired,
+  groups: PT.shape({}).isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,
@@ -282,7 +294,6 @@ FilestackFilePicker.propTypes = {
   setDragged: PT.func.isRequired,
   setFilestackData: PT.func.isRequired,
   uploadProgress: PT.number,
-  challengeGroupName: PT.string,
 };
 
 export default FilestackFilePicker;

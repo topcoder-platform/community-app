@@ -113,6 +113,7 @@ class Submit extends React.Component {
       challengeId,
       challengeName,
       challengesUrl,
+      communitiesList,
       errorMsg,
       isSubmitting,
       submitDone,
@@ -127,7 +128,7 @@ class Submit extends React.Component {
       setFilePickerDragged,
       setSubmissionFilestackData,
       submitForm,
-      challengeGroupName,
+      groups,
     } = this.props;
 
     const id = 'file-picker-submission';
@@ -217,7 +218,8 @@ Please follow the instructions on the Challenge Details page regarding
                     setFilestackData={setSubmissionFilestackData}
                     userId={userId}
                     submitForm={submitForm}
-                    challengeGroupName={challengeGroupName}
+                    communitiesList={communitiesList}
+                    groups={groups}
                   />
                 </div>
                 <p>
@@ -296,7 +298,6 @@ I UNDERSTAND AND AGREE
 
 Submit.defaultProps = {
   errorMsg: '',
-  challengeGroupName: '',
 };
 
 /* Reusable prop validation for Filestack data objects */
@@ -319,7 +320,8 @@ Submit.propTypes = {
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
-  challengeGroupName: PT.string,
+  communitiesList: PT.func.isRequired,
+  groups: PT.shape({}).isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string,

@@ -46,10 +46,6 @@ const filestackDataProp = PT.shape({
   container: PT.string.isRequired,
 });
 
-SubmissionsPage.defaultProps = {
-  challengeGroupName: '',
-};
-
 /**
  * Prop Validation
  */
@@ -58,6 +54,8 @@ SubmissionsPage.propTypes = {
   challengesUrl: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
+  communitiesList: PT.func.isRequired,
+  groups: PT.shape({}).isRequired,
   track: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,
@@ -78,7 +76,6 @@ SubmissionsPage.propTypes = {
   setFilePickerDragged: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
-  challengeGroupName: PT.string,
 };
 
 export default SubmissionsPage;
