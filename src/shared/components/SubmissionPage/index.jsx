@@ -54,6 +54,8 @@ SubmissionsPage.propTypes = {
   challengesUrl: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
+  communitiesList: PT.func.isRequired,
+  groups: PT.shape({}).isRequired,
   track: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,
