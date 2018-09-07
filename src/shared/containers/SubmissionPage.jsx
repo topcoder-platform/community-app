@@ -6,6 +6,7 @@
  *   Connects the Redux store to the Challenge Submissions display components.
  *   Passes the relevent state and setters as properties to the UI components.
  */
+import _ from 'lodash';
 import actions from 'actions/page/submission';
 import communityActions from 'actions/tc-communities';
 import shortId from 'shortid';
@@ -30,11 +31,14 @@ class SubmissionsPageContainer extends React.Component {
   componentDidMount() {
     const {
       auth,
+      groups,
       communitiesList,
       getCommunitiesList,
     } = this.props;
 
-    if (!communitiesList.loadingUuid
+    // loading communitiesList if challenge belongs to any groups
+    // and the communitiesList is not up-to-date
+    if (!_.isEmpty(groups) && !communitiesList.loadingUuid
     && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
       getCommunitiesList(auth);
     }

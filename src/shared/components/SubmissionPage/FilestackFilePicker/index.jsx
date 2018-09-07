@@ -17,6 +17,7 @@ import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { errors } from 'topcoder-react-lib';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import './styles.scss';
 
@@ -113,16 +114,22 @@ class FilestackFilePicker extends React.Component {
       'url',
     ];
 
-    if (communitiesList.data && communitiesList.data.length > 0) {
-      const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
-      if (topGearCommunity) {
-        _.forOwn(groups, (value, key) => {
-          if (value && _.includes(topGearCommunity.groupIds, key)) {
-            pickupSources = ['url'];
-            return false;
-          }
-          return true;
-        });
+    if (!_.isEmpty(groups)) {
+      // check the group info and match with group list if challenge belong to any group
+      if (communitiesList.data && communitiesList.data.length > 0) {
+        const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
+        if (topGearCommunity) {
+          _.forOwn(groups, (value, key) => {
+            if (value && _.includes(topGearCommunity.groupIds, key)) {
+              pickupSources = ['url'];
+              return false;
+            }
+            return true;
+          });
+        }
+      } else {
+        // show loading indicator if communitiesList isn't up-to-date and
+        return (<LoadingIndicator />);
       }
     }
 
