@@ -114,8 +114,9 @@ class FilestackFilePicker extends React.Component {
       'url',
     ];
 
+    // check if challenge belong to any group
     if (!_.isEmpty(groups)) {
-      // check the group info and match with group list if challenge belong to any group
+      // check the group info and match with group list
       if (communitiesList.data && communitiesList.data.length > 0) {
         const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
         if (topGearCommunity) {

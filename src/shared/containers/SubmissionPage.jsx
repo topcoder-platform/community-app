@@ -36,8 +36,9 @@ class SubmissionsPageContainer extends React.Component {
       getCommunitiesList,
     } = this.props;
 
-    // loading communitiesList if challenge belongs to any groups
+    // check if challenge belongs to any groups
     // and the communitiesList is not up-to-date
+    // then will load the communitiesList
     if (!_.isEmpty(groups) && !communitiesList.loadingUuid
     && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
       getCommunitiesList(auth);
