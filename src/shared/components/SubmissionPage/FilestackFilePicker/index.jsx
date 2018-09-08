@@ -116,10 +116,11 @@ class FilestackFilePicker extends React.Component {
 
     // check if challenge belong to any group
     if (!_.isEmpty(groups)) {
-      // check the group info and match with group list
-      if (communitiesList.data && communitiesList.data.length > 0) {
+      // check if communitiesList is loaded
+      if (communitiesList.timestamp > 0) {
         const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
         if (topGearCommunity) {
+          // check the group info match with group list
           _.forOwn(groups, (value, key) => {
             if (value && _.includes(topGearCommunity.groupIds, key)) {
               pickupSources = ['url'];
@@ -289,7 +290,14 @@ FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
-  communitiesList: PT.func.isRequired,
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      challengeFilter: PT.shape(),
+      communityId: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   groups: PT.shape({}).isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,

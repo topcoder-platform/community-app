@@ -320,7 +320,14 @@ Submit.propTypes = {
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
-  communitiesList: PT.func.isRequired,
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      challengeFilter: PT.shape(),
+      communityId: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   groups: PT.shape({}).isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
