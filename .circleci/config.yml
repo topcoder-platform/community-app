@@ -11,7 +11,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: apk add --no-cache bash
+          command: | 
+            apk add --no-cache bash
+            ln -sf /bin/bash /bin/sh
 
       - run:
           name: Set some ENV vars
