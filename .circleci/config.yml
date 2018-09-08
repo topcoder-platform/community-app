@@ -5,6 +5,7 @@ jobs:
   "build-dev":
     docker:
       - image: docker:17.11.0-ce-git
+    shell: /bin/bash -eo pipefail
     steps:
       # Initialization.
       - checkout
@@ -13,7 +14,6 @@ jobs:
           name: Installation of build dependencies.
           command: | 
             apk add --no-cache bash
-            ln -sf /bin/bash /bin/sh
 
       - run:
           name: Set some ENV vars
