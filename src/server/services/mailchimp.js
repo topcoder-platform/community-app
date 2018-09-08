@@ -7,7 +7,7 @@ import fetch from 'isomorphic-fetch';
  * Auxiliary class that handles communication with mailchimp
  * APIs in the same uniform manner.
  */
-class MailchimpService {
+export default class MailchimpService {
   /**
    * Creates a new service instance.
    * @param {String} baseUrl The base API endpoint.
@@ -17,10 +17,23 @@ class MailchimpService {
   }
 
   /**
-   * Gets data from the specified endpoing.
-   * @param {Object} the request.
+   * Gets data from the specified endpoint.
    * @return {Promise}
+   * @param {Object} the request.
    */
+
+  async checkSubscription(req) {
+    const url = `${this.private.baseUrl}`;
+    const res = await fetch(`${url}/lists/${req.params.listId}/members/${req.params.emailHash}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        Authorization: req.headers.authorization,
+      },
+    });
+    return res.json();
+  }
+
   async doRegistMember(req) {
     const url = `${this.private.baseUrl}`;
     const formData = JSON.stringify(req.body);
@@ -35,6 +48,3 @@ class MailchimpService {
     return res.json();
   }
 }
-
-/* mailchimp CDN service. */
-export default new MailchimpService('https://us13.api.mailchimp.com/3.0');

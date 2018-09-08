@@ -1,0 +1,40 @@
+@import "~styles/mixins";
+
+.signing:hover {
+  background: $tc-white;
+  cursor: default;
+}
+
+.signingContainer {
+  align-items: center;
+  display: flex;
+}
+
+.loadingIndicator {
+  display: inline-block;
+  height: 32px;
+  padding-left: 10px;
+  width: 32px;
+}
+
+.modalTitle {
+  color: $tc-black;
+  text-align: center;
+}
+
+.modalMsg {
+  @include tc-body-md;
+
+  color: #787d81;
+  margin: 24px 0;
+  text-align: center;
+}
+
+.placeholder {
+  height: 24px;
+}
+
+.returnToCommunityButton {
+  display: block !important;
+  margin: auto !important;
+}

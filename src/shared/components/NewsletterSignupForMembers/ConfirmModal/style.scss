@@ -1,0 +1,29 @@
+@import "~styles/mixins";
+
+.confirmMsg {
+  @include tc-body-md;
+
+  color: #787d81;
+  text-align: center;
+}
+
+.joinButtons,
+.loginButtons {
+  text-align: center;
+
+  button {
+    margin: 24px 12px 0;
+  }
+}
+
+.joinButtons {
+  button {
+    width: 100px;
+  }
+}
+
+.loginButtons {
+  button {
+    width: 200px;
+  }
+}
