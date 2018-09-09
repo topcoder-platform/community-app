@@ -17,6 +17,7 @@ import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { errors } from 'topcoder-react-lib';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import './styles.scss';
 
@@ -113,16 +114,24 @@ class FilestackFilePicker extends React.Component {
       'url',
     ];
 
-    if (communitiesList.data && communitiesList.data.length > 0) {
-      const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
-      if (topGearCommunity) {
-        _.forOwn(groups, (value, key) => {
-          if (value && _.includes(topGearCommunity.groupIds, key)) {
-            pickupSources = ['url'];
-            return false;
-          }
-          return true;
-        });
+    // check if challenge belong to any group
+    if (!_.isEmpty(groups)) {
+      // check if communitiesList is loaded
+      if (communitiesList.timestamp > 0) {
+        const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
+        if (topGearCommunity) {
+          // check the group info match with group list
+          _.forOwn(groups, (value, key) => {
+            if (value && _.includes(topGearCommunity.groupIds, key)) {
+              pickupSources = ['url'];
+              return false;
+            }
+            return true;
+          });
+        }
+      } else {
+        // show loading indicator if communitiesList isn't loaded
+        return (<LoadingIndicator />);
       }
     }
 
@@ -281,7 +290,14 @@ FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
-  communitiesList: PT.func.isRequired,
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      challengeFilter: PT.shape(),
+      communityId: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   groups: PT.shape({}).isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
