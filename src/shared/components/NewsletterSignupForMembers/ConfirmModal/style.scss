@@ -1,13 +1,19 @@
 @import "~styles/mixins";
 
+.container {
+  padding: 10px;
+  width: 520px;
+}
+
 .confirmMsg {
   @include tc-body-md;
 
   color: #787d81;
   text-align: center;
+  padding-bottom: 10px;
 }
 
-.joinButtons,
+.signupButtons,
 .loginButtons {
   text-align: center;
 

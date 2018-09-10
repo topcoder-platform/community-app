@@ -13,22 +13,22 @@ import PT from 'prop-types';
 import React from 'react';
 import { Modal, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import { themr } from 'react-css-super-themr';
+import defaultStyle from './style.scss';
 
-import style from './style.scss';
-
-export default function ConfirmModal({
+function ConfirmModal({
   customTcAuthModalText,
   signup,
   resetSignupButton,
   skipConfirmSignup,
   token,
+  theme,
 }) {
   let text;
   if (token) {
     text = (
       <p>
-Do you want to subscribed to Newsletter
-?
+Do you want to subscribed to Newsletter?
       </p>
     );
     if (skipConfirmSignup) {
@@ -47,15 +47,18 @@ To signup, login if you are already a member. If not, register first.
     );
   }
 
-  const autoSignupUrl = window.location.href.match(/[^?]*/)[0];
+  const autoSignupUrl = `${window.location.href.match(/[^?]*/)[0]}?subscribeme=true`;
 
   return (
-    <Modal onCancel={resetSignupButton}>
-      <div styleName="style.confirmMsg">
+    <Modal
+      onCancel={resetSignupButton}
+      theme={theme}
+    >
+      <div className={theme.confirmMsg}>
         {text}
       </div>
       { token ? (
-        <div className={style.signupButtons}>
+        <div className={theme.signupButtons}>
           <PrimaryButton
             onClick={() => signup()}
           >
@@ -68,7 +71,7 @@ Cancel
           </SecondaryButton>
         </div>
       ) : (
-        <div className={style.loginButtons}>
+        <div className={theme.loginButtons}>
           <PrimaryButton
             onClick={() => {
               const url = encodeURIComponent(autoSignupUrl);
@@ -107,5 +110,8 @@ ConfirmModal.propTypes = {
   signup: PT.func.isRequired,
   resetSignupButton: PT.func.isRequired,
   skipConfirmSignup: PT.bool.isRequired,
+  theme: PT.shape().isRequired,
   token: PT.string,
 };
+
+export default themr('NewsletterSignupForMembers-Modal', defaultStyle)(ConfirmModal);

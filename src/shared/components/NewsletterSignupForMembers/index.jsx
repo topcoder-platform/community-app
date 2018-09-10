@@ -12,6 +12,7 @@ import React from 'react';
 import { Modal, Button, PrimaryButton } from 'topcoder-react-ui-kit';
 import { COMPOSE } from 'react-css-super-themr';
 import style from './style.scss';
+import modalStyle from './modal.scss';
 
 import ConfirmModal from './ConfirmModal';
 
@@ -21,10 +22,12 @@ export const STATE = {
   HIDDEN: 'hidden',
   SIGNEDUP: 'signedup',
   SIGNING: 'signing',
+  ERROR: 'error',
 };
 
 export default function NewsletterSignupForMembers({
   customSignupConfirmationText,
+  customSignupErrorText,
   customTcAuthModalText,
   hideSignupButton,
   signup,
@@ -71,11 +74,14 @@ Signing...
         ) : label}
       </Button>
       { state === STATE.SIGNEDUP ? (
-        <Modal onCancel={hideSignupButton}>
-          <h1 styleName="style.modalTitle">
+        <Modal
+          onCancel={hideSignupButton}
+          theme={modalStyle}
+        >
+          <h1 className={modalStyle.modalTitle}>
 Congratulations!
           </h1>
-          <p styleName="style.modalMsg">
+          <p className={modalStyle.modalMsg}>
             {
               customSignupConfirmationText
               || 'You are subscribed to Newsletter'
@@ -100,15 +106,39 @@ Return to the Newsletter
           token={token}
         />
       ) : null}
+      { state === STATE.ERROR ? (
+        <Modal
+          onCancel={resetSignupButton}
+          theme={modalStyle}
+        >
+          <h1 className={modalStyle.modalTitle}>
+Sorry
+          </h1>
+          <p className={modalStyle.modalMsg}>
+            {
+              customSignupErrorText
+              || 'We are not able to subscribe you now. Please try later'
+            }
+          </p>
+          <PrimaryButton
+            onClick={resetSignupButton}
+            theme={{
+              button: style.returnToCommunityButton,
+            }}
+          >
+Return to the Newsletter
+          </PrimaryButton>
+        </Modal>
+      ) : null}
     </div>
   );
 }
 
 NewsletterSignupForMembers.defaultProps = {
   customSignupConfirmationText: '',
+  customSignupErrorText: '',
   customTcAuthModalText: '',
   hiddenButtonText: '',
-  label: 'Subscribed for Newsletter',
   skipConfirmSignup: false,
   theme: {},
   token: null,
@@ -116,10 +146,11 @@ NewsletterSignupForMembers.defaultProps = {
 
 NewsletterSignupForMembers.propTypes = {
   customSignupConfirmationText: PT.string,
+  customSignupErrorText: PT.string,
   customTcAuthModalText: PT.string,
   hiddenButtonText: PT.string,
   signup: PT.func.isRequired,
-  label: PT.string,
+  label: PT.string.isRequired,
   hideSignupButton: PT.func.isRequired,
   showSignupConfirmModal: PT.func.isRequired,
   resetSignupButton: PT.func.isRequired,

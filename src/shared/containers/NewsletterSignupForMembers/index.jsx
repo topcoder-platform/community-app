@@ -1,6 +1,9 @@
 /**
  * Container for NewsletterSignupForMembers component
  */
+
+/* global window */
+
 import React from 'react';
 import PT from 'prop-types';
 import forge from 'node-forge';
@@ -23,8 +26,11 @@ class NewsletterSignupForMembersContainer extends React.Component {
     this.resetSignupButton = this.resetSignupButton.bind(this);
     this.hideSignupButton = this.hideSignupButton.bind(this);
 
+    this.hasSubscribedFromUrl = false;
+
     this.state = {
       signupState: SIGNUP_NEWSLETTER.DEFAULT,
+      message: '',
     };
   }
 
@@ -34,7 +40,16 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { token } = this.props;
+    const { signupState } = this.state;
     if (prevProps.token !== token) this.checkSubscription();
+    let subscribeMe = window.location.href.match(/(.*\?)(.*)/);
+    subscribeMe = subscribeMe && subscribeMe[2].split('=');
+    subscribeMe = subscribeMe && subscribeMe[0] === 'subscribeme';
+    if (token && subscribeMe && signupState === SIGNUP_NEWSLETTER.DEFAULT
+      && !this.hasSubscribedFromUrl) {
+      this.subscribe();
+      this.hasSubscribedFromUrl = true;
+    }
   }
 
   async checkSubscription() {
@@ -97,7 +112,10 @@ class NewsletterSignupForMembersContainer extends React.Component {
         this.setState({ signupState: SIGNUP_NEWSLETTER.SIGNEDUP });
       } else {
         // regist fail
-        this.setState({ signupState: SIGNUP_NEWSLETTER.DEFAULT });
+        this.setState({
+          signupState: SIGNUP_NEWSLETTER.ERROR,
+          message: dataResponse.detail,
+        });
       }
     });
   }
@@ -110,7 +128,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
     const { signupState } = this.state;
     this.setState({
       signupState: signupState === SIGNUP_NEWSLETTER.SIGNEDUP
-        ? SIGNUP_NEWSLETTER.HIDDEN : SIGNUP_NEWSLETTER.DEFALUT,
+        ? SIGNUP_NEWSLETTER.HIDDEN : SIGNUP_NEWSLETTER.DEFAULT,
     });
   }
 
@@ -119,7 +137,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
   }
 
   render() {
-    const { signupState } = this.state;
+    const { signupState, message } = this.state;
     return (
       <NewsletterSignupForMembers
         {...this.props}
@@ -128,6 +146,9 @@ class NewsletterSignupForMembersContainer extends React.Component {
         state={signupState}
         resetSignupButton={this.resetSignupButton}
         hideSignupButton={this.hideSignupButton}
+        customSignupErrorText={
+          signupState === SIGNUP_NEWSLETTER.ERROR ? message : null
+        }
       />
     );
   }
@@ -135,7 +156,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
 NewsletterSignupForMembersContainer.defaultProps = {
   token: '',
-  label: 'Subscribed for Newsletter',
+  label: 'Subscribe for Newsletter',
 };
 
 NewsletterSignupForMembersContainer.propTypes = {
