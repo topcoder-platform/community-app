@@ -10,12 +10,12 @@ const TABS = {
   PROFILE: {
     BASIC: 'basic info',
     // LANGUAGE: 'language',
-    SKILL: 'skill',
+    SKILL: 'skills',
     // EDUCATION: 'education',
     // WORK: 'work',
     // ORGANIZATION: 'organization',
-    HOBBY: 'hobby',
-    COMMUNITY: 'community',
+    HOBBY: 'hobbies',
+    COMMUNITY: 'communities',
   },
   TOOLS: {
     DEVICES: 'devices',
@@ -25,7 +25,7 @@ const TABS = {
   },
   ACCOUNT: {
     MYACCOUNT: 'my account',
-    LINKEDACCOUNT: 'linked account',
+    LINKEDACCOUNT: 'linked accounts',
   },
 };
 
