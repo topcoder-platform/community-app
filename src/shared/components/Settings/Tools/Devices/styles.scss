@@ -115,10 +115,14 @@
   }
 
   .row {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex-direction: row;
     flex-direction: row;
     margin-bottom: 20px;
+    -webkit-align-content: space-between;
     align-content: space-between;
+    -webkit-align-items: space-between;
     align-items: center;
     width: 100%;
 
@@ -128,7 +132,11 @@
     }
 
     .field {
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex: 1;
+      flex: 1;
+      -webkit-flex-direction: column;
       flex-direction: column;
       margin-right: 10px;
       align-content: space-between;
