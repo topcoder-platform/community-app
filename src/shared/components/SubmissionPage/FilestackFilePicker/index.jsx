@@ -157,7 +157,6 @@ class FilestackFilePicker extends React.Component {
 
     // only allow to pickup url if belong to gear group
     if (isChallengeBelongToTopgearGroup) {
-      console.log('isChallengeBelongToTopgearGroup', isChallengeBelongToTopgearGroup);
       pickupSources = ['url'];
       handleFilestackOpen = this.startHandleFilestackSubmitUrl;
       handleFilestackClose = () => {
@@ -222,7 +221,7 @@ Uploading:
             onClick={() => {
               const path = this.generateFilePath();
               this.filestack.pick({
-                accept: '*',
+                accept: fileExtensions,
                 fromSources: pickupSources,
                 maxSize: 500 * 1024 * 1024,
                 onFileUploadFailed: () => setDragged(false),
