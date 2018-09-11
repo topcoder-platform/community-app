@@ -8,19 +8,33 @@ the same way).
 
 ### Buttons
 
-- `<Button to="/target/link">Label</Button>` &ndash; renders
+- #### Button
+  *Example:* `<Button to="/target/link">Label</Button>`
+
+  Renders
   [Default Button](https://community-app.topcoder.com/examples/buttons/) that
   acts as a hyperlink;
-- `<PrimaryButton to="/target/link">Label</PrimaryButton>` &ndash; renders
+
+- #### PrimaryButton
+  *Example:* `<PrimaryButton to="/target/link">Label</PrimaryButton>`
+
+  Renders
   [Primary Button](https://community-app.topcoder.com/examples/buttons/) that
   acts as a hyperlink;
-- `<SecondaryButton to="/target/link">Label</SecondaryButton>` &ndash; renders
+
+- #### SecondaryButton
+  *Example:* `<SecondaryButton to="/target/link">Label</SecondaryButton>`
+
+  Renders
   [Secondary Button](https://community-app.topcoder.com/examples/buttons/) that
   acts as a hyperlink;
 
 ### Custom Component
 
-- `<JoinCommunity label="Join Now" />` &ndash; renders _Join Community_ button.
+- #### JoinCommunity
+  *Example:* `<JoinCommunity label="Join Now" />`
+
+  Renders _Join Community_ button.
   This component will work fine only in pages shown inside Topcoder
   subcommunities (and it will likely break any page / component preview shown
   outside of a subcommunity context). When used inside a subcommunity page, it
@@ -29,19 +43,42 @@ the same way).
   _Join Community_. The button is not rendered if current user is already a
   member of the community. It automatically shows necessary confirmation modals.
 
-- `<NewsletterSignup listId="List ID" apiKey="API key" />` &ndash; renders
+- #### NewsletterSignup
+  **Sample Use:** `<NewsletterSignup listId="LIST_ID" apiKey="API_KEY" mailchimpBaseUrl="BASE_URL"/>`
+
+  Renders
   email input field, along with subscription button, that subscribes given email
   for a newsletter list. The component handles verification of emails, and modal
-  UI windows shown on success and failure of subscription. Currently, this
-  component works only with MailChimp subscription lists, and you are expected
-  to pass in the following two props:
-  - `apiKey` &mdash; MailChimp API key;
-  - `listId` &mdash; ID of MailChimp newsletter to subscribe for.
+  UI windows shown on success and failure of subscription.
 
-- `<VideoModalButton videoTitle="Video Title" videoUrl="Video URL" />` &ndash;
-  a button that shows a modal with video when clicked (like the one in the
+  | Param | Default | Description |
+  | --- | --- | --- |
+  | apiKey | | MailChimp API key. |
+  | label | Subscribe for Newsletter | Optional. Custom label to show on the button. |
+  | listId | | ID of MailChimp list to subscribe. |
+  | mailchimpBaseUrl | | Base URL of MailChimp API, associated with the API key and list ID. |
+
+- #### NewsletterSignupForMembers
+  **Sample use:** `<NewsletterSignupForMembers listId="LIST_ID" apiKey="API_KEY" mailchimpBaseUrl="BASE_URL"/>`
+
+  Renders a newsletter signup button that takes user email from his profile
+  information. If the user is not-authenticated, it gets him to the login or
+  registration page, and subscribes him on return. Accepts the following props:
+
+  | Param | Default | Description |
+  | --- | --- | --- |
+  | apiKey | | MailChimp API key. |
+  | label | Subscribe for Newsletter | Optional. Custom label to show on the button. |
+  | listId | | ID of MailChimp list to subscribe. |
+  | mailchimpBaseUrl | | Base URL of MailChimp API, associated with the API key and list ID. |
+
+
+- #### VideoModalButton
+  *Example:* `<VideoModalButton videoTitle="Video Title" videoUrl="Video URL" />`
+
+  A button that shows a modal with video when clicked (like the one in the
   header of [Veterans Community's Home Page](https://veterans.topcoder.com/)).
-  
+
   The properties are:
   - `videoTitle` &ndash; Optional. If specified, it is shown as video title in
     the video modal;
@@ -51,7 +88,10 @@ the same way).
 
 ### Links
 
-- `<Link to="/target/link">Link text</Link>` &ndash; renders a hyperlink.
+- #### Link
+  *Example:* `<Link to="/target/link">Link text</Link>`
+
+  Renders a hyperlink.
   While it looks the same as the links rendered with usual Markdown syntax
   `[Link text](/target/link)`, it behaves different under the hood: for local
   links (anything that does not start with schema name, e.g. `http:` or
