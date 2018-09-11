@@ -17,7 +17,6 @@ import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { errors } from 'topcoder-react-lib';
-import LoadingIndicator from 'components/LoadingIndicator';
 
 import './styles.scss';
 
@@ -30,6 +29,7 @@ class FilestackFilePicker extends React.Component {
   constructor(props) {
     super(props);
     this.onSuccess = this.onSuccess.bind(this);
+    this.startHandleFilestackSubmitUrl = this.startHandleFilestackSubmitUrl.bind(this);
   }
 
   componentDidMount() {
@@ -80,6 +80,45 @@ class FilestackFilePicker extends React.Component {
     });
   }
 
+  /* eslint-disable class-methods-use-this */
+  isValidUrl(url) {
+    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url); /* eslint-disable-line no-useless-escape */
+  }
+
+  startHandleFilestackSubmitUrl() {
+    clearInterval(this.intervalIdForGettingFilePickerElement);
+    this.intervalIdForGettingFilePickerElement = setInterval(() => {
+      const submitButton = document.getElementsByClassName('fsp-url-source__submit-button')[0];
+      const closeButton = document.getElementsByClassName('fsp-picker__close-button')[0];
+      const inputUrl = document.getElementsByClassName('fsp-url-source__input')[0];
+      if (submitButton && closeButton && inputUrl) {
+        submitButton.onclick = ((e) => {
+          const url = inputUrl.value;
+          if (this.isValidUrl(url)) {
+            const {
+              setDragged,
+            } = this.props;
+            const path = this.generateFilePath();
+            const filename = url.substring(url.lastIndexOf('/') + 1);
+            setDragged(false);
+            this.onSuccess({
+              source: 'url',
+              filename,
+              mimetype: '',
+              size: 0,
+              key: '',
+              originalPath: url,
+            }, path);
+            closeButton.click();
+            e.preventDefault();
+          }
+        });
+        clearInterval(this.intervalIdForGettingFilePickerElement);
+        this.intervalIdForGettingFilePickerElement = null;
+      }
+    }, 100);
+  }
+
   /**
    * Returns the path where the picked up file should be stored.
    * @return {String}
@@ -101,8 +140,7 @@ class FilestackFilePicker extends React.Component {
       setFileName,
       setUploadProgress,
       uploadProgress,
-      communitiesList,
-      groups,
+      isChallengeBelongToTopgearGroup,
     } = this.props;
 
     let pickupSources = [
@@ -114,25 +152,17 @@ class FilestackFilePicker extends React.Component {
       'url',
     ];
 
-    // check if challenge belong to any group
-    if (!_.isEmpty(groups)) {
-      // check if communitiesList is loaded
-      if (communitiesList.timestamp > 0) {
-        const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
-        if (topGearCommunity) {
-          // check the group info match with group list
-          _.forOwn(groups, (value, key) => {
-            if (value && _.includes(topGearCommunity.groupIds, key)) {
-              pickupSources = ['url'];
-              return false;
-            }
-            return true;
-          });
-        }
-      } else {
-        // show loading indicator if communitiesList isn't loaded
-        return (<LoadingIndicator />);
-      }
+    let handleFilestackOpen = (() => {});
+    let handleFilestackClose = (() => {});
+
+    // only allow to pickup url if belong to gear group
+    if (isChallengeBelongToTopgearGroup) {
+      console.log('isChallengeBelongToTopgearGroup', isChallengeBelongToTopgearGroup);
+      pickupSources = ['url'];
+      handleFilestackOpen = this.startHandleFilestackSubmitUrl;
+      handleFilestackClose = () => {
+        clearInterval(this.intervalIdForGettingFilePickerElement);
+      };
     }
 
     return (
@@ -186,13 +216,13 @@ Uploading:
             ) : null
           }
           <PrimaryButton onClick={this.onClickPick}>
-Pick a File
+            {isChallengeBelongToTopgearGroup ? 'Pick a URL' : 'Pick a File'}
           </PrimaryButton>
           <div
             onClick={() => {
               const path = this.generateFilePath();
               this.filestack.pick({
-                accept: fileExtensions,
+                accept: '*',
                 fromSources: pickupSources,
                 maxSize: 500 * 1024 * 1024,
                 onFileUploadFailed: () => setDragged(false),
@@ -206,6 +236,8 @@ Pick a File
                   path,
                   region: config.FILESTACK.REGION,
                 },
+                onOpen: handleFilestackOpen,
+                onClose: handleFilestackClose,
               });
             }}
             onKeyPress={() => {
@@ -281,6 +313,7 @@ FilestackFilePicker.defaultProps = {
   error: '',
   fileName: '',
   uploadProgress: null,
+  isChallengeBelongToTopgearGroup: false,
 };
 
 /**
@@ -290,15 +323,6 @@ FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
-  communitiesList: PT.shape({
-    data: PT.arrayOf(PT.shape({
-      challengeFilter: PT.shape(),
-      communityId: PT.string.isRequired,
-    })).isRequired,
-    loadingUuid: PT.string.isRequired,
-    timestamp: PT.number.isRequired,
-  }).isRequired,
-  groups: PT.shape({}).isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,
@@ -310,6 +334,7 @@ FilestackFilePicker.propTypes = {
   setDragged: PT.func.isRequired,
   setFilestackData: PT.func.isRequired,
   uploadProgress: PT.number,
+  isChallengeBelongToTopgearGroup: PT.bool,
 };
 
 export default FilestackFilePicker;
