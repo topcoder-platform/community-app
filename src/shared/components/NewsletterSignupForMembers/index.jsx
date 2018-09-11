@@ -9,7 +9,7 @@ import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { Modal, Button, PrimaryButton } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { COMPOSE } from 'react-css-super-themr';
 import style from './style.scss';
 import modalStyle from './modal.scss';
@@ -51,7 +51,7 @@ export default function NewsletterSignupForMembers({
     <div
       className={theme.container}
     >
-      <Button
+      <PrimaryButton
         onClick={() => {
           switch (state) {
             case STATE.SIGNEDUP:
@@ -67,19 +67,19 @@ export default function NewsletterSignupForMembers({
         { state === STATE.SIGNING ? (
           <div className={style.signingContainer}>
             <span>
-Signing...
+              Signing...
             </span>
             <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
         ) : label}
-      </Button>
+      </PrimaryButton>
       { state === STATE.SIGNEDUP ? (
         <Modal
           onCancel={hideSignupButton}
           theme={modalStyle}
         >
           <h1 className={modalStyle.modalTitle}>
-Congratulations!
+            Congratulations!
           </h1>
           <p className={modalStyle.modalMsg}>
             {
@@ -93,7 +93,7 @@ Congratulations!
               button: style.returnToCommunityButton,
             }}
           >
-Return to the Newsletter
+            Close
           </PrimaryButton>
         </Modal>
       ) : null}
@@ -112,7 +112,7 @@ Return to the Newsletter
           theme={modalStyle}
         >
           <h1 className={modalStyle.modalTitle}>
-Sorry
+            Sorry
           </h1>
           <p className={modalStyle.modalMsg}>
             {
@@ -126,7 +126,7 @@ Sorry
               button: style.returnToCommunityButton,
             }}
           >
-Return to the Newsletter
+            Close
           </PrimaryButton>
         </Modal>
       ) : null}
