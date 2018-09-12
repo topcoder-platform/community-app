@@ -17,7 +17,6 @@ import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { errors } from 'topcoder-react-lib';
-import LoadingIndicator from 'components/LoadingIndicator';
 
 import './styles.scss';
 
@@ -30,6 +29,13 @@ class FilestackFilePicker extends React.Component {
   constructor(props) {
     super(props);
     this.onSuccess = this.onSuccess.bind(this);
+    this.onClickPick = this.onClickPick.bind(this);
+    this.onUpdateInputUrl = this.onUpdateInputUrl.bind(this);
+
+    this.state = {
+      inputUrl: '',
+      invalidUrl: false,
+    };
   }
 
   componentDidMount() {
@@ -80,6 +86,45 @@ class FilestackFilePicker extends React.Component {
     });
   }
 
+  onClickPick() {
+    const {
+      setDragged,
+      isChallengeBelongToTopgearGroup,
+    } = this.props;
+    const {
+      inputUrl,
+    } = this.state;
+
+    if (!isChallengeBelongToTopgearGroup) {
+      return;
+    }
+    if (this.isValidUrl(inputUrl)) {
+      this.setState({ invalidUrl: false });
+      const path = this.generateFilePath();
+      const filename = inputUrl.substring(inputUrl.lastIndexOf('/') + 1);
+      setDragged(false);
+      this.onSuccess({
+        source: 'url',
+        filename,
+        mimetype: '',
+        size: 0,
+        key: '',
+        originalPath: inputUrl,
+      }, path);
+    } else {
+      this.setState({ invalidUrl: true });
+    }
+  }
+
+  onUpdateInputUrl(e) {
+    this.setState({ inputUrl: e.target.value });
+  }
+
+  /* eslint-disable class-methods-use-this */
+  isValidUrl(url) {
+    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url); /* eslint-disable-line no-useless-escape */
+  }
+
   /**
    * Returns the path where the picked up file should be stored.
    * @return {String}
@@ -101,39 +146,13 @@ class FilestackFilePicker extends React.Component {
       setFileName,
       setUploadProgress,
       uploadProgress,
-      communitiesList,
-      groups,
+      isChallengeBelongToTopgearGroup,
     } = this.props;
 
-    let pickupSources = [
-      'local_file_system',
-      'googledrive',
-      'dropbox',
-      'onedrive',
-      'github',
-      'url',
-    ];
-
-    // check if challenge belong to any group
-    if (!_.isEmpty(groups)) {
-      // check if communitiesList is loaded
-      if (communitiesList.timestamp > 0) {
-        const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
-        if (topGearCommunity) {
-          // check the group info match with group list
-          _.forOwn(groups, (value, key) => {
-            if (value && _.includes(topGearCommunity.groupIds, key)) {
-              pickupSources = ['url'];
-              return false;
-            }
-            return true;
-          });
-        }
-      } else {
-        // show loading indicator if communitiesList isn't loaded
-        return (<LoadingIndicator />);
-      }
-    }
+    const {
+      invalidUrl,
+      inputUrl,
+    } = this.state;
 
     return (
       <div styleName="container">
@@ -153,7 +172,7 @@ class FilestackFilePicker extends React.Component {
           styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
         >
           {
-            !fileName && (
+            !fileName && !isChallengeBelongToTopgearGroup && (
             <p>
 Drag and drop your
               {fileExtensions.join(' or ')}
@@ -163,7 +182,7 @@ file here.
             )
           }
           {
-            !fileName && (
+            !fileName && !isChallengeBelongToTopgearGroup && (
             <span>
 or
             </span>
@@ -185,84 +204,100 @@ Uploading:
               </p>
             ) : null
           }
+          {
+            isChallengeBelongToTopgearGroup && (
+              <div styleName="url-input-container">
+                {invalidUrl && (<div styleName="invalid-url-message">* Invalid URL</div>)}
+                <input styleName={(invalidUrl ? 'invalid' : '')} id="name" name="name" type="text" placeholder="URL" onChange={this.onUpdateInputUrl} value={inputUrl} required />
+              </div>
+            )
+          }
           <PrimaryButton onClick={this.onClickPick}>
-Pick a File
+            {isChallengeBelongToTopgearGroup ? 'Set URL' : 'Pick a File'}
           </PrimaryButton>
-          <div
-            onClick={() => {
-              const path = this.generateFilePath();
-              this.filestack.pick({
-                accept: fileExtensions,
-                fromSources: pickupSources,
-                maxSize: 500 * 1024 * 1024,
-                onFileUploadFailed: () => setDragged(false),
-                onFileUploadFinished: (file) => {
-                  setDragged(false);
-                  this.onSuccess(file, path);
-                },
-                startUploadingWhenMaxFilesReached: true,
-                storeTo: {
+          {!isChallengeBelongToTopgearGroup && (
+            <div
+              onClick={() => {
+                const path = this.generateFilePath();
+                this.filestack.pick({
+                  accept: fileExtensions,
+                  fromSources: [
+                    'local_file_system',
+                    'googledrive',
+                    'dropbox',
+                    'onedrive',
+                    'github',
+                    'url',
+                  ],
+                  maxSize: 500 * 1024 * 1024,
+                  onFileUploadFailed: () => setDragged(false),
+                  onFileUploadFinished: (file) => {
+                    setDragged(false);
+                    this.onSuccess(file, path);
+                  },
+                  startUploadingWhenMaxFilesReached: true,
+                  storeTo: {
+                    container: config.FILESTACK.SUBMISSION_CONTAINER,
+                    path,
+                    region: config.FILESTACK.REGION,
+                  },
+                });
+              }}
+              onKeyPress={() => {
+                const path = this.generateFilePath();
+                this.filestack.pick({
+                  accept: fileExtensions,
+                  fromSources: [
+                    'local_file_system',
+                    'googledrive',
+                    'dropbox',
+                    'onedrive',
+                    'github',
+                    'url',
+                  ],
+                  maxSize: 500 * 1024 * 1024,
+                  onFileUploadFailed: () => setDragged(false),
+                  onFileUploadFinished: (file) => {
+                    setDragged(false);
+                    this.onSuccess(file, path);
+                  },
+                  startUploadingWhenMaxFilesReached: true,
+                  storeTo: {
+                    container: config.FILESTACK.SUBMISSION_CONTAINER,
+                    path,
+                    region: config.FILESTACK.REGION,
+                  },
+                });
+              }}
+              onDragEnter={() => setDragged(true)}
+              onDragLeave={() => setDragged(false)}
+              onDragOver={e => e.preventDefault()}
+              onDrop={(e) => {
+                setDragged(false);
+                e.preventDefault();
+                const path = this.generateFilePath();
+                const filename = e.dataTransfer.files[0].name;
+                if (!fileExtensions.some(ext => filename.endsWith(ext))) {
+                  return fireErrorMessage('Wrong file type!', '');
+                }
+                setFileName(e.dataTransfer.files[0].name);
+                setUploadProgress(0);
+                this.filestack.upload(e.dataTransfer.files[0], {
+                  onProgress: ({ totalPercent }) => {
+                    setUploadProgress(totalPercent);
+                  },
+                  progressInterval: 1000,
+                }, {
                   container: config.FILESTACK.SUBMISSION_CONTAINER,
                   path,
                   region: config.FILESTACK.REGION,
-                },
-              });
-            }}
-            onKeyPress={() => {
-              const path = this.generateFilePath();
-              this.filestack.pick({
-                accept: fileExtensions,
-                fromSources: [
-                  'local_file_system',
-                  'googledrive',
-                  'dropbox',
-                  'onedrive',
-                  'github',
-                  'url',
-                ],
-                maxSize: 500 * 1024 * 1024,
-                onFileUploadFailed: () => setDragged(false),
-                onFileUploadFinished: (file) => {
-                  setDragged(false);
-                  this.onSuccess(file, path);
-                },
-                startUploadingWhenMaxFilesReached: true,
-                storeTo: {
-                  container: config.FILESTACK.SUBMISSION_CONTAINER,
-                  path,
-                  region: config.FILESTACK.REGION,
-                },
-              });
-            }}
-            onDragEnter={() => setDragged(true)}
-            onDragLeave={() => setDragged(false)}
-            onDragOver={e => e.preventDefault()}
-            onDrop={(e) => {
-              setDragged(false);
-              e.preventDefault();
-              const path = this.generateFilePath();
-              const filename = e.dataTransfer.files[0].name;
-              if (!fileExtensions.some(ext => filename.endsWith(ext))) {
-                return fireErrorMessage('Wrong file type!', '');
-              }
-              setFileName(e.dataTransfer.files[0].name);
-              setUploadProgress(0);
-              this.filestack.upload(e.dataTransfer.files[0], {
-                onProgress: ({ totalPercent }) => {
-                  setUploadProgress(totalPercent);
-                },
-                progressInterval: 1000,
-              }, {
-                container: config.FILESTACK.SUBMISSION_CONTAINER,
-                path,
-                region: config.FILESTACK.REGION,
-              }).then(file => this.onSuccess(file, path));
-              return undefined;
-            }}
-            role="button"
-            styleName="drop-zone-mask"
-            tabIndex={0}
-          />
+                }).then(file => this.onSuccess(file, path));
+                return undefined;
+              }}
+              role="button"
+              styleName="drop-zone-mask"
+              tabIndex={0}
+            />)}
         </div>
         {
           error
@@ -281,6 +316,7 @@ FilestackFilePicker.defaultProps = {
   error: '',
   fileName: '',
   uploadProgress: null,
+  isChallengeBelongToTopgearGroup: false,
 };
 
 /**
@@ -290,15 +326,6 @@ FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
-  communitiesList: PT.shape({
-    data: PT.arrayOf(PT.shape({
-      challengeFilter: PT.shape(),
-      communityId: PT.string.isRequired,
-    })).isRequired,
-    loadingUuid: PT.string.isRequired,
-    timestamp: PT.number.isRequired,
-  }).isRequired,
-  groups: PT.shape({}).isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,
@@ -310,6 +337,7 @@ FilestackFilePicker.propTypes = {
   setDragged: PT.func.isRequired,
   setFilestackData: PT.func.isRequired,
   uploadProgress: PT.number,
+  isChallengeBelongToTopgearGroup: PT.bool,
 };
 
 export default FilestackFilePicker;
