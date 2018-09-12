@@ -213,7 +213,7 @@ Uploading:
             )
           }
           <PrimaryButton onClick={this.onClickPick}>
-            {isChallengeBelongToTopgearGroup ? 'Pick a URL' : 'Pick a File'}
+            {isChallengeBelongToTopgearGroup ? 'Set URL' : 'Pick a File'}
           </PrimaryButton>
           {!isChallengeBelongToTopgearGroup && (
             <div
