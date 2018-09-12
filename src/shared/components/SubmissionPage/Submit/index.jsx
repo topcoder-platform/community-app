@@ -13,6 +13,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import FilestackFilePicker from '../FilestackFilePicker';
 
@@ -113,6 +114,7 @@ class Submit extends React.Component {
       challengeId,
       challengeName,
       challengesUrl,
+      communitiesList,
       errorMsg,
       isSubmitting,
       submitDone,
@@ -127,9 +129,32 @@ class Submit extends React.Component {
       setFilePickerDragged,
       setSubmissionFilestackData,
       submitForm,
+      groups,
     } = this.props;
 
     const id = 'file-picker-submission';
+
+    let isLoadingCommunitiesList = false;
+    let isChallengeBelongToTopgearGroup = false;
+    // check if challenge belong to any group
+    if (!_.isEmpty(groups)) {
+      // check if communitiesList is loaded
+      if (communitiesList.timestamp > 0) {
+        const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
+        if (topGearCommunity) {
+          // check the group info match with group list
+          _.forOwn(groups, (value, key) => {
+            if (value && _.includes(topGearCommunity.groupIds, key)) {
+              isChallengeBelongToTopgearGroup = true;
+              return false;
+            }
+            return true;
+          });
+        }
+      } else {
+        isLoadingCommunitiesList = true;
+      }
+    }
 
     // Find the state for FilePicker with id of 1 or assign default values
     const fpState = filePickers.find(fp => fp.id === id) || ({
@@ -152,7 +177,7 @@ class Submit extends React.Component {
             <div styleName="row">
               <div styleName="left">
                 <h4>
-FILES
+                  { isChallengeBelongToTopgearGroup ? 'URL' : 'FILES'}
                 </h4>
                 <p>
 Please follow the instructions on the Challenge Details page regarding
@@ -163,7 +188,9 @@ Please follow the instructions on the Challenge Details page regarding
                 <div styleName="submission-hints">
                   { track === 'DEVELOP' ? (
                     <div>
-                      <p>Upload your entire submission as a single zip file.</p>
+                      {isChallengeBelongToTopgearGroup
+                        ? (<p>Enter the URL to your submission.</p>)
+                        : (<p>Upload your entire submission as a single zip file.</p>)}
                     </div>
                   ) : null }
                   { track === 'DESIGN' ? (
@@ -198,38 +225,55 @@ Please follow the instructions on the Challenge Details page regarding
                   ) : null }
                 </div>
                 <div styleName="file-picker-container">
-                  <FilestackFilePicker
-                    mandatory
-                    title="Submission Upload"
-                    fileExtensions={['.zip']}
-                    id={id}
-                    challengeId={challengeId}
-                    error={fpState.error}
-                    // Bind the set functions to the FilePicker's ID
-                    setError={_.partial(setFilePickerError, id)}
-                    fileName={fpState.fileName}
-                    uploadProgress={fpState.uploadProgress}
-                    setFileName={_.partial(setFilePickerFileName, id)}
-                    setUploadProgress={_.partial(setFilePickerUploadProgress, id)}
-                    dragged={fpState.dragged}
-                    setDragged={_.partial(setFilePickerDragged, id)}
-                    setFilestackData={setSubmissionFilestackData}
-                    userId={userId}
-                    submitForm={submitForm}
-                  />
+                  { isLoadingCommunitiesList ? (<LoadingIndicator />) : (
+                    <FilestackFilePicker
+                      mandatory
+                      title={isChallengeBelongToTopgearGroup ? '' : 'Submission Upload'}
+                      fileExtensions={['.zip']}
+                      id={id}
+                      challengeId={challengeId}
+                      error={fpState.error}
+                      // Bind the set functions to the FilePicker's ID
+                      setError={_.partial(setFilePickerError, id)}
+                      fileName={fpState.fileName}
+                      uploadProgress={fpState.uploadProgress}
+                      setFileName={_.partial(setFilePickerFileName, id)}
+                      setUploadProgress={_.partial(setFilePickerUploadProgress, id)}
+                      dragged={fpState.dragged}
+                      setDragged={_.partial(setFilePickerDragged, id)}
+                      setFilestackData={setSubmissionFilestackData}
+                      userId={userId}
+                      submitForm={submitForm}
+                      isChallengeBelongToTopgearGroup={isChallengeBelongToTopgearGroup}
+                    />)}
                 </div>
-                <p>
-                  If you are having trouble uploading your file, please send
-                  your submission to
-                  &zwnj;
-                  {
-                    <a
-                      href="mailto://support@topcoder.com"
-                    >
-                      support@topcoder.com
-                    </a>
-                  }
-                </p>
+                { isChallengeBelongToTopgearGroup
+                  ? (
+                    <p>
+                    If you are having trouble submitting, please send
+                    your submission to
+                    &zwnj;
+                      {
+                        <a
+                          href="mailto://support@topcoder.com"
+                        >
+                          support@topcoder.com
+                        </a>
+                      }
+                    </p>)
+                  : (
+                    <p>
+                    If you are having trouble uploading your file, please send
+                    your submission to
+                    &zwnj;
+                      {
+                        <a
+                          href="mailto://support@topcoder.com"
+                        >
+                          support@topcoder.com
+                        </a>
+                      }
+                    </p>)}
               </div>
             </div>
             <div styleName="row agree">
@@ -316,6 +360,15 @@ Submit.propTypes = {
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      challengeFilter: PT.shape(),
+      communityId: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
+  groups: PT.shape({}).isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string,

@@ -7,9 +7,8 @@ import React from 'react';
 import PT from 'prop-types';
 
 import ConsentComponent from 'components/Settings/ConsentComponent';
-import { PrimaryButton, GhostButton } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton, GhostButton } from 'topcoder-react-ui-kit';
 
-import Modal from 'components/Modal';
 import ExistingLink from './ExistingLink';
 
 import Styles from './styles.scss';

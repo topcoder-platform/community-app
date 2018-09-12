@@ -8,8 +8,7 @@ import PT from 'prop-types';
 import fetch from 'isomorphic-fetch';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
-import Modal from 'components/Modal';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 // import qs from 'qs';
 import defaultStyle from './style.scss';
@@ -29,7 +28,7 @@ class NewsletterSignup extends React.Component {
   }
 
   async onSubmit() {
-    const { apiKey, listId } = this.props;
+    const { mailchimpBaseUrl, apiKey, listId } = this.props;
     const { email } = this.state;
 
     if (!this.isEmailValid()) {
@@ -48,7 +47,7 @@ class NewsletterSignup extends React.Component {
     const formData = JSON.stringify(data);
     const authorization = `Basic ${Buffer.from(`apikey:${apiKey}`).toString('base64')}`;
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
-    await fetch(`${PROXY_ENDPOINT}/${listId}/members`, {
+    await fetch(`${PROXY_ENDPOINT}/${listId}/members?mailchimpBaseUrl=${mailchimpBaseUrl}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -112,12 +111,14 @@ class NewsletterSignup extends React.Component {
 }
 
 NewsletterSignup.defaultProps = {
+  mailchimpBaseUrl: null,
   apiKey: null,
   listId: '',
   theme: {},
 };
 
 NewsletterSignup.propTypes = {
+  mailchimpBaseUrl: PT.string,
   apiKey: PT.string,
   listId: PT.string,
   theme: PT.shape(),

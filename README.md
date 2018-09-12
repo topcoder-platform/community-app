@@ -52,6 +52,19 @@ If you need any operations related to currency conversions, pay attention to the
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
     -   `NODE_CONFIG_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
 
+    Many app segments depend on [Contentful CMS](https://www.contentful.com/)
+    for routing information. Thus, even if the page/component you are working
+    with does not require CMS directly, you may see CMS-related error messages.
+    To interact with CMS you must setup the following environment variables:
+    -   `CONTENTFUL_SPACE_ID`
+    -   `CONTENTFUL_CDN_API_KEY`
+    -   `CONTENTFUL_PREVIEW_API_KEY`
+
+    If you have access to Topcoder CMS space (or you use your own CMS space for
+    development), you'll find them under _Space settings_ > _API keys_. Otherwise,
+    look for these credentials in the challenge forum, or reach a copilot to get
+    them.
+
 5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;
     -   `$ npm run build:dev` This command should only be used to test whether development build of the front end works. You don't have to execute this command to run development version of the App (the server will automatically build frontend in memory anyway). You can't successfully execute this command without installing dev dependencies.
