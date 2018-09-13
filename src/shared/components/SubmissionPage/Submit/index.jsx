@@ -136,10 +136,10 @@ class Submit extends React.Component {
 
     let isLoadingCommunitiesList = false;
     let isChallengeBelongToTopgearGroup = false;
-console.log('groups', groups);
-console.log('communitiesList', communitiesList);
-// check if challenge belong to any group
-if (!_.isEmpty(groups)) {
+    console.log('groups', groups);
+    console.log('communitiesList', communitiesList);
+    // check if challenge belong to any group
+    if (!_.isEmpty(groups)) {
       // check if communitiesList is loaded
       if (communitiesList.timestamp > 0) {
         const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
