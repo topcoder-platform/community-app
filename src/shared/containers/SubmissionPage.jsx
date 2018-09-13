@@ -159,7 +159,7 @@ const mapStateToProps = (state, ownProps) => {
     tokenV3: state.auth.tokenV3,
     track: state.challenge.details.track,
     status: state.challenge.details.status,
-    groups: state.challenge.details.groups,
+    groups: state.challenge.details.groups || state.challenge.details.groupIds,
     isSubmitting: submission.isSubmitting,
     submitDone: submission.submitDone,
     errorMsg: submission.submitErrorMsg,
