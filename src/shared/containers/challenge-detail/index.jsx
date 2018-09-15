@@ -276,6 +276,12 @@ class ChallengeDetailPageContainer extends React.Component {
     let winners = challenge.winners || [];
     winners = winners.filter(w => !w.type || w.type === 'final');
 
+    let hasFirstPlacement = false;
+    if (!_.isEmpty(winners)) {
+      const userHandle = (auth.user || {}).handle;
+      hasFirstPlacement = _.some(winners, { placement: 1, handle: userHandle });
+    }
+
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
@@ -320,6 +326,7 @@ does not exist!
               unregistering={unregistering}
               checkpoints={checkpoints}
               hasRegistered={hasRegistered}
+              hasFirstPlacement={hasFirstPlacement}
               challengeSubtracksMap={challengeSubtracksMap}
             />
             )

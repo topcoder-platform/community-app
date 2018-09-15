@@ -46,6 +46,7 @@ export default function ChallengeHeader(props) {
     challengeSubtracksMap,
     selectedView,
     showDeadlineDetail,
+    hasFirstPlacement,
   } = props;
 
   const {
@@ -227,6 +228,11 @@ export default function ChallengeHeader(props) {
       break;
   }
 
+  let canSubmitFinalFixes = false;
+  if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
+    canSubmitFinalFixes = _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
+  }
+
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
@@ -326,7 +332,7 @@ Register
                 </PrimaryButton>
               )}
               <PrimaryButton
-                disabled={!hasRegistered || unregistering || submissionEnded}
+                disabled={!hasRegistered || unregistering || (submissionEnded && !canSubmitFinalFixes)}
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
@@ -430,4 +436,5 @@ ChallengeHeader.propTypes = {
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
+  hasFirstPlacement: PT.bool.isRequired,
 };
