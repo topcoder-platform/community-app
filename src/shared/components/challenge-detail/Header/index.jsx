@@ -332,7 +332,8 @@ Register
                 </PrimaryButton>
               )}
               <PrimaryButton
-                disabled={!hasRegistered || unregistering || (submissionEnded && !canSubmitFinalFixes)}
+                disabled={!hasRegistered || unregistering
+                          || (submissionEnded && !canSubmitFinalFixes)}
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
