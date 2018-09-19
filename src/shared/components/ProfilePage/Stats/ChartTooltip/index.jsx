@@ -9,7 +9,7 @@ import './styles.scss';
 
 const ChartTooltip = ({
   show, left, top, challengeName,
-  challengeData, rating, ratingColor, challengeId,
+  challengeData, rating, ratingColor, href,
 }) => (
   <Link
     styleName="chart-tooltip"
@@ -17,9 +17,9 @@ const ChartTooltip = ({
       opacity: show ? 1 : 0,
       left,
       top,
-      pointerEvents: challengeId > 0 ? 'all' : 'none',
+      pointerEvents: href ? 'all' : 'none',
     }}
-    to={`/challenges/${challengeId}`}
+    to={{ pathname: href }}
     onClick={e => e.stopPropagation()}
   >
     <div styleName="tooltip-rating" style={{ backgroundColor: ratingColor }}>
@@ -45,7 +45,7 @@ ChartTooltip.defaultProps = {
   challengeData: '',
   rating: 0,
   ratingColor: '',
-  challengeId: 0,
+  href: null,
 };
 
 ChartTooltip.propTypes = {
@@ -56,7 +56,7 @@ ChartTooltip.propTypes = {
   challengeData: PT.string,
   rating: PT.number,
   ratingColor: PT.string,
-  challengeId: PT.number,
+  href: PT.string,
 };
 
 export default ChartTooltip;

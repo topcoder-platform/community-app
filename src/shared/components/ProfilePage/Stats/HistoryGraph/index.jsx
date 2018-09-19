@@ -3,6 +3,7 @@ import d3 from 'd3';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
+import { config } from 'topcoder-react-utils';
 import { getRatingColor, RATING_COLORS } from 'utils/tc';
 import ChartTooltip from '../ChartTooltip';
 import styles from './index.scss';
@@ -58,7 +59,7 @@ export default class HistoryGraph extends React.Component {
 
   draw() {
     const $scope = this;
-    const { history: wrapper } = this.props;
+    const { history: wrapper, track, subTrack } = this.props;
     if (!wrapper) {
       return;
     }
@@ -194,6 +195,21 @@ export default class HistoryGraph extends React.Component {
       return _y;
     }
 
+    function getChallengeLink(challengeId) {
+      if (track === 'DEVELOP') {
+        return `/challenges/${challengeId}`;
+      }
+      if (track === 'DATA_SCIENCE') {
+        if (subTrack === 'MARATHON_MATCH') {
+          return `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${challengeId}`;
+        }
+        if (subTrack === 'SRM') {
+          return `${config.URL.COMMUNITY}/stat?c=round_overview&rd=${challengeId}`;
+        }
+      }
+      return null;
+    }
+
     svg.append('g')
       .selectAll('line')
       .data(RATING_COLORS)
@@ -224,7 +240,7 @@ export default class HistoryGraph extends React.Component {
           challengeData: moment(d.ratingDate).format('MMM DD, YYYY'),
           rating: d.newRating,
           ratingColor: getRatingColor(d.newRating),
-          challengeId: d.challengeId,
+          href: getChallengeLink(d.challengeId),
         });
       });
   }
@@ -240,8 +256,12 @@ export default class HistoryGraph extends React.Component {
 
 HistoryGraph.defaultProps = {
   history: null,
+  track: null,
+  subTrack: null,
 };
 
 HistoryGraph.propTypes = {
   history: PT.shape(),
+  track: PT.string,
+  subTrack: PT.string,
 };
