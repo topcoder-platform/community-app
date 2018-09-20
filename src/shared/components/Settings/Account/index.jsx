@@ -32,7 +32,7 @@ export default function Account(props) {
     switch (tab) {
       case 'my account':
         return <MyAccount {...props} />;
-      case 'linked account':
+      case 'linked accounts':
         return <LinkedAccount {...props} />;
       default:
         return <ComingSoon />;

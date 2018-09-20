@@ -87,13 +87,13 @@ class Profile extends React.Component {
           return <Education {...this.props} />;
         case 'work':
           return <Work {...this.props} />;
-        case 'skill':
+        case 'skills':
           return <Skills {...this.props} />;
-        case 'community':
+        case 'communities':
           return <Community {...this.props} />;
         case 'organization':
           return <Organization {...this.props} />;
-        case 'hobby':
+        case 'hobbies':
           return <Hobby {...this.props} />;
         default:
           return <ComingSoon />;
