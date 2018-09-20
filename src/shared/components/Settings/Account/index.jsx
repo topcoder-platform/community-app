@@ -25,7 +25,7 @@ export default function Account(props) {
 
   const icons = {
     'my account': <MyAccountIcon />,
-    'linked account': <LinkedAccountIcon />,
+    'linked accounts': <LinkedAccountIcon />,
   };
 
   const renderTabContent = (tab) => {
