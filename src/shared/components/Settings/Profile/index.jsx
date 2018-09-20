@@ -72,9 +72,9 @@ class Profile extends React.Component {
       education: <EducationIcon />,
       work: <WorkIcon />,
       organization: <OrganizationIcon />,
-      skill: <SkillIcon />,
-      hobby: <HobbyIcon />,
-      community: <CommunityIcon />,
+      skills: <SkillIcon />,
+      hobbies: <HobbyIcon />,
+      communities: <CommunityIcon />,
     };
 
     const renderTabContent = (tab) => {
