@@ -11,7 +11,6 @@ import _ from 'lodash';
 import path from 'path';
 import React from 'react';
 import PT from 'prop-types';
-import { toastr } from 'react-redux-toastr';
 import requireContext from 'require-context';
 
 import Select from 'components/Select';
