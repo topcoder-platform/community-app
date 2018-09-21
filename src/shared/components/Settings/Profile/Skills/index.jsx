@@ -200,7 +200,6 @@ export default class Skills extends ConsentComponent {
     ));
 
     if (index > -1) {
-      toastr.info('', `You've already added skill "${selectedSkill.name}".`);
       return;
     }
 
