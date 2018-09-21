@@ -26,7 +26,7 @@ const CDN_URL = 'https://cdn.contentful.com/spaces';
 const PREVIEW_URL = 'https://preview.contentful.com/spaces';
 
 /* Holds base URL of Community App CDN. */
-const TC_CDN_URL = `${config.CDN.PUBLIC}/contentful`;
+// const TC_CDN_URL = `${config.CDN.PUBLIC}/contentful`;
 
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
@@ -44,6 +44,7 @@ const MAX_FETCH_RETRIES = 5;
  *
  * @param {Object} asset
  */
+/*
 function mapAssetFileUrlToCdn(asset) {
   let x = asset.fields.file.url.split('/');
   switch (x[2]) {
@@ -57,6 +58,7 @@ function mapAssetFileUrlToCdn(asset) {
   }
   asset.fields.file.url = x; // eslint-disable-line no-param-reassign
 }
+*/
 
 /**
  * Creates a promise that resolves one second after its creation.
@@ -115,9 +117,9 @@ class ApiService {
    *  actual file path by Community App CDN path.
    * @return {Promise}
    */
-  async getAsset(id, mapFileUrlToCdn) {
+  async getAsset(id /* , mapFileUrlToCdn */) {
     const res = await this.fetch(`/assets/${id}`);
-    if (mapFileUrlToCdn) mapAssetFileUrlToCdn(res);
+    // if (mapFileUrlToCdn) mapAssetFileUrlToCdn(res);
     return res;
   }
 
@@ -137,9 +139,9 @@ class ApiService {
    *  actual file path by Community App CDN path.
    * @return {Promise}
    */
-  async queryAssets(query, mapFileUrlToCdn) {
+  async queryAssets(query /* , mapFileUrlToCdn */) {
     const res = await this.fetch('/assets', query);
-    if (mapFileUrlToCdn) res.items.forEach(x => mapAssetFileUrlToCdn(x));
+    // if (mapFileUrlToCdn) res.items.forEach(x => mapAssetFileUrlToCdn(x));
     return res;
   }
 

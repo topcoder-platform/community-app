@@ -10,7 +10,7 @@ exports[`renders account setting page correctly 1`] = `
     <Accordion
       icons={
         Object {
-          "linked account": <LinkedAccountIcon
+          "linked accounts": <LinkedAccountIcon
             height="30"
             viewBox="0 0 30 30"
             width="30"
@@ -39,7 +39,7 @@ exports[`renders account setting page correctly 1`] = `
     <SideBar
       icons={
         Object {
-          "linked account": <LinkedAccountIcon
+          "linked accounts": <LinkedAccountIcon
             height="30"
             viewBox="0 0 30 30"
             width="30"

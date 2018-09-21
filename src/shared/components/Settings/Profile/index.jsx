@@ -72,9 +72,9 @@ class Profile extends React.Component {
       education: <EducationIcon />,
       work: <WorkIcon />,
       organization: <OrganizationIcon />,
-      skill: <SkillIcon />,
-      hobby: <HobbyIcon />,
-      community: <CommunityIcon />,
+      skills: <SkillIcon />,
+      hobbies: <HobbyIcon />,
+      communities: <CommunityIcon />,
     };
 
     const renderTabContent = (tab) => {
@@ -87,13 +87,13 @@ class Profile extends React.Component {
           return <Education {...this.props} />;
         case 'work':
           return <Work {...this.props} />;
-        case 'skill':
+        case 'skills':
           return <Skills {...this.props} />;
-        case 'community':
+        case 'communities':
           return <Community {...this.props} />;
         case 'organization':
           return <Organization {...this.props} />;
-        case 'hobby':
+        case 'hobbies':
           return <Hobby {...this.props} />;
         default:
           return <ComingSoon />;

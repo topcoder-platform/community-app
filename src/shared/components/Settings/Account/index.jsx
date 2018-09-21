@@ -25,14 +25,14 @@ export default function Account(props) {
 
   const icons = {
     'my account': <MyAccountIcon />,
-    'linked account': <LinkedAccountIcon />,
+    'linked accounts': <LinkedAccountIcon />,
   };
 
   const renderTabContent = (tab) => {
     switch (tab) {
       case 'my account':
         return <MyAccount {...props} />;
-      case 'linked account':
+      case 'linked accounts':
         return <LinkedAccount {...props} />;
       default:
         return <ComingSoon />;

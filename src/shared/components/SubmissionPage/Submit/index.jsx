@@ -46,15 +46,19 @@ class Submit extends React.Component {
       userId,
     } = this.props;
 
+    const { subType, subPhaseId } = this.getSubDetails();
+
     const formData = new FormData();
     formData.append('url', sub.fileUrl);
-    formData.append('type', this.getSubType());
+    formData.append('type', subType);
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
+    formData.append('submissionPhaseId', subPhaseId);
     return formData;
   }
 
-  getSubType() {
+  // returns both submission type and phase id
+  getSubDetails() {
     const {
       currentPhases,
     } = this.props;
@@ -68,19 +72,24 @@ class Submit extends React.Component {
       phaseType: 'Final Fix',
     });
     let subType;
+    let subPhaseId;
 
     // Submission type logic
     if (checkpoint && checkpoint.phaseStatus === 'Open') {
       subType = 'Checkpoint Submission';
+      subPhaseId = checkpoint.id;
     } else if (checkpoint && checkpoint.phaseStatus === 'Close' && submission && submission.phaseStatus === 'Open') {
       subType = 'Contest Submission';
+      subPhaseId = submission.id;
     } else if (finalFix && finalFix.phaseStatus === 'Open') {
       subType = 'Studio Final Fix Submission';
+      subPhaseId = finalFix.id;
     } else {
       subType = 'Contest Submission';
+      subPhaseId = submission.id;
     }
 
-    return subType;
+    return { subType, subPhaseId };
   }
 
   reset() {

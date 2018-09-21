@@ -186,7 +186,13 @@ Active Challenges
                     </div>
                     {
                       activeGraph === 'history'
-                        ? <HistoryGraph history={getHistory(statsHistory, track, subTrack)} />
+                        ? (
+                          <HistoryGraph
+                            history={getHistory(statsHistory, track, subTrack)}
+                            track={track}
+                            subTrack={subTrack}
+                          />
+                        )
                         : (
                           <DistributionGraph
                             distribution={statsDistribution}
