@@ -57,6 +57,7 @@ export default class MyAccount extends React.Component {
     this.checkPassword = this.checkPassword.bind(this);
     this.toggleTypeAttribute = this.toggleTypeAttribute.bind(this);
     this.onSendVerificationEmail = this.onSendVerificationEmail.bind(this);
+    this.onCancelVerificationEmail = this.onCancelVerificationEmail.bind(this);
     this.onUpdateNewEmailInput = this.onUpdateNewEmailInput.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
@@ -118,6 +119,14 @@ export default class MyAccount extends React.Component {
       updateProfile(omit(profile, ['groups']), tokenV3);
     }
 
+    this.setState(newState);
+  }
+
+  onCancelVerificationEmail() {
+    const newState = { ...this.state };
+    newState.inputNewEmailVisible = false;
+    newState.btnChangeEmailVisible = true;
+    newState.btnVerifiEmailVisible = false;
     this.setState(newState);
   }
 
@@ -389,6 +398,14 @@ export default class MyAccount extends React.Component {
                         Send Verification Email Again
                       </PrimaryButton>
                     </div>
+                    <div styleName={`button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                      <PrimaryButton
+                        styleName="white-label"
+                        onClick={this.onCancelVerificationEmail}
+                      >
+                        Cancel
+                      </PrimaryButton>
+                    </div>
                   </div>
                 </form>
               ) : (
@@ -456,6 +473,14 @@ export default class MyAccount extends React.Component {
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email Again
+                      </PrimaryButton>
+                    </div>
+                    <div styleName={`button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                      <PrimaryButton
+                        styleName="white-label"
+                        onClick={this.onCancelVerificationEmail}
+                      >
+                        Cancel
                       </PrimaryButton>
                     </div>
                   </div>
