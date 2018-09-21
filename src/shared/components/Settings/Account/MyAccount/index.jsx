@@ -88,6 +88,10 @@ export default class MyAccount extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updatePredicate);
+    const {
+      clearIncorrectPassword,
+    } = this.props;
+    clearIncorrectPassword();
   }
 
   onUpdateNewEmailInput(e) {
