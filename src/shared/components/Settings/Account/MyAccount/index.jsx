@@ -27,6 +27,7 @@ export default class MyAccount extends React.Component {
       hasLength: false,
       hasLetter: false,
       hasSymbolNumber: false,
+      differentOldPassword: false,
       passwordValid: false,
       showNewTips: false,
       showEmailTips: false,
@@ -258,16 +259,22 @@ export default class MyAccount extends React.Component {
     let hasLength = false;
     let hasLetter = false;
     let hasSymbolNumber = false;
+    let differentOldPassword = false;
     if (newPassword) {
       hasLength = newPassword.length >= 8;
       hasLetter = /[a-zA-Z]/.test(newPassword);
       hasSymbolNumber = /[-!$@#%^&*()_+|~=`{}[\]:";'<>?,./]/.test(newPassword) || /[\d]/.test(newPassword);
     }
+    if (currentPassword !== newPassword) {
+      differentOldPassword = true;
+    }
     this.setState({
       hasLength,
       hasLetter,
       hasSymbolNumber,
-      passwordValid: currentPassword.length && hasLength && hasLetter && hasSymbolNumber,
+      differentOldPassword,
+      passwordValid: currentPassword.length
+      && hasLength && hasLetter && hasSymbolNumber && differentOldPassword,
       newPassword,
       currentPassword,
     });
@@ -298,6 +305,7 @@ export default class MyAccount extends React.Component {
       hasLength,
       hasLetter,
       hasSymbolNumber,
+      differentOldPassword,
       passwordInputType,
       showNewTips,
       showEmailTips,
@@ -512,6 +520,9 @@ export default class MyAccount extends React.Component {
                           <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
                             At least one number or symbol
                           </p>
+                          <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
+                            Should not be the same as the old password
+                          </p>
                         </div>
                         <div styleName="row">
                           <div styleName="button-change-password">
@@ -577,6 +588,9 @@ export default class MyAccount extends React.Component {
                                 </p>
                                 <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
                                   At least one number or symbol
+                                </p>
+                                <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
+                                  Should not be the same as the old password
                                 </p>
                               </div>
                             </div>
