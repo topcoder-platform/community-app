@@ -134,6 +134,7 @@ SubmissionsPageContainer.propTypes = {
   setSubmissionFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
   registrants: PT.arrayOf(PT.object).isRequired,
+  winners: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
 };
 
@@ -169,6 +170,7 @@ const mapStateToProps = (state, ownProps) => {
     notesLength: submission.notesLength,
     submissionFilestackData: submission.submissionFilestackData,
     registrants: state.challenge.details.registrants,
+    winners: state.challenge.details.winners,
     handle: state.auth.user ? state.auth.user.handle : '',
   };
 };
