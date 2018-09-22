@@ -99,10 +99,6 @@ export default class Skills extends ConsentComponent {
     window.addEventListener('resize', this.updatePredicate);
   }
 
-  componentDidUpdate() {
-    this.removeHover();
-  }
-
   componentWillReceiveProps(nextProps) {
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
@@ -300,18 +296,6 @@ export default class Skills extends ConsentComponent {
     }
   }
 
-  removeHover = () => {
-    setTimeout(() => {
-      const btn = document.querySelector('a:hover');
-      if (btn) {
-        const par = btn.parentNode;
-        const next = btn.nextSibling;
-        par.removeChild(btn);
-        setTimeout(() => { par.insertBefore(btn, next); }, 0);
-      }
-    }, 100);
-  }
-
   /**
    * Toggle Skill to delete selected skill
    */
@@ -416,11 +400,7 @@ export default class Skills extends ConsentComponent {
                   return (
                     <li key={skill.id}>
                       <div styleName="skill-tile">
-                        <a
-                          role="link"
-                          onClick={e => this.toggleSkill(e, skill)}
-                          styleName={linkStyle}
-                        >
+                        <a role="link" onClick={e => this.toggleSkill(e, skill)} styleName={linkStyle}>
                           <div styleName="skill-icon">
                             <div styleName="remove-indicator" />
                             <div styleName="hidden-indicator" />
