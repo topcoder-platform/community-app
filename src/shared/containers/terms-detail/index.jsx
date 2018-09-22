@@ -12,10 +12,25 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from 'components/Terms/TermDetails';
 import { actions } from 'topcoder-react-lib';
 import { MetaTags } from 'topcoder-react-utils';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
+import SwitchWithLabel from 'components/SwitchWithLabel';
+import { themr } from 'react-css-super-themr';
+import styles from './styles.scss';
 
-import './styles.scss';
+const ACCEPTANCE_LABEL = 'I understand and agree';
 
 class TermsDetailPageContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      termsAccepted: false,
+      showModal: false,
+    };
+    this.switchHandler = this.switchHandler.bind(this);
+    this.resetModal = this.resetModal.bind(this);
+    this.showModal = this.showModal.bind(this);
+  }
+
   componentDidMount() {
     const { loadTermDetails, authTokens, termId } = this.props;
     loadTermDetails(authTokens, termId);
@@ -28,6 +43,19 @@ class TermsDetailPageContainer extends React.Component {
     }
   }
 
+  switchHandler() {
+    const { termsAccepted } = this.state;
+    this.setState({ termsAccepted: !termsAccepted });
+  }
+
+  resetModal() {
+    this.setState({ showModal: false });
+  }
+
+  showModal() {
+    this.setState({ showModal: true });
+  }
+
   render() {
     const {
       authTokens,
@@ -38,19 +66,25 @@ class TermsDetailPageContainer extends React.Component {
       termId,
       getTermDetailsFailure,
       loadingTermId,
+      agreeTerms,
+      agreeingTerm,
+      agreeTermFailure,
+      theme,
     } = this.props;
+    const { termsAccepted, showModal } = this.state;
+
     return (
-      <div styleName="outer-container">
+      <div className={theme['outer-container']}>
         {
           loadingTermId === termId ? (
-            <div styleName="loading">
+            <div className={theme.loading}>
               <LoadingIndicator />
             </div>
           ) : null
         }
         {
           getTermDetailsFailure ? (
-            <div styleName="error">
+            <div className={theme.error}>
               {getTermDetailsFailure.error.details}
             </div>
           ) : null
@@ -58,9 +92,9 @@ class TermsDetailPageContainer extends React.Component {
         {
           details
             ? (
-              <div styleName="terms-detail-container">
+              <div className={theme['terms-detail-container']}>
                 <MetaTags title={details.title} description={details.title} />
-                <div styleName="terms-title">
+                <div className={theme['terms-title']}>
                   {details.title}
                 </div>
                 <TermDetails
@@ -78,6 +112,53 @@ class TermsDetailPageContainer extends React.Component {
               </div>
             )
             : null
+        }
+        {
+          agreeingTerm !== termId && details && !details.agreed
+          && agreeTermFailure === undefined
+          && details.agreeabilityType !== 'DocuSignable'
+            ? (
+              <div className={theme['terms-acceptance-handler']}>
+                <SwitchWithLabel
+                  onSwitch={this.switchHandler}
+                  enabled={termsAccepted}
+                  labelAfter={ACCEPTANCE_LABEL}
+                  theme={theme}
+                />
+                <PrimaryButton
+                  disabled={!termsAccepted}
+                  onClick={() => {
+                    agreeTerms(authTokens, termId);
+                    this.showModal();
+                  }}
+                >
+                  Accept
+                </PrimaryButton>
+              </div>
+            )
+            : null
+        }
+        {
+          agreeingTerm === termId ? <LoadingIndicator /> : null
+        }
+        {
+          agreeingTerm !== termId && agreeTermFailure !== undefined && showModal
+            ? (
+              <Modal
+                onCancel={() => this.resetModal()}
+                theme={theme}
+              >
+                <div className={theme.modalMsg}>
+                  You have successfully agreed
+                </div>
+                <PrimaryButton
+                  onClick={() => this.resetModal()}
+                  theme={theme}
+                >
+                  Ok
+                </PrimaryButton>
+              </Modal>
+            ) : null
         }
       </div>
     );
@@ -103,12 +184,24 @@ TermsDetailPageContainer.propTypes = {
   getTermDetailsFailure: PT.oneOfType([PT.bool, PT.shape()]),
   loadingTermId: PT.string,
   details: PT.shape(),
+  agreeTerms: PT.func.isRequired,
+  agreeTermFailure: PT.oneOfType([undefined, PT.shape(), PT.bool]).isRequired,
+  agreeingTerm: PT.oneOfType([undefined, PT.string]).isRequired,
+  theme: PT.shape({
+    'outer-container': PT.string.isRequired,
+    loading: PT.string.isRequired,
+    error: PT.string.isRequired,
+    'terms-detail-container': PT.string.isRequired,
+    'terms-acceptance-handler': PT.string.isRequired,
+    'terms-title': PT.string.isRequired,
+  }).isRequired,
 };
 
 function mapStateToProps(state, props) {
   return {
     termId: props.match.params.termId,
     agreeingTerm: state.terms.agreeingTerm,
+    agreeTermFailure: state.terms.agreeTermFailure,
     authTokens: state.auth,
     docuSignUrl: state.terms.docuSignUrl,
     loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
@@ -122,11 +215,15 @@ function mapDispatchToProps(dispatch) {
   return {
     loadTermDetails: (tokens, termId) => {
       dispatch(actions.terms.getTermDetailsInit(termId));
-      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2, false));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
       dispatch(actions.terms.getDocuSignUrlInit(templateId));
       dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+    },
+    agreeTerms: (tokens, termId) => {
+      dispatch(actions.terms.agreeTermInit(termId));
+      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
     },
   };
 }
@@ -134,4 +231,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TermsDetailPageContainer);
+)(themr('Contentful-Blog', styles)(TermsDetailPageContainer));

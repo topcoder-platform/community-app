@@ -61,3 +61,29 @@
     margin: 0 auto;
   }
 }
+
+.terms-acceptance-handler {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 350px;
+
+  .wrapper {
+    font-size: 18px;
+    margin-right: 5px;
+  }
+
+  .switch {
+    margin: 0 10px;
+  }
+}
+
+.container {
+  padding: 15px 0;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 20px;
+
+  .modalMsg {
+    margin-bottom: 10px;
+  }
+}
