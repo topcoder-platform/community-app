@@ -3,7 +3,6 @@
 .software-container {
   display: flex;
   flex-direction: column;
-  align-items: left;
 
   @include xs-to-sm {
     padding-bottom: 0;
