@@ -373,6 +373,36 @@
   }
 }
 
+.button-cancel-change-email {
+  margin-left: auto;
+  margin-right: auto;
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    width: 170px;
+    white-space: nowrap;
+  }
+
+  .white-label {
+    color: $tc-white;
+  }
+
+  &.active {
+    display: block;
+  }
+
+  &.hide {
+    display: none;
+  }
+}
+
 .button-verification-email {
   margin-left: auto;
   margin-right: auto;
