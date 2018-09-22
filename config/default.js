@@ -92,8 +92,7 @@ module.exports = {
 
     /* This is the same value as above, but it is used by topcoder-react-lib,
      * as a more verbose name for the param. */
-    // COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
-    COMMUNITY_APP: 'http://local.topcoder-dev.com:3000',
+    COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
 
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
@@ -175,8 +174,8 @@ module.exports = {
 
     MAILCHIMP: {
       default: {
-        API_KEY: 'dc42b4d73670c6c17c65d67248357101',
-        MAILCHIMP_BASE_URL: 'https://us19.api.mailchimp.com/3.0',
+        API_KEY: '',
+        MAILCHIMP_BASE_URL: '',
       },
     },
 
