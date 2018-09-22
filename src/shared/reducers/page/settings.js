@@ -29,55 +29,62 @@ function mergeSkills(state, { type, payload, error }) {
   const mergedSkills = {};
 
   let maxIsNew = 0;
-
-  let addedSkillName = '';
-  let removedSkillName = '';
-
-  _.forEach(oldSkills, (oldSkill, tagId) => {
-    const newSkill = newSkills[tagId];
-    if (!newSkill) {
-      // Mark the old skill as hidden
-      mergedSkills[tagId] = {
-        ...oldSkill,
-        hidden: true,
-      };
-      removedSkillName = oldSkill.tagName;
-    } else {
-      // Copy the new skill except 'isNew' field
-      mergedSkills[tagId] = {
-        ...newSkill,
-        isNew: oldSkill.isNew,
-      };
-      if (newSkill.hidden && !oldSkill.hidden) {
-        removedSkillName = oldSkill.tagName;
-      }
-    }
-
-    if (oldSkill.isNew && oldSkill.isNew > maxIsNew) {
-      maxIsNew = oldSkill.isNew;
-    }
-  });
-
-  _.forEach(newSkills, (newSkill, tagId) => {
-    const oldSkill = oldSkills[tagId];
-    if (!oldSkill) {
-      if (!firstTime) {
-        maxIsNew += 1;
-      }
-      // Add the new skill and set 'isNew' field
-      mergedSkills[tagId] = {
-        ...newSkill,
-        isNew: firstTime ? 0 : maxIsNew,
-      };
-      addedSkillName = newSkill.tagName;
-    } else if (!newSkill.hidden && oldSkill.hidden) {
-      addedSkillName = newSkill.tagName;
-    }
-  });
-
+  
   if (type === 'PROFILE/ADD_SKILL_DONE') {
+    // add skill logic
+    let addedSkillName = '';
+    _.forEach(newSkills, (newSkill, tagId) => {
+      const oldSkill = oldSkills[tagId];
+      if (!oldSkill) {
+        if (!firstTime) {
+          maxIsNew += 1;
+        }
+        // Add the new skill and set 'isNew' field
+        mergedSkills[tagId] = {
+          ...newSkill,
+          isNew: firstTime ? 0 : maxIsNew,
+        };
+        addedSkillName = newSkill.tagName;
+      } else if (!newSkill.hidden && oldSkill.hidden) {
+        addedSkillName = newSkill.tagName;
+      }
+    });
+
+    if (payload.skill) {
+      addedSkillName = payload.skill.name;
+    }
     toastrSuccess('Success! ', `Skill "${addedSkillName}" was added.`);
   } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
+    let removedSkillName = '';
+    // remove skill logic
+    _.forEach(oldSkills, (oldSkill, tagId) => {
+      const newSkill = newSkills[tagId];
+      if (!newSkill) {
+        // Mark the old skill as hidden
+        mergedSkills[tagId] = {
+          ...oldSkill,
+          hidden: true,
+        };
+        removedSkillName = oldSkill.tagName;
+      } else {
+        // Copy the new skill except 'isNew' field
+        mergedSkills[tagId] = {
+          ...newSkill,
+          isNew: oldSkill.isNew,
+        };
+        if (newSkill.hidden && !oldSkill.hidden) {
+          removedSkillName = oldSkill.tagName;
+        }
+      }
+
+      if (oldSkill.isNew && oldSkill.isNew > maxIsNew) {
+        maxIsNew = oldSkill.isNew;
+      }
+    });
+
+    if (payload.skill) {
+      removedSkillName = payload.skill.name;
+    }
     toastrSuccess('Success! ', `Skill "${removedSkillName}" was removed.`);
   }
 
