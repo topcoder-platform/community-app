@@ -104,7 +104,7 @@ export default class MyAccount extends React.Component {
 
     const email = /^([0-9A-Za-z\-_\.+]+)@([0-9A-Za-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
 
-    if (newState.newEmail === '' || !email.test(newState.newEmail)) {
+    if (newState.newEmail === '' || !email.test(newState.newEmail) || newState.newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
       newState.showEmailTips = true;
     } else {
