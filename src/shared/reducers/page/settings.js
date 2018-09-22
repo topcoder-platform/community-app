@@ -29,7 +29,7 @@ function mergeSkills(state, { type, payload, error }) {
   const mergedSkills = {};
 
   let maxIsNew = 0;
-  
+
   if (type === 'PROFILE/ADD_SKILL_DONE') {
     // add skill logic
     let addedSkillName = '';
