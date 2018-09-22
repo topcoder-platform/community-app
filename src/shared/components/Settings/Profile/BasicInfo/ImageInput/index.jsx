@@ -66,7 +66,7 @@ export default class ImageInput extends React.Component {
     }
     const fileInput = document.querySelector('#change-image-input');
     const file = fileInput.files[0];
-    if(file === undefined) {
+    if (file === undefined) {
       return;
     }
     uploadPhoto(handle, tokenV3, file);
