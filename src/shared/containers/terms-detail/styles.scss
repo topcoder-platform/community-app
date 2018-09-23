@@ -4,6 +4,8 @@
   background: $tc-gray-neutral-dark;
   width: 100%;
 
+  @include roboto-regular;
+
   @include xs-to-sm {
     padding: 8px 10px 20px;
   }
