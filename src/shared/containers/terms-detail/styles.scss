@@ -86,6 +86,8 @@
   font-size: 20px;
 
   .modalMsg {
+    @include tc-body-md;
+
     margin-bottom: 10px;
   }
 }
