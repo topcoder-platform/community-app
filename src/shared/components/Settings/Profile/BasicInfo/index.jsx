@@ -97,6 +97,8 @@ export default class BasicInfo extends ConsentComponent {
   onCheckFormValue(newBasicInfo) {
     let invalid = false;
     let errorMessage = '';
+    let dateError = '';
+    let birthDateInvalid = false;
 
     if (!_.trim(newBasicInfo.firstName).length) {
       errorMessage += 'FirstName, ';
@@ -115,6 +117,20 @@ export default class BasicInfo extends ConsentComponent {
 
     if (errorMessage.length > 0) {
       errorMessage += 'cannot be empty';
+    }
+
+    if (_.trim(newBasicInfo.birthDate).length > 0) {
+      if (!moment().isAfter(newBasicInfo.birthDate)) {
+        dateError = 'Must enter valid date for Birth Date';
+        birthDateInvalid = true;
+      }
+    }
+
+    if (errorMessage.length > 0) {
+      errorMessage = `${errorMessage}.${dateError}`;
+    } else if (dateError.length > 0) {
+      errorMessage = dateError;
+      invalid = birthDateInvalid;
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
