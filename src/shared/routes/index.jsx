@@ -6,7 +6,9 @@ import CommunityLoader from 'containers/tc-communities/Loader';
 import Content from 'components/Content';
 import React from 'react';
 
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import {
+  Switch, Route, withRouter, Redirect,
+} from 'react-router-dom';
 import { MetaTags } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
@@ -81,7 +83,10 @@ function Routes({ communityId }) {
           component={() => <TrackHomePages base="/track" />}
           path="/track"
         />
-        <Redirect from='/community/data-science/data-science-tutorials/*' to='/community/competitive-programming/tutorials/*'/>
+        <Redirect
+          from="/community/data-science/data-science-tutorials/*"
+          to="/community/competitive-programming/tutorials/*"
+        />
         <Route
           component={() => <TrackHomePages base="/community" />}
           exact
