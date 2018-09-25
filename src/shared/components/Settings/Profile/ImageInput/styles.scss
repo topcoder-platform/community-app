@@ -77,6 +77,11 @@
         min-height: 30px;
         padding: 0;
 
+        @include xs-to-sm {
+          display: block;
+          margin-left: 6px;
+        }
+
         &:hover {
           background: $tc-dark-blue;
         }
