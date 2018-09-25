@@ -568,7 +568,8 @@ $tips-background: $tc-gray-neutral-light;
   .has-length-between-range::before,
   .has-letter::before,
   .has-symbol-or-number::before,
-  .has-number::before {
+  .has-number::before,
+  .different-with-old-password::before {
     display: block;
   }
 
