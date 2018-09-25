@@ -1,4 +1,5 @@
 @import "~styles/mixins";
+@import "../../_default";
 
 .contentWrapper {
   display: flex;
@@ -28,6 +29,7 @@
 
 .content {
   @include tc-typography;
+  @include default-headers;
 
   flex: 1;
   padding: 15px;
