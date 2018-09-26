@@ -362,7 +362,7 @@
 .mobile-buttons {
   display: none;
   margin-top: 10px;
-  
+
   @include xs-to-sm {
     display: flex;
     justify-content: center;
