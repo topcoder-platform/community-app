@@ -366,9 +366,15 @@ export default class Skills extends ConsentComponent {
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.SKILL ? '' : 'hide';
     // All lookup skills
-    const lookupSkills = lookupData.skillTags ? _.sortBy(lookupData.skillTags, s => s.name) : [];
+    const allSkills = lookupData.skillTags ? lookupData.skillTags : [];
     const buttons = userSkills.slice(0, totalPage);
     const list = isMobileView ? indexList : userSkills;
+
+    // filter out already added skills
+    const lookupSkills = _.sortBy(
+      _.filter(allSkills, skill => _.findIndex(userSkills, l => l.id === skill.id) === -1),
+      s => s.name
+    );
 
     return (
       <div styleName={containerStyle}>
