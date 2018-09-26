@@ -15,6 +15,12 @@ function toastrSuccess(title, message) {
   });
 }
 
+function onClearToastrNotification() {
+  setImmediate(() => {
+    toastr.clean();
+  });
+}
+
 
 function mergeSkills(state, { type, payload, error }) {
   if (error) {
@@ -218,6 +224,7 @@ function create(defaultState = {}) {
       deletingLinks: state.deletingLinks,
     }),
     [a.clearIncorrectPassword]: state => ({ ...state, incorrectPassword: false }),
+    [a.clearToastrNotification]: onClearToastrNotification,
     [actions.profile.getSkillsDone]: mergeSkills,
     [actions.profile.addSkillDone]: mergeSkills,
     [actions.profile.hideSkillDone]: mergeSkills,

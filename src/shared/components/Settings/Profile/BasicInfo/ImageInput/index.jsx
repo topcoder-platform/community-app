@@ -66,6 +66,9 @@ export default class ImageInput extends React.Component {
     }
     const fileInput = document.querySelector('#change-image-input');
     const file = fileInput.files[0];
+    if (file === undefined) {
+      return;
+    }
     uploadPhoto(handle, tokenV3, file);
   }
 
@@ -119,7 +122,7 @@ export default class ImageInput extends React.Component {
                 !uploadingPhoto && !newBasicInfo.photoURL && 'Upload a new avatar'
               }
             </PrimaryButton>
-            <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
+            <input type="file" name="image" accept="image/*" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
             {
               newBasicInfo.photoURL
               && (

@@ -13,6 +13,8 @@
 .body {
   display: flex;
   flex-direction: row;
+  flex: 1;
+  align-items: center;
 }
 
 .icon {
@@ -32,6 +34,7 @@
 .info {
   display: flex;
   flex-direction: column;
+  flex: 1;
 
   @include xs-to-sm {
     display: none;

@@ -163,6 +163,8 @@ function mapDispatchToProps(dispatch) {
     loadTabData,
     selectTab: tab => dispatch(settingsActions.page.settings.selectTab(tab)),
     clearIncorrectPassword: () => dispatch(settingsActions.page.settings.clearIncorrectPassword()),
+    clearToastrNotification:
+    (() => dispatch(settingsActions.page.settings.clearToastrNotification())),
     addWebLink: (handle, tokenV3, webLink) => {
       dispatch(profileActions.addWebLinkInit());
       dispatch(profileActions.addWebLinkDone(handle, tokenV3, webLink));

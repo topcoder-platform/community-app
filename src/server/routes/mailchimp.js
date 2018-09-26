@@ -15,8 +15,9 @@ routes.use((req, res, next) => {
 });
 
 /* do regist member to mailchimp server. */
-routes.post('/:listId/members', (req, res, next) => new MailchimpService(req.query.mailchimpBaseUrl).doRegistMember(req).then(res.send.bind(res), next));
+routes.post('/:listId/members', (req, res, next) => new MailchimpService().doRegistMember(req).then(res.send.bind(res), next));
 
-routes.get('/:listId/members/:emailHash', (req, res) => new MailchimpService(req.query.mailchimpBaseUrl).checkSubscription(req).then(res.send.bind(res)));
+routes.get('/:listId/members/:emailHash', (req, res) => new MailchimpService().checkSubscription(req).then(res.send.bind(res)));
 
+routes.put('/:listId/members/:emailHash', (req, res) => new MailchimpService().subscribeInterests(req).then(res.send.bind(res)));
 export default routes;

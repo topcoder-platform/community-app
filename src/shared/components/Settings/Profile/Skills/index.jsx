@@ -11,7 +11,6 @@ import _ from 'lodash';
 import path from 'path';
 import React from 'react';
 import PT from 'prop-types';
-import { toastr } from 'react-redux-toastr';
 import requireContext from 'require-context';
 
 import Select from 'components/Select';
@@ -97,6 +96,10 @@ export default class Skills extends ConsentComponent {
   componentDidMount() {
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
+  }
+
+  componentDidUpdate() {
+    this.removeHover();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -200,7 +203,6 @@ export default class Skills extends ConsentComponent {
     ));
 
     if (index > -1) {
-      toastr.info('', `You've already added skill "${selectedSkill.name}".`);
       return;
     }
 
@@ -294,6 +296,18 @@ export default class Skills extends ConsentComponent {
         });
       }
     }
+  }
+
+  removeHover = () => {
+    setTimeout(() => {
+      const btn = document.querySelector('a:hover');
+      if (btn) {
+        const par = btn.parentNode;
+        const next = btn.nextSibling;
+        par.removeChild(btn);
+        setTimeout(() => { par.insertBefore(btn, next); }, 0);
+      }
+    }, 100);
   }
 
   /**
@@ -400,7 +414,11 @@ export default class Skills extends ConsentComponent {
                   return (
                     <li key={skill.id}>
                       <div styleName="skill-tile">
-                        <a role="link" onClick={e => this.toggleSkill(e, skill)} styleName={linkStyle}>
+                        <a
+                          role="link"
+                          onClick={e => this.toggleSkill(e, skill)}
+                          styleName={linkStyle}
+                        >
                           <div styleName="skill-icon">
                             <div styleName="remove-indicator" />
                             <div styleName="hidden-indicator" />

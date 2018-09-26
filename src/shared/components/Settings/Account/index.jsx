@@ -18,6 +18,7 @@ export default function Account(props) {
   const {
     settingsUI,
     toggleAccountSideTab,
+    clearToastrNotification,
   } = props;
   const tabs = settingsUI.TABS.ACCOUNT;
   const names = Object.keys(tabs).map(key => tabs[key]);
@@ -27,8 +28,12 @@ export default function Account(props) {
     'my account': <MyAccountIcon />,
     'linked accounts': <LinkedAccountIcon />,
   };
-
+  let previousSelectedTab = null;
   const renderTabContent = (tab) => {
+    if (previousSelectedTab !== tab && clearToastrNotification) {
+      clearToastrNotification();
+    }
+    previousSelectedTab = tab;
     switch (tab) {
       case 'my account':
         return <MyAccount {...props} />;
@@ -68,4 +73,5 @@ export default function Account(props) {
 Account.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleAccountSideTab: PT.func.isRequired,
+  clearToastrNotification: PT.func.isRequired,
 };

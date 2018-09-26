@@ -44,33 +44,31 @@ the same way).
   member of the community. It automatically shows necessary confirmation modals.
 
 - #### NewsletterSignup
-  **Sample Use:** `<NewsletterSignup listId="LIST_ID" apiKey="API_KEY" mailchimpBaseUrl="BASE_URL"/>`
+  **Sample Use:** `<NewsletterSignup listId="LIST_ID" />`
 
   Renders
   email input field, along with subscription button, that subscribes given email
   for a newsletter list. The component handles verification of emails, and modal
   UI windows shown on success and failure of subscription.
 
-  | Param | Default | Description |
-  | --- | --- | --- |
-  | apiKey | | MailChimp API key. |
-  | label | Subscribe for Newsletter | Optional. Custom label to show on the button. |
-  | listId | | ID of MailChimp list to subscribe. |
-  | mailchimpBaseUrl | | Base URL of MailChimp API, associated with the API key and list ID. |
+  | Param     | Default                  | Description                                                                      |
+  | ---       | ---                      | ---                                                                              |
+  | label     | Subscribe for Newsletter | Optional. Custom label to show on the button.                                    |
+  | listId    |                          | ID of MailChimp list to subscribe.                                               |
+  | interests | empty string             | Optional. commas separated string of group ids to which user should be subscribed |
 
 - #### NewsletterSignupForMembers
-  **Sample use:** `<NewsletterSignupForMembers listId="LIST_ID" apiKey="API_KEY" mailchimpBaseUrl="BASE_URL"/>`
+  **Sample use:** `<NewsletterSignupForMembers listId="LIST_ID" />`
 
   Renders a newsletter signup button that takes user email from his profile
   information. If the user is not-authenticated, it gets him to the login or
   registration page, and subscribes him on return. Accepts the following props:
 
-  | Param | Default | Description |
-  | --- | --- | --- |
-  | apiKey | | MailChimp API key. |
-  | label | Subscribe for Newsletter | Optional. Custom label to show on the button. |
-  | listId | | ID of MailChimp list to subscribe. |
-  | mailchimpBaseUrl | | Base URL of MailChimp API, associated with the API key and list ID. |
+  | Param     | Default                  | Description                                                                       |
+  | ---       | ---                      | ---                                                                               |
+  | label     | Subscribe for Newsletter | Optional. Custom label to show on the button.                                     |
+  | listId    |                          | ID of MailChimp list to subscribe.                                                |
+  | interests | empty string             | Optional. commas separated string of group ids to which user should be subscribed |
 
 
 - #### VideoModalButton

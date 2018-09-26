@@ -172,6 +172,13 @@ module.exports = {
       },
     },
 
+    MAILCHIMP: {
+      default: {
+        API_KEY: '',
+        MAILCHIMP_BASE_URL: '',
+      },
+    },
+
     OPEN_EXCHANGE_RATES_KEY: '',
   },
 };

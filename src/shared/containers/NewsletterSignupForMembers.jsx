@@ -12,6 +12,7 @@ import NewsletterSignupForMembers, { STATE as SIGNUP_NEWSLETTER }
   from 'components/NewsletterSignupForMembers';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * mailchimp APIs. */
@@ -27,6 +28,20 @@ class NewsletterSignupForMembersContainer extends React.Component {
     this.hideSignupButton = this.hideSignupButton.bind(this);
 
     this.hasSubscribedFromUrl = false;
+
+    // Get interestIds and interest request object for mailchimp api
+    // to use in checkSubscription and subscribe function
+    const { interests } = props;
+    this.interestsIds = null;
+    this.interestsReqObj = {};
+    if (interests !== '') {
+      this.interestsIds = interests.split(/ *, */);
+      this.interestsIds[this.interestsIds.length - 1] = this.interestsIds[this.interestsIds.length - 1].replace(/^\s+|\s+$/g, '');
+      _.map(this.interestsIds, (id) => {
+        this.interestsReqObj[id] = true;
+      });
+    }
+    this.isSubscribed = false;
 
     this.state = {
       signupState: SIGNUP_NEWSLETTER.DEFAULT,
@@ -54,20 +69,18 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
   async checkSubscription() {
     const {
-      mailchimpBaseUrl, apiKey, listId, user, token,
+      listId, user, token,
     } = this.props;
     if (!token) return;
     const md = forge.md.md5.create();
     md.update(user.email);
 
-    const md5Hash = md.digest().toHex();
-    const authorization = `Basic ${Buffer.from(`apikey:${apiKey}`).toString('base64')}`;
+    this.emailHash = md.digest().toHex();
 
-    await fetch(`${PROXY_ENDPOINT}/${listId}/members/${md5Hash}?mailchimpBaseUrl=${mailchimpBaseUrl}`, {
+    await fetch(`${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: authorization,
       },
     })
       .then((result) => {
@@ -76,7 +89,16 @@ class NewsletterSignupForMembersContainer extends React.Component {
       })
       .then((dataResponse) => {
         if (dataResponse.status === 'subscribed') {
-          this.setState({ signupState: SIGNUP_NEWSLETTER.HIDDEN });
+          this.isSubscribed = true;
+          const subscribedInterests = dataResponse.interests;
+          let interestsSubscribed = false;
+          _.map(this.interestsIds, (id) => {
+            if (!subscribedInterests[id]) {
+              this.setState({ signupState: SIGNUP_NEWSLETTER.DEFAULT });
+              interestsSubscribed = true;
+            }
+          });
+          if (!interestsSubscribed) this.setState({ signupState: SIGNUP_NEWSLETTER.HIDDEN });
         } else {
           this.setState({ signupState: SIGNUP_NEWSLETTER.DEFAULT });
         }
@@ -85,25 +107,36 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
   async subscribe() {
     const {
-      mailchimpBaseUrl, apiKey, listId, user,
+      listId, user,
     } = this.props;
 
-    const data = {
-      email_address: user.email,
-      status: 'subscribed',
-      merge_fields: {
-        FNAME: user.FNAME,
-        LNAME: user.LNAME,
-      },
-    };
+    let fetchUrl = `${PROXY_ENDPOINT}/${listId}/members`;
+    let method = 'POST';
+    if (this.interestsIds) {
+      fetchUrl += `/${this.emailHash}`;
+      method = 'PUT';
+    }
+
+    let data = {};
+    if (!this.isSubscribed) {
+      data = {
+        email_address: user.email,
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: user.FNAME,
+          LNAME: user.LNAME,
+        },
+      };
+    }
+
+    if (this.interestsIds) data.interests = this.interestsReqObj;
+
     const formData = JSON.stringify(data);
-    const authorization = `Basic ${Buffer.from(`apikey:${apiKey}`).toString('base64')}`;
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
-    await fetch(`${PROXY_ENDPOINT}/${listId}/members?mailchimpBaseUrl=${mailchimpBaseUrl}`, {
-      method: 'POST',
+    await fetch(fetchUrl, {
+      method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: authorization,
       },
       body: formData,
     }).then(result => result.json()).then((dataResponse) => {
@@ -157,13 +190,13 @@ class NewsletterSignupForMembersContainer extends React.Component {
 NewsletterSignupForMembersContainer.defaultProps = {
   token: '',
   label: 'Subscribe for Newsletter',
+  interests: '',
 };
 
 NewsletterSignupForMembersContainer.propTypes = {
   token: PT.string,
   label: PT.string,
-  apiKey: PT.string.isRequired,
-  mailchimpBaseUrl: PT.string.isRequired,
+  interests: PT.string,
   listId: PT.string.isRequired,
 };
 

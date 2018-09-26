@@ -28,7 +28,7 @@ function ConfirmModal({
   if (token) {
     text = (
       <p>
-Do you want to subscribed to Newsletter?
+        Do you want to subscribe to this newsletter?
       </p>
     );
     if (skipConfirmSignup) {
@@ -38,10 +38,10 @@ Do you want to subscribed to Newsletter?
     text = customTcAuthModalText || (
       <div>
         <p>
-You must be a Topcoder member before you can signup for Newsletter.
+          You must be a Topcoder member before you can signup for Newsletter.
         </p>
         <p>
-To signup, login if you are already a member. If not, register first.
+          To signup, login if you are already a member. If not, register first.
         </p>
       </div>
     );
@@ -62,12 +62,12 @@ To signup, login if you are already a member. If not, register first.
           <PrimaryButton
             onClick={() => signup()}
           >
-Signup
+            Signup
           </PrimaryButton>
           <SecondaryButton
             onClick={resetSignupButton}
           >
-Cancel
+            Cancel
           </SecondaryButton>
         </div>
       ) : (
@@ -78,7 +78,7 @@ Cancel
               window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
             }}
           >
-Login
+            Login
           </PrimaryButton>
           <PrimaryButton
             onClick={() => {
@@ -88,12 +88,12 @@ Login
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
             }}
           >
-Register
+            Register
           </PrimaryButton>
           <SecondaryButton
             onClick={resetSignupButton}
           >
-Cancel
+            Cancel
           </SecondaryButton>
         </div>
       )}
