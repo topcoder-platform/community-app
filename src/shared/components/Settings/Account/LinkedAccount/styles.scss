@@ -10,7 +10,7 @@
   justify-content: space-between;
   //margin-top: 10px;
 
-  @include xs-to-sm {
+  @include upto-sm {
     flex-flow: row wrap;
     flex-direction: row;
   }
@@ -230,7 +230,7 @@
 
   .web-link {
     .form-container-default {
-      @include xs-to-sm {
+      @include upto-sm {
         display: none;
       }
 
@@ -303,7 +303,7 @@
     .form-container-mobile {
       display: none;
 
-      @include xs-to-sm {
+      @include upto-sm {
         border: 0;
         border-radius: 0;
         display: flex;
@@ -336,7 +336,7 @@
         font-weight: 400;
         color: $tc-black;
 
-        @include xs-to-sm {
+        @include upto-sm {
           margin-bottom: 20px;
         }
       }
@@ -347,7 +347,7 @@
         margin-bottom: 20px;
         align-content: space-between;
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
           display: block;
           margin-bottom: 0;
@@ -358,7 +358,7 @@
           flex-direction: column;
           margin-right: 10px;
 
-          @include xs-to-sm {
+          @include upto-sm {
             display: block;
             padding-bottom: 10px;
           }
@@ -425,7 +425,7 @@
           }
         }
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -561,7 +561,7 @@
   flex-flow: row wrap;
   border-bottom: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: block;
     padding: 0 20px;
   }
@@ -795,7 +795,7 @@
     }
   }
 
-  @include xs-to-sm {
+  @include upto-sm {
     padding: 20px;
   }
 }
@@ -824,7 +824,7 @@
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -839,7 +839,7 @@
     margin-bottom: 30px;
     margin-top: 10px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -848,7 +848,7 @@
 .button-save {
   align-self: center;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 10px;
     width: 156px;
   }
@@ -895,7 +895,7 @@
       width: 155px;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }

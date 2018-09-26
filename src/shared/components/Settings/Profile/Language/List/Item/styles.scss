@@ -37,7 +37,7 @@
   text-transform: capitalize;
   margin-right: 20px;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-right: 0;
   }
 }
@@ -48,7 +48,7 @@
   margin-bottom: 10px;
   word-break: break-all;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-bottom: 0;
   }
 }
@@ -57,7 +57,7 @@
   color: $tc-gray-50;
   font-weight: 400;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: none;
   }
 }
@@ -65,7 +65,7 @@
 .parameter-second-line-mobile {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: flex;
     flex-direction: column;
     color: $tc-gray-50;
@@ -85,7 +85,7 @@
   img {
     margin-bottom: 10px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-bottom: 0;
     }
   }
@@ -98,7 +98,7 @@
     font-weight: 400;
     color: $tc-gray-50;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }

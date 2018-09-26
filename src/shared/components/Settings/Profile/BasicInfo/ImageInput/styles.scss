@@ -1,7 +1,7 @@
 @import "../../../style";
 
 .image {
-  @include xs-to-sm {
+  @include upto-sm {
     display: none;
   }
 
@@ -12,7 +12,7 @@
     p.handle {
       display: none;
 
-      @include xs-to-sm {
+      @include upto-sm {
         @include roboto-regular;
 
         display: block;
@@ -31,7 +31,7 @@
       height: 120px;
       padding: 2px;
 
-      @include xs-to-sm {
+      @include upto-sm {
         width: 80px;
         height: 80px;
         margin-right: 10px;

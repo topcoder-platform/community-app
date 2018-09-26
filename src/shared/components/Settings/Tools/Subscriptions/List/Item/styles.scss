@@ -60,7 +60,7 @@
   img {
     margin-bottom: 10px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-bottom: 0;
     }
   }
@@ -73,7 +73,7 @@
     font-weight: 400;
     color: $tc-gray-50;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }

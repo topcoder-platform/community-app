@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: left;
 
-  @include xs-to-sm {
+  @include upto-sm {
     padding-bottom: 0;
   }
 
@@ -22,7 +22,7 @@
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -49,7 +49,7 @@
       display: none;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -100,7 +100,7 @@
 .form-container-mobile {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     border: 0;
     border-radius: 0;
     display: flex;
@@ -117,7 +117,7 @@
     font-weight: 400;
     color: $tc-black;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-bottom: 20px;
     }
   }
@@ -129,7 +129,7 @@
     align-content: space-between;
     width: 100%;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: block;
       margin-bottom: 0;
     }
@@ -140,7 +140,7 @@
       margin-right: 10px;
       align-content: space-between;
 
-      @include xs-to-sm {
+      @include upto-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -158,7 +158,7 @@
       &.col-1 {
         width: 48%;
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -166,7 +166,7 @@
       &.col-2 {
         width: 26%;
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -189,7 +189,7 @@
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-top: 5px;
     }
   }
@@ -198,7 +198,7 @@
 .button-save {
   align-self: center;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 10px;
   }
 
@@ -213,7 +213,7 @@
     padding: 0;
     width: 250px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       width: 156px;
     }
   }
@@ -234,7 +234,7 @@
   color: $tc-gray-80;
   font-size: 15px;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 5px;
   }
 }
@@ -250,7 +250,7 @@
     height: 38px;
     line-height: 40px !important;
 
-    @include xs-to-sm {
+    @include upto-sm {
       line-height: 38px !important;
     }
   }

@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: left;
 
-  @include xs-to-sm {
+  @include upto-sm {
     padding: 20px;
   }
 
@@ -22,7 +22,7 @@
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -37,7 +37,7 @@
     margin-top: 10px;
     margin-bottom: 30px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -63,7 +63,7 @@
   .form-default {
     display: block;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -71,7 +71,7 @@
   .form-mobile {
     display: none;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: block;
 
       .row {
@@ -156,7 +156,7 @@
     justify-content: flex-start;
 
     .field {
-      @include xs-to-sm {
+      @include upto-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -169,7 +169,7 @@
         font-weight: 700;
         color: $tc-gray-80;
 
-        @include xs-to-sm {
+        @include upto-sm {
           @include roboto-regular;
 
           font-size: 12px;
@@ -333,7 +333,7 @@
   .password-section {
     margin-top: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -506,7 +506,7 @@ $tips-background: $tc-gray-neutral-light;
   text-align: left;
   margin-top: 10px;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 0;
     margin-bottom: 10px;
     margin-left: auto;
@@ -573,7 +573,7 @@ $tips-background: $tc-gray-neutral-light;
     display: block;
   }
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: none;
 
     &.mobile {
