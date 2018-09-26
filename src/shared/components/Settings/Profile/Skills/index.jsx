@@ -434,6 +434,24 @@ export default class Skills extends ConsentComponent {
                 })
               }
             </ul>
+            {
+              isMobileView && (
+                <div styleName={`mobile-buttons ${list.length > 0 ? '' : 'hide'}`}>
+                  {
+                    buttons.map((item, index) => (
+                      <span
+                        tabIndex="0"
+                        key={item.id}
+                        onClick={() => this.setPage(index)}
+                        onKeyPress={() => this.setPage(index)}
+                        role="button"
+                        styleName={`mobile-button ${currentIndex === index ? 'mobile-active' : ''}`}
+                      />
+                    ))
+                  }
+                </div>
+              )
+            }
           </div>
           <div styleName={`sub-title ${list.length > 0 ? 'second' : 'first'}`}>
             Add a new skill
@@ -508,24 +526,6 @@ export default class Skills extends ConsentComponent {
               </PrimaryButton>
             </div>
           </div>
-          {
-            isMobileView && (
-              <div styleName={`mobile-buttons ${list.length > 0 ? '' : 'hide'}`}>
-                {
-                  buttons.map((item, index) => (
-                    <span
-                      tabIndex="0"
-                      key={item.id}
-                      onClick={() => this.setPage(index)}
-                      onKeyPress={() => this.setPage(index)}
-                      role="button"
-                      styleName={`mobile-button ${currentIndex === index ? 'mobile-active' : ''}`}
-                    />
-                  ))
-                }
-              </div>
-            )
-          }
         </div>
       </div>
     );
