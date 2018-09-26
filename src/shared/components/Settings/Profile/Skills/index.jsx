@@ -526,7 +526,6 @@ export default class Skills extends ConsentComponent {
               </PrimaryButton>
             </div>
           </div>
-          
         </div>
       </div>
     );
