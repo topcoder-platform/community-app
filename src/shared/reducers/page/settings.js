@@ -82,9 +82,17 @@ function mergeSkills(state, { type, payload, error }) {
   });
 
   if (type === 'PROFILE/ADD_SKILL_DONE') {
-    toastrSuccess('Success! ', `Skill "${addedSkillName}" was added.`);
+    if (payload.skill) {
+      toastrSuccess('Success! ', `Skill "${payload.skill.name}" was added.`);
+    } else {
+      toastrSuccess('Success! ', `Skill "${addedSkillName}" was added.`);
+    }
   } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
-    toastrSuccess('Success! ', `Skill "${removedSkillName}" was removed.`);
+    if (payload.skill) {
+      toastrSuccess('Success! ', `Skill "${payload.skill.name}" was removed.`);
+    } else {
+      toastrSuccess('Success! ', `Skill "${removedSkillName}" was removed.`);
+    }
   }
 
   return {
