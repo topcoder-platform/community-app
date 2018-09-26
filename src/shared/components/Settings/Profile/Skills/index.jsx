@@ -373,7 +373,7 @@ export default class Skills extends ConsentComponent {
     // filter out already added skills
     const lookupSkills = _.sortBy(
       _.filter(allSkills, skill => _.findIndex(userSkills, l => l.id === skill.id) === -1),
-      s => s.name
+      s => s.name,
     );
 
     return (
