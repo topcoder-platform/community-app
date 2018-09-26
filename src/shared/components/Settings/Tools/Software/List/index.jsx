@@ -11,10 +11,11 @@ export default function SoftwareList(props) {
   const {
     softwareList,
     onDeleteItem,
+    disabled,
   } = props;
 
   return (
-    <div styleName={`container ${softwareList.items.length > 0 ? 'active' : ''}`}>
+    <div styleName={`container ${softwareList.items.length > 0 ? 'active' : ''} ${disabled ? 'disabled' : ''}`}>
       <ul>
         {
           softwareList.items.map((software, index) => (
@@ -31,4 +32,9 @@ export default function SoftwareList(props) {
 SoftwareList.propTypes = {
   softwareList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
+  disabled: PT.bool,
+};
+
+SoftwareList.defaultProps = {
+  disabled: false,
 };

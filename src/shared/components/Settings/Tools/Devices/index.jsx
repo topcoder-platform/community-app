@@ -273,6 +273,7 @@ export default class Devices extends ConsentComponent {
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="devices-container">
@@ -290,7 +291,13 @@ export default class Devices extends ConsentComponent {
         </div>
         {
           !isMobileView && deviceItems.length > 0
-          && (<DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />)
+          && (
+            <DeviceList
+              deviceList={{ items: deviceItems }}
+              onDeleteItem={this.onDeleteDevice}
+              disabled={!canModifyTrait}
+            />
+          )
         }
         <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
           Add a new device
@@ -377,6 +384,7 @@ export default class Devices extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddDevice}
+              disabled={!canModifyTrait}
             >
               Add device to your list
             </PrimaryButton>
@@ -445,6 +453,7 @@ export default class Devices extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddDevice}
+              disabled={!canModifyTrait}
             >
               Add Device
             </PrimaryButton>
@@ -456,6 +465,7 @@ export default class Devices extends ConsentComponent {
             <DeviceList
               deviceList={{ items: deviceItems }}
               onDeleteItem={this.onHandleDeleteDevice}
+              disabled={!canModifyTrait}
             />
           )
         }
@@ -467,6 +477,7 @@ export default class Devices extends ConsentComponent {
 Devices.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
+  traitRequestCount: PT.number.isRequired,
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,

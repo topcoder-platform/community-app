@@ -11,10 +11,11 @@ export default function ServiceProviderList(props) {
   const {
     serviceProviderList,
     onDeleteItem,
+    disabled,
   } = props;
 
   return (
-    <div styleName={`container ${serviceProviderList.items.length > 0 ? 'active' : ''}`}>
+    <div styleName={`container ${serviceProviderList.items.length > 0 ? 'active' : ''} ${disabled ? 'disabled' : ''}`}>
       <ul>
         {
           serviceProviderList.items.map((serviceProvider, index) => (
@@ -31,4 +32,9 @@ export default function ServiceProviderList(props) {
 ServiceProviderList.propTypes = {
   serviceProviderList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
+  disabled: PT.bool,
+};
+
+ServiceProviderList.defaultProps = {
+  disabled: false,
 };

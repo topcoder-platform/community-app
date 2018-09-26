@@ -130,6 +130,7 @@ function mapStateToProps(state) {
     loadingError: state.profile.loadingError,
     settingsUI: state.page.ui.settings,
     settings: state.settings,
+    traitRequestCount: state.settings.traitRequestCount,
     userTraits: state.settings.userTraits,
     skills: state.profile.skills,
   };
@@ -215,6 +216,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.settings.getAllUserTraits(handle, tokenV3));
     },
     addUserTrait: (handle, traitId, data, tokenV3) => {
+      dispatch(actions.settings.modifyUserTraitInit());
       dispatch(actions.settings.addUserTrait(handle, traitId, data, tokenV3));
     },
     addUserSkill: (handle, skill, tokenV3) => {
@@ -222,9 +224,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.profile.addSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })));
     },
     updateUserTrait: (handle, traitId, data, tokenV3) => {
+      dispatch(actions.settings.modifyUserTraitInit());
       dispatch(actions.settings.updateUserTrait(handle, traitId, data, tokenV3));
     },
     deleteUserTrait: (handle, traitId, tokenV3) => {
+      dispatch(actions.settings.modifyUserTraitInit());
       dispatch(actions.settings.deleteUserTrait(handle, traitId, tokenV3));
     },
     deleteUserSkill: (handle, skill, tokenV3) => {
