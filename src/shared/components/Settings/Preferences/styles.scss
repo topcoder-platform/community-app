@@ -5,18 +5,18 @@
   flex-direction: row;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
 
-  @include xs-to-sm {
+  @include upto-sm {
     padding: 0;
   }
 
   .mobile-view {
     display: none;
 
-    @include md-to-lg {
+    @include from-sm-to-lg {
       display: none;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: block;
       width: 100%;
     }
@@ -28,13 +28,13 @@
     padding: 30px;
     border-bottom-left-radius: 6px;
 
-    @include md-to-lg {
+    @include from-sm-to-lg {
       width: 90px;
       padding-right: 30px;
       margin-right: 0;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -43,7 +43,7 @@
     flex: 1;
     padding: 30px 80px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }

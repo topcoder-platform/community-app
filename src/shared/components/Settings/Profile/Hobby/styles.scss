@@ -18,7 +18,7 @@
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -45,7 +45,7 @@
       display: none;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -121,7 +121,7 @@
 .form-container-mobile {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: flex;
     flex-direction: column;
     border-radius: 6px;
@@ -139,7 +139,7 @@
     color: $tc-black;
     margin-bottom: 10px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-bottom: 20px;
     }
   }
@@ -150,7 +150,7 @@
     margin-bottom: 10px;
     align-content: space-between;
 
-    @include xs-to-sm {
+    @include upto-sm {
       width: 100%;
       display: block;
       margin-bottom: 0;
@@ -162,7 +162,7 @@
       flex-direction: column;
       margin-right: 10px;
 
-      @include xs-to-sm {
+      @include upto-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -187,11 +187,11 @@
       &.row-1 {
         width: 280px;
 
-        @include md-to-lg {
+        @include from-sm-to-lg {
           width: 383px;
         }
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -245,7 +245,7 @@
     min-width: 100%;
   }
 
-  @include xs-to-sm {
+  @include upto-sm {
     border: 0;
     border-radius: 0;
   }

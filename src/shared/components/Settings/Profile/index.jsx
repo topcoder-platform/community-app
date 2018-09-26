@@ -33,7 +33,7 @@ class Profile extends React.Component {
     this.previousSelectedTab = null;
     this.state = {
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
 
     this.updatePredicate = this.updatePredicate.bind(this);
