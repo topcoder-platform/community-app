@@ -71,7 +71,7 @@
   .form-mobile {
     display: none;
 
-    @include upto-sm {
+    @include xs-to-sm {
       display: block;
 
       .row {
