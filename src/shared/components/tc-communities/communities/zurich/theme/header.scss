@@ -25,7 +25,7 @@
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
-    color: $blue-bright;
+    color: $blue-1;
   }
 
   @include xs-to-lg {
@@ -39,7 +39,7 @@
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
-    color: $blue-bright;
+    color: $blue-1;
   }
 }
 
@@ -58,7 +58,7 @@
   font-family: 'Akkurat regular', sans-serif;
   text-transform: none;
   font-size: 16px;
-  color: $blue-bright;
+  color: $blue-1;
 }
 
 .menu {
@@ -79,7 +79,7 @@
   &:focus,
   &:hover,
   &:visited {
-    color: $blue-bright;
+    color: $blue-1;
   }
 }
 
@@ -93,11 +93,11 @@
   &:focus,
   &:hover,
   &:visited {
-    color: $blue-dark;
+    color: $blue-2;
   }
 
   &::after {
-    background: $blue-dark !important;
+    background: $blue-2 !important;
     height: 8px;
     width: 8px;
     left: 50%;
