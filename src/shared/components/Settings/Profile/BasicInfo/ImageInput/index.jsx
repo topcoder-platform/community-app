@@ -69,13 +69,15 @@ export default class ImageInput extends React.Component {
     }
     const fileInput = document.querySelector('#change-image-input');
     const file = fileInput.files[0];
+    if (file === undefined) {
+      return;
+    }
     uploadPhotoInit();
     loadImage.parseMetaData(file, (data) => {
       let orientation = 0;
       if (data.exif) {
         orientation = data.exif.get('Orientation');
       }
-
       loadImage(
         file,
         (img) => {
@@ -143,7 +145,7 @@ export default class ImageInput extends React.Component {
                 !uploadingPhoto && !newBasicInfo.photoURL && 'Upload a new avatar'
               }
             </PrimaryButton>
-            <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
+            <input type="file" name="image" accept="image/*" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
             {
               newBasicInfo.photoURL
               && (

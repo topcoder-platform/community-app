@@ -13,7 +13,7 @@ $checkbox-bg-selected: $tc-dark-blue;
   flex-direction: column;
   align-items: left;
 
-  @include xs-to-sm {
+  @include upto-sm {
     padding-bottom: 0;
   }
 
@@ -26,7 +26,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -53,7 +53,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       display: none;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -93,7 +93,7 @@ label {
   display: inline-block;
   bottom: 0;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-bottom: 10px;
   }
 
@@ -187,7 +187,7 @@ label {
 .form-container-mobile {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     border: 0;
     border-radius: 0;
     display: flex;
@@ -204,7 +204,7 @@ label {
     font-weight: 400;
     color: $tc-black;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-bottom: 20px;
     }
   }
@@ -216,7 +216,7 @@ label {
     align-content: space-between;
     width: 100%;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: block;
       margin-bottom: 0;
     }
@@ -230,7 +230,7 @@ label {
       flex-direction: column;
       margin-right: 10px;
 
-      @include xs-to-sm {
+      @include upto-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -256,7 +256,7 @@ label {
       &.col-1 {
         width: 23%;
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -264,7 +264,7 @@ label {
       &.col-2 {
         width: 51%;
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -272,7 +272,7 @@ label {
       &.col-3 {
         width: 26%;
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -280,7 +280,7 @@ label {
       &.col-date {
         width: 175px;
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -288,7 +288,7 @@ label {
       &.col-checkbox {
         position: relative;
 
-        @include xs-to-sm {
+        @include upto-sm {
           top: 25px;
         }
       }
@@ -307,7 +307,7 @@ label {
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-top: 5px;
     }
   }
@@ -316,7 +316,7 @@ label {
 .button-save {
   align-self: center;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 30px;
   }
 
@@ -331,7 +331,7 @@ label {
     padding: 0;
     width: 250px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       width: 156px;
     }
   }
@@ -352,7 +352,7 @@ label {
   color: $tc-gray-80;
   font-size: 15px;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 5px;
   }
 }
@@ -368,7 +368,7 @@ label {
     height: 38px;
     line-height: 40px !important;
 
-    @include xs-to-sm {
+    @include upto-sm {
       line-height: 38px !important;
     }
   }

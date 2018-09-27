@@ -31,7 +31,6 @@ export default function NewsletterSignupForMembers({
   customTcAuthModalText,
   hideSignupButton,
   signup,
-  hiddenButtonText,
   label,
   resetSignupButton,
   skipConfirmSignup,
@@ -40,18 +39,12 @@ export default function NewsletterSignupForMembers({
   theme,
   token,
 }) {
-  if (state === STATE.HIDDEN) {
-    return (
-      <div styleName="style.placeholder">
-        {hiddenButtonText}
-      </div>
-    );
-  }
   return (
     <div
       className={theme.container}
     >
       <PrimaryButton
+        disabled={state === STATE.HIDDEN}
         onClick={() => {
           switch (state) {
             case STATE.SIGNEDUP:

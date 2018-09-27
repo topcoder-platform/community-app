@@ -10,7 +10,9 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import forge from 'node-forge';
 // import qs from 'qs';
+import _ from 'lodash';
 import defaultStyle from './style.scss';
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
@@ -23,35 +25,80 @@ class NewsletterSignup extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
-
+    this.checkSubscription = this.checkSubscription.bind(this);
     this.state = { email: '', message: '', invalidEmail: false };
   }
 
   async onSubmit() {
-    const { mailchimpBaseUrl, apiKey, listId } = this.props;
+    const { listId, interests } = this.props;
+
     const { email } = this.state;
 
     if (!this.isEmailValid()) {
       this.setState({ invalidEmail: true });
       return;
     }
+
+    const md = forge.md.md5.create();
+    md.update(email);
+    const md5Hash = md.digest().toHex();
     this.setState({ invalidEmail: false });
-    const data = {
-      email_address: email,
-      status: 'subscribed',
-      merge_fields: {
-        FNAME: '',
-        LNAME: '',
-      },
-    };
+
+    let data = null;
+    const { isSubscribed, subscribedInterests } = await this.checkSubscription(md5Hash);
+    const interestsReqObj = {};
+    let interestIds = null;
+
+    if (interests !== '') {
+      interestIds = interests.split(/ *, */);
+      interestIds[interestIds.length - 1] = interestIds[interestIds.length - 1].replace(/^\s+|\s+$/g, '');
+      _.map(interestIds, (id) => { interestsReqObj[id] = true; });
+    }
+
+    if (isSubscribed) {
+      if (interests === '') {
+        this.setState({ message: 'Already Subscribed' });
+        return;
+      }
+      let allInterestsSubscribed = true;
+      _.map(interestIds, (id) => {
+        if (!subscribedInterests[id]) allInterestsSubscribed = false;
+      });
+      if (allInterestsSubscribed) {
+        this.setState({ message: 'Already Subscribed' });
+        return;
+      }
+
+
+      data = {
+        interests: interestsReqObj,
+      };
+    } else {
+      data = {
+        email_address: email,
+        status: 'subscribed',
+        merge_fields: {
+          fname: '',
+          lname: '',
+        },
+      };
+      if (interests !== '') {
+        data.interests = interestsReqObj;
+      }
+    }
+
+    let fetchUrl = `${PROXY_ENDPOINT}/${listId}/members`;
+    let method = 'POST';
+    if (isSubscribed) {
+      fetchUrl += `/${md5Hash}`;
+      method = 'PUT';
+    }
     const formData = JSON.stringify(data);
-    const authorization = `Basic ${Buffer.from(`apikey:${apiKey}`).toString('base64')}`;
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
-    await fetch(`${PROXY_ENDPOINT}/${listId}/members?mailchimpBaseUrl=${mailchimpBaseUrl}`, {
-      method: 'POST',
+    await fetch(fetchUrl, {
+      method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: authorization,
       },
       body: formData,
     }).then(result => result.json()).then((dataResponse) => {
@@ -63,6 +110,27 @@ class NewsletterSignup extends React.Component {
         this.setState({ message: dataResponse.title });
       }
     });
+  }
+
+  async checkSubscription(emailHash) {
+    const { listId } = this.props;
+
+    let isSubscribed = false;
+    let subscribedInterests = null;
+    await fetch(`${PROXY_ENDPOINT}/${listId}/members/${emailHash}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(result => result.json())
+      .then((dataResponse) => {
+        if (dataResponse.status === 'subscribed') {
+          subscribedInterests = dataResponse.interests;
+          isSubscribed = true;
+        }
+      });
+    return { isSubscribed, subscribedInterests };
   }
 
   isEmailValid() {
@@ -111,16 +179,13 @@ class NewsletterSignup extends React.Component {
 }
 
 NewsletterSignup.defaultProps = {
-  mailchimpBaseUrl: null,
-  apiKey: null,
-  listId: '',
+  interests: '',
   theme: {},
 };
 
 NewsletterSignup.propTypes = {
-  mailchimpBaseUrl: PT.string,
-  apiKey: PT.string,
-  listId: PT.string,
+  listId: PT.string.isRequired,
+  interests: PT.string,
   theme: PT.shape(),
 };
 

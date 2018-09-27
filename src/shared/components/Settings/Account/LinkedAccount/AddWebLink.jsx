@@ -190,6 +190,7 @@ Please enter a valid URL
                 )
               }
             </div>
+            <PrimaryButton onClick={this.onAddWebLinkButton} theme={{ button: 'button-add-link' }}>Add Link</PrimaryButton>
           </form>
         </div>
       </div>

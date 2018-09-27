@@ -27,6 +27,7 @@ export default class MyAccount extends React.Component {
       hasLength: false,
       hasLetter: false,
       hasSymbolNumber: false,
+      differentOldPassword: false,
       passwordValid: false,
       showNewTips: false,
       showEmailTips: false,
@@ -57,6 +58,7 @@ export default class MyAccount extends React.Component {
     this.checkPassword = this.checkPassword.bind(this);
     this.toggleTypeAttribute = this.toggleTypeAttribute.bind(this);
     this.onSendVerificationEmail = this.onSendVerificationEmail.bind(this);
+    this.onCancelVerificationEmail = this.onCancelVerificationEmail.bind(this);
     this.onUpdateNewEmailInput = this.onUpdateNewEmailInput.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
@@ -88,6 +90,10 @@ export default class MyAccount extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updatePredicate);
+    const {
+      clearIncorrectPassword,
+    } = this.props;
+    clearIncorrectPassword();
   }
 
   onUpdateNewEmailInput(e) {
@@ -104,7 +110,7 @@ export default class MyAccount extends React.Component {
 
     const email = /^([0-9A-Za-z\-_\.+]+)@([0-9A-Za-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
 
-    if (newState.newEmail === '' || !email.test(newState.newEmail)) {
+    if (newState.newEmail === '' || !email.test(newState.newEmail) || newState.newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
       newState.showEmailTips = true;
     } else {
@@ -118,6 +124,14 @@ export default class MyAccount extends React.Component {
       updateProfile(omit(profile, ['groups']), tokenV3);
     }
 
+    this.setState(newState);
+  }
+
+  onCancelVerificationEmail() {
+    const newState = { ...this.state };
+    newState.inputNewEmailVisible = false;
+    newState.btnChangeEmailVisible = true;
+    newState.btnVerifiEmailVisible = false;
     this.setState(newState);
   }
 
@@ -258,16 +272,22 @@ export default class MyAccount extends React.Component {
     let hasLength = false;
     let hasLetter = false;
     let hasSymbolNumber = false;
+    let differentOldPassword = false;
     if (newPassword) {
       hasLength = newPassword.length >= 8;
       hasLetter = /[a-zA-Z]/.test(newPassword);
       hasSymbolNumber = /[-!$@#%^&*()_+|~=`{}[\]:";'<>?,./]/.test(newPassword) || /[\d]/.test(newPassword);
     }
+    if (currentPassword !== newPassword) {
+      differentOldPassword = true;
+    }
     this.setState({
       hasLength,
       hasLetter,
       hasSymbolNumber,
-      passwordValid: currentPassword.length && hasLength && hasLetter && hasSymbolNumber,
+      differentOldPassword,
+      passwordValid: currentPassword.length
+      && hasLength && hasLetter && hasSymbolNumber && differentOldPassword,
       newPassword,
       currentPassword,
     });
@@ -298,6 +318,7 @@ export default class MyAccount extends React.Component {
       hasLength,
       hasLetter,
       hasSymbolNumber,
+      differentOldPassword,
       passwordInputType,
       showNewTips,
       showEmailTips,
@@ -389,6 +410,14 @@ export default class MyAccount extends React.Component {
                         Send Verification Email Again
                       </PrimaryButton>
                     </div>
+                    <div styleName={`button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                      <PrimaryButton
+                        styleName="white-label"
+                        onClick={this.onCancelVerificationEmail}
+                      >
+                        Cancel
+                      </PrimaryButton>
+                    </div>
                   </div>
                 </form>
               ) : (
@@ -458,6 +487,14 @@ export default class MyAccount extends React.Component {
                         Send Verification Email Again
                       </PrimaryButton>
                     </div>
+                    <div styleName={`button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                      <PrimaryButton
+                        styleName="white-label"
+                        onClick={this.onCancelVerificationEmail}
+                      >
+                        Cancel
+                      </PrimaryButton>
+                    </div>
                   </div>
                 </form>
               )
@@ -511,6 +548,9 @@ export default class MyAccount extends React.Component {
                           </p>
                           <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
                             At least one number or symbol
+                          </p>
+                          <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
+                            Should not be the same as the old password
                           </p>
                         </div>
                         <div styleName="row">
@@ -577,6 +617,9 @@ export default class MyAccount extends React.Component {
                                 </p>
                                 <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
                                   At least one number or symbol
+                                </p>
+                                <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
+                                  Should not be the same as the old password
                                 </p>
                               </div>
                             </div>

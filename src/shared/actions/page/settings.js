@@ -16,6 +16,7 @@ export default createActions({
     SETTINGS: {
       SELECT_TAB: _.identity,
       CLEAR_INCORRECT_PASSWORD: _.identity,
+      CLEAR_TOASTR_NOTIFICATION: _.identity,
     },
   },
 });

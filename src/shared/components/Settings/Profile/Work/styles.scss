@@ -22,7 +22,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -49,7 +49,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       display: none;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -100,7 +100,7 @@ $checkbox-bg-selected: $tc-dark-blue;
 .form-container-mobile {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     border: 0;
     border-radius: 0;
     display: flex;
@@ -117,7 +117,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     font-weight: 400;
     color: $tc-black;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-bottom: 20px;
     }
   }
@@ -132,7 +132,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       margin-right: 0;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: block;
       margin-bottom: 0;
     }
@@ -143,7 +143,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       margin-right: 10px;
       align-content: space-between;
 
-      @include xs-to-sm {
+      @include upto-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -166,11 +166,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-1 {
         width: 42%;
 
-        @include md-to-lg {
+        @include from-sm-to-lg {
           width: 46%;
         }
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -178,11 +178,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-2 {
         width: 32%;
 
-        @include md-to-lg {
+        @include from-sm-to-lg {
           width: 27%;
         }
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -190,11 +190,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-3 {
         width: 26%;
 
-        @include md-to-lg {
+        @include from-sm-to-lg {
           width: 27%;
         }
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -202,11 +202,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-city {
         width: 150px;
 
-        @include md-to-lg {
+        @include from-sm-to-lg {
           width: 46%;
         }
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -214,11 +214,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-date {
         width: 160px;
 
-        @include md-to-lg {
+        @include from-sm-to-lg {
           width: 27%;
         }
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 100%;
         }
       }
@@ -237,7 +237,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-top: 5px;
     }
   }
@@ -246,7 +246,7 @@ $checkbox-bg-selected: $tc-dark-blue;
 .button-save {
   align-self: center;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 10px;
   }
 
@@ -261,7 +261,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     padding: 0;
     width: 250px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       width: 156px;
     }
   }
@@ -282,7 +282,7 @@ $checkbox-bg-selected: $tc-dark-blue;
   color: $tc-gray-80;
   font-size: 15px;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 5px;
   }
 }
