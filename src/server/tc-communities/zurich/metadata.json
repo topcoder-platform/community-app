@@ -1,9 +1,9 @@
 {
   "authorizedGroupIds": [
-    "20000044"
+    "20000145"
   ],
   "challengeFilter": {
-    "groupIds": ["20000044"]
+    "groupIds": ["20000145"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": true,
@@ -11,7 +11,7 @@
   },
   "communityId": "zurich",
   "communityName": "Zurich Community",
-  "groupIds": ["20000044"],
+  "groupIds": ["20000145"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",
     "url": "https://www.zurich.com/"
