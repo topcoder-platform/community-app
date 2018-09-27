@@ -171,6 +171,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.deleteWebLinkInit(webLink));
       dispatch(profileActions.deleteWebLinkDone(handle, tokenV3, webLink));
     },
+    uploadPhotoInit: () => {
+      dispatch(profileActions.uploadPhotoInit());
+    },
     uploadPhoto: (handle, tokenV3, file) => {
       dispatch(profileActions.uploadPhotoInit());
       dispatch(profileActions.uploadPhotoDone(handle, tokenV3, file));
