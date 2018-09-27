@@ -236,10 +236,10 @@ export default class BasicInfo extends ConsentComponent {
 
   onUpdateDate(date) {
     if (date) {
-      const {newBasicInfo: oldBasicInfo} = this.state;
-      const newBasicInfo = {...oldBasicInfo};
+      const { newBasicInfo: oldBasicInfo } = this.state;
+      const newBasicInfo = { ...oldBasicInfo };
       newBasicInfo.birthDate = date;
-      this.setState({newBasicInfo, inputChanged: true});
+      this.setState({ newBasicInfo, inputChanged: true });
     }
   }
 

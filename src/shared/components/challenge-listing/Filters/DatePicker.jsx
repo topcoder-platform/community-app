@@ -29,7 +29,6 @@ class DatePicker extends React.Component {
     super(props);
     this.state = {
       focused: props.autoFocus,
-      date: props.initialDate,
     };
     this.onFocusChange = this.onFocusChange.bind(this);
   }
