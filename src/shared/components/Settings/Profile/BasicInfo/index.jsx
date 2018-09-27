@@ -13,6 +13,7 @@ import moment from 'moment';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
+import DatePicker from 'components/challenge-listing/Filters/DatePicker';
 import ImageInput from '../ImageInput';
 import Track from './Track';
 import DefaultImageInput from './ImageInput';
@@ -29,6 +30,7 @@ export default class BasicInfo extends ConsentComponent {
     this.onUpdateCountry = this.onUpdateCountry.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onUpdateDate = this.onUpdateDate.bind(this);
     this.onHandleSaveBasicInfo = this.onHandleSaveBasicInfo.bind(this);
     this.onSaveBasicInfo = this.onSaveBasicInfo.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -232,6 +234,15 @@ export default class BasicInfo extends ConsentComponent {
     this.setState({ newBasicInfo, inputChanged: true });
   }
 
+  onUpdateDate(date) {
+    if (date) {
+      const {newBasicInfo: oldBasicInfo} = this.state;
+      const newBasicInfo = {...oldBasicInfo};
+      newBasicInfo.birthDate = date;
+      this.setState({newBasicInfo, inputChanged: true});
+    }
+  }
+
   onUpdateCountry(country) {
     if (country) {
       const { newBasicInfo: oldBasicInfo } = this.state;
@@ -302,7 +313,7 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
       }
       if (_.has(value, 'birthDate')) {
-        newBasicInfo.birthDate = moment(value.birthDate).format('YYYY-MM-DD');
+        newBasicInfo.birthDate = moment(value.birthDate);
       }
       if (_.has(value, 'competitionCountryCode')) {
         newBasicInfo.competitionCountryCode = value.competitionCountryCode;
@@ -475,7 +486,14 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-percent50">
-                <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={newBasicInfo.birthDate} required />
+                <div styleName="remove-padding-add-margin">
+                  <DatePicker
+                    numberOfMonths={1}
+                    date={newBasicInfo.birthDate}
+                    id="date-range-picker1"
+                    onDateChange={this.onUpdateDate}
+                  />
+                </div>
               </div>
             </div>
             <div styleName="row">
@@ -698,7 +716,12 @@ export default class BasicInfo extends ConsentComponent {
                   <label htmlFor="birthDate">
                     Birth Date
                   </label>
-                  <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={newBasicInfo.birthDate} required />
+                  <DatePicker
+                    numberOfMonths={1}
+                    date={newBasicInfo.birthDate}
+                    id="date-range-picker2"
+                    onDateChange={this.onUpdateDate}
+                  />
                 </div>
                 <div styleName="field">
                   <label htmlFor="gender">
