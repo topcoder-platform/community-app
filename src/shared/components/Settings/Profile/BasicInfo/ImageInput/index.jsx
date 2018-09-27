@@ -21,7 +21,6 @@ export default class ImageInput extends React.Component {
 
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onUploadPhoto = this.onUploadPhoto.bind(this);
-    this.onDeletePhoto = this.onDeletePhoto.bind(this);
 
     this.state = {
       newBasicInfo: {},
