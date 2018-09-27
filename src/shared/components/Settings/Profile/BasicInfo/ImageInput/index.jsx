@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import loadImage from 'blueimp-load-image';
 
 
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
@@ -60,6 +61,7 @@ export default class ImageInput extends React.Component {
       profileState,
       tokenV3,
       uploadPhoto,
+      uploadPhotoInit,
     } = this.props;
     if (profileState.uploadingPhoto) {
       return;
@@ -69,7 +71,27 @@ export default class ImageInput extends React.Component {
     if (file === undefined) {
       return;
     }
-    uploadPhoto(handle, tokenV3, file);
+    uploadPhotoInit();
+    loadImage.parseMetaData(file, (data) => {
+      let orientation = 0;
+      if (data.exif) {
+        orientation = data.exif.get('Orientation');
+      }
+      loadImage(
+        file,
+        (img) => {
+          img.toBlob(
+            (blobResult) => {
+              uploadPhoto(handle, tokenV3, blobResult);
+            },
+            'image/jpeg',
+          );
+        }, {
+          canvas: true,
+          orientation,
+        },
+      );
+    });
   }
 
   /**
@@ -155,5 +177,6 @@ ImageInput.propTypes = {
   userTraits: PT.array.isRequired,
   profileState: PT.shape().isRequired,
   uploadPhoto: PT.func.isRequired,
+  uploadPhotoInit: PT.func.isRequired,
   profile: PT.shape().isRequired,
 };
