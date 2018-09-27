@@ -1,7 +1,7 @@
 @import "../../style";
 
 .image {
-  @include md-to-lg {
+  @include from-sm-to-lg {
     margin-right: 20px;
   }
 
@@ -10,14 +10,14 @@
     flex-direction: column;
     align-items: center;
 
-    @include xs-to-sm {
+    @include upto-sm {
       flex-direction: row;
     }
 
     p.handle {
       display: none;
 
-      @include xs-to-sm {
+      @include upto-sm {
         @include roboto-regular;
 
         display: block;
@@ -37,7 +37,7 @@
       height: 120px;
       padding: 2px;
 
-      @include xs-to-sm {
+      @include upto-sm {
         width: 80px;
         height: 80px;
         margin-right: 10px;
@@ -63,7 +63,7 @@
         border: 1px solid #47474f;
         box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
 
-        @include xs-to-sm {
+        @include upto-sm {
           width: 95px;
         }
       }
@@ -76,6 +76,11 @@
         font-size: 12px;
         min-height: 30px;
         padding: 0;
+
+        @include upto-sm {
+          display: block;
+          margin-left: 6px;
+        }
 
         &:hover {
           background: $tc-dark-blue;

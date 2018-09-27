@@ -8,6 +8,18 @@ $checkbox-size: $base-unit * 4;
 $checkbox-bg-empty: $tc-gray-neutral-light;
 $checkbox-bg-selected: $tc-dark-blue;
 
+@mixin upto-sm {
+  @media (max-width: #{$screen-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin from-sm-to-lg {
+  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-md}) {
+    @content;
+  }
+}
+
 @mixin md-to-lg {
   @media (min-width: #{$screen-sm + 1px}) and (max-width: #{$screen-md}) {
     @content;

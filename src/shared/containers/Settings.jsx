@@ -163,6 +163,8 @@ function mapDispatchToProps(dispatch) {
     loadTabData,
     selectTab: tab => dispatch(settingsActions.page.settings.selectTab(tab)),
     clearIncorrectPassword: () => dispatch(settingsActions.page.settings.clearIncorrectPassword()),
+    clearToastrNotification:
+    (() => dispatch(settingsActions.page.settings.clearToastrNotification())),
     addWebLink: (handle, tokenV3, webLink) => {
       dispatch(profileActions.addWebLinkInit());
       dispatch(profileActions.addWebLinkDone(handle, tokenV3, webLink));
@@ -170,6 +172,9 @@ function mapDispatchToProps(dispatch) {
     deleteWebLink: (handle, tokenV3, webLink) => {
       dispatch(profileActions.deleteWebLinkInit(webLink));
       dispatch(profileActions.deleteWebLinkDone(handle, tokenV3, webLink));
+    },
+    uploadPhotoInit: () => {
+      dispatch(profileActions.uploadPhotoInit());
     },
     uploadPhoto: (handle, tokenV3, file) => {
       dispatch(profileActions.uploadPhotoInit());

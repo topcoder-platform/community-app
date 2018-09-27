@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: left;
 
-  @include xs-to-sm {
+  @include upto-sm {
     padding-bottom: 0;
     border-bottom: 1px solid #c3c3c8;
 
@@ -27,7 +27,7 @@
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -55,7 +55,7 @@
       display: none;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: none;
     }
   }
@@ -106,7 +106,7 @@
 .form-container-mobile {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     border: 0;
     border-radius: 0;
     border-bottom: 1px solid #c3c3c8;
@@ -128,7 +128,7 @@
     line-height: 30px;
     color: $tc-black;
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin-bottom: 20px;
     }
   }
@@ -140,7 +140,7 @@
     align-content: space-between;
     width: 100%;
 
-    @include xs-to-sm {
+    @include upto-sm {
       display: block;
       margin-bottom: 0;
     }
@@ -153,7 +153,7 @@
       align-content: space-between;
       width: 100%;
 
-      @include xs-to-sm {
+      @include upto-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -182,7 +182,7 @@
 .button-save {
   align-self: center;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 10px;
   }
 
@@ -196,7 +196,7 @@
     padding: 0;
     width: 200px;
 
-    @include xs-to-sm {
+    @include upto-sm {
       width: 156px;
     }
   }
@@ -220,7 +220,7 @@
       margin: 0 -15px;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       width: 300px;
       padding: 0 22px;
       margin: 0 -8px;
@@ -235,12 +235,12 @@
       margin: 0 15px 75px;
     }
 
-    @include xs-to-sm {
+    @include upto-sm {
       margin: 0 8px 75px;
     }
   }
 
-  @include xs-to-sm {
+  @include upto-sm {
     &.hide {
       display: none;
     }
@@ -362,7 +362,7 @@
 .mobile-buttons {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -398,7 +398,7 @@
   color: $tc-gray-80;
   font-size: 15px;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 5px;
   }
 }
@@ -414,7 +414,7 @@
     height: 38px;
     line-height: 40px !important;
 
-    @include xs-to-sm {
+    @include upto-sm {
       line-height: 38px !important;
     }
   }
@@ -427,7 +427,7 @@
 .skill-container .form-container .row .field :global .Select-placeholder {
   color: $tc-gray-50;
 
-  @include xs-to-sm {
+  @include upto-sm {
     margin-top: 5px;
   }
 }

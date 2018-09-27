@@ -2,6 +2,7 @@
  * Server-side functions necessary for effective integration with mailchimp
  */
 import fetch from 'isomorphic-fetch';
+import config from 'config';
 
 /**
  * Auxiliary class that handles communication with mailchimp
@@ -14,6 +15,10 @@ export default class MailchimpService {
    */
   constructor(baseUrl) {
     this.private = { baseUrl };
+    const credentials = config.SECRET.MAILCHIMP.default;
+    this.mailchimpBaseUrl = credentials.MAILCHIMP_BASE_URL;
+    this.apiKey = credentials.API_KEY;
+    this.authorization = `Basic ${Buffer.from(`apikey:${this.apiKey}`).toString('base64')}`;
   }
 
   /**
@@ -21,27 +26,37 @@ export default class MailchimpService {
    * @return {Promise}
    * @param {Object} the request.
    */
-
   async checkSubscription(req) {
-    const url = `${this.private.baseUrl}`;
-    const res = await fetch(`${url}/lists/${req.params.listId}/members/${req.params.emailHash}`, {
+    const res = await fetch(`${this.mailchimpBaseUrl}/lists/${req.params.listId}/members/${req.params.emailHash}`, {
       method: 'GET',
       headers: {
         'Content-Type': req.headers['content-type'],
-        Authorization: req.headers.authorization,
+        Authorization: this.authorization,
       },
     });
     return res.json();
   }
 
   async doRegistMember(req) {
-    const url = `${this.private.baseUrl}`;
     const formData = JSON.stringify(req.body);
-    const res = await fetch(`${url}/lists/${req.params.listId}/members`, {
+    const res = await fetch(`${this.mailchimpBaseUrl}/lists/${req.params.listId}/members`, {
       method: 'POST',
       headers: {
         'Content-Type': req.headers['content-type'],
-        Authorization: req.headers.authorization,
+        Authorization: this.authorization,
+      },
+      body: formData,
+    });
+    return res.json();
+  }
+
+  async subscribeInterests(req) {
+    const formData = JSON.stringify(req.body);
+    const res = await fetch(`${this.mailchimpBaseUrl}/lists/${req.params.listId}/members/${req.params.emailHash}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        Authorization: this.authorization,
       },
       body: formData,
     });
