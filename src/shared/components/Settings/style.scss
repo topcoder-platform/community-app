@@ -157,7 +157,11 @@ $checkbox-bg-selected: $tc-dark-blue;
     .Select-placeholder,
     .Select-value-label,
     .Select-menu-outer {
-      @include merriweather-sans-regular;
+      font: {
+        size: 15px;
+        family: "Roboto", Helvetica, Arial, sans-serif;
+        weight: 400;
+      }
     }
   }
 
