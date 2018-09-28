@@ -70,12 +70,14 @@ export default class MyAccount extends React.Component {
     this.setState({ currentEmail });
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
+    this.props.loadTabData(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      profileState,
-    } = this.props;
+    const { profileState, profile } = this.props;
+    if (profile.email !== nextProps.profile.email) {
+      this.setState({ currentEmail: nextProps.profile.email });
+    }
     if (profileState.updatingPassword
       && !nextProps.profileState.updatingPassword
       && !nextProps.settingsPageState.incorrectPassword
