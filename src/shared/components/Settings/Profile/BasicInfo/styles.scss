@@ -444,9 +444,11 @@
   color: $tc-gray-50;
 }
 
-.remove-padding-add-margin {
+.date-picker {
   padding: 0;
-  margin: 4px;
+  margin-top: 2px;
+  margin-right: 2px;
+  border: 1px solid #aaaaab;
 }
 
 .col-1,

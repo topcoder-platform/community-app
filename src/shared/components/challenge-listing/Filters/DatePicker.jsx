@@ -7,6 +7,7 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
+import './_fix_SingleDatePicker.css';
 
 const propTypes = {
   autoFocus: PropTypes.bool,

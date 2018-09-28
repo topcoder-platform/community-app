@@ -1,0 +1,12 @@
+.SingleDatePicker {
+  width: 100%;
+}
+
+.SingleDatePickerInput {
+  border: none;
+}
+
+.DateInput {
+  padding: 4px;
+  width: 100%;
+}

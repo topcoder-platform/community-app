@@ -486,7 +486,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-percent50">
-                <div styleName="remove-padding-add-margin">
+                <div styleName="date-picker">
                   <DatePicker
                     numberOfMonths={1}
                     date={newBasicInfo.birthDate}
