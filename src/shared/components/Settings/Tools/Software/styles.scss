@@ -148,6 +148,12 @@
         font-weight: 500;
         color: $tc-gray-80;
         margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+
+        .text-required {
+          color: $tc-red-110;
+        }
       }
 
       &.col-1 {
