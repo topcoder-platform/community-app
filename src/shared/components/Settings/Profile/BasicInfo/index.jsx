@@ -486,6 +486,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-percent50">
+
                 <div styleName="date-picker">
                   <DatePicker
                     numberOfMonths={1}
