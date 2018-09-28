@@ -154,6 +154,12 @@
         @include upto-sm {
           width: 100%;
         }
+
+        > div {
+          @include upto-sm {
+            margin-top: 5px;
+          }
+        }
       }
 
       &.col-2 {
