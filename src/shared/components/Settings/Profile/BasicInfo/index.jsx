@@ -716,12 +716,14 @@ export default class BasicInfo extends ConsentComponent {
                   <label htmlFor="birthDate">
                     Birth Date
                   </label>
-                  <DatePicker
-                    numberOfMonths={1}
-                    date={newBasicInfo.birthDate}
-                    id="date-range-picker2"
-                    onDateChange={this.onUpdateDate}
-                  />
+                  <div styleName="date-picker-sm">
+                    <DatePicker
+                      numberOfMonths={1}
+                      date={newBasicInfo.birthDate}
+                      id="date-range-picker2"
+                      onDateChange={this.onUpdateDate}
+                    />
+                  </div>
                 </div>
                 <div styleName="field">
                   <label htmlFor="gender">
