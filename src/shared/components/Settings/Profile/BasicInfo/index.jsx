@@ -167,7 +167,7 @@ export default class BasicInfo extends ConsentComponent {
       updateUserTrait,
     } = this.props;
     try {
-      newBasicInfo.birthDate = new Date(newBasicInfo.birthDate).toISOString();
+      newBasicInfo.birthDate = `${moment(newBasicInfo.birthDate).format('YYYY-MM-DD')}T00:00:00.000Z`;
     } catch (error) { // eslint-disable-line
       newBasicInfo.birthDate = null;
     }
