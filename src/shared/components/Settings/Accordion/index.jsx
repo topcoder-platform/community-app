@@ -110,7 +110,7 @@ export default class Accordion extends React.Component {
                   {name}
                 </p>
                 <span styleName="arrow-container">
-                  <ArrowDown width="15px" height="15px" transform={`${this.isOpened(name) ? 'rotate(180)' : ''}`} />
+                  <ArrowDown styleName={`${this.isOpened(name) ? 'up' : ''}`} width="15px" height="15px" />
                 </span>
               </div>
               {
