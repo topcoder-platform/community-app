@@ -47,3 +47,9 @@
   font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
   font-weight: 400;
 }
+
+@mixin roboto-sans-regular {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
