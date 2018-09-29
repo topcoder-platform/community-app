@@ -678,5 +678,5 @@ MyAccount.propTypes = {
   updatePassword: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
-  loadTabData: PT.func.isRequired
+  loadTabData: PT.func.isRequired,
 };
