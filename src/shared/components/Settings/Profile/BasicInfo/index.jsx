@@ -581,7 +581,7 @@ export default class BasicInfo extends ConsentComponent {
                   options={dropdowns.tshirtSize}
                   value={newBasicInfo.tshirtSize}
                   onChange={this.onUpdateSelect}
-                  placeholder="Select your size from chart"
+                  placeholder="Select your size from the list"
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
