@@ -118,7 +118,7 @@ export default class EmailPreferences extends ConsentComponent {
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
-          Email Preferences
+          E-Mail Preferences
         </h1>
         <div styleName="sub-title">
           Your preferences
