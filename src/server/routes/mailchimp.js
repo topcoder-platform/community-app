@@ -11,6 +11,7 @@ const routes = express.Router();
 routes.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Headers', 'authorization, content-type');
+  res.set('Access-Control-Allow-Methods', 'GET,POST,PUT,OPTIONS');
   next();
 });
 

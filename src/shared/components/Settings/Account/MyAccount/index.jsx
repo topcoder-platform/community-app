@@ -65,17 +65,19 @@ export default class MyAccount extends React.Component {
   }
 
   componentDidMount() {
-    const { profile } = this.props;
+    const { profile, loadTabData } = this.props;
     const currentEmail = profile.email;
     this.setState({ currentEmail });
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
+    loadTabData(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      profileState,
-    } = this.props;
+    const { profileState, profile } = this.props;
+    if (profile.email !== nextProps.profile.email) {
+      this.setState({ currentEmail: nextProps.profile.email });
+    }
     if (profileState.updatingPassword
       && !nextProps.profileState.updatingPassword
       && !nextProps.settingsPageState.incorrectPassword
@@ -462,7 +464,7 @@ export default class MyAccount extends React.Component {
                     </div>
                   </div>
 
-                  <div styleName="row">
+                  <div styleName="row button-group">
                     <div styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
@@ -676,4 +678,5 @@ MyAccount.propTypes = {
   updatePassword: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
+  loadTabData: PT.func.isRequired,
 };
