@@ -207,7 +207,7 @@ export default class Devices extends ConsentComponent {
     }
 
     if (!_.trim(newDevice.osVersion).length) {
-      errorMessage += 'OS Version, ';
+      errorMessage += 'OS Version ';
       invalid = true;
     }
 

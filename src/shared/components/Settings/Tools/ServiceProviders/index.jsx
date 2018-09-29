@@ -97,7 +97,7 @@ export default class ServiceProviders extends ConsentComponent {
     }
 
     if (!_.trim(newServiceProvider.name).length) {
-      errorMessage += 'Name, ';
+      errorMessage += 'Name ';
       invalid = true;
     }
 
