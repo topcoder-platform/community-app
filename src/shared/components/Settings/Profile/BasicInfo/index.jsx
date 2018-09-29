@@ -36,7 +36,6 @@ export default class BasicInfo extends ConsentComponent {
 
     const { userTraits } = props;
     this.state = {
-      savingBasicInfo: false,
       inputChanged: false,
       formInvalid: false,
       errorMessage: '',
@@ -89,7 +88,6 @@ export default class BasicInfo extends ConsentComponent {
     this.setState({
       basicInfoTrait,
       personalizationTrait,
-      savingBasicInfo: false,
       inputChanged: false,
     });
   }
@@ -156,10 +154,6 @@ export default class BasicInfo extends ConsentComponent {
    */
   onSaveBasicInfo(answer) {
     const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
-    this.setState({
-      savingBasicInfo: true,
-    });
-
     const {
       handle,
       tokenV3,
@@ -416,7 +410,6 @@ export default class BasicInfo extends ConsentComponent {
 
   render() {
     const {
-      savingBasicInfo,
       newBasicInfo,
       formInvalid,
       errorMessage,
