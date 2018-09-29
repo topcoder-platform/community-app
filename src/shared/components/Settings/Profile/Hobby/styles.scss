@@ -4,8 +4,10 @@
   display: none;
 }
 
-textarea::-webkit-input-placeholder {
-  text-transform: uppercase;
+textarea {
+  @include placeholder {
+    text-transform: uppercase;
+  }
 }
 
 .hobby-container {
