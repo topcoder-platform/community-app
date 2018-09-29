@@ -353,7 +353,7 @@ export default class Devices extends ConsentComponent {
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="osVersion">
-                  OS version
+                  OS Version
                 </label>
               </div>
               <div styleName="field col-2">
