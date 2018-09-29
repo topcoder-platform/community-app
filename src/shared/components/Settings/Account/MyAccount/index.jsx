@@ -372,7 +372,7 @@ export default class MyAccount extends React.Component {
                       </label>
                       <div styleName="validation-bar" className="form-field">
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
-                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" placeholder="Create new email" required />
+                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" placeholder="New email" required />
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
@@ -453,7 +453,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-2">
                       <div styleName="validation-bar" className="form-field">
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
-                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" placeholder="Create new email" required />
+                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" placeholder="New email" required />
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
