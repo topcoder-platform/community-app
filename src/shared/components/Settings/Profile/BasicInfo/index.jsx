@@ -658,9 +658,6 @@ export default class BasicInfo extends ConsentComponent {
                   <p styleName="user-handle">
                     {newBasicInfo.handle}
                   </p>
-                  <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-                    {errorMessage}
-                  </div>
                   <div styleName="row">
                     <div styleName="field">
                       <label htmlFor="firstName">
