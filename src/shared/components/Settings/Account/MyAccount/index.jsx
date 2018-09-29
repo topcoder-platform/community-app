@@ -65,12 +65,12 @@ export default class MyAccount extends React.Component {
   }
 
   componentDidMount() {
-    const { profile } = this.props;
+    const { profile, loadTabData } = this.props;
     const currentEmail = profile.email;
     this.setState({ currentEmail });
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
-    this.props.loadTabData(this.props);
+    loadTabData(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -678,4 +678,5 @@ MyAccount.propTypes = {
   updatePassword: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
+  loadTabData: PT.func.isRequired
 };
