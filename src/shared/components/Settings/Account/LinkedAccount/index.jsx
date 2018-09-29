@@ -179,7 +179,7 @@ export default class LinkedAccount extends React.Component {
       <div styleName={containerStyle}>
         <div styleName="linked-account-container">
           <h1>
-            Linked Account
+            Linked Accounts
           </h1>
           <div styleName="sub-title">
             Your linked accounts
