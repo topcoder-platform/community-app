@@ -98,7 +98,7 @@ export default class Software extends ConsentComponent {
     }
 
     if (!_.trim(newSoftware.name).length) {
-      errorMessage += 'Name, ';
+      errorMessage += 'Name ';
       invalid = true;
     }
 
@@ -247,7 +247,7 @@ export default class Software extends ConsentComponent {
           this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
+          {errorMessage}
         </div>
         <h1>
           Software

@@ -96,7 +96,7 @@ export default class Hobby extends ConsentComponent {
     }
 
     if (!_.trim(newHobby.description).length) {
-      errorMessage += 'Description, ';
+      errorMessage += 'Description ';
       invalid = true;
     }
 
@@ -244,7 +244,7 @@ export default class Hobby extends ConsentComponent {
         }
         <div styleName="hobby-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
+            {errorMessage}
           </div>
           <h1>
             Hobby
@@ -287,7 +287,7 @@ export default class Hobby extends ConsentComponent {
                   <div styleName="description">
                     <div styleName="first-line">
                       <span styleName="description-counts">
-                        { newHobby.description.length }
+                        {newHobby.description.length}
                         /160
                       </span>
                       <span styleName="text-required">* Required</span>
@@ -325,11 +325,11 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field row-2">
                   <label styleName="description-label" htmlFor="description">
                     <span>
-Description
+                      Description
                     </span>
                     {' '}
                     <span styleName="description-counts">
-                      { newHobby.description.length }
+                      {newHobby.description.length}
                       /160
                     </span>
                   </label>
