@@ -248,14 +248,6 @@ export default class MyAccount extends React.Component {
         [inputId]: type,
       },
     });
-
-    setImmediate(() => {
-      if (inputId === 'current-password-input') {
-        this.currentPasswordRef.current.focus();
-      } else {
-        this.newPasswordRef.current.focus();
-      }
-    });
   }
 
   checkPassword(e) {
