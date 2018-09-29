@@ -157,11 +157,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     .Select-placeholder,
     .Select-value-label,
     .Select-menu-outer {
-      font: {
-        size: 15px;
-        family: "Roboto", Helvetica, Arial, sans-serif;
-        weight: 400;
-      }
+      @include roboto-sans-regular;
     }
   }
 
