@@ -84,6 +84,12 @@
     margin-bottom: 0;
   }
 
+  textarea {
+    @include placeholder {
+      text-transform: uppercase;
+    }
+  }
+
   .text-required {
     @include roboto-medium;
 
@@ -257,6 +263,12 @@
 
       @include upto-sm {
         margin-top: 5px;
+      }
+    }
+
+    textarea {
+      @include placeholder {
+        text-transform: uppercase;
       }
     }
 
