@@ -99,17 +99,17 @@ export default class BasicInfo extends ConsentComponent {
     let birthDateInvalid = false;
 
     if (!_.trim(newBasicInfo.firstName).length) {
-      errorMessage += 'FirstName, ';
+      errorMessage += 'FirstName';
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.lastName).length) {
-      errorMessage += 'LastName, ';
+      errorMessage += ', LastName';
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.country).length) {
-      errorMessage += 'Country, ';
+      errorMessage += ', Country ';
       invalid = true;
     }
 
