@@ -361,6 +361,7 @@
 
 .mobile-buttons {
   display: none;
+  margin-top: 10px;
 
   @include upto-sm {
     display: flex;
