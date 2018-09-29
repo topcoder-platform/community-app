@@ -101,7 +101,7 @@ export default class MyAccount extends React.Component {
   onUpdateNewEmailInput(e) {
     const newEmail = e.target.value;
     this.setState({
-      newEmail,
+      newEmail: newEmail.charAt(0).toUpperCase() + newEmail.slice(1),
       showEmailTips: false,
     });
   }
