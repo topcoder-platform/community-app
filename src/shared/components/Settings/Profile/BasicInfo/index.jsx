@@ -841,9 +841,6 @@ export default class BasicInfo extends ConsentComponent {
             {
               'Save Changes'
             }
-            {
-              savingBasicInfo && '......'
-            }
           </PrimaryButton>
         </div>
       </div>
