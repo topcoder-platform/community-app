@@ -155,6 +155,10 @@
     align-content: space-between;
     justify-content: flex-start;
 
+    &.button-group {
+      justify-content: space-evenly;
+    }
+
     .field {
       @include upto-sm {
         display: block;
@@ -374,9 +378,6 @@
 }
 
 .button-cancel-change-email {
-  margin-left: auto;
-  margin-right: auto;
-
   button,
   a {
     @include roboto-medium;
@@ -404,9 +405,6 @@
 }
 
 .button-verification-email {
-  margin-left: auto;
-  margin-right: auto;
-
   button,
   a {
     @include roboto-medium;

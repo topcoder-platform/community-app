@@ -464,7 +464,7 @@ export default class MyAccount extends React.Component {
                     </div>
                   </div>
 
-                  <div styleName="row">
+                  <div styleName="row button-group">
                     <div styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
