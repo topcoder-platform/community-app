@@ -11,6 +11,7 @@
 
   @include upto-sm {
     padding: 20px;
+    border-bottom: 1px solid $tc-gray-10;
   }
 
   h1 {
