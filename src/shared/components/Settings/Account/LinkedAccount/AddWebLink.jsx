@@ -88,6 +88,7 @@ export default class AddWebLink extends React.Component {
     const webLinkValid = this.isWebLinkValid();
     const webLinkExist = this.webLinkExist();
 
+    /* eslint-disable react/no-unknown-property */
     return (
       <div styleName="external-web-link">
         <div styleName="web-link">
@@ -105,6 +106,7 @@ export default class AddWebLink extends React.Component {
                   </label>
                   <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
                     <input
+                      autocapitalize="off"
                       id="web-link-input"
                       name="url"
                       type="text"
@@ -160,6 +162,7 @@ export default class AddWebLink extends React.Component {
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
               <input
                 id="web-link-input"
+                autocapitalize="off"
                 name="url"
                 type="text"
                 styleName="url"
