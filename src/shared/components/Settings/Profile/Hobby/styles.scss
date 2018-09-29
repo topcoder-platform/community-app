@@ -4,6 +4,10 @@
   display: none;
 }
 
+textarea::-webkit-input-placeholder {
+  text-transform: uppercase;
+}
+
 .hobby-container {
   display: flex;
   flex-direction: column;
