@@ -467,6 +467,7 @@
   margin-right: auto;
 
   div:first-child {
+    height: 40px;
     margin: 0;
     padding-right: 15px;
     padding-left: 15px;
@@ -481,7 +482,7 @@
     font-weight: 500;
     margin: 0;
     padding: 0;
-    width: 155px;
+    min-width: 155px;
     white-space: nowrap;
   }
 
