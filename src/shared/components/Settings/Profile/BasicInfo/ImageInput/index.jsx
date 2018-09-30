@@ -84,7 +84,6 @@ export default class ImageInput extends React.Component {
             (blobResult) => {
               uploadPhoto(handle, tokenV3, blobResult);
             },
-            'image/jpeg',
           );
         }, {
           canvas: true,

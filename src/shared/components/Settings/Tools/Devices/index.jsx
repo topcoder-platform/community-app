@@ -186,13 +186,13 @@ export default class Devices extends ConsentComponent {
       invalid = true;
     }
 
-    if (!_.trim(newDevice.model).length) {
-      errorMessage += 'Model, ';
+    if (!_.trim(newDevice.manufacturer).length) {
+      errorMessage += 'Manufacturer, ';
       invalid = true;
     }
 
-    if (!_.trim(newDevice.manufacturer).length) {
-      errorMessage += 'Manufacturer, ';
+    if (!_.trim(newDevice.model).length) {
+      errorMessage += 'Model, ';
       invalid = true;
     }
 
@@ -201,13 +201,13 @@ export default class Devices extends ConsentComponent {
       invalid = true;
     }
 
-    if (!_.trim(newDevice.osLanguage).length) {
-      errorMessage += 'OS Language, ';
+    if (!_.trim(newDevice.osVersion).length) {
+      errorMessage += 'OS Version ';
       invalid = true;
     }
 
-    if (!_.trim(newDevice.osVersion).length) {
-      errorMessage += 'OS Version ';
+    if (!_.trim(newDevice.osLanguage).length) {
+      errorMessage += 'OS Language, ';
       invalid = true;
     }
 

@@ -368,7 +368,8 @@ export default class Skills extends ConsentComponent {
     // All lookup skills
     const allSkills = lookupData.skillTags ? lookupData.skillTags : [];
     const buttons = userSkills.slice(0, totalPage);
-    const list = isMobileView ? indexList : userSkills;
+    let list = isMobileView ? indexList : userSkills;
+    list = _.orderBy(list, [skill => skill.name.toLowerCase()], ['asc']); // Use Lodash to sort array by 'name'
 
     // filter out already added skills
     const lookupSkills = _.sortBy(
