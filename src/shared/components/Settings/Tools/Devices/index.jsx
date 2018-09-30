@@ -292,6 +292,15 @@ export default class Devices extends ConsentComponent {
           !isMobileView && deviceItems.length > 0
           && (<DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />)
         }
+        {
+          isMobileView
+          && (
+            <DeviceList
+              deviceList={{ items: deviceItems }}
+              onDeleteItem={this.onHandleDeleteDevice}
+            />
+          )
+        }
         <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
           Add a new device
         </div>
@@ -456,15 +465,7 @@ export default class Devices extends ConsentComponent {
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <DeviceList
-              deviceList={{ items: deviceItems }}
-              onDeleteItem={this.onHandleDeleteDevice}
-            />
-          )
-        }
+
       </div>
     );
   }

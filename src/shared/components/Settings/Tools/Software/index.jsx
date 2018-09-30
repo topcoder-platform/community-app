@@ -264,6 +264,15 @@ export default class Software extends ConsentComponent {
             />
           )
         }
+        {
+          isMobileView
+          && (
+            <SoftwareList
+              softwareList={{ items: softwareItems }}
+              onDeleteItem={this.onHandleDeleteSoftware}
+            />
+          )
+        }
         <div styleName={`sub-title ${softwareItems.length > 0 ? 'second' : 'first'}`}>
           Add a new software
         </div>
@@ -352,15 +361,6 @@ export default class Software extends ConsentComponent {
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <SoftwareList
-              softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onHandleDeleteSoftware}
-            />
-          )
-        }
       </div>
     );
   }

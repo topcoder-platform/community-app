@@ -247,7 +247,7 @@ export default class ServiceProviders extends ConsentComponent {
           this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
+          {errorMessage}
         </div>
         <h1>
           Service Providers
@@ -261,6 +261,15 @@ export default class ServiceProviders extends ConsentComponent {
             <ServiceProviderList
               serviceProviderList={{ items: serviceProviderItems }}
               onDeleteItem={this.onDeleteServiceProvider}
+            />
+          )
+        }
+        {
+          isMobileView
+          && (
+            <ServiceProviderList
+              serviceProviderList={{ items: serviceProviderItems }}
+              onDeleteItem={this.onHandleDeleteServiceProvider}
             />
           )
         }
@@ -352,15 +361,6 @@ export default class ServiceProviders extends ConsentComponent {
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <ServiceProviderList
-              serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onHandleDeleteServiceProvider}
-            />
-          )
-        }
       </div>
     );
   }

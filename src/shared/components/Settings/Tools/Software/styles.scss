@@ -43,10 +43,6 @@
     &.hidden {
       display: none;
     }
-
-    @include upto-sm {
-      display: none;
-    }
   }
 }
 

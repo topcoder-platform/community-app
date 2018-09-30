@@ -237,7 +237,7 @@ export default class Subscription extends ConsentComponent {
           this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
+          {errorMessage}
         </div>
         <h1>
           Subscriptions
@@ -251,6 +251,15 @@ export default class Subscription extends ConsentComponent {
             <SubscriptionList
               subscriptionList={{ items: subscriptionItems }}
               onDeleteItem={this.onDeleteSubscription}
+            />
+          )
+        }
+        {
+          isMobileView
+          && (
+            <SubscriptionList
+              subscriptionList={{ items: subscriptionItems }}
+              onDeleteItem={this.onHandleDeleteSubscription}
             />
           )
         }
@@ -306,15 +315,6 @@ export default class Subscription extends ConsentComponent {
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <SubscriptionList
-              subscriptionList={{ items: subscriptionItems }}
-              onDeleteItem={this.onHandleDeleteSubscription}
-            />
-          )
-        }
       </div>
     );
   }
