@@ -648,14 +648,6 @@
       border: 1px solid $tc-gray-20;
       border-radius: 6px;
 
-      img {
-        filter: grayscale(0);
-
-        &.unadded {
-          filter: grayscale(1);
-        }
-      }
-
       .provider {
         margin-top: 8px;
 
