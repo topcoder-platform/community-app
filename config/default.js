@@ -162,6 +162,14 @@ module.exports = {
           PREVIEW_API_KEY: '',
         },
       },
+      /* Space for expert communities. */
+      expertCommunities: {
+        SPACE_ID: '',
+        master: {
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
       /* Contentful Space for TopGear community content. */
       topgear: {
         SPACE_ID: '',
