@@ -47,6 +47,10 @@ a.SideItem {
     @include from-sm-to-lg {
       margin-right: 0;
     }
+
+    svg {
+      padding: 1px 0;
+    }
   }
 
   span.name {
