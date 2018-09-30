@@ -7,8 +7,11 @@
 }
 
 .DateInput {
-  padding: 4px;
+  padding: 0px;
   width: 100%;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
 }
 
 .DateInput__display-text {
