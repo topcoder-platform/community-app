@@ -13,7 +13,7 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import SubscriptionList from './List';
 
-import './styles.scss';
+import styles from './styles.scss';
 
 
 export default class Subscription extends ConsentComponent {
@@ -273,7 +273,7 @@ export default class Subscription extends ConsentComponent {
           </form>
           <div styleName="button-save">
             <PrimaryButton
-              styleName="complete"
+              theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
             >
               Add subscription to your list
@@ -299,7 +299,7 @@ export default class Subscription extends ConsentComponent {
           </form>
           <div styleName="button-save">
             <PrimaryButton
-              styleName="complete"
+              theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
             >
               Add Subscription

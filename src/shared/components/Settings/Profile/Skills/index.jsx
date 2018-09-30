@@ -298,14 +298,20 @@ export default class Skills extends ConsentComponent {
     }
   }
 
+  isIos = () => (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream);
+
+
   removeHover = () => {
     setTimeout(() => {
       const btn = document.querySelector('a:hover');
-      if (btn) {
+      if (btn && this.selectedElement !== btn) {
         const par = btn.parentNode;
         const next = btn.nextSibling;
         par.removeChild(btn);
         setTimeout(() => { par.insertBefore(btn, next); }, 0);
+      }
+      if (!btn) {
+        this.selectedElement = null;
       }
     }, 100);
   }
@@ -313,7 +319,14 @@ export default class Skills extends ConsentComponent {
   /**
    * Toggle Skill to delete selected skill
    */
-  toggleSkill = (e, skill) => {
+  toggleSkill = (e, skill, selector) => {
+    const skillElement = document.querySelector(selector);
+    if (this.selectedElement !== skillElement && this.isIos()) {
+      this.selectedElement = skillElement;
+      return;
+    }
+    this.selectedElement = skillElement;
+
     e.preventDefault();
     const { newSkill } = this.state;
     const {
@@ -422,8 +435,9 @@ export default class Skills extends ConsentComponent {
                     <li key={skill.id}>
                       <div styleName="skill-tile">
                         <a
+                          id={`skill-a-${skill.id}`}
                           role="link"
-                          onClick={e => this.toggleSkill(e, skill)}
+                          onClick={e => this.toggleSkill(e, skill, `#skill-a-${skill.id}`)}
                           styleName={linkStyle}
                         >
                           <div styleName="skill-icon">

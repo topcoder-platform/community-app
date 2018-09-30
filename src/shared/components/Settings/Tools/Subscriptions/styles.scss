@@ -194,22 +194,19 @@
 
   .complete {
     color: $tc-white;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 40px;
+    margin: 0;
+    padding: 0 0;
+    width: 240px;
 
-    button {
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 40px;
-      margin: 0;
-      padding: 0 0;
-      width: 200px;
-
-      @include upto-sm {
-        width: 156px;
-      }
-
-      @include roboto-medium;
+    @include upto-sm {
+      width: 156px;
     }
+
+    @include roboto-medium;
   }
 }
 
