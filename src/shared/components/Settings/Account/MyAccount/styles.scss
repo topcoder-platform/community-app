@@ -199,6 +199,11 @@
         margin-bottom: auto;
         margin-top: auto;
         white-space: nowrap;
+
+        &.password {
+          margin-top:10px;
+          align-self: flex-start;
+        }
       }
 
       &.col-2 {
