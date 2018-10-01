@@ -39,10 +39,10 @@ function onSubmitDone(state, { error, payload }) {
   /* TODO: I am not sure, whether this code is just wrong, or does it handle
    * only specific errors, returned from API for design submissions? I am
    * adding a more generic failure handling code just above. */
-  if (payload.error) {
+  if (payload.result && !payload.result.success) {
     return {
       ...state,
-      submitErrorMsg: payload.error.details || payload.error.name,
+      submitErrorMsg: payload.result.content.message || 'Failed to submit',
       isSubmitting: false,
       submitDone: false,
     };
