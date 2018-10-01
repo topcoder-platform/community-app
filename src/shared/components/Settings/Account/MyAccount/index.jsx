@@ -65,17 +65,19 @@ export default class MyAccount extends React.Component {
   }
 
   componentDidMount() {
-    const { profile } = this.props;
+    const { profile, loadTabData } = this.props;
     const currentEmail = profile.email;
     this.setState({ currentEmail });
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
+    loadTabData(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      profileState,
-    } = this.props;
+    const { profileState, profile } = this.props;
+    if (profile.email !== nextProps.profile.email) {
+      this.setState({ currentEmail: nextProps.profile.email });
+    }
     if (profileState.updatingPassword
       && !nextProps.profileState.updatingPassword
       && !nextProps.settingsPageState.incorrectPassword
@@ -246,14 +248,6 @@ export default class MyAccount extends React.Component {
         [inputId]: type,
       },
     });
-
-    setImmediate(() => {
-      if (inputId === 'current-password-input') {
-        this.currentPasswordRef.current.focus();
-      } else {
-        this.newPasswordRef.current.focus();
-      }
-    });
   }
 
   checkPassword(e) {
@@ -287,7 +281,7 @@ export default class MyAccount extends React.Component {
       hasSymbolNumber,
       differentOldPassword,
       passwordValid: currentPassword.length
-      && hasLength && hasLetter && hasSymbolNumber && differentOldPassword,
+        && hasLength && hasLetter && hasSymbolNumber && differentOldPassword,
       newPassword,
       currentPassword,
     });
@@ -370,7 +364,7 @@ export default class MyAccount extends React.Component {
                       </label>
                       <div styleName="validation-bar" className="form-field">
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
-                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" placeholder="Create new email" required />
+                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" autoCapitalize="off" placeholder="New email" required />
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
@@ -451,7 +445,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-2">
                       <div styleName="validation-bar" className="form-field">
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
-                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" placeholder="Create new email" required />
+                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" placeholder="New email" required />
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
@@ -462,7 +456,7 @@ export default class MyAccount extends React.Component {
                     </div>
                   </div>
 
-                  <div styleName="row">
+                  <div styleName="row button-group">
                     <div styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
@@ -575,7 +569,7 @@ export default class MyAccount extends React.Component {
                         <div styleName="row">
                           <div styleName="field col-1">
                             <label htmlFor="password">
-                              Password
+                                Password
                             </label>
                           </div>
                           <div styleName="field col-2">
@@ -584,7 +578,7 @@ export default class MyAccount extends React.Component {
                                 <input id="current-password-input" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} name="password" type={passwordInputType['current-password-input']} placeholder="Not filled for security reasons" minLength="8" maxLength="64" required />
                                 <label htmlFor="currentPasswordCheckbox" styleName="passwordCheckbox">
                                   <input type="checkbox" id="currentPasswordCheckbox" styleName="currentPasswordCheckbox" onChange={() => this.toggleTypeAttribute('current-password-input')} />
-                                  Show
+                                    Show
                                 </label>
                               </div>
                             </div>
@@ -593,7 +587,7 @@ export default class MyAccount extends React.Component {
                         <div styleName="row">
                           <div styleName="field col-1">
                             <label htmlFor="new-password">
-                              New password
+                                New password
                             </label>
                           </div>
                           <div styleName="field col-2">
@@ -602,24 +596,24 @@ export default class MyAccount extends React.Component {
                                 <input id="new-password-input" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={passwordInputType['new-password-input']} placeholder="Type a new password to change it" minLength="8" maxLength="64" required />
                                 <label htmlFor="newPasswordCheckbox" styleName="passwordCheckbox">
                                   <input type="checkbox" id="newPasswordCheckbox" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('new-password-input')} />
-                                  Show
+                                    Show
                                 </label>
                               </div>
                               <div id="password-tips" styleName="tips password-tips" className={showNewTips ? '' : 'hidden'}>
                                 <h3>
-                                  Your password must have:
+                                    Your password must have:
                                 </h3>
                                 <p styleName={hasLength ? 'has-length-between-range' : ''}>
-                                  At least 8 characters
+                                    At least 8 characters
                                 </p>
                                 <p styleName={hasLetter ? 'has-letter' : ''}>
-                                  At least one letter
+                                    At least one letter
                                 </p>
                                 <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
-                                  At least one number or symbol
+                                    At least one number or symbol
                                 </p>
                                 <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
-                                  Should not be the same as the old password
+                                    Should not be the same as the old password
                                 </p>
                               </div>
                             </div>
@@ -633,11 +627,11 @@ export default class MyAccount extends React.Component {
                               onClick={this.onUpdatePassword}
                             >
                               {
-                                !updatingPassword && 'Change Password'
-                              }
+                                  !updatingPassword && 'Change Password'
+                                }
                               {
-                                updatingPassword && <i className="fa fa-spinner fa-spin" />
-                              }
+                                  updatingPassword && <i className="fa fa-spinner fa-spin" />
+                                }
                             </PrimaryButton>
                           </div>
                         </div>
@@ -676,4 +670,5 @@ MyAccount.propTypes = {
   updatePassword: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
+  loadTabData: PT.func.isRequired,
 };

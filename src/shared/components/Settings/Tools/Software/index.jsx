@@ -98,7 +98,7 @@ export default class Software extends ConsentComponent {
     }
 
     if (!_.trim(newSoftware.name).length) {
-      errorMessage += 'Name, ';
+      errorMessage += 'Name ';
       invalid = true;
     }
 
@@ -247,7 +247,7 @@ export default class Software extends ConsentComponent {
           this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
+          {errorMessage}
         </div>
         <h1>
           Software
@@ -321,6 +321,7 @@ export default class Software extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="softwareType">
                   Software Type
+                  <span styleName="text-required">* Required</span>
                 </label>
                 <Select
                   name="softwareType"
@@ -336,6 +337,7 @@ export default class Software extends ConsentComponent {
               <div styleName="field col-2">
                 <label htmlFor="name">
                   Name
+                  <span styleName="text-required">* Required</span>
                 </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
               </div>

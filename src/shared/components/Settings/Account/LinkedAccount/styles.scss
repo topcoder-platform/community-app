@@ -187,6 +187,8 @@
         padding: 0 20px;
         text-transform: uppercase;
         color: $tc-dark-blue-110;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
         &:hover {
           color: $tc-light-blue-110;
@@ -543,6 +545,7 @@
 
         .link-url {
           max-height: 28px;
+          white-space: normal;
         }
       }
     }
@@ -644,14 +647,6 @@
       height: 90px;
       border: 1px solid $tc-gray-20;
       border-radius: 6px;
-
-      img {
-        filter: grayscale(0);
-
-        &.unadded {
-          filter: grayscale(1);
-        }
-      }
 
       .provider {
         margin-top: 8px;
@@ -850,7 +845,6 @@
 
   @include upto-sm {
     margin-top: 10px;
-    width: 156px;
   }
 
   .complete {

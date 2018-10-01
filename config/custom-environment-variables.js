@@ -37,6 +37,13 @@ module.exports = {
           PREVIEW_API_KEY: 'CONTENTFUL_PREVIEW_API_KEY',
         },
       },
+      expertCommunities: {
+        SPACE_ID: 'CONTENTFUL_EXPERT_COMMUNITIES_SPACE_ID',
+        master: {
+          CDN_API_KEY: 'CONTENTFUL_EXPERT_COMMUNITIES_CDN_API_KEY',
+          PREVIEW_API_KEY: 'CONTENTFUL_EXPERT_COMMUNITIES_PREVIEW_API_KEY',
+        },
+      },
       topgear: {
         SPACE_ID: 'CONTENTFUL_TOPGEAR_SPACE_ID',
         master: {

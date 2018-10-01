@@ -36,13 +36,10 @@ export default function TopcoderFooter() {
     <div styleName="footer">
       <nav>
         <ul>
-          <Link to={`${base}/sitemap`}>
-SITE MAP
-          </Link>
-          <Link to={`${base}/about`}>
+          <Link to={`${base}/community/about`}>
 ABOUT US
           </Link>
-          <Link to={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>
+          <Link to={`${base}/community/contact`}>
 CONTACT US
           </Link>
           <Link to={config.URL.HELP}>

@@ -70,8 +70,7 @@ export default class AddWebLink extends React.Component {
   isWebLinkValid() {
     const { webLink } = this.state;
     return !webLink
-    || (webLink.includes('www') && /^(http(s?):\/\/)?(www\.)[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)) /* eslint-disable-line no-useless-escape */
-    || (!webLink.includes('www') && /^(http(s?):\/\/)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)); /* eslint-disable-line no-useless-escape */
+    || /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(webLink); /* eslint-disable-line no-useless-escape */
   }
 
   webLinkExist() {
@@ -105,6 +104,7 @@ export default class AddWebLink extends React.Component {
                   </label>
                   <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
                     <input
+                      autoCapitalize="off"
                       id="web-link-input"
                       name="url"
                       type="text"
@@ -160,6 +160,7 @@ export default class AddWebLink extends React.Component {
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
               <input
                 id="web-link-input"
+                autoCapitalize="off"
                 name="url"
                 type="text"
                 styleName="url"

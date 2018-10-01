@@ -298,14 +298,20 @@ export default class Skills extends ConsentComponent {
     }
   }
 
+  isIos = () => (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream);
+
+
   removeHover = () => {
     setTimeout(() => {
       const btn = document.querySelector('a:hover');
-      if (btn) {
+      if (btn && this.selectedElement !== btn) {
         const par = btn.parentNode;
         const next = btn.nextSibling;
         par.removeChild(btn);
         setTimeout(() => { par.insertBefore(btn, next); }, 0);
+      }
+      if (!btn) {
+        this.selectedElement = null;
       }
     }, 100);
   }
@@ -313,7 +319,14 @@ export default class Skills extends ConsentComponent {
   /**
    * Toggle Skill to delete selected skill
    */
-  toggleSkill = (e, skill) => {
+  toggleSkill = (e, skill, selector) => {
+    const skillElement = document.querySelector(selector);
+    if (this.selectedElement !== skillElement && this.isIos()) {
+      this.selectedElement = skillElement;
+      return;
+    }
+    this.selectedElement = skillElement;
+
     e.preventDefault();
     const { newSkill } = this.state;
     const {
@@ -366,9 +379,16 @@ export default class Skills extends ConsentComponent {
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.SKILL ? '' : 'hide';
     // All lookup skills
-    const lookupSkills = lookupData.skillTags ? _.sortBy(lookupData.skillTags, s => s.name) : [];
+    const allSkills = lookupData.skillTags ? lookupData.skillTags : [];
     const buttons = userSkills.slice(0, totalPage);
-    const list = isMobileView ? indexList : userSkills;
+    let list = isMobileView ? indexList : userSkills;
+    list = _.orderBy(list, [skill => skill.name.toLowerCase()], ['asc']); // Use Lodash to sort array by 'name'
+
+    // filter out already added skills
+    const lookupSkills = _.sortBy(
+      _.filter(allSkills, skill => _.findIndex(userSkills, l => l.id === skill.id) === -1),
+      s => s.name,
+    );
 
     return (
       <div styleName={containerStyle}>
@@ -415,8 +435,9 @@ export default class Skills extends ConsentComponent {
                     <li key={skill.id}>
                       <div styleName="skill-tile">
                         <a
+                          id={`skill-a-${skill.id}`}
                           role="link"
-                          onClick={e => this.toggleSkill(e, skill)}
+                          onClick={e => this.toggleSkill(e, skill, `#skill-a-${skill.id}`)}
                           styleName={linkStyle}
                         >
                           <div styleName="skill-icon">

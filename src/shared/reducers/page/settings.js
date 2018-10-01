@@ -185,7 +185,7 @@ function onUpdateProfileDone(state, { error }) {
 
 function onUploadPhotoDone(state, { error }) {
   if (!error) {
-    toastrSuccess('Success! ', 'Your profile image was updated.');
+    toastrSuccess('Success! ', 'Your profile image has been updated.');
   }
   return state;
 }
