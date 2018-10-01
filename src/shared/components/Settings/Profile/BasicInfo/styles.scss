@@ -147,6 +147,7 @@
       max-width: 0;
       min-width: 0;
       margin-right: 0;
+      width: auto;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
       padding-top: 0 !important;
@@ -470,7 +471,6 @@
   color: $tc-gray-50;
 }
 
-.col-1,
 .col-2,
 .col-percent50,
 .col-percent35 {
