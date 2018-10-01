@@ -7,7 +7,6 @@ export default function Home() {
       query={{
         'fields.name': 'CS Community - Learn',
       }}
-      spaceName="expertCommunities"
     />
   );
 }
