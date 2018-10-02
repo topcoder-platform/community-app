@@ -7,7 +7,6 @@ export default function Catalog() {
       query={{
         'fields.name': 'CS Community - Catalog',
       }}
-      spaceName="expertCommunities"
     />
   );
 }
