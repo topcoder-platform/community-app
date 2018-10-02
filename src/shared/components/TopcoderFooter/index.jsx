@@ -37,19 +37,19 @@ export default function TopcoderFooter() {
       <nav>
         <ul>
           <Link to={`${base}/community/about`}>
-ABOUT US
+            ABOUT US
           </Link>
           <Link to={`${base}/community/contact`}>
-CONTACT US
+            CONTACT US
           </Link>
           <Link to={config.URL.HELP}>
-HELP CENTER
+            HELP CENTER
           </Link>
           <Link to={`${base}/community/how-it-works/privacy-policy/`}>
-PRIVACY POLICY
+            PRIVACY POLICY
           </Link>
           <Link to={`${base}/community/how-it-works/terms/`}>
-TERMS
+            TERMS
           </Link>
         </ul>
       </nav>
@@ -64,7 +64,7 @@ TERMS
         <a href="https://www.linkedin.com/company/topcoder" target="liwindow">
           <LinkedInIcon />
         </a>
-        <a href="https://plus.google.com/u/0/b/104268008777050019973/104268008777050019973/posts" target="gpwindow">
+        <a href="https://www.instagram.com/topcoder/" target="gpwindow">
           <GooglePlusIcon />
         </a>
       </div>
