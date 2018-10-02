@@ -471,6 +471,21 @@
   color: $tc-gray-50;
 }
 
+.date-picker {
+  padding: 2px;
+  margin-top: 2px;
+  margin-right: 2px;
+  border-radius: 2px;
+  border: 1px solid #aaaaab;
+}
+
+.date-picker-sm {
+  padding: 2px;
+  margin-top: 4px;
+  border: 1px solid #aaaaab;
+  border-radius: 4px;
+}
+
 .col-2,
 .col-percent50,
 .col-percent35 {

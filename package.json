@@ -74,6 +74,7 @@
     "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0",
     "react-image-fallback": "^7.1.0",
+    "react-image-filter": "^0.1.2",
     "react-infinite-scroller": "^1.1.4",
     "react-player": "^0.24.1",
     "react-redux": "^5.0.7",

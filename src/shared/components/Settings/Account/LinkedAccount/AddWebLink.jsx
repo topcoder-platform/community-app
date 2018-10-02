@@ -104,6 +104,7 @@ export default class AddWebLink extends React.Component {
                   </label>
                   <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
                     <input
+                      autoCapitalize="off"
                       id="web-link-input"
                       name="url"
                       type="text"
@@ -159,6 +160,7 @@ export default class AddWebLink extends React.Component {
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
               <input
                 id="web-link-input"
+                autoCapitalize="off"
                 name="url"
                 type="text"
                 styleName="url"

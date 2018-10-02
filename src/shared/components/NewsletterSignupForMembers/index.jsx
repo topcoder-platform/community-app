@@ -77,7 +77,7 @@ export default function NewsletterSignupForMembers({
           <p className={modalStyle.modalMsg}>
             {
               customSignupConfirmationText
-              || 'You are subscribed to Newsletter'
+              || 'You are subscribed to the newsletter'
             }
           </p>
           <PrimaryButton
