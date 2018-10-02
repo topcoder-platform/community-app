@@ -7,6 +7,7 @@ export default function Catalog() {
       query={{
         'fields.name': 'Zurich Community - Catalog',
       }}
+      spaceName="zurich"
     />
   );
 }
