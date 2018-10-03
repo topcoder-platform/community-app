@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import Routes from 'routes';
 import ErrorMessage from 'containers/ErrorMessage';
@@ -33,6 +34,10 @@ if (process.env.NODE_ENV === 'production') {
 export default function App() {
   return (
     <div>
+      <Helmet>
+        <meta name="theme-color" content="#FFFFFF" />
+        <link rel="manifest" href="/manifest.json" />
+      </Helmet>
       <Routes />
       <ErrorMessage />
       <ErrorIcons />
