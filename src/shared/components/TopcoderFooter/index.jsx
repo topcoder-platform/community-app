@@ -8,6 +8,7 @@ import FacebookIcon from './icons/facebook.svg';
 import GooglePlusIcon from './icons/google_plus.svg';
 import LinkedInIcon from './icons/linkedin.svg';
 import TwitterIcon from './icons/twitter.svg';
+import InstagramIcon from './icons/instagram.svg';
 
 import './style.scss';
 
@@ -64,8 +65,8 @@ export default function TopcoderFooter() {
         <a href="https://www.linkedin.com/company/topcoder" target="liwindow">
           <LinkedInIcon />
         </a>
-        <a href="https://www.instagram.com/topcoder/" target="gpwindow">
-          <GooglePlusIcon />
+        <a href="https://www.instagram.com/topcoder" target="inwindow">
+          <InstagramIcon />
         </a>
       </div>
       <p styleName="copyright-notice">
