@@ -11,6 +11,7 @@ import _ from 'lodash';
 import path from 'path';
 import React from 'react';
 import PT from 'prop-types';
+import ReactTouchEvents from 'react-touch-events';
 import requireContext from 'require-context';
 
 import Select from 'components/Select';
@@ -67,6 +68,7 @@ export default class Skills extends ConsentComponent {
     this.setPage = this.setPage.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.handleSwipe = this.handleSwipe.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -85,7 +87,7 @@ export default class Skills extends ConsentComponent {
       pageSize: 6,
       totalPage: 0,
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 
@@ -230,6 +232,33 @@ export default class Skills extends ConsentComponent {
       indexList: userSkills.slice(index * pageSize, index * pageSize + pageSize),
       currentIndex: index,
     });
+  }
+
+
+  /*
+    handle swipe in the skills section on mobile
+   */
+  handleSwipe(direction) {
+    const { isMobileView, totalPage, currentIndex } = this.state;
+
+    if (isMobileView) {
+      switch (direction) {
+        case 'right':
+          if (currentIndex > 0) {
+            this.setPage(currentIndex - 1);
+          }
+          break;
+
+        case 'left':
+          if (currentIndex < totalPage - 1) {
+            this.setPage(currentIndex + 1);
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 
   /**
@@ -406,55 +435,59 @@ export default class Skills extends ConsentComponent {
             Your skills
           </div>
           <div styleName={`skill-list ${list.length > 0 ? '' : 'hide'}`}>
-            <ul>
-              {
-                _.map(list, (skill) => {
-                  let linkStyle = '';
-                  if (skill.hidden) {
-                    linkStyle = 'skill-hidden';
-                  }
-                  if (skill.isNew) {
-                    linkStyle += ' new';
-                  }
+            <ReactTouchEvents
+              onSwipe={this.handleSwipe}
+            >
+              <ul>
+                {
+                  _.map(list, (skill) => {
+                    let linkStyle = '';
+                    if (skill.hidden) {
+                      linkStyle = 'skill-hidden';
+                    }
+                    if (skill.isNew) {
+                      linkStyle += ' new';
+                    }
 
-                  let FallbackIcon;
-                  const category = skill.categories.length > 0 ? skill.categories[0].toUpperCase() : '';
-                  switch (category) {
-                    case 'DATA_SCIENCE':
-                      FallbackIcon = DataFallbackIcon;
-                      break;
-                    case 'DESIGN':
-                      FallbackIcon = DesignFallbackIcon;
-                      break;
-                    default:
-                      FallbackIcon = DevFallbackIcon;
-                      break;
-                  }
+                    let FallbackIcon;
+                    const category = skill.categories.length > 0 ? skill.categories[0].toUpperCase() : '';
+                    switch (category) {
+                      case 'DATA_SCIENCE':
+                        FallbackIcon = DataFallbackIcon;
+                        break;
+                      case 'DESIGN':
+                        FallbackIcon = DesignFallbackIcon;
+                        break;
+                      default:
+                        FallbackIcon = DevFallbackIcon;
+                        break;
+                    }
 
-                  return (
-                    <li key={skill.id}>
-                      <div styleName="skill-tile">
-                        <a
-                          id={`skill-a-${skill.id}`}
-                          role="link"
-                          onClick={e => this.toggleSkill(e, skill, `#skill-a-${skill.id}`)}
-                          styleName={linkStyle}
-                        >
-                          <div styleName="skill-icon">
-                            <div styleName="remove-indicator" />
-                            <div styleName="hidden-indicator" />
-                            { imageExist(`id-${skill.id}.svg`) ? getImage(`id-${skill.id}.svg`) : <FallbackIcon /> }
-                          </div>
-                          <div styleName="name">
-                            {_.truncate(skill.name, { length: 18, separator: ' ' })}
-                          </div>
-                        </a>
-                      </div>
-                    </li>
-                  );
-                })
-              }
-            </ul>
+                    return (
+                      <li key={skill.id}>
+                        <div styleName="skill-tile">
+                          <a
+                            id={`skill-a-${skill.id}`}
+                            role="link"
+                            onClick={e => this.toggleSkill(e, skill, `#skill-a-${skill.id}`)}
+                            styleName={linkStyle}
+                          >
+                            <div styleName="skill-icon">
+                              <div styleName="remove-indicator" />
+                              <div styleName="hidden-indicator" />
+                              { imageExist(`id-${skill.id}.svg`) ? getImage(`id-${skill.id}.svg`) : <FallbackIcon /> }
+                            </div>
+                            <div styleName="name">
+                              {_.truncate(skill.name, { length: 18, separator: ' ' })}
+                            </div>
+                          </a>
+                        </div>
+                      </li>
+                    );
+                  })
+                }
+              </ul>
+            </ReactTouchEvents>
             {
               isMobileView && (
                 <div styleName={`mobile-buttons ${list.length > 0 ? '' : 'hide'}`}>

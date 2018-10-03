@@ -43,7 +43,7 @@ export default class Organization extends ConsentComponent {
         timePeriodTo: '',
       },
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 

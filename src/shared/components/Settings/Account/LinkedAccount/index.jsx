@@ -90,7 +90,7 @@ export default class LinkedAccount extends React.Component {
 
     this.state = {
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 

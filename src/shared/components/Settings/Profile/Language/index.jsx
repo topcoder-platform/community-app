@@ -43,7 +43,7 @@ export default class Language extends ConsentComponent {
         writtenLevel: '',
       },
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 
