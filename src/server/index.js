@@ -34,7 +34,26 @@ let ts = path.resolve(__dirname, '../../.build-info');
 ts = JSON.parse(fs.readFileSync(ts));
 ts = moment(ts.timestamp).valueOf();
 
+const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
+const swScope = '/challenges'; // we are currently only interested in improving challenges pages
+
 const EXTRA_SCRIPTS = [
+  `<script type="application/javascript">
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then(
+    (reg)=>{
+      console.log('SW registered: ',reg);
+      reg.onupdatefound = () => {
+        const installingWorker = reg.installing;
+        installingWorker.onstatechange = () => {
+          if (installingWorker.state === 'activated') {
+            location.reload();
+          }
+        };
+      };
+    }).catch((err)=>{console.log('SW registration failed: ',err)})
+  }
+  </script>`,
   `<script
       src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
       type="application/javascript"
@@ -185,6 +204,21 @@ async function onExpressJsSetup(server) {
    * for static assets. */
   const url = path.resolve(__dirname, '../../build');
   server.use('/community-app-assets', express.static(url));
+
+  /* Serve sw.js */
+  server.use(`${swScope}/sw.js`, (req, res) => {
+    res.set('Service-Worker-Allowed', '/');
+
+    if (`${config.DISABLE_SERVICE_WORKER}`.toLowerCase() === 'true') {
+      res.sendFile(`${url}/noopsw.js`);
+    } else {
+      res.sendFile(`${url}/sw.js`);
+    }
+  });
+  /* Serve manifest.json */
+  server.use('/manifest.json', (req, res) => {
+    res.sendFile(`${url}/manifest.json`);
+  });
 }
 
 global.KEEP_BUILD_INFO = true;
