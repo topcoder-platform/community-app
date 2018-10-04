@@ -168,7 +168,7 @@ module.exports = {
         },
       },
       /* Space for expert communities. */
-      expertCommunities: {
+      zurich: {
         SPACE_ID: '',
         master: {
           CDN_API_KEY: '',

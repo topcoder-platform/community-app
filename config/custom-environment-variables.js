@@ -37,11 +37,11 @@ module.exports = {
           PREVIEW_API_KEY: 'CONTENTFUL_PREVIEW_API_KEY',
         },
       },
-      expertCommunities: {
-        SPACE_ID: 'CONTENTFUL_EXPERT_COMMUNITIES_SPACE_ID',
+      zurich: {
+        SPACE_ID: 'CONTENTFUL_ZURICH_SPACE_ID',
         master: {
-          CDN_API_KEY: 'CONTENTFUL_EXPERT_COMMUNITIES_CDN_API_KEY',
-          PREVIEW_API_KEY: 'CONTENTFUL_EXPERT_COMMUNITIES_PREVIEW_API_KEY',
+          CDN_API_KEY: 'CONTENTFUL_ZURICH_CDN_API_KEY',
+          PREVIEW_API_KEY: 'CONTENTFUL_ZURICH_PREVIEW_API_KEY',
         },
       },
       topgear: {

@@ -163,7 +163,12 @@ export default class BasicInfo extends ConsentComponent {
       updateUserTrait,
     } = this.props;
     try {
-      newBasicInfo.birthDate = `${moment(newBasicInfo.birthDate).format('YYYY-MM-DD')}T00:00:00.000Z`;
+      const parsedDate = moment(newBasicInfo.birthDate);
+      if (parsedDate.isValid()) {
+        newBasicInfo.birthDate = `${parsedDate.format('YYYY-MM-DD')}T00:00:00.000Z`;
+      } else {
+        newBasicInfo.birthDate = null;
+      }
     } catch (error) { // eslint-disable-line
       newBasicInfo.birthDate = null;
     }

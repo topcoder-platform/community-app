@@ -903,6 +903,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/looker"
+      >
+        Looker
+      </Link>
+      ‌ – Looker examples.
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/scalable-rect"
       >
         ScalableRect
