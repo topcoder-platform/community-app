@@ -69,6 +69,9 @@ export default class Skills extends ConsentComponent {
     this.updatePredicate = this.updatePredicate.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.handleSwipe = this.handleSwipe.bind(this);
+    this.lastValidInputPosition = 0;
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleInputRef = this.handleInputRef.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -98,6 +101,9 @@ export default class Skills extends ConsentComponent {
   componentDidMount() {
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
+    if (this.isIos()) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   componentDidUpdate() {
@@ -126,6 +132,9 @@ export default class Skills extends ConsentComponent {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updatePredicate);
+    if (this.isIos()) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
   }
 
   /**
@@ -387,6 +396,27 @@ export default class Skills extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  handleScroll() {
+    if (this.lastValidInputPosition === 0) {
+      this.lastValidInputPosition = window.scrollY;
+    }
+  }
+
+  handleInputRef(ref) {
+    if (!this.isIos()) {
+      return;
+    }
+    this.inputRef = ref;
+    const keyPress = () => {
+      window.scroll(0, this.lastValidInputPosition);
+    };
+    this.inputRef.control.onkeydown = keyPress;
+    const input = this.inputRef.control.getElementsByTagName('input');
+    input[0].onfocus = () => {
+      this.lastValidInputPosition = 0;
+    };
+  }
+
   render() {
     const {
       lookupData,
@@ -521,6 +551,7 @@ export default class Skills extends ConsentComponent {
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
                   <Select
+                    selectRef={this.handleInputRef}
                     name="skills"
                     options={lookupSkills}
                     onChange={this.onUpdateSelect}
@@ -557,6 +588,7 @@ export default class Skills extends ConsentComponent {
                     Skill
                   </label>
                   <Select
+                    selectRef={this.handleInputRef}
                     name="skills"
                     options={lookupSkills}
                     onChange={this.onUpdateSelect}

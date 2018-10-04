@@ -729,6 +729,13 @@ Blog
           of the JSX Components found in Community App.
         </li>
         <li>
+          <Link to="/examples/looker">
+              Looker
+          </Link>
+          &zwnj;
+          &ndash; Looker examples.
+        </li>
+        <li>
           <Link to="/examples/scalable-rect">
             ScalableRect
           </Link>
