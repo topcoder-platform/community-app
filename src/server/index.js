@@ -216,7 +216,7 @@ async function onExpressJsSetup(server) {
     }
   });
   /* Serve manifest.json */
-  server.use('/manifest.json', (req, res) => {
+  server.use(`${swScope}/manifest.json`, (req, res) => {
     res.sendFile(`${url}/manifest.json`);
   });
 }
