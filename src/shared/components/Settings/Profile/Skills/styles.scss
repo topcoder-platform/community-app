@@ -248,14 +248,13 @@
 }
 
 .skill-tile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 75px;
-  width: 75px;
-
   a {
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 75px;
+    width: 75px;
   }
 
   a:hover {
@@ -274,6 +273,7 @@
     border-radius: 6px;
     height: 75px;
     width: 75px;
+    flex-shrink: 0;
 
     .remove-indicator {
       position: absolute;
@@ -325,6 +325,7 @@
     line-height: 15px;
     color: #262628;
     text-align: center;
+    width: 100%;
   }
 
   a.skill-hidden {
