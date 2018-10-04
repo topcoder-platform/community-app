@@ -36,7 +36,7 @@ export default function App() {
     <div>
       <Helmet>
         <meta name="theme-color" content="#FFFFFF" />
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href="/challenges/manifest.json" />
       </Helmet>
       <Routes />
       <ErrorMessage />

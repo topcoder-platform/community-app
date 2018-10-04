@@ -116,7 +116,7 @@ workbox.routing.registerRoute(/http(s)?:\/\/api\.(?:topcoder|topcoder-dev)\.com\
 // Cache misc apis/pages
 workbox.routing.registerRoute(/http(s)?:\/\/.*\.cloudfront\.net\/exchange-rates$/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(200)] }), 'GET');
 workbox.routing.registerRoute(/http(s)?:\/\/.*\.herokuapp\.com\/saved-searches$/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(200)] }), 'GET');
-workbox.routing.registerRoute(/http(s)?:\/\/.*contentful\/published\/entries(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(200)] }), 'GET');
+workbox.routing.registerRoute(/http(s)?:\/\/.*\/contentful\/(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(200)] }), 'GET');
 workbox.routing.registerRoute(/http(s)?:\/\/.*community-app-assets\/api\/tc-communities(.*)/, workbox.strategies.staleWhileRevalidate({ cacheName: miscPageCacheName, plugins: [expirationPlugin(200)] }), 'GET');
 
 // Cache third part
