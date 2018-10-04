@@ -5,7 +5,6 @@ import React from 'react';
 import { config } from 'topcoder-react-utils';
 
 import FacebookIcon from './icons/facebook.svg';
-import GooglePlusIcon from './icons/google_plus.svg';
 import LinkedInIcon from './icons/linkedin.svg';
 import TwitterIcon from './icons/twitter.svg';
 import InstagramIcon from './icons/instagram.svg';
