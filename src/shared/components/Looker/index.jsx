@@ -82,12 +82,12 @@ export default function Looker(props) {
 
       const bodyRow = (record, cols, i) => (
         <tr key={Object.values(record)}>
-          {countRows? ((limit <= 0 || i++ < limit)? <td> {i}. </td> : <td> </td>) : ""}
-          {
-               
+          {countRows? ((limit <= 0 || ++i <= limit)? <td> {i}. </td> : <td> </td>) : ""}
+          {    
                cols.map((c) => {
                     const prop = c.property;
                     const { styles } = c;
+
                     if(limit <= 0 || i <= limit) {
                       if (typeof record[prop] === 'string') {
                         return (

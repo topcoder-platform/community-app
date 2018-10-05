@@ -4,7 +4,7 @@ import Looker from 'containers/Looker';
 export default function Buttons() {
   return (
     <div>
-      <h1>Demonstrat usage and preview of Looker component </h1>
+      <h1>Demonstrate usage and preview of Looker component </h1>
       <hr />
       <pre>{'<Looker lookerId="1146" property="copilot.handle" />'}</pre>
       <br />
@@ -27,11 +27,11 @@ export default function Buttons() {
       <Looker lookerId="1148" property="user.count" />
       <hr />
       <pre>{`
-      Do not show header when headerName not provided.
+      Do not show header when headerName not provided, countRows is 'true', and limit of 10 records
 
       <Looker
         lookerId="1146"
-        limit=10
+        limit="10"
         countRows="true"
         table={[
             {
@@ -61,34 +61,12 @@ export default function Buttons() {
       />
       <hr />
       <pre>{`
-      <Looker
-        lookerId="1146"
-        table={[
-            {
-              headerName: "Copilot",
-              property: "copilot.handle",
-           },
-           {
-              headerName: "Completed challenges",
-              property: "challenge.count"
-           }
-          ]}
-      />
+        Table having list without &q;
+
+        <Looker lookerId="1146" table='[{"headerName": "Copilot","property": "copilot.handle"},{"headerName": "Completed challenges","property": "challenge.count"}]' />
        `}
       </pre>
-      <Looker
-        lookerId="1146"
-        table={[
-          {
-            headerName: 'Copilot',
-            property: 'copilot.handle',
-          },
-          {
-            headerName: 'Completed challenges',
-            property: 'challenge.count',
-          },
-        ]}
-      />
+      <Looker lookerId="1146" table='[{"headerName": "Copilot","property": "copilot.handle"},{"headerName": "Completed challenges","property": "challenge.count"}]' />
       <hr />
       <pre>{`
         <Looker lookerId="1146" table="[{&q;headerName&q;: &q;Copilot&q;,&q;property&q;: &q;copilot.handle&q;},{&q;headerName&q;: &q;Completed challenges&q;,&q;property&q;: &q;challenge.count&q;}]" />
