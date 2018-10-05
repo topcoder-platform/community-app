@@ -29,6 +29,7 @@ export default function Looker(props) {
     table,
     render,
     limit,
+    countRows,
   } = props;
 
   const renderData = () => {
@@ -61,11 +62,12 @@ export default function Looker(props) {
         }
       }
 
-      const header = (cols, limitData) => (
+      const header = (cols) => (
         <tr>
+          {countRows ? <th> </th> : ""}
           {
               cols.map((c) => {
-                const name = c.headerName || c.property;
+                const name = c.headerName;
                 const { styles } = c;
                 return (
                   <th key={name} style={styles}>
@@ -78,27 +80,29 @@ export default function Looker(props) {
         </tr>
       );
 
-      const bodyRow = (record, cols, i, limitData) => (
+      const bodyRow = (record, cols, i) => (
         <tr key={Object.values(record)}>
-          <td> {++i}. </td>
+          {countRows? ((limit <= 0 || i++ < limit)? <td> {i}. </td> : <td> </td>) : ""}
           {
+               
                cols.map((c) => {
                     const prop = c.property;
                     const { styles } = c;
-                    if (typeof record[prop] === 'string') {
-                      return (
-                        <td key={record[prop]} style={styles}>
-                           {record[prop]}
-                        </td>);
-                    } 
-                    if (typeof record[prop] === 'number') {
-                      const value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                      return (
-                        <td key={record[prop]} style={styles}>
-                           {value}
-                        </td>);
+                    if(limit <= 0 || i <= limit) {
+                      if (typeof record[prop] === 'string') {
+                        return (
+                          <td key={record[prop]} style={styles}>
+                             {record[prop]}
+                          </td>);
+                      } 
+                      if (typeof record[prop] === 'number') {
+                        const value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        return (
+                          <td key={record[prop]} style={styles}>
+                             {value}
+                          </td>);
+                      }
                     }
-                    
                   })
            }
         </tr>
@@ -110,7 +114,7 @@ export default function Looker(props) {
             {
                 header(columns)
               }
-            {
+            { 
                 lookerData.map((record,i) => bodyRow(record, columns, i))
               }
           </tbody>
@@ -156,13 +160,15 @@ Looker.defaultProps = {
   property: null,
   table: null,
   render: null,
-  limit: false,
+  limit: 0,
+  countRows: false,
 };
 
 Looker.propTypes = {
   lookerInfo: PT.shape().isRequired,
   property: PT.string,
-  limit: PT.boolean,
+  limit: PT.number,
+  countRows: PT.boolean,
   table: PT.oneOfType([
     PT.string,
     PT.arrayOf(PT.shape()),

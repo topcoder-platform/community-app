@@ -27,6 +27,40 @@ export default function Buttons() {
       <Looker lookerId="1148" property="user.count" />
       <hr />
       <pre>{`
+      Do not show header when headerName not provided.
+
+      <Looker
+        lookerId="1146"
+        limit=10
+        countRows="true"
+        table={[
+            {
+              property: "copilot.handle",
+           },
+           {
+              headerName: "Completed challenges",
+              property: "challenge.count"
+           }
+          ]}
+      />
+       `}
+      </pre>
+      <Looker
+        lookerId="1146"
+        limit="10"
+        countRows="true"
+        table={[
+          {
+            property: 'copilot.handle',
+          },
+          {
+            headerName: 'Completed challenges',
+            property: 'challenge.count',
+          },
+        ]}
+      />
+      <hr />
+      <pre>{`
       <Looker
         lookerId="1146"
         table={[
