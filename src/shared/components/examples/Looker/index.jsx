@@ -33,6 +33,8 @@ export default function Buttons() {
         lookerId="1146"
         limit="10"
         countRows="true"
+        tableHeight="100px"
+        tableWidth="800px"
         table={[
             {
               property: "copilot.handle",
@@ -49,6 +51,8 @@ export default function Buttons() {
         lookerId="1146"
         limit="10"
         countRows="true"
+        tableHeight="100px"
+        tableWidth="800px"
         table={[
           {
             property: 'copilot.handle',
@@ -63,16 +67,16 @@ export default function Buttons() {
       <pre>{`
         Table having list without &q;
 
-        <Looker lookerId="1146" table='[{"headerName": "Copilot","property": "copilot.handle"},{"headerName": "Completed challenges","property": "challenge.count"}]' />
+        <Looker lookerId="1146" tableHeight="200px" tableWidth="500px" table='[{"headerName": "Copilot","property": "copilot.handle"},{"headerName": "Completed challenges","property": "challenge.count"}]' />
        `}
       </pre>
-      <Looker lookerId="1146" table='[{"headerName": "Copilot","property": "copilot.handle"},{"headerName": "Completed challenges","property": "challenge.count"}]' />
+      <Looker lookerId="1146" tableHeight="200px" tableWidth="500px" table='[{"headerName": "Copilot","property": "copilot.handle"},{"headerName": "Completed challenges","property": "challenge.count"}]' />
       <hr />
       <pre>{`
-        <Looker lookerId="1146" table="[{&q;headerName&q;: &q;Copilot&q;,&q;property&q;: &q;copilot.handle&q;},{&q;headerName&q;: &q;Completed challenges&q;,&q;property&q;: &q;challenge.count&q;}]" />
+        <Looker lookerId="1146" tableHeight="300px" tableWidth="700px" table="[{&q;headerName&q;: &q;Copilot&q;,&q;property&q;: &q;copilot.handle&q;},{&q;headerName&q;: &q;Completed challenges&q;,&q;property&q;: &q;challenge.count&q;}]" />
        `}
       </pre>
-      <Looker lookerId="1146" table="[{&q;headerName&q;: &q;Copilot&q;,&q;property&q;: &q;copilot.handle&q;},{&q;headerName&q;: &q;Completed challenges&q;,&q;property&q;: &q;challenge.count&q;}]" />
+      <Looker lookerId="1146" tableHeight="300px" tableWidth="700px" table="[{&q;headerName&q;: &q;Copilot&q;,&q;property&q;: &q;copilot.handle&q;},{&q;headerName&q;: &q;Completed challenges&q;,&q;property&q;: &q;challenge.count&q;}]" />
       <hr />
       <pre>{`
       <Looker

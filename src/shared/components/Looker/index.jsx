@@ -30,6 +30,8 @@ export default function Looker(props) {
     render,
     limit,
     countRows,
+    tableHeight,
+    tableWidth,
   } = props;
 
   const renderData = () => {
@@ -37,9 +39,9 @@ export default function Looker(props) {
       if (lookerData.length > 0) {
         if (typeof lookerData[0][property] === 'string') {
           return lookerData[0][property];
-        } 
+        }
         if (typeof lookerData[0][property] === 'number') {
-          return lookerData[0][property].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          return lookerData[0][property].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
       }
       return 'empty array!';
@@ -64,16 +66,12 @@ export default function Looker(props) {
 
       const header = (cols) => (
         <tr>
-          {countRows ? <th> </th> : ""}
+          {countRows ? <th> </th> : ''}
           {
               cols.map((c) => {
                 const name = c.headerName;
                 const { styles } = c;
-                return (
-                  <th key={name} style={styles}>
-                    { name }
-                  </th>
-                );
+                return (<th key={name} style={styles}>{ name }</th>);
               })
 
            }
@@ -82,43 +80,37 @@ export default function Looker(props) {
 
       const bodyRow = (record, cols, i) => (
         <tr key={Object.values(record)}>
-          {countRows? ((limit <= 0 || ++i <= limit)? <td> {i}. </td> : <td> </td>) : ""}
-          {    
-               cols.map((c) => {
-                    const prop = c.property;
-                    const { styles } = c;
-
-                    if(limit <= 0 || i <= limit) {
-                      if (typeof record[prop] === 'string') {
-                        return (
-                          <td key={record[prop]} style={styles}>
-                             {record[prop]}
-                          </td>);
-                      } 
-                      if (typeof record[prop] === 'number') {
-                        const value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        return (
-                          <td key={record[prop]} style={styles}>
-                             {value}
-                          </td>);
-                      }
-                    }
-                  })
-           }
+          {countRows? ((limit <= 0 || ++i <= limit)? <td> {i}. </td> : <td> &nbsp; </td>) : ''}
+          {
+            cols.map((c) => {
+              const prop = c.property;
+              const { styles } = c;
+              let value = '';
+              if (limit <= 0 || i <= limit) {
+                if (typeof record[prop] === 'string') {
+                  value = record[prop];
+                }
+                if (typeof record[prop] === 'number') {
+                  value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                }
+              }
+              return (
+                <td key={record[prop]} style={styles}>{value}</td>
+              );
+            })
+          }
         </tr>
       );
 
       return (
-        <table>
-          <tbody>
-            {
-                header(columns)
-              }
-            { 
-                lookerData.map((record,i) => bodyRow(record, columns, i))
-              }
-          </tbody>
-        </table>
+        <div style={{ overflowY: 'scroll', height: tableHeight, width: tableWidth }}>
+          <table>
+            <tbody>
+              { header(columns) }
+              { lookerData.map((record, i) => bodyRow(record, columns, i)) }
+            </tbody>
+          </table>
+        </div>
       );
     } if (render) {
       let f = render;
@@ -137,9 +129,9 @@ export default function Looker(props) {
         const retValue = f(lookerData);
         if (typeof retValue === 'string') {
           return retValue;
-        } 
+        }
         if (typeof retValue === 'number') {
-          return retValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          return retValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
       } catch (error) {
         return `error happened while rendering: ${error}`;
@@ -162,13 +154,17 @@ Looker.defaultProps = {
   render: null,
   limit: 0,
   countRows: false,
+  tableHeight: '100%',
+  tableWidth: '100%',
 };
 
 Looker.propTypes = {
   lookerInfo: PT.shape().isRequired,
   property: PT.string,
   limit: PT.number,
-  countRows: PT.boolean,
+  countRows: PT.bool,
+  tableHeight: PT.string,
+  tableWidth: PT.string,
   table: PT.oneOfType([
     PT.string,
     PT.arrayOf(PT.shape()),
