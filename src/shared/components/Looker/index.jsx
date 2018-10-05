@@ -28,12 +28,18 @@ export default function Looker(props) {
     property,
     table,
     render,
+    limit,
   } = props;
 
   const renderData = () => {
     if (property) {
       if (lookerData.length > 0) {
-        return lookerData[0][property];
+        if (typeof lookerData[0][property] === 'string') {
+          return lookerData[0][property];
+        } 
+        if (typeof lookerData[0][property] === 'number') {
+          return lookerData[0][property].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
       }
       return 'empty array!';
     } if (table || table === '') {
@@ -55,7 +61,7 @@ export default function Looker(props) {
         }
       }
 
-      const header = cols => (
+      const header = (cols, limitData) => (
         <tr>
           {
               cols.map((c) => {
@@ -72,16 +78,27 @@ export default function Looker(props) {
         </tr>
       );
 
-      const bodyRow = (record, cols) => (
+      const bodyRow = (record, cols, i, limitData) => (
         <tr key={Object.values(record)}>
+          <td> {++i}. </td>
           {
-                  cols.map((c) => {
+               cols.map((c) => {
                     const prop = c.property;
                     const { styles } = c;
-                    return (
-                      <td key={record[prop]} style={styles}>
-                        {record[prop]}
-                      </td>);
+                    if (typeof record[prop] === 'string') {
+                      return (
+                        <td key={record[prop]} style={styles}>
+                           {record[prop]}
+                        </td>);
+                    } 
+                    if (typeof record[prop] === 'number') {
+                      const value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      return (
+                        <td key={record[prop]} style={styles}>
+                           {value}
+                        </td>);
+                    }
+                    
                   })
            }
         </tr>
@@ -94,7 +111,7 @@ export default function Looker(props) {
                 header(columns)
               }
             {
-                lookerData.map(record => bodyRow(record, columns))
+                lookerData.map((record,i) => bodyRow(record, columns, i))
               }
           </tbody>
         </table>
@@ -113,7 +130,13 @@ export default function Looker(props) {
         return 'render is not a function';
       }
       try {
-        return f(lookerData);
+        const retValue = f(lookerData);
+        if (typeof retValue === 'string') {
+          return retValue;
+        } 
+        if (typeof retValue === 'number') {
+          return retValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
       } catch (error) {
         return `error happened while rendering: ${error}`;
       }
@@ -133,11 +156,13 @@ Looker.defaultProps = {
   property: null,
   table: null,
   render: null,
+  limit: false,
 };
 
 Looker.propTypes = {
   lookerInfo: PT.shape().isRequired,
   property: PT.string,
+  limit: PT.boolean,
   table: PT.oneOfType([
     PT.string,
     PT.arrayOf(PT.shape()),
