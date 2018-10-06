@@ -64,14 +64,16 @@ export default function Looker(props) {
         }
       }
 
-      const header = (cols) => (
+      const header = cols => (
         <tr>
           {countRows ? <th> </th> : ''}
           {
               cols.map((c) => {
                 const name = c.headerName;
                 const { styles } = c;
-                return (<th key={name} style={styles}>{ name }</th>);
+                return (
+                  <th key={name} style={styles}>{ name }</th>
+                );
               })
 
            }
@@ -80,13 +82,13 @@ export default function Looker(props) {
 
       const bodyRow = (record, cols, i) => (
         <tr key={Object.values(record)}>
-          {countRows? ((limit <= 0 || ++i <= limit)? <td> {i}. </td> : <td> &nbsp; </td>) : ''}
+          { (countRows && (limit <= 0 || i < limit)) ? <td> {i + 1}. </td> : ' ' }
           {
             cols.map((c) => {
               const prop = c.property;
               const { styles } = c;
               let value = '';
-              if (limit <= 0 || i <= limit) {
+              if (limit <= 0 || i < limit) {
                 if (typeof record[prop] === 'string') {
                   value = record[prop];
                 }
