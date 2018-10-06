@@ -66,7 +66,7 @@ export default function Looker(props) {
 
       const header = cols => (
         <tr>
-          {countRows ? <th> </th> : ''}
+          { countRows ? <th> &nbsp; </th> : ' ' }
           {
               cols.map((c) => {
                 const name = c.headerName;
@@ -145,7 +145,7 @@ export default function Looker(props) {
 
   return (
     <React.Fragment>
-      {renderData()}
+      { renderData() }
     </React.Fragment>
   );
 }
