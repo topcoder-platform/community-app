@@ -97,7 +97,9 @@ export default function Looker(props) {
                 }
               }
               return (
-                <td key={record[prop]} style={styles}>{value}</td>
+                <td key={record[prop]} style={styles}>
+                  {value}
+                </td>
               );
             })
           }
@@ -138,9 +140,8 @@ export default function Looker(props) {
       } catch (error) {
         return `error happened while rendering: ${error}`;
       }
-    } else {
-      return 'invalid prop, use property, table or render';
     }
+    return 'invalid prop, use property, table or render';
   };
 
   return (
