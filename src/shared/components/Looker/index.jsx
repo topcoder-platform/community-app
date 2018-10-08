@@ -57,7 +57,7 @@ export default function Looker(props) {
 
       if (typeof table === 'string' && table.length > 0) {
         try {
-          const s = table.replace(/&q;/g, '"');
+          const s = table.replace(/'/g, '"');
           columns = JSON.parse(s);
         } catch (error) {
           return `table json parse error: ${error}`;
