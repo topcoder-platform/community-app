@@ -108,7 +108,7 @@ export default function Looker(props) {
 
       return (
         <div style={{ overflowY: 'scroll', height: tableHeight, width: tableWidth }}>
-          <table>
+          <table style={{ width: '100%' }}>
             <tbody>
               { header(columns) }
               { lookerData.map((record, i) => bodyRow(record, columns, i)) }
