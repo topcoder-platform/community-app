@@ -223,6 +223,7 @@
     @include upto-sm {
       padding: 30px 22px 0;
       margin: 0 -8px;
+      justify-content: center;
     }
   }
 
@@ -236,7 +237,6 @@
 
     @include upto-sm {
       margin: 0 8px 75px;
-      justify-content: center;
     }
   }
 
