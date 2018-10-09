@@ -46,7 +46,7 @@ export default class Education extends ConsentComponent {
         graduated: false,
       },
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 

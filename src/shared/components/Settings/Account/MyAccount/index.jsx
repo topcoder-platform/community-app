@@ -44,7 +44,7 @@ export default class MyAccount extends React.Component {
       newPassword: '',
       currentPassword: '',
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
     this.newPasswordRef = React.createRef();
     this.currentPasswordRef = React.createRef();
