@@ -1116,6 +1116,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
           ]
         }
         placeholder="Country"
+        selectRef={[Function]}
         value={
           Object {
             "alpha3": "CHN",
