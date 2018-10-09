@@ -41,7 +41,7 @@ export default class ServiceProviders extends ConsentComponent {
         name: '',
       },
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 

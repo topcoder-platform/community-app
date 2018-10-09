@@ -42,7 +42,7 @@ export default class Work extends ConsentComponent {
         industry: '',
       },
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 

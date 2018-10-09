@@ -66,7 +66,7 @@ export default function Looker(props) {
 
       const header = cols => (
         <tr>
-          { countRows ? <th> &nbsp; </th> : ' ' }
+          { countRows && <th /> }
           {
               cols.map((c) => {
                 const name = c.headerName;
@@ -97,7 +97,7 @@ export default function Looker(props) {
                 }
               }
               return (
-                <td key={record[prop]} style={styles}>
+                <td key={record[prop]} style={styles} title={value}>
                   {value}
                 </td>
               );

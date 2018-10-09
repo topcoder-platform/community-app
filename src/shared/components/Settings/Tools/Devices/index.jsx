@@ -45,7 +45,7 @@ export default class Devices extends ConsentComponent {
       },
       errorMessage: '',
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 

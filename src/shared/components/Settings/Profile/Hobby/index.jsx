@@ -40,7 +40,7 @@ export default class Hobby extends ConsentComponent {
         description: '',
       },
       isMobileView: false,
-      screenSM: 768,
+      screenSM: 767,
     };
   }
 
