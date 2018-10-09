@@ -139,7 +139,7 @@ There are many reason why the submissions may not be viewable, such
                 Final
               </div>
               <div styleName="col">
-                Interim
+              Provisional
               </div>
             </div>
           ) : null
