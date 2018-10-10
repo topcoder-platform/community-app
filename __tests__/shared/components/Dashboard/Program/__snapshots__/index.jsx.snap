@@ -2,11 +2,11 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Dashboard-Program-___styles__programs___fiCaX"
+  className="src-shared-components-Dashboard-Program-___styles__programs___19_HM"
 >
   <header>
     <h1
-      className="src-shared-components-Dashboard-Program-___styles__section-title___1Y3kN"
+      className="src-shared-components-Dashboard-Program-___styles__section-title___6JP40"
     >
       <span>
         iOS
@@ -17,22 +17,22 @@ exports[`Matches shallow shapshot 1`] = `
   </header>
   <section>
     <div
-      className="src-shared-components-Dashboard-Program-___styles__registered___dY9C8"
+      className="src-shared-components-Dashboard-Program-___styles__registered___QvoLh"
     >
       <div
-        className="src-shared-components-Dashboard-Program-___styles__badge-and-challenges___1o5pV"
+        className="src-shared-components-Dashboard-Program-___styles__badge-and-challenges___P0jGl"
       >
         <div
-          className="src-shared-components-Dashboard-Program-___styles__registered-badge___2agQm"
+          className="src-shared-components-Dashboard-Program-___styles__registered-badge___2HiDn"
         >
           <div
-            className="src-shared-components-Dashboard-Program-___styles__flex-wrapper___33TgL"
+            className="src-shared-components-Dashboard-Program-___styles__flex-wrapper___39OiM"
           >
             <p>
               iOS Community
             </p>
             <div
-              className="src-shared-components-Dashboard-Program-___styles__badge-timeline___1WO84"
+              className="src-shared-components-Dashboard-Program-___styles__badge-timeline___2fKtC"
             >
               <MemberIcon
                 viewBox="0 0 420.5 480.9"
@@ -49,7 +49,7 @@ exports[`Matches shallow shapshot 1`] = `
           </div>
         </div>
         <div
-          className="src-shared-components-Dashboard-Program-___styles__ios-card___2drz2"
+          className="src-shared-components-Dashboard-Program-___styles__ios-card___36AYp"
         >
           <IosCard
             challenge={
@@ -67,36 +67,36 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-Dashboard-Program-___styles__programs___fiCaX"
+  className="src-shared-components-Dashboard-Program-___styles__programs___19_HM"
 >
   <section>
     <div
-      className="src-shared-components-Dashboard-Program-___styles__unregistered___3Irry"
+      className="src-shared-components-Dashboard-Program-___styles__unregistered___aHpdQ"
     >
       <div
-        className="src-shared-components-Dashboard-Program-___styles__empty-state-placeholder___1cnwI src-shared-components-Dashboard-Program-___styles__sky___2Rvud"
+        className="src-shared-components-Dashboard-Program-___styles__empty-state-placeholder___3fGld src-shared-components-Dashboard-Program-___styles__sky___1-ba2"
       >
         <div
-          className="src-shared-components-Dashboard-Program-___styles__title___1e-3z"
+          className="src-shared-components-Dashboard-Program-___styles__title___2GLHg"
         >
           iOS Community
         </div>
         <div
-          className="src-shared-components-Dashboard-Program-___styles__content___32ttS"
+          className="src-shared-components-Dashboard-Program-___styles__content___2uYxE"
         />
         <div
-          className="src-shared-components-Dashboard-Program-___styles__description___35EYx"
+          className="src-shared-components-Dashboard-Program-___styles__description___2oLLl"
         >
           Earn iOS topcoder badges and exclusive access to iOS challenges, prizes and special community-related events.
         </div>
         <div
-          className="src-shared-components-Dashboard-Program-___styles__help-links___WhqVc"
+          className="src-shared-components-Dashboard-Program-___styles__help-links___3R22c"
         >
           <div
-            className="src-shared-components-Dashboard-Program-___styles__help-link___3FTRX"
+            className="src-shared-components-Dashboard-Program-___styles__help-link___F1gk4"
           >
             <a
-              className="tc-btn tc-btn-s tc-btn-ghost src-shared-components-Dashboard-Program-___styles__tc-btn___CjdgX"
+              className="tc-btn tc-btn-s tc-btn-ghost src-shared-components-Dashboard-Program-___styles__tc-btn___2a_PJ"
               onClick={[Function]}
               onKeyPress={[Function]}
               title="Participate"
@@ -105,10 +105,10 @@ exports[`Matches shallow shapshot 2`] = `
             </a>
           </div>
           <div
-            className="src-shared-components-Dashboard-Program-___styles__help-link___3FTRX"
+            className="src-shared-components-Dashboard-Program-___styles__help-link___F1gk4"
           >
             <a
-              className="src-shared-components-Dashboard-Program-___styles__learn-more___3Ticw"
+              className="src-shared-components-Dashboard-Program-___styles__learn-more___1b8Es"
               href="https://ios.topcoder-dev.com"
             >
               Learn More

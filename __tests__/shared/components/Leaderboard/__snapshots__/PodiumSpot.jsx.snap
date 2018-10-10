@@ -2,10 +2,10 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___22B_7 src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___1NOMr"
+  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___26GaJ src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___3XXf9"
 >
   <span
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___1c8jo"
   >
     <ThemedAvatar
       composeAdhocTheme="deeply"
@@ -13,41 +13,41 @@ exports[`Matches shallow shapshot 1`] = `
       mapThemrProps={[Function]}
       theme={
         Object {
-          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___1KUGNq",
+          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___3C3W7B",
         }
       }
       themePriority="adhoc-context-default"
     />
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___2ICT0"
     >
       1
     </div>
   </span>
   <div>
     <a
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___2VXcK"
       href="https://www.topcoder-dev.com/members/undefined/"
     />
   </div>
   <div
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___1XKQh"
   >
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___2yrqm"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___xCO8e"
       />
       <span>
         challenges
       </span>
     </div>
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___2yrqm"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___xCO8e"
       >
         0
       </span>
@@ -61,10 +61,10 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___22B_7 src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___1NOMr"
+  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___26GaJ src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___3XXf9"
 >
   <span
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___1c8jo"
   >
     <ThemedAvatar
       composeAdhocTheme="deeply"
@@ -72,41 +72,41 @@ exports[`Matches shallow shapshot 2`] = `
       mapThemrProps={[Function]}
       theme={
         Object {
-          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___1KUGNq",
+          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___3C3W7B",
         }
       }
       themePriority="adhoc-context-default"
     />
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___2ICT0"
     >
       1
     </div>
   </span>
   <div>
     <a
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___2VXcK"
       href="https://www.topcoder-dev.com/members/undefined/"
     />
   </div>
   <div
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___1XKQh"
   >
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___2yrqm"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___xCO8e"
       />
       <span>
         challenges
       </span>
     </div>
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___2yrqm"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___xCO8e"
       >
         0
       </span>

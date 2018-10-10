@@ -3,7 +3,7 @@
 exports[`Snapshot match 1`] = `
 <div>
   <div
-    className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__title___36eEX"
+    className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__title___2XAS3"
   >
     <a
       href="/members/username"
@@ -15,7 +15,7 @@ exports[`Snapshot match 1`] = `
         themePriority="adhoc-context-default"
       />
       <span
-        className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__handle___CL0Tq"
+        className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__handle___31RIA"
         style={
           Object {
             "color": "#9D9FA0",

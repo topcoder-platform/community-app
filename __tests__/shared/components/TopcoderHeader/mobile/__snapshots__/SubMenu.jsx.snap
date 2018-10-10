@@ -2,15 +2,15 @@
 
 exports[`Matches snapshot 1`] = `
 <ul
-  className="src-shared-components-TopcoderHeader-mobile-SubMenu-___style__sub-menu___TEWxN"
+  className="src-shared-components-TopcoderHeader-mobile-SubMenu-___style__sub-menu___2OVkO"
 >
   <li
-    className="src-shared-components-TopcoderHeader-mobile-SubMenu-___style__title___3DKHU"
+    className="src-shared-components-TopcoderHeader-mobile-SubMenu-___style__title___2-azf"
   >
     Menu title
   </li>
   <li
-    className="src-shared-components-TopcoderHeader-mobile-SubMenu-___style__item___2omud"
+    className="src-shared-components-TopcoderHeader-mobile-SubMenu-___style__item___3jpLO"
   >
     <a
       href="/LINK"

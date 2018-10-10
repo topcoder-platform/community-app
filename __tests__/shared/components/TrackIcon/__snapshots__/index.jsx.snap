@@ -2,10 +2,10 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <span
-  className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
+  className="src-shared-components-TrackIcon-___style__trackIcon___HYWm4"
 >
   <div
-    className="src-shared-components-TrackIcon-___style__develop___3v4fM src-shared-components-TrackIcon-___style__main-icon___1q-1_"
+    className="src-shared-components-TrackIcon-___style__develop___n5Zjz src-shared-components-TrackIcon-___style__main-icon___1HuYb"
   >
     Cd
   </div>
@@ -13,7 +13,7 @@ exports[`Matches shallow shapshot 1`] = `
     href="https://www.topcoder-dev.com/tco"
   >
     <div
-      className="src-shared-components-TrackIcon-___style__hidden___JXTEt"
+      className="src-shared-components-TrackIcon-___style__hidden___jjsru"
     >
       TCO
     </div>
@@ -23,10 +23,10 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <span
-  className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
+  className="src-shared-components-TrackIcon-___style__trackIcon___HYWm4"
 >
   <div
-    className="src-shared-components-TrackIcon-___style__data_science___3YlDf src-shared-components-TrackIcon-___style__main-icon___1q-1_"
+    className="src-shared-components-TrackIcon-___style__data_science___3Nj0P src-shared-components-TrackIcon-___style__main-icon___1HuYb"
   >
     Cd
   </div>
@@ -34,7 +34,7 @@ exports[`Matches shallow shapshot 2`] = `
     href="https://www.topcoder-dev.com/tco"
   >
     <div
-      className="src-shared-components-TrackIcon-___style__data_science___3YlDf src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
+      className="src-shared-components-TrackIcon-___style__data_science___3Nj0P src-shared-components-TrackIcon-___style__tco-icon___1nTWI"
     >
       TCO
     </div>
@@ -44,10 +44,10 @@ exports[`Matches shallow shapshot 2`] = `
 
 exports[`Matches shallow shapshot 3`] = `
 <span
-  className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
+  className="src-shared-components-TrackIcon-___style__trackIcon___HYWm4"
 >
   <div
-    className="src-shared-components-TrackIcon-___style__develop___3v4fM src-shared-components-TrackIcon-___style__main-icon___1q-1_"
+    className="src-shared-components-TrackIcon-___style__develop___n5Zjz src-shared-components-TrackIcon-___style__main-icon___1HuYb"
   >
     Cd
   </div>
@@ -55,7 +55,7 @@ exports[`Matches shallow shapshot 3`] = `
     href="https://www.topcoder-dev.com/tco"
   >
     <div
-      className="src-shared-components-TrackIcon-___style__develop___3v4fM src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
+      className="src-shared-components-TrackIcon-___style__develop___n5Zjz src-shared-components-TrackIcon-___style__tco-icon___1nTWI"
     >
       TCO
     </div>

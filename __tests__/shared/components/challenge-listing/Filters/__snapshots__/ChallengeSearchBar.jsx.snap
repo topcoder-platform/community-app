@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
+  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___1s_Zr"
 >
   <input
     onChange={[Function]}
@@ -12,12 +12,12 @@ exports[`Matches shallow shapshot 1`] = `
     value="query"
   />
   <span
-    className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0 src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__active___8LjMb"
+    className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3R5W1 src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__active___1RJSr"
     onClick={[Function]}
     onKeyPress={[Function]}
   >
     <ZoomIcon
-      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
+      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3dsrH"
       height="16"
       viewBox="0 0 16 16"
       width="16"
@@ -29,7 +29,7 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
+  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___1s_Zr"
 >
   <input
     onChange={[Function]}
@@ -39,12 +39,12 @@ exports[`Matches shallow shapshot 2`] = `
     value=""
   />
   <span
-    className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0"
+    className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3R5W1"
     onClick={[Function]}
     onKeyPress={[Function]}
   >
     <ZoomIcon
-      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
+      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3dsrH"
       height="16"
       viewBox="0 0 16 16"
       width="16"

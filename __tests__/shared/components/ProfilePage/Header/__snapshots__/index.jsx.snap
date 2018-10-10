@@ -2,11 +2,11 @@
 
 exports[`renders profile about header correctly 1`] = `
 <div
-  className="src-shared-components-ProfilePage-Header-___styles__container___1p5md"
+  className="src-shared-components-ProfilePage-Header-___styles__container___TTTti"
 >
   <div>
     <DefaultPortrait
-      className="src-shared-components-ProfilePage-Header-___styles__profile-circle___JesRL"
+      className="src-shared-components-ProfilePage-Header-___styles__profile-circle___3Ep-N"
       height="141"
       viewBox="0 0 141 141"
       width="141"
@@ -15,10 +15,10 @@ exports[`renders profile about header correctly 1`] = `
     />
   </div>
   <div
-    className="src-shared-components-ProfilePage-Header-___styles__info___fH1uR"
+    className="src-shared-components-ProfilePage-Header-___styles__info___1i586"
   >
     <h1
-      className="src-shared-components-ProfilePage-Header-___styles__handle___-v11j"
+      className="src-shared-components-ProfilePage-Header-___styles__handle___2LcO1"
       style={
         Object {
           "color": "#9D9FA0",
@@ -28,12 +28,12 @@ exports[`renders profile about header correctly 1`] = `
       testHandle
     </h1>
     <h3
-      className="src-shared-components-ProfilePage-Header-___styles__location-challenges___a6sow"
+      className="src-shared-components-ProfilePage-Header-___styles__location-challenges___3R_V3"
     >
       United States
     </h3>
     <h3
-      className="src-shared-components-ProfilePage-Header-___styles__tenure___3ODNv"
+      className="src-shared-components-ProfilePage-Header-___styles__tenure___T9YTr"
     >
       Member Since
        
@@ -41,58 +41,58 @@ exports[`renders profile about header correctly 1`] = `
     </h3>
   </div>
   <div
-    className="src-shared-components-ProfilePage-Header-___styles__tracks-links___2XGAb"
+    className="src-shared-components-ProfilePage-Header-___styles__tracks-links___3oxgr"
   >
     <div
-      className="src-shared-components-ProfilePage-Header-___styles__tracks___3H9JW"
+      className="src-shared-components-ProfilePage-Header-___styles__tracks___bQRIF"
     >
       <a
-        className="src-shared-components-ProfilePage-Header-___styles__track___394U5"
+        className="src-shared-components-ProfilePage-Header-___styles__track___phLhy"
         href="#DATA_SCIENCE"
       >
         <DataScienceIcon
-          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3veQu"
+          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3vwgx"
           height="32"
           viewBox="0 0 32 32"
           width="32"
           xmlns="http://www.w3.org/2000/svg"
         />
         <div
-          className="src-shared-components-ProfilePage-Header-___styles__text___ubgLp"
+          className="src-shared-components-ProfilePage-Header-___styles__text___1D5ow"
         >
           DATA SCIENTIST
         </div>
       </a>
       <a
-        className="src-shared-components-ProfilePage-Header-___styles__track___394U5"
+        className="src-shared-components-ProfilePage-Header-___styles__track___phLhy"
         href="#DESIGN"
       >
         <DesignIcon
-          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3veQu"
+          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3vwgx"
           height="32"
           viewBox="0 0 32 32"
           width="32"
           xmlns="http://www.w3.org/2000/svg"
         />
         <div
-          className="src-shared-components-ProfilePage-Header-___styles__text___ubgLp"
+          className="src-shared-components-ProfilePage-Header-___styles__text___1D5ow"
         >
           DESIGNER
         </div>
       </a>
       <a
-        className="src-shared-components-ProfilePage-Header-___styles__track___394U5"
+        className="src-shared-components-ProfilePage-Header-___styles__track___phLhy"
         href="#DEVELOP"
       >
         <DevelopIcon
-          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3veQu"
+          className="src-shared-components-ProfilePage-Header-___styles__track-icon___3vwgx"
           height="32"
           viewBox="0 0 32 32"
           width="32"
           xmlns="http://www.w3.org/2000/svg"
         />
         <div
-          className="src-shared-components-ProfilePage-Header-___styles__text___ubgLp"
+          className="src-shared-components-ProfilePage-Header-___styles__text___1D5ow"
         >
           DEVELOPER
         </div>
@@ -100,15 +100,15 @@ exports[`renders profile about header correctly 1`] = `
     </div>
   </div>
   <p
-    className="src-shared-components-ProfilePage-Header-___styles__description___1tUAe"
+    className="src-shared-components-ProfilePage-Header-___styles__description___1BzP-"
   >
     Test Description
   </p>
   <div
-    className="src-shared-components-ProfilePage-Header-___styles__links___3_yVL"
+    className="src-shared-components-ProfilePage-Header-___styles__links___1Oyif"
   >
     <a
-      className="src-shared-components-ProfilePage-Header-___styles__link___1S7ii"
+      className="src-shared-components-ProfilePage-Header-___styles__link___1_fbn"
       href="https://apps.topcoder-dev.com/forums/?module=History&userID=200000"
     >
       Forum Posts

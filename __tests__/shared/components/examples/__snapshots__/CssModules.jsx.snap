@@ -9,12 +9,12 @@ exports[`matches snapshots 1`] = `
     Here is a simple demo/test of CSS modules in action.
   </p>
   <div
-    className="src-shared-components-examples-CssModules-___style-a__Style___1EI5k"
+    className="src-shared-components-examples-CssModules-___style-a__Style___1PJw-"
   >
     If CSS modules work fine this text should be red, otherwise - green.
   </div>
   <div
-    className="src-shared-components-examples-CssModules-___style-b__Style___UiIPX"
+    className="src-shared-components-examples-CssModules-___style-b__Style___PvyWy"
   >
     This text should be green in all cases.
   </div>

@@ -2,13 +2,13 @@
 
 exports[`Matches snapshot 1`] = `
 <div
-  className="src-shared-components-TopcoderHeader-mobile-Menu-___style__menu___3UwIt"
+  className="src-shared-components-TopcoderHeader-mobile-Menu-___style__menu___1J_mX"
 >
   <div
-    className="src-shared-components-TopcoderHeader-mobile-Menu-___style__title___2L9ZL"
+    className="src-shared-components-TopcoderHeader-mobile-Menu-___style__title___iaK5e"
   >
     <LogoTopcoder
-      className="src-shared-components-TopcoderHeader-mobile-Menu-___style__tc-logo___2ebQz"
+      className="src-shared-components-TopcoderHeader-mobile-Menu-___style__tc-logo___M9-Yv"
       height="18"
       viewBox="0 0 51 18"
       width="51"
@@ -16,7 +16,7 @@ exports[`Matches snapshot 1`] = `
     />
     [ topcoder ]
     <span
-      className="src-shared-components-TopcoderHeader-mobile-Menu-___style__x-cross___th5Kv"
+      className="src-shared-components-TopcoderHeader-mobile-Menu-___style__x-cross___1n8Tt"
       onClick={[Function]}
       onKeyPress={[Function]}
       role="button"
@@ -30,7 +30,7 @@ exports[`Matches snapshot 1`] = `
     column={true}
   />
   <div
-    className="src-shared-components-TopcoderHeader-mobile-Menu-___style__separator___3LchD"
+    className="src-shared-components-TopcoderHeader-mobile-Menu-___style__separator___3EX43"
   />
   <SubMenu
     hideTitle={false}

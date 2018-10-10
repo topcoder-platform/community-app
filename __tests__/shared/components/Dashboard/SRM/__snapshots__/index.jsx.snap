@@ -2,21 +2,21 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Dashboard-SRM-___styles__srms___3ppQp"
+  className="src-shared-components-Dashboard-SRM-___styles__srms___2FIej"
 >
   <header>
     <h1
-      className="src-shared-components-Dashboard-SRM-___styles__section-title___1ZDH8"
+      className="src-shared-components-Dashboard-SRM-___styles__section-title___2BJeA"
     >
       Single Round Matches
     </h1>
   </header>
   <section>
     <div
-      className="src-shared-components-Dashboard-SRM-___styles__srm-tiles___3dwyT"
+      className="src-shared-components-Dashboard-SRM-___styles__srm-tiles___1BdnR"
     >
       <div
-        className="src-shared-components-Dashboard-SRM-___styles__srm-tile___mDaqT"
+        className="src-shared-components-Dashboard-SRM-___styles__srm-tile___1wtqI"
       >
         <SRMTile
           srm={
@@ -27,28 +27,28 @@ exports[`Matches shallow shapshot 1`] = `
         />
       </div>
       <div
-        className="src-shared-components-Dashboard-SRM-___styles__srm-links-card___1nrpE"
+        className="src-shared-components-Dashboard-SRM-___styles__srm-links-card___3X-yF"
       >
         <div
-          className="src-shared-components-Dashboard-SRM-___styles__flex-wrapper___33P15"
+          className="src-shared-components-Dashboard-SRM-___styles__flex-wrapper___2D7UG"
         >
           <h2>
             Practice on past problems
           </h2>
           <a
-            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3no83"
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3HfFP"
             href="https://arena.topcoder-dev.com/#/u/practiceProblemList"
           >
             Practice Problems
           </a>
           <a
-            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3no83"
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3HfFP"
             href="https://community.topcoder-dev.com/tc?module=ProblemArchive"
           >
             Problem Archive
           </a>
           <a
-            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3no83"
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3HfFP"
             href="https://www.topcoder-dev.com/member-onboarding/learning-practicing-skills/"
           >
             Learn More
@@ -58,7 +58,7 @@ exports[`Matches shallow shapshot 1`] = `
     </div>
   </section>
   <div
-    className="src-shared-components-Dashboard-SRM-___styles__srms-links___JFdeQ"
+    className="src-shared-components-Dashboard-SRM-___styles__srms-links___2bAWV"
   >
     <a
       href="https://www.topcoder-dev.com/my-srms/"

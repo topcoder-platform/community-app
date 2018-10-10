@@ -2,13 +2,13 @@
 
 exports[`Snapshot match 1`] = `
 <div
-  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2ycEB"
+  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2F7ET"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___2rqCn"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___1T08_"
   >
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___2nEc2"
     >
       
     </p>
@@ -17,13 +17,13 @@ exports[`Snapshot match 1`] = `
     Your submission has been received, and will be evaluated during Review phase.
   </p>
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
   >
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___3JEBh"
     >
       <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___1Uom3"
         href=""
       >
         Help
@@ -35,13 +35,13 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <div
-  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2ycEB"
+  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2F7ET"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___2rqCn"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___1T08_"
   >
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG src-shared-components-SubmissionManagement-ScreeningDetails-___styles__failed___1rEsJ"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___2nEc2 src-shared-components-SubmissionManagement-ScreeningDetails-___styles__failed___3WU4E"
     >
       Failed Screening
     </p>
@@ -50,18 +50,18 @@ exports[`Snapshot match 2`] = `
     You have failed screening
   </p>
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
   >
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__more-info___1aiaS"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__more-info___2erWn"
     >
       Need more info on how to pass screening? Go to help to read Rules & Policies.
     </p>
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___3JEBh"
     >
       <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___1Uom3"
         href=""
       >
         Help
@@ -73,13 +73,13 @@ exports[`Snapshot match 2`] = `
 
 exports[`Snapshot match 3`] = `
 <div
-  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2ycEB"
+  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2F7ET"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___2rqCn"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___1T08_"
   >
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG src-shared-components-SubmissionManagement-ScreeningDetails-___styles__failed___1rEsJ"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___2nEc2 src-shared-components-SubmissionManagement-ScreeningDetails-___styles__failed___3WU4E"
     >
       Failed Screening with Warnings
     </p>
@@ -88,13 +88,13 @@ exports[`Snapshot match 3`] = `
     You have failed screening and the screener has given you the following warning.
   </p>
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
   >
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
     >
       <div
-        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___20osd"
+        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___18Pyq"
       >
         <span>
           Warning
@@ -107,15 +107,15 @@ exports[`Snapshot match 3`] = `
       </p>
     </div>
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__more-info___1aiaS"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__more-info___2erWn"
     >
       Need more info on how to pass screening? Go to help to read Rules & Policies.
     </p>
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___3JEBh"
     >
       <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___1Uom3"
         href=""
       >
         Help
@@ -127,13 +127,13 @@ exports[`Snapshot match 3`] = `
 
 exports[`Snapshot match 4`] = `
 <div
-  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2ycEB"
+  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2F7ET"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___2rqCn"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___1T08_"
   >
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG src-shared-components-SubmissionManagement-ScreeningDetails-___styles__passed___19krr"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___2nEc2 src-shared-components-SubmissionManagement-ScreeningDetails-___styles__passed___R6PRn"
     >
       Passed Screening
     </p>
@@ -142,13 +142,13 @@ exports[`Snapshot match 4`] = `
     You have passed screening.
   </p>
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
   >
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___3JEBh"
     >
       <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___1Uom3"
         href=""
       >
         Help
@@ -160,13 +160,13 @@ exports[`Snapshot match 4`] = `
 
 exports[`Snapshot match 5`] = `
 <div
-  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2ycEB"
+  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2F7ET"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___2rqCn"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___1T08_"
   >
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG src-shared-components-SubmissionManagement-ScreeningDetails-___styles__passed___19krr"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___2nEc2 src-shared-components-SubmissionManagement-ScreeningDetails-___styles__passed___R6PRn"
     >
       Passed Screening with Warnings
     </p>
@@ -175,13 +175,13 @@ exports[`Snapshot match 5`] = `
     You have passed screening, but the screener has given you 1 warnings that you must fix in round 2.
   </p>
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
   >
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
     >
       <div
-        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___20osd"
+        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___18Pyq"
       >
         <span>
           Warning
@@ -194,15 +194,15 @@ exports[`Snapshot match 5`] = `
       </p>
     </div>
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__more-info___1aiaS"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__more-info___2erWn"
     >
       Need more info on how to pass screening? Go to help to read Rules & Policies.
     </p>
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___3JEBh"
     >
       <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___1Uom3"
         href=""
       >
         Help
@@ -214,13 +214,13 @@ exports[`Snapshot match 5`] = `
 
 exports[`Snapshot match 6`] = `
 <div
-  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2ycEB"
+  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2F7ET"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___2rqCn"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___1T08_"
   >
     <p
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG src-shared-components-SubmissionManagement-ScreeningDetails-___styles__pending___YZV4Z"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___2nEc2 src-shared-components-SubmissionManagement-ScreeningDetails-___styles__pending___3LIdf"
     >
       Pending
     </p>
@@ -229,13 +229,13 @@ exports[`Snapshot match 6`] = `
     Your submission has been received, and will be screened after the end of the phase
   </p>
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
   >
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___2cGOY"
     >
       <div
-        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___20osd"
+        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___18Pyq"
       >
         <span>
           Warning
@@ -248,10 +248,10 @@ exports[`Snapshot match 6`] = `
       </p>
     </div>
     <div
-      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___3JEBh"
     >
       <a
-        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___1Uom3"
         href=""
       >
         Help

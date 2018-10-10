@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__EditMyFilters___1O81H"
+  className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__EditMyFilters___h3d3L"
 >
   <h1>
     My filters
@@ -21,7 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
     size={null}
     theme={
       Object {
-        "button": "src-shared-components-challenge-listing-Sidebar-FiltersEditor-style___doneButton___-qp1P-",
+        "button": "src-shared-components-challenge-listing-Sidebar-FiltersEditor-style___doneButton___22S2CG",
       }
     }
     themePriority="adhoc-context-default"
@@ -41,7 +41,7 @@ exports[`Matches shallow shapshot 1`] = `
     updateSavedFilter={[Function]}
   />
   <div
-    className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__note___24HgZ"
+    className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__note___-6Pqb"
   >
     Drag the filters to set the order you prefer; use the "x" mark to delete the filter(s) you don't need.
   </div>
