@@ -64,7 +64,7 @@ TERMS
         <a href="https://www.linkedin.com/company/topcoder" target="liwindow">
           <LinkedInIcon />
         </a>
-        <a href="ttps://www.instagram.com/topcoder" target="inwindow">
+        <a href="https://www.instagram.com/topcoder" target="inwindow">
           <InstagramIcon />
         </a>
       </div>
