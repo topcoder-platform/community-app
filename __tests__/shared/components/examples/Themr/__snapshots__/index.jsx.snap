@@ -2,10 +2,10 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-examples-Themr-___style__container___2Ztre"
+  className="src-shared-components-examples-Themr-___style__container___3bZFv"
 >
   <h1
-    className="src-shared-components-examples-Themr-___style__title___3op29"
+    className="src-shared-components-examples-Themr-___style__title___2P2lq"
   >
     <code>
       react-css-super-themr
@@ -31,10 +31,10 @@ exports[`Matches shallow shapshot 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
-        "container": "src-shared-components-examples-Themr-style___container___2Ztres",
-        "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
-        "title": "src-shared-components-examples-Themr-style___title___3op293",
+        "box": "src-shared-components-examples-Themr-style___box___31eS7G",
+        "container": "src-shared-components-examples-Themr-style___container___3bZFvk",
+        "text": "src-shared-components-examples-Themr-style___text___3e29j_",
+        "title": "src-shared-components-examples-Themr-style___title___2P2lq0",
       }
     }
     themePriority="adhoc-context-default"
@@ -46,8 +46,8 @@ exports[`Matches shallow shapshot 1`] = `
     theme={
       Object {
         "ThemableComponent": Object {
-          "box": "src-shared-components-examples-Themr-contextStyle___box___Rvwpa3",
-          "text": "src-shared-components-examples-Themr-contextStyle___text___97Tblp",
+          "box": "src-shared-components-examples-Themr-contextStyle___box___1aeMuq",
+          "text": "src-shared-components-examples-Themr-contextStyle___text___2fQxkl",
         },
       }
     }
@@ -66,8 +66,8 @@ exports[`Matches shallow shapshot 1`] = `
     theme={
       Object {
         "ThemableComponent": Object {
-          "box": "src-shared-components-examples-Themr-contextStyle___box___Rvwpa3",
-          "text": "src-shared-components-examples-Themr-contextStyle___text___97Tblp",
+          "box": "src-shared-components-examples-Themr-contextStyle___box___1aeMuq",
+          "text": "src-shared-components-examples-Themr-contextStyle___text___2fQxkl",
         },
       }
     }
@@ -78,10 +78,10 @@ exports[`Matches shallow shapshot 1`] = `
       mapThemrProps={[Function]}
       theme={
         Object {
-          "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
-          "container": "src-shared-components-examples-Themr-style___container___2Ztres",
-          "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
-          "title": "src-shared-components-examples-Themr-style___title___3op293",
+          "box": "src-shared-components-examples-Themr-style___box___31eS7G",
+          "container": "src-shared-components-examples-Themr-style___container___3bZFvk",
+          "text": "src-shared-components-examples-Themr-style___text___3e29j_",
+          "title": "src-shared-components-examples-Themr-style___title___2P2lq0",
         }
       }
       themePriority="adhoc-context-default"
@@ -96,10 +96,10 @@ exports[`Matches shallow shapshot 1`] = `
   <ThemeProvider
     theme={
       Object {
-        "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
-        "container": "src-shared-components-examples-Themr-style___container___2Ztres",
-        "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
-        "title": "src-shared-components-examples-Themr-style___title___3op293",
+        "box": "src-shared-components-examples-Themr-style___box___31eS7G",
+        "container": "src-shared-components-examples-Themr-style___container___3bZFvk",
+        "text": "src-shared-components-examples-Themr-style___text___3e29j_",
+        "title": "src-shared-components-examples-Themr-style___title___2P2lq0",
       }
     }
   >
@@ -135,8 +135,8 @@ exports[`Matches shallow shapshot 1`] = `
       theme={
         Object {
           "ThemableComponent": Object {
-            "box": "src-shared-components-examples-Themr-contextStyle___box___Rvwpa3",
-            "text": "src-shared-components-examples-Themr-contextStyle___text___97Tblp",
+            "box": "src-shared-components-examples-Themr-contextStyle___box___1aeMuq",
+            "text": "src-shared-components-examples-Themr-contextStyle___text___2fQxkl",
           },
         }
       }

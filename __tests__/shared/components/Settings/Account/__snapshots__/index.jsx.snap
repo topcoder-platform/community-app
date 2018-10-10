@@ -2,10 +2,10 @@
 
 exports[`renders account setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-Account-___styles__account-container___2rdYG"
+  className="src-shared-components-Settings-Account-___styles__account-container___3A61k"
 >
   <div
-    className="src-shared-components-Settings-Account-___styles__mobile-view___s8M3A"
+    className="src-shared-components-Settings-Account-___styles__mobile-view___N-Vgg"
   >
     <Accordion
       icons={
@@ -34,7 +34,7 @@ exports[`renders account setting page correctly 1`] = `
     />
   </div>
   <div
-    className="src-shared-components-Settings-Account-___styles__col-bar___3MCVp"
+    className="src-shared-components-Settings-Account-___styles__col-bar___29AFQ"
   >
     <SideBar
       icons={
@@ -62,7 +62,7 @@ exports[`renders account setting page correctly 1`] = `
     />
   </div>
   <div
-    className="src-shared-components-Settings-Account-___styles__col-content___1gt_Z"
+    className="src-shared-components-Settings-Account-___styles__col-content___CX4mR"
   >
     <Unknown />
   </div>

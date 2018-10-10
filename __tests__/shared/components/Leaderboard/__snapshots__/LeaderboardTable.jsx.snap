@@ -2,28 +2,28 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <table
-  className="src-shared-components-Leaderboard-LeaderboardTable-___styles__LeaderboardTable___3gXz5"
+  className="src-shared-components-Leaderboard-LeaderboardTable-___styles__LeaderboardTable___22Afu"
 >
   <thead>
     <tr>
       <th
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___-VWqF"
       >
         Rank
       </th>
       <th
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___2Rzhq"
         colSpan="2"
       >
         Handle
       </th>
       <th
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___3CzoE"
       >
         # of Challenges
       </th>
       <th
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___XxGeR"
       >
         Points
       </th>
@@ -32,15 +32,15 @@ exports[`Matches shallow shapshot 1`] = `
   <tbody>
     <tr>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___-VWqF"
       >
         1
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___dUab4"
       >
         <span
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___iF7vm"
         >
           <ThemedAvatar
             composeAdhocTheme="deeply"
@@ -48,7 +48,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___2RFjBe",
               }
             }
             themePriority="adhoc-context-default"
@@ -56,13 +56,13 @@ exports[`Matches shallow shapshot 1`] = `
         </span>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___2Rzhq"
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
         />
         <div
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___10HMi"
         >
           <span>
             0
@@ -74,25 +74,25 @@ exports[`Matches shallow shapshot 1`] = `
         </div>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___3CzoE"
       />
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___XxGeR"
       >
         0
       </td>
     </tr>
     <tr>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___-VWqF"
       >
         1
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___dUab4"
       >
         <span
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___iF7vm"
         >
           <ThemedAvatar
             composeAdhocTheme="deeply"
@@ -100,7 +100,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___2RFjBe",
               }
             }
             themePriority="adhoc-context-default"
@@ -108,13 +108,13 @@ exports[`Matches shallow shapshot 1`] = `
         </span>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___2Rzhq"
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
         />
         <div
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___10HMi"
         >
           <span>
             0
@@ -126,25 +126,25 @@ exports[`Matches shallow shapshot 1`] = `
         </div>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___3CzoE"
       />
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___XxGeR"
       >
         0
       </td>
     </tr>
     <tr>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___-VWqF"
       >
         1
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___dUab4"
       >
         <span
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___iF7vm"
         >
           <ThemedAvatar
             composeAdhocTheme="deeply"
@@ -152,7 +152,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___2RFjBe",
               }
             }
             themePriority="adhoc-context-default"
@@ -160,13 +160,13 @@ exports[`Matches shallow shapshot 1`] = `
         </span>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___2Rzhq"
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
         />
         <div
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___10HMi"
         >
           <span>
             0
@@ -178,25 +178,25 @@ exports[`Matches shallow shapshot 1`] = `
         </div>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___3CzoE"
       />
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___XxGeR"
       >
         0
       </td>
     </tr>
     <tr>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___-VWqF"
       >
         1
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___dUab4"
       >
         <span
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___iF7vm"
         >
           <ThemedAvatar
             composeAdhocTheme="deeply"
@@ -204,7 +204,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___2RFjBe",
               }
             }
             themePriority="adhoc-context-default"
@@ -212,13 +212,13 @@ exports[`Matches shallow shapshot 1`] = `
         </span>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___2Rzhq"
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
         />
         <div
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___10HMi"
         >
           <span>
             0
@@ -230,10 +230,10 @@ exports[`Matches shallow shapshot 1`] = `
         </div>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___3CzoE"
       />
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___XxGeR"
       >
         0
       </td>

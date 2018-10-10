@@ -2,12 +2,12 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
+  className="src-shared-components-TopcoderFooter-___style__footer___3dNa1"
 >
   <nav>
     <ul>
       <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        className="src-shared-components-TopcoderFooter-___style__link___24VaY"
       >
         <a
           href="https://www.topcoder-dev.com/community/about"
@@ -16,7 +16,7 @@ exports[`Matches shallow shapshot 1`] = `
         </a>
       </li>
       <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        className="src-shared-components-TopcoderFooter-___style__link___24VaY"
       >
         <a
           href="https://www.topcoder-dev.com/community/contact"
@@ -25,7 +25,7 @@ exports[`Matches shallow shapshot 1`] = `
         </a>
       </li>
       <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        className="src-shared-components-TopcoderFooter-___style__link___24VaY"
       >
         <a
           href="https://help.topcoder-dev.com"
@@ -34,7 +34,7 @@ exports[`Matches shallow shapshot 1`] = `
         </a>
       </li>
       <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        className="src-shared-components-TopcoderFooter-___style__link___24VaY"
       >
         <a
           href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
@@ -43,7 +43,7 @@ exports[`Matches shallow shapshot 1`] = `
         </a>
       </li>
       <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        className="src-shared-components-TopcoderFooter-___style__link___24VaY"
       >
         <a
           href="https://www.topcoder-dev.com/community/how-it-works/terms/"
@@ -54,7 +54,7 @@ exports[`Matches shallow shapshot 1`] = `
     </ul>
   </nav>
   <div
-    className="src-shared-components-TopcoderFooter-___style__social-links___2G4Ia"
+    className="src-shared-components-TopcoderFooter-___style__social-links___2N-Sg"
   >
     <hr />
     <a
@@ -151,7 +151,7 @@ exports[`Matches shallow shapshot 1`] = `
     </a>
   </div>
   <p
-    className="src-shared-components-TopcoderFooter-___style__copyright-notice___24f5v"
+    className="src-shared-components-TopcoderFooter-___style__copyright-notice___3PXbm"
   >
     © 2018 Topcoder. All Rights Reserved
   </p>

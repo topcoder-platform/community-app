@@ -11,9 +11,9 @@ exports[`Match shadow snapshot 1`] = `
     text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___bannerContainer___3YmVRh",
-        "content": "src-shared-components-tc-communities-communities-community-2-Learn-style___bannerContent___2VGBu8",
-        "contentInner": "src-shared-components-tc-communities-communities-community-2-Learn-style___bannerContentInner___1LDdS6",
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___bannerContainer___3ZwnD8",
+        "content": "src-shared-components-tc-communities-communities-community-2-Learn-style___bannerContent___dU2bzb",
+        "contentInner": "src-shared-components-tc-communities-communities-community-2-Learn-style___bannerContentInner___2yqjvU",
       }
     }
     themePriority="adhoc-context-default"
@@ -28,7 +28,7 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___learnBasicsContainer___1ZPnyW",
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___learnBasicsContainer___d4Oz2B",
       }
     }
     themePriority="adhoc-context-default"
@@ -72,10 +72,10 @@ exports[`Match shadow snapshot 1`] = `
             Are you ready to step onto the innovative journey of learning?
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-community-2-Learn-___style__joinnowWrap___Pe9Rh"
+            className="src-shared-components-tc-communities-communities-community-2-Learn-___style__joinnowWrap___1BXuj"
           >
             <a
-              className="src-shared-components-tc-communities-communities-community-2-Learn-___style__joinnow___1HsYJ"
+              className="src-shared-components-tc-communities-communities-community-2-Learn-___style__joinnow___ZSdEK"
               href="https://topgear-app.wipro.com"
             >
               Start Exploring
@@ -99,7 +99,7 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___coursesContainer___3SRv44",
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___coursesContainer___3GfmeA",
       }
     }
     themePriority="adhoc-context-default"
@@ -163,8 +163,8 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___resourcesContainer___dzJCpu",
-        "title": "src-shared-components-tc-communities-communities-community-2-Learn-style___resourcesTitle___1QSSno",
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-style___resourcesContainer___3ncm1a",
+        "title": "src-shared-components-tc-communities-communities-community-2-Learn-style___resourcesTitle___2c0cIm",
       }
     }
     themePriority="adhoc-context-default"

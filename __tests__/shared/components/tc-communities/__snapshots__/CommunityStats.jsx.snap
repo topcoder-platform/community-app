@@ -10,8 +10,8 @@ exports[`Snapshot match 1`] = `
   subTitle=""
   theme={
     Object {
-      "container": "src-shared-components-tc-communities-CommunityStats-style___container___3IKHhw",
-      "content": "src-shared-components-tc-communities-CommunityStats-style___content___ZqVgq1",
+      "container": "src-shared-components-tc-communities-CommunityStats-style___container___hLksQd",
+      "content": "src-shared-components-tc-communities-CommunityStats-style___content___3i2Mwf",
     }
   }
   themePriority="adhoc-context-default"

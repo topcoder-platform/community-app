@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__bucket___1M3_m"
+  className="src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__bucket___ztiDq"
   onClick={[Function]}
   onKeyPress={[Function]}
   role="button"
@@ -14,7 +14,7 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__active___3-5kD src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__bucket___1M3_m"
+  className="src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__active___2j2TS src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__bucket___ztiDq"
 >
   name
 </div>
