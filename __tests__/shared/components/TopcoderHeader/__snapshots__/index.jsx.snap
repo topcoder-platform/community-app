@@ -2,14 +2,14 @@
 
 exports[`Default render 1`] = `
 <div
-  className="src-shared-components-TopcoderHeader-___style__header___Hgxc5"
+  className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
   onMouseLeave={[Function]}
 >
   <div
-    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___7CoT9"
+    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      className="src-shared-components-TopcoderHeader-___style__logo___25a90"
+      className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
@@ -20,10 +20,10 @@ exports[`Default render 1`] = `
       />
     </a>
     <ul
-      className="src-shared-components-TopcoderHeader-___style__main-menu___3TZxS"
+      className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
     >
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Compete"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -32,7 +32,7 @@ exports[`Default render 1`] = `
         Compete
       </li>
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Learn"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -41,7 +41,7 @@ exports[`Default render 1`] = `
         Learn
       </li>
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Community"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -51,17 +51,17 @@ exports[`Default render 1`] = `
       </li>
     </ul>
     <div
-      className="src-shared-components-TopcoderHeader-___style__right-menu___3M20Q"
+      className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
     >
       <span
-        className="src-shared-components-TopcoderHeader-___style__auth-align___NY-2F"
+        className="src-shared-components-TopcoderHeader-___style__auth-align___29jCN"
       >
         <Auth
           column={false}
         />
       </span>
       <div
-        className="src-shared-components-TopcoderHeader-___style__search-icon___1dfOV"
+        className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -83,7 +83,7 @@ exports[`Default render 1`] = `
     trigger={null}
   />
   <div
-    className="src-shared-components-TopcoderHeader-___style__search-field___ad9jr"
+    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
   >
     <input
@@ -251,14 +251,14 @@ exports[`Default render 1`] = `
 
 exports[`Render with open menu 1`] = `
 <div
-  className="src-shared-components-TopcoderHeader-___style__header___Hgxc5"
+  className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
   onMouseLeave={[Function]}
 >
   <div
-    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___7CoT9"
+    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      className="src-shared-components-TopcoderHeader-___style__logo___25a90"
+      className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
@@ -269,10 +269,10 @@ exports[`Render with open menu 1`] = `
       />
     </a>
     <ul
-      className="src-shared-components-TopcoderHeader-___style__main-menu___3TZxS"
+      className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
     >
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ src-shared-components-TopcoderHeader-___style__opened___3oeu3 src-shared-components-TopcoderHeader-___style__current___UURiD"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6 src-shared-components-TopcoderHeader-___style__opened___1WPVI src-shared-components-TopcoderHeader-___style__current___1Hk7o"
         data-menu="Compete"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -281,7 +281,7 @@ exports[`Render with open menu 1`] = `
         Compete
       </li>
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Learn"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -290,7 +290,7 @@ exports[`Render with open menu 1`] = `
         Learn
       </li>
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Community"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -300,17 +300,17 @@ exports[`Render with open menu 1`] = `
       </li>
     </ul>
     <div
-      className="src-shared-components-TopcoderHeader-___style__right-menu___3M20Q"
+      className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
     >
       <span
-        className="src-shared-components-TopcoderHeader-___style__auth-align___NY-2F"
+        className="src-shared-components-TopcoderHeader-___style__auth-align___29jCN"
       >
         <Auth
           column={false}
         />
       </span>
       <div
-        className="src-shared-components-TopcoderHeader-___style__search-icon___1dfOV"
+        className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -343,7 +343,7 @@ exports[`Render with open menu 1`] = `
     trigger={null}
   />
   <div
-    className="src-shared-components-TopcoderHeader-___style__search-field___ad9jr"
+    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
   >
     <input
@@ -511,14 +511,14 @@ exports[`Render with open menu 1`] = `
 
 exports[`Render with specified profile 1`] = `
 <div
-  className="src-shared-components-TopcoderHeader-___style__header___Hgxc5"
+  className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
   onMouseLeave={[Function]}
 >
   <div
-    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___7CoT9"
+    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      className="src-shared-components-TopcoderHeader-___style__logo___25a90"
+      className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
@@ -529,10 +529,10 @@ exports[`Render with specified profile 1`] = `
       />
     </a>
     <ul
-      className="src-shared-components-TopcoderHeader-___style__main-menu___3TZxS"
+      className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
     >
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Compete"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -541,7 +541,7 @@ exports[`Render with specified profile 1`] = `
         Compete
       </li>
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Learn"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -550,7 +550,7 @@ exports[`Render with specified profile 1`] = `
         Learn
       </li>
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___10EgZ"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Community"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -560,17 +560,17 @@ exports[`Render with specified profile 1`] = `
       </li>
     </ul>
     <div
-      className="src-shared-components-TopcoderHeader-___style__right-menu___3M20Q"
+      className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
     >
       <div
-        className="src-shared-components-TopcoderHeader-___style__user-menu___3Wlpp"
+        className="src-shared-components-TopcoderHeader-___style__user-menu___3CMgb"
         data-menu="userMenu"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
       >
         <div
-          className="src-shared-components-TopcoderHeader-___style__user-menu-handle___1bj90"
+          className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
           style={
             Object {
               "color": "#9D9FA0",
@@ -578,7 +578,7 @@ exports[`Render with specified profile 1`] = `
           }
         />
         <div
-          className="src-shared-components-TopcoderHeader-___style__avatar___2gcDp"
+          className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
         >
           <ThemedAvatar
             composeAdhocTheme="deeply"
@@ -589,7 +589,7 @@ exports[`Render with specified profile 1`] = `
         </div>
       </div>
       <div
-        className="opened src-shared-components-TopcoderHeader-___style__search-icon___1dfOV"
+        className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -611,7 +611,7 @@ exports[`Render with specified profile 1`] = `
     trigger={null}
   />
   <div
-    className="opened src-shared-components-TopcoderHeader-___style__search-field___ad9jr"
+    className="opened src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
   >
     <input

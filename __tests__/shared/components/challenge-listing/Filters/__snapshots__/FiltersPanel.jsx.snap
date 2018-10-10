@@ -2,18 +2,18 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1IB15 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidden___ezEQ0"
+  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1XPn6 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidden___JoKmL"
 >
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___31Zc5"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___dbqVu"
   >
     <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___2WTz_"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___n4gdC"
     >
       Filters
     </span>
     <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___1NDE7"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
       onClick={[Function]}
       onKeyPress={[Function]}
     >
@@ -27,16 +27,16 @@ exports[`Matches shallow shapshot 1`] = `
     </span>
   </div>
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3QQHA src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___20X1B"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___3zhaT"
   >
     <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___1bgVX"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___Fbb9L"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___3Os3o"
       >
         <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___3VwT7"
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
           htmlFor="keyword-select"
         >
           Keywords
@@ -63,7 +63,7 @@ exports[`Matches shallow shapshot 1`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___Pvrf8"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
       >
         <label
           htmlFor="community-select"
@@ -94,13 +94,13 @@ exports[`Matches shallow shapshot 1`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___1bgVX"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___3l63p"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
       >
         <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___3VwT7"
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
           htmlFor="track-select"
         >
           Subtrack
@@ -127,7 +127,7 @@ exports[`Matches shallow shapshot 1`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___2kvcW src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___3B2mi"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
       >
         <label
           htmlFor="date-range-picker-one-month"
@@ -142,7 +142,7 @@ exports[`Matches shallow shapshot 1`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___2kvcW src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___3IoEN"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
       >
         <label
           htmlFor="date-range-picker-two-months"
@@ -159,7 +159,7 @@ exports[`Matches shallow shapshot 1`] = `
     </div>
   </div>
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___1w3XU"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
     <ThemedButton
       active={false}
@@ -213,18 +213,18 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1IB15"
+  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1XPn6"
 >
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___31Zc5"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___dbqVu"
   >
     <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___2WTz_"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___n4gdC"
     >
       Filters
     </span>
     <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___1NDE7"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
       onClick={[Function]}
       onKeyPress={[Function]}
     >
@@ -238,16 +238,16 @@ exports[`Matches shallow shapshot 2`] = `
     </span>
   </div>
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3QQHA src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___20X1B"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___3zhaT"
   >
     <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___1bgVX"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___Fbb9L"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___3Os3o"
       >
         <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___3VwT7"
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
           htmlFor="keyword-select"
         >
           Keywords
@@ -263,7 +263,7 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___Pvrf8"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
       >
         <label
           htmlFor="community-select"
@@ -294,13 +294,13 @@ exports[`Matches shallow shapshot 2`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___1bgVX"
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___3l63p"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
       >
         <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___3VwT7"
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
           htmlFor="track-select"
         >
           Subtrack
@@ -316,7 +316,7 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___2kvcW src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___3B2mi"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
       >
         <label
           htmlFor="date-range-picker-one-month"
@@ -331,7 +331,7 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___2Jca_ src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___2kvcW src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___3IoEN"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
       >
         <label
           htmlFor="date-range-picker-two-months"
@@ -348,7 +348,7 @@ exports[`Matches shallow shapshot 2`] = `
     </div>
   </div>
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___1w3XU"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
     <ThemedButton
       active={false}

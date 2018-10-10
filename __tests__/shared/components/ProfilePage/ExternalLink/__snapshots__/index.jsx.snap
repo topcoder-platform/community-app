@@ -2,16 +2,16 @@
 
 exports[`renders an external link correctly 1`] = `
 <a
-  className="src-shared-components-ProfilePage-ExternalLink-___styles__container___Xthm3"
+  className="src-shared-components-ProfilePage-ExternalLink-___styles__container___hyNr-"
   href="#"
   rel="noopener noreferrer"
   target="_blank"
 >
   <div
-    className="src-shared-components-ProfilePage-ExternalLink-___styles__top___skXTt"
+    className="src-shared-components-ProfilePage-ExternalLink-___styles__top___l0rFQ"
   >
     <div
-      className="src-shared-components-ProfilePage-ExternalLink-___styles__logo___29FBp"
+      className="src-shared-components-ProfilePage-ExternalLink-___styles__logo___2D_KS"
     >
       <GithubIcon
         height="40"
@@ -26,35 +26,35 @@ exports[`renders an external link correctly 1`] = `
     </h2>
   </div>
   <div
-    className="src-shared-components-ProfilePage-ExternalLink-___styles__bottom___1cSGQ"
+    className="src-shared-components-ProfilePage-ExternalLink-___styles__bottom___1ifqr"
   >
     <div>
       <div
-        className="src-shared-components-ProfilePage-ExternalLink-___styles__handle___27pIh"
+        className="src-shared-components-ProfilePage-ExternalLink-___styles__handle___31Gvp"
       >
         testHandle
       </div>
       <ul>
         <li>
           <div
-            className="src-shared-components-ProfilePage-ExternalLink-___styles__value___yDnl5"
+            className="src-shared-components-ProfilePage-ExternalLink-___styles__value___2mHdE"
           >
             20
           </div>
           <div
-            className="src-shared-components-ProfilePage-ExternalLink-___styles__key___1lnE0"
+            className="src-shared-components-ProfilePage-ExternalLink-___styles__key___1f4S9"
           >
             followers
           </div>
         </li>
         <li>
           <div
-            className="src-shared-components-ProfilePage-ExternalLink-___styles__value___yDnl5"
+            className="src-shared-components-ProfilePage-ExternalLink-___styles__value___2mHdE"
           >
             42
           </div>
           <div
-            className="src-shared-components-ProfilePage-ExternalLink-___styles__key___1lnE0"
+            className="src-shared-components-ProfilePage-ExternalLink-___styles__key___1f4S9"
           >
             repositories
           </div>

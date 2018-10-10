@@ -20,7 +20,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
     className="section-fields"
   >
     <div
-      className="src-shared-components-Settings-Profile-AboutMe-___styles__image___1S0pQ"
+      className="src-shared-components-Settings-Profile-AboutMe-___styles__image___2Pzzy"
     >
       <div
         className="form-label"
@@ -28,15 +28,15 @@ exports[`renders about me section of profile setting page correctly 1`] = `
         your profile image
       </div>
       <div
-        className="src-shared-components-Settings-Profile-AboutMe-___styles__edit-image___1WKpN"
+        className="src-shared-components-Settings-Profile-AboutMe-___styles__edit-image___3BNKa"
       >
         <img
           alt="User"
-          className="src-shared-components-Settings-Profile-AboutMe-___styles__profile-circle___SeZJ6"
+          className="src-shared-components-Settings-Profile-AboutMe-___styles__profile-circle___2aNdR"
           src="https://topcoder-prod-media.s3.amazonaws.com/member/profile/tcscoder-1525559661069.png"
         />
         <div
-          className="src-shared-components-Settings-Profile-AboutMe-___styles__buttons___38iBe"
+          className="src-shared-components-Settings-Profile-AboutMe-___styles__buttons___2PWXt"
         >
           <ThemedButton
             active={false}
@@ -52,7 +52,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
             size={null}
             theme={
               Object {
-                "button": "src-shared-components-Settings-Profile-AboutMe-styles___file-upload___AYY3iE",
+                "button": "src-shared-components-Settings-Profile-AboutMe-styles___file-upload___1uQbWx",
               }
             }
             themePriority="adhoc-context-default"
@@ -83,7 +83,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
               size={null}
               theme={
                 Object {
-                  "button": "src-shared-components-Settings-Profile-AboutMe-styles___file-delete___3EU5aE",
+                  "button": "src-shared-components-Settings-Profile-AboutMe-styles___file-delete___2yJs15",
                 }
               }
               themePriority="adhoc-context-default"
@@ -97,7 +97,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-Settings-Profile-AboutMe-___styles__country___3livj"
+      className="src-shared-components-Settings-Profile-AboutMe-___styles__country___cWUCk"
     >
       <div
         className="form-label"
@@ -1127,7 +1127,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Settings-Profile-AboutMe-___styles__bio___3_ye6"
+      className="src-shared-components-Settings-Profile-AboutMe-___styles__bio___2xDtf"
     >
       <div
         className="form-label"

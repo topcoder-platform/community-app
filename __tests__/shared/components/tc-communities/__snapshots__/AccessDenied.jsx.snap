@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___2KPtk"
+  className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___T1_sq"
 >
   <TopcoderLogo
     height="18"
@@ -11,12 +11,12 @@ exports[`Matches shallow shapshot 1`] = `
     xmlns="http://www.w3.org/2000/svg"
   />
   <div
-    className="src-shared-components-tc-communities-AccessDenied-___style__msg___2l8Fp"
+    className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
   >
     You must be authenticated to access this page.
   </div>
   <div
-    className="src-shared-components-tc-communities-AccessDenied-___style__msg___2l8Fp"
+    className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
   >
     <a
       className="tc-btn-md tc-btn-primary"
@@ -31,7 +31,7 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___2KPtk"
+  className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___T1_sq"
 >
   <TopcoderLogo
     height="18"
@@ -40,7 +40,7 @@ exports[`Matches shallow shapshot 2`] = `
     xmlns="http://www.w3.org/2000/svg"
   />
   <div
-    className="src-shared-components-tc-communities-AccessDenied-___style__msg___2l8Fp"
+    className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
   >
     You are not authorized to access this page.
   </div>

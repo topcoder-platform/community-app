@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___3iW2x"
+  className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___39JxY"
 >
   <a
     className=""
@@ -23,7 +23,7 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___3iW2x"
+  className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___39JxY"
 >
   <a
     className=""

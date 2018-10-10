@@ -11,9 +11,9 @@ exports[`Snapshot match 1`] = `
     text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___bannerContainer___2E3u73",
-        "content": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___bannerContent___3GER2q",
-        "contentInner": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___bannerContentInner___1ZVxNT",
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___bannerContainer___1FmI8w",
+        "content": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___bannerContent___2geagk",
+        "contentInner": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___bannerContentInner___1RtLFN",
       }
     }
     themePriority="adhoc-context-default"
@@ -28,7 +28,7 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___learnBasicsContainer___1fTEbc",
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___learnBasicsContainer___aCUEb1",
       }
     }
     themePriority="adhoc-context-default"
@@ -66,10 +66,10 @@ exports[`Snapshot match 1`] = `
             Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2jkk-"
+            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2oj4B"
           >
             <Link
-              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___22GMx"
+              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___1hSrZ"
               replace={false}
               to="learn"
             >
@@ -124,10 +124,10 @@ exports[`Snapshot match 1`] = `
             Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2jkk-"
+            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2oj4B"
           >
             <Link
-              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___22GMx"
+              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___1hSrZ"
               replace={false}
               to="learn"
             >
@@ -182,10 +182,10 @@ exports[`Snapshot match 1`] = `
             Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2jkk-"
+            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2oj4B"
           >
             <Link
-              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___22GMx"
+              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___1hSrZ"
               replace={false}
               to="learn"
             >
@@ -254,7 +254,7 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___coursesContainer___23nd-7",
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___coursesContainer___1l39Op",
       }
     }
     themePriority="adhoc-context-default"
@@ -318,8 +318,8 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___resourcesContainer___1pF075",
-        "title": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___resourcesTitle___1NTHFK",
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___resourcesContainer___299NME",
+        "title": "src-shared-components-tc-communities-communities-demo-expert-Learn-style___resourcesTitle___ao4RBY",
       }
     }
     themePriority="adhoc-context-default"

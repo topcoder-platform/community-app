@@ -2,14 +2,14 @@
 
 exports[`renders account setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___34Auk"
+    className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
       selectTab={[Function]}
@@ -721,14 +721,14 @@ exports[`renders account setting page correctly 1`] = `
 
 exports[`renders preferences setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___34Auk"
+    className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
       selectTab={[Function]}
@@ -1437,14 +1437,14 @@ exports[`renders preferences setting page correctly 1`] = `
 
 exports[`renders profile setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___34Auk"
+    className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
       selectTab={[Function]}
@@ -2159,14 +2159,14 @@ exports[`renders profile setting page correctly 1`] = `
 
 exports[`renders tools setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
     description="Profile setting page for Topcoder member"
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___34Auk"
+    className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
       selectTab={[Function]}

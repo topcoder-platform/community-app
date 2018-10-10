@@ -5,12 +5,12 @@ exports[`Snapshot match 1`] = `
   defaultSelectedIndex={0}
   theme={
     Object {
-      "container": "src-shared-components-tc-communities-Accordion-Accordion-style___container___1-2-BH",
-      "content": "src-shared-components-tc-communities-Accordion-Accordion-style___content___2Snc1y",
-      "title": "src-shared-components-tc-communities-Accordion-Accordion-style___title___2IiCrv",
-      "titleList": "src-shared-components-tc-communities-Accordion-Accordion-style___titleList___22wwbQ",
-      "titleListItem": "src-shared-components-tc-communities-Accordion-Accordion-style___titleListItem___2p4cr0",
-      "titleListItemSelected": "src-shared-components-tc-communities-Accordion-Accordion-style___titleListItemSelected___HrzS_K",
+      "container": "src-shared-components-tc-communities-Accordion-Accordion-style___container___2y_cCw",
+      "content": "src-shared-components-tc-communities-Accordion-Accordion-style___content___39ka7V",
+      "title": "src-shared-components-tc-communities-Accordion-Accordion-style___title___2jqCRo",
+      "titleList": "src-shared-components-tc-communities-Accordion-Accordion-style___titleList___1AJq5M",
+      "titleListItem": "src-shared-components-tc-communities-Accordion-Accordion-style___titleListItem___3MrXcr",
+      "titleListItemSelected": "src-shared-components-tc-communities-Accordion-Accordion-style___titleListItemSelected___2EAYnl",
     }
   }
 >

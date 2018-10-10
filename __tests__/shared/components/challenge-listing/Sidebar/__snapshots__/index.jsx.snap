@@ -2,10 +2,10 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___1h7kY"
+  className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
 >
   <div
-    className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2ahQT"
+    className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
     <BucketSelector
       activeBucket="activeBucket"
@@ -38,10 +38,10 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___1h7kY"
+  className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
 >
   <div
-    className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2ahQT"
+    className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
     <FiltersEditor
       changeFilterName={[MockFunction]}

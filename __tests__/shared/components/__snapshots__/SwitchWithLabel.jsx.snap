@@ -8,8 +8,8 @@ exports[`Matches shallow shapshot 1`] = `
   onSwitch={[Function]}
   theme={
     Object {
-      "switch": "src-shared-components-SwitchWithLabel-style___switch___1TqsPs",
-      "wrapper": "src-shared-components-SwitchWithLabel-style___wrapper___10dKLT",
+      "switch": "src-shared-components-SwitchWithLabel-style___switch___2o1UIh",
+      "wrapper": "src-shared-components-SwitchWithLabel-style___wrapper___3QaLI6",
     }
   }
 />
