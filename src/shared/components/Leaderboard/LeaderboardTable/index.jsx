@@ -16,6 +16,10 @@
  *      - user.handle: String, required. User handle
  *      - challenge.count: Number, required. The number of challenge the user won
  *      - project_result.final_score: Number, required. The user's current score
+ *   - isCopilot: Copilot leaderboards have special fields. This flag controlls
+ *     if those should be displayed
+ *   - onUsernameClick: Function if provided it is invoked with the clicked competitor
+ *     instead of linking to member's profile
  */
 
 import React from 'react';
@@ -26,10 +30,13 @@ import { config } from 'topcoder-react-utils';
 import avatarStyles from '../avatarStyles.scss';
 import styles from './styles.scss'; // eslint-disable-line
 
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 export default function LeaderboardTable(props) {
   const {
     competitors,
     isCopilot,
+    onUsernameClick,
   } = props;
   const renderTableRows = comps => (
     comps.map((competitor) => {
@@ -52,7 +59,20 @@ export default function LeaderboardTable(props) {
             </span>
           </td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${competitor.handle}/`}>{competitor.handle}</a>
+            {
+              onUsernameClick ? (
+                <div
+                  styleName="styles.handle-link"
+                  onClick={() => onUsernameClick(competitor)}
+                >
+                  {competitor.handle}
+                </div>
+              ) : (
+                <a href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+                  {competitor.handle}
+                </a>
+              )
+            }
             <div styleName="styles.winnings-info">
               {competitor.fulfillment && (<span>{competitor.fulfillment} fulfillment</span>)}
               <span>{competitor.points} points</span>
@@ -93,6 +113,8 @@ export default function LeaderboardTable(props) {
   );
 }
 
+/* eslint-enable jsx-a11y/click-events-have-key-events */
+/* eslint-enable jsx-a11y/no-static-element-interactions */
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
   avatar: PT.string,
@@ -105,8 +127,10 @@ const CompetitorShape = PT.shape({
 LeaderboardTable.propTypes = {
   competitors: PT.arrayOf(CompetitorShape).isRequired,
   isCopilot: PT.bool,
+  onUsernameClick: PT.func,
 };
 
 LeaderboardTable.defaultProps = {
   isCopilot: false,
+  onUsernameClick: null,
 };

@@ -21,6 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        onUsernameClick={null}
       />
     </div>
     <div
@@ -37,6 +38,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        onUsernameClick={null}
       />
     </div>
     <div
@@ -53,6 +55,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        onUsernameClick={null}
       />
     </div>
     <div
@@ -69,6 +72,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        onUsernameClick={null}
       />
     </div>
   </div>
