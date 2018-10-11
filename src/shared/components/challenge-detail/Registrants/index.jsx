@@ -80,6 +80,7 @@ Round 1 Submitted Date
         {
           registrants.map((r) => {
             const placement = getPlace(results, r.handle, places);
+            const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
 
             let checkpoint;
             if (twoRounds) {
@@ -99,7 +100,7 @@ Round 1 Submitted Date
             return (
               <div styleName="row" key={r.handle}>
                 <div styleName="col-1">
-                  <a href={`${config.URL.BASE}/members/${r.handle}`}>
+                  <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
                     {r.handle}
                   </a>
                 </div>

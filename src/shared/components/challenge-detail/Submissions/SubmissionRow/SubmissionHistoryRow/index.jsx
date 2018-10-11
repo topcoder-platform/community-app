@@ -33,10 +33,7 @@ export default function SubmissionHistoryRow({
         </div>
         <div styleName="col-4 col history-time">
           <div styleName="col child">
-            {moment(submissionTime).format('DD MMM YYYY')}
-          </div>
-          <div styleName="col child">
-            {moment(submissionTime).format('HH:mm:ss')}
+            {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
       </div>

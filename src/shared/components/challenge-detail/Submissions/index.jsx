@@ -25,7 +25,7 @@ function renderSubmission(s) {
           <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`} target="_blank" rel="noopener noreferrer">
             {`#${s.submissionId}`}
           </a>
-          <a href={`${config.URL.BASE}/members/${s.submitter}`} target="_blank" rel="noopener noreferrer" styleName="handle">
+          <a href={`${config.URL.BASE}/members/${s.submitter}`} target="_blank" rel="noopener noreferrer" style={s.colorStyle}>
             {s.submitter}
           </a>
         </div>
@@ -43,9 +43,19 @@ function SubmissionsComponent({
   toggleSubmissionHistory,
   submissionHistoryOpen,
 }) {
-  const { checkpoints, submissions } = challenge;
+  const { checkpoints, submissions, registrants } = challenge;
 
-  submissions.sort((a, b) => {
+  // copy colorStyle from registrants to submissions
+  const wrappedSubmissions = submissions.map((s) => {
+    const registrant = registrants.find(r => r.handle === s.submitter);
+    const { colorStyle } = registrant;
+    /* eslint-disable no-param-reassign */
+    s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+    /* eslint-enable no-param-reassign */
+    return s;
+  });
+
+  wrappedSubmissions.sort((a, b) => {
     let val1 = 0;
     let val2 = 0;
     if (a.rank && b.rank) {
@@ -72,7 +82,7 @@ function SubmissionsComponent({
         </div>
         <div styleName="content">
           {
-            submissions.map(renderSubmission)
+            wrappedSubmissions.map(renderSubmission)
           }
         </div>
         {
@@ -156,7 +166,7 @@ There are many reason why the submissions may not be viewable, such
         <div styleName="col-4 col" />
       </div>
       {
-        submissions.map((submission, index) => (
+        wrappedSubmissions.map((submission, index) => (
           <SubmissionRow
             isMM={isMM}
             key={submission.submitterId + submission.submitter}
