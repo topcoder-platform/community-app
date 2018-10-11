@@ -585,7 +585,7 @@ export default class MyAccount extends React.Component {
                           </div>
                         </div>
                         <div styleName="row">
-                          <div styleName="field col-1 password">
+                          <div styleName="field col-1">
                             <label htmlFor="new-password">
                                 New password
                             </label>
