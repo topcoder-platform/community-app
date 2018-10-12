@@ -1,6 +1,7 @@
 /**
  * Template mixin for all buttons of similar style
  */
+@import "~styles/mixins";
 
 @mixin button($color, $background, $background-active) {
   .button {
@@ -10,9 +11,12 @@
     border-radius: 0;
     color: $color;
     display: inline-flex;
-    font: 16px 'Akkurat regular', monospace;
+
+    @include frutiger-bold;
+
+    font-size: 16px;
     justify-content: center;
-    line-height: 16px;
+    line-height: 22px;
     min-height: 40px;
     margin: 5px;
     padding: 5px 23px 3px;

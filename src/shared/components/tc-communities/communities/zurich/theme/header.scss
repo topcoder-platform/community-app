@@ -70,9 +70,10 @@
 }
 
 .menuLink {
-  font-family: 'Akkurat bold', sans-serif;
+  @include frutiger-regular;
+
+  font-size: 16px;
   text-transform: none;
-  font-size: 18px;
 
   &,
   &:active,
@@ -84,20 +85,18 @@
 }
 
 .menuLinkActive {
-  font-family: 'Akkurat bold', sans-serif;
   text-transform: none;
-  font-size: 18px;
 
   &,
   &:active,
   &:focus,
   &:hover,
   &:visited {
-    color: $blue-2;
+    color: #4c433d;
   }
 
   &::after {
-    background: $blue-2 !important;
+    background: #4c433d !important;
     height: 8px;
     width: 8px;
     left: 50%;
