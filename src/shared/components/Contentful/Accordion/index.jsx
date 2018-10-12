@@ -10,6 +10,13 @@ import React from 'react';
 
 import Accordion from './Accordion';
 import AccordionItem from './AccordionItem';
+import defaultTheme from './Accordion/style.scss';
+import zurichTheme from './Accordion/zurich.scss';
+
+const THEMES = {
+  Default: defaultTheme,
+  Zurich: zurichTheme,
+};
 
 function AccordionItemsLoader(props) {
   const {
@@ -18,6 +25,7 @@ function AccordionItemsLoader(props) {
     spaceName,
     environment,
     title,
+    theme,
   } = props;
 
   return (
@@ -27,7 +35,7 @@ function AccordionItemsLoader(props) {
       spaceName={spaceName}
       environment={environment}
       render={data => (
-        <Accordion title={title}>
+        <Accordion title={title} theme={THEMES[theme]}>
           {
             ids.map(itemId => (
               <AccordionItem
@@ -51,6 +59,7 @@ function AccordionItemsLoader(props) {
 AccordionItemsLoader.defaultProps = {
   spaceName: null,
   environment: null,
+  theme: 'Default',
 };
 
 AccordionItemsLoader.propTypes = {
@@ -59,6 +68,7 @@ AccordionItemsLoader.propTypes = {
   spaceName: PT.string,
   environment: PT.string,
   title: PT.string.isRequired,
+  theme: PT.string,
 };
 
 export default function ContentfulAccordion(props) {
@@ -86,6 +96,7 @@ export default function ContentfulAccordion(props) {
             spaceName={spaceName}
             environment={environment}
             title={fields.title || fields.name}
+            theme={fields.theme}
           />
         );
       }}
