@@ -13,6 +13,7 @@ import veteranTheme from './themes/default_veteran.scss';
 import rowItemTheme from './themes/row_item.scss';
 import cardTheme from './themes/card.scss';
 import TCO19Theme from './themes/TCO19.scss';
+import zurichTheme from './themes/zurich.scss';
 
 const THEMES = {
   Default: defaultTheme,
@@ -20,6 +21,7 @@ const THEMES = {
   'Row Item': rowItemTheme,
   Card: cardTheme,
   TCO19: TCO19Theme,
+  Zurich: zurichTheme,
 };
 
 /* Loads content block background asset. */

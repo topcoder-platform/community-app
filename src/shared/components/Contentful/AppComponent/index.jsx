@@ -20,6 +20,8 @@ export function AppComponentSwitch(appComponent) {
         title={appComponent.fields.props.title}
         podiumSpots={appComponent.fields.props.podiumSpots}
         isCopilot={appComponent.fields.props.isCopilot}
+        hasChallengeHistory={appComponent.fields.props.hasChallengeHistory}
+        tcoPointsApiUrl={appComponent.fields.props.tcoPointsApiUrl}
         key={appComponent.sys.id}
       />
     );
