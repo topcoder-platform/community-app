@@ -339,6 +339,7 @@ class ChallengeDetailPageContainer extends React.Component {
       ? results : null;
 
     const isEmpty = _.isEmpty(challenge);
+    const isLegacyMM = challenge.subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
 
     const hasRegistered = isRegistered(
       challenge.userDetails,
@@ -386,7 +387,7 @@ does not exist!
               challenge={challenge}
               challengeId={challengeId}
               challengesUrl={challengesUrl}
-              numWinners={winners.length}
+              numWinners={!isLegacyMM && winners.length}
               showDeadlineDetail={showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={onSelectorClicked}
@@ -450,7 +451,7 @@ does not exist!
             && <Submissions challenge={challenge} />
           }
           {
-            !isEmpty && selectedTab === DETAIL_TABS.WINNERS
+            !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
             && (
             <Winners
               winners={winners}

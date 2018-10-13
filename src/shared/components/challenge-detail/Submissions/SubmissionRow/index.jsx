@@ -18,6 +18,7 @@ export default function SubmissionRow({
   rank,
   submissions,
   toggleHistory,
+  colorStyle,
 }) {
   const { finalScore, initialScore } = submissions[0];
   return (
@@ -36,7 +37,7 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          <a href={`${config.URL.BASE}/member-profile/${submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle">
+          <a href={`${config.URL.BASE}/member-profile/${submitter}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
             {submitter}
           </a>
         </div>
@@ -103,6 +104,7 @@ export default function SubmissionRow({
 SubmissionRow.defaultProps = {
   toggleHistory: () => {},
   rank: {},
+  colorStyle: {},
 };
 
 SubmissionRow.propTypes = {
@@ -119,4 +121,5 @@ SubmissionRow.propTypes = {
     submissionTime: PT.string.isRequired,
   })).isRequired,
   toggleHistory: PT.func,
+  colorStyle: PT.shape(),
 };
