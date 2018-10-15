@@ -4,7 +4,7 @@ import { getRatingColor } from 'utils/tc';
 import PT from 'prop-types';
 import React from 'react';
 
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import Auth from './Auth';
 import IconNavBlog from '../../../assets/images/nav/blog.svg';
@@ -57,6 +57,7 @@ const MENU = [{
   }],
 }, {
   title: 'Learn',
+  url: `${BASE_URL}/community/learn`,
   items: [
   /* {
     enforceA: true,
@@ -236,7 +237,11 @@ export default class TopcoderHeader extends React.Component {
           }}
           styleName={styleName}
         >
-          {item.title}
+          {item.url ? (
+            <Link to={item.url}>
+              {item.title}
+            </Link>
+          ) : item.title}
         </li>
       );
     });
