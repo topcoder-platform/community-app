@@ -59,9 +59,14 @@ function ChallengeCard({
   const {
     id,
     subTrack,
+    track,
+    status,
   } = challenge;
 
-  const challengeDetailLink = `${challengesUrl}/${id}`;
+  let challengeDetailLink = `${challengesUrl}/${id}`;
+  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
+    challengeDetailLink = `https://community.topcoder.com/tc?module=MatchDetails&rd=${id}`;
+  }
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
