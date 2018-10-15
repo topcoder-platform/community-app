@@ -122,7 +122,7 @@ async function onExpressJsSetup(server) {
     },
     tcCommunitiesDemoApi,
   );
-
+/*
   server.use(
     '/community-app-assets/api/edit-contentful-entry/:id',
     (req, res) => res.redirect(`${CMS_BASE_URL}/entries/${req.params.id}`),
@@ -132,7 +132,7 @@ async function onExpressJsSetup(server) {
     '/community-app-assets/api/edit-contentful-entry/:id',
     (req, res) => res.redirect(`${CMS_BASE_URL}/entries/${req.params.id}`),
   );
-
+*/
   /**
    * Auxiliary endpoint for xml -> json conversion (the most popular npm library
    * for such conversion works only in the node :(
