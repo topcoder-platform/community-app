@@ -21,6 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        isTopGear={false}
         onUsernameClick={null}
       />
     </div>
@@ -38,6 +39,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        isTopGear={false}
         onUsernameClick={null}
       />
     </div>
@@ -55,6 +57,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        isTopGear={false}
         onUsernameClick={null}
       />
     </div>
@@ -72,6 +75,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
         }
         isCopilot={false}
+        isTopGear={false}
         onUsernameClick={null}
       />
     </div>
