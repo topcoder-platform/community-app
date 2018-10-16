@@ -42,7 +42,8 @@ function create(init) {
     const { error, payload } = action;
 
     if (error) {
-      fireErrorMessage('CMS-related error', '');
+      // fireErrorMessage('CMS-related error', '');
+      console.log('CMS-related error ');
       return state;
     }
 

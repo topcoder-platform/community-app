@@ -134,7 +134,6 @@ class Service {
     if (!res.ok) {
       const error = new Error('Failed to get an asset');
       logger.error(error);
-      throw error;
     }
     return res.json();
   }
@@ -171,7 +170,6 @@ class Service {
     if (!res.ok) {
       const error = new Error('Failed to get a content entry');
       logger.error(error);
-      throw error;
     }
     return res.json();
   }
@@ -197,7 +195,10 @@ class Service {
     url = `${PROXY_ENDPOINT}/${url}/assets`;
     if (query) url += `?${_.isString(query) ? query : qs.stringify(query)}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) {
+      const error = new Error('Failed to get assets.');
+      logger.error(error);
+    }
     return res.json();
   }
 
@@ -222,7 +223,10 @@ class Service {
     url = `${PROXY_ENDPOINT}/${url}/entries`;
     if (query) url += `?${qs.stringify(query)}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) {
+      const error = new Error('Failed to get entries.');
+      logger.error(error);
+    }
     return res.json();
   }
 }
