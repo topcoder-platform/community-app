@@ -18,11 +18,9 @@
 
 import _ from 'lodash';
 import actions from 'actions/contentful';
-import { errors } from 'topcoder-react-lib';
+import { logger } from 'topcoder-react-lib';
 
 import space from './space';
-
-const { fireErrorMessage } = errors;
 
 const validActions = new Set(_.values(actions.contentful)
   .filter(_.isFunction).map(action => action.toString()));
@@ -42,7 +40,7 @@ function create(init) {
     const { error, payload } = action;
 
     if (error) {
-      fireErrorMessage('CMS-related error', '');
+      logger.log('CMS-related error');
       return state;
     }
 
