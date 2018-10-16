@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { convertNow as convertMoney } from 'services/money';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import Tags from '../Tags';
 
@@ -65,7 +65,7 @@ function ChallengeCard({
 
   let challengeDetailLink = `${challengesUrl}/${id}`;
   if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
-    challengeDetailLink = `https://community.topcoder.com/tc?module=MatchDetails&rd=${id}`;
+    challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
   }
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
