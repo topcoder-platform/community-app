@@ -32,7 +32,7 @@ export default class HistoryGraph extends React.Component {
       }
     };
     window.addEventListener('resize', this.resizeHandle);
-    this.bodyClickHandle = () => this.setState({ show: false, href: '' });
+    this.bodyClickHandle = () => this.setState({ show: false });
     document.body.addEventListener('click', this.bodyClickHandle);
   }
 
