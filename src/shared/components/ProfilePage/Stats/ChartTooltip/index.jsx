@@ -11,7 +11,7 @@ const ChartTooltip = ({
   show, left, top, challengeName,
   challengeData, rating, ratingColor, href,
 }) => (
-  <Link
+  <a
     styleName="chart-tooltip"
     style={{
       opacity: show ? 1 : 0,
@@ -19,8 +19,7 @@ const ChartTooltip = ({
       top,
       pointerEvents: href ? 'all' : 'none',
     }}
-    to={{ pathname: href }}
-    onClick={e => e.stopPropagation()}
+    href={href}
   >
     <div styleName="tooltip-rating" style={{ backgroundColor: ratingColor }}>
       {rating}
@@ -33,7 +32,7 @@ const ChartTooltip = ({
         {challengeData}
       </div>
     </div>
-  </Link>
+  </a>
 );
 
 
