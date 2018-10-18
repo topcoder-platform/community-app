@@ -159,6 +159,12 @@ $checkbox-bg-selected: $tc-dark-blue;
     .Select-menu-outer {
       @include roboto-sans-regular;
     }
+
+    input {
+      &::placeholder {
+        opacity: 0.75;
+      }
+    }
   }
 
   .settings-section {

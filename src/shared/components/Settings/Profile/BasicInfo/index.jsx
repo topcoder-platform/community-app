@@ -99,35 +99,37 @@ export default class BasicInfo extends ConsentComponent {
     let errorMessage = '';
     let dateError = '';
     let birthDateInvalid = false;
+    const invalidFields = [];
 
     if (!_.trim(newBasicInfo.firstName).length) {
-      errorMessage += 'First Name';
+      invalidFields.push('First Name');
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.lastName).length) {
-      errorMessage += ', Last Name';
+      invalidFields.push('Last Name');
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.country).length) {
-      errorMessage += ', Country ';
+      invalidFields.push('Country');
       invalid = true;
     }
 
-    if (errorMessage.length > 0) {
-      errorMessage += 'cannot be empty';
+    if (invalidFields.length > 0) {
+      errorMessage += invalidFields.join(', ');
+      errorMessage += ' cannot be empty';
     }
 
     if (_.trim(newBasicInfo.birthDate).length > 0) {
       if (!moment().isAfter(newBasicInfo.birthDate)) {
-        dateError = 'Must enter valid date for Birth Date';
+        dateError = 'You must enter a valid date for Birth Date';
         birthDateInvalid = true;
       }
     }
 
     if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}.${dateError}`;
+      errorMessage = `${errorMessage}. ${dateError}`;
     } else if (dateError.length > 0) {
       errorMessage = dateError;
       invalid = birthDateInvalid;
@@ -436,9 +438,6 @@ export default class BasicInfo extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          {errorMessage}
-        </div>
         <h1>
           Basic Info
         </h1>
@@ -483,7 +482,7 @@ export default class BasicInfo extends ConsentComponent {
                   Birth Date
                 </label>
               </div>
-              <div styleName="field col-percent50">
+              <div styleName="field col-2">
 
                 <div styleName="date-picker">
                   <DatePicker
@@ -551,7 +550,7 @@ export default class BasicInfo extends ConsentComponent {
                   Country
                 </label>
               </div>
-              <div styleName="field col-percent50">
+              <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <Select
                   name="country"
@@ -599,7 +598,7 @@ export default class BasicInfo extends ConsentComponent {
                   T-shirt size
                 </label>
               </div>
-              <div styleName="field col-percent35">
+              <div styleName="field col-2">
                 <Select
                   name="tshirtSize"
                   options={dropdowns.tshirtSize}
@@ -629,7 +628,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="List several of your interests, like &quot;Design&quot;, &quot;Development&quot;, &quot;Data Science&quot;" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
+                <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
@@ -696,19 +695,6 @@ export default class BasicInfo extends ConsentComponent {
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label styleName="bio-label" htmlFor="description">
-                    <span>
-                      Short Bio
-                    </span>
-                    <span>
-                      {newBasicInfo.description.length}/240
-                    </span>
-                  </label>
-                  <textarea id="description" styleName="bio-text" name="description" placeholder="short Bio" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
                   <label htmlFor="birthDate">
                     Birth Date
                   </label>
@@ -721,6 +707,55 @@ export default class BasicInfo extends ConsentComponent {
                     />
                   </div>
                 </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field">
+                  <label htmlFor="address">
+                    Address
+                  </label>
+                  <input id="address" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
+                  <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field">
+                  <label htmlFor="city">
+                    City
+                  </label>
+                  <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
+                </div>
+                <div styleName="field">
+                  <label htmlFor="state">
+                    State
+                  </label>
+                  <input id="state" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
+                </div>
+                <div styleName="field">
+                  <label htmlFor="zipCode">
+                    ZIP Code
+                  </label>
+                  <input id="zipCode" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
+                </div>
+                <div styleName="field">
+                  <label htmlFor="country">
+                    Country
+                    <span styleName="text-required">* Required</span>
+                  </label>
+                  <Select
+                    name="country"
+                    options={dropdowns.countries}
+                    value={newBasicInfo.country}
+                    onChange={this.onUpdateCountry}
+                    placeholder="Country"
+                    matchPos="start"
+                    matchProp="name"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
+              </div>
+              <div styleName="row">
                 <div styleName="field">
                   <label htmlFor="gender">
                     Gender
@@ -754,55 +789,6 @@ export default class BasicInfo extends ConsentComponent {
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="address">
-                    Address
-                  </label>
-                  <input id="address" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
-                  <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="country">
-                    Country
-                    <span styleName="text-required">* Required</span>
-                  </label>
-                  <Select
-                    name="country"
-                    options={dropdowns.countries}
-                    value={newBasicInfo.country}
-                    onChange={this.onUpdateCountry}
-                    placeholder="Country"
-                    matchPos="start"
-                    matchProp="name"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
-                </div>
-                <div styleName="field">
-                  <label htmlFor="state">
-                    State
-                  </label>
-                  <input id="state" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="city">
-                    City
-                  </label>
-                  <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
-                </div>
-                <div styleName="field">
-                  <label htmlFor="zipCode">
-                    ZIP Code
-                  </label>
-                  <input id="zipCode" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
                   <label htmlFor="currentLocation">
                     Current Location
                   </label>
@@ -812,9 +798,22 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="row">
                 <div styleName="field">
                   <label htmlFor="primaryInterestInTopcoder">
-                    Primary Interest of Topcoder
+                    Primary Interest in Topcoder
                   </label>
                   <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field">
+                  <label styleName="bio-label" htmlFor="description">
+                    <span>
+                      Short Bio
+                    </span>
+                    <span>
+                      {newBasicInfo.description.length}/240
+                    </span>
+                  </label>
+                  <textarea id="description" styleName="bio-text" name="description" placeholder="short Bio" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
                 </div>
               </div>
             </form>
@@ -852,6 +851,9 @@ export default class BasicInfo extends ConsentComponent {
               })
             }
           </div>
+        </div>
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          {errorMessage}
         </div>
         <div styleName="button-save">
           <PrimaryButton

@@ -236,9 +236,6 @@ export default class Subscription extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
-        </div>
         <h1>
           Subscriptions
         </h1>
@@ -271,6 +268,9 @@ export default class Subscription extends ConsentComponent {
               </div>
             </div>
           </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            { errorMessage }
+          </div>
           <div styleName="button-save">
             <PrimaryButton
               theme={{ button: styles.complete }}

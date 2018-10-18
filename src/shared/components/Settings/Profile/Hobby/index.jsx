@@ -90,17 +90,19 @@ export default class Hobby extends ConsentComponent {
     let invalid = false;
 
     let errorMessage = '';
+    const invalidFields = [];
     if (!_.trim(newHobby.hobby).length) {
-      errorMessage += 'Hobby, ';
+      invalidFields.push('Hobby');
       invalid = true;
     }
 
     if (!_.trim(newHobby.description).length) {
-      errorMessage += 'Description ';
+      invalidFields.push('Description');
       invalid = true;
     }
 
-    if (errorMessage.length > 0) {
+    if (invalidFields.length > 0) {
+      errorMessage += invalidFields.join(', ');
       errorMessage += ' cannot be empty';
     }
 
@@ -243,9 +245,6 @@ export default class Hobby extends ConsentComponent {
           this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="hobby-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
           <h1>
             Hobby
           </h1>
@@ -297,6 +296,9 @@ export default class Hobby extends ConsentComponent {
                 </div>
               </div>
             </form>
+            <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+              {errorMessage}
+            </div>
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"

@@ -31,18 +31,9 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.previousSelectedTab = null;
-    this.state = {
-      isMobileView: false,
-      screenSM: 767,
-    };
-
-    this.updatePredicate = this.updatePredicate.bind(this);
   }
 
-  /* Add this to resolve checkbox checked issue when switch mobile to other device */
   componentDidMount() {
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
     const {
       clearToastrNotification,
     } = this.props;
@@ -50,22 +41,13 @@ class Profile extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updatePredicate);
     const {
       clearToastrNotification,
     } = this.props;
     clearToastrNotification();
   }
 
-  updatePredicate() {
-    const { screenSM } = this.state;
-    this.setState({ isMobileView: window.innerWidth <= screenSM });
-  }
-  /* end */
-
   render() {
-    const { isMobileView } = this.state;
-
     const {
       settingsUI: { currentProfileTab, TABS },
       toggleProfileSideTab,
@@ -114,17 +96,15 @@ class Profile extends React.Component {
     };
     return (
       <div styleName="profile-container">
-        {
-          isMobileView && (
-            <Accordion
-              icons={icons}
-              names={names}
-              currentSidebarTab={currentTab}
-              renderTabContent={renderTabContent}
-              toggleSidebarTab={toggleProfileSideTab}
-            />
-          )
-        }
+        <div styleName="mobile-view">
+          <Accordion
+            icons={icons}
+            names={names}
+            currentSidebarTab={currentTab}
+            renderTabContent={renderTabContent}
+            toggleSidebarTab={toggleProfileSideTab}
+          />
+        </div>
         <div styleName="col-bar">
           <SideBar
             icons={icons}
@@ -133,13 +113,9 @@ class Profile extends React.Component {
             toggle={toggleProfileSideTab}
           />
         </div>
-        {
-          !isMobileView && (
-            <div styleName="col-content">
-              { renderTabContent(currentTab) }
-            </div>
-          )
-        }
+        <div styleName="col-content">
+          { renderTabContent(currentTab) }
+        </div>
       </div>
     );
   }
