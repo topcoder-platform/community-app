@@ -4,7 +4,6 @@
 /* eslint-env browser */
 import React from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
 import './styles.scss';
 
 const ChartTooltip = ({
