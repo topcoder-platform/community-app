@@ -11,11 +11,11 @@ import ToggleableItem from 'components/Settings/ToggleableItem';
 import './styles.scss';
 
 const newsletters = [
-  {
-    id: 'TOPCODER_NL_GEN',
-    name: 'General Newsletter',
-    desc: 'News summary from all tracks and programs',
-  },
+  // {
+  //   id: 'TOPCODER_NL_GEN',
+  //   name: 'General Newsletter',
+  //   desc: 'News summary from all tracks and programs',
+  // },
   {
     id: 'TOPCODER_NL_DESIGN',
     name: 'Design Newsletter',
@@ -31,26 +31,26 @@ const newsletters = [
     name: 'Data Science Newsletter',
     desc: 'Algorithm and data structures, statistical analysis',
   },
-  {
-    id: 'TOPCODER_NL_IOS',
-    name: 'iOS Community Newsletter',
-    desc: 'Mobile app design and development for iOS, with Swift emphasis',
-  },
-  {
-    id: 'TOPCODER_NL_TCO',
-    name: 'TCO Newsletter',
-    desc: 'Our annual online and onsite tournament to celebrate and reward the community',
-  },
-  {
-    id: 'TOPCODER_NL_PREDIX',
-    name: 'Predix Community Newsletter',
-    desc: 'Design and development on GE’s platform for the Industrial Internet of Things',
-  },
-  {
-    id: 'TOPCODER_NL_IBM_COGNITIVE',
-    name: 'Cognitive Community Newsletter',
-    desc: 'Never miss out on info about the Topcoder Cognitive Community',
-  },
+  // {
+  //   id: 'TOPCODER_NL_IOS',
+  //   name: 'iOS Community Newsletter',
+  //   desc: 'Mobile app design and development for iOS, with Swift emphasis',
+  // },
+  // {
+  //   id: 'TOPCODER_NL_TCO',
+  //   name: 'TCO Newsletter',
+  //   desc: 'Our annual online and onsite tournament to celebrate and reward the community',
+  // },
+  // {
+  //   id: 'TOPCODER_NL_PREDIX',
+  //   name: 'Predix Community Newsletter',
+  //   desc: 'Design and development on GE’s platform for the Industrial Internet of Things',
+  // },
+  // {
+  //   id: 'TOPCODER_NL_IBM_COGNITIVE',
+  //   name: 'Cognitive Community Newsletter',
+  //   desc: 'Never miss out on info about the Topcoder Cognitive Community',
+  // },
 ];
 
 const SAVE_DELAY = 1000;
