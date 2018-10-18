@@ -91,17 +91,19 @@ export default class ServiceProviders extends ConsentComponent {
     let invalid = false;
 
     let errorMessage = '';
+    const invalidFields = [];
     if (!_.trim(newServiceProvider.serviceProviderType).length) {
-      errorMessage += 'Type, ';
+      invalidFields.push('Type');
       invalid = true;
     }
 
     if (!_.trim(newServiceProvider.name).length) {
-      errorMessage += 'Name ';
+      invalidFields.push('Name');
       invalid = true;
     }
 
-    if (errorMessage.length > 0) {
+    if (invalidFields.length > 0) {
+      errorMessage += invalidFields.join(', ');
       errorMessage += ' cannot be empty';
     }
 
@@ -246,9 +248,6 @@ export default class ServiceProviders extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
-        </div>
         <h1>
           Service Providers
         </h1>
@@ -301,6 +300,9 @@ export default class ServiceProviders extends ConsentComponent {
               </div>
             </div>
           </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            { errorMessage }
+          </div>
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"

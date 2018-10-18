@@ -21,6 +21,7 @@
  *     if those should be displayed
  *   - onUsernameClick: Function if provided it is invoked with the clicked competitor
  *     instead of linking to member's profile
+ *   - isTopGear: Topgear leaderboards have special fileds
  */
 
 import React from 'react';
@@ -68,6 +69,7 @@ export default function PodiumSpot(props) {
     competitor,
     isCopilot,
     onUsernameClick,
+    isTopGear,
   } = props;
 
   let photoUrl = competitor.avatar;
@@ -122,6 +124,22 @@ export default function PodiumSpot(props) {
           <span styleName="styles.value">{competitor.points}</span>
           <span>points</span>
         </div>
+        {
+          isTopGear ? (
+            <div styleName="styles.stats">
+              <span styleName="styles.value">{competitor.wins}</span>
+              <span>wins</span>
+            </div>
+          ) : null
+        }
+        {
+          isTopGear ? (
+            <div styleName="styles.stats">
+              <span styleName="styles.value">{competitor.total_earnings}</span>
+              <span>total earnings</span>
+            </div>
+          ) : null
+        }
       </div>
     </div>
   );
@@ -142,9 +160,11 @@ PodiumSpot.propTypes = {
   competitor: CompetitorShape.isRequired,
   isCopilot: PT.bool,
   onUsernameClick: PT.func,
+  isTopGear: PT.bool,
 };
 
 PodiumSpot.defaultProps = {
   isCopilot: false,
   onUsernameClick: null,
+  isTopGear: false,
 };

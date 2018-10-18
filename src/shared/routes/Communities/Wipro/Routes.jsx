@@ -84,6 +84,7 @@ export default function Wipro({ base, meta }) {
                   <Leaderboard
                     HeadBanner={LeaderboardBanner}
                     meta={meta}
+                    isTopGear
                   />
                 )}
                 exact

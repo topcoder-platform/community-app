@@ -22,6 +22,7 @@
  *     if those should be displayed
  *   - onUsernameClick: Function if provided it is invoked with the clicked competitor
  *     instead of linking to member's profile
+ *   - isTopGear: Topgear leaderboards have special fileds
  */
 
 import React from 'react';
@@ -35,6 +36,7 @@ export default function Podium(props) {
     competitors,
     isCopilot,
     onUsernameClick,
+    isTopGear,
   } = props;
 
   const renderPodium = (comps) => {
@@ -44,6 +46,7 @@ export default function Podium(props) {
           competitor={comp}
           isCopilot={isCopilot}
           onUsernameClick={onUsernameClick}
+          isTopGear={isTopGear}
         />
       </div>
     ));
@@ -78,9 +81,11 @@ Podium.propTypes = {
   competitors: PT.arrayOf(CompetitorShape).isRequired,
   isCopilot: PT.bool,
   onUsernameClick: PT.func,
+  isTopGear: PT.bool,
 };
 
 Podium.defaultProps = {
   isCopilot: false,
   onUsernameClick: null,
+  isTopGear: false,
 };
