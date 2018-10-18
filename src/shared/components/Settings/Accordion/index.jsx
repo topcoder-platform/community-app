@@ -32,6 +32,11 @@ export default class Accordion extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { currentSidebarTab } = this.props;
+    this.setState({ currentItem: currentSidebarTab });
+  }
+
   /*
    * Sync the state of the Accordion with the state of the Sidebar
    */

@@ -181,37 +181,39 @@ export default class Devices extends ConsentComponent {
     let invalid = false;
 
     let errorMessage = '';
+    const invalidFields = [];
     if (!_.trim(newDevice.deviceType).length) {
-      errorMessage += 'Type, ';
+      invalidFields.push('Type');
       invalid = true;
     }
 
     if (!_.trim(newDevice.manufacturer).length) {
-      errorMessage += 'Manufacturer, ';
+      invalidFields.push('Manufacturer');
       invalid = true;
     }
 
     if (!_.trim(newDevice.model).length) {
-      errorMessage += 'Model, ';
+      invalidFields.push('Model');
       invalid = true;
     }
 
     if (!_.trim(newDevice.operatingSystem).length) {
-      errorMessage += 'Operating system, ';
+      invalidFields.push('Operating system');
       invalid = true;
     }
 
     if (!_.trim(newDevice.osVersion).length) {
-      errorMessage += 'OS Version ';
+      invalidFields.push('OS Version');
       invalid = true;
     }
 
     if (!_.trim(newDevice.osLanguage).length) {
-      errorMessage += 'OS Language, ';
+      invalidFields.push('OS Language');
       invalid = true;
     }
 
-    if (errorMessage.length > 0) {
+    if (invalidFields.length > 0) {
+      errorMessage += invalidFields.join(', ');
       errorMessage += ' cannot be empty';
     }
 
@@ -279,9 +281,6 @@ export default class Devices extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          {errorMessage}
-        </div>
         <h1>
           Devices
         </h1>
@@ -373,6 +372,9 @@ export default class Devices extends ConsentComponent {
               </div>
             </div>
           </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            {errorMessage}
+          </div>
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"

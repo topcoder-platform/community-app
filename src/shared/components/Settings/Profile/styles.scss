@@ -9,6 +9,19 @@
     padding: 0;
   }
 
+  .mobile-view {
+    display: none;
+
+    @include from-sm-to-lg {
+      display: none;
+    }
+
+    @include upto-sm {
+      display: block;
+      width: 100%;
+    }
+  }
+
   .col-bar {
     width: 250px;
     background-color: #fafafb;
