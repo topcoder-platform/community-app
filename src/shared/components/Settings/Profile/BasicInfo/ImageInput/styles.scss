@@ -30,6 +30,8 @@
       width: 120px;
       height: 120px;
       padding: 2px;
+      background: #fff;
+      color: #fff;
 
       @include upto-sm {
         width: 80px;
