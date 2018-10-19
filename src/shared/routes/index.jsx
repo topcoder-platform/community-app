@@ -79,22 +79,16 @@ function Routes({ communityId }) {
           component={() => <Sandbox base="/sandbox" />}
           path="/sandbox"
         />
-        <Route
+        {/* <Route
           component={() => <TrackHomePages base="/track" />}
           path="/track"
-        />
+        /> */}
         <Redirect
           from="/community/data-science/data-science-tutorials/*"
           to="/community/competitive-programming/tutorials/*"
         />
         <Route
           component={() => <TrackHomePages base="/community" />}
-          exact
-          path="/community/(competitive-programming|data-science|design|development)"
-        />
-        <Route
-          component={() => <TrackHomePages base="/community" />}
-          exact
           path="/community/(competitive-programming|data-science|design|development)/how-to-compete"
         />
         <Topcoder />
