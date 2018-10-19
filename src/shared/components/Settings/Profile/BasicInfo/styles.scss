@@ -86,7 +86,7 @@
 
   textarea {
     @include placeholder {
-      text-transform: uppercase;
+      text-transform: capitalize;
     }
   }
 
@@ -283,7 +283,7 @@
 
     textarea {
       @include placeholder {
-        text-transform: uppercase;
+        text-transform: capitalize;
       }
     }
 
