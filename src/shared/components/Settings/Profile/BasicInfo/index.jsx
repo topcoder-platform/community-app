@@ -457,7 +457,7 @@ export default class BasicInfo extends ConsentComponent {
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="firstName">
-                  Firstname
+                  First name
                 </label>
               </div>
               <div styleName="field col-2">
@@ -468,7 +468,7 @@ export default class BasicInfo extends ConsentComponent {
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="lastName">
-                  Lastname
+                  Last name
                 </label>
               </div>
               <div styleName="field col-2">
@@ -677,7 +677,7 @@ export default class BasicInfo extends ConsentComponent {
                   <div styleName="row">
                     <div styleName="field">
                       <label htmlFor="firstName">
-                        Firstname
+                        First name
                         <span styleName="text-required">* Required</span>
                       </label>
 
@@ -685,7 +685,7 @@ export default class BasicInfo extends ConsentComponent {
                     </div>
                     <div styleName="field">
                       <label htmlFor="lastName">
-                        Lastname
+                        Last name
                         <span styleName="text-required">* Required</span>
                       </label>
                       <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
