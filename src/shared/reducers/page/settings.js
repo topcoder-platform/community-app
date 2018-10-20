@@ -2,7 +2,8 @@
  * Reducers for settings page UI.
  */
 import _ from 'lodash';
-import { config } from 'topcoder-react-utils';
+
+import { logger, config } from 'topcoder-react-utils';
 import { handleActions } from 'redux-actions';
 import { toastr } from 'react-redux-toastr';
 
@@ -136,6 +137,7 @@ function onDeleteWebLinkDone(state, { payload, error }) {
 
 function onLinkExternalAccountDone(state, { payload, error }) {
   if (error) {
+    logger.error(error);
     return state;
   }
 
