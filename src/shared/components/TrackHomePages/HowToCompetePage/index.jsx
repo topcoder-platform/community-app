@@ -92,13 +92,13 @@ Step by Step
                 </h1>
                 <StepByStep data={steps} />
               </div>
-              <div styleName="how-to-extras">
+              <div styleName="how-to-extras" id="how to compete extras">
                 <h1>
                   Extras
                 </h1>
                 <FAQ data={howToExtras} />
               </div>
-              <div styleName="faq">
+              <div styleName="faq" id="how to compete faq">
                 <h1>
 FAQ
                 </h1>
