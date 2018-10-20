@@ -391,7 +391,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
-                        disabled={!this.state.newEmail}
+                        disabled={!newEmail}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email
@@ -400,7 +400,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
-                        disabled={!this.state.newEmail}
+                        disabled={!newEmail}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email Again
@@ -470,7 +470,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
-                        disabled={!this.state.newEmail}
+                        disabled={!newEmail}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email
@@ -479,7 +479,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
-                        disabled={!this.state.newEmail}
+                        disabled={!newEmail}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email Again
