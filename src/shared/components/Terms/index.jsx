@@ -7,8 +7,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import Modal from 'components/Modal';
-import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from './TermDetails';
 

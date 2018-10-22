@@ -50,3 +50,5 @@ jspm_packages
 .vscode
 set-env*.sh
 set-test-env.sh
+.idea
+*.iml

@@ -8,10 +8,9 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { services } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
 
-import design from './design';
-
-const getChallengesService = services.challenge.getService;
+const Api = services.api.default;
 
 /**
  * Payload creator for the action that actually performs submission operation.
@@ -25,14 +24,23 @@ const getChallengesService = services.challenge.getService;
  * @return Promise
  */
 function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
-  return getChallengesService(tokenV3, tokenV2)
-    .submit(body, submissionId, track, progress);
+  const api = new Api(config.API.V5, tokenV3);
+  const url = '/submissions/';
+  return api.upload(url, {
+    body,
+    method: 'POST',
+  }, progress).then((res) => {
+    const jres = JSON.parse(res);
+    return jres;
+  }, (err) => {
+    throw err;
+  });
 }
 
 /**
  * Export Actions for usage by Redux
  */
-export default _.merge(createActions({
+export default createActions({
   PAGE: {
     SUBMISSION: {
       SUBMIT_INIT: _.noop,
@@ -46,8 +54,6 @@ export default _.merge(createActions({
       SET_FILE_PICKER_DRAGGED: (id, dragged) => ({ id, dragged }),
       UPDATE_NOTES_LENGTH: length => length,
       SET_SUBMISSION_FILESTACK_DATA: data => data,
-      SET_SOURCE_FILESTACK_DATA: data => data,
-      SET_PREVIEW_FILESTACK_DATA: data => data,
     },
   },
-}), design);
+});

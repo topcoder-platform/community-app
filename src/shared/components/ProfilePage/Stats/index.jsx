@@ -28,11 +28,17 @@ class ProfileStats extends React.Component {
     };
 
     this.toggleModal = this.toggleModal.bind(this);
+    this.checkSRMHonor = this.checkSRMHonor.bind(this);
   }
 
   toggleModal() {
     const { showModal } = this.state;
     this.setState({ showModal: !showModal });
+  }
+
+  checkSRMHonor() {
+    const { achievements } = this.props;
+    return achievements && achievements.filter(achievement => achievement.description === 'SRM Engagement Honor').length > 0;
   }
 
   render() {
@@ -95,6 +101,14 @@ class ProfileStats extends React.Component {
 Active Challenges
                   </div>
                 </div>
+                {
+                  this.checkSRMHonor()
+                  && (
+                  <div styleName="badgeItem">
+                    <div styleName="dashboardBadge" />
+                  </div>
+                  )
+                }
               </div>
             </header>
           </div>
@@ -172,7 +186,13 @@ Active Challenges
                     </div>
                     {
                       activeGraph === 'history'
-                        ? <HistoryGraph history={getHistory(statsHistory, track, subTrack)} />
+                        ? (
+                          <HistoryGraph
+                            history={getHistory(statsHistory, track, subTrack)}
+                            track={track}
+                            subTrack={subTrack}
+                          />
+                        )
                         : (
                           <DistributionGraph
                             distribution={statsDistribution}
@@ -252,6 +272,7 @@ ProfileStats.propTypes = {
   statsDistribution: PT.shape(),
   statsHistory: PT.shape(),
   activeChallengesCount: PT.number,
+  achievements: PT.shape().isRequired,
 };
 
 export default ProfileStats;

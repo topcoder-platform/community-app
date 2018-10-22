@@ -2,7 +2,8 @@
  * Reducers for settings page UI.
  */
 import _ from 'lodash';
-import { config } from 'topcoder-react-utils';
+
+import { logger, config } from 'topcoder-react-utils';
 import { handleActions } from 'redux-actions';
 import { toastr } from 'react-redux-toastr';
 
@@ -12,6 +13,12 @@ import { actions } from 'topcoder-react-lib';
 function toastrSuccess(title, message) {
   setImmediate(() => {
     toastr.success(title, message);
+  });
+}
+
+function onClearToastrNotification() {
+  setImmediate(() => {
+    toastr.clean();
   });
 }
 
@@ -30,9 +37,27 @@ function mergeSkills(state, { type, payload, error }) {
 
   let maxIsNew = 0;
 
+  // add skill logic
   let addedSkillName = '';
-  let removedSkillName = '';
+  _.forEach(newSkills, (newSkill, tagId) => {
+    const oldSkill = oldSkills[tagId];
+    if (!oldSkill) {
+      if (!firstTime) {
+        maxIsNew += 1;
+      }
+      // Add the new skill and set 'isNew' field
+      mergedSkills[tagId] = {
+        ...newSkill,
+        isNew: firstTime ? 0 : maxIsNew,
+      };
+      addedSkillName = newSkill.tagName;
+    } else if (!newSkill.hidden && oldSkill.hidden) {
+      addedSkillName = newSkill.tagName;
+    }
+  });
 
+  let removedSkillName = '';
+  // remove skill logic
   _.forEach(oldSkills, (oldSkill, tagId) => {
     const newSkill = newSkills[tagId];
     if (!newSkill) {
@@ -58,26 +83,15 @@ function mergeSkills(state, { type, payload, error }) {
     }
   });
 
-  _.forEach(newSkills, (newSkill, tagId) => {
-    const oldSkill = oldSkills[tagId];
-    if (!oldSkill) {
-      if (!firstTime) {
-        maxIsNew += 1;
-      }
-      // Add the new skill and set 'isNew' field
-      mergedSkills[tagId] = {
-        ...newSkill,
-        isNew: firstTime ? 0 : maxIsNew,
-      };
-      addedSkillName = newSkill.tagName;
-    } else if (!newSkill.hidden && oldSkill.hidden) {
-      addedSkillName = newSkill.tagName;
-    }
-  });
-
   if (type === 'PROFILE/ADD_SKILL_DONE') {
+    if (payload.skill) {
+      addedSkillName = payload.skill.name;
+    }
     toastrSuccess('Success! ', `Skill "${addedSkillName}" was added.`);
   } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
+    if (payload.skill) {
+      removedSkillName = payload.skill.name;
+    }
     toastrSuccess('Success! ', `Skill "${removedSkillName}" was removed.`);
   }
 
@@ -123,6 +137,7 @@ function onDeleteWebLinkDone(state, { payload, error }) {
 
 function onLinkExternalAccountDone(state, { payload, error }) {
   if (error) {
+    logger.error(error);
     return state;
   }
 
@@ -172,7 +187,7 @@ function onUpdateProfileDone(state, { error }) {
 
 function onUploadPhotoDone(state, { error }) {
   if (!error) {
-    toastrSuccess('Success! ', 'Your profile image was updated.');
+    toastrSuccess('Success! ', 'Your profile image has been updated.');
   }
   return state;
 }
@@ -211,6 +226,7 @@ function create(defaultState = {}) {
       deletingLinks: state.deletingLinks,
     }),
     [a.clearIncorrectPassword]: state => ({ ...state, incorrectPassword: false }),
+    [a.clearToastrNotification]: onClearToastrNotification,
     [actions.profile.getSkillsDone]: mergeSkills,
     [actions.profile.addSkillDone]: mergeSkills,
     [actions.profile.hideSkillDone]: mergeSkills,

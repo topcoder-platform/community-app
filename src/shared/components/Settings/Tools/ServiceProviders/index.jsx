@@ -5,10 +5,11 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -16,29 +17,37 @@ import ServiceProviderList from './List';
 
 import './styles.scss';
 
-
-export default class ServiceProviders extends React.Component {
+export default class ServiceProviders extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteServiceProvider = this.onHandleDeleteServiceProvider.bind(this);
     this.onDeleteServiceProvider = this.onDeleteServiceProvider.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadServiceProviderTrait = this.loadServiceProviderTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddServiceProvider = this.onHandleAddServiceProvider.bind(this);
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
-      serviceProviderTrait: this.loadServiceProviderTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      serviceProviderTrait: this.loadServiceProviderTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newServiceProvider: {
         serviceProviderType: '',
         name: '',
       },
+      isMobileView: false,
+      screenSM: 767,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,17 +65,21 @@ export default class ServiceProviders extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
+  }
+
   /**
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddServiceProvider(e) {
     e.preventDefault();
     const { newServiceProvider } = this.state;
     if (this.onCheckFormValue(newServiceProvider)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddServiceProvider.bind(this));
   }
 
   /**
@@ -78,22 +91,28 @@ export default class ServiceProviders extends React.Component {
     let invalid = false;
 
     let errorMessage = '';
+    const invalidFields = [];
     if (!_.trim(newServiceProvider.serviceProviderType).length) {
-      errorMessage += 'ServiceProvider type, ';
+      invalidFields.push('Type');
       invalid = true;
     }
 
     if (!_.trim(newServiceProvider.name).length) {
-      errorMessage += 'Name, ';
+      invalidFields.push('Name');
       invalid = true;
     }
 
-    if (errorMessage.length > 0) {
+    if (invalidFields.length > 0) {
+      errorMessage += invalidFields.join(', ');
       errorMessage += ' cannot be empty';
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
+  }
+
+  onHandleDeleteServiceProvider(indexNo) {
+    this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo));
   }
 
   /**
@@ -124,12 +143,9 @@ export default class ServiceProviders extends React.Component {
 
   /**
    * Add new serviceProvider
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddServiceProvider(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddServiceProvider(answer) {
     const { newServiceProvider, personalizationTrait } = this.state;
 
     const {
@@ -216,8 +232,13 @@ export default class ServiceProviders extends React.Component {
     return _.assign({}, personalization);
   }
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
-    const { serviceProviderTrait, showUserConsent } = this.state;
+    const { serviceProviderTrait, isMobileView } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
@@ -225,25 +246,84 @@ export default class ServiceProviders extends React.Component {
     return (
       <div styleName="service-provider-container">
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddServiceProvider} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
-        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          { errorMessage }
-        </div>
         <h1>
-Service Providers
+          Service Providers
         </h1>
-        <div styleName="form-container">
+        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? '' : 'hidden'}`}>
+          Your service providers
+        </div>
+        {
+          !isMobileView && serviceProviderItems.length > 0
+          && (
+            <ServiceProviderList
+              serviceProviderList={{ items: serviceProviderItems }}
+              onDeleteItem={this.onDeleteServiceProvider}
+            />
+          )
+        }
+        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? 'second' : 'first'}`}>
+          Add a new service provider
+        </div>
+        <div styleName="form-container-default">
+          <form name="device-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="serviceProviderType">
+                  Type
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <Select
+                  name="serviceProviderType"
+                  options={dropdowns.serviceProviderType}
+                  onChange={this.onUpdateSelect}
+                  value={newServiceProvider.serviceProviderType}
+                  placeholder="Service Provider Type"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="name">
+                  Name
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+              </div>
+            </div>
+          </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            { errorMessage }
+          </div>
+          <div styleName="button-save">
+            <PrimaryButton
+              styleName="complete"
+              onClick={this.onHandleAddServiceProvider}
+            >
+              Add service provider to your list
+            </PrimaryButton>
+          </div>
+        </div>
+        <div styleName="form-container-mobile">
           <form name="service-provider-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-Add Service Provider
+                Add Service Provider
               </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="serviceProviderType">
-Type
+                  Type
+                  <span styleName="text-required">* Required</span>
                 </label>
                 <Select
                   name="serviceProviderType"
@@ -258,7 +338,8 @@ Type
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
-Provider Name
+                  Provider Name
+                  <span styleName="text-required">* Required</span>
                 </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
               </div>
@@ -267,16 +348,21 @@ Provider Name
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddServiceProvider}
             >
               Add Provider
             </PrimaryButton>
           </div>
         </div>
-        <ServiceProviderList
-          serviceProviderList={{ items: serviceProviderItems }}
-          onDeleteItem={this.onDeleteServiceProvider}
-        />
+        {
+          isMobileView
+          && (
+            <ServiceProviderList
+              serviceProviderList={{ items: serviceProviderItems }}
+              onDeleteItem={this.onHandleDeleteServiceProvider}
+            />
+          )
+        }
       </div>
     );
   }

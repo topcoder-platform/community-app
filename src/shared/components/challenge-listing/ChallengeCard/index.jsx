@@ -21,6 +21,9 @@ export const PRIZE_MODE = {
   MONEY_USD: 'money-usd',
 };
 
+// Constants
+const ID_LENGTH = 6;
+
 // Get the End date of a challenge
 const getEndDate = (c) => {
   let phases = c.allPhases;
@@ -111,14 +114,11 @@ function ChallengeCard({
     <div styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip
-            subTrack={subTrack}
-            track={challenge.track}
-          >
+          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
             <span>
               <TrackIcon
                 track={challenge.track}
-                subTrack={subTrack}
+                subTrack={challenge.subTrack}
                 tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />

@@ -7,24 +7,19 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Item from './Item';
 import data from './data';
 
 import './styles.scss';
 
-const SAVE_DELAY = 1000;
-
-class Community extends React.Component {
+class Community extends ConsentComponent {
   constructor(props) {
     super(props);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    const { userTraits } = props;
     this.state = {
-      communityTrait: this.loadCommunityTrait(props.userTraits),
-      showUserConsent: false,
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
-      newCommunity: null,
-      communityChecked: false,
+      communityTrait: this.loadCommunityTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       isAdd: false,
     };
 
@@ -46,8 +41,6 @@ class Community extends React.Component {
     const trait = userTraits.filter(t => t.traitId === 'communities');
     this.setState({
       isAdd: trait.length === 0 ? true : false,
-      newCommunity: null,
-      communityChecked: false,
     });
     const communityTrait = this.loadCommunityTrait(nextProps.userTraits);
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
@@ -60,13 +53,9 @@ class Community extends React.Component {
    * @param item the community object
    * @param checked the check value
    */
-  onShowUserConsent(e, item, checked) {
+  onChange(e, item, checked) {
     e.preventDefault();
-    this.setState({
-      showUserConsent: true,
-      newCommunity: item,
-      communityChecked: checked,
-    });
+    this.showConsent(this.onUpdateCommunity.bind(this, item, checked));
   }
 
   /**
@@ -100,17 +89,15 @@ class Community extends React.Component {
         updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
     }
-  }, SAVE_DELAY);
+  });
 
 
   /**
    * Change toggle button check value
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onChange(e, answer) {
-    this.setState({ showUserConsent: false });
-    const { communityTrait, newCommunity, communityChecked } = this.state;
+  onUpdateCommunity(newCommunity, communityChecked, answer) {
+    const { communityTrait } = this.state;
     communityTrait[newCommunity.id] = communityChecked;
     this.setState({
       communityTrait,
@@ -136,15 +123,13 @@ class Community extends React.Component {
     const communities = trait.length === 0 ? {
       cognitive: false,
       blockchain: false,
-      ios: false,
-      predix: false,
     } : trait[0].traits.data[0];
     return _.assign({}, communities);
   }
 
   render() {
     const { settingsUI } = this.props;
-    const { communityTrait, showUserConsent } = this.state;
+    const { communityTrait } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.COMMUNITY ? '' : 'hide';
@@ -153,14 +138,15 @@ class Community extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (
-            <UserConsentModal onSaveTrait={this.onChange} />
-          )
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="community-container">
           <h1>
             Community
           </h1>
+          <div styleName="sub-title">
+            Your communities
+          </div>
           <div styleName="list">
             {
               _.map(data, (item) => {
@@ -175,7 +161,7 @@ class Community extends React.Component {
                     title={item.name}
                     programID={item.programID}
                     description={item.description}
-                    onToggle={event => this.onShowUserConsent(event, item, event.target.checked)}
+                    onToggle={event => this.onChange(event, item, event.target.checked)}
                   />
                 );
               })

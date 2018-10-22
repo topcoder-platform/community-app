@@ -51,32 +51,38 @@ const PhaseList = ({ isExpanded, phases, onExpand }) => (
   >
     <div styleName="phases">
       {
-        isExpanded ? phases.map(renderPhase) : phases.slice(0, 4).map(renderPhase)
+        isExpanded || phases.length < 6
+          ? phases.map(renderPhase) : phases.slice(0, 4).map(renderPhase)
       }
     </div>
-    <Button onClick={onExpand} theme={style}>
-      {isExpanded ? (
-        <span>
+    {
+      phases.length > 5 && (
+        <Button onClick={onExpand} theme={style}>
+          {isExpanded ? (
+            <span>
 Hide Phases
-          <ArrowUp />
-        </span>
-      ) : (
-        <span>
+              <ArrowUp />
+            </span>
+          ) : (
+            <span>
 View All Phases
-          <ArrowDown />
-        </span>
-      )}
-    </Button>
+              <ArrowDown />
+            </span>
+          )}
+        </Button>
+      )
+    }
   </div>
 );
 
-/**
- * Prop Validation
- */
+PhaseList.defaultProps = {
+  phases: [],
+};
+
 PhaseList.propTypes = {
   isExpanded: PT.bool.isRequired,
   onExpand: PT.func.isRequired,
-  phases: PT.arrayOf(PT.shape()).isRequired,
+  phases: PT.arrayOf(PT.shape()),
 };
 
 export default PhaseList;

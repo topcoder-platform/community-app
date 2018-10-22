@@ -13,6 +13,8 @@
 .body {
   display: flex;
   flex-direction: row;
+  flex: 1;
+  align-items: center;
 }
 
 .icon {
@@ -24,7 +26,7 @@
   margin-top: auto;
   margin-bottom: auto;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: none;
   }
 }
@@ -32,8 +34,9 @@
 .info {
   display: flex;
   flex-direction: column;
+  flex: 1;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: none;
   }
 }
@@ -58,7 +61,7 @@
 .mobile-view {
   display: none;
 
-  @include xs-to-sm {
+  @include upto-sm {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

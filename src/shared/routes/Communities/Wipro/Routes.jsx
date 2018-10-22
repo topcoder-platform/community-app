@@ -84,6 +84,7 @@ export default function Wipro({ base, meta }) {
                   <Leaderboard
                     HeadBanner={LeaderboardBanner}
                     meta={meta}
+                    isTopGear
                   />
                 )}
                 exact
@@ -107,6 +108,7 @@ export default function Wipro({ base, meta }) {
               <ContentfulRoute
                 baseUrl={base}
                 id="1VXRAIxJdi6eCeeyKCmicK"
+                spaceName="topgear"
               />
             </Switch>
             <Footer />

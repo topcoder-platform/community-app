@@ -3,6 +3,7 @@ module.exports = {
     V2: 'https://api.topcoder.com/v2',
     V3: 'https://api.topcoder.com/v3',
     V4: 'https://api.topcoder.com/v4',
+    V5: 'https://api.topcoder.com/v5',
   },
   AUTH0: {
     DOMAIN: 'topcoder.auth0.com',
@@ -47,5 +48,10 @@ module.exports = {
       BLOCKCHAIN: 'https://blockchain.topcoder.com',
       COGNITIVE: 'https://cognitive.topcoder.com',
     },
+  },
+  /* Filestack configuration for uploading Submissions
+   * These are for the production back end */
+  FILESTACK: {
+    SUBMISSION_CONTAINER: 'topcoder-submissions-dmz',
   },
 };

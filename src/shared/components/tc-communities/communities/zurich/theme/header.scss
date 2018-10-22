@@ -25,7 +25,7 @@
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
-    color: $blue-bright;
+    color: $blue-1;
   }
 
   @include xs-to-lg {
@@ -39,7 +39,7 @@
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
-    color: $blue-bright;
+    color: $blue-1;
   }
 }
 
@@ -58,7 +58,7 @@
   font-family: 'Akkurat regular', sans-serif;
   text-transform: none;
   font-size: 16px;
-  color: $blue-bright;
+  color: $blue-1;
 }
 
 .menu {
@@ -70,34 +70,33 @@
 }
 
 .menuLink {
-  font-family: 'Akkurat bold', sans-serif;
+  @include frutiger-regular;
+
+  font-size: 16px;
   text-transform: none;
-  font-size: 18px;
 
   &,
   &:active,
   &:focus,
   &:hover,
   &:visited {
-    color: $blue-bright;
+    color: $blue-1;
   }
 }
 
 .menuLinkActive {
-  font-family: 'Akkurat bold', sans-serif;
   text-transform: none;
-  font-size: 18px;
 
   &,
   &:active,
   &:focus,
   &:hover,
   &:visited {
-    color: $blue-dark;
+    color: #4c433d;
   }
 
   &::after {
-    background: $blue-dark !important;
+    background: #4c433d !important;
     height: 8px;
     width: 8px;
     left: 50%;
