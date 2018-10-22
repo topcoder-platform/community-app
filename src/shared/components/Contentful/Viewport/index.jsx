@@ -66,6 +66,7 @@ function ViewportContentLoader(props) {
     themeName,
     grid,
     baseUrl,
+    viewportId,
   } = props;
   let {
     extraStylesForContainer,
@@ -92,6 +93,7 @@ function ViewportContentLoader(props) {
       environment={environment}
       render={data => (
         <Viewport
+          viewportId={viewportId}
           extraStylesForContainer={fixStyle(extraStylesForContainer)}
           theme={theme}
         >
@@ -136,6 +138,7 @@ ViewportContentLoader.defaultProps = {
 };
 
 ViewportContentLoader.propTypes = {
+  viewportId: PT.string.isRequired,
   contentIds: PT.arrayOf(PT.string.isRequired).isRequired,
   extraStylesForContainer: PT.shape(),
   preview: PT.bool.isRequired,
@@ -176,6 +179,7 @@ function ViewportLoader(props) {
       render={data => _.map(data.entries.items, viewport => (
         <ViewportContentLoader
           {...props}
+          viewportId={viewport.sys.id}
           contentIds={_.map(viewport.fields.content, 'sys.id')}
           extraStylesForContainer={viewport.fields.extraStylesForContainer}
           key={viewport.sys.id}

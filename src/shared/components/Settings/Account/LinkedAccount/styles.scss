@@ -780,6 +780,7 @@
 
     &.disabled {
       cursor: default;
+      opacity: 0.4;
     }
 
     &.enabled.connect:hover {
