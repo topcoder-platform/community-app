@@ -8,9 +8,6 @@ exports[`Matches shallow shapshot 1`] = `
     <thead>
       <tr>
         <th>
-          Preview
-        </th>
-        <th>
           ID
         </th>
         <th>
@@ -71,9 +68,6 @@ exports[`Matches shallow shapshot 2`] = `
   <table>
     <thead>
       <tr>
-        <th>
-          Preview
-        </th>
         <th>
           ID
         </th>
