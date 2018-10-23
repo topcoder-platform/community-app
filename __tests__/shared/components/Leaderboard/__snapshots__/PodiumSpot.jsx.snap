@@ -32,6 +32,7 @@ exports[`Matches shallow shapshot 1`] = `
   </div>
   <div
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+    style={null}
   >
     <div
       className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
@@ -91,6 +92,7 @@ exports[`Matches shallow shapshot 2`] = `
   </div>
   <div
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+    style={null}
   >
     <div
       className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
