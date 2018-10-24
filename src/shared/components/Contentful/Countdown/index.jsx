@@ -24,6 +24,7 @@ export default function CountdownLoader(props) {
         <Countdown
           title={data.entries.items[id].fields.title}
           end={new Date(data.entries.items[id].fields.endDate)}
+          extraStylesForContainer={data.entries.items[id].fields.extraStylesForContainer}
         />
       )}
       renderPlaceholder={LoadingIndicator}
