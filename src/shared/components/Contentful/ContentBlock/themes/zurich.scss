@@ -50,6 +50,29 @@
     line-height: 18px;
   }
 
+  th {
+    font-weight: 500;
+    color: #888894;
+    font-size: 20px;
+    line-height: 1.5;
+    padding: 0 10px;
+    text-align: left;
+    border: 1px solid #ededf2;
+
+    @include md-to-xl {
+      white-space: nowrap;
+    }
+  }
+
+  td {
+    font-size: 20px;
+    line-height: 1.5;
+    text-align: left;
+    color: $tc-gray-80;
+    border: 1px solid #ededf2;
+    padding: 0 10px;
+  }
+
   flex: 1;
   padding: 15px;
 }

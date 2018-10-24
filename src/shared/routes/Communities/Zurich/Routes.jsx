@@ -12,6 +12,7 @@ import Footer from 'components/tc-communities/communities/zurich/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/zurich/Home';
 import Learn from 'components/tc-communities/communities/zurich/Learn';
+import ContentfulRoute from 'components/Contentful/Route';
 import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
@@ -99,6 +100,11 @@ export default function Zurich({ base, meta }) {
                 component={Home}
                 exact
                 path={`${base}/home`}
+              />
+              <ContentfulRoute
+                baseUrl={base}
+                id="67BVaSm4CcSoSkA2QOAGuM"
+                spaceName="zurich"
               />
               <Route
                 component={Error404}
