@@ -107,7 +107,7 @@ export default function PodiumSpot(props) {
           )
         }
       </div>
-      <div styleName="styles.winnings-info">
+      <div styleName="styles.winnings-info" style={isTopGear ? { 'flex-direction': 'column' } : null}>
         {
           isCopilot ? (
             <div styleName="styles.stats">

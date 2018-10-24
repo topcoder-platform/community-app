@@ -93,9 +93,6 @@ export default function SubmissionsTable(props) {
         <thead>
           <tr>
             <th>
-Preview
-            </th>
-            <th>
 ID
             </th>
             <th>

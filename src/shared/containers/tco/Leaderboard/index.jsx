@@ -57,10 +57,13 @@ class LeaderboardPageContainer extends React.Component {
   render() {
     const {
       leaderboardData, title, podiumSpots, isCopilot, hasChallengeHistory,
-      tcoPointsApiUrl,
+      tcoPointsApiUrl, memberLimit,
     } = this.props;
-    const ld = leaderboardData || [];
     const { competitor } = this.state;
+    let ld = leaderboardData || [];
+    if (memberLimit > 0 && ld.length > memberLimit) {
+      ld = ld.slice(0, memberLimit);
+    }
     const member = _.find(ld, {
       userid: competitor ? competitor.userid : null,
     }) || {};
@@ -105,6 +108,7 @@ LeaderboardPageContainer.defaultProps = {
   isCopilot: false,
   hasChallengeHistory: true,
   tcoPointsApiUrl: null,
+  memberLimit: null,
 };
 
 LeaderboardPageContainer.propTypes = {
@@ -120,6 +124,7 @@ LeaderboardPageContainer.propTypes = {
   hasChallengeHistory: PT.bool,
   resetTcoHistoryChallenges: PT.func.isRequired,
   tcoPointsApiUrl: PT.string,
+  memberLimit: PT.number,
 };
 
 const mapStateToProps = state => ({
