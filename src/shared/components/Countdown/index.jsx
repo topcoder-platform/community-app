@@ -84,7 +84,7 @@ export default class Countdown extends React.Component {
 
 Countdown.defaultProps = {
   title: 'Countdown to TCO19 Final',
-  extraStylesForContainer: null,
+  extraStylesForContainer: {},
 };
 
 Countdown.propTypes = {

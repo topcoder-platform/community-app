@@ -101,6 +101,11 @@ export default function Zurich({ base, meta }) {
                 exact
                 path={`${base}/home`}
               />
+              <Route
+                component={Home}
+                exact
+                path={`${base}`}
+              />
               <ContentfulRoute
                 baseUrl={base}
                 id="67BVaSm4CcSoSkA2QOAGuM"
@@ -109,11 +114,6 @@ export default function Zurich({ base, meta }) {
               <Route
                 component={Error404}
                 path={`${base}/:any`}
-              />
-              <Route
-                component={Home}
-                exact
-                path={`${base}`}
               />
             </Switch>
             <Footer />
