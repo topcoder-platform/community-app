@@ -99,7 +99,7 @@ export default function Zurich({ base, meta }) {
               <Route
                 component={Home}
                 exact
-                path={`${base}`}
+                path={`${base || '/'}`}
               />
               {
                 isRequestorOrApprover.length ? (
