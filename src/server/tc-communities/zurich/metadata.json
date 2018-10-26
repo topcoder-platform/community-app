@@ -12,6 +12,7 @@
   "communityId": "zurich",
   "communityName": "Zurich Community",
   "groupIds": ["20000145"],
+  "authorizedGroupIdsCatalog": ["20000080", "20000081"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",
     "url": "https://www.zurich.com/"
@@ -33,10 +34,7 @@
     }, {
       "title": "FAQ",
       "url": "/faq"
-    }, {
-      "title": "Challenges",
-      "url": "/challenges"
-    }
+    },
   ],
   "hideSearch": true,
   "newsFeed": "http://www.topcoder.com/feed",

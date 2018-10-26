@@ -27,10 +27,12 @@ export default function Router({ base }) {
         />
         <ContentfulRoute
           path="/community/design"
+          error404={<Error404 />}
           id="1eWAOHbJKAEeYYiaOgom0Y"
         />
         <ContentfulRoute
           path="/community/data-science"
+          error404={<Error404 />}
           id="1ddrkXopd8426Cg0Uaewg"
         />
         <ContentfulRoute
