@@ -4,7 +4,7 @@
   margin: 0 auto;
 
   @include md-to-xl {
-    width: 960px;
+    width: 1280px;
   }
 
   h1 {
@@ -26,6 +26,12 @@
     @include frutiger-light;
 
     color: #706964;
+    margin-top: 1em;
+  }
+
+  h2 {
+    margin-bottom: .5em;
+    border-bottom: 1px solid #706964;
   }
 
   p {
@@ -35,6 +41,17 @@
     font-size: 14px;
     line-height: 18px;
     opacity: 1;
+    margin-bottom: 0;
+  }
+
+  ul, ol {
+    list-style: disc;
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
+
+  ol {
+    list-style: decimal;
   }
 }
 
@@ -48,6 +65,8 @@
 .titleList {
   position: relative;
   width: 300px;
+  flex: 1;
+  margin-right: 2em;
 
   &::after {
     background-color: #ddd;
@@ -78,7 +97,7 @@
 
   @include frutiger-bold;
 
-  font-size: 14px;
+  font-size: 24px;
   color: #4066b3;
   padding: 20px 0;
   position: relative;
@@ -106,6 +125,8 @@
 
 .content {
   width: 600px;
+  flex: 2;
+  margin-left: 2em;
 
   @include md {
     width: 430px;

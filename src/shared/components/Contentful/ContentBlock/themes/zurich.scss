@@ -4,7 +4,7 @@
 .contentWrapper {
   display: flex;
   margin: 0 auto;
-  max-width: $screen-md;
+  max-width: $screen-lg;
   padding: 15px;
   color: black;
 
@@ -65,7 +65,7 @@
   }
 
   td {
-    font-size: 20px;
+    font-size: 14px;
     line-height: 1.5;
     text-align: left;
     color: $tc-gray-80;
