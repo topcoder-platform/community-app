@@ -102,7 +102,7 @@ export default function Zurich({ base, meta }) {
                 path={`${base}`}
               />
               {
-                !isRequestorOrApprover.length ? (
+                isRequestorOrApprover.length ? (
                   // Catalog with connect links
                   <ContentfulRoute
                     baseUrl={base}
