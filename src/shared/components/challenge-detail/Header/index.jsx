@@ -231,9 +231,9 @@ export default function ChallengeHeader(props) {
   // Legacy MMs have a roundId field, but new MMs do not.
   // This is used to disable registration/submission for legacy MMs.
   const isLegacyMM = subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
-  let canSubmitFinalFixes = false;
+
   if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
-    canSubmitFinalFixes = _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
+    _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
   }
 
   return (

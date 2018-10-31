@@ -22,7 +22,6 @@ export const PRIZE_MODE = {
 };
 
 // Constants
-const ID_LENGTH = 6;
 
 // Get the End date of a challenge
 const getEndDate = (c) => {

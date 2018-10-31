@@ -355,4 +355,5 @@ SideBar.propTypes = {
   isDevelop: PT.bool,
   environment: PT.string,
   codeRepo: PT.string,
+  isMM:PR.bool,
 };
