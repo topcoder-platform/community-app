@@ -30,6 +30,7 @@ export default function SideBar({
   isDevelop,
   environment,
   codeRepo,
+  isMM,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;

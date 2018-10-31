@@ -103,7 +103,7 @@
     "slick-carousel": "^1.8.1",
     "supertest": "^3.1.0",
     "tc-accounts": "git+https://github.com/appirio-tech/accounts-app.git#dev",
-    "topcoder-react-lib": "^0.6.1",
+    "topcoder-react-lib": "git+https://github.com/sushilshinde/topcoder-react-lib.git#new-develop-mm",
     "topcoder-react-ui-kit": "^0.5.6",
     "topcoder-react-utils": "^0.7.8",
     "turndown": "^4.0.2",

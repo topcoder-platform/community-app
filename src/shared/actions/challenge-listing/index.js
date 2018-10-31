@@ -95,7 +95,6 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   const service = getService(tokenV3);
   const calls = [
     getAll(params => service.getChallenges(filter, params)),
-    getAll(params => service.getMarathonMatches(filter, params)),
   ];
   let user;
   if (tokenV3) {
