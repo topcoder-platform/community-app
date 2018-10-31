@@ -48,6 +48,35 @@ class DatePicker extends React.Component {
       'initialDate',
     ]);
 
+    const renderMonthElement = ({ month, onMonthSelect, onYearSelect }) => {
+      const fillRange = (start, end) => {
+        return Array(end - start + 1).fill().map((item, index) => start + index);
+      };
+      const allRange = fillRange(1970, moment().year());
+      return
+      (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div>
+            <select
+              value={month.month()}
+              onChange={(e) => onMonthSelect(month, e.target.value)}
+            >
+              {moment.months().map((label, value) => (
+                <option value={value}>{label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <select value={month.year()} onChange={(e) => onYearSelect(month, e.target.value)}>
+              {allRange.map((label, value) => (
+                <option value={label}>{label}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <SingleDatePicker
         {...props}
@@ -58,6 +87,7 @@ class DatePicker extends React.Component {
         focused={focused}
         onDateChange={onDateChange}
         onFocusChange={this.onFocusChange}
+        renderMonthElement={renderMonthElement}
       />
     );
   }

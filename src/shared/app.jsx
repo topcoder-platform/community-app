@@ -14,6 +14,7 @@ import ErrorIcons from 'containers/ErrorIcons';
 import { DevTools, isomorphy } from 'topcoder-react-utils';
 
 import ExtendedReduxToastr from 'containers/toastr';
+import 'react-dates/initialize';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
@@ -48,7 +49,7 @@ export default function App() {
         transitionOut="fadeOut"
         progressBar={false}
       />
-      { isomorphy.isDevBuild() ? <DevTools /> : undefined }
+      {isomorphy.isDevBuild() ? <DevTools /> : undefined}
     </div>
   );
 }
