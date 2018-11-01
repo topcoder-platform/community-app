@@ -19,10 +19,10 @@
 import _ from 'lodash';
 import actions from 'actions/contentful';
 
-import space from './space';
 
 import { errors, logger } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
+import space from './space';
 
 const { fireErrorMessage } = errors;
 
@@ -58,7 +58,7 @@ function create(init) {
     if (!validActions.has(action.type)) return state;
 
     const { error, payload } = action;
-    
+
     const newState = _.clone(state);
     const spaceName = payload.spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
     const environment = payload.environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
