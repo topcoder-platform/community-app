@@ -23,9 +23,10 @@ class LeaderboardPageContainer extends React.Component {
       isLoadingLeaderboard,
       loadLeaderboard,
       loadedApiUrl,
+      id,
     } = this.props;
     if (!(apiUrl === loadedApiUrl || isLoadingLeaderboard)) {
-      loadLeaderboard(auth, apiUrl);
+      loadLeaderboard(auth, apiUrl, id);
     }
   }
 
@@ -69,6 +70,7 @@ Leaderboard
 }
 
 LeaderboardPageContainer.defaultProps = {
+  id: 'communityLeaderboard',
   HeadBanner: null,
   leaderboardData: [],
   isLoadingLeaderboard: false,
@@ -81,6 +83,7 @@ LeaderboardPageContainer.defaultProps = {
 };
 
 LeaderboardPageContainer.propTypes = {
+  id: PT.string,
   HeadBanner: PT.func,
   leaderboardData: PT.arrayOf(PT.shape()),
   isLoadingLeaderboard: PT.bool,
@@ -91,17 +94,24 @@ LeaderboardPageContainer.propTypes = {
   isTopGear: PT.bool,
 };
 
-const mapStateToProps = state => ({
-  leaderboardData: state.leaderboard.data,
-  isLoadingLeaderboard: state.leaderboard.loading,
-  loadedApiUrl: state.leaderboard.loadedApiUrl,
-  auth: state.auth,
-});
+function mapStateToProps(state, props) {
+  return state.leaderboard[props.id] ? {
+    leaderboardData: state.leaderboard[props.id].data,
+    isLoadingLeaderboard: state.leaderboard[props.id].loading,
+    loadedApiUrl: state.leaderboard[props.id].loadedApiUrl,
+    auth: state.auth,
+  } : {
+    leaderboardData: null,
+    isLoadingLeaderboard: false,
+    loadedApiUrl: null,
+    auth: state.auth,
+  };
+}
 
 const mapDispatchToProps = dispatch => ({
-  loadLeaderboard: (auth, apiUrl) => {
-    dispatch(actions.leaderboard.fetchLeaderboardInit());
-    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl));
+  loadLeaderboard: (auth, apiUrl, id) => {
+    dispatch(actions.leaderboard.fetchLeaderboardInit({ id }));
+    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl, id));
   },
 });
 

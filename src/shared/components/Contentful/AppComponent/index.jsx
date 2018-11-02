@@ -16,6 +16,7 @@ export function AppComponentSwitch(appComponent) {
   if (appComponent.fields.type === 'TCO-Leaderboard') {
     return (
       <Leaderboard
+        id={appComponent.sys.id}
         apiUrl={appComponent.fields.props.leaderboardApiUrl}
         title={appComponent.fields.props.title}
         podiumSpots={appComponent.fields.props.podiumSpots}
