@@ -6,6 +6,7 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import MarkdownRenderer from 'components/MarkdownRenderer';
 import { AppComponentSwitch } from 'components/Contentful/AppComponent';
+import ContentBlock from 'components/Contentful/ContentBlock';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import {
@@ -69,6 +70,9 @@ export default class TabsItemsLoader extends Component {
                           const { id } = panelItemLink.sys;
                           if (panelItem.entries.items[id].sys.contentType.sys.id === 'appComponent') {
                             return AppComponentSwitch(panelItem.entries.items[id]);
+                          }
+                          if (panelItem.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
+                            return ContentBlock({ id });
                           }
                           return null;
                         }}

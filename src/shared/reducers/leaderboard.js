@@ -15,10 +15,12 @@ import { getAuthTokens } from 'utils/tc';
 function onDone(state, action) {
   return {
     ...state,
-    data: action.error ? null : action.payload.data,
-    loadedApiUrl: action.error ? null : action.payload.loadedApiUrl,
-    failed: !!action.error,
-    loading: false,
+    [action.payload.id]: {
+      data: action.error ? null : action.payload.data,
+      loadedApiUrl: action.error ? null : action.payload.loadedApiUrl,
+      failed: !!action.error,
+      loading: false,
+    },
   };
 }
 
@@ -43,13 +45,15 @@ function onHistoryChallengesDone(state, action) {
  */
 function create(initialState) {
   return redux.handleActions({
-    [actions.leaderboard.fetchLeaderboardInit](state) {
+    [actions.leaderboard.fetchLeaderboardInit](state, action) {
       return {
         ...state,
-        data: null,
-        loadedApiUrl: null,
-        failed: false,
-        loading: true,
+        [action.payload.id]: {
+          data: null,
+          loadedApiUrl: null,
+          failed: false,
+          loading: true,
+        },
       };
     },
     [actions.leaderboard.fetchLeaderboardDone]: onDone,

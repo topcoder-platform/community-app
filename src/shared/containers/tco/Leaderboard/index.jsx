@@ -29,6 +29,7 @@ class LeaderboardPageContainer extends React.Component {
 
   componentDidMount() {
     const {
+      id,
       apiUrl,
       auth,
       isLoadingLeaderboard,
@@ -36,7 +37,7 @@ class LeaderboardPageContainer extends React.Component {
       loadedApiUrl,
     } = this.props;
     if (!(apiUrl === loadedApiUrl || isLoadingLeaderboard)) {
-      loadLeaderboard(auth, apiUrl);
+      loadLeaderboard(auth, apiUrl, id);
     }
   }
 
@@ -112,6 +113,7 @@ LeaderboardPageContainer.defaultProps = {
 };
 
 LeaderboardPageContainer.propTypes = {
+  id: PT.string.isRequired,
   leaderboardData: PT.arrayOf(PT.shape()),
   isLoadingLeaderboard: PT.bool,
   loadLeaderboard: PT.func.isRequired,
@@ -127,17 +129,24 @@ LeaderboardPageContainer.propTypes = {
   memberLimit: PT.number,
 };
 
-const mapStateToProps = state => ({
-  leaderboardData: state.leaderboard.data,
-  isLoadingLeaderboard: state.leaderboard.loading,
-  loadedApiUrl: state.leaderboard.loadedApiUrl,
-  auth: state.auth,
-});
+function mapStateToProps(state, props) {
+  return state.leaderboard[props.id] ? {
+    leaderboardData: state.leaderboard[props.id].data,
+    isLoadingLeaderboard: state.leaderboard[props.id].loading,
+    loadedApiUrl: state.leaderboard[props.id].loadedApiUrl,
+    auth: state.auth,
+  } : {
+    leaderboardData: null,
+    isLoadingLeaderboard: false,
+    loadedApiUrl: null,
+    auth: state.auth,
+  };
+}
 
 const mapDispatchToProps = dispatch => ({
-  loadLeaderboard: (auth, apiUrl) => {
-    dispatch(actions.leaderboard.fetchLeaderboardInit());
-    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl));
+  loadLeaderboard: (auth, apiUrl, id) => {
+    dispatch(actions.leaderboard.fetchLeaderboardInit({ id }));
+    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl, id));
   },
   resetTcoHistoryChallenges: () => {
     dispatch(actions.leaderboard.resetTcoHistoryChallenges());

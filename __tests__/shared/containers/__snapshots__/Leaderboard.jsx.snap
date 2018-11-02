@@ -5,40 +5,10 @@ exports[`Matches shapshot 1`] = `
   HeadBanner={null}
   apiUrl="http://www.mocky.io/v2/59098e60100000b60747c10b"
   auth={null}
+  id="communityLeaderboard"
   isLoadingLeaderboard={false}
   isTopGear={false}
-  leaderboardData={
-    Array [
-      Object {
-        "avatarUrl": "some.fake.string",
-        "challenge_stats.count": 99999,
-        "challenge_stats.winner_handle": "overachieving.mofo",
-        "project_result.final_score": 9999999999,
-        "rank": 1,
-      },
-      Object {
-        "avatarUrl": "some.fake.string",
-        "challenge_stats.count": 99999,
-        "challenge_stats.winner_handle": "overachieving.mofo",
-        "project_result.final_score": 9999999999,
-        "rank": 1,
-      },
-      Object {
-        "avatarUrl": "some.fake.string",
-        "challenge_stats.count": 99999,
-        "challenge_stats.winner_handle": "overachieving.mofo",
-        "project_result.final_score": 9999999999,
-        "rank": 1,
-      },
-      Object {
-        "avatarUrl": "some.fake.string",
-        "challenge_stats.count": 99999,
-        "challenge_stats.winner_handle": "overachieving.mofo",
-        "project_result.final_score": 9999999999,
-        "rank": 1,
-      },
-    ]
-  }
+  leaderboardData={null}
   loadLeaderboard={[Function]}
   loadedApiUrl={null}
   store={
