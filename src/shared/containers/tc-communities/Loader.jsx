@@ -48,9 +48,9 @@ class Loader extends React.Component {
     )) nextProps.loadMetaData(communityId, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
-     * (Wipro) community visitors. Should be re-factored, but not it is not
+     * (Wipro) and Zurich community visitors. Should be re-factored, but not it is not
      * clear, what exactly do we need to support it in general. */
-    if (communityId === 'wipro' && !visitorGroups) {
+    if ((communityId === 'wipro' || communityId === 'zurich') && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
       window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=wipro`;
     }
