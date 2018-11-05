@@ -277,25 +277,6 @@ exports[`Matches shallow shapshot 1`] = `
         to="/members/mess"
       >
         Profile 2.
-<<<<<<< HEAD
-      </Link>
-    </li>
-    <li>
-      Public Profile Page available at the
-       
-      <code>
-        /members/:handle
-      </code>
-       
-      endpoint. Valid link on dev
-       
-      <Link
-        replace={false}
-        to="/members/TonyJ"
-      >
-        here.
-=======
->>>>>>> origin/develop
       </Link>
     </li>
     <li>
@@ -599,8 +580,6 @@ exports[`Matches shallow shapshot 1`] = `
         </code>
       </Link>
     </li>
-<<<<<<< HEAD
-=======
     <li>
       <Link
         replace={false}
@@ -761,7 +740,6 @@ exports[`Matches shallow shapshot 1`] = `
         </code>
       </Link>
     </li>
->>>>>>> origin/develop
   </ul>
   <h3>
     Sandbox
