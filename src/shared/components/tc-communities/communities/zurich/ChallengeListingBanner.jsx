@@ -12,6 +12,7 @@ export default function ChallengeListingBanner() {
       }}
       render={d => d.entries.matches[0].items.map(id => <Banner id={id} />)}
       renderPlaceholder={LoadingIndicator}
+      spaceName="zurich"
     />
   );
 }

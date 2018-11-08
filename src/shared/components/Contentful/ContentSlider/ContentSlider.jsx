@@ -5,6 +5,7 @@
  */
 /* global window */
 import React, { Component } from 'react';
+import _ from 'lodash';
 import Carousel from 'nuka-carousel';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
@@ -13,6 +14,14 @@ import { isomorphy } from 'topcoder-react-utils';
 import ArrowNext from 'assets/images/arrow_right.svg';
 import ArrowPrev from 'assets/images/arrow-left.svg';
 import defaultTheme from './themes/default.scss';
+
+
+class CarouselInject extends Carousel {
+  constructor(props) {
+    super(props);
+    this.handleClick = _.noop;
+  }
+}
 
 class ContentSlider extends Component {
   constructor(props) {
@@ -66,7 +75,7 @@ class ContentSlider extends Component {
 
     return (
       <div className={theme.container} id="slider">
-        <Carousel
+        <CarouselInject
           beforeSlide={(currSlide, endSlide) => {
             if (isomorphy.isClientSide()) {
               const list = window.document.querySelector('.slider-list');
@@ -88,7 +97,7 @@ class ContentSlider extends Component {
           className={theme.content}
         >
           {children}
-        </Carousel>
+        </CarouselInject>
       </div>
     );
   }

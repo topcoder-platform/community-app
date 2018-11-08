@@ -10,20 +10,32 @@ import React from 'react';
 
 import Accordion from './Accordion';
 import AccordionItem from './AccordionItem';
+import defaultTheme from './Accordion/style.scss';
+import zurichTheme from './Accordion/zurich.scss';
+
+const THEMES = {
+  Default: defaultTheme,
+  Zurich: zurichTheme,
+};
 
 function AccordionItemsLoader(props) {
   const {
     ids,
     preview,
+    spaceName,
+    environment,
     title,
+    theme,
   } = props;
 
   return (
     <ContentfulLoader
       entryIds={ids}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
-        <Accordion title={title}>
+        <Accordion title={title} theme={THEMES[theme]}>
           {
             ids.map(itemId => (
               <AccordionItem
@@ -44,22 +56,35 @@ function AccordionItemsLoader(props) {
   );
 }
 
+AccordionItemsLoader.defaultProps = {
+  spaceName: null,
+  environment: null,
+  theme: 'Default',
+};
+
 AccordionItemsLoader.propTypes = {
   ids: PT.arrayOf(PT.string).isRequired,
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
   title: PT.string.isRequired,
+  theme: PT.string,
 };
 
 export default function ContentfulAccordion(props) {
   const {
     id,
     preview,
+    spaceName,
+    environment,
   } = props;
 
   return (
     <ContentfulLoader
       entryIds={id}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={(data) => {
         const { fields } = Object.values(data.entries.items)[0];
         if (!fields) return null;
@@ -68,7 +93,10 @@ export default function ContentfulAccordion(props) {
           <AccordionItemsLoader
             ids={_.map(fields.items, 'sys.id')}
             preview={preview}
+            spaceName={spaceName}
+            environment={environment}
             title={fields.title || fields.name}
+            theme={fields.theme}
           />
         );
       }}
@@ -79,9 +107,13 @@ export default function ContentfulAccordion(props) {
 
 ContentfulAccordion.defaultProps = {
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 ContentfulAccordion.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

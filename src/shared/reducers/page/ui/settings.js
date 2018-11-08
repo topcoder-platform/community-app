@@ -9,13 +9,13 @@ import settingsActions from 'actions/page/ui/settings';
 const TABS = {
   PROFILE: {
     BASIC: 'basic info',
-    LANGUAGE: 'language',
-    SKILL: 'skill',
-    EDUCATION: 'education',
-    WORK: 'work',
-    ORGANIZATION: 'organization',
-    HOBBY: 'hobby',
-    COMMUNITY: 'community',
+    // LANGUAGE: 'language',
+    SKILL: 'skills',
+    // EDUCATION: 'education',
+    // WORK: 'work',
+    // ORGANIZATION: 'organization',
+    HOBBY: 'hobbies',
+    COMMUNITY: 'communities',
   },
   TOOLS: {
     DEVICES: 'devices',
@@ -25,7 +25,7 @@ const TABS = {
   },
   ACCOUNT: {
     MYACCOUNT: 'my account',
-    LINKEDACCOUNT: 'linked account',
+    LINKEDACCOUNT: 'linked accounts',
   },
 };
 

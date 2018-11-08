@@ -58,9 +58,12 @@
 .titleListItem {
   color: #a3a3ae;
   cursor: pointer;
-  font: 600 15px/20px 'Open Sans', sans-serif;
-  padding: 20px 0;
+  font-size: 36px;
+  line-height: 45px;
+  padding: 15px 0;
   position: relative;
+
+  @include roboto-regular;
 
   div {
     outline: none;

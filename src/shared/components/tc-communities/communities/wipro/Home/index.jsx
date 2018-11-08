@@ -130,8 +130,10 @@ export default function Home(props) {
           content_type: 'banner',
           'fields.name': 'TopGear - Home - Banner',
         }}
-        render={d => d.entries.matches[0].items.map(id => <Banner id={id} />)}
+        render={d => d.entries.matches[0].items
+          .map(id => <Banner id={id} spaceName="topgear" />)}
         renderPlaceholder={LoadingIndicator}
+        spaceName="topgear"
       />
 
       <CommunityStats theme={IconStatStyles} icons={COMMUNITY_STATS_ICONS} />

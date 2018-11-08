@@ -20,6 +20,9 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isCopilot={false}
+        isTopGear={false}
+        onUsernameClick={null}
       />
     </div>
     <div
@@ -35,6 +38,9 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isCopilot={false}
+        isTopGear={false}
+        onUsernameClick={null}
       />
     </div>
     <div
@@ -50,6 +56,9 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isCopilot={false}
+        isTopGear={false}
+        onUsernameClick={null}
       />
     </div>
     <div
@@ -65,6 +74,9 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isCopilot={false}
+        isTopGear={false}
+        onUsernameClick={null}
       />
     </div>
   </div>

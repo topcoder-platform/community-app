@@ -6,6 +6,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import ImageFilter from 'react-image-filter';
 import SocialIcons from './SocialIcons';
 
 import './styles.scss';
@@ -78,13 +79,30 @@ export default class LinkAccounts extends React.Component {
     });
     accounts = _.sortBy(accounts, 'order');
 
+    const FILTER_GRAYSCALE = [
+      1, 0, 0, 0, 0,
+      1, 0, 0, 0, 0,
+      1, 0, 0, 0, 0,
+      0, 0, 0, 1, 0,
+    ];
+
+    const FILTER_NONE = [
+      1, 0, 0, 0, 0,
+      0, 1, 0, 0, 0,
+      0, 0, 1, 0, 0,
+      0, 0, 0, 1, 0,
+    ];
+
     return (
       <div styleName="external-links">
         {
           _.map(accounts, account => (
             <div key={account.providerType} role="button" onClick={e => this.handleClick(e, account)} styleName={getStyleName(account)}>
               <div styleName={`external-account-box ${account.colorClass}`}>
-                <img src={SocialIcons[account.providerType]} alt="icon" styleName={account.status === 'linked' ? '' : 'unadded'} />
+                <ImageFilter
+                  image={SocialIcons[account.providerType]}
+                  filter={account.status === 'linked' ? FILTER_NONE : FILTER_GRAYSCALE}
+                />
               </div>
               <div styleName="status">
                 { account.displayName }

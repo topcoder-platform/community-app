@@ -57,6 +57,7 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
+          selectRef={[Function]}
           simpleValue={true}
           value={null}
         />
@@ -85,6 +86,7 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
+          selectRef={[Function]}
           simpleValue={true}
           value="1"
           valueRenderer={[Function]}
@@ -119,6 +121,7 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
+          selectRef={[Function]}
           simpleValue={true}
           value={null}
         />
@@ -254,6 +257,7 @@ exports[`Matches shallow shapshot 2`] = `
           multi={true}
           onChange={[Function]}
           options={Array []}
+          selectRef={[Function]}
           simpleValue={true}
           value={null}
         />
@@ -282,6 +286,7 @@ exports[`Matches shallow shapshot 2`] = `
               },
             ]
           }
+          selectRef={[Function]}
           simpleValue={true}
           value="1"
           valueRenderer={[Function]}
@@ -305,6 +310,7 @@ exports[`Matches shallow shapshot 2`] = `
           multi={true}
           onChange={[Function]}
           options={Array []}
+          selectRef={[Function]}
           simpleValue={true}
           value={null}
         />

@@ -5,31 +5,34 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import WorkList from './List';
 
 import './styles.scss';
 
 
-export default class Work extends React.Component {
+export default class Work extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteWork = this.onHandleDeleteWork.bind(this);
     this.onDeleteWork = this.onDeleteWork.bind(this);
     this.loadWorkTrait = this.loadWorkTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddWork = this.onHandleAddWork.bind(this);
     this.onAddWork = this.onAddWork.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
-      workTrait: this.loadWorkTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      workTrait: this.loadWorkTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newWork: {
         company: '',
         position: '',
@@ -38,7 +41,14 @@ export default class Work extends React.Component {
         timePeriodTo: '',
         industry: '',
       },
+      isMobileView: false,
+      screenSM: 767,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,17 +70,21 @@ export default class Work extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
+  }
+
   /**
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddWork(e) {
     e.preventDefault();
     const { newWork } = this.state;
     if (this.onCheckFormValue(newWork)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddWork.bind(this));
   }
 
   /**
@@ -149,6 +163,10 @@ export default class Work extends React.Component {
     return invalid;
   }
 
+  onHandleDeleteWork(indexNo) {
+    this.showConsent(this.onDeleteWork.bind(this, indexNo));
+  }
+
   /**
    * Delete work by index
    * @param indexNo the work index no
@@ -177,12 +195,9 @@ export default class Work extends React.Component {
 
   /**
    * Add new work
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddWork(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddWork(answer) {
     const { newWork, personalizationTrait } = this.state;
 
     const {
@@ -255,13 +270,18 @@ export default class Work extends React.Component {
     return _.assign({}, personalization);
   }
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
     const {
       settingsUI,
     } = this.props;
     const {
       workTrait,
-      showUserConsent,
+      isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -273,7 +293,7 @@ export default class Work extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddWork} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="work-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -282,7 +302,100 @@ export default class Work extends React.Component {
           <h1>
             Work
           </h1>
-          <div styleName="form-container">
+          <div styleName={`sub-title ${workItems.length > 0 ? '' : 'hidden'}`}>
+            Your workplaces
+          </div>
+          {
+            !isMobileView && workItems.length > 0
+            && (
+              <WorkList
+                workList={{ items: workItems }}
+                onDeleteItem={this.onDeleteWork}
+              />
+            )
+          }
+          <div styleName={`sub-title ${workItems.length > 0 ? 'second' : 'first'}`}>
+            Add a new workplace
+          </div>
+          <div styleName="form-container-default">
+            <form name="device-form" noValidate autoComplete="off">
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="company">
+                    Company
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="position">
+                    Position
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="position" name="position" type="text" placeholder="Position" onChange={this.onUpdateInput} value={newWork.position} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="industry">
+                    Industry
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="industry" name="industry" type="text" placeholder="Industry" onChange={this.onUpdateInput} value={newWork.industry} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="cityTown">
+                    City
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="cityTown" name="cityTown" type="text" placeholder="City" onChange={this.onUpdateInput} value={newWork.cityTown} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodFrom">
+                    From
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodFrom} required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodTo">
+                    To
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodTo} required />
+                </div>
+              </div>
+            </form>
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddWork}
+              >
+                Add workplace to your list
+              </PrimaryButton>
+            </div>
+          </div>
+          <div styleName="form-container-mobile">
             <form name="work-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
@@ -333,16 +446,21 @@ export default class Work extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddWork}
               >
                 Add Workplace
               </PrimaryButton>
             </div>
           </div>
-          <WorkList
-            workList={{ items: workItems }}
-            onDeleteItem={this.onDeleteWork}
-          />
+          {
+            isMobileView && workItems.length > 0
+            && (
+              <WorkList
+                workList={{ items: workItems }}
+                onDeleteItem={this.onHandleDeleteWork}
+              />
+            )
+          }
         </div>
       </div>
     );

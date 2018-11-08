@@ -76,6 +76,7 @@ class ProfileHeader extends React.Component {
           </h3>
           <h3 styleName="tenure">
     Member Since
+            {' '}
             {moment(info.createdAt).format('MMMM, YYYY')}
           </h3>
         </div>

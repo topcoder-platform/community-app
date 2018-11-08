@@ -6,28 +6,33 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, GhostButton } from 'topcoder-react-ui-kit';
+import ConsentComponent from 'components/Settings/ConsentComponent';
+import { Modal, PrimaryButton, GhostButton } from 'topcoder-react-ui-kit';
 
-import Modal from 'components/Modal';
 import ExistingLink from './ExistingLink';
 
 import Styles from './styles.scss';
 import modal from './modal.scss';
 
-export default class ExistingLinks extends React.Component {
+export default class ExistingLinks extends ConsentComponent {
   constructor(props) {
     super(props);
     this.state = {
       linkToConfirmDelete: null,
     };
+    this.onHandleConfirmDeleteLink = this.onHandleConfirmDeleteLink.bind(this);
     this.onConfirmDeleteLink = this.onConfirmDeleteLink.bind(this);
     this.onDeleteLink = this.onDeleteLink.bind(this);
   }
 
-  // Confirm delete link function
-  onConfirmDeleteLink(e, link) {
+  onHandleConfirmDeleteLink(e, link) {
     e.preventDefault();
     e.stopPropagation();
+    this.showConsent(this.onConfirmDeleteLink.bind(this, link));
+  }
+
+  // Confirm delete link function
+  onConfirmDeleteLink(link) {
     if (!link || link.deleting) {
       return;
     }
@@ -75,6 +80,9 @@ export default class ExistingLinks extends React.Component {
     return (
       <div styleName="Styles.existing-links">
         {
+          this.shouldRenderConsent() && this.renderConsent()
+        }
+        {
           linkToConfirmDelete
           && (
             <Modal theme={modal}>
@@ -116,7 +124,7 @@ Are you sure you want to delete the external link
                 key={`${link.providerType}${link.key}`}
                 link={link}
                 supportedAccounts={supportedAccounts}
-                onConfirmDeleteLink={this.onConfirmDeleteLink}
+                onConfirmDeleteLink={this.onHandleConfirmDeleteLink}
               />
             ))
           }

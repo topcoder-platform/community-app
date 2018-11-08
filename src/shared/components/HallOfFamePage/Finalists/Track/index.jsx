@@ -5,6 +5,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
+import { config, Link } from 'topcoder-react-utils';
 
 import defaultStyles from './styles.scss';
 
@@ -18,7 +19,9 @@ const Track = ({
     <div className={theme.winner}>
       <img src={data.fields.champion.fields.image.fields.file.url} alt="Winner Portrait" />
       <div>
-        {data.fields.champion.fields.handle}
+        <Link to={`${config.URL.BASE}/members/${data.fields.champion.fields.handle}`}>
+          {data.fields.champion.fields.handle}
+        </Link>
       </div>
       <div className={theme.label}>
 Champion
@@ -27,7 +30,9 @@ Champion
     {
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.finalist}>
-          {member.fields.handle}
+          <Link to={`${config.URL.BASE}/members/${member.fields.handle}`}>
+            {member.fields.handle}
+          </Link>
         </div>
       ))
     }

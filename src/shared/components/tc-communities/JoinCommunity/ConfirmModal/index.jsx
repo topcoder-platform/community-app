@@ -9,11 +9,10 @@
 
 /* global window */
 
-import Modal from 'components/Modal';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
-import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 
 import style from './style.scss';

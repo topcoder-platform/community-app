@@ -18,6 +18,11 @@
  *      - user.handle: String, required. User handle
  *      - challenge.count: Number, required. The number of challenge the user won
  *      - project_result.final_score: Number, required. The user's current score
+ *   - isCopilot: Copilot leaderboards have special fields. This flag controlls
+ *     if those should be displayed
+ *   - onUsernameClick: Function if provided it is invoked with the clicked competitor
+ *     instead of linking to member's profile
+ *   - isTopGear: Topgear leaderboards have special fileds
  */
 
 import React from 'react';
@@ -29,12 +34,20 @@ import './styles.scss';
 export default function Podium(props) {
   const {
     competitors,
+    isCopilot,
+    onUsernameClick,
+    isTopGear,
   } = props;
 
   const renderPodium = (comps) => {
     let podiumSpots = comps.map(comp => (
       <div key={comp.rank} styleName="podium-column">
-        <PodiumSpot competitor={comp} />
+        <PodiumSpot
+          competitor={comp}
+          isCopilot={isCopilot}
+          onUsernameClick={onUsernameClick}
+          isTopGear={isTopGear}
+        />
       </div>
     ));
 
@@ -66,4 +79,13 @@ const CompetitorShape = PT.shape({});
 
 Podium.propTypes = {
   competitors: PT.arrayOf(CompetitorShape).isRequired,
+  isCopilot: PT.bool,
+  onUsernameClick: PT.func,
+  isTopGear: PT.bool,
+};
+
+Podium.defaultProps = {
+  isCopilot: false,
+  onUsernameClick: null,
+  isTopGear: false,
 };

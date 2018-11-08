@@ -4,7 +4,7 @@ import { getRatingColor } from 'utils/tc';
 import PT from 'prop-types';
 import React from 'react';
 
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import Auth from './Auth';
 import IconNavBlog from '../../../assets/images/nav/blog.svg';
@@ -57,6 +57,7 @@ const MENU = [{
   }],
 }, {
   title: 'Learn',
+  url: `${BASE_URL}/community/learn`,
   items: [
   /* {
     enforceA: true,
@@ -236,7 +237,11 @@ export default class TopcoderHeader extends React.Component {
           }}
           styleName={styleName}
         >
-          {item.title}
+          {item.url ? (
+            <Link to={item.url}>
+              {item.title}
+            </Link>
+          ) : item.title}
         </li>
       );
     });
@@ -263,7 +268,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavProfile />,
-          link: `${BASE_URL}/members/${normalizedProfile.handle}`,
+          link: `/members/${normalizedProfile.handle}`,
           title: 'My Profile',
         }, {
           icon: <IconNavWallet />,
@@ -272,7 +277,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavSettings />,
-          link: `${BASE_URL}/settings/profile`,
+          link: '/settings/profile',
           title: 'Settings',
         }, {
           enforceA: true,

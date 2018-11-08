@@ -17,7 +17,9 @@ const THEMES = {
 
 /* Loads quote author avatar asset. */
 function AuthorAvatarLoader(props) {
-  const { quote, preview } = props;
+  const {
+    quote, preview, spaceName, environment,
+  } = props;
   const { authorAvatar } = quote;
   // loads the asset if it is available
   if (authorAvatar) {
@@ -26,6 +28,8 @@ function AuthorAvatarLoader(props) {
       <ContentfulLoader
         assetIds={assetId}
         preview={preview}
+        spaceName={spaceName}
+        environment={environment}
         render={data => (
           <Quote
             {...props}
@@ -41,19 +45,31 @@ function AuthorAvatarLoader(props) {
   return <Quote {...props} theme={THEMES[quote.baseTheme]} />;
 }
 
+
+AuthorAvatarLoader.defaultProps = {
+  spaceName: null,
+  environment: null,
+};
+
 AuthorAvatarLoader.propTypes = {
   quote: PT.shape().isRequired,
   id: PT.string.isRequired,
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 /* Loads the main quote entry. */
 export default function QuoteLoader(props) {
-  const { id, preview } = props;
+  const {
+    id, preview, spaceName, environment,
+  } = props;
   return (
     <ContentfulLoader
       entryIds={id}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => (
         <AuthorAvatarLoader
           {...props}
@@ -67,9 +83,13 @@ export default function QuoteLoader(props) {
 
 QuoteLoader.defaultProps = {
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 QuoteLoader.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

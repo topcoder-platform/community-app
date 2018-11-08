@@ -5,7 +5,7 @@ import React from 'react';
 import { config } from 'topcoder-react-utils';
 
 import FacebookIcon from './icons/facebook.svg';
-import GooglePlusIcon from './icons/google_plus.svg';
+import InstagramIcon from './icons/instagram.svg';
 import LinkedInIcon from './icons/linkedin.svg';
 import TwitterIcon from './icons/twitter.svg';
 
@@ -36,13 +36,10 @@ export default function TopcoderFooter() {
     <div styleName="footer">
       <nav>
         <ul>
-          <Link to={`${base}/sitemap`}>
-SITE MAP
-          </Link>
-          <Link to={`${base}/about`}>
+          <Link to={`${base}/community/about`}>
 ABOUT US
           </Link>
-          <Link to={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>
+          <Link to={`${base}/community/contact`}>
 CONTACT US
           </Link>
           <Link to={config.URL.HELP}>
@@ -67,8 +64,8 @@ TERMS
         <a href="https://www.linkedin.com/company/topcoder" target="liwindow">
           <LinkedInIcon />
         </a>
-        <a href="https://plus.google.com/u/0/b/104268008777050019973/104268008777050019973/posts" target="gpwindow">
-          <GooglePlusIcon />
+        <a href="https://www.instagram.com/topcoder" target="inwindow">
+          <InstagramIcon />
         </a>
       </div>
       <p styleName="copyright-notice">

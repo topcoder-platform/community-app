@@ -9,7 +9,6 @@
   display: flex;
   flex-direction: column;
   font-size: 12px;
-  height: 100%;
   justify-content: center;
   text-align: center;
   width: 23%;
@@ -23,5 +22,24 @@
 
   .button-wrapper {
     width: 220px;
+  }
+
+  .completed-message {
+    max-width: 220px;
+    color: $tc-black;
+    font-size: 15px;
+    line-height: 18px;
+    padding: 2 * $base-unit;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 3 * $base-unit;
+
+    .completed-message {
+      max-width: 100%;
+    }
   }
 }
