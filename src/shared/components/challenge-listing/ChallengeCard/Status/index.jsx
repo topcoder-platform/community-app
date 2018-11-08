@@ -249,7 +249,7 @@ to register
     const registrationPhase = allPhases
       .find(p => p.phaseType === 'Registration');
     const isRegistrationOpen = registrationPhase
-      && registrationPhase.phaseStatus === 'Open';
+      && (registrationPhase.phaseStatus === 'Open' || moment(registrationPhase.scheduledEndTime).diff(new Date()) > 0);
 
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.phaseType;
