@@ -187,17 +187,17 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: new-develop
+              only: develop
       # This is alternate dev env for parallel testing
       - "build-test":
           filters:
             branches:
-              only: "mm-feature-experiment"
+              only: "mm-develop-merge"
       # This is beta env for production soft releases
       - "build-prod-beta":
           filters:
             branches:
-              only: "mm-feature-experiment"
+              only: "mm-develop-merge"
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
@@ -214,4 +214,4 @@ workflows:
             branches:
               ignore:
                 - mm-feature-experiment
-                - new-develop
+                - mm-develop-merge
