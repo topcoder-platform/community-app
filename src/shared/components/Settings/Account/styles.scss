@@ -4,44 +4,30 @@
   display: flex;
   flex-direction: row;
   align-content: space-between;
+  padding: 60px 50px 55px 50px;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
-
-  .mobile-view {
-    display: none;
-
-    @include from-sm-to-lg {
-      display: none;
-    }
-
-    @include upto-sm {
-      display: block;
-      width: 100%;
-    }
-  }
 
   .col-bar {
     width: 250px;
-    background-color: #fafafb;
-    padding: 30px;
-    border-bottom-left-radius: 6px;
+    margin-right: 70px;
 
-    @include from-sm-to-lg {
+    @include screen1025-to-screen1280 {
+      width: 200px;
+      margin-right: 10px;
+    }
+
+    @include md-to-lg {
       width: 90px;
       padding-right: 30px;
       margin-right: 0;
     }
 
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }
 
   .col-content {
     flex: 1;
-    padding: 30px 80px;
-
-    @include upto-sm {
-      display: none;
-    }
   }
 }

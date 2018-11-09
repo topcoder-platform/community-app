@@ -43,21 +43,6 @@ export default function ToggleableItem({
           <span className="onoffswitch-switch" />
         </label>
       </div>
-      <div className="onoffswitch-mobile" styleName="onoffswitch-no-padding-right">
-        <input
-          type="checkbox"
-          name="eprf-onoffswitch"
-          id={`pre-onoffswitch-${id}`}
-          value={value}
-          checked={checked}
-          onChange={onToggle}
-          className="onoffswitch-checkbox"
-        />
-        <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
-          <span className="onoffswitch-inner" />
-          <span className="onoffswitch-switch" />
-        </label>
-      </div>
     </div>
   );
 }

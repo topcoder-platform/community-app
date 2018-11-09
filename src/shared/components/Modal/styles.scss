@@ -1,0 +1,46 @@
+@import '~styles/mixins';
+
+$button-space-32: 6 * $base-unit;
+
+:global {
+  body.scrolling-disabled-by-modal {
+    overflow: hidden;
+  }
+}
+
+.overlay {
+  background: $tc-gray-neutral-dark;
+  border: none;
+  height: 100%;
+  left: 0;
+  opacity: 0.8;
+  outline: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 998;
+}
+
+.container {
+  background: #fff;
+  box-shadow: 0 0 14px 1px rgba(38, 38, 40, 0.15);
+  border-radius: 2 * $corner-radius;
+  max-height: 95vh;
+  max-width: $screen-md;
+  overflow: hidden;
+  padding: 8 * $base-unit;
+  width: 480px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+
+  @include xs-to-lg {
+    max-width: 95vw;
+  }
+
+  @include xs-to-sm {
+    padding: 40px 10px;
+  }
+}

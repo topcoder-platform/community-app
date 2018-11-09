@@ -7,8 +7,6 @@ import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 
-import EligibleEvents from './EligibleEvents';
-
 import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
@@ -96,7 +94,20 @@ DOWNLOADS:
             </div>
           )
         }
-        <EligibleEvents eventDetails={eventDetail} />
+        {eventDetail && (
+          <div>
+            <h3>
+ELIGIBLE EVENTS:
+            </h3>
+            <p styleName="link-like-paragraph">
+              {/* TODO: It is not good to compose the event URL like this, as
+                * in general there is not guaranteed to be correct. */}
+              <a href={`//${eventDetail.eventName}.topcoder.com`}>
+                {eventDetail.description}
+              </a>
+            </p>
+          </div>
+        )}
         {
           !isDesign && !isMM && (
           <div>
@@ -198,13 +209,7 @@ Your Design Files:
                 {'Place all of your source files into a "Source.zip" file.'}
               </li>
               <li>
-                {'Declare your fonts, stock photos, and icons in a "Declaration.txt" file.'}
-              </li>
-              <li>
                 {'Create a JPG preview file.'}
-              </li>
-              <li>
-                {'Place the 4 files you just created into a single zip file. This will be what you upload.'}
               </li>
             </ol>
             <p styleName="link-like-paragraph">
@@ -215,14 +220,12 @@ Read the FAQ.
               </a>
             </p>
             <h4>
-Fonts, Stock Photos, and Icons:
+Fonts:
             </h4>
             <p styleName="link-like-paragraph">
-              All fonts, stock photos, and icons within your design must be declared
-              when you submit. DO NOT include any 3rd party files in your
-              submission or source files.
-              Read about the policy
-              {' '}
+              All fonts within your design must be declared when you submit.
+              DO NOT include any font files in your submission or source files.
+              Read about the font policy
               <a href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges">
                 here.
               </a>
@@ -236,7 +239,6 @@ Screening:
               {"'"}
 t let your hard work go to waste.
               Learn more about how to pass screening
-              {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges">
                 here.
               </a>
@@ -329,6 +331,7 @@ SideBar.defaultProps = {
   hasRegistered: false,
   reviewType: 'COMMUNITY',
   isDesign: false,
+  isMM: false,
   terms: [],
   isDevelop: false,
   environment: '',
@@ -351,9 +354,9 @@ SideBar.propTypes = {
   hasRegistered: PT.bool,
   reviewType: PT.string,
   isDesign: PT.bool,
+  isMM: PT.bool,
   terms: PT.arrayOf(PT.shape()),
   isDevelop: PT.bool,
   environment: PT.string,
   codeRepo: PT.string,
-  isMM: PT.bool,
 };

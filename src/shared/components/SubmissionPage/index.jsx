@@ -2,13 +2,15 @@
  * components.page.challenge-details.submission Index Component
  *
  * Description:
- *   Top-level component for the Submit component.
+ *   Top-level component for the Develop or Design submission components.
+ *   Primary purpose is to choose between the above components based on project type
+ *   and pass properties from Redux store to the component.
  */
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
 import Header from './Header';
-import Submit from './Submit';
+import Design from './Design';
+import Develop from './Develop';
 import './styles.scss';
 
 /**
@@ -23,20 +25,6 @@ function SubmissionsPage(props) {
     subTrack,
     track,
   } = props;
-
-  const submissionEnded = status === 'COMPLETED'
-    || (!_.some(currentPhases, { phaseType: 'Submission', phaseStatus: 'Open' })
-    && !_.some(currentPhases, { phaseType: 'Checkpoint Submission', phaseStatus: 'Open' }));
-
-  const hasFirstPlacement = !_.isEmpty(winners) && _.some(winners, { placement: 1, handle });
-
-  let canSubmitFinalFixes = false;
-  if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
-    canSubmitFinalFixes = _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
-  }
-
-  const submissionPermitted = !submissionEnded || canSubmitFinalFixes;
-
   return (
     <div styleName="container">
       <div styleName="content">
@@ -77,15 +65,6 @@ SubmissionsPage.propTypes = {
   challengesUrl: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
-  communitiesList: PT.shape({
-    data: PT.arrayOf(PT.shape({
-      challengeFilter: PT.shape(),
-      communityId: PT.string.isRequired,
-    })).isRequired,
-    loadingUuid: PT.string.isRequired,
-    timestamp: PT.number.isRequired,
-  }).isRequired,
-  groups: PT.shape({}).isRequired,
   track: PT.string.isRequired,
   subTrack: PT.string.isRequired,
   status: PT.string.isRequired,
@@ -106,10 +85,11 @@ SubmissionsPage.propTypes = {
   setFilePickerFileName: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
+  setSourceFilestackData: PT.func.isRequired,
+  setPreviewFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
-  winners: PT.arrayOf(PT.object).isRequired,
-  handle: PT.string.isRequired,
-  currentPhases: PT.arrayOf(PT.object).isRequired,
+  sourceFilestackData: filestackDataProp.isRequired,
+  previewFilestackData: filestackDataProp.isRequired,
 };
 
 export default SubmissionsPage;

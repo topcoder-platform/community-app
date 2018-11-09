@@ -4,13 +4,12 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import Accordion from 'components/Settings/Accordion';
-import MyAccountIcon from 'assets/images/account/sideicons/myaccount.svg';
-import LinkedAccountIcon from 'assets/images/account/sideicons/linkedaccount.svg';
+import { isomorphy } from 'topcoder-react-utils';
 import SideBar from '../SideBar';
 import ComingSoon from '../ComingSoon';
 import MyAccount from './MyAccount';
 import LinkedAccount from './LinkedAccount';
+
 
 import './styles.scss';
 
@@ -18,26 +17,28 @@ export default function Account(props) {
   const {
     settingsUI,
     toggleAccountSideTab,
-    clearToastrNotification,
   } = props;
   const tabs = settingsUI.TABS.ACCOUNT;
   const names = Object.keys(tabs).map(key => tabs[key]);
   const currentTab = settingsUI.currentAccountTab;
 
-  const icons = {
-    'my account': <MyAccountIcon />,
-    'linked accounts': <LinkedAccountIcon />,
-  };
-  let previousSelectedTab = null;
-  const renderTabContent = (tab) => {
-    if (previousSelectedTab !== tab && clearToastrNotification) {
-      clearToastrNotification();
+  let assets;
+  const sideIcons = {};
+  if (isomorphy.isClientSide()) {
+    assets = require.context('assets/images/account/sideicons', false, /svg/);
+
+    if (assets) {
+      names.forEach((name) => {
+        sideIcons[name] = assets(`./${name}.svg`);
+      });
     }
-    previousSelectedTab = tab;
-    switch (tab) {
+  }
+
+  const renderView = () => {
+    switch (currentTab) {
       case 'my account':
         return <MyAccount {...props} />;
-      case 'linked accounts':
+      case 'linked account':
         return <LinkedAccount {...props} />;
       default:
         return <ComingSoon />;
@@ -46,25 +47,16 @@ export default function Account(props) {
 
   return (
     <div styleName="account-container">
-      <div styleName="mobile-view">
-        <Accordion
-          icons={icons}
-          names={names}
-          currentSidebarTab={currentTab}
-          renderTabContent={renderTabContent}
-          toggleSidebarTab={toggleAccountSideTab}
-        />
-      </div>
       <div styleName="col-bar">
         <SideBar
-          icons={icons}
+          icons={sideIcons}
           names={names}
           currentTab={currentTab}
           toggle={toggleAccountSideTab}
         />
       </div>
       <div styleName="col-content">
-        { renderTabContent(currentTab) }
+        {renderView()}
       </div>
     </div>
   );
@@ -73,5 +65,4 @@ export default function Account(props) {
 Account.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleAccountSideTab: PT.func.isRequired,
-  clearToastrNotification: PT.func.isRequired,
 };

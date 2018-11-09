@@ -5,32 +5,17 @@ jobs:
   "build-dev":
     docker:
       - image: docker:17.11.0-ce-git
-        environment:
-          ENV: $BASH_ENV
     steps:
       # Initialization.
       - checkout
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: | 
-            apk add --no-cache bash
-
-      - run:
-          name: Set some ENV vars
-          command: |
-            echo export TEST_VAR_01=\"This is TEST_VAR_01\" >> "$BASH_ENV"
-            echo export TEST_VAR_02=\"This is TEST_VAR_02\" >> "$BASH_ENV"
+          command: apk add --no-cache bash
 
       # Restoration of node_modules from cache.
       - restore_cache:
           key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
-
-      - run:
-          name: Check ENV vars
-          command: |
-            echo $TEST_VAR_01
-            echo $TEST_VAR_02
 
       # Build of Docker image.
       - run:

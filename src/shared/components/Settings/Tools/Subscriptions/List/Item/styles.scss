@@ -18,7 +18,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex: 1;
 }
 
 .subscription-icon {
@@ -36,8 +35,6 @@
   font-size: 15px;
   line-height: 20px;
   text-transform: capitalize;
-  flex: 1;
-  padding-right: 20px;
 }
 
 .parameter-first-line {
@@ -51,7 +48,6 @@
 .delete {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-items: center;
   justify-content: center;
   cursor: pointer;
@@ -60,7 +56,7 @@
   img {
     margin-bottom: 10px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-bottom: 0;
     }
   }
@@ -73,7 +69,7 @@
     font-weight: 400;
     color: $tc-gray-50;
 
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }

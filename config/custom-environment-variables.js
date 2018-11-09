@@ -28,36 +28,10 @@ module.exports = {
   SERVER_API_KEY: 'SERVER_API_KEY',
 
   SECRET: {
-
     CONTENTFUL: {
-      default: {
-        SPACE_ID: 'CONTENTFUL_SPACE_ID',
-        master: {
-          CDN_API_KEY: 'CONTENTFUL_CDN_API_KEY',
-          PREVIEW_API_KEY: 'CONTENTFUL_PREVIEW_API_KEY',
-        },
-      },
-      zurich: {
-        SPACE_ID: 'CONTENTFUL_ZURICH_SPACE_ID',
-        master: {
-          CDN_API_KEY: 'CONTENTFUL_ZURICH_CDN_API_KEY',
-          PREVIEW_API_KEY: 'CONTENTFUL_ZURICH_PREVIEW_API_KEY',
-        },
-      },
-      topgear: {
-        SPACE_ID: 'CONTENTFUL_TOPGEAR_SPACE_ID',
-        master: {
-          CDN_API_KEY: 'CONTENTFUL_TOPGEAR_CDN_API_KEY',
-          PREVIEW_API_KEY: 'CONTENTFUL_TOPGEAR_PREVIEW_API_KEY',
-        },
-      },
-    },
-
-    MAILCHIMP: {
-      default: {
-        API_KEY: 'MAILCHIMP_API_KEY',
-        MAILCHIMP_BASE_URL: 'MAILCHIMP_BASE_URL',
-      },
+      CDN_API_KEY: 'CONTENTFUL_CDN_API_KEY',
+      PREVIEW_API_KEY: 'CONTENTFUL_PREVIEW_API_KEY',
+      SPACE_ID: 'CONTENTFUL_SPACE_ID',
     },
 
     OPEN_EXCHANGE_RATES_KEY: 'OPEN_EXCHANGE_RATES_KEY',

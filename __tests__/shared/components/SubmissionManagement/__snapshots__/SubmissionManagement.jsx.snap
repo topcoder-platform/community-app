@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management___3JDUS"
+>
+  <div
+    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-header___3NQqC"
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-col___2Z7o4"
+    >
+      <h4
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__name___3U4Rx"
+      />
+      <a
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
+        href=""
+      >
+        &lt; Back
+      </a>
+    </div>
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__right-col___3vkUr"
+    >
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round___3QPI9"
+      />
+      <div>
+        <p
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
+        >
+           
+          0
+          H
+           
+          0
+          M
+        </p>
+        <p
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-label___1eGT9"
+        >
+          left
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-content___1iGPg"
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__content-head___3KW7D"
+    >
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__title___Hdx_v"
+      >
+        Manage your submissions
+      </p>
+    </div>
+    <SubmissionsTable
+      helpPageUrl=""
+      onDelete={[Function]}
+      onDownload={[Function]}
+      onShowDetails={[Function]}
+      onlineReviewUrl=""
+      submissionObjects={Array []}
+      type="Challenge Track"
+    />
+  </div>
+  <div
+    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__btn-wrap___2G2IK"
+  >
+    <ThemedButton
+      active={false}
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
+      onClick={null}
+      onMouseDown={null}
+      openNewTab={false}
+      replace={false}
+      size={null}
+      theme={
+        Object {
+          "button": "src-shared-components-SubmissionManagement-SubmissionManagement-styles___add-sub-btn___1ZToVR",
+        }
+      }
+      themePriority="adhoc-context-default"
+      to="/submit"
+      type="button"
+    >
+      Add Submission
+    </ThemedButton>
+  </div>
+</div>
+`;

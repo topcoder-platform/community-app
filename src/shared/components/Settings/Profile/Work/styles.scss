@@ -22,34 +22,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 10px;
-
-    &.second {
-      margin-top: 50px;
-      margin-bottom: 30px;
-    }
-
-    &.first {
-      margin-bottom: 30px;
-    }
-
-    &.hidden {
-      display: none;
-    }
-
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }
@@ -71,42 +44,17 @@ $checkbox-bg-selected: $tc-dark-blue;
   }
 }
 
-.form-container-default {
-  @include form-container-default;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid $tc-gray-10;
+  padding: 20px 20px 20px 20px;
+  background-color: $tc-gray-neutral-light;
 
-  input {
-    @include roboto-regular;
-
-    height: 40px;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    color: $tc-black;
-    border: 1px solid $tc-gray-20;
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-    margin-bottom: 0;
-  }
-
-  .text-required {
-    @include roboto-medium;
-
-    font-size: 10px;
-    color: $tc-red-110;
-    margin-bottom: 5px;
-    text-align: right;
-  }
-}
-
-.form-container-mobile {
-  display: none;
-
-  @include upto-sm {
+  @include xs-to-sm {
     border: 0;
     border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 20px 20px 20px;
-    background-color: $tc-gray-neutral-light;
   }
 
   p {
@@ -117,7 +65,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     font-weight: 400;
     color: $tc-black;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-bottom: 20px;
     }
   }
@@ -132,7 +80,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       margin-right: 0;
     }
 
-    @include upto-sm {
+    @include xs-to-sm {
       display: block;
       margin-bottom: 0;
     }
@@ -143,7 +91,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       margin-right: 10px;
       align-content: space-between;
 
-      @include upto-sm {
+      @include xs-to-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -166,11 +114,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-1 {
         width: 42%;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 46%;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
         }
       }
@@ -178,11 +126,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-2 {
         width: 32%;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 27%;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
         }
       }
@@ -190,11 +138,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-3 {
         width: 26%;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 27%;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
         }
       }
@@ -202,11 +150,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-city {
         width: 150px;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 46%;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
         }
       }
@@ -214,11 +162,11 @@ $checkbox-bg-selected: $tc-dark-blue;
       &.col-date {
         width: 160px;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 27%;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
         }
       }
@@ -237,7 +185,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-top: 5px;
     }
   }
@@ -246,7 +194,7 @@ $checkbox-bg-selected: $tc-dark-blue;
 .button-save {
   align-self: center;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-top: 10px;
   }
 
@@ -259,11 +207,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     font-weight: 500;
     margin: 0;
     padding: 0;
-    width: 250px;
-
-    @include upto-sm {
-      width: 156px;
-    }
+    width: 156px;
   }
 
   .complete {
@@ -282,7 +226,7 @@ $checkbox-bg-selected: $tc-dark-blue;
   color: $tc-gray-80;
   font-size: 15px;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-top: 5px;
   }
 }

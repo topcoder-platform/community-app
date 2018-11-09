@@ -12,11 +12,6 @@
   padding-top: 2 * $base-unit;
   text-align: left;
   width: 43%;
-
-  @include md-to-lg {
-    padding-left: 0;
-    width: 30%;
-  }
 }
 
 .roles {
@@ -29,15 +24,6 @@
   margin: 4 * $base-unit;
   padding-left: 2 * $base-unit;
   width: 150px;
-
-  @include md-to-lg {
-    width: auto;
-    margin: 2 * $base-unit;
-
-    h2 {
-      font-size: 25px;
-    }
-  }
 
   h2 {
     border-bottom: solid 3px $tc-green;
@@ -62,13 +48,5 @@
   .accent {
     color: $tc-green;
     font-weight: 500;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding-left: 0;
-    width: 90%;
-    margin-bottom: 2 * $base-unit;
   }
 }

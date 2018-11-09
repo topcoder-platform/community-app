@@ -11,6 +11,8 @@ import actions from 'actions/page/submission';
 import { logger, errors } from 'topcoder-react-lib';
 import { redux } from 'topcoder-react-utils';
 
+import design from './design';
+
 const { fireErrorMessage } = errors;
 
 /**
@@ -39,10 +41,10 @@ function onSubmitDone(state, { error, payload }) {
   /* TODO: I am not sure, whether this code is just wrong, or does it handle
    * only specific errors, returned from API for design submissions? I am
    * adding a more generic failure handling code just above. */
-  if (payload.result && !payload.result.success) {
+  if (payload.error) {
     return {
       ...state,
-      submitErrorMsg: payload.result.content.message || 'Failed to submit',
+      submitErrorMsg: payload.error.details || payload.error.name,
       isSubmitting: false,
       submitDone: false,
     };
@@ -158,6 +160,10 @@ function create(initialState) {
     [a.updateNotesLength]: (state, action) => ({ ...state, notesLength: action.payload }),
     [a.setSubmissionFilestackData]:
       (state, { payload }) => ({ ...state, submissionFilestackData: payload }),
+    [a.setSourceFilestackData]:
+      (state, { payload }) => ({ ...state, sourceFilestackData: payload }),
+    [a.setPreviewFilestackData]:
+      (state, { payload }) => ({ ...state, previewFilestackData: payload }),
   }, _.defaults(_.clone(initialState) || {}, {
     isSubmitting: false,
     submitDone: false,
@@ -167,8 +173,20 @@ function create(initialState) {
     uploadProgress: 0,
     filePickers: [],
     submissionFilestackData: {
-      challengeId: 0,
-      fileUrl: '',
+      filename: '',
+      mimetype: '',
+      size: 0,
+      key: '',
+      container: '',
+    },
+    sourceFilestackData: {
+      filename: '',
+      mimetype: '',
+      size: 0,
+      key: '',
+      container: '',
+    },
+    previewFilestackData: {
       filename: '',
       mimetype: '',
       size: 0,
@@ -180,7 +198,9 @@ function create(initialState) {
 
 export function factory() {
   // Server-side rendering not implemented yet
-  return Promise.resolve(redux.combineReducers(create()));
+  return Promise.resolve(redux.combineReducers(create(), { design }));
 }
 
-export default redux.combineReducers(create());
+export default redux.combineReducers(create(), {
+  design,
+});

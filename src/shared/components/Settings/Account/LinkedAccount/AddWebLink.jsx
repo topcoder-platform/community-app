@@ -5,7 +5,7 @@
 import React from 'react';
 import _ from 'lodash';
 import PT from 'prop-types';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+
 import './styles.scss';
 
 export default class AddWebLink extends React.Component {
@@ -19,7 +19,6 @@ export default class AddWebLink extends React.Component {
     this.onAddWebLink = this.onAddWebLink.bind(this);
     this.isWebLinkValid = this.isWebLinkValid.bind(this);
     this.webLinkExist = this.webLinkExist.bind(this);
-    this.onAddWebLinkButton = this.onAddWebLinkButton.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,25 +51,11 @@ export default class AddWebLink extends React.Component {
     }
   }
 
-  // Add web link
-  onAddWebLinkButton(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const {
-      addWebLink,
-      handle,
-      tokenV3,
-    } = this.props;
-    const { webLink } = this.state;
-    if (webLink && this.isWebLinkValid() && !this.webLinkExist()) {
-      addWebLink(handle, tokenV3, webLink);
-    }
-  }
-
   isWebLinkValid() {
     const { webLink } = this.state;
     return !webLink
-    || /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(webLink); /* eslint-disable-line no-useless-escape */
+    || (webLink.includes('www') && /^(http(s?):\/\/)?(www\.)[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)) /* eslint-disable-line no-useless-escape */
+    || (!webLink.includes('www') && /^(http(s?):\/\/)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)); /* eslint-disable-line no-useless-escape */
   }
 
   webLinkExist() {
@@ -90,69 +75,10 @@ export default class AddWebLink extends React.Component {
     return (
       <div styleName="external-web-link">
         <div styleName="web-link">
-          <div styleName="form-container-mobile">
-            <form name="addlink-form" noValidate autoComplete="off">
-              <div styleName="row">
-                <div styleName="title-mobile">
-                  Add Link
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="name">
-                    External link
-                  </label>
-                  <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
-                    <input
-                      autoCapitalize="off"
-                      id="web-link-input"
-                      name="url"
-                      type="text"
-                      styleName="url"
-                      value={webLink}
-                      onChange={this.onUpdateWebLink}
-                      placeholder="http://www.yourlink.com"
-                      onKeyDown={this.onAddWebLink}
-                      required
-                    />
-                    {
-                      !webLinkValid && !webLinkExist
-                      && (
-                        <div styleName="form-input-error">
-                          <p>
-                            Please enter a valid URL
-                          </p>
-                        </div>
-                      )
-                    }
-                    {
-                      webLinkExist
-                      && (
-                        <div styleName="form-input-error">
-                          <p>
-                            {`The URL ${webLink} already exists`}
-                          </p>
-                        </div>
-                      )
-                    }
-                  </div>
-                </div>
-              </div>
-            </form>
-            <div styleName="button-save">
-              <PrimaryButton styleName="complete" onClick={this.onAddWebLinkButton}>
-                Add Link
-              </PrimaryButton>
-            </div>
-          </div>
-          <div styleName="sub-title">
-            Add a new external link
-          </div>
           <form
             name="addWebLinkFrm"
             autoComplete="off"
             onSubmit={this.onAddWebLink}
-            styleName="form-container-default"
           >
             <label htmlFor="external-link">
               External Link
@@ -160,7 +86,6 @@ export default class AddWebLink extends React.Component {
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
               <input
                 id="web-link-input"
-                autoCapitalize="off"
                 name="url"
                 type="text"
                 styleName="url"
@@ -191,7 +116,6 @@ Please enter a valid URL
                 )
               }
             </div>
-            <PrimaryButton onClick={this.onAddWebLinkButton} theme={{ button: 'button-add-link' }}>Add Link</PrimaryButton>
           </form>
         </div>
       </div>

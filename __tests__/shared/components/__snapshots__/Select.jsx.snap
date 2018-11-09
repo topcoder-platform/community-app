@@ -44,7 +44,6 @@ exports[`Matches shallow shapshot 1`] = `
     rtl={false}
     scrollMenuIntoView={true}
     searchable={true}
-    selectRef={[Function]}
     simpleValue={false}
     tabSelectsValue={true}
     trimFilter={true}

@@ -21,5 +21,6 @@ export default async function getAvatar(url, size) {
   if (!img.ok) throw new Error('Failed to get user avatar');
   return sharp(await img.buffer())
     .resize(size, size).max()
+    .toFormat('jpeg')
     .toBuffer();
 }

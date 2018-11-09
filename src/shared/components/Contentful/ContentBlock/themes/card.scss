@@ -4,13 +4,12 @@
   background: #fff;
   border-radius: 7px;
   box-shadow: 0 6px 20px 0 rgba(101, 101, 112, 0.2);
-  border-top: 9px solid $tc-light-blue-100;
+  border-top: 9px solid $tc-dark-blue;
   flex-direction: column;
   padding: 0;
 }
 
 .container {
-  display: flex;
   flex: 1;
   justify-content: flex-end;
   margin: 5px;

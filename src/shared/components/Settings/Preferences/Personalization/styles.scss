@@ -3,11 +3,11 @@
 .Personalization {
   margin-bottom: 60px;
 
-  @include from-sm-to-lg {
+  @include md-to-lg {
     margin-bottom: 0;
   }
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-bottom: 0;
   }
 
@@ -16,7 +16,7 @@
 
     margin-bottom: 25px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       font-size: 20px;
       line-height: 30px;
       margin: 20px;
@@ -25,9 +25,9 @@
 
   .user-consent-container {
     border-top: 1px solid $tc-gray-neutral-dark;
-    min-height: 4px;
+    min-height: 474px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       min-height: 1px;
     }
   }

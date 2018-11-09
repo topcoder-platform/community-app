@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<Modal
+  onCancel={[Function]}
+  theme={
+    Object {
+      "container": "src-shared-components-Modal-styles___container___2HN2GN",
+      "overlay": "src-shared-components-Modal-styles___overlay___36ZAXn",
+      "scrolling-disabled-by-modal": "src-shared-components-Modal-styles___scrolling-disabled-by-modal___1YgZ3T",
+    }
+  }
+/>
+`;

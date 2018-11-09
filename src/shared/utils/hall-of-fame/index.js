@@ -17,7 +17,6 @@ export function getSingleTrackList(track, list) {
   return null;
 }
 
-
 /**
  * Gets x random stories
  * @param {Number} count The number of random stories to return
@@ -26,6 +25,5 @@ export function getSingleTrackList(track, list) {
 export function getStories(count, list) {
   return _.shuffle(list).slice(0, count);
 }
-
 
 export default undefined;

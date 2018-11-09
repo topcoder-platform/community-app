@@ -44,7 +44,7 @@
   margin-bottom: 10px;
   word-break: break-all;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-bottom: 0;
   }
 }
@@ -54,7 +54,7 @@
   font-weight: 400;
   word-break: break-all;
 
-  @include upto-sm {
+  @include xs-to-sm {
     display: none;
   }
 }
@@ -62,7 +62,7 @@
 .parameter-second-line-mobile {
   display: none;
 
-  @include upto-sm {
+  @include xs-to-sm {
     display: flex;
     flex-direction: column;
     color: $tc-gray-50;
@@ -86,7 +86,7 @@
   img {
     margin-bottom: 10px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-bottom: 0;
     }
   }
@@ -99,7 +99,7 @@
     font-weight: 400;
     color: $tc-gray-50;
 
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }

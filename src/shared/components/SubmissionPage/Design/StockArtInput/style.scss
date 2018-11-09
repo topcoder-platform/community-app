@@ -1,0 +1,177 @@
+@import "~styles/mixins";
+
+.left {
+  padding-right: 33px;
+  border-right: 6px solid #f6f6f6;
+  max-width: 310px;
+
+  @include md-to-lg {
+    padding-right: 20px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1100px) {
+    border-right: none;
+    max-width: 250px;
+    padding-right: 0;
+  }
+
+  @include sm {
+    border-right: none;
+    max-width: 100%;
+  }
+
+  @include sm-to-md {
+    br {
+      display: none;
+    }
+  }
+
+  p,
+  a {
+    font-size: 13px;
+    color: #a3a3ae;
+    font-style: italic;
+    max-width: 250px;
+    width: 250px;
+    line-height: 20px;
+    margin-bottom: 12px;
+
+    @media (min-width: 800px) and (max-width: 1000px) {
+      max-width: 220px;
+      width: 220px;
+    }
+
+    @media (min-width: 768px) and (max-width: 800px) {
+      max-width: 200px;
+      width: 200px;
+    }
+
+    @include sm {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    @include sm-to-md {
+      margin-bottom: 25px;
+    }
+  }
+
+  a {
+    color: #1f7be7;
+    cursor: pointer;
+  }
+
+  h4 {
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 4px;
+  }
+}
+
+.right {
+  width: 100%;
+  margin-left: 60px;
+
+  @media (min-width: 768px) and (max-width: 1280px) {
+    margin-left: 30px;
+  }
+
+  @include sm {
+    margin-left: 0;
+  }
+
+  button {
+    height: 30px;
+    font-size: 13px;
+    line-height: 0;
+  }
+
+  span.desc {
+    display: flex;
+    font-size: 12px;
+    color: #37373c;
+    margin-bottom: 5px;
+  }
+
+  .inp {
+    border: 1px solid #c3c3c8;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: inset 0 0 2px 0 rgba(183, 183, 183, 0.8);
+    padding: 8px;
+    margin-bottom: 20px;
+  }
+
+  .submission-desc {
+    width: 100px;
+  }
+
+  .desc-container {
+    display: flex;
+    justify-content: space-between;
+
+    & > span:nth-child(2) {
+      font-size: 11px;
+      color: #a3a3ae;
+    }
+  }
+
+  .big-input {
+    height: 92px;
+  }
+
+  input,
+  select {
+    margin-bottom: 20px;
+  }
+
+  select {
+    font-size: 15px;
+    color: #3d3d3d;
+    line-height: 24px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  input {
+    max-width: 500px;
+  }
+
+  @media (min-width: 768px) and (max-width: 800px) {
+    input,
+    select {
+      max-width: 480px;
+    }
+  }
+
+  .separator {
+    width: 500px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+  }
+
+  @include xs-to-sm {
+    input,
+    select {
+      max-width: 90%;
+    }
+
+    .separator {
+      display: none;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  padding: 30px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  @include sm-to-md {
+    margin: 0 20px;
+  }
+
+  @include sm {
+    flex-direction: column;
+  }
+}

@@ -62,16 +62,6 @@ $podium-border-color: #ededf2;
     display: block;
   }
 
-  .handle-link {
-    color: #006dea;
-    font-weight: 500;
-
-    &:hover {
-      color: $tc-dark-blue-110;
-      cursor: pointer;
-    }
-  }
-
   a.profile-link {
     @include roboto-bold;
 

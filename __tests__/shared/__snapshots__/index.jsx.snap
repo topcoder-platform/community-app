@@ -2,19 +2,6 @@
 
 exports[`Snapshot match 1`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <meta
-      content="#FFFFFF"
-      name="theme-color"
-    />
-    <link
-      href="/challenges/manifest.json"
-      rel="manifest"
-    />
-  </HelmetWrapper>
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
   <Connect(ErrorIconsContainer) />
@@ -31,19 +18,6 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <div>
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <meta
-      content="#FFFFFF"
-      name="theme-color"
-    />
-    <link
-      href="/challenges/manifest.json"
-      rel="manifest"
-    />
-  </HelmetWrapper>
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
   <Connect(ErrorIconsContainer) />

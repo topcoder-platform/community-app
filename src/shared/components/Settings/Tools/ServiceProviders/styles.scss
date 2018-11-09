@@ -14,34 +14,7 @@
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 10px;
-
-    &.second {
-      margin-top: 50px;
-      margin-bottom: 30px;
-    }
-
-    &.first {
-      margin-bottom: 30px;
-    }
-
-    &.hidden {
-      display: none;
-    }
-
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }
@@ -59,48 +32,22 @@
     color: $tc-red-110;
     font-size: 15px;
     padding: 15px;
-    margin: 15px 0;
+    margin-bottom: 15px;
   }
 }
 
-.form-container-default {
-  @include form-container-default;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid $tc-gray-10;
+  padding: 20px;
+  background-color: $tc-gray-neutral-light;
+  width: 100%;
 
-  input {
-    @include roboto-regular;
-
-    height: 40px;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    color: $tc-black;
-    border: 1px solid $tc-gray-20;
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-    margin-bottom: 0;
-  }
-
-  .text-required {
-    @include roboto-medium;
-
-    font-size: 10px;
-    color: $tc-red-110;
-    margin-bottom: 5px;
-    text-align: right;
-  }
-}
-
-.form-container-mobile {
-  display: none;
-
-  @include upto-sm {
+  @include xs-to-sm {
     border: 0;
     border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: $tc-gray-neutral-light;
-    width: 100%;
-    border-bottom: 1px solid $tc-gray-10;
   }
 
   p {
@@ -111,7 +58,7 @@
     font-weight: 400;
     color: $tc-black;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-bottom: 20px;
     }
   }
@@ -122,7 +69,7 @@
     margin-bottom: 20px;
     align-content: space-between;
 
-    @include upto-sm {
+    @include xs-to-sm {
       width: 100%;
       display: block;
       margin-bottom: 0;
@@ -130,11 +77,10 @@
 
     .field {
       display: flex;
-      flex: 1;
       flex-direction: column;
       margin-right: 10px;
 
-      @include upto-sm {
+      @include xs-to-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -147,40 +93,28 @@
         font-weight: 500;
         color: $tc-gray-80;
         margin-bottom: 5px;
-        display: flex;
-        justify-content: space-between;
-
-        .text-required {
-          color: $tc-red-110;
-        }
       }
 
       &.col-1 {
         width: 34%;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 45%;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
-        }
-
-        > div {
-          @include upto-sm {
-            margin-top: 5px;
-          }
         }
       }
 
       &.col-2 {
         width: 66%;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 55%;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
         }
       }
@@ -202,7 +136,7 @@
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-top: 5px;
     }
   }
@@ -211,7 +145,7 @@
 .button-save {
   align-self: center;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-top: 10px;
   }
 
@@ -225,11 +159,7 @@
     line-height: 40px;
     margin: 0;
     padding: 0;
-    width: 300px;
-
-    @include upto-sm {
-      width: 156px;
-    }
+    width: 156px;
   }
 
   .complete {
@@ -248,7 +178,7 @@
   color: $tc-gray-80;
   font-size: 15px;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-top: 5px;
   }
 }
@@ -264,8 +194,8 @@
     height: 38px;
     line-height: 40px !important;
 
-    @include upto-sm {
-      line-height: 38px !important;
+    @include xs-to-sm {
+      line-height: 27px !important;
     }
   }
 

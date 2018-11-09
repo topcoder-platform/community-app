@@ -8,8 +8,10 @@ import express from 'express';
 import {
   ASSETS_DOMAIN,
   IMAGES_DOMAIN,
-  getService,
-  getSpaceId,
+  cdnService,
+  // getIndex,
+  // getNextSyncUrl,
+  previewService,
 } from '../services/contentful';
 
 const routes = express.Router();
@@ -24,106 +26,42 @@ routes.use((req, res, next) => {
 });
 
 /* Gets non-image asset file. */
-routes.use(
-  '/:spaceName/:environment/assets/:id/:version/:name',
-  (req, res) => {
-    const {
-      environment,
-      id,
-      name,
-      spaceName,
-      version,
-    } = req.params;
-    const spaceId = getSpaceId(spaceName);
-    res.redirect(`https://${ASSETS_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
-  },
-);
+routes.use('/assets/:id/:version/:name', (req, res) => {
+  res.redirect(`https://${ASSETS_DOMAIN}/${config.SECRET.CONTENTFUL.SPACE_ID}/${req.params.id}/${req.params.version}/${req.params.name}`);
+});
 
 /* Gets image file. */
-routes.use(
-  '/:spaceName/:environment/images/:id/:version/:name',
-  (req, res) => {
-    const {
-      environment,
-      id,
-      name,
-      spaceName,
-      version,
-    } = req.params;
-    const spaceId = getSpaceId(spaceName);
-    res.redirect(`https://${IMAGES_DOMAIN}/spaces/${spaceId}/environments/${environment}/${id}/${version}/${name}`);
-  },
-);
-
-/* Gets preview of the specified space_name, environment & asset. */
-routes.use('/:spaceName/:environment/preview/assets/:id', (req, res, next) => {
-  const { environment, id, spaceName } = req.params;
-  getService(spaceName, environment, true)
-    .getAsset(id, !LOCAL_MODE)
-    .then(res.send.bind(res), next);
+routes.use('/images/:id/:version/:name', (req, res) => {
+  res.redirect(`https://${IMAGES_DOMAIN}/${config.SECRET.CONTENTFUL.SPACE_ID}/${req.params.id}/${req.params.version}/${req.params.name}`);
 });
 
-/* Queries asset previews of the specified space name & environment. */
-routes.use('/:spaceName/:environment/preview/assets', (req, res, next) => {
-  const { environment, spaceName } = req.params;
-  getService(spaceName, environment, true)
-    .queryAssets(req.query, !LOCAL_MODE)
-    .then(res.send.bind(res), next);
-});
+/* Gets preview of the specified asset. */
+routes.use('/preview/assets/:id', (req, res, next) => previewService.getAsset(req.params.id, !LOCAL_MODE)
+  .then(res.send.bind(res), next));
 
-/* Gets preview of the specified space name, environment & entry. */
-routes.use('/:spaceName/:environment/preview/entries/:id', (req, res, next) => {
-  const { environment, id, spaceName } = req.params;
-  getService(spaceName, environment, true)
-    .getEntry(id)
-    .then(res.send.bind(res), next);
-});
+/* Queries asset previews. */
+routes.use('/preview/assets', (req, res, next) => previewService.queryAssets(req.query, !LOCAL_MODE)
+  .then(res.send.bind(res), next));
 
-/* Queries entry previews of the specified space name & environment. */
-routes.use('/:spaceName/:environment/preview/entries', (req, res, next) => {
-  const { environment, spaceName } = req.params;
-  getService(spaceName, environment, true)
-    .queryEntries(req.query)
-    .then(res.send.bind(res), next);
-});
+/* Gets preview of the specified entry. */
+routes.use('/preview/entries/:id', (req, res, next) => previewService.getEntry(req.params.id).then(res.send.bind(res), next));
 
-/* Gets the specified published asset of given space name & environment. */
-routes.use(
-  '/:spaceName/:environment/published/assets/:id',
-  (req, res, next) => {
-    const { environment, id, spaceName } = req.params;
-    getService(spaceName, environment, false)
-      .getAsset(id, !LOCAL_MODE)
-      .then(res.send.bind(res), next);
-  },
-);
+/* Queries entry previews. */
+routes.use('/preview/entries', (req, res, next) => previewService.queryEntries(req.query).then(res.send.bind(res), next));
 
-/* Queries published assets of a given space name & environment. */
-routes.use(':spaceName/:environment/published/assets', (req, res, next) => {
-  const { environment, spaceName } = req.params;
-  getService(spaceName, environment, false)
-    .queryAssets(req.query, !LOCAL_MODE)
-    .then(res.send.bind(res), next);
-});
+/* Gets the specified published asset. */
+routes.use('/published/assets/:id', (req, res, next) => cdnService.getAsset(req.params.id, !LOCAL_MODE)
+  .then(res.send.bind(res), next));
 
-/* Gets the specified published entry of a given space name & environment. */
-routes.use(
-  '/:spaceName/:environment/published/entries/:id',
-  (req, res, next) => {
-    const { environment, id, spaceName } = req.params;
-    getService(spaceName, environment, false)
-      .getEntry(id)
-      .then(res.send.bind(res), next);
-  },
-);
+/* Queries published assets. */
+routes.use('/published/assets', (req, res, next) => cdnService.queryAssets(req.query, !LOCAL_MODE)
+  .then(res.send.bind(res), next));
 
-/* Queries published entries of a given space name and environment. */
-routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
-  const { environment, spaceName } = req.params;
-  getService(spaceName, environment, false)
-    .queryEntries(req.query)
-    .then(res.send.bind(res), next);
-});
+/* Gets the specified published entry. */
+routes.use('/published/entries/:id', (req, res, next) => cdnService.getEntry(req.params.id).then(res.send.bind(res), next));
+
+/* Queries published entries. */
+routes.use('/published/entries', (req, res, next) => cdnService.queryEntries(req.query).then(res.send.bind(res), next));
 
 /* Returns index of assets and content. */
 /*

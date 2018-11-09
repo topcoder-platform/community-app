@@ -4,8 +4,6 @@
   background: $tc-gray-neutral-dark;
   width: 100%;
 
-  @include roboto-regular;
-
   @include xs-to-sm {
     padding: 8px 10px 20px;
   }
@@ -61,33 +59,5 @@
     height: 64px;
     text-align: center;
     margin: 0 auto;
-  }
-}
-
-.terms-acceptance-handler {
-  margin: 0 auto;
-  margin-top: 20px;
-  width: 350px;
-
-  .wrapper {
-    font-size: 18px;
-    margin-right: 5px;
-  }
-
-  .switch {
-    margin: 0 10px;
-  }
-}
-
-.container {
-  padding: 15px 0;
-  border-radius: 3px;
-  text-align: center;
-  font-size: 20px;
-
-  .modalMsg {
-    @include tc-body-md;
-
-    margin-bottom: 10px;
   }
 }

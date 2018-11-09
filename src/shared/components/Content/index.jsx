@@ -14,282 +14,296 @@ export default function Content() {
   return (
     <div styleName="container">
       <div styleName="build-timestamp">
-        Build Timestamp:
+Build Timestamp:
         {isomorphy.buildTimestamp()}
       </div>
       <h1>
-        Topcoder Community App
+Topcoder Community App
       </h1>
       <p>
-        Isomorphic ReactJS App for new version of Topcoder community website.
-                Technological stack includes:
+Isomorphic ReactJS App for new version of Topcoder community website.
+        Technological stack includes:
       </p>
       <ul>
         <li>
-          Autoprefixer;
+Autoprefixer;
         </li>
         <li>
           Babel with latest JS standard support both client- and server-side;
         </li>
         <li>
-          ESlint (AirBnB style, run with
+ESlint (AirBnB style, run with
           <code>
-            $ npm run lint:js
+$ npm run lint:js
           </code>
-          );
+);
         </li>
         <li>
-          ExpressJS server;
+ExpressJS server;
         </li>
         <li>
-          Font loading (Roboto fonts are included into the repo);
+Font loading (Roboto fonts are included into the repo);
         </li>
         <li>
-          General Topcoder styles (check
+General Topcoder styles (check
           <code>
-            /src/styles
+/src/styles
           </code>
-          );
+);
         </li>
         <li>
           Hot reload of JS code and SCSS styles in dev environment (start it
           with
           {' '}
           <code>
-            $ npm run dev
+$ npm run dev
           </code>
-          );
+);
         </li>
         <li>
           Loading of .svg assets as ReactJS components
           with
           {' '}
           <code>
-            babel-plugin-inline-react-svg
+babel-plugin-inline-react-svg
           </code>
-          ;
+;
         </li>
         <li>
-          ReactJS;
+ReactJS;
         </li>
         <li>
           React CSS Modules
           (with
           {' '}
           <code>
-            babel-plugin-react-css-modules
+babel-plugin-react-css-modules
           </code>
-          );
+);
         </li>
         <li>
           Redux with Flex Standard Actions, redux-promise middleware,
           and a custom pattern of server-side data fetching;
         </li>
         <li>
-          SCSS styles;
+SCSS styles;
         </li>
         <li>
-          Topcoder API v2 and v3 service
-                    (see
+Topcoder API v2 and v3 service
+          (see
           <code>
-            topcoder-react-lib/src/services/api.js
+topcoder-react-lib/src/services/api.js
           </code>
-          ), with support of TC
-                    authentication (look for auth tokens either
-                    in
+), with support of TC
+          authentication (look for auth tokens either
+          in
           <code>
-            store.auth
-          </code>
-          {' '}
-          of Redux store, or
-                    in
-          <code>
-            v3jwt
+store.auth
           </code>
           {' '}
-          and
+of Redux store, or
+          in
           <code>
-            tcjwt
+v3jwt
           </code>
           {' '}
-          cookies of the front-end
-                    requests to the server);
+and
+          <code>
+tcjwt
+          </code>
+          {' '}
+cookies of the front-end
+          requests to the server);
         </li>
         <li>
-          Stylefmt;
+Stylefmt;
         </li>
         <li>
           Stylelint for SCSS (standard Stylelint style, run
           with
           {' '}
           <code>
-            $ npm run lint:scss
+$ npm run lint:scss
           </code>
-          ;
+;
         </li>
         <li>
-          Webpack;
+Webpack;
         </li>
       </ul>
 
       <h3>
-        Main Topcoder website
+Main Topcoder website
       </h3>
       <ul>
         <li>
           <strong>
-            Challenge Details Page
+Challenge Details Page
           </strong>
           {' '}
-          is available at the
-                    endpoint
+is available at the
+          endpoint
           <code>
-            /challenges/:challengeId
+/challenges/:challengeId
           </code>
-          .
+.
           <br />
           Here are some demo
           links valid in
           {' '}
           <strong>
-            production
+production
           </strong>
           {' '}
-          environment:
+environment:
           <br />
           &zwnj;
           <Link to="/challenges/30058637">
-            data science challenge
+data science challenge
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30058473">
-            code challenge
+code challenge
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30058433">
-            design challenge
+design challenge
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30058529">
-            design challenge 2
+design challenge 2
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30058281">
-            design challenge 3
+design challenge 3
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30057690">
-            design challenge 4
+design challenge 4
           </Link>
-          .
+.
           <br />
           Here are some demo links valid in
           {' '}
           <strong>
-            development
+development
           </strong>
-          &zwnj;
-                    environment:
+&zwnj;
+          environment:
           <br />
           &zwnj;
           <Link to="/challenges/30049604">
-            data science challenge
+data science challenge
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30050680">
-            code challenge
+code challenge
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30050463">
-            code challenge 2
+code challenge 2
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30049552">
-            design challenge
+design challenge
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/30050696">
-            design challenge 2
+design challenge 2
           </Link>
-          .
+.
         </li>
         <li>
           <Link to="/crowd-for-good">
-            Crowd 4 Good Page
+Crowd 4 Good Page
           </Link>
         </li>
         <li>
           <Link to="/my-dashboard">
-            Dashboard
+Dashboard
           </Link>
         </li>
         <li>
           <Link to="/challenges">
-            Main Challenge Listing
+Main Challenge Listing
           </Link>
         </li>
         <li>
           <Link to="/community/member-programs">
-            Member Programs Page
+Member Programs Page
           </Link>
         </li>
         <li>
           Public Profile Page available at the
           {' '}
           <code>
-            /members/:handle
+/members/:handle
           </code>
           {' '}
-          endpoint.
+endpoint.
           Valid links on dev:
           <br />
           <Link to="/members/TonyJ">
-            Profile 1.
+Profile 1.
           </Link>
           <br />
           <Link to="/members/mess">
-            Profile 2.
+Profile 2.
+          </Link>
+        </li>
+        <li>
+          Public Profile Page available at the
+          {' '}
+          <code>
+/members/:handle
+          </code>
+          {' '}
+endpoint.
+          Valid link on dev
+          {' '}
+          <Link to="/members/TonyJ">
+here.
           </Link>
         </li>
         <li>
           Stand-alone terms of use page:
           &zwnj;
           <Link to="/challenges/terms/detail/21193">
-            simple
+simple
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/challenges/terms/detail/21153">
-            DocuSign
+DocuSign
           </Link>
-          .
+.
         </li>
         <li>
           <a href="/challenges/30050696/my-submissions">
-            Submission Management
-                      Page
+Submission Management
+          Page
           </a>
           {' '}
-          &ndash; generally available at
-                    the endpoint
+&ndash; generally available at
+          the endpoint
           <code>
-            /challenges/:challengeId/my-submissions
+/challenges/:challengeId/my-submissions
           </code>
-          ;
-                    the link here leads to a test challenge.
+;
+          the link here leads to a test challenge.
         </li>
         <li>
           <Link to="/settings/profile">
-            Settings Profile Page
+Settings Profile Page
           </Link>
         </li>
         <li>
@@ -300,7 +314,7 @@ export default function Content() {
       </ul>
 
       <h3>
-        TCO Assets
+TCO Assets
       </h3>
       <ul>
         <li>
@@ -310,105 +324,105 @@ export default function Content() {
           TCO Scoreboard demo is mounted on
           {' '}
           <code>
-            /scoreboard/:id
+/scoreboard/:id
           </code>
-          ,
-                    where
+,
+          where
           {' '}
           <code>
-            :id
+:id
           </code>
           {' '}
-          is the competition ID, not related to the
-                    regular challenge IDs. Here are two demo links for the scoreboards
-                    for the competitions created by the scoreboard init script:
-                    &zwnj;
+is the competition ID, not related to the
+          regular challenge IDs. Here are two demo links for the scoreboards
+          for the competitions created by the scoreboard init script:
+          &zwnj;
           <Link to="/scoreboard/123">
-            ID = 123
+ID = 123
           </Link>
-          ,
-                    &zwnj;
+,
+          &zwnj;
           <Link to="/scoreboard/1234">
-            ID = 1234
+ID = 1234
           </Link>
-          .
+.
         </li>
       </ul>
 
       <h3>
-        Separate Topcoder Communities
+Separate Topcoder Communities
       </h3>
       <ul>
         <li>
           <Link to="/__community__/blockchain">
-            Blockchain Community
+Blockchain Community
           </Link>
         </li>
         <li>
           <Link to="/__community__/cognitive">
-            Cognitive Community
+Cognitive Community
           </Link>
         </li>
         <li>
           <Link to="/__community__/community-2">
-            Community 2
+Community 2
           </Link>
         </li>
         <li>
           <Link to="/__community__/cs">
-            CS community
+CS community
           </Link>
         </li>
         <li>
           <Link to="/__community__/demo-expert">
-            Demo Expert Community
+Demo Expert Community
           </Link>
         </li>
         <li>
           <Link to="/__community__/iot">
-            IoT Community
+IoT Community
           </Link>
         </li>
         <li>
           <Link to="/__community__/mobile">
-            Mobile Community
+Mobile Community
           </Link>
         </li>
         <li>
           <Link to="/__community__/qa">
-            QA Community
+QA Community
           </Link>
         </li>
         <li>
           <Link to="/__community__/srmx">
-            SRMX Community
+SRMX Community
           </Link>
         </li>
         <li>
           <Link to="/__community__/taskforce">
-            Taskforce community
+Taskforce community
           </Link>
         </li>
         <li>
           <Link to="/__community__/tc-prod-dev">
-            Topcoder Product
-                      Development community
+Topcoder Product
+          Development community
           </Link>
         </li>
         <li>
           <Link to="/__community__/wipro">
-            TopGear (Wipro) community
+TopGear (Wipro) community
           </Link>
         </li>
         <li>
           <Link to="/__community__/veterans">
-            Veterans Community
+Veterans Community
           </Link>
         </li>
       </ul>
 
       <h3>
-        Previews of Contentful Components
+Previews of Contentful Components
       </h3>
       <ul>
         <li>
@@ -421,21 +435,21 @@ ContentSlider
         <li>
           <Link to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm">
             <code>
-              Accordion
+Accordion
             </code>
           </Link>
         </li>
         <li>
           <Link to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK">
             <code>
-              Banner
+Banner
             </code>
           </Link>
         </li>
         <li>
           <Link to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS">
             <code>
-              ContentBlock
+ContentBlock
             </code>
           </Link>
         </li>
@@ -456,151 +470,35 @@ Blog
         <li>
           <Link to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4">
             <code>
-              Quote
+Quote
             </code>
           </Link>
         </li>
         <li>
           <Link to="/examples/contentful/video/4U4DkVDy3C0WcImaEw42mw">
             <code>
-              Video
+Video
             </code>
           </Link>
         </li>
         <li>
           <Link to="/examples/contentful/route/4eL1gLh8gU66ewMwIIYu4y">
             <code>
-              Route
+Route
             </code>
           </Link>
         </li>
         <li>
           <Link to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG">
             <code>
-              Viewport
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/blog-feed/6A61WFKFjimSWoe04ukOI4">
-            <code>BlogFeed</code>
-          </Link>
-        </li>
-      </ul>
-
-      <h3>
-        Previews of Contentful Components with CMS SpaceName/Environment Props
-      </h3>
-      <ul>
-        <li>
-          <Link to="/examples/contentful/accordion2/5dPXVGcG0gMgSKQik60oQg">
-            <code>
-              Accordion 2
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/banner2/4S8Evqme2QKsgcsyquAKiC">
-            <code>
-              Banner 2
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/contentblock2/5qSze51hO8GcECUwOWOw2u">
-            <code>
-              Content block 2
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/quote2/pVdDfed4NUY4gUiAS2CCo">
-            <code>
-              Quote 2
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/video2/2SPlrtNnJm0UWUO8qE6IWy">
-            <code>
-              Video 2
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/route2/43soieJAakkqgQqeO4Gcga">
-            <code>
-              route 2
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/viewport2/4X1xGrz6nuYIuMwayWce8k">
-            <code>
-              Viewport 2
+Viewport
             </code>
           </Link>
         </li>
       </ul>
 
       <h3>
-        Previews of Contentful Components With environment variable override
-        for CMS configuration.
-      </h3>
-      <ul>
-        <li>
-          <Link to="/examples/contentful/accordion/1OnBjdMPHauCWEYUaSMCGQ">
-            <code>
-              Accordion 3
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/banner/oVlavhUxlQeiOmwC84soa">
-            <code>
-              Banner 3
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/contentblock/3xy0Nda3CUIQkEwEMUYgQw">
-            <code>
-              ContentBlock 3
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/quote/3JD9i97PZYmSUCw28M60mE">
-            <code>
-              Quote 3
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/video/5JCnYCDPSEmIGwkqK2w6qg">
-            <code>
-              Video 3
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/route/3JqptKawE8m2ogWCU4wsKS">
-            <code>
-              Route 3
-            </code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/viewport/6ImH9RiRtC6QyiKEYaC0Ae">
-            <code>
-              Viewport 3
-            </code>
-          </Link>
-        </li>
-      </ul>
-
-      <h3>
-        Sandbox
+Sandbox
       </h3>
       <p>
         The right place to put any experimental and proof-of-concept
@@ -620,7 +518,7 @@ Blog
       </ul>
 
       <h3>
-        Misc Examples
+Misc Examples
       </h3>
       <ul>
         <li>
@@ -630,98 +528,98 @@ Blog
           <Link
             to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
           >
-            Announcement
+Announcement
           </Link>
           {' '}
-          &mdash;
-                    This is a part of simple PoC for CMS integration (Countentful CMS is
-                    the currently tested option);
+&mdash;
+          This is a part of simple PoC for CMS integration (Countentful CMS is
+          the currently tested option);
         </li>
         <li>
           <Link to="/examples/buttons/">
-            Buttons
+Buttons
           </Link>
           {' '}
-          &mdash; Demo/test of
-                    standard buttons already available in the code, and customizable with
-                    help of
+&mdash; Demo/test of
+          standard buttons already available in the code, and customizable with
+          help of
           <code>
-            react-css-themr
+react-css-themr
           </code>
-          .
+.
         </li>
         <li>
           <Link to="/examples/carousel">
-            Carousel
+Carousel
           </Link>
         </li>
         <li>
           <Link to="/examples/code-splitting">
-            Code Splitting
+Code Splitting
           </Link>
         </li>
         <li>
           <Link to="/examples/color-mixins">
-            Color Mixins
+Color Mixins
           </Link>
           {' '}
-          &mdash; Live
-                    demo of TC UI Kit color pallete;
+&mdash; Live
+          demo of TC UI Kit color pallete;
         </li>
         <li>
           <Link to="/examples/css-modules">
-            CSS Modules
+CSS Modules
           </Link>
           {' '}
-          - Demo/test of CSS modules in action;
+- Demo/test of CSS modules in action;
         </li>
         <li>
           <Link to="/examples/data-fetch">
-            Data Fetch
+Data Fetch
           </Link>
           {' '}
-          - Demonstrates how
-                    data fetching should be implemented in
-                    isomorphic way, using Redux with Flux Standard Actions and
-                    promise;
+- Demonstrates how
+          data fetching should be implemented in
+          isomorphic way, using Redux with Flux Standard Actions and
+          promise;
         </li>
         <li>
           <Link to="/examples/editor">
-            Editor
+Editor
           </Link>
         </li>
         <li>
           <Link to="/examples/error-message">
-            Error Message
+Error Message
           </Link>
           {' '}
-          - Demonstrates
-                    UI component for errors messaging;
+- Demonstrates
+          UI component for errors messaging;
         </li>
         <li>
           <Link to="/examples/fonts-test">
-            Fonts Test
+Fonts Test
           </Link>
           {' '}
-          - A simple showcase
-                    of the fonts included into this repo, and the test of their proper
-                    inclusion into the bundle;
+- A simple showcase
+          of the fonts included into this repo, and the test of their proper
+          inclusion into the bundle;
         </li>
         <li>
           <Link
             to="/examples/link-test"
           >
-            Link Test
+Link Test
           </Link>
         </li>
         <li>
           <Link to="/examples/loading-indicators">
-            Loading Indicators
+Loading Indicators
           </Link>
         </li>
         <li>
           <Link to="/examples/markdown">
-            Markdown Rendering
+Markdown Rendering
           </Link>
           &zwnj;
           &ndash; A component that can be passed markdown as a prop and will
@@ -729,72 +627,65 @@ Blog
           of the JSX Components found in Community App.
         </li>
         <li>
-          <Link to="/examples/looker">
-              Looker
-          </Link>
-          &zwnj;
-          &ndash; Looker examples.
-        </li>
-        <li>
           <Link to="/examples/scalable-rect">
-            ScalableRect
+ScalableRect
           </Link>
           {' '}
-          component makes
-                    it easy to create dynamically scaled components with fixed side ratio.
+component makes
+          it easy to create dynamically scaled components with fixed side ratio.
         </li>
         <li>
           <Link to="/examples/svg-loading">
-            SVG Loading
+SVG Loading
           </Link>
           {' '}
-          - Shows how to
-                    load
+- Shows how to
+          load
           <code>
-            .svg
+.svg
           </code>
           {' '}
-          assets with use
-                    of
+assets with use
+          of
           <code>
-            babel-plugin-inline-react-svg
+babel-plugin-inline-react-svg
           </code>
-          .
+.
         </li>
         <li>
           <Link to="/examples/tags/">
-            Tags
+Tags
           </Link>
           {' '}
-          - Demo/test of standard
-                    tags already available in the code, and customizable with help
-                    of
+- Demo/test of standard
+          tags already available in the code, and customizable with help
+          of
           <code>
-            react-css-themr
+react-css-themr
           </code>
-          .
+.
         </li>
         <li>
           <Link to="/examples/themr">
-            Super Themr
+Super Themr
           </Link>
           {' '}
-          - Test/demo of
+- Test/demo of
           <code>
-            react-css-super-themr
+react-css-super-themr
           </code>
-          .
+.
         </li>
         <li>
           <Link to="/examples/typography">
-            Typography
+Typography
           </Link>
           {' '}
-          - Most of Topcoder
-                    websites use the same styleguide for the design. In particular, all
-                    typography is supposed to use the set of styles from this example.
-                    For all these styles we have global mixins, which should be used
-                    whenever possible (but never modified without explicit approval).
+- Most of Topcoder
+          websites use the same styleguide for the design. In particular, all
+          typography is supposed to use the set of styles from this example.
+          For all these styles we have global mixins, which should be used
+          whenever possible (but never modified without explicit approval).
         </li>
       </ul>
     </div>

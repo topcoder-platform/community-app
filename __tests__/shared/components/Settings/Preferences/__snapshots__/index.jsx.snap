@@ -30,7 +30,15 @@ exports[`renders preferences setting page correctly 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           />,
           "payment": <Payment
-            viewBox="0 0 34 30"
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "personalization": <PersonalizationIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
             xmlns="http://www.w3.org/2000/svg"
           />,
           "referrals": <Referral
@@ -48,6 +56,7 @@ exports[`renders preferences setting page correctly 1`] = `
           "payment",
           "invitation letter",
           "referrals",
+          "personalization",
         ]
       }
       renderTabContent={[Function]}
@@ -80,7 +89,15 @@ exports[`renders preferences setting page correctly 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           />,
           "payment": <Payment
-            viewBox="0 0 34 30"
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "personalization": <PersonalizationIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
             xmlns="http://www.w3.org/2000/svg"
           />,
           "referrals": <Referral
@@ -98,6 +115,7 @@ exports[`renders preferences setting page correctly 1`] = `
           "payment",
           "invitation letter",
           "referrals",
+          "personalization",
         ]
       }
       toggle={[Function]}

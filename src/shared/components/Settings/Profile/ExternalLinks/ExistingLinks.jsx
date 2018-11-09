@@ -5,8 +5,9 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
-import { Modal, PrimaryButton, GhostButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton, GhostButton } from 'topcoder-react-ui-kit';
 
+import Modal from 'components/Modal';
 import ExistingLink from './ExistingLink';
 
 import Styles from './styles.scss';

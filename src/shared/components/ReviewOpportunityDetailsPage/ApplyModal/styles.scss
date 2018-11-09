@@ -8,10 +8,6 @@
     color: $tc-gray-90;
     font-weight: 700;
   }
-
-  @media (max-width: 768px) {
-    padding-left: 2 * $base-unit;
-  }
 }
 
 .col-2 {
@@ -36,7 +32,7 @@
 .buttons {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .container {
@@ -49,10 +45,8 @@
   top: 35%;
   width: 70%;
 
-  @media (max-width: 768px) {
-    top: 45%;
-    width: 80%;
-    padding: 2 * $base-unit;
+  @media (max-height: 768px) {
+    top: 50%;
   }
 
   h1 {
@@ -60,10 +54,6 @@
     text-align: center;
     font-size: 28px;
     font-weight: 400;
-
-    @media (max-width: 768px) {
-      font-size: 4vw;
-    }
   }
 
   p {
@@ -71,15 +61,6 @@
     font-weight: 350;
     line-height: 30px;
     margin: 6 * $base-unit;
-
-    /*
-     * set responsive text size for small screems.
-     */
-    @media (max-width: 500px) {
-      font-size: 3vw;
-      line-height: 2.5vh;
-      margin: 0.5vh auto 1vh auto;
-    }
   }
 }
 
@@ -92,11 +73,6 @@
   line-height: 15px;
   padding: 4 * $base-unit 0;
   display: flex;
-
-  @media (max-width: 768px) {
-    font-size: 3vw;
-    padding: 2 * $base-unit 0;
-  }
 }
 
 .row {
@@ -105,10 +81,6 @@
   color: $tc-gray-70;
   font-size: 15px;
   border-bottom: 1px solid $tc-gray-10;
-
-  @media (max-width: 768px) {
-    font-size: 3vw;
-  }
 }
 
 $checkbox-size: $base-unit * 4;

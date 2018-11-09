@@ -17,11 +17,6 @@
  *      - user.handle: String, required. User handle
  *      - challenge.count: Number, required. The number of challenge the user won
  *      - project_result.final_score: Number, required. The user's current score
- *   - isCopilot: Copilot leaderboards have special fields. This flag controlls
- *     if those should be displayed
- *   - onUsernameClick: Function if provided it is invoked with the clicked competitor
- *     instead of linking to member's profile
- *   - isTopGear: Topgear leaderboards have special fileds
  */
 
 import React from 'react';
@@ -62,14 +57,9 @@ const DISPLAY_RANKING = {
   3: '3',
 };
 
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 export default function PodiumSpot(props) {
   const {
     competitor,
-    isCopilot,
-    onUsernameClick,
-    isTopGear,
   } = props;
 
   let photoUrl = competitor.avatar;
@@ -77,11 +67,9 @@ export default function PodiumSpot(props) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
   }
-  let rootStyle = 'styles.PodiumSpot';
-  if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` styles.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
 
   return (
-    <div styleName={rootStyle}>
+    <div styleName={`styles.PodiumSpot styles.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`}>
       <span styleName="styles.leaderboard-avatar">
         <Avatar
           theme={{
@@ -92,24 +80,13 @@ export default function PodiumSpot(props) {
         <div styleName="styles.ranking">{DISPLAY_RANKING[competitor.rank]}</div>
       </span>
       <div>
-        {
-          onUsernameClick ? (
-            <div
-              styleName="styles.handle-link"
-              onClick={() => onUsernameClick(competitor)}
-            >
-              {competitor.handle}
-            </div>
-          ) : (
-            <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor.handle}/`}>
-              {competitor.handle}
-            </a>
-          )
-        }
+        <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+          {competitor.handle}
+        </a>
       </div>
-      <div styleName="styles.winnings-info" style={isTopGear ? { 'flex-direction': 'column' } : null}>
+      <div styleName="styles.winnings-info">
         {
-          isCopilot ? (
+          competitor.fulfillment ? (
             <div styleName="styles.stats">
               <span styleName="styles.value">{competitor.fulfillment}</span>
               <span>fulfillment</span>
@@ -124,29 +101,10 @@ export default function PodiumSpot(props) {
           <span styleName="styles.value">{competitor.points}</span>
           <span>points</span>
         </div>
-        {
-          isTopGear ? (
-            <div styleName="styles.stats">
-              <span styleName="styles.value">{competitor.wins}</span>
-              <span>wins</span>
-            </div>
-          ) : null
-        }
-        {
-          isTopGear ? (
-            <div styleName="styles.stats">
-              <span styleName="styles.value">{competitor.total_earnings}</span>
-              <span>total earnings</span>
-            </div>
-          ) : null
-        }
       </div>
     </div>
   );
 }
-
-/* eslint-enable jsx-a11y/click-events-have-key-events */
-/* eslint-enable jsx-a11y/no-static-element-interactions */
 
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
@@ -158,13 +116,4 @@ const CompetitorShape = PT.shape({
 
 PodiumSpot.propTypes = {
   competitor: CompetitorShape.isRequired,
-  isCopilot: PT.bool,
-  onUsernameClick: PT.func,
-  isTopGear: PT.bool,
-};
-
-PodiumSpot.defaultProps = {
-  isCopilot: false,
-  onUsernameClick: null,
-  isTopGear: false,
 };

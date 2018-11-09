@@ -3,15 +3,18 @@
  * CMS.
  */
 
-import _ from 'lodash';
 import config from 'config';
 import fetch from 'isomorphic-fetch';
 // import logger from 'utils/logger';
 // import moment from 'moment';
 import qs from 'qs';
 
+/* Holds Contentful CDN API key. */
+const CDN_KEY = config.SECRET.CONTENTFUL.CDN_API_KEY;
+
 /* Holds Contentful CDN URL. */
-const CDN_URL = 'https://cdn.contentful.com/spaces';
+const CDN_URL = `https://cdn.contentful.com/spaces/${
+  config.SECRET.CONTENTFUL.SPACE_ID}`;
 
 /* Holds the maximal index age [ms].
  *
@@ -22,11 +25,15 @@ const CDN_URL = 'https://cdn.contentful.com/spaces';
  */
 // const INDEX_MAXAGE = 60 * 1000;
 
+/* Holds Contentful Preview API key. */
+const PREVIEW_KEY = config.SECRET.CONTENTFUL.PREVIEW_API_KEY;
+
 /* Holds Contentful Preview URL. */
-const PREVIEW_URL = 'https://preview.contentful.com/spaces';
+const PREVIEW_URL = `https://preview.contentful.com/spaces/${
+  config.SECRET.CONTENTFUL.SPACE_ID}`;
 
 /* Holds base URL of Community App CDN. */
-// const TC_CDN_URL = `${config.CDN.PUBLIC}/contentful`;
+const TC_CDN_URL = `${config.CDN.PUBLIC}/contentful`;
 
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
@@ -44,7 +51,6 @@ const MAX_FETCH_RETRIES = 5;
  *
  * @param {Object} asset
  */
-/*
 function mapAssetFileUrlToCdn(asset) {
   let x = asset.fields.file.url.split('/');
   switch (x[2]) {
@@ -58,7 +64,6 @@ function mapAssetFileUrlToCdn(asset) {
   }
   asset.fields.file.url = x; // eslint-disable-line no-param-reassign
 }
-*/
 
 /**
  * Creates a promise that resolves one second after its creation.
@@ -117,9 +122,9 @@ class ApiService {
    *  actual file path by Community App CDN path.
    * @return {Promise}
    */
-  async getAsset(id /* , mapFileUrlToCdn */) {
+  async getAsset(id, mapFileUrlToCdn) {
     const res = await this.fetch(`/assets/${id}`);
-    // if (mapFileUrlToCdn) mapAssetFileUrlToCdn(res);
+    if (mapFileUrlToCdn) mapAssetFileUrlToCdn(res);
     return res;
   }
 
@@ -139,9 +144,9 @@ class ApiService {
    *  actual file path by Community App CDN path.
    * @return {Promise}
    */
-  async queryAssets(query /* , mapFileUrlToCdn */) {
+  async queryAssets(query, mapFileUrlToCdn) {
     const res = await this.fetch('/assets', query);
-    // if (mapFileUrlToCdn) res.items.forEach(x => mapAssetFileUrlToCdn(x));
+    if (mapFileUrlToCdn) res.items.forEach(x => mapAssetFileUrlToCdn(x));
     return res;
   }
 
@@ -155,68 +160,11 @@ class ApiService {
   }
 }
 
-// /* Contentful CDN service. */
-// export const cdnService = new ApiService(CDN_URL, CDN_KEY);
+/* Contentful CDN service. */
+export const cdnService = new ApiService(CDN_URL, CDN_KEY);
 
-// /* Contentful Preview service. */
-// export const previewService = new ApiService(PREVIEW_URL, PREVIEW_KEY);
-
-
-let services;
-
-function initServiceInstances() {
-  const contentfulConfig = config.SECRET.CONTENTFUL;
-  services = {};
-  _.map(contentfulConfig, (spaceConfig, spaceName) => {
-    services[spaceName] = {};
-    _.map(spaceConfig, (env, name) => {
-      if (name !== 'SPACE_ID') {
-        const environment = name;
-        const spaceId = spaceConfig.SPACE_ID;
-        const previewBaseUrl = `${PREVIEW_URL}/${spaceId}/environments/${environment}`;
-        const cdnBaseUrl = `${CDN_URL}/${spaceId}/environments/${environment}`;
-        const svcs = {};
-
-        svcs.previewService = new ApiService(previewBaseUrl.toString(), env.PREVIEW_API_KEY);
-        svcs.cdnService = new ApiService(cdnBaseUrl.toString(), env.CDN_API_KEY);
-        services[spaceName][environment] = svcs;
-      }
-    });
-  });
-  return services;
-}
-
-/**
- * get space id for the given space name.
- * @param {String} spaceName
- */
-export function getSpaceId(spaceName) {
-  const name = spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
-  return _.get(config, `SECRET.CONTENTFUL.${name}.SPACE_ID`);
-}
-
-/**
- * exports Contentful CDN/Preview services.
- * @param {String} spaceName
- * @param {String} environment
- * @param {Boolean} preview
- */
-export function getService(spaceName, environment, preview) {
-  if (!services) {
-    services = initServiceInstances();
-  }
-  const name = spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
-  const env = environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
-
-  if (!services[name]) {
-    throw new Error(`space : '${name}' is not configured.`);
-  }
-  if (!services[name][env]) {
-    throw new Error(`environment  : '${env}' is not configured for space : '${name}.`);
-  }
-  const service = services[name][env];
-  return preview ? service.previewService : service.cdnService;
-}
+/* Contentful Preview service. */
+export const previewService = new ApiService(PREVIEW_URL, PREVIEW_KEY);
 
 /**
  * Generates the last version for content index, and other similar data that

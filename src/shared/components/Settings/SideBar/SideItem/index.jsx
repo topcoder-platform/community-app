@@ -25,7 +25,7 @@ export default function SideItem(props) {
     };
     return (
       <div styleName="svg-container">
-        { svgIcon && React.cloneElement(svgIcon, componentProps) }
+        { React.cloneElement(svgIcon, componentProps) }
       </div>
     );
   };

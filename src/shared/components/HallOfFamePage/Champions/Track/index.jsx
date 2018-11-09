@@ -4,7 +4,6 @@
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import { config, Link } from 'topcoder-react-utils';
 
 import defaultStyles from './styles.scss';
 
@@ -21,9 +20,9 @@ const Track = ({
     {
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.champion}>
-          <Link to={`${config.URL.BASE}/members/${member.fields.handle}`}>
+          <span>
             {member.fields.handle}
-          </Link>
+          </span>
           <strong>
             {member.fields.value}
           </strong>

@@ -29,10 +29,6 @@
   .arrow-container {
     padding-right: 15px;
 
-    .up {
-      transform: rotate(180deg);
-    }
-
     &.closed {
       svg {
         filter: invert(100%);

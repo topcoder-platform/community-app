@@ -6,18 +6,12 @@
  *   Connects the Redux store to the Challenge Submissions display components.
  *   Passes the relevent state and setters as properties to the UI components.
  */
-import _ from 'lodash';
 import actions from 'actions/page/submission';
-import communityActions from 'actions/tc-communities';
-import shortId from 'shortid';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
-
-/* Holds various time ranges in milliseconds. */
-const MIN = 60 * 1000;
 
 /**
  * SubmissionsPage Container
@@ -29,20 +23,8 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      auth,
-      groups,
-      communitiesList,
-      getCommunitiesList,
-    } = this.props;
-
-    // check if challenge belongs to any groups
-    // and the communitiesList is not up-to-date
-    // then will load the communitiesList
-    if (!_.isEmpty(groups) && !communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
-      getCommunitiesList(auth);
-    }
+    const { resetDesignStoreSegment } = this.props;
+    resetDesignStoreSegment();
   }
 
   /* A child component has called their submitForm() prop, prepare the passed
@@ -94,14 +76,13 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 SubmissionsPageContainer.propTypes = {
-  auth: PT.shape().isRequired,
+  challenge: PT.shape().isRequired,
   currentPhases: PT.arrayOf(PT.object).isRequired,
-  communitiesList: PT.shape({
-    data: PT.arrayOf(PT.object).isRequired,
-    loadingUuid: PT.string.isRequired,
-    timestamp: PT.number.isRequired,
-  }).isRequired,
-  getCommunitiesList: PT.func.isRequired,
+  stockArtRecords: PT.arrayOf(PT.object).isRequired,
+  setStockArtRecord: PT.func.isRequired,
+  customFontRecords: PT.arrayOf(PT.object).isRequired,
+  setCustomFontRecord: PT.func.isRequired,
+
   /* Older stuff */
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
@@ -112,7 +93,6 @@ SubmissionsPageContainer.propTypes = {
   track: PT.string.isRequired,
   subTrack: PT.string.isRequired,
   status: PT.string.isRequired,
-  groups: PT.shape({}).isRequired,
   errorMsg: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
@@ -133,10 +113,14 @@ SubmissionsPageContainer.propTypes = {
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
+  resetDesignStoreSegment: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
+  setSourceFilestackData: PT.func.isRequired,
+  setPreviewFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
+  sourceFilestackData: filestackDataProp.isRequired,
+  previewFilestackData: filestackDataProp.isRequired,
   registrants: PT.arrayOf(PT.object).isRequired,
-  winners: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
 };
 
@@ -150,9 +134,11 @@ SubmissionsPageContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { submission } = state.page;
   return {
-    auth: state.auth,
+    challenge: state.challenge.details,
     currentPhases: state.challenge.details.currentPhases,
-    communitiesList: state.tcCommunities.list,
+    stockArtRecords: submission.design.stockArtRecords,
+    customFontRecords: submission.design.customFontRecords,
+
     /* Older stuff below. */
     userId: state.auth.user.userId,
     challengeId: state.challenge.details.id,
@@ -163,7 +149,6 @@ const mapStateToProps = (state, ownProps) => {
     track: state.challenge.details.track,
     subTrack: state.challenge.details.subTrack,
     status: state.challenge.details.status,
-    groups: state.challenge.details.groups,
     isSubmitting: submission.isSubmitting,
     submitDone: submission.submitDone,
     errorMsg: submission.submitErrorMsg,
@@ -172,8 +157,9 @@ const mapStateToProps = (state, ownProps) => {
     filePickers: submission.filePickers,
     notesLength: submission.notesLength,
     submissionFilestackData: submission.submissionFilestackData,
+    sourceFilestackData: submission.sourceFilestackData,
+    previewFilestackData: submission.previewFilestackData,
     registrants: state.challenge.details.registrants,
-    winners: state.challenge.details.winners,
     handle: state.auth.user ? state.auth.user.handle : '',
   };
 };
@@ -186,15 +172,9 @@ const mapStateToProps = (state, ownProps) => {
  */
 function mapDispatchToProps(dispatch) {
   const a = actions.page.submission;
-  const ca = communityActions.tcCommunity;
   const progress = data => dispatch(a.uploadProgress(data));
 
   return {
-    getCommunitiesList: (auth) => {
-      const uuid = shortId();
-      dispatch(ca.getListInit(uuid));
-      dispatch(ca.getListDone(uuid, auth));
-    },
     submit: (tokenV3, tokenV2, submissionId, body, track) => {
       dispatch(a.submitInit());
       dispatch(a.submitDone(tokenV3, tokenV2, submissionId, body, track, progress));
@@ -208,7 +188,12 @@ function mapDispatchToProps(dispatch) {
     setFilePickerDragged: (id, dragged) => dispatch(a.setFilePickerDragged(id, dragged)),
     setFilePickerUploadProgress: (id, p) => dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
+    resetDesignStoreSegment: () => dispatch(a.design.reset()),
+    setStockArtRecord: (index, record) => dispatch(a.design.setStockArtRecord(index, record)),
+    setCustomFontRecord: (index, record) => dispatch(a.design.setCustomFontRecord(index, record)),
     setSubmissionFilestackData: (id, data) => dispatch(a.setSubmissionFilestackData(id, data)),
+    setSourceFilestackData: (id, data) => dispatch(a.setSourceFilestackData(id, data)),
+    setPreviewFilestackData: (id, data) => dispatch(a.setPreviewFilestackData(id, data)),
   };
 }
 

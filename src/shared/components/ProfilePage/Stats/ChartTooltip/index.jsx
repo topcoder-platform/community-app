@@ -4,21 +4,23 @@
 /* eslint-env browser */
 import React from 'react';
 import PT from 'prop-types';
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
 const ChartTooltip = ({
   show, left, top, challengeName,
-  challengeData, rating, ratingColor, href,
+  challengeData, rating, ratingColor, challengeId,
 }) => (
-  <a
+  <Link
     styleName="chart-tooltip"
     style={{
       opacity: show ? 1 : 0,
       left,
       top,
-      pointerEvents: href ? 'all' : 'none',
+      pointerEvents: challengeId > 0 ? 'all' : 'none',
     }}
-    href={href}
+    to={`/challenges/${challengeId}`}
+    onClick={e => e.stopPropagation()}
   >
     <div styleName="tooltip-rating" style={{ backgroundColor: ratingColor }}>
       {rating}
@@ -31,7 +33,7 @@ const ChartTooltip = ({
         {challengeData}
       </div>
     </div>
-  </a>
+  </Link>
 );
 
 
@@ -43,7 +45,7 @@ ChartTooltip.defaultProps = {
   challengeData: '',
   rating: 0,
   ratingColor: '',
-  href: null,
+  challengeId: 0,
 };
 
 ChartTooltip.propTypes = {
@@ -54,7 +56,7 @@ ChartTooltip.propTypes = {
   challengeData: PT.string,
   rating: PT.number,
   ratingColor: PT.string,
-  href: PT.string,
+  challengeId: PT.number,
 };
 
 export default ChartTooltip;

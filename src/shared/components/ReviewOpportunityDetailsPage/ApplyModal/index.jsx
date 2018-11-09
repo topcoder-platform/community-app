@@ -4,9 +4,10 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 
 import { activeRoleIds, openPositionsByRole } from 'utils/reviewOpportunities';
+import Modal from 'components/Modal';
 
 import theme from './styles.scss';
 

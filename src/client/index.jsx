@@ -33,11 +33,6 @@ function identify(profile, roles) {
     id: profile.userId,
     lastName: profile.lastName,
     roles,
-    groups: _.map(profile.groups || [], g => ({
-      id: g.id,
-      name: g.name,
-    })),
-    tracks: profile.tracks || [],
     username: profile.handle,
   });
 }

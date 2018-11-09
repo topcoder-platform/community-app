@@ -10,7 +10,7 @@ import { actions } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import { ErrorMessage } from 'topcoder-react-ui-kit';
+import ErrorMessage from 'components/ErrorMessage';
 
 function ErrorMessageContainer({ error, clearError }) {
   return (

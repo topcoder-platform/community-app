@@ -11,7 +11,6 @@ import React from 'react';
 import shortId from 'shortid';
 import qs from 'qs';
 import SSR from 'utils/SSR';
-import { config } from 'topcoder-react-utils';
 import { connect } from 'react-redux';
 
 const DEFAULT_MAXAGE = 5 * 60 * 1000;
@@ -187,21 +186,19 @@ class ContentfulLoader extends React.Component {
       freeContent,
       freeQuery,
       preview,
-      spaceName,
-      environment,
     } = this.props;
 
-    if (assetIds) freeContent(toArray(assetIds), 'assets', preview, spaceName, environment);
-    if (entryIds) freeContent(toArray(entryIds), 'entries', preview, spaceName, environment);
+    if (assetIds) freeContent(toArray(assetIds), 'assets', preview);
+    if (entryIds) freeContent(toArray(entryIds), 'entries', preview);
 
     if (assetQueries) {
       const ids = toArray(assetQueries).map(query => queryToMd5(query));
-      ids.forEach(id => freeQuery(id, 'assets', preview, spaceName, environment));
+      ids.forEach(id => freeQuery(id, 'assets', preview));
     }
 
     if (entryQueries) {
       const ids = toArray(entryQueries).map(query => queryToMd5(query));
-      ids.forEach(id => freeQuery(id, 'entries', preview, spaceName, environment));
+      ids.forEach(id => freeQuery(id, 'entries', preview));
     }
   }
 
@@ -212,14 +209,12 @@ class ContentfulLoader extends React.Component {
    * @param {Number} timeLimit
    */
   loadContent(ids, target, timeLimit) {
-    const {
-      getContent, preview, spaceName, environment, [target]: { items },
-    } = this.props;
+    const { getContent, preview, [target]: { items } } = this.props;
     const p = [];
     ids.forEach((id) => {
       const slot = items[id];
       if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
-        p.push(getContent(id, target, preview, spaceName, environment));
+        p.push(getContent(id, target, preview));
       }
     });
     return p;
@@ -234,22 +229,18 @@ class ContentfulLoader extends React.Component {
   loadContentOnMount(contentIds, target, timeLimit) {
     if (!contentIds) return [];
     const ids = toArray(contentIds);
-    const {
-      bookContent, preview, spaceName, environment,
-    } = this.props;
-    bookContent(ids, target, preview, spaceName, environment);
+    const { bookContent, preview } = this.props;
+    bookContent(ids, target, preview);
     return this.loadContent(ids, target, timeLimit);
   }
 
   loadQueries(ids, contentQueries, target, timeLimit) {
-    const {
-      queryContent, preview, spaceName, environment, [target]: { queries },
-    } = this.props;
+    const { queryContent, preview, [target]: { queries } } = this.props;
     const p = [];
     ids.forEach((id, index) => {
       const slot = queries[id];
       if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
-        p.push(queryContent(id, contentQueries[index], target, preview, spaceName, environment));
+        p.push(queryContent(id, contentQueries[index], target, preview));
       }
     });
     return p;
@@ -259,10 +250,8 @@ class ContentfulLoader extends React.Component {
     if (!contentQueries) return [];
     const queries = toArray(contentQueries);
     const ids = queries.map(q => queryToMd5(q));
-    const {
-      bookQuery, preview, spaceName, environment,
-    } = this.props;
-    ids.forEach(id => bookQuery(id, target, preview, spaceName, environment));
+    const { bookQuery, preview } = this.props;
+    ids.forEach(id => bookQuery(id, target, preview));
     return this.loadQueries(ids, queries, target, timeLimit);
   }
 
@@ -277,26 +266,22 @@ class ContentfulLoader extends React.Component {
       freeContent,
       getContent,
       preview,
-      spaceName,
-      environment,
       [target]: { items },
     } = this.props;
-    if (preview !== prev.preview
-      || spaceName !== prev.spaceName
-      || environment !== prev.environment) {
+    if (preview !== prev.preview) {
       added = neu;
       gone = old;
     } else {
       added = arrayDiff(neu, old);
       gone = arrayDiff(old, neu);
     }
-    if (gone.length) freeContent(gone, target, prev.preview, prev.spaceName, prev.environment);
+    if (gone.length) freeContent(gone, target, prev.preview);
     if (added.length) {
-      bookContent(added, target, preview, spaceName, environment);
+      bookContent(added, target, preview);
       added.forEach((id) => {
         const slot = items[id];
         if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
-          getContent(id, target, preview, spaceName, environment);
+          getContent(id, target, preview);
         }
       });
     }
@@ -317,13 +302,9 @@ class ContentfulLoader extends React.Component {
       freeQuery,
       queryContent,
       preview,
-      spaceName,
-      environment,
       [target]: { queries },
     } = this.props;
-    if (preview !== prev.preview
-      || spaceName !== prev.spaceName
-      || environment !== prev.environment) {
+    if (preview !== prev.preview) {
       added = neu;
       gone = old;
       addedIds = neuIds;
@@ -343,14 +324,14 @@ class ContentfulLoader extends React.Component {
       }
     }
     if (gone.length) {
-      goneIds.forEach(id => freeQuery(id, target, prev.preview, prev.spaceName, prev.environment));
+      goneIds.forEach(id => freeQuery(id, target, prev.preview));
     }
     if (added.length) {
       addedIds.forEach((id, index) => {
-        bookQuery(id, target, preview, spaceName, environment);
+        bookQuery(id, target, preview);
         const slot = queries[id];
         if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
-          queryContent(id, added[index], target, preview, spaceName, environment);
+          queryContent(id, added[index], target, preview);
         }
       });
     }
@@ -378,8 +359,6 @@ ContentfulLoader.defaultProps = {
   entryQueries: null,
   maxage: DEFAULT_MAXAGE,
   preview: false,
-  spaceName: '',
-  environment: '',
   refreshMaxage: DEFAULT_REFRESH_MAXAGE,
   renderPlaceholder: null,
 };
@@ -401,8 +380,6 @@ ContentfulLoader.propTypes = {
   getContent: PT.func.isRequired,
   maxage: PT.number,
   preview: PT.bool,
-  spaceName: PT.string,
-  environment: PT.string,
   queryContent: PT.func.isRequired,
   refreshMaxage: PT.number,
   render: PT.func.isRequired,
@@ -410,35 +387,29 @@ ContentfulLoader.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const spaceName = ownProps.spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
-  const environment = ownProps.environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
-  const st = state.contentful[spaceName][environment];
+  const st = state.contentful;
   return ownProps.preview ? st.preview : st.published;
 }
 
 function mapDispatchToProps(dispatch) {
   const a = actions.contentful;
-  const bC = a.bookContent;
-  const bQ = a.bookQuery;
-  const fC = a.freeContent;
-  const fQ = a.freeQuery;
   return {
-    bookContent: (ids, target, pV, space, env) => dispatch(bC(ids, target, pV, space, env)),
-    bookQuery: (id, target, pV, space, env) => dispatch(bQ(id, target, pV, space, env)),
-    freeContent: (ids, target, pV, space, env) => dispatch(fC(ids, target, pV, space, env)),
-    freeQuery: (id, target, pV, space, env) => dispatch(fQ(id, target, pV, space, env)),
-    getContent: (contentId, target, preview, spaceName, environment) => {
+    bookContent: (ids, target, preview) => dispatch(a.bookContent(ids, target, preview)),
+    bookQuery: (id, target, preview) => dispatch(a.bookQuery(id, target, preview)),
+    freeContent: (ids, target, preview) => dispatch(a.freeContent(ids, target, preview)),
+    freeQuery: (id, target, preview) => dispatch(a.freeQuery(id, target, preview)),
+    getContent: (contentId, target, preview) => {
       const uuid = shortId();
-      dispatch(a.getContentInit(uuid, contentId, target, preview, spaceName, environment));
-      const action = a.getContentDone(uuid, contentId, target, preview, spaceName, environment);
+      dispatch(a.getContentInit(uuid, contentId, target, preview));
+      const action = a.getContentDone(uuid, contentId, target, preview);
       dispatch(action);
       return action.payload;
     },
-    queryContent: (queryId, query, target, preview, spaceName, environment) => {
+    queryContent: (queryId, query, target, preview) => {
       const uuid = shortId();
       const q = _.isObject(query) ? query : null;
-      dispatch(a.queryContentInit(uuid, queryId, target, preview, spaceName, environment));
-      const action = a.queryContentDone(uuid, queryId, target, q, preview, spaceName, environment);
+      dispatch(a.queryContentInit(uuid, queryId, target, preview));
+      const action = a.queryContentDone(uuid, queryId, target, q, preview);
       dispatch(action);
       return action.payload;
     },

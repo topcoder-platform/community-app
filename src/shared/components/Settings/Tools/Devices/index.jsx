@@ -5,11 +5,10 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable no-undef */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import ConsentComponent from 'components/Settings/ConsentComponent';
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -17,24 +16,22 @@ import DeviceList from './List';
 
 import './styles.scss';
 
-export default class Devices extends ConsentComponent {
+export default class Devices extends React.Component {
   constructor(props) {
     super(props);
-    this.onHandleDeleteDevice = this.onHandleDeleteDevice.bind(this);
     this.onDeleteDevice = this.onDeleteDevice.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadDeviceTrait = this.loadDeviceTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
-    this.onHandleAddDevice = this.onHandleAddDevice.bind(this);
     this.onAddDevice = this.onAddDevice.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.updatePredicate = this.updatePredicate.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
-    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      deviceTrait: this.loadDeviceTrait(userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(userTraits),
+      showUserConsent: false,
+      deviceTrait: this.loadDeviceTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newDevice: {
         deviceType: '',
         manufacturer: '',
@@ -44,14 +41,7 @@ export default class Devices extends ConsentComponent {
         osLanguage: '',
       },
       errorMessage: '',
-      isMobileView: false,
-      screenSM: 767,
     };
-  }
-
-  componentDidMount() {
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,25 +63,17 @@ export default class Devices extends ConsentComponent {
     });
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updatePredicate);
-  }
-
   /**
    * Show User Consent Modal
    * @param e event
    */
-  onHandleAddDevice(e) {
+  onShowUserConsent(e) {
     e.preventDefault();
     const { newDevice } = this.state;
     if (this.onCheckFormValue(newDevice)) {
       return;
     }
-    this.showConsent(this.onAddDevice.bind(this));
-  }
-
-  onHandleDeleteDevice(indexNo) {
-    this.showConsent(this.onDeleteDevice.bind(this, indexNo));
+    this.setState({ showUserConsent: true });
   }
 
   /**
@@ -122,9 +104,12 @@ export default class Devices extends ConsentComponent {
 
   /**
    * Add new device
+   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddDevice(answer) {
+  onAddDevice(e, answer) {
+    e.preventDefault();
+    this.setState({ showUserConsent: false });
     const { newDevice, personalizationTrait } = this.state;
 
     const {
@@ -181,39 +166,37 @@ export default class Devices extends ConsentComponent {
     let invalid = false;
 
     let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newDevice.deviceType).length) {
-      invalidFields.push('Type');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.manufacturer).length) {
-      invalidFields.push('Manufacturer');
+      errorMessage += 'Device type, ';
       invalid = true;
     }
 
     if (!_.trim(newDevice.model).length) {
-      invalidFields.push('Model');
+      errorMessage += 'Model, ';
+      invalid = true;
+    }
+
+    if (!_.trim(newDevice.manufacturer).length) {
+      errorMessage += 'Manufacturer, ';
       invalid = true;
     }
 
     if (!_.trim(newDevice.operatingSystem).length) {
-      invalidFields.push('Operating system');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.osVersion).length) {
-      invalidFields.push('OS Version');
+      errorMessage += 'Operating system, ';
       invalid = true;
     }
 
     if (!_.trim(newDevice.osLanguage).length) {
-      invalidFields.push('OS Language');
+      errorMessage += 'OS Language, ';
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
+    if (!_.trim(newDevice.osVersion).length) {
+      errorMessage += 'OS Version, ';
+      invalid = true;
+    }
+
+    if (errorMessage.length > 0) {
       errorMessage += ' cannot be empty';
     }
 
@@ -265,13 +248,8 @@ export default class Devices extends ConsentComponent {
     return _.assign({}, personalization);
   }
 
-  updatePredicate() {
-    const { screenSM } = this.state;
-    this.setState({ isMobileView: window.innerWidth <= screenSM });
-  }
-
   render() {
-    const { deviceTrait, isMobileView } = this.state;
+    const { deviceTrait, showUserConsent } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
@@ -279,123 +257,25 @@ export default class Devices extends ConsentComponent {
     return (
       <div styleName="devices-container">
         {
-          this.shouldRenderConsent() && this.renderConsent()
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddDevice} />)
         }
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          {errorMessage}
+        </div>
         <h1>
-          Devices
+Devices
         </h1>
-        <div styleName={`sub-title ${deviceItems.length > 0 ? '' : 'hidden'}`}>
-          Your devices
-        </div>
-        {
-          !isMobileView && deviceItems.length > 0
-          && (<DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />)
-        }
-        <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new device
-        </div>
-        <div styleName="form-container-default">
-          <form name="device-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="deviceType">
-                  Type
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <Select
-                  name="deviceType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
-                  value={newDevice.deviceType}
-                  placeholder="Device Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="manufacturer">
-                  Manufacturer
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="model">
-                  Model
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="operating-system">
-                  Operating System(OS)
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="osVersion">
-                  OS Version
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="osLanguage">
-                  OS Language
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
-              </div>
-            </div>
-          </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddDevice}
-            >
-              Add device to your list
-            </PrimaryButton>
-          </div>
-        </div>
-        <div styleName="form-container-mobile">
+        <div styleName="form-container">
           <form name="device-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Device
+Add Device
               </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="deviceType">
-                  Device Type
-                  <span styleName="text-required">* Required</span>
+Device Type
                 </label>
                 <Select
                   name="deviceType"
@@ -410,8 +290,7 @@ export default class Devices extends ConsentComponent {
               </div>
               <div styleName="field col-1">
                 <label htmlFor="manufacturer">
-                  Manufacturer
-                  <span styleName="text-required">* Required</span>
+Manufacturer
                 </label>
                 <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
               </div>
@@ -419,15 +298,13 @@ export default class Devices extends ConsentComponent {
             <div styleName="row">
               <div styleName="field col-2">
                 <label htmlFor="model">
-                  Model
-                  <span styleName="text-required">* Required</span>
+Model
                 </label>
                 <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
               </div>
               <div styleName="field col-2">
                 <label htmlFor="operating-system">
-                  Operating System
-                  <span styleName="text-required">* Required</span>
+Operating System
                 </label>
                 <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
               </div>
@@ -435,15 +312,13 @@ export default class Devices extends ConsentComponent {
             <div styleName="row">
               <div styleName="field col-2">
                 <label htmlFor="osVersion">
-                  OS version
-                  <span styleName="text-required">* Required</span>
+OS version
                 </label>
                 <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
               </div>
               <div styleName="field col-2">
                 <label htmlFor="osLanguage">
-                  OS Language
-                  <span styleName="text-required">* Required</span>
+OS Language
                 </label>
                 <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
               </div>
@@ -452,21 +327,13 @@ export default class Devices extends ConsentComponent {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onHandleAddDevice}
+              onClick={this.onShowUserConsent}
             >
               Add Device
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <DeviceList
-              deviceList={{ items: deviceItems }}
-              onDeleteItem={this.onHandleDeleteDevice}
-            />
-          )
-        }
+        <DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />
       </div>
     );
   }

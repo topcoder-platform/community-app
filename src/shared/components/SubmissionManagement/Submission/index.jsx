@@ -39,6 +39,16 @@ export default function Submission(props) {
 
   return (
     <tr styleName="submission-row">
+      <td styleName="preview-col">
+        <img
+          alt="preview"
+          styleName={type === 'DESIGN' ? 'design-img' : 'dev-img'}
+          src={
+            submissionObject.preview
+            || `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
+          }
+        />
+      </td>
       <td styleName="id-col">
         {submissionObject.submissionId}
       </td>
@@ -67,7 +77,7 @@ export default function Submission(props) {
           <a
             href={
               type === 'DESIGN'
-                ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.submissionId}`
+                ? `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
                 : submissionObject.download
             }
           >

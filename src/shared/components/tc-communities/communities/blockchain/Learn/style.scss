@@ -1,0 +1,118 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.coursesContainer {
+  padding-bottom: 60px;
+}
+
+.coursesContent {
+  flex-wrap: wrap;
+}
+
+.resourcesTitle {
+  padding-bottom: 50px;
+  padding-top: 0;
+
+  @include xs-to-sm {
+    font-size: 36px;
+    padding-bottom: 30px;
+  }
+}
+
+.resourcesContainer {
+  padding-bottom: 60px;
+
+  @include xs-to-sm {
+    padding-bottom: 50px;
+  }
+}
+
+.bannerContainer {
+  height: 470px;
+
+  @include xs-to-sm {
+    height: 300px;
+  }
+}
+
+.bannerContent {
+  bottom: 0;
+  top: 0;
+  transform: none;
+  width: 600px;
+
+  @include xs-to-sm {
+    top: auto;
+    width: 100%;
+  }
+}
+
+.bannerContentInner {
+  @include xs-to-sm {
+    padding-bottom: 20px;
+    padding-top: 48px;
+  }
+}
+
+.learnBasicsContainer {
+  padding-bottom: 0;
+}
+
+.joinnowWrap {
+  margin-top: 10px;
+
+  @include xs-to-sm {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+.joinnow {
+  color: #0092ff;
+  background: white;
+  display: inline-block;
+  border: 1px solid #0092ff;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans', sans-serif;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+.linksCardContainer {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.linksList {
+  @include body-text;
+
+  list-style: disc;
+  margin-left: 6px;
+
+  a {
+    @include link;
+
+    display: block;
+  }
+}
+
+.videoContainer {
+  margin-bottom: 24px;
+  width: 49%;
+
+  @include xs-to-sm {
+    margin: 0 15px 24px;
+    width: calc(100% - 30px);
+  }
+}

@@ -121,26 +121,3 @@
     font-weight: 700;
   }
 }
-
-@media (max-width: 768px) {
-  .tab-container {
-    flex-direction: column;
-  }
-
-  .tab:last-child {
-    display: none;
-  }
-}
-
-/*
-* set tab title responsive font size for small screems
-**/
-@media (max-width: 500px) {
-  .tabs {
-    font-size: 3vw;
-
-    .tab {
-      margin: 0 2 * $base-unit;
-    }
-  }
-}

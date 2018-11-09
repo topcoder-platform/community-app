@@ -1,10 +1,8 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
-import { Modal } from 'topcoder-react-ui-kit';
-
 import ReactImageFallback from 'react-image-fallback';
+import Modal from 'components/Modal';
 import Left from 'assets/images/ico-arrow-big-left.svg';
 import Right from 'assets/images/ico-arrow-big-right.svg';
 import NoImage from 'assets/images/card-bg-no-image.png';

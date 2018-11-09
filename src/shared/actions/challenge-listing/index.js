@@ -81,7 +81,7 @@ function getAllActiveChallengesInit(uuid) {
 }
 
 /**
- * Gets all active challenges (including marathon matches) from the backend.
+ * Gets all active challenges from the backend.
  * Once this action is completed any active challenges saved to the state before
  * will be dropped, and the newly fetched ones will be stored there.
  * @param {String} uuid
@@ -139,13 +139,13 @@ function getDraftChallengesInit(uuid, page) {
 }
 
 /**
- * Gets the specified page of draft challenges (including MMs).
+ * Gets the specified page of draft challenges
  * @param {Number} page Page of challenges to fetch.
  * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
- * @param {Object}
+ * @param {Promise}
  */
-function getDraftChallengesDone(uuid, page, filter, tokenV3) {
+async function getDraftChallengesDone(uuid, page, filter, tokenV3) {
   const service = getService(tokenV3);
   return service.getChallenges({
     ...filter,
@@ -169,14 +169,20 @@ function getPastChallengesInit(uuid, page, frontFilter) {
 }
 
 /**
- * Gets the specified page of past challenges (including MMs).
+ * Gets the specified page of past challenges
  * @param {Number} page Page of challenges to fetch.
  * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
  * @param {Object} frontFilter Optional. Original frontend filter.
- * @param {Object}
+ * @param {Promise}
  */
-function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
+async function getPastChallengesDone(
+  uuid,
+  page,
+  filter,
+  tokenV3,
+  frontFilter = {},
+) {
   const service = getService(tokenV3);
   return service.getChallenges({
     ...filter,

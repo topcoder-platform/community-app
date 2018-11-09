@@ -3,10 +3,8 @@
  *
  */
 
-import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
-import { fixStyle } from 'utils/contentful';
 
 import './style.scss';
 
@@ -47,16 +45,9 @@ export default class Countdown extends React.Component {
     left -= minute * 60;
     const second = left;
 
-    const { title, extraStylesForContainer } = this.props;
-    const styles = _.merge(
-      fixStyle(extraStylesForContainer),
-      { backgroundImage: `url(${extraStylesForContainer['background-image']})` },
-    );
+    const { title } = this.props;
     return (
-      <div
-        styleName="container"
-        style={styles}
-      >
+      <div styleName="container">
         <div styleName="title"> {title} </div>
         <div styleName="title colon"> : </div>
         <div styleName="time-container">
@@ -84,11 +75,9 @@ export default class Countdown extends React.Component {
 
 Countdown.defaultProps = {
   title: 'Countdown to TCO19 Final',
-  extraStylesForContainer: null,
 };
 
 Countdown.propTypes = {
   title: PT.string,
   end: PT.instanceOf(Date).isRequired,
-  extraStylesForContainer: PT.shape(),
 };

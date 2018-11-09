@@ -595,7 +595,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
             },
             Object {
               "alpha3": "LBY",
-              "name": "Libya",
+              "name": "Libyan Arab Jamahiriya",
             },
             Object {
               "alpha3": "LIE",
@@ -1116,7 +1116,6 @@ exports[`renders about me section of profile setting page correctly 1`] = `
           ]
         }
         placeholder="Country"
-        selectRef={[Function]}
         value={
           Object {
             "alpha3": "CHN",

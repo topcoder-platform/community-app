@@ -34,25 +34,9 @@ function fetchLeaderboard(auth, apiUrl) {
     });
 }
 
-function getTcoHistoryChallengesInit(url) {
-  return _.toString(url);
-}
-
-async function getTcoHistoryChallengesDone(url, competitor) {
-  const res = await fetch(url)
-    .then(response => response.json())
-    .then(jsonResponse => ({
-      challenges: _.filter(jsonResponse, challenge => challenge.userid === competitor.userid),
-    }));
-  return res;
-}
-
 export default createActions({
   LEADERBOARD: {
     FETCH_LEADERBOARD_INIT: _.noop,
     FETCH_LEADERBOARD_DONE: fetchLeaderboard,
-    GET_TCO_HISTORY_CHALLENGES_INIT: getTcoHistoryChallengesInit,
-    GET_TCO_HISTORY_CHALLENGES_DONE: getTcoHistoryChallengesDone,
-    RESET_TCO_HISTORY_CHALLENGES: _.noop,
   },
 });

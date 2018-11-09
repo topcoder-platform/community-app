@@ -46,7 +46,6 @@ export default function ChallengeHeader(props) {
     challengeSubtracksMap,
     selectedView,
     showDeadlineDetail,
-    hasFirstPlacement,
   } = props;
 
   const {
@@ -91,7 +90,7 @@ export default function ChallengeHeader(props) {
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
-    trackLower = 'datasci';
+    trackLower = 'data_science';
   }
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -231,10 +230,6 @@ export default function ChallengeHeader(props) {
   // Legacy MMs have a roundId field, but new MMs do not.
   // This is used to disable registration/submission for legacy MMs.
   const isLegacyMM = subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
-
-  if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
-    _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
-  }
 
   return (
     <div styleName="challenge-outer-container">
@@ -441,5 +436,4 @@ ChallengeHeader.propTypes = {
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
-  hasFirstPlacement: PT.bool.isRequired,
 };

@@ -18,7 +18,6 @@ import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
 import cdnRouter from './routes/cdn';
-import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 
 /* Dome API for topcoder communities */
@@ -39,20 +38,7 @@ const swScope = '/challenges'; // we are currently only interested in improving 
 
 const EXTRA_SCRIPTS = [
   `<script type="application/javascript">
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then(
-    (reg)=>{
-      console.log('SW registered: ',reg);
-      reg.onupdatefound = () => {
-        const installingWorker = reg.installing;
-        installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'activated') {
-            location.reload();
-          }
-        };
-      };
-    }).catch((err)=>{console.log('SW registration failed: ',err)})
-  }
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('${swScope}/${sw}', {scope: '${swScope}'}).then((res)=>{console.log('SW registered: ',res)}).catch((err)=>{console.log('SW registration failed: ',err)})}
   </script>`,
   `<script
       src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
@@ -125,7 +111,6 @@ async function onExpressJsSetup(server) {
   });
 
   server.use('/api/cdn', cdnRouter);
-  server.use('/api/mailchimp', mailChimpRouter);
 
   // serve demo api
   server.use(
@@ -214,10 +199,6 @@ async function onExpressJsSetup(server) {
     } else {
       res.sendFile(`${url}/sw.js`);
     }
-  });
-  /* Serve manifest.json */
-  server.use(`${swScope}/manifest.json`, (req, res) => {
-    res.sendFile(`${url}/manifest.json`);
   });
 }
 

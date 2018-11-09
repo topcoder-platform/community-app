@@ -4,12 +4,6 @@
   display: none;
 }
 
-textarea {
-  @include placeholder {
-    text-transform: uppercase;
-  }
-}
-
 .hobby-container {
   display: flex;
   flex-direction: column;
@@ -24,34 +18,7 @@ textarea {
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 10px;
-
-    &.second {
-      margin-top: 50px;
-      margin-bottom: 30px;
-    }
-
-    &.first {
-      margin-bottom: 30px;
-    }
-
-    &.hidden {
-      display: none;
-    }
-
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }
@@ -69,72 +36,17 @@ textarea {
     color: $tc-red-110;
     font-size: 15px;
     padding: 15px;
-    margin: 15px 0;
+    margin-bottom: 15px;
   }
 }
 
-.form-container-default {
-  @include form-container-default;
-
-  input {
-    @include roboto-regular;
-
-    height: 40px;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    color: $tc-black;
-    border: 1px solid $tc-gray-20;
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-    margin-bottom: 0;
-  }
-
-  .text-required {
-    @include roboto-medium;
-
-    font-size: 10px;
-    color: $tc-red-110;
-    margin-bottom: 5px;
-    text-align: right;
-  }
-
-  .description {
-    display: flex;
-    flex-direction: column;
-
-    .first-line {
-      display: flex;
-      justify-content: flex-end;
-
-      .description-counts {
-        @include roboto-medium;
-
-        font-size: 11px;
-        color: $tc-dark-blue-110;
-        text-align: right;
-        margin-right: 10px;
-      }
-    }
-
-    .description-text {
-      height: 70px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-  }
-}
-
-.form-container-mobile {
-  display: none;
-
-  @include upto-sm {
-    display: flex;
-    flex-direction: column;
-    border-radius: 6px;
-    border: 1px solid $tc-gray-10;
-    padding: 20px 20px 20px 20px;
-    background-color: $tc-gray-neutral-light;
-  }
+.form-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid $tc-gray-10;
+  padding: 20px 20px 20px 20px;
+  background-color: $tc-gray-neutral-light;
 
   p {
     @include roboto-regular;
@@ -145,7 +57,7 @@ textarea {
     color: $tc-black;
     margin-bottom: 10px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-bottom: 20px;
     }
   }
@@ -156,7 +68,7 @@ textarea {
     margin-bottom: 10px;
     align-content: space-between;
 
-    @include upto-sm {
+    @include xs-to-sm {
       width: 100%;
       display: block;
       margin-bottom: 0;
@@ -164,11 +76,10 @@ textarea {
 
     .field {
       display: flex;
-      flex: 1;
       flex-direction: column;
       margin-right: 10px;
 
-      @include upto-sm {
+      @include xs-to-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -182,22 +93,14 @@ textarea {
         color: $tc-gray-80;
       }
 
-      &.col-1 {
-        width: auto;
-      }
-
-      &.col-2 {
-        width: auto;
-      }
-
       &.row-1 {
         width: 280px;
 
-        @include from-sm-to-lg {
+        @include md-to-lg {
           width: 383px;
         }
 
-        @include upto-sm {
+        @include xs-to-sm {
           width: 100%;
         }
       }
@@ -216,7 +119,6 @@ textarea {
         border-radius: 4px;
         margin-top: 6px;
         margin-bottom: 10px;
-        resize: vertical;
       }
 
       .description-counts {
@@ -251,7 +153,7 @@ textarea {
     min-width: 100%;
   }
 
-  @include upto-sm {
+  @include xs-to-sm {
     border: 0;
     border-radius: 0;
   }
@@ -269,7 +171,7 @@ textarea {
     font-weight: 500;
     margin: 0;
     padding: 0;
-    min-width: 200px;
+    width: 156px;
   }
 
   .complete {

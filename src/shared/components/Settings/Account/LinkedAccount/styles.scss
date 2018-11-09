@@ -1,7 +1,93 @@
-@import "../../style";
+@import "~styles/mixins";
 
 .links {
   border-bottom: none;
+}
+
+// Add web link section
+.external-web-link {
+  .web-link {
+    margin-bottom: 20px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      min-height: 60px;
+
+      label {
+        @include roboto-medium;
+
+        font-size: 12px;
+        line-height: 15px;
+        margin-bottom: 6px;
+        color: #47474f;
+      }
+
+      input.url {
+        max-width: 450px;
+        min-width: 450px;
+        margin: 0;
+        border-radius: 4px;
+
+        @include placeholder {
+          @include roboto-regular;
+
+          color: $tc-gray-40;
+          font-size: 12px;
+        }
+
+        &:disabled {
+          color: #b7b7b7;
+        }
+      }
+
+      // Error and Success styles
+      .validation-bar {
+        flex: 1;
+        width: auto;
+        position: relative;
+
+        &::before {
+          border-radius: 3px 0 0 3px;
+          content: '';
+          display: none;
+          height: 40px;
+          width: 2px;
+          left: 1px;
+          position: absolute;
+          top: 0;
+        }
+
+        &.error-bar::before {
+          background-color: $tc-red;
+          display: block;
+        }
+      }
+
+      .form-input-error {
+        background-color: $tc-red-10;
+        border: 1px solid $tc-red-30;
+        color: $tc-red;
+        font-size: 12px;
+        line-height: 20px;
+        margin-bottom: 10px;
+        padding: 10px;
+        text-align: left;
+
+        p {
+          @include merriweather-sans-regular;
+        }
+      }
+
+      .add-button {
+        width: auto;
+        height: 40px;
+        margin-top: 0;
+        margin-left: 10px;
+        text-transform: uppercase;
+      }
+    }
+  }
 }
 
 .external-link-list {
@@ -9,11 +95,6 @@
   flex-direction: column;
   justify-content: space-between;
   //margin-top: 10px;
-
-  @include upto-sm {
-    flex-flow: row wrap;
-    flex-direction: row;
-  }
 
   .external-link-tile {
     border: 1px solid $tc-gray-20;
@@ -81,7 +162,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 30%;
+      width: 90px;
       height: 88px;
       background-color: $tc-gray-neutral-light;
       border-radius: 4px 0 0 4px;
@@ -103,7 +184,7 @@
     }
 
     .bottom {
-      width: 70%;
+      width: 220px;
       margin-top: 10px;
 
       .handle {
@@ -187,8 +268,6 @@
         padding: 0 20px;
         text-transform: uppercase;
         color: $tc-dark-blue-110;
-        white-space: nowrap;
-        text-overflow: ellipsis;
 
         &:hover {
           color: $tc-light-blue-110;
@@ -205,233 +284,6 @@
 
   div.external-link-tile:nth-child(3n+1) {
     margin-left: 0;
-  }
-}
-
-// Add web link section
-.external-web-link {
-  margin-bottom: 30px;
-  width: 100%;
-
-  input.url {
-    max-width: 100%;
-    margin: 5px 0 0 0;
-    border-radius: 4px;
-
-    @include placeholder {
-      @include roboto-regular;
-
-      color: $tc-gray-40;
-      font-size: 12px;
-    }
-
-    &:disabled {
-      color: #b7b7b7;
-    }
-  }
-
-  .web-link {
-    .form-container-default {
-      @include upto-sm {
-        display: none;
-      }
-
-      display: flex;
-      flex-direction: row;
-      min-height: 40px;
-      justify-content: space-between;
-
-      label {
-        @include roboto-bold;
-
-        font-size: 15px;
-        line-height: 40px;
-        font-weight: 700;
-        color: $tc-gray-80;
-        max-width: 152px;
-        margin-right: 14px;
-        align-self: left;
-        margin-top: auto;
-        margin-bottom: auto;
-      }
-
-      // Error and Success styles
-      .validation-bar {
-        flex: 1;
-        width: 80%;
-        position: relative;
-
-        &::before {
-          border-radius: 3px 0 0 3px;
-          content: '';
-          display: none;
-          height: 40px;
-          width: 2px;
-          left: 1px;
-          position: absolute;
-          top: 0;
-        }
-
-        &.error-bar::before {
-          background-color: $tc-red;
-          display: block;
-        }
-      }
-
-      .form-input-error {
-        background-color: $tc-red-10;
-        border: 1px solid $tc-red-30;
-        color: $tc-red;
-        font-size: 12px;
-        line-height: 20px;
-        margin-bottom: 10px;
-        padding: 10px;
-        text-align: left;
-
-        p {
-          @include merriweather-sans-regular;
-        }
-      }
-
-      .add-button {
-        width: auto;
-        height: 40px;
-        margin-top: 0;
-        margin-left: 10px;
-        text-transform: uppercase;
-      }
-    }
-
-    .form-container-mobile {
-      display: none;
-
-      @include upto-sm {
-        border: 0;
-        border-radius: 0;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        background-color: $tc-gray-neutral-light;
-        width: 100%;
-        border-bottom: 1px solid #d5d5d5;
-      }
-
-      label {
-        @include roboto-bold;
-
-        font-size: 15px;
-        line-height: 40px;
-        font-weight: 700;
-        color: $tc-gray-80;
-        max-width: 152px;
-        margin-right: 14px;
-        align-self: left;
-        margin-top: auto;
-        margin-bottom: auto;
-      }
-
-      .title-mobile {
-        @include roboto-regular;
-
-        font-size: 20px;
-        line-height: 30px;
-        font-weight: 400;
-        color: $tc-black;
-
-        @include upto-sm {
-          margin-bottom: 20px;
-        }
-      }
-
-      .row {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 20px;
-        align-content: space-between;
-
-        @include upto-sm {
-          width: 100%;
-          display: block;
-          margin-bottom: 0;
-        }
-
-        .field {
-          display: flex;
-          flex-direction: column;
-          margin-right: 10px;
-
-          @include upto-sm {
-            display: block;
-            padding-bottom: 10px;
-          }
-
-          label {
-            @include roboto-medium;
-
-            font-size: 12px;
-            line-height: 15px;
-            font-weight: 500;
-            color: $tc-gray-80;
-            margin-bottom: 5px;
-          }
-
-          &.col-1 {
-            width: 100%;
-            //max-width: 156px;
-            //min-width: 156px;
-          }
-
-          &.col-2 {
-            width: 100%;
-          }
-        }
-
-        div.field:last-child {
-          margin-right: 0;
-        }
-      }
-
-      // Error and Success styles
-      .validation-bar {
-        flex: 1;
-        position: relative;
-
-        &::before {
-          border-radius: 3px 0 0 3px;
-          content: '';
-          display: none;
-          height: 40px;
-          width: 2px;
-          left: 1px;
-          position: absolute;
-          top: 0;
-        }
-
-        &.error-bar::before {
-          background-color: $tc-red;
-          display: block;
-        }
-
-        .form-input-error {
-          background-color: $tc-red-10;
-          border: 1px solid $tc-red-30;
-          color: $tc-red;
-          font-size: 12px;
-          line-height: 20px;
-          margin-bottom: 10px;
-          padding: 10px;
-          text-align: left;
-
-          p {
-            @include merriweather-sans-regular;
-          }
-        }
-
-        @include upto-sm {
-          width: 100%;
-        }
-      }
-    }
   }
 }
 
@@ -475,7 +327,7 @@
 
       .top {
         padding-top: 15px;
-        background-color: transparent;
+        background-color: none;
         width: auto;
 
         h2 {
@@ -545,7 +397,6 @@
 
         .link-url {
           max-height: 28px;
-          white-space: normal;
         }
       }
     }
@@ -558,16 +409,12 @@
   }
 }
 
+// Existing links section
 .existing-links {
   margin-bottom: 30px;
   display: flex;
   flex-flow: row wrap;
   border-bottom: none;
-
-  @include upto-sm {
-    display: block;
-    padding: 0 20px;
-  }
 
   .ext-link-tile_edit-header {
     display: flex;
@@ -626,6 +473,7 @@
   }
 }
 
+// Link accounts section
 .external-links {
   margin-bottom: 30px;
   display: flex;
@@ -647,6 +495,14 @@
       height: 90px;
       border: 1px solid $tc-gray-20;
       border-radius: 6px;
+
+      img {
+        filter: grayscale(0);
+
+        &.unadded {
+          filter: grayscale(1);
+        }
+      }
 
       .provider {
         margin-top: 8px;
@@ -780,7 +636,6 @@
 
     &.disabled {
       cursor: default;
-      opacity: 0.4;
     }
 
     &.enabled.connect:hover {
@@ -790,10 +645,6 @@
       }
     }
   }
-
-  @include upto-sm {
-    padding: 20px;
-  }
 }
 
 .section-loading {
@@ -802,6 +653,7 @@
   min-height: 50px;
 }
 
+///////////////////////
 .hide {
   display: none;
 }
@@ -810,6 +662,7 @@
   display: flex;
   flex-direction: column;
   align-items: left;
+  padding-bottom: 80px;
 
   h1 {
     @include roboto-regular;
@@ -819,79 +672,5 @@
     font-weight: 400;
     color: $tc-black;
     margin-bottom: 20px;
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 30px;
-    margin-top: 10px;
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-}
-
-.button-save {
-  align-self: center;
-
-  @include upto-sm {
-    margin-top: 10px;
-  }
-
-  .complete {
-    @include roboto-medium;
-
-    color: $tc-white;
-
-    button {
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 40px;
-      margin: 0;
-      padding: 0 0;
-      width: 200px;
-    }
-  }
-}
-
-.buttons {
-  margin-top: auto;
-  margin-bottom: auto;
-
-  .button-add-link {
-    align-self: center;
-    color: $tc-white;
-    margin: 0;
-
-    div:first-child {
-      margin-top: 0;
-    }
-
-    button,
-    a {
-      @include roboto-medium;
-
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      margin: 0;
-      padding: 0;
-      width: 155px;
-    }
-
-    @include upto-sm {
-      display: none;
-    }
   }
 }

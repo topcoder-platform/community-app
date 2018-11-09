@@ -8,7 +8,6 @@ New version of Topcoder Community website.
 -   [CDN: User Avatars](docs/cdn-user-avatars.md)
 -   [Code Splitting](docs/code-splitting.md)
 -   [Coding Standards](docs/coding-standards.md)
--   [Contentful CMS](docs/contentful/index.md)
 -   [Dashboard Announcements](docs/dashboard-announcements.md)
 -   [How to Add a New Topcoder Community?](docs/how-to-add-a-new-topcoder-community.md)
 -   [How To Deep-Link (Correct Use of URL Query Params Within The App)](docs/how-to-deep-link.md)
@@ -51,19 +50,6 @@ If you need any operations related to currency conversions, pay attention to the
 4.  Set environment variables:
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
     -   `NODE_CONFIG_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
-
-    Many app segments depend on [Contentful CMS](https://www.contentful.com/)
-    for routing information. Thus, even if the page/component you are working
-    with does not require CMS directly, you may see CMS-related error messages.
-    To interact with CMS you must setup the following environment variables:
-    -   `CONTENTFUL_SPACE_ID`
-    -   `CONTENTFUL_CDN_API_KEY`
-    -   `CONTENTFUL_PREVIEW_API_KEY`
-
-    If you have access to Topcoder CMS space (or you use your own CMS space for
-    development), you'll find them under _Space settings_ > _API keys_. Otherwise,
-    look for these credentials in the challenge forum, or reach a copilot to get
-    them.
 
 5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;

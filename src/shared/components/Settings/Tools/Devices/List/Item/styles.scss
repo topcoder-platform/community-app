@@ -18,7 +18,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex: 1;
 }
 
 .device-icon {
@@ -38,7 +37,6 @@
   line-height: 20px;
   text-transform: capitalize;
   padding-right: 20px;
-  flex: 1;
 }
 
 .parameter-first-line {
@@ -55,7 +53,6 @@
 .delete {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-items: center;
   justify-content: flex-start;
   cursor: pointer;
@@ -65,7 +62,7 @@
   img {
     margin-bottom: 10px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-bottom: 0;
     }
   }
@@ -78,7 +75,7 @@
     font-weight: 400;
     color: $tc-gray-50;
 
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }

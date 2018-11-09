@@ -1,30 +1,25 @@
 @import "../../style";
 
 .EmailPreferences {
+  margin-bottom: 90px;
+
+  @include md-to-lg {
+    margin-bottom: 0;
+  }
+
+  @include xs-to-sm {
+    margin-bottom: 0;
+  }
+
   .title {
     @include tc-heading-lg;
 
     margin-bottom: 25px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       font-size: 20px;
       line-height: 30px;
       margin: 20px;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 30px;
-    margin-top: 5px;
-
-    @include upto-sm {
-      display: none;
     }
   }
 

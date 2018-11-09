@@ -36,7 +36,6 @@ exports[`renders profile about header correctly 1`] = `
       className="src-shared-components-ProfilePage-Header-___styles__tenure___3ODNv"
     >
       Member Since
-       
       March, 2004
     </h3>
   </div>

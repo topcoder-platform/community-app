@@ -23,6 +23,7 @@ const Abbreviation = {
     CONTENT_CREATION: 'CC',
     REPORTING: 'Rp',
     DEVELOP_MARATHON_MATCH: 'MM',
+    MARATHON_MATCH: 'MM',
     FIRST2FINISH: 'F2F',
     FIRST_2_FINISH: 'F2F',
     CODE: 'Cd',

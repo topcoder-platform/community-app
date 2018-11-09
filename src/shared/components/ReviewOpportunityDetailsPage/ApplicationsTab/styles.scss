@@ -5,7 +5,7 @@
 
   background: $tc-white;
   border-radius: 0 0 3 * $corner-radius 3 * $corner-radius;
-  flex: 1;
+  flex: 1 1 966px;
   margin-bottom: 2 * $base-unit;
   padding: 8 * $base-unit 16 * $base-unit;
 
@@ -82,7 +82,7 @@
   a,
   a:hover,
   a:visited {
-    color: $tc-dark-blue-110;
+    color: $tc-dark-blue;
 
     &:hover {
       text-decoration: underline;
@@ -110,15 +110,5 @@
     flex-direction: column;
     align-items: flex-start;
     width: auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 4 * $base-unit;
-  }
-
-  .tab-container {
-    flex-direction: column;
   }
 }

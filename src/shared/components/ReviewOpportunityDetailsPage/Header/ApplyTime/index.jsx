@@ -16,18 +16,8 @@ const { formatDuration } = time;
  * ApplyTime Component
  */
 const ApplyTime = ({
-  hasApplied, onApply, openPositions, startDate, completed,
+  hasApplied, onApply, openPositions, startDate,
 }) => {
-  if (completed) {
-    return (
-      <div styleName="container">
-        <div styleName="completed-message">
-The review phase for this challenge is completed
-or reviewers have already been assigned.
-        </div>
-      </div>
-    );
-  }
   const startMoment = moment(startDate);
   const timeLeft = startMoment.isAfter() ? formatDuration(startMoment - moment()) : 'None';
 
@@ -58,16 +48,14 @@ TIME LEFT TO APPLY
   );
 };
 
-ApplyTime.defaultProps = {
-  completed: false,
-};
-
+/**
+ * Prop Validation
+ */
 ApplyTime.propTypes = {
   hasApplied: PT.bool.isRequired,
   onApply: PT.func.isRequired,
   openPositions: PT.number.isRequired,
   startDate: PT.string.isRequired,
-  completed: PT.bool,
 };
 
 export default ApplyTime;

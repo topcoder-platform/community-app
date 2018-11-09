@@ -1,0 +1,112 @@
+@import '../../Themes/mixins';
+
+.container {
+  //@include tc-body-md;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 0;
+
+  div:nth-child(even) {
+    margin-right: 0;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    div:nth-child(even) {
+      margin-right: 10px;
+    }
+
+    div:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.tip-quote {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 49%;
+  align-items: left;
+  border: solid 1px $tc-gray-20;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  padding: 40px;
+
+  @media screen and (max-width: $screen-1024) {
+    width: 48.5%;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    width: 100%;
+    margin: 0 10px 10px 10px;
+    padding: 20px;
+  }
+}
+
+.text {
+  @include text;
+
+  margin-bottom: 20px;
+  text-align: left;
+  object-fit: cover;
+
+  @media screen and (max-width: $screen-sm) {
+    @include text;
+
+    height: auto;
+    margin-bottom: 10px;
+  }
+}
+
+.member {
+  display: flex;
+
+  a {
+    color: $tc-dark-blue-110;
+  }
+
+  .member-photo {
+    border-radius: 50%;
+    height: 32px;
+    overflow: hidden;
+    width: 32px;
+    margin-right: 20px;
+
+    img {
+      height: auto;
+      width: 100%;
+    }
+
+    @media screen and (max-width: $screen-sm) {
+      margin-right: 10px;
+    }
+  }
+
+  .member-info {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: flex-end;
+  }
+
+  .member-date {
+    font-size: 12px;
+    margin-top: 5px;
+    line-height: 15px;
+
+    @include roboto-regular;
+  }
+
+  .member-handle {
+    @include roboto-medium;
+  }
+
+  a:hover,
+  a:active {
+    background-color: $tc-white;
+  }
+}

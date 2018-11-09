@@ -1,0 +1,109 @@
+@import '~styles/mixins';
+@import '../../themes/mixins';
+
+.coursesContainer {
+  padding-bottom: 60px;
+}
+
+.coursesContent {
+  flex-wrap: wrap;
+}
+
+.resourcesTitle {
+  padding-bottom: 50px;
+  padding-top: 0;
+
+  @include xs-to-sm {
+    font-size: 36px;
+    padding-bottom: 30px;
+  }
+}
+
+.resourcesContainer {
+  padding-bottom: 60px;
+
+  @include xs-to-sm {
+    padding-bottom: 50px;
+  }
+}
+
+.bannerContainer {
+  height: 470px;
+
+  @include xs-to-sm {
+    height: 300px;
+  }
+}
+
+.bannerContent {
+  bottom: 0;
+  top: 0;
+  transform: none;
+  width: 600px;
+
+  @include xs-to-sm {
+    top: auto;
+    width: 100%;
+  }
+}
+
+.linksList {
+  @include body-text;
+
+  list-style: disc;
+  margin-left: 6px;
+
+  a {
+    @include link;
+
+    display: block;
+  }
+}
+
+.bannerContentInner {
+  @include xs-to-sm {
+    padding-bottom: 20px;
+    padding-top: 48px;
+  }
+}
+
+.learnBasicsContainer {
+  padding-bottom: 0;
+
+  p a {
+    @include link;
+
+    text-decoration: underline;
+  }
+}
+
+.joinnowWrap {
+  margin-top: 10px;
+
+  @include xs-to-sm {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+.historyOfBlockchainVideo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  @include xs-to-md {
+    padding: 0 18px;
+  }
+}
+
+.historyOfBlockchainVideoWrapper {
+  margin-bottom: 24px;
+  padding-bottom: 33%;
+  position: relative;
+  width: 49%;
+
+  @include xs-to-md {
+    padding-bottom: 66%;
+    width: 100%;
+  }
+}

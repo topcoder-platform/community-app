@@ -117,7 +117,6 @@ function onQueryContentDone(state, action) {
 
   const res = _.clone(state);
 
-
   /* Adds matched items to items collection. */
   const d = _.omit(data, 'includes');
   let a = collectionActions.addItems(_.keyBy(data.items, i => i.sys.id));

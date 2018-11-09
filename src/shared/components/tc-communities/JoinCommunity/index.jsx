@@ -7,9 +7,10 @@
 
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
+import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import { Button, Modal, PrimaryButton } from 'topcoder-react-ui-kit';
+import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 import { COMPOSE } from 'react-css-super-themr';
 import style from './style.scss';
 

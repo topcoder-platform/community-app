@@ -15,6 +15,11 @@
   }
 }
 
+a:hover,
+a:active {
+  background-color: $tc-gray-10;
+}
+
 .icon-wrapper {
   display: flex;
   min-width: 24px;

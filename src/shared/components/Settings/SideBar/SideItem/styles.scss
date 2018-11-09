@@ -14,7 +14,7 @@ a.SideItem {
   align-items: center;
   border-radius: 4px;
 
-  @include from-sm-to-lg {
+  @include md-to-lg {
     width: 60px;
     justify-content: center;
     padding: 0;
@@ -25,7 +25,7 @@ a.SideItem {
     width: 34px;
     max-height: 30px;
 
-    @include from-sm-to-lg {
+    @include md-to-lg {
       margin-right: 0;
     }
   }
@@ -44,17 +44,13 @@ a.SideItem {
     justify-content: center;
     margin-right: 12px;
 
-    @include from-sm-to-lg {
+    @include md-to-lg {
       margin-right: 0;
-    }
-
-    svg {
-      padding: 1px 0;
     }
   }
 
   span.name {
-    @include from-sm-to-lg {
+    @include md-to-lg {
       display: none;
     }
   }

@@ -15,7 +15,6 @@ export default function Learn() {
       query={{
         'fields.name': 'Zurich Community - FAQ',
       }}
-      spaceName="zurich"
     />
   );
 }

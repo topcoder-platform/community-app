@@ -86,8 +86,6 @@
 
 .redux-toastr .toastr {
   min-height: 60px !important;
-  width: auto;
-  margin: auto;
 }
 
 .redux-toastr .toastr .rrt-left-container .rrt-holder {
@@ -124,7 +122,7 @@
 .redux-toastr .bottom-left,
 .redux-toastr .bottom-right,
 .redux-toastr .bottom-center {
-  width: auto !important;
+  width: 420px !important;
 }
 
 .hidden {

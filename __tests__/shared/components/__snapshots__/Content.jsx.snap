@@ -280,6 +280,22 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
+      Public Profile Page available at the
+       
+      <code>
+        /members/:handle
+      </code>
+       
+      endpoint. Valid link on dev
+       
+      <Link
+        replace={false}
+        to="/members/TonyJ"
+      >
+        here.
+      </Link>
+    </li>
+    <li>
       Stand-alone terms of use page: ‌
       <Link
         replace={false}
@@ -580,166 +596,6 @@ exports[`Matches shallow shapshot 1`] = `
         </code>
       </Link>
     </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/blog-feed/6A61WFKFjimSWoe04ukOI4"
-      >
-        <code>
-          BlogFeed
-        </code>
-      </Link>
-    </li>
-  </ul>
-  <h3>
-    Previews of Contentful Components with CMS SpaceName/Environment Props
-  </h3>
-  <ul>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/accordion2/5dPXVGcG0gMgSKQik60oQg"
-      >
-        <code>
-          Accordion 2
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/banner2/4S8Evqme2QKsgcsyquAKiC"
-      >
-        <code>
-          Banner 2
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/contentblock2/5qSze51hO8GcECUwOWOw2u"
-      >
-        <code>
-          Content block 2
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/quote2/pVdDfed4NUY4gUiAS2CCo"
-      >
-        <code>
-          Quote 2
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/video2/2SPlrtNnJm0UWUO8qE6IWy"
-      >
-        <code>
-          Video 2
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/route2/43soieJAakkqgQqeO4Gcga"
-      >
-        <code>
-          route 2
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/viewport2/4X1xGrz6nuYIuMwayWce8k"
-      >
-        <code>
-          Viewport 2
-        </code>
-      </Link>
-    </li>
-  </ul>
-  <h3>
-    Previews of Contentful Components With environment variable override for CMS configuration.
-  </h3>
-  <ul>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/accordion/1OnBjdMPHauCWEYUaSMCGQ"
-      >
-        <code>
-          Accordion 3
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/banner/oVlavhUxlQeiOmwC84soa"
-      >
-        <code>
-          Banner 3
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/contentblock/3xy0Nda3CUIQkEwEMUYgQw"
-      >
-        <code>
-          ContentBlock 3
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/quote/3JD9i97PZYmSUCw28M60mE"
-      >
-        <code>
-          Quote 3
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/video/5JCnYCDPSEmIGwkqK2w6qg"
-      >
-        <code>
-          Video 3
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/route/3JqptKawE8m2ogWCU4wsKS"
-      >
-        <code>
-          Route 3
-        </code>
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/contentful/viewport/6ImH9RiRtC6QyiKEYaC0Ae"
-      >
-        <code>
-          Viewport 3
-        </code>
-      </Link>
-    </li>
   </ul>
   <h3>
     Sandbox
@@ -899,15 +755,6 @@ exports[`Matches shallow shapshot 1`] = `
         Markdown Rendering
       </Link>
       ‌ – A component that can be passed markdown as a prop and will render it as native React elements.  Also supports inlining a subset of the JSX Components found in Community App.
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/examples/looker"
-      >
-        Looker
-      </Link>
-      ‌ – Looker examples.
     </li>
     <li>
       <Link

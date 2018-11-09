@@ -5,7 +5,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { noop } from 'lodash';
 
-import { Modal } from 'topcoder-react-ui-kit';
+import Modal from 'components/Modal';
 import Tooltip from 'components/Tooltip';
 
 import CloseButton from 'assets/images/profile/x-mark-gray.svg';

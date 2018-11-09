@@ -1,51 +1,6 @@
 {
   "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
   "rules": {
-    "jsx-a11y/anchor-is-valid": false,
-    "jsx-a11y/label-has-for": [
-      2,
-      {
-        "components": [
-          "Label"
-        ],
-        "required": {
-          "some": [
-            "nesting",
-            "id"
-          ]
-        },
-        "allowChildren": false
-      }
-    ],
-    "jsx-a11y/label-has-associated-control": [
-      2,
-      {
-        "labelComponents": [
-          "CustomLabel"
-        ],
-        "labelAttributes": [
-          "inputLabel"
-        ],
-        "controlComponents": [
-          "CustomInput"
-        ],
-        "depth": 3
-      }
-    ],
-    "no-unused-vars": "off",
-    "no-undef": "off",
-    "react/jsx-no-undef": [
-      false
-    ],
-    "react/require-default-props": [
-      false
-    ],
-    "linebreak-style": 0,
-    "global-require": 0,
-    "eslint linebreak-style": [
-      0,
-      "error",
-      "windows"
-    ]
+    "jsx-a11y/anchor-is-valid": false
   }
 }

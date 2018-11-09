@@ -8,7 +8,7 @@
   &.active {
     margin-top: 20px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-top: 0;
     }
   }

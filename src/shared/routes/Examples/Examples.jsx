@@ -16,7 +16,6 @@ import LinkTest from 'components/examples/LinkTest';
 import LoadingIndicator from 'components/LoadingIndicator';
 import LoadingIndicators from 'components/examples/LoadingIndicators';
 import Markdown from 'components/examples/Markdown';
-import Looker from 'components/examples/Looker';
 import path from 'path';
 import PT from 'prop-types';
 import React from 'react';
@@ -79,7 +78,6 @@ export default function Examples({
         path={`${base}/loading-indicators`}
       />
       <Route path={`${base}/markdown`} component={Markdown} />
-      <Route path={`${base}/looker`} component={Looker} />
       <Route path={`${base}/scalable-rect`} component={ScalableRect} />
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
       <Route path={`${base}/tags`} component={Tags} />

@@ -14,10 +14,6 @@
         },
         {
             "key": "serviceProviderType",
-            "name": "Financial Institution"
-        },
-        {
-            "key": "serviceProviderType",
             "name": "Other"
         }
     ]

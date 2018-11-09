@@ -23,20 +23,6 @@ function onDone(state, action) {
 }
 
 /**
- * Handles GET_TCO_HISTORY_CHALLENGES_DONE action.
- * @param {Object} state Previous state.
- * @param {Object} action Action.
- */
-function onHistoryChallengesDone(state, action) {
-  return {
-    ...state,
-    challenges: action.error ? [] : action.payload.challenges,
-    failed: !!action.error,
-    loading: false,
-  };
-}
-
-/**
  * Creates a new Leaderboard reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
  * @return Leaderboard reducer.
@@ -53,19 +39,6 @@ function create(initialState) {
       };
     },
     [actions.leaderboard.fetchLeaderboardDone]: onDone,
-    [actions.leaderboard.getTcoHistoryChallengesInit](state) {
-      return {
-        ...state,
-        loading: true,
-      };
-    },
-    [actions.leaderboard.getTcoHistoryChallengesDone]: onHistoryChallengesDone,
-    [actions.leaderboard.resetTcoHistoryChallenges](state) {
-      return {
-        ...state,
-        challenges: [],
-      };
-    },
   }, initialState || {});
 }
 

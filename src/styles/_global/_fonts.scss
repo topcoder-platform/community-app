@@ -89,24 +89,3 @@
 
 /* Awesome font */
 @include font-family('FontAwesome', normal, normal, 'assets/fonts/font-awesome/', 'fontawesome-webfont');
-
-/* Frutiger is used by the Zurich community */
-
-/* TODO: At the moment I have only ttf version of the font around, thus using
- * font-face directly, should be updated later. */
-@include font-family-ttf('Frutiger', 300, normal, 'assets/fonts/frutiger/Frutiger-Light');
-@include font-family-ttf('Frutiger', 300, italic, 'assets/fonts/frutiger/Frutiger-LightItalic');
-@include font-family-ttf('Frutiger', 400, italic, 'assets/fonts/frutiger/Frutiger-Italic');
-@include font-family-ttf('Frutiger', 400, normal, 'assets/fonts/frutiger/Frutiger-Roman');
-@include font-family-ttf('Frutiger', 600, normal, 'assets/fonts/frutiger/Frutiger-Bold');
-@include font-family-ttf('Frutiger', 600, italic, 'assets/fonts/frutiger/Frutiger-BoldItalic');
-@include font-family-ttf('Frutiger', 700, normal, 'assets/fonts/frutiger/Frutiger-Black');
-@include font-family-ttf('Frutiger', 700, italic, 'assets/fonts/frutiger/Frutiger-BlackItalic');
-
-/* Garamond is used by the Zurich community */
-
-/* TODO: At the moment I have only ttf version of the font around, thus using
- * font-face directly, should be updated later. */
-@include font-family-ttf('Garamond', 400, normal, 'assets/fonts/garamond/GARA');
-@include font-family-ttf('Garamond', 400, italic, 'assets/fonts/garamond/GARAIT');
-@include font-family-ttf('Garamond', 600, italic, 'assets/fonts/garamond/GARABD');

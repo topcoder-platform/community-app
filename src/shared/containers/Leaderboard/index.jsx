@@ -30,7 +30,7 @@ class LeaderboardPageContainer extends React.Component {
   }
 
   render() {
-    const { HeadBanner, leaderboardData, isTopGear } = this.props;
+    const { HeadBanner, leaderboardData } = this.props;
     const ld = leaderboardData || [];
     return (
       <div>
@@ -55,8 +55,8 @@ class LeaderboardPageContainer extends React.Component {
           <h2 styleName="section-title">
             Leaderboard
           </h2>
-          <Podium competitors={ld.slice(0, 3)} isTopGear={isTopGear} />
-          <LeaderboardTable competitors={ld.slice(3)} isTopGear={isTopGear} />
+          <Podium competitors={ld.slice(0, 3)} />
+          <LeaderboardTable competitors={ld.slice(3)} />
         </div>
         <NewsletterSignup
           title="Sign up for our newsletter"
@@ -77,7 +77,6 @@ LeaderboardPageContainer.defaultProps = {
   // TODO: make it null, when we don't need a demo page
   apiUrl: 'http://www.mocky.io/v2/59098e60100000b60747c10b',
   auth: null,
-  isTopGear: false,
 };
 
 LeaderboardPageContainer.propTypes = {
@@ -88,7 +87,6 @@ LeaderboardPageContainer.propTypes = {
   loadedApiUrl: PT.string,
   apiUrl: PT.string,
   auth: PT.shape(),
-  isTopGear: PT.bool,
 };
 
 const mapStateToProps = state => ({

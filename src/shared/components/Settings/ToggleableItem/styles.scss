@@ -24,7 +24,7 @@
     line-height: 20px;
     margin-bottom: 10px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       @include roboto-medium;
 
       font-weight: 500;
@@ -40,7 +40,7 @@
     font-weight: 400;
     line-height: 20px;
 
-    @include upto-sm {
+    @include xs-to-sm {
       font-size: 11px;
     }
   }

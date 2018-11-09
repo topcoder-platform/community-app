@@ -10,7 +10,6 @@ import { AppChunk } from 'topcoder-react-utils';
 export default function LeaderboardRoute({
   HeadBanner,
   meta,
-  isTopGear,
 }) {
   return (
     <AppChunk
@@ -20,7 +19,6 @@ export default function LeaderboardRoute({
           <Leaderboard
             apiUrl={meta.leaderboardApiUrl}
             HeadBanner={HeadBanner}
-            isTopGear={isTopGear}
           />
         ))
       }
@@ -31,7 +29,6 @@ export default function LeaderboardRoute({
 
 LeaderboardRoute.defaultProps = {
   HeadBanner: null,
-  isTopGear: false,
 };
 
 LeaderboardRoute.propTypes = {
@@ -39,5 +36,4 @@ LeaderboardRoute.propTypes = {
   meta: PT.shape({
     leaderboardApiUrl: PT.string.isRequired,
   }).isRequired,
-  isTopGear: PT.bool,
 };

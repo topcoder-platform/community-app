@@ -5,6 +5,15 @@ exports[`Snapshot match 1`] = `
   className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
 >
   <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+  >
+    <img
+      alt="preview"
+      className="src-shared-components-SubmissionManagement-Submission-___styles__dev-img___rbFEF"
+      src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=undefined&sbt=tiny&sfi=1"
+    />
+  </td>
+  <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   />
   <td />
@@ -59,6 +68,15 @@ exports[`Snapshot match 2`] = `
 <tr
   className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
 >
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+  >
+    <img
+      alt="preview"
+      className="src-shared-components-SubmissionManagement-Submission-___styles__dev-img___rbFEF"
+      src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=12345&sbt=tiny&sfi=1"
+    />
+  </td>
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   >

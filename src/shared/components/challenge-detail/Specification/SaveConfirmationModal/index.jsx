@@ -1,7 +1,8 @@
 import LoadingIndicator from 'components/LoadingIndicator';
+import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
 

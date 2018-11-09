@@ -21,7 +21,6 @@ export default function Tools(props) {
   const {
     settingsUI: { currentToolsTab, TABS },
     toggleToolsSideTab,
-    clearToastrNotification,
   } = props;
   const tabs = TABS.TOOLS;
   const names = Object.keys(tabs).map(key => tabs[key]);
@@ -34,12 +33,7 @@ export default function Tools(props) {
     subscriptions: <SubscriptionsIcon />,
   };
 
-  let previousSelectedTab;
   const renderTabContent = (tab) => {
-    if (previousSelectedTab !== tab) {
-      clearToastrNotification();
-    }
-    previousSelectedTab = tab;
     switch (tab) {
       case 'devices':
         return <Devices {...props} />;
@@ -83,5 +77,4 @@ export default function Tools(props) {
 Tools.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleToolsSideTab: PT.func.isRequired,
-  clearToastrNotification: PT.func.isRequired,
 };

@@ -6,13 +6,8 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 
 /* Loads viewport content assets. */
-const Viewport = ({
-  children,
-  extraStylesForContainer,
-  theme,
-  viewportId,
-}) => (
-  <div id={viewportId} className={theme.container} style={extraStylesForContainer}>
+const Viewport = ({ children, extraStylesForContainer, theme }) => (
+  <div className={theme.container} style={extraStylesForContainer}>
     {children}
   </div>
 );
@@ -22,7 +17,6 @@ Viewport.defaultProps = {
 };
 
 Viewport.propTypes = {
-  viewportId: PT.string.isRequired,
   children: PT.node.isRequired,
   extraStylesForContainer: PT.shape(),
   theme: PT.shape({

@@ -5,54 +5,10 @@ exports[`renders account setting page correctly 1`] = `
   className="src-shared-components-Settings-Account-___styles__account-container___2rdYG"
 >
   <div
-    className="src-shared-components-Settings-Account-___styles__mobile-view___s8M3A"
-  >
-    <Accordion
-      icons={
-        Object {
-          "linked accounts": <LinkedAccountIcon
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
-            xmlns="http://www.w3.org/2000/svg"
-          />,
-          "my account": <MyAccountIcon
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
-            xmlns="http://www.w3.org/2000/svg"
-          />,
-        }
-      }
-      names={
-        Array [
-          "my account",
-          "linked account",
-        ]
-      }
-      renderTabContent={[Function]}
-    />
-  </div>
-  <div
     className="src-shared-components-Settings-Account-___styles__col-bar___3MCVp"
   >
     <SideBar
-      icons={
-        Object {
-          "linked accounts": <LinkedAccountIcon
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
-            xmlns="http://www.w3.org/2000/svg"
-          />,
-          "my account": <MyAccountIcon
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
-            xmlns="http://www.w3.org/2000/svg"
-          />,
-        }
-      }
+      icons={Object {}}
       names={
         Array [
           "my account",

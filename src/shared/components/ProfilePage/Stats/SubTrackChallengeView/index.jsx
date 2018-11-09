@@ -299,12 +299,21 @@ Sorry, no successful challenges found.
       );
     } if (track === 'DATA_SCIENCE' && subTrack === 'SRM') {
       userSrms.sort((a, b) => {
-        const aDate = a.startDate;
-        const bDate = b.startDate;
-        if (aDate > bDate) {
-          return -1;
-        } if (aDate < bDate) {
+        const aHasFP = a.rounds[0];
+        const bHasFP = b.rounds[0];
+        if (
+          (a.rounds[0].userSRMDetails
+           && a.rounds[0].userSRMDetails.finalPoints)
+            && (b.rounds[0].userSRMDetails
+           && b.rounds[0].userSRMDetails.finalPoints)
+        ) {
+          // sort descending
+          return b.rounds[0].userSRMDetails.finalPoints - a.rounds[0].userSRMDetails.finalPoints;
+        } if (bHasFP) {
+          // if b has FP, b should go first
           return 1;
+        } if (aHasFP) {
+          return -1;
         }
         return 0;
       });

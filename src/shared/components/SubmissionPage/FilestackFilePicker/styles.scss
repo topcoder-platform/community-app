@@ -55,34 +55,6 @@
       display: flex;
       align-items: center;
     }
-
-    .url-input-container {
-      width: 100%;
-      margin-top: 40px;
-
-      input.invalid {
-        border-color: #f22f24;
-      }
-
-      ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: $tc-gray-40;
-        opacity: 1; /* Firefox */
-      }
-
-      ::-ms-input-placeholder { /* Microsoft Edge */
-        color: $tc-gray-40;
-      }
-
-      :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: $tc-gray-40;
-      }
-    }
-
-    .invalid-url-message {
-      font-size: 12px;
-      color: #f22f24;
-      margin-bottom: 10px;
-    }
   }
 
   .file-picker.error {

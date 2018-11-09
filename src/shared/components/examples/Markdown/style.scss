@@ -1,52 +1,52 @@
 .container {
   padding: 40px;
+}
 
-  h1 {
-    margin: 30px 0 30px 0;
-  }
+h1 {
+  margin: 30px 0 30px 0;
+}
 
-  h2 {
-    margin: 15px 0 15px 0;
-  }
+h2 {
+  margin: 15px 0 15px 0;
+}
 
-  h3 {
-    margin: 5px 0 5px 0;
-  }
+h3 {
+  margin: 5px 0 5px 0;
+}
 
-  code {
-    font-family: monospace;
-  }
+code {
+  font-family: monospace;
+}
 
-  ul {
-    list-style-type: circle;
-    padding-left: 30px;
-  }
+ul {
+  list-style-type: circle;
+  padding-left: 30px;
+}
 
-  ol {
-    list-style-type: decimal;
-    padding-left: 30px;
-  }
+ol {
+  list-style-type: decimal;
+  padding-left: 30px;
+}
 
-  blockquote {
-    background-color: green;
-    padding-left: 30px;
-  }
+blockquote {
+  background-color: green;
+  padding-left: 30px;
+}
 
-  em,
-  i {
-    font-style: italic;
-  }
+em,
+i {
+  font-style: italic;
+}
 
-  strong,
-  b {
-    font-weight: bold;
-  }
+strong,
+b {
+  font-weight: bold;
+}
 
-  a {
-    color: blue;
+a {
+  color: blue;
 
-    &:visited {
-      color: purple;
-    }
+  &:visited {
+    color: purple;
   }
 }

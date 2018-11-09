@@ -32,11 +32,6 @@ export default class Accordion extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { currentSidebarTab } = this.props;
-    this.setState({ currentItem: currentSidebarTab });
-  }
-
   /*
    * Sync the state of the Accordion with the state of the Sidebar
    */
@@ -115,7 +110,7 @@ export default class Accordion extends React.Component {
                   {name}
                 </p>
                 <span styleName="arrow-container">
-                  <ArrowDown styleName={`${this.isOpened(name) ? 'up' : ''}`} width="15px" height="15px" />
+                  <ArrowDown width="15px" height="15px" transform={`${this.isOpened(name) ? 'rotate(180)' : ''}`} />
                 </span>
               </div>
               {

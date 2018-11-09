@@ -5,11 +5,10 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import ConsentComponent from 'components/Settings/ConsentComponent';
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -18,37 +17,28 @@ import SoftwareList from './List';
 import './styles.scss';
 
 
-export default class Software extends ConsentComponent {
+export default class Software extends React.Component {
   constructor(props) {
     super(props);
-    this.onHandleDeleteSoftware = this.onHandleDeleteSoftware.bind(this);
     this.onDeleteSoftware = this.onDeleteSoftware.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadSoftwareTrait = this.loadSoftwareTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
-    this.onHandleAddSoftware = this.onHandleAddSoftware.bind(this);
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.updatePredicate = this.updatePredicate.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
-    const { userTraits } = props;
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       errorMessage: '',
-      softwareTrait: this.loadSoftwareTrait(userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(userTraits),
+      softwareTrait: this.loadSoftwareTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newSoftware: {
         softwareType: '',
         name: '',
       },
-      isMobileView: false,
-      screenSM: 767,
     };
-  }
-
-  componentDidMount() {
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,21 +56,17 @@ export default class Software extends ConsentComponent {
     });
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updatePredicate);
-  }
-
   /**
    * Show User Consent Modal
    * @param e event
    */
-  onHandleAddSoftware(e) {
+  onShowUserConsent(e) {
     e.preventDefault();
     const { newSoftware } = this.state;
     if (this.onCheckFormValue(newSoftware)) {
       return;
     }
-    this.showConsent(this.onAddSoftware.bind(this));
+    this.setState({ showUserConsent: true });
   }
 
   /**
@@ -92,28 +78,22 @@ export default class Software extends ConsentComponent {
     let invalid = false;
 
     let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newSoftware.softwareType).length) {
-      invalidFields.push('Type');
+      errorMessage += 'Software type, ';
       invalid = true;
     }
 
     if (!_.trim(newSoftware.name).length) {
-      invalidFields.push('Name');
+      errorMessage += 'Name, ';
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
+    if (errorMessage.length > 0) {
       errorMessage += ' cannot be empty';
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
-  }
-
-  onHandleDeleteSoftware(indexNo) {
-    this.showConsent(this.onDeleteSoftware.bind(this, indexNo));
   }
 
   /**
@@ -144,9 +124,12 @@ export default class Software extends ConsentComponent {
 
   /**
    * Add new software
+   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddSoftware(answer) {
+  onAddSoftware(e, answer) {
+    e.preventDefault();
+    this.setState({ showUserConsent: false });
     const { newSoftware, personalizationTrait } = this.state;
 
     const {
@@ -232,13 +215,8 @@ export default class Software extends ConsentComponent {
     return _.assign({}, personalization);
   }
 
-  updatePredicate() {
-    const { screenSM } = this.state;
-    this.setState({ isMobileView: window.innerWidth <= screenSM });
-  }
-
   render() {
-    const { softwareTrait, isMobileView } = this.state;
+    const { softwareTrait, showUserConsent } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
@@ -246,84 +224,25 @@ export default class Software extends ConsentComponent {
     return (
       <div styleName="software-container">
         {
-          this.shouldRenderConsent() && this.renderConsent()
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSoftware} />)
         }
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          { errorMessage }
+        </div>
         <h1>
-          Software
+Software
         </h1>
-        <div styleName={`sub-title ${softwareItems.length > 0 ? '' : 'hidden'}`}>
-          Your software
-        </div>
-        {
-          !isMobileView
-          && (
-            <SoftwareList
-              softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onDeleteSoftware}
-            />
-          )
-        }
-        <div styleName={`sub-title ${softwareItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new software
-        </div>
-        <div styleName="form-container-default">
-          <form name="device-form" noValidate autoComplete="off">
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="softwareType">
-                  Type
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <Select
-                  name="softwareType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
-                  value={newSoftware.softwareType}
-                  placeholder="Software Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
-              </div>
-            </div>
-          </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddSoftware}
-            >
-              Add software to your list
-            </PrimaryButton>
-          </div>
-        </div>
-        <div styleName="form-container-mobile">
+        <div styleName="form-container">
           <form name="software-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Software
+Add Software
               </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="softwareType">
-                  Software Type
-                  <span styleName="text-required">* Required</span>
+Software Type
                 </label>
                 <Select
                   name="softwareType"
@@ -338,8 +257,7 @@ export default class Software extends ConsentComponent {
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
-                  Name
-                  <span styleName="text-required">* Required</span>
+Name
                 </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
               </div>
@@ -348,21 +266,16 @@ export default class Software extends ConsentComponent {
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onHandleAddSoftware}
+              onClick={this.onShowUserConsent}
             >
               Add Software
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <SoftwareList
-              softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onHandleDeleteSoftware}
-            />
-          )
-        }
+        <SoftwareList
+          softwareList={{ items: softwareItems }}
+          onDeleteItem={this.onDeleteSoftware}
+        />
       </div>
     );
   }

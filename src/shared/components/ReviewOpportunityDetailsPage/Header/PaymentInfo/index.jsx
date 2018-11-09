@@ -49,12 +49,11 @@ OPEN POSITIONS:
   </div>
 );
 
-PaymentInfo.defaultProps = {
-  positions: [],
-};
-
+/**
+ * Prop Validation
+ */
 PaymentInfo.propTypes = {
-  positions: PT.arrayOf(PT.shape()),
+  positions: PT.arrayOf(PT.shape()).isRequired,
 };
 
 export default PaymentInfo;

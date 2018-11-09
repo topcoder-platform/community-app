@@ -7,13 +7,13 @@
 
 import _ from 'lodash';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
+import Modal from 'components/Modal';
 import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SubmissionManagement from 'components/SubmissionManagement/SubmissionManagement';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
 

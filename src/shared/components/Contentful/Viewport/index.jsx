@@ -13,7 +13,6 @@ import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
 import Menu from 'components/Contentful/Menu';
-import BlogFeed from 'containers/Contentful/BlogFeed';
 import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
@@ -28,7 +27,6 @@ import Viewport from './Viewport';
 import columnTheme from './themes/column.scss';
 import rowTheme from './themes/row.scss';
 import gridTheme from './themes/grid.scss';
-import zurichTheme from './themes/zurich.scss';
 
 const { fireErrorMessage } = errors;
 
@@ -37,7 +35,6 @@ const COMPONENTS = {
   appComponent: AppComponentLoader,
   banner: Banner,
   blogPost: BlogPost,
-  blogFeed: BlogFeed,
   challengesBlock: ChallengesBlock,
   contentBlock: ContentBlock,
   countdown: Countdown,
@@ -53,7 +50,6 @@ const THEMES = {
   Column: columnTheme,
   'Row with Max-Width': rowTheme,
   Grid: gridTheme,
-  Zurich: zurichTheme,
 };
 
 /* Loads viewport content assets. */
@@ -61,12 +57,9 @@ function ViewportContentLoader(props) {
   const {
     contentIds,
     preview,
-    spaceName,
-    environment,
     themeName,
     grid,
     baseUrl,
-    viewportId,
   } = props;
   let {
     extraStylesForContainer,
@@ -89,11 +82,8 @@ function ViewportContentLoader(props) {
     <ContentfulLoader
       entryIds={contentIds}
       preview={preview}
-      spaceName={spaceName}
-      environment={environment}
       render={data => (
         <Viewport
-          viewportId={viewportId}
           extraStylesForContainer={fixStyle(extraStylesForContainer)}
           theme={theme}
         >
@@ -105,11 +95,9 @@ function ViewportContentLoader(props) {
                 return (
                   <Component
                     baseUrl={baseUrl}
-                    environment={environment}
                     id={id}
                     key={id}
                     preview={preview}
-                    spaceName={spaceName}
                   />
                 );
               }
@@ -128,8 +116,6 @@ function ViewportContentLoader(props) {
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
-  spaceName: null,
-  environment: null,
   themeName: 'Column',
   grid: PT.shape({
     columns: 3,
@@ -138,12 +124,9 @@ ViewportContentLoader.defaultProps = {
 };
 
 ViewportContentLoader.propTypes = {
-  viewportId: PT.string.isRequired,
   contentIds: PT.arrayOf(PT.string.isRequired).isRequired,
   extraStylesForContainer: PT.shape(),
   preview: PT.bool.isRequired,
-  spaceName: PT.string,
-  environment: PT.string,
   themeName: PT.string,
   grid: PT.shape(),
   baseUrl: PT.string.isRequired,
@@ -154,8 +137,6 @@ function ViewportLoader(props) {
   const {
     id,
     preview,
-    spaceName,
-    environment,
     query,
     baseUrl,
   } = props;
@@ -174,18 +155,13 @@ function ViewportLoader(props) {
     <ContentfulLoader
       entryQueries={queries}
       preview={preview}
-      spaceName={spaceName}
-      environment={environment}
       render={data => _.map(data.entries.items, viewport => (
         <ViewportContentLoader
           {...props}
-          viewportId={viewport.sys.id}
           contentIds={_.map(viewport.fields.content, 'sys.id')}
           extraStylesForContainer={viewport.fields.extraStylesForContainer}
           key={viewport.sys.id}
           preview={preview}
-          spaceName={spaceName}
-          environment={environment}
           themeName={viewport.fields.theme}
           grid={{
             columns: viewport.fields.gridColumns,
@@ -204,8 +180,6 @@ COMPONENTS.viewport = ViewportLoader;
 ViewportLoader.defaultProps = {
   id: null,
   preview: false,
-  spaceName: null,
-  environment: null,
   query: null,
   baseUrl: '',
 };
@@ -213,8 +187,6 @@ ViewportLoader.defaultProps = {
 ViewportLoader.propTypes = {
   id: PT.string,
   preview: PT.bool,
-  spaceName: PT.string,
-  environment: PT.string,
   query: PT.shape(),
   baseUrl: PT.string,
 };

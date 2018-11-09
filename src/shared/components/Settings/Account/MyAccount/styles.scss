@@ -8,11 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: left;
-
-  @include upto-sm {
-    padding: 20px;
-    border-bottom: 1px solid $tc-gray-10;
-  }
+  margin-bottom: 136px;
 
   h1 {
     @include roboto-regular;
@@ -22,25 +18,6 @@
     font-weight: 400;
     color: $tc-black;
     margin-bottom: 20px;
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-
-    @include upto-sm {
-      display: none;
-    }
   }
 
   .error-message {
@@ -57,307 +34,190 @@
   }
 }
 
-.form-container-default {
+.setting-container {
   display: flex;
   flex-direction: column;
 
-  .form-default {
-    display: block;
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .form-mobile {
-    display: none;
-
-    @include upto-sm {
-      display: block;
-
-      .row {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-  }
-
-  // Toggle password directive
-  .toggle-password {
-    @include merriweather-sans-regular;
-
-    height: 40px;
-    width: 100%;
-    font-size: 15px;
-    line-height: 20px;
-    margin-bottom: 10px;
-    background: #fff;
-    border-radius: 2px;
-    cursor: auto;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    padding: 0;
-
-    &.focus {
-      border: 1px solid #0096ff !important;
-    }
-
-    input.password-input {
-      margin-bottom: 0;
-      outline: 0;
-      width: 100%;
-      padding-left: 10px;
-      padding-right: 64px;
-      height: 100%;
-      border: none;
-
-      @include placeholder {
-        @include sofia-pro-regular;
-
-        color: $tc-gray-40;
-        font-size: 12px;
-        text-transform: uppercase;
-        transition: opacity 0.15s;
-      }
-    }
-
-    label {
-      @include sofia-pro-medium;
-
-      display: flex !important;
-      line-height: 20px !important;
-      position: absolute;
-      top: 10px;
-      right: 0;
-      text-transform: uppercase;
-      font-size: 10px;
-      color: #a3a3ae;
-      height: 20px;
-      width: 60px;
-      padding: 0;
-
-      input[type=checkbox] {
-        height: 14px;
-        width: 14px;
-        visibility: visible;
-      }
-    }
-  }
-
   .row {
-    width: 100%;
     display: flex;
     flex-direction: row;
     margin-bottom: 20px;
     align-content: space-between;
-    justify-content: flex-start;
-
-    &.button-group {
-      justify-content: space-evenly;
-    }
 
     .field {
-      @include upto-sm {
-        display: block;
-        padding-bottom: 10px;
-      }
+      display: flex;
+      flex-direction: column;
+      margin-right: 10px;
+      justify-content: flex-end;
 
       label {
-        @include roboto-bold;
-
-        font-size: 15px;
-        line-height: 20px;
-        font-weight: 700;
-        color: $tc-gray-80;
-
-        @include upto-sm {
-          @include roboto-regular;
-
-          font-size: 12px;
-        }
-      }
-
-      .passwordCheckbox {
         @include roboto-medium;
 
-        font-size: 10px;
+        font-size: 12px;
         line-height: 15px;
         font-weight: 500;
         color: $tc-gray-80;
         margin-bottom: 5px;
       }
 
-      &.col-1 {
-        max-width: 152px;
-        min-width: 152px;
-        margin-right: 14px;
-        align-self: left;
-        margin-bottom: auto;
-        margin-top: auto;
-        white-space: nowrap;
+      input {
+        @include roboto-regular;
 
-        &.password {
-          margin-top: 10px;
-          align-self: flex-start;
+        height: 40px;
+        margin: 0;
+        width: 230px;
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 400;
+        color: $tc-black;
+        border: 1px solid $tc-gray-20;
+        border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+      }
+
+      // Toggle password directive
+      .toggle-password {
+        @include merriweather-sans-regular;
+
+        height: 40px;
+        width: 100%;
+        font-size: 15px;
+        line-height: 20px;
+        margin-bottom: 10px;
+        background: #fff;
+        border-radius: 2px;
+        cursor: auto;
+        transition: all 0.15s;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        padding: 0;
+
+        &.focus {
+          border: 1px solid #0096ff !important;
+        }
+
+        input.password-input {
+          margin-bottom: 0;
+          outline: 0;
+          width: 100%;
+          padding-left: 10px;
+          padding-right: 64px;
+          height: 100%;
           border: none;
-          box-shadow: none;
+
+          @include placeholder {
+            @include sofia-pro-regular;
+
+            color: $tc-gray-40;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: opacity 0.15s;
+          }
+        }
+
+        label {
+          @include sofia-pro-medium;
+
+          display: flex !important;
+          line-height: 20px !important;
+          position: absolute;
+          top: 10px;
+          right: 0;
+          text-transform: uppercase;
+          font-size: 10px;
+          color: #a3a3ae;
+          height: 20px;
+          width: 60px;
+          padding: 0;
+
+          input[type=checkbox] {
+            height: 14px;
+            width: 14px;
+            visibility: visible;
+          }
         }
       }
 
-      &.col-2 {
-        align-self: right;
-        width: 80%;
-        margin-bottom: auto;
-        margin-top: auto;
+      &.newemail {
         display: flex;
-        flex-direction: column;
-      }
-
-      .date-input {
-        display: flex;
-        align-items: center;
       }
 
       &.hide {
         display: none;
       }
-    }
 
-    &.hide {
-      display: none;
+      .form-field {
+        background: white;
+        color: black;
+        max-width: 360px;
+
+        &:disabled {
+          color: #b7b7b7;
+        }
+
+        &.grey {
+          background-color: #fcfcfc;
+        }
+      }
+
+      .validation-bar {
+        width: 100%;
+        display: block;
+        position: relative;
+
+        & input[type='text'],
+        & input[type='password'] {
+          width: 100% !important;
+        }
+
+        .password {
+          @include merriweather-sans-regular;
+
+          padding-left: 0;
+          height: 40px;
+          width: 230px;
+          font-size: 15px;
+          line-height: 20px;
+          color: #3d3d3d;
+          margin: 0;
+          outline: none;
+          background: #fff;
+          border: 1px solid $tc-gray-20;
+          box-shadow: inset 0 0 2px 0 hsla(0, 0%, 72%, 0.2);
+          border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+          cursor: auto;
+          transition: all 0.15s;
+
+          &:hover {
+            cursor: text;
+          }
+
+          input,
+          input:hover,
+          input:focus {
+            background: none;
+            border: none;
+            box-shadow: none;
+          }
+
+          .newPasswordCheckbox,
+          .currentPasswordCheckbox {
+            margin: 3px;
+          }
+        }
+      }
     }
   }
 
-  input {
-    @include roboto-regular;
-
-    height: 40px;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    color: $tc-black;
-    border: 1px solid $tc-gray-20;
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+  div.row:last-child {
     margin-bottom: 0;
-  }
-
-  .form-field {
-    background: white;
-    color: black;
-
-    &:disabled {
-      color: #b7b7b7;
-    }
-
-    &.grey {
-      background-color: #fcfcfc;
-      color: #151516;
-    }
-  }
-
-  .password {
-    @include merriweather-sans-regular;
-
-    padding-left: 0;
-    height: 40px;
-    width: 230px;
-    font-size: 15px;
-    line-height: 20px;
-    color: #3d3d3d;
-    margin: 0;
-    outline: none;
-    background: #fff;
-    border: 1px solid $tc-gray-20;
-    box-shadow: inset 0 0 2px 0 hsla(0, 0%, 72%, 0.2);
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-    cursor: auto;
-    transition: all 0.15s;
-
-    &:hover {
-      cursor: text;
-    }
-
-    input,
-    input:hover,
-    input:focus {
-      background: none;
-      border: none;
-      box-shadow: none;
-    }
-
-    .newPasswordCheckbox,
-    .currentPasswordCheckbox {
-      margin: 3px;
-    }
-  }
-
-  .validation-bar {
-    width: 100%;
-    display: block;
-    position: relative;
-
-    & input[type='text'],
-    & input[type='password'] {
-      width: 100% !important;
-    }
-
-    .password {
-      @include merriweather-sans-regular;
-
-      padding-left: 0;
-      height: 40px;
-      width: 100%;
-      font-size: 15px;
-      line-height: 20px;
-      color: #3d3d3d;
-      margin: 0;
-      outline: none;
-      background: #fff;
-      border: 1px solid $tc-gray-20;
-      box-shadow: inset 0 0 2px 0 hsla(0, 0%, 72%, 0.2);
-      border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-      cursor: auto;
-      transition: all 0.15s;
-
-      &:hover {
-        cursor: text;
-      }
-
-      input,
-      input:hover,
-      input:focus {
-        background: none;
-        border: none;
-        box-shadow: none;
-      }
-
-      .newPasswordCheckbox,
-      .currentPasswordCheckbox {
-        margin: 3px;
-      }
-    }
-  }
-
-  .password-section {
-    margin-top: 20px;
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .password-wrap {
-    width: auto;
   }
 }
 
 .button-change-email {
-  margin-left: auto;
-  margin-right: auto;
+  align-self: center;
 
   button,
   a {
@@ -368,34 +228,7 @@
     font-weight: 500;
     margin: 0;
     padding: 0;
-    width: 170px;
-    white-space: nowrap;
-  }
-
-  .white-label {
-    color: $tc-white;
-  }
-
-  &.active {
-    display: block;
-  }
-
-  &.hide {
-    display: none;
-  }
-}
-
-.button-cancel-change-email {
-  button,
-  a {
-    @include roboto-medium;
-
-    height: 40px;
-    font-size: 15px;
-    font-weight: 500;
-    margin: 0;
-    padding: 0;
-    width: 170px;
+    width: 126px;
     white-space: nowrap;
   }
 
@@ -413,6 +246,8 @@
 }
 
 .button-verification-email {
+  align-self: center;
+
   button,
   a {
     @include roboto-medium;
@@ -440,8 +275,7 @@
 }
 
 .button-verification-again {
-  margin-left: auto;
-  margin-right: auto;
+  align-self: center;
 
   button,
   a {
@@ -470,14 +304,10 @@
 }
 
 .button-change-password {
-  margin-left: auto;
-  margin-right: auto;
+  align-self: center;
 
   div:first-child {
-    height: 40px;
     margin: 0;
-    padding-right: 15px;
-    padding-left: 15px;
   }
 
   button,
@@ -489,7 +319,7 @@
     font-weight: 500;
     margin: 0;
     padding: 0;
-    min-width: 155px;
+    width: 155px;
     white-space: nowrap;
   }
 
@@ -508,23 +338,56 @@ $tips-background: $tc-gray-neutral-light;
   border-radius: 4px;
   opacity: 1;
   padding: 20px;
+  padding-bottom: 20px;
   transition: all 0.1s ease-in-out;
-  box-shadow: $tips-shadow;
-  width: 320px;
-  padding-bottom: 10px;
-  text-align: left;
-  margin-top: 10px;
+  z-index: 1000;
 
-  @include upto-sm {
-    margin-top: 0;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
+  @media only screen and (min-width: 768px) {
+    left: 105%;
   }
 
+  @media screen and (min-width: 915px) {
+    box-shadow: $tips-shadow;
+    width: 320px;
+    padding-bottom: 10px;
+    position: absolute;
+    text-align: left;
+    top: -10px;
+  }
   // The tip container is hidden
   &.ng-hide {
     opacity: 0;
+  }
+  // Tip container arrow element
+  .arrow {
+    display: none;
+
+    @media screen and (min-width: 915px) {
+      display: block;
+      height: 34px;
+      width: 24px;
+      left: -24px;
+      overflow: hidden;
+      position: absolute;
+      top: 10px;
+
+      &::after {
+        transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        background-color: $tips-background;
+        box-shadow: $tips-shadow;
+        content: '';
+        display: block;
+        height: 12px;
+        width: 12px;
+        left: 18px;
+        position: absolute;
+        top: 10px;
+      }
+    }
   }
 
   h3 {
@@ -577,16 +440,7 @@ $tips-background: $tc-gray-neutral-light;
   .has-length-between-range::before,
   .has-letter::before,
   .has-symbol-or-number::before,
-  .has-number::before,
-  .different-with-old-password::before {
+  .has-number::before {
     display: block;
-  }
-
-  @include upto-sm {
-    display: none;
-
-    &.mobile {
-      display: block;
-    }
   }
 }

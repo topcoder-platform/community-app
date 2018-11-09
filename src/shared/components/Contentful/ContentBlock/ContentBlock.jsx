@@ -12,14 +12,12 @@ import { fixStyle } from 'utils/contentful';
 import defaultTheme from './themes/default.scss';
 
 function ContentBlock({
-  id,
   background,
   contentBlock,
   theme,
 }) {
   return (
     <div
-      id={id}
       className={theme.container}
       style={fixStyle(contentBlock.extraStylesForContainer)}
     >
@@ -50,7 +48,6 @@ ContentBlock.defaultProps = {
 };
 
 ContentBlock.propTypes = {
-  id: PT.string.isRequired,
   background: PT.shape(),
   contentBlock: PT.shape().isRequired,
   theme: PT.shape({

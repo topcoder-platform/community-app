@@ -58,9 +58,18 @@
 .content {
   flex: 1;
   padding: 15px;
+  color: $tc-black;
 
-  @include tc-typography;
   @include roboto-regular;
+
+  a { color: $tc-dark-blue; }
+
+  a:active,
+  a:focus,
+  a:visited,
+  a:hover {
+    color: $tc-dark-blue;
+  }
 
   h1,
   h2,

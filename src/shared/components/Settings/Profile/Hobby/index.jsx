@@ -5,48 +5,38 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 
-import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import HobbyList from './List';
 
 import './styles.scss';
 
 
-export default class Hobby extends ConsentComponent {
+export default class Hobby extends React.Component {
   constructor(props) {
     super(props);
-    this.onHandleDeleteHobby = this.onHandleDeleteHobby.bind(this);
     this.onDeleteHobby = this.onDeleteHobby.bind(this);
     this.loadHobbyTrait = this.loadHobbyTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
-    this.onHandleAddHobby = this.onHandleAddHobby.bind(this);
     this.onAddHobby = this.onAddHobby.bind(this);
-    this.updatePredicate = this.updatePredicate.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
-    const { userTraits } = props;
     this.state = {
+      showUserConsent: false,
       formInvalid: false,
       errorMessage: '',
-      hobbyTrait: this.loadHobbyTrait(userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(userTraits),
+      hobbyTrait: this.loadHobbyTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newHobby: {
         hobby: '',
         description: '',
       },
-      isMobileView: false,
-      screenSM: 767,
     };
-  }
-
-  componentDidMount() {
-    this.updatePredicate();
-    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,21 +54,17 @@ export default class Hobby extends ConsentComponent {
     });
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updatePredicate);
-  }
-
   /**
    * Show User Consent Modal
    * @param e event
    */
-  onHandleAddHobby(e) {
+  onShowUserConsent(e) {
     e.preventDefault();
     const { newHobby } = this.state;
     if (this.onCheckFormValue(newHobby)) {
       return;
     }
-    this.showConsent(this.onAddHobby.bind(this));
+    this.setState({ showUserConsent: true });
   }
 
   /**
@@ -90,28 +76,22 @@ export default class Hobby extends ConsentComponent {
     let invalid = false;
 
     let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newHobby.hobby).length) {
-      invalidFields.push('Hobby');
+      errorMessage += 'Hobby, ';
       invalid = true;
     }
 
     if (!_.trim(newHobby.description).length) {
-      invalidFields.push('Description');
+      errorMessage += 'Description, ';
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
+    if (errorMessage.length > 0) {
       errorMessage += ' cannot be empty';
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
-  }
-
-  onHandleDeleteHobby(indexNo) {
-    this.showConsent(this.onDeleteHobby.bind(this, indexNo));
   }
 
   /**
@@ -142,9 +122,12 @@ export default class Hobby extends ConsentComponent {
 
   /**
    * Add new hobby
+   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddHobby(answer) {
+  onAddHobby(e, answer) {
+    e.preventDefault();
+    this.setState({ showUserConsent: false });
     const { newHobby, personalizationTrait, hobbyTrait } = this.state;
 
     const {
@@ -210,18 +193,13 @@ export default class Hobby extends ConsentComponent {
   }
 
   /**
-   * Get personalization trait
-   * @param userTraits the all user traits
-   */
+     * Get personalization trait
+     * @param userTraits the all user traits
+     */
   loadPersonalizationTrait = (userTraits) => {
     const trait = userTraits.filter(t => t.traitId === 'personalization');
     const personalization = trait.length === 0 ? {} : trait[0];
     return _.assign({}, personalization);
-  }
-
-  updatePredicate() {
-    const { screenSM } = this.state;
-    this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
   render() {
@@ -230,7 +208,7 @@ export default class Hobby extends ConsentComponent {
     } = this.props;
     const {
       hobbyTrait,
-      isMobileView,
+      showUserConsent,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -242,73 +220,16 @@ export default class Hobby extends ConsentComponent {
     return (
       <div styleName={containerStyle}>
         {
-          this.shouldRenderConsent() && this.renderConsent()
+            showUserConsent && (<UserConsentModal onSaveTrait={this.onAddHobby} />)
         }
         <div styleName="hobby-container">
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            { errorMessage }
+          </div>
           <h1>
             Hobby
           </h1>
-          <div styleName={`sub-title ${hobbyItems.length > 0 ? '' : 'hidden'}`}>
-            Your hobbies
-          </div>
-          {
-            !isMobileView && hobbyItems.length > 0
-            && (
-              <HobbyList
-                hobbyList={{ items: hobbyItems }}
-                onDeleteItem={this.onDeleteHobby}
-              />
-            )
-          }
-          <div styleName={`sub-title ${hobbyItems.length > 0 ? 'second' : 'first'}`}>
-            Add a new hobby
-          </div>
-          <div styleName="form-container-default">
-            <form name="device-form" noValidate autoComplete="off">
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="hobby">
-                    Hobby
-                  </label>
-                </div>
-                <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
-                  <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label styleName="description-label" htmlFor="description">
-                    Description
-                  </label>
-                </div>
-                <div styleName="field col-2">
-                  <div styleName="description">
-                    <div styleName="first-line">
-                      <span styleName="description-counts">
-                        {newHobby.description.length}
-                        /160
-                      </span>
-                      <span styleName="text-required">* Required</span>
-                    </div>
-                    <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
-                  </div>
-                </div>
-              </div>
-            </form>
-            <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-              {errorMessage}
-            </div>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddHobby}
-              >
-                Add hobby to your list
-              </PrimaryButton>
-            </div>
-          </div>
-          <div styleName="form-container-mobile">
+          <div styleName="form-container">
             <form name="hobby-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
@@ -327,11 +248,11 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field row-2">
                   <label styleName="description-label" htmlFor="description">
                     <span>
-                      Description
+Description
                     </span>
                     {' '}
                     <span styleName="description-counts">
-                      {newHobby.description.length}
+                      { newHobby.description.length }
                       /160
                     </span>
                   </label>
@@ -342,21 +263,16 @@ export default class Hobby extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onHandleAddHobby}
+                onClick={this.onShowUserConsent}
               >
                 Add Hobby
               </PrimaryButton>
             </div>
           </div>
-          {
-            isMobileView && hobbyItems.length > 0
-            && (
-              <HobbyList
-                hobbyList={{ items: hobbyItems }}
-                onDeleteItem={this.onHandleDeleteHobby}
-              />
-            )
-          }
+          <HobbyList
+            hobbyList={{ items: hobbyItems }}
+            onDeleteItem={this.onDeleteHobby}
+          />
         </div>
       </div>
     );

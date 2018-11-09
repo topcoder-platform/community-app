@@ -3,7 +3,8 @@
  */
 import React from 'react';
 import PT from 'prop-types';
-import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import Modal from 'components/Modal';
+import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import modal from './styles.scss';
 
 export default function UserConsentModal(props) {
@@ -17,7 +18,7 @@ export default function UserConsentModal(props) {
                         to make your experience more personal.
           </div>
           <div styleName="modal.userconsent-confirmation-message">
-                        You can opt out from personalization any time in the
+                        You can opt out from personalisation any time in the
                         future in at Preferences &gt; Personalization.
           </div>
           <div styleName="modal.userconsent-confirmation-buttons">

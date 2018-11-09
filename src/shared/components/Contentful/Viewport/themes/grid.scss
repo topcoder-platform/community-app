@@ -17,6 +17,8 @@
   }
 
   > div {
+    margin: 0;
+
     @include xs-to-sm {
       margin-bottom: 7px;
     }

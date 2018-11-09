@@ -99,7 +99,6 @@ ProfileStatsContainer.defaultProps = {
   statsDistribution: null,
   stats: null,
   info: null,
-  achievements: null,
 };
 
 ProfileStatsContainer.propTypes = {
@@ -112,7 +111,6 @@ ProfileStatsContainer.propTypes = {
   statsDistribution: PT.shape(),
   stats: PT.shape(),
   info: PT.shape(),
-  achievements: PT.shape(),
   isLoading: PT.bool.isRequired,
 };
 
@@ -131,7 +129,6 @@ const mapStateToProps = (state, ownProps) => {
     statsDistribution: _.get(obj, 'statsDistribution.data'),
     activeChallengesCount: _.get(obj, 'activeChallengesCount'),
     info: state.profile.info,
-    achievements: state.profile.achievements,
   });
 };
 

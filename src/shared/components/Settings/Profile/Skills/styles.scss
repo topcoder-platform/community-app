@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: left;
 
-  @include upto-sm {
+  @include xs-to-sm {
     padding-bottom: 0;
     border-bottom: 1px solid #c3c3c8;
 
@@ -27,35 +27,7 @@
     color: $tc-black;
     margin-bottom: 20px;
 
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 10px;
-
-    &.second {
-      margin-top: 50px;
-      margin-bottom: 30px;
-    }
-
-    &.first {
-      margin-top: 10px;
-      margin-bottom: 30px;
-    }
-
-    &.hidden {
-      display: none;
-    }
-
-    @include upto-sm {
+    @include xs-to-sm {
       display: none;
     }
   }
@@ -73,47 +45,23 @@
     color: $tc-red-110;
     font-size: 15px;
     padding: 15px;
-    margin: 15px 0;
+    margin-bottom: 15px;
   }
 }
 
-.form-container-default {
-  @include form-container-default;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid $tc-gray-10;
+  padding: 20px 20px 20px 20px;
+  background-color: $tc-gray-neutral-light;
+  margin-bottom: 20px;
 
-  input {
-    @include roboto-regular;
-
-    height: 40px;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
-    color: $tc-black;
-    border: 1px solid $tc-gray-20;
-    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
-    margin-bottom: 0;
-  }
-
-  .text-required {
-    @include roboto-medium;
-
-    font-size: 10px;
-    color: $tc-red-110;
-    margin-bottom: 5px;
-    text-align: right;
-  }
-}
-
-.form-container-mobile {
-  display: none;
-
-  @include upto-sm {
+  @include xs-to-sm {
     border: 0;
     border-radius: 0;
     border-bottom: 1px solid #c3c3c8;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 20px 20px 20px;
-    background-color: $tc-gray-neutral-light;
 
     &.no-skills {
       margin-bottom: 0;
@@ -128,7 +76,7 @@
     line-height: 30px;
     color: $tc-black;
 
-    @include upto-sm {
+    @include xs-to-sm {
       margin-bottom: 20px;
     }
   }
@@ -140,20 +88,19 @@
     align-content: space-between;
     width: 100%;
 
-    @include upto-sm {
+    @include xs-to-sm {
       display: block;
       margin-bottom: 0;
     }
 
     .field {
       display: flex;
-      flex: 1;
       flex-direction: column;
       margin-right: 10px;
       align-content: space-between;
       width: 100%;
 
-      @include upto-sm {
+      @include xs-to-sm {
         display: block;
         padding-bottom: 10px;
       }
@@ -166,11 +113,6 @@
         color: $tc-gray-80;
         margin-bottom: 6px;
       }
-
-      .col-1,
-      .col-2 {
-        width: auto;
-      }
     }
 
     div.field:last-child {
@@ -182,7 +124,7 @@
 .button-save {
   align-self: center;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-top: 10px;
   }
 
@@ -194,11 +136,7 @@
     font-size: 15px;
     margin: 0;
     padding: 0;
-    width: 200px;
-
-    @include upto-sm {
-      width: 156px;
-    }
+    width: 156px;
   }
 
   .complete {
@@ -212,35 +150,53 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     list-style: none;
+    margin: 0;
     overflow: hidden;
     padding-left: 0;
-    margin: 0 -10px;
 
-    @include xs-to-lg {
-      margin: 0 -15px;
-    }
-
-    @include upto-sm {
-      padding: 30px 22px 0;
-      margin: 0 -8px;
-      justify-content: center;
+    @include xs-to-sm {
+      width: 300px;
+      padding: 0 22px;
     }
   }
 
   li {
-    margin: 0 10px 55px;
+    margin-right: 20px;
     border-radius: 6px;
+    margin-bottom: 75px;
 
     @include xs-to-lg {
-      margin: 0 15px 75px;
+      margin-right: 30px;
     }
 
-    @include upto-sm {
-      margin: 0 8px 75px;
+    @include xs-to-sm {
+      margin-right: 15px;
     }
   }
 
-  @include upto-sm {
+  li:nth-child(9n + 9) {
+    margin-right: 0;
+  }
+
+  @include xs-to-lg {
+    li:nth-child(8n + 8) {
+      margin-right: 0;
+    }
+
+    li:nth-child(9n + 9) {
+      margin-right: 30px;
+    }
+  }
+
+  @include xs-to-sm {
+    li:nth-child(3n + 3) {
+      margin-right: 0;
+    }
+
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+
     &.hide {
       display: none;
     }
@@ -248,13 +204,14 @@
 }
 
 .skill-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 75px;
+  width: 75px;
+
   a {
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 75px;
-    width: 75px;
   }
 
   a:hover {
@@ -273,7 +230,6 @@
     border-radius: 6px;
     height: 75px;
     width: 75px;
-    flex-shrink: 0;
 
     .remove-indicator {
       position: absolute;
@@ -325,7 +281,6 @@
     line-height: 15px;
     color: #262628;
     text-align: center;
-    width: 100%;
   }
 
   a.skill-hidden {
@@ -362,9 +317,8 @@
 
 .mobile-buttons {
   display: none;
-  margin-top: 10px;
 
-  @include upto-sm {
+  @include xs-to-sm {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -400,7 +354,7 @@
   color: $tc-gray-80;
   font-size: 15px;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-top: 5px;
   }
 }
@@ -416,8 +370,8 @@
     height: 38px;
     line-height: 40px !important;
 
-    @include upto-sm {
-      line-height: 38px !important;
+    @include xs-to-sm {
+      line-height: 27px !important;
     }
   }
 
@@ -429,7 +383,8 @@
 .skill-container .form-container .row .field :global .Select-placeholder {
   color: $tc-gray-50;
 
-  @include upto-sm {
+  @include xs-to-sm {
     margin-top: 5px;
   }
 }
+

@@ -5,11 +5,11 @@
  * (where the different theming is necessary).
  */
 
+import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
 import YouTubeVideo from 'components/YouTubeVideo';
 
-import { Modal } from 'topcoder-react-ui-kit';
 import { Button } from 'topcoder-react-utils';
 
 import style from './style.scss';

@@ -1,7 +1,6 @@
 /* Default banner styling. */
 
 @import "~styles/mixins";
-@import "../../_default";
 
 .container {
   background-position: 50% 50%;
@@ -13,10 +12,10 @@
 
 .content {
   @include roboto-regular;
-  @include default-headers;
 
   color: white;
 
+  h1 { margin-bottom: 10px; }
   p { margin: 5px 0; }
 }
 

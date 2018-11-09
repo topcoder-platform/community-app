@@ -6,7 +6,6 @@ exports[`Matches shapshot 1`] = `
   apiUrl="http://www.mocky.io/v2/59098e60100000b60747c10b"
   auth={null}
   isLoadingLeaderboard={false}
-  isTopGear={false}
   leaderboardData={
     Array [
       Object {

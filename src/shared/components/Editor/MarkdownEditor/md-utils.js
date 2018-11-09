@@ -148,14 +148,14 @@ export default class MdUtils {
         this.content = removeChar(this.content, this.key, splitPoint);
         this.content = splitBlock(this.content, this.key, splitPoint);
         if (this.selection.getAnchorKey() === this.key
-        && this.selection.getAnchorOffset() > splitPoint) {
+          && this.selection.getAnchorOffset() > splitPoint) {
           this.selection = this.selection.merge({
             anchorKey: this.content.getKeyAfter(this.key),
             anchorOffset: this.selection.getAnchorOffset() - splitPoint - 1,
           });
         }
         if (this.selection.getFocusKey() === this.key
-        && this.selection.getFocusOffset() > splitPoint) {
+          && this.selection.getFocusOffset() > splitPoint) {
           this.selection = this.selection.merge({
             focusKey: this.content.getKeyAfter(this.key),
             focusOffset: this.selection.getFocusOffset() - splitPoint - 1,
@@ -391,7 +391,7 @@ export default class MdUtils {
           let i = 1 + this.tokenId;
           while (i < this.tokens.length && !this.tokens[i].map) i += 1;
           if (i === this.tokens.length
-          || this.tokens[i].map[0] > token.map[1]) {
+            || this.tokens[i].map[0] > token.map[1]) {
             numLines += 1;
           }
         }
