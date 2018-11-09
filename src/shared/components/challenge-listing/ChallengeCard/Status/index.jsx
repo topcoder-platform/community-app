@@ -236,19 +236,20 @@ to register
       subTrack,
     } = challenge;
 
-    let statusPhase = currentPhases
+    const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
+    let statusPhase = checkPhases
       .filter(p => p.phaseType !== 'Registration')
       .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
 
-    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && currentPhases.length) {
-      statusPhase = _.clone(currentPhases[0]);
+    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && checkPhases.length) {
+      statusPhase = _.clone(checkPhases[0]);
       statusPhase.phaseType = 'Submission';
     }
 
     const registrationPhase = allPhases
       .find(p => p.phaseType === 'Registration');
     const isRegistrationOpen = registrationPhase
-      && registrationPhase.phaseStatus === 'Open';
+      && (registrationPhase.phaseStatus === 'Open' || moment(registrationPhase.scheduledEndTime).diff(new Date()) > 0);
 
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.phaseType;
