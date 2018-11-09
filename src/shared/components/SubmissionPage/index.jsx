@@ -20,9 +20,8 @@ function SubmissionsPage(props) {
     challengeName,
     challengesUrl,
     status,
-    currentPhases,
-    winners,
-    handle,
+    subTrack,
+    track,
   } = props;
 
   const submissionEnded = status === 'COMPLETED'
@@ -47,13 +46,14 @@ function SubmissionsPage(props) {
           title={challengeName}
         />
         {
-          submissionPermitted
-            ? <Submit {...props} />
-            : (
-              <div styleName="not-permitted">
-                <h2>Submissions are not permitted at this time.</h2>
-              </div>
-            )
+          (track === 'DEVELOP' || subTrack === 'MARATHON_MATCH')
+          && status === 'ACTIVE'
+          && <Develop {...props} />
+        }
+        {
+          track === 'DESIGN'
+          && status === 'ACTIVE'
+          && <Design {...props} />
         }
       </div>
     </div>
@@ -87,6 +87,7 @@ SubmissionsPage.propTypes = {
   }).isRequired,
   groups: PT.shape({}).isRequired,
   track: PT.string.isRequired,
+  subTrack: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
