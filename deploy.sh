@@ -44,7 +44,7 @@ make_task_def(){
 				"name": "community-app",
 				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
 				"essential": true,
-				"memory": 500,
+				"memory": 1000,
 				"cpu": 100,
 				"environment": [
 						{
