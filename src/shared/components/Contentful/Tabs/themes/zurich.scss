@@ -1,0 +1,110 @@
+@import "~styles/mixins";
+
+$tab-top-offset: 45px;
+
+.container {
+  margin: auto;
+}
+
+.tabListWrap {
+  background-color: #e7eceb;
+  margin-bottom: $tab-top-offset;
+}
+
+.tablist {
+  margin: auto;
+  max-width: $screen-lg;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style-type: none;
+  position: relative;
+  top: $tab-top-offset;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.tab {
+  background-color: white;
+  text-align: center;
+  margin: 0;
+  padding: 40px 20px 20px 20px;
+  cursor: pointer;
+  border: 1px solid #e2e2e4;
+  flex: 1;
+
+  @include xs-to-sm {
+    margin: 2px;
+  }
+
+  p {
+    @include frutiger-regular;
+  }
+
+  h1 {
+    @include frutiger-regular;
+
+    font-size: 26px;
+    color: #4c433d;
+    font-weight: 600;
+  }
+
+  :global .active {
+    display: none;
+  }
+
+  &:hover,
+  &.selected {
+    border-bottom: 4px solid #4168af;
+
+    p,
+    h1 {
+      color: #4168af;
+    }
+
+    :global .active {
+      display: block;
+    }
+
+    :global .inactive {
+      display: none;
+    }
+  }
+
+  &:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  img {
+    max-height: 70px;
+    display: block;
+    margin-bottom: 1em;
+  }
+}
+
+.tabpannel {
+  display: none;
+
+  .panelDescription {
+    max-width: $screen-lg;
+    margin: 6em auto 4em auto;
+    line-height: 1.5;
+    color: #4c433d;
+
+    @include xs-to-sm {
+      margin: 6em 5px 4em 5px;
+    }
+  }
+}
+
+.selectedTabPanel {
+  display: block;
+}

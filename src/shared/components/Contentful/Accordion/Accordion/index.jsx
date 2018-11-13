@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
+import MarkdownRenderer from 'components/MarkdownRenderer';
+
 import defaultStyle from './style.scss';
 
 class Accordion extends Component {
@@ -22,14 +24,18 @@ class Accordion extends Component {
   }
 
   render() {
-    const { children, theme, title } = this.props;
+    const {
+      children, theme, title, description,
+    } = this.props;
     const { selectedIndex } = this.state;
 
     return (
       <div className={theme.outerContainer}>
-        <h1>
-          {title}
-        </h1>
+        { title ? (<h1>{title}</h1>) : null}
+        { description ? (
+          <div className={theme.description}>
+            <MarkdownRenderer markdown={description} />
+          </div>) : null }
         <div className={theme.container} id="accordion">
           <ul className={theme.titleList}>
             {React.Children.map(children, (child, index) => (
@@ -68,7 +74,8 @@ class Accordion extends Component {
 Accordion.defaultProps = {
   defaultSelectedIndex: 0,
   theme: {},
-  title: '',
+  title: null,
+  description: null,
 };
 
 Accordion.propTypes = {
@@ -82,6 +89,7 @@ Accordion.propTypes = {
     content: PT.string,
   }),
   title: PT.string,
+  description: PT.string,
 };
 
 export default themr('Contentful-Accordion', defaultStyle)(Accordion);

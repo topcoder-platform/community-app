@@ -28,26 +28,21 @@
 }
 
 .content {
-  h1 {
-    @include frutiger-light;
-
-    font-size: 36px;
-    color: #706964;
-  }
-
   h3 {
-    @include frutiger-light;
+    @include frutiger-regular;
 
-    font-size: 26px;
-    color: #706964;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #4c433d;
+    margin: 1em 0;
   }
 
   p {
     @include frutiger-regular;
 
-    color: #3e3e3e;
-    font-size: 14px;
-    line-height: 18px;
+    color: #4c433d;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   th {
