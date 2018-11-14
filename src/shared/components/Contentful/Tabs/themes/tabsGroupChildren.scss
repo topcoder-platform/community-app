@@ -1,0 +1,111 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  max-width: $screen-lg;
+  margin: auto;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.tabListWrap {
+  margin-left: 2em;
+  background-color: white;
+}
+
+.tablist {
+  margin: auto;
+  max-width: $screen-lg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style-type: none;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.tab {
+  margin-left: 1em;
+  cursor: pointer;
+  color: #039;
+  line-height: 3.06;
+  white-space: nowrap;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 4em;
+
+  @include xs-to-sm {
+    margin: 2px;
+  }
+
+  &.selected {
+    color: #979797;
+    border-right: 4px solid #4268b1;
+
+    &::before {
+      width: 8px;
+      height: 8px;
+      background-color: #4c433d;
+      display: block;
+      content: '';
+      border-radius: 50%;
+      position: absolute;
+      left: -1em;
+      top: calc(50% - 5px);
+    }
+  }
+
+  p {
+    @include frutiger-regular;
+  }
+
+  h1 {
+    @include frutiger-regular;
+
+    font-size: 26px;
+    color: #4c433d;
+    font-weight: 600;
+  }
+
+  img {
+    max-height: 70px;
+    display: block;
+    margin-bottom: 1em;
+  }
+}
+
+.tabpannel {
+  display: none;
+  padding-left: 1em;
+
+  :global {
+    h3 {
+      margin-top: 2em;
+    }
+
+    ul,
+    ol {
+      margin-left: 1em;
+    }
+
+    a {
+      margin-left: 0;
+    }
+  }
+}
+
+.selectedTabPanel {
+  display: block;
+  border-left: 1px solid #e2e2e4;
+
+  @include xs-to-sm {
+    border: none;
+    margin-top: 6em;
+    padding-left: 0;
+    border-top: 1px solid #e2e2e4;
+  }
+}

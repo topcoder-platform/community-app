@@ -25,6 +25,7 @@ function AccordionItemsLoader(props) {
     spaceName,
     environment,
     title,
+    description,
     theme,
   } = props;
 
@@ -35,7 +36,7 @@ function AccordionItemsLoader(props) {
       spaceName={spaceName}
       environment={environment}
       render={data => (
-        <Accordion title={title} theme={THEMES[theme]}>
+        <Accordion title={title} description={description} theme={THEMES[theme]}>
           {
             ids.map(itemId => (
               <AccordionItem
@@ -60,6 +61,8 @@ AccordionItemsLoader.defaultProps = {
   spaceName: null,
   environment: null,
   theme: 'Default',
+  title: null,
+  description: null,
 };
 
 AccordionItemsLoader.propTypes = {
@@ -67,7 +70,8 @@ AccordionItemsLoader.propTypes = {
   preview: PT.bool.isRequired,
   spaceName: PT.string,
   environment: PT.string,
-  title: PT.string.isRequired,
+  title: PT.string,
+  description: PT.string,
   theme: PT.string,
 };
 
@@ -95,7 +99,8 @@ export default function ContentfulAccordion(props) {
             preview={preview}
             spaceName={spaceName}
             environment={environment}
-            title={fields.title || fields.name}
+            title={fields.title}
+            description={fields.description}
             theme={fields.theme}
           />
         );
