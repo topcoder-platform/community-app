@@ -57,7 +57,7 @@ export default function ChallengeTags(props) {
       break;
     case COMPETITION_TRACKS.DEVELOP:
       EventTag = DevelopmentTrackEventTag;
-      TrackTag = DevelopmentTrackTag;
+      TrackTag = subTrack === 'DEVELOP_MARATHON_MATCH' ? DataScienceTrackTag : DevelopmentTrackTag;
       break;
     default:
       throw new Error('Wrong competition track value');

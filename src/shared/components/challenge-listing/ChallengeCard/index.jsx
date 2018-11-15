@@ -52,18 +52,18 @@ function ChallengeCard({
   userHandle,
 }) {
   const challenge = passedInChallenge;
-  challenge.isDataScience = false;
-  if (challenge.technologies.includes('Data Science')) {
-    challenge.isDataScience = true;
-  }
-  challenge.prize = challenge.prizes || [];
-
   const {
     id,
     subTrack,
     track,
     status,
   } = challenge;
+
+  challenge.isDataScience = false;
+  if (challenge.technologies.includes('Data Science') || subTrack === 'DEVELOP_MARATHON_MATCH') {
+    challenge.isDataScience = true;
+  }
+  challenge.prize = challenge.prizes || [];
 
   let challengeDetailLink = `${challengesUrl}/${id}`;
   if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
