@@ -109,7 +109,7 @@ SubmissionsPage.propTypes = {
   winners: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
   currentPhases: PT.arrayOf(PT.object).isRequired,
-  allPhases: PT.arrayOf(PT.object).isRequired
+  allPhases: PT.arrayOf(PT.object).isRequired,
 };
 
 export default SubmissionsPage;

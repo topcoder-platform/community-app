@@ -61,9 +61,9 @@ class Submit extends React.Component {
   getSubDetails() {
     const {
       currentPhases,
-      allPhases
+      allPhases,
     } = this.props;
-    let statusPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
+    const statusPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
     const checkpoint = _.find(statusPhases, {
       phaseType: 'Checkpoint Submission',
     });
