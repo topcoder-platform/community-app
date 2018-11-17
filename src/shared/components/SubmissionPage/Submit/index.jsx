@@ -61,14 +61,16 @@ class Submit extends React.Component {
   getSubDetails() {
     const {
       currentPhases,
+      allPhases
     } = this.props;
-    const checkpoint = _.find(currentPhases, {
+    let statusPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
+    const checkpoint = _.find(statusPhases, {
       phaseType: 'Checkpoint Submission',
     });
-    const submission = _.find(currentPhases, {
+    const submission = _.find(statusPhases, {
       phaseType: 'Submission',
     });
-    const finalFix = _.find(currentPhases, {
+    const finalFix = _.find(statusPhases, {
       phaseType: 'Final Fix',
     });
     let subType;
@@ -365,6 +367,7 @@ const filestackDataProp = PT.shape({
  */
 Submit.propTypes = {
   currentPhases: PT.arrayOf(PT.object).isRequired,
+  allPhases: PT.arrayOf(PT.object).isRequired,
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
