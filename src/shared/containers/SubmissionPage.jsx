@@ -40,7 +40,7 @@ class SubmissionsPageContainer extends React.Component {
     // and the communitiesList is not up-to-date
     // then will load the communitiesList
     if (!_.isEmpty(groups) && !communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+      && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
       getCommunitiesList(auth);
     }
   }
@@ -152,6 +152,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     auth: state.auth,
     currentPhases: state.challenge.details.currentPhases,
+    allPhases: state.challenge.details.allPhases,
     communitiesList: state.tcCommunities.list,
     /* Older stuff below. */
     userId: state.auth.user.userId,
