@@ -95,10 +95,11 @@ LeaderboardPageContainer.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-  return state.leaderboard[props.id] ? {
-    leaderboardData: state.leaderboard[props.id].data,
-    isLoadingLeaderboard: state.leaderboard[props.id].loading,
-    loadedApiUrl: state.leaderboard[props.id].loadedApiUrl,
+  const ldId = props.id || LeaderboardPageContainer.defaultProps.id;
+  return state.leaderboard[ldId] ? {
+    leaderboardData: state.leaderboard[ldId].data,
+    isLoadingLeaderboard: state.leaderboard[ldId].loading,
+    loadedApiUrl: state.leaderboard[ldId].loadedApiUrl,
     auth: state.auth,
   } : {
     leaderboardData: null,

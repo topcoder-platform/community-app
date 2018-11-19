@@ -36,6 +36,8 @@ export default function AppComponentLoader(props) {
   const {
     id,
     preview,
+    spaceName,
+    environment,
   } = props;
 
   const queries = [];
@@ -48,6 +50,8 @@ export default function AppComponentLoader(props) {
     <ContentfulLoader
       entryQueries={queries}
       preview={preview}
+      spaceName={spaceName}
+      environment={environment}
       render={data => _.map(data.entries.items, AppComponentSwitch)}
       renderPlaceholder={LoadingIndicator}
     />
@@ -57,9 +61,13 @@ export default function AppComponentLoader(props) {
 AppComponentLoader.defaultProps = {
   id: null,
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 AppComponentLoader.propTypes = {
   id: PT.string,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

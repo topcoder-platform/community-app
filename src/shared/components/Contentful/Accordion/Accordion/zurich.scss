@@ -8,13 +8,18 @@
     padding: 0 15px;
   }
 
+  .description {
+    margin-bottom: 2em;
+  }
+
   h1 {
     @include frutiger-light;
 
-    font-size: 36px;
-    color: #706964;
+    font-size: 40px;
+    line-height: 1.2;
+    color: #4c433d;
     padding: 60px 0 30px;
-    text-align: center;
+    text-align: left;
     margin: 0;
 
     @include xs-to-sm {
@@ -39,8 +44,8 @@
     @include frutiger-regular;
 
     color: #3e3e3e;
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 1.5;
     opacity: 1;
     margin-bottom: 0;
   }
@@ -48,7 +53,6 @@
   ul,
   ol {
     list-style: disc;
-    margin-left: 1em;
     margin-bottom: 1em;
   }
 
@@ -99,8 +103,9 @@
 
   @include frutiger-bold;
 
-  font-size: 24px;
-  color: #4066b3;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #039;
   padding: 20px 0;
   position: relative;
 
@@ -111,17 +116,17 @@
 
 .titleListItemSelected {
   cursor: default;
-  color: #706964;
+  color: #979797;
 
   &::after {
-    background-color: #706964;
+    background-color: #4268b1;
     bottom: 5px;
     content: '';
     display: block;
     position: absolute;
     right: 1px;
     top: 5px;
-    width: 3px;
+    width: 4px;
   }
 }
 
@@ -136,6 +141,39 @@
 
   @include xs-to-sm {
     width: 100%;
+  }
+
+  h1 {
+    @include frutiger-light;
+
+    font-size: 40px;
+    line-height: 1.2;
+    color: #4c433d;
+  }
+
+  h3 {
+    @include frutiger-regular;
+
+    font-size: 18px;
+    line-height: 1.22;
+    color: #4c433d;
+    margin: 1em 0;
+  }
+
+  p {
+    @include frutiger-regular;
+
+    color: #4c433d;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  ul {
+    margin-left: 2em;
+
+    li {
+      margin-bottom: 1em;
+    }
   }
 }
 
