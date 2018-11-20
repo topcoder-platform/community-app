@@ -15,9 +15,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
-
-/* Holds various time ranges in milliseconds. */
-const MIN = 60 * 1000;
+import { USER_GROUP_MAXAGE } from 'config';
 
 /**
  * SubmissionsPage Container
@@ -40,7 +38,7 @@ class SubmissionsPageContainer extends React.Component {
     // and the communitiesList is not up-to-date
     // then will load the communitiesList
     if (!_.isEmpty(groups) && !communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+    && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
       getCommunitiesList(auth);
     }
   }

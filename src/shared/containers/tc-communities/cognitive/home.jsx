@@ -7,6 +7,7 @@ import PT from 'prop-types';
 import React from 'react';
 import resourcesActions from 'actions/page/communities/cognitive/resources';
 import shortId from 'shortid';
+import { USER_GROUP_MAXAGE } from 'config';
 
 import { connect } from 'react-redux';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -30,7 +31,7 @@ class HomeContainer extends React.Component {
     && !loadingActiveChallenges) {
       getAllActiveChallenges(auth.tokenV3);
     }
-    if (Date.now() - communitiesList.timestamp > MAXAGE
+    if (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE
     && !communitiesList.loadingUuid) {
       getCommunitiesList(auth);
     }
