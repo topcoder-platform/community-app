@@ -2,14 +2,8 @@
  * Routing of Wipro Community.
  */
 
-// import ChallengeDetails from 'routes/ChallengeDetails';
-// import ChallengeListing from 'routes/Communities/ChallengeListing';
-// import ChallengeListingBanner from
-// 'components/tc-communities/communities/zurich/ChallengeListingBanner';
-// import Submission from 'routes/Submission';
-// import SubmissionManagement from 'routes/SubmissionManagement';
-// import TermsDetail from 'routes/TermsDetail';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 import Error404 from 'components/Error404';
 import FAQ from 'components/tc-communities/communities/zurich/FAQ';
 import Footer from 'components/tc-communities/communities/zurich/Footer';
@@ -23,11 +17,11 @@ import theme from 'components/tc-communities/communities/zurich/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
 
-export default function Zurich({ base, meta }) {
+function Zurich({ base, meta, userGroups }) {
   // Only members of `Requestor`|`Approver` gropus
   // should can see catalog with links to connect
   const isRequestorOrApprover = _.intersection(
-    meta.authorizedGroupIds,
+    _.map(userGroups, 'id'),
     meta.authorizedGroupIdsCatalog,
   );
   return (
@@ -40,47 +34,6 @@ export default function Zurich({ base, meta }) {
               pageId={match.params.pageId || 'home'}
             />
             <Switch>
-              {/* <Route
-                component={() => ChallengeListing({
-                  challengesUrl: `${base}/challenges`,
-                  ChallengeListingBanner,
-                  listingOnly: true,
-                  meta,
-                  newChallengeDetails: true,
-                })}
-                exact
-                path={`${base}/challenges`}
-              />
-              <Route
-                component={routeProps => ChallengeDetails({
-                  ...routeProps,
-                  challengesUrl: `${base}/challenges`,
-                  communityId: meta.communityId,
-                })}
-                exact
-                path={`${base}/challenges/:challengeId(\\d{8})`}
-              />
-              <Route
-                component={routeProps => Submission({
-                  ...routeProps,
-                  challengesUrl: `${base}/challenges`,
-                })}
-                exact
-                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
-              />
-              <Route
-                component={routeProps => SubmissionManagement({
-                  ...routeProps,
-                  challengesUrl: `${base}/challenges`,
-                })}
-                exact
-                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
-              />
-              <Route
-                component={TermsDetail}
-                exact
-                path={`${base}/challenges/terms/detail/:termId`}
-              /> */}
               <Route
                 component={FAQ}
                 exact
@@ -141,4 +94,9 @@ Zurich.defaultProps = {
 Zurich.propTypes = {
   base: PT.string,
   meta: PT.shape().isRequired,
+  userGroups: PT.arrayOf(PT.shape()).isRequired,
 };
+
+export default connect(state => ({
+  userGroups: state.auth.profile.groups,
+}))(Zurich);
