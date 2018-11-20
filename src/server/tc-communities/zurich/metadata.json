@@ -12,7 +12,7 @@
   "communityId": "zurich",
   "communityName": "Zurich Community",
   "groupIds": ["20000145"],
-  "authorizedGroupIdsCatalog": ["20000080", "20000081"],
+  "authorizedGroupIdsCatalog": ["20000160", "20000161"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",
     "url": "https://www.zurich.com/"
