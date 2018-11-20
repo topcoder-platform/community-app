@@ -26,6 +26,7 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { config, MetaTags } from 'topcoder-react-utils';
+import { USER_GROUP_MAXAGE } from 'config';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
@@ -33,9 +34,6 @@ import style from './styles.scss';
 const { combine, mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
-
-/* Holds one minute value in ms. */
-const MIN = 60 * 1000;
 
 const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
@@ -60,7 +58,7 @@ export class ListingContainer extends React.Component {
     }
 
     if (!communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+    && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
       getCommunitiesList(auth);
     }
 

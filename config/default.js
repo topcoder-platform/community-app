@@ -146,7 +146,7 @@ module.exports = {
   /* Information about Topcoder user groups can be cached in various places.
    * This value [seconds] specifies the maximum age after which a group data
    * object should be considered outdated, and updated as soon as possible. */
-  USER_GROUP_MAXAGE: 600,
+  USER_GROUP_MAXAGE: 24 * 60 * 60 * 1000,
 
   /* Filestack configuration for uploading Submissions
    * These are for the development back end */
