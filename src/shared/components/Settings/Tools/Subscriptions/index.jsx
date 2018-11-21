@@ -230,6 +230,7 @@ export default class Subscription extends ConsentComponent {
     const subscriptionItems = subscriptionTrait.traits
       ? subscriptionTrait.traits.data.slice() : [];
     const { newSubscription, formInvalid, errorMessage } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="subscription-container">
@@ -248,6 +249,7 @@ export default class Subscription extends ConsentComponent {
             <SubscriptionList
               subscriptionList={{ items: subscriptionItems }}
               onDeleteItem={this.onDeleteSubscription}
+              disabled={!canModifyTrait}
             />
           )
         }
@@ -275,6 +277,7 @@ export default class Subscription extends ConsentComponent {
             <PrimaryButton
               theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
+              disabled={!canModifyTrait}
             >
               Add subscription to your list
             </PrimaryButton>
@@ -301,6 +304,7 @@ export default class Subscription extends ConsentComponent {
             <PrimaryButton
               theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
+              disabled={!canModifyTrait}
             >
               Add Subscription
             </PrimaryButton>
@@ -312,6 +316,7 @@ export default class Subscription extends ConsentComponent {
             <SubscriptionList
               subscriptionList={{ items: subscriptionItems }}
               onDeleteItem={this.onHandleDeleteSubscription}
+              disabled={!canModifyTrait}
             />
           )
         }
@@ -323,6 +328,7 @@ export default class Subscription extends ConsentComponent {
 Subscription.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
+  traitRequestCount: PT.number.isRequired,
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
