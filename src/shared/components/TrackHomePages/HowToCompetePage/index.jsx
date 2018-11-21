@@ -13,7 +13,8 @@ import StepByStep from './StepByStep';
 
 import './styles.scss';
 
-const HowToCompetePage = ({ howToCompete }) => {
+const HowToCompetePage = ({ howToCompete, location }) => {
+  const hashLink = decodeURIComponent(location.hash.substring(1));
   const data = howToCompete;
   let faq = {};
   let howToExtras = {};
@@ -96,7 +97,10 @@ Step by Step
                 <h1>
                   Extras
                 </h1>
-                <FAQ data={howToExtras} />
+                <FAQ
+                  data={howToExtras}
+                  hashLink={hashLink}
+                />
               </div>
               <div styleName="faq">
                 <h1>
@@ -105,7 +109,10 @@ FAQ
                 <div styleName="text">
 Here are a few answers to our most common questions
                 </div>
-                <FAQ data={faq} />
+                <FAQ
+                  data={faq}
+                  hashLink={hashLink}
+                />
               </div>
             </div>
           </div>
@@ -117,6 +124,7 @@ Here are a few answers to our most common questions
 
 HowToCompetePage.propTypes = {
   howToCompete: PT.shape().isRequired,
+  location: PT.shape().isRequired,
 };
 
 export default HowToCompetePage;

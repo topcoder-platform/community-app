@@ -8,7 +8,7 @@ import './styles.scss';
 
 import QAComponent from '../QAComponent';
 
-const FAQ = ({ data }) => (
+const FAQ = ({ data, hashLink }) => (
   <div styleName="container">
     {
       data.AQs.map((question, index) => (
@@ -16,6 +16,7 @@ const FAQ = ({ data }) => (
           data={question.fields}
           key={question.fields.title}
           isLastItem={(index + 1) === data.AQs.length ? 'last-item' : ''}
+          isActive={hashLink === question.fields.title}
         />
       ))
     }
@@ -25,6 +26,7 @@ const FAQ = ({ data }) => (
 
 FAQ.propTypes = {
   data: PT.shape().isRequired,
+  hashLink: PT.string.isRequired,
 };
 
 export default FAQ;
