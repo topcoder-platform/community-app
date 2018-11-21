@@ -82,11 +82,15 @@
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
     margin-bottom: 0;
+
+    @include placeholder {
+      text-transform: capitalize;
+    }
   }
 
   textarea {
     @include placeholder {
-      text-transform: uppercase;
+      text-transform: capitalize;
     }
   }
 
@@ -279,11 +283,15 @@
       @include upto-sm {
         margin-top: 5px;
       }
+
+      @include placeholder {
+        text-transform: capitalize;
+      }
     }
 
     textarea {
       @include placeholder {
-        text-transform: uppercase;
+        text-transform: capitalize;
       }
     }
 
@@ -451,6 +459,10 @@
 
   div[class="Select-input"] {
     height: 38px;
+
+    @include placeholder {
+      text-transform: capitalize;
+    }
   }
 
   div[class="Select-placeholder"] {
