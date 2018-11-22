@@ -676,19 +676,19 @@ export default class BasicInfo extends ConsentComponent {
                   </p>
                   <div styleName="row">
                     <div styleName="field">
-                      <label htmlFor="firstName">
+                      <label htmlFor="firstNameId">
                         First name
                         <span styleName="text-required">* Required</span>
                       </label>
 
-                      <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
+                      <input id="firstNameId" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
                     </div>
                     <div styleName="field">
-                      <label htmlFor="lastName">
+                      <label htmlFor="lastNameId">
                         Last name
                         <span styleName="text-required">* Required</span>
                       </label>
-                      <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
+                      <input id="lastNameId" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
                     </div>
                   </div>
                 </div>
@@ -710,39 +710,39 @@ export default class BasicInfo extends ConsentComponent {
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="address">
+                  <label htmlFor="addressId">
                     Address
                   </label>
-                  <input id="address" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
-                  <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
+                  <input id="addressId" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
+                  <input id="addressId" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="city">
+                  <label htmlFor="cityId">
                     City
                   </label>
-                  <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
+                  <input id="cityId" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="state">
+                  <label htmlFor="stateId">
                     State
                   </label>
-                  <input id="state" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
+                  <input id="stateId" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="zipCode">
+                  <label htmlFor="zipCodeId">
                     ZIP Code
                   </label>
-                  <input id="zipCode" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
+                  <input id="zipCodeId" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="country">
+                  <label htmlFor="countryId">
                     Country
                     <span styleName="text-required">* Required</span>
                   </label>
                   <Select
-                    name="country"
+                    name="countryId"
                     options={dropdowns.countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
