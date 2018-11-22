@@ -10,6 +10,7 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { omit } from 'lodash';
 import Personalization from 'components/Settings/Preferences/Personalization';
+import config from 'config';
 
 import './styles.scss';
 
@@ -123,6 +124,8 @@ export default class MyAccount extends React.Component {
       newState.currentEmail = newState.newEmail;
 
       profile.email = newState.newEmail;
+      profile.successUrl = `${config.URL.BASE}/account/email-verification/success`;
+      profile.failUrl = `${config.URL.BASE}/account/email-verification/failure`;
       updateProfile(omit(profile, ['groups']), tokenV3);
     }
 
