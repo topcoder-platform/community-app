@@ -9,17 +9,10 @@
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
+  @include inner-container;
+
   padding-top: 162px;
   padding-bottom: 184px;
-
-  h1 {
-    font-size: 28px;
-    line-height: 35px;
-    margin-top: 22px;
-    margin-bottom: 3px;
-  }
 }
 
 .text {
@@ -37,7 +30,6 @@
 
 .button-back {
   max-height: 40px;
-  width: 164px;
   margin-left: auto;
   margin-right: auto;
 
@@ -50,7 +42,6 @@
     line-height: 40px;
     margin: 0;
     padding: 0;
-    width: 164px;
   }
 
   .white {

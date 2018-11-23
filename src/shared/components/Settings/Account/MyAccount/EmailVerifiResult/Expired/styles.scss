@@ -9,17 +9,10 @@
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
+  @include inner-container;
+
   padding-top: 133px;
   padding-bottom: 108px;
-
-  h1 {
-    font-size: 28px;
-    line-height: 35px;
-    margin-top: 22px;
-    margin-bottom: 3px;
-  }
 
   ul {
     @include roboto-regular;
@@ -61,7 +54,6 @@
 
 .button-back {
   max-height: 40px;
-  width: 164px;
   margin-left: auto;
   margin-right: auto;
 
@@ -74,7 +66,6 @@
     line-height: 40px;
     margin: 0;
     padding: 0;
-    width: 164px;
   }
 
   .white {
