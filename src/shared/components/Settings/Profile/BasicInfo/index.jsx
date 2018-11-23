@@ -276,7 +276,7 @@ export default class BasicInfo extends ConsentComponent {
    */
   loadBasicInfoTraits = (userTraits) => {
     const trait = userTraits.filter(t => t.traitId === 'basic_info');
-    const basicInfo = trait.length === 0 ? {} : trait[0];
+    const basicInfo = trait.length === 0 ? {} : trait[trait.length - 1];
     return _.assign({}, basicInfo);
   }
 
