@@ -9,14 +9,14 @@ import './styles.scss';
 
 let assets;
 if (isomorphy.isClientSide()) {
-  assets = require.context('assets/images/account/email', false, /svg/);
+  assets = require.context('assets/images/account/email', false, /svg/)('./success.svg');
 }
 
 const Success = () => (
   <div styleName="outer-container">
     <div styleName="page">
       <div styleName="container">
-        <img src={assets('./success.svg')} alt="success-icon" />
+        <img src={assets} alt="success-icon" />
         <h1>
           Email Verification Success
         </h1>
