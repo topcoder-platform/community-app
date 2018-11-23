@@ -49,13 +49,10 @@ class DatePicker extends React.Component {
     ]);
 
     const renderMonthElement = ({ month, onMonthSelect, onYearSelect }) => {
-      const fillRange = (start, end) => {
-        return Array(end - start + 1).fill().map((item, index) => start + index);
-      };
+      const fillRange = (start, end) =>  Array(end - start + 1).fill().map((item, index) => start + index);
       const allRange = fillRange(1970, moment().year());
-      return
-      (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+      return (
+        <div style="display: flex; justifyContent: center;">
           <div>
             <select
               value={month.month()}
@@ -68,14 +65,14 @@ class DatePicker extends React.Component {
           </div>
           <div>
             <select value={month.year()} onChange={(e) => onYearSelect(month, e.target.value)}>
-              {allRange.map((label, value) => (
+              {allRange.map((label) => (
                 <option value={label}>{label}</option>
               ))}
             </select>
           </div>
         </div>
-      )
-    }
+      );
+    };
 
     return (
       <SingleDatePicker
