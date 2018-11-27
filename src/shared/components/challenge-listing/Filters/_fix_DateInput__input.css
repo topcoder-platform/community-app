@@ -16,3 +16,12 @@
   right: -28px;
   font-size: 15px;
 }
+
+.DateRangePickerInput {
+  border: none;
+}
+
+.CalendarDay {
+  vertical-align: middle;
+  outline: none;
+}
