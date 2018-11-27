@@ -4,6 +4,7 @@ import omit from 'lodash/omit';
 import _ from 'lodash';
 import moment from 'moment';
 
+import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
@@ -34,8 +35,16 @@ class DatePicker extends React.Component {
     this.onFocusChange = this.onFocusChange.bind(this);
   }
 
-  onFocusChange({ focused }) {
-    this.setState({ focused });
+  onFocusChange({focused}) {
+    this.setState({focused});
+  }
+
+  createOptions() {
+    let options = []
+    for (let i = -100; i <= 0; i++) {
+      options.push(<option value={moment().year() + i}>{moment().year() + i}</option>)
+    }
+    return options
   }
 
   render() {
@@ -54,10 +63,36 @@ class DatePicker extends React.Component {
         hideKeyboardShortcutsPanel
         id={id}
         isOutsideRange={() => false}
-        date={_.isEmpty(date) ? moment() : moment(date)}
+        date={_.isEmpty(date) ? undefined : moment(date)}
         focused={focused}
         onDateChange={onDateChange}
         onFocusChange={this.onFocusChange}
+        renderMonthElement={({month, onMonthSelect, onYearSelect}) => (
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div>
+              <select
+                value={month.month()}
+                onChange={(e) => {
+                  onMonthSelect(month, e.target.value);
+                }}
+              >
+                {moment.months().map((label, value) => (
+                  <option value={value}>{label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                value={month.year()}
+                onChange={(e) => {
+                  onYearSelect(month, e.target.value);
+                }}
+              >
+                {this.createOptions()}
+              </select>
+            </div>
+          </div>
+        )}
       />
     );
   }
