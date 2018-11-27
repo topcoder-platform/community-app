@@ -15,7 +15,6 @@ import { DevTools, isomorphy } from 'topcoder-react-utils';
 
 import ExtendedReduxToastr from 'containers/toastr';
 
-import 'react-dates/initialize';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
 import 'styles/awesome.css';

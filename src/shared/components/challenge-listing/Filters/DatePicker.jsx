@@ -4,6 +4,7 @@ import omit from 'lodash/omit';
 import _ from 'lodash';
 import moment from 'moment';
 
+import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
