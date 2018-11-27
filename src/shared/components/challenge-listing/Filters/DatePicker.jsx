@@ -4,7 +4,6 @@ import omit from 'lodash/omit';
 import _ from 'lodash';
 import moment from 'moment';
 
-import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
@@ -35,17 +34,17 @@ class DatePicker extends React.Component {
     this.onFocusChange = this.onFocusChange.bind(this);
   }
 
-  onFocusChange({focused}) {
-    this.setState({focused});
+  onFocusChange({ focused }) {
+    this.setState({ focused });
   }
 
-  createOptions() {
-    let options = []
-    for (let i = -100; i <= 0; i++) {
-      options.push(<option value={moment().year() + i}>{moment().year() + i}</option>)
+  createOptions = () => {
+    const options = [];
+    for (let i = -100; i <= 0; i += 1) {
+      options.push(<option value={moment().year() + i}>{moment().year() + i}</option>);
     }
-    return options
-  }
+    return options;
+  };
 
   render() {
     const { focused } = this.state;
@@ -67,8 +66,8 @@ class DatePicker extends React.Component {
         focused={focused}
         onDateChange={onDateChange}
         onFocusChange={this.onFocusChange}
-        renderMonthElement={({month, onMonthSelect, onYearSelect}) => (
-          <div style={{display: 'flex', justifyContent: 'center'}}>
+        renderMonthElement={({ month, onMonthSelect, onYearSelect }) => (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div>
               <select
                 value={month.month()}
