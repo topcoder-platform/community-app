@@ -2,17 +2,12 @@ import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
 import DateRangePicker from 'components/challenge-listing/Filters/DateRangePicker';
 
-const requiredProps = {
-  onDatesChange: () => {},
-  onFocusChange: () => {},
-  startDateId: 'startDate',
-  endDateId: 'endDate',
-};
+const onDatesChange = jest.fn();
 
 test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
   renderer.render((
-    <DateRangePicker {...requiredProps} />
+    <DateRangePicker onDatesChange={onDatesChange} />
   ));
-  expect(renderer.getRenderOutput()).not.toBeNull();
+  expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
