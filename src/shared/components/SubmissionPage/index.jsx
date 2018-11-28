@@ -27,7 +27,7 @@ function SubmissionsPage(props) {
 
   const submissionEnded = status === 'COMPLETED'
     || (!_.some(currentPhases, { phaseType: 'Submission', phaseStatus: 'Open' })
-    && !_.some(currentPhases, { phaseType: 'Checkpoint Submission', phaseStatus: 'Open' }));
+      && !_.some(currentPhases, { phaseType: 'Checkpoint Submission', phaseStatus: 'Open' }));
 
   const hasFirstPlacement = !_.isEmpty(winners) && _.some(winners, { placement: 1, handle });
 
@@ -109,6 +109,7 @@ SubmissionsPage.propTypes = {
   winners: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
   currentPhases: PT.arrayOf(PT.object).isRequired,
+  allPhases: PT.arrayOf(PT.object).isRequired,
 };
 
 export default SubmissionsPage;

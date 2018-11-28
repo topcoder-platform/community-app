@@ -30,7 +30,6 @@ const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * Contentful APIs. */
 const PROXY_ENDPOINT = `${LOCAL_MODE ? '' : config.URL.APP}/api/cdn/public/contentful`;
-
 /* At the client-side only, it holds the cached index of published Contentful
  * assets and content. Do not use it directly, use getIndex() function below
  * instead (it takes care about updating this when necessary). */
@@ -154,7 +153,6 @@ class Service {
     if (!res.ok) {
       const error = new Error('Failed to get an asset');
       logger.error(error);
-      throw error;
     }
     return res.json();
   }
@@ -191,7 +189,6 @@ class Service {
     if (!res.ok) {
       const error = new Error('Failed to get a content entry');
       logger.error(error);
-      throw error;
     }
     return res.json();
   }
@@ -216,7 +213,10 @@ class Service {
     url += this.private.preview ? '/preview' : '/published';
     if (query) url += `?${_.isString(query) ? query : qs.stringify(query)}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) {
+      const error = new Error('Failed to get assets.');
+      logger.error(error);
+    }
     return res.json();
   }
 
@@ -241,7 +241,10 @@ class Service {
     url += '/entries';
     if (query) url += `?${qs.stringify(query)}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) {
+      const error = new Error('Failed to get entries.');
+      logger.error(error);
+    }
     return res.json();
   }
 }

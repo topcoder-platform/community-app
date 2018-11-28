@@ -219,7 +219,7 @@ Uploading:
             <div
               onClick={() => {
                 const path = this.generateFilePath();
-                this.filestack.pick({
+                this.filestack.picker({
                   accept: fileExtensions,
                   fromSources: [
                     'local_file_system',
@@ -241,11 +241,11 @@ Uploading:
                     path,
                     region: config.FILESTACK.REGION,
                   },
-                });
+                }).open();
               }}
               onKeyPress={() => {
                 const path = this.generateFilePath();
-                this.filestack.pick({
+                this.filestack.picker({
                   accept: fileExtensions,
                   fromSources: [
                     'local_file_system',
@@ -267,7 +267,7 @@ Uploading:
                     path,
                     region: config.FILESTACK.REGION,
                   },
-                });
+                }).open();
               }}
               onDragEnter={() => setDragged(true)}
               onDragLeave={() => setDragged(false)}

@@ -22,7 +22,6 @@ export const PRIZE_MODE = {
 };
 
 // Constants
-const ID_LENGTH = 6;
 
 // Get the End date of a challenge
 const getEndDate = (c) => {
@@ -53,26 +52,22 @@ function ChallengeCard({
   userHandle,
 }) {
   const challenge = passedInChallenge;
+  const {
+    id,
+    subTrack,
+    track,
+    status,
+  } = challenge;
+
   challenge.isDataScience = false;
-  if (challenge.technologies.includes('Data Science')) {
+  if (challenge.technologies.includes('Data Science') || subTrack === 'DEVELOP_MARATHON_MATCH') {
     challenge.isDataScience = true;
   }
   challenge.prize = challenge.prizes || [];
-  // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
-  const isMM = _.toString(challenge.id).length < ID_LENGTH;
-  let challengeDetailLink;
-  {
-    const challengeUrl = newChallengeDetails
-      ? `${challengesUrl}/` : `${config.URL.BASE}/challenge-details/`;
-    if (challenge.track === 'DATA_SCIENCE') {
-      const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
-      /* TODO: Don't we have a better way, whether a challenge is MM or not? */
-      challengeDetailLink = isMM
-        ? `${mmDetailUrl}${challenge.rounds[0].id}`
-        : `${challengeUrl}${challenge.id}`;
-    } else {
-      challengeDetailLink = `${challengeUrl}${challenge.id}`;
-    }
+
+  let challengeDetailLink = `${challengesUrl}/${id}`;
+  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
+    challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
   }
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
@@ -132,7 +127,6 @@ function ChallengeCard({
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
           <Link
-            enforceA={isMM}
             onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
             to={challengeDetailLink}
             styleName="challenge-title"

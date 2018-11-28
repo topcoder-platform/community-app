@@ -20,7 +20,7 @@ afterAll(() => {
 
 const mockData1 = {
   challenge: {
-    technologies: 'Data Science',
+    technologies: ['Data Science'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Open',
@@ -38,7 +38,7 @@ const mockData1 = {
 
 const mockData2 = {
   challenge: {
-    technologies: 'Go',
+    technologies: ['Go'],
     allPhases: [{
       phaseType: 'Submit',
       phaseStatus: 'Open',
@@ -55,7 +55,7 @@ const mockData2 = {
 
 const mockData3 = {
   challenge: {
-    technologies: '',
+    technologies: [],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
@@ -72,7 +72,7 @@ const mockData3 = {
 
 const mockData4 = {
   challenge: {
-    technologies: 'more, technology, to, show',
+    technologies: ['more', 'technology', 'to', 'show'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
@@ -89,7 +89,7 @@ const mockData4 = {
 
 const mockData5 = {
   challenge: {
-    technologies: '+tag, more, technology, to, show',
+    technologies: ['+tag', 'more', 'technology', 'to', 'show'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',

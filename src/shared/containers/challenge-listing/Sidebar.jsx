@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
 import challengeListingActions from 'actions/challenge-listing';
+import { config } from 'topcoder-react-utils';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import PT from 'prop-types';
 import React from 'react';
@@ -40,7 +41,7 @@ export class SidebarContainer extends React.Component {
   componentDidMount() {
     const { tokenV2, getSavedFilters } = this.props;
     const token = tokenV2;
-    if (token) getSavedFilters(token);
+    if (config.USER_SETTINGS && token) getSavedFilters(token);
   }
 
   render() {

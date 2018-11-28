@@ -117,6 +117,8 @@ class ChallengeDetailPageContainer extends React.Component {
       showDeadlineDetail: false,
     };
 
+    this.instanceId = shortId();
+
     this.onToggleDeadlines = this.onToggleDeadlines.bind(this);
     this.registerForChallenge = this.registerForChallenge.bind(this);
   }
@@ -199,7 +201,7 @@ class ChallengeDetailPageContainer extends React.Component {
       registerForChallenge,
       terms,
     } = this.props;
-    if (!auth.tokenV2) {
+    if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
       window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}`;
     } else if (_.every(terms, 'agreed')) {
@@ -263,6 +265,7 @@ class ChallengeDetailPageContainer extends React.Component {
       ? results : null;
 
     const isEmpty = _.isEmpty(challenge);
+    const isLegacyMM = challenge.subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
 
     const hasRegistered = isRegistered(
       challenge.userDetails,
@@ -314,7 +317,7 @@ does not exist!
               challenge={challenge}
               challengeId={challengeId}
               challengesUrl={challengesUrl}
-              numWinners={winners.length}
+              numWinners={!isLegacyMM && winners.length}
               showDeadlineDetail={showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={onSelectorClicked}
@@ -379,7 +382,7 @@ does not exist!
             && <Submissions challenge={challenge} />
           }
           {
-            !isEmpty && selectedTab === DETAIL_TABS.WINNERS
+            !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
             && (
             <Winners
               winners={winners}
@@ -395,6 +398,7 @@ does not exist!
         <Terms
           defaultTitle="Challenge Prerequisites"
           entity={{ type: 'challenge', id: challengeId.toString() }}
+          instanceId={this.instanceId}
           description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
           register={() => {
             registerForChallenge(auth, challengeId);

@@ -30,6 +30,7 @@ export default function SideBar({
   isDevelop,
   environment,
   codeRepo,
+  isMM,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
@@ -97,8 +98,7 @@ DOWNLOADS:
         }
         <EligibleEvents eventDetails={eventDetail} />
         {
-          !isDesign
-          && (
+          !isDesign && !isMM && (
           <div>
             <h3>
 REVIEW STYLE:
@@ -128,51 +128,55 @@ Approval:
           </div>
           )
         }
-        <div>
-          <h3>
-CHALLENGE LINKS:
-          </h3>
-          {
-            isDevelop && environment && environment.length > 0
-            && (
-            <p styleName="link-like-paragraph">
-              <a href={`${environment}`}>
-Environment
-              </a>
-            </p>
-            )
-          }
-          {
-            isDevelop && codeRepo && codeRepo.length > 0
-            && (
-            <p styleName="link-like-paragraph">
-              <a href={`${codeRepo}`}>
-Code Repository
-              </a>
-            </p>
-            )
-          }
-          {
-            screeningScorecardId > 0
-            && (
-            <p styleName="link-like-paragraph">
-              <a href={`${scorecardURL}${screeningScorecardId}`}>
-Screening Scorecard
-              </a>
-            </p>
-            )
-          }
-          {
-            reviewScorecardId > 0 && !isDesign
-            && (
-            <p styleName="link-like-paragraph">
-              <a href={`${scorecardURL}${reviewScorecardId}`}>
-Review Scorecard
-              </a>
-            </p>
-            )
-          }
-        </div>
+        {
+          !isMM && (
+          <div>
+            <h3>
+  CHALLENGE LINKS:
+            </h3>
+            {
+              isDevelop && environment && environment.length > 0
+              && (
+              <p styleName="link-like-paragraph">
+                <a href={`${environment}`}>
+  Environment
+                </a>
+              </p>
+              )
+            }
+            {
+              isDevelop && codeRepo && codeRepo.length > 0
+              && (
+              <p styleName="link-like-paragraph">
+                <a href={`${codeRepo}`}>
+  Code Repository
+                </a>
+              </p>
+              )
+            }
+            {
+              screeningScorecardId > 0
+              && (
+              <p styleName="link-like-paragraph">
+                <a href={`${scorecardURL}${screeningScorecardId}`}>
+  Screening Scorecard
+                </a>
+              </p>
+              )
+            }
+            {
+              reviewScorecardId > 0 && !isDesign
+              && (
+              <p styleName="link-like-paragraph">
+                <a href={`${scorecardURL}${reviewScorecardId}`}>
+  Review Scorecard
+                </a>
+              </p>
+              )
+            }
+          </div>
+          )
+        }
         {
           isDesign
           && (
@@ -351,4 +355,5 @@ SideBar.propTypes = {
   isDevelop: PT.bool,
   environment: PT.string,
   codeRepo: PT.string,
+  isMM: PT.bool,
 };
