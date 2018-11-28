@@ -4,17 +4,13 @@
 
 .SingleDatePickerInput {
   border: none;
+  width: 100%;
 }
 
 .DateInput {
-  padding: 0px;
+  padding: 0;
   width: 100%;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 15px;
-}
-
-.DateInput__display-text {
-  background: white; 
-  color: black;
 }
