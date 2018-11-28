@@ -21,7 +21,18 @@
   border: none;
 }
 
+.DayPicker_weekHeader_li {
+  font-size: 15px;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+}
+
 .CalendarDay {
   vertical-align: middle;
   outline: none;
+  font-size: 15px;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
 }

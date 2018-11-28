@@ -70,7 +70,7 @@ class DatePicker extends React.Component {
         renderMonthElement={({ month, onMonthSelect, onYearSelect }) => (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div>
-              <select
+              <select className="CalendarDay"
                 value={month.month()}
                 onChange={(e) => {
                   onMonthSelect(month, e.target.value);
@@ -82,7 +82,7 @@ class DatePicker extends React.Component {
               </select>
             </div>
             <div>
-              <select
+              <select className="CalendarDay"
                 value={month.year()}
                 onChange={(e) => {
                   onYearSelect(month, e.target.value);
