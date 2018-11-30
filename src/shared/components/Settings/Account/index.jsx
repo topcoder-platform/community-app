@@ -7,6 +7,7 @@ import PT from 'prop-types';
 import Accordion from 'components/Settings/Accordion';
 import MyAccountIcon from 'assets/images/account/sideicons/myaccount.svg';
 import LinkedAccountIcon from 'assets/images/account/sideicons/linkedaccount.svg';
+import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import SideBar from '../SideBar';
 import ComingSoon from '../ComingSoon';
 import MyAccount from './MyAccount';
@@ -64,7 +65,9 @@ export default function Account(props) {
         />
       </div>
       <div styleName="col-content">
-        { renderTabContent(currentTab) }
+        <ErrorWrapper>
+          { renderTabContent(currentTab) }
+        </ErrorWrapper>
       </div>
     </div>
   );

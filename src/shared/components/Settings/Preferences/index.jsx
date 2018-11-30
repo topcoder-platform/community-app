@@ -16,6 +16,7 @@ import Invletter from 'assets/images/preferences/invletter.svg';
 import Payment from 'assets/images/preferences/payment.svg';
 import Referral from 'assets/images/preferences/referral.svg';
 import SideBar from 'components/Settings/SideBar';
+import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import Email from './Email';
 
 import './styles.scss';
@@ -118,7 +119,9 @@ export default class Preferences extends React.Component {
           />
         </div>
         <div styleName="col-content">
-          { this.renderTabContent(currentTab) }
+          <ErrorWrapper>
+            { this.renderTabContent(currentTab) }
+          </ErrorWrapper>
         </div>
       </div>
     );

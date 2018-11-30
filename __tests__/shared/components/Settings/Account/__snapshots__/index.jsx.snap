@@ -64,7 +64,9 @@ exports[`renders account setting page correctly 1`] = `
   <div
     className="src-shared-components-Settings-Account-___styles__col-content___1gt_Z"
   >
-    <Unknown />
+    <ErrorWrapper>
+      <Unknown />
+    </ErrorWrapper>
   </div>
 </div>
 `;
