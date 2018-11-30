@@ -134,7 +134,7 @@ class Community extends ConsentComponent {
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.COMMUNITY ? '' : 'hide';
     const communityItems = communityTrait;
-    const test = null;
+
     return (
       <div styleName={containerStyle}>
         {
@@ -145,7 +145,7 @@ class Community extends ConsentComponent {
             Community
           </h1>
           <div styleName="sub-title">
-            Your communities {test.data}
+            Your communities
           </div>
           <div styleName="list">
             {
