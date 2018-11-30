@@ -87,12 +87,14 @@ export default class BasicInfo extends ConsentComponent {
     const basicInfoTrait = this.loadBasicInfoTraits(nextProps.userTraits);
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
-    this.processBasicInfo(basicInfo);
-    this.setState({
-      basicInfoTrait,
-      personalizationTrait,
-      inputChanged: false,
-    });
+    if (basicInfoTrait.updatedAt !== this.loadBasicInfoTraits(this.props.userTraits).updatedAt) {
+      this.processBasicInfo(basicInfo);
+      this.setState({
+        basicInfoTrait,
+        personalizationTrait,
+        inputChanged: false,
+      });
+    }
   }
 
   onCheckFormValue(newBasicInfo) {
