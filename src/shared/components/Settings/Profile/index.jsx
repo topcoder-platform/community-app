@@ -15,6 +15,7 @@ import OrganizationIcon from 'assets/images/profile/sideicons/organization.svg';
 import SkillIcon from 'assets/images/profile/sideicons/skill.svg';
 import HobbyIcon from 'assets/images/profile/sideicons/hobby.svg';
 import CommunityIcon from 'assets/images/profile/sideicons/community.svg';
+import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import BasicInfo from './BasicInfo';
 import Language from './Language';
 import Education from './Education';
@@ -25,12 +26,21 @@ import Organization from './Organization';
 import Hobby from './Hobby';
 import ComingSoon from '../ComingSoon';
 
+
 import './styles.scss';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.previousSelectedTab = null;
+
+    this.state = {
+      isMobileView: false,
+      screenSM: 767,
+    };
+
+
+    this.updatePredicate = this.updatePredicate.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +48,9 @@ class Profile extends React.Component {
       clearToastrNotification,
     } = this.props;
     clearToastrNotification();
+
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillUnmount() {
@@ -45,9 +58,16 @@ class Profile extends React.Component {
       clearToastrNotification,
     } = this.props;
     clearToastrNotification();
+    window.removeEventListener('resize', this.updatePredicate);
+  }
+
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
   render() {
+    const { isMobileView } = this.state;
     const {
       settingsUI: { currentProfileTab, TABS },
       toggleProfileSideTab,
@@ -96,26 +116,36 @@ class Profile extends React.Component {
     };
     return (
       <div styleName="profile-container">
-        <div styleName="mobile-view">
-          <Accordion
-            icons={icons}
-            names={names}
-            currentSidebarTab={currentTab}
-            renderTabContent={renderTabContent}
-            toggleSidebarTab={toggleProfileSideTab}
-          />
-        </div>
+        {
+          isMobileView && (
+            <Accordion
+              icons={icons}
+              names={names}
+              currentSidebarTab={currentTab}
+              renderTabContent={renderTabContent}
+              toggleSidebarTab={toggleProfileSideTab}
+            />
+          )
+        }
         <div styleName="col-bar">
-          <SideBar
-            icons={icons}
-            names={names}
-            currentTab={currentTab}
-            toggle={toggleProfileSideTab}
-          />
+          <ErrorWrapper>
+            <SideBar
+              icons={icons}
+              names={names}
+              currentTab={currentTab}
+              toggle={toggleProfileSideTab}
+            />
+          </ErrorWrapper>
         </div>
-        <div styleName="col-content">
-          { renderTabContent(currentTab) }
-        </div>
+        {
+          !isMobileView && (
+            <div styleName="col-content">
+              <ErrorWrapper>
+                { renderTabContent(currentTab) }
+              </ErrorWrapper>
+            </div>
+          )
+        }
       </div>
     );
   }

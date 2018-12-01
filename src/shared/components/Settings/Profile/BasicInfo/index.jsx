@@ -9,7 +9,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-
+import fetch from 'isomorphic-fetch';
+import { config } from 'topcoder-react-utils';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
@@ -86,12 +87,14 @@ export default class BasicInfo extends ConsentComponent {
     const basicInfoTrait = this.loadBasicInfoTraits(nextProps.userTraits);
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
-    this.processBasicInfo(basicInfo);
-    this.setState({
-      basicInfoTrait,
-      personalizationTrait,
-      inputChanged: false,
-    });
+    if (basicInfoTrait.updatedAt !== this.loadBasicInfoTraits(this.props.userTraits).updatedAt) {
+      this.processBasicInfo(basicInfo);
+      this.setState({
+        basicInfoTrait,
+        personalizationTrait,
+        inputChanged: false,
+      });
+    }
   }
 
   onCheckFormValue(newBasicInfo) {
@@ -139,6 +142,29 @@ export default class BasicInfo extends ConsentComponent {
     return invalid;
   }
 
+  async onCheckUserTrait(traitId) {
+    const { handle, tokenV3 } = this.props;
+    let isExists = false;
+    await fetch(`${config.API.V3}/members/${handle}/traits?traitIds=${traitId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenV3}`,
+      },
+    })
+      .then(result => result.json())
+      .then((dataResponse) => {
+        if (dataResponse.result && dataResponse.result.content.length > 0) {
+          const trait = dataResponse.result.content[0];
+          if (trait.createdAt) {
+            isExists = true;
+          }
+        }
+      });
+
+    return isExists;
+  }
+
   /**
    * Show User Consent Modal
    * @param {*} e event
@@ -156,7 +182,7 @@ export default class BasicInfo extends ConsentComponent {
    * Save Basic Info
    * @param answer user consent answer value
    */
-  onSaveBasicInfo(answer) {
+  async onSaveBasicInfo(answer) {
     const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
     const {
       handle,
@@ -182,28 +208,29 @@ export default class BasicInfo extends ConsentComponent {
     if (newBasicInfo.tshirtSize === '') {
       newBasicInfo.tshirtSize = null;
     }
+
     // This is a hack to check if the user has an existing basic_info trait object
-    if (basicInfoTrait.traits
-      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.createdAt) {
+    const exists = await this.onCheckUserTrait('basic_info');
+    if (exists) {
       const newBasicInfoTrait = { ...basicInfoTrait };
       newBasicInfoTrait.traits.data = [];
       newBasicInfoTrait.traits.data.push(newBasicInfo);
-      updateUserTrait(handle, 'basic_info', newBasicInfoTrait.traits.data, tokenV3);
+      await updateUserTrait(handle, 'basic_info', newBasicInfoTrait.traits.data, tokenV3);
     } else {
       const data = [];
       data.push(newBasicInfo);
-      addUserTrait(handle, 'basic_info', data, tokenV3);
+      await addUserTrait(handle, 'basic_info', data, tokenV3);
     }
 
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
-      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      await addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
     } else {
       const trait = personalizationTrait.traits.data[0];
       if (trait.userConsent !== answer) {
         const personalizationData = { userConsent: answer };
-        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+        await updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
     }
   }
@@ -878,5 +905,4 @@ BasicInfo.propTypes = {
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
-  deleteUserTrait: PT.func.isRequired,
 };

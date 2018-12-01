@@ -106,7 +106,9 @@ exports[`renders preferences setting page correctly 1`] = `
   <div
     className="src-shared-components-Settings-Preferences-___styles__col-content___2OhJS"
   >
-    <EmailPreferences />
+    <ErrorWrapper>
+      <EmailPreferences />
+    </ErrorWrapper>
   </div>
 </div>
 `;
