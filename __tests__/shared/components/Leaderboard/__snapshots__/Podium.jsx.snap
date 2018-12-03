@@ -20,6 +20,7 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isAlgo={false}
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
@@ -38,6 +39,7 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isAlgo={false}
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
@@ -56,6 +58,7 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isAlgo={false}
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
@@ -74,6 +77,7 @@ exports[`Matches shallow shapshot 1`] = `
             "rank": 1,
           }
         }
+        isAlgo={false}
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}

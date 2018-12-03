@@ -39,6 +39,7 @@ export default function LeaderboardTable(props) {
     isCopilot,
     onUsernameClick,
     isTopGear,
+    isAlgo,
   } = props;
   const renderTableRows = comps => (
     comps.map((competitor) => {
@@ -98,6 +99,11 @@ export default function LeaderboardTable(props) {
               <td styleName="styles.col-points">{competitor.total_earnings}</td>
             ) : null
           }
+          {
+            isAlgo ? (
+              <td styleName="styles.col-points">{competitor['srm_tco19.score']}</td>
+            ) : null
+          }
         </tr>
       );
     })
@@ -126,6 +132,11 @@ export default function LeaderboardTable(props) {
               <th styleName="styles.col-points">Total Earnings</th>
             ) : null
           }
+          {
+            isAlgo ? (
+              <th styleName="styles.col-points">Total Score</th>
+            ) : null
+          }
         </tr>
       </thead>
       <tbody>
@@ -151,10 +162,12 @@ LeaderboardTable.propTypes = {
   isCopilot: PT.bool,
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
+  isAlgo: PT.bool,
 };
 
 LeaderboardTable.defaultProps = {
   isCopilot: false,
   onUsernameClick: null,
   isTopGear: false,
+  isAlgo: false,
 };

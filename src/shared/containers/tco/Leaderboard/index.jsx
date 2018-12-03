@@ -58,7 +58,7 @@ class LeaderboardPageContainer extends React.Component {
   render() {
     const {
       leaderboardData, title, podiumSpots, isCopilot, hasChallengeHistory,
-      tcoPointsApiUrl, memberLimit,
+      tcoPointsApiUrl, memberLimit, isAlgo,
     } = this.props;
     const { competitor } = this.state;
     let ld = leaderboardData || [];
@@ -75,11 +75,13 @@ class LeaderboardPageContainer extends React.Component {
           <Podium
             competitors={ld.slice(0, podiumSpots)}
             isCopilot={isCopilot}
+            isAlgo={isAlgo}
             onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
           />
           <LeaderboardTable
             competitors={ld.slice(podiumSpots)}
             isCopilot={isCopilot}
+            isAlgo={isAlgo}
             onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
           />
           {
@@ -89,6 +91,8 @@ class LeaderboardPageContainer extends React.Component {
                 challenges={member.challenges}
                 onCancel={this.onChallengeHistoryClose}
                 dataUrl={tcoPointsApiUrl}
+                isCopilot={isCopilot}
+                isAlgo={isAlgo}
               />
             ) : null
           }
@@ -110,6 +114,7 @@ LeaderboardPageContainer.defaultProps = {
   hasChallengeHistory: true,
   tcoPointsApiUrl: null,
   memberLimit: null,
+  isAlgo: false,
 };
 
 LeaderboardPageContainer.propTypes = {
@@ -127,6 +132,7 @@ LeaderboardPageContainer.propTypes = {
   resetTcoHistoryChallenges: PT.func.isRequired,
   tcoPointsApiUrl: PT.string,
   memberLimit: PT.number,
+  isAlgo: PT.bool,
 };
 
 function mapStateToProps(state, props) {

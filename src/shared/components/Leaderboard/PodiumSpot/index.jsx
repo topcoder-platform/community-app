@@ -70,6 +70,7 @@ export default function PodiumSpot(props) {
     isCopilot,
     onUsernameClick,
     isTopGear,
+    isAlgo,
   } = props;
 
   let photoUrl = competitor.avatar;
@@ -140,6 +141,14 @@ export default function PodiumSpot(props) {
             </div>
           ) : null
         }
+        {
+          isAlgo ? (
+            <div styleName="styles.stats">
+              <span styleName="styles.value">{competitor['srm_tco19.score']}</span>
+              <span>Total Score</span>
+            </div>
+          ) : null
+        }
       </div>
     </div>
   );
@@ -161,10 +170,12 @@ PodiumSpot.propTypes = {
   isCopilot: PT.bool,
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
+  isAlgo: PT.bool,
 };
 
 PodiumSpot.defaultProps = {
   isCopilot: false,
   onUsernameClick: null,
   isTopGear: false,
+  isAlgo: false,
 };
