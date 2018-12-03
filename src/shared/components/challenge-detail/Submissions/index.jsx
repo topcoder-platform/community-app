@@ -48,10 +48,12 @@ function SubmissionsComponent({
   // copy colorStyle from registrants to submissions
   const wrappedSubmissions = submissions.map((s) => {
     const registrant = registrants.find(r => r.handle === s.submitter);
-    const { colorStyle } = registrant;
-    /* eslint-disable no-param-reassign */
-    s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
-    /* eslint-enable no-param-reassign */
+    if(registrant.colorStyle){
+      const { colorStyle } = registrant;
+      /* eslint-disable no-param-reassign */
+      s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+      /* eslint-enable no-param-reassign */  
+    }
     return s;
   });
 
