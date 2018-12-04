@@ -17,6 +17,7 @@ export default function SubmissionRow({
   submitter,
   rank,
   submissions,
+  score,
   toggleHistory,
   colorStyle,
 }) {
@@ -43,11 +44,11 @@ export default function SubmissionRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            {(!finalScore && finalScore !== 0) ? '-' : finalScore.toFixed(2)}
+            {isMM ? score.final : (!finalScore && finalScore !== 0) ? '-' : finalScore.toFixed(2)}
           </div>
           <div styleName="col">
             {
-              (!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2)
+             isMM ? score.provisional :  (!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2) 
             }
           </div>
         </div>
