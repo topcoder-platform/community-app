@@ -17,10 +17,14 @@ export default function SubmissionRow({
   submitter,
   rank,
   submissions,
+  score,
   toggleHistory,
   colorStyle,
 }) {
-  const { finalScore, initialScore } = submissions[0];
+  let { finalScore, initialScore } = submissions[0];
+  finalScore = (!finalScore && finalScore !== 0) ? '-' : finalScore.toFixed(2);
+  initialScore = (!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2);
+
   return (
     <div styleName="container">
       <div styleName="row">
@@ -43,12 +47,10 @@ export default function SubmissionRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            {(!finalScore && finalScore !== 0) ? '-' : finalScore.toFixed(2)}
+            { isMM ? score.final : finalScore }
           </div>
           <div styleName="col">
-            {
-              (!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2)
-            }
+            { isMM ? score.provisional : initialScore }
           </div>
         </div>
         <div styleName="col-4 col">
@@ -120,6 +122,10 @@ SubmissionRow.propTypes = {
     submissionId: PT.number.isRequired,
     submissionTime: PT.string.isRequired,
   })).isRequired,
+  score: PT.shape({
+    final: PT.number,
+    provisional: PT.number,
+  }),
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
 };
