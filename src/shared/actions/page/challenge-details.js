@@ -33,6 +33,15 @@ function selectTab(tab) {
 }
 
 /**
+ * Creates action that toggle the submission history.
+ * @param {Number} index of subbmission history.
+ * @return {Action}
+ */
+function toggleSubmissionHistory(index) {
+  return index;
+}
+
+/**
  * Sets the state of specs tab.
  * @param {String} state One of SPECS_TAB_STATES keys.
  * @return {String}
@@ -59,6 +68,9 @@ export default createActions({
       SELECT_TAB: selectTab,
       SET_SPECS_TAB_STATE: setSpecsTabState,
       TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
+      SUBMISSIONS: {
+        TOGGLE_SUBMISSION_HISTORY: toggleSubmissionHistory,
+      },
     },
   },
 });

@@ -20,8 +20,6 @@ import Tooltip from 'components/Tooltip';
 import LoaderIcon from '../../../Loader/Loader';
 import './style.scss';
 
-const ID_LENGTH = 6;
-
 const getDate = date => moment(date).format('MMM DD');
 const getTime = (date) => {
   const duration = moment(date);
@@ -209,19 +207,9 @@ class ProgressBarTooltip extends React.Component {
 
   onTooltipHover() {
     const { challenge } = this.props;
-    const that = this;
-    const chClone = _.clone(challenge);
-    let details = {};
-    const chId = `${chClone.id}`;
-    details = chClone;
-    if (chId.length < ID_LENGTH) {
-      details.postingDate = chClone.startDate;
-      details.registrationEndDate = chClone.endDate;
-      details.submissionEndDate = chClone.endDate;
-      details.appealsEndDate = chClone.endDate;
-    }
-    that.setState({
-      chDetails: details,
+    const chDetails = _.clone(challenge);
+    this.setState({
+      chDetails,
     });
   }
 

@@ -54,7 +54,7 @@ class LeaderboardPageContainer extends React.Component {
         {/* eslint-enable max-len */}
         <div styleName="Leaderboard">
           <h2 styleName="section-title">
-Leaderboard
+            Leaderboard
           </h2>
           <Podium competitors={ld.slice(0, 3)} isTopGear={isTopGear} />
           <LeaderboardTable competitors={ld.slice(3)} isTopGear={isTopGear} />

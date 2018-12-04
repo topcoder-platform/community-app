@@ -228,9 +228,12 @@ export default function ChallengeHeader(props) {
       break;
   }
 
-  let canSubmitFinalFixes = false;
+  // Legacy MMs have a roundId field, but new MMs do not.
+  // This is used to disable registration/submission for legacy MMs.
+  const isLegacyMM = subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
+
   if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
-    canSubmitFinalFixes = _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
+    _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
   }
 
   return (
@@ -316,7 +319,8 @@ POINTS:
               {hasRegistered ? (
                 <DangerButton
                   disabled={unregistering || registrationEnded
-                    || hasSubmissions}
+                  || hasSubmissions || isLegacyMM}
+                  forceA
                   onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
                 >
@@ -324,7 +328,8 @@ Unregister
                 </DangerButton>
               ) : (
                 <PrimaryButton
-                  disabled={registering || registrationEnded}
+                  disabled={registering || registrationEnded || isLegacyMM}
+                  forceA
                   onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
                 >
@@ -332,8 +337,7 @@ Register
                 </PrimaryButton>
               )}
               <PrimaryButton
-                disabled={!hasRegistered || unregistering
-                          || (submissionEnded && !canSubmitFinalFixes)}
+                disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >

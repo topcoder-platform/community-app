@@ -95,26 +95,24 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   const service = getService(tokenV3);
   const calls = [
     getAll(params => service.getChallenges(filter, params)),
-    getAll(params => service.getMarathonMatches(filter, params)),
   ];
   let user;
   if (tokenV3) {
     user = decodeToken(tokenV3).handle;
-    calls.push(getAll(params => service.getUserChallenges(user, filter, params)));
-    calls.push(getAll(params => service.getUserMarathonMatches(user, filter, params)));
+    // Handle any errors on this endpoint so that the non-user specific challenges
+    // will still be loaded.
+    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
+      .catch(() => ({ challenges: [] }))));
   }
-  return Promise.all(calls).then(([ch, mm, uch, umm]) => {
-    const challenges = ch.concat(mm);
-
-    /* uch and umm arrays contain challenges where the user is participating in
+  return Promise.all(calls).then(([ch, uch]) => {
+    /* uch array contains challenges where the user is participating in
      * some role. The same challenge are already listed in res array, but they
      * are not attributed to the user there. This block of code marks user
      * challenges in an efficient way. */
     if (uch) {
       const map = {};
       uch.forEach((item) => { map[item.id] = item; });
-      umm.forEach((item) => { map[item.id] = item; });
-      challenges.forEach((item) => {
+      ch.forEach((item) => {
         if (map[item.id]) {
           /* It is fine to reassing, as the array we modifying is created just
            * above within the same function. */
@@ -126,7 +124,7 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
       });
     }
 
-    return { uuid, challenges };
+    return { uuid, challenges: ch };
   });
 }
 
@@ -149,28 +147,13 @@ function getDraftChallengesInit(uuid, page) {
  */
 function getDraftChallengesDone(uuid, page, filter, tokenV3) {
   const service = getService(tokenV3);
-  return Promise.all([
-    service.getChallenges({
-      ...filter,
-      status: 'DRAFT',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-    service.getMarathonMatches({
-      ...filter,
-      status: 'DRAFT',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(
-    ([{
-      challenges: chunkA,
-    }, {
-      challenges: chunkB,
-    }]) => ({ uuid, challenges: chunkA.concat(chunkB) }),
-  );
+  return service.getChallenges({
+    ...filter,
+    status: 'DRAFT',
+  }, {
+    limit: PAGE_SIZE,
+    offset: page * PAGE_SIZE,
+  }).then(({ challenges }) => ({ uuid, challenges }));
 }
 
 /**
@@ -195,26 +178,13 @@ function getPastChallengesInit(uuid, page, frontFilter) {
  */
 function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
   const service = getService(tokenV3);
-  return Promise.all([
-    service.getChallenges({
-      ...filter,
-      status: 'COMPLETED',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-    service.getMarathonMatches({
-      ...filter,
-      status: 'PAST',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(([{
-    challenges: chunkA,
+  return service.getChallenges({
+    ...filter,
+    status: 'COMPLETED',
   }, {
-    challenges: chunkB,
-  }]) => ({ uuid, challenges: chunkA.concat(chunkB), frontFilter }));
+    limit: PAGE_SIZE,
+    offset: page * PAGE_SIZE,
+  }).then(({ challenges }) => ({ uuid, challenges, frontFilter }));
 }
 
 /**

@@ -3,8 +3,6 @@
  * tab of Challenge Details page (to Details tab, when there is no registrants
  * in the challenge yet). Shows a tooltip when hovered.
  */
-
-import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
@@ -17,12 +15,9 @@ import RegistrantsIcon from '../../Icons/RegistrantsIcon';
 
 import './style.scss';
 
-const ID_LENGTH = 6;
-const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
-
 export default function NumRegistrants({
   challenge: {
-    id, numRegistrants, rounds, track,
+    id, numRegistrants, track,
   },
   challengesUrl,
   newChallengeDetails,
@@ -35,8 +30,7 @@ export default function NumRegistrants({
     default: tip = `${numRegistrants} total registrants`;
   }
   const query = numRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
-  let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
+  let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
@@ -72,7 +66,6 @@ NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numRegistrants: PT.number.isRequired,
-    rounds: PT.arrayOf(PT.object),
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
