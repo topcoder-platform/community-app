@@ -24,6 +24,7 @@ export function AppComponentSwitch(appComponent) {
         hasChallengeHistory={appComponent.fields.props.hasChallengeHistory}
         tcoPointsApiUrl={appComponent.fields.props.tcoPointsApiUrl}
         memberLimit={appComponent.fields.props.memberLimit}
+        isAlgo={appComponent.fields.props.isAlgo}
         key={appComponent.sys.id}
       />
     );

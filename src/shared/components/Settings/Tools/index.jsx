@@ -14,6 +14,7 @@ import ComingSoon from 'components/Settings/ComingSoon';
 import Software from 'components/Settings/Tools/Software';
 import ServiceProviders from 'components/Settings/Tools/ServiceProviders';
 import Subscriptions from 'components/Settings/Tools/Subscriptions';
+import ErrorWrapper from 'components/Settings/ErrorWrapper';
 
 import './styles.scss';
 
@@ -66,15 +67,19 @@ export default function Tools(props) {
         />
       </div>
       <div styleName="col-bar">
-        <SideBar
-          icons={icons}
-          names={names}
-          currentTab={currentTab}
-          toggle={toggleToolsSideTab}
-        />
+        <ErrorWrapper>
+          <SideBar
+            icons={icons}
+            names={names}
+            currentTab={currentTab}
+            toggle={toggleToolsSideTab}
+          />
+        </ErrorWrapper>
       </div>
       <div styleName="col-content">
-        { renderTabContent(currentTab) }
+        <ErrorWrapper>
+          { renderTabContent(currentTab) }
+        </ErrorWrapper>
       </div>
     </div>
   );

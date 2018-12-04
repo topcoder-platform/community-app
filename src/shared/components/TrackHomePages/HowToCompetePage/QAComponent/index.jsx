@@ -14,7 +14,7 @@ class QAComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isActive: false,
+      isActive: props.isActive,
     };
   }
 
@@ -30,7 +30,7 @@ class QAComponent extends React.Component {
     const { isActive } = this.state;
     const className = `container ${isLastItem}`;
     return (
-      <div styleName={className}>
+      <div styleName={className} id={data.title}>
         <div
           tabIndex={0}
           role="button"
@@ -57,6 +57,7 @@ class QAComponent extends React.Component {
 QAComponent.propTypes = {
   data: PT.shape().isRequired,
   isLastItem: PT.string.isRequired,
+  isActive: PT.bool.isRequired,
 };
 
 export default QAComponent;

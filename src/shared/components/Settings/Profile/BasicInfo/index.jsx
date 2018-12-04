@@ -9,7 +9,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-
+import fetch from 'isomorphic-fetch';
+import { config } from 'topcoder-react-utils';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
@@ -86,12 +87,14 @@ export default class BasicInfo extends ConsentComponent {
     const basicInfoTrait = this.loadBasicInfoTraits(nextProps.userTraits);
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
-    this.processBasicInfo(basicInfo);
-    this.setState({
-      basicInfoTrait,
-      personalizationTrait,
-      inputChanged: false,
-    });
+    if (basicInfoTrait.updatedAt !== this.loadBasicInfoTraits(this.props.userTraits).updatedAt) {
+      this.processBasicInfo(basicInfo);
+      this.setState({
+        basicInfoTrait,
+        personalizationTrait,
+        inputChanged: false,
+      });
+    }
   }
 
   onCheckFormValue(newBasicInfo) {
@@ -139,6 +142,29 @@ export default class BasicInfo extends ConsentComponent {
     return invalid;
   }
 
+  async onCheckUserTrait(traitId) {
+    const { handle, tokenV3 } = this.props;
+    let isExists = false;
+    await fetch(`${config.API.V3}/members/${handle}/traits?traitIds=${traitId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenV3}`,
+      },
+    })
+      .then(result => result.json())
+      .then((dataResponse) => {
+        if (dataResponse.result && dataResponse.result.content.length > 0) {
+          const trait = dataResponse.result.content[0];
+          if (trait.createdAt) {
+            isExists = true;
+          }
+        }
+      });
+
+    return isExists;
+  }
+
   /**
    * Show User Consent Modal
    * @param {*} e event
@@ -156,7 +182,7 @@ export default class BasicInfo extends ConsentComponent {
    * Save Basic Info
    * @param answer user consent answer value
    */
-  onSaveBasicInfo(answer) {
+  async onSaveBasicInfo(answer) {
     const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
     const {
       handle,
@@ -182,28 +208,29 @@ export default class BasicInfo extends ConsentComponent {
     if (newBasicInfo.tshirtSize === '') {
       newBasicInfo.tshirtSize = null;
     }
+
     // This is a hack to check if the user has an existing basic_info trait object
-    if (basicInfoTrait.traits
-      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.createdAt) {
+    const exists = await this.onCheckUserTrait('basic_info');
+    if (exists) {
       const newBasicInfoTrait = { ...basicInfoTrait };
       newBasicInfoTrait.traits.data = [];
       newBasicInfoTrait.traits.data.push(newBasicInfo);
-      updateUserTrait(handle, 'basic_info', newBasicInfoTrait.traits.data, tokenV3);
+      await updateUserTrait(handle, 'basic_info', newBasicInfoTrait.traits.data, tokenV3);
     } else {
       const data = [];
       data.push(newBasicInfo);
-      addUserTrait(handle, 'basic_info', data, tokenV3);
+      await addUserTrait(handle, 'basic_info', data, tokenV3);
     }
 
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
-      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      await addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
     } else {
       const trait = personalizationTrait.traits.data[0];
       if (trait.userConsent !== answer) {
         const personalizationData = { userConsent: answer };
-        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+        await updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
     }
   }
@@ -276,7 +303,7 @@ export default class BasicInfo extends ConsentComponent {
    */
   loadBasicInfoTraits = (userTraits) => {
     const trait = userTraits.filter(t => t.traitId === 'basic_info');
-    const basicInfo = trait.length === 0 ? {} : trait[0];
+    const basicInfo = trait.length === 0 ? {} : trait[trait.length - 1];
     return _.assign({}, basicInfo);
   }
 
@@ -676,19 +703,19 @@ export default class BasicInfo extends ConsentComponent {
                   </p>
                   <div styleName="row">
                     <div styleName="field">
-                      <label htmlFor="firstName">
+                      <label htmlFor="firstNameId">
                         First name
                         <span styleName="text-required">* Required</span>
                       </label>
 
-                      <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
+                      <input id="firstNameId" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
                     </div>
                     <div styleName="field">
-                      <label htmlFor="lastName">
+                      <label htmlFor="lastNameId">
                         Last name
                         <span styleName="text-required">* Required</span>
                       </label>
-                      <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
+                      <input id="lastNameId" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
                     </div>
                   </div>
                 </div>
@@ -710,39 +737,39 @@ export default class BasicInfo extends ConsentComponent {
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="address">
+                  <label htmlFor="addressId">
                     Address
                   </label>
-                  <input id="address" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
-                  <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
+                  <input id="addressId" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
+                  <input id="addressId" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="city">
+                  <label htmlFor="cityId">
                     City
                   </label>
-                  <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
+                  <input id="cityId" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="state">
+                  <label htmlFor="stateId">
                     State
                   </label>
-                  <input id="state" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
+                  <input id="stateId" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="zipCode">
+                  <label htmlFor="zipCodeId">
                     ZIP Code
                   </label>
-                  <input id="zipCode" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
+                  <input id="zipCodeId" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="country">
+                  <label htmlFor="countryId">
                     Country
                     <span styleName="text-required">* Required</span>
                   </label>
                   <Select
-                    name="country"
+                    name="countryId"
                     options={dropdowns.countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
@@ -878,5 +905,4 @@ BasicInfo.propTypes = {
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
-  deleteUserTrait: PT.func.isRequired,
 };

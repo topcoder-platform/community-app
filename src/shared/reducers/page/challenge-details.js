@@ -45,6 +45,18 @@ function onSetSpecsTabState(state, { payload }) {
 }
 
 /**
+ * Handler for open state of history of submission.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function toggleSubmissionHistory(state, { payload }) {
+  const newSubmissionHistoryOpen = _.clone(state.submissionHistoryOpen);
+  newSubmissionHistoryOpen[payload.toString()] = !newSubmissionHistoryOpen[payload.toString()];
+  return { ...state, submissionHistoryOpen: newSubmissionHistoryOpen };
+}
+
+/**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
  * @return {Function} Reducer.
@@ -55,9 +67,11 @@ function create(state = {}) {
     [a.selectTab]: onSelectTab,
     [a.setSpecsTabState]: onSetSpecsTabState,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
+    [a.submissions.toggleSubmissionHistory]: toggleSubmissionHistory,
   }, _.defaults(state, {
     checkpoints: {},
     specsTabState: SPECS_TAB_STATES.VIEW,
+    submissionHistoryOpen: {},
   }));
 }
 

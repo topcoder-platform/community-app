@@ -242,6 +242,7 @@ export default class ServiceProviders extends ConsentComponent {
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="service-provider-container">
@@ -260,6 +261,7 @@ export default class ServiceProviders extends ConsentComponent {
             <ServiceProviderList
               serviceProviderList={{ items: serviceProviderItems }}
               onDeleteItem={this.onDeleteServiceProvider}
+              disabled={!canModifyTrait}
             />
           )
         }
@@ -307,6 +309,7 @@ export default class ServiceProviders extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddServiceProvider}
+              disabled={!canModifyTrait}
             >
               Add service provider to your list
             </PrimaryButton>
@@ -349,6 +352,7 @@ export default class ServiceProviders extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddServiceProvider}
+              disabled={!canModifyTrait}
             >
               Add Provider
             </PrimaryButton>
@@ -360,6 +364,7 @@ export default class ServiceProviders extends ConsentComponent {
             <ServiceProviderList
               serviceProviderList={{ items: serviceProviderItems }}
               onDeleteItem={this.onHandleDeleteServiceProvider}
+              disabled={!canModifyTrait}
             />
           )
         }
@@ -371,6 +376,7 @@ export default class ServiceProviders extends ConsentComponent {
 ServiceProviders.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
+  traitRequestCount: PT.number.isRequired,
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,

@@ -13,6 +13,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import 'react-dates/initialize';
 import { DateRangePicker as WrappedDateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';

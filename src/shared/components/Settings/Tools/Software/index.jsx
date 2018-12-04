@@ -242,6 +242,7 @@ export default class Software extends ConsentComponent {
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="software-container">
@@ -260,6 +261,7 @@ export default class Software extends ConsentComponent {
             <SoftwareList
               softwareList={{ items: softwareItems }}
               onDeleteItem={this.onDeleteSoftware}
+              disabled={!canModifyTrait}
             />
           )
         }
@@ -307,6 +309,7 @@ export default class Software extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
+              disabled={!canModifyTrait}
             >
               Add software to your list
             </PrimaryButton>
@@ -349,6 +352,7 @@ export default class Software extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
+              disabled={!canModifyTrait}
             >
               Add Software
             </PrimaryButton>
@@ -360,6 +364,7 @@ export default class Software extends ConsentComponent {
             <SoftwareList
               softwareList={{ items: softwareItems }}
               onDeleteItem={this.onHandleDeleteSoftware}
+              disabled={!canModifyTrait}
             />
           )
         }
@@ -371,6 +376,7 @@ export default class Software extends ConsentComponent {
 Software.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
+  traitRequestCount: PT.number.isRequired,
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,

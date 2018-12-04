@@ -56,7 +56,11 @@ exports[`Matches shallow shapshot 1`] = `
           ],
           "status": "a",
           "subTrack": "CODE",
-          "technologies": "a, b, c",
+          "technologies": Array [
+            "a",
+            "b",
+            "c",
+          ],
           "totalPrize": 1800,
           "track": "DEVELOP",
           "users": Object {},

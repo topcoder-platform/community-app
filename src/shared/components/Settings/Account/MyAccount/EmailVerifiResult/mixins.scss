@@ -30,6 +30,7 @@
   max-width: 1246px;
   text-align: center;
   width: 100%;
+  overflow: hidden;
 
   h1,
   h2,
@@ -50,5 +51,18 @@
 
   p {
     margin: 0;
+  }
+}
+
+@mixin inner-container {
+  background: $tc-white;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 28px;
+    line-height: 35px;
+    margin-top: 22px;
+    margin-bottom: 3px;
   }
 }

@@ -525,6 +525,7 @@ Reliability Rating and Bonus
           fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
+          isMM={challenge.subTrack.toUpperCase() === 'MARATHON_MATCH'}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}
@@ -572,7 +573,7 @@ ChallengeDetailsView.propTypes = {
     submissionLimit: PT.number,
     mainEvent: PT.shape(),
     reviewType: PT.string,
-    technologies: PT.string,
+    technologies: PT.arrayOf(PT.string),
     fileTypes: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
     round1Introduction: PT.string,
@@ -583,7 +584,7 @@ ChallengeDetailsView.propTypes = {
     codeRepo: PT.string,
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
-    }).isRequired,
+    }),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({

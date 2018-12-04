@@ -97,12 +97,14 @@ export default function ChallengeStatus(props) {
       openChallengesInNewTabs,
     } = props;
 
-    let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
-      .map(winner => ({
+    let winners = _.map(
+      challenge.winners,
+      winner => ({
         handle: winner.handle,
         position: winner.placement,
         photoURL: winner.photoURL,
-      }));
+      }),
+    );
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
       const lastItem = {
@@ -137,17 +139,13 @@ export default function ChallengeStatus(props) {
           </UserAvatarTooltip>
         </div>);
     });
-    let resultsLink = detailLink;
-    if (challenge.challengeType === 'Marathon') {
-      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'rounds[0].id')}`;
-    }
 
     return leaderboard || (
       <Link
         onClick={() => (
           setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
         )}
-        to={resultsLink}
+        to={detailLink}
       >
 Results
       </Link>
@@ -238,19 +236,20 @@ to register
       subTrack,
     } = challenge;
 
-    let statusPhase = currentPhases
+    const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
+    let statusPhase = checkPhases
       .filter(p => p.phaseType !== 'Registration')
       .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
 
-    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && currentPhases.length) {
-      statusPhase = _.clone(currentPhases[0]);
+    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && checkPhases.length) {
+      statusPhase = _.clone(checkPhases[0]);
       statusPhase.phaseType = 'Submission';
     }
 
     const registrationPhase = allPhases
       .find(p => p.phaseType === 'Registration');
     const isRegistrationOpen = registrationPhase
-      && registrationPhase.phaseStatus === 'Open';
+      && (registrationPhase.phaseStatus === 'Open' || moment(registrationPhase.scheduledEndTime).diff(new Date()) > 0);
 
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.phaseType;

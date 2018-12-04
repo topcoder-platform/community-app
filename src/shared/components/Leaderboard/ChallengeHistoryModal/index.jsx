@@ -12,6 +12,8 @@ function ChallengeHistoryModal({
   competitor,
   onCancel,
   loading,
+  isCopilot,
+  isAlgo,
 }) {
   return (
     <Modal onCancel={onCancel} theme={theme}>
@@ -19,15 +21,21 @@ function ChallengeHistoryModal({
 Completed Challenges History
       </h1>
       <div styleName="podium-spot-wrapper">
-        <PodiumSpot competitor={competitor} />
+        <PodiumSpot
+          competitor={competitor}
+          isCopilot={isCopilot}
+          isAlgo={isAlgo}
+        />
       </div>
       <div styleName="head">
         <div styleName="col-1">
 Challenge Name
         </div>
-        <div styleName="col-2">
-Placement
-        </div>
+        {
+          !isCopilot ? (
+            <div styleName="col-2">Placement</div>
+          ) : null
+        }
         <div styleName="col-3">
 TCO Points
         </div>
@@ -41,9 +49,11 @@ TCO Points
                   {challenge.challenge_name || challenge.challenge_id}
                 </a>
               </div>
-              <div styleName="col-2">
-                {challenge.place}
-              </div>
+              {
+                !isCopilot ? (
+                  <div styleName="col-2">{challenge.place}</div>
+                ) : null
+              }
               <div styleName="col-3">
                 {challenge.points}
               </div>
@@ -65,7 +75,7 @@ Close
 
 const CHALLENGES_TYPE = PT.arrayOf(PT.shape({
   challenge_name: PT.string.isRequired,
-  place: PT.number.isRequired,
+  place: PT.number,
   points: PT.number.isRequired,
 }));
 
@@ -77,11 +87,18 @@ const CompetitorShape = PT.shape({
   points: PT.number.isRequired,
 });
 
+ChallengeHistoryModal.defaultProps = {
+  isCopilot: false,
+  isAlgo: false,
+};
+
 ChallengeHistoryModal.propTypes = {
   challenges: CHALLENGES_TYPE.isRequired,
   competitor: CompetitorShape.isRequired,
   onCancel: PT.func.isRequired,
   loading: PT.bool.isRequired,
+  isAlgo: PT.bool,
+  isCopilot: PT.bool,
 };
 
 export default ChallengeHistoryModal;

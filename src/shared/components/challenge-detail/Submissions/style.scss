@@ -114,55 +114,109 @@
     }
   }
 
-  &.dev {
-    padding: 30px 0;
-    line-height: 50px;
-    text-align: center;
+  .head {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+    color: $tc-gray-50;
+    background: #e8e8e8;
+    display: flex;
+    border-radius: 5px 5px 0 0;
 
-    .row {
-      color: $tc-gray-70;
-      display: flex;
-      border-bottom: 1px solid $tc-gray-10;
-      font-size: 15px;
+    @include xs-to-sm {
+      display: none;
     }
 
-    .col-1 {
-      padding-left: 30px;
-      text-align: left;
-      width: 33%;
-    }
+    .col {
+      display: block !important;
+      color: $tc-gray-50;
 
-    .col-2 {
-      width: 33%;
+      &.col-1 {
+        color: black;
+      }
     }
+  }
 
-    .col-3 {
-      width: 33%;
+  .sub-head {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    color: $tc-gray-50;
+    background: #faf9fa;
+    display: flex;
+    border-bottom: 1px solid $tc-gray-10;
+
+    @include xs-to-sm {
+      display: none;
     }
 
     .handle {
       color: $tc-dark-blue-110;
     }
   }
-}
 
-.head {
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 15px;
-  padding-bottom: 14px;
-  color: $tc-gray-50;
-  display: flex;
-  border-bottom: 1px solid $tc-gray-10;
-
-  @include xs-to-sm {
-    display: none;
+  .lock {
+    fill: $tc-light-blue;
+    height: 136px;
+    margin-bottom: 30px;
+    width: 110px;
   }
 }
 
-.lock {
-  fill: $tc-light-blue;
-  height: 136px;
-  margin-bottom: 30px;
-  width: 110px;
+.container.dev {
+  margin: 30px 80px;
+  padding-bottom: 30px;
+  line-height: 50px;
+  text-align: center;
+
+  @include xs-to-sm {
+    margin: 30px 0;
+  }
+
+  .col {
+    text-align: center;
+
+    &.col-1 {
+      flex: 20;
+      display: flex;
+
+      .col {
+        flex: 1;
+      }
+    }
+
+    &.col-2 {
+      flex: 15;
+      text-align: left;
+      margin-left: 10px;
+      color: $tc-gray-50;
+
+      a {
+        color: black;
+      }
+    }
+
+    &.col-3 {
+      flex: 30;
+      display: flex;
+      color: $tc-gray-50;
+
+      .col {
+        flex: 1;
+      }
+    }
+
+    &.col-4 {
+      flex: 35;
+      color: $tc-gray-50;
+    }
+  }
+
+  .handle {
+    color: $tc-dark-blue;
+  }
 }

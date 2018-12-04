@@ -63,10 +63,10 @@ export default function ExistingLink(props) {
 
   return (
     <div role="link" styleName={`external-link-tile ${pending ? 'external-link-tile--pending' : ''}`} onClick={e => openLink(e, link)}>
+      <div styleName="ext-link-tile_edit-header">
+        <div role="button" onClick={e => onConfirmDeleteLink(e, link)} styleName={`ext-link-tile_edit-header_delete ${link.deleting ? 'ext-link-tile_edit-header_delete--disabled' : ''}`} prevent-event-propagation="true" />
+      </div>
       <div styleName="top">
-        <div styleName="ext-link-tile_edit-header">
-          <div role="button" onClick={e => onConfirmDeleteLink(e, link)} styleName={`ext-link-tile_edit-header_delete ${link.deleting ? 'ext-link-tile_edit-header_delete--disabled' : ''}`} prevent-event-propagation="true" />
-        </div>
         <div styleName="logo">
           {link.providerType === 'weblink'
             ? <i styleName={logoClass} className={`fa ${logoClass}`} />

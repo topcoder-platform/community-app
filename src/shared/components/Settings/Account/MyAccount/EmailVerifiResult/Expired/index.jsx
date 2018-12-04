@@ -9,14 +9,14 @@ import './styles.scss';
 
 let assets;
 if (isomorphy.isClientSide()) {
-  assets = require.context('assets/images/account/email', false, /svg/);
+  assets = require.context('assets/images/account/email', false, /svg/)('./failed.svg');
 }
 
 const Expired = () => (
   <div styleName="outer-container">
     <div styleName="page">
       <div styleName="container">
-        <img src={assets('./failed.svg')} alt="success-icon" />
+        <img src={assets} alt="success-icon" />
         <h1>
           Email Verification Failed
         </h1>
