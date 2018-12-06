@@ -24,7 +24,7 @@ class ExtendedToastrBox extends ToastrBox {
     } = this.props.item;
 
     return (
-      <div role="button" onClick={this.handleClick.bind(this)}>
+      <div role="button">
         <div className="rrt-left-container">
           <div className="rrt-holder">
             {this.renderIcon()}
