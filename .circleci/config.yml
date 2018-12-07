@@ -187,21 +187,19 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: v4-merge-develop-base
+              only: develop
       # This is alternate dev env for parallel testing
       - "build-test":
           filters:
             branches:
               only:
-                - mm-develop-merge
-                - v4-merge-develop-base
+                - hot-fixes
       # This is beta env for production soft releases
       - "build-prod-beta":
           filters:
             branches:
               only: 
-                - mm-develop-merge
-                - v4-merge-develop-base
+                - hot-fixes
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
@@ -217,5 +215,4 @@ workflows:
           filters:
             branches:
               ignore:
-                - v4-merge-develop-base
                 - mm-develop-merge
