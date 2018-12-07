@@ -126,15 +126,31 @@ function Header(props) {
     </div>
   ) : (
     <div className={theme.authorize}>
-      <Button
-        onClick={() => {
-          const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
-          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
-        }}
-        size="sm"
-      >
-Log In
-      </Button>
+      {
+        communityId === 'zurich' ? (
+          <PrimaryButton
+            onClick={() => {
+              const returnUrl = encodeURIComponent(window.location.href);
+              window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
+            }}
+            size="sm"
+            title="Lorem Ipsum"
+          >
+    Log In
+            <div className={theme.loginHint}>Lorem ipsum bla bla</div>
+          </PrimaryButton>
+        ) : (
+          <Button
+            onClick={() => {
+              const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+            }}
+            size="sm"
+          >
+    Log In
+          </Button>
+        )
+      }
       { hideJoinNow ? null : (
         <PrimaryButton
           onClick={() => {
