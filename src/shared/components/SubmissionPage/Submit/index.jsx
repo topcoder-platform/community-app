@@ -236,7 +236,6 @@ Please follow the instructions on the Challenge Details page regarding
                   ) : null }
                 </div>
                 <div styleName="file-picker-container">
-                  { isLoadingCommunitiesList ? (<LoadingIndicator />) : (
                     <FilestackFilePicker
                       mandatory
                       title={isChallengeBelongToTopgearGroup ? '' : 'Submission Upload'}
@@ -256,7 +255,7 @@ Please follow the instructions on the Challenge Details page regarding
                       userId={userId}
                       submitForm={submitForm}
                       isChallengeBelongToTopgearGroup={isChallengeBelongToTopgearGroup}
-                    />)}
+                    />
                 </div>
                 { isChallengeBelongToTopgearGroup
                   ? (
