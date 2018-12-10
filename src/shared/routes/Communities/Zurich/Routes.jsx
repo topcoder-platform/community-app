@@ -20,10 +20,10 @@ import { Route, Switch } from 'react-router-dom';
 function Zurich({ base, meta, userGroups }) {
   // Only members of `Requestor`|`Approver` gropus
   // should can see catalog with links to connect
-  const isRequestorOrApprover = _.intersection(
+  const isRequestorOrApprover = userGroups ? _.intersection(
     _.map(userGroups, 'id'),
     meta.authorizedGroupIdsCatalog,
-  );
+  ) : [];
   return (
     <Route
       component={({ match }) => (
@@ -32,6 +32,7 @@ function Zurich({ base, meta, userGroups }) {
             <Header
               baseUrl={base}
               pageId={match.params.pageId || 'home'}
+              hideJoinNow
             />
             <Switch>
               <Route
@@ -98,5 +99,5 @@ Zurich.propTypes = {
 };
 
 export default connect(state => ({
-  userGroups: state.auth.profile.groups,
+  userGroups: state.auth.profile ? state.auth.profile.groups : null,
 }))(Zurich);

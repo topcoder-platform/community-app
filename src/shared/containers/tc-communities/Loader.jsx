@@ -50,9 +50,9 @@ class Loader extends React.Component {
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) and Zurich community visitors. Should be re-factored, but not it is not
      * clear, what exactly do we need to support it in general. */
-    if ((communityId === 'wipro' || communityId === 'zurich' || communityId === 'cs') && !visitorGroups) {
+    if ((communityId === 'wipro' || communityId === 'cs') && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=wipro`;
+      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
   }
 
