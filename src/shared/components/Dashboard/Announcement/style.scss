@@ -72,11 +72,7 @@
 }
 
 .text {
-  @include tc-typography;
-
-  * {
-    color: inherit !important;
-  }
+  @include tc-body-lg;
 }
 
 .title {
@@ -98,7 +94,7 @@
 
 .video {
   flex: 1;
-  margin: 35px 30px;
+  margin: 35px 30px 35px 0;
 
   @include xs-to-sm {
     align-self: stretch;

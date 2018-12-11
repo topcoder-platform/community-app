@@ -5,7 +5,6 @@ import PT from 'prop-types';
 import React from 'react';
 import YouTubeVideo from 'components/YouTubeVideo';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import MarkdownRenderer from 'components/MarkdownRenderer';
 
 import style from './style.scss';
 
@@ -129,7 +128,7 @@ Preview
               maxWidth: maxTextWidth,
             }}
           >
-            <MarkdownRenderer markdown={text} />
+            {text}
           </div>
           {
             readMore ? (
