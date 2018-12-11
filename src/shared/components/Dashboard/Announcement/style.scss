@@ -72,7 +72,11 @@
 }
 
 .text {
-  @include tc-body-lg;
+  @include tc-typography;
+
+  * {
+    color: inherit !important;
+  }
 }
 
 .title {
