@@ -406,6 +406,7 @@ Show Deadlines
           challenge={challenge}
           onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
+          subTrack={subTrack}
           selectedView={selectedView}
           numRegistrants={numRegistrants}
           numWinners={numWinners}

@@ -27,13 +27,14 @@ export default function ChallengeViewSelector(props) {
     onSelectorClicked,
     selectedView,
     trackLower,
+    subTrack,
     hasRegistered,
   } = props;
 
   const forumId = _.get(challenge, 'forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
 
-  const forumEndpoint = trackLower === 'design'
+  const forumEndpoint = (trackLower === 'design') || (subTrack === 'MARATHON_MATCH')
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
 
@@ -175,5 +176,6 @@ ChallengeViewSelector.propTypes = {
   onSelectorClicked: PT.func.isRequired,
   selectedView: PT.string.isRequired,
   trackLower: PT.string.isRequired,
+  subTrack: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
 };
