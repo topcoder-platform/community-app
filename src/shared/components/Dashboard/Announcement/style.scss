@@ -94,7 +94,7 @@
 
 .video {
   flex: 1;
-  margin: 35px 30px 35px 0;
+  margin: 35px 30px;
 
   @include xs-to-sm {
     align-self: stretch;
