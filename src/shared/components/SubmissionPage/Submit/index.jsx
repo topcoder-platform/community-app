@@ -236,26 +236,27 @@ Please follow the instructions on the Challenge Details page regarding
                   ) : null }
                 </div>
                 <div styleName="file-picker-container">
-                  <FilestackFilePicker
-                    mandatory
-                    title={isChallengeBelongToTopgearGroup ? '' : 'Submission Upload'}
-                    fileExtensions={['.zip']}
-                    id={id}
-                    challengeId={challengeId}
-                    error={fpState.error}
-                    // Bind the set functions to the FilePicker's ID
-                    setError={_.partial(setFilePickerError, id)}
-                    fileName={fpState.fileName}
-                    uploadProgress={fpState.uploadProgress}
-                    setFileName={_.partial(setFilePickerFileName, id)}
-                    setUploadProgress={_.partial(setFilePickerUploadProgress, id)}
-                    dragged={fpState.dragged}
-                    setDragged={_.partial(setFilePickerDragged, id)}
-                    setFilestackData={setSubmissionFilestackData}
-                    userId={userId}
-                    submitForm={submitForm}
-                    isChallengeBelongToTopgearGroup={isChallengeBelongToTopgearGroup}
-                  />
+                  { isLoadingCommunitiesList ? (<LoadingIndicator />) : (
+                    <FilestackFilePicker
+                      mandatory
+                      title={isChallengeBelongToTopgearGroup ? '' : 'Submission Upload'}
+                      fileExtensions={['.zip']}
+                      id={id}
+                      challengeId={challengeId}
+                      error={fpState.error}
+                      // Bind the set functions to the FilePicker's ID
+                      setError={_.partial(setFilePickerError, id)}
+                      fileName={fpState.fileName}
+                      uploadProgress={fpState.uploadProgress}
+                      setFileName={_.partial(setFilePickerFileName, id)}
+                      setUploadProgress={_.partial(setFilePickerUploadProgress, id)}
+                      dragged={fpState.dragged}
+                      setDragged={_.partial(setFilePickerDragged, id)}
+                      setFilestackData={setSubmissionFilestackData}
+                      userId={userId}
+                      submitForm={submitForm}
+                      isChallengeBelongToTopgearGroup={isChallengeBelongToTopgearGroup}
+                    />)}
                 </div>
                 { isChallengeBelongToTopgearGroup
                   ? (
