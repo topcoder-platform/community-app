@@ -45,6 +45,8 @@ function SubmissionsComponent({
 }) {
   const { checkpoints, submissions, registrants } = challenge;
 
+  const isMM = challenge.subTrack === 'MARATHON_MATCH';
+
   // copy colorStyle from registrants to submissions
   const wrappedSubmissions = submissions.map((s) => {
     const registrant = registrants.find(r => r.handle === s.submitter);
@@ -52,6 +54,7 @@ function SubmissionsComponent({
       const { colorStyle } = registrant;
       /* eslint-disable no-param-reassign */
       s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+      if (!isMM && s.colorStyle.color === '#000000') s.colorStyle = null;
       /* eslint-enable no-param-reassign */
     }
     return s;
@@ -73,8 +76,6 @@ function SubmissionsComponent({
     }
     return (val1 - val2);
   });
-
-  const isMM = challenge.subTrack === 'MARATHON_MATCH';
 
   if (challenge.track.toLowerCase() === 'design') {
     return challenge.submissionViewable === 'true' ? (

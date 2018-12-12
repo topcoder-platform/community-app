@@ -44,6 +44,7 @@ export default function Registrants({ challenge, checkpointResults, results }) {
     prizes,
     registrants,
   } = challenge;
+  const isMM = challenge.subTrack === 'MARATHON_MATCH';
 
   const checkpoints = challenge.checkpoints || [];
 
@@ -80,7 +81,8 @@ Round 1 Submitted Date
         {
           registrants.map((r) => {
             const placement = getPlace(results, r.handle, places);
-            const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+            let colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+            if (!isMM && colorStyle.color === '#000000') colorStyle = null;
 
             let checkpoint;
             if (twoRounds) {
