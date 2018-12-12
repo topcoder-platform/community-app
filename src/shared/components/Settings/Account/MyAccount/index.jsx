@@ -10,7 +10,7 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { omit } from 'lodash';
 import Personalization from 'components/Settings/Preferences/Personalization';
-import config from 'config';
+import { config } from 'topcoder-react-utils';
 
 import './styles.scss';
 
