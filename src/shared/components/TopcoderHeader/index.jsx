@@ -268,7 +268,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavProfile />,
-          link: `${BASE_URL}/members/${normalizedProfile.handle}`,
+          link: `/members/${normalizedProfile.handle}`,
           title: 'My Profile',
         }, {
           icon: <IconNavWallet />,
