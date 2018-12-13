@@ -1,3 +1,7 @@
+/* Datadog debugging */
+import dd-trace from 'dd-trace';
+dd-trace.init();
+
 import atob from 'atob';
 import Application from 'shared';
 import config from 'config';
