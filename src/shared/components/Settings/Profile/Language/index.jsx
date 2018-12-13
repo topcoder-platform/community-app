@@ -299,6 +299,7 @@ export default class Language extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="language">
                     Language
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -319,6 +320,7 @@ export default class Language extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="spokenLevel">
                     Spoken Level
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -339,6 +341,7 @@ export default class Language extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="writtenLevel">
                     Written Level
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -376,6 +379,7 @@ export default class Language extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="language">
                     Language
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="language"
@@ -391,6 +395,7 @@ export default class Language extends ConsentComponent {
                 <div styleName="field col-2">
                   <label htmlFor="spokenLevel">
                     Spoken Level
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="spokenLevel"
@@ -406,6 +411,7 @@ export default class Language extends ConsentComponent {
                 <div styleName="field col-2">
                   <label htmlFor="writtenLevel">
                     Written Level
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="writtenLevel"

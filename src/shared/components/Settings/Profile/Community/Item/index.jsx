@@ -46,6 +46,7 @@ export default function Item({
               <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
                 <span className="onoffswitch-inner" />
                 <span className="onoffswitch-switch" />
+                <input type="hidden" />
               </label>
             </div>
           </div>
@@ -67,6 +68,7 @@ export default function Item({
         <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
           <span className="onoffswitch-inner" />
           <span className="onoffswitch-switch" />
+          <input type="hidden" />
         </label>
       </div>
     </div>

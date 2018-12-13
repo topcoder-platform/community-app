@@ -108,6 +108,7 @@ SubmissionRow.defaultProps = {
   toggleHistory: () => {},
   rank: {},
   colorStyle: {},
+  score: {},
 };
 
 SubmissionRow.propTypes = {
