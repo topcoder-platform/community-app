@@ -262,6 +262,7 @@ export default class Subscription extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="name">
                   Name
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -295,6 +296,7 @@ export default class Subscription extends ConsentComponent {
                 <label htmlFor="name">
                   Name
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
               </div>

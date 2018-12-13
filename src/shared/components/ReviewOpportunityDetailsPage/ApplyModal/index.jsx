@@ -83,6 +83,7 @@ Payment
                       type="checkbox"
                     />
                     <label htmlFor={`${position.roleId}-checkbox`}>
+                      <input type="hidden" />
                       <div styleName="tc-checkbox-label" />
                     </label>
                   </div>

@@ -307,6 +307,7 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="deviceType">
                   Type
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -327,6 +328,7 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="manufacturer">
                   Manufacturer
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -338,6 +340,7 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="model">
                   Model
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -349,6 +352,7 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="operating-system">
                   Operating System(OS)
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -360,6 +364,7 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="osVersion">
                   OS Version
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -371,6 +376,7 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="osLanguage">
                   OS Language
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -404,6 +410,7 @@ export default class Devices extends ConsentComponent {
                 <label htmlFor="deviceType">
                   Device Type
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <Select
                   name="deviceType"
@@ -420,6 +427,7 @@ export default class Devices extends ConsentComponent {
                 <label htmlFor="manufacturer">
                   Manufacturer
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
               </div>
@@ -429,6 +437,7 @@ export default class Devices extends ConsentComponent {
                 <label htmlFor="model">
                   Model
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
               </div>
@@ -436,6 +445,7 @@ export default class Devices extends ConsentComponent {
                 <label htmlFor="operating-system">
                   Operating System
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
               </div>
@@ -445,6 +455,7 @@ export default class Devices extends ConsentComponent {
                 <label htmlFor="osVersion">
                   OS version
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
               </div>
@@ -452,6 +463,7 @@ export default class Devices extends ConsentComponent {
                 <label htmlFor="osLanguage">
                   OS Language
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
               </div>

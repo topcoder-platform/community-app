@@ -19,12 +19,9 @@
 import _ from 'lodash';
 import actions from 'actions/contentful';
 
-
-import { errors, logger } from 'topcoder-react-lib';
+import { logger } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
 import space from './space';
-
-const { fireErrorMessage } = errors;
 
 const validActions = new Set(_.values(actions.contentful)
   .filter(_.isFunction).map(action => action.toString()));
