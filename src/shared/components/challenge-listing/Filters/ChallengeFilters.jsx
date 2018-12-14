@@ -47,7 +47,6 @@ export default function ChallengeFilters({
   isSavingFilter,
 }) {
   let filterRulesCount = 0;
-  // alert(JSON.stringify(filterState)); {"tracks":{"develop":"true"}}
   if (filterState.tags) filterRulesCount += 1;
   if (filterState.subtracks) filterRulesCount += 1;
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
