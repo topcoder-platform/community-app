@@ -146,8 +146,10 @@ function Header(props) {
               window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
             }}
             size="sm"
+            title="Lorem Ipsum"
           >
     Log In
+            <div className={theme.loginHint}>Lorem ipsum bla bla</div>
           </PrimaryButton>
         ) : (
           <Button
