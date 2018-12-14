@@ -36,6 +36,18 @@ function onSubmitDone(state, { error, payload }) {
     };
   }
 
+  if (payload.message) {
+    /* payload message is present when upload of file fails due to any reason so
+     * handle this special case for error */
+    logger.error(`Failed to submit for the challenge - ${payload.message}`);
+    return {
+      ...state,
+      submitErrorMsg: payload.message || 'Failed to submit',
+      isSubmitting: false,
+      submitDone: false,
+    };
+  }
+
   /* TODO: I am not sure, whether this code is just wrong, or does it handle
    * only specific errors, returned from API for design submissions? I am
    * adding a more generic failure handling code just above. */
