@@ -44,7 +44,13 @@
   }
 
   @include xs-to-lg {
-    display: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+
+    .userMenuHandle {
+      display: inline-block;
+    }
   }
 }
 
@@ -69,12 +75,6 @@
     display: none;
     position: absolute;
   }
-
-  // &:hover {
-  //   .loginHint {
-  //     display: block;
-  //   }
-  // }
 }
 
 .additionalLogos {
