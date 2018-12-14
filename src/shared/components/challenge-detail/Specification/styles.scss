@@ -162,6 +162,8 @@ $tc-link-visited: #0c4e98;
 }
 
 .rawHtml {
+  @include tc-typography;
+
   h1 {
     @include roboto-medium;
 
@@ -214,14 +216,6 @@ $tc-link-visited: #0c4e98;
 
   p {
     margin: (2 * $base-unit) 0 (3 * $base-unit);
-  }
-
-  em {
-    font-style: italic;
-  }
-
-  strong {
-    font-weight: 700;
   }
 
   code {

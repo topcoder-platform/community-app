@@ -101,6 +101,7 @@ export default class AddWebLink extends React.Component {
                 <div styleName="field col-1">
                   <label htmlFor="name">
                     External link
+                    <input type="hidden" />
                   </label>
                   <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
                     <input
@@ -156,6 +157,7 @@ export default class AddWebLink extends React.Component {
           >
             <label htmlFor="external-link">
               External Link
+              <input type="hidden" />
             </label>
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
               <input

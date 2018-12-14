@@ -269,6 +269,7 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="hobby">
                     Hobby
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -280,6 +281,7 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field col-1">
                   <label styleName="description-label" htmlFor="description">
                     Description
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -319,6 +321,7 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field row-1">
                   <label htmlFor="hobby">
                     Hobby
+                    <input type="hidden" />
                   </label>
                   <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
                 </div>
