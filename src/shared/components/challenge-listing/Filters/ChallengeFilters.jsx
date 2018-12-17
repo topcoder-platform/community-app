@@ -52,7 +52,9 @@ export default function ChallengeFilters({
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
 
   const isTrackOn = (track) => {
+    console.log('checking track[' + track + '] in ' + JSON.stringify(filterState));
     const isEnabled = filterState.tracks ? Boolean(filterState.tracks[track]) : true;
+    console.log('Found track[' + track + ']: ' + isEnabled);
     return isEnabled;
   };
 
