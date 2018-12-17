@@ -11,17 +11,24 @@ import { logger, services } from 'topcoder-react-lib';
 import path from 'path';
 import { isomorphy } from 'topcoder-react-utils';
 
-const { addDescendantGroups, getService } = services.groups;
+const { api, groups } = services;
 
 /* Holds the mapping between subdomains and communities. It is automatically
  * generated at startup, using "subdomains" property from community configs */
 const SUBDOMAIN_COMMUNITY = {};
 
 /**
- * Community metadata are currently read from config files. Here we lookup all
- * of them at startup to reuse later in the service.
+ * Gets an instance of groups service, trying to reuse the same one,
+ * if possible.
  */
-const COMMUNITY_META_DATA = {};
+async function getGroupsService() {
+  const m2mToken = await api.getTcM2mToken();
+  const cached = getGroupsService.cachedService;
+  if (cached && m2mToken === cached.getTokenV3()) return cached;
+  const res = groups.getService(m2mToken);
+  getGroupsService.cachedService = res;
+  return res;
+}
 
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
 const VALID_IDS = isomorphy.isServerSide()
@@ -43,129 +50,98 @@ const VALID_IDS = isomorphy.isServerSide()
 });
 
 /**
- * Private. Pushes into "unknown" array all element of "ids" array that are not
- * present as keys in "known" object. Does nothing if "ids" is undefined.
- * @param {String[]} ids
- * @param {Object} known
- * @param {String[]} unknown
+ * Given an array of group IDs, returns an array containing IDs of all those
+ * groups, and also of all groups descendent from them.
+ *
+ * TODO: This function also can be moved to the groups service.
+ *
+ * @param {String[]} groupIds
+ * @return {String[]}
  */
-function addUnknown(ids, known, unknown) {
-  if (ids) ids.forEach(id => (known[id] ? null : unknown.push(id)));
+async function extendByChildGroups(groupIds) {
+  const service = await getGroupsService();
+  let res = [];
+  for (let i = 0; i !== groupIds.length; i += 1) {
+    /* eslint-disable no-await-in-loop */
+    res = res.concat(await service.getGroupTreeIds(groupIds[i]));
+    /* eslint-enable no-await-in-loop */
+  }
+  return _.uniq(res);
 }
 
-export default class Communities {
-  constructor(tokenV3) {
-    this.private = {
-      groupsService: getService(tokenV3),
-      tokenV3,
-    };
-
-    /* Private implementation of getMetadata(..) method. It allows to pass in
-     * a map of known user groups as the second argument. This method can mutate
-     * its second argument; and it does not care about timestamps of known
-     * groups, assuming they are up-to-date. */
-    this.private.getMetadata = (communityId, knownGroups = {}) => {
-      const promise = new Promise((resolve, reject) => {
-        /* Metadata itself, at the moment, are read from configuration files.
-        * And in-memory data will be used if already exists */
-        let metadata;
-        if (COMMUNITY_META_DATA[communityId]) {
-          metadata = COMMUNITY_META_DATA[communityId];
-          resolve(metadata);
-        } else {
-          const uri = path.resolve(
-            __dirname, '../tc-communities',
-            communityId, 'metadata.json',
-          );
-          fs.readFile(uri, 'utf8', (err, res) => {
-            if (err) {
-              const msg = `Failed to get metadata for ${communityId} community`;
-              logger.error(msg, err);
-              return reject({ error: msg }); // eslint-disable-line prefer-promise-reject-errors
-            }
-            COMMUNITY_META_DATA[communityId] = JSON.parse(res);
-            metadata = COMMUNITY_META_DATA[communityId];
-            return resolve(metadata);
-          });
-        }
-      });
-
-      return promise.then(metadata => this.private.getGroomedMetadata(metadata, knownGroups));
-    };
-
-    this.private.getGroomedMetadata = (metadata, knownGroups) => {
-      /* Once we have loaded metadata, we extend all fields that hold user
-      * group IDs with IDs of their descendant groups. This simplifies
-      * a lot of code depending on community metadata, as then there is
-      * no need to handle user groups data in each place where we rely on
-      * group IDs from metadata. */
-      const unknownGroups = [];
-      const groomedMetadata = metadata;
-      const challengeGroupIds = _.get(groomedMetadata, 'challengeFilter.groupIds');
-      addUnknown(groomedMetadata.authorizedGroupIds, knownGroups, unknownGroups);
-      addUnknown(challengeGroupIds, knownGroups, unknownGroups);
-      addUnknown(groomedMetadata.groupIds, knownGroups, unknownGroups);
-      return Promise.resolve(unknownGroups.length ? (
-        this.private.groupsService.getGroupMap(unknownGroups)
-          .then(map => _.assign(knownGroups, map))
-      ) : null).then(() => {
-        if (groomedMetadata.authorizedGroupIds) {
-          groomedMetadata.authorizedGroupIds = addDescendantGroups(
-            groomedMetadata.authorizedGroupIds, knownGroups,
-          );
-        }
-        if (groomedMetadata.groupIds) {
-          groomedMetadata.groupIds = addDescendantGroups(groomedMetadata.groupIds, knownGroups);
-        }
-        if (challengeGroupIds) {
-          groomedMetadata.challengeFilter.groupIds = addDescendantGroups(
-            challengeGroupIds,
-            knownGroups,
-          );
-        }
-        return groomedMetadata;
-      });
-    };
+/**
+ * Gets metadata for the specified community.
+ * @param {String} communityId
+ * @return {Promise} Resolves to the community metadata.
+ */
+export async function getMetadata(communityId) {
+  const now = Date.now();
+  const cached = getMetadata.cache[communityId];
+  if (cached && now - cached.timestamp < getMetadata.maxage) {
+    return _.cloneDeep(cached.data);
   }
 
-  /**
-   * Gets the list of communities accessible to the member of specified groups.
-   * @param {String[]} userGroupIds
-   * @return {Promise} Resolves to the array of community data objects. Each of
-   *  the objects indludes only the most important data on the community.
-   */
-  getList(userGroupIds) {
-    const list = [];
-    const knownGroups = {};
-    return Promise.all(
-      VALID_IDS.map(id => this.private.getMetadata(id, knownGroups).then((data) => {
-        if (!data.authorizedGroupIds
-            || _.intersection(data.authorizedGroupIds, userGroupIds).length) {
-          list.push({
-            challengeFilter: data.challengeFilter || {},
-            communityId: data.communityId,
-            communityName: data.communityName,
-            description: data.description,
-            groupIds: data.groupIds,
-            hidden: data.hidden || false,
-            image: data.image,
-            mainSubdomain: _.get(data, 'subdomains[0]', ''),
-          });
-        }
-      }).catch(() => null)),
-    ).then(
-      () => list.sort((a, b) => a.communityName.localeCompare(b.communityName)),
+  let metadata;
+  const uri = path.resolve(
+    __dirname, '../tc-communities',
+    communityId, 'metadata.json',
+  );
+  try {
+    metadata = JSON.parse(fs.readFileSync(uri, 'utf8'));
+  } catch (error) {
+    const msg = `Failed to get metadata for ${communityId} community`;
+    logger.error(msg, error);
+    throw new Error(msg);
+  }
+
+  const challengeGroupIds = _.get(metadata, 'challengeFilter.groupIds');
+  if (challengeGroupIds) {
+    metadata.challengeFilter.groupIds = await extendByChildGroups(
+      challengeGroupIds,
     );
   }
-
-  /**
-   * Gets metadata for the specified community.
-   * @param {String} communityId
-   * @return {Promise} Resolves to the community metadata.
-   */
-  getMetadata(communityId) {
-    return this.private.getMetadata(communityId);
+  if (metadata.authorizedGroupIds) {
+    metadata.authorizedGroupIds = await extendByChildGroups(
+      metadata.authorizedGroupIds,
+    );
   }
+  if (metadata.groupIds) {
+    metadata.groupIds = await extendByChildGroups(metadata.groupIds);
+  }
+  getMetadata.cache[communityId] = { data: metadata, timestamp: now };
+  return _.cloneDeep(metadata);
+}
+
+getMetadata.cache = {};
+getMetadata.maxage = 5 * 60 * 1000; // 5 min in ms.
+
+/**
+ * Gets the list of communities accessible to the member of specified groups.
+ * @param {String[]} userGroupIds
+ * @return {Promise} Resolves to the array of community data objects. Each of
+ *  the objects indludes only the most important data on the community.
+ */
+export function getList(userGroupIds) {
+  const list = [];
+  return Promise.all(
+    VALID_IDS.map(id => getMetadata(id).then((data) => {
+      if (!data.authorizedGroupIds
+          || _.intersection(data.authorizedGroupIds, userGroupIds).length) {
+        list.push({
+          challengeFilter: data.challengeFilter || {},
+          communityId: data.communityId,
+          communityName: data.communityName,
+          description: data.description,
+          groupIds: data.groupIds,
+          hidden: data.hidden || false,
+          image: data.image,
+          mainSubdomain: _.get(data, 'subdomains[0]', ''),
+        });
+      }
+    }).catch(() => null)),
+  ).then(
+    () => list.sort((a, b) => a.communityName.localeCompare(b.communityName)),
+  );
 }
 
 /**
