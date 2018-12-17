@@ -82,7 +82,7 @@ Round 1 Submitted Date
           registrants.map((r) => {
             const placement = getPlace(results, r.handle, places);
             let colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
-            if (!isMM && colorStyle.color === '#000000') colorStyle = null;
+            if (!isMM && _.get(colorStyle, 'color') === '#000000') colorStyle = null;
 
             let checkpoint;
             if (twoRounds) {
