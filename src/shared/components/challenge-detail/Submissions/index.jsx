@@ -183,11 +183,11 @@ There are many reason why the submissions may not be viewable, such
       {
         wrappedSubmissions.map((submission, index) => (
           <SubmissionRow
-          isMM={isMM}
-          key={submission.submitterId + submission.submitter}
-          {...submission}
-          toggleHistory={() => { toggleSubmissionHistory(index); }}
-          openHistory={(submissionHistoryOpen[index.toString()] || false)}
+            isMM={isMM}
+            key={submission.submitterId + submission.submitter}
+            {...submission}
+            toggleHistory={() => { toggleSubmissionHistory(index); }}
+            openHistory={(submissionHistoryOpen[index.toString()] || false)}
           />
         ))
       }
