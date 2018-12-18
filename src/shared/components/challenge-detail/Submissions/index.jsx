@@ -127,25 +127,37 @@ There are many reason why the submissions may not be viewable, such
   * Should be re-factored to use <table> later. */
   return (
     <div styleName="container dev">
-      <div styleName="head">
-        {
-          isMM ? (
+      {
+        isMM ? (
+          <div styleName="head">
             <div styleName="col-1 col">
               Rank
             </div>
-          ) : null
-        }
-        <div styleName="col-2 col">
-          Handle
-        </div>
-        <div styleName="col-3 col">
-          Score
-        </div>
-        <div styleName="col-4 col" />
-      </div>
-      <div styleName="sub-head">
-        {
-          isMM ? (
+            <div styleName="col-2 col">
+              Handle
+            </div>
+            <div styleName="col-3 col">
+              Score
+            </div>
+            <div styleName="col-4 col" />
+          </div>
+        ) : (
+            <div styleName="head">
+              <div styleName="col-1 col">
+                Username
+              </div>
+              <div styleName="col-2 col">
+                Submission Date
+              </div>
+              <div styleName="col-3 col">
+                Initial / Final Score
+              </div>
+            </div>
+        )
+      }
+      {
+        isMM &&
+          <div styleName="sub-head">
             <div styleName="col-1 col">
               <div styleName="col">
                 Final
@@ -154,29 +166,28 @@ There are many reason why the submissions may not be viewable, such
               Provisional
               </div>
             </div>
-          ) : null
-        }
-        <div styleName="col-2 col" />
-        <div styleName="col-3 col">
-          <div styleName="col">
-            Final
+            <div styleName="col-2 col" />
+            <div styleName="col-3 col">
+              <div styleName="col">
+                Final
+              </div>
+              <div styleName="col">
+                Provisional
+              </div>
+            </div>
+            <div styleName="col-4 col" />
           </div>
-          <div styleName="col">
-            Provisional
-          </div>
-        </div>
-        <div styleName="col-4 col" />
-      </div>
+      }
       {
-        wrappedSubmissions.map((submission, index) => (
-          <SubmissionRow
+          wrappedSubmissions.map((submission, index) => (
+            <SubmissionRow
             isMM={isMM}
             key={submission.submitterId + submission.submitter}
             {...submission}
             toggleHistory={() => { toggleSubmissionHistory(index); }}
             openHistory={(submissionHistoryOpen[index.toString()] || false)}
-          />
-        ))
+            />
+          ))
       }
     </div>
   );
