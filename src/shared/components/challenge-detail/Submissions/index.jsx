@@ -142,21 +142,22 @@ There are many reason why the submissions may not be viewable, such
             <div styleName="col-4 col" />
           </div>
         ) : (
-            <div styleName="head">
-              <div styleName="col-1 col">
-                Username
-              </div>
-              <div styleName="col-2 col">
-                Submission Date
-              </div>
-              <div styleName="col-3 col">
-                Initial / Final Score
-              </div>
+          <div styleName="head">
+            <div styleName="col-1 col">
+              Username
             </div>
+            <div styleName="col-2 col">
+              Submission Date
+            </div>
+            <div styleName="col-3 col">
+              Initial / Final Score
+            </div>
+          </div>
         )
       }
       {
-        isMM &&
+        isMM
+          && (
           <div styleName="sub-head">
             <div styleName="col-1 col">
               <div styleName="col">
@@ -177,17 +178,18 @@ There are many reason why the submissions may not be viewable, such
             </div>
             <div styleName="col-4 col" />
           </div>
+          )
       }
       {
-          wrappedSubmissions.map((submission, index) => (
-            <SubmissionRow
-            isMM={isMM}
-            key={submission.submitterId + submission.submitter}
-            {...submission}
-            toggleHistory={() => { toggleSubmissionHistory(index); }}
-            openHistory={(submissionHistoryOpen[index.toString()] || false)}
-            />
-          ))
+        wrappedSubmissions.map((submission, index) => (
+          <SubmissionRow
+          isMM={isMM}
+          key={submission.submitterId + submission.submitter}
+          {...submission}
+          toggleHistory={() => { toggleSubmissionHistory(index); }}
+          openHistory={(submissionHistoryOpen[index.toString()] || false)}
+          />
+        ))
       }
     </div>
   );
