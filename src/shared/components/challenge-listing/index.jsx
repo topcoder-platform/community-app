@@ -120,6 +120,7 @@ export default function ChallengeListing(props) {
       <ChallengeFilters
         challenges={propChallenges}
         communityName={communityName}
+        filterState={filterState}
         defaultCommunityId={defaultCommunityId}
         hideSrm={hideSrm}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
