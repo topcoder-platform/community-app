@@ -8,6 +8,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   <Connect(Container)
     challenges={Array []}
     communityName={null}
+    filterState={Object {}}
     isAuth={false}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
@@ -124,6 +125,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   <Connect(Container)
     challenges={Array []}
     communityName={null}
+    filterState={Object {}}
     isAuth={false}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
