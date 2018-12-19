@@ -216,4 +216,4 @@ workflows:
             branches:
               ignore:
                 - develop
-                - mm-develop-merge
+                - groups_fix_by_birdofpreyru
