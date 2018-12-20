@@ -41,12 +41,6 @@ ARG OPEN_EXCHANGE_RATES_KEY
 ARG SEGMENT_IO_API_KEY
 ARG SERVER_API_KEY
 
-# TC M2M credentials for Community App server
-ARG TC_M2M_CLIENT_ID
-ARG TC_M2M_CLIENT_SECRET
-ARG TC_M2M_AUDIENCE
-ARG TC_M2M_GRANT_TYPE
-
 ################################################################################
 # Setting of environment variables in the Docker image.
 
@@ -79,12 +73,6 @@ ENV NODE_CONFIG_ENV=$NODE_CONFIG_ENV
 ENV OPEN_EXCHANGE_RATES_KEY=$OPEN_EXCHANGE_RATES_KEY
 ENV SEGMENT_IO_API_KEY=$SEGMENT_IO_API_KEY
 ENV SERVER_API_KEY=$SERVER_API_KEY
-
-# TC M2M credentials for Community App server
-ENV TC_M2M_CLIENT_ID=$TC_M2M_CLIENT_ID
-ENV TC_M2M_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET
-ENV TC_M2M_AUDIENCE=$TC_M2M_AUDIENCE
-ENV TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE
 
 ################################################################################
 # Testing and build of the application inside the container.

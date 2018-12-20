@@ -3,7 +3,7 @@
  */
 
 import _ from 'lodash';
-import { getList, getMetadata } from 'server/services/communities';
+import CommunitiesService from 'server/services/communities';
 import express from 'express';
 
 const router = express.Router();
@@ -15,9 +15,10 @@ const router = express.Router();
  * should be included into the response.
  */
 router.get('/', (req, res) => {
+  const tokenV3 = req.headers.authorization;
   let { groups } = req.query;
   if (_.isObject(groups)) groups = Object.values(groups);
-  getList(groups || [])
+  new CommunitiesService(tokenV3).getList(groups || [])
     .catch(err => res.status(500).send(err))
     .then(list => res.json(list));
 });
@@ -27,7 +28,8 @@ router.get('/', (req, res) => {
  */
 router.get('/:communityId/meta', (req, res) => {
   const { communityId } = req.params;
-  getMetadata(communityId)
+  const tokenV3 = req.headers.authorization;
+  new CommunitiesService(tokenV3).getMetadata(communityId)
     .catch(err => res.status(404).send(err))
     .then(data => res.json(data));
 });

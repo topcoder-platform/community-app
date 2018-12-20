@@ -17,8 +17,9 @@ export function getService(tokenV3) {
     if (isomorphy.isClientSide()) lastInstance = preGetService(tokenV3);
     else {
       /* eslint-disable global-require */
-      return require('server/services/communities');
+      const Service = require('server/services/communities').default;
       /* eslint-enable global-require */
+      lastInstance = new Service(tokenV3);
     }
   }
   return lastInstance;
