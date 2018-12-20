@@ -199,7 +199,7 @@ workflows:
           filters:
             branches:
               only: 
-                - hot-fixes
+                - groups_fix_by_birdofpreyru
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
@@ -216,4 +216,4 @@ workflows:
             branches:
               ignore:
                 - develop
-                - mm-develop-merge
+                - groups_fix_by_birdofpreyru
