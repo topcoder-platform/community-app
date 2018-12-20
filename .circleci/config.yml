@@ -215,5 +215,4 @@ workflows:
           filters:
             branches:
               ignore:
-                - develop
                 - mm-develop-merge
