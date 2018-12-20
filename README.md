@@ -89,7 +89,7 @@ To automatically correct js files, you can use `npm run lint:js -- --fix`.
 
 ### Accessing Wipro Community
 
-Access to Wipro community demands proper authorization. In development environment (both local and remote) the test user `dan_developer / dantopcoder123` is authorized to access this community. So login at `https://accounts.topcoder-dev.com/member` in the same browser before you do anything.
+Access to Wipro community demands proper authorization. In development environment (both local and remote) the test user `dan_developer / dantopcoder123` is authorized to access this community.
 
 It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in dev (both local and remote) and `wipro.topcoder.com` in prod. Thus, to deploy it locally you should have in your `/etc/hosts` the alias `127.0.0.1 wipro.topcoder-dev.com`, and run the app with the command `NODE_CONFIG_ENV=development PORT=80 npm run dev`. Take into account the following:
 

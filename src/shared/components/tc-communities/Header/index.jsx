@@ -20,8 +20,6 @@ import Menu from 'components/Contentful/Menu';
 
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
-import IconNavProfile from '../../../../assets/images/nav/profile.svg';
-import IconNavWallet from '../../../../assets/images/nav/wallet.svg';
 import IconNavSettings from '../../../../assets/images/nav/settings.svg';
 
 import style from './style.scss';
@@ -50,22 +48,12 @@ function Header(props) {
   } = props;
 
   const BASE_URL = config.URL.BASE;
-  const normalizedProfile = profile && _.clone(profile);
 
   let userSubMenu;
   if (profile) {
     userSubMenu = {
       title: 'User',
       items: [{
-        enforceA: true,
-        icon: <IconNavProfile />,
-        link: `${BASE_URL}/members/${normalizedProfile.handle}`,
-        title: 'My Profile',
-      }, {
-        icon: <IconNavWallet />,
-        link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
-        title: 'Payments',
-      }, {
         icon: <IconNavSettings />,
         link: `${BASE_URL}/settings/profile`,
         title: 'Settings',
@@ -146,10 +134,8 @@ function Header(props) {
               window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
             }}
             size="sm"
-            title="Lorem Ipsum"
           >
     Log In
-            <div className={theme.loginHint}>Lorem ipsum bla bla</div>
           </PrimaryButton>
         ) : (
           <Button
