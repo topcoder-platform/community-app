@@ -61,5 +61,12 @@ module.exports = {
     },
 
     OPEN_EXCHANGE_RATES_KEY: 'OPEN_EXCHANGE_RATES_KEY',
+
+    TC_M2M: {
+      CLIENT_ID: 'TC_M2M_CLIENT_ID',
+      CLIENT_SECRET: 'TC_M2M_CLIENT_SECRET',
+      AUDIENCE: 'TC_M2M_AUDIENCE',
+      GRANT_TYPE: 'TC_M2M_GRANT_TYPE',
+    },
   },
 };
