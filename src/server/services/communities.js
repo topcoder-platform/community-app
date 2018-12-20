@@ -63,7 +63,15 @@ async function extendByChildGroups(groupIds) {
   let res = [];
   for (let i = 0; i !== groupIds.length; i += 1) {
     /* eslint-disable no-await-in-loop */
-    res = res.concat(await service.getGroupTreeIds(groupIds[i]));
+    try {
+      res = res.concat(await service.getGroupTreeIds(groupIds[i]));
+    } catch (error) {
+      /* Error here, most probably, means that the specified group is not known
+       * to the TC Groups API. We ignore such errors, as there is no harm to do
+       * so, and also because some groups exist only in some environment, thus
+       * being to strict about them, would cause too much annoying issues during
+       * development. */
+    }
     /* eslint-enable no-await-in-loop */
   }
   return _.uniq(res);
