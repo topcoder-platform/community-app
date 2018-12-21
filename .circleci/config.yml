@@ -13,7 +13,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: | 
+          command: |
             apk add --no-cache bash
 
       - run:
@@ -198,8 +198,8 @@ workflows:
       - "build-prod-beta":
           filters:
             branches:
-              only: 
-                - hot-fixes
+              only:
+                - develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
@@ -215,4 +215,5 @@ workflows:
           filters:
             branches:
               ignore:
-                - mm-develop-merge
+                - develop
+                - groups_fix_by_birdofpreyru

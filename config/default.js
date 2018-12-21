@@ -199,5 +199,14 @@ module.exports = {
     },
 
     OPEN_EXCHANGE_RATES_KEY: '',
+
+    /* These credentials allow Community App server to communicate with
+     * protected TC API endpoints (on behalf of the app itself). */
+    TC_M2M: {
+      CLIENT_ID: '',
+      CLIENT_SECRET: '',
+      AUDIENCE: '',
+      GRANT_TYPE: '',
+    },
   },
 };

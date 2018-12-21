@@ -525,7 +525,7 @@ Reliability Rating and Bonus
           fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
-          isMM={challenge.subTrack.toUpperCase() === 'MARATHON_MATCH'}
+          isMM={challenge.subTrack.toUpperCase().indexOf('MARATHON_MATCH') > -1}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}
