@@ -126,7 +126,7 @@ There are many reason why the submissions may not be viewable, such
   /* TODO: Ohh... why the actual <table> was not used here?
   * Should be re-factored to use <table> later. */
   return (
-    <div styleName={`container dev ${ isMM ? '' : 'non-mm'}`}>
+    <div styleName={`container dev ${isMM ? '' : 'non-mm'}`}>
       {
         isMM ? (
           <div styleName="head">
@@ -181,8 +181,7 @@ There are many reason why the submissions may not be viewable, such
           )
       }
       {
-        isMM
-          && (
+        isMM ? (
           wrappedSubmissions.map((submission, index) => (
             <SubmissionRow
               isMM={isMM}
@@ -192,11 +191,7 @@ There are many reason why the submissions may not be viewable, such
               openHistory={(submissionHistoryOpen[index.toString()] || false)}
             />
           ))
-          )
-      }
-      {
-        !isMM
-          && (
+        ) : (
           wrappedSubmissions.map(s => (
             <div key={s.submitter + s.submissionDate} styleName="row">
               <div styleName="col-1">
@@ -216,7 +211,7 @@ There are many reason why the submissions may not be viewable, such
               </div>
             </div>
           ))
-          )
+        )
       }
     </div>
   );
