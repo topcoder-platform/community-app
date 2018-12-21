@@ -126,7 +126,7 @@ There are many reason why the submissions may not be viewable, such
   /* TODO: Ohh... why the actual <table> was not used here?
   * Should be re-factored to use <table> later. */
   return (
-    <div styleName="container dev">
+    <div styleName={`container dev ${ isMM ? '' : 'non-mm'}`}>
       {
         isMM ? (
           <div styleName="head">
@@ -143,13 +143,13 @@ There are many reason why the submissions may not be viewable, such
           </div>
         ) : (
           <div styleName="head">
-            <div styleName="col-1 col">
+            <div styleName="col-1">
               Username
             </div>
-            <div styleName="col-2 col">
+            <div styleName="col-2">
               Submission Date
             </div>
-            <div styleName="col-3 col">
+            <div styleName="col-3">
               Initial / Final Score
             </div>
           </div>
@@ -181,15 +181,42 @@ There are many reason why the submissions may not be viewable, such
           )
       }
       {
-        wrappedSubmissions.map((submission, index) => (
-          <SubmissionRow
-            isMM={isMM}
-            key={submission.submitterId + submission.submitter}
-            {...submission}
-            toggleHistory={() => { toggleSubmissionHistory(index); }}
-            openHistory={(submissionHistoryOpen[index.toString()] || false)}
-          />
-        ))
+        isMM
+          && (
+          wrappedSubmissions.map((submission, index) => (
+            <SubmissionRow
+              isMM={isMM}
+              key={submission.submitterId + submission.submitter}
+              {...submission}
+              toggleHistory={() => { toggleSubmissionHistory(index); }}
+              openHistory={(submissionHistoryOpen[index.toString()] || false)}
+            />
+          ))
+          )
+      }
+      {
+        !isMM
+          && (
+          wrappedSubmissions.map(s => (
+            <div key={s.submitter + s.submissionDate} styleName="row">
+              <div styleName="col-1">
+                <a href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle">
+                  {s.submitter}
+                </a>
+              </div>
+              <div styleName="col-2">
+                {moment(s.submissionDate).format('MMM DD, YYYY HH:mm')}
+              </div>
+              <div styleName="col-3">
+                {s.initialScore ? s.initialScore.toFixed(2) : 'N/A'}
+                &zwnj;
+                &zwnj;/
+                &zwnj;
+                {s.finalScore ? s.finalScore.toFixed(2) : 'N/A'}
+              </div>
+            </div>
+          ))
+          )
       }
     </div>
   );
