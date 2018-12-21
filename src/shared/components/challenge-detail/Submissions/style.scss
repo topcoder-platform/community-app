@@ -230,6 +230,7 @@
       display: flex;
       border-bottom: 1px solid $tc-gray-10;
       background: transparent;
+
       @include xs-to-sm {
         display: none;
       }
