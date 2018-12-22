@@ -219,4 +219,46 @@
   .handle {
     color: $tc-dark-blue;
   }
+
+  &.non-mm {
+    .head {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+      padding-bottom: 14px;
+      color: $tc-gray-50;
+      display: flex;
+      border-bottom: 1px solid $tc-gray-10;
+      background: transparent;
+
+      @include xs-to-sm {
+        display: none;
+      }
+    }
+
+    .row {
+      color: $tc-gray-70;
+      display: flex;
+      border-bottom: 1px solid $tc-gray-10;
+      font-size: 15px;
+    }
+
+    .col-1 {
+      padding-left: 30px;
+      text-align: left;
+      width: 33%;
+    }
+
+    .col-2 {
+      width: 33%;
+    }
+
+    .col-3 {
+      width: 33%;
+    }
+
+    .handle {
+      color: $tc-dark-blue;
+    }
+  }
 }
