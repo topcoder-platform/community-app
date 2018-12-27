@@ -55,7 +55,6 @@ function SubmissionsComponent({
       const { colorStyle } = registrant;
       /* eslint-disable no-param-reassign */
       s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
-      if (!isMM && get(s, 'colorStyle.color') === '#000000') s.colorStyle = null;
       /* eslint-enable no-param-reassign */
     }
     return s;
