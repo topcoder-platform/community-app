@@ -23,8 +23,8 @@ export default function SubmissionRow({
   colorStyle,
 }) {
   let { finalScore, initialScore } = submissions[0];
-  finalScore = (!finalScore && finalScore !== 0) ? '-' : finalScore.toFixed(2);
-  initialScore = (!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2);
+  finalScore = (!finalScore && finalScore !== 0) ? '-' : finalScore;
+  initialScore = (!initialScore && initialScore !== 0) ? '-' : initialScore;
 
   return (
     <div styleName="container">
