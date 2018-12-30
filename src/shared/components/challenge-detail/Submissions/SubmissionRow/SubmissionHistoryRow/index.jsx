@@ -25,10 +25,10 @@ export default function SubmissionHistoryRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col child">
-            {(isMM || (!finalScore && finalScore !== 0)) ? '-' : finalScore.toFixed(2)}
+            {(isMM || (!finalScore && finalScore !== 0)) ? '-' : finalScore}
           </div>
           <div styleName="col child">
-            {(!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2)}
+            {(!initialScore && initialScore !== 0) ? '-' : initialScore}
           </div>
         </div>
         <div styleName="col-4 col history-time">
