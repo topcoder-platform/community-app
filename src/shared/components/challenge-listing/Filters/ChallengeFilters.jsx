@@ -51,10 +51,7 @@ export default function ChallengeFilters({
   if (filterState.subtracks) filterRulesCount += 1;
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
 
-  const isTrackOn = (track) => {
-    const isEnabled = filterState.tracks ? Boolean(filterState.tracks[track]) : true;
-    return isEnabled;
-  };
+  const isTrackOn = track => !filterState.tracks || Boolean(filterState.tracks[track]);
 
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
