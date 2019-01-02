@@ -485,6 +485,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="firstName">
                   First name
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -496,6 +497,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="lastName">
                   Last name
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -507,6 +509,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="birthDate">
                   Birth Date
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -525,6 +528,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="address">
                   Address
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -535,6 +539,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="address2">
                   Address 2
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -545,6 +550,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="city">
                   City
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -555,6 +561,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="state">
                   State
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -565,6 +572,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="zipCode">
                   ZIP
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -575,6 +583,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="country">
                   Country
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -604,6 +613,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="gender">
                   Gender
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -623,6 +633,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="tshirtSize">
                   T-shirt size
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -642,6 +653,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="currentLocation">
                   Current Location
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -652,6 +664,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="primaryInterestInTopcoder">
                   Primary interests
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -662,6 +675,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="bio">
                   Short bio
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field description">
@@ -706,6 +720,7 @@ export default class BasicInfo extends ConsentComponent {
                       <label htmlFor="firstNameId">
                         First name
                         <span styleName="text-required">* Required</span>
+                        <input type="hidden" />
                       </label>
 
                       <input id="firstNameId" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
@@ -714,6 +729,7 @@ export default class BasicInfo extends ConsentComponent {
                       <label htmlFor="lastNameId">
                         Last name
                         <span styleName="text-required">* Required</span>
+                        <input type="hidden" />
                       </label>
                       <input id="lastNameId" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
                     </div>
@@ -724,6 +740,7 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="birthDate">
                     Birth Date
+                    <input type="hidden" />
                   </label>
                   <div styleName="date-picker-sm">
                     <DatePicker
@@ -739,6 +756,7 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="addressId">
                     Address
+                    <input type="hidden" />
                   </label>
                   <input id="addressId" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
                   <input id="addressId" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
@@ -748,18 +766,21 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="cityId">
                     City
+                    <input type="hidden" />
                   </label>
                   <input id="cityId" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
                   <label htmlFor="stateId">
                     State
+                    <input type="hidden" />
                   </label>
                   <input id="stateId" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
                   <label htmlFor="zipCodeId">
                     ZIP Code
+                    <input type="hidden" />
                   </label>
                   <input id="zipCodeId" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
                 </div>
@@ -767,6 +788,7 @@ export default class BasicInfo extends ConsentComponent {
                   <label htmlFor="countryId">
                     Country
                     <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="countryId"
@@ -786,6 +808,7 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="gender">
                     Gender
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="gender"
@@ -801,6 +824,7 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="tshirtSize">
                     T-Shirt-Size
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="tshirtSize"
@@ -818,6 +842,7 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="currentLocation">
                     Current Location
+                    <input type="hidden" />
                   </label>
                   <input id="currentLocation" name="currentLocation" type="text" placeholder="current Location" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
                 </div>
@@ -826,6 +851,7 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="primaryInterestInTopcoder">
                     Primary Interest in Topcoder
+                    <input type="hidden" />
                   </label>
                   <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
                 </div>

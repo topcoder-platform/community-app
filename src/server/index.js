@@ -1,3 +1,9 @@
+/* eslint-disable */
+/* Datadog debugging */
+import ddTrace from 'dd-trace';
+
+ddTrace.init();
+
 import atob from 'atob';
 import Application from 'shared';
 import config from 'config';
@@ -25,6 +31,7 @@ import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 import tcCommunitiesDemoApi from './tc-communities';
 
 import webpackConfigFactory from '../../webpack.config';
+/* eslint-enable */
 
 global.atob = atob;
 

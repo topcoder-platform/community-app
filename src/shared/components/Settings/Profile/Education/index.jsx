@@ -348,6 +348,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="educationType">
                     Type
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -368,6 +369,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="name">
                     Name
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -379,6 +381,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="major">
                     Major
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -390,6 +393,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="timePeriodFrom">
                     From
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -401,6 +405,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="timePeriodTo">
                     To
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -412,6 +417,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="graduated">
                     Graduated
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -427,6 +433,7 @@ export default class Education extends ConsentComponent {
                       <div styleName="tc-checkbox-label">
                         &nbsp;
                       </div>
+                      <input type="hidden" />
                     </label>
                   </div>
                 </div>
@@ -452,6 +459,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="type">
                     Type
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="type"
@@ -467,12 +475,14 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-2">
                   <label htmlFor="schoolCollegeName">
                     Name
+                    <input type="hidden" />
                   </label>
                   <input id="schoolCollegeName" name="schoolCollegeName" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newEducation.schoolCollegeName} maxLength="64" required />
                 </div>
                 <div styleName="field col-3">
                   <label htmlFor="major">
                     Major
+                    <input type="hidden" />
                   </label>
                   <input id="major" name="major" type="text" placeholder="Major" onChange={this.onUpdateInput} value={newEducation.major} maxLength="64" required />
                 </div>
@@ -481,12 +491,14 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodFrom">
                     From
+                    <input type="hidden" />
                   </label>
                   <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodFrom} required />
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
                     To
+                    <input type="hidden" />
                   </label>
                   <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodTo} required />
                 </div>
@@ -503,6 +515,7 @@ export default class Education extends ConsentComponent {
                       <div styleName="tc-checkbox-label">
                         Graduated
                       </div>
+                      <input type="hidden" />
                     </label>
                   </div>
                 </div>

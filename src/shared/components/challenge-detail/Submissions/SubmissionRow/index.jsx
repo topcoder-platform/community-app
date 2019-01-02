@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { get } from 'lodash';
 import { config } from 'topcoder-react-utils';
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
@@ -22,8 +23,8 @@ export default function SubmissionRow({
   colorStyle,
 }) {
   let { finalScore, initialScore } = submissions[0];
-  finalScore = (!finalScore && finalScore !== 0) ? '-' : finalScore.toFixed(2);
-  initialScore = (!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2);
+  finalScore = (!finalScore && finalScore !== 0) ? '-' : finalScore;
+  initialScore = (!initialScore && initialScore !== 0) ? '-' : initialScore;
 
   return (
     <div styleName="container">
@@ -32,7 +33,7 @@ export default function SubmissionRow({
           isMM ? (
             <div styleName="col-1 col">
               <div styleName="col col-left">
-                { (rank || {}).final ? rank.final : '-' }
+                { get((rank || {}), 'final', '-') }
               </div>
               <div styleName="col">
                 { (rank || {}).interim ? rank.interim : '-' }
@@ -47,10 +48,10 @@ export default function SubmissionRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM ? score.final : finalScore }
+            { isMM ? get(score, 'final', '-') : finalScore }
           </div>
           <div styleName="col">
-            { isMM ? score.provisional : initialScore }
+            { isMM ? get(score, 'provisional', '-') : initialScore }
           </div>
         </div>
         <div styleName="col-4 col">
@@ -107,6 +108,7 @@ SubmissionRow.defaultProps = {
   toggleHistory: () => {},
   rank: {},
   colorStyle: {},
+  score: {},
 };
 
 SubmissionRow.propTypes = {

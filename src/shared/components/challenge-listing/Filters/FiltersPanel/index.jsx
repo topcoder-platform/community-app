@@ -211,6 +211,7 @@ Filters
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">
 Keywords
+              <input type="hidden" />
             </label>
             <Select
               id="keyword-select"
@@ -227,6 +228,7 @@ Keywords
           <div styleName="filter community">
             <label htmlFor="community-select">
 Sub community
+              <input type="hidden" />
             </label>
             <Select
               autoBlur
@@ -248,6 +250,7 @@ Sub community
           <div styleName="filter track">
             <label htmlFor="track-select" styleName="left-label">
 Subtrack
+              <input type="hidden" />
             </label>
             <Select
               id="track-select"
@@ -269,6 +272,7 @@ Subtrack
               <div styleName="filter review-type">
                 <label htmlFor="review-type-select">
 Review Type
+                  <input type="hidden" />
                 </label>
                 <Select
                   autoBlur
@@ -291,6 +295,7 @@ Review Type
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
 Date range
+              <input type="hidden" />
             </label>
             <DateRangePicker
               numberOfMonths={1}
@@ -311,6 +316,7 @@ Date range
           <div styleName="filter dates hideonemonthdatepicker">
             <label htmlFor="date-range-picker-two-months">
 Date range
+              <input type="hidden" />
             </label>
             <DateRangePicker
               numberOfMonths={2}

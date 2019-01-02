@@ -316,6 +316,7 @@ Please follow the instructions on the Challenge Details page regarding
                   <div styleName="tc-checkbox-label">
 I UNDERSTAND AND AGREE
                   </div>
+                  <input type="hidden" />
                 </label>
               </div>
               <PrimaryButton

@@ -274,6 +274,7 @@ export default class Software extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="softwareType">
                   Type
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -294,6 +295,7 @@ export default class Software extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="name">
                   Name
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -327,6 +329,7 @@ export default class Software extends ConsentComponent {
                 <label htmlFor="softwareType">
                   Software Type
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <Select
                   name="softwareType"
@@ -343,6 +346,7 @@ export default class Software extends ConsentComponent {
                 <label htmlFor="name">
                   Name
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
               </div>

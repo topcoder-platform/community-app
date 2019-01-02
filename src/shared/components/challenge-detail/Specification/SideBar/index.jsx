@@ -333,6 +333,7 @@ SideBar.defaultProps = {
   isDevelop: false,
   environment: '',
   codeRepo: '',
+  isMM: false,
 };
 
 SideBar.propTypes = {

@@ -6,6 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import { get } from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import challengeDetailsActions from 'actions/page/challenge-details';
@@ -25,7 +26,7 @@ function renderSubmission(s) {
           <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`} target="_blank" rel="noopener noreferrer">
             {`#${s.submissionId}`}
           </a>
-          <a href={`${config.URL.BASE}/members/${s.submitter}`} target="_blank" rel="noopener noreferrer" style={s.colorStyle}>
+          <a href={`${config.URL.BASE}/members/${s.submitter}`} target="_blank" rel="noopener noreferrer" style={get(s, 'colorStyle')}>
             {s.submitter}
           </a>
         </div>
@@ -45,10 +46,12 @@ function SubmissionsComponent({
 }) {
   const { checkpoints, submissions, registrants } = challenge;
 
+  const isMM = challenge.subTrack === 'MARATHON_MATCH';
+
   // copy colorStyle from registrants to submissions
   const wrappedSubmissions = submissions.map((s) => {
     const registrant = registrants.find(r => r.handle === s.submitter);
-    if (registrant.colorStyle) {
+    if (registrant && registrant.colorStyle) {
       const { colorStyle } = registrant;
       /* eslint-disable no-param-reassign */
       s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
@@ -73,8 +76,6 @@ function SubmissionsComponent({
     }
     return (val1 - val2);
   });
-
-  const isMM = challenge.subTrack === 'MARATHON_MATCH';
 
   if (challenge.track.toLowerCase() === 'design') {
     return challenge.submissionViewable === 'true' ? (

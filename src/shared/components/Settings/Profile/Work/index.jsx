@@ -323,6 +323,7 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="company">
                     Company
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -334,6 +335,7 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="position">
                     Position
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -345,6 +347,7 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="industry">
                     Industry
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -356,6 +359,7 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="cityTown">
                     City
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -367,6 +371,7 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="timePeriodFrom">
                     From
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -378,6 +383,7 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="timePeriodTo">
                     To
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -406,18 +412,21 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="company">
                     Company
+                    <input type="hidden" />
                   </label>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="position">
                     Position
+                    <input type="hidden" />
                   </label>
                   <input id="position" name="position" type="text" placeholder="Position" onChange={this.onUpdateInput} value={newWork.position} maxLength="64" required />
                 </div>
                 <div styleName="field col-3">
                   <label htmlFor="industry">
                     Industry
+                    <input type="hidden" />
                   </label>
                   <input id="industry" name="industry" type="text" placeholder="Industry" onChange={this.onUpdateInput} value={newWork.industry} maxLength="64" required />
                 </div>
@@ -426,18 +435,21 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-city">
                   <label htmlFor="cityTown">
                     City
+                    <input type="hidden" />
                   </label>
                   <input id="cityTown" name="cityTown" type="text" placeholder="City" onChange={this.onUpdateInput} value={newWork.cityTown} maxLength="64" required />
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodFrom">
                     From
+                    <input type="hidden" />
                   </label>
                   <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodFrom} required />
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
                     To
+                    <input type="hidden" />
                   </label>
                   <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodTo} required />
                 </div>

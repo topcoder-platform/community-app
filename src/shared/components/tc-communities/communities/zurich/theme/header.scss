@@ -1,18 +1,33 @@
 @import "../../../Header/style.scss";
 @import "mixins.scss";
 
-.logo {
-  &:first-child > img {
-    max-height: 70px;
+.container {
+  position: relative;
+}
+
+.logos {
+  @include xs-to-sm {
+    display: flex;
+    flex-direction: column;
+    margin-right: 55px;
+    margin-top: 6px;
   }
 
-  &:nth-child(2) {
-    margin-left: 30px;
+  .logo {
+    &:first-child > img {
+      max-height: 70px;
+    }
+
+    &:nth-child(2) {
+      margin-left: 30px;
+    }
   }
 }
 
 .header {
-  height: 110px;
+  @include lg-to-xl {
+    height: 110px;
+  }
 }
 
 .userMenu {
@@ -29,17 +44,36 @@
   }
 
   @include xs-to-lg {
-    display: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+
+    .userMenuHandle {
+      display: inline-block;
+    }
   }
 }
 
 .authorize {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  @include xs-to-lg {
+    display: block;
+  }
+
   & > div {
     font-family: 'Akkurat bold', sans-serif;
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
     color: $blue-1;
+  }
+
+  .loginHint {
+    display: none;
+    position: absolute;
   }
 }
 
@@ -103,4 +137,12 @@
 
 .userWrapMobile {
   opacity: 0; /* This hack hides the user avatar without braking the layout */
+}
+
+.userWrap {
+  @include xs-to-md {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
