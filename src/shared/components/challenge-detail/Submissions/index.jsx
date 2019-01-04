@@ -41,11 +41,11 @@ function renderSubmission(s) {
 function getProvisionalScore(submission) {
   const { submissions } = submission;
   if (!submissions || submissions.length === 0) {
-    return 0;
+    return -1;
   }
   const { initialScore } = submissions[0];
   if (!initialScore || initialScore < 0) {
-    return 0;
+    return -1;
   }
   return initialScore;
 }
@@ -53,11 +53,11 @@ function getProvisionalScore(submission) {
 function getFinalScore(submission) {
   const { submissions } = submission;
   if (!submissions || submissions.length === 0) {
-    return 0;
+    return -1;
   }
   const { finalScore } = submissions[0];
   if (!finalScore || finalScore < 0) {
-    return 0;
+    return -1;
   }
   return finalScore;
 }
@@ -75,7 +75,7 @@ function SubmissionsComponent({
     allPhases,
   } = challenge;
 
-  const isMM = challenge.subTrack === 'MARATHON_MATCH';
+  const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
 
   // copy colorStyle from registrants to submissions
   const wrappedSubmissions = submissions.map((s) => {
