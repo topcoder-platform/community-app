@@ -39,7 +39,11 @@ function renderSubmission(s) {
 }
 
 function getProvisionalScore(submission) {
-  const { initialScore } = submission.submissions[0];
+  const { submissions } = submission;
+  if (!submissions || submissions.length === 0) {
+    return 0;
+  }
+  const { initialScore } = submissions[0];
   if (!initialScore || initialScore < 0) {
     return 0;
   }
@@ -47,7 +51,11 @@ function getProvisionalScore(submission) {
 }
 
 function getFinalScore(submission) {
-  const { finalScore } = submission.submissions[0];
+  const { submissions } = submission;
+  if (!submissions || submissions.length === 0) {
+    return 0;
+  }
+  const { finalScore } = submissions[0];
   if (!finalScore || finalScore < 0) {
     return 0;
   }
