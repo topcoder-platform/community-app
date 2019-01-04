@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { get } from 'lodash';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import challengeDetailsActions from 'actions/page/challenge-details';
@@ -26,7 +26,7 @@ function renderSubmission(s) {
           <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`} target="_blank" rel="noopener noreferrer">
             {`#${s.submissionId}`}
           </a>
-          <a href={`${config.URL.BASE}/members/${s.submitter}`} target="_blank" rel="noopener noreferrer" style={get(s, 'colorStyle')}>
+          <a href={`${config.URL.BASE}/members/${s.submitter}`} target="_blank" rel="noopener noreferrer" style={_.get(s, 'colorStyle')}>
             {s.submitter}
           </a>
         </div>
@@ -38,13 +38,42 @@ function renderSubmission(s) {
   );
 }
 
+function getProvisionalScore(submission) {
+  const { submissions } = submission;
+  if (!submissions || submissions.length === 0) {
+    return 0;
+  }
+  const { initialScore } = submissions[0];
+  if (!initialScore || initialScore < 0) {
+    return 0;
+  }
+  return initialScore;
+}
+
+function getFinalScore(submission) {
+  const { submissions } = submission;
+  if (!submissions || submissions.length === 0) {
+    return 0;
+  }
+  const { finalScore } = submissions[0];
+  if (!finalScore || finalScore < 0) {
+    return 0;
+  }
+  return finalScore;
+}
+
 // The SubmissionRow component
 function SubmissionsComponent({
   challenge,
   toggleSubmissionHistory,
   submissionHistoryOpen,
 }) {
-  const { checkpoints, submissions, registrants } = challenge;
+  const {
+    checkpoints,
+    submissions,
+    registrants,
+    allPhases,
+  } = challenge;
 
   const isMM = challenge.subTrack === 'MARATHON_MATCH';
 
@@ -60,6 +89,12 @@ function SubmissionsComponent({
     return s;
   });
 
+  let isReviewPhaseComplete = false;
+  _.forEach(allPhases, (phase) => {
+    if (phase.phaseType === 'Review' && phase.phaseStatus === 'Closed') {
+      isReviewPhaseComplete = true;
+    }
+  });
   wrappedSubmissions.sort((a, b) => {
     let val1 = 0;
     let val2 = 0;
@@ -73,6 +108,12 @@ function SubmissionsComponent({
           val2 = b.rank.interim;
         }
       }
+    } else if (isReviewPhaseComplete) {
+      val1 = getFinalScore(b);
+      val2 = getFinalScore(a);
+    } else {
+      val1 = getProvisionalScore(b);
+      val2 = getProvisionalScore(a);
     }
     return (val1 - val2);
   });
