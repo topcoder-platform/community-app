@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { get } from 'lodash';
 import { config } from 'topcoder-react-utils';
+import moment from 'moment';
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
 
@@ -22,9 +23,10 @@ export default function SubmissionRow({
   toggleHistory,
   colorStyle,
 }) {
+  const { submissionTime } = submissions[0];
   let { finalScore, initialScore } = submissions[0];
-  finalScore = (!finalScore && finalScore !== 0) ? '-' : finalScore;
-  initialScore = (!initialScore && initialScore !== 0) ? '-' : initialScore;
+  finalScore = (!finalScore && finalScore < 0) ? '-' : finalScore;
+  initialScore = (!initialScore && initialScore < 0) ? '-' : initialScore;
 
   return (
     <div styleName="container">
@@ -48,10 +50,13 @@ export default function SubmissionRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM ? get(score, 'final', '-') : finalScore }
+            { isMM ? get(score, 'final', finalScore) : finalScore }
           </div>
           <div styleName="col">
-            { isMM ? get(score, 'provisional', '-') : initialScore }
+            { isMM ? get(score, 'provisional', initialScore) : initialScore }
+          </div>
+          <div styleName="col time">
+            {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
         <div styleName="col-4 col">
@@ -60,9 +65,11 @@ export default function SubmissionRow({
             onKeyPress={toggleHistory}
           >
             <span>
-              History (
-              {submissions.length}
-              )
+              <span styleName="text">
+                History (
+                {submissions.length}
+                )
+              </span>
               { openHistory ? (<ArrowNext styleName="icon down" />) : (<ArrowNext styleName="icon" />)}
             </span>
           </a>

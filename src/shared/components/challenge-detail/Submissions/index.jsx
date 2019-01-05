@@ -41,11 +41,11 @@ function renderSubmission(s) {
 function getProvisionalScore(submission) {
   const { submissions } = submission;
   if (!submissions || submissions.length === 0) {
-    return -1;
+    return 0;
   }
   const { initialScore } = submissions[0];
   if (!initialScore || initialScore < 0) {
-    return -1;
+    return 0;
   }
   return initialScore;
 }
@@ -53,11 +53,11 @@ function getProvisionalScore(submission) {
 function getFinalScore(submission) {
   const { submissions } = submission;
   if (!submissions || submissions.length === 0) {
-    return -1;
+    return 0;
   }
   const { finalScore } = submissions[0];
   if (!finalScore || finalScore < 0) {
-    return -1;
+    return 0;
   }
   return finalScore;
 }
@@ -205,6 +205,9 @@ There are many reason why the submissions may not be viewable, such
           </div>
           <div styleName="col">
             Provisional
+          </div>
+          <div styleName="col">
+            Time
           </div>
         </div>
         <div styleName="col-4 col" />
