@@ -47,6 +47,7 @@ module.exports = {
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder.com',
       COGNITIVE: 'https://cognitive.topcoder.com',
+      ZURICH: 'https://zurich.topcoder.com',
     },
   },
   /* Filestack configuration for uploading Submissions

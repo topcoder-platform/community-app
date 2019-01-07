@@ -16,6 +16,7 @@ import React from 'react';
 import theme from 'components/tc-communities/communities/zurich/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
+import { config } from 'topcoder-react-utils';
 
 function Zurich({ base, meta, userGroups }) {
   // Only members of `Requestor`|`Approver` gropus
@@ -33,6 +34,7 @@ function Zurich({ base, meta, userGroups }) {
               baseUrl={base}
               pageId={match.params.pageId || 'home'}
               hideJoinNow
+              logoutRedirect={config.URL.COMMUNITIES.ZURICH}
             />
             <Switch>
               <Route

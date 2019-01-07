@@ -47,9 +47,11 @@ function Header(props) {
     onMobileToggleClick,
     profile,
     theme,
+    logoutRedirect,
   } = props;
 
   const BASE_URL = config.URL.BASE;
+  const AUTH_URL = config.URL.AUTH;
   const normalizedProfile = profile && _.clone(profile);
 
   let userSubMenu;
@@ -71,9 +73,9 @@ function Header(props) {
         title: 'Settings',
       }, {
         icon: <IconNavExit />,
-        // TODO: In addition to hitting ${BASE_URL}/logout, which logs out
+        // TODO: In addition to hitting ${AUTH_URL}/logout, which logs out
         // from the accounts-app, we should wipe out auth cookies!
-        link: `${BASE_URL}/logout`,
+        link: `${AUTH_URL}/logout?retUrl=${logoutRedirect}`,
         title: 'Log Out',
       }],
     };
@@ -285,6 +287,7 @@ Header.defaultProps = {
   chevronOverAvatar: false,
   profile: null,
   isMobileOpen: false,
+  logoutRedirect: null,
 };
 
 Header.propTypes = {
@@ -318,6 +321,7 @@ Header.propTypes = {
   onMobileToggleClick: PT.func.isRequired,
   profile: PT.shape({}),
   theme: PT.shape().isRequired,
+  logoutRedirect: PT.string,
 };
 
 export default themr('CommunityHeader', style)(Header);
