@@ -216,4 +216,3 @@ workflows:
             branches:
               ignore:
                 - develop
-                - groups_fix_by_birdofpreyru
