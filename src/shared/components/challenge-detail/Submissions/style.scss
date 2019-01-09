@@ -258,7 +258,11 @@
     }
 
     .handle {
-      color: $tc-dark-blue;
+      color: $tc-black;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
