@@ -75,7 +75,7 @@ function SubmissionsComponent({
     allPhases,
   } = challenge;
 
-  const isMM = challenge.subTrack === 'MARATHON_MATCH';
+  const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
 
   // copy colorStyle from registrants to submissions
   const wrappedSubmissions = submissions.map((s) => {
@@ -205,6 +205,9 @@ There are many reason why the submissions may not be viewable, such
           </div>
           <div styleName="col">
             Provisional
+          </div>
+          <div styleName="col">
+            Time
           </div>
         </div>
         <div styleName="col-4 col" />
