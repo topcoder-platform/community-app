@@ -26,6 +26,7 @@ exports[`Snapshot match 1`] = `
   isMobileOpen={false}
   loginUrl="/some/login/url"
   logos={Array []}
+  logoutRedirect={null}
   menuItems={Array []}
   onMobileToggleClick={[MockFunction]}
   openMenu={[MockFunction]}
@@ -96,6 +97,7 @@ exports[`Snapshot match 2`] = `
       "some/logo/url",
     ]
   }
+  logoutRedirect={null}
   menuItems={
     Array [
       Object {

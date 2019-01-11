@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PT from 'prop-types';
-import { noop } from 'lodash';
+import { noop, get } from 'lodash';
 import moment from 'moment';
 
 import { getRatingColor } from 'utils/tc';
@@ -59,7 +59,7 @@ class ProfileHeader extends React.Component {
           { imageUrl ? <img src={imageUrl} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
         </div>
         <div styleName="info">
-          <h1 style={{ color: getRatingColor(info.maxRating.rating || 0) }} styleName="handle">
+          <h1 style={{ color: getRatingColor(get(info, 'maxRating.rating', 0)) }} styleName="handle">
             {info.handle}
           </h1>
           <h3 styleName="location-challenges">

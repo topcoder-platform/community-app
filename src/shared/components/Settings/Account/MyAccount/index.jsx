@@ -10,7 +10,7 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { omit } from 'lodash';
 import Personalization from 'components/Settings/Preferences/Personalization';
-import config from 'config';
+import { config } from 'topcoder-react-utils';
 
 import './styles.scss';
 
@@ -352,18 +352,21 @@ export default class MyAccount extends React.Component {
                     <div styleName="field">
                       <label htmlFor="username-mobile">
                         Username
+                        <input type="hidden" />
                       </label>
                       <input id="username-mobile" name="username" type="text" value={handle} styleName="form-field grey" disabled />
                     </div>
                     <div styleName="field">
                       <label htmlFor="email-mobile">
                         Primary Email
+                        <input type="hidden" />
                       </label>
                       <input id="email-mobile" name="email" type="text" value={currentEmail} styleName="form-field grey" disabled />
                     </div>
                     <div styleName={`field ${btnChangeEmailVisible ? 'hide' : ''}`}>
                       <label htmlFor="newemail">
                         New Email
+                        <input type="hidden" />
                       </label>
                       <div styleName="validation-bar" className="form-field">
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
@@ -425,6 +428,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-1">
                       <label htmlFor="username">
                         Username
+                        <input type="hidden" />
                       </label>
                     </div>
                     <div styleName="field col-2">
@@ -435,6 +439,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-1">
                       <label htmlFor="email">
                         Primary Email
+                        <input type="hidden" />
                       </label>
                     </div>
                     <div styleName="field col-2">
@@ -445,6 +450,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-1">
                       <label htmlFor="newemail">
                         New Email
+                        <input type="hidden" />
                       </label>
                     </div>
                     <div styleName="field col-2">
@@ -511,6 +517,7 @@ export default class MyAccount extends React.Component {
                           <div styleName="field">
                             <label htmlFor="password">
                               Password
+                              <input type="hidden" />
                             </label>
                             <div styleName="validation-bar" className="form-field">
                               <div styleName={`password toggle-password ${focus['current-password-input'] ? 'focus' : ''}`}>
@@ -525,6 +532,7 @@ export default class MyAccount extends React.Component {
                           <div styleName="field">
                             <label htmlFor="email">
                               New password
+                              <input type="hidden" />
                             </label>
                             <div styleName="validation-bar" className="form-field">
                               <div styleName={`password toggle-password ${focus['new-password-input'] ? 'focus' : ''}`}>
@@ -577,6 +585,7 @@ export default class MyAccount extends React.Component {
                           <div styleName="field col-1">
                             <label htmlFor="password">
                                 Password
+                              <input type="hidden" />
                             </label>
                           </div>
                           <div styleName="field col-2">
@@ -595,6 +604,7 @@ export default class MyAccount extends React.Component {
                           <div styleName="field col-1 password">
                             <label htmlFor="new-password">
                                 New password
+                              <input type="hidden" />
                             </label>
                           </div>
                           <div styleName="field col-2">

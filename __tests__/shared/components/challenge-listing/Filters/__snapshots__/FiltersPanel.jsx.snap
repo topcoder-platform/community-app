@@ -40,6 +40,9 @@ exports[`Matches shallow shapshot 1`] = `
           htmlFor="keyword-select"
         >
           Keywords
+          <input
+            type="hidden"
+          />
         </label>
         <Select
           id="keyword-select"
@@ -69,6 +72,9 @@ exports[`Matches shallow shapshot 1`] = `
           htmlFor="community-select"
         >
           Sub community
+          <input
+            type="hidden"
+          />
         </label>
         <Select
           autoBlur={true}
@@ -104,6 +110,9 @@ exports[`Matches shallow shapshot 1`] = `
           htmlFor="track-select"
         >
           Subtrack
+          <input
+            type="hidden"
+          />
         </label>
         <Select
           id="track-select"
@@ -133,6 +142,9 @@ exports[`Matches shallow shapshot 1`] = `
           htmlFor="date-range-picker-one-month"
         >
           Date range
+          <input
+            type="hidden"
+          />
         </label>
         <DateRangePicker
           id="date-range-picker-one-month"
@@ -148,6 +160,9 @@ exports[`Matches shallow shapshot 1`] = `
           htmlFor="date-range-picker-two-months"
         >
           Date range
+          <input
+            type="hidden"
+          />
         </label>
         <DateRangePicker
           id="date-range-picker-two-months"
@@ -251,6 +266,9 @@ exports[`Matches shallow shapshot 2`] = `
           htmlFor="keyword-select"
         >
           Keywords
+          <input
+            type="hidden"
+          />
         </label>
         <Select
           id="keyword-select"
@@ -269,6 +287,9 @@ exports[`Matches shallow shapshot 2`] = `
           htmlFor="community-select"
         >
           Sub community
+          <input
+            type="hidden"
+          />
         </label>
         <Select
           autoBlur={true}
@@ -304,6 +325,9 @@ exports[`Matches shallow shapshot 2`] = `
           htmlFor="track-select"
         >
           Subtrack
+          <input
+            type="hidden"
+          />
         </label>
         <Select
           id="track-select"
@@ -322,6 +346,9 @@ exports[`Matches shallow shapshot 2`] = `
           htmlFor="date-range-picker-one-month"
         >
           Date range
+          <input
+            type="hidden"
+          />
         </label>
         <DateRangePicker
           id="date-range-picker-one-month"
@@ -337,6 +364,9 @@ exports[`Matches shallow shapshot 2`] = `
           htmlFor="date-range-picker-two-months"
         >
           Date range
+          <input
+            type="hidden"
+          />
         </label>
         <DateRangePicker
           id="date-range-picker-two-months"

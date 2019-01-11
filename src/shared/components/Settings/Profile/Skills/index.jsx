@@ -543,6 +543,7 @@ export default class Skills extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="skill">
                     Skill
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -586,6 +587,7 @@ export default class Skills extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="skills">
                     Skill
+                    <input type="hidden" />
                   </label>
                   <Select
                     selectRef={this.handleInputRef}

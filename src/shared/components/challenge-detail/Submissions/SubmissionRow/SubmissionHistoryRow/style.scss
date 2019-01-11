@@ -1,6 +1,10 @@
 @import "~styles/mixins";
 
 .container {
+  @include xs-to-sm {
+    padding-top: 10px;
+  }
+
   .row {
     font-size: 13px;
     color: $tc-gray-70;
@@ -17,11 +21,19 @@
 
     &.child {
       height: 40px;
+
+      @include xs-to-sm {
+        height: auto;
+      }
     }
 
     &.col-1 {
       flex: 20;
       display: flex;
+
+      @include xs-to-sm {
+        display: none;
+      }
 
       .col {
         flex: 1;
@@ -35,8 +47,12 @@
     &.col-2 {
       flex: 15;
       text-align: left;
-      margin-left: 10px;
       color: $tc-gray-50;
+
+      @include xs-to-sm {
+        flex: 10;
+        padding-left: 10px;
+      }
 
       a {
         color: black;
@@ -44,12 +60,36 @@
     }
 
     &.col-3 {
-      flex: 30;
+      flex: 35;
       display: flex;
       color: $tc-gray-50;
 
+      @include xs-to-sm {
+        display: block;
+      }
+
       .col {
         flex: 1;
+
+        @include xs-to-sm {
+          width: 50%;
+          text-align: left;
+          display: inline-block;
+
+          &:first-child {
+            text-align: center;
+            font-weight: 500;
+            color: $tc-black;
+          }
+
+          &:nth-child(2) {
+            &::before {
+              display: inline-block;
+              content: '/';
+              margin: 0 4px;
+            }
+          }
+        }
       }
 
       .col-left {

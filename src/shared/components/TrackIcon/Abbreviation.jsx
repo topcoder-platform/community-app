@@ -22,7 +22,6 @@ const Abbreviation = {
     COPILOT_POSTING: 'CP',
     CONTENT_CREATION: 'CC',
     REPORTING: 'Rp',
-    DEVELOP_MARATHON_MATCH: 'MM',
     FIRST2FINISH: 'F2F',
     FIRST_2_FINISH: 'F2F',
     CODE: 'Cd',
@@ -51,6 +50,7 @@ const Abbreviation = {
   DATA_SCIENCE: {
     SRM: 'SRM',
     MARATHON_MATCH: 'MM',
+    DEVELOP_MARATHON_MATCH: 'MM',
   },
   DATA: {
     SRM: 'SRM',

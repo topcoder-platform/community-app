@@ -117,6 +117,7 @@ module.exports = {
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
       COGNITIVE: 'https://cognitive.topcoder-dev.com',
+      ZURICH: 'https://community-app.topcoder-dev.com/__community__/zurich',
     },
 
     /* Dedicated section to group together links to various articles in
@@ -199,5 +200,14 @@ module.exports = {
     },
 
     OPEN_EXCHANGE_RATES_KEY: '',
+
+    /* These credentials allow Community App server to communicate with
+     * protected TC API endpoints (on behalf of the app itself). */
+    TC_M2M: {
+      CLIENT_ID: '',
+      CLIENT_SECRET: '',
+      AUDIENCE: '',
+      GRANT_TYPE: '',
+    },
   },
 };
