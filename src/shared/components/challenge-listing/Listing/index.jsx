@@ -5,12 +5,13 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import { connect } from 'react-redux';
 import { BUCKETS, getBuckets, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
 import './style.scss';
 
-export default function Listing({
+function Listing({
   activeBucket,
   auth,
   challenges,
@@ -19,10 +20,8 @@ export default function Listing({
   extraBucket,
   filterState,
   keepPastPlaceholders,
-  loadingDraftChallenges,
   loadingPastChallenges,
   loadingReviewOpportunities,
-  loadMoreDraft,
   loadMorePast,
   loadMoreReviewOpportunities,
   newChallengeDetails,
@@ -38,6 +37,7 @@ export default function Listing({
   sorts,
   expandedTags,
   expandTag,
+  allActiveChallengesLoaded,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
   const getBucket = (bucket, expanded = false) => {
@@ -50,11 +50,9 @@ export default function Listing({
         loading = loadingPastChallenges;
         loadMore = loadMorePast;
         break;
-      case BUCKETS.UPCOMING:
-        loading = loadingDraftChallenges;
-        loadMore = loadMoreDraft;
+      default:
+        loading = !allActiveChallengesLoaded;
         break;
-      default: break;
     }
     return (
       /* Review Opportunities use a different Bucket, Card and data source than normal challenges
@@ -121,11 +119,6 @@ export default function Listing({
       {extraBucket ? getBucket(extraBucket) : null}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
-      {/* NOTE: We do not show upcoming challenges for now, for various reasons,
-        * more political than technical ;)
-        getBucket(BUCKETS.UPCOMING) */
-      }
-      { /* getBucket(BUCKETS.PAST) */ }
     </div>
   );
 }
@@ -138,7 +131,6 @@ Listing.defaultProps = {
   expandedTags: [],
   expandTag: null,
   extraBucket: null,
-  loadMoreDraft: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
   preListingMsg: null,
@@ -164,10 +156,8 @@ Listing.propTypes = {
   extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
-  loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
-  loadMoreDraft: PT.func,
   loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
@@ -181,4 +171,18 @@ Listing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
+  allActiveChallengesLoaded: PT.bool.isRequired,
 };
+
+const mapStateToProps = (state) => {
+  const cl = state.challengeListing;
+  return {
+    allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+  };
+};
+
+const ListingContainer = connect(
+  mapStateToProps,
+)(Listing);
+
+export default ListingContainer;
