@@ -63,7 +63,7 @@ class DatePicker extends React.Component {
         hideKeyboardShortcutsPanel
         id={id}
         isOutsideRange={() => false}
-        date={_.isEmpty(date) ? undefined : moment(date)}
+        date={_.isEmpty(date) ? undefined : moment.utc(date)}
         focused={focused}
         onDateChange={onDateChange}
         onFocusChange={this.onFocusChange}
