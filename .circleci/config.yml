@@ -194,12 +194,14 @@ workflows:
             branches:
               only:
                 - hot-fixes
+                - listing-improve
       # This is beta env for production soft releases
       - "build-prod-beta":
           filters:
             branches:
               only:
                 - develop
+                - listing-improve
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
