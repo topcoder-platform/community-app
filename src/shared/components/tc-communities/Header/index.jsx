@@ -188,6 +188,7 @@ Join Topcoder
 
   const currentPage = pageId === 'home' ? '' : pageId;
   const menuIterator = (item) => {
+    console.log('menu item is', item, communityId === 'zurich' && item.url === '/challenges' && !isZurichCompetitor.length);
     if (communityId === 'zurich' && item.url === '/challenges' && !isZurichCompetitor.length) {
       return null;
     }
