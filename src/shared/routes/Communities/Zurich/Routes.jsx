@@ -3,6 +3,11 @@
  */
 
 import _ from 'lodash';
+import ChallengeDetails from 'routes/ChallengeDetails';
+import ChallengeListing from 'routes/Communities/ChallengeListing';
+import Submission from 'routes/Submission';
+import SubmissionManagement from 'routes/SubmissionManagement';
+import TermsDetail from 'routes/TermsDetail';
 import { connect } from 'react-redux';
 import Error404 from 'components/Error404';
 import FAQ from 'components/tc-communities/communities/zurich/FAQ';
@@ -37,6 +42,45 @@ function Zurich({ base, meta, userGroups }) {
               logoutRedirect={config.URL.COMMUNITIES.ZURICH}
             />
             <Switch>
+              <Route
+                component={() => ChallengeListing({
+                  challengesUrl: `${base}/challenges`,
+                  meta,
+                  newChallengeDetails: true,
+                })}
+                exact
+                path={`${base}/challenges`}
+              />
+              <Route
+                component={routeProps => ChallengeDetails({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                  communityId: meta.communityId,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+              />
+              <Route
+                component={routeProps => Submission({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+              />
+              <Route
+                component={routeProps => SubmissionManagement({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+              />
+              <Route
+                component={TermsDetail}
+                exact
+                path={`${base}/challenges/terms/detail/:termId`}
+              />
               <Route
                 component={FAQ}
                 exact
@@ -92,12 +136,13 @@ function Zurich({ base, meta, userGroups }) {
 
 Zurich.defaultProps = {
   base: '',
+  userGroups: [],
 };
 
 Zurich.propTypes = {
   base: PT.string,
   meta: PT.shape().isRequired,
-  userGroups: PT.arrayOf(PT.shape()).isRequired,
+  userGroups: PT.arrayOf(PT.shape()),
 };
 
 export default connect(state => ({
