@@ -201,7 +201,6 @@ workflows:
             branches:
               only:
                 - develop
-                - listing-improve
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
@@ -210,7 +209,6 @@ workflows:
               ignore: /.*/
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
-
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
