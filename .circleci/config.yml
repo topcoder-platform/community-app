@@ -200,6 +200,7 @@ workflows:
           filters:
             branches:
               only:
+                - hot-fixes
                 - develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
