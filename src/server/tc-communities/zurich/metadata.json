@@ -34,7 +34,7 @@
       "url": "/faq"
     }, {
       "title": "Challenges",
-      "url": "/challenges"
+      "url": "/challenges?communityId=zurich"
     }
   ],
   "hideSearch": true,

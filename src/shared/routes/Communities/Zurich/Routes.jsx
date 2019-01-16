@@ -47,6 +47,7 @@ function Zurich({ base, meta, userGroups }) {
                   challengesUrl: `${base}/challenges`,
                   meta,
                   newChallengeDetails: true,
+                  listingOnly: true,
                 })}
                 exact
                 path={`${base}/challenges`}
