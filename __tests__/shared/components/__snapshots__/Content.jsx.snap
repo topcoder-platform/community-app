@@ -11,7 +11,7 @@ exports[`Matches shallow shapshot 1`] = `
     Wed, 29 Nov 2017 07:40:00 GMT
   </div>
   <h1>
-    Topcoder Community App
+    Topcoder Community App - 1
   </h1>
   <p>
     Isomorphic ReactJS App for new version of Topcoder community website. Technological stack includes:
