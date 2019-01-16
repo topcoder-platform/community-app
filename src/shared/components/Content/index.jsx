@@ -18,7 +18,7 @@ export default function Content() {
         {isomorphy.buildTimestamp()}
       </div>
       <h1>
-        Topcoder Community App - 1
+        Topcoder Community App
       </h1>
       <p>
         Isomorphic ReactJS App for new version of Topcoder community website.
