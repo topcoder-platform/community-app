@@ -189,7 +189,6 @@ workflows:
             branches:
               only: 
                 - develop
-                - listing-improve
       # This is alternate dev env for parallel testing
       - "build-test":
           filters:
