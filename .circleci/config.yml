@@ -195,7 +195,6 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fixes
                 - listing-improve
       # This is beta env for production soft releases
       - "build-prod-beta":
