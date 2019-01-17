@@ -42,7 +42,7 @@ const SRMTile = (props) => {
                 {localTime(srm.rounds[0].registrationStartAt, 'hh:mm a')}
               </span>
               <span styleName="time-zone">
-                {localTime(srm.rounds[0].registrationStartAt, 'z')}
+                UTC{localTime(srm.rounds[0].registrationStartAt, 'Z')}
               </span>
             </div>
           </div>
