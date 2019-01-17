@@ -57,7 +57,7 @@ export class ListingContainer extends React.Component {
       selectBucket(queryBucket);
     }
 
-    if (!communitiesList.loadingUuid
+    if (!_.isEmpty(communitiesList.loadingUuid)
     && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
       getCommunitiesList(auth);
     }
