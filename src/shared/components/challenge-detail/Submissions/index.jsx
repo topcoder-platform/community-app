@@ -217,6 +217,9 @@ There are many reason why the submissions may not be viewable, such
               <div styleName="col">
                 Provisional
               </div>
+              <div styleName="col">
+                Time
+              </div>
             </div>
             <div styleName="col-4 col" />
           </div>
