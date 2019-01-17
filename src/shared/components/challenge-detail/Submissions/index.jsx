@@ -245,11 +245,11 @@ There are many reason why the submissions may not be viewable, such
                 {moment(s.submissionDate).format('MMM DD, YYYY HH:mm')}
               </div>
               <div styleName="col-3">
-                {s.initialScore ? s.initialScore.toFixed(2) : 'N/A'}
+                {s.submissions[0].initialScore ? s.submissions[0].initialScore.toFixed(2) : 'N/A'}
                 &zwnj;
                 &zwnj;/
                 &zwnj;
-                {s.finalScore ? s.finalScore.toFixed(2) : 'N/A'}
+                {s.submissions[0].finalScore ? s.submissions[0].finalScore.toFixed(2) : 'N/A'}
               </div>
             </div>
           ))
