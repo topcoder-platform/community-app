@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
+import ChallengeListingBanner from 'components/tc-communities/communities/zurich/ChallengeListingBanner';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
@@ -47,7 +48,7 @@ function Zurich({ base, meta, userGroups }) {
                   challengesUrl: `${base}/challenges`,
                   meta,
                   newChallengeDetails: true,
-                  listingOnly: true,
+                  ChallengeListingBanner,
                 })}
                 exact
                 path={`${base}/challenges`}
