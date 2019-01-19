@@ -26,23 +26,23 @@ const SRMTile = (props) => {
               {' '}
               {
                 <span>
-                  {`${timeDiff(srm.codingStartAt, 'quantity')}
-                  ${timeDiff(srm.codingStartAt, 'unit')}`}
+                  {`${timeDiff(srm.rounds[0].registrationStartAt, 'quantity')}
+                  ${timeDiff(srm.rounds[0].registrationStartAt, 'unit')}`}
                 </span>
               }
             </p>
             <div styleName="srm-calendar">
               <span styleName="day">
-                {localTime(srm.codingStartAt, 'DD')}
+                {localTime(srm.rounds[0].registrationStartAt, 'DD')}
               </span>
               <span styleName="month">
-                {localTime(srm.codingStartAt, 'MMM')}
+                {localTime(srm.rounds[0].registrationStartAt, 'MMM')}
               </span>
               <span styleName="hour">
-                {localTime(srm.codingStartAt, 'hh:mm a')}
+                {localTime(srm.rounds[0].registrationStartAt, 'hh:mm a')}
               </span>
               <span styleName="time-zone">
-                {localTime(srm.codingStartAt, 'z')}
+                UTC{localTime(srm.rounds[0].registrationStartAt, 'Z')}
               </span>
             </div>
           </div>

@@ -1,6 +1,7 @@
 /**
  * Container for the header filters panel.
  */
+/* global window */
 
 import actions from 'actions/challenge-listing/filter-panel';
 import challengeListingActions from 'actions/challenge-listing';
@@ -11,6 +12,7 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import qs from 'qs';
 
 /* The default name for user-saved challenge filters. An integer
  * number will be appended to it, when necessary, to keep filter
@@ -40,9 +42,17 @@ export class Container extends React.Component {
       getSubtracks,
       loadingKeywords,
       loadingSubtracks,
+      setFilterState,
+      filterState,
     } = this.props;
     if (!loadingSubtracks) getSubtracks();
     if (!loadingKeywords) getKeywords();
+
+
+    const query = qs.parse(window.location.search.slice(1));
+    if (query.filter && !filterState.track) {
+      setFilterState(query.filter);
+    }
   }
 
   render() {
