@@ -161,7 +161,7 @@ class ChallengeDetailPageContainer extends React.Component {
       loadChallengeDetails(auth, challengeId);
     }
 
-    if (!_.isEmpty(communitiesList.loadingUuid)
+    if (!communitiesList.loadingUuid
     && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
       getCommunitiesList(auth);
     }
