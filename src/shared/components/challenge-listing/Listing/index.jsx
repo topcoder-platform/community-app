@@ -37,7 +37,6 @@ function Listing({
   sorts,
   expandedTags,
   expandTag,
-  allActiveChallengesLoaded,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
   const getBucket = (bucket, expanded = false) => {
@@ -51,7 +50,6 @@ function Listing({
         loadMore = loadMorePast;
         break;
       default:
-        loading = !allActiveChallengesLoaded;
         break;
     }
     return (
@@ -171,7 +169,6 @@ Listing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
-  allActiveChallengesLoaded: PT.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {

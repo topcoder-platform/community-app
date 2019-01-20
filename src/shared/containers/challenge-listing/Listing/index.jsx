@@ -137,9 +137,12 @@ export class ListingContainer extends React.Component {
       getActiveChallenges,
       lastRequestedPageOfActiveChallenges,
     } = this.props;
+    const f = this.getBackendFilter();
     getActiveChallenges(
       1 + lastRequestedPageOfActiveChallenges,
+      f.back,
       auth.tokenV3,
+      f.front,
     );
   }
 
@@ -434,10 +437,10 @@ function mapDispatchToProps(dispatch) {
   const ca = communityActions.tcCommunity;
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
-    getActiveChallenges: (page, token) => {
+    getActiveChallenges: (page, filter, token, frontFilter) => {
       const uuid = shortId();
-      dispatch(a.getActiveChallengesInit(uuid, page));
-      dispatch(a.getActiveChallengesDone(uuid, page, token));
+      dispatch(a.getActiveChallengesInit(uuid, page, frontFilter));
+      dispatch(a.getActiveChallengesDone(uuid, page, filter, token, frontFilter));
     },
     getRestActiveChallenges: (token) => {
       const uuid = shortId();
