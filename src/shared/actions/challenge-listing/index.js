@@ -76,22 +76,30 @@ function getChallengeTagsDone() {
  * @param {String} uuid
  * @return {String}
  */
-function getActiveChallengesInit(uuid, page) {
-  return { uuid, page };
+function getActiveChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
 }
 
 /**
- * Gets all active challenges (including marathon matches) from the backend.
+ * Gets 1 page of active challenges (including marathon matches) from the backend.
  * Once this action is completed any active challenges saved to the state before
  * will be dropped, and the newly fetched ones will be stored there.
+ * Loading of all challenges wil start in background.
  * @param {String} uuid
+ * @param {Number} page
+ * @param {Object} backendFilter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3. Without token only
  *  public challenges will be fetched. With the token provided, the action will
  *  also fetch private challenges related to this user.
+ * @param {Object} frontFilter
+
  * @return {Promise}
  */
-function getActiveChallengesDone(uuid, page, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const filter = {
+    ...backendFilter,
+    status: 'ACTIVE'
+  };
   const service = getService(tokenV3);
   const calls = [
     service.getChallenges(filter, {
@@ -129,7 +137,7 @@ function getActiveChallengesDone(uuid, page, tokenV3) {
       });
     }
 
-    return { uuid, challenges: ch.challenges, meta: ch.meta };
+    return { uuid, challenges: ch.challenges, meta: ch.meta, frontFilter };
   });
 }
 
