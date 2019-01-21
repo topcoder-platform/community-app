@@ -199,7 +199,7 @@ NewsletterSignupForMembersContainer.propTypes = {
   label: PT.string,
   interests: PT.string,
   listId: PT.string.isRequired,
-  user: PT.objectOf(PT.object()),
+  user: PT.shape,
 };
 
 function mapStateToProps(state, ownProps) {
