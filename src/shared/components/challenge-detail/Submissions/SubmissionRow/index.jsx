@@ -22,10 +22,11 @@ export default function SubmissionRow({
   score,
   toggleHistory,
   colorStyle,
+  isReviewPhaseComplete,
 }) {
   const { submissionTime } = submissions[0];
   let { finalScore, initialScore } = submissions[0];
-  finalScore = (!finalScore && finalScore < 0) ? '-' : finalScore;
+  finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
   initialScore = (!initialScore && initialScore < 0) ? '-' : initialScore;
 
   return (
@@ -50,7 +51,7 @@ export default function SubmissionRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM ? get(score, 'final', finalScore) : finalScore }
+            { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
           </div>
           <div styleName="col">
             { isMM ? get(score, 'provisional', initialScore) : initialScore }
@@ -100,6 +101,7 @@ export default function SubmissionRow({
           {
             submissions.map((submissionHistory, index) => (
               <SubmissionHistoryRow
+                isReviewPhaseComplete={isReviewPhaseComplete}
                 isMM={isMM}
                 submission={submissions.length - index}
                 {...submissionHistory}
@@ -119,6 +121,7 @@ SubmissionRow.defaultProps = {
   rank: {},
   colorStyle: {},
   score: {},
+  isReviewPhaseComplete: false,
 };
 
 SubmissionRow.propTypes = {
@@ -140,4 +143,5 @@ SubmissionRow.propTypes = {
   }),
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
+  isReviewPhaseComplete: PT.bool,
 };

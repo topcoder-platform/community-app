@@ -229,6 +229,7 @@ There are many reason why the submissions may not be viewable, such
         isMM ? (
           wrappedSubmissions.map((submission, index) => (
             <SubmissionRow
+              isReviewPhaseComplete={isReviewPhaseComplete}
               isMM={isMM}
               key={submission.submitterId + submission.submitter}
               {...submission}
