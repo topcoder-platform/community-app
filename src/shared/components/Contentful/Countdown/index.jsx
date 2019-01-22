@@ -1,5 +1,5 @@
 /**
- * Quote component.
+ * Countdown component.
  */
 
 import ContentfulLoader from 'containers/ContentfulLoader';

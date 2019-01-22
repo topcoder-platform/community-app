@@ -27,7 +27,8 @@ export default function VideoLoader(props) {
             showRelatedVideoSuggestions={video.showRelatedVideoSuggestions}
             src={video.source}
             title={video.title}
-          />);
+          />
+        );
       }
         }
       renderPlaceholder={LoadingIndicator}

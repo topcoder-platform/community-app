@@ -191,7 +191,8 @@ FAILED
         </li>
         )
       }
-    </ul>);
+    </ul>
+  );
 };
 
 SRMStats.defaultProps = {};

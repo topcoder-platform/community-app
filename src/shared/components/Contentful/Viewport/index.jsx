@@ -22,6 +22,7 @@ import Countdown from 'components/Contentful/Countdown';
 import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
 import ContentSlider from 'components/Contentful/ContentSlider';
+import Dropdown from 'components/Contentful/Dropdown';
 
 import Viewport from './Viewport';
 
@@ -47,6 +48,7 @@ const COMPONENTS = {
   video: Video,
   viewport: null, /* Assigned to ViewportLoader below. */
   contentSlider: ContentSlider,
+  dropdown: Dropdown,
 };
 
 const THEMES = {

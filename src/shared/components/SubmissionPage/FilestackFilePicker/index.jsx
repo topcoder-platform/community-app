@@ -297,7 +297,8 @@ Uploading:
               role="button"
               styleName="drop-zone-mask"
               tabIndex={0}
-            />)}
+            />
+          )}
         </div>
         {
           error

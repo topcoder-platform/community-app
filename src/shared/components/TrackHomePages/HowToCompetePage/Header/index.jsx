@@ -51,8 +51,9 @@ const Header = ({ data }) => (
             showinfo={false}
             videoId="HU2xr_wjR3s"
             thumb={<div styleName="videoPlayButton" />}
-          />) : (
-            <img src={data.media.fields.file.url} alt={data.media.fields.file.url} />
+          />
+        ) : (
+          <img src={data.media.fields.file.url} alt={data.media.fields.file.url} />
         )
       }
     </div>

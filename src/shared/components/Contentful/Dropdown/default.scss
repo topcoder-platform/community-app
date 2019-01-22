@@ -1,5 +1,4 @@
 @import "~styles/mixins";
-@import "../../_default";
 
 .contentWrapper {
   display: flex;
@@ -24,33 +23,5 @@
     @include xs-to-sm {
       flex-direction: column;
     }
-  }
-}
-
-.content {
-  @include tc-typography;
-  @include default-headers;
-
-  flex: 1;
-  padding: 15px;
-}
-
-.image {
-  flex: 1;
-  margin: 15px;
-
-  img {
-    width: 100%;
-  }
-}
-
-code {
-  background-color: $tc-gray-neutral-light;
-  padding: 0.2em 0.4em;
-}
-
-pre {
-  code {
-    background-color: transparent;
   }
 }
