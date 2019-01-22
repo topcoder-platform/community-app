@@ -49,8 +49,6 @@ exports[`Matches shallow shapshot 1`] = `
       "clearDates": "Clear Dates",
       "closeDatePicker": "Close",
       "dateIsSelected": [Function],
-      "dateIsSelectedAsEndDate": [Function],
-      "dateIsSelectedAsStartDate": [Function],
       "dateIsUnavailable": [Function],
       "enterKey": "Enter key",
       "escape": "Escape key",
