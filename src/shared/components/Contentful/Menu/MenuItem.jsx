@@ -37,7 +37,8 @@ export default function MenuItem(props) {
       >
         {item.fields.linkText || item.fields.name}
       </NavLink>
-    </li>);
+    </li>
+  );
 }
 
 

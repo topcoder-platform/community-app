@@ -107,7 +107,8 @@ More Details
           })
       }
       </ul>
-    </div>);
+    </div>
+  );
 };
 AssetList.propTypes = {
   baseUrl: PT.string.isRequired,

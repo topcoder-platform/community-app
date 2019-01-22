@@ -191,6 +191,7 @@ NewsletterSignupForMembersContainer.defaultProps = {
   token: '',
   label: 'Subscribe for Newsletter',
   interests: '',
+  user: null,
 };
 
 NewsletterSignupForMembersContainer.propTypes = {
@@ -198,6 +199,7 @@ NewsletterSignupForMembersContainer.propTypes = {
   label: PT.string,
   interests: PT.string,
   listId: PT.string.isRequired,
+  user: PT.shape,
 };
 
 function mapStateToProps(state, ownProps) {

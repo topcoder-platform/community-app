@@ -33,7 +33,8 @@ Download the latest Predix assets created by Topcoder members to accelerate your
         <a styleName={gridBtnStyleName} onClick={toggleGrid} />
         <a styleName={listBtnStyleName} onClick={toggleList} />
       </div>
-    </div>);
+    </div>
+  );
 };
 
 TopBanner.propTypes = {

@@ -123,7 +123,8 @@ Active Challenges
                     >
                       {tab}
                     </Link>
-                  </li>))
+                  </li>
+                ))
               }
             </ul>
             <ul styleName="subtrack-stats">

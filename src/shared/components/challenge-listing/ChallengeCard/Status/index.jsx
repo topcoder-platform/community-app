@@ -137,7 +137,8 @@ export default function ChallengeStatus(props) {
           <UserAvatarTooltip user={userProfile}>
             <LeaderboardAvatar member={winner} />
           </UserAvatarTooltip>
-        </div>);
+        </div>
+      );
     });
 
     return leaderboard || (

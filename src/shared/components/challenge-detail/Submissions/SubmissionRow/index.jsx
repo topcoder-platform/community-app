@@ -75,7 +75,8 @@ export default function SubmissionRow({
           </a>
         </div>
       </div>
-      {openHistory && (
+      {openHistory
+        && (
         <div styleName="history">
           <div>
             <div styleName="row no-border history-head">
@@ -106,7 +107,9 @@ export default function SubmissionRow({
               />
             ))
             }
-        </div>)}
+        </div>
+        )
+    }
     </div>
   );
 }
