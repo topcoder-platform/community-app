@@ -82,7 +82,7 @@ DOWNLOADS:
               <ul>
                 {
                   documents.map((doc) => {
-                    const url = `${config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentid}`;
+                    const url = `${config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentId}`;
                     return (
                       <li key={url}>
                         <a href={url}>
