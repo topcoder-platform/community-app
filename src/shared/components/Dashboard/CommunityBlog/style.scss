@@ -34,8 +34,11 @@
 }
 
 .title {
-  @include tc-heading-lg;
+  @include roboto-regular;
 
-  padding: 0 30px 20px;
   text-align: center;
+  font-size: 20px;
+  line-height: 35px;
+  color: $tc-black;
+  margin: 10px 0;
 }
