@@ -39,7 +39,7 @@
   ],
   "hideSearch": true,
   "newsFeed": "http://www.topcoder.com/feed",
-  "subdomains": ["zurich", "kubik"],
+  "subdomains": ["zurich", "community-zurich"],
   "description": "Zurich Community.",
   "image":"wipro.jpg"
 }
