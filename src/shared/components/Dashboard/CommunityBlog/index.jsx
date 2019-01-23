@@ -13,9 +13,9 @@ export default function CommunityBlog({
 }) {
   return (
     <div styleName="container">
-      <h1 styleName="title">
+      <h4 styleName="title">
         From the Community Blog
-      </h1>
+      </h4>
       <div styleName="content">
         {
           isLoading ? <LoadingIndicator /> : (

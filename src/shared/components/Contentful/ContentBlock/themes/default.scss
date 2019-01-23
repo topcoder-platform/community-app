@@ -6,7 +6,7 @@
   margin: 0 auto;
   max-width: $screen-md;
   padding: 15px;
-  color: black;
+  color: $tc-black;
 
   @include xs-to-sm {
     flex-direction: column;
@@ -33,6 +33,7 @@
 
   flex: 1;
   padding: 15px;
+  color: $tc-black;
 }
 
 .image {
