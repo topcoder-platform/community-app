@@ -97,6 +97,7 @@ function mapStateToProps(state, ownProps) {
     openedMenu: state.topcoderHeader.openedMenu,
     pageId: ownProps.pageId,
     profile: state.auth.profile,
+    meta: state.tcCommunities.meta.data,
   };
 }
 

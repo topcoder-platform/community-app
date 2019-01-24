@@ -11,6 +11,9 @@ import React from 'react';
 import MarkdownIt from 'markdown-it';
 import { Button, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
+import hljs from 'highlight.js';
+import ReactHtmlParser from 'react-html-parser';
+import 'highlight.js/styles/github.css';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import NewsletterSignup from 'components/NewsletterSignup';
@@ -97,6 +100,26 @@ function renderToken(tokens, index) {
       /* eslint-enable no-use-before-define */
     case 'text':
       return token.content;
+    case 'fence':
+      if (token.info && hljs.getLanguage(token.info)) {
+        try {
+          return ReactHtmlParser(`<pre class="hljs"><code>${hljs.highlight(token.info, token.content, true).value}</code></pre>`);
+        } catch (__) { return _.noop(); }
+      } else {
+        try {
+          return ReactHtmlParser(`<pre class="hljs"><code>${hljs.highlightAuto(token.content).value}</code></pre>`);
+        } catch (__) { return _.noop(); }
+      }
+    case 'code_inline':
+      if (token.info && hljs.getLanguage(token.info)) {
+        try {
+          return ReactHtmlParser(`<code>${hljs.highlight(token.info, token.content, true).value}</code>`);
+        } catch (__) { return _.noop(); }
+      } else {
+        try {
+          return ReactHtmlParser(`<code>${hljs.highlightAuto(token.content).value}</code>`);
+        } catch (__) { return _.noop(); }
+      }
     default:
       return React.createElement(
         token.tag,

@@ -10,6 +10,7 @@
   "communityName": "Zurich Community",
   "groupIds": ["20000145"],
   "authorizedGroupIdsCatalog": ["20000160", "20000161"],
+  "competitorsGroupIds": ["20000226"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",
     "url": "https://www.zurich.com/"
@@ -31,11 +32,14 @@
     }, {
       "title": "FAQ",
       "url": "/faq"
+    }, {
+      "title": "Challenges",
+      "url": "/challenges?communityId=zurich"
     }
   ],
   "hideSearch": true,
   "newsFeed": "http://www.topcoder.com/feed",
-  "subdomains": ["zurich"],
+  "subdomains": ["zurich", "kubik"],
   "description": "Zurich Community.",
   "image":"wipro.jpg"
 }

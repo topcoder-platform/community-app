@@ -289,7 +289,8 @@ Sorry, no successful challenges found.
                       onPopModal={this.onPopModal}
                       index={index}
                       key={`scroll-subtrack-challenge-${item.name}`}
-                    />))}
+                    />
+                  ))}
                 </div>
               </section>
             </div>

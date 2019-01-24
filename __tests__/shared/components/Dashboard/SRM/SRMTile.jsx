@@ -13,8 +13,8 @@ jest.mock('utils/tc', () => ({
         return 'Dec';
       case 'hh:mm a':
         return '08:00 am';
-      case 'z':
-        return 'EET';
+      case 'Z':
+        return '2019-12-31T08:00:00.000Z';
       default:
         return '2019-12-31T08:00:00.000Z';
     }
