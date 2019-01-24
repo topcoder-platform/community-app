@@ -86,7 +86,7 @@ DOWNLOADS:
                     return (
                       <li key={url}>
                         <a href={url}>
-                          {doc.documentname}
+                          {doc.documentName}
                         </a>
                       </li>
                     );
