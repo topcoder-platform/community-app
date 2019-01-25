@@ -100,7 +100,7 @@ export default function Challenges({
                         {
                           <Link
                             openNewTab
-                            to="/challenges?filter[tracks][datasci]=true"
+                            to="/challenges?filter[tracks][data_science]=true"
                           >
                             Data Science
                           </Link>
