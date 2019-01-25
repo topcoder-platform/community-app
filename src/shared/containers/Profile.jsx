@@ -37,11 +37,8 @@ class ProfileContainer extends React.Component {
 
   render() {
     const {
-      achievements,
       info,
       loadingError,
-      skills,
-      stats,
     } = this.props;
 
     if (loadingError) {
@@ -62,7 +59,7 @@ class ProfileContainer extends React.Component {
       });
     }
 
-    return achievements && info && skills && stats
+    return info
       ? (
         <ProfilePage
           {...this.props}
