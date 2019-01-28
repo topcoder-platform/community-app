@@ -195,12 +195,14 @@ workflows:
               only:
                 - hot-fixes
                 - listing-improve
+                - lib-test
       # This is beta env for production soft releases
       - "build-prod-beta":
           filters:
             branches:
               only:
                 - hot-fixes
+                - lib-test
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
