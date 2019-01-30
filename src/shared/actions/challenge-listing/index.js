@@ -98,7 +98,7 @@ function getActiveChallengesInit(uuid, page, frontFilter) {
 function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const filter = {
     ...backendFilter,
-    status: 'ACTIVE'
+    status: 'ACTIVE',
   };
   const service = getService(tokenV3);
   const calls = [
@@ -137,7 +137,12 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
       });
     }
 
-    return { uuid, challenges: ch.challenges, meta: ch.meta, frontFilter };
+    return {
+      uuid,
+      challenges: ch.challenges,
+      meta: ch.meta,
+      frontFilter,
+    };
   });
 }
 
