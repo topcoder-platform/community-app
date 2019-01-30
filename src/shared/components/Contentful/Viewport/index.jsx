@@ -130,6 +130,7 @@ function ViewportContentLoader(props) {
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
+  preview: false,
   spaceName: null,
   environment: null,
   themeName: 'Column',
@@ -143,7 +144,7 @@ ViewportContentLoader.propTypes = {
   viewportId: PT.string.isRequired,
   contentIds: PT.arrayOf(PT.string.isRequired).isRequired,
   extraStylesForContainer: PT.shape(),
-  preview: PT.bool.isRequired,
+  preview: PT.bool,
   spaceName: PT.string,
   environment: PT.string,
   themeName: PT.string,
