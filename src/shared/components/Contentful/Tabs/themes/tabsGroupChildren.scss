@@ -102,6 +102,7 @@
   display: block;
   border-left: 1px solid #e2e2e4;
   margin-top: -2em;
+  flex: 1;
 
   @include xs-to-sm {
     border: none;
