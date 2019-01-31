@@ -21,7 +21,6 @@ import shortId from 'shortid';
 import { connect } from 'react-redux';
 import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
@@ -307,13 +306,6 @@ export class ListingContainer extends React.Component {
           groupIds={groupIds}
           auth={auth}
         />
-        { !listingOnly ? (
-          <NewsletterSignup
-            title="Sign up for our newsletter"
-            text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-            imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
-          />
-        ) : null }
       </div>
     );
   }
