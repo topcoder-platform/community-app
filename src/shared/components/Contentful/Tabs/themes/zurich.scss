@@ -35,6 +35,17 @@ $tab-top-offset: 45px;
   border: 1px solid #e2e2e4;
   flex: 1;
 
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    display: flex;
+    flex-direction: column;
+    flex-basis: auto;
+    align-items: center;
+
+    p {
+      display: flex;
+    }
+  }
+
   @include xs-to-sm {
     margin: 2px;
   }

@@ -21,8 +21,9 @@ import PT from 'prop-types';
 import React from 'react';
 import theme from 'components/tc-communities/communities/zurich/theme';
 import { ThemeProvider } from 'react-css-super-themr';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
+import Viewport from 'components/Contentful/Viewport';
 
 function Zurich({ base, meta, userGroups }) {
   // Only members of `Requestor`|`Approver` gropus
@@ -31,7 +32,29 @@ function Zurich({ base, meta, userGroups }) {
     _.map(userGroups, 'id'),
     meta.authorizedGroupIdsCatalog,
   ) : [];
-  return (
+  // Visitors not in any zurich group see the custom error page
+  // not logged in visitors see the "Public Site"
+  // see: https://github.com/topcoder-platform/community-app/issues/1878
+  const isAllowedGroupVisitor = userGroups ? _.intersection(
+    _.map(userGroups, 'id'),
+    meta.authorizedGroupIds,
+  ) : [];
+  return !isAllowedGroupVisitor.length && userGroups ? (
+    <Switch>
+      <Route
+        component={() => Viewport({
+          baseUrl: base,
+          id: '64XzS4SHtuYqqkGq8goeyY',
+          spaceName: 'zurich',
+        })}
+        path={`${base}/forbidden`}
+      />
+      <Redirect
+        to={`${base}/forbidden`}
+      />
+    </Switch>
+  ) : (
+    // Allowed to see the site based on groups
     <Route
       component={({ match }) => (
         <ThemeProvider theme={theme}>

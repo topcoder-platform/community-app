@@ -1,4 +1,7 @@
 {
+  "authorizedGroupIds": [
+    "20000145"
+  ],
   "challengeFilter": {
     "groupIds": ["20000145"]
   },
@@ -18,7 +21,7 @@
     "img": "/community-app-assets/themes/zurich/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
   }],
-  "footerText": "© Copyright Topcoder, 2018",
+  "footerText": "© Copyright Topcoder, 2019",
   "menuItems": [
     {
       "title": "Home",
@@ -32,6 +35,9 @@
     }, {
       "title": "FAQ",
       "url": "/faq"
+    }, {
+      "title": "Challenges",
+      "url": "/challenges?communityId=zurich"
     }
   ],
   "hideSearch": true,

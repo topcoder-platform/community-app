@@ -95,6 +95,32 @@ function SubmissionsComponent({
       isReviewPhaseComplete = true;
     }
   });
+
+  // Temporary fix for missing ranks
+  if (isMM) {
+    if (isReviewPhaseComplete) {
+      wrappedSubmissions.sort((a, b) => getFinalScore(b) - getFinalScore(a));
+      _.each(wrappedSubmissions, (sub, i) => {
+        if (!sub.rank) {
+          wrappedSubmissions[i].rank = {
+            final: i + 1,
+          };
+        }
+      });
+    }
+
+    wrappedSubmissions.sort((a, b) => getProvisionalScore(b) - getProvisionalScore(a));
+    _.each(wrappedSubmissions, (sub, i) => {
+      if (!sub.rank) {
+        wrappedSubmissions[i].rank = {
+          interim: i + 1,
+        };
+      } else if (!sub.rank.interim) {
+        wrappedSubmissions[i].rank.interim = i + 1;
+      }
+    });
+  }
+
   wrappedSubmissions.sort((a, b) => {
     let val1 = 0;
     let val2 = 0;
