@@ -202,6 +202,7 @@ workflows:
             branches:
               only:
                 - hot-fixes
+                - listing-improve
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
