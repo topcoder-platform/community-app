@@ -558,6 +558,12 @@ const singleAchievements = [
     groupClass: 'TCO17-Champion',
     active: false,
   },
+  {
+    id: 1012,
+    name: 'TCO18 Finalist',
+    groupClass: 'TCO18-Finalist',
+    active: false,
+  },
 ];
 
 /**

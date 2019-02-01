@@ -70,6 +70,10 @@
 
   flex: 1;
   padding: 15px;
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    flex-basis: auto;
+  }
 }
 
 .image {

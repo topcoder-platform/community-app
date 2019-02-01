@@ -95,6 +95,32 @@ function SubmissionsComponent({
       isReviewPhaseComplete = true;
     }
   });
+
+  // Temporary fix for missing ranks
+  if (isMM) {
+    if (isReviewPhaseComplete) {
+      wrappedSubmissions.sort((a, b) => getFinalScore(b) - getFinalScore(a));
+      _.each(wrappedSubmissions, (sub, i) => {
+        if (!sub.rank) {
+          wrappedSubmissions[i].rank = {
+            final: i + 1,
+          };
+        }
+      });
+    }
+
+    wrappedSubmissions.sort((a, b) => getProvisionalScore(b) - getProvisionalScore(a));
+    _.each(wrappedSubmissions, (sub, i) => {
+      if (!sub.rank) {
+        wrappedSubmissions[i].rank = {
+          interim: i + 1,
+        };
+      } else if (!sub.rank.interim) {
+        wrappedSubmissions[i].rank.interim = i + 1;
+      }
+    });
+  }
+
   wrappedSubmissions.sort((a, b) => {
     let val1 = 0;
     let val2 = 0;
@@ -239,14 +265,14 @@ There are many reason why the submissions may not be viewable, such
           ))
         ) : (
           wrappedSubmissions.map(s => (
-            <div key={s.submitter + s.submissionDate} styleName="row">
+            <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
               <div styleName="col-1">
                 <a href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle">
                   {s.submitter}
                 </a>
               </div>
               <div styleName="col-2">
-                {moment(s.submissionDate).format('MMM DD, YYYY HH:mm')}
+                {moment(s.submissions[0].submissionTime).format('MMM DD, YYYY HH:mm')}
               </div>
               <div styleName="col-3">
                 {s.submissions[0].initialScore ? s.submissions[0].initialScore.toFixed(2) : 'N/A'}
