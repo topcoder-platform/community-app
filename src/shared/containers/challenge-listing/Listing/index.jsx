@@ -26,7 +26,6 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { config, MetaTags } from 'topcoder-react-utils';
-import { USER_GROUP_MAXAGE } from 'config';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
@@ -42,7 +41,6 @@ export class ListingContainer extends React.Component {
     const {
       activeBucket,
       auth,
-      communitiesList,
       communityId,
       getCommunitiesList,
       markHeaderMenu,
@@ -57,10 +55,7 @@ export class ListingContainer extends React.Component {
       selectBucket(queryBucket);
     }
 
-    if (!communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
-      getCommunitiesList(auth);
-    }
+    getCommunitiesList(auth);
 
     if (communityId) {
       selectCommunity(communityId);
