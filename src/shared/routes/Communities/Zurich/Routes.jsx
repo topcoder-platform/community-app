@@ -55,107 +55,117 @@ function Zurich({ base, meta, userGroups }) {
     </Switch>
   ) : (
     // Allowed to see the site based on groups
-    <Route
-      component={({ match }) => (
-        <ThemeProvider theme={theme}>
-          <div>
-            <Header
-              baseUrl={base}
-              pageId={match.params.pageId || 'home'}
-              hideJoinNow
-              logoutRedirect={config.URL.COMMUNITIES.ZURICH}
-            />
-            <Switch>
-              <Route
-                component={() => ChallengeListing({
-                  challengesUrl: `${base}/challenges`,
-                  meta,
-                  newChallengeDetails: true,
-                  ChallengeListingBanner,
-                })}
-                exact
-                path={`${base}/challenges`}
+    <Switch>
+      <Route
+        component={() => Viewport({
+          baseUrl: base,
+          id: '64XzS4SHtuYqqkGq8goeyY',
+          spaceName: 'zurich',
+        })}
+        path={`${base}/forbidden`}
+      />
+      <Route
+        component={({ match }) => (
+          <ThemeProvider theme={theme}>
+            <div>
+              <Header
+                baseUrl={base}
+                pageId={match.params.pageId || 'home'}
+                hideJoinNow
+                logoutRedirect={config.URL.COMMUNITIES.ZURICH}
               />
-              <Route
-                component={routeProps => ChallengeDetails({
-                  ...routeProps,
-                  challengesUrl: `${base}/challenges`,
-                  communityId: meta.communityId,
-                })}
-                exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
-              />
-              <Route
-                component={routeProps => Submission({
-                  ...routeProps,
-                  challengesUrl: `${base}/challenges`,
-                })}
-                exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
-              />
-              <Route
-                component={routeProps => SubmissionManagement({
-                  ...routeProps,
-                  challengesUrl: `${base}/challenges`,
-                })}
-                exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
-              />
-              <Route
-                component={TermsDetail}
-                exact
-                path={`${base}/challenges/terms/detail/:termId`}
-              />
-              <Route
-                component={FAQ}
-                exact
-                path={`${base}/faq`}
-              />
-              <Route
-                component={Learn}
-                exact
-                path={`${base}/learn`}
-              />
-              <Route
-                component={Home}
-                exact
-                path={`${base}/home`}
-              />
-              <Route
-                component={Home}
-                exact
-                path={`${base || '/'}`}
-              />
-              {
-                isRequestorOrApprover.length ? (
-                  // Catalog with connect links
-                  <ContentfulRoute
-                    baseUrl={base}
-                    error404={<Error404 />}
-                    id="6UGl6F62ligIKMwGAySSEw"
-                    spaceName="zurich"
-                  />
-                ) : (
-                  // Catalog with competitor links
-                  <ContentfulRoute
-                    baseUrl={base}
-                    error404={<Error404 />}
-                    id="40GWKfk1jaGqGMe4qymU0i"
-                    spaceName="zurich"
-                  />
-                )
-              }
-              <Route
-                component={Error404}
-                path={`${base}/:any`}
-              />
-            </Switch>
-            <Footer />
-          </div>
-        </ThemeProvider>
-      )}
-      path={`${base}/:pageId?`}
-    />
+              <Switch>
+                <Route
+                  component={() => ChallengeListing({
+                    challengesUrl: `${base}/challenges`,
+                    meta,
+                    newChallengeDetails: true,
+                    ChallengeListingBanner,
+                  })}
+                  exact
+                  path={`${base}/challenges`}
+                />
+                <Route
+                  component={routeProps => ChallengeDetails({
+                    ...routeProps,
+                    challengesUrl: `${base}/challenges`,
+                    communityId: meta.communityId,
+                  })}
+                  exact
+                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+                />
+                <Route
+                  component={routeProps => Submission({
+                    ...routeProps,
+                    challengesUrl: `${base}/challenges`,
+                  })}
+                  exact
+                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+                />
+                <Route
+                  component={routeProps => SubmissionManagement({
+                    ...routeProps,
+                    challengesUrl: `${base}/challenges`,
+                  })}
+                  exact
+                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+                />
+                <Route
+                  component={TermsDetail}
+                  exact
+                  path={`${base}/challenges/terms/detail/:termId`}
+                />
+                <Route
+                  component={FAQ}
+                  exact
+                  path={`${base}/faq`}
+                />
+                <Route
+                  component={Learn}
+                  exact
+                  path={`${base}/learn`}
+                />
+                <Route
+                  component={Home}
+                  exact
+                  path={`${base}/home`}
+                />
+                <Route
+                  component={Home}
+                  exact
+                  path={`${base || '/'}`}
+                />
+                {
+                  isRequestorOrApprover.length ? (
+                    // Catalog with connect links
+                    <ContentfulRoute
+                      baseUrl={base}
+                      error404={<Error404 />}
+                      id="6UGl6F62ligIKMwGAySSEw"
+                      spaceName="zurich"
+                    />
+                  ) : (
+                    // Catalog with competitor links
+                    <ContentfulRoute
+                      baseUrl={base}
+                      error404={<Error404 />}
+                      id="40GWKfk1jaGqGMe4qymU0i"
+                      spaceName="zurich"
+                    />
+                  )
+                }
+                <Route
+                  component={Error404}
+                  path={`${base}/:any`}
+                />
+              </Switch>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        )}
+        path={`${base}/:pageId?`}
+      />
+    </Switch>
   );
 }
 
