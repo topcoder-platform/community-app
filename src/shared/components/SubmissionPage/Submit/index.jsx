@@ -54,6 +54,9 @@ class Submit extends React.Component {
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
     formData.append('submissionPhaseId', subPhaseId);
+    if (sub.fileType) {
+      formData.append('fileType', sub.fileType);
+    }
     return formData;
   }
 
