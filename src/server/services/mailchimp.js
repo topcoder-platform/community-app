@@ -62,4 +62,17 @@ export default class MailchimpService {
     });
     return res.json();
   }
+
+  async subscribeTags(req) {
+    const formData = JSON.stringify(req.body);
+    const res = await fetch(`${this.mailchimpBaseUrl}/lists/${req.params.listId}/members/${req.params.emailHash}/tags`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        Authorization: this.authorization,
+      },
+      body: formData,
+    });
+    return { status: res.status };
+  }
 }
