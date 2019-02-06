@@ -1,7 +1,7 @@
 ![Dev Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/develop.svg?label=develop)
 ![Master Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/master.svg?label=master)
 
-# Topcoder Community App2
+# Topcoder Community App
 New version of Topcoder Community website.
 
 ### Knowledgebase
