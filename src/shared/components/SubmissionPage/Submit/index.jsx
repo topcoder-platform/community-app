@@ -54,6 +54,9 @@ class Submit extends React.Component {
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
     formData.append('submissionPhaseId', subPhaseId);
+    if (sub.fileType) {
+      formData.append('fileType', sub.fileType);
+    }
     return formData;
   }
 
@@ -244,7 +247,7 @@ Please follow the instructions on the Challenge Details page regarding
                       id={id}
                       challengeId={challengeId}
                       error={fpState.error}
-                      // Bind the set functions to the FilePicker's ID
+                      // Bind the set functions to the FilePicker s ID
                       setError={_.partial(setFilePickerError, id)}
                       fileName={fpState.fileName}
                       uploadProgress={fpState.uploadProgress}
@@ -256,7 +259,8 @@ Please follow the instructions on the Challenge Details page regarding
                       userId={userId}
                       submitForm={submitForm}
                       isChallengeBelongToTopgearGroup={isChallengeBelongToTopgearGroup}
-                    />)}
+                    />
+                  )}
                 </div>
                 { isChallengeBelongToTopgearGroup
                   ? (
@@ -271,7 +275,8 @@ Please follow the instructions on the Challenge Details page regarding
                           support@topcoder.com
                         </a>
                       }
-                    </p>)
+                    </p>
+                  )
                   : (
                     <p>
                     If you are having trouble uploading your file, please send
@@ -284,7 +289,8 @@ Please follow the instructions on the Challenge Details page regarding
                           support@topcoder.com
                         </a>
                       }
-                    </p>)}
+                    </p>
+                  )}
               </div>
             </div>
             <div styleName="row agree">

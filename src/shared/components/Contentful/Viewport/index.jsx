@@ -22,6 +22,7 @@ import Countdown from 'components/Contentful/Countdown';
 import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
 import ContentSlider from 'components/Contentful/ContentSlider';
+import Dropdown from 'components/Contentful/Dropdown';
 
 import Viewport from './Viewport';
 
@@ -47,6 +48,7 @@ const COMPONENTS = {
   video: Video,
   viewport: null, /* Assigned to ViewportLoader below. */
   contentSlider: ContentSlider,
+  dropdown: Dropdown,
 };
 
 const THEMES = {
@@ -128,6 +130,7 @@ function ViewportContentLoader(props) {
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
+  preview: false,
   spaceName: null,
   environment: null,
   themeName: 'Column',
@@ -141,7 +144,7 @@ ViewportContentLoader.propTypes = {
   viewportId: PT.string.isRequired,
   contentIds: PT.arrayOf(PT.string.isRequired).isRequired,
   extraStylesForContainer: PT.shape(),
-  preview: PT.bool.isRequired,
+  preview: PT.bool,
   spaceName: PT.string,
   environment: PT.string,
   themeName: PT.string,

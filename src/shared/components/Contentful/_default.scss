@@ -11,25 +11,42 @@
   h1 {
     font-size: 42px;
     line-height: 50px;
+
+    @include roboto-light;
   }
 
   h2 {
     font-size: 36px;
     line-height: 45px;
+
+    @include roboto-light;
   }
 
   h3 {
     font-size: 28px;
     line-height: 35px;
+
+    @include roboto-regular;
   }
 
   h4 {
     font-size: 20px;
-    line-height: 30px;
+    line-height: 35px;
+
+    @include roboto-regular;
   }
 
   h5 {
     font-size: 15px;
     line-height: 25px;
+
+    @include roboto-bold;
+  }
+
+  h6 {
+    font-size: 13px;
+    line-height: 25px;
+
+    @include roboto-bold;
   }
 }

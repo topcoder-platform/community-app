@@ -67,6 +67,7 @@ class FilestackFilePicker extends React.Component {
       setFileName,
       setFilestackData,
       challengeId,
+      isChallengeBelongToTopgearGroup,
     } = this.props;
     // container doesn't seem to get echoed from Drag and Drop
     const cont = container || config.FILESTACK.SUBMISSION_CONTAINER;
@@ -75,7 +76,7 @@ class FilestackFilePicker extends React.Component {
 
     setFileName(filename);
 
-    setFilestackData({
+    const fileStackData = {
       filename,
       challengeId,
       fileUrl,
@@ -83,7 +84,13 @@ class FilestackFilePicker extends React.Component {
       size,
       key,
       container: cont,
-    });
+    };
+
+    if (isChallengeBelongToTopgearGroup) {
+      fileStackData.fileType = 'url';
+    }
+
+    setFilestackData(fileStackData);
   }
 
   onClickPick() {
@@ -297,7 +304,8 @@ Uploading:
               role="button"
               styleName="drop-zone-mask"
               tabIndex={0}
-            />)}
+            />
+          )}
         </div>
         {
           error

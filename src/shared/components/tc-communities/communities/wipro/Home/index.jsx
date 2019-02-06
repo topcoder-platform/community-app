@@ -57,7 +57,8 @@ function PrevArrow({
       onClick={onClick}
       className={`${style.PrevArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
       type="button"
-    />);
+    />
+  );
 }
 
 function NextArrow({
@@ -69,7 +70,8 @@ function NextArrow({
       onClick={onClick}
       className={`${style.NextArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
       type="button"
-    />);
+    />
+  );
 }
 
 PrevArrow.defaultProps = {

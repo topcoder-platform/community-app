@@ -37,7 +37,7 @@ class Accordion extends Component {
         <ul className={theme.titleList}>
           {React.Children.map(children, (child, index) => (
             <li
-              key={index}
+              key={parseInt(index.toString(), 10)}
               className={
                 `${theme.titleListItem} ${index === selectedIndex ? theme.titleListItemSelected : ''}`
               }

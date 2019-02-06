@@ -48,11 +48,16 @@ function Header(props) {
     profile,
     theme,
     logoutRedirect,
+    meta,
   } = props;
 
   const BASE_URL = config.URL.BASE;
   const AUTH_URL = config.URL.AUTH;
   const normalizedProfile = profile && _.clone(profile);
+  const isZurichCompetitor = (profile && profile.groups) ? _.intersection(
+    _.map(profile.groups, 'id'),
+    meta.competitorsGroupIds,
+  ) : [];
 
   let userSubMenu;
   if (profile) {
@@ -182,6 +187,27 @@ Join Topcoder
   );
 
   const currentPage = pageId === 'home' ? '' : pageId;
+  const menuIterator = (item) => {
+    if (communityId === 'zurich' && item.url === '/challenges?communityId=zurich' && !isZurichCompetitor.length) {
+      return null;
+    }
+    return (
+      <li
+        className={theme.menuItem}
+        key={item.url}
+      >
+        <NavLink
+          activeClassName={theme.menuLinkActive}
+          className={theme.menuLink}
+          openNewTab={item.openNewTab}
+          isActive={() => `/${currentPage}` === item.url}
+          to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
+        >
+          {item.title}
+        </NavLink>
+      </li>
+    );
+  };
 
   return (
     <div>
@@ -226,22 +252,7 @@ Toggle navigation
               <Menu id={menuItems[0].navigationMenu} baseUrl={baseUrl} />
             ) : (
               <ul className={theme.menu}>
-                {_.map(menuItems, item => (
-                  <li
-                    className={theme.menuItem}
-                    key={item.url}
-                  >
-                    <NavLink
-                      activeClassName={theme.menuLinkActive}
-                      className={theme.menuLink}
-                      openNewTab={item.openNewTab}
-                      isActive={() => `/${currentPage}` === item.url}
-                      to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
-                    >
-                      {item.title}
-                    </NavLink>
-                  </li>
-                ))}
+                {_.map(menuItems, menuIterator)}
               </ul>
             )
           }
@@ -322,6 +333,7 @@ Header.propTypes = {
   profile: PT.shape({}),
   theme: PT.shape().isRequired,
   logoutRedirect: PT.string,
+  meta: PT.shape().isRequired,
 };
 
 export default themr('CommunityHeader', style)(Header);
