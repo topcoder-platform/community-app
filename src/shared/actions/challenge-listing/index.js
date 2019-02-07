@@ -24,7 +24,7 @@ const PAGE_SIZE = 50;
 /**
  * The maximum number of review opportunities to fetch in a single API call.
  */
-const REVIEW_OPPORTUNITY_PAGE_SIZE = 10;
+const REVIEW_OPPORTUNITY_PAGE_SIZE = 1000;
 
 /**
  * Private. Loads from the backend all challenges matching some conditions.

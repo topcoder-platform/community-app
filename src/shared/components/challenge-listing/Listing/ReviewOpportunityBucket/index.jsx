@@ -62,7 +62,7 @@ export default function ReviewOpportunityBucket({
   ));
 
   const placeholders = [];
-  if (loading || keepPlaceholders) {
+  if ((loading || keepPlaceholders) && cards.length === 0) {
     for (let i = 0; i < 8; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
