@@ -31,7 +31,6 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
-import { USER_GROUP_MAXAGE } from 'config';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -127,7 +126,6 @@ class ChallengeDetailPageContainer extends React.Component {
     const {
       auth,
       challenge,
-      communitiesList,
       getCommunitiesList,
       loadChallengeDetails,
       challengeId,
@@ -161,10 +159,7 @@ class ChallengeDetailPageContainer extends React.Component {
       loadChallengeDetails(auth, challengeId);
     }
 
-    if (!communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
-      getCommunitiesList(auth);
-    }
+    getCommunitiesList(auth);
 
     if (_.isEmpty(challengeSubtracksMap)) {
       getSubtracks();
