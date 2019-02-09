@@ -187,7 +187,8 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: develop
+              only: 
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           filters:
@@ -201,6 +202,7 @@ workflows:
             branches:
               only:
                 - hot-fixes
+                - listing-improve
                 - develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.

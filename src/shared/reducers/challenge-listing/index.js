@@ -17,7 +17,7 @@ import sidebar, { factory as sidebarFactory } from './sidebar';
 const { fireErrorMessage } = errors;
 const { filter: Filter } = challengeUtils;
 
-function onGetAllActiveChallengesDone(state, { error, payload }) {
+function onGetActiveChallengesDone(state, { error, payload }) {
   if (error) {
     logger.error(payload);
     return state;
@@ -30,8 +30,15 @@ function onGetAllActiveChallengesDone(state, { error, payload }) {
    * challenges with IDs matching any challenges loaded now as active. */
   const ids = new Set();
   loaded.forEach(item => ids.add(item.id));
+
+  /* Fetching 0 page of active challenges also drops any active challenges
+   * loaded to the state before. */
+  const filter = state.lastRequestedPageOfActiveChallenges
+    ? item => !ids.has(item.id)
+    : item => !ids.has(item.id) && item.status !== 'ACTIVE';
+
   const challenges = state.challenges
-    .filter(item => item.status !== 'ACTIVE' && !ids.has(item.id))
+    .filter(filter)
     .concat(loaded);
 
   return {
@@ -39,11 +46,55 @@ function onGetAllActiveChallengesDone(state, { error, payload }) {
     challenges,
     lastUpdateOfActiveChallenges: Date.now(),
     loadingActiveChallengesUUID: '',
+    meta: payload.meta,
   };
 }
 
-function onGetAllActiveChallengesInit(state, { payload }) {
-  return { ...state, loadingActiveChallengesUUID: payload };
+function onGetActiveChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingActiveChallengesUUID: payload.uuid,
+    lastRequestedPageOfActiveChallenges: payload.page,
+  };
+}
+
+function onGetRestActiveChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingRestActiveChallengesUUID: payload.uuid,
+  };
+}
+
+function onGetRestActiveChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, challenges: loaded } = payload;
+  if (uuid !== state.loadingRestActiveChallengesUUID) return state;
+
+  /* Once all active challenges are fetched from the API, we remove from the
+   * store any active challenges stored there previously, and also any
+   * challenges with IDs matching any challenges loaded now as active. */
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+
+  /* Fetching 0 page of active challenges also drops any active challenges
+   * loaded to the state before. */
+  const filter = item => !ids.has(item.id);
+
+  const challenges = state.challenges
+    .filter(filter)
+    .concat(loaded);
+
+  return {
+    ...state,
+    challenges,
+    allActiveChallengesLoaded: true,
+    lastUpdateOfActiveChallenges: Date.now(),
+    lastRequestedPageOfActiveChallenges: -1,
+    loadingRestActiveChallengesUUID: '',
+  };
 }
 
 /**
@@ -74,42 +125,6 @@ function onGetChallengeTagsDone(state, action) {
     ...state,
     challengeTags: action.error ? [] : action.payload,
     loadingChallengeTags: false,
-  };
-}
-
-function onGetDraftChallengesInit(state, { payload: { uuid, page } }) {
-  return {
-    ...state,
-    lastRequestedPageOfDraftChallenges: page,
-    loadingDraftChallengesUUID: uuid,
-  };
-}
-
-function onGetDraftChallengesDone(state, { error, payload }) {
-  if (error) {
-    logger.error(payload);
-    return state;
-  }
-  const { uuid, challenges: loaded } = payload;
-  if (uuid !== state.loadingDraftChallengesUUID) return state;
-
-  const ids = new Set();
-  loaded.forEach(item => ids.add(item.id));
-
-  /* Fetching 0 page of draft challenges also drops any draft challenges
-   * loaded to the state before. */
-  const filter = state.lastRequestedPageOfDraftChallenges
-    ? item => !ids.has(item.id)
-    : item => !ids.has(item.id) && item.status !== 'DRAFT';
-
-  const challenges = state.challenges
-    .filter(filter).concat(loaded);
-
-  return {
-    ...state,
-    allDraftChallengesLoaded: loaded.length === 0,
-    challenges,
-    loadingDraftChallengesUUID: '',
   };
 }
 
@@ -175,9 +190,7 @@ function onSelectCommunity(state, { payload }) {
       * the code simple we just reset them each time a filter is modified.
       * (This community selection defines community-specific filter for
       * challenges). */
-    allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
-    lastRequestedPageOfDraftChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
   };
 }
@@ -213,9 +226,7 @@ function onSetFilter(state, { payload }) {
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
-    allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
-    lastRequestedPageOfDraftChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
   };
 }
@@ -317,19 +328,26 @@ function create(initialState) {
   return handleActions({
     [a.dropChallenges]: state => ({
       ...state,
-      allDraftChallengesLoaded: false,
+      allActiveChallengesLoaded: false,
       allPastChallengesLoaded: false,
       allReviewOpportunitiesLoaded: false,
       challenges: [],
-      lastRequestedPageOfDraftChallenges: -1,
+      lastRequestedPageOfActiveChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
       lastRequestedPageOfReviewOpportunities: -1,
       lastUpdateOfActiveChallenges: 0,
       loadingActiveChallengesUUID: '',
-      loadingDraftChallengesUUID: '',
+      loadingRestActiveChallengesUUID: '',
       loadingPastChallengesUUID: '',
       loadingReviewOpportunitiesUUID: '',
       reviewOpportunities: [],
+      meta: {
+        allChallengesCount: 0,
+        myChallengesCount: 0,
+        ongoingChallengesCount: 0,
+        openChallengesCount: 0,
+        totalCount: 0,
+      },
     }),
 
     [a.expandTag]: (state, { payload }) => ({
@@ -337,8 +355,11 @@ function create(initialState) {
       expandedTags: [...state.expandedTags, payload],
     }),
 
-    [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
-    [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
+    [a.getActiveChallengesInit]: onGetActiveChallengesInit,
+    [a.getActiveChallengesDone]: onGetActiveChallengesDone,
+
+    [a.getRestActiveChallengesInit]: onGetRestActiveChallengesInit,
+    [a.getRestActiveChallengesDone]: onGetRestActiveChallengesDone,
 
     [a.getChallengeSubtracksInit]: state => ({
       ...state,
@@ -351,9 +372,6 @@ function create(initialState) {
       loadingChallengeTags: true,
     }),
     [a.getChallengeTagsDone]: onGetChallengeTagsDone,
-
-    [a.getDraftChallengesInit]: onGetDraftChallengesInit,
-    [a.getDraftChallengesDone]: onGetDraftChallengesDone,
 
     [a.getPastChallengesInit]: onGetPastChallengesInit,
     [a.getPastChallengesDone]: onGetPastChallengesDone,
@@ -375,7 +393,7 @@ function create(initialState) {
       },
     }),
   }, _.defaults(_.clone(initialState) || {}, {
-    allDraftChallengesLoaded: false,
+    allActiveChallengesLoaded: false,
     allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 
@@ -390,13 +408,13 @@ function create(initialState) {
 
     keepPastPlaceholders: false,
 
-    lastRequestedPageOfDraftChallenges: -1,
+    lastRequestedPageOfActiveChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
     lastUpdateOfActiveChallenges: 0,
 
     loadingActiveChallengesUUID: '',
-    loadingDraftChallengesUUID: '',
+    loadingRestActiveChallengesUUID: '',
     loadingPastChallengesUUID: '',
     loadingReviewOpportunitiesUUID: '',
 
@@ -413,6 +431,14 @@ function create(initialState) {
       data: [],
       loadingUuid: '',
       timestamp: 0,
+    },
+
+    meta: {
+      allChallengesCount: 0,
+      myChallengesCount: 0,
+      ongoingChallengesCount: 0,
+      openChallengesCount: 0,
+      totalCount: 0,
     },
   }));
 }

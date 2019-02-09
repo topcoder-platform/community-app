@@ -69,7 +69,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     >
       <Connect(SidebarContainer) />
     </div>
-    <Listing
+    <Connect(Listing)
       activeBucket="abc"
       auth={Object {}}
       challenges={Array []}
@@ -78,10 +78,10 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       expandedTags={Array []}
       extraBucket={null}
       filterState={Object {}}
-      loadMoreDraft={null}
+      loadMoreActive={null}
       loadMorePast={null}
       loadMoreReviewOpportunities={null}
-      loadingDraftChallenges={false}
+      loadingActiveChallenges={false}
       loadingPastChallenges={false}
       newChallengeDetails={false}
       openChallengesInNewTabs={false}
