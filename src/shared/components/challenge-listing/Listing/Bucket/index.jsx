@@ -109,12 +109,12 @@ export default function Bucket({
         }}
       />
       {cards}
-      {placeholders}
       {
         !expandable && loadMore && !loading ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }
+      {placeholders}
       {
         (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
           <a
