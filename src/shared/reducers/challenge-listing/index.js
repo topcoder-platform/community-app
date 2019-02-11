@@ -17,42 +17,6 @@ import sidebar, { factory as sidebarFactory } from './sidebar';
 const { fireErrorMessage } = errors;
 const { filter: Filter } = challengeUtils;
 
-/** TODO: Inspect if the 2 actions bellow can be removed?
- * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
- * which was refactored in listing-improve
- */
-function onGetAllActiveChallengesInit(state, { payload }) {
-  return { ...state, loadingActiveChallengesUUID: payload };
-}
-function onGetAllActiveChallengesDone(state, { error, payload }) {
-  if (error) {
-    logger.error(payload);
-    return state;
-  }
-  const { uuid, challenges: loaded } = payload;
-  if (uuid !== state.loadingActiveChallengesUUID) return state;
-  /* Once all active challenges are fetched from the API, we remove from the
-   * store any active challenges stored there previously, and also any
-   * challenges with IDs matching any challenges loaded now as active. */
-  const ids = new Set();
-  loaded.forEach(item => ids.add(item.id));
-  const challenges = state.challenges
-    .filter(item => item.status !== 'ACTIVE' && !ids.has(item.id))
-    .concat(loaded);
-
-  return {
-    ...state,
-    challenges,
-    lastUpdateOfActiveChallenges: Date.now(),
-    loadingActiveChallengesUUID: '',
-  };
-}
-
-/**
- * Called when 1st page of ative challenges is loaded from `/challenges` api
- * @param {*} state
- * @param {*} param1
- */
 function onGetActiveChallengesDone(state, { error, payload }) {
   if (error) {
     logger.error(payload);
@@ -86,11 +50,6 @@ function onGetActiveChallengesDone(state, { error, payload }) {
   };
 }
 
-/**
- * Called when loading of 1st page of active challenges is started
- * @param {*} state
- * @param {*} param1
- */
 function onGetActiveChallengesInit(state, { payload }) {
   return {
     ...state,
@@ -98,6 +57,7 @@ function onGetActiveChallengesInit(state, { payload }) {
     lastRequestedPageOfActiveChallenges: payload.page,
   };
 }
+
 function onGetRestActiveChallengesInit(state, { payload }) {
   return {
     ...state,
@@ -105,11 +65,6 @@ function onGetRestActiveChallengesInit(state, { payload }) {
   };
 }
 
-/**
- * Called when all challenges are loaded
- * @param {*} state
- * @param {*} param1
- */
 function onGetRestActiveChallengesDone(state, { error, payload }) {
   if (error) {
     logger.error(payload);
@@ -399,9 +354,6 @@ function create(initialState) {
       ...state,
       expandedTags: [...state.expandedTags, payload],
     }),
-
-    [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
-    [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
 
     [a.getActiveChallengesInit]: onGetActiveChallengesInit,
     [a.getActiveChallengesDone]: onGetActiveChallengesDone,

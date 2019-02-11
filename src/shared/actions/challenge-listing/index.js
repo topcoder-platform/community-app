@@ -80,50 +80,6 @@ function getActiveChallengesInit(uuid, page, frontFilter) {
   return { uuid, page, frontFilter };
 }
 
-/** TODO: Inspect if the 2 actions bellow can be removed?
- * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
- * which was refactored in listing-improve
- */
-function getAllActiveChallengesInit(uuid) {
-  return uuid;
-}
-function getAllActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
-  const service = getService(tokenV3);
-  const calls = [
-    getAll(params => service.getChallenges(filter, params)),
-  ];
-  let user;
-  if (tokenV3) {
-    user = decodeToken(tokenV3).handle;
-    // Handle any errors on this endpoint so that the non-user specific challenges
-    // will still be loaded.
-    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
-      .catch(() => ({ challenges: [] }))));
-  }
-  return Promise.all(calls).then(([ch, uch]) => {
-    /* uch array contains challenges where the user is participating in
-@@ -111,8 +124,8 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
-     * challenges in an efficient way. */
-    if (uch) {
-      const map = {};
-      uch.forEach((item) => { map[item.id] = item; });
-      ch.forEach((item) => {
-        if (map[item.id]) {
-          /* It is fine to reassing, as the array we modifying is created just
-           * above within the same function. */
-          /* eslint-disable no-param-reassign */
-          item.users[user] = true;
-          item.userDetails = map[item.id].userDetails;
-          /* eslint-enable no-param-reassign */
-        }
-      });
-    }
-
-    return { uuid, challenges: ch };
-  });
-}
-
 /**
  * Gets 1 page of active challenges (including marathon matches) from the backend.
  * Once this action is completed any active challenges saved to the state before
@@ -190,19 +146,10 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
   });
 }
 
-/**
- * Init loading of all challenges
- * @param {String} uuid
- */
 function getRestActiveChallengesInit(uuid) {
   return { uuid };
 }
 
-/**
- * Loading all challenges
- * @param {*} uuid
- * @param {*} tokenV3
- */
 function getRestActiveChallengesDone(uuid, tokenV3) {
   const filter = { status: 'ACTIVE' };
   const service = getService(tokenV3);
@@ -329,9 +276,6 @@ function getSrmsDone(uuid, handle, params, tokenV3) {
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
-
-    GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
-    GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
 
     GET_ACTIVE_CHALLENGES_INIT: getActiveChallengesInit,
     GET_ACTIVE_CHALLENGES_DONE: getActiveChallengesDone,
