@@ -40,6 +40,7 @@ export default function Dashboard({
   unregisterFromChallenge,
   userGroups,
   xlBadge,
+  errorLoadingRss,
 }) {
   return (
     <div styleName="container">
@@ -81,7 +82,7 @@ export default function Dashboard({
           unregisterFromChallenge={unregisterFromChallenge}
           userGroups={userGroups}
         />
-        <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />
+        {!errorLoadingRss && <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />}
       </div>
     </div>
   );
@@ -122,4 +123,5 @@ Dashboard.propTypes = {
   unregisterFromChallenge: PT.func.isRequired,
   userGroups: PT.arrayOf(PT.string).isRequired,
   xlBadge: PT.string.isRequired,
+  errorLoadingRss: PT.bool.isRequired,
 };
