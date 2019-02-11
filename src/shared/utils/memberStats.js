@@ -22,7 +22,6 @@ export const shouldShowGraph = ({ track, subTrack }) => {
         case 'CONTENT_CREATION':
         case 'SPECIFICATION':
         case 'RIA_BUILD_COMPETITION':
-        case 'CODE':
           return true;
         default:
           return false;
@@ -209,6 +208,7 @@ export function getDetails(stats, track, subTrack) {
   switch (track) {
     case 'DEVELOP':
       switch (subTrack) {
+        case 'CODE':
         case 'FIRST_2_FINISH':
         case 'BUG_BUNT':
           detailConfig = [
@@ -246,7 +246,6 @@ export function getDetails(stats, track, subTrack) {
           break;
         case 'UI_PROTOTYPE_COMPETITION':
         case 'ASSEMBLY_COMPETITION':
-        case 'CODE':
         default:
           detailConfig = [
             {
