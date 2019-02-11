@@ -94,8 +94,10 @@ export default function ChallengeListing(props) {
         extraBucket={extraBucket}
         filterState={props.filterState}
         keepPastPlaceholders={keepPastPlaceholders}
+        loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
         loadingReviewOpportunities={props.loadingReviewOpportunities}
+        loadMoreDraft={props.loadMoreDraft}
         loadMorePast={props.loadMorePast}
         loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
@@ -109,8 +111,6 @@ export default function ChallengeListing(props) {
         setFilterState={props.setFilterState}
         setSort={props.setSort}
         sorts={props.sorts}
-        loadMoreActive={props.loadMoreActive}
-        loadingActiveChallenges={props.loadingChallenges}
       />
     );
   }
@@ -185,6 +185,7 @@ ChallengeListing.defaultProps = {
   communityName: null,
   extraBucket: null,
   hideTcLinksInFooter: false,
+  loadMoreDraft: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
@@ -194,7 +195,6 @@ ChallengeListing.defaultProps = {
   prizeMode: 'money-usd',
   expandedTags: [],
   expandTag: null,
-  loadMoreActive: null,
 };
 
 ChallengeListing.propTypes = {
@@ -213,8 +213,10 @@ ChallengeListing.propTypes = {
   keepPastPlaceholders: PT.bool.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
+  loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
+  loadMoreDraft: PT.func,
   loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
@@ -229,5 +231,4 @@ ChallengeListing.propTypes = {
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
   auth: PT.shape(),
-  loadMoreActive: PT.func,
 };
