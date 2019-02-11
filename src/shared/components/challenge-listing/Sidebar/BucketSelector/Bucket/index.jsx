@@ -5,45 +5,23 @@
 import _ from 'lodash';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import PT from 'prop-types';
-import { connect } from 'react-redux';
 import React from 'react';
 import './style.scss';
 
 const Filter = challengeUtils.filter;
 
-function Bucket({
+export default function Bucket({
   active,
   bucket,
   challenges,
   disabled,
   onClick,
-  allActiveChallengesLoaded,
-  meta,
 }) {
-  let countEl;
+  let count;
   if (!bucket.hideCount && !disabled) {
     const filter = Filter.getFilterFunction(bucket.filter);
-    let count;
-    if (allActiveChallengesLoaded) {
-      count = challenges.filter(filter).length;
-    } else {
-      switch (bucket.name) {
-        case 'All Challenges':
-          count = meta.allChallengesCount;
-          break;
-        case 'My Challenges':
-          count = meta.myChallengesCount;
-          break;
-        case 'Open for registration':
-          count = meta.openChallengesCount;
-          break;
-        case 'Ongoing challenges':
-          count = meta.ongoingChallengesCount;
-          break;
-        default:
-      }
-    }
-    countEl = (
+    count = challenges.filter(filter).length;
+    count = (
       <span styleName="right">
         {count}
       </span>
@@ -60,7 +38,7 @@ function Bucket({
     return (
       <div styleName="active bucket">
         {bucket.name}
-        {countEl}
+        {count}
         {error}
       </div>
     );
@@ -75,7 +53,7 @@ function Bucket({
       tabIndex={0}
     >
       {bucket.name}
-      {countEl}
+      {count}
       {error}
     </div>
   );
@@ -85,7 +63,6 @@ Bucket.defaultProps = {
   active: false,
   disabled: false,
   onClick: _.noop,
-  meta: {},
 };
 
 Bucket.propTypes = {
@@ -98,20 +75,4 @@ Bucket.propTypes = {
   challenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,
   onClick: PT.func,
-  meta: PT.shape(),
-  allActiveChallengesLoaded: PT.bool.isRequired,
 };
-
-const mapStateToProps = (state) => {
-  const cl = state.challengeListing;
-  return {
-    allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
-    meta: cl.meta,
-  };
-};
-
-const BucketContainer = connect(
-  mapStateToProps,
-)(Bucket);
-
-export default BucketContainer;
