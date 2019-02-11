@@ -364,4 +364,3 @@ export default createActions({
     SET_SORT: (bucket, sort) => ({ bucket, sort }),
   },
 });
-

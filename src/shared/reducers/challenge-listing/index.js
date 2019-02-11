@@ -519,4 +519,3 @@ export function factory(req) {
 
 /* Default reducer with empty initial state. */
 export default redux.combineReducers(create(), { filterPanel, sidebar });
-
