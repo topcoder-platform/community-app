@@ -2,11 +2,10 @@
  * Child component of Settings/Profile/AboutMe renders "About Me" section of profile setting page.
  */
 /* global document */
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import { getAllCountryObjects, getCountryObjFromAlpha3 } from 'utils/countries';
 
@@ -23,7 +22,6 @@ export default class AboutMe extends React.Component {
 
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onUploadPhoto = this.onUploadPhoto.bind(this);
-    this.onDeletePhoto = this.onDeletePhoto.bind(this);
 
     this.onUpdateBio = this.onUpdateBio.bind(this);
     this.onUpdateCountry = this.onUpdateCountry.bind(this);
@@ -60,24 +58,6 @@ export default class AboutMe extends React.Component {
     const fileInput = document.querySelector('#change-image-input');
     const file = fileInput.files[0];
     uploadPhoto(handle, tokenV3, file);
-  }
-
-  onDeletePhoto(e) {
-    const {
-      deletePhoto,
-      profile,
-      profileState,
-      tokenV3,
-    } = this.props;
-    e.preventDefault();
-    if (profileState.deletingPhoto) {
-      return;
-    }
-    const newProfile = _.clone(profile);
-    delete newProfile.photoURL;
-    delete newProfile.groups;
-    newProfile.tracks = newProfile.tracks || [];
-    deletePhoto(newProfile, tokenV3);
   }
 
   onUpdateBio(e) {
@@ -146,25 +126,6 @@ your profile image
                   }
                 </PrimaryButton>
                 <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
-                {
-                  profile.photoURL
-                  && (
-                  <div>
-                    <SecondaryButton
-                      onClick={this.onDeletePhoto}
-                      disabled={uploadingPhoto || deletingPhoto}
-                      theme={{ button: Styles['file-delete'] }}
-                    >
-                      {
-                        deletingPhoto && <i className="fa fa-spinner fa-spin" />
-                      }
-                      {
-                        !deletingPhoto && 'Delete'
-                      }
-                    </SecondaryButton>
-                  </div>
-                  )
-                }
               </div>
             </div>
           </div>
@@ -226,5 +187,4 @@ AboutMe.propTypes = {
   onUpdateCountry: PT.func.isRequired,
   onUpdateBio: PT.func.isRequired,
   uploadPhoto: PT.func.isRequired,
-  deletePhoto: PT.func.isRequired,
 };
