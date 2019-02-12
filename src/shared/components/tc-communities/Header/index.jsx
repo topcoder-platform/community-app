@@ -253,12 +253,37 @@ Toggle navigation
             ) : (
               <ul className={theme.menu}>
                 {_.map(menuItems, menuIterator)}
+                {
+                  profile && communityId === 'zurich' ? (
+                    <li
+                      className={theme.extraMenuItem}
+                      key="myProjects"
+                    >
+                      <NavLink
+                        to="https://connect.topcoder.com/"
+                        className={theme.menuLink}
+                      >
+                      My Projects
+                      </NavLink>
+                    </li>
+                  ) : null
+                }
               </ul>
             )
           }
         </div>
         <div className={theme.userWrap}>
           {loginState}
+          {
+            profile && communityId === 'zurich' ? (
+              <NavLink
+                to="https://connect.topcoder.com/"
+                className={theme.extraUserLink}
+              >
+              My Projects
+              </NavLink>
+            ) : null
+          }
           { !hideSearch && (
           <div className={theme.search}>
             <IconSearch />
