@@ -209,6 +209,8 @@ Join Topcoder
     );
   };
 
+  const isDev = process.env.NODE_ENV !== 'production';
+
   return (
     <div>
       <header className={theme.container}>
@@ -260,7 +262,7 @@ Toggle navigation
                       key="myProjects"
                     >
                       <NavLink
-                        to="https://connect.topcoder.com/"
+                        to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
                         className={theme.menuLink}
                       >
                       My Projects
@@ -277,7 +279,7 @@ Toggle navigation
           {
             profile && communityId === 'zurich' ? (
               <NavLink
-                to="https://connect.topcoder.com/"
+                to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
                 className={theme.extraUserLink}
               >
               My Projects
