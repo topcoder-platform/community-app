@@ -80,7 +80,7 @@ const challengesHandler = async (event, url, detailPage) => {
 };
 
 // Serve challenge listing page like: /challenges?xxx=yyy
-workbox.routing.registerRoute(/\/challenges(\/)?(\?.*)?$/, async ({ event, url }) => {
+/* workbox.routing.registerRoute(/\/challenges(\/)?(\?.*)?$/, async ({ event, url }) => {
   url.pathname = '/challenges';
   url.search = ''; // Challenges listing page has full client side support
   return challengesHandler(event, url);
@@ -93,7 +93,7 @@ workbox.routing.registerRoute(/\/challenges\/\d+(\/)?(.*)/, async ({ event, url 
     url.pathname = url.pathname.substring(0, url.pathname.length - 1);
   }
   return challengesHandler(event, url, true);
-}, 'GET');
+}, 'GET'); */
 
 // Cache fonts
 // (Note when deployed in production, the static assets will be served by cloudfront CDN)
