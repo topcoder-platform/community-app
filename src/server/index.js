@@ -54,7 +54,7 @@ const EXTRA_SCRIPTS = [
         const installingWorker = reg.installing;
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'activated') {
-            location.reload();
+            
           }
         };
       };
