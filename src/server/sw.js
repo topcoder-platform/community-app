@@ -51,7 +51,7 @@ function expirationPlugin(maxEntries) {
   });
 }
 
-const challengesHandler = async (event, url, detailPage) => {
+/* const challengesHandler = async (event, url, detailPage) => {
   let { request } = event;
 
   request = new Request(url.href, { ...request, mode: 'same-origin' });
@@ -77,7 +77,7 @@ const challengesHandler = async (event, url, detailPage) => {
   // we can simply switch to use the cached '/challenges' page as entrypoint to render.
   request = new Request('/challenges', { ...request, mode: 'same-origin' });
   return strategy.makeRequest({ event, request });
-};
+}; */
 
 // Serve challenge listing page like: /challenges?xxx=yyy
 /* workbox.routing.registerRoute(/\/challenges(\/)?(\?.*)?$/, async ({ event, url }) => {
