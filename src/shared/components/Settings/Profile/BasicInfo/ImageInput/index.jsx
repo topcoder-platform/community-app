@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import loadImage from 'blueimp-load-image';
 
 
@@ -144,25 +144,6 @@ export default class ImageInput extends React.Component {
               }
             </PrimaryButton>
             <input type="file" name="image" accept="image/*" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
-            {
-              newBasicInfo.photoURL
-              && (
-                <div>
-                  <Button
-                    onClick={this.onDeletePhoto}
-                    disabled={uploadingPhoto || deletingPhoto}
-                    theme={{ button: Styles['file-delete'] }}
-                  >
-                    {
-                      deletingPhoto && <i className="fa fa-spinner fa-spin" />
-                    }
-                    {
-                      !deletingPhoto && 'Delete avatar'
-                    }
-                  </Button>
-                </div>
-              )
-            }
           </div>
         </div>
       </div>
