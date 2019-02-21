@@ -14,23 +14,13 @@ jobs:
       - run:
           name: Installation of build dependencies.
           command: |
-            apk add --no-cache bash
-
-      - run:
-          name: Set some ENV vars
-          command: |
-            echo export TEST_VAR_01=\"This is TEST_VAR_01\" >> "$BASH_ENV"
-            echo export TEST_VAR_02=\"This is TEST_VAR_02\" >> "$BASH_ENV"
+            apk update
+            apk add --no-cache bash openssl curl
+            apk upgrade
 
       # Restoration of node_modules from cache.
       - restore_cache:
           key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
-
-      - run:
-          name: Check ENV vars
-          command: |
-            echo $TEST_VAR_01
-            echo $TEST_VAR_02
 
       # Build of Docker image.
       - run:
@@ -49,9 +39,18 @@ jobs:
           command: |
             apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
-
       - deploy:
-          command: ./deploy.sh DEV $CIRCLE_SHA1
+          name: Running MasterScript
+          command: |
+            git clone --branch devsts https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            cp ./../buildscript/master_deploy.sh .
+            cp ./../buildscript/buildenv.sh .
+            cp ./../buildscript/awsconfiguration.sh .
+            ./awsconfiguration.sh DEV
+            source awsenvconf            
+            ./buildenv.sh -e DEV -b dev_communityapp_deployvar.json
+            source buildenvvar
+            ./master_deploy.sh -d ECS -e DEV -t $CIRCLE_SHA1 -s dev_communityapp_taskvar.json
   # Build & Deploy against testing backend
   "build-test":
     docker:
@@ -187,7 +186,9 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: develop
+              only: 
+                - develop
+                - develop_masterscript
       # This is alternate dev env for parallel testing
       - "build-test":
           filters:
