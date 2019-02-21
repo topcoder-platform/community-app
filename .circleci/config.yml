@@ -42,7 +42,7 @@ jobs:
       - deploy:
           name: Running MasterScript
           command: |
-            git clone --branch devsts https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
             cp ./../buildscript/master_deploy.sh .
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
