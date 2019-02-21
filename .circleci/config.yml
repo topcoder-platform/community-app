@@ -50,7 +50,7 @@ jobs:
             source awsenvconf            
             ./buildenv.sh -e DEV -b dev_communityapp_deployvar.json
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t $CIRCLE_SHA1 -s dev_communityapp_taskvar.json
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar.json -i communityapp
   # Build & Deploy against testing backend
   "build-test":
     docker:
