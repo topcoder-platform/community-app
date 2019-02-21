@@ -184,6 +184,7 @@ workflows:
     jobs:
       # Development builds are executed on "new-develop" branch only.
       - "build-dev":
+          context : org-global
           filters:
             branches:
               only: 
