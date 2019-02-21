@@ -48,9 +48,9 @@ jobs:
             cp ./../buildscript/awsconfiguration.sh .
             ./awsconfiguration.sh DEV
             source awsenvconf            
-            ./buildenv.sh -e DEV -b dev_communityapp_deployvar.json
+            ./buildenv.sh -e DEV -b dev_communityapp_deployvar
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar.json -i communityapp
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
   # Build & Deploy against testing backend
   "build-test":
     docker:
