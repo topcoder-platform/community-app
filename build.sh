@@ -6,7 +6,7 @@ set -eo pipefail
 # "development" or "production".
 
 # Builds Docker image of the app.
-TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_ECS_CLUSTER:$CIRCLE_SHA1
+TAG="communityapp:latest"
 docker build -t $TAG .
 
 # Copies "node_modules" from the created image, if necessary for caching.
