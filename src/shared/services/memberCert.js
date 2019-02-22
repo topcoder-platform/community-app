@@ -5,7 +5,7 @@
 
 import { services } from 'topcoder-react-lib';
 
-const { getApiV3 } = services.api;
+const { getApi } = services.api;
 
 class MemberCertService {
   /**
@@ -13,7 +13,7 @@ class MemberCertService {
    */
   constructor(tokenV3) {
     this.private = {
-      api: getApiV3(tokenV3),
+      api: getApi('V3', tokenV3),
       tokenV3,
     };
   }
