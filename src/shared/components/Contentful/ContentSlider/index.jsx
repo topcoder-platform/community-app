@@ -23,6 +23,8 @@ function ContentSliderItemsLoader(props) {
     autoStart,
     duration,
     theme,
+    sliderId,
+    containerStyle,
   } = props;
 
   return (
@@ -30,7 +32,13 @@ function ContentSliderItemsLoader(props) {
       entryIds={ids}
       preview={preview}
       render={data => (
-        <ContentSlider autoStart={autoStart} duration={duration} theme={THEMES[theme]}>
+        <ContentSlider
+          autoStart={autoStart}
+          duration={duration}
+          theme={THEMES[theme]}
+          id={sliderId}
+          containerStyle={containerStyle}
+        >
           {
             ids.map(itemId => (
               <ContentSliderItem
@@ -52,14 +60,17 @@ function ContentSliderItemsLoader(props) {
 ContentSliderItemsLoader.defaultProps = {
   autoStart: true,
   duration: 5, // 5sec
+  containerStyle: null,
 };
 
 ContentSliderItemsLoader.propTypes = {
+  sliderId: PT.string.isRequired,
   ids: PT.arrayOf(PT.string).isRequired,
   preview: PT.bool.isRequired,
   autoStart: PT.bool,
   duration: PT.number,
   theme: PT.string.isRequired,
+  containerStyle: PT.shape(),
 };
 
 export default function ContentfulSlider(props) {
@@ -77,11 +88,13 @@ export default function ContentfulSlider(props) {
         if (!fields) return null;
         return (
           <ContentSliderItemsLoader
+            sliderId={id}
             ids={_.map(fields.items, 'sys.id')}
             preview={preview}
             autoStart={fields.autoStart}
             duration={fields.duration}
             theme={fields.theme}
+            containerStyle={fields.extraStylesForContainer}
           />
         );
       }}
