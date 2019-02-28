@@ -195,6 +195,7 @@ workflows:
               only:
                 - hot-fixes
                 - listing-improve
+                - qa-track
       # This is beta env for production soft releases
       - "build-prod-beta":
           filters:
