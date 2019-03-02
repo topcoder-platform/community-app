@@ -635,6 +635,7 @@ export const normalizeAchievements = achievements => achievements.map((achieveme
 
   if (desc.indexOf('Member of the Month') !== -1) {
     desc = 'Member of the Month';
+    isStudio = false;
   }
 
   return { ...achievement, description: desc, isStudio };
