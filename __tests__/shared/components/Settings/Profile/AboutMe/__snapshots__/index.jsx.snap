@@ -68,31 +68,6 @@ exports[`renders about me section of profile setting page correctly 1`] = `
             onChange={[Function]}
             type="file"
           />
-          <div>
-            <ThemedButton
-              active={false}
-              composeAdhocTheme="deeply"
-              composeContextTheme="softly"
-              disabled={false}
-              enforceA={false}
-              mapThemrProps={[Function]}
-              onClick={[Function]}
-              onMouseDown={null}
-              openNewTab={false}
-              replace={false}
-              size={null}
-              theme={
-                Object {
-                  "button": "src-shared-components-Settings-Profile-AboutMe-styles___file-delete___2yJs15",
-                }
-              }
-              themePriority="adhoc-context-default"
-              to={null}
-              type="button"
-            >
-              Delete
-            </ThemedButton>
-          </div>
         </div>
       </div>
     </div>

@@ -201,15 +201,14 @@ workflows:
             branches:
               only:
                 - hot-fixes
+                - develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
           filters:
             branches:
-              ignore: /.*/
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*/
-
+              only:
+                - master
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:

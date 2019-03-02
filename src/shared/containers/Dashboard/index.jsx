@@ -186,6 +186,7 @@ export class DashboardPageContainer extends React.Component {
       urlQuery,
       userGroups,
       xlBadge,
+      errorLoadingRss,
     } = this.props;
 
     if (authenticating) return <LoadingIndicator />;
@@ -227,6 +228,7 @@ export class DashboardPageContainer extends React.Component {
         unregisterFromChallenge={id => unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
         userGroups={userGroups.map(x => x.id)}
         xlBadge={xlBadge}
+        errorLoadingRss={errorLoadingRss}
       />
     );
   }
@@ -247,6 +249,7 @@ DashboardPageContainer.defaultProps = {
   tcBlogTimestamp: 0,
   tokenV2: null,
   tokenV3: null,
+  errorLoadingRss: false,
 };
 
 DashboardPageContainer.propTypes = {
@@ -300,6 +303,7 @@ DashboardPageContainer.propTypes = {
   urlQuery: PT.string.isRequired,
   userGroups: PT.arrayOf(PT.object).isRequired,
   xlBadge: PT.string.isRequired,
+  errorLoadingRss: PT.bool,
 };
 
 function mapStateToProps(state, props) {
@@ -313,7 +317,7 @@ function mapStateToProps(state, props) {
 
   const dash = state.page.dashboard;
 
-  const tcBlog = state.rss[TOPCODER_BLOG_ID] || {};
+  const tcBlog = state.rss ? (state.rss[TOPCODER_BLOG_ID] || {}) : {};
   return {
     achievements: achievements.data,
     achievementsLoading: Boolean(achievements.loadingUuid),
@@ -351,6 +355,7 @@ function mapStateToProps(state, props) {
     urlQuery: props.location.search.slice(1),
     userGroups: _.get(state.auth.profile, 'groups', []),
     xlBadge: dash.xlBadge,
+    errorLoadingRss: state.rss.errorLoadingRss,
   };
 }
 
