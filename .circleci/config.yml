@@ -55,13 +55,18 @@ jobs:
   "build-test":
     docker:
       - image: docker:17.11.0-ce-git
+        environment:
+          ENV: $BASH_ENV
     steps:
       # Initialization.
       - checkout
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: apk add --no-cache bash
+          command: |
+            apk update
+            apk add --no-cache bash openssl curl
+            apk upgrade
 
       # Restoration of node_modules from cache.
       - restore_cache:
@@ -70,7 +75,7 @@ jobs:
       # Build of Docker image.
       - run:
           name: Build of Docker image
-          command: ./build.sh test
+          command: ./build.sh
 
       # Caching node modules.
       - save_cache:
@@ -84,10 +89,18 @@ jobs:
           command: |
             apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
-
       - deploy:
-          command: ./deploy.sh TEST $CIRCLE_SHA1
-
+          name: Running MasterScript
+          command: |
+            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            cp ./../buildscript/master_deploy.sh .
+            cp ./../buildscript/buildenv.sh .
+            cp ./../buildscript/awsconfiguration.sh .
+            ./awsconfiguration.sh DEV
+            source awsenvconf            
+            ./buildenv.sh -e DEV -b test_communityapp_deployvar
+            source buildenvvar
+            ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
   # Build & Deploy against testing backend
   "build-prod-beta":
     docker:
@@ -189,7 +202,6 @@ workflows:
             branches:
               only: 
                 - develop
-                - develop_masterscript
       # This is alternate dev env for parallel testing
       - "build-test":
           filters:
@@ -206,7 +218,6 @@ workflows:
                 - hot-fixes
                 - develop
                 - performance-project
-                - develop_masterscript
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
