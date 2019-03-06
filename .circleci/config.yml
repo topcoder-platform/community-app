@@ -204,7 +204,8 @@ workflows:
                 - develop
       # This is alternate dev env for parallel testing
       - "build-test":
-          filters:
+          context : org-global
+        filters:
             branches:
               only:
                 - hot-fixes
@@ -212,6 +213,7 @@ workflows:
                 - develop_masterscript
       # This is beta env for production soft releases
       - "build-prod-beta":
+          context : org-global
           filters:
             branches:
               only:
