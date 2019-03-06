@@ -146,7 +146,7 @@ jobs:
             cp ./../buildscript/master_deploy.sh .
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
-            ./awsconfiguration.sh DEV
+            ./awsconfiguration.sh PROD
             source awsenvconf            
             ./buildenv.sh -e PROD -b beta_communityapp_deployvar
             source buildenvvar
