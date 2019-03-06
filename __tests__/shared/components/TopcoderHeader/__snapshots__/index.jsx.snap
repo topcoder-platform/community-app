@@ -128,6 +128,28 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
+              "icon": <IconNavBookCP
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+            Object {
+              "enforceA": true,
+              "icon": <IconNavBookData
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -147,28 +169,6 @@ exports[`Default render 1`] = `
               />,
               "link": "https://www.topcoder-dev.com/community/development",
               "title": "Development",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookData
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
-              "title": "Data Science",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookCP
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
-              "title": "Competitive Programming",
             },
             Object {
               "enforceA": true,
@@ -404,6 +404,28 @@ exports[`Render with open menu 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
+              "icon": <IconNavBookCP
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+            Object {
+              "enforceA": true,
+              "icon": <IconNavBookData
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -423,28 +445,6 @@ exports[`Render with open menu 1`] = `
               />,
               "link": "https://www.topcoder-dev.com/community/development",
               "title": "Development",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookData
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
-              "title": "Data Science",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookCP
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
-              "title": "Competitive Programming",
             },
             Object {
               "enforceA": true,
@@ -688,6 +688,28 @@ exports[`Render with specified profile 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
+              "icon": <IconNavBookCP
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+            Object {
+              "enforceA": true,
+              "icon": <IconNavBookData
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -707,28 +729,6 @@ exports[`Render with specified profile 1`] = `
               />,
               "link": "https://www.topcoder-dev.com/community/development",
               "title": "Development",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookData
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
-              "title": "Data Science",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookCP
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
-              "title": "Competitive Programming",
             },
             Object {
               "enforceA": true,

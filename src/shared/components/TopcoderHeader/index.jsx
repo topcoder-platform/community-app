@@ -67,6 +67,16 @@ const MENU = [{
   }, */
     {
       enforceA: true,
+      icon: <IconNavBookCP />,
+      link: `${BASE_URL}/community/competitive-programming`,
+      title: 'Competitive Programming',
+    }, {
+      enforceA: true,
+      icon: <IconNavBookData />,
+      link: `${BASE_URL}/community/data-science/`,
+      title: 'Data Science',
+    }, {
+      enforceA: true,
       icon: <IconNavBookDesign />,
       link: `${BASE_URL}/community/design`,
       title: 'Design',
@@ -75,16 +85,6 @@ const MENU = [{
       icon: <IconNavBoolDevelop />,
       link: `${BASE_URL}/community/development`,
       title: 'Development',
-    }, {
-      enforceA: true,
-      icon: <IconNavBookData />,
-      link: `${BASE_URL}/community/data-science/`,
-      title: 'Data Science',
-    }, {
-      enforceA: true,
-      icon: <IconNavBookCP />,
-      link: `${BASE_URL}/community/competitive-programming`,
-      title: 'Competitive Programming',
     }, {
       enforceA: true,
       icon: <IconNavBoolDevelop />,
