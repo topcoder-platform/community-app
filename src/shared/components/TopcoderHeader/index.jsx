@@ -56,7 +56,7 @@ const MENU = [{
     title: 'Competitive Programming',
   }],
 }, {
-  title: 'Learn',
+  title: 'Tracks',
   url: `${BASE_URL}/community/learn`,
   items: [
   /* {
@@ -66,6 +66,16 @@ const MENU = [{
     title: 'Getting Started',
   }, */
     {
+      enforceA: true,
+      icon: <IconNavBookCP />,
+      link: `${BASE_URL}/community/competitive-programming`,
+      title: 'Competitive Programming',
+    }, {
+      enforceA: true,
+      icon: <IconNavBookData />,
+      link: `${BASE_URL}/community/data-science/`,
+      title: 'Data Science',
+    }, {
       enforceA: true,
       icon: <IconNavBookDesign />,
       link: `${BASE_URL}/community/design`,
@@ -77,14 +87,9 @@ const MENU = [{
       title: 'Development',
     }, {
       enforceA: true,
-      icon: <IconNavBookData />,
-      link: `${BASE_URL}/community/data-science/`,
-      title: 'Data Science',
-    }, {
-      enforceA: true,
-      icon: <IconNavBookCP />,
-      link: `${BASE_URL}/community/competitive-programming`,
-      title: 'Competitive Programming',
+      icon: <IconNavBoolDevelop />,
+      link: `${BASE_URL}/community/qa`,
+      title: 'QA',
     }],
 }, {
   title: 'Community',
