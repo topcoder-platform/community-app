@@ -56,7 +56,7 @@ const MENU = [{
     title: 'Competitive Programming',
   }],
 }, {
-  title: 'Learn',
+  title: 'Tracks',
   url: `${BASE_URL}/community/learn`,
   items: [
   /* {
@@ -85,6 +85,11 @@ const MENU = [{
       icon: <IconNavBookCP />,
       link: `${BASE_URL}/community/competitive-programming`,
       title: 'Competitive Programming',
+    }, {
+      enforceA: true,
+      icon: <IconNavBoolDevelop />,
+      link: `${BASE_URL}/community/qa`,
+      title: 'QA',
     }],
 }, {
   title: 'Community',
