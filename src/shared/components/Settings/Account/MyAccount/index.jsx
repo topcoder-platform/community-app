@@ -124,8 +124,8 @@ export default class MyAccount extends React.Component {
       newState.currentEmail = newState.newEmail;
 
       profile.email = newState.newEmail;
-      profile.successUrl = `${config.URL.BASE}/account/email-verification/success`;
-      profile.failUrl = `${config.URL.BASE}/account/email-verification/failure`;
+      profile.successUrl = `${config.URL.BASE}/settings/account/email-verification/success`;
+      profile.failUrl = `${config.URL.BASE}/settings/account/email-verification/failure`;
       updateProfile(omit(profile, ['groups']), tokenV3);
     }
 
