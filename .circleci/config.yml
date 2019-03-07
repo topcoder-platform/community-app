@@ -97,7 +97,8 @@ jobs:
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
             ./awsconfiguration.sh DEV
-            source awsenvconf            
+            source awsenvconf
+            cat awsenvconf
             ./buildenv.sh -e DEV -b test_communityapp_deployvar
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
