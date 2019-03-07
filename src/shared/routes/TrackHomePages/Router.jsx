@@ -40,6 +40,11 @@ export default function Router({ base }) {
           error404={<Error404 />}
           id="1yqABWBQ44aUoGKYISCaOU"
         />
+        <ContentfulRoute
+          path="/community/qa"
+          error404={<Error404 />}
+          id="1lcweqzhQf7Cawpnc3BbnG"
+        />
         <Error404 />
       </Switch>
       <Footer />

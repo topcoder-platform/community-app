@@ -33,7 +33,7 @@ exports[`Default render 1`] = `
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
-        data-menu="Learn"
+        data-menu="Tracks"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -41,7 +41,7 @@ exports[`Default render 1`] = `
         <Link
           to="https://www.topcoder-dev.com/community/learn"
         >
-          Learn
+          Tracks
         </Link>
       </li>
       <li
@@ -128,6 +128,28 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
+              "icon": <IconNavBookCP
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+            Object {
+              "enforceA": true,
+              "icon": <IconNavBookData
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -150,28 +172,17 @@ exports[`Default render 1`] = `
             },
             Object {
               "enforceA": true,
-              "icon": <IconNavBookData
+              "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
-              "title": "Data Science",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookCP
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
-              "title": "Competitive Programming",
+              "link": "https://www.topcoder-dev.com/community/qa",
+              "title": "QA",
             },
           ],
-          "title": "Learn",
+          "title": "Tracks",
           "url": "https://www.topcoder-dev.com/community/learn",
         },
         Object {
@@ -287,7 +298,7 @@ exports[`Render with open menu 1`] = `
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
-        data-menu="Learn"
+        data-menu="Tracks"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -295,7 +306,7 @@ exports[`Render with open menu 1`] = `
         <Link
           to="https://www.topcoder-dev.com/community/learn"
         >
-          Learn
+          Tracks
         </Link>
       </li>
       <li
@@ -393,6 +404,28 @@ exports[`Render with open menu 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
+              "icon": <IconNavBookCP
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+            Object {
+              "enforceA": true,
+              "icon": <IconNavBookData
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -415,28 +448,17 @@ exports[`Render with open menu 1`] = `
             },
             Object {
               "enforceA": true,
-              "icon": <IconNavBookData
+              "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
-              "title": "Data Science",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookCP
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
-              "title": "Competitive Programming",
+              "link": "https://www.topcoder-dev.com/community/qa",
+              "title": "QA",
             },
           ],
-          "title": "Learn",
+          "title": "Tracks",
           "url": "https://www.topcoder-dev.com/community/learn",
         },
         Object {
@@ -552,7 +574,7 @@ exports[`Render with specified profile 1`] = `
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
-        data-menu="Learn"
+        data-menu="Tracks"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -560,7 +582,7 @@ exports[`Render with specified profile 1`] = `
         <Link
           to="https://www.topcoder-dev.com/community/learn"
         >
-          Learn
+          Tracks
         </Link>
       </li>
       <li
@@ -666,6 +688,28 @@ exports[`Render with specified profile 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
+              "icon": <IconNavBookCP
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+            Object {
+              "enforceA": true,
+              "icon": <IconNavBookData
+                height="32"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              />,
+              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -688,28 +732,17 @@ exports[`Render with specified profile 1`] = `
             },
             Object {
               "enforceA": true,
-              "icon": <IconNavBookData
+              "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
-              "title": "Data Science",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavBookCP
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
-              "title": "Competitive Programming",
+              "link": "https://www.topcoder-dev.com/community/qa",
+              "title": "QA",
             },
           ],
-          "title": "Learn",
+          "title": "Tracks",
           "url": "https://www.topcoder-dev.com/community/learn",
         },
         Object {
