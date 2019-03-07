@@ -101,7 +101,7 @@ jobs:
             ./buildenv.sh -e DEV -b test_communityapp_deployvar
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-  # Build & Deploy against testing backend
+  # Build & Deploy against prod api backend
   "build-prod-beta":
     docker:
       - image: docker:17.11.0-ce-git
