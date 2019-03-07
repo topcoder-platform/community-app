@@ -203,10 +203,7 @@ $tc-link-visited: #0c4e98;
 
   p,
   em,
-  strong {
-    font-weight: bold;
-  }
-
+  strong,
   a {
     @include roboto-regular;
 
