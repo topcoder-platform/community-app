@@ -147,7 +147,8 @@ jobs:
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
             ./awsconfiguration.sh PROD
-            source awsenvconf               
+            source awsenvconf
+            cat awsenvconf
             ./buildenv.sh -e PROD -b beta_communityapp_deployvar
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar -i communityapp
