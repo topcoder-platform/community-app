@@ -203,6 +203,7 @@ workflows:
               only:
                 - hot-fixes
                 - develop
+                - qa-track
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
