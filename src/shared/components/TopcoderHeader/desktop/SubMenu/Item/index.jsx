@@ -10,6 +10,7 @@ import './style.scss';
 export default function Item({
   currentSubMenuTitle,
   enforceA,
+  openNewTab,
   icon,
   link,
   title,
@@ -27,7 +28,7 @@ export default function Item({
       role="button"
       tabIndex={0}
     >
-      <Link enforceA={enforceA} to={link}>
+      <Link enforceA={enforceA} openNewTab={openNewTab} to={link}>
         {icon}
         {title}
       </Link>
@@ -38,10 +39,12 @@ export default function Item({
 
 Item.defaultProps = {
   enforceA: false,
+  openNewTab: false
 };
 
 Item.propTypes = {
   enforceA: PT.bool,
+  openNewTab: PT.bool,
   currentSubMenuTitle: PT.string.isRequired,
   icon: PT.node.isRequired,
   link: PT.string.isRequired,
