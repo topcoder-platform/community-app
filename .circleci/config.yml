@@ -194,7 +194,6 @@ workflows:
             branches:
               only:
                 - hot-fixes
-                - performance-project
       # This is beta env for production soft releases
       - "build-prod-beta":
           filters:
@@ -202,7 +201,6 @@ workflows:
               only:
                 - hot-fixes
                 - develop
-                - performance-project
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
