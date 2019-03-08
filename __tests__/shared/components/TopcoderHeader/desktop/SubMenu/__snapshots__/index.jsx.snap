@@ -9,6 +9,7 @@ exports[`Matches shallow shapshot 1`] = `
     closeMenu={[Function]}
     currentSubMenuTitle=""
     enforceA={false}
+    openNewTab={false}
     icon="icon url"
     link="menu url"
     title="title"
