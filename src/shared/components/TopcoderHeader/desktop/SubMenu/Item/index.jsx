@@ -39,7 +39,7 @@ export default function Item({
 
 Item.defaultProps = {
   enforceA: false,
-  openNewTab: false
+  openNewTab: false,
 };
 
 Item.propTypes = {
