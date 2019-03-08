@@ -14,18 +14,28 @@ jobs:
       - run:
           name: Installation of build dependencies.
           command: |
-            apk update
-            apk add --no-cache bash openssl curl
-            apk upgrade
+            apk add --no-cache bash
+
+      - run:
+          name: Set some ENV vars
+          command: |
+            echo export TEST_VAR_01=\"This is TEST_VAR_01\" >> "$BASH_ENV"
+            echo export TEST_VAR_02=\"This is TEST_VAR_02\" >> "$BASH_ENV"
 
       # Restoration of node_modules from cache.
       - restore_cache:
           key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
+      - run:
+          name: Check ENV vars
+          command: |
+            echo $TEST_VAR_01
+            echo $TEST_VAR_02
+
       # Build of Docker image.
       - run:
           name: Build of Docker image
-          command: ./build.sh
+          command: ./build.sh development
 
       # Caching node modules.
       - save_cache:
@@ -39,34 +49,20 @@ jobs:
           command: |
             apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
+
       - deploy:
-          name: Running MasterScript
-          command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
-            ./awsconfiguration.sh DEV
-            source awsenvconf            
-            ./buildenv.sh -e DEV -b dev_communityapp_deployvar
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+          command: ./deploy.sh DEV $CIRCLE_SHA1
   # Build & Deploy against testing backend
   "build-test":
     docker:
       - image: docker:17.11.0-ce-git
-        environment:
-          ENV: $BASH_ENV
     steps:
       # Initialization.
       - checkout
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: |
-            apk update
-            apk add --no-cache bash openssl curl
-            apk upgrade
+          command: apk add --no-cache bash
 
       # Restoration of node_modules from cache.
       - restore_cache:
@@ -75,7 +71,7 @@ jobs:
       # Build of Docker image.
       - run:
           name: Build of Docker image
-          command: ./build.sh
+          command: ./build.sh test
 
       # Caching node modules.
       - save_cache:
@@ -89,34 +85,21 @@ jobs:
           command: |
             apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
+
       - deploy:
-          name: Running MasterScript
-          command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
-            ./awsconfiguration.sh DEV
-            source awsenvconf
-            ./buildenv.sh -e DEV -b test_communityapp_deployvar
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-  # Build & Deploy against prod api backend
+          command: ./deploy.sh TEST $CIRCLE_SHA1
+
+  # Build & Deploy against testing backend
   "build-prod-beta":
     docker:
       - image: docker:17.11.0-ce-git
-        environment:
-          ENV: $BASH_ENV
     steps:
       # Initialization.
       - checkout
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: |
-            apk update
-            apk add --no-cache bash openssl curl
-            apk upgrade
+          command: apk add --no-cache bash
 
       # Restoration of node_modules from cache.
       - restore_cache:
@@ -125,7 +108,7 @@ jobs:
       # Build of Docker image.
       - run:
           name: Build of Docker image
-          command: ./build.sh
+          command: ./build.sh production_beta
 
       # Caching node modules.
       - save_cache:
@@ -139,45 +122,31 @@ jobs:
           command: |
             apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
+
       - deploy:
-          name: Running MasterScript
-          command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
-            ./awsconfiguration.sh PROD
-            source awsenvconf
-            ./buildenv.sh -e PROD -b beta_communityapp_deployvar
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar -i communityapp
+          command: ./deploy.sh PRODBETA $CIRCLE_SHA1
+
   # Build & Deploy against production backend
   "build-prod":
     docker:
-      - image: docker:17.11.0-ce-git
-        environment:
-          ENV: $BASH_ENV
+      - image: docker:17.06.1-ce-git
     steps:
       # Initialization.
       - checkout
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: |
-            apk update
-            apk add --no-cache bash openssl curl
-            apk upgrade
+          command: apk add --no-cache bash
 
-      # Restoration of node_modules from cache.
+      # Restoring node_modules from the previous build.
       - restore_cache:
           key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
-      # Build of Docker image.
+      # Building.
       - run:
           name: Build of Docker image
-          command: ./build.sh
+          command: ./build.sh production
 
-      # Caching node modules.
       - save_cache:
           key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
           paths:
@@ -189,18 +158,10 @@ jobs:
           command: |
             apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
+
       - deploy:
-          name: Running MasterScript
-          command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
-            ./awsconfiguration.sh PROD
-            source awsenvconf
-            ./buildenv.sh -e PROD -b prod_communityapp_deployvar
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+          command: ./deploy.sh PROD $CIRCLE_SHA1
+
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
@@ -224,32 +185,27 @@ workflows:
     jobs:
       # Development builds are executed on "new-develop" branch only.
       - "build-dev":
-          context : org-global
           filters:
             branches:
-              only: 
-                - develop
+              only: develop
       # This is alternate dev env for parallel testing
       - "build-test":
-          context : org-global
           filters:
-              branches:
-                only:
-                  - hot-fixes
-                  - develop_masterscript                  
+            branches:
+              only:
+                - hot-fixes
+                - performance-project
       # This is beta env for production soft releases
       - "build-prod-beta":
-          context : org-global
           filters:
             branches:
               only:
                 - hot-fixes
                 - develop
-                - develop_masterscript
+                - performance-project
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
-          context : org-global
           filters:
             branches:
               only:
