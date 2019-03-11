@@ -1,5 +1,22 @@
 version: 2
 
+install_dependency: &install_dependency
+          name: Installation of build and deployment dependencies.
+          command: |
+            apk update
+            apk add --no-cache bash openssl curl
+            apk upgrade
+            apk add --no-cache jq py-pip sudo
+            sudo pip install awscli --upgrade
+            
+install_deploysuite: &install_deploysuite
+          name: Installation of install_deploysuite.
+          command: |
+            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            cp ./../buildscript/master_deploy.sh .
+            cp ./../buildscript/buildenv.sh .
+            cp ./../buildscript/awsconfiguration.sh .
+
 jobs:
   # Build & Deploy against development backend
   "build-dev":
@@ -11,21 +28,23 @@ jobs:
       # Initialization.
       - checkout
       - setup_remote_docker
-      - run:
-          name: Installation of build dependencies.
-          command: |
-            apk update
-            apk add --no-cache bash openssl curl
-            apk upgrade
-
+      - run: *install_dependency
+      - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache:
           key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
       # Build of Docker image.
+      - run: 
+          name: "configuring environment"
+          command: |
+            ./awsconfiguration.sh DEV
+            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar      
       - run:
           name: Build of Docker image
-          command: ./build.sh
+          command: |
+            source buildenvvar
+            ./build.sh
 
       # Caching node modules.
       - save_cache:
@@ -34,21 +53,10 @@ jobs:
             - node_modules
 
       # Deployment.
-      - run:
-          name: Installing AWS client
-          command: |
-            apk add --no-cache jq py-pip sudo
-            sudo pip install awscli --upgrade
       - deploy:
           name: Running MasterScript
           command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
-            ./awsconfiguration.sh DEV
-            source awsenvconf            
-            ./buildenv.sh -e DEV -b dev_communityapp_deployvar
+            source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
   # Build & Deploy against testing backend
@@ -229,14 +237,14 @@ workflows:
             branches:
               only: 
                 - develop
+                - develop_masterscript 
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
           filters:
               branches:
                 only:
-                  - hot-fixes
-                  - develop_masterscript                  
+                  - hot-fixes                
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -245,7 +253,6 @@ workflows:
               only:
                 - hot-fixes
                 - develop
-                - develop_masterscript
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
