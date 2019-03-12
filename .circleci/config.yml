@@ -178,7 +178,7 @@ workflows:
             branches:
               only: 
                 - develop
-                - develop_masterscript
+
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
