@@ -22,7 +22,6 @@ install_deploysuite: &install_deploysuite
             cp ./../buildscript/master_deploy.sh .
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
-
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
@@ -36,7 +35,6 @@ build_docker_image: &build_docker_image
           command: |
             source buildenvvar
             ./build.sh
-
 jobs:
   # Build & Deploy against development backend
   "build-dev":
@@ -149,7 +147,6 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
-
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
