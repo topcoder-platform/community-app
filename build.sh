@@ -6,7 +6,6 @@ set -eo pipefail
 # "development" or "production".
 # Builds Docker image of the app.
 TAG="communityapp:latest"
-#docker build -t $TAG .
 
 docker build -t $TAG \
   --build-arg AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID \
