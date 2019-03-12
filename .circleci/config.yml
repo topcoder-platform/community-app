@@ -59,13 +59,13 @@ jobs:
       # Caching node modules.
       - save_cache: *save_cache_settings
       # Deployment.
-
       - deploy:
           name: Running MasterScript
           command: |
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            
   # Build & Deploy against testing backend
   "build-test":
     <<: *defaults
@@ -83,7 +83,7 @@ jobs:
             ./awsconfiguration.sh DEV
             ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar            
       # Build of Docker image.
-      - run: *build_docker_image 
+      - run: *build_docker_image
       # Caching node modules.
       - save_cache: *save_cache_settings
       # Deployment.
@@ -93,6 +93,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
+            
   # Build & Deploy against prod api backend
   "build-prod-beta":
     <<: *defaults
@@ -109,19 +110,18 @@ jobs:
           command: |
             ./awsconfiguration.sh PROD
             ./buildenv.sh -e PROD -b beta_communityapp_buildvar,beta_communityapp_deployvar
-
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
       - save_cache: *save_cache_settings
       # Deployment.
-
       - deploy:
           name: Running MasterScript
           command: |
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar -i communityapp
+            
   # Build & Deploy against production backend
   "build-prod":
     <<: *defaults
@@ -129,7 +129,6 @@ jobs:
       # Initialization.
       - checkout
       - setup_remote_docker
-
       - run: *install_dependency
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
@@ -190,13 +189,13 @@ workflows:
                   - develop_masterscript
       # This is beta env for production soft releases
       - "build-prod-beta":
-          context : org-global      
+          context : org-global
           filters:
             branches:
               only:
                 - hot-fixes
                 - develop
-                - develop_masterscript
+                - performance-project
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
