@@ -10,6 +10,7 @@ import Carousel from 'nuka-carousel';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 import { isomorphy } from 'topcoder-react-utils';
+import { fixStyle } from 'utils/contentful';
 
 import ArrowNext from 'assets/images/arrow_right.svg';
 import ArrowPrev from 'assets/images/arrow-left.svg';
@@ -44,7 +45,7 @@ class ContentSlider extends Component {
 
   render() {
     const {
-      children, theme, autoStart, duration,
+      children, theme, autoStart, duration, id, containerStyle,
     } = this.props;
     const { currentSlide } = this.state;
     const decorators = [];
@@ -74,7 +75,11 @@ class ContentSlider extends Component {
     });
 
     return (
-      <div className={theme.container} id="slider">
+      <div
+        className={theme.container}
+        id={id}
+        style={fixStyle(containerStyle)}
+      >
         <CarouselInject
           beforeSlide={(currSlide, endSlide) => {
             if (isomorphy.isClientSide()) {
@@ -107,9 +112,11 @@ ContentSlider.defaultProps = {
   theme: {},
   autoStart: true,
   duration: 5, // 5sec
+  containerStyle: null,
 };
 
 ContentSlider.propTypes = {
+  id: PT.string.isRequired,
   children: PT.node.isRequired,
   autoStart: PT.bool,
   duration: PT.number,
@@ -118,6 +125,7 @@ ContentSlider.propTypes = {
     content: PT.string,
     control: PT.string,
   }),
+  containerStyle: PT.shape(),
 };
 
 export default themr('Contentful-Slider', defaultTheme)(ContentSlider);

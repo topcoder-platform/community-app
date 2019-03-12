@@ -59,6 +59,7 @@ jobs:
       # Caching node modules.
       - save_cache: *save_cache_settings
       # Deployment.
+
       - deploy:
           name: Running MasterScript
           command: |
@@ -114,6 +115,7 @@ jobs:
       # Caching node modules.
       - save_cache: *save_cache_settings
       # Deployment.
+
       - deploy:
           name: Running MasterScript
           command: |
@@ -127,6 +129,7 @@ jobs:
       # Initialization.
       - checkout
       - setup_remote_docker
+
       - run: *install_dependency
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
@@ -147,6 +150,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
@@ -170,23 +174,20 @@ workflows:
     jobs:
       # Development builds are executed on "new-develop" branch only.
       - "build-dev":
-          context : org-global
           filters:
             branches:
               only: 
                 - develop
-                - develop_masterscript 
+                - develop_masterscript
       # This is alternate dev env for parallel testing
       - "build-test":
-          context : org-global
           filters:
               branches:
                 only:
                   - hot-fixes  
-                  - develop_masterscript               
+                  - develop_masterscript
       # This is beta env for production soft releases
       - "build-prod-beta":
-          context : org-global
           filters:
             branches:
               only:
@@ -196,7 +197,6 @@ workflows:
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
-          context : org-global
           filters:
             branches:
               only:

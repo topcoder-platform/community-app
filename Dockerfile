@@ -86,7 +86,6 @@ ENV TC_M2M_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET
 ENV TC_M2M_AUDIENCE=$TC_M2M_AUDIENCE
 ENV TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE
 
-
 ################################################################################
 # Testing and build of the application inside the container.
 
