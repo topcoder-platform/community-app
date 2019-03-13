@@ -55,7 +55,7 @@ export default class BasicInfo extends ConsentComponent {
         country: '',
         primaryInterestInTopcoder: '',
         currentLocation: '',
-        birthDate: '',
+        birthDate: null,
         userId: '',
         description: '',
         otherLangName: null,
@@ -341,7 +341,10 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
       }
       if (_.has(value, 'birthDate')) {
-        newBasicInfo.birthDate = moment(value.birthDate);
+        const newDate = moment(value.birthDate).utc();
+        if (newDate.isValid()) {
+          newBasicInfo.birthDate = newDate;
+        }
       }
       if (_.has(value, 'competitionCountryCode')) {
         newBasicInfo.competitionCountryCode = value.competitionCountryCode;
