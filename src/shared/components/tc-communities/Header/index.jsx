@@ -69,6 +69,7 @@ function Header(props) {
         link: `${BASE_URL}/members/${normalizedProfile.handle}`,
         title: 'My Profile',
       }, {
+        openNewTab: true,
         icon: <IconNavWallet />,
         link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
         title: 'Payments',
