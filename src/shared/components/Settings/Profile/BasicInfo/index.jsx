@@ -71,7 +71,6 @@ export default class BasicInfo extends ConsentComponent {
         }],
         homeCountryCode: null,
         competitionCountryCode: null,
-        photoURL: '',
         tracks: [],
       },
     };
@@ -383,11 +382,6 @@ export default class BasicInfo extends ConsentComponent {
       if (_.has(value, 'lastName')) {
         newBasicInfo.lastName = value.lastName;
       }
-      if (_.has(value, 'photoURL')) {
-        newBasicInfo.photoURL = value.photoURL;
-      } else {
-        newBasicInfo.photoURL = profile.photoURL;
-      }
       if (_.has(value, 'primaryInterestInTopcoder')) {
         newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
       }
@@ -419,7 +413,6 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo.email = profile.email;
       newBasicInfo.homeCountryCode = profile.homeCountryCode;
       newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
-      newBasicInfo.photoURL = profile.photoURL;
       newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
       newBasicInfo.description = profile.description ? profile.description : '';
       this.setState({ newBasicInfo });
