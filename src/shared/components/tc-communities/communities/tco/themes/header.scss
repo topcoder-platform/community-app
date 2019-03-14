@@ -1,0 +1,72 @@
+/*
+  Theme for Header component used in TCO sites
+*/
+@import '~styles/mixins';
+@import './mixins';
+
+.container {
+  background-color: $header-color;
+  box-shadow: none;
+  min-height: 60px;
+}
+
+.challengeDropdown {
+  @include roboto-regular;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 25px;
+  color: $tc-white;
+  text-transform: uppercase;
+
+  :global {
+    .Select-menu-outer {
+      padding-left: 0;
+      padding-right: 0;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+
+      .Select-option {
+        @include roboto-regular;
+
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 30px;
+        text-transform: uppercase;
+        color: #47474f;
+        padding-left: 10px;
+        padding-right: 20px;
+
+        &.is-selected,
+        &:hover {
+          background-color: #dcdce0;
+        }
+      }
+    }
+  }
+
+  @include lg-to-xl {
+    border-left: none;
+    padding-left: 90px;
+  }
+}
+
+.menuWrap {
+  @include lg-to-xl {
+    max-width: $screen-lg;
+  }
+}
+
+.menuWrapOpen {
+  @include xs-to-md {
+    overflow: visible;
+  }
+}
+
+.userWrap {
+  .additionalLogos {
+    @include xs-to-sm {
+      margin: 0;
+    }
+  }
+}
