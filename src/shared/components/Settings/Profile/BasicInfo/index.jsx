@@ -276,6 +276,8 @@ export default class BasicInfo extends ConsentComponent {
       const { newBasicInfo: oldBasicInfo } = this.state;
       const newBasicInfo = { ...oldBasicInfo };
       newBasicInfo.country = country.name;
+      newBasicInfo.competitionCountryCode = country.key;
+      newBasicInfo.homeCountryCode = country.key;
       this.setState({ newBasicInfo, inputChanged: true });
     }
   }
@@ -460,6 +462,12 @@ export default class BasicInfo extends ConsentComponent {
       errorMessage,
     } = this.state;
 
+    const { lookupData } = this.props;
+    const countries = _.get(lookupData, 'countries', []).map(country => ({
+      key: country.countryCode,
+      name: country.country,
+    }));
+
     return (
       <div styleName="basic-info-container">
         {
@@ -590,7 +598,7 @@ export default class BasicInfo extends ConsentComponent {
                 <span styleName="text-required">* Required</span>
                 <Select
                   name="country"
-                  options={dropdowns.countries}
+                  options={countries}
                   value={newBasicInfo.country}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
@@ -792,7 +800,7 @@ export default class BasicInfo extends ConsentComponent {
                   </label>
                   <Select
                     name="countryId"
-                    options={dropdowns.countries}
+                    options={countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"

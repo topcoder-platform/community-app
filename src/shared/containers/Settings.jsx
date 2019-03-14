@@ -151,6 +151,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getSkillsDone(handle));
       dispatch(lookupActions.getSkillTagsInit());
       dispatch(lookupActions.getSkillTagsDone());
+      dispatch(lookupActions.getCountriesInit());
+      dispatch(lookupActions.getCountriesDone());
     } else if (settingsTab === TABS.PREFERENCES) {
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
