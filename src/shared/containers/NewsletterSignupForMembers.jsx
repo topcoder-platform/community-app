@@ -105,7 +105,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
       listId, user,
     } = this.props;
 
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members`;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}/tags`;
 
     let data = {};
     if (!this.isSubscribed) {
@@ -119,7 +119,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
       };
     }
 
-    if (this.tagsIds) data.tags = this.tagsIds;
+    if (this.tagsIds) data.tags = this.tagsIds.map(t => ({ name: t, status: 'active' }));
 
     const formData = JSON.stringify(data);
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
@@ -130,7 +130,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
       },
       body: formData,
     }).then(result => result.json()).then((dataResponse) => {
-      if (dataResponse.status === 'subscribed') {
+      if (dataResponse.status === 204) {
         // regist success
         this.setState({ signupState: SIGNUP_NEWSLETTER.SIGNEDUP });
       } else {

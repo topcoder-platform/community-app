@@ -11,6 +11,7 @@ exports[`Matches shallow shapshot 1`] = `
     enforceA={false}
     icon="icon url"
     link="menu url"
+    openNewTab={false}
     title="title"
   />
 </ul>

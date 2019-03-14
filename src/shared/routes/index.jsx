@@ -89,7 +89,7 @@ function Routes({ communityId }) {
         />
         <Route
           component={() => <TrackHomePages base="/community" />}
-          path="/community/(competitive-programming|data-science|design|development)/how-to-compete"
+          path="/community/(competitive-programming|data-science|design|development|qa)/how-to-compete"
         />
         <Topcoder />
       </Switch>

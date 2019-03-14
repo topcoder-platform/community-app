@@ -432,6 +432,16 @@ export function isValidTrack(track, subTrack) {
         case 'TEST_SUITES':
         case 'SPECIFICATION':
         case 'RIA_BUILD_COMPETITION':
+        case 'WEB_DESIGNS': // Some data in the db is wrong and returns the following under DEVELOP
+        case 'WIDGET_OR_MOBILE_SCREEN_DESIGN':
+        case 'APPLICATION_FRONT_END_DESIGN':
+        case 'PRINT_OR_PRESENTATION':
+        case 'IDEA_GENERATION':
+        case 'WIREFRAMES':
+        case 'LOGO_DESIGN':
+        case 'BANNERS_OR_ICONS':
+        case 'STUDIO_OTHER':
+        case 'FRONT_END_FLASH':
           return true;
         default:
           return false;

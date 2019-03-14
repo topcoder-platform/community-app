@@ -69,6 +69,7 @@ function Header(props) {
         link: `${BASE_URL}/members/${normalizedProfile.handle}`,
         title: 'My Profile',
       }, {
+        openNewTab: true,
         icon: <IconNavWallet />,
         link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
         title: 'Payments',
@@ -209,6 +210,8 @@ Join Topcoder
     );
   };
 
+  const isDev = process.env.NODE_ENV !== 'production';
+
   return (
     <div>
       <header className={theme.container}>
@@ -253,12 +256,37 @@ Toggle navigation
             ) : (
               <ul className={theme.menu}>
                 {_.map(menuItems, menuIterator)}
+                {
+                  profile && communityId === 'zurich' ? (
+                    <li
+                      className={theme.extraMenuItem}
+                      key="myProjects"
+                    >
+                      <NavLink
+                        to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
+                        className={theme.menuLink}
+                      >
+                      My Projects
+                      </NavLink>
+                    </li>
+                  ) : null
+                }
               </ul>
             )
           }
         </div>
         <div className={theme.userWrap}>
           {loginState}
+          {
+            profile && communityId === 'zurich' ? (
+              <NavLink
+                to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
+                className={theme.extraUserLink}
+              >
+              My Projects
+              </NavLink>
+            ) : null
+          }
           { !hideSearch && (
           <div className={theme.search}>
             <IconSearch />

@@ -4,10 +4,9 @@
 
 import _ from 'lodash';
 import actions from 'actions/rss';
-import { logger, errors } from 'topcoder-react-lib';
+import { logger } from 'topcoder-react-lib';
 import { handleActions } from 'redux-actions';
 
-const { fireErrorMessage } = errors;
 
 /**
  * Removes a feed from the state, which also silently cancels any pending data
@@ -58,8 +57,10 @@ function onGetInit(state, action) {
 function onGetDone(state, { error, payload }) {
   if (error) {
     logger.error('Failed to load RSS feed', payload);
-    fireErrorMessage('ERROR: Failed to load RSS feed', '');
-    return state;
+    return {
+      ...state,
+      errorLoadingRss: true,
+    };
   }
 
   const { feed, uuid, data } = payload;

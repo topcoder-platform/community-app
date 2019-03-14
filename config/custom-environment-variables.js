@@ -27,6 +27,10 @@ module.exports = {
   SEGMENT_IO_API_KEY: 'SEGMENT_IO_API_KEY',
   SERVER_API_KEY: 'SERVER_API_KEY',
 
+  URL: {
+    COMMUNITY_APP: 'COMMUNITY_APP_URL',
+  },
+
   SECRET: {
 
     CONTENTFUL: {
