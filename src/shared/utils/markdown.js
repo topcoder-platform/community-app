@@ -14,6 +14,7 @@ import { Link } from 'topcoder-react-utils';
 import hljs from 'highlight.js';
 import ReactHtmlParser from 'react-html-parser';
 import 'highlight.js/styles/github.css';
+import tco18style from 'components/buttons/outline/tco/tco18.scss';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import NewsletterSignup from 'components/NewsletterSignup';
@@ -46,6 +47,15 @@ const customComponents = {
   NewsletterSignupForMembers: attrs => ({ type: NewsletterSignupForMembers, props: attrs }),
   Looker: attrs => ({ type: Looker, props: attrs }),
   AnchorLink: attrs => ({ type: AnchorLink, props: attrs }),
+  TCO18PrimaryButton: attrs => ({
+    type: PrimaryButton,
+    props: {
+      ...attrs,
+      theme: {
+        button: tco18style.tco18Button,
+      },
+    },
+  }),
 };
 
 /**

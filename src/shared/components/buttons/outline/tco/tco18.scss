@@ -1,0 +1,35 @@
+.tco18Button {
+  background: #1a85ff !important;
+  border-radius: 25px !important;
+  color: #fff !important;
+  display: inline-block !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  height: 50px !important;
+  line-height: 50px !important;
+  min-width: 160px !important;
+  padding: 0 30px !important;
+  text-align: center !important;
+  -webkit-transition-property: all !important;
+  -moz-transition-property: all !important;
+  -o-transition-property: all !important;
+  transition-property: all !important;
+  -webkit-transition-duration: 0.25s !important;
+  -moz-transition-duration: 0.25s !important;
+  -o-transition-duration: 0.25s !important;
+  transition-duration: 0.25s !important;
+  -webkit-transition-timing-function: linear !important;
+  -moz-transition-timing-function: linear !important;
+  -o-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
+
+  &:focus {
+    color: #23527c !important;
+    outline-offset: -2px !important;
+  }
+
+  &:hover {
+    background: #0060cd !important;
+    color: #fff !important;
+  }
+}
