@@ -1,5 +1,5 @@
 /**
- * Routing of TCO Community.
+ * Routing of TCO19 Community.
  */
 
 import _ from 'lodash';
