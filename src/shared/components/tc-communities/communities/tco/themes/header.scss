@@ -10,6 +10,12 @@
   min-height: 60px;
 }
 
+.logosWrap {
+  .logo > img {
+    height: 40px;
+  }
+}
+
 .challengeDropdown {
   @include roboto-regular;
 
