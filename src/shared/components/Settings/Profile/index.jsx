@@ -155,6 +155,9 @@ Profile.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleProfileSideTab: PT.func.isRequired,
   clearToastrNotification: PT.func.isRequired,
+  countries: PT.arrayOf({
+    PT.shape({key: PT.string, name: PT.string})
+  }).isRequired,
 };
 
 export default Profile;

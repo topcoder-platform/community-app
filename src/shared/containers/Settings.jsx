@@ -114,6 +114,9 @@ SettingsContainer.propTypes = {
   settingsPageState: PT.shape().isRequired,
   lookupData: PT.shape().isRequired,
   loadingError: PT.bool.isRequired,
+  countries: PT.arrayOf({
+    PT.shape({key: PT.string, name: PT.string})
+  }).isRequired,
 };
 
 function mapStateToProps(state) {
@@ -133,6 +136,7 @@ function mapStateToProps(state) {
     traitRequestCount: state.settings.traitRequestCount,
     userTraits: state.settings.userTraits,
     skills: state.profile.skills,
+    countries: state.members.countries,
   };
 }
 

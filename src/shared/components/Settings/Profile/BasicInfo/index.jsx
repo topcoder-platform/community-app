@@ -590,7 +590,7 @@ export default class BasicInfo extends ConsentComponent {
                 <span styleName="text-required">* Required</span>
                 <Select
                   name="country"
-                  options={dropdowns.countries}
+                  options={this.props.countries}
                   value={newBasicInfo.country}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
@@ -792,7 +792,7 @@ export default class BasicInfo extends ConsentComponent {
                   </label>
                   <Select
                     name="countryId"
-                    options={dropdowns.countries}
+                    options={this.props.countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
@@ -925,6 +925,9 @@ export default class BasicInfo extends ConsentComponent {
 }
 
 BasicInfo.propTypes = {
+  countries: PT.arrayOf({
+    PT.shape({key: PT.string, name: PT.string})
+  }).isRequired,
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
   profile: PT.shape().isRequired,
