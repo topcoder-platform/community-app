@@ -156,7 +156,7 @@ const groupAchievements = [
         specificClass: 'Successful-Challenges-100',
       },
       {
-        name: 'Two Hundred Successful Challenges',
+        name: 'Two Hundred And Fifty Successful Challenges',
         active: false,
         specificClass: 'Successful-Challenges-250',
       },
@@ -454,12 +454,6 @@ const singleAchievements = [
     id: 52,
     name: 'Digital Run Top Five',
     groupClass: 'Digital-Run-Top-5',
-    active: false,
-  },
-  {
-    id: 1,
-    name: 'Two Hundred Successful Challenges',
-    groupClass: 'Successful-Challenges-200',
     active: false,
   },
   {
