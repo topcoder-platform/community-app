@@ -11,6 +11,7 @@ import communityActions from 'actions/tc-communities';
 import shortId from 'shortid';
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
@@ -50,7 +51,7 @@ class SubmissionsPageContainer extends React.Component {
 
   render() {
     const { registrants, handle } = this.props;
-    const isRegistered = registrants.find(r => r.handle === handle);
+    const isRegistered = registrants.find(r => _.toString(r.handle) === _.toString(handle));
     if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     return (
       <SubmissionsPage
