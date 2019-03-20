@@ -34,13 +34,19 @@ export default class MyAccount extends React.Component {
       showEmailTips: false,
       focus: {
         'new-password-input': false,
+        'new-password-input-mobile': false,
         'new-email-input': false,
+        'new-email-input-mobile': false,
         'current-password-input': false,
+        'current-password-input-mobile': false,
       },
       passwordInputType: {
         'new-password-input': 'password',
+        'new-password-input-mobile': 'password',
         'new-email-input': 'text',
+        'new-email-input-mobile': 'text',
         'current-password-input': 'password',
+        'current-password-input-mobile': 'password',
       },
       newPassword: '',
       currentPassword: '',
@@ -115,6 +121,7 @@ export default class MyAccount extends React.Component {
 
     if (newState.newEmail === '' || !email.test(newState.newEmail) || newState.newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
+      newState.focus['new-email-input-mobile'] = true
       newState.showEmailTips = true;
     } else {
       newState.btnChangeEmailVisible = false;
@@ -165,6 +172,7 @@ export default class MyAccount extends React.Component {
     if (!passwordValid || updatingPassword) {
       const newState = { ...this.state };
       newState.focus['new-password-input'] = true;
+      newState.focus['new-password-input-mobile'] = true;
       newState.showNewTips = true;
       this.setState(newState);
       return;
@@ -179,7 +187,7 @@ export default class MyAccount extends React.Component {
     const newState = { ...this.state };
     newState.focus[e.target.id] = true;
 
-    if (e.target.id === 'new-email-input') {
+    if (e.target.id === 'new-email-input' || e.target.id === 'new-email-input-mobile') {
       newState.showEmailTips = true;
     }
 
@@ -190,7 +198,7 @@ export default class MyAccount extends React.Component {
     const newState = { ...this.state };
     newState.focus[e.target.id] = false;
 
-    if (e.target.id === 'new-email-input') {
+    if (e.target.id === 'new-email-input' || e.target.id === 'new-email-input-mobile') {
       newState.showEmailTips = false;
     }
 
@@ -201,9 +209,9 @@ export default class MyAccount extends React.Component {
     const newState = { ...this.state };
     newState.focus[e.target.id] = true;
 
-    if (e.target.id === 'new-password-input') {
+    if (e.target.id === 'new-password-input' || e.target.id === 'new-password-input-mobile') {
       newState.showNewTips = true;
-    } else if (e.target.id === 'current-password-input') {
+    } else if (e.target.id === 'current-password-input' || e.target.id === 'current-password-input-mobile') {
       newState.showNewTips = true;
     }
 
@@ -214,14 +222,14 @@ export default class MyAccount extends React.Component {
     const newState = { ...this.state };
     newState.focus[e.target.id] = false;
 
-    if (e.target.id === 'new-password-input') {
-      if (e.relatedTarget && e.relatedTarget.id === 'newPasswordCheckbox') {
+    if (e.target.id === 'new-password-input' || e.target.id === 'new-password-input-mobile') {
+      if (e.relatedTarget && (e.relatedTarget.id === 'newPasswordCheckbox' || e.relatedTarget.id === 'newPasswordCheckboxMobile')) {
         newState.showNewTips = true;
       } else {
         newState.showNewTips = false;
       }
-    } else if (e.target.id === 'current-password-input') {
-      if (e.relatedTarget && e.relatedTarget.id === 'currentPasswordCheckbox') {
+    } else if (e.target.id === 'current-password-input' || e.target.id === 'current-password-input-mobile') {
+      if (e.relatedTarget && (e.relatedTarget.id === 'currentPasswordCheckbox' || e.relatedTarget.id === 'currentPasswordCheckboxMobile')) {
         newState.showNewTips = true;
       } else {
         newState.showNewTips = false;
@@ -259,7 +267,7 @@ export default class MyAccount extends React.Component {
     } = this.props;
     let { newPassword, currentPassword } = this.state;
 
-    if (e.target.id === 'current-password-input') {
+    if (e.target.id === 'current-password-input' || e.target.id === 'current-password-input-mobile') {
       currentPassword = e.target.value;
       clearIncorrectPassword();
     } else {
@@ -369,8 +377,8 @@ export default class MyAccount extends React.Component {
                         <input type="hidden" />
                       </label>
                       <div styleName="validation-bar" className="form-field">
-                        <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
-                          <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" autoCapitalize="off" placeholder="New email" required />
+                        <div styleName={`password toggle-password ${focus['new-email-input-mobile'] ? 'focus' : ''}`}>
+                          <input id="new-email-input-mobile" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" autoCapitalize="off" placeholder="New email" required />
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
@@ -520,10 +528,10 @@ export default class MyAccount extends React.Component {
                               <input type="hidden" />
                             </label>
                             <div styleName="validation-bar" className="form-field">
-                              <div styleName={`password toggle-password ${focus['current-password-input'] ? 'focus' : ''}`}>
-                                <input id="current-password-input" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} name="password" type={passwordInputType['current-password-input']} placeholder="Not filled for security reasons" minLength="8" maxLength="64" required />
+                              <div styleName={`password toggle-password ${focus['current-password-input-mobile'] ? 'focus' : ''}`}>
+                                <input id="current-password-input-mobile" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} name="password" type={passwordInputType['current-password-input-mobile']} placeholder="Not filled for security reasons" minLength="8" maxLength="64" required />
                                 <label htmlFor="currentPasswordCheckbox" styleName="passwordCheckbox">
-                                  <input type="checkbox" id="currentPasswordCheckbox" styleName="currentPasswordCheckbox" onChange={() => this.toggleTypeAttribute('current-password-input')} />
+                                  <input type="checkbox" id="currentPasswordCheckboxMobile" styleName="currentPasswordCheckbox" onChange={() => this.toggleTypeAttribute('current-password-input-mobile')} />
                                   Show
                                 </label>
                               </div>
@@ -535,10 +543,10 @@ export default class MyAccount extends React.Component {
                               <input type="hidden" />
                             </label>
                             <div styleName="validation-bar" className="form-field">
-                              <div styleName={`password toggle-password ${focus['new-password-input'] ? 'focus' : ''}`}>
-                                <input id="new-password-input" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={passwordInputType['new-password-input']} placeholder="Type a new password to change it" minLength="8" maxLength="64" required />
-                                <label htmlFor="newPasswordCheckbox" styleName="passwordCheckbox">
-                                  <input type="checkbox" id="newPasswordCheckbox" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('new-password-input')} />
+                              <div styleName={`password toggle-password ${focus['new-password-input-mobile'] ? 'focus' : ''}`}>
+                                <input id="new-password-input-mobile" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={passwordInputType['new-password-input-mobile']} placeholder="Type a new password to change it" minLength="8" maxLength="64" required />
+                                <label htmlFor="newPasswordCheckboxMobile" styleName="passwordCheckbox">
+                                  <input type="checkbox" id="newPasswordCheckboxMobile" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('new-password-input-mobile')} />
                                   Show
                                 </label>
                               </div>
