@@ -121,7 +121,7 @@ export default class MyAccount extends React.Component {
 
     if (newState.newEmail === '' || !email.test(newState.newEmail) || newState.newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
-      newState.focus['new-email-input-mobile'] = true
+      newState.focus['new-email-input-mobile'] = true;
       newState.showEmailTips = true;
     } else {
       newState.btnChangeEmailVisible = false;
