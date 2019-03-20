@@ -2,4 +2,9 @@
   color: #fafafb !important;
   font-size: 15px !important;
   font-weight: 500 !important;
+  background-color: #ff6000 !important;
+
+  &:hover {
+    background-image: none !important;
+  }
 }
