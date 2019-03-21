@@ -463,6 +463,7 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo,
       formInvalid,
       errorMessage,
+      isSaving
     } = this.state;
 
     return (
@@ -916,7 +917,7 @@ export default class BasicInfo extends ConsentComponent {
         <div styleName="button-save">
           <PrimaryButton
             styleName="white-label"
-            disabled={this.isSaving}
+            disabled={isSaving}
             onClick={this.onHandleSaveBasicInfo}
           >
             {
