@@ -53,7 +53,7 @@ const newsletters = [
   // },
 ];
 
-const SAVE_DELAY = 1000;
+const SAVE_DELAY = 500;
 
 export default class EmailPreferences extends ConsentComponent {
   saveEmailPreferences = debounce(() => {
