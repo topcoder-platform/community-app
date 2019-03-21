@@ -47,9 +47,6 @@ export default class Accordion extends React.Component {
       currentItem,
     } = this.state;
     const { currentSidebarTab } = nextProps;
-    if (hasToggled && currentItem !== currentSidebarTab) {
-      this.setState({ currentItem: currentSidebarTab });
-    }
   }
 
   /*
