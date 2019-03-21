@@ -78,6 +78,7 @@ export default class BasicInfo extends ConsentComponent {
   }
 
   componentDidMount() {
+    console.log(this.props);
     const { basicInfoTrait } = this.state;
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
     this.processBasicInfo(basicInfo);
@@ -216,22 +217,27 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfoTrait.traits.data = [];
       newBasicInfoTrait.traits.data.push(newBasicInfo);
       await updateUserTrait(handle, 'basic_info', newBasicInfoTrait.traits.data, tokenV3);
+      console.log('done1');
     } else {
       const data = [];
       data.push(newBasicInfo);
       await addUserTrait(handle, 'basic_info', data, tokenV3);
+      console.log('done2');
+
     }
 
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
       await addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      console.log('done3');
     } else {
       const trait = personalizationTrait.traits.data[0];
       if (trait.userConsent !== answer) {
         const personalizationData = { userConsent: answer };
         await updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
-      }
+      console.log('done4');
+    }
     }
   }
 
@@ -459,6 +465,7 @@ export default class BasicInfo extends ConsentComponent {
       formInvalid,
       errorMessage,
     } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="basic-info-container">
@@ -481,6 +488,7 @@ export default class BasicInfo extends ConsentComponent {
         </div>
         <div styleName="form-container-default">
           <form name="basic-info-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="firstName">
@@ -602,6 +610,7 @@ export default class BasicInfo extends ConsentComponent {
                 />
               </div>
             </div>
+            </fieldset>
           </form>
         </div>
         <div styleName="sub-title second">
@@ -609,6 +618,7 @@ export default class BasicInfo extends ConsentComponent {
         </div>
         <div styleName="form-container-default">
           <form name="basic-info-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="gender">
@@ -687,6 +697,7 @@ export default class BasicInfo extends ConsentComponent {
                 <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
               </div>
             </div>
+            </fieldset>
           </form>
         </div>
         <div styleName="about-me-container-mobile">
@@ -705,6 +716,7 @@ export default class BasicInfo extends ConsentComponent {
               />
             </div>
             <form name="BasicInfoForm" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
               <div styleName="user-card">
                 <div styleName="img-container">
                   <ImageInput
@@ -869,6 +881,7 @@ export default class BasicInfo extends ConsentComponent {
                   <textarea id="description" styleName="bio-text" name="description" placeholder="short Bio" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
                 </div>
               </div>
+            </fieldset>
             </form>
           </div>
         </div>
@@ -911,7 +924,7 @@ export default class BasicInfo extends ConsentComponent {
         <div styleName="button-save">
           <PrimaryButton
             styleName="white-label"
-            disabled={false}
+            disabled={!canModifyTrait}
             onClick={this.onHandleSaveBasicInfo}
           >
             {
@@ -931,4 +944,5 @@ BasicInfo.propTypes = {
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
+  traitRequestCount: PT.number.isRequired,
 };

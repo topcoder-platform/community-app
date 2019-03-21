@@ -270,6 +270,7 @@ export default class ServiceProviders extends ConsentComponent {
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="serviceProviderType">
@@ -303,6 +304,7 @@ export default class ServiceProviders extends ConsentComponent {
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
               </div>
             </div>
+            </fieldset>
           </form>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
@@ -319,6 +321,7 @@ export default class ServiceProviders extends ConsentComponent {
         </div>
         <div styleName="form-container-mobile">
           <form name="service-provider-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <p>
                 Add Service Provider
@@ -351,6 +354,7 @@ export default class ServiceProviders extends ConsentComponent {
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
               </div>
             </div>
+            </fieldset>
           </form>
           <div styleName="button-save">
             <PrimaryButton

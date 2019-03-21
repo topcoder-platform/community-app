@@ -258,6 +258,7 @@ export default class Subscription extends ConsentComponent {
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="name">
@@ -270,6 +271,7 @@ export default class Subscription extends ConsentComponent {
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
               </div>
             </div>
+            </fieldset>
           </form>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
@@ -286,6 +288,7 @@ export default class Subscription extends ConsentComponent {
         </div>
         <div styleName="form-container-mobile">
           <form name="subscription-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <p>
                 Add Subscription
@@ -301,6 +304,7 @@ export default class Subscription extends ConsentComponent {
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
               </div>
             </div>
+            </fieldset>
           </form>
           <div styleName="button-save">
             <PrimaryButton

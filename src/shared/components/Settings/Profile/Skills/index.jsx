@@ -448,6 +448,7 @@ export default class Skills extends ConsentComponent {
       _.filter(allSkills, skill => _.findIndex(userSkills, l => l.id === skill.id) === -1),
       s => s.name,
     );
+    const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName={containerStyle}>
@@ -539,6 +540,7 @@ export default class Skills extends ConsentComponent {
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
               <div styleName="row">
                 <div styleName="field col-1">
                   <label htmlFor="skill">
@@ -563,6 +565,7 @@ export default class Skills extends ConsentComponent {
                   />
                 </div>
               </div>
+            </fieldset>
             </form>
             <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
               { errorMessage }
@@ -571,6 +574,7 @@ export default class Skills extends ConsentComponent {
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddSkill}
+                disabled={!canModifyTrait}
               >
                 Add skill to your list
               </PrimaryButton>
@@ -578,6 +582,7 @@ export default class Skills extends ConsentComponent {
           </div>
           <div styleName={`form-container-mobile ${list.length > 0 ? '' : 'no-skills'}`}>
             <form name="skill-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
               <div styleName="row">
                 <p>
                   Add Skill
@@ -604,6 +609,7 @@ export default class Skills extends ConsentComponent {
                   />
                 </div>
               </div>
+            </fieldset>
             </form>
             <div styleName="button-save">
               <PrimaryButton
@@ -635,4 +641,5 @@ Skills.propTypes = {
   /* eslint-disable react/no-unused-prop-types */
   settingsUI: PT.shape().isRequired,
   userTraits: PT.array.isRequired,
+  traitRequestCount: PT.number.isRequired,
 };

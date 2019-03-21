@@ -303,6 +303,7 @@ export default class Devices extends ConsentComponent {
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="deviceType">
@@ -384,6 +385,7 @@ export default class Devices extends ConsentComponent {
                 <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
               </div>
             </div>
+            </fieldset>
           </form>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             {errorMessage}
@@ -400,6 +402,7 @@ export default class Devices extends ConsentComponent {
         </div>
         <div styleName="form-container-mobile">
           <form name="device-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
             <div styleName="row">
               <p>
                 Add Device
@@ -468,6 +471,7 @@ export default class Devices extends ConsentComponent {
                 <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
               </div>
             </div>
+            </fieldset>
           </form>
           <div styleName="button-save">
             <PrimaryButton

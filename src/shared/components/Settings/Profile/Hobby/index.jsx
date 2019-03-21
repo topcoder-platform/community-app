@@ -238,6 +238,7 @@ export default class Hobby extends ConsentComponent {
     const hobbyItems = hobbyTrait.traits
       ? hobbyTrait.traits.data.slice() : [];
     const { newHobby, formInvalid, errorMessage } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName={containerStyle}>
@@ -265,6 +266,7 @@ export default class Hobby extends ConsentComponent {
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
               <div styleName="row">
                 <div styleName="field col-1">
                   <label htmlFor="hobby">
@@ -297,6 +299,7 @@ export default class Hobby extends ConsentComponent {
                   </div>
                 </div>
               </div>
+            </fieldset>
             </form>
             <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
               {errorMessage}
@@ -305,6 +308,7 @@ export default class Hobby extends ConsentComponent {
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddHobby}
+                disabled={!canModifyTrait}
               >
                 Add hobby to your list
               </PrimaryButton>
@@ -312,6 +316,7 @@ export default class Hobby extends ConsentComponent {
           </div>
           <div styleName="form-container-mobile">
             <form name="hobby-form" noValidate autoComplete="off">
+          <fieldset disabled={!canModifyTrait}>
               <div styleName="row">
                 <p>
                   Add Hobby
@@ -341,10 +346,12 @@ export default class Hobby extends ConsentComponent {
                   <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
                 </div>
               </div>
+            </fieldset>
             </form>
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
+                disabled={!canModifyTrait}
                 onClick={this.onHandleAddHobby}
               >
                 Add Hobby
@@ -374,4 +381,5 @@ Hobby.propTypes = {
   updateUserTrait: PT.func.isRequired,
   deleteUserTrait: PT.func.isRequired,
   settingsUI: PT.shape().isRequired,
+  traitRequestCount: PT.number.isRequired,
 };
