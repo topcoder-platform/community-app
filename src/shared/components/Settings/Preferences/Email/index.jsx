@@ -105,8 +105,6 @@ export default class EmailPreferences extends ConsentComponent {
   }
 
   populate(data) {
-    const { populated } = this.state;
-    if (populated) return;
     this.setState({
       emailPreferences: { ...data },
       populated: true,
