@@ -39,17 +39,6 @@ export default class Accordion extends React.Component {
   }
 
   /*
-   * Sync the state of the Accordion with the state of the Sidebar
-   */
-  componentWillReceiveProps(nextProps) {
-    const {
-      hasToggled,
-      currentItem,
-    } = this.state;
-    const { currentSidebarTab } = nextProps;
-  }
-
-  /*
    * Returns whether a tab is opened or closed.
    */
   isOpened(tab) {
