@@ -11,6 +11,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import SubscriptionList from './List';
 
 import styles from './styles.scss';
@@ -39,6 +40,8 @@ export default class Subscription extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
     };
   }
 
@@ -102,7 +105,10 @@ export default class Subscription extends ConsentComponent {
   }
 
   onHandleDeleteSubscription(indexNo) {
-    this.showConsent(this.onDeleteSubscription.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -129,6 +135,10 @@ export default class Subscription extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'subscription', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
   }
 
   /**
@@ -226,7 +236,9 @@ export default class Subscription extends ConsentComponent {
   }
 
   render() {
-    const { subscriptionTrait, isMobileView } = this.state;
+    const {
+      subscriptionTrait, isMobileView, showConfirmation, indexNo,
+    } = this.state;
     const subscriptionItems = subscriptionTrait.traits
       ? subscriptionTrait.traits.data.slice() : [];
     const { newSubscription, formInvalid, errorMessage } = this.state;
@@ -237,6 +249,13 @@ export default class Subscription extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteSubscription.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+          />
+        )}
         <h1>
           Subscriptions
         </h1>
@@ -248,7 +267,7 @@ export default class Subscription extends ConsentComponent {
           && (
             <SubscriptionList
               subscriptionList={{ items: subscriptionItems }}
-              onDeleteItem={this.onDeleteSubscription}
+              onDeleteItem={this.onHandleDeleteSubscription}
               disabled={!canModifyTrait}
             />
           )
