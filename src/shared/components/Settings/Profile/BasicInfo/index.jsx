@@ -463,7 +463,7 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo,
       formInvalid,
       errorMessage,
-      isSaving
+      isSaving,
     } = this.state;
 
     return (
