@@ -10,12 +10,12 @@ import DevicesIcon from 'assets/images/tools/sideicons/devices.svg';
 import ServiceProvidersIcon from 'assets/images/tools/sideicons/serviceproviders.svg';
 import SoftwareIcon from 'assets/images/tools/sideicons/software.svg';
 import SubscriptionsIcon from 'assets/images/tools/sideicons/subscriptions.svg';
+import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import Devices from './Devices';
 import ComingSoon from '../ComingSoon';
 import Software from './Software';
 import ServiceProviders from './ServiceProviders';
 import Subscriptions from './Subscriptions';
-import ErrorWrapper from 'components/Settings/ErrorWrapper';
 
 import './styles.scss';
 
@@ -72,52 +72,58 @@ class Tools extends React.Component {
       subscriptions: <SubscriptionsIcon />,
     };
 
-  const renderTabContent = (tab) => {
-    if (this.previousSelectedTab !== tab) {
-      clearToastrNotification();
-    }
-    
-    switch (tab) {
-      case 'devices':
-        return <Devices {...this.props} />;
-      case 'software':
-        return <Software {...this.props} />;
-      case 'service providers':
-        return <ServiceProviders {...this.props} />;
-      case 'subscriptions':
-        return <Subscriptions {...this.props} />;
-      default:
-        return <ComingSoon />;
-    }
-  };
-  return (
-    <div styleName="tools-container">
-      <div styleName="mobile-view">
-        <Accordion
-          icons={icons}
-          names={names}
-          currentSidebarTab={currentTab}
-          renderTabContent={renderTabContent}
-          toggleSidebarTab={toggleToolsSideTab}
-        />
+    const renderTabContent = (tab) => {
+      if (this.previousSelectedTab !== tab) {
+        clearToastrNotification();
+      }
+
+      switch (tab) {
+        case 'devices':
+          return <Devices {...this.props} />;
+        case 'software':
+          return <Software {...this.props} />;
+        case 'service providers':
+          return <ServiceProviders {...this.props} />;
+        case 'subscriptions':
+          return <Subscriptions {...this.props} />;
+        default:
+          return <ComingSoon />;
+      }
+    };
+    return (
+      <div styleName="tools-container">
+        {
+          isMobileView && (
+            <Accordion
+              icons={icons}
+              names={names}
+              currentSidebarTab={currentTab}
+              renderTabContent={renderTabContent}
+              toggleSidebarTab={toggleToolsSideTab}
+            />
+          )
+        }
+        <div styleName="col-bar">
+          <ErrorWrapper>
+            <SideBar
+              icons={icons}
+              names={names}
+              currentTab={currentTab}
+              toggle={toggleToolsSideTab}
+            />
+          </ErrorWrapper>
+        </div>
+        {
+          !isMobileView && (
+            <div styleName="col-content">
+              <ErrorWrapper>
+                { renderTabContent(currentTab) }
+              </ErrorWrapper>
+            </div>
+          )
+        }
       </div>
-      <div styleName="col-bar">
-        <ErrorWrapper>
-          <SideBar
-            icons={icons}
-            names={names}
-            currentTab={currentTab}
-            toggle={toggleToolsSideTab}
-          />
-        </ErrorWrapper>
-      </div>
-      <div styleName="col-content">
-        <ErrorWrapper>
-          { renderTabContent(currentTab) }
-        </ErrorWrapper>
-      </div>
-    </div>
-  );
+    );
   }
 }
 
