@@ -1,6 +1,7 @@
 /**
  * Child component of Settings/Tools renders setting page for tools.
  */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 
