@@ -11,6 +11,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import SubscriptionList from './List';
 
 import styles from './styles.scss';
@@ -40,6 +41,8 @@ export default class Subscription extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
     };
   }
 
@@ -105,7 +108,10 @@ export default class Subscription extends ConsentComponent {
   }
 
   onHandleDeleteSubscription(indexNo) {
-    this.showConsent(this.onDeleteSubscription.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -134,6 +140,10 @@ export default class Subscription extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'subscription', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
   }
 
   /**
@@ -238,7 +248,9 @@ export default class Subscription extends ConsentComponent {
   }
 
   render() {
-    const { subscriptionTrait, isMobileView } = this.state;
+    const {
+      subscriptionTrait, isMobileView, showConfirmation, indexNo,
+    } = this.state;
     const subscriptionItems = subscriptionTrait.traits
       ? subscriptionTrait.traits.data.slice()
       : [];
@@ -247,27 +259,33 @@ export default class Subscription extends ConsentComponent {
 
     return (
       <div styleName="subscription-container">
-        {this.shouldRenderConsent() && this.renderConsent()}
-        <h1>Subscriptions</h1>
-        <div
-          styleName={`sub-title ${
-            subscriptionItems.length > 0 ? '' : 'hidden'
-          }`}
-        >
-          Your subscriptions
-        </div>
-        {!isMobileView && (
-          <SubscriptionList
-            subscriptionList={{ items: subscriptionItems }}
-            onDeleteItem={this.onDeleteSubscription}
-            disabled={!canModifyTrait}
+        {
+          this.shouldRenderConsent() && this.renderConsent()
+        }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteSubscription.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
           />
         )}
-        <div
-          styleName={`sub-title ${
-            subscriptionItems.length > 0 ? 'second' : 'first'
-          }`}
-        >
+        <h1>
+          Subscriptions
+        </h1>
+        <div styleName={`sub-title ${subscriptionItems.length > 0 ? '' : 'hidden'}`}>
+          Your subscriptions
+        </div>
+        {
+          !isMobileView
+          && (
+            <SubscriptionList
+              subscriptionList={{ items: subscriptionItems }}
+              onDeleteItem={this.onHandleDeleteSubscription}
+              disabled={!canModifyTrait}
+            />
+          )
+        }
+        <div styleName={`sub-title ${subscriptionItems.length > 0 ? 'second' : 'first'}`}>
           Add a new subscription
         </div>
         <div styleName="form-container-default">

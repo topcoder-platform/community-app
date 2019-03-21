@@ -12,6 +12,7 @@ import PT from 'prop-types';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import DeviceList from './List';
 
@@ -46,6 +47,8 @@ export default class Devices extends ConsentComponent {
       errorMessage: '',
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
     };
   }
 
@@ -93,7 +96,10 @@ export default class Devices extends ConsentComponent {
   }
 
   onHandleDeleteDevice(indexNo) {
-    this.showConsent(this.onDeleteDevice.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -117,6 +123,10 @@ export default class Devices extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'device', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
   }
 
   /**
@@ -270,7 +280,9 @@ export default class Devices extends ConsentComponent {
   }
 
   render() {
-    const { deviceTrait, isMobileView } = this.state;
+    const {
+      deviceTrait, isMobileView, showConfirmation, indexNo,
+    } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice()
       : [];
@@ -279,21 +291,33 @@ export default class Devices extends ConsentComponent {
 
     return (
       <div styleName="devices-container">
-        {this.shouldRenderConsent() && this.renderConsent()}
-        <h1>Devices</h1>
+        {
+          this.shouldRenderConsent() && this.renderConsent()
+        }
+        {showConfirmation
+        && (
+        <ConfirmationModal
+          onConfirm={() => this.showConsent(this.onDeleteDevice.bind(this, indexNo))}
+          onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+        />
+        )}
+        <h1>
+          Devices
+        </h1>
         <div styleName={`sub-title ${deviceItems.length > 0 ? '' : 'hidden'}`}>
           Your devices
         </div>
-        {!isMobileView && deviceItems.length > 0 && (
-          <DeviceList
-            deviceList={{ items: deviceItems }}
-            onDeleteItem={this.onDeleteDevice}
-            disabled={!canModifyTrait}
-          />
-        )}
-        <div
-          styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}
-        >
+        {
+          !isMobileView && deviceItems.length > 0
+          && (
+            <DeviceList
+              deviceList={{ items: deviceItems }}
+              onDeleteItem={this.onHandleDeleteDevice}
+              disabled={!canModifyTrait}
+            />
+          )
+        }
+        <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
           Add a new device
         </div>
         <div styleName="form-container-default">

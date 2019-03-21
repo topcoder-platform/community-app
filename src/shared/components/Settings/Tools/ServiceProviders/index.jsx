@@ -12,6 +12,7 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import ServiceProviderList from './List';
 
@@ -46,6 +47,8 @@ export default class ServiceProviders extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
     };
   }
 
@@ -120,7 +123,10 @@ export default class ServiceProviders extends ConsentComponent {
   }
 
   onHandleDeleteServiceProvider(indexNo) {
-    this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -149,6 +155,10 @@ export default class ServiceProviders extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'service_provider', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
   }
 
   /**
@@ -257,7 +267,9 @@ export default class ServiceProviders extends ConsentComponent {
   }
 
   render() {
-    const { serviceProviderTrait, isMobileView } = this.state;
+    const {
+      serviceProviderTrait, isMobileView, showConfirmation, indexNo,
+    } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice()
       : [];
@@ -266,27 +278,33 @@ export default class ServiceProviders extends ConsentComponent {
 
     return (
       <div styleName="service-provider-container">
-        {this.shouldRenderConsent() && this.renderConsent()}
-        <h1>Service Providers</h1>
-        <div
-          styleName={`sub-title ${
-            serviceProviderItems.length > 0 ? '' : 'hidden'
-          }`}
-        >
-          Your service providers
-        </div>
-        {!isMobileView && serviceProviderItems.length > 0 && (
-          <ServiceProviderList
-            serviceProviderList={{ items: serviceProviderItems }}
-            onDeleteItem={this.onDeleteServiceProvider}
-            disabled={!canModifyTrait}
+        {
+          this.shouldRenderConsent() && this.renderConsent()
+        }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
           />
         )}
-        <div
-          styleName={`sub-title ${
-            serviceProviderItems.length > 0 ? 'second' : 'first'
-          }`}
-        >
+        <h1>
+          Service Providers
+        </h1>
+        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? '' : 'hidden'}`}>
+          Your service providers
+        </div>
+        {
+          !isMobileView && serviceProviderItems.length > 0
+          && (
+            <ServiceProviderList
+              serviceProviderList={{ items: serviceProviderItems }}
+              onDeleteItem={this.onHandleDeleteServiceProvider}
+              disabled={!canModifyTrait}
+            />
+          )
+        }
+        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? 'second' : 'first'}`}>
           Add a new service provider
         </div>
         <div styleName="form-container-default">

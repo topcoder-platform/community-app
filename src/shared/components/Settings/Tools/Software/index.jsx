@@ -12,6 +12,7 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import SoftwareList from './List';
 
@@ -42,6 +43,8 @@ export default class Software extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
     };
   }
 
@@ -114,7 +117,10 @@ export default class Software extends ConsentComponent {
   }
 
   onHandleDeleteSoftware(indexNo) {
-    this.showConsent(this.onDeleteSoftware.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -143,6 +149,10 @@ export default class Software extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'software', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
   }
 
   /**
@@ -248,7 +258,9 @@ export default class Software extends ConsentComponent {
   }
 
   render() {
-    const { softwareTrait, isMobileView } = this.state;
+    const {
+      softwareTrait, isMobileView, showConfirmation, indexNo,
+    } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice()
       : [];
@@ -257,25 +269,33 @@ export default class Software extends ConsentComponent {
 
     return (
       <div styleName="software-container">
-        {this.shouldRenderConsent() && this.renderConsent()}
-        <h1>Software</h1>
-        <div
-          styleName={`sub-title ${softwareItems.length > 0 ? '' : 'hidden'}`}
-        >
-          Your software
-        </div>
-        {!isMobileView && (
-          <SoftwareList
-            softwareList={{ items: softwareItems }}
-            onDeleteItem={this.onDeleteSoftware}
-            disabled={!canModifyTrait}
+        {
+          this.shouldRenderConsent() && this.renderConsent()
+        }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteSoftware.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
           />
         )}
-        <div
-          styleName={`sub-title ${
-            softwareItems.length > 0 ? 'second' : 'first'
-          }`}
-        >
+        <h1>
+          Software
+        </h1>
+        <div styleName={`sub-title ${softwareItems.length > 0 ? '' : 'hidden'}`}>
+          Your software
+        </div>
+        {
+          !isMobileView
+          && (
+            <SoftwareList
+              softwareList={{ items: softwareItems }}
+              onDeleteItem={this.onHandleDeleteSoftware}
+              disabled={!canModifyTrait}
+            />
+          )
+        }
+        <div styleName={`sub-title ${softwareItems.length > 0 ? 'second' : 'first'}`}>
           Add a new software
         </div>
         <div styleName="form-container-default">
