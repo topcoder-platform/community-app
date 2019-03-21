@@ -97,6 +97,7 @@
 
 .error-message {
   @include roboto-medium;
+
   display: block;
   border-radius: 5px;
   background-color: $tc-red-10;
