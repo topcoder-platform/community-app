@@ -20,12 +20,16 @@ import './styles.scss';
 export default class ServiceProviders extends ConsentComponent {
   constructor(props) {
     super(props);
-    this.onHandleDeleteServiceProvider = this.onHandleDeleteServiceProvider.bind(this);
+    this.onHandleDeleteServiceProvider = this.onHandleDeleteServiceProvider.bind(
+      this,
+    );
     this.onDeleteServiceProvider = this.onDeleteServiceProvider.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadServiceProviderTrait = this.loadServiceProviderTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
-    this.onHandleAddServiceProvider = this.onHandleAddServiceProvider.bind(this);
+    this.onHandleAddServiceProvider = this.onHandleAddServiceProvider.bind(
+      this,
+    );
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
@@ -51,8 +55,12 @@ export default class ServiceProviders extends ConsentComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const serviceProviderTrait = this.loadServiceProviderTrait(nextProps.userTraits);
-    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
+    const serviceProviderTrait = this.loadServiceProviderTrait(
+      nextProps.userTraits,
+    );
+    const personalizationTrait = this.loadPersonalizationTrait(
+      nextProps.userTraits,
+    );
     this.setState({
       serviceProviderTrait,
       personalizationTrait,
@@ -128,14 +136,16 @@ export default class ServiceProviders extends ConsentComponent {
     });
 
     const {
-      handle,
-      tokenV3,
-      updateUserTrait,
-      deleteUserTrait,
+      handle, tokenV3, updateUserTrait, deleteUserTrait,
     } = this.props;
 
     if (newServiceProviderTrait.traits.data.length > 0) {
-      updateUserTrait(handle, 'service_provider', newServiceProviderTrait.traits.data, tokenV3);
+      updateUserTrait(
+        handle,
+        'service_provider',
+        newServiceProviderTrait.traits.data,
+        tokenV3,
+      );
     } else {
       deleteUserTrait(handle, 'service_provider', tokenV3);
     }
@@ -149,17 +159,22 @@ export default class ServiceProviders extends ConsentComponent {
     const { newServiceProvider, personalizationTrait } = this.state;
 
     const {
-      handle,
-      tokenV3,
-      updateUserTrait,
-      addUserTrait,
+      handle, tokenV3, updateUserTrait, addUserTrait,
     } = this.props;
     const { serviceProviderTrait } = this.state;
-    if (serviceProviderTrait.traits && serviceProviderTrait.traits.data.length > 0) {
+    if (
+      serviceProviderTrait.traits
+      && serviceProviderTrait.traits.data.length > 0
+    ) {
       const newServiceProviderTrait = { ...serviceProviderTrait };
       newServiceProviderTrait.traits.data.push(newServiceProvider);
       this.setState({ serviceProviderTrait: newServiceProviderTrait });
-      updateUserTrait(handle, 'service_provider', newServiceProviderTrait.traits.data, tokenV3);
+      updateUserTrait(
+        handle,
+        'service_provider',
+        newServiceProviderTrait.traits.data,
+        tokenV3,
+      );
     } else {
       const newServiceProviders = [];
       newServiceProviders.push(newServiceProvider);
@@ -182,11 +197,15 @@ export default class ServiceProviders extends ConsentComponent {
       const trait = personalizationTrait.traits.data[0];
       if (trait.userConsent !== answer) {
         const personalizationData = { userConsent: answer };
-        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+        updateUserTrait(
+          handle,
+          'personalization',
+          [personalizationData],
+          tokenV3,
+        );
       }
     }
   }
-
 
   /**
    * Update input value
@@ -220,7 +239,7 @@ export default class ServiceProviders extends ConsentComponent {
     const trait = userTraits.filter(t => t.traitId === 'service_provider');
     const serviceProviders = trait.length === 0 ? {} : trait[0];
     return _.assign({}, serviceProviders);
-  }
+  };
 
   /**
    * Get personalization trait
@@ -230,7 +249,7 @@ export default class ServiceProviders extends ConsentComponent {
     const trait = userTraits.filter(t => t.traitId === 'personalization');
     const personalization = trait.length === 0 ? {} : trait[0];
     return _.assign({}, personalization);
-  }
+  };
 
   updatePredicate() {
     const { screenSM } = this.state;
@@ -240,74 +259,85 @@ export default class ServiceProviders extends ConsentComponent {
   render() {
     const { serviceProviderTrait, isMobileView } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
-      ? serviceProviderTrait.traits.data.slice() : [];
+      ? serviceProviderTrait.traits.data.slice()
+      : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="service-provider-container">
-        {
-          this.shouldRenderConsent() && this.renderConsent()
-        }
-        <h1>
-          Service Providers
-        </h1>
-        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? '' : 'hidden'}`}>
+        {this.shouldRenderConsent() && this.renderConsent()}
+        <h1>Service Providers</h1>
+        <div
+          styleName={`sub-title ${
+            serviceProviderItems.length > 0 ? '' : 'hidden'
+          }`}
+        >
           Your service providers
         </div>
-        {
-          !isMobileView && serviceProviderItems.length > 0
-          && (
-            <ServiceProviderList
-              serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onDeleteServiceProvider}
-              disabled={!canModifyTrait}
-            />
-          )
-        }
-        <div styleName={`sub-title ${serviceProviderItems.length > 0 ? 'second' : 'first'}`}>
+        {!isMobileView && serviceProviderItems.length > 0 && (
+          <ServiceProviderList
+            serviceProviderList={{ items: serviceProviderItems }}
+            onDeleteItem={this.onDeleteServiceProvider}
+            disabled={!canModifyTrait}
+          />
+        )}
+        <div
+          styleName={`sub-title ${
+            serviceProviderItems.length > 0 ? 'second' : 'first'
+          }`}
+        >
           Add a new service provider
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="serviceProviderType">
-                  Type
-                  <input type="hidden" />
-                </label>
+            <fieldset disabled={!canModifyTrait}>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="serviceProviderType">
+                    Type
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <Select
+                    name="serviceProviderType"
+                    options={dropdowns.serviceProviderType}
+                    onChange={this.onUpdateSelect}
+                    value={newServiceProvider.serviceProviderType}
+                    placeholder="Service Provider Type"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
               </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <Select
-                  name="serviceProviderType"
-                  options={dropdowns.serviceProviderType}
-                  onChange={this.onUpdateSelect}
-                  value={newServiceProvider.serviceProviderType}
-                  placeholder="Service Provider Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                />
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="name">
+                    Name
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Name"
+                    onChange={this.onUpdateInput}
+                    value={newServiceProvider.name}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
-              </div>
-            </div>
             </fieldset>
           </form>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
+            {errorMessage}
           </div>
           <div styleName="button-save">
             <PrimaryButton
@@ -321,39 +351,46 @@ export default class ServiceProviders extends ConsentComponent {
         </div>
         <div styleName="form-container-mobile">
           <form name="service-provider-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-            <div styleName="row">
-              <p>
-                Add Service Provider
-              </p>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="serviceProviderType">
-                  Type
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <Select
-                  name="serviceProviderType"
-                  options={dropdowns.serviceProviderType}
-                  onChange={this.onUpdateSelect}
-                  value={newServiceProvider.serviceProviderType}
-                  placeholder="Service Provider Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                />
+            <fieldset disabled={!canModifyTrait}>
+              <div styleName="row">
+                <p>Add Service Provider</p>
               </div>
-              <div styleName="field col-2">
-                <label htmlFor="name">
-                  Provider Name
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="serviceProviderType">
+                    Type
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <Select
+                    name="serviceProviderType"
+                    options={dropdowns.serviceProviderType}
+                    onChange={this.onUpdateSelect}
+                    value={newServiceProvider.serviceProviderType}
+                    placeholder="Service Provider Type"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
+                <div styleName="field col-2">
+                  <label htmlFor="name">
+                    Provider Name
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Name"
+                    onChange={this.onUpdateInput}
+                    value={newServiceProvider.name}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-            </div>
             </fieldset>
           </form>
           <div styleName="button-save">
@@ -366,16 +403,13 @@ export default class ServiceProviders extends ConsentComponent {
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <ServiceProviderList
-              serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onHandleDeleteServiceProvider}
-              disabled={!canModifyTrait}
-            />
-          )
-        }
+        {isMobileView && (
+          <ServiceProviderList
+            serviceProviderList={{ items: serviceProviderItems }}
+            onDeleteItem={this.onHandleDeleteServiceProvider}
+            disabled={!canModifyTrait}
+          />
+        )}
       </div>
     );
   }

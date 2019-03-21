@@ -266,40 +266,40 @@ export default class Hobby extends ConsentComponent {
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="hobby">
+              <fieldset disabled={!canModifyTrait}>
+                <div styleName="row">
+                  <div styleName="field col-1">
+                    <label htmlFor="hobby">
                     Hobby
-                    <input type="hidden" />
-                  </label>
-                </div>
-                <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
-                  <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label styleName="description-label" htmlFor="description">
-                    Description
-                    <input type="hidden" />
-                  </label>
-                </div>
-                <div styleName="field col-2">
-                  <div styleName="description">
-                    <div styleName="first-line">
-                      <span styleName="description-counts">
-                        {newHobby.description.length}
-                        /160
-                      </span>
-                      <span styleName="text-required">* Required</span>
-                    </div>
-                    <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
+                      <input type="hidden" />
+                    </label>
+                  </div>
+                  <div styleName="field col-2">
+                    <span styleName="text-required">* Required</span>
+                    <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
                   </div>
                 </div>
-              </div>
-            </fieldset>
+                <div styleName="row">
+                  <div styleName="field col-1">
+                    <label styleName="description-label" htmlFor="description">
+                    Description
+                      <input type="hidden" />
+                    </label>
+                  </div>
+                  <div styleName="field col-2">
+                    <div styleName="description">
+                      <div styleName="first-line">
+                        <span styleName="description-counts">
+                          {newHobby.description.length}
+                        /160
+                        </span>
+                        <span styleName="text-required">* Required</span>
+                      </div>
+                      <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
             </form>
             <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
               {errorMessage}
@@ -316,37 +316,37 @@ export default class Hobby extends ConsentComponent {
           </div>
           <div styleName="form-container-mobile">
             <form name="hobby-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-              <div styleName="row">
-                <p>
+              <fieldset disabled={!canModifyTrait}>
+                <div styleName="row">
+                  <p>
                   Add Hobby
-                </p>
-              </div>
-              <div styleName="row">
-                <div styleName="field row-1">
-                  <label htmlFor="hobby">
+                  </p>
+                </div>
+                <div styleName="row">
+                  <div styleName="field row-1">
+                    <label htmlFor="hobby">
                     Hobby
-                    <input type="hidden" />
-                  </label>
-                  <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
+                      <input type="hidden" />
+                    </label>
+                    <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
+                  </div>
                 </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field row-2">
-                  <label styleName="description-label" htmlFor="description">
-                    <span>
+                <div styleName="row">
+                  <div styleName="field row-2">
+                    <label styleName="description-label" htmlFor="description">
+                      <span>
                       Description
-                    </span>
-                    {' '}
-                    <span styleName="description-counts">
-                      {newHobby.description.length}
+                      </span>
+                      {' '}
+                      <span styleName="description-counts">
+                        {newHobby.description.length}
                       /160
-                    </span>
-                  </label>
-                  <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
+                      </span>
+                    </label>
+                    <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
+                  </div>
                 </div>
-              </div>
-            </fieldset>
+              </fieldset>
             </form>
             <div styleName="button-save">
               <PrimaryButton

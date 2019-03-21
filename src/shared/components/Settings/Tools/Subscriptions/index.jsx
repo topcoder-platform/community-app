@@ -15,11 +15,12 @@ import SubscriptionList from './List';
 
 import styles from './styles.scss';
 
-
 export default class Subscription extends ConsentComponent {
   constructor(props) {
     super(props);
-    this.onHandleDeleteSubscription = this.onHandleDeleteSubscription.bind(this);
+    this.onHandleDeleteSubscription = this.onHandleDeleteSubscription.bind(
+      this,
+    );
     this.onDeleteSubscription = this.onDeleteSubscription.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadSubscriptionTrait = this.loadSubscriptionTrait.bind(this);
@@ -48,7 +49,9 @@ export default class Subscription extends ConsentComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(
+      nextProps.userTraits,
+    );
     const subscriptionTrait = this.loadSubscriptionTrait(nextProps.userTraits);
     this.setState({
       subscriptionTrait,
@@ -118,14 +121,16 @@ export default class Subscription extends ConsentComponent {
     });
 
     const {
-      handle,
-      tokenV3,
-      updateUserTrait,
-      deleteUserTrait,
+      handle, tokenV3, updateUserTrait, deleteUserTrait,
     } = this.props;
 
     if (newSubscriptionTrait.traits.data.length > 0) {
-      updateUserTrait(handle, 'subscription', newSubscriptionTrait.traits.data, tokenV3);
+      updateUserTrait(
+        handle,
+        'subscription',
+        newSubscriptionTrait.traits.data,
+        tokenV3,
+      );
     } else {
       deleteUserTrait(handle, 'subscription', tokenV3);
     }
@@ -139,17 +144,19 @@ export default class Subscription extends ConsentComponent {
     const { newSubscription, personalizationTrait } = this.state;
 
     const {
-      handle,
-      tokenV3,
-      updateUserTrait,
-      addUserTrait,
+      handle, tokenV3, updateUserTrait, addUserTrait,
     } = this.props;
     const { subscriptionTrait } = this.state;
     if (subscriptionTrait.traits && subscriptionTrait.traits.data.length > 0) {
       const newSubscriptionTrait = { ...subscriptionTrait };
       newSubscriptionTrait.traits.data.push(newSubscription);
       this.setState({ subscriptionTrait: newSubscriptionTrait });
-      updateUserTrait(handle, 'subscription', newSubscriptionTrait.traits.data, tokenV3);
+      updateUserTrait(
+        handle,
+        'subscription',
+        newSubscriptionTrait.traits.data,
+        tokenV3,
+      );
     } else {
       const newSubscriptions = [];
       newSubscriptions.push(newSubscription);
@@ -171,7 +178,12 @@ export default class Subscription extends ConsentComponent {
       const trait = personalizationTrait.traits.data[0];
       if (trait.userConsent !== answer) {
         const personalizationData = { userConsent: answer };
-        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+        updateUserTrait(
+          handle,
+          'personalization',
+          [personalizationData],
+          tokenV3,
+        );
       }
     }
   }
@@ -208,7 +220,7 @@ export default class Subscription extends ConsentComponent {
     const trait = userTraits.filter(t => t.traitId === 'subscription');
     const subscriptions = trait.length === 0 ? {} : trait[0];
     return _.assign({}, subscriptions);
-  }
+  };
 
   /**
    * Get personalization trait
@@ -218,7 +230,7 @@ export default class Subscription extends ConsentComponent {
     const trait = userTraits.filter(t => t.traitId === 'personalization');
     const personalization = trait.length === 0 ? {} : trait[0];
     return _.assign({}, personalization);
-  }
+  };
 
   updatePredicate() {
     const { screenSM } = this.state;
@@ -228,53 +240,64 @@ export default class Subscription extends ConsentComponent {
   render() {
     const { subscriptionTrait, isMobileView } = this.state;
     const subscriptionItems = subscriptionTrait.traits
-      ? subscriptionTrait.traits.data.slice() : [];
+      ? subscriptionTrait.traits.data.slice()
+      : [];
     const { newSubscription, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="subscription-container">
-        {
-          this.shouldRenderConsent() && this.renderConsent()
-        }
-        <h1>
-          Subscriptions
-        </h1>
-        <div styleName={`sub-title ${subscriptionItems.length > 0 ? '' : 'hidden'}`}>
+        {this.shouldRenderConsent() && this.renderConsent()}
+        <h1>Subscriptions</h1>
+        <div
+          styleName={`sub-title ${
+            subscriptionItems.length > 0 ? '' : 'hidden'
+          }`}
+        >
           Your subscriptions
         </div>
-        {
-          !isMobileView
-          && (
-            <SubscriptionList
-              subscriptionList={{ items: subscriptionItems }}
-              onDeleteItem={this.onDeleteSubscription}
-              disabled={!canModifyTrait}
-            />
-          )
-        }
-        <div styleName={`sub-title ${subscriptionItems.length > 0 ? 'second' : 'first'}`}>
+        {!isMobileView && (
+          <SubscriptionList
+            subscriptionList={{ items: subscriptionItems }}
+            onDeleteItem={this.onDeleteSubscription}
+            disabled={!canModifyTrait}
+          />
+        )}
+        <div
+          styleName={`sub-title ${
+            subscriptionItems.length > 0 ? 'second' : 'first'
+          }`}
+        >
           Add a new subscription
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                  <input type="hidden" />
-                </label>
+            <fieldset disabled={!canModifyTrait}>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="name">
+                    Name
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Name"
+                    onChange={this.onUpdateInput}
+                    value={newSubscription.name}
+                    maxLength="128"
+                    required
+                  />
+                </div>
               </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
-              </div>
-            </div>
             </fieldset>
           </form>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
+            {errorMessage}
           </div>
           <div styleName="button-save">
             <PrimaryButton
@@ -288,22 +311,29 @@ export default class Subscription extends ConsentComponent {
         </div>
         <div styleName="form-container-mobile">
           <form name="subscription-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-            <div styleName="row">
-              <p>
-                Add Subscription
-              </p>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="name">
-                  Name
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
+            <fieldset disabled={!canModifyTrait}>
+              <div styleName="row">
+                <p>Add Subscription</p>
               </div>
-            </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="name">
+                    Name
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Name"
+                    onChange={this.onUpdateInput}
+                    value={newSubscription.name}
+                    maxLength="128"
+                    required
+                  />
+                </div>
+              </div>
             </fieldset>
           </form>
           <div styleName="button-save">
@@ -316,16 +346,13 @@ export default class Subscription extends ConsentComponent {
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <SubscriptionList
-              subscriptionList={{ items: subscriptionItems }}
-              onDeleteItem={this.onHandleDeleteSubscription}
-              disabled={!canModifyTrait}
-            />
-          )
-        }
+        {isMobileView && (
+          <SubscriptionList
+            subscriptionList={{ items: subscriptionItems }}
+            onDeleteItem={this.onHandleDeleteSubscription}
+            disabled={!canModifyTrait}
+          />
+        )}
       </div>
     );
   }

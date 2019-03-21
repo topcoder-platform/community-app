@@ -540,32 +540,32 @@ export default class Skills extends ConsentComponent {
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="skill">
+              <fieldset disabled={!canModifyTrait}>
+                <div styleName="row">
+                  <div styleName="field col-1">
+                    <label htmlFor="skill">
                     Skill
-                    <input type="hidden" />
-                  </label>
+                      <input type="hidden" />
+                    </label>
+                  </div>
+                  <div styleName="field col-2">
+                    <span styleName="text-required">* Required</span>
+                    <Select
+                      selectRef={this.handleInputRef}
+                      name="skills"
+                      options={lookupSkills}
+                      onChange={this.onUpdateSelect}
+                      placeholder="Start typing a skill then select from the list"
+                      matchPos="any"
+                      matchProp="name"
+                      labelKey="name"
+                      valueKey="name"
+                      clearable={false}
+                      value={selectedSkill.name}
+                    />
+                  </div>
                 </div>
-                <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
-                  <Select
-                    selectRef={this.handleInputRef}
-                    name="skills"
-                    options={lookupSkills}
-                    onChange={this.onUpdateSelect}
-                    placeholder="Start typing a skill then select from the list"
-                    matchPos="any"
-                    matchProp="name"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                    value={selectedSkill.name}
-                  />
-                </div>
-              </div>
-            </fieldset>
+              </fieldset>
             </form>
             <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
               { errorMessage }
@@ -582,34 +582,34 @@ export default class Skills extends ConsentComponent {
           </div>
           <div styleName={`form-container-mobile ${list.length > 0 ? '' : 'no-skills'}`}>
             <form name="skill-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-              <div styleName="row">
-                <p>
+              <fieldset disabled={!canModifyTrait}>
+                <div styleName="row">
+                  <p>
                   Add Skill
-                </p>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="skills">
-                    Skill
-                    <input type="hidden" />
-                  </label>
-                  <Select
-                    selectRef={this.handleInputRef}
-                    name="skills"
-                    options={lookupSkills}
-                    onChange={this.onUpdateSelect}
-                    placeholder="Start typing a skill then select from the list"
-                    matchPos="any"
-                    matchProp="name"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                    value={selectedSkill.name}
-                  />
+                  </p>
                 </div>
-              </div>
-            </fieldset>
+                <div styleName="row">
+                  <div styleName="field">
+                    <label htmlFor="skills">
+                    Skill
+                      <input type="hidden" />
+                    </label>
+                    <Select
+                      selectRef={this.handleInputRef}
+                      name="skills"
+                      options={lookupSkills}
+                      onChange={this.onUpdateSelect}
+                      placeholder="Start typing a skill then select from the list"
+                      matchPos="any"
+                      matchProp="name"
+                      labelKey="name"
+                      valueKey="name"
+                      clearable={false}
+                      value={selectedSkill.name}
+                    />
+                  </div>
+                </div>
+              </fieldset>
             </form>
             <div styleName="button-save">
               <PrimaryButton

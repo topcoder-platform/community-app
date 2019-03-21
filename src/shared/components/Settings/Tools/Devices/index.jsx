@@ -56,7 +56,9 @@ export default class Devices extends ConsentComponent {
 
   componentWillReceiveProps(nextProps) {
     const deviceTrait = this.loadDeviceTrait(nextProps.userTraits);
-    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(
+      nextProps.userTraits,
+    );
     this.setState({
       deviceTrait,
       personalizationTrait,
@@ -107,10 +109,7 @@ export default class Devices extends ConsentComponent {
     });
 
     const {
-      handle,
-      tokenV3,
-      updateUserTrait,
-      deleteUserTrait,
+      handle, tokenV3, updateUserTrait, deleteUserTrait,
     } = this.props;
 
     if (newDeviceTrait.traits.data.length > 0) {
@@ -128,14 +127,9 @@ export default class Devices extends ConsentComponent {
     const { newDevice, personalizationTrait } = this.state;
 
     const {
-      handle,
-      tokenV3,
-      updateUserTrait,
-      addUserTrait,
+      handle, tokenV3, updateUserTrait, addUserTrait,
     } = this.props;
-    const {
-      deviceTrait,
-    } = this.state;
+    const { deviceTrait } = this.state;
     if (deviceTrait.traits && deviceTrait.traits.data.length > 0) {
       const newDeviceTrait = { ...deviceTrait };
       newDeviceTrait.traits.data.push(newDevice);
@@ -167,7 +161,12 @@ export default class Devices extends ConsentComponent {
       const trait = personalizationTrait.traits.data[0];
       if (trait.userConsent !== answer) {
         const personalizationData = { userConsent: answer };
-        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+        updateUserTrait(
+          handle,
+          'personalization',
+          [personalizationData],
+          tokenV3,
+        );
       }
     }
   }
@@ -253,7 +252,7 @@ export default class Devices extends ConsentComponent {
     const trait = userTraits.filter(t => t.traitId === 'device');
     const devices = trait.length === 0 ? {} : trait[0];
     return _.assign({}, devices);
-  }
+  };
 
   /**
    * Get personalization trait
@@ -263,7 +262,7 @@ export default class Devices extends ConsentComponent {
     const trait = userTraits.filter(t => t.traitId === 'personalization');
     const personalization = trait.length === 0 ? {} : trait[0];
     return _.assign({}, personalization);
-  }
+  };
 
   updatePredicate() {
     const { screenSM } = this.state;
@@ -273,118 +272,159 @@ export default class Devices extends ConsentComponent {
   render() {
     const { deviceTrait, isMobileView } = this.state;
     const deviceItems = deviceTrait.traits
-      ? deviceTrait.traits.data.slice() : [];
+      ? deviceTrait.traits.data.slice()
+      : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
 
     return (
       <div styleName="devices-container">
-        {
-          this.shouldRenderConsent() && this.renderConsent()
-        }
-        <h1>
-          Devices
-        </h1>
+        {this.shouldRenderConsent() && this.renderConsent()}
+        <h1>Devices</h1>
         <div styleName={`sub-title ${deviceItems.length > 0 ? '' : 'hidden'}`}>
           Your devices
         </div>
-        {
-          !isMobileView && deviceItems.length > 0
-          && (
-            <DeviceList
-              deviceList={{ items: deviceItems }}
-              onDeleteItem={this.onDeleteDevice}
-              disabled={!canModifyTrait}
-            />
-          )
-        }
-        <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
+        {!isMobileView && deviceItems.length > 0 && (
+          <DeviceList
+            deviceList={{ items: deviceItems }}
+            onDeleteItem={this.onDeleteDevice}
+            disabled={!canModifyTrait}
+          />
+        )}
+        <div
+          styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}
+        >
           Add a new device
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="deviceType">
-                  Type
-                  <input type="hidden" />
-                </label>
+            <fieldset disabled={!canModifyTrait}>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="deviceType">
+                    Type
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <Select
+                    name="deviceType"
+                    options={dropdowns.type}
+                    onChange={this.onUpdateSelect}
+                    value={newDevice.deviceType}
+                    placeholder="Device Type"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
               </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <Select
-                  name="deviceType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
-                  value={newDevice.deviceType}
-                  placeholder="Device Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                />
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="manufacturer">
+                    Manufacturer
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input
+                    id="manufacturer"
+                    name="manufacturer"
+                    type="text"
+                    placeholder="Manufacturer"
+                    value={newDevice.manufacturer}
+                    onChange={this.onUpdateInput}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="manufacturer">
-                  Manufacturer
-                  <input type="hidden" />
-                </label>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="model">
+                    Model
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input
+                    id="model"
+                    name="model"
+                    type="text"
+                    placeholder="Model"
+                    onChange={this.onUpdateInput}
+                    value={newDevice.model}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="operating-system">
+                    Operating System(OS)
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input
+                    id="operating-system"
+                    name="operatingSystem"
+                    type="text"
+                    onChange={this.onUpdateInput}
+                    placeholder="Operating System"
+                    value={newDevice.operatingSystem}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="model">
-                  Model
-                  <input type="hidden" />
-                </label>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="osVersion">
+                    OS Version
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input
+                    id="os-version"
+                    name="osVersion"
+                    type="text"
+                    onChange={this.onUpdateInput}
+                    placeholder="OS version"
+                    value={newDevice.osVersion}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="osLanguage">
+                    OS Language
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input
+                    id="os-language"
+                    name="osLanguage"
+                    type="text"
+                    onChange={this.onUpdateInput}
+                    placeholder="OS Language"
+                    value={newDevice.osLanguage}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="operating-system">
-                  Operating System(OS)
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="osVersion">
-                  OS Version
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="osLanguage">
-                  OS Language
-                  <input type="hidden" />
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
-              </div>
-            </div>
             </fieldset>
           </form>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -402,75 +442,118 @@ export default class Devices extends ConsentComponent {
         </div>
         <div styleName="form-container-mobile">
           <form name="device-form" noValidate autoComplete="off">
-          <fieldset disabled={!canModifyTrait}>
-            <div styleName="row">
-              <p>
-                Add Device
-              </p>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="deviceType">
-                  Device Type
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <Select
-                  name="deviceType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
-                  value={newDevice.deviceType}
-                  placeholder="Device Type"
-                  labelKey="name"
-                  valueKey="name"
-                  clearable={false}
-                />
+            <fieldset disabled={!canModifyTrait}>
+              <div styleName="row">
+                <p>Add Device</p>
               </div>
-              <div styleName="field col-1">
-                <label htmlFor="manufacturer">
-                  Manufacturer
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="deviceType">
+                    Device Type
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <Select
+                    name="deviceType"
+                    options={dropdowns.type}
+                    onChange={this.onUpdateSelect}
+                    value={newDevice.deviceType}
+                    placeholder="Device Type"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
+                <div styleName="field col-1">
+                  <label htmlFor="manufacturer">
+                    Manufacturer
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <input
+                    id="manufacturer"
+                    name="manufacturer"
+                    type="text"
+                    placeholder="Manufacturer"
+                    value={newDevice.manufacturer}
+                    onChange={this.onUpdateInput}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-2">
-                <label htmlFor="model">
-                  Model
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
+              <div styleName="row">
+                <div styleName="field col-2">
+                  <label htmlFor="model">
+                    Model
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <input
+                    id="model"
+                    name="model"
+                    type="text"
+                    placeholder="Model"
+                    onChange={this.onUpdateInput}
+                    value={newDevice.model}
+                    maxLength="64"
+                    required
+                  />
+                </div>
+                <div styleName="field col-2">
+                  <label htmlFor="operating-system">
+                    Operating System
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <input
+                    id="operating-system"
+                    name="operatingSystem"
+                    type="text"
+                    onChange={this.onUpdateInput}
+                    placeholder="Operating System"
+                    value={newDevice.operatingSystem}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-              <div styleName="field col-2">
-                <label htmlFor="operating-system">
-                  Operating System
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
+              <div styleName="row">
+                <div styleName="field col-2">
+                  <label htmlFor="osVersion">
+                    OS version
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <input
+                    id="os-version"
+                    name="osVersion"
+                    type="text"
+                    onChange={this.onUpdateInput}
+                    placeholder="OS version"
+                    value={newDevice.osVersion}
+                    maxLength="64"
+                    required
+                  />
+                </div>
+                <div styleName="field col-2">
+                  <label htmlFor="osLanguage">
+                    OS Language
+                    <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
+                  </label>
+                  <input
+                    id="os-language"
+                    name="osLanguage"
+                    type="text"
+                    onChange={this.onUpdateInput}
+                    placeholder="OS Language"
+                    value={newDevice.osLanguage}
+                    maxLength="64"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-2">
-                <label htmlFor="osVersion">
-                  OS version
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
-              </div>
-              <div styleName="field col-2">
-                <label htmlFor="osLanguage">
-                  OS Language
-                  <span styleName="text-required">* Required</span>
-                  <input type="hidden" />
-                </label>
-                <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
-              </div>
-            </div>
             </fieldset>
           </form>
           <div styleName="button-save">
@@ -483,16 +566,13 @@ export default class Devices extends ConsentComponent {
             </PrimaryButton>
           </div>
         </div>
-        {
-          isMobileView
-          && (
-            <DeviceList
-              deviceList={{ items: deviceItems }}
-              onDeleteItem={this.onHandleDeleteDevice}
-              disabled={!canModifyTrait}
-            />
-          )
-        }
+        {isMobileView && (
+          <DeviceList
+            deviceList={{ items: deviceItems }}
+            onDeleteItem={this.onHandleDeleteDevice}
+            disabled={!canModifyTrait}
+          />
+        )}
       </div>
     );
   }
