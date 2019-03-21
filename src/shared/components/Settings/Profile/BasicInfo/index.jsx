@@ -172,10 +172,10 @@ export default class BasicInfo extends ConsentComponent {
    */
   onHandleSaveBasicInfo(e) {
     e.preventDefault();
-    this.setState({isSaving : true});
+    this.setState({ isSaving: true });
     const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
-      this.setState({isSaving : false});
+      this.setState({ isSaving: false });
       return;
     }
     this.showConsent(this.onSaveBasicInfo.bind(this));
@@ -237,7 +237,7 @@ export default class BasicInfo extends ConsentComponent {
       }
     }
 
-    this.setState({isSaving : false });
+    this.setState({ isSaving: false });
   }
 
   onUpdateSelect(option) {
