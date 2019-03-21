@@ -10,58 +10,70 @@ import PT from 'prop-types';
 
 import './styles.scss';
 
-export default function ToggleableItem({
-  checked,
-  id,
-  onToggle,
-  primaryText,
-  secondaryText,
-  value,
-}) {
-  return (
-    <div styleName="ToggleableItem">
-      <div styleName="body">
-        <p styleName="primary">
-          {primaryText}
-        </p>
-        <p styleName="secondary">
-          {secondaryText}
-        </p>
+export default class ToggleableItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      checked: this.props.checked
+    }
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    this.props.onToggle(e);
+    this.setState({ checked: e.target.checked });
+  }
+
+  render() {
+    const { id, primaryText, secondaryText, value} = this.props;
+    const { checked } = this.state;
+    return (
+      <div styleName="ToggleableItem">
+        <div styleName="body">
+          <p styleName="primary">
+            {primaryText}
+          </p>
+          <p styleName="secondary">
+            {secondaryText}
+          </p>
+        </div>
+        <div className="onoffswitch" styleName="onoffswitch-no-padding-right">
+          <input
+            type="checkbox"
+            name="eprf-onoffswitch"
+            id={`pre-onoffswitch-${id}`}
+            value={value}
+            checked={checked}
+            onChange={(e) => this.onChange(e)}
+            className="onoffswitch-checkbox"
+            />
+          <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
+            <span className="onoffswitch-inner" />
+            <span className="onoffswitch-switch" />
+            <input type="hidden" />
+          </label>
+        </div>
+        <div className="onoffswitch-mobile" styleName="onoffswitch-no-padding-right">
+          <input
+            type="checkbox"
+            name="eprf-onoffswitch"
+            id={`pre-onoffswitch-${id}`}
+            value={value}
+            checked={checked}
+            onChange={(e) => this.onChange(e)}
+            className="onoffswitch-checkbox"
+            />
+          <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
+            <span className="onoffswitch-inner" />
+            <span className="onoffswitch-switch" />
+            <input type="hidden" />
+          </label>
+        </div>
       </div>
-      <div className="onoffswitch" styleName="onoffswitch-no-padding-right">
-        <input
-          type="checkbox"
-          name="eprf-onoffswitch"
-          id={`pre-onoffswitch-${id}`}
-          value={value}
-          checked={checked}
-          onChange={onToggle}
-          className="onoffswitch-checkbox"
-        />
-        <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
-          <span className="onoffswitch-inner" />
-          <span className="onoffswitch-switch" />
-          <input type="hidden" />
-        </label>
-      </div>
-      <div className="onoffswitch-mobile" styleName="onoffswitch-no-padding-right">
-        <input
-          type="checkbox"
-          name="eprf-onoffswitch"
-          id={`pre-onoffswitch-${id}`}
-          value={value}
-          checked={checked}
-          onChange={onToggle}
-          className="onoffswitch-checkbox"
-        />
-        <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
-          <span className="onoffswitch-inner" />
-          <span className="onoffswitch-switch" />
-          <input type="hidden" />
-        </label>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 ToggleableItem.propTypes = {
