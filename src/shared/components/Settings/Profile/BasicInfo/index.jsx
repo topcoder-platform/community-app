@@ -212,6 +212,12 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo.tshirtSize = null;
     }
 
+    _.forEach(newBasicInfo.addresses[0], (value, key) => {
+      newBasicInfo.addresses[0][key] = _.trim(value);
+    });
+    _.forEach(['currentLocation', 'primaryInterestInTopcoder', 'description'], (key) => {
+      newBasicInfo[key] = _.trim(newBasicInfo[key]);
+    });
     // This is a hack to check if the user has an existing basic_info trait object
     const exists = await this.onCheckUserTrait('basic_info');
     if (exists) {

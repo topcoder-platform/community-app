@@ -43,10 +43,12 @@
 
     i.fa-globe {
       color: #82a0aa;
+      cursor: pointer;
     }
 
     i.fa-weblinks {
       color: #82a0aa;
+      cursor: pointer;
     }
 
     i.fa-bitbucket {
@@ -111,6 +113,8 @@
 
         font-size: 18px;
         height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .title {
@@ -496,6 +500,8 @@
         .handle {
           margin-top: 20px;
           margin-bottom: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .title {
