@@ -24,6 +24,7 @@ export default class ImageInput extends React.Component {
 
     this.state = {
       newBasicInfo: {},
+      isImageOversize: false,
     };
   }
 
@@ -71,6 +72,16 @@ export default class ImageInput extends React.Component {
     if (file === undefined) {
       return;
     }
+    if (file.size > 2 * 1024 * 1024) {
+      // If file size is greater than 2 MB, show error message
+      this.setState({
+        isImageOversize: true,
+      });
+      return;
+    }
+    this.setState({
+      isImageOversize: false,
+    });
     uploadPhotoInit();
     loadImage.parseMetaData(file, (data) => {
       let orientation = 0;
@@ -115,7 +126,7 @@ export default class ImageInput extends React.Component {
       deletingPhoto,
     } = profileState;
 
-    const { newBasicInfo } = this.state;
+    const { newBasicInfo, isImageOversize } = this.state;
 
     return (
       <div styleName="image">
@@ -146,6 +157,7 @@ export default class ImageInput extends React.Component {
             <input type="file" name="image" accept="image/*" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
           </div>
         </div>
+        {isImageOversize && <div styleName="error-message">Please select an image smaller than 2MB</div>}
       </div>
     );
   }
