@@ -12,7 +12,6 @@ import _ from 'lodash';
 
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import ConfirmationModal from '../../CofirmationModal';
 import HobbyList from './List';
 
 import './styles.scss';
@@ -42,8 +41,6 @@ export default class Hobby extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
-      showConfirmation: false,
-      indexNo: null,
     };
   }
 
@@ -114,10 +111,7 @@ export default class Hobby extends ConsentComponent {
   }
 
   onHandleDeleteHobby(indexNo) {
-    this.setState({
-      showConfirmation: true,
-      indexNo,
-    });
+    this.showConsent(this.onDeleteHobby.bind(this, indexNo));
   }
 
   /**
@@ -144,10 +138,6 @@ export default class Hobby extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'hobby', tokenV3);
     }
-    this.setState({
-      showConfirmation: false,
-      indexNo: null,
-    });
   }
 
   /**
@@ -241,7 +231,6 @@ export default class Hobby extends ConsentComponent {
     const {
       hobbyTrait,
       isMobileView,
-      showConfirmation, indexNo,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -255,13 +244,6 @@ export default class Hobby extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        {showConfirmation
-        && (
-          <ConfirmationModal
-            onConfirm={() => this.showConsent(this.onDeleteHobby.bind(this, indexNo))}
-            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
-          />
-        )}
         <div styleName="hobby-container">
           <h1>
             Hobby
@@ -274,7 +256,7 @@ export default class Hobby extends ConsentComponent {
             && (
               <HobbyList
                 hobbyList={{ items: hobbyItems }}
-                onDeleteItem={this.onHandleDeleteHobby}
+                onDeleteItem={this.onDeleteHobby}
               />
             )
           }

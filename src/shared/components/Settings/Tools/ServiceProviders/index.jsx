@@ -12,7 +12,6 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import ServiceProviderList from './List';
 
@@ -43,8 +42,6 @@ export default class ServiceProviders extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
-      showConfirmation: false,
-      indexNo: null,
     };
   }
 
@@ -115,10 +112,7 @@ export default class ServiceProviders extends ConsentComponent {
   }
 
   onHandleDeleteServiceProvider(indexNo) {
-    this.setState({
-      showConfirmation: true,
-      indexNo,
-    });
+    this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo));
   }
 
   /**
@@ -145,10 +139,6 @@ export default class ServiceProviders extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'service_provider', tokenV3);
     }
-    this.setState({
-      showConfirmation: false,
-      indexNo: null,
-    });
   }
 
   /**
@@ -248,9 +238,7 @@ export default class ServiceProviders extends ConsentComponent {
   }
 
   render() {
-    const {
-      serviceProviderTrait, isMobileView, showConfirmation, indexNo,
-    } = this.state;
+    const { serviceProviderTrait, isMobileView } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
@@ -261,13 +249,6 @@ export default class ServiceProviders extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        {showConfirmation
-        && (
-          <ConfirmationModal
-            onConfirm={() => this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo))}
-            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
-          />
-        )}
         <h1>
           Service Providers
         </h1>
@@ -279,7 +260,7 @@ export default class ServiceProviders extends ConsentComponent {
           && (
             <ServiceProviderList
               serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onHandleDeleteServiceProvider}
+              onDeleteItem={this.onDeleteServiceProvider}
               disabled={!canModifyTrait}
             />
           )

@@ -73,7 +73,6 @@ export default class BasicInfo extends ConsentComponent {
         competitionCountryCode: null,
         photoURL: '',
         tracks: [],
-        isSaving: false,
       },
     };
   }
@@ -172,10 +171,8 @@ export default class BasicInfo extends ConsentComponent {
    */
   onHandleSaveBasicInfo(e) {
     e.preventDefault();
-    this.setState({ isSaving: true });
     const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
-      this.setState({ isSaving: false });
       return;
     }
     this.showConsent(this.onSaveBasicInfo.bind(this));
@@ -236,8 +233,6 @@ export default class BasicInfo extends ConsentComponent {
         await updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
     }
-
-    this.setState({ isSaving: false });
   }
 
   onUpdateSelect(option) {
@@ -463,7 +458,6 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo,
       formInvalid,
       errorMessage,
-      isSaving,
     } = this.state;
 
     return (
@@ -917,7 +911,7 @@ export default class BasicInfo extends ConsentComponent {
         <div styleName="button-save">
           <PrimaryButton
             styleName="white-label"
-            disabled={isSaving}
+            disabled={false}
             onClick={this.onHandleSaveBasicInfo}
           >
             {

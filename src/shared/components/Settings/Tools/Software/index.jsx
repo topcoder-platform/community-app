@@ -12,7 +12,6 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import SoftwareList from './List';
 
@@ -44,8 +43,6 @@ export default class Software extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
-      showConfirmation: false,
-      indexNo: null,
     };
   }
 
@@ -116,10 +113,7 @@ export default class Software extends ConsentComponent {
   }
 
   onHandleDeleteSoftware(indexNo) {
-    this.setState({
-      showConfirmation: true,
-      indexNo,
-    });
+    this.showConsent(this.onDeleteSoftware.bind(this, indexNo));
   }
 
   /**
@@ -146,10 +140,6 @@ export default class Software extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'software', tokenV3);
     }
-    this.setState({
-      showConfirmation: false,
-      indexNo: null,
-    });
   }
 
   /**
@@ -248,9 +238,7 @@ export default class Software extends ConsentComponent {
   }
 
   render() {
-    const {
-      softwareTrait, isMobileView, showConfirmation, indexNo,
-    } = this.state;
+    const { softwareTrait, isMobileView } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
@@ -261,13 +249,6 @@ export default class Software extends ConsentComponent {
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        {showConfirmation
-        && (
-          <ConfirmationModal
-            onConfirm={() => this.showConsent(this.onDeleteSoftware.bind(this, indexNo))}
-            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
-          />
-        )}
         <h1>
           Software
         </h1>
@@ -279,7 +260,7 @@ export default class Software extends ConsentComponent {
           && (
             <SoftwareList
               softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onHandleDeleteSoftware}
+              onDeleteItem={this.onDeleteSoftware}
               disabled={!canModifyTrait}
             />
           )

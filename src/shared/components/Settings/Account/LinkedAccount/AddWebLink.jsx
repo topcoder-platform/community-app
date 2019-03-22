@@ -78,7 +78,7 @@ export default class AddWebLink extends React.Component {
     const {
       allLinks,
     } = this.props;
-    return _.some(allLinks, link => link.URL && (link.URL.toLowerCase().replace(/https?:\/\//, '') === webLink.toLowerCase().replace(/https?:\/\//, '')));
+    return _.some(allLinks, link => link.URL && (link.URL.toLowerCase() === webLink.toLowerCase()));
   }
 
   render() {
