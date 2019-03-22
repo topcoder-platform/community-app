@@ -113,6 +113,8 @@
 
         font-size: 18px;
         height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .title {
@@ -498,6 +500,8 @@
         .handle {
           margin-top: 20px;
           margin-bottom: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .title {
