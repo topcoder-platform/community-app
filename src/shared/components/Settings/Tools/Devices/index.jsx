@@ -132,7 +132,7 @@ export default class Devices extends ConsentComponent {
     });
   }
 
-  showSuccessToast() {
+  showSuccessToast = () => {
     setImmediate(() => {
       toastr.success('Success!', 'Your information has been updated.');
     });
