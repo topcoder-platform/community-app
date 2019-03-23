@@ -303,7 +303,7 @@ export function getDetails(stats, track, subTrack) {
           {
             key: 'rank.countryRank',
             label: 'Country Rank',
-            render: defaultRenderFunc,
+            render: x => (x === 0 ? '-' : x),
           },
           {
             key: 'rank.volatility',
