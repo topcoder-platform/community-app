@@ -34,6 +34,13 @@ class Profile extends React.Component {
     super(props);
     this.previousSelectedTab = null;
 
+    const hash = window.location.hash.replace('#', '');
+    this.tablink = hash.replace('-', ' ');
+    const { toggleProfileSideTab } = this.props;
+    if (this.tablink) {
+      toggleProfileSideTab(this.tablink);
+    }
+    
     this.state = {
       isMobileView: false,
       screenSM: 767,
@@ -51,6 +58,13 @@ class Profile extends React.Component {
 
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { settingsUI: { currentProfileTab } } = this.props;
+    if (prevProps.settingsUI.currentProfileTab !== currentProfileTab) {
+      window.location.hash = currentProfileTab.replace(' ', '-');
+    }
   }
 
   componentWillUnmount() {
@@ -75,7 +89,7 @@ class Profile extends React.Component {
     } = this.props;
     const tabs = TABS.PROFILE;
     const names = Object.keys(tabs).map(key => tabs[key]);
-    const currentTab = currentProfileTab;
+    const currentTab = this.tablink || currentProfileTab;
 
     const icons = {
       'basic info': <InfoIcon />,
