@@ -114,6 +114,10 @@ export default class BasicInfo extends ConsentComponent {
       invalidFields.push('Last Name');
       invalid = true;
     }
+    if (!_.trim(newBasicInfo.description).length) {
+      invalidFields.push('Short bio');
+      invalid = true;
+    }
 
     if (!_.trim(newBasicInfo.country).length) {
       invalidFields.push('Country');
