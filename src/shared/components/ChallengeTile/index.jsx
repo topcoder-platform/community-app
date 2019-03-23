@@ -175,7 +175,7 @@ COMPLETED
                         </p>
                         ) }
                       { challenge.userStatus === 'PASSED_REVIEW'
-                        && (
+                        && challenge.userDetails.submissionReviewScore && (
                         <div styleName="challenge-score">
                           <p styleName="score">
                             { percentage(challenge.userDetails.submissionReviewScore / 100) }
@@ -184,7 +184,7 @@ COMPLETED
 Review Score
                           </p>
                         </div>
-                        ) }
+                      ) }
 
                     </div>
                   </div>
