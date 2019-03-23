@@ -73,7 +73,6 @@ export default class BasicInfo extends ConsentComponent {
         competitionCountryCode: null,
         photoURL: '',
         tracks: [],
-        isSaving: false,
       },
     };
   }
@@ -212,6 +211,12 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo.tshirtSize = null;
     }
 
+    _.forEach(newBasicInfo.addresses[0], (value, key) => {
+      newBasicInfo.addresses[0][key] = _.trim(value);
+    });
+    _.forEach(['currentLocation', 'primaryInterestInTopcoder', 'description'], (key) => {
+      newBasicInfo[key] = _.trim(newBasicInfo[key]);
+    });
     // This is a hack to check if the user has an existing basic_info trait object
     const exists = await this.onCheckUserTrait('basic_info');
     if (exists) {
@@ -360,7 +365,9 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.currentLocation = value.currentLocation;
       }
       if (_.has(value, 'description')) {
-        newBasicInfo.description = value.description;
+        if (_.trim(value.description).length) {
+          newBasicInfo.description = value.description;
+        }
       } else {
         newBasicInfo.description = profile.description ? profile.description : '';
       }
@@ -437,7 +444,6 @@ export default class BasicInfo extends ConsentComponent {
 
     const invalid = !_.trim(newBasicInfo.firstName).length
       || !_.trim(newBasicInfo.lastName).length
-      || !_.trim(newBasicInfo.description).length
       || !_.trim(newBasicInfo.gender).length
       || !_.trim(newBasicInfo.tshirtSize).length
       || !_.trim(newBasicInfo.country).length
@@ -499,6 +505,7 @@ export default class BasicInfo extends ConsentComponent {
                   <span styleName="text-required">* Required</span>
                   <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
                 </div>
+                <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" />
               </div>
               <div styleName="row">
                 <div styleName="field col-1">

@@ -12,6 +12,7 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import ServiceProviderList from './List';
@@ -34,6 +35,7 @@ export default class ServiceProviders extends ConsentComponent {
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.showSuccessToast = this.showSuccessToast.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -161,6 +163,12 @@ export default class ServiceProviders extends ConsentComponent {
     });
   }
 
+  showSuccessToast = () => {
+    setImmediate(() => {
+      toastr.success('Success!', 'Your information has been updated.');
+    });
+  }
+
   /**
    * Add new serviceProvider
    * @param answer user consent answer value
@@ -179,12 +187,7 @@ export default class ServiceProviders extends ConsentComponent {
       const newServiceProviderTrait = { ...serviceProviderTrait };
       newServiceProviderTrait.traits.data.push(newServiceProvider);
       this.setState({ serviceProviderTrait: newServiceProviderTrait });
-      updateUserTrait(
-        handle,
-        'service_provider',
-        newServiceProviderTrait.traits.data,
-        tokenV3,
-      );
+      updateUserTrait(handle, 'service_provider', newServiceProviderTrait.traits.data, tokenV3).then(this.showSuccessToast);
     } else {
       const newServiceProviders = [];
       newServiceProviders.push(newServiceProvider);
@@ -192,7 +195,7 @@ export default class ServiceProviders extends ConsentComponent {
         data: newServiceProviders,
       };
       this.setState({ serviceProviderTrait: { traits } });
-      addUserTrait(handle, 'service_provider', newServiceProviders, tokenV3);
+      addUserTrait(handle, 'service_provider', newServiceProviders, tokenV3).then(this.showSuccessToast);
     }
     const empty = {
       serviceProviderType: '',
@@ -411,6 +414,9 @@ export default class ServiceProviders extends ConsentComponent {
               </div>
             </fieldset>
           </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            { errorMessage }
+          </div>
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"

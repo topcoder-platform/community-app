@@ -12,6 +12,7 @@ import PT from 'prop-types';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import DeviceList from './List';
@@ -30,6 +31,7 @@ export default class Devices extends ConsentComponent {
     this.onAddDevice = this.onAddDevice.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.showSuccessToast = this.showSuccessToast.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -129,6 +131,12 @@ export default class Devices extends ConsentComponent {
     });
   }
 
+  showSuccessToast = () => {
+    setImmediate(() => {
+      toastr.success('Success!', 'Your information has been updated.');
+    });
+  }
+
   /**
    * Add new device
    * @param answer user consent answer value
@@ -144,7 +152,7 @@ export default class Devices extends ConsentComponent {
       const newDeviceTrait = { ...deviceTrait };
       newDeviceTrait.traits.data.push(newDevice);
       this.setState({ deviceTrait: newDeviceTrait });
-      updateUserTrait(handle, 'device', newDeviceTrait.traits.data, tokenV3);
+      updateUserTrait(handle, 'device', newDeviceTrait.traits.data, tokenV3).then(this.showSuccessToast);
     } else {
       const newDevices = [];
       newDevices.push(newDevice);
@@ -152,7 +160,7 @@ export default class Devices extends ConsentComponent {
         data: newDevices,
       };
       this.setState({ deviceTrait: { traits } });
-      addUserTrait(handle, 'device', newDevices, tokenV3);
+      addUserTrait(handle, 'device', newDevices, tokenV3).then(this.showSuccessToast);
     }
     const empty = {
       deviceType: '',
@@ -580,6 +588,9 @@ export default class Devices extends ConsentComponent {
               </div>
             </fieldset>
           </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            {errorMessage}
+          </div>
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
