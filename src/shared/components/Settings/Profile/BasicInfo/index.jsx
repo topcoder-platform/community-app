@@ -72,8 +72,7 @@ export default class BasicInfo extends ConsentComponent {
         homeCountryCode: null,
         competitionCountryCode: null,
         photoURL: '',
-        tracks: [],
-        isSaving: false,
+        tracks: []
       },
     };
   }
@@ -112,10 +111,6 @@ export default class BasicInfo extends ConsentComponent {
 
     if (!_.trim(newBasicInfo.lastName).length) {
       invalidFields.push('Last Name');
-      invalid = true;
-    }
-    if (!_.trim(newBasicInfo.description).length) {
-      invalidFields.push('Short bio');
       invalid = true;
     }
 
@@ -370,7 +365,9 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.currentLocation = value.currentLocation;
       }
       if (_.has(value, 'description')) {
-        newBasicInfo.description = value.description;
+        if(_.trim(value.description).length){
+          newBasicInfo.description = value.description;
+        }
       } else {
         newBasicInfo.description = profile.description ? profile.description : '';
       }
@@ -447,7 +444,6 @@ export default class BasicInfo extends ConsentComponent {
 
     const invalid = !_.trim(newBasicInfo.firstName).length
       || !_.trim(newBasicInfo.lastName).length
-      || !_.trim(newBasicInfo.description).length
       || !_.trim(newBasicInfo.gender).length
       || !_.trim(newBasicInfo.tshirtSize).length
       || !_.trim(newBasicInfo.country).length
@@ -700,7 +696,7 @@ export default class BasicInfo extends ConsentComponent {
                     {newBasicInfo.description.length}/240
                   </span>
                 </div>
-                <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
+                <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10"  />
               </div>
             </div>
           </form>
