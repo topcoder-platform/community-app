@@ -40,7 +40,7 @@ class Profile extends React.Component {
     if (this.tablink) {
       toggleProfileSideTab(this.tablink);
     }
-    
+
     this.state = {
       isMobileView: false,
       screenSM: 767,
