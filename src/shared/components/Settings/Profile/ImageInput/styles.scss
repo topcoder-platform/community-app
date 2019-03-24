@@ -49,19 +49,9 @@
       .file-upload {
         @include roboto-medium;
 
-        position: relative;
-        overflow: hidden;
-        width: 120px;
-        text-transform: capitalize;
-        font-weight: 500;
-        font-size: 13px;
-        min-height: 30px;
-        padding: 0;
-        background-color: #fff;
-        color: #47474f;
-        border-radius: 6px;
-        border: 1px solid #47474f;
-        box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
+        align-self: center;
+        color: $tc-white;
+        margin: 0;
 
         @include upto-sm {
           width: 95px;
