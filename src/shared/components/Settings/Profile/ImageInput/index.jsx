@@ -113,10 +113,10 @@ export default class ImageInput extends React.Component {
                 uploadingPhoto && <i className="fa fa-spinner fa-spin" />
               }
               {
-                !uploadingPhoto && newBasicInfo.photoURL && 'Upload Avatar'
+                !uploadingPhoto && newBasicInfo.photoURL && 'Upload a new avatar'
               }
               {
-                !uploadingPhoto && !newBasicInfo.photoURL && 'Upload Avatar'
+                !uploadingPhoto && !newBasicInfo.photoURL && 'Upload a new avatar'
               }
             </PrimaryButton>
             <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
