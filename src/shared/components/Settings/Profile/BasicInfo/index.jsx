@@ -528,6 +528,7 @@ export default class BasicInfo extends ConsentComponent {
 
                 <div styleName="date-picker">
                   <DatePicker
+                    readOnly
                     numberOfMonths={1}
                     date={newBasicInfo.birthDate}
                     id="date-range-picker1"
@@ -756,6 +757,7 @@ export default class BasicInfo extends ConsentComponent {
                   </label>
                   <div styleName="date-picker-sm">
                     <DatePicker
+                      readOnly
                       numberOfMonths={1}
                       date={newBasicInfo.birthDate}
                       id="date-range-picker2"
