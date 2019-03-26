@@ -1,7 +1,7 @@
 /**
  * Child component of Settings/Profile renders setting page for profile.
  */
-/* eslint-disable no-undef */
+
 import React from 'react';
 import PT from 'prop-types';
 
