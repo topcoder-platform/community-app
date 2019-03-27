@@ -52,10 +52,6 @@
         align-self: center;
         color: $tc-white;
         margin: 0;
-
-        @include upto-sm {
-          width: 95px;
-        }
       }
 
       .file-delete {
