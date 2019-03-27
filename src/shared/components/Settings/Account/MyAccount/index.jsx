@@ -383,7 +383,7 @@ export default class MyAccount extends ConsentComponent {
                     Email Change Verification
                   </div>
                   <div styleName="verification-send-message">
-                    Verification email sent to {newEmail}. Check your inbox and
+                    Verification email sent to {currentEmail}. Check your inbox and
                     click on the link in the email to finish updating your email.
                     If you can&#39;t find it, check your spam folder.
                   </div>
