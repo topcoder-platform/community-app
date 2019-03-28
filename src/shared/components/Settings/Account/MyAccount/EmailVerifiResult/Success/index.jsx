@@ -1,6 +1,6 @@
 /**
-* Render Email verification success page
-*/
+ * Render Email verification success page
+ */
 
 import React from 'react';
 import { isomorphy } from 'topcoder-react-utils';
@@ -21,14 +21,14 @@ const Success = () => (
           Email Verification Success
         </h1>
         <div styleName="text">
-      Congratulations! Your email verification has been completed.
+          Congratulations! Your email verification has been completed.
         </div>
         <div styleName="button-back">
           <PrimaryButton
             styleName="white"
-            to="/settings/account"
+            to="/my-dashboard"
           >
-          Back to My Account
+            Back to My Dashboard
           </PrimaryButton>
         </div>
       </div>
