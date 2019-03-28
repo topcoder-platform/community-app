@@ -1,0 +1,17 @@
+{
+  "communityId": "tco17",
+  "hidden": true,
+  "communityName": "TCO17",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco17/TCO17.svg",
+    "url": "https://tco17.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "79hTTwQuoJdnFtsagyOEOT"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco17"],
+  "description": "2017 Topcoder Open. The Ultimate Programming & Design Tournament"
+}
