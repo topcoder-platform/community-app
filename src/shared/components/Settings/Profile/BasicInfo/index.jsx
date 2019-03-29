@@ -55,7 +55,7 @@ export default class BasicInfo extends ConsentComponent {
         country: '',
         primaryInterestInTopcoder: '',
         currentLocation: '',
-        birthDate: '',
+        birthDate: null,
         userId: '',
         description: '',
         otherLangName: null,
@@ -71,7 +71,6 @@ export default class BasicInfo extends ConsentComponent {
         }],
         homeCountryCode: null,
         competitionCountryCode: null,
-        photoURL: '',
         tracks: [],
       },
     };
@@ -353,7 +352,10 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
       }
       if (_.has(value, 'birthDate')) {
-        newBasicInfo.birthDate = moment(value.birthDate);
+        const newDate = moment(value.birthDate).utc();
+        if (newDate.isValid()) {
+          newBasicInfo.birthDate = newDate;
+        }
       }
       if (_.has(value, 'competitionCountryCode')) {
         newBasicInfo.competitionCountryCode = value.competitionCountryCode;
@@ -394,11 +396,6 @@ export default class BasicInfo extends ConsentComponent {
       if (_.has(value, 'lastName')) {
         newBasicInfo.lastName = value.lastName;
       }
-      if (_.has(value, 'photoURL')) {
-        newBasicInfo.photoURL = value.photoURL;
-      } else {
-        newBasicInfo.photoURL = profile.photoURL;
-      }
       if (_.has(value, 'primaryInterestInTopcoder')) {
         newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
       }
@@ -430,7 +427,6 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo.email = profile.email;
       newBasicInfo.homeCountryCode = profile.homeCountryCode;
       newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
-      newBasicInfo.photoURL = profile.photoURL;
       newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
       newBasicInfo.description = profile.description ? profile.description : '';
       this.setState({ newBasicInfo });
