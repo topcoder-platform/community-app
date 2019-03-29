@@ -109,4 +109,5 @@ Tools.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleToolsSideTab: PT.func.isRequired,
   clearToastrNotification: PT.func.isRequired,
+  location: PT.shape().isRequired,
 };

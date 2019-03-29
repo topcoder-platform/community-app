@@ -96,4 +96,5 @@ Account.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleAccountSideTab: PT.func.isRequired,
   clearToastrNotification: PT.func.isRequired,
+  location: PT.shape().isRequired,
 };

@@ -169,6 +169,7 @@ Profile.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleProfileSideTab: PT.func.isRequired,
   clearToastrNotification: PT.func.isRequired,
+  location: PT.shape().isRequired,
 };
 
 export default Profile;
