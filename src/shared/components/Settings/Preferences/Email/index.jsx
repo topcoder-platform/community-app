@@ -112,7 +112,7 @@ export default class EmailPreferences extends ConsentComponent {
     const newEmailPreferences = { ...emailPreferences };
     newEmailPreferences[id] = checked;
     this.setState({
-      emailPreferences: { ...newEmailPreferences }
+      emailPreferences: { ...newEmailPreferences },
     }, () => this.noopCallback());
   }
 
