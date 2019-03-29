@@ -21,7 +21,7 @@ import './styles.scss';
 export default class Tools extends React.Component {
   constructor(props) {
     super(props);
-    const hash = window.location.hash.replace('#', '');
+    const hash = decodeURIComponent(props.location.hash.substring(1));
     this.tablink = hash.replace('-', ' ');
     const { toggleToolsSideTab } = this.props;
     if (this.tablink) {

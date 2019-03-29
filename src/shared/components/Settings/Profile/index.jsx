@@ -34,7 +34,7 @@ class Profile extends React.Component {
     super(props);
     this.previousSelectedTab = null;
 
-    const hash = window.location.hash.replace('#', '');
+    const hash = decodeURIComponent(props.location.hash.substring(1));
     this.tablink = hash.replace('-', ' ');
     const { toggleProfileSideTab } = this.props;
     if (this.tablink) {
