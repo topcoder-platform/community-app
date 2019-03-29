@@ -554,7 +554,7 @@ export default class Skills extends ConsentComponent {
                     options={lookupSkills}
                     onChange={this.onUpdateSelect}
                     placeholder="Start typing a skill then select from the list"
-                    matchPos="start"
+                    matchPos="any"
                     matchProp="name"
                     labelKey="name"
                     valueKey="name"
@@ -595,7 +595,7 @@ export default class Skills extends ConsentComponent {
                     options={lookupSkills}
                     onChange={this.onUpdateSelect}
                     placeholder="Start typing a skill then select from the list"
-                    matchPos="start"
+                    matchPos="any"
                     matchProp="name"
                     labelKey="name"
                     valueKey="name"

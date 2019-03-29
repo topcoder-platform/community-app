@@ -170,8 +170,10 @@ export default class BasicInfo extends ConsentComponent {
    */
   onHandleSaveBasicInfo(e) {
     e.preventDefault();
+    this.setState({ isSaving: true });
     const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
+      this.setState({ isSaving: false });
       return;
     }
     this.showConsent(this.onSaveBasicInfo.bind(this));
@@ -208,6 +210,12 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo.tshirtSize = null;
     }
 
+    _.forEach(newBasicInfo.addresses[0], (value, key) => {
+      newBasicInfo.addresses[0][key] = _.trim(value);
+    });
+    _.forEach(['currentLocation', 'primaryInterestInTopcoder', 'description'], (key) => {
+      newBasicInfo[key] = _.trim(newBasicInfo[key]);
+    });
     // This is a hack to check if the user has an existing basic_info trait object
     const exists = await this.onCheckUserTrait('basic_info');
     if (exists) {
@@ -232,6 +240,8 @@ export default class BasicInfo extends ConsentComponent {
         await updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
     }
+
+    this.setState({ isSaving: false });
   }
 
   onUpdateSelect(option) {
@@ -275,6 +285,8 @@ export default class BasicInfo extends ConsentComponent {
       const { newBasicInfo: oldBasicInfo } = this.state;
       const newBasicInfo = { ...oldBasicInfo };
       newBasicInfo.country = country.name;
+      newBasicInfo.competitionCountryCode = country.key;
+      newBasicInfo.homeCountryCode = country.key;
       this.setState({ newBasicInfo, inputChanged: true });
     }
   }
@@ -357,7 +369,9 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.currentLocation = value.currentLocation;
       }
       if (_.has(value, 'description')) {
-        newBasicInfo.description = value.description;
+        if (_.trim(value.description).length) {
+          newBasicInfo.description = value.description;
+        }
       } else {
         newBasicInfo.description = profile.description ? profile.description : '';
       }
@@ -428,7 +442,6 @@ export default class BasicInfo extends ConsentComponent {
 
     const invalid = !_.trim(newBasicInfo.firstName).length
       || !_.trim(newBasicInfo.lastName).length
-      || !_.trim(newBasicInfo.description).length
       || !_.trim(newBasicInfo.gender).length
       || !_.trim(newBasicInfo.tshirtSize).length
       || !_.trim(newBasicInfo.country).length
@@ -454,7 +467,14 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo,
       formInvalid,
       errorMessage,
+      isSaving,
     } = this.state;
+
+    const { lookupData } = this.props;
+    const countries = _.get(lookupData, 'countries', []).map(country => ({
+      key: country.countryCode,
+      name: country.country,
+    }));
 
     return (
       <div styleName="basic-info-container">
@@ -512,6 +532,7 @@ export default class BasicInfo extends ConsentComponent {
 
                 <div styleName="date-picker">
                   <DatePicker
+                    readOnly
                     numberOfMonths={1}
                     date={newBasicInfo.birthDate}
                     id="date-range-picker1"
@@ -586,7 +607,7 @@ export default class BasicInfo extends ConsentComponent {
                 <span styleName="text-required">* Required</span>
                 <Select
                   name="country"
-                  options={dropdowns.countries}
+                  options={countries}
                   value={newBasicInfo.country}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
@@ -680,7 +701,7 @@ export default class BasicInfo extends ConsentComponent {
                     {newBasicInfo.description.length}/240
                   </span>
                 </div>
-                <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
+                <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" />
               </div>
             </div>
           </form>
@@ -740,6 +761,7 @@ export default class BasicInfo extends ConsentComponent {
                   </label>
                   <div styleName="date-picker-sm">
                     <DatePicker
+                      readOnly
                       numberOfMonths={1}
                       date={newBasicInfo.birthDate}
                       id="date-range-picker2"
@@ -788,7 +810,7 @@ export default class BasicInfo extends ConsentComponent {
                   </label>
                   <Select
                     name="countryId"
-                    options={dropdowns.countries}
+                    options={countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
@@ -907,7 +929,7 @@ export default class BasicInfo extends ConsentComponent {
         <div styleName="button-save">
           <PrimaryButton
             styleName="white-label"
-            disabled={false}
+            disabled={isSaving}
             onClick={this.onHandleSaveBasicInfo}
           >
             {

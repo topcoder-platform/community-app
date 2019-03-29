@@ -1,0 +1,23 @@
+{
+  "challengeFilter": {
+    "groupIds": [],
+    "or": [{
+      "tags": ["TCO", "TCO18"]
+    }]
+  },
+  "communityId": "tco18",
+  "hidden": true,
+  "communityName": "TCO18",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18/TCO18.svg",
+    "url": "https://tco18.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "2UqnNygSaor5r7xZP5Dsbc"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco18"],
+  "description": "2018 Topcoder Open. The Ultimate Programming & Design Tournament"
+}

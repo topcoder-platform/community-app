@@ -22,6 +22,35 @@ import VideoModalButton from 'components/VideoModalButton';
 import Looker from 'containers/Looker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 
+import tco18 from 'components/buttons/outline/tco/tco18.scss';
+import tco16 from 'components/buttons/outline/tco/tco16.scss';
+import tco14 from 'components/buttons/outline/tco/tco14.scss';
+import tco13 from 'components/buttons/outline/tco/tco13.scss';
+import tco12 from 'components/buttons/outline/tco/tco12.scss';
+import tco11 from 'components/buttons/outline/tco/tco11.scss';
+import tco10 from 'components/buttons/outline/tco/tco10.scss';
+import tco09 from 'components/buttons/outline/tco/tco09.scss';
+import tco07 from 'components/buttons/outline/tco/tco07.scss';
+
+/**
+ * Themes of legacy TCO buttons
+ * those overwrite PrimaryButton stylwe to match legacy TCO styles
+ * Should implement `.tcoButton` class
+*/
+const tcoButtonThemes = {
+  tco18, // default
+  tco17: tco18,
+  tco16,
+  tco15: tco16,
+  tco14,
+  tco13,
+  tco12,
+  tco11,
+  tco10,
+  tco09,
+  tco07,
+};
+
 /**
  * Add new Custom Components here.
  *
@@ -46,6 +75,17 @@ const customComponents = {
   NewsletterSignupForMembers: attrs => ({ type: NewsletterSignupForMembers, props: attrs }),
   Looker: attrs => ({ type: Looker, props: attrs }),
   AnchorLink: attrs => ({ type: AnchorLink, props: attrs }),
+  TCOButton: attrs => ({
+    type: PrimaryButton,
+    props: {
+      ...attrs,
+      theme: {
+        button: tcoButtonThemes[attrs.theme]
+          ? tcoButtonThemes[attrs.theme].tcoButton
+          : tcoButtonThemes.tco18.tcoButton,
+      },
+    },
+  }),
 };
 
 /**

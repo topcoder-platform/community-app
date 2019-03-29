@@ -13,6 +13,7 @@ import NavMenu from './Menu';
 
 /* eslint-disable global-require */
 const THEMES = {
+  Default: require('./themes/default.scss'),
   'TCO19 - Header Menu': require('./themes/tco19-header.scss'),
   'TCO19 - Footer Menu': require('./themes/tco19-footer.scss'),
 };
