@@ -31,4 +31,13 @@
   .preferences-container {
     border-top: 1px solid $tc-gray-neutral-dark;
   }
+
+  .button-save {
+    text-align: center;
+    .white-label {
+      color: $tc-white;
+      margin: 0;
+    }
+  }
+
 }

@@ -4,6 +4,7 @@
 import { map, debounce, isEqual } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import ToggleableItem from 'components/Settings/ToggleableItem';
@@ -56,7 +57,7 @@ const newsletters = [
 const SAVE_DELAY = 1000;
 
 export default class EmailPreferences extends ConsentComponent {
-  saveEmailPreferences = debounce(() => {
+  saveEmailPreferences() {
     const {
       profile,
       saveEmailPreferences,
@@ -69,7 +70,11 @@ export default class EmailPreferences extends ConsentComponent {
       tokenV3,
       emailPreferences,
     );
-  }, SAVE_DELAY);
+  }
+
+  noopCallback = () => {
+    return true;
+  }
 
   constructor(props) {
     super(props);
@@ -79,6 +84,8 @@ export default class EmailPreferences extends ConsentComponent {
     this.onHandleChange = this.onHandleChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.populate = this.populate.bind(this);
+    this.onHandleSave = this.onHandleSave.bind(this);
+    this.saveEmailPreferences = this.saveEmailPreferences.bind(this);
   }
 
   componentDidMount() {
@@ -97,12 +104,19 @@ export default class EmailPreferences extends ConsentComponent {
     this.showConsent(this.onChange.bind(this, id, checked));
   }
 
-  onChange(id, checked) {
+  onHandleSave(e) {
+    e.preventDefault();
+    this.saveEmailPreferences();
+  }
+
+  onChange(id, checked, e) {
+    e.preventDefault();
     const { emailPreferences } = this.state;
-    emailPreferences[id] = checked;
+    const newEmailPreferences = { ...emailPreferences };
+    newEmailPreferences[id] = checked;
     this.setState({
-      emailPreferences,
-    }, () => this.saveEmailPreferences());
+      emailPreferences: { ...newEmailPreferences} ,
+    }, () => this.noopCallback());
   }
 
   populate(data) {
@@ -136,11 +150,21 @@ export default class EmailPreferences extends ConsentComponent {
                   checked={checked}
                   primaryText={newsletter.name}
                   secondaryText={newsletter.desc}
-                  onToggle={e => this.onHandleChange(newsletter.id, e.target.checked)}
+                  onToggle={e => this.onChange(newsletter.id, e.target.checked, e)}
                 />
               );
             })
           }
+          <div styleName="button-save">
+            <PrimaryButton
+              styleName="white-label"
+              onClick={this.onHandleSave}
+            >
+              {
+                'Save Changes'
+              }
+            </PrimaryButton>
+          </div>
         </div>
       </div>
     );
