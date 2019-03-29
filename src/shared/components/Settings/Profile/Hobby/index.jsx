@@ -243,6 +243,7 @@ export default class Hobby extends ConsentComponent {
       isMobileView,
       showConfirmation, indexNo,
     } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.HOBBY ? '' : 'hide';
@@ -292,7 +293,7 @@ export default class Hobby extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
-                  <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
+                  <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
                 </div>
               </div>
               <div styleName="row">
@@ -311,7 +312,7 @@ export default class Hobby extends ConsentComponent {
                       </span>
                       <span styleName="text-required">* Required</span>
                     </div>
-                    <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
+                    <textarea disabled={!canModifyTrait} id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
                   </div>
                 </div>
               </div>
@@ -322,6 +323,7 @@ export default class Hobby extends ConsentComponent {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
+                disabled={!canModifyTrait}
                 onClick={this.onHandleAddHobby}
               >
                 Add hobby to your list
@@ -341,7 +343,7 @@ export default class Hobby extends ConsentComponent {
                     Hobby
                     <input type="hidden" />
                   </label>
-                  <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
+                  <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
                 </div>
               </div>
               <div styleName="row">
@@ -356,13 +358,14 @@ export default class Hobby extends ConsentComponent {
                       /160
                     </span>
                   </label>
-                  <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
+                  <textarea disabled={!canModifyTrait} id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
                 </div>
               </div>
             </form>
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
+                disabled={!canModifyTrait}
                 onClick={this.onHandleAddHobby}
               >
                 Add Hobby
@@ -392,4 +395,5 @@ Hobby.propTypes = {
   updateUserTrait: PT.func.isRequired,
   deleteUserTrait: PT.func.isRequired,
   settingsUI: PT.shape().isRequired,
+  traitRequestCount: PT.number.isRequired,
 };
