@@ -1,7 +1,7 @@
 /**
  * Email Preferences component.
  */
-import { map, debounce, isEqual } from 'lodash';
+import { map, isEqual } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
@@ -54,7 +54,6 @@ const newsletters = [
   // },
 ];
 
-const SAVE_DELAY = 1000;
 
 export default class EmailPreferences extends ConsentComponent {
   saveEmailPreferences() {
@@ -72,9 +71,7 @@ export default class EmailPreferences extends ConsentComponent {
     );
   }
 
-  noopCallback = () => {
-    return true;
-  }
+  noopCallback = () => true
 
   constructor(props) {
     super(props);
@@ -115,7 +112,7 @@ export default class EmailPreferences extends ConsentComponent {
     const newEmailPreferences = { ...emailPreferences };
     newEmailPreferences[id] = checked;
     this.setState({
-      emailPreferences: { ...newEmailPreferences} ,
+      emailPreferences: { ...newEmailPreferences }
     }, () => this.noopCallback());
   }
 
