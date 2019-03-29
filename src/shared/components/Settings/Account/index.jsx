@@ -4,6 +4,8 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
+
 import Accordion from 'components/Settings/Accordion';
 import MyAccountIcon from 'assets/images/account/sideicons/myaccount.svg';
 import LinkedAccountIcon from 'assets/images/account/sideicons/linkedaccount.svg';
@@ -18,7 +20,7 @@ import './styles.scss';
 export default class Account extends React.Component {
   constructor(props) {
     super(props);
-    const hash = decodeURIComponent(props.location.hash.substring(1));
+    const hash = decodeURIComponent(_.get(props, 'location.hash', '').substring(1));
     this.tablink = hash.replace('-', ' ');
     const { toggleAccountSideTab } = this.props;
     if (this.tablink) {

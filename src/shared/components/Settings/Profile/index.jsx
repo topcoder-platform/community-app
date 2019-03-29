@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 
 import Accordion from 'components/Settings/Accordion';
 import SideBar from 'components/Settings/SideBar';
@@ -34,7 +35,7 @@ class Profile extends React.Component {
     super(props);
     this.previousSelectedTab = null;
 
-    const hash = decodeURIComponent(props.location.hash.substring(1));
+    const hash = decodeURIComponent(_.get(props, 'location.hash', '').substring(1));
     this.tablink = hash.replace('-', ' ');
     const { toggleProfileSideTab } = this.props;
     if (this.tablink) {
