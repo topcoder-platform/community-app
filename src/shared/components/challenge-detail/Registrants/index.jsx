@@ -18,19 +18,19 @@ function formatDate(date) {
 }
 
 function getDate(arr, handle) {
-  const results = arr.filter(a => (a.submitter || a.handle) === handle)
+  const results = arr.filter(a => _.toString(a.submitter || a.handle) === _.toString(handle))
     .sort((a, b) => new Date(b.submissionTime || b.submissionDate).getTime()
       - new Date(a.submissionTime || a.submissionDate).getTime());
   return results[0] ? (results[0].submissionTime || results[0].submissionDate) : '';
 }
 
 function passedCheckpoint(checkpoints, handle, results) {
-  const mine = checkpoints.filter(c => c.submitter === handle);
+  const mine = checkpoints.filter(c => _.toString(c.submitter) === _.toString(handle));
   return _.some(mine, m => _.find(results, r => r.submissionId === m.submissionId));
 }
 
 function getPlace(results, handle, places) {
-  const found = _.find(results, w => w.handle === handle
+  const found = _.find(results, w => _.toString(w.handle) === _.toString(handle)
     && w.placement <= places && w.submissionStatus !== 'Failed Review');
 
   if (found) {

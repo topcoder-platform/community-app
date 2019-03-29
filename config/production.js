@@ -49,6 +49,7 @@ module.exports = {
       COGNITIVE: 'https://cognitive.topcoder.com',
       ZURICH: 'https://zurich.topcoder.com',
     },
+    EMAIL_VERIFY_URL: 'http://www.topcoder.com/settings/account/changeEmail',
   },
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */

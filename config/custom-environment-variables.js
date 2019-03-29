@@ -29,6 +29,7 @@ module.exports = {
 
   URL: {
     COMMUNITY_APP: 'COMMUNITY_APP_URL',
+    EMAIL_VERIFY_URL: 'EMAIL_VERIFY_URL',
   },
 
   SECRET: {
