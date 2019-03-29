@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 
 import Accordion from 'components/Settings/Accordion';
 import SideBar from 'components/Settings/SideBar';
@@ -34,7 +35,7 @@ class Profile extends React.Component {
     super(props);
     this.previousSelectedTab = null;
 
-    const hash = window.location.hash.replace('#', '');
+    const hash = decodeURIComponent(_.get(props, 'location.hash', '').substring(1));
     this.tablink = hash.replace('-', ' ');
     const { toggleProfileSideTab } = this.props;
     if (this.tablink) {
@@ -169,6 +170,7 @@ Profile.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleProfileSideTab: PT.func.isRequired,
   clearToastrNotification: PT.func.isRequired,
+  location: PT.shape().isRequired,
 };
 
 export default Profile;
