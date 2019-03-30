@@ -93,11 +93,20 @@ export default class EmailPreferences extends ConsentComponent {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    const { profileState: { emailPreferences } } = nextProps;
+    if (emailPreferences && this.props.profileState.emailPreferences !== emailPreferences) {
+      return true;
+    }
+    return false;
+  }
+
   onHandleChange(id, checked) {
     this.showConsent(this.onChange.bind(this, id, checked));
   }
 
   onChange(id, checked) {
+    document.querySelectorAll(`#pre-onoffswitch-${id}`).forEach((el) => { el.checked = checked; }); // eslint-disable-line no-param-reassign
     const { emailPreferences } = this.state;
     emailPreferences[id] = checked;
     this.setState({
@@ -112,7 +121,7 @@ export default class EmailPreferences extends ConsentComponent {
   }
 
   render() {
-    const { emailPreferences } = this.state;
+    const { profileState: { emailPreferences } } = this.props;
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
@@ -127,7 +136,7 @@ export default class EmailPreferences extends ConsentComponent {
           }
           {
             map(newsletters, (newsletter) => {
-              const checked = emailPreferences[newsletter.id] || false;
+              const checked = emailPreferences ? emailPreferences[newsletter.id] : false;
               return (
                 <ToggleableItem
                   key={newsletter.id}
