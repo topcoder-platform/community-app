@@ -29,6 +29,8 @@ const BadgesModal = ({
   achievements, handle, isMobile, onClose, photoURL,
 }) => {
   const normalized = normalizeAchievements(achievements);
+  const groupAchievements = getGroupAchievements(normalized) || [];
+  const singleAchievements = getSingleAchievements(normalized) || [];
   const trigger = isMobile ? ['click'] : ['hover'];
 
   return (
@@ -56,7 +58,7 @@ BADGES
         <div styleName="styles.content">
           <div styleName="styles.badgeGroups">
             {
-              getGroupAchievements(normalized).map(group => (
+              groupAchievements.map(group => (
                 <div key={group.id} styleName={`badges.groupBadge badges.${group.groupClass}`}>
                   { group.groupClass.substring(0, 9) === 'HP-Badges' && <span styleName="badges.subBadge badges.hpLogo" /> }
                   {
@@ -80,7 +82,7 @@ BADGES
           </div>
           <div styleName="styles.footer-badges">
             {
-              getSingleAchievements(normalized).map(achievement => (
+              singleAchievements.map(achievement => (
                 <Tooltip
                   className={styles.tooltip}
                   content={
