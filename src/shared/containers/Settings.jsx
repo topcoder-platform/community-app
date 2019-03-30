@@ -201,7 +201,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.unlinkExternalAccountDone(profile, tokenV3, providerType));
     },
     saveEmailPreferences: (profile, tokenV3, preferences) => {
-      dispatch(profileActions.saveEmailPreferencesInit());
       dispatch(profileActions.saveEmailPreferencesDone(profile, tokenV3, preferences));
     },
     updatePassword: (profile, tokenV3, newPassword, oldPassword) => {
