@@ -17,6 +17,7 @@ import Veterans from './Veterans';
 import Wipro from './Wipro';
 import Cognitive from './Cognitive';
 import IoT from './iot';
+import TCO17 from './TCO17';
 import TCO18 from './TCO18';
 import TCO19 from './TCO19';
 import Mobile from './Mobile';
@@ -41,6 +42,7 @@ export default function Communities({
     case 'wipro': return <Wipro base={base} meta={meta} />;
     case 'cognitive': return <Cognitive base={base} member={member} meta={meta} />;
     case 'iot': return <IoT base={base} meta={meta} />;
+    case 'tco17': return <TCO17 base={base} meta={meta} />;
     case 'tco18': return <TCO18 base={base} meta={meta} />;
     case 'tco19': return <TCO19 base={base} meta={meta} />;
     case 'mobile': return <Mobile base={base} meta={meta} />;
