@@ -163,14 +163,18 @@ export default class MyAccount extends React.Component {
       tokenV3,
       profileState,
     } = this.props;
+
     const {
       passwordValid,
+      rePasswordValid,
+      newPassword,
+      currentPassword,
     } = this.state;
 
     const { updatingPassword } = profileState;
     e.preventDefault();
-    const { newPassword, currentPassword } = this.state;
-    if (!passwordValid || updatingPassword) {
+
+    if (!passwordValid || !rePasswordValid || updatingPassword) {
       const newState = { ...this.state };
       newState.focus['new-password-input'] = true;
       newState.showNewTips = true;
