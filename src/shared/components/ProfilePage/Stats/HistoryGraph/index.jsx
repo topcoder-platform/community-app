@@ -1,6 +1,7 @@
 /* eslint-env browser */
 import d3 from 'd3';
 import moment from 'moment';
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
@@ -60,10 +61,9 @@ export default class HistoryGraph extends React.Component {
   draw() {
     const $scope = this;
     const { history: wrapper, track, subTrack } = this.props;
-    if (!wrapper) {
-      return;
-    }
-    let { history } = wrapper;
+
+    let history = _.get(wrapper, 'history', []);
+
     history = history.map((_h) => {
       const h = { ..._h };
       if (h.rating) {
@@ -117,6 +117,14 @@ export default class HistoryGraph extends React.Component {
     const y = d3.scale.linear()
       .range([(h + padding.top) - 5, padding.top + 5])
       .domain(d3.extent(history, d => d.newRating));
+
+    // if history is not present then show empty graph with some default x and y axis
+    if (_.isEmpty(history)) {
+      y.domain([1000, 1600]);
+      const fromDate = d3.time.format.utc('%Y-%m-%dT%H:%M:%SZ').parse(moment().utc().subtract(2, 'years').format());
+      const toDate = d3.time.format.utc('%Y-%m-%dT%H:%M:%SZ').parse(moment().utc().format());
+      x.domain([fromDate, toDate]);
+    }
 
 
     function yAxis(ticks) {
