@@ -21,6 +21,7 @@ import Viewport from 'components/Contentful/Viewport';
 import Tabs from 'components/Contentful/Tabs';
 import Blog from 'components/Contentful/Blog';
 import BlogFeed from 'containers/Contentful/BlogFeed';
+import Modal from 'components/Contentful/Modal';
 import qs from 'qs';
 
 import { Route, Switch } from 'react-router-dom';
@@ -192,6 +193,18 @@ export default function Contentful({ location, match }) {
             preview
             spaceName={spaceName}
           />
+        )}
+      />
+      <Route
+        path={`${base}/modal/:id`}
+        component={p => (
+          <Modal
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          >
+            <button type="button">click me</button>
+          </Modal>
         )}
       />
     </Switch>
