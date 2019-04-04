@@ -134,9 +134,11 @@ class ProfilePage extends React.Component {
     }
 
     let externals = _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
-    externalLinks.map(data => externals.push(({ type: 'weblink', data })));
-    externals = _.filter(externals, 'data');
-    externals = _.sortBy(externals, 'type');
+    if (externalLinks) {
+      externalLinks.map(data => externals.push(({ type: 'weblink', data })));
+      externals = _.filter(externals, 'data');
+      externals = _.sortBy(externals, 'type');
+    }
 
     const activeTracks = this.getActiveTracks();
 
