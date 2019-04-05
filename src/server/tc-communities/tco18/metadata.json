@@ -1,10 +1,4 @@
 {
-  "challengeFilter": {
-    "groupIds": [],
-    "or": [{
-      "tags": ["TCO", "TCO18"]
-    }]
-  },
   "communityId": "tco18",
   "hidden": true,
   "communityName": "TCO18",

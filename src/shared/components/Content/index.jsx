@@ -486,6 +486,11 @@ Blog
             <code>BlogFeed</code>
           </Link>
         </li>
+        <li>
+          <Link to="/examples/contentful/modal/Pg4e60qnOpfTDxZgMfopT">
+            <code>Modal</code>
+          </Link>
+        </li>
       </ul>
 
       <h3>
