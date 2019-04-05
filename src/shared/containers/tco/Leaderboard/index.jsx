@@ -70,7 +70,7 @@ class LeaderboardPageContainer extends React.Component {
       userid: competitor ? competitor.userid : null,
     }) || {};
     return isLoadingLeaderboard
-      ? (LoadingIndicator) : (
+      ? (<LoadingIndicator />) : (
         <div>
           <div styleName="Leaderboard">
             <h2 styleName="section-title">{title}</h2>
