@@ -11,6 +11,7 @@ import actions from 'actions/leaderboard';
 import LeaderboardTable from 'components/Leaderboard/LeaderboardTable';
 import Podium from 'components/Leaderboard/Podium';
 import { themr } from 'react-css-super-themr';
+import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeHistoryModalContainer from './ChallengeHistoryModal';
 
 import defaultTheme from './styles.scss';
@@ -58,7 +59,7 @@ class LeaderboardPageContainer extends React.Component {
   render() {
     const {
       leaderboardData, title, podiumSpots, isCopilot, hasChallengeHistory,
-      tcoPointsApiUrl, memberLimit, isAlgo,
+      tcoPointsApiUrl, memberLimit, isAlgo, isLoadingLeaderboard,
     } = this.props;
     const { competitor } = this.state;
     let ld = leaderboardData || [];
@@ -68,37 +69,38 @@ class LeaderboardPageContainer extends React.Component {
     const member = _.find(ld, {
       userid: competitor ? competitor.userid : null,
     }) || {};
-    return (
-      <div>
-        <div styleName="Leaderboard">
-          <h2 styleName="section-title">{title}</h2>
-          <Podium
-            competitors={ld.slice(0, podiumSpots)}
-            isCopilot={isCopilot}
-            isAlgo={isAlgo}
-            onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
-          />
-          <LeaderboardTable
-            competitors={ld.slice(podiumSpots)}
-            isCopilot={isCopilot}
-            isAlgo={isAlgo}
-            onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
-          />
-          {
-            hasChallengeHistory && competitor ? (
-              <ChallengeHistoryModalContainer
-                competitor={competitor}
-                challenges={member.challenges}
-                onCancel={this.onChallengeHistoryClose}
-                dataUrl={tcoPointsApiUrl}
-                isCopilot={isCopilot}
-                isAlgo={isAlgo}
-              />
-            ) : null
-          }
+    return isLoadingLeaderboard
+      ? (LoadingIndicator) : (
+        <div>
+          <div styleName="Leaderboard">
+            <h2 styleName="section-title">{title}</h2>
+            <Podium
+              competitors={ld.slice(0, podiumSpots)}
+              isCopilot={isCopilot}
+              isAlgo={isAlgo}
+              onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
+            />
+            <LeaderboardTable
+              competitors={ld.slice(podiumSpots)}
+              isCopilot={isCopilot}
+              isAlgo={isAlgo}
+              onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
+            />
+            {
+              hasChallengeHistory && competitor ? (
+                <ChallengeHistoryModalContainer
+                  competitor={competitor}
+                  challenges={member.challenges}
+                  onCancel={this.onChallengeHistoryClose}
+                  dataUrl={tcoPointsApiUrl}
+                  isCopilot={isCopilot}
+                  isAlgo={isAlgo}
+                />
+              ) : null
+            }
+          </div>
         </div>
-      </div>
-    );
+      );
   }
 }
 
