@@ -62,9 +62,11 @@ export default class HistoryGraph extends React.Component {
     const $scope = this;
     const { history: wrapper, track, subTrack } = this.props;
 
-    let history = _.get(wrapper, 'history', []);
-
-    history = history.map((_h) => {
+    if (!wrapper) {
+      return;
+    }
+    let { history } = wrapper;
+    history = history ? history.map((_h) => {
       const h = { ..._h };
       if (h.rating) {
         h.newRating = h.rating;
@@ -73,7 +75,7 @@ export default class HistoryGraph extends React.Component {
         h.ratingDate = h.date;
       }
       return h;
-    });
+    }) : [];
 
     history.sort(({ ratingDate: d1 }, { ratingDate: d2 }) => moment(d1) - moment(d2));
 

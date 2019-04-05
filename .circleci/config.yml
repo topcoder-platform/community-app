@@ -181,7 +181,6 @@ workflows:
           filters:
               branches:
                 only:
-                  - develop_masterscript
                   - legacy-tco
       # This is beta env for production soft releases
       - "build-prod-beta":
@@ -191,6 +190,7 @@ workflows:
               only:
                 - hot-fixes
                 - develop
+                - bug-bash
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":

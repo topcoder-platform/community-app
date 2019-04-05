@@ -20,19 +20,31 @@ const Failed = () => (
           Email Verification Failed
         </h1>
         <div styleName="text">
-          We could not verify your email. If you have any issues with your Topcoder account,
-          please contact&nbsp;
-          <span>
-             support@topcoder.com
-          </span>
-          .
+          Sorry, this verification link is no longer valid due to one of the following reasons:
+        </div>
+        <ul>
+          <li>
+            <span>
+              It has already been verified.
+            </span>
+          </li>
+          <li>
+            <span>
+              It has expired or has been cancelled, any pending email
+              change that is cancelled is no longer subject to verification.
+            </span>
+          </li>
+        </ul>
+        <div styleName="tip">
+          Make sure you&#39;re logged in with the right account
+          or try updating your email again
         </div>
         <div styleName="button-back">
           <PrimaryButton
             styleName="white"
-            to="/settings/account"
+            to="/my-dashboard"
           >
-            Back to My Account
+            Back to My Dashboard
           </PrimaryButton>
         </div>
       </div>
