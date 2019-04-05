@@ -25,16 +25,27 @@ class Accordion extends Component {
 
   render() {
     const {
-      children, theme, title, description,
+      children,
+      theme,
+      title,
+      description,
+      spaceName,
+      environment,
+      preview,
     } = this.props;
     const { selectedIndex } = this.state;
+    const contentfulConfig = {
+      spaceName,
+      environment,
+      preview,
+    };
 
     return (
       <div className={theme.outerContainer}>
         { title ? (<h1>{title}</h1>) : null}
         { description ? (
           <div className={theme.description}>
-            <MarkdownRenderer markdown={description} />
+            <MarkdownRenderer markdown={description} {...contentfulConfig} />
           </div>
         ) : null }
         <div className={theme.container} id="accordion">
@@ -77,6 +88,9 @@ Accordion.defaultProps = {
   theme: {},
   title: null,
   description: null,
+  preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 Accordion.propTypes = {
@@ -91,6 +105,9 @@ Accordion.propTypes = {
   }),
   title: PT.string,
   description: PT.string,
+  preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 export default themr('Contentful-Accordion', defaultStyle)(Accordion);
