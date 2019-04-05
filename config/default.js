@@ -148,6 +148,7 @@ module.exports = {
     WIPRO: 'https://wipro.topcoder.com',
     COMMUNITY_API: 'http://localhost:8000',
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
+    EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
   },
 
   /* Information about Topcoder user groups can be cached in various places.

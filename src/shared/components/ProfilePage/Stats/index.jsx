@@ -62,8 +62,8 @@ class ProfileStats extends React.Component {
     }
 
     const subTrackStats = getSubTrackStats(stats, track, subTrack);
-    const subTrackSummary = getSummary(stats, track, subTrack);
-    const subTrackDetails = getDetails(stats, track, subTrack);
+    const subTrackSummary = getSummary(stats, track, subTrack) || [];
+    const subTrackDetails = getDetails(stats, track, subTrack) || [];
 
     if (track === 'DEVELOP') {
       const reliability = subTrackSummary.find(stat => stat.label === 'reliability');

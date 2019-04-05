@@ -74,7 +74,7 @@ export default class DistributionGraph extends React.Component {
     if (window.innerWidth < 400) {
       return 250;
     }
-    return 370;
+    return 320;
   }
 
   draw() {
