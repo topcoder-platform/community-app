@@ -664,7 +664,7 @@ export default class MyAccount extends React.Component {
                 <div>
                   <p>
                     You joined Topcoder by using an external account,
-                    so we don&quot;t have a password for you.
+                    so we don&#39;t have a password for you.
                   </p>
                 </div>
               )
