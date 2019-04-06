@@ -1,7 +1,7 @@
 /**
  * Email Preferences component.
  */
-import { map, debounce } from 'lodash';
+import { map, debounce, isEqual } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -75,7 +75,6 @@ export default class EmailPreferences extends ConsentComponent {
     super(props);
     this.state = {
       emailPreferences: {},
-      populated: null,
     };
     this.onHandleChange = this.onHandleChange.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -89,7 +88,9 @@ export default class EmailPreferences extends ConsentComponent {
 
   componentWillReceiveProps(nextProps) {
     const { profileState: { emailPreferences } } = nextProps;
-    if (emailPreferences) this.populate(emailPreferences);
+    if (emailPreferences && !isEqual(this.state.emailPreferences, emailPreferences)) {
+      this.populate(emailPreferences);
+    }
   }
 
   onHandleChange(id, checked) {
@@ -105,11 +106,8 @@ export default class EmailPreferences extends ConsentComponent {
   }
 
   populate(data) {
-    const { populated } = this.state;
-    if (populated) return;
     this.setState({
       emailPreferences: { ...data },
-      populated: true,
     });
   }
 
