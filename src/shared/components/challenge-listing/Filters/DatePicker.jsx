@@ -17,7 +17,7 @@ const propTypes = {
     'date',
     'onDateChange',
     'focused',
-    'onFocusChange'
+    'onFocusChange',
   ]),
 };
 
@@ -49,7 +49,9 @@ class DatePicker extends React.Component {
 
   render() {
     const { focused } = this.state;
-    const { id, date, onDateChange, isOutsideRange} = this.props;
+    const {
+      id, date, onDateChange, isOutsideRange,
+    } = this.props;
 
     const props = omit(this.props, [
       'id',
@@ -62,7 +64,8 @@ class DatePicker extends React.Component {
         {...props}
         hideKeyboardShortcutsPanel
         id={id}
-        isOutsideRange={_.isEmpty(isOutsideRange) ? () => false : day => !isInclusivelyBeforeDay(day, moment())}
+        isOutsideRange={_.isEmpty(isOutsideRange) ? () => false
+          : day => !isInclusivelyBeforeDay(day, moment())}
         date={_.isEmpty(date) ? undefined : moment.utc(date)}
         focused={focused}
         onDateChange={onDateChange}
