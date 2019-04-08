@@ -5,7 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import 'react-dates/initialize';
-import { SingleDatePicker } from 'react-dates';
+import { SingleDatePicker, isInclusivelyBeforeDay } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
 import './_fix_SingleDatePicker.css';
@@ -17,7 +17,7 @@ const propTypes = {
     'date',
     'onDateChange',
     'focused',
-    'onFocusChange',
+    'onFocusChange'
   ]),
 };
 
@@ -49,7 +49,7 @@ class DatePicker extends React.Component {
 
   render() {
     const { focused } = this.state;
-    const { id, date, onDateChange } = this.props;
+    const { id, date, onDateChange, isOutsideRange} = this.props;
 
     const props = omit(this.props, [
       'id',
@@ -62,7 +62,7 @@ class DatePicker extends React.Component {
         {...props}
         hideKeyboardShortcutsPanel
         id={id}
-        isOutsideRange={() => false}
+        isOutsideRange={_.isEmpty(isOutsideRange) ? () => false : day => !isInclusivelyBeforeDay(day, moment())}
         date={_.isEmpty(date) ? undefined : moment.utc(date)}
         focused={focused}
         onDateChange={onDateChange}
