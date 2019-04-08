@@ -32,6 +32,7 @@ export default class MyAccount extends React.Component {
       passwordValid: false,
       showNewTips: false,
       showEmailTips: false,
+      newEmailSameAsCurrent: false,
       focus: {
         'new-password-input': false,
         'new-email-input': false,
@@ -104,6 +105,7 @@ export default class MyAccount extends React.Component {
     this.setState({
       newEmail,
       showEmailTips: false,
+      newEmailSameAsCurrent: false,
     });
   }
 
@@ -116,6 +118,9 @@ export default class MyAccount extends React.Component {
     if (newState.newEmail === '' || !email.test(newState.newEmail) || newState.newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
       newState.showEmailTips = true;
+      if (newState.newEmail === newState.currentEmail) {
+        newState.newEmailSameAsCurrent = true;
+      }
     } else {
       newState.btnChangeEmailVisible = false;
       newState.btnVerifiAgainlVisible = true;
@@ -319,6 +324,7 @@ export default class MyAccount extends React.Component {
       passwordInputType,
       showNewTips,
       showEmailTips,
+      newEmailSameAsCurrent,
       passwordValid,
       isMobileView,
     } = this.state;
@@ -374,7 +380,11 @@ export default class MyAccount extends React.Component {
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
@@ -382,7 +392,11 @@ export default class MyAccount extends React.Component {
                   </div>
                   <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
                     <h3>
-                      Your email address is not valid.
+                      {
+                        newEmailSameAsCurrent
+                          ? 'The new email cannot be the same as the current email.'
+                          : 'Your email address is not valid.'
+                      }
                     </h3>
                   </div>
                   <div styleName="row">
@@ -460,7 +474,11 @@ export default class MyAccount extends React.Component {
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
