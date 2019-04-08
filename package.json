@@ -64,7 +64,7 @@
     "money": "^0.2.0",
     "morgan": "^1.9.0",
     "node-forge": "^0.7.5",
-    "nuka-carousel": "^3.0.1",
+    "nuka-carousel": "^4.5.3",
     "postcss": "^6.0.23",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",

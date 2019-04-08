@@ -9,7 +9,6 @@ import _ from 'lodash';
 import Carousel from 'nuka-carousel';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import { isomorphy } from 'topcoder-react-utils';
 import { fixStyle } from 'utils/contentful';
 
 import ArrowNext from 'assets/images/arrow_right.svg';
@@ -24,55 +23,18 @@ class CarouselInject extends Carousel {
   }
 }
 
+// eslint-disable-next-line react/prefer-stateless-function
 class ContentSlider extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
-
-    this.updateControlUI = this.updateUI.bind(this);
-    this.state = { currentSlide: 0 };
-  }
-
-  /**
-   * update ui after slide
-   */
-  updateUI() {
-    if (!this.carousel) return;
-    const { currentSlide } = this.state;
-    if (currentSlide !== this.carousel.state.currentSlide) {
-      this.setState({ currentSlide: this.carousel.state.currentSlide });
-    }
   }
 
   render() {
     const {
       children, theme, autoStart, duration, id, containerStyle,
+      slidesToShow, framePadding, withoutControls, vertical, cellSpacing,
     } = this.props;
-    const { currentSlide } = this.state;
-    const decorators = [];
-    decorators.push({
-      component: () => (
-        <div className={theme.control}>
-          <a
-            onClick={() => this.carousel && this.carousel.previousSlide()}
-            onKeyPress={() => this.carousel && this.carousel.previousSlide()}
-            role="button"
-            tabIndex={0}
-          >
-            <ArrowPrev />
-          </a>
-          {`  ${currentSlide + 1}/${children.length}  `}
-          <a
-            onClick={() => this.carousel && this.carousel.nextSlide()}
-            onKeyPress={() => this.carousel && this.carousel.nextSlide()}
-            role="button"
-            tabIndex={0}
-          >
-            <ArrowNext />
-          </a>
-        </div>
-      ),
-      position: 'BottomCenter',
-    });
 
     return (
       <div
@@ -81,25 +43,41 @@ class ContentSlider extends Component {
         style={fixStyle(containerStyle)}
       >
         <CarouselInject
-          beforeSlide={(currSlide, endSlide) => {
-            if (isomorphy.isClientSide()) {
-              const list = window.document.querySelector('.slider-list');
-              const slidesCount = list.childNodes.length;
-              const nextSlide = list.childNodes[endSlide % slidesCount];
-              list.style.height = `${nextSlide.offsetHeight}px`;
-            }
-          }}
-          afterSlide={() => setImmediate(() => this.updateUI())}
-          decorators={decorators}
-          ref={(node) => {
-            this.carousel = node;
-            if (node) this.updateUI();
-          }}
           dragging={false}
           wrapAround
           autoplay={autoStart}
           autoplayInterval={duration * 1000}
-          className={theme.content}
+          className={slidesToShow > 1 ? theme.multiContent : theme.singleContent}
+          slidesToShow={slidesToShow}
+          slidesToScroll="auto"
+          cellAlign="center"
+          heightMode="current"
+          framePadding={framePadding}
+          withoutControls={withoutControls}
+          vertical={vertical}
+          cellSpacing={cellSpacing}
+          renderCenterLeftControls={({ previousSlide }) => (
+            <a
+              onClick={previousSlide}
+              onKeyPress={previousSlide}
+              role="button"
+              tabIndex={0}
+              className={theme.control}
+            >
+              <ArrowPrev />
+            </a>
+          )}
+          renderCenterRightControls={({ nextSlide }) => (
+            <a
+              onClick={nextSlide}
+              onKeyPress={nextSlide}
+              role="button"
+              tabIndex={0}
+              className={theme.control}
+            >
+              <ArrowNext />
+            </a>
+          )}
         >
           {children}
         </CarouselInject>
@@ -113,6 +91,11 @@ ContentSlider.defaultProps = {
   autoStart: true,
   duration: 5, // 5sec
   containerStyle: null,
+  slidesToShow: 1,
+  framePadding: null,
+  withoutControls: false,
+  vertical: false,
+  cellSpacing: null,
 };
 
 ContentSlider.propTypes = {
@@ -126,6 +109,11 @@ ContentSlider.propTypes = {
     control: PT.string,
   }),
   containerStyle: PT.shape(),
+  slidesToShow: PT.number,
+  framePadding: PT.string,
+  withoutControls: PT.bool,
+  vertical: PT.bool,
+  cellSpacing: PT.number,
 };
 
 export default themr('Contentful-Slider', defaultTheme)(ContentSlider);
