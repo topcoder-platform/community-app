@@ -434,6 +434,7 @@ export default class Skills extends ConsentComponent {
       indexList,
     } = this.state;
 
+    const canModifyTrait = !this.props.traitRequestCount;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.SKILL ? '' : 'hide';
@@ -554,12 +555,13 @@ export default class Skills extends ConsentComponent {
                     options={lookupSkills}
                     onChange={this.onUpdateSelect}
                     placeholder="Start typing a skill then select from the list"
-                    matchPos="start"
+                    matchPos="any"
                     matchProp="name"
                     labelKey="name"
                     valueKey="name"
                     clearable={false}
                     value={selectedSkill.name}
+                    disabled={!canModifyTrait}
                   />
                 </div>
               </div>
@@ -571,6 +573,7 @@ export default class Skills extends ConsentComponent {
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddSkill}
+                disabled={!canModifyTrait}
               >
                 Add skill to your list
               </PrimaryButton>
@@ -595,12 +598,13 @@ export default class Skills extends ConsentComponent {
                     options={lookupSkills}
                     onChange={this.onUpdateSelect}
                     placeholder="Start typing a skill then select from the list"
-                    matchPos="start"
+                    matchPos="any"
                     matchProp="name"
                     labelKey="name"
                     valueKey="name"
                     clearable={false}
                     value={selectedSkill.name}
+                    disabled={!canModifyTrait}
                   />
                 </div>
               </div>
@@ -609,6 +613,7 @@ export default class Skills extends ConsentComponent {
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddSkill}
+                disabled={!canModifyTrait}
               >
                 Add Skill
               </PrimaryButton>
@@ -635,4 +640,5 @@ Skills.propTypes = {
   /* eslint-disable react/no-unused-prop-types */
   settingsUI: PT.shape().isRequired,
   userTraits: PT.array.isRequired,
+  traitRequestCount: PT.number.isRequired,
 };

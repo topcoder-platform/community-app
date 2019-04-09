@@ -17,7 +17,15 @@ function Banner({
   background,
   banner,
   theme,
+  spaceName,
+  environment,
+  preview,
 }) {
+  const contentfulConfig = {
+    spaceName,
+    environment,
+    preview,
+  };
   return (
     <div
       className={theme.container}
@@ -33,12 +41,18 @@ function Banner({
           className={theme.content}
           style={fixStyle(banner.contentStyles)}
         >
-          <MarkdownRenderer markdown={banner.text} />
+          <MarkdownRenderer markdown={banner.text} {...contentfulConfig} />
         </div>
       </div>
     </div>
   );
 }
+
+Banner.defaultProps = {
+  preview: false,
+  spaceName: null,
+  environment: null,
+};
 
 Banner.propTypes = {
   background: PT.shape().isRequired,
@@ -48,6 +62,9 @@ Banner.propTypes = {
     content: PT.string.isRequired,
     contentWrapper: PT.string.isRequired,
   }).isRequired,
+  preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 export default themr('Banner', defaultTheme)(Banner);

@@ -25,6 +25,7 @@
     text-align: center;
     margin-bottom: 10px;
     //border-radius: 4px;
+    position: relative;
 
     @include sofia-pro-medium;
 
@@ -43,10 +44,12 @@
 
     i.fa-globe {
       color: #82a0aa;
+      cursor: pointer;
     }
 
     i.fa-weblinks {
       color: #82a0aa;
+      cursor: pointer;
     }
 
     i.fa-bitbucket {
@@ -111,6 +114,8 @@
 
         font-size: 18px;
         height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .title {
@@ -496,6 +501,8 @@
         .handle {
           margin-top: 20px;
           margin-bottom: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .title {

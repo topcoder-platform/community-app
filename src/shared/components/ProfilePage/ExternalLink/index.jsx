@@ -30,7 +30,7 @@ const ExternalLink = ({ data, type }) => {
     return <div />;
   }
 
-  let url = data.profileURL || data.URL;
+  let url = data ? data.profileURL || data.URL : null;
   if (url && !isWebUri(url)) {
     url = `http://${url}`;
     if (!isWebUri(url)) {

@@ -7,7 +7,7 @@
 .myaccount-container {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: flex-start;
 
   @include upto-sm {
     padding: 20px;
@@ -44,16 +44,16 @@
   }
 
   .error-message {
-    @include roboto-regular;
+    @include roboto-medium;
 
+    display: block;
+    border-radius: 5px;
     background-color: $tc-red-10;
-    border: 1px solid $tc-red-30;
-    color: $tc-red;
+    color: $tc-red-110;
+    font-size: 15px;
+    padding: 15px;
+    margin: 15px 0;
     line-height: 20px;
-    margin-bottom: 20px;
-    padding: 10px;
-    text-align: left;
-    font-size: 13px;
   }
 }
 
@@ -197,7 +197,7 @@
         max-width: 152px;
         min-width: 152px;
         margin-right: 14px;
-        align-self: left;
+        align-self: flex-start;
         margin-bottom: auto;
         margin-top: auto;
         white-space: nowrap;
@@ -211,7 +211,7 @@
       }
 
       &.col-2 {
-        align-self: right;
+        align-self: flex-end;
         width: 80%;
         margin-bottom: auto;
         margin-top: auto;
@@ -596,5 +596,99 @@ $tips-background: $tc-gray-neutral-light;
       display: block;
       width: 313px;
     }
+  }
+}
+
+.modalContainer {
+  @include roboto-regular;
+
+  padding: 0;
+  position: fixed;
+  overflow: auto;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: auto;
+  max-width: none;
+  transform: none;
+  background: transparent;
+
+  .verification-send-container {
+    background: transparent;
+    opacity: 1;
+    position: relative;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+    color: #444;
+    font-family: Helvetica, sans-serif;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+.verification-send-details {
+  @include merriweather-sans-light;
+
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $tc-white;
+  opacity: 1;
+  border-radius: 4px;
+  padding: 40px;
+
+  .verification-send-title {
+    @include sofia-pro-medium;
+
+    font-size: 20px;
+    line-height: 24px;
+    color: $tc-gray-90;
+    text-transform: uppercase;
+  }
+
+  .verification-send-message {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .verification-send-button {
+    margin-left: auto;
+    margin-right: auto;
+
+    button,
+    a {
+      @include roboto-medium;
+
+      height: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      margin: 0;
+      padding: 0;
+      width: 170px;
+      white-space: nowrap;
+    }
+
+    .white-label {
+      color: $tc-white;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .verification-send-details {
+    width: 520px;
+    min-height: 256px;
   }
 }

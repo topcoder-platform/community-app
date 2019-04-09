@@ -31,9 +31,10 @@ export default class MarkdownRenderer extends React.Component {
   }
 
   renderElements(markdown) {
+    const { preview, spaceName, environment } = this.props;
     if (markdown) {
       this.setState({
-        elements: md(markdown),
+        elements: md(markdown, { preview, spaceName, environment }),
       });
     }
   }
@@ -54,8 +55,14 @@ export default class MarkdownRenderer extends React.Component {
 
 MarkdownRenderer.defaultProps = {
   markdown: '',
+  preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 MarkdownRenderer.propTypes = {
   markdown: PT.string,
+  preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

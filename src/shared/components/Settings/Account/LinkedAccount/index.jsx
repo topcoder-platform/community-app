@@ -128,7 +128,7 @@ export default class LinkedAccount extends React.Component {
     const externalAccountsData = profileState.externalAccounts || {};
 
     if (!linkedAccounts.length) {
-      const providers = _.omit(externalAccountsData, ['userId', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy', 'handle']);
+      const providers = _.omit(externalAccountsData, ['userId', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy']);
 
       _.forEach(_.keys(providers), (p) => {
         if (providers[p]) {

@@ -114,6 +114,14 @@ export default class MyAccount extends ConsentComponent {
         isOpen: true,
       });
     }
+
+    if (nextProps.profileState.updateProfileSuccess
+      && !nextProps.profileState.updatingProfile
+      && this.state.isSent) {
+      this.setState({
+        isOpen: true,
+      });
+    }
   }
 
   componentWillUnmount() {

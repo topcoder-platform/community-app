@@ -181,7 +181,6 @@ workflows:
           filters:
               branches:
                 only:
-                  - develop_masterscript
                   - legacy-tco
                   - general-features
       # This is beta env for production soft releases
