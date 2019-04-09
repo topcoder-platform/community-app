@@ -26,6 +26,7 @@ import Community from './Community';
 import Organization from './Organization';
 import Hobby from './Hobby';
 import ComingSoon from '../ComingSoon';
+import { SCREEN_SIZE } from '../constants';
 
 
 import './styles.scss';
@@ -33,7 +34,6 @@ import './styles.scss';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.previousSelectedTab = null;
 
     const hash = decodeURIComponent(_.get(props, 'location.hash', '').substring(1));
     this.tablink = hash.replace('-', ' ');
@@ -41,22 +41,15 @@ class Profile extends React.Component {
     if (this.tablink) {
       toggleProfileSideTab(this.tablink);
     }
-
     this.state = {
       isMobileView: false,
-      screenSM: 767,
     };
-
-
+    this.clearNotifiation = this.clearNotifiation.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
   }
 
   componentDidMount() {
-    const {
-      clearToastrNotification,
-    } = this.props;
-    clearToastrNotification();
-
+    this.clearNotifiation();
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
   }
@@ -65,20 +58,24 @@ class Profile extends React.Component {
     const { settingsUI: { currentProfileTab } } = this.props;
     if (prevProps.settingsUI.currentProfileTab !== currentProfileTab) {
       window.location.hash = currentProfileTab.replace(' ', '-');
+      this.clearNotifiation();
     }
   }
 
   componentWillUnmount() {
-    const {
-      clearToastrNotification,
-    } = this.props;
-    clearToastrNotification();
+    this.clearNotifiation();
     window.removeEventListener('resize', this.updatePredicate);
   }
 
+  clearNotifiation() {
+    const { clearToastrNotification } = this.props;
+    if (clearToastrNotification) {
+      clearToastrNotification();
+    }
+  }
+
   updatePredicate() {
-    const { screenSM } = this.state;
-    this.setState({ isMobileView: window.innerWidth <= screenSM });
+    this.setState({ isMobileView: window.innerWidth <= SCREEN_SIZE.SM });
   }
 
   render() {
@@ -86,7 +83,6 @@ class Profile extends React.Component {
     const {
       settingsUI: { currentProfileTab, TABS },
       toggleProfileSideTab,
-      clearToastrNotification,
     } = this.props;
     const tabs = TABS.PROFILE;
     const names = Object.keys(tabs).map(key => tabs[key]);
@@ -104,10 +100,6 @@ class Profile extends React.Component {
     };
 
     const renderTabContent = (tab) => {
-      if (this.previousSelectedTab !== tab) {
-        clearToastrNotification();
-      }
-      this.previousSelectedTab = tab;
       switch (tab) {
         case 'basic info':
           return <BasicInfo {...this.props} />;
