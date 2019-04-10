@@ -161,6 +161,8 @@
     }
 
     .field {
+      position: relative;
+
       @include upto-sm {
         display: block;
         padding-bottom: 10px;
@@ -564,6 +566,10 @@ $tips-background: $tc-gray-neutral-light;
 // Password tips show checkmark validation
 // TODO: refactor name to be context independent, like .validation-tips
 .password-tips {
+  position: absolute;
+  z-index: 10;
+  margin-top: 10px;
+
   p {
     padding-left: 20px;
   }
@@ -574,6 +580,7 @@ $tips-background: $tc-gray-neutral-light;
     display: none;
   }
 
+  .re-password-match::before,
   .has-length-between-range::before,
   .has-letter::before,
   .has-symbol-or-number::before,
@@ -587,6 +594,7 @@ $tips-background: $tc-gray-neutral-light;
 
     &.mobile {
       display: block;
+      width: 313px;
     }
   }
 }
