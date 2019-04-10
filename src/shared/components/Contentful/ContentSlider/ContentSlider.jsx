@@ -34,6 +34,7 @@ class ContentSlider extends Component {
     const {
       children, theme, autoStart, duration, id, containerStyle,
       slidesToShow, framePadding, withoutControls, vertical, cellSpacing,
+      cellAlign,
     } = this.props;
 
     return (
@@ -50,7 +51,7 @@ class ContentSlider extends Component {
           className={slidesToShow > 1 ? theme.multiContent : theme.singleContent}
           slidesToShow={slidesToShow}
           slidesToScroll="auto"
-          cellAlign="center"
+          cellAlign={cellAlign}
           heightMode="current"
           framePadding={framePadding}
           withoutControls={withoutControls}
@@ -96,6 +97,7 @@ ContentSlider.defaultProps = {
   withoutControls: false,
   vertical: false,
   cellSpacing: null,
+  cellAlign: 'center',
 };
 
 ContentSlider.propTypes = {
@@ -114,6 +116,7 @@ ContentSlider.propTypes = {
   withoutControls: PT.bool,
   vertical: PT.bool,
   cellSpacing: PT.number,
+  cellAlign: PT.string,
 };
 
 export default themr('Contentful-Slider', defaultTheme)(ContentSlider);
