@@ -22,27 +22,8 @@ export default function TCO18({ base }) {
             theme={headerTheme}
           />
           <Switch>
-            {/* Competition Rules */}
             <ContentfulRoute
-              path={`${base}/competition-rules`}
-              error404={<Error404 />}
-              id="7ILa27AKAXfnXvxG10YuUb"
-            />
-            {/* Tracks */}
-            <ContentfulRoute
-              path={`${base}/tracks`}
-              error404={<Error404 />}
-              id="fPxQ2U23WkkAPTEIj4WVM"
-            />
-            {/* Regional events */}
-            <ContentfulRoute
-              path={`${base}/regional-events`}
-              error404={<Error404 />}
-              id="3g6g5UDJXDM1qMZGH2cKY1"
-            />
-            {/* Home route */}
-            <ContentfulRoute
-              path={base || '/'}
+              baseUrl={base}
               error404={<Error404 />}
               id="5MK8iGUoAy7CTwGsJ7QtIE"
             />
