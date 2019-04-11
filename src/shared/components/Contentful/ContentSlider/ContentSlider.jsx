@@ -34,7 +34,7 @@ class ContentSlider extends Component {
     const {
       children, theme, autoStart, duration, id, containerStyle,
       slidesToShow, framePadding, withoutControls, vertical, cellSpacing,
-      cellAlign,
+      cellAlign, wrapAround,
     } = this.props;
 
     return (
@@ -45,7 +45,6 @@ class ContentSlider extends Component {
       >
         <CarouselInject
           dragging={false}
-          wrapAround
           autoplay={autoStart}
           autoplayInterval={duration * 1000}
           className={slidesToShow > 1 ? theme.multiContent : theme.singleContent}
@@ -57,6 +56,7 @@ class ContentSlider extends Component {
           withoutControls={withoutControls}
           vertical={vertical}
           cellSpacing={cellSpacing}
+          wrapAround={wrapAround}
           renderCenterLeftControls={({ previousSlide }) => (
             <a
               onClick={previousSlide}
@@ -98,6 +98,7 @@ ContentSlider.defaultProps = {
   vertical: false,
   cellSpacing: null,
   cellAlign: 'center',
+  wrapAround: true,
 };
 
 ContentSlider.propTypes = {
@@ -117,6 +118,7 @@ ContentSlider.propTypes = {
   vertical: PT.bool,
   cellSpacing: PT.number,
   cellAlign: PT.string,
+  wrapAround: PT.bool,
 };
 
 export default themr('Contentful-Slider', defaultTheme)(ContentSlider);

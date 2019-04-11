@@ -31,6 +31,7 @@ function ContentSliderItemsLoader(props) {
     vertical,
     cellSpacing,
     cellAlign,
+    wrapAround,
   } = props;
 
   return (
@@ -50,6 +51,7 @@ function ContentSliderItemsLoader(props) {
           vertical={vertical}
           cellSpacing={cellSpacing}
           cellAlign={cellAlign}
+          wrapAround={wrapAround}
         >
           {
             ids.map(itemId => (
@@ -79,6 +81,7 @@ ContentSliderItemsLoader.defaultProps = {
   vertical: false,
   cellSpacing: null,
   cellAlign: 'center',
+  wrapAround: true,
 };
 
 ContentSliderItemsLoader.propTypes = {
@@ -95,6 +98,7 @@ ContentSliderItemsLoader.propTypes = {
   vertical: PT.bool,
   cellSpacing: PT.number,
   cellAlign: PT.string,
+  wrapAround: PT.bool,
 };
 
 export default function ContentfulSlider(props) {
@@ -125,6 +129,7 @@ export default function ContentfulSlider(props) {
             vertical={fields.vertical}
             cellSpacing={fields.cellSpacing}
             cellAlign={fields.cellAlign}
+            wrapAround={fields.wrapAround}
           />
         );
       }}
