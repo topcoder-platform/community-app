@@ -37,6 +37,7 @@ function Listing({
   sorts,
   expandedTags,
   expandTag,
+  loadMoreChallenges,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
   const getBucket = (bucket, expanded = false) => {
@@ -96,6 +97,7 @@ function Listing({
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
             userHandle={_.get(auth, 'user.handle')}
+            loadMoreChallenges={loadMoreChallenges}
           />
         )
     );
@@ -136,6 +138,7 @@ Listing.defaultProps = {
   // onTechTagClicked: _.noop,
   // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
+  loadMoreChallenges: null,
 };
 
 Listing.propTypes = {
@@ -169,6 +172,7 @@ Listing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
+  loadMoreChallenges: PT.func,
 };
 
 const mapStateToProps = (state) => {

@@ -11,7 +11,6 @@ import communityActions from 'actions/tc-communities';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
-import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
@@ -541,7 +540,7 @@ const mapDispatchToProps = (dispatch) => {
         });
     },
     setChallengeListingFilter: (filter) => {
-      const cl = challengeListingActions.challengeListing;
+      const cl = actions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
@@ -573,7 +572,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(selectTab(tab));
     },
     getSubtracks: () => {
-      const cl = challengeListingActions.challengeListing;
+      const cl = actions.challengeListing;
       dispatch(cl.getChallengeSubtracksInit());
       dispatch(cl.getChallengeSubtracksDone());
     },

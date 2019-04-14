@@ -3,12 +3,13 @@
  */
 
 import _ from 'lodash';
-import actions from 'actions/challenge-listing';
 import { handleActions } from 'redux-actions';
 import { redux } from 'topcoder-react-utils';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
-import { logger, errors, challenge as challengeUtils }
+import {
+  logger, errors, challenge as challengeUtils, actions,
+}
   from 'topcoder-react-lib';
 
 import filterPanel from './filter-panel';
@@ -16,7 +17,6 @@ import sidebar, { factory as sidebarFactory } from './sidebar';
 
 const { fireErrorMessage } = errors;
 const { filter: Filter } = challengeUtils;
-
 /** TODO: Inspect if the 2 actions bellow can be removed?
  * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
  * which was refactored in listing-improve
@@ -115,7 +115,9 @@ function onGetRestActiveChallengesDone(state, { error, payload }) {
     logger.error(payload);
     return state;
   }
-  const { uuid, challenges: loaded } = payload;
+  const {
+    uuid, challenges: loaded, meta: newMeta,
+  } = payload;
   if (uuid !== state.loadingRestActiveChallengesUUID) return state;
 
   /* Once all active challenges are fetched from the API, we remove from the
@@ -132,13 +134,17 @@ function onGetRestActiveChallengesDone(state, { error, payload }) {
     .filter(filter)
     .concat(loaded);
 
+  const meta = newMeta || state.meta;
+
   return {
     ...state,
     challenges,
+    meta,
     allActiveChallengesLoaded: true,
     lastUpdateOfActiveChallenges: Date.now(),
     lastRequestedPageOfActiveChallenges: -1,
     loadingRestActiveChallengesUUID: '',
+    getttingMoreChallenges: false,
   };
 }
 
@@ -395,6 +401,11 @@ function create(initialState) {
       },
     }),
 
+    [a.getMoreChallenges]: state => ({
+      ...state,
+      getttingMoreChallenges: true,
+    }),
+
     [a.expandTag]: (state, { payload }) => ({
       ...state,
       expandedTags: [...state.expandedTags, payload],
@@ -451,6 +462,8 @@ function create(initialState) {
     challengeTags: [],
 
     expandedTags: [],
+
+    getttingMoreChallenges: false,
 
     filter: {},
 

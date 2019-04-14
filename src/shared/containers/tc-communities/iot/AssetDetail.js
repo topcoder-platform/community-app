@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import challengeListingActions from 'actions/challenge-listing';
+import { actions } from 'topcoder-react-lib';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import AssetDetail from 'components/tc-communities/communities/iot/AssetDetail';
 import { connect } from 'react-redux';
@@ -16,7 +16,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     resetChallengeListing: () => {
-      const a = challengeListingActions.challengeListing;
+      const a = actions.challengeListing;
       const sa = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(a.selectCommunity(''));
       dispatch(a.setFilter({}));

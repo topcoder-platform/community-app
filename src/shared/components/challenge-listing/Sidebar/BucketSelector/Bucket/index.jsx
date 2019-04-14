@@ -10,7 +10,6 @@ import React from 'react';
 import './style.scss';
 
 const Filter = challengeUtils.filter;
-
 function Bucket({
   active,
   bucket,

@@ -10,11 +10,10 @@
  */
 
 import _ from 'lodash';
-import actions from 'actions/challenge-listing';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
-import { logger, challenge as challengeUtils } from 'topcoder-react-lib';
+import { logger, actions } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import shortId from 'shortid';
@@ -29,8 +28,6 @@ import { USER_GROUP_MAXAGE } from 'config';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
-
-const { combine, mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
 
@@ -68,7 +65,6 @@ export class ListingContainer extends React.Component {
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
-
     this.loadChallenges();
   }
 
@@ -81,7 +77,22 @@ export class ListingContainer extends React.Component {
       getRestActiveChallenges,
       meta,
       loadingActiveChallengesUUID,
+      loadingRestActiveChallengesUUID,
+      getttingMoreChallenges,
     } = this.props;
+
+    const oldFilter = _.get(prevProps, 'filter');
+    const filter = _.get(this.props, 'filter');
+
+    const oldCommunityId = _.get(prevProps, 'selectedCommunityId');
+    const newCommunityId = _.get(this.props, 'selectedCommunityId');
+    const filterChanged = !_.isEqual(oldFilter, filter) || newCommunityId !== oldCommunityId;
+
+    if (filterChanged) {
+      dropChallenges();
+      this.loadChallenges();
+    }
+
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
     if (userId !== oldUserId) {
@@ -98,8 +109,18 @@ export class ListingContainer extends React.Component {
       });
     }
 
-    if (!loadingActiveChallengesUUID && !_.isEmpty(meta) && !allActiveChallengesLoaded) {
-      getRestActiveChallenges(auth.tokenV3);
+    // To speed up the app, add getttingMoreChallenges condition
+    // only set it true after user clicking 'View more challenges'
+    // or switching bucket
+    if (
+      !loadingActiveChallengesUUID
+        && !loadingRestActiveChallengesUUID
+        && !_.isEmpty(meta)
+        && !allActiveChallengesLoaded
+        && getttingMoreChallenges
+    ) {
+      const f = this.getBackendFilter();
+      getRestActiveChallenges(auth.tokenV3, f.back, f.front);
     }
   }
 
@@ -111,34 +132,92 @@ export class ListingContainer extends React.Component {
     if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
   }
 
+
   /* Evaluates the backend challenge filter most suitable for the current state
    * of the active frontend filters. */
   getBackendFilter() {
-    const {
-      communitiesList,
-      selectedCommunityId,
-    } = this.props;
-    let { filter } = this.props;
-    let communityFilter = communitiesList.data.find(
-      item => item.communityId === selectedCommunityId,
-    );
-    if (communityFilter) communityFilter = communityFilter.challengeFilter;
-    if (communityFilter) filter = combine(filter, communityFilter);
+    const { filter } = this.props;
+    const b = this.mappedFilter();
     return {
-      back: mapToBackend(filter),
+      back: b,
       front: filter,
     };
+  }
+
+  // transform frontend filter to backend filter
+  mappedFilter() {
+    const {
+      filter,
+      communityFilters,
+      selectedCommunityId,
+    } = this.props;
+
+    const f = {};
+    if (!filter) {
+      return f;
+    }
+    if (filter.tags) {
+      f.keywords = filter.tags.join(',');
+    }
+    if (filter.subtracks) {
+      f.subTrack = filter.subtracks.join(',');
+    }
+    if (filter.tracks) {
+      const tracks = Object.keys(filter.tracks).map(t => t.toUpperCase());
+      f.track = tracks.join(',');
+    }
+    if (filter.text) {
+      f.name = filter.text;
+    }
+
+    // when backend can support date range, comment in the next lines
+    // if (filter.startDate) {
+    //     f.startDate = filter.startDate.slice(0, 10);
+    // }
+    // if (filter.endDate) {
+    //     f.endDate = filter.endDate.slice(0, 10);
+    // }
+
+    if (selectedCommunityId !== '') {
+      const c = communityFilters.find(item => item.communityId === selectedCommunityId);
+      if (c) {
+        const cf = c.challengeFilter;
+        if (cf.or) {
+          // use tags
+          let t = cf.or.join(',');
+          if (f.keywords) {
+            t = `${f.keywords},${t}`;
+          }
+          f.keywords = t;
+        } else if (cf.groupIds && cf.groupIds.length !== 0) {
+          // use group ids
+          f.groupIds = cf.groupIds.join(',');
+        }
+      }
+    }
+
+    return f;
+  }
+
+  loadMoreChallenges() {
+    const {
+      getMoreChallenges,
+      allActiveChallengesLoaded,
+    } = this.props;
+    if (!allActiveChallengesLoaded) {
+      getMoreChallenges();
+    }
   }
 
   loadChallenges() {
     const {
       auth,
       getActiveChallenges,
-      lastRequestedPageOfActiveChallenges,
     } = this.props;
     const f = this.getBackendFilter();
+    // only load the first page
     getActiveChallenges(
-      1 + lastRequestedPageOfActiveChallenges,
+      0,
       f.back,
       auth.tokenV3,
       f.front,
@@ -274,6 +353,7 @@ export class ListingContainer extends React.Component {
           selectedCommunityId={selectedCommunityId}
           loadMorePast={loadMorePast}
           loadMoreReviewOpportunities={loadMoreReviewOpportunities}
+          loadMoreChallenges={() => this.loadMoreChallenges()}
           reviewOpportunities={reviewOpportunities}
           setFilterState={(state) => {
             setFilter(state);
@@ -351,13 +431,13 @@ ListingContainer.propTypes = {
   getPastChallenges: PT.func.isRequired,
   getReviewOpportunities: PT.func.isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
-  lastRequestedPageOfActiveChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
   lastRequestedPageOfReviewOpportunities: PT.number.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
   loadingReviewOpportunitiesUUID: PT.string.isRequired,
+  loadingRestActiveChallengesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
@@ -379,6 +459,8 @@ ListingContainer.propTypes = {
   expandTag: PT.func.isRequired,
   queryBucket: PT.string,
   meta: PT.shape(),
+  getttingMoreChallenges: PT.bool.isRequired,
+  getMoreChallenges: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -404,6 +486,7 @@ const mapStateToProps = (state, ownProps) => {
     lastRequestedPageOfReviewOpportunities: cl.lastRequestedPageOfReviewOpportunities,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
+    loadingRestActiveChallengesUUID: cl.loadingRestActiveChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
@@ -418,6 +501,7 @@ const mapStateToProps = (state, ownProps) => {
     activeBucket: cl.sidebar.activeBucket,
     expandedTags: cl.expandedTags,
     meta: cl.meta,
+    getttingMoreChallenges: cl.getttingMoreChallenges,
   };
 };
 
@@ -429,15 +513,20 @@ function mapDispatchToProps(dispatch) {
   const ca = communityActions.tcCommunity;
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
+    getMoreChallenges: () => dispatch(a.getMoreChallenges()),
     getActiveChallenges: (page, filter, token, frontFilter) => {
-      const uuid = shortId();
-      dispatch(a.getActiveChallengesInit(uuid, page, frontFilter));
-      dispatch(a.getActiveChallengesDone(uuid, page, filter, token, frontFilter));
+      if (filter.track !== '') {
+        const uuid = shortId();
+        dispatch(a.getActiveChallengesInit(uuid, page, frontFilter));
+        dispatch(a.getActiveChallengesDone(uuid, page, filter, token, frontFilter));
+      }
     },
-    getRestActiveChallenges: (token) => {
-      const uuid = shortId();
-      dispatch(a.getRestActiveChallengesInit(uuid));
-      dispatch(a.getRestActiveChallengesDone(uuid, token));
+    getRestActiveChallenges: (token, backendFilter, frontFilter) => {
+      if (backendFilter.track !== '') {
+        const uuid = shortId();
+        dispatch(a.getRestActiveChallengesInit(uuid));
+        dispatch(a.getRestActiveChallengesDone(uuid, token, backendFilter, frontFilter));
+      }
     },
     getCommunitiesList: (auth) => {
       const uuid = shortId();

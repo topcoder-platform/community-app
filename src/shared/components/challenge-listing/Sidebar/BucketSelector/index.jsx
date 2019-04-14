@@ -31,6 +31,7 @@ export default function BucketSelector({
   selectBucket,
   selectSavedFilter,
   setEditSavedFiltersMode,
+  loadMoreChallenges,
 }) {
   let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
 
@@ -46,6 +47,7 @@ export default function BucketSelector({
       disabled={disabled}
       onClick={() => {
         selectBucket(bucket);
+        loadMoreChallenges();
         /* eslint-env browser */
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
@@ -123,6 +125,7 @@ BucketSelector.defaultProps = {
   disabled: false,
   extraBucket: null,
   isAuth: false,
+  loadMoreChallenges: null,
 };
 
 BucketSelector.propTypes = {
@@ -141,4 +144,5 @@ BucketSelector.propTypes = {
   selectBucket: PT.func.isRequired,
   selectSavedFilter: PT.func.isRequired,
   setEditSavedFiltersMode: PT.func.isRequired,
+  loadMoreChallenges: PT.func,
 };

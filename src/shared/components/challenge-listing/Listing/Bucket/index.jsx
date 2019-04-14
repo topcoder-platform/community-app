@@ -42,6 +42,7 @@ export default function Bucket({
   userHandle,
   expandedTags,
   expandTag,
+  loadMoreChallenges,
 }) {
   const filter = Filter.getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
@@ -123,6 +124,7 @@ export default function Bucket({
               expand();
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;
+              loadMoreChallenges();
               event.preventDefault();
             }}
             role="button"
@@ -149,6 +151,7 @@ Bucket.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
+  loadMoreChallenges: null,
 };
 
 Bucket.propTypes = {
@@ -173,4 +176,5 @@ Bucket.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  loadMoreChallenges: PT.func,
 };

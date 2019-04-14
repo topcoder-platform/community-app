@@ -2,9 +2,11 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import Select from 'components/Select';
-import cActions from 'actions/challenge-listing';
+import { actions as lActions } from 'topcoder-react-lib';
 import sActions from 'actions/challenge-listing/sidebar';
 import ConnectedFilterPanel, { Container as FilterPanel } from 'containers/challenge-listing/FilterPanel';
+
+const cActions = lActions;
 
 describe('shallow render connnected component', () => {
   const initialState = {

@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import shortid from 'shortid';
 
 import { actions } from 'topcoder-react-lib';
-import cActions from 'actions/challenge-listing';
 import CommunityStats from 'components/tc-communities/CommunityStats';
 
 /* Various time ranges in ms. */
@@ -122,8 +121,8 @@ function mapDispatchToProps(dispatch) {
     },
     getAllActiveChallenges: (token) => {
       const uuid = shortid();
-      dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
-      dispatch(cActions.challengeListing.getAllActiveChallengesDone(uuid, token));
+      dispatch(actions.challengeListing.getAllActiveChallengesInit(uuid));
+      dispatch(actions.challengeListing.getAllActiveChallengesDone(uuid, token));
     },
   };
 }

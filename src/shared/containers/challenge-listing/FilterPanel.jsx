@@ -3,8 +3,8 @@
  */
 /* global window */
 
-import actions from 'actions/challenge-listing/filter-panel';
-import challengeListingActions from 'actions/challenge-listing';
+import pactions from 'actions/challenge-listing/filter-panel';
+import { actions } from 'topcoder-react-lib';
 import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
@@ -136,8 +136,8 @@ Container.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  const a = actions.challengeListing.filterPanel;
-  const cla = challengeListingActions.challengeListing;
+  const a = pactions.challengeListing.filterPanel;
+  const cla = actions.challengeListing;
   const sa = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),

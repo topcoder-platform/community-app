@@ -11,7 +11,6 @@ import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { actions } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
@@ -21,7 +20,7 @@ import shortId from 'shortid';
 import { connect } from 'react-redux';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 
-import challengeListingActions from 'actions/challenge-listing';
+import { actions } from 'topcoder-react-lib';
 import communityActions from 'actions/tc-communities';
 
 import { isTokenExpired } from 'tc-accounts';
@@ -365,8 +364,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesInit(uuid));
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
+      dispatch(actions.challengeListing.getAllActiveChallengesInit(uuid));
+      dispatch(actions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
     },
     getCommunityList: (auth) => {
       const uuid = shortId();
@@ -396,7 +395,7 @@ function mapDispatchToProps(dispatch) {
     },
     getSrms: (handle, tokenV3) => {
       const uuid = shortId();
-      const a = challengeListingActions.challengeListing;
+      const a = actions.challengeListing;
       dispatch(a.getSrmsInit(uuid));
       dispatch(a.getSrmsDone(uuid, handle, {
         filter: 'status=future',
@@ -413,7 +412,7 @@ function mapDispatchToProps(dispatch) {
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     setChallengeListingFilter: (filter) => {
-      const cl = challengeListingActions.challengeListing;
+      const cl = actions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));

@@ -5,7 +5,7 @@
  * enhanced for usability in other places.
  */
 
-import challengeListingActions from 'actions/challenge-listing';
+import { actions } from 'topcoder-react-lib';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import ChallengesBlock from 'components/ChallengesBlock';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -85,7 +85,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToActions(dispatch) {
-  const cla = challengeListingActions.challengeListing;
+  const cla = actions.challengeListing;
   const clsa = challengeListingSidebarActions.challengeListing.sidebar;
   return {
     getAllActiveChallenges: (tokenV3) => {

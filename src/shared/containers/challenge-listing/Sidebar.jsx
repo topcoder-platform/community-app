@@ -3,8 +3,8 @@
  */
 
 import _ from 'lodash';
-import actions from 'actions/challenge-listing/sidebar';
-import challengeListingActions from 'actions/challenge-listing';
+import sactions from 'actions/challenge-listing/sidebar';
+import { actions } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import PT from 'prop-types';
@@ -137,8 +137,8 @@ SidebarContainer.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  const a = actions.challengeListing.sidebar;
-  const cla = challengeListingActions.challengeListing;
+  const a = sactions.challengeListing.sidebar;
+  const cla = actions.challengeListing;
   const fpa = filterPanelActions.challengeListing.filterPanel;
   return {
     ...bindActionCreators(a, dispatch),
