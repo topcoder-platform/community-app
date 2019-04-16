@@ -1,0 +1,17 @@
+{
+  "communityId": "tco08",
+  "hidden": true,
+  "communityName": "TCO08",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18-01/TCO08.png",
+    "url": "https://tco08.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": ""
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco08"],
+  "description": "2008 Topcoder Open. The Ultimate Programming & Design Tournament"
+}

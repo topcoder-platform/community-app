@@ -1,0 +1,17 @@
+{
+  "communityId": "tco10",
+  "hidden": true,
+  "communityName": "TCO10",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18-01/TCO10.png",
+    "url": "https://tco10.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": ""
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco10"],
+  "description": "2010 Topcoder Open. The Ultimate Programming & Design Tournament"
+}

@@ -1,0 +1,17 @@
+{
+  "communityId": "tco12",
+  "hidden": true,
+  "communityName": "TCO12",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18-01/TCO12.svg",
+    "url": "https://tco12.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": ""
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco12"],
+  "description": "2012 Topcoder Open. The Ultimate Programming & Design Tournament"
+}

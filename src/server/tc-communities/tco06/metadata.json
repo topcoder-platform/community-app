@@ -1,0 +1,17 @@
+{
+  "communityId": "tco06",
+  "hidden": true,
+  "communityName": "TCO06",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18-01/TCO06.png",
+    "url": "https://tco06.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": ""
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco06"],
+  "description": "2006 Topcoder Open. The Ultimate Programming & Design Tournament"
+}

@@ -1,0 +1,17 @@
+{
+  "communityId": "tco05",
+  "hidden": true,
+  "communityName": "TCO05",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18-01/TCO05.png",
+    "url": "https://tco05.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": ""
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco05"],
+  "description": "2005 Topcoder Open. The Ultimate Programming & Design Tournament"
+}

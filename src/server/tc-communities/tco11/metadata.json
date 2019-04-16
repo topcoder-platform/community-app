@@ -1,0 +1,17 @@
+{
+  "communityId": "tco11",
+  "hidden": true,
+  "communityName": "TCO11",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18-01/TCO11.png",
+    "url": "https://tco11.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": ""
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco11"],
+  "description": "2011 Topcoder Open. The Ultimate Programming & Design Tournament"
+}
