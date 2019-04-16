@@ -1,38 +1,22 @@
-@import '~styles/mixins';
+// @import '~styles/mixins';
 
 .container {
   width: 100%;
 }
 
-.content {
+.singleContent {
   width: 100%;
-  background: $tc-gray-10;
 }
 
-.button {
-  background: red;
-  width: 100px;
-  height: 100px;
+.multiContent {
+  width: 100%;
 }
 
 .control {
+  border: 0;
+  background: rgba(0, 0, 0, 0.4);
   color: white;
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 0;
-  text-align: center;
-  margin-bottom: 40px;
+  padding: 10px;
+  cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 130%;
-
-  a {
-    cursor: pointer;
-
-    &:focus {
-      outline: 0;
-    }
-  }
 }
