@@ -107,6 +107,10 @@ We use [https://logentries.com](https://logentries.com) to track the logs. Log E
 
 Change the property in `URL.COMMUNITY_API` in config.
 
+### Configuration for Email Verify URL
+
+Change the property in `URL.EMAIL_VERIFY_URL` in config.
+
 ### TC pages integrated
 
 - Changes list and challenge detail page: http://local.topcoder.com/challenges

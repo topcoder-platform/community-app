@@ -16,7 +16,15 @@ function ContentBlock({
   background,
   contentBlock,
   theme,
+  spaceName,
+  environment,
+  preview,
 }) {
+  const contentfulConfig = {
+    spaceName,
+    environment,
+    preview,
+  };
   return (
     <div
       id={id}
@@ -38,7 +46,7 @@ function ContentBlock({
           className={theme.content}
           style={fixStyle(contentBlock.extraStylesForContent)}
         >
-          <MarkdownRenderer markdown={contentBlock.text} />
+          <MarkdownRenderer markdown={contentBlock.text} {...contentfulConfig} />
         </div>
       </div>
     </div>
@@ -47,6 +55,9 @@ function ContentBlock({
 
 ContentBlock.defaultProps = {
   background: null,
+  preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 ContentBlock.propTypes = {
@@ -61,6 +72,9 @@ ContentBlock.propTypes = {
     contentWrapperByImage: PT.string,
     image: PT.string,
   }).isRequired,
+  preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 export default themr('ContentBlock', defaultTheme)(ContentBlock);

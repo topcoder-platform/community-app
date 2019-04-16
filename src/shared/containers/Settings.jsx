@@ -151,6 +151,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getSkillsDone(handle));
       dispatch(lookupActions.getSkillTagsInit());
       dispatch(lookupActions.getSkillTagsDone());
+      dispatch(lookupActions.getCountriesInit());
+      dispatch(lookupActions.getCountriesDone());
     } else if (settingsTab === TABS.PREFERENCES) {
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
@@ -199,7 +201,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.unlinkExternalAccountDone(profile, tokenV3, providerType));
     },
     saveEmailPreferences: (profile, tokenV3, preferences) => {
-      dispatch(profileActions.saveEmailPreferencesInit());
       dispatch(profileActions.saveEmailPreferencesDone(profile, tokenV3, preferences));
     },
     updatePassword: (profile, tokenV3, newPassword, oldPassword) => {
@@ -220,7 +221,7 @@ function mapDispatchToProps(dispatch) {
     },
     addUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.modifyUserTraitInit());
-      dispatch(actions.settings.addUserTrait(handle, traitId, data, tokenV3));
+      return dispatch(actions.settings.addUserTrait(handle, traitId, data, tokenV3));
     },
     addUserSkill: (handle, skill, tokenV3) => {
       dispatch(actions.profile.addSkillInit());
@@ -228,7 +229,7 @@ function mapDispatchToProps(dispatch) {
     },
     updateUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.modifyUserTraitInit());
-      dispatch(actions.settings.updateUserTrait(handle, traitId, data, tokenV3));
+      return dispatch(actions.settings.updateUserTrait(handle, traitId, data, tokenV3));
     },
     deleteUserTrait: (handle, traitId, tokenV3) => {
       dispatch(actions.settings.modifyUserTraitInit());
