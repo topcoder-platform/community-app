@@ -39,6 +39,7 @@ export default class MyAccount extends ConsentComponent {
       showNewTips: false,
       showRePasswordTips: false,
       showEmailTips: false,
+      newEmailSameAsCurrent: false,
       focus: {
         'new-password-input': false,
         'new-email-input': false,
@@ -137,6 +138,7 @@ export default class MyAccount extends ConsentComponent {
     this.setState({
       newEmail,
       showEmailTips: false,
+      newEmailSameAsCurrent: false,
     });
     this.onCheckVerificationEmail(newEmail);
   }
@@ -147,6 +149,9 @@ export default class MyAccount extends ConsentComponent {
 
     if (newEmail === '' || !email.test(newEmail) || newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
+      if (newState.newEmail === newState.currentEmail) {
+        newState.newEmailSameAsCurrent = true;
+      }
       newState.showEmailTips = newEmail !== '';
       newState.isValidEmail = false;
     } else {
@@ -378,6 +383,7 @@ export default class MyAccount extends ConsentComponent {
       passwordInputType,
       showNewTips,
       showEmailTips,
+      newEmailSameAsCurrent,
       passwordValid,
       isMobileView,
       showRePasswordTips,
@@ -467,7 +473,11 @@ export default class MyAccount extends ConsentComponent {
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
@@ -475,7 +485,11 @@ export default class MyAccount extends ConsentComponent {
                   </div>
                   <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
                     <h3>
-                      Your email address is not valid.
+                      {
+                        newEmailSameAsCurrent
+                          ? 'The new email cannot be the same as the current email.'
+                          : 'Your email address is not valid.'
+                      }
                     </h3>
                   </div>
                   {
@@ -562,7 +576,11 @@ export default class MyAccount extends ConsentComponent {
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
@@ -824,7 +842,7 @@ export default class MyAccount extends ConsentComponent {
                 <div>
                   <p>
                     You joined Topcoder by using an external account,
-                    so we don&quot;t have a password for you.
+                    so we don&#39;t have a password for you.
                   </p>
                 </div>
               )
