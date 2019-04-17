@@ -12,3 +12,4 @@ For introduction into Contentful-related development look into
 ### End-User Documentation
 
 - [Custom inline components in Markdown fields](./custom-inline-components-in-markdown-fields.md)
+- [Miscellaneous CSS Solutions](./miscellaneous-CSS-solutions.md)
