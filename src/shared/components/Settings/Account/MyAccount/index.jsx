@@ -135,31 +135,21 @@ export default class MyAccount extends ConsentComponent {
 
   onUpdateNewEmailInput(e) {
     const newEmail = e.target.value;
-    this.setState({
-      newEmail,
-      showEmailTips: false,
-      newEmailSameAsCurrent: false,
-    });
-    this.onCheckVerificationEmail(newEmail);
-  }
-
-  onCheckVerificationEmail(newEmail) {
     const newState = { ...this.state };
     const email = /^([0-9A-Za-z\-_\.+]+)@([0-9A-Za-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
 
+    newState.newEmail = newEmail;
+
     if (newEmail === '' || !email.test(newEmail) || newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
-      if (newState.newEmail === newState.currentEmail) {
-        newState.newEmailSameAsCurrent = true;
-      }
-      newState.showEmailTips = newEmail !== '';
       newState.isValidEmail = false;
+      newState.showEmailTips = newEmail !== '';
+      newState.newEmailSameAsCurrent = newEmail === newState.currentEmail;
     } else {
       newState.showEmailTips = false;
       newState.isValidEmail = true;
     }
 
-    newState.newEmail = newEmail;
     this.setState(newState);
   }
 
@@ -471,7 +461,7 @@ export default class MyAccount extends ConsentComponent {
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
                           <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" autoCapitalize="off" placeholder="New email" required />
                         </div>
-                        <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
+                        <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
                             {
                               newEmailSameAsCurrent
@@ -482,15 +472,6 @@ export default class MyAccount extends ConsentComponent {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
-                    <h3>
-                      {
-                        newEmailSameAsCurrent
-                          ? 'The new email cannot be the same as the current email.'
-                          : 'Your email address is not valid.'
-                      }
-                    </h3>
                   </div>
                   {
                     ssoUser && (
