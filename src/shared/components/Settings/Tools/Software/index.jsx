@@ -12,7 +12,6 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import SoftwareList from './List';
@@ -32,7 +31,6 @@ export default class Software extends ConsentComponent {
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-    this.showSuccessToast = this.showSuccessToast.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -154,12 +152,6 @@ export default class Software extends ConsentComponent {
     });
   }
 
-  showSuccessToast = () => {
-    setImmediate(() => {
-      toastr.success('Success!', 'Your information has been updated.');
-    });
-  }
-
   /**
    * Add new software
    * @param answer user consent answer value
@@ -178,7 +170,7 @@ export default class Software extends ConsentComponent {
       const newSoftwareTrait = { ...softwareTrait };
       newSoftwareTrait.traits.data.push(newSoftware);
       this.setState({ softwareTrait: newSoftwareTrait });
-      updateUserTrait(handle, 'software', newSoftwareTrait.traits.data, tokenV3).then(this.showSuccessToast);
+      updateUserTrait(handle, 'software', newSoftwareTrait.traits.data, tokenV3);
     } else {
       const newSoftwares = [];
       newSoftwares.push(newSoftware);
@@ -186,7 +178,7 @@ export default class Software extends ConsentComponent {
         data: newSoftwares,
       };
       this.setState({ softwareTrait: { traits } });
-      addUserTrait(handle, 'software', newSoftwares, tokenV3).then(this.showSuccessToast);
+      addUserTrait(handle, 'software', newSoftwares, tokenV3);
     }
     const empty = {
       softwareType: '',
