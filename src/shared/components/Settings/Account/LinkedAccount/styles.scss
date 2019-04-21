@@ -240,6 +240,7 @@
       flex-direction: row;
       min-height: 40px;
       justify-content: space-between;
+      align-items: flex-start;
 
       label {
         @include roboto-bold;
