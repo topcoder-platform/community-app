@@ -404,9 +404,10 @@ export default class MyAccount extends ConsentComponent {
                     Email Change Verification
                   </div>
                   <div styleName="verification-send-message">
-                    Verification email sent to {currentEmail}. Check your inbox and
-                    click on the link in the email to finish updating your email.
-                    If you can&#39;t find it, check your spam folder.
+                    A confirmation email has been sent to both accounts.&nbsp;
+                    In order to finalize your email address change request,&nbsp;
+                    you must click on the links in the message sent to both your&nbsp;
+                    old and new email accounts.
                   </div>
                   <div styleName="verification-send-button">
                     <PrimaryButton
