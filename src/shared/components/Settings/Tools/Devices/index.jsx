@@ -280,6 +280,17 @@ export default class Devices extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newDevice } = this.state;
+    if (!newDevice.deviceType) {
+      valid = false;
+    }
+    if (newDevice.manufacturer.trim().length === 0) {
+      valid = false;
+    }
+    return this.onCheckFormValue(newDevice);
+  }
+
   render() {
     const {
       deviceTrait, isMobileView, showConfirmation, indexNo,
@@ -288,7 +299,7 @@ export default class Devices extends ConsentComponent {
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-
+    const isValidDeviceForm = this.isFormValid();
     return (
       <div styleName="devices-container">
         {

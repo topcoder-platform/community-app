@@ -30,7 +30,7 @@ export default class ServiceProviders extends ConsentComponent {
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-
+    this.isFormValid = this.isFormValid.bind(this);
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
@@ -247,6 +247,14 @@ export default class ServiceProviders extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newServiceProvider } = this.state;
+    if(newServiceProvider.serviceProviderType && (newServiceProvider.name.trim().length !== 0)) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const {
       serviceProviderTrait, isMobileView, showConfirmation, indexNo,
@@ -255,7 +263,7 @@ export default class ServiceProviders extends ConsentComponent {
       ? serviceProviderTrait.traits.data.slice() : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-
+    const isValidServiceProviderForm = this.isFormValid();
     return (
       <div styleName="service-provider-container">
         {
@@ -331,7 +339,7 @@ export default class ServiceProviders extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddServiceProvider}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidServiceProviderForm}
             >
               Add service provider to your list
             </PrimaryButton>
@@ -380,7 +388,7 @@ export default class ServiceProviders extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddServiceProvider}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidServiceProviderForm}
             >
               Add Provider
             </PrimaryButton>

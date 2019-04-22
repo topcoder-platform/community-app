@@ -247,6 +247,14 @@ export default class Software extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newSoftware } = this.state;
+    if(newSoftware.softwareType && (newSoftware.name.trim().length !== 0)) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const {
       softwareTrait, isMobileView, showConfirmation, indexNo,
@@ -255,7 +263,7 @@ export default class Software extends ConsentComponent {
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-
+    const isValidSoftwareForm = this.isFormValid();
     return (
       <div styleName="software-container">
         {
@@ -331,7 +339,7 @@ export default class Software extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidSoftwareForm}
             >
               Add software to your list
             </PrimaryButton>
@@ -380,7 +388,7 @@ export default class Software extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidSoftwareForm}
             >
               Add Software
             </PrimaryButton>
