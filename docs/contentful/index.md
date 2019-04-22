@@ -1,8 +1,12 @@
 # Contentful CMS
 
-We rely on
-[Contentful Content Management System (CMS)](https://www.contentful.com/) as a
-user-friendly way to handle the content shown by the app without changes of the application source code.
+We leverage on
+[Contentful Content Management System (CMS)](https://www.contentful.com/) as a headless CMS to handle the content shown by the app without making changes to the application source code.  This enables people other than the dev team to dynamically create and manage content on our platform. 
+
+A set up content types and models has already been created. These content types can be used to create new pages and add content to existing pages. Details of the content types are accessible below.
+
+Instructions are also provided below for developments that want to modify/create content models.
+
 
 ### End-User Documentation
 
@@ -27,3 +31,5 @@ user-friendly way to handle the content shown by the app without changes of the 
     - [Custom inline components in Markdown fields](./custom-inline-components-in-markdown-fields.md)
     - [Miscellaneous CSS Solutions](./miscellaneous-CSS-solutions.md)
     - [Duplicate tool](https://github.com/topcoder-platform/contentful-duplicate-tool/blob/master/docs/contentful-duplicate.md)
+
+To request additional content types or adjustments to existing content models, please send  you request to support@topcoder.com.
