@@ -1,7 +1,7 @@
 # Contentful CMS
 
-We leverage on
-[Contentful Content Management System (CMS)](https://www.contentful.com/) as a headless CMS to handle the content shown by the app without making changes to the application source code.  This enables people other than the dev team to dynamically create and manage content on our platform. 
+We leverage
+[Contentful](https://www.contentful.com/) as a headless CMS (Content Management System) to handle the content shown by the app without making changes to the application source code.  This enables people other than the dev team to dynamically create and manage content on our platform. 
 
 A set up content types and models has already been created. These content types can be used to create new pages and add content to existing pages. Details of the content types are accessible below.
 
