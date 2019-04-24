@@ -259,7 +259,8 @@ On The Web
                       externals.map(external => (
                         <ExternalLink
                           data={external.data}
-                          key={external.type}
+                          key={external.type !== 'weblink'
+                            ? external.type : `${external.type}-${external.data.key}`}
                           type={external.type}
                         />
                       ))
