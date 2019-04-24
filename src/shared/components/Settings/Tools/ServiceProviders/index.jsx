@@ -249,7 +249,7 @@ export default class ServiceProviders extends ConsentComponent {
 
   isFormValid() {
     const { newServiceProvider } = this.state;
-    if(newServiceProvider.serviceProviderType && (newServiceProvider.name.trim().length !== 0)) {
+    if (newServiceProvider.serviceProviderType && (newServiceProvider.name.trim().length !== 0)) {
       return true;
     }
     return false;

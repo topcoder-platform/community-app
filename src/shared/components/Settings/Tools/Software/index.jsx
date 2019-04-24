@@ -249,7 +249,7 @@ export default class Software extends ConsentComponent {
 
   isFormValid() {
     const { newSoftware } = this.state;
-    if(newSoftware.softwareType && (newSoftware.name.trim().length !== 0)) {
+    if (newSoftware.softwareType && (newSoftware.name.trim().length !== 0)) {
       return true;
     }
     return false;

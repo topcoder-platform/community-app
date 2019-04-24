@@ -187,7 +187,7 @@ export default class Devices extends ConsentComponent {
    * Invalid value, can not save
    * @param newDevice object
    */
-  onCheckFormValue(newDevice) {
+  onCheckFormValue(newDevice, updateState = true) {
     let invalid = false;
 
     let errorMessage = '';
@@ -227,7 +227,9 @@ export default class Devices extends ConsentComponent {
       errorMessage += ' cannot be empty';
     }
 
-    this.setState({ errorMessage, formInvalid: invalid });
+    if (updateState) {
+      this.setState({ errorMessage, formInvalid: invalid });
+    }
     return invalid;
   }
 
@@ -282,13 +284,7 @@ export default class Devices extends ConsentComponent {
 
   isFormValid() {
     const { newDevice } = this.state;
-    if (!newDevice.deviceType) {
-      valid = false;
-    }
-    if (newDevice.manufacturer.trim().length === 0) {
-      valid = false;
-    }
-    return this.onCheckFormValue(newDevice);
+    return this.onCheckFormValue(newDevice, false);
   }
 
   render() {
@@ -299,7 +295,7 @@ export default class Devices extends ConsentComponent {
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-    const isValidDeviceForm = this.isFormValid();
+    const isInValidDeviceForm = this.isFormValid();
     return (
       <div styleName="devices-container">
         {
@@ -423,7 +419,7 @@ export default class Devices extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddDevice}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || isInValidDeviceForm}
             >
               Add device to your list
             </PrimaryButton>
@@ -508,7 +504,7 @@ export default class Devices extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddDevice}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || isInValidDeviceForm}
             >
               Add Device
             </PrimaryButton>
