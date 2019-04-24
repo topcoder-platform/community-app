@@ -382,7 +382,7 @@ function mapDispatchToProps(dispatch) {
     getMemberAchievements: (handle) => {
       const uuid = shortId();
       dispatch(members.getAchievementsInit(handle, uuid));
-      dispatch(members.getAchievementsDone(handle, uuid));
+      dispatch(members.getAchievementsV3Done(handle, uuid));
     },
     getMemberFinances: (handle, tokenV3) => {
       const uuid = shortId();

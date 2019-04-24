@@ -121,7 +121,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getInfoInit());
       dispatch(a.getSkillsInit());
       dispatch(a.getStatsInit());
-      dispatch(a.getAchievementsDone(handle));
+      dispatch(a.getAchievementsV3Done(handle));
       dispatch(a.getExternalAccountsDone(handle));
       dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
