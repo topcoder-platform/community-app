@@ -28,7 +28,7 @@ exports[`renders a full Profile correctly 1`] = `
           >
             <ProfileHeader
               copilot={true}
-              country="United States"
+              country=""
               info={
                 Object {
                   "competitionCountryCode": "USA",
@@ -631,7 +631,7 @@ exports[`renders an empty Profile correctly 1`] = `
           >
             <ProfileHeader
               copilot={false}
-              country="United States"
+              country=""
               info={
                 Object {
                   "competitionCountryCode": "USA",
