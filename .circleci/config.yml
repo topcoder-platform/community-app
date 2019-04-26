@@ -179,10 +179,11 @@ workflows:
       - "build-test":
           context : org-global      
           filters:
-              branches:
-                only:
-                  - legacy-tco
-                  - general-features
+            branches:
+              only:
+                - hot-fixes
+                - legacy-tco
+                - general-features
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

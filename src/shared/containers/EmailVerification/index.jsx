@@ -66,7 +66,7 @@ class EmailVerificationContainer extends Component {
 
   render() {
     const { action } = this.state;
-    const { verifyingEmail, verifyError } = this.props;
+    const { verifyingEmail, verifyError, emailChangeResult } = this.props;
 
     if (verifyError === null) {
       switch (action) {
@@ -102,7 +102,18 @@ class EmailVerificationContainer extends Component {
       }
     } else {
       if (!verifyError) {
-        return (<Redirect to="/settings/account/email-verification/success" />);
+        if (emailChangeResult.emailChangeCompleted) {
+          return (<Redirect to="/settings/account/email-verification/success" />);
+        } else {
+          return (
+            <Redirect to={{
+              pathname: '/settings/account/email-verification/almost-done',
+              state: {
+                verifiedEmail: emailChangeResult.verifiedEmail,
+              }
+            }} />
+          );
+        }
       }
       return (<Redirect to="/settings/account/email-verification/failure" />);
     }
@@ -115,6 +126,7 @@ EmailVerificationContainer.defaultProps = {
   verifyingEmail: false,
   location: null,
   verifyError: null,
+  emailChangeResult: {},
 };
 
 EmailVerificationContainer.propTypes = {
@@ -125,6 +137,7 @@ EmailVerificationContainer.propTypes = {
   location: PT.shape(),
   authenticating: PT.bool.isRequired,
   verifyError: PT.bool,
+  emailChangeResult: PT.shape(),
 };
 
 function mapStateToProps(state) {
@@ -134,6 +147,7 @@ function mapStateToProps(state) {
     tokenV3: state.auth.tokenV3,
     verifyingEmail: state.profile.verifyingEmail,
     verifyError: state.profile.verifyError,
+    emailChangeResult: state.profile.emailChangeResult,
   };
 }
 

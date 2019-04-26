@@ -134,6 +134,10 @@ export default class MyAccount extends ConsentComponent {
   }
 
   onUpdateNewEmailInput(e) {
+    const { profileState, updateEmailConflict } = this.props;
+    if (profileState.isEmailConflict) {
+      updateEmailConflict(false);
+    }
     const newEmail = e.target.value;
     const newState = { ...this.state };
     const email = /^([0-9A-Za-z\-_\.+]+)@([0-9A-Za-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
@@ -383,7 +387,7 @@ export default class MyAccount extends ConsentComponent {
       isOpen,
     } = this.state;
 
-    const { updatingPassword, updatingProfile } = profileState;
+    const { updatingPassword, updatingProfile, isEmailConflict = false } = profileState;
     const { incorrectPassword } = settingsPageState;
 
     return (
@@ -400,9 +404,10 @@ export default class MyAccount extends ConsentComponent {
                     Email Change Verification
                   </div>
                   <div styleName="verification-send-message">
-                    Verification email sent to {currentEmail}. Check your inbox and
-                    click on the link in the email to finish updating your email.
-                    If you can&#39;t find it, check your spam folder.
+                    A confirmation email has been sent to both accounts.&nbsp;
+                    In order to finalize your email address change request,&nbsp;
+                    you must click on the links in the message sent to both your&nbsp;
+                    old and new email accounts.
                   </div>
                   <div styleName="verification-send-button">
                     <PrimaryButton
@@ -573,6 +578,13 @@ export default class MyAccount extends ConsentComponent {
                         Since you joined Topcoder using your &lt;SSO Service&gt; account,
                         any email updates will need to be handled by logging in to
                         your &lt;SSO Service&gt; account.
+                      </div>
+                    )
+                  }
+                  {
+                    isEmailConflict && (
+                      <div styleName="error-message">
+                        The email you have entered is already in use.
                       </div>
                     )
                   }
@@ -847,4 +859,5 @@ MyAccount.propTypes = {
   updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
   loadTabData: PT.func.isRequired,
+  updateEmailConflict: PT.func.isRequired,
 };

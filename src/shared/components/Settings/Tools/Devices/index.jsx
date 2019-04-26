@@ -12,7 +12,6 @@ import PT from 'prop-types';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import DeviceList from './List';
@@ -31,7 +30,6 @@ export default class Devices extends ConsentComponent {
     this.onAddDevice = this.onAddDevice.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-    this.showSuccessToast = this.showSuccessToast.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -132,12 +130,6 @@ export default class Devices extends ConsentComponent {
     });
   }
 
-  showSuccessToast = () => {
-    setImmediate(() => {
-      toastr.success('Success!', 'Your information has been updated.');
-    });
-  }
-
   /**
    * Add new device
    * @param answer user consent answer value
@@ -158,7 +150,7 @@ export default class Devices extends ConsentComponent {
       const newDeviceTrait = { ...deviceTrait };
       newDeviceTrait.traits.data.push(newDevice);
       this.setState({ deviceTrait: newDeviceTrait });
-      updateUserTrait(handle, 'device', newDeviceTrait.traits.data, tokenV3).then(this.showSuccessToast);
+      updateUserTrait(handle, 'device', newDeviceTrait.traits.data, tokenV3);
     } else {
       const newDevices = [];
       newDevices.push(newDevice);
@@ -166,7 +158,7 @@ export default class Devices extends ConsentComponent {
         data: newDevices,
       };
       this.setState({ deviceTrait: { traits } });
-      addUserTrait(handle, 'device', newDevices, tokenV3).then(this.showSuccessToast);
+      addUserTrait(handle, 'device', newDevices, tokenV3);
     }
     const empty = {
       deviceType: '',
@@ -195,7 +187,7 @@ export default class Devices extends ConsentComponent {
    * Invalid value, can not save
    * @param newDevice object
    */
-  onCheckFormValue(newDevice) {
+  onCheckFormValue(newDevice, updateState = true) {
     let invalid = false;
 
     let errorMessage = '';
@@ -235,7 +227,9 @@ export default class Devices extends ConsentComponent {
       errorMessage += ' cannot be empty';
     }
 
-    this.setState({ errorMessage, formInvalid: invalid });
+    if (updateState) {
+      this.setState({ errorMessage, formInvalid: invalid });
+    }
     return invalid;
   }
 
@@ -288,6 +282,11 @@ export default class Devices extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newDevice } = this.state;
+    return this.onCheckFormValue(newDevice, false);
+  }
+
   render() {
     const {
       deviceTrait, isMobileView, showConfirmation, indexNo,
@@ -296,7 +295,7 @@ export default class Devices extends ConsentComponent {
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-
+    const isInValidDeviceForm = this.isFormValid();
     return (
       <div styleName="devices-container">
         {
@@ -420,7 +419,7 @@ export default class Devices extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddDevice}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || isInValidDeviceForm}
             >
               Add device to your list
             </PrimaryButton>
@@ -505,7 +504,7 @@ export default class Devices extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddDevice}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || isInValidDeviceForm}
             >
               Add Device
             </PrimaryButton>

@@ -114,6 +114,7 @@ SettingsContainer.propTypes = {
   settingsPageState: PT.shape().isRequired,
   lookupData: PT.shape().isRequired,
   loadingError: PT.bool.isRequired,
+  updateEmailConflict: PT.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -240,6 +241,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(
         actions.profile.hideSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })),
       );
+    },
+    updateEmailConflict: (state) => {
+      dispatch(actions.profile.updateEmailConflict(state));
     },
   };
 }
