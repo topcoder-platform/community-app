@@ -39,6 +39,7 @@ export default class MyAccount extends ConsentComponent {
       showNewTips: false,
       showRePasswordTips: false,
       showEmailTips: false,
+      newEmailSameAsCurrent: false,
       focus: {
         'new-password-input': false,
         'new-email-input': false,
@@ -133,28 +134,26 @@ export default class MyAccount extends ConsentComponent {
   }
 
   onUpdateNewEmailInput(e) {
+    const { profileState, updateEmailConflict } = this.props;
+    if (profileState.isEmailConflict) {
+      updateEmailConflict(false);
+    }
     const newEmail = e.target.value;
-    this.setState({
-      newEmail,
-      showEmailTips: false,
-    });
-    this.onCheckVerificationEmail(newEmail);
-  }
-
-  onCheckVerificationEmail(newEmail) {
     const newState = { ...this.state };
     const email = /^([0-9A-Za-z\-_\.+]+)@([0-9A-Za-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
 
+    newState.newEmail = newEmail;
+
     if (newEmail === '' || !email.test(newEmail) || newEmail === newState.currentEmail) {
       newState.focus['new-email-input'] = true;
-      newState.showEmailTips = newEmail !== '';
       newState.isValidEmail = false;
+      newState.showEmailTips = newEmail !== '';
+      newState.newEmailSameAsCurrent = newEmail === newState.currentEmail;
     } else {
       newState.showEmailTips = false;
       newState.isValidEmail = true;
     }
 
-    newState.newEmail = newEmail;
     this.setState(newState);
   }
 
@@ -378,6 +377,7 @@ export default class MyAccount extends ConsentComponent {
       passwordInputType,
       showNewTips,
       showEmailTips,
+      newEmailSameAsCurrent,
       passwordValid,
       isMobileView,
       showRePasswordTips,
@@ -387,7 +387,7 @@ export default class MyAccount extends ConsentComponent {
       isOpen,
     } = this.state;
 
-    const { updatingPassword, updatingProfile } = profileState;
+    const { updatingPassword, updatingProfile, isEmailConflict = false } = profileState;
     const { incorrectPassword } = settingsPageState;
 
     return (
@@ -404,9 +404,10 @@ export default class MyAccount extends ConsentComponent {
                     Email Change Verification
                   </div>
                   <div styleName="verification-send-message">
-                    Verification email sent to {currentEmail}. Check your inbox and
-                    click on the link in the email to finish updating your email.
-                    If you can&#39;t find it, check your spam folder.
+                    A confirmation email has been sent to both accounts.&nbsp;
+                    In order to finalize your email address change request,&nbsp;
+                    you must click on the links in the message sent to both your&nbsp;
+                    old and new email accounts.
                   </div>
                   <div styleName="verification-send-button">
                     <PrimaryButton
@@ -465,18 +466,17 @@ export default class MyAccount extends ConsentComponent {
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
                           <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" autoCapitalize="off" placeholder="New email" required />
                         </div>
-                        <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
+                        <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
-                    <h3>
-                      Your email address is not valid.
-                    </h3>
                   </div>
                   {
                     ssoUser && (
@@ -562,7 +562,11 @@ export default class MyAccount extends ConsentComponent {
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
@@ -574,6 +578,13 @@ export default class MyAccount extends ConsentComponent {
                         Since you joined Topcoder using your &lt;SSO Service&gt; account,
                         any email updates will need to be handled by logging in to
                         your &lt;SSO Service&gt; account.
+                      </div>
+                    )
+                  }
+                  {
+                    isEmailConflict && (
+                      <div styleName="error-message">
+                        The email you have entered is already in use.
                       </div>
                     )
                   }
@@ -824,7 +835,7 @@ export default class MyAccount extends ConsentComponent {
                 <div>
                   <p>
                     You joined Topcoder by using an external account,
-                    so we don&quot;t have a password for you.
+                    so we don&#39;t have a password for you.
                   </p>
                 </div>
               )
@@ -848,4 +859,5 @@ MyAccount.propTypes = {
   updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
   loadTabData: PT.func.isRequired,
+  updateEmailConflict: PT.func.isRequired,
 };

@@ -41,5 +41,8 @@
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["cs"],
   "description": "CS community.",
-  "image":"wipro.jpg"
+  "image":"wipro.jpg",
+  "accessDeniedPage": {
+    "viewportId": "5mnW0rH0XWs6D04XYxs9vf"
+  }
 }

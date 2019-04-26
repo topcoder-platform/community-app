@@ -11,7 +11,6 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../CofirmationModal';
 import SubscriptionList from './List';
 
@@ -30,7 +29,6 @@ export default class Subscription extends ConsentComponent {
     this.onAddSubscription = this.onAddSubscription.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-    this.showSuccessToast = this.showSuccessToast.bind(this);
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
@@ -143,12 +141,6 @@ export default class Subscription extends ConsentComponent {
     });
   }
 
-  showSuccessToast = () => {
-    setImmediate(() => {
-      toastr.success('Success!', 'Your information has been updated.');
-    });
-  }
-
   /**
    * Add new subscription
    * @param answer user consent answer value
@@ -167,7 +159,7 @@ export default class Subscription extends ConsentComponent {
       const newSubscriptionTrait = { ...subscriptionTrait };
       newSubscriptionTrait.traits.data.push(newSubscription);
       this.setState({ subscriptionTrait: newSubscriptionTrait });
-      updateUserTrait(handle, 'subscription', newSubscriptionTrait.traits.data, tokenV3).then(this.showSuccessToast);
+      updateUserTrait(handle, 'subscription', newSubscriptionTrait.traits.data, tokenV3);
     } else {
       const newSubscriptions = [];
       newSubscriptions.push(newSubscription);
@@ -175,7 +167,7 @@ export default class Subscription extends ConsentComponent {
         data: newSubscriptions,
       };
       this.setState({ subscriptionTrait: { traits } });
-      addUserTrait(handle, 'subscription', newSubscriptions, tokenV3).then(this.showSuccessToast);
+      addUserTrait(handle, 'subscription', newSubscriptions, tokenV3);
     }
     const empty = {
       name: '',
@@ -305,7 +297,7 @@ export default class Subscription extends ConsentComponent {
             <PrimaryButton
               theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || (newSubscription.name.trim().length === 0)}
             >
               Add subscription to your list
             </PrimaryButton>
@@ -336,7 +328,7 @@ export default class Subscription extends ConsentComponent {
             <PrimaryButton
               theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || (newSubscription.name.trim().length === 0)}
             >
               Add Subscription
             </PrimaryButton>

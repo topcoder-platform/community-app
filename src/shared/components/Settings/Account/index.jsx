@@ -1,7 +1,7 @@
 /**
  * Child component of Settings/Account renders setting page for account.
  */
-
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -14,7 +14,7 @@ import SideBar from '../SideBar';
 import ComingSoon from '../ComingSoon';
 import MyAccount from './MyAccount';
 import LinkedAccount from './LinkedAccount';
-
+import { SCREEN_SIZE } from '../constants';
 import './styles.scss';
 
 export default class Account extends React.Component {
@@ -26,35 +26,57 @@ export default class Account extends React.Component {
     if (this.tablink) {
       toggleAccountSideTab(this.tablink);
     }
+    this.state = {
+      isMobileView: false,
+    };
+    this.clearNotifiation = this.clearNotifiation.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
+  }
+
+  componentDidMount() {
+    this.clearNotifiation();
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentDidUpdate(prevProps) {
     const { settingsUI: { currentAccountTab } } = this.props;
     if (prevProps.settingsUI.currentAccountTab !== currentAccountTab) {
       window.location.hash = currentAccountTab.replace(' ', '-');
+      this.clearNotifiation();
     }
+  }
+
+  componentWillUnmount() {
+    this.clearNotifiation();
+    window.removeEventListener('resize', this.updatePredicate);
+  }
+
+  clearNotifiation() {
+    const { clearToastrNotification } = this.props;
+    if (clearToastrNotification) {
+      clearToastrNotification();
+    }
+  }
+
+  updatePredicate() {
+    this.setState({ isMobileView: window.innerWidth <= SCREEN_SIZE.SM });
   }
 
   render() {
     const {
       settingsUI,
       toggleAccountSideTab,
-      clearToastrNotification,
     } = this.props;
+    const { isMobileView } = this.state;
     const tabs = settingsUI.TABS.ACCOUNT;
     const names = Object.keys(tabs).map(key => tabs[key]);
     const currentTab = this.tablink || settingsUI.currentAccountTab;
-
     const icons = {
       'my account': <MyAccountIcon />,
       'linked accounts': <LinkedAccountIcon />,
     };
-    let previousSelectedTab = null;
     const renderTabContent = (tab) => {
-      if (previousSelectedTab !== tab && clearToastrNotification) {
-        clearToastrNotification();
-      }
-      previousSelectedTab = tab;
       switch (tab) {
         case 'my account':
           return <MyAccount {...this.props} />;
@@ -67,15 +89,17 @@ export default class Account extends React.Component {
 
     return (
       <div styleName="account-container">
-        <div styleName="mobile-view">
-          <Accordion
-            icons={icons}
-            names={names}
-            currentSidebarTab={currentTab}
-            renderTabContent={renderTabContent}
-            toggleSidebarTab={toggleAccountSideTab}
-          />
-        </div>
+        {isMobileView && (
+          <div styleName="mobile-view">
+            <Accordion
+              icons={icons}
+              names={names}
+              currentSidebarTab={currentTab}
+              renderTabContent={renderTabContent}
+              toggleSidebarTab={toggleAccountSideTab}
+            />
+          </div>
+        )}
         <div styleName="col-bar">
           <SideBar
             icons={icons}
@@ -84,11 +108,15 @@ export default class Account extends React.Component {
             toggle={toggleAccountSideTab}
           />
         </div>
-        <div styleName="col-content">
-          <ErrorWrapper>
-            { renderTabContent(currentTab) }
-          </ErrorWrapper>
-        </div>
+        {
+          !isMobileView && (
+          <div styleName="col-content">
+            <ErrorWrapper>
+              { renderTabContent(currentTab) }
+            </ErrorWrapper>
+          </div>
+          )
+        }
       </div>
     );
   }

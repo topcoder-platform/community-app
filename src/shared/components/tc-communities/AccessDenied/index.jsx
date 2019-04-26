@@ -8,6 +8,7 @@ import React from 'react';
 
 import TopcoderLogo from '../../../../assets/images/logo_topcoder.svg';
 import './style.scss';
+import Viewport from '../../Contentful/Viewport';
 
 export const CAUSE = {
   NOT_AUTHENTICATED: 'Not authenticated',
@@ -15,7 +16,26 @@ export const CAUSE = {
   HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE: 'You have not submitted to this challenge',
 };
 
-export default function AccessDenied({ cause, communityId, redirectLink }) {
+export default function AccessDenied(props) {
+  const {
+    cause,
+    communityId,
+    redirectLink,
+    spaceName,
+    environment,
+    viewportId,
+  } = props;
+
+  if (viewportId) {
+    return (
+      <Viewport
+        id={viewportId}
+        spaceName={spaceName}
+        environment={environment}
+      />
+    );
+  }
+
   switch (cause) {
     case CAUSE.NOT_AUTHENTICATED: {
       return (
@@ -68,12 +88,19 @@ Back to the challenge
 }
 
 AccessDenied.defaultProps = {
+  cause: CAUSE.NOT_AUTHENTICATED,
   communityId: '',
   redirectLink: '',
+  spaceName: null,
+  environment: null,
+  viewportId: null,
 };
 
 AccessDenied.propTypes = {
-  cause: PT.oneOf(_.toArray(CAUSE)).isRequired,
+  cause: PT.oneOf(_.toArray(CAUSE)),
   communityId: PT.string,
   redirectLink: PT.string,
+  spaceName: PT.string,
+  environment: PT.string,
+  viewportId: PT.string,
 };

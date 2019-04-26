@@ -43,18 +43,41 @@ $contentWrapperPadding: 0;
       h1 {
         font-size: 42px;
         font-weight: 300;
+        line-height: 50px;
       }
 
       h2 {
-        font-size: 20px;
+        font-size: 36px;
+        font-weight: 300;
+        line-height: 45px;
       }
 
       h3 {
-        font-size: 24px;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 35px;
+      }
+
+      h4 {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 35px;
+      }
+
+      h5 {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 25px;
+      }
+
+      h6 {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 25px;
       }
 
       p {
-        font-size: 15px;
+        font-size: 20px;
         margin-bottom: 1em;
         line-height: 25px;
       }

@@ -48,5 +48,9 @@
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["topgear", "wipro"],
   "description": "Wipro's TopGear community.",
-  "image":"wipro.jpg"
+  "image":"wipro.jpg",
+  "accessDeniedPage": {
+    "viewportId": "2ymrKrU9DISEX0zjAYj2k7",
+    "spaceName": "topgear"
+  }
 }
