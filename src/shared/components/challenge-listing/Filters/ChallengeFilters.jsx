@@ -45,6 +45,7 @@ export default function ChallengeFilters({
   validKeywords,
   validSubtracks,
   isSavingFilter,
+  setDatepickerStatus,
 }) {
   let filterRulesCount = 0;
   if (filterState.tags) filterRulesCount += 1;
@@ -164,6 +165,7 @@ export default function ChallengeFilters({
         validKeywords={validKeywords}
         validSubtracks={validSubtracks}
         isSavingFilter={isSavingFilter}
+        setDatepickerStatus={setDatepickerStatus}
       />
 
       <EditTrackPanel
@@ -215,4 +217,5 @@ ChallengeFilters.propTypes = {
   trackModalShown: PT.bool.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.object).isRequired,
+  setDatepickerStatus: PT.func.isRequired,
 };

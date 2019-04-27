@@ -7,7 +7,7 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import PT from 'prop-types';
 import React from 'react';
 import { isomorphy } from 'topcoder-react-utils';
-import { removeTrailingSlash } from 'utils/url';
+import { url } from 'topcoder-react-lib';
 
 import NavMenu from './Menu';
 
@@ -35,10 +35,10 @@ function MenuItemsLoader(props) {
   let { baseUrl } = props;
   let pathname = '';
   // remove trail slash from baseUrl
-  baseUrl = removeTrailingSlash(baseUrl);
+  baseUrl = url.removeTrailingSlash(baseUrl);
   // check current path
   if (isomorphy.isClientSide()) {
-    pathname = removeTrailingSlash(window.location.pathname);
+    pathname = url.removeTrailingSlash(window.location.pathname);
   }
   return (
     <ContentfulLoader

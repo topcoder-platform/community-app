@@ -25,7 +25,7 @@ export default function Tags({
   };
 
   const renderTechnologies = () => {
-    const combined = _.union(technologies, platforms);
+    const combined = _.without(_.union(technologies, platforms), '');
 
     if (combined.length) {
       let display = combined;

@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
-import { removeTrailingSlash } from 'utils/url';
+import { url } from 'topcoder-react-lib';
 import Dropdown from 'components/tc-communities/Dropdown';
 
 import MenuItem from './MenuItem';
@@ -17,7 +17,7 @@ export default function Menu(props) {
   } = props;
   let pathname = '';
   if (isomorphy.isClientSide()) {
-    pathname = removeTrailingSlash(window.location.pathname);
+    pathname = url.removeTrailingSlash(window.location.pathname);
   }
 
   return (
