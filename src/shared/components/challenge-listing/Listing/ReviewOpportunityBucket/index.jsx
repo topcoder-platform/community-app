@@ -5,13 +5,13 @@ import PT from 'prop-types';
 import React from 'react';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
 import './style.scss';
 
-const { SORTS_DATA } = challengeUtils.sort;
+const { SORTS_DATA } = challengeUtil.sort;
 
 const NO_RESULTS_MESSAGE = 'There are no review opportunities available';
 

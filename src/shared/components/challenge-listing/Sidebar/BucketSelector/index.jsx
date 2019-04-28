@@ -6,14 +6,14 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 
 import Bucket from './Bucket';
 
 import './style.scss';
 
-const Filter = challengeUtils.filter;
-const Buckets = challengeUtils.buckets;
+const Filter = challengeUtil.filter;
+const Buckets = challengeUtil.buckets;
 
 const RSS_LINK = 'http://feeds.topcoder.com/challenges/feed?list=active&contestType=all';
 

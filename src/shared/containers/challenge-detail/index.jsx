@@ -28,7 +28,7 @@ import challengeDetailsActions, { TABS as DETAIL_TABS }
   from 'actions/page/challenge-details';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
-import { actions, challenges } from 'topcoder-react-lib';
+import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -56,7 +56,7 @@ import ogImage from '../../../assets/images/og_image.jpg';
 
 import './styles.scss';
 
-const Buckets = challenges.buckets;
+const { BUCKETS } = challengeUtil.buckets;
 
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
@@ -543,7 +543,7 @@ const mapDispatchToProps = (dispatch) => {
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       const cl = actions.challenge;
       dispatch(cl.setFilter(filter));
-      dispatch(cls.selectBucket(Buckets.BUCKETS.ALL));
+      dispatch(cls.selectBucket(BUCKETS.ALL));
     },
     setSpecsTabState: state => dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {

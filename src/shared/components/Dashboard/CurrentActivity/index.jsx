@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { TABS } from 'actions/page/dashboard';
 
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 
 import Challenges from './Challenges';
 import Communities from './Communities';
@@ -14,7 +14,7 @@ import Srms from './Srms';
 
 import './styles.scss';
 
-const Filter = challengeUtils.filter;
+const Filter = challengeUtil.filter;
 
 /* eslint-disable react/no-unused-state */
 

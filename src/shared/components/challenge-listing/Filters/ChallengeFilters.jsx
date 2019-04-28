@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
 import ChallengeSearchBar from './ChallengeSearchBar';
@@ -18,7 +18,7 @@ import FiltersCardsType from './FiltersCardsType';
 
 import './ChallengeFilters.scss';
 
-const Filter = challengeUtils.filter;
+const Filter = challengeUtil.filter;
 
 export default function ChallengeFilters({
   communityFilters,
