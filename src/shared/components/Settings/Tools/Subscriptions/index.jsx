@@ -297,7 +297,7 @@ export default class Subscription extends ConsentComponent {
             <PrimaryButton
               theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || (newSubscription.name.trim().length === 0)}
             >
               Add subscription to your list
             </PrimaryButton>
@@ -328,7 +328,7 @@ export default class Subscription extends ConsentComponent {
             <PrimaryButton
               theme={{ button: styles.complete }}
               onClick={this.onHandleAddSubscription}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || (newSubscription.name.trim().length === 0)}
             >
               Add Subscription
             </PrimaryButton>
