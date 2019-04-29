@@ -10,7 +10,7 @@
  * the 'onDatesChanged' property, if any, passing in the object having
  * 'startDate' and 'endDate' fields the user wants to set.
  */
-
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import 'react-dates/initialize';
@@ -33,6 +33,7 @@ class DateRangePicker extends React.Component {
       numberOfMonths,
       readOnly,
       startDate,
+      setDatepickerStatus,
     } = this.props;
     const {
       focusedInput,
@@ -45,10 +46,14 @@ class DateRangePicker extends React.Component {
         isOutsideRange={() => false}
         onDatesChange={onDatesChange}
         onFocusChange={(newFocusedInput) => {
+          const status = !_.isEmpty(newFocusedInput);
+          setDatepickerStatus(status);
           this.setState({ focusedInput: newFocusedInput });
         }}
         startDate={startDate}
         endDate={endDate}
+        endDateId="date-range-picker-two-month"
+        startDateId="date-range-picker-one-month"
         anchorDirection="right"
         displayFormat="MMM DD, YYYY"
         readOnly={readOnly}
@@ -65,6 +70,7 @@ DateRangePicker.defaultProps = {
 DateRangePicker.propTypes = {
   onDatesChange: PT.func,
   readOnly: PT.bool,
+  setDatepickerStatus: PT.func.isRequired,
 };
 
 export default DateRangePicker;

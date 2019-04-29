@@ -22,7 +22,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
@@ -37,7 +37,7 @@ import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
-const Filter = challengeUtils.filter;
+const Filter = challengeUtil.filter;
 
 export default function FiltersPanel({
   communityFilters,
@@ -57,6 +57,7 @@ export default function FiltersPanel({
   validKeywords,
   validSubtracks,
   isSavingFilter,
+  setDatepickerStatus,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -84,7 +85,7 @@ export default function FiltersPanel({
     const registrationStatus = visitorRegisteredToCommunity
       ? (
         <div>
-Registered
+          Registered
         </div>
       )
       : (
@@ -95,7 +96,7 @@ Registered
 not
           </span>
           {' '}
-registered.
+          registered.
           <Link
             onMouseDown={(e) => {
               const url = community.mainSubdomain ? (
@@ -154,23 +155,23 @@ registered.
           content={(
             <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
               <p>
-You are
+                You are
                 { !visitorRegisteredToCommunity && (
-                <span styleName="bold">
-NOT
-                </span>
+                  <span styleName="bold">
+                    NOT
+                  </span>
                 )}
                 {' '}
-registered for this sub community.
+                registered for this sub community.
               </p>
               <p>
-There are
+                There are
                 {challengesInCommunity}
                 {' '}
-challenges in this sub community
+                challenges in this sub community
               </p>
             </div>
-)}
+          )}
         >
           {selectItem}
         </Tooltip>
@@ -210,7 +211,7 @@ Filters
         <div styleName="filter-row">
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">
-Keywords
+              Keywords
               <input type="hidden" />
             </label>
             <Select
@@ -227,7 +228,7 @@ Keywords
           </div>
           <div styleName="filter community">
             <label htmlFor="community-select">
-Sub community
+              Sub community
               <input type="hidden" />
             </label>
             <Select
@@ -249,7 +250,7 @@ Sub community
         <div styleName="filter-row">
           <div styleName="filter track">
             <label htmlFor="track-select" styleName="left-label">
-Subtrack
+              Subtrack
               <input type="hidden" />
             </label>
             <Select
@@ -271,7 +272,7 @@ Subtrack
             ? (
               <div styleName="filter review-type">
                 <label htmlFor="review-type-select">
-Review Type
+                  Review Type
                   <input type="hidden" />
                 </label>
                 <Select
@@ -294,7 +295,7 @@ Review Type
           }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
-Date range
+              Date range
               <input type="hidden" />
             </label>
             <DateRangePicker
@@ -311,11 +312,12 @@ Date range
               startDate={
                 filterState.startDate && moment(filterState.startDate)
               }
+              setDatepickerStatus={setDatepickerStatus}
             />
           </div>
           <div styleName="filter dates hideonemonthdatepicker">
             <label htmlFor="date-range-picker-two-months">
-Date range
+              Date range
               <input type="hidden" />
             </label>
             <DateRangePicker
@@ -332,6 +334,7 @@ Date range
               startDate={
                 filterState.startDate && moment(filterState.startDate)
               }
+              setDatepickerStatus={setDatepickerStatus}
             />
           </div>
         </div>
@@ -349,7 +352,7 @@ Date range
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >
-Clear filters
+          Clear filters
         </Button>
         <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
@@ -357,7 +360,7 @@ Clear filters
           size="sm"
           theme={{ button: style.button }}
         >
-Save filter
+          Save filter
         </PrimaryButton>
       </div>
     </div>
@@ -395,4 +398,5 @@ FiltersPanel.propTypes = {
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
+  setDatepickerStatus: PT.func.isRequired,
 };

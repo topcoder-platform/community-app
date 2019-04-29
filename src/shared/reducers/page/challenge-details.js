@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import actions, { SPECS_TAB_STATES } from 'actions/page/challenge-details';
 import { handleActions } from 'redux-actions';
-import { updateQuery } from 'utils/url';
+import { url } from 'topcoder-react-lib';
 
 /**
  * Handles challengeActions.toggleCheckpointFeedback action.
@@ -30,7 +30,7 @@ function onToggleCheckpointFeedback(state, action) {
  * @return {Object}
  */
 function onSelectTab(state, { payload }) {
-  updateQuery({ tab: payload });
+  url.updateQuery({ tab: payload });
   return { ...state, selectedTab: payload };
 }
 
