@@ -184,6 +184,7 @@ workflows:
                 - hot-fixes
                 - legacy-tco
                 - general-features
+                - server_side_filtering
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -193,6 +194,7 @@ workflows:
                 - hot-fixes
                 - develop
                 - general-features
+                - server_side_filtering
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
