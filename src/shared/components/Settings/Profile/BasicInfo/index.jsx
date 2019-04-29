@@ -126,7 +126,7 @@ export default class BasicInfo extends ConsentComponent {
     }
 
     _.forEach(newBasicInfo.addresses, (address) => {
-      if(!(/^[0-9\-]*$/.test(address.zip))) {
+      if (!(/^[0-9-]*$/.test(address.zip))) {
         zipError = 'You must enter a valid zip code';
         zipInvalid = true;
       }
