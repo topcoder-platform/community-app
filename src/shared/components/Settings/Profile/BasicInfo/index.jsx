@@ -534,6 +534,7 @@ export default class BasicInfo extends ConsentComponent {
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
+                    isOutsideRange={moment()}
                     date={newBasicInfo.birthDate}
                     id="date-range-picker1"
                     onDateChange={this.onUpdateDate}
@@ -766,6 +767,7 @@ export default class BasicInfo extends ConsentComponent {
                     <DatePicker
                       readOnly
                       numberOfMonths={1}
+                      isOutsideRange={moment()}
                       date={newBasicInfo.birthDate}
                       id="date-range-picker2"
                       onDateChange={this.onUpdateDate}

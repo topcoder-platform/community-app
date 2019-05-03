@@ -1,6 +1,7 @@
 /**
  * Child component of Settings/Tools renders setting page for tools.
  */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -17,6 +18,7 @@ import Software from 'components/Settings/Tools/Software';
 import ServiceProviders from 'components/Settings/Tools/ServiceProviders';
 import Subscriptions from 'components/Settings/Tools/Subscriptions';
 import ErrorWrapper from 'components/Settings/ErrorWrapper';
+import { SCREEN_SIZE } from '../constants';
 
 import './styles.scss';
 
@@ -29,20 +31,48 @@ export default class Tools extends React.Component {
     if (this.tablink) {
       toggleToolsSideTab(this.tablink);
     }
+    this.state = {
+      isMobileView: false,
+    };
+    this.clearNotifiation = this.clearNotifiation.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
+  }
+
+  componentDidMount() {
+    this.clearNotifiation();
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentDidUpdate(prevProps) {
     const { settingsUI: { currentToolsTab } } = this.props;
     if (prevProps.settingsUI.currentToolsTab !== currentToolsTab) {
       window.location.hash = currentToolsTab.replace(' ', '-');
+      this.clearNotifiation();
     }
   }
 
+  componentWillUnmount() {
+    this.clearNotifiation();
+    window.removeEventListener('resize', this.updatePredicate);
+  }
+
+  clearNotifiation() {
+    const { clearToastrNotification } = this.props;
+    if (clearToastrNotification) {
+      clearToastrNotification();
+    }
+  }
+
+  updatePredicate() {
+    this.setState({ isMobileView: window.innerWidth <= SCREEN_SIZE.SM });
+  }
+
   render() {
+    const { isMobileView } = this.state;
     const {
       settingsUI: { currentToolsTab, TABS },
       toggleToolsSideTab,
-      clearToastrNotification,
     } = this.props;
     const tabs = TABS.TOOLS;
     const names = Object.keys(tabs).map(key => tabs[key]);
@@ -55,12 +85,7 @@ export default class Tools extends React.Component {
       subscriptions: <SubscriptionsIcon />,
     };
 
-    let previousSelectedTab;
     const renderTabContent = (tab) => {
-      if (previousSelectedTab !== tab) {
-        clearToastrNotification();
-      }
-      previousSelectedTab = tab;
       switch (tab) {
         case 'devices':
           return <Devices {...this.props} />;
@@ -77,15 +102,17 @@ export default class Tools extends React.Component {
 
     return (
       <div styleName="tools-container">
-        <div styleName="mobile-view">
-          <Accordion
-            icons={icons}
-            names={names}
-            currentSidebarTab={currentTab}
-            renderTabContent={renderTabContent}
-            toggleSidebarTab={toggleToolsSideTab}
-          />
-        </div>
+        {isMobileView && (
+          <div styleName="mobile-view">
+            <Accordion
+              icons={icons}
+              names={names}
+              currentSidebarTab={currentTab}
+              renderTabContent={renderTabContent}
+              toggleSidebarTab={toggleToolsSideTab}
+            />
+          </div>
+        )}
         <div styleName="col-bar">
           <ErrorWrapper>
             <SideBar
@@ -96,11 +123,15 @@ export default class Tools extends React.Component {
             />
           </ErrorWrapper>
         </div>
-        <div styleName="col-content">
-          <ErrorWrapper>
-            { renderTabContent(currentTab) }
-          </ErrorWrapper>
-        </div>
+        {
+          !isMobileView && (
+          <div styleName="col-content">
+            <ErrorWrapper>
+              { renderTabContent(currentTab) }
+            </ErrorWrapper>
+          </div>
+          )
+        }
       </div>
     );
   }

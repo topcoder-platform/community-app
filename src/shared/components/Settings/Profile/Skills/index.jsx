@@ -609,6 +609,9 @@ export default class Skills extends ConsentComponent {
                 </div>
               </div>
             </form>
+            <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+              { errorMessage }
+            </div>
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"

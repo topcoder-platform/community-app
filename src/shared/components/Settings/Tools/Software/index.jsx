@@ -12,7 +12,6 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import SoftwareList from './List';
@@ -32,7 +31,6 @@ export default class Software extends ConsentComponent {
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-    this.showSuccessToast = this.showSuccessToast.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -154,12 +152,6 @@ export default class Software extends ConsentComponent {
     });
   }
 
-  showSuccessToast = () => {
-    setImmediate(() => {
-      toastr.success('Success!', 'Your information has been updated.');
-    });
-  }
-
   /**
    * Add new software
    * @param answer user consent answer value
@@ -178,7 +170,7 @@ export default class Software extends ConsentComponent {
       const newSoftwareTrait = { ...softwareTrait };
       newSoftwareTrait.traits.data.push(newSoftware);
       this.setState({ softwareTrait: newSoftwareTrait });
-      updateUserTrait(handle, 'software', newSoftwareTrait.traits.data, tokenV3).then(this.showSuccessToast);
+      updateUserTrait(handle, 'software', newSoftwareTrait.traits.data, tokenV3);
     } else {
       const newSoftwares = [];
       newSoftwares.push(newSoftware);
@@ -186,7 +178,7 @@ export default class Software extends ConsentComponent {
         data: newSoftwares,
       };
       this.setState({ softwareTrait: { traits } });
-      addUserTrait(handle, 'software', newSoftwares, tokenV3).then(this.showSuccessToast);
+      addUserTrait(handle, 'software', newSoftwares, tokenV3);
     }
     const empty = {
       softwareType: '',
@@ -255,6 +247,14 @@ export default class Software extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newSoftware } = this.state;
+    if (newSoftware.softwareType && (newSoftware.name.trim().length !== 0)) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const {
       softwareTrait, isMobileView, showConfirmation, indexNo,
@@ -263,7 +263,7 @@ export default class Software extends ConsentComponent {
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-
+    const isValidSoftwareForm = this.isFormValid();
     return (
       <div styleName="software-container">
         {
@@ -339,7 +339,7 @@ export default class Software extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidSoftwareForm}
             >
               Add software to your list
             </PrimaryButton>
@@ -388,7 +388,7 @@ export default class Software extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidSoftwareForm}
             >
               Add Software
             </PrimaryButton>
