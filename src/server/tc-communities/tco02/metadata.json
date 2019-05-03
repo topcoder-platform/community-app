@@ -8,9 +8,6 @@
     "img": "/community-app-assets/themes/tco18-01/TCO02.png",
     "url": "https://tco02.topcoder.com"
   }],
-  "menuItems": [{
-    "navigationMenu": ""
-  }],
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["tco02"],
   "description": "2002 Topcoder Open. The Ultimate Programming & Design Tournament"

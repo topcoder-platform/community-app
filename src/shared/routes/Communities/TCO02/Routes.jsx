@@ -25,7 +25,7 @@ export default function TCO02({ base }) {
             <ContentfulRoute
               baseUrl={base}
               error404={<Error404 />}
-              id=""
+              id="2FYBo8o2bOOCbqSWuYcX1u"
             />
             <Route
               component={Error404}

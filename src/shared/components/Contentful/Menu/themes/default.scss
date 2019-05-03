@@ -48,10 +48,10 @@
     line-height: 30px;
 
     a {
-      color: #aaaaab;
+      color: #aaaaab !important;
 
       &:hover {
-        color: darken($color: #aaaaab, $amount: 10);
+        color: darken($color: #aaaaab, $amount: 10) !important;
       }
     }
 
@@ -59,7 +59,7 @@
       color: #404041;
 
       &:hover {
-        color: darken($color: #404041, $amount: 20);
+        color: darken($color: #404041, $amount: 20) !important;
       }
     }
 
@@ -107,11 +107,11 @@
 
     .menuItemLevel {
       a {
-        color: #a3a3ad;
+        color: #a3a3ad !important;
         font-weight: 400;
 
         &:hover {
-          color: $tc-white;
+          color: $tc-white !important;
         }
       }
 
@@ -120,7 +120,7 @@
       }
 
       .menuItemLinkActive::after {
-        background-color: $tc-white;
+        background-color: $tc-white !important;
       }
     }
 
@@ -167,7 +167,7 @@
             font-size: 13px;
             font-weight: 700;
             line-height: 25px;
-            color: $tc-white;
+            color: $tc-white !important;
             text-transform: uppercase;
 
             :global {
@@ -184,7 +184,7 @@
                   font-weight: 400;
                   line-height: 30px;
                   text-transform: uppercase;
-                  color: #47474f;
+                  color: #47474f !important;
                   padding-left: 10px;
                   padding-right: 20px;
 

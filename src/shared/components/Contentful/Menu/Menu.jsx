@@ -5,20 +5,15 @@
 /* global window */
 import React from 'react';
 import PT from 'prop-types';
-import { isomorphy } from 'topcoder-react-utils';
-import { removeTrailingSlash } from 'utils/url';
 import Dropdown from 'components/tc-communities/Dropdown';
 
+import { isActive, linkText, target } from 'utils/contentful';
 import MenuItem from './MenuItem';
 
 export default function Menu(props) {
   const {
-    menuItems, theme, baseUrl, parentItems, activeParentItem,
+    menuItems, theme, baseUrl, parentBaseUrl, parentItems, activeParentItem,
   } = props;
-  let pathname = '';
-  if (isomorphy.isClientSide()) {
-    pathname = removeTrailingSlash(window.location.pathname);
-  }
 
   return (
     <nav className={theme.menuContainer}>
@@ -27,11 +22,11 @@ export default function Menu(props) {
           <div className={theme.menuSwitchContainer}>
             <Dropdown
               options={parentItems.map(pI => ({
-                label: pI.fields.linkText,
-                value: pI.fields.slug,
-                url: `${baseUrl}/../${pI.fields.slug}`,
+                label: linkText(pI),
+                value: pI.sys.id,
+                url: target(parentBaseUrl, pI),
               }))}
-              value={activeParentItem.fields.slug}
+              value={activeParentItem.sys.id}
               onChange={(option) => { window.location.href = option.url; }}
             />
           </div>
@@ -43,10 +38,7 @@ export default function Menu(props) {
             <MenuItem
               item={item}
               theme={theme}
-              isActive={
-                (pathname === baseUrl && item.fields.url === '/')
-                || pathname.indexOf(item.fields.slug) !== -1
-              }
+              isActive={isActive(baseUrl, item, 'menuItem')}
               key={item.sys.id}
               baseUrl={baseUrl}
             />
@@ -72,6 +64,7 @@ Menu.propTypes = {
   }),
   menuItems: PT.arrayOf(PT.shape()),
   baseUrl: PT.string.isRequired,
+  parentBaseUrl: PT.string.isRequired,
   parentItems: PT.arrayOf(PT.shape()).isRequired,
   activeParentItem: PT.shape().isRequired,
 };

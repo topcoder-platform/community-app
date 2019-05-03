@@ -8,9 +8,6 @@
     "img": "/community-app-assets/themes/tco18-01/TCO01.svg",
     "url": "https://tco01.topcoder.com"
   }],
-  "menuItems": [{
-    "navigationMenu": ""
-  }],
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["tco01"],
   "description": "2001 Topcoder Open. The Ultimate Programming & Design Tournament"
