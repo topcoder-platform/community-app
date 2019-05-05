@@ -6,6 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import Dropdown from 'components/tc-communities/Dropdown';
+import { isomorphy } from 'topcoder-react-utils';
 
 import { isActive, linkText, target } from 'utils/contentful';
 import MenuItem from './MenuItem';
@@ -14,6 +15,15 @@ export default function Menu(props) {
   const {
     menuItems, theme, baseUrl, parentBaseUrl, parentItems, activeParentItem,
   } = props;
+
+  if (isomorphy.isClientSide()) {
+    if (baseUrl === parentBaseUrl && baseUrl !== window.location.pathname) {
+      return null;
+    }
+  } else {
+    // TODO: should probably get the current URL from the web framework
+    // and apply the check ot current location path
+  }
 
   return (
     <nav className={theme.menuContainer}>

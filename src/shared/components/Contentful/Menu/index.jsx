@@ -4,6 +4,7 @@
 /* global window */
 import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
+import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import { removeTrailingSlash } from 'utils/url';
@@ -119,6 +120,7 @@ function MenuItemsLoader(props) {
           </div>
         );
       }}
+      renderPlaceholder={LoadingIndicator}
     />
   );
 }
@@ -187,6 +189,7 @@ export default function ContentfulMenu(props) {
           />
         );
       }}
+      renderPlaceholder={LoadingIndicator}
     />
   );
 }

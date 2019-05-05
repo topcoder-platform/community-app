@@ -62,7 +62,10 @@ export function isActive(baseUrl, item, caller) {
   }
 
   // handles the special case when url === `/`
-  if (caller === 'menuItem' && item && item.fields.url === '/' && to === baseUrl && (location !== to && location !== `${to}/`)) {
+  if (caller === 'menuItem' && item
+  && (item.fields.url === '/' || !item.fields.url)
+  && to === baseUrl
+  && (location !== to && location !== `${to}/`)) {
     return false;
   }
 
