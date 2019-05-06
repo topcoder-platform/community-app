@@ -24,29 +24,12 @@ const supportedAccounts = [
     featured: true,
   },
   {
-    providerType: 'linkedin',
-    className: 'fa-linkedin',
-    displayName: 'LinkedIn',
-    disabled: true,
-    order: 5,
-    colorClass: 'el-linkedin',
-    featured: true,
-  },
-  {
     providerType: 'stackoverflow',
     className: 'fa-stack-overflow',
     displayName: 'Stack Overflow',
     disabled: false,
     order: 3,
     colorClass: 'el-stackoverflow',
-  },
-  {
-    providerType: 'behance',
-    className: 'fa-behance',
-    displayName: 'Behance',
-    disabled: true,
-    order: 2,
-    colorClass: 'el-behance',
   },
   {
     providerType: 'github',
@@ -64,14 +47,6 @@ const supportedAccounts = [
     disabled: false,
     order: 7,
     colorClass: 'el-bitbucket',
-  },
-  {
-    providerType: 'twitter',
-    className: 'fa-twitter',
-    displayName: 'Twitter',
-    disabled: true,
-    order: 4,
-    colorClass: 'el-twitter',
   },
   {
     providerType: 'weblink',
@@ -128,7 +103,7 @@ export default class LinkedAccount extends React.Component {
     const externalAccountsData = profileState.externalAccounts || {};
 
     if (!linkedAccounts.length) {
-      const providers = _.omit(externalAccountsData, ['userId', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy', 'handle']);
+      const providers = _.omit(externalAccountsData, ['userId', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy']);
 
       _.forEach(_.keys(providers), (p) => {
         if (providers[p]) {

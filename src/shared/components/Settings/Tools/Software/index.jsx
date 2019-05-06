@@ -12,6 +12,7 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import SoftwareList from './List';
 
@@ -43,6 +44,8 @@ export default class Software extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
     };
   }
 
@@ -113,7 +116,10 @@ export default class Software extends ConsentComponent {
   }
 
   onHandleDeleteSoftware(indexNo) {
-    this.showConsent(this.onDeleteSoftware.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -140,6 +146,10 @@ export default class Software extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'software', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
   }
 
   /**
@@ -237,18 +247,35 @@ export default class Software extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newSoftware } = this.state;
+    if (newSoftware.softwareType && (newSoftware.name.trim().length !== 0)) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
-    const { softwareTrait, isMobileView } = this.state;
+    const {
+      softwareTrait, isMobileView, showConfirmation, indexNo,
+    } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-
+    const isValidSoftwareForm = this.isFormValid();
     return (
       <div styleName="software-container">
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteSoftware.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+          />
+        )}
         <h1>
           Software
         </h1>
@@ -260,7 +287,7 @@ export default class Software extends ConsentComponent {
           && (
             <SoftwareList
               softwareList={{ items: softwareItems }}
-              onDeleteItem={this.onDeleteSoftware}
+              onDeleteItem={this.onHandleDeleteSoftware}
               disabled={!canModifyTrait}
             />
           )
@@ -288,6 +315,7 @@ export default class Software extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
               </div>
             </div>
@@ -300,7 +328,7 @@ export default class Software extends ConsentComponent {
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
               </div>
             </div>
           </form>
@@ -311,7 +339,7 @@ export default class Software extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidSoftwareForm}
             >
               Add software to your list
             </PrimaryButton>
@@ -340,6 +368,7 @@ export default class Software extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
               </div>
               <div styleName="field col-2">
@@ -348,15 +377,18 @@ export default class Software extends ConsentComponent {
                   <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
               </div>
             </div>
           </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            {errorMessage}
+          </div>
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidSoftwareForm}
             >
               Add Software
             </PrimaryButton>

@@ -12,6 +12,7 @@ import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import ServiceProviderList from './List';
 
@@ -29,7 +30,7 @@ export default class ServiceProviders extends ConsentComponent {
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-
+    this.isFormValid = this.isFormValid.bind(this);
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
@@ -42,6 +43,8 @@ export default class ServiceProviders extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
     };
   }
 
@@ -112,7 +115,10 @@ export default class ServiceProviders extends ConsentComponent {
   }
 
   onHandleDeleteServiceProvider(indexNo) {
-    this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -139,6 +145,10 @@ export default class ServiceProviders extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'service_provider', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
   }
 
   /**
@@ -237,18 +247,35 @@ export default class ServiceProviders extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newServiceProvider } = this.state;
+    if (newServiceProvider.serviceProviderType && (newServiceProvider.name.trim().length !== 0)) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
-    const { serviceProviderTrait, isMobileView } = this.state;
+    const {
+      serviceProviderTrait, isMobileView, showConfirmation, indexNo,
+    } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-
+    const isValidServiceProviderForm = this.isFormValid();
     return (
       <div styleName="service-provider-container">
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+          />
+        )}
         <h1>
           Service Providers
         </h1>
@@ -260,7 +287,7 @@ export default class ServiceProviders extends ConsentComponent {
           && (
             <ServiceProviderList
               serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onDeleteServiceProvider}
+              onDeleteItem={this.onHandleDeleteServiceProvider}
               disabled={!canModifyTrait}
             />
           )
@@ -288,6 +315,7 @@ export default class ServiceProviders extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
               </div>
             </div>
@@ -300,7 +328,7 @@ export default class ServiceProviders extends ConsentComponent {
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
               </div>
             </div>
           </form>
@@ -311,7 +339,7 @@ export default class ServiceProviders extends ConsentComponent {
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddServiceProvider}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidServiceProviderForm}
             >
               Add service provider to your list
             </PrimaryButton>
@@ -340,6 +368,7 @@ export default class ServiceProviders extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
               </div>
               <div styleName="field col-2">
@@ -348,15 +377,18 @@ export default class ServiceProviders extends ConsentComponent {
                   <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
               </div>
             </div>
           </form>
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            { errorMessage }
+          </div>
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
               onClick={this.onHandleAddServiceProvider}
-              disabled={!canModifyTrait}
+              disabled={!canModifyTrait || !isValidServiceProviderForm}
             >
               Add Provider
             </PrimaryButton>

@@ -101,7 +101,7 @@ function isRegistered(details, registrants, handle) {
   if (details && details.roles && details.roles.includes('Submitter')) {
     return true;
   }
-  if (_.find(registrants, r => r.handle === handle)) {
+  if (_.find(registrants, r => _.toString(r.handle) === _.toString(handle))) {
     return true;
   }
   return false;

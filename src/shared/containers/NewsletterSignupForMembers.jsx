@@ -50,9 +50,12 @@ class NewsletterSignupForMembersContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { token } = this.props;
+    const { token, authenticating } = this.props;
     const { signupState } = this.state;
-    if (prevProps.token !== token) this.checkSubscription();
+    if (
+      prevProps.token !== token
+      || prevProps.authenticating !== authenticating
+    ) this.checkSubscription();
     let subscribeMe = window.location.href.match(/(.*\?)(.*)/);
     subscribeMe = subscribeMe && subscribeMe[2].split('=');
     subscribeMe = subscribeMe && subscribeMe[0] === 'subscribeme';
@@ -65,9 +68,9 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
   async checkSubscription() {
     const {
-      listId, user, token,
+      listId, user, token, authenticating,
     } = this.props;
-    if (!token) return;
+    if (!token || authenticating) return;
     const md = forge.md.md5.create();
     md.update(user.email);
 
@@ -185,6 +188,7 @@ NewsletterSignupForMembersContainer.defaultProps = {
 };
 
 NewsletterSignupForMembersContainer.propTypes = {
+  authenticating: PT.bool.isRequired,
   token: PT.string,
   label: PT.string,
   tags: PT.string,
@@ -195,7 +199,7 @@ NewsletterSignupForMembersContainer.propTypes = {
 function mapStateToProps(state, ownProps) {
   /* We show NewsletterSignup button when a visitor is not authenticated, or when
    * he is authenticated and not subscribed to Newsletter. */
-  const { profile, tokenV3 } = state.auth;
+  const { profile, tokenV3, authenticating } = state.auth;
 
   let userData = null;
   if (profile && profile.email) {
@@ -207,6 +211,7 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
+    authenticating,
     label: ownProps.label,
     theme: ownProps.theme,
     token: tokenV3,

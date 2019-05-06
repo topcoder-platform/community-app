@@ -590,6 +590,16 @@ exports[`Matches shallow shapshot 1`] = `
         </code>
       </Link>
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/modal/Pg4e60qnOpfTDxZgMfopT"
+      >
+        <code>
+          Modal
+        </code>
+      </Link>
+    </li>
   </ul>
   <h3>
     Previews of Contentful Components with CMS SpaceName/Environment Props

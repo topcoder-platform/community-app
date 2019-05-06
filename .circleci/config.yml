@@ -179,7 +179,7 @@ workflows:
       - "build-test":
           context : org-global      
           filters:
-              branches:
+            branches:
                 only:
                   - legacy-tco
       # This is beta env for production soft releases
@@ -190,6 +190,7 @@ workflows:
               only:
                 - hot-fixes
                 - develop
+                - general-features
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":

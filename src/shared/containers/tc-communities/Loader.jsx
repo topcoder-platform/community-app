@@ -99,6 +99,9 @@ class Loader extends React.Component {
         <AccessDenied
           cause={ACCESS_DENIED_REASON.NOT_AUTHENTICATED}
           communityId={communityId}
+          viewportId={meta.accessDeniedPage.viewportId}
+          spaceName={meta.accessDeniedPage.spaceName}
+          environment={meta.accessDeniedPage.environment}
         />
       );
     }
@@ -116,7 +119,14 @@ class Loader extends React.Component {
     }
 
     /* Visitor is not authorized to access this community. */
-    return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
+    return (
+      <AccessDenied
+        cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED}
+        viewportId={meta.accessDeniedPage.viewportId}
+        spaceName={meta.accessDeniedPage.spaceName}
+        environment={meta.accessDeniedPage.environment}
+      />
+    );
   }
 }
 

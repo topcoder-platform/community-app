@@ -587,55 +587,9 @@
       ]
     },
     {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "wq71fdp6bsta"
-          }
-        },
-        "id": "contentSlider",
-        "type": "ContentType",
-        "createdAt": "2019-03-21T07:36:16.503Z",
-        "updatedAt": "2019-03-21T07:36:29.042Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "publishedVersion": 1,
-        "publishedAt": "2019-03-21T07:36:29.042Z",
-        "firstPublishedAt": "2019-03-21T07:36:29.042Z",
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "3AgNh19OUPk7sHGj5bMnTG"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "3AgNh19OUPk7sHGj5bMnTG"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 2,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "3AgNh19OUPk7sHGj5bMnTG"
-          }
-        }
-      },
-      "displayField": "name",
       "name": "Content Slider",
       "description": "Slide/cycle content",
+      "displayField": "name",
       "fields": [
         {
           "id": "name",
@@ -643,8 +597,7 @@
           "type": "Symbol",
           "localized": false,
           "required": true,
-          "validations": [
-          ],
+          "validations": [],
           "disabled": false,
           "omitted": false
         },
@@ -654,8 +607,7 @@
           "type": "Array",
           "localized": false,
           "required": true,
-          "validations": [
-          ],
+          "validations": [],
           "disabled": false,
           "omitted": false,
           "items": {
@@ -693,8 +645,17 @@
           "type": "Boolean",
           "localized": false,
           "required": false,
-          "validations": [
-          ],
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "wrapAround",
+          "name": "Wrap around",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [],
           "disabled": false,
           "omitted": false
         },
@@ -715,17 +676,136 @@
           "omitted": false
         },
         {
+          "id": "slidesToShow",
+          "name": "Slides to show",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 1
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "cellSpacing",
+          "name": "Cell spacing",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "cellAlign",
+          "name": "Cell align",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "in": [
+                "center",
+                "left",
+                "right"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "framePadding",
+          "name": "Frame padding",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "vertical",
+          "name": "Vertical",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "withoutControls",
+          "name": "Without controls",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
           "id": "extraStylesForContainer",
           "name": "Extra styles for container",
           "type": "Object",
           "localized": false,
           "required": false,
-          "validations": [
-          ],
+          "validations": [],
           "disabled": false,
           "omitted": false
         }
-      ]
+      ],
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "contentSlider",
+        "type": "ContentType",
+        "createdAt": "2018-08-06T07:26:55.622Z",
+        "updatedAt": "2019-04-11T06:41:00.117Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 31,
+        "publishedAt": "2019-04-11T06:41:00.117Z",
+        "firstPublishedAt": "2018-08-06T07:26:56.458Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 16,
+        "version": 32,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        }
+      }
     },
     {
       "sys": {

@@ -112,12 +112,12 @@ class ProfilePage extends React.Component {
     const {
       achievements,
       copilot,
-      country,
       externalAccounts,
       externalLinks,
       info,
       skills: propSkills,
       stats,
+      lookupData,
     } = this.props;
 
     const {
@@ -125,6 +125,17 @@ class ProfilePage extends React.Component {
       isMobile,
       skillsExpanded,
     } = this.state;
+
+    // get country
+    let country = '';
+    if (_.has(lookupData, 'countries') && lookupData.countries.length > 0) {
+      const countryCode = _.isEmpty(_.get(info, 'homeCountryCode'))
+        ? _.get(info, 'competitionCountryCode') : _.get(info, 'homeCountryCode');
+
+      const result = _.find(lookupData.countries,
+        c => c.countryCode === countryCode.toUpperCase());
+      country = _.isEmpty(result) ? '' : result.country;
+    }
 
     // Convert skills from object to an array for easier iteration
     let skills = propSkills ? _.map(propSkills, (skill, tagId) => ({ tagId, ...skill })) : [];
@@ -134,9 +145,11 @@ class ProfilePage extends React.Component {
     }
 
     let externals = _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
-    externalLinks.map(data => externals.push(({ type: 'weblink', data })));
-    externals = _.filter(externals, 'data');
-    externals = _.sortBy(externals, 'type');
+    if (externalLinks) {
+      externalLinks.map(data => externals.push(({ type: 'weblink', data })));
+      externals = _.filter(externals, 'data');
+      externals = _.sortBy(externals, 'type');
+    }
 
     const activeTracks = this.getActiveTracks();
 
@@ -257,7 +270,8 @@ On The Web
                       externals.map(external => (
                         <ExternalLink
                           data={external.data}
-                          key={external.type}
+                          key={external.type !== 'weblink'
+                            ? external.type : `${external.type}-${external.data.key}`}
                           type={external.type}
                         />
                       ))
@@ -283,12 +297,12 @@ ProfilePage.defaultProps = {
 ProfilePage.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   copilot: PT.bool.isRequired,
-  country: PT.string.isRequired,
   externalAccounts: PT.shape().isRequired,
   externalLinks: PT.arrayOf(PT.shape()).isRequired,
   info: PT.shape().isRequired,
   skills: PT.shape(),
   stats: PT.shape(),
+  lookupData: PT.shape().isRequired,
 };
 
 export default ProfilePage;
