@@ -50,12 +50,14 @@ export function target(baseUrl, item) {
  * @param {String} item
  */
 export function isActive(baseUrl, item, caller) {
-  const to = removeTrailingSlash(target(baseUrl, item));
+  let to = removeTrailingSlash(target(baseUrl, item));
+  to = to ? to.toLowerCase() : to;
 
   let location;
   if (isomorphy.isClientSide()) {
     location = isAbsolute(to) ? buildUrl(window.location.origin, window.location.pathname)
       : window.location.pathname;
+    location = location.toLowerCase();
   } else {
     // TODO: should probably get the current URL from the web framework
     return false;
