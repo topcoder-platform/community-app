@@ -61,7 +61,24 @@ export default function Bucket({
     }
   }
 
-  if (!challengeList.length && !loadMore) return null;
+
+  const placeholders = [];
+  if ((loading || keepPlaceholders) && (!expandable || expanded)) {
+    for (let i = 0; i < 8; i += 1) {
+      placeholders.push(<CardPlaceholder id={i} key={i} />);
+    }
+  }
+
+  if (!challengeList.length && !loadMore) {
+    if (loading) {
+      return (
+        <div styleName="bucket">
+          {placeholders}
+        </div>
+      );
+    }
+    return null;
+  }
 
   const cards = challengeList.map(item => (
     <ChallengeCard
@@ -78,13 +95,6 @@ export default function Bucket({
       expandTag={expandTag}
     />
   ));
-
-  const placeholders = [];
-  if ((loading || keepPlaceholders) && (!expandable || expanded)) {
-    for (let i = 0; i < 8; i += 1) {
-      placeholders.push(<CardPlaceholder id={i} key={i} />);
-    }
-  }
 
   return (
     <div styleName="bucket">
