@@ -71,9 +71,9 @@ export default function Looker(props) {
               cols.map((c) => {
                 const name = c.headerName;
                 const { styles } = c;
-                return (
+                return name ? (
                   <th key={name} style={styles}>{ name }</th>
-                );
+                ) : null;
               })
 
            }
