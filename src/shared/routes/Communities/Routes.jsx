@@ -17,18 +17,55 @@ import Veterans from './Veterans';
 import Wipro from './Wipro';
 import Cognitive from './Cognitive';
 import IoT from './iot';
-import TCO17 from './TCO17';
-import TCO18 from './TCO18';
-import TCO19 from './TCO19';
+import tco01 from './TCO01';
+import tco02 from './TCO02';
+import tco03 from './TCO03';
+import tco04 from './TCO04';
+import tco05 from './TCO05';
+import tco06 from './TCO06';
+import tco07 from './TCO07';
+import tco08 from './TCO08';
+import tco09 from './TCO09';
+import tco10 from './TCO10';
+import tco11 from './TCO11';
+import tco12 from './TCO12';
+import tco13 from './TCO13';
+import tco14 from './TCO14';
+import tco15 from './TCO15';
+import tco16 from './TCO16';
+import tco17 from './TCO17';
+import tco18 from './TCO18';
+import tco19 from './TCO19';
 import Mobile from './Mobile';
 import Zurich from './Zurich';
+
+const TCOs = {
+  tco01,
+  tco02,
+  tco03,
+  tco04,
+  tco05,
+  tco06,
+  tco07,
+  tco08,
+  tco09,
+  tco10,
+  tco11,
+  tco12,
+  tco13,
+  tco14,
+  tco15,
+  tco16,
+  tco17,
+  tco18,
+  tco19,
+};
 
 export default function Communities({
   base, communityId, member, meta,
 }) {
   switch (communityId) {
-    case 'blockchain':
-      return <Blockchain base={base} member={member} meta={meta} />;
+    case 'blockchain': return <Blockchain base={base} member={member} meta={meta} />;
     case 'community-2': return <Community2 base={base} meta={meta} />;
     case 'cs': return <CS base={base} meta={meta} />;
     case 'zurich': return <Zurich base={base} meta={meta} />;
@@ -37,16 +74,18 @@ export default function Communities({
     case 'srmx': return <SRMx base={base} meta={meta} />;
     case 'taskforce': return <TaskForce base={base} meta={meta} />;
     case 'tc-prod-dev': return <TcProdDev base={base} meta={meta} />;
-    case 'veterans':
-      return <Veterans base={base} member={member} meta={meta} />;
+    case 'veterans': return <Veterans base={base} member={member} meta={meta} />;
     case 'wipro': return <Wipro base={base} meta={meta} />;
     case 'cognitive': return <Cognitive base={base} member={member} meta={meta} />;
     case 'iot': return <IoT base={base} meta={meta} />;
-    case 'tco17': return <TCO17 base={base} meta={meta} />;
-    case 'tco18': return <TCO18 base={base} meta={meta} />;
-    case 'tco19': return <TCO19 base={base} meta={meta} />;
     case 'mobile': return <Mobile base={base} meta={meta} />;
-    default: throw new Error('Unknown community ID!');
+    default:
+      // to avoid listing all TCOs we use defaut switch with a check
+      if (TCOs[communityId]) {
+        const TCOCommunity = TCOs[communityId];
+        return <TCOCommunity base={base} meta={meta} />;
+      }
+      throw new Error('Unknown community ID!');
   }
 }
 
