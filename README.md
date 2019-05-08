@@ -1,8 +1,5 @@
 ![Dev Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/develop.svg?label=develop)
 ![Master Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/master.svg?label=master)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=topcoder-platform_community-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=topcoder-platform_community-app)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=topcoder-platform_community-app&metric=security_rating)](https://sonarcloud.io/dashboard?id=topcoder-platform_community-app)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=topcoder-platform_community-app&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=topcoder-platform_community-app)
 
 # Topcoder Community App
 New version of Topcoder Community website.
