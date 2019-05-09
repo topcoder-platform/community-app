@@ -3,6 +3,7 @@
  *
  */
 /* global window */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import Dropdown from 'components/tc-communities/Dropdown';
@@ -17,7 +18,7 @@ export default function Menu(props) {
   } = props;
 
   if (isomorphy.isClientSide()) {
-    if (baseUrl === parentBaseUrl && baseUrl !== window.location.pathname) {
+    if (baseUrl && baseUrl === parentBaseUrl && baseUrl !== _.trimEnd(window.location.pathname, '/')) {
       return null;
     }
   } else {
