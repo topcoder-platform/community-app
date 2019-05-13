@@ -77,9 +77,17 @@ $contentWrapperPadding: 0;
       }
 
       p {
-        font-size: 20px;
+        font-size: 15px;
         margin-bottom: 1em;
         line-height: 25px;
+
+        strong {
+          font-weight: bold;
+        }
+
+        em {
+          font-style: italic;
+        }
       }
 
       ul {
