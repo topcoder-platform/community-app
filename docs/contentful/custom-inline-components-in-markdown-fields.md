@@ -2,11 +2,10 @@
 
 You can use the following custom markup inside Markdown fields of Contentful
 components to render custom inline components in the textual blocks. This should
-work inside ContentBlock entries, and can be easily supported in entries of
-other types (we just have not went through all of them to ensure they work
-the same way).
+work inside ContentBlock entries, and is supported in entries of
+other types too.
 
-### Buttons
+## Buttons
 
 - #### Button
   *Example:* `<Button to="/target/link">Label</Button>`
@@ -29,7 +28,14 @@ the same way).
   [Secondary Button](https://community-app.topcoder.com/examples/buttons/) that
   acts as a hyperlink;
 
-### Custom Component
+- #### Legacy TCO Button
+  *Example:* `<TCOButton theme="tco18">TCO18/17 View Competition Rules</TCOButton>`
+
+  Renders
+  [TCOX Legacy Button](https://community-app.topcoder.com/examples/contentful/contentblock/FNmL56lEahdv0irLASC5a) that
+  acts as a hyperlink;
+
+## Custom Component
 
 - #### JoinCommunity
   *Example:* `<JoinCommunity label="Join Now" />`
@@ -84,7 +90,7 @@ the same way).
     component works only with YouTube videos, and the URL should be similar to
     `https://www.youtube.com/embed/mD12LIqdxqk` ().
 
-### Links
+## Links
 
 - #### Link
   *Example:* `<Link to="/target/link">Link text</Link>`
@@ -96,3 +102,30 @@ the same way).
   `https:`) it creates links that make transition without reloading the app.
   Sometime later we should update our code to handle any links this way.
 
+## Modals
+Rendering modal dialogs after click on various triggers like text, link, image, icon and etc. The content of the modal window is referenced by `id` of the modal component which itself is just a wrapper to [Content Block](./ContentBlock.md), [Banner](./banner.md) or [Viewport](./viewport.md).
+
+**Modal Fields**
+![](./pics/Modal.png)
+
+*Examples of modal usage:*
+
+https://community-app.topcoder.com/examples/contentful/contentblock/75fw42BmbyloyIseNH7gsY
+
+```html
+__Text/Link__
+<Modal id="6U2MKViRUKnJsw6PbO6201">[Link: Modal](https://topcoder.com)</Modal>
+<Modal id="6U2MKViRUKnJsw6PbO6201"><p>Text: Modal</p></Modal>
+
+__Buttons__
+<Modal id="4crW9mh55lHR0ouu9SbJ5i"><PrimaryButton>PrimaryButton: Modal</PrimaryButton></Modal>
+<Modal id="4crW9mh55lHR0ouu9SbJ5i"><Button>Button: Modal</Button></Modal>
+
+__Icons__
+<Modal id="6U2MKViRUKnJsw6PbO6201">![icon winners](//images.ctfassets.net/b5f1djy59z3a/5cVC8JlvDyOkyumW8QI6Ek/ff16caeac6145da87caf07fe60b7ec67/icon_winners.png)</Modal>
+<Modal id="6U2MKViRUKnJsw6PbO6201">![Icon MM](//images.ctfassets.net/b5f1djy59z3a/2mI6cWIpYhTZltYlWmiBGc/8f70d6c5ecbd56ea6408c2c5ff8b5cb1/Icon_MM.svg)</Modal>
+<Modal id="6U2MKViRUKnJsw6PbO6201"><i className="fa fa-user" /></Modal>
+
+__Inline Styled__
+<Modal id="6U2MKViRUKnJsw6PbO6201"><img src="//images.ctfassets.net/b5f1djy59z3a/5cVC8JlvDyOkyumW8QI6Ek/ff16caeac6145da87caf07fe60b7ec67/icon_winners.png" style="width: 40px"/></Modal>
+```
