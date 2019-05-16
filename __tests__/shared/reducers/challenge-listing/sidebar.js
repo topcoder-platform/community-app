@@ -2,64 +2,61 @@ import { mock } from 'topcoder-react-lib';
 
 const { mockAction } = mock;
 
-jest.mock('utils/url', () => ({
-  updateQuery: () => {},
-}));
 const defaultReducer = require('reducers/challenge-listing/sidebar').default;
 
 const mockActions = {
   changeFilterName: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/CHANGE_FILTER_NAME',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/CHANGE_FILTER_NAME',
     payload,
     error,
   ),
   deleteSavedFilter: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/DELETE_SAVED_FILTER',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/DELETE_SAVED_FILTER',
     payload,
     error,
   ),
   dragSavedFilterMove: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/DRAG_SAVED_FILTER_MOVE',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/DRAG_SAVED_FILTER_MOVE',
     payload,
     error,
   ),
   dragSavedFilterStart: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/DRAG_SAVED_FILTER_START',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/DRAG_SAVED_FILTER_START',
     payload,
     error,
   ),
   getSavedFilters: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/GET_SAVED_FILTERS',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/GET_SAVED_FILTERS',
     payload,
     error,
   ),
   resetFilterName: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/RESET_FILTER_NAME',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/RESET_FILTER_NAME',
     payload,
     error,
   ),
   saveFilterDone: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/SAVE_FILTER_DONE',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/SAVE_FILTER_DONE',
     payload,
     error,
   ),
   selectBucket: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/SELECT_BUCKET',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/SELECT_BUCKET',
     payload,
     error,
   ),
   selectSavedFilter: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/SELECT_SAVED_FILTER',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/SELECT_SAVED_FILTER',
     payload,
     error,
   ),
   setEditSavedFiltersMode: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/SET_EDIT_SAVED_FILTERS_MODE',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/SET_EDIT_SAVED_FILTERS_MODE',
     payload,
     error,
   ),
   updateSavedFilter: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/UPDATE_SAVED_FILTER',
+    'CHALLENGE_LISTING_FRONTEND/SIDEBAR/UPDATE_SAVED_FILTER',
     payload,
     error,
   ),

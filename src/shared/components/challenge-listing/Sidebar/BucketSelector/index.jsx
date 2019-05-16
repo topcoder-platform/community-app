@@ -6,14 +6,14 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 
 import Bucket from './Bucket';
 
 import './style.scss';
 
-const Filter = challengeUtils.filter;
+const Filter = challengeUtil.filter;
+const Buckets = challengeUtil.buckets;
 
 const RSS_LINK = 'http://feeds.topcoder.com/challenges/feed?list=active&contestType=all';
 
@@ -31,6 +31,7 @@ export default function BucketSelector({
   selectBucket,
   selectSavedFilter,
   setEditSavedFiltersMode,
+  loadMoreChallenges,
 }) {
   let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
 
@@ -46,6 +47,7 @@ export default function BucketSelector({
       disabled={disabled}
       onClick={() => {
         selectBucket(bucket);
+        loadMoreChallenges(bucket);
         /* eslint-env browser */
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
@@ -56,9 +58,9 @@ export default function BucketSelector({
   const savedFiltersRender = savedFilters.map((item, index) => (
     <Bucket
       active={
-        (activeBucket === BUCKETS.SAVED_FILTER
-          || activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER)
-          && index === activeSavedFilter
+        (activeBucket === Buckets.BUCKETS.SAVED_FILTER
+          || activeBucket === Buckets.BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER)
+        && index === activeSavedFilter
       }
       bucket={{
         hideCount: true,
@@ -74,14 +76,14 @@ export default function BucketSelector({
 
   return (
     <div>
-      {getBucket(BUCKETS.ALL)}
-      {isAuth ? getBucket(BUCKETS.MY) : null}
+      {getBucket(Buckets.BUCKETS.ALL)}
+      {isAuth ? getBucket(Buckets.BUCKETS.MY) : null}
       {extraBucket ? getBucket(extraBucket) : null}
-      {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
-      {getBucket(BUCKETS.ONGOING)}
+      {getBucket(Buckets.BUCKETS.OPEN_FOR_REGISTRATION)}
+      {getBucket(Buckets.BUCKETS.ONGOING)}
       <hr />
-      {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
-      {getBucket(BUCKETS.PAST)}
+      {getBucket(Buckets.BUCKETS.REVIEW_OPPORTUNITIES)}
+      {getBucket(Buckets.BUCKETS.PAST)}
       {/* NOTE: We do not show upcoming challenges for now, for various reasons,
         * more political than technical ;)
           getBucket(BUCKETS.UPCOMING) */
@@ -92,7 +94,7 @@ export default function BucketSelector({
             <div>
               <div styleName="my-filters">
                 <h1>
-My filters
+                  My filters
                 </h1>
                 <a
                   onClick={() => setEditSavedFiltersMode(true)}
@@ -101,7 +103,7 @@ My filters
                   styleName="edit-link"
                   tabIndex={0}
                 >
-                edit
+                  edit
                 </a>
               </div>
               {savedFiltersRender}
@@ -111,7 +113,7 @@ My filters
       <hr />
       <div styleName="get-rss">
         <a href={RSS_LINK}>
-Get the RSS feed
+          Get the RSS feed
         </a>
       </div>
     </div>
@@ -123,6 +125,7 @@ BucketSelector.defaultProps = {
   disabled: false,
   extraBucket: null,
   isAuth: false,
+  loadMoreChallenges: null,
 };
 
 BucketSelector.propTypes = {
@@ -141,4 +144,5 @@ BucketSelector.propTypes = {
   selectBucket: PT.func.isRequired,
   selectSavedFilter: PT.func.isRequired,
   setEditSavedFiltersMode: PT.func.isRequired,
+  loadMoreChallenges: PT.func,
 };
