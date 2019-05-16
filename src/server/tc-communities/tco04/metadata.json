@@ -1,0 +1,17 @@
+{
+  "communityId": "tco04",
+  "hidden": true,
+  "communityName": "TCO04",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco18-01/TCO04.png",
+    "url": "https://tco04.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "7FFCD13ZeWgLUhgC2FS86M"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco04"],
+  "description": "2004 Topcoder Open. The Ultimate Programming & Design Tournament"
+}

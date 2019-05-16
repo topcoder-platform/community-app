@@ -58,6 +58,7 @@ function ChildRoutesLoader(props) {
                         preview={preview}
                         spaceName={spaceName}
                         environment={environment}
+                        baseUrl={url}
                       />
                     ) : <Error404 />
                 }
