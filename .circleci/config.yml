@@ -181,8 +181,7 @@ workflows:
           filters:
             branches:
                 only:
-                - hot-fixes
-                - legacy-tco
+                  - legacy-tco
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

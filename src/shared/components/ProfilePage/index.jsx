@@ -133,7 +133,7 @@ class ProfilePage extends React.Component {
         ? _.get(info, 'competitionCountryCode') : _.get(info, 'homeCountryCode');
 
       const result = _.find(lookupData.countries,
-        c => countryCode && c.countryCode === countryCode.toUpperCase());
+        c => c.countryCode === countryCode.toUpperCase());
       country = _.isEmpty(result) ? '' : result.country;
     }
 

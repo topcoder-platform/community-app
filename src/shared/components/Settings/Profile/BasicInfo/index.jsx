@@ -100,9 +100,7 @@ export default class BasicInfo extends ConsentComponent {
     let invalid = false;
     let errorMessage = '';
     let dateError = '';
-    let zipError = '';
     let birthDateInvalid = false;
-    let zipInvalid = false;
     const invalidFields = [];
 
     if (!_.trim(newBasicInfo.firstName).length) {
@@ -125,13 +123,6 @@ export default class BasicInfo extends ConsentComponent {
       errorMessage += ' cannot be empty';
     }
 
-    _.forEach(newBasicInfo.addresses, (address) => {
-      if (!(/^[0-9-]*$/.test(address.zip))) {
-        zipError = 'You must enter a valid zip code';
-        zipInvalid = true;
-      }
-    });
-
     if (_.trim(newBasicInfo.birthDate).length > 0) {
       if (!moment().isAfter(newBasicInfo.birthDate)) {
         dateError = 'You must enter a valid date for Birth Date';
@@ -144,13 +135,6 @@ export default class BasicInfo extends ConsentComponent {
     } else if (dateError.length > 0) {
       errorMessage = dateError;
       invalid = birthDateInvalid;
-    }
-
-    if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}. ${zipError}`;
-    } else if (zipError.length > 0) {
-      errorMessage = zipError;
-      invalid = zipInvalid;
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
