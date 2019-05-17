@@ -3,8 +3,8 @@
  */
 
 import _ from 'lodash';
-import actions from 'actions/challenge-listing/sidebar';
-import challengeListingActions from 'actions/challenge-listing';
+import sactions from 'actions/challenge-listing/sidebar';
+import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import PT from 'prop-types';
@@ -12,9 +12,10 @@ import React from 'react';
 import Sidebar from 'components/challenge-listing/Sidebar';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 
 export const SidebarPureComponent = Sidebar;
+
+const { BUCKETS, getBuckets } = challengeUtil.buckets;
 
 /**
  * Checks for errors in saved filters
@@ -137,9 +138,9 @@ SidebarContainer.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  const a = actions.challengeListing.sidebar;
-  const cla = challengeListingActions.challengeListing;
-  const fpa = filterPanelActions.challengeListing.filterPanel;
+  const a = sactions.challengeListingFrontend.sidebar;
+  const cla = actions.challengeListing;
+  const fpa = filterPanelActions.challengeListingFrontend.filterPanel;
   return {
     ...bindActionCreators(a, dispatch),
     setFilter: filter => dispatch(cla.setFilter(filter)),
@@ -149,11 +150,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state, ownProps) {
-  const { activeBucket } = state.challengeListing.sidebar;
+  const { activeBucket } = state.challengeListingFrontend.sidebar;
   const pending = _.keys(state.challengeListing.pendingRequests);
   return {
-    ...state.challengeListing.sidebar,
-    challenges: state.challengeListing.challenges,
+    ...state.challengeListingFrontend.sidebar,
+    challenges: _.has(state.challengeListing.challenges, BUCKETS.ALL)
+      ? state.challengeListing.challenges[BUCKETS.ALL] : [],
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
     extraBucket: ownProps.extraBucket,
     hideTcLinksInFooter: ownProps.hideTcLinksInFooter,

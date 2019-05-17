@@ -2,13 +2,15 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import Select from 'components/Select';
-import cActions from 'actions/challenge-listing';
+import { actions as actionsLib } from 'topcoder-react-lib';
 import sActions from 'actions/challenge-listing/sidebar';
 import ConnectedFilterPanel, { Container as FilterPanel } from 'containers/challenge-listing/FilterPanel';
 
+const cActions = actionsLib.challengeListing;
+
 describe('shallow render connnected component', () => {
   const initialState = {
-    challengeListing: {
+    challengeListingFrontend: {
       filterPanel: {
         expanded: false,
         searchText: '',
@@ -18,6 +20,8 @@ describe('shallow render connnected component', () => {
         activeBucket: 'ALL',
         savedFilters: [],
       },
+    },
+    challengeListing: {
       communityFilters: [],
       filter: {},
       loadingChallengeTags: false,
@@ -60,44 +64,67 @@ describe('shallow render connnected component', () => {
 
 describe('full render pure component', () => {
   const initialProps = {
-    expanded: false,
-    searchText: '',
-    trackModalShown: false,
-    activeBucket: 'ALL',
-    communityFilters: [],
-    filterState: {},
-    getAvailableFilterName: jest.fn(),
-    loadingKeywords: false,
-    loadingSubtracks: false,
-    validKeywords: [],
-    validSubtracks: [],
-    selectedCommunityId: '1',
-    tokenV2: 'tokenV2',
-    getSubtracks: jest.fn(),
-    getKeywords: jest.fn(),
-    saveFilter: jest.fn(),
-    selectBucket: jest.fn(),
-    selectCommunity: jest.fn(),
-    setFilterState: jest.fn(),
-    setExpanded: jest.fn(),
-    setSearchText: jest.fn(),
-    showTrackModal: jest.fn(),
-    setQuery: jest.fn(),
-    onSwitch: jest.fn(),
-    tcCommunities: {
-      list: {
-        data: [
-          {
-            communityId: '',
-            communityName: 'name',
-          },
-          {
-            communityId: '',
-            communityName: 'name',
-          },
-        ],
+    challengeListingFrontend: {
+      filterPanel: {
+        expanded: false,
+        searchText: '',
+        trackModalShown: false,
+        setExpanded: jest.fn(),
+        setSearchText: jest.fn(),
+        showTrackModal: jest.fn(),
+      },
+      sidebar: {
+        activeBucket: 'ALL',
+        saveFilter: jest.fn(),
+        selectBucket: jest.fn(),
       },
     },
+    challengeListing: {
+      selectedCommunityId: '1',
+      loadingKeywords: false,
+      loadingSubtracks: false,
+      selectCommunity: jest.fn(),
+      communityFilters: [],
+      challengeTags: [],
+    },
+    auth: {
+      tokenV2: 'tokenV2',
+    },
+    filterState: {},
+    validKeywords: ['.NET', 'CSS', 'Node.js'],
+    validSubtracks: [
+      {
+        description: 'Bug Hunt',
+        id: 9,
+        name: 'Bug Hunt',
+        subTrack: 'BUG_HUNT',
+        type: 'Application',
+      },
+      {
+        description: 'Code',
+        id: 39,
+        name: 'Code',
+        subTrack: 'CODE',
+        type: 'Application',
+      },
+    ],
+    getSubtracks: jest.fn(),
+    getKeywords: jest.fn(),
+    getAvailableFilterName: jest.fn(),
+    setFilterState: jest.fn(),
+    selectBucket: jest.fn(),
+    setQuery: jest.fn(),
+    onSwitch: jest.fn(),
+    communityFilters: [
+      {
+        communityId: '',
+        communityName: 'name',
+      },
+      {
+        communityId: '',
+        communityName: 'name',
+      },
+    ],
   };
 
   let instance;
@@ -168,7 +195,7 @@ describe('full render connnected component and dispatch actions', () => {
   });
 
   const initialState = {
-    challengeListing: {
+    challengeListingFrontend: {
       filterPanel: {
         expanded: false,
         searchText: '',
@@ -178,6 +205,8 @@ describe('full render connnected component and dispatch actions', () => {
         activeBucket: 'ALL',
         savedFilters: [{ name: 'My Filter' }],
       },
+    },
+    challengeListing: {
       communityFilters: [],
       filter: {},
       loadingChallengeTags: true,
@@ -226,38 +255,42 @@ describe('full render connnected component and dispatch actions', () => {
     });
     filterPanel.prop('getSubtracks')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeSubtracksInit.toString());
-    expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeSubtracksDone.toString());
+    expect(actions[0].type).toEqual(cActions.getChallengeSubtracksInit.toString());
+    expect(actions[1].type).toEqual(cActions.getChallengeSubtracksDone.toString());
   });
 
   test('getKeywords', () => {
     filterPanel.prop('getKeywords')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeTagsInit.toString());
-    expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeTagsDone.toString());
+    expect(actions[0].type).toEqual(cActions.getChallengeTagsInit.toString());
+    expect(actions[1].type).toEqual(cActions.getChallengeTagsDone.toString());
   });
 
   test.skip('saveFilter', () => {
     filterPanel.prop('saveFilter')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(sActions.challengeListing.sidebar.saveFilterInit.toString());
+    expect(actions[0].type).toEqual(
+      sActions.challengeListingFrontend.sidebar.saveFilterInit.toString(),
+    );
   });
 
   test('selectBucket', () => {
     filterPanel.prop('selectBucket')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(sActions.challengeListing.sidebar.selectBucket.toString());
+    expect(actions[0].type).toEqual(
+      sActions.challengeListingFrontend.sidebar.selectBucket.toString(),
+    );
   });
 
   test('selectCommunity', () => {
     filterPanel.prop('selectCommunity')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(cActions.challengeListing.selectCommunity.toString());
+    expect(actions[0].type).toEqual(cActions.selectCommunity.toString());
   });
 
   test('setFilterState', () => {
     filterPanel.prop('setFilterState')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(cActions.challengeListing.setFilter.toString());
+    expect(actions[0].type).toEqual(cActions.setFilter.toString());
   });
 });

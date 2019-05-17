@@ -79,8 +79,8 @@ function ReviewOpportunityCard({
               {start.format('MMM DD')}
             </span>
             <Tags
-              technologies={challenge.technologies.join(',')}
-              platforms={challenge.platforms.join(',')}
+              technologies={challenge.technologies}
+              platforms={challenge.platforms}
               isExpanded={expandedTags.includes(challenge.id)}
               expand={() => expandTag(challenge.id)}
               onTechTagClicked={onTechTagClicked}
@@ -96,12 +96,12 @@ function ReviewOpportunityCard({
                 <div key={payment.role}>
                   {payment.role}
                   {' '}
-- $
+                  - $
                   {payment.payment.toLocaleString()}
                 </div>
               ))}
             </div>
-)}
+          )}
         >
           <div styleName="payment">
             <span>
@@ -109,7 +109,7 @@ $
             </span>
             {_.sumBy(opportunity.payments, 'payment').toLocaleString()}
             <div styleName="payment-type">
-Payment
+              Payment
             </div>
           </div>
         </Tooltip>
@@ -122,7 +122,7 @@ Payment
               <div styleName="tooltip">
                 {quantityText(opportunity.openPositions, 'open position')}
               </div>
-)}
+            )}
           >
             <OpenPositionsIcon />
             <span styleName="number">
@@ -134,7 +134,7 @@ Payment
               <div styleName="tooltip">
                 {quantityText(opportunity.submissions, 'submission')}
               </div>
-)}
+            )}
           >
             <SubmissionsIcon />
             <span styleName="number">
