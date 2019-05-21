@@ -7,13 +7,8 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-<<<<<<< HEAD
-import { isomorphy } from 'topcoder-react-utils';
-import { url } from 'topcoder-react-lib';
-=======
 import { removeTrailingSlash } from 'utils/url';
 import { isActive, target } from 'utils/contentful';
->>>>>>> origin/develop
 
 import NavMenu from './Menu';
 
