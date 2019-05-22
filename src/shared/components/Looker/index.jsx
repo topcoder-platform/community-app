@@ -71,9 +71,9 @@ export default function Looker(props) {
               cols.map((c) => {
                 const name = c.headerName;
                 const { styles } = c;
-                return name ? (
+                return (
                   <th key={name} style={styles}>{ name }</th>
-                ) : null;
+                );
               })
 
            }
@@ -82,7 +82,7 @@ export default function Looker(props) {
 
       const bodyRow = (record, cols, i) => (
         <tr key={Object.values(record)}>
-          { (countRows && (limit <= 0 || i < limit)) ? <td style={{ borderTop: '1px solid #D5D5D5' }}> {i + 1}. </td> : ' ' }
+          { (countRows && (limit <= 0 || i < limit)) ? <td> {i + 1}. </td> : ' ' }
           {
             cols.map((c) => {
               const prop = c.property;
@@ -96,11 +96,11 @@ export default function Looker(props) {
                   value = record[prop].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 }
               }
-              return value ? (
+              return (
                 <td key={record[prop]} style={styles} title={value}>
                   {value}
                 </td>
-              ) : null;
+              );
             })
           }
         </tr>

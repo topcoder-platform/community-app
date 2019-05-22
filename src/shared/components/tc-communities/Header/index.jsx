@@ -252,12 +252,7 @@ Toggle navigation
         <div className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}>
           {
             menuItems[0] && menuItems[0].navigationMenu ? (
-              <Menu
-                id={menuItems[0].navigationMenu}
-                baseUrl={baseUrl}
-                spaceName={menuItems[0].spaceName}
-                environment={menuItems[0].environment}
-              />
+              <Menu id={menuItems[0].navigationMenu} baseUrl={baseUrl} />
             ) : (
               <ul className={theme.menu}>
                 {_.map(menuItems, menuIterator)}

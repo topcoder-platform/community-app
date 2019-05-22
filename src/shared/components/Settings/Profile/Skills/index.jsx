@@ -590,7 +590,6 @@ export default class Skills extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="skills">
                     Skill
-                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <Select
