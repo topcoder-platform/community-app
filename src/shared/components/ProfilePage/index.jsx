@@ -212,13 +212,16 @@ Skills
                     </h3>
                     <div styleName="list">
                       {
-                        skills.map(({ tagId, tagName, hidden }) => (
+                        skills.map(({
+                          tagId, tagName, hidden, sources,
+                        }) => (
                           !hidden
                           && (
                           <div key={tagId} styleName="skill">
                             <Skill
                               tagId={tagId}
                               tagName={tagName}
+                              isVerified={_.includes(sources, 'CHALLENGE')}
                             />
                           </div>
                           )
