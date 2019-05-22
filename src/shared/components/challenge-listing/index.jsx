@@ -8,9 +8,8 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import Sticky from 'react-stickynode';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 import Sidebar from 'containers/challenge-listing/Sidebar';
-import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { config } from 'topcoder-react-utils';
 
 import Listing from './Listing';
@@ -19,7 +18,7 @@ import SRMCard from './SRMCard';
 
 import './style.scss';
 
-const Filter = challengeUtils.filter;
+const { isReviewOpportunitiesBucket } = challengeUtil.buckets;
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
@@ -29,26 +28,18 @@ export default function ChallengeListing(props) {
     activeBucket,
     auth,
     challenges: propChallenges,
-    communityFilter,
     communityName,
     defaultCommunityId,
     extraBucket,
-    filterState,
     hideSrm,
     hideTcLinksInFooter,
     keepPastPlaceholders,
     loadingChallenges,
     preListingMsg,
+    loadMoreChallenges,
   } = props;
 
-  let { challenges } = props;
-
-  if (communityFilter) {
-    challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
-  }
-
-  challenges = challenges.filter(Filter.getFilterFunction(filterState));
-
+  const { challenges } = props;
   const expanded = false;
 
   /* When we automatically reload cached challenge objects, we do not want to
@@ -71,7 +62,8 @@ export default function ChallengeListing(props) {
 
   let challengeCardContainer;
   if (!expanded && loadingChallenges && !suppressPlaceholders
-    && !isReviewOpportunitiesBucket(activeBucket)) { // Skip, Review Opps are not auto-refreshed
+    && !isReviewOpportunitiesBucket(activeBucket)) {
+    // Skip, Review Opps are not auto-refreshed
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
     challengeCardContainer = (
@@ -95,8 +87,14 @@ export default function ChallengeListing(props) {
         filterState={props.filterState}
         keepPastPlaceholders={keepPastPlaceholders}
         loadingPastChallenges={props.loadingPastChallenges}
+        loadingMyChallenges={props.loadingMyChallenges}
+        loadingOpenChallenges={props.loadingOpenChallenges}
+        loadingOnGoingChallenges={props.loadingOnGoingChallenges}
         loadingReviewOpportunities={props.loadingReviewOpportunities}
         loadMorePast={props.loadMorePast}
+        loadMoreMy={props.loadMoreMy}
+        loadMoreOpen={props.loadMoreOpen}
+        loadMoreOnGoing={props.loadMoreOnGoing}
         loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
         openChallengesInNewTabs={props.openChallengesInNewTabs}
@@ -111,6 +109,7 @@ export default function ChallengeListing(props) {
         sorts={props.sorts}
         loadMoreActive={props.loadMoreActive}
         loadingActiveChallenges={props.loadingChallenges}
+        loadMoreChallenges={props.loadMoreChallenges}
       />
     );
   }
@@ -139,14 +138,14 @@ export default function ChallengeListing(props) {
           {/* upcoming SRMs */}
           <div>
             <div styleName="title">
-Upcoming SRMs
+              Upcoming SRMs
             </div>
             { /* UpcomingSrm */ }
           </div>
           {/* past SRMs */}
           <div>
             <div styleName="title">
-Past SRMs
+              Past SRMs
             </div>
             <SRMCard category="past" />
           </div>
@@ -161,7 +160,7 @@ Past SRMs
 
       <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
         <div styleName="sidebar-container-mobile">
-          <Sidebar />
+          <Sidebar loadMoreChallenges={loadMoreChallenges} />
         </div>
 
         {challengeCardContainer}
@@ -171,6 +170,7 @@ Past SRMs
             <Sidebar
               extraBucket={extraBucket}
               hideTcLinksInFooter={hideTcLinksInFooter}
+              loadMoreChallenges={loadMoreChallenges}
             />
           </Sticky>
         </div>
@@ -181,11 +181,13 @@ Past SRMs
 
 ChallengeListing.defaultProps = {
   auth: null,
-  communityFilter: null,
   communityName: null,
   extraBucket: null,
   hideTcLinksInFooter: false,
   loadMorePast: null,
+  loadMoreMy: null,
+  loadMoreOpen: null,
+  loadMoreOnGoing: null,
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
@@ -195,13 +197,13 @@ ChallengeListing.defaultProps = {
   expandedTags: [],
   expandTag: null,
   loadMoreActive: null,
+  loadMoreChallenges: null,
 };
 
 ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
-  challenges: PT.arrayOf(PT.shape()).isRequired,
+  challenges: PT.shape().isRequired,
   challengesUrl: PT.string.isRequired,
-  communityFilter: PT.shape(),
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),
@@ -214,8 +216,14 @@ ChallengeListing.propTypes = {
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
+  loadingMyChallenges: PT.bool.isRequired,
+  loadingOpenChallenges: PT.bool.isRequired,
+  loadingOnGoingChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMorePast: PT.func,
+  loadMoreMy: PT.func,
+  loadMoreOpen: PT.func,
+  loadMoreOnGoing: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
@@ -230,4 +238,5 @@ ChallengeListing.propTypes = {
   sorts: PT.shape().isRequired,
   auth: PT.shape(),
   loadMoreActive: PT.func,
+  loadMoreChallenges: PT.func,
 };

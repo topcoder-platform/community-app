@@ -124,7 +124,7 @@ function updateSavedFilter(filter, tokenV2) {
 }
 
 export default createActions({
-  CHALLENGE_LISTING: {
+  CHALLENGE_LISTING_FRONTEND: {
     SIDEBAR: {
       CHANGE_FILTER_NAME: changeFilterName,
 

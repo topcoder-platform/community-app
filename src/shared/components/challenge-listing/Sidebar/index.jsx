@@ -47,6 +47,7 @@ export default function SideBarFilters({
   setEditSavedFiltersMode,
   updateAllSavedFilters,
   updateSavedFilter,
+  loadMoreChallenges,
 }) {
   return (
     <div styleName="SideBarFilters">
@@ -79,6 +80,7 @@ export default function SideBarFilters({
             selectBucket={selectBucket}
             selectSavedFilter={selectSavedFilter}
             setEditSavedFiltersMode={setEditSavedFiltersMode}
+            loadMoreChallenges={loadMoreChallenges}
           />
         )}
       </div>
@@ -122,4 +124,5 @@ SideBarFilters.propTypes = {
   setEditSavedFiltersMode: PT.func.isRequired,
   updateAllSavedFilters: PT.func.isRequired,
   updateSavedFilter: PT.func.isRequired,
+  loadMoreChallenges: PT.func.isRequired,
 };

@@ -24,13 +24,13 @@ import { getAuthTokens } from 'utils/tc';
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
-import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
 import { factory as pageFactory } from './page';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
+import { factory as challengeListingFrontendFactory } from './challenge-listing';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -108,13 +108,13 @@ function generateSsrOptions(req) {
 export function factory(req) {
   return redux.resolveReducers({
     standard: reducerFactory(req && generateSsrOptions(req)),
-    challengeListing: challengeListingFactory(req),
     examples: examplesFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
     scoreboard: scoreboardFactory(req),
     terms: termsFactory(req),
     page: pageFactory(req),
+    challengeListingFrontend: challengeListingFrontendFactory(req),
   }).then(resolvedReducers => redux.combineReducers((state) => {
     const res = { ...state };
     if (req) {

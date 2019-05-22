@@ -7,7 +7,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
-import { omit } from 'lodash';
+import { omit, get } from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import Personalization from 'components/Settings/Preferences/Personalization';
@@ -57,7 +57,6 @@ export default class MyAccount extends ConsentComponent {
       reNewPassword: '',
       isMobileView: false,
       screenSM: 767,
-      ssoUser: false,
       isSent: false,
       isOpen: false,
     };
@@ -175,12 +174,8 @@ export default class MyAccount extends ConsentComponent {
   }
 
   onChangeEmail() {
-    const { profile } = this.props;
-    if (profile.withSSO !== null && profile.withSSO !== undefined && profile.withSSO) {
-      this.setState({
-        ssoUser: true,
-      });
-    } else {
+    const { profileState } = this.props;
+    if (get(profileState, 'credential.hasPassword')) {
       const newState = { ...this.state };
       newState.btnChangeEmailVisible = false;
       newState.btnVerifiEmailVisible = true;
@@ -383,7 +378,6 @@ export default class MyAccount extends ConsentComponent {
       showRePasswordTips,
       rePasswordValid,
       isValidEmail,
-      ssoUser,
       isOpen,
     } = this.state;
 
@@ -479,7 +473,7 @@ export default class MyAccount extends ConsentComponent {
                     </div>
                   </div>
                   {
-                    ssoUser && (
+                    get(profileState, 'credential.hasPassword', false) === false && (
                       <div styleName="error-message">
                         Since you joined Topcoder using your &lt;SSO Service&gt; account,
                         any email updates will need to be handled by logging in to
@@ -573,7 +567,7 @@ export default class MyAccount extends ConsentComponent {
                     </div>
                   </div>
                   {
-                    ssoUser && (
+                    get(profileState, 'credential.hasPassword', false) === false && (
                       <div styleName="error-message">
                         Since you joined Topcoder using your &lt;SSO Service&gt; account,
                         any email updates will need to be handled by logging in to

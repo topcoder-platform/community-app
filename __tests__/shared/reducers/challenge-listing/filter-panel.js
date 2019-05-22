@@ -15,7 +15,7 @@ function testReducer(reducer) {
   });
 
   test('properly handles setExpanded', () => {
-    state = reducer(state, actions.challengeListing.filterPanel.setExpanded(true));
+    state = reducer(state, actions.challengeListingFrontend.filterPanel.setExpanded(true));
     expect(state).toEqual({
       expanded: true,
       searchText: '',
@@ -24,7 +24,7 @@ function testReducer(reducer) {
   });
 
   test('properly handles setSearchText', () => {
-    state = reducer(state, actions.challengeListing.filterPanel.setSearchText('test'));
+    state = reducer(state, actions.challengeListingFrontend.filterPanel.setSearchText('test'));
     expect(state).toEqual({
       expanded: true,
       searchText: 'test',
@@ -33,7 +33,7 @@ function testReducer(reducer) {
   });
 
   test('properly handles showTrackModal', () => {
-    state = reducer(state, actions.challengeListing.filterPanel.showTrackModal(true));
+    state = reducer(state, actions.challengeListingFrontend.filterPanel.showTrackModal(true));
     expect(state).toEqual({
       expanded: true,
       searchText: 'test',
