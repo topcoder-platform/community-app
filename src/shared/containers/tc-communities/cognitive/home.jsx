@@ -9,12 +9,14 @@ import shortId from 'shortid';
 import { USER_GROUP_MAXAGE } from 'config';
 
 import { connect } from 'react-redux';
-import { challenge as challengeUtils, actions } from 'topcoder-react-lib';
+import { challenge as challengeUtil, actions } from 'topcoder-react-lib';
+
+const { BUCKETS } = challengeUtil.buckets;
 
 /* Holds cache time [ms] for the data demanded by this container. */
 const MAXAGE = 30 * 60 * 1000;
 
-const Filter = challengeUtils.filter;
+const Filter = challengeUtil.filter;
 
 class HomeContainer extends React.Component {
   componentDidMount() {
@@ -96,7 +98,8 @@ HomeContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    activeChallenges: state.challengeListing.challenges,
+    activeChallenges: !_.isEmpty(state.challengeListing.challenges[BUCKETS.ALL])
+      ? state.challengeListing.challenges[BUCKETS.ALL] : [],
     activeChallengesTimestamp:
     state.challengeListing.lastUpdateOfActiveChallenges,
     allFaqItemsClosedInResourcesPage:
