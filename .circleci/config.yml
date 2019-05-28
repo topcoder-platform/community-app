@@ -175,7 +175,6 @@ workflows:
             branches:
               only: 
                 - develop
-                - hot-fixes-2
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -189,7 +188,7 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fixes
+                - hot-fixes-2
                 - develop
                 - general-features
                 - develop-from-master-23may
