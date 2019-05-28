@@ -9,9 +9,11 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import Select from 'components/Select';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import DatePicker from 'components/challenge-listing/Filters/DatePicker';
 import dropdowns from './dropdowns.json';
 import EducationList from './List';
 
@@ -30,6 +32,7 @@ export default class Education extends ConsentComponent {
     this.onAddEducation = this.onAddEducation.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onUpdateDate = this.onUpdateDate.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -138,7 +141,7 @@ export default class Education extends ConsentComponent {
 
 
     if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}. ${dateError}`;
+      errorMessage = `${errorMessage}. \n${dateError}`;
     } else if (dateError.length > 0) {
       errorMessage = dateError;
       invalid = dateInvalid;
@@ -150,6 +153,15 @@ export default class Education extends ConsentComponent {
 
   onHandleDeleteEducation(indexNo) {
     this.showConsent(this.onDeleteEducation.bind(this, indexNo));
+  }
+
+  onUpdateDate(date, timePeriod) {
+    if (date) {
+      const { newEducation: oldEducation } = this.state;
+      const newEducation = { ...oldEducation };
+      newEducation[timePeriod] = date;
+      this.setState({ newEducation });
+    }
   }
 
   /**
@@ -398,7 +410,15 @@ export default class Education extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
-                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodFrom} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newEducation.timePeriodFrom}
+                    id="date-from1"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    placeholder="dd/mm/yyy"
+                  />
                 </div>
               </div>
               <div styleName="row">
@@ -410,7 +430,15 @@ export default class Education extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
-                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodTo} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newEducation.timePeriodTo}
+                    id="date-to1"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    placeholder="dd/mm/yyy"
+                  />
                 </div>
               </div>
               <div styleName="row">
@@ -493,14 +521,30 @@ export default class Education extends ConsentComponent {
                     From
                     <input type="hidden" />
                   </label>
-                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodFrom} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newEducation.timePeriodFrom}
+                    id="date-from2"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    placeholder="dd/mm/yyy"
+                  />
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
                     To
                     <input type="hidden" />
                   </label>
-                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newEducation.timePeriodTo} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newEducation.timePeriodTo}
+                    id="date-to2"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    placeholder="dd/mm/yyy"
+                  />
                 </div>
                 <div styleName="field col-checkbox">
                   <div styleName="tc-checkbox">
