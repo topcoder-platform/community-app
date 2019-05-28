@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import { isomorphy } from 'topcoder-react-utils';
-import { removeTrailingSlash } from 'utils/url';
+import { url as urlUtil } from 'topcoder-react-lib';
+
+const { removeTrailingSlash } = urlUtil;
 
 /**
  * Normalizes styles object to ReactJS format (camelCase property names).

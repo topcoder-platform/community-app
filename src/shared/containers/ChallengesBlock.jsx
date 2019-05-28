@@ -4,7 +4,7 @@
  * to a separate component, to expose it to Contentful. Should be further
  * enhanced for usability in other places.
  */
-
+import _ from 'lodash';
 import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import ChallengesBlock from 'components/ChallengesBlock';
@@ -14,6 +14,7 @@ import PT from 'prop-types';
 import React from 'react';
 import shortId from 'shortid';
 import { connect } from 'react-redux';
+
 
 const { BUCKETS } = challengeUtil.buckets;
 
@@ -76,7 +77,8 @@ ChallengesBlockContiner.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    challenges: state.challengeListing.challenges,
+    challenges: !_.isEmpty(state.challengeListing.challenges[BUCKETS.ALL])
+      ? state.challengeListing.challenges[BUCKETS.ALL] : [],
     lastUpdateOfActiveChallenges:
     state.challengeListing.lastUpdateOfActiveChallenges,
     loadingActiveChallenges:
@@ -87,7 +89,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToActions(dispatch) {
   const cla = actions.challengeListing;
-  const clsa = challengeListingSidebarActions.challengeListing.sidebar;
+  const clsa = challengeListingSidebarActions.challengeListingFrontend.sidebar;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
