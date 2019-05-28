@@ -7,11 +7,11 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { url } from 'topcoder-react-lib';
+import { removeTrailingSlash } from 'utils/url';
 import { isActive, target } from 'utils/contentful';
+
 import NavMenu from './Menu';
 
-const { removeTrailingSlash } = url;
 /* eslint-disable global-require */
 const THEMES = {
   Default: require('./themes/default.scss'),
