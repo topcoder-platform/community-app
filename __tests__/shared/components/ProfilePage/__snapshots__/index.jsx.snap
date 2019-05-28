@@ -83,6 +83,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="117"
                   tagName="API"
                 />
@@ -91,6 +92,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="125"
                   tagName="Bash"
                 />
@@ -99,6 +101,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="132"
                   tagName="C#"
                 />
@@ -107,6 +110,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="153"
                   tagName="CSS"
                 />
@@ -115,6 +119,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="159"
                   tagName="Database"
                 />
@@ -123,6 +128,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="168"
                   tagName="EC2"
                 />
@@ -131,6 +137,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="170"
                   tagName="EJB"
                 />
@@ -139,6 +146,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="176"
                   tagName="Excel"
                 />
@@ -147,6 +155,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="212"
                   tagName="HTML"
                 />
@@ -155,6 +164,7 @@ exports[`renders a full Profile correctly 1`] = `
                 className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
               >
                 <Skill
+                  isVerified={false}
                   tagId="247"
                   tagName="Java"
                 />
