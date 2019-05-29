@@ -3,7 +3,6 @@
 .container {
   display: grid;
   margin: 1em auto;
-  padding: 0 1em;
   overflow: auto;
 
   @include xl {

@@ -70,7 +70,7 @@
   h4 {
     font-size: 20px;
     font-weight: 400;
-    line-height: 35px;
+    line-height: 30px;
   }
 
   h5 {
@@ -81,50 +81,52 @@
 
   h6 {
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 25px;
   }
 
   p {
     @include tc-body-md;
 
-    color: $tc-black;
+    // color: $tc-black;
     font-size: 15px;
   }
 
-  th {
-    @include roboto-regular;
+  table {
+    th {
+      @include roboto-regular;
 
-    font-weight: 500;
-    color: #888894;
-    font-size: 20px;
-    line-height: 70px;
-    padding: 0 10px;
-    text-align: left;
-
-    @include md-to-xl {
-      white-space: nowrap;
-    }
-  }
-
-  td {
-    @include roboto-regular;
-
-    font-size: 15px;
-    line-height: 25px;
-    text-align: left;
-    color: $tc-gray-80;
-    border-top: 1px solid #ededf2;
-    border-bottom: 1px solid #ededf2;
-    padding: 10px 0;
-    min-height: 51px;
-
-    &:first-child {
-      padding-left: 10px;
-    }
-
-    &:last-child {
+      color: #808080;
+      font-size: 15px;
+      line-height: 25px;
+      text-align: left;
+      text-transform: uppercase;
       padding-right: 10px;
+
+      @include md-to-xl {
+        white-space: nowrap;
+      }
+    }
+
+    td {
+      @include roboto-regular;
+
+      font-size: 15px;
+      line-height: 25px;
+      text-align: left;
+      color: $tc-gray-80;
+      border-top: 1px solid #ededf2;
+      border-bottom: 1px solid #ededf2;
+      padding: 20px 10px 20px 0;
+      min-height: 51px;
+
+      &:first-child {
+        padding-left: 10px;
+      }
+
+      &:last-child {
+        padding-right: 10px;
+      }
     }
   }
 
@@ -149,6 +151,7 @@
 
   img {
     max-width: 100%;
+    border-radius: 6px;
   }
 
   code {
