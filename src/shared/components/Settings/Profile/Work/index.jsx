@@ -396,7 +396,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodFrom}
                     id="date-from1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
-                    placeholder="dd/mm/yyy"
+                    placeholder="dd/mm/yyyy"
                   />
                 </div>
               </div>
@@ -416,7 +416,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodTo}
                     id="date-to1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
-                    placeholder="dd/mm/yyy"
+                    placeholder="dd/mm/yyyy"
                   />
                 </div>
               </div>
@@ -480,7 +480,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodFrom}
                     id="date-from2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
-                    placeholder="dd/mm/yyy"
+                    placeholder="dd/mm/yyyy"
                   />
                 </div>
                 <div styleName="field col-date">
@@ -495,7 +495,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodTo}
                     id="date-to2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
-                    placeholder="dd/mm/yyy"
+                    placeholder="dd/mm/yyyy"
                   />
                 </div>
               </div>
