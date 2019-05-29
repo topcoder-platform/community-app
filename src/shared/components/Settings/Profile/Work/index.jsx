@@ -9,8 +9,10 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import DatePicker from 'components/challenge-listing/Filters/DatePicker';
 import WorkList from './List';
 
 import './styles.scss';
@@ -27,6 +29,8 @@ export default class Work extends ConsentComponent {
     this.onAddWork = this.onAddWork.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onUpdateDate = this.onUpdateDate.bind(this);
+
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
@@ -153,7 +157,7 @@ export default class Work extends ConsentComponent {
 
 
     if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}. ${dateError}`;
+      errorMessage = `${errorMessage}. \n${dateError}`;
     } else if (dateError.length > 0) {
       errorMessage = dateError;
       invalid = dateInvalid;
@@ -165,6 +169,15 @@ export default class Work extends ConsentComponent {
 
   onHandleDeleteWork(indexNo) {
     this.showConsent(this.onDeleteWork.bind(this, indexNo));
+  }
+
+  onUpdateDate(date, timePeriod) {
+    if (date) {
+      const { newWork: oldWork } = this.state;
+      const newWork = { ...oldWork };
+      newWork[timePeriod] = date;
+      this.setState({ newWork });
+    }
   }
 
   /**
@@ -376,7 +389,15 @@ export default class Work extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
-                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodFrom} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newWork.timePeriodFrom}
+                    id="date-from1"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    placeholder="dd/mm/yyyy"
+                  />
                 </div>
               </div>
               <div styleName="row">
@@ -388,7 +409,15 @@ export default class Work extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
-                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodTo} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newWork.timePeriodTo}
+                    id="date-to1"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    placeholder="dd/mm/yyyy"
+                  />
                 </div>
               </div>
             </form>
@@ -444,14 +473,30 @@ export default class Work extends ConsentComponent {
                     From
                     <input type="hidden" />
                   </label>
-                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodFrom} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newWork.timePeriodFrom}
+                    id="date-from2"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    placeholder="dd/mm/yyyy"
+                  />
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
                     To
                     <input type="hidden" />
                   </label>
-                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodTo} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment()}
+                    date={newWork.timePeriodTo}
+                    id="date-to2"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    placeholder="dd/mm/yyyy"
+                  />
                 </div>
               </div>
             </form>
