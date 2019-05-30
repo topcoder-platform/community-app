@@ -3,7 +3,7 @@
  */
 
 import actions from 'actions/topcoder_header';
-import TopcoderHeader from 'components/TopcoderHeader';
+import TopcoderHeader from 'components/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

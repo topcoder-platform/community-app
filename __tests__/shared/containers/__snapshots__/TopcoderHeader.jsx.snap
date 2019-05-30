@@ -1,19 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow snapshot 1`] = `
-<TopcoderHeader
-  activeTrigger={null}
+<Header
   closeMenu={[Function]}
   closeMobileMenu={[Function]}
   closeSearch={[Function]}
-  isMobile={false}
-  mobileMenuOpened={false}
   openMenu={[Function]}
   openMobileMenu={[Function]}
   openSearch={[Function]}
-  openedMenu={null}
   profile={Object {}}
-  searchOpened={false}
   setCurrentNav={[Function]}
   store={
     Object {

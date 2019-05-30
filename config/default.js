@@ -211,4 +211,117 @@ module.exports = {
       GRANT_TYPE: '',
     },
   },
+
+
+  HEADER_MENU: [
+    {
+      id: 'work', // required for 'Switch to BUSINESS' to work
+      title: 'WORK',
+      subMenu: [
+        {
+          title: 'Compete',
+          subMenu: [
+            {
+              title: 'All challenges',
+              link: '/challenges',
+            },
+            {
+              title: 'Competitive programming',
+              href: 'https://arena.topcoder-dev.com',
+            },
+          ],
+        },
+        {
+          title: 'Tracks',
+          subMenu: [
+            {
+              title: 'Competitive programming',
+              href: 'https://www.topcoder-dev.com/community/competitive-programming',
+            },
+            {
+              title: 'Data Science',
+              href: 'https://www.topcoder-dev.com/community/data-science/',
+            },
+            {
+              title: 'Design',
+              href: 'https://www.topcoder-dev.com/community/design/',
+            },
+            {
+              title: 'Development',
+              href: 'https://www.topcoder-dev.com/community/development',
+            },
+            {
+              title: 'QA',
+              href: 'https://www.topcoder-dev.com/community/qa',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          subMenu: [
+            {
+              title: 'TCO',
+              href: 'https://www.topcoder.com/tco',
+            },
+            {
+              title: 'Programs',
+              href: 'https://www.topcoder-dev.com/community/member-programs',
+            },
+            {
+              title: 'Forums',
+              href: 'https://apps.topcoder-dev.com/forums',
+            },
+            {
+              title: 'Statistics',
+              href: 'https://www.topcoder-dev.com/community/statistics',
+            },
+            {
+              title: 'Events',
+              href: 'https://www.topcoder-dev.com/community/events',
+            },
+            {
+              title: 'Blog',
+              href: 'https://www.topcoder-dev.com/blog',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  HEADER_MENU_THEME: 'light',
+  HEADER_AUTH_URLS: {
+    href: 'http://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main',
+    location: 'http://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main',
+  },
+  ACCOUNT_MENU: [
+    {
+      title: 'Settings',
+      link: '/settings/profile',
+    },
+    {
+      title: 'Payments',
+      href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+    },
+    {
+      title: 'All projects',
+      link: null,
+    },
+    { separator: true },
+    {
+      title: 'Help',
+      href: 'https://help.topcoder.com/',
+    },
+    {
+      title: 'About Topcoder',
+      href: 'https://www.topcoder.com/about/',
+    },
+    {
+      title: 'Log Out',
+      href: 'https://www.topcoder-dev.com/logout',
+    },
+  ],
+  ACCOUNT_MENU_SWITCH_TEXT: {
+    title: 'Switch to BUSINESS',
+    href: 'http://connect.topcoder-dev.com',
+  },
 };
