@@ -94,6 +94,7 @@
   img {
     height: 100%;
     width: auto;
+    border-radius: 6px;
 
     @include xs-to-md {
       height: auto;
