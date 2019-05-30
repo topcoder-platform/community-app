@@ -52,8 +52,8 @@ class CommunityStatsContainer extends React.Component {
 
     if (nextProps.token
       && (nextProps.token !== token
-        || nextProps.community !== community
-        || nextProps.challenges !== challenges)) {
+        || !_.isEqual(nextProps.community, community)
+        || !_.isEqual(nextProps.challenges, challenges))) {
       getCommunityStats(nextProps.community, nextProps.challenges, nextProps.token);
     }
 

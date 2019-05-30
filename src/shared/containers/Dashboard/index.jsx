@@ -162,7 +162,6 @@ export class DashboardPageContainer extends React.Component {
       communityStats,
       finances,
       financesLoading,
-      handle,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
       showChallengeFilter,
@@ -201,7 +200,7 @@ export class DashboardPageContainer extends React.Component {
         achievementsLoading={achievementsLoading}
         announcementPreviewId={announcementPreviewId}
         challengeFilter={challengeFilter}
-        challenges={activeChallenges.filter(x => x.users[handle])}
+        challenges={activeChallenges}
         challengesLoading={activeChallengesLoading}
         communities={communities}
         communitiesLoading={communitiesLoading}
@@ -238,7 +237,6 @@ DashboardPageContainer.defaultProps = {
   achievementsTimestamp: 0,
   finances: [],
   financesTimestamp: 0,
-  handle: '',
   profile: null,
   showEarnings:
     isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
@@ -275,7 +273,6 @@ DashboardPageContainer.propTypes = {
   getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getSrms: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getTopcoderBlogFeed: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  handle: PT.string,
   profile: PT.shape(), // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
@@ -321,7 +318,8 @@ function mapStateToProps(state, props) {
     achievements: achievements.data,
     achievementsLoading: Boolean(achievements.loadingUuid),
     achievementsTimestamp: achievements.timestamp,
-    activeChallenges: state.challengeListing.challenges,
+    activeChallenges: !_.isEmpty(state.challengeListing.challenges[BUCKETS.MY])
+      ? state.challengeListing.challenges[BUCKETS.MY] : [],
     activeChallengesLoading:
       Boolean(state.challengeListing.loadingActiveChallengesUUID),
     activeChallengesTimestamp:
