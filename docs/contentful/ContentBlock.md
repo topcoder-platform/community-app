@@ -3,3 +3,6 @@ The first content type you should consider for your content elements inside a vi
 
 ## Fields
 ![](./pics/ContentBlock.png)
+
+## Live Demo
+https://community-app.topcoder.com/examples/contentful/viewport/2Vf6Xn8CaNG4C55nqblsZa

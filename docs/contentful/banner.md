@@ -3,3 +3,6 @@ This content type provides banners: large background image, some textual content
 
 ## Fields
 ![](./pics/Banner.png)
+
+## Live Demo
+https://community-app.topcoder.com/examples/contentful/viewport/2W1Wb1bwEabiIZhaSc4EwV
