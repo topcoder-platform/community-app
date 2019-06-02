@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 import Home from 'components/tc-communities/communities/cognitive/Home';
 import moment from 'moment';
@@ -10,12 +9,14 @@ import shortId from 'shortid';
 import { USER_GROUP_MAXAGE } from 'config';
 
 import { connect } from 'react-redux';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtil, actions } from 'topcoder-react-lib';
+
+const { BUCKETS } = challengeUtil.buckets;
 
 /* Holds cache time [ms] for the data demanded by this container. */
 const MAXAGE = 30 * 60 * 1000;
 
-const Filter = challengeUtils.filter;
+const Filter = challengeUtil.filter;
 
 class HomeContainer extends React.Component {
   componentDidMount() {
@@ -28,11 +29,11 @@ class HomeContainer extends React.Component {
       loadingActiveChallenges,
     } = this.props;
     if (Date.now() - activeChallengesTimestamp > MAXAGE
-    && !loadingActiveChallenges) {
+      && !loadingActiveChallenges) {
       getAllActiveChallenges(auth.tokenV3);
     }
     if (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE
-    && !communitiesList.loadingUuid) {
+      && !communitiesList.loadingUuid) {
       getCommunitiesList(auth);
     }
   }
@@ -97,9 +98,10 @@ HomeContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    activeChallenges: state.challengeListing.challenges,
+    activeChallenges: !_.isEmpty(state.challengeListing.challenges[BUCKETS.ALL])
+      ? state.challengeListing.challenges[BUCKETS.ALL] : [],
     activeChallengesTimestamp:
-      state.challengeListing.lastUpdateOfActiveChallenges,
+    state.challengeListing.lastUpdateOfActiveChallenges,
     allFaqItemsClosedInResourcesPage:
       _.isEmpty(state.page.communities.cognitive.resources.shownFaqItems),
     communitiesList: state.tcCommunities.list,
@@ -110,7 +112,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToActions(dispatch) {
   const ca = communityActions.tcCommunity;
-  const cla = challengeListingActions.challengeListing;
+  const cla = actions.challengeListing;
   const ra = resourcesActions.page.communities.cognitive.resources;
   return {
     closeAllFaqItemsInResourcesPage: () => dispatch(ra.closeAllFaqItems()),

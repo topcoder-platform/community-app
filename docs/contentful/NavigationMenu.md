@@ -7,3 +7,6 @@ Model that will render navigation menus of links with optional sub-links/menus. 
 
 **Navigation Menu Item**
 ![](./pics/NavigationMenuItem.png)
+
+## Live Demo
+https://community-app.topcoder.com/examples/contentful/viewport/2VtYSyqeFb3XBEsSREIVgP

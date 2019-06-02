@@ -35,34 +35,34 @@ const Header = ({ profile }) => {
     normalizedProfile = null;
   }
 
-    if (TopNavRef) {
-        return (
-          <div>
-            <TopNavRef
-              menu={config.HEADER_MENU}
-              rightMenu={(
-                <LoginNavRef
-                  loggedIn={!_.isEmpty(profile)}
-                  notificationButtonState="none"
-                  notifications={[]}
-                  accountMenu={config.ACCOUNT_MENU}
-                  switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
-                  onSwitch={handleSwitchMenu}
-                  showNotification={false}
-                  profile={normalizedProfile}
-                  authURLs={config.HEADER_AUTH_URLS}
-                />
-              )}
-              logo={<Logo />}
-              theme={config.HEADER_MENU_THEME}
-              currentLevel1Id={activeLevel1Id}
-              onChangeLevel1Id={handleChangeLevel1Id}
+  if (TopNavRef) {
+    return (
+      <div>
+        <TopNavRef
+          menu={config.HEADER_MENU}
+          rightMenu={(
+            <LoginNavRef
+              loggedIn={!_.isEmpty(profile)}
+              notificationButtonState="none"
+              notifications={[]}
+              accountMenu={config.ACCOUNT_MENU}
+              switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
+              onSwitch={handleSwitchMenu}
+              showNotification={false}
+              profile={normalizedProfile}
+              authURLs={config.HEADER_AUTH_URLS}
             />
-          </div>
-        );
-      }
-    
-      return (<div />);
+          )}
+          logo={<Logo />}
+          theme={config.HEADER_MENU_THEME}
+          currentLevel1Id={activeLevel1Id}
+          onChangeLevel1Id={handleChangeLevel1Id}
+        />
+      </div>
+    );
+  }
+
+  return (<div />);
 };
 
 Header.defaultProps = {

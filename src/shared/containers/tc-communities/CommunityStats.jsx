@@ -12,9 +12,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 
-import { actions } from 'topcoder-react-lib';
-import cActions from 'actions/challenge-listing';
+import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 import CommunityStats from 'components/tc-communities/CommunityStats';
+
+const { BUCKETS } = challengeUtil.buckets;
 
 /* Various time ranges in ms. */
 const MIN = 60 * 1000;
@@ -51,8 +52,8 @@ class CommunityStatsContainer extends React.Component {
 
     if (nextProps.token
       && (nextProps.token !== token
-        || nextProps.community !== community
-        || nextProps.challenges !== challenges)) {
+        || !_.isEqual(nextProps.community, community)
+        || !_.isEqual(nextProps.challenges, challenges))) {
       getCommunityStats(nextProps.community, nextProps.challenges, nextProps.token);
     }
 
@@ -122,8 +123,8 @@ function mapDispatchToProps(dispatch) {
     },
     getAllActiveChallenges: (token) => {
       const uuid = shortid();
-      dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
-      dispatch(cActions.challengeListing.getAllActiveChallengesDone(uuid, token));
+      dispatch(actions.challengeListing.getAllActiveChallengesInit(uuid));
+      dispatch(actions.challengeListing.getAllActiveChallengesDone(uuid, token));
     },
   };
 }
@@ -133,7 +134,7 @@ function mapStateToProps(state, ownProps) {
   const { challenges, lastUpdateOfActiveChallenges } = state.challengeListing;
   return {
     community,
-    challenges,
+    challenges: _.has(challenges, BUCKETS.ALL) ? challenges[BUCKETS.ALL] : [],
     lastUpdateOfActiveChallenges,
     loadingChallenges: Boolean(state.challengeListing.loadingActiveChallengesUUID),
     stats: ownProps.stats || _.get(state.stats.communities[community.communityId], 'data'),

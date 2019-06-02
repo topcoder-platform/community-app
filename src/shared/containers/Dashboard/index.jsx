@@ -11,7 +11,6 @@ import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { actions } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
@@ -19,15 +18,15 @@ import rssActions from 'actions/rss';
 import shortId from 'shortid';
 
 import { connect } from 'react-redux';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
-
-import challengeListingActions from 'actions/challenge-listing';
+import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 import communityActions from 'actions/tc-communities';
 
 import { isTokenExpired } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
+
+const { BUCKETS } = challengeUtil.buckets;
 
 /* When mounted, this container triggers (re-)loading of various data it needs.
  * It will not reload any data already present in the Redux store, if they were
@@ -51,7 +50,7 @@ function updateCommunityStats(props) {
   communities.forEach((community) => {
     const stats = communityStats[community.communityId];
     if (stats && (stats.loadingUuid
-    || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
+      || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
     getCommunityStats(community, activeChallenges, tokenV3);
   });
 }
@@ -124,28 +123,28 @@ export class DashboardPageContainer extends React.Component {
     const now = Date.now();
 
     if (now - achievementsTimestamp > CACHE_MAX_AGE
-    && !achievementsLoading) getMemberAchievements(handle);
+      && !achievementsLoading) getMemberAchievements(handle);
 
     if (now - activeChallengesTimestamp > CACHE_MAX_AGE
-    && !activeChallengesLoading) getAllActiveChallenges(tokenV3);
+      && !activeChallengesLoading) getAllActiveChallenges(tokenV3);
 
     if (now - communitiesTimestamp > CACHE_MAX_AGE
-    && !communitiesLoading) getCommunityList({ profile, tokenV3 });
+      && !communitiesLoading) getCommunityList({ profile, tokenV3 });
 
     if (now - financesTimestamp > CACHE_MAX_AGE
-    && !financesLoading) getMemberFinances(handle, tokenV3);
+      && !financesLoading) getMemberFinances(handle, tokenV3);
 
     if (now - srmsTimestamp > CACHE_MAX_AGE
-    && !srmsLoading) getSrms(handle, tokenV3);
+      && !srmsLoading) getSrms(handle, tokenV3);
 
     if (now - statsTimestamp > CACHE_MAX_AGE
-    && !statsLoading) getMemberStats(handle, tokenV3);
+      && !statsLoading) getMemberStats(handle, tokenV3);
 
     if (now - tcBlogTimestamp > CACHE_MAX_AGE
-    && !tcBlogLoading) getTopcoderBlogFeed();
+      && !tcBlogLoading) getTopcoderBlogFeed();
 
     if (now - communitiesTimestamp < CACHE_MAX_AGE
-    && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
+      && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
       updateCommunityStats(this.props);
     }
   }
@@ -163,7 +162,6 @@ export class DashboardPageContainer extends React.Component {
       communityStats,
       finances,
       financesLoading,
-      handle,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
       showChallengeFilter,
@@ -202,7 +200,7 @@ export class DashboardPageContainer extends React.Component {
         achievementsLoading={achievementsLoading}
         announcementPreviewId={announcementPreviewId}
         challengeFilter={challengeFilter}
-        challenges={activeChallenges.filter(x => x.users[handle])}
+        challenges={activeChallenges}
         challengesLoading={activeChallengesLoading}
         communities={communities}
         communitiesLoading={communitiesLoading}
@@ -239,7 +237,6 @@ DashboardPageContainer.defaultProps = {
   achievementsTimestamp: 0,
   finances: [],
   financesTimestamp: 0,
-  handle: '',
   profile: null,
   showEarnings:
     isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
@@ -276,7 +273,6 @@ DashboardPageContainer.propTypes = {
   getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getSrms: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getTopcoderBlogFeed: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  handle: PT.string,
   profile: PT.shape(), // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
@@ -322,11 +318,12 @@ function mapStateToProps(state, props) {
     achievements: achievements.data,
     achievementsLoading: Boolean(achievements.loadingUuid),
     achievementsTimestamp: achievements.timestamp,
-    activeChallenges: state.challengeListing.challenges,
+    activeChallenges: !_.isEmpty(state.challengeListing.challenges[BUCKETS.MY])
+      ? state.challengeListing.challenges[BUCKETS.MY] : [],
     activeChallengesLoading:
       Boolean(state.challengeListing.loadingActiveChallengesUUID),
     activeChallengesTimestamp:
-      state.challengeListing.lastUpdateOfActiveChallenges,
+    state.challengeListing.lastUpdateOfActiveChallenges,
     authenticating: state.auth.authenticating,
     challengeFilter: dash.challengeFilter,
     communities: communities.data,
@@ -365,8 +362,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesInit(uuid));
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
+      dispatch(actions.challengeListing.getAllActiveChallengesInit(uuid));
+      dispatch(actions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
     },
     getCommunityList: (auth) => {
       const uuid = shortId();
@@ -396,7 +393,7 @@ function mapDispatchToProps(dispatch) {
     },
     getSrms: (handle, tokenV3) => {
       const uuid = shortId();
-      const a = challengeListingActions.challengeListing;
+      const a = actions.challengeListing;
       dispatch(a.getSrmsInit(uuid));
       dispatch(a.getSrmsDone(uuid, handle, {
         filter: 'status=future',
@@ -413,7 +410,7 @@ function mapDispatchToProps(dispatch) {
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     setChallengeListingFilter: (filter) => {
-      const cl = challengeListingActions.challengeListing;
+      const cl = actions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));

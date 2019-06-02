@@ -7,3 +7,6 @@ The component for blocks of content rendered in dropdows. Renders a list of **Dr
 
 **Dropdown Item**
 ![](./pics/DropdownItem.png)
+
+## Live Demo
+https://community-app.topcoder.com/examples/contentful/viewport/5ve2acdU6Z3C5FyXMO99El

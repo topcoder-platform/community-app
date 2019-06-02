@@ -4,8 +4,8 @@
  * to a separate component, to expose it to Contentful. Should be further
  * enhanced for usability in other places.
  */
-
-import challengeListingActions from 'actions/challenge-listing';
+import _ from 'lodash';
+import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import ChallengesBlock from 'components/ChallengesBlock';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -14,7 +14,9 @@ import PT from 'prop-types';
 import React from 'react';
 import shortId from 'shortid';
 import { connect } from 'react-redux';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
+
+
+const { BUCKETS } = challengeUtil.buckets;
 
 /* Holds cache time [ms] for the data demanded by this container. */
 const MAXAGE = 30 * 60 * 1000;
@@ -28,7 +30,7 @@ class ChallengesBlockContiner extends React.Component {
       tokenV3,
     } = this.props;
     if (Date.now() - lastUpdateOfActiveChallenges > MAXAGE
-    && !loadingActiveChallenges) getAllActiveChallenges(tokenV3);
+      && !loadingActiveChallenges) getAllActiveChallenges(tokenV3);
   }
 
   render() {
@@ -75,9 +77,10 @@ ChallengesBlockContiner.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    challenges: state.challengeListing.challenges,
+    challenges: !_.isEmpty(state.challengeListing.challenges[BUCKETS.ALL])
+      ? state.challengeListing.challenges[BUCKETS.ALL] : [],
     lastUpdateOfActiveChallenges:
-      state.challengeListing.lastUpdateOfActiveChallenges,
+    state.challengeListing.lastUpdateOfActiveChallenges,
     loadingActiveChallenges:
       Boolean(state.challengeListing.loadingActiveChallengesUUID),
     tokenV3: state.auth.tokenV3,
@@ -85,8 +88,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToActions(dispatch) {
-  const cla = challengeListingActions.challengeListing;
-  const clsa = challengeListingSidebarActions.challengeListing.sidebar;
+  const cla = actions.challengeListing;
+  const clsa = challengeListingSidebarActions.challengeListingFrontend.sidebar;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();

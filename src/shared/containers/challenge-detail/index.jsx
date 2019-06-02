@@ -11,7 +11,6 @@ import communityActions from 'actions/tc-communities';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
-import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
@@ -27,10 +26,9 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeDetailsActions, { TABS as DETAIL_TABS }
   from 'actions/page/challenge-details';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
-import { actions } from 'topcoder-react-lib';
+import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -54,10 +52,11 @@ import og48hUiPrototype from
   '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
 
 /* A fallback image, just in case we missed some corner case. */
-import ogImage from
-  '../../../assets/images/og_image.jpg';
+import ogImage from '../../../assets/images/og_image.jpg';
 
 import './styles.scss';
+
+const { BUCKETS } = challengeUtil.buckets;
 
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
@@ -153,7 +152,7 @@ class ChallengeDetailPageContainer extends React.Component {
        * currently available challenge details have been fetched without
        * authentication. */
       || (auth.tokenV2 && auth.tokenV3
-        && !challenge.fetchedWithAuth)
+      && !challenge.fetchedWithAuth)
 
     ) {
       loadChallengeDetails(auth, challengeId);
@@ -289,87 +288,87 @@ class ChallengeDetailPageContainer extends React.Component {
               Challenge #
               {challengeId}
               {' '}
-does not exist!
+              does not exist!
             </div>
           )}
           {
             !isEmpty
             && (
-            <MetaTags
-              description={description.slice(0, 155)}
-              image={getOgImage(challenge)}
-              siteName="Topcoder"
-              socialDescription={description.slice(0, 200)}
-              socialTitle={`${prizesStr}${title}`}
-              title={title}
-            />
+              <MetaTags
+                description={description.slice(0, 155)}
+                image={getOgImage(challenge)}
+                siteName="Topcoder"
+                socialDescription={description.slice(0, 200)}
+                socialTitle={`${prizesStr}${title}`}
+                title={title}
+              />
             )
           }
           {
             !isEmpty
             && (
-            <ChallengeHeader
-              challenge={challenge}
-              challengeId={challengeId}
-              challengesUrl={challengesUrl}
-              numWinners={!isLegacyMM && winners.length}
-              showDeadlineDetail={showDeadlineDetail}
-              onToggleDeadlines={this.onToggleDeadlines}
-              onSelectorClicked={onSelectorClicked}
-              registerForChallenge={this.registerForChallenge}
-              registering={registering}
-              selectedView={selectedTab}
-              setChallengeListingFilter={setChallengeListingFilter}
-              unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
-              }
-              unregistering={unregistering}
-              checkpoints={checkpoints}
-              hasRegistered={hasRegistered}
-              hasFirstPlacement={hasFirstPlacement}
-              challengeSubtracksMap={challengeSubtracksMap}
-            />
+              <ChallengeHeader
+                challenge={challenge}
+                challengeId={challengeId}
+                challengesUrl={challengesUrl}
+                numWinners={!isLegacyMM && winners.length}
+                showDeadlineDetail={showDeadlineDetail}
+                onToggleDeadlines={this.onToggleDeadlines}
+                onSelectorClicked={onSelectorClicked}
+                registerForChallenge={this.registerForChallenge}
+                registering={registering}
+                selectedView={selectedTab}
+                setChallengeListingFilter={setChallengeListingFilter}
+                unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
+                }
+                unregistering={unregistering}
+                checkpoints={checkpoints}
+                hasRegistered={hasRegistered}
+                hasFirstPlacement={hasFirstPlacement}
+                challengeSubtracksMap={challengeSubtracksMap}
+              />
             )
           }
           {
             !isEmpty && selectedTab === DETAIL_TABS.DETAILS
             && (
-            <ChallengeDetailsView
-              challenge={challenge}
-              challengesUrl={challengesUrl}
-              communitiesList={communitiesList.data}
-              introduction={challenge.introduction}
-              detailedRequirements={challenge.detailedRequirements}
-              terms={terms}
-              hasRegistered={hasRegistered}
-              savingChallenge={savingChallenge}
-              setSpecsTabState={setSpecsTabState}
-              specsTabState={specsTabState}
-              updateChallenge={x => updateChallenge(x, auth.tokenV3)}
-            />
+              <ChallengeDetailsView
+                challenge={challenge}
+                challengesUrl={challengesUrl}
+                communitiesList={communitiesList.data}
+                introduction={challenge.introduction}
+                detailedRequirements={challenge.detailedRequirements}
+                terms={terms}
+                hasRegistered={hasRegistered}
+                savingChallenge={savingChallenge}
+                setSpecsTabState={setSpecsTabState}
+                specsTabState={specsTabState}
+                updateChallenge={x => updateChallenge(x, auth.tokenV3)}
+              />
             )
           }
           {
             !isEmpty && selectedTab === DETAIL_TABS.REGISTRANTS
             && (
-            <Registrants
-              challenge={challenge}
-              checkpointResults={
-                _.merge(
-                  checkpointResults,
-                  checkpointResultsUi,
-                )
-              }
-              results={results2}
-            />
+              <Registrants
+                challenge={challenge}
+                checkpointResults={
+                  _.merge(
+                    checkpointResults,
+                    checkpointResultsUi,
+                  )
+                }
+                results={results2}
+              />
             )
           }
           {
             !isEmpty && selectedTab === DETAIL_TABS.CHECKPOINTS
             && (
-            <ChallengeCheckpoints
-              checkpoints={checkpoints}
-              toggleCheckpointFeedback={toggleCheckpointFeedback}
-            />
+              <ChallengeCheckpoints
+                checkpoints={checkpoints}
+                toggleCheckpointFeedback={toggleCheckpointFeedback}
+              />
             )
           }
           {
@@ -379,14 +378,14 @@ does not exist!
           {
             !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
             && (
-            <Winners
-              winners={winners}
-              pointPrizes={challenge.pointPrizes}
-              prizes={challenge.prizes}
-              submissions={challenge.submissions}
-              viewable={challenge.submissionsViewable === 'true'}
-              isDesign={challenge.track.toLowerCase() === 'design'}
-            />
+              <Winners
+                winners={winners}
+                pointPrizes={challenge.pointPrizes}
+                prizes={challenge.prizes}
+                submissions={challenge.submissions}
+                viewable={challenge.submissionsViewable === 'true'}
+                isDesign={challenge.track.toLowerCase() === 'design'}
+              />
             )
           }
         </div>
@@ -541,8 +540,8 @@ const mapDispatchToProps = (dispatch) => {
         });
     },
     setChallengeListingFilter: (filter) => {
-      const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
+      const cl = actions.challenge;
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
@@ -573,7 +572,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(selectTab(tab));
     },
     getSubtracks: () => {
-      const cl = challengeListingActions.challengeListing;
+      const cl = actions.challengeListing;
       dispatch(cl.getChallengeSubtracksInit());
       dispatch(cl.getChallengeSubtracksDone());
     },
