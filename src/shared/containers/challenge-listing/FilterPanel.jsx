@@ -5,6 +5,8 @@
 
 import actions from 'actions/challenge-listing/filter-panel';
 import challengeListingActions from 'actions/challenge-listing';
+import communityActions from 'actions/tc-communities';
+import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
@@ -18,6 +20,7 @@ import qs from 'qs';
  * number will be appended to it, when necessary, to keep filter
  * names unique. */
 const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
+const MIN = 60 * 1000;
 
 /**
  * Returns a vacant name for the user saved filter.
@@ -44,7 +47,15 @@ export class Container extends React.Component {
       loadingSubtracks,
       setFilterState,
       filterState,
+      communityList,
+      getCommunityList,
+      auth,
     } = this.props;
+
+    if (communityList && !communityList.loadingUuid
+    && (Date.now() - communityList.timestamp > 5 * MIN)) {
+      getCommunityList(auth);
+    }
     if (!loadingSubtracks) getSubtracks();
     if (!loadingKeywords) getKeywords();
 
@@ -119,6 +130,15 @@ Container.propTypes = {
   activeBucket: PT.string.isRequired,
   communityFilters: PT.arrayOf(PT.object).isRequired,
   defaultCommunityId: PT.string.isRequired,
+  getCommunityList: PT.func.isRequired,
+  communityList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      communityId: PT.string.isRequired,
+      communityName: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   filterState: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape()),
   selectedCommunityId: PT.string.isRequired,
@@ -145,6 +165,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(cla.getChallengeSubtracksInit());
       dispatch(cla.getChallengeSubtracksDone());
     },
+    getCommunityList: (auth) => {
+      const uuid = shortId();
+      dispatch(communityActions.tcCommunity.getListInit(uuid));
+      dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
+    },
     getKeywords: () => {
       dispatch(cla.getChallengeTagsInit());
       dispatch(cla.getChallengeTagsDone());
@@ -167,6 +192,7 @@ function mapStateToProps(state, ownProps) {
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
     communityFilters: tc.list.data,
+    communityList: tc.list,
     defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,
