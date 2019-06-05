@@ -34,6 +34,20 @@ let mounted = false;
 
 const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
+const DEVELOP_TRACK_ONLY = ['UI_PROTOTYPE_COMPETITION', 'ASSEMBLY_COMPETITION', 'FIRST_2_FINISH', 'BUG_HUNT', 'CODE',
+                            'DESIGN_FIRST_2_FINISH', 'DESIGN', 'DEVELOPMENT', 'ARCHITECTURE', 'CONCEPTUALIZATION',
+                            'TEST_SCENARIOS', 'CONTENT_CREATION', 'TEST_SUITES', 'SPECIFICATION', 'RIA_BUILD_COMPETITION',
+                            'WEB_DESIGNS', 'WIDGET_OR_MOBILE_SCREEN_DESIGN', 'APPLICATION_FRONT_END_DESIGN',
+                            'PRINT_OR_PRESENTATION', 'IDEA_GENERATION', 'WIREFRAMES', 'LOGO_DESIGN', 'BANNERS_OR_ICONS',
+                            'STUDIO_OTHER', 'FRONT_END_FLASH'];
+
+const DESIGN_TRACK_ONLY = ['WEB_DESIGNS', 'WIDGET_OR_MOBILE_SCREEN_DESIGN', 'DESIGN_FIRST_2_FINISH',
+                           'APPLICATION_FRONT_END_DESIGN', 'PRINT_OR_PRESENTATION', 'IDEA_GENERATION', 'WIREFRAMES',
+                           'LOGO_DESIGN', 'BANNERS_OR_ICONS', 'STUDIO_OTHER', 'FRONT_END_FLASH'];
+
+const DATASCIENCE_TRACK_ONLY = ['DEVELOP_MARATHON_MATCH', 'MARATHON_MATCH', 'SRM'];
+
+
 export class ListingContainer extends React.Component {
   componentDidMount() {
     const {
@@ -175,14 +189,33 @@ export class ListingContainer extends React.Component {
     if (!filter) {
       return f;
     }
+
     if (filter.tags) {
       f.keywords = filter.tags.join(',');
     }
-    if (filter.subtracks) {
-      f.subTrack = filter.subtracks.join(',');
-    }
+
+    const finalTracks = _.clone(filter.tracks) || {};
+    var finalSubTracks = _.clone(filter.subtracks);
+
     if (filter.tracks) {
-      const tracks = Object.keys(filter.tracks).map(t => t.toUpperCase());
+      finalSubTracks = [];
+      if (filter.tracks.design) {
+        finalSubTracks = _.concat(finalSubTracks, DESIGN_TRACK_ONLY);
+      }
+
+      if (filter.tracks.develop && !filter.tracks.data_science) {
+        finalSubTracks = _.concat(finalSubTracks, DEVELOP_TRACK_ONLY);
+      } else if (!filter.tracks.develop && filter.tracks.data_science) {
+        finalTracks['develop'] = true;
+        finalSubTracks = _.concat(finalSubTracks, DATASCIENCE_TRACK_ONLY);
+      }
+    }
+
+    if (finalSubTracks) {
+      f.subTrack = finalSubTracks.join(',');
+    }
+    if (filter.tracks && finalTracks) {
+      const tracks = Object.keys(finalTracks).map(t => t.toUpperCase());
       f.track = tracks.join(',');
     }
     if (filter.text) {
