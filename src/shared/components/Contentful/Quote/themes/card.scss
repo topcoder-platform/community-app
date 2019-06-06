@@ -47,6 +47,12 @@
   }
 }
 
+.quoteTextWrapper h1 {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 300;
+}
+
 .authorInfo {
   position: relative;
 }
@@ -88,6 +94,7 @@
   img {
     height: 100%;
     width: auto;
+    border-radius: 6px;
 
     @include xs-to-md {
       height: auto;
