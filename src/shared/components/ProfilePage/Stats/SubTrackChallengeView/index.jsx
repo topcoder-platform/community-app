@@ -336,7 +336,7 @@ Sorry, no successful challenges found.
         userMarathons,
         item => ({
           ...item,
-          submissionEndDate: _.get(item, 'rounds.0.systemTestEndAt'),
+          submissionEndDate: _.get(item, 'submissionEndDate'),
           pointTotal: _.get(item, 'rounds.0.userMMDetails.pointTotal'),
         }),
       );
