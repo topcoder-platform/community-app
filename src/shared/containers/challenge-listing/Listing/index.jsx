@@ -198,7 +198,10 @@ export class ListingContainer extends React.Component {
     }
 
     if (filter.tracks) {
-      finalSubTracks = [];
+      if (!(!filter.tracks.design && filter.tracks.develop && filter.tracks.data_science)) {
+        finalSubTracks = [];
+      }
+
       if (filter.tracks.design) {
         finalSubTracks = _.concat(finalSubTracks, DESIGN_TRACK_ONLY);
       }
