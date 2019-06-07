@@ -77,7 +77,7 @@ export default function BucketSelector({
   return (
     <div>
       {getBucket(Buckets.BUCKETS.ALL)}
-      {isAuth ? getBucket(Buckets.BUCKETS.MY) : null}
+      {getBucket(Buckets.BUCKETS.MY)}
       {extraBucket ? getBucket(extraBucket) : null}
       {getBucket(Buckets.BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(Buckets.BUCKETS.ONGOING)}
