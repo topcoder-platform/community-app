@@ -188,7 +188,6 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fixes
                 - develop
                 - feature-new-nav
                 - develop-from-master-23may
