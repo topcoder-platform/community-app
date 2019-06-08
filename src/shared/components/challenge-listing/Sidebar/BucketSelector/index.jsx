@@ -26,7 +26,6 @@ export default function BucketSelector({
   disabled,
   extraBucket,
   filterState,
-  isAuth,
   savedFilters,
   selectBucket,
   selectSavedFilter,
@@ -124,7 +123,6 @@ BucketSelector.defaultProps = {
   communityFilter: null,
   disabled: false,
   extraBucket: null,
-  isAuth: false,
   loadMoreChallenges: null,
 };
 
@@ -139,7 +137,6 @@ BucketSelector.propTypes = {
   disabled: PT.bool,
   extraBucket: PT.string,
   filterState: PT.shape().isRequired,
-  isAuth: PT.bool,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
   selectSavedFilter: PT.func.isRequired,
