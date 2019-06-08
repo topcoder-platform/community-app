@@ -96,7 +96,7 @@ module.exports = {
               title: 'How It Works',
               href: 'https://www.topcoder.com/tco',
             },
-          ]
+          ],
         },
         {
           title: 'Enterprise Programs',
@@ -104,8 +104,8 @@ module.exports = {
             {
               title: 'All Solutions',
               href: 'https://www.topcoder.com/tco',
-            }
-          ]
+            },
+          ],
         },
         {
           title: 'Customer Success',
@@ -113,8 +113,8 @@ module.exports = {
             {
               title: 'All Solutions',
               href: 'https://www.topcoder.com/tco',
-            }
-          ]
+            },
+          ],
         },
         {
           title: 'Company',
@@ -122,8 +122,8 @@ module.exports = {
             {
               title: 'All Solutions',
               href: 'https://www.topcoder.com/tco',
-            }
-          ]
+            },
+          ],
         },
         {
           title: 'Resources',
@@ -131,8 +131,8 @@ module.exports = {
             {
               title: 'All Solutions',
               href: 'https://www.topcoder.com/tco',
-            }
-          ]
+            },
+          ],
         },
         {
           title: 'Blog',
@@ -140,10 +140,10 @@ module.exports = {
             {
               title: 'All Solutions',
               href: 'https://www.topcoder.com/tco',
-            }
-          ]
-        }
-      ]
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'work', // required for 'Switch to BUSINESS' to work
