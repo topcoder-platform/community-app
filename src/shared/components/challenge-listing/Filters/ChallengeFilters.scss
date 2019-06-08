@@ -9,6 +9,7 @@
     background: $tc-gray-neutral-light;
     border-bottom: 1px solid $tc-gray-30;
     padding: 0 $base-unit * 4;
+    padding-top: $base-unit * 4;
 
     @include xs-to-md {
       display: flex;
