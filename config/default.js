@@ -215,6 +215,94 @@ module.exports = {
 
   HEADER_MENU: [
     {
+      id: 'business',
+      title: 'BUSINESS',
+      subMenu: [
+        {
+          title: 'Solutions',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: 'https://www.topcoder.com/tco'
+            },
+            {
+              title: 'Apps',
+              href: 'https://www.topcoder.com/tco'
+            },
+            {
+              title: 'Websites',
+              href: 'https://www.topcoder.com/tco'
+            },
+            {
+              title: 'Product Design',
+              href: 'https://www.topcoder.com/tco'
+            },
+            {
+              title: 'Development Tasks',
+              href: 'https://www.topcoder.com/tco'
+            },
+            {
+              title: 'Analytics & Data Science',
+              href: 'https://www.topcoder.com/tco'
+            },
+            {
+              title: 'Testing & QA',
+              href: 'https://www.topcoder.com/tco'
+            },
+            {
+              title: 'How It Works',
+              href: 'https://www.topcoder.com/tco'
+            },
+          ]
+        },
+        {
+          title: 'Enterprise Programs',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: 'https://www.topcoder.com/tco'
+            }
+          ]
+        },
+        {
+          title: 'Customer Success',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: 'https://www.topcoder.com/tco'
+            }
+          ]
+        },
+        {
+          title: 'Company',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: 'https://www.topcoder.com/tco'
+            }
+          ]
+        },
+        {
+          title: 'Resources',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: 'https://www.topcoder.com/tco'
+            }
+          ]
+        },
+        {
+          title: 'Blog',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: 'https://www.topcoder.com/tco'
+            }
+          ]
+        }
+      ]
+    },
+    {
       id: 'work', // required for 'Switch to BUSINESS' to work
       title: 'WORK',
       subMenu: [
