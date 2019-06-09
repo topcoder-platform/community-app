@@ -23,6 +23,7 @@ export default class ServiceProviders extends ConsentComponent {
     super(props);
     this.onHandleDeleteServiceProvider = this.onHandleDeleteServiceProvider.bind(this);
     this.onDeleteServiceProvider = this.onDeleteServiceProvider.bind(this);
+    this.onEditServiceProvider = this.onEditServiceProvider.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadServiceProviderTrait = this.loadServiceProviderTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -31,6 +32,8 @@ export default class ServiceProviders extends ConsentComponent {
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
+
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
@@ -45,6 +48,7 @@ export default class ServiceProviders extends ConsentComponent {
       screenSM: 767,
       showConfirmation: false,
       indexNo: null,
+      isEdit: false,
     };
   }
 
@@ -83,6 +87,22 @@ export default class ServiceProviders extends ConsentComponent {
       return;
     }
     this.showConsent(this.onAddServiceProvider.bind(this));
+  }
+
+  /**
+   * Edit Service Provider by index
+   * @param indexNo the Service Provider index no
+   */
+  onEditServiceProvider(indexNo) {
+    const { serviceProviderTrait } = this.state;
+    this.setState({
+      newServiceProvider: {
+        serviceProviderType: serviceProviderTrait.traits.data[indexNo].serviceProviderType,
+        name: serviceProviderTrait.traits.data[indexNo].name,
+      },
+      isEdit: true,
+      indexNo,
+    });
   }
 
   /**
@@ -156,7 +176,9 @@ export default class ServiceProviders extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddServiceProvider(answer) {
-    const { newServiceProvider, personalizationTrait } = this.state;
+    const {
+      newServiceProvider, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -167,6 +189,9 @@ export default class ServiceProviders extends ConsentComponent {
     const { serviceProviderTrait } = this.state;
     if (serviceProviderTrait.traits && serviceProviderTrait.traits.data.length > 0) {
       const newServiceProviderTrait = { ...serviceProviderTrait };
+      if (isEdit) {
+        newServiceProviderTrait.traits.data.splice(indexNo, 1);
+      }
       newServiceProviderTrait.traits.data.push(newServiceProvider);
       this.setState({ serviceProviderTrait: newServiceProviderTrait });
       updateUserTrait(handle, 'service_provider', newServiceProviderTrait.traits.data, tokenV3);
@@ -183,7 +208,11 @@ export default class ServiceProviders extends ConsentComponent {
       serviceProviderType: '',
       name: '',
     };
-    this.setState({ newServiceProvider: empty });
+    this.setState({
+      newServiceProvider: empty,
+      isEdit: false,
+      indexNo: null,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -196,7 +225,6 @@ export default class ServiceProviders extends ConsentComponent {
       }
     }
   }
-
 
   /**
    * Update input value
@@ -255,9 +283,23 @@ export default class ServiceProviders extends ConsentComponent {
     return false;
   }
 
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        indexNo: null,
+        newServiceProvider: {
+          serviceProviderType: '',
+          name: '',
+        },
+      });
+    }
+  }
+
   render() {
     const {
-      serviceProviderTrait, isMobileView, showConfirmation, indexNo,
+      serviceProviderTrait, isMobileView, showConfirmation, indexNo, isEdit,
     } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
@@ -289,11 +331,15 @@ export default class ServiceProviders extends ConsentComponent {
               serviceProviderList={{ items: serviceProviderItems }}
               onDeleteItem={this.onHandleDeleteServiceProvider}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditServiceProvider}
             />
           )
         }
         <div styleName={`sub-title ${serviceProviderItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new service provider
+          {
+            isEdit ? (<React.Fragment>Edit service provider</React.Fragment>)
+              : (<React.Fragment>Add a new service provider</React.Fragment>)
+          }
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
@@ -335,21 +381,41 @@ export default class ServiceProviders extends ConsentComponent {
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
           </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddServiceProvider}
-              disabled={!canModifyTrait || !isValidServiceProviderForm}
-            >
-              Add service provider to your list
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddServiceProvider}
+                disabled={!canModifyTrait || !isValidServiceProviderForm}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit service provider to your list</React.Fragment>)
+                    : (<React.Fragment>Add service provider to your list</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         <div styleName="form-container-mobile">
           <form name="service-provider-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Service Provider
+                {
+                  isEdit ? (<React.Fragment>Edit Service Provider</React.Fragment>)
+                    : (<React.Fragment>Add Service Provider</React.Fragment>)
+                }
               </p>
             </div>
             <div styleName="row">
@@ -384,14 +450,31 @@ export default class ServiceProviders extends ConsentComponent {
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
           </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddServiceProvider}
-              disabled={!canModifyTrait || !isValidServiceProviderForm}
-            >
-              Add Provider
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddServiceProvider}
+                disabled={!canModifyTrait || !isValidServiceProviderForm}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit Provider</React.Fragment>)
+                    : (<React.Fragment>Add Provider</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         {
@@ -401,6 +484,7 @@ export default class ServiceProviders extends ConsentComponent {
               serviceProviderList={{ items: serviceProviderItems }}
               onDeleteItem={this.onHandleDeleteServiceProvider}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditServiceProvider}
             />
           )
         }

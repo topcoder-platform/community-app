@@ -13,6 +13,7 @@ import moment from 'moment';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
+import ConfirmationModal from '../../CofirmationModal';
 import WorkList from './List';
 
 import './styles.scss';
@@ -23,6 +24,7 @@ export default class Work extends ConsentComponent {
     super(props);
     this.onHandleDeleteWork = this.onHandleDeleteWork.bind(this);
     this.onDeleteWork = this.onDeleteWork.bind(this);
+    this.onEditWork = this.onEditWork.bind(this);
     this.loadWorkTrait = this.loadWorkTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onHandleAddWork = this.onHandleAddWork.bind(this);
@@ -30,6 +32,7 @@ export default class Work extends ConsentComponent {
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
     this.onUpdateDate = this.onUpdateDate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -47,6 +50,9 @@ export default class Work extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      isEdit: false,
+      indexNo: null,
+      showConfirmation: false,
     };
   }
 
@@ -105,23 +111,7 @@ export default class Work extends ConsentComponent {
     let haveDate = false;
 
     if (!_.trim(newWork.company).length) {
-      errorMessage += 'Company, ';
-      invalid = true;
-    }
-
-    if (!_.trim(newWork.position).length) {
-      errorMessage += 'Position, ';
-      invalid = true;
-    }
-
-    if (!_.trim(newWork.cityTown).length) {
-      errorMessage += 'City, ';
-      invalid = true;
-    }
-
-
-    if (!_.trim(newWork.industry).length) {
-      errorMessage += 'Industry, ';
+      errorMessage += 'Company ';
       invalid = true;
     }
 
@@ -129,16 +119,19 @@ export default class Work extends ConsentComponent {
       errorMessage += ' cannot be empty';
     }
 
-    const fromDate = new Date(newWork.timePeriodFrom).getTime();
-    const toDate = new Date(newWork.timePeriodTo).getTime();
+    if (!_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
+      const fromDate = new Date(newWork.timePeriodFrom).getTime();
+      const toDate = new Date(newWork.timePeriodTo).getTime();
 
-    if (fromDate > toDate) {
-      dateError += 'From Date value should be smaller than To Date value. ';
-      dateInvalid = true;
-      haveDate = true;
+      if (fromDate > toDate) {
+        dateError += 'From Date value should be smaller than To Date value. ';
+        dateInvalid = true;
+        haveDate = true;
+      }
     }
 
-    if (!haveDate) {
+    if (!haveDate
+      && !(_.isEmpty(newWork.timePeriodFrom) && _.isEmpty(newWork.timePeriodTo))) {
       if (!_.trim(newWork.timePeriodFrom).length) {
         dateError += 'From Date, ';
         dateInvalid = true;
@@ -155,7 +148,6 @@ export default class Work extends ConsentComponent {
       }
     }
 
-
     if (errorMessage.length > 0) {
       errorMessage = `${errorMessage}. \n${dateError}`;
     } else if (dateError.length > 0) {
@@ -168,7 +160,10 @@ export default class Work extends ConsentComponent {
   }
 
   onHandleDeleteWork(indexNo) {
-    this.showConsent(this.onDeleteWork.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   onUpdateDate(date, timePeriod) {
@@ -204,6 +199,31 @@ export default class Work extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'work', tokenV3);
     }
+
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
+  }
+
+  /**
+   * Edit work by index
+   * @param indexNo the work index no
+   */
+  onEditWork(indexNo) {
+    const { workTrait } = this.state;
+    this.setState({
+      newWork: {
+        company: workTrait.traits.data[indexNo].company,
+        position: _.isEmpty(workTrait.traits.data[indexNo].position) ? '' : workTrait.traits.data[indexNo].position,
+        cityTown: _.isEmpty(workTrait.traits.data[indexNo].cityTown) ? '' : workTrait.traits.data[indexNo].cityTown,
+        timePeriodFrom: _.isEmpty(workTrait.traits.data[indexNo].timePeriodFrom) ? '' : workTrait.traits.data[indexNo].timePeriodFrom,
+        timePeriodTo: _.isEmpty(workTrait.traits.data[indexNo].timePeriodTo) ? '' : workTrait.traits.data[indexNo].timePeriodTo,
+        industry: _.isEmpty(workTrait.traits.data[indexNo].industry) ? '' : workTrait.traits.data[indexNo].industry,
+      },
+      isEdit: true,
+      indexNo,
+    });
   }
 
   /**
@@ -211,7 +231,9 @@ export default class Work extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddWork(answer) {
-    const { newWork, personalizationTrait } = this.state;
+    const {
+      newWork, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -222,23 +244,48 @@ export default class Work extends ConsentComponent {
 
     const { workTrait } = this.state;
 
-    newWork.timePeriodFrom = new Date(newWork.timePeriodFrom).getTime();
-    newWork.timePeriodTo = new Date(newWork.timePeriodTo).getTime();
+    const work = _.clone(newWork);
+    if (_.isEmpty(work.position)) {
+      delete work.position;
+    }
+    if (_.isEmpty(work.cityTown)) {
+      delete work.cityTown;
+    }
+    if (_.isEmpty(work.timePeriodFrom)) {
+      delete work.timePeriodFrom;
+    } else {
+      work.timePeriodFrom = new Date(work.timePeriodFrom).getTime();
+    }
+    if (_.isEmpty(work.timePeriodTo)) {
+      delete work.timePeriodTo;
+    } else {
+      work.timePeriodTo = new Date(work.timePeriodTo).getTime();
+    }
+    if (_.isEmpty(work.industry)) {
+      delete work.industry;
+    }
 
     if (workTrait.traits && workTrait.traits.data.length > 0) {
       const newWorkTrait = { ...workTrait };
-      newWorkTrait.traits.data.push(newWork);
+      if (isEdit) {
+        newWorkTrait.traits.data.splice(indexNo, 1);
+      }
+      newWorkTrait.traits.data.push(work);
       this.setState({ workTrait: newWorkTrait });
       updateUserTrait(handle, 'work', newWorkTrait.traits.data, tokenV3);
     } else {
       const newWorks = [];
-      newWorks.push(newWork);
+      newWorks.push(work);
       const traits = {
         data: newWorks,
       };
       this.setState({ workTrait: { traits } });
       addUserTrait(handle, 'work', newWorks, tokenV3);
     }
+    this.setState({
+      isEdit: false,
+      indexNo: null,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -288,6 +335,24 @@ export default class Work extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        indexNo: null,
+        newWork: {
+          company: '',
+          position: '',
+          cityTown: '',
+          timePeriodFrom: '',
+          timePeriodTo: '',
+          industry: '',
+        },
+      });
+    }
+  }
+
   render() {
     const {
       settingsUI,
@@ -295,6 +360,9 @@ export default class Work extends ConsentComponent {
     const {
       workTrait,
       isMobileView,
+      isEdit,
+      showConfirmation,
+      indexNo,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -307,6 +375,17 @@ export default class Work extends ConsentComponent {
       <div styleName={containerStyle}>
         {
           this.shouldRenderConsent() && this.renderConsent()
+        }
+        {
+          showConfirmation && (
+            <ConfirmationModal
+              onConfirm={() => this.showConsent(this.onDeleteWork.bind(this, indexNo))}
+              onCancel={() => this.setState({
+                showConfirmation: false,
+                indexNo: null,
+              })}
+            />
+          )
         }
         <div styleName="work-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -324,11 +403,15 @@ export default class Work extends ConsentComponent {
               <WorkList
                 workList={{ items: workItems }}
                 onDeleteItem={this.onDeleteWork}
+                onEditItem={this.onEditWork}
               />
             )
           }
           <div styleName={`sub-title ${workItems.length > 0 ? 'second' : 'first'}`}>
-            Add a new workplace
+            {
+              isEdit ? (<React.Fragment>Edit workplace</React.Fragment>)
+                : (<React.Fragment>Add a new workplace</React.Fragment>)
+            }
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
@@ -345,50 +428,46 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="position">
                     Position
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <input id="position" name="position" type="text" placeholder="Position" onChange={this.onUpdateInput} value={newWork.position} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="industry">
                     Industry
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <input id="industry" name="industry" type="text" placeholder="Industry" onChange={this.onUpdateInput} value={newWork.industry} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="cityTown">
                     City
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <input id="cityTown" name="cityTown" type="text" placeholder="City" onChange={this.onUpdateInput} value={newWork.cityTown} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="timePeriodFrom">
                     From
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
@@ -401,14 +480,13 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="timePeriodTo">
                     To
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
@@ -421,26 +499,47 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
             </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddWork}
-              >
-                Add workplace to your list
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  onClick={this.onHandleAddWork}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit workplace to your list</React.Fragment>)
+                      : (<React.Fragment>Add workplace to your list</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           <div styleName="form-container-mobile">
             <form name="work-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
-                  Add Workplace
+                  {
+                    isEdit ? (<React.Fragment>Edit Workplace</React.Fragment>)
+                      : (<React.Fragment>Add Workplace</React.Fragment>)
+                  }
                 </p>
               </div>
               <div styleName="row">
                 <div styleName="field col-1">
                   <label htmlFor="company">
                     Company
+                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
@@ -500,13 +599,30 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
             </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddWork}
-              >
-                Add Workplace
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  onClick={this.onHandleAddWork}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit Workplace</React.Fragment>)
+                      : (<React.Fragment>Add Workplace</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           {
@@ -515,6 +631,7 @@ export default class Work extends ConsentComponent {
               <WorkList
                 workList={{ items: workItems }}
                 onDeleteItem={this.onHandleDeleteWork}
+                onEditItem={this.onEditWork}
               />
             )
           }
