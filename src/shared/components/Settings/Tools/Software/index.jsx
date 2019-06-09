@@ -24,6 +24,7 @@ export default class Software extends ConsentComponent {
     super(props);
     this.onHandleDeleteSoftware = this.onHandleDeleteSoftware.bind(this);
     this.onDeleteSoftware = this.onDeleteSoftware.bind(this);
+    this.onEditSoftware = this.onEditSoftware.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadSoftwareTrait = this.loadSoftwareTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -31,6 +32,7 @@ export default class Software extends ConsentComponent {
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -46,6 +48,7 @@ export default class Software extends ConsentComponent {
       screenSM: 767,
       showConfirmation: false,
       indexNo: null,
+      isEdit: false,
     };
   }
 
@@ -153,11 +156,29 @@ export default class Software extends ConsentComponent {
   }
 
   /**
+   * Edit software by index
+   * @param indexNo the software index no
+   */
+  onEditSoftware(indexNo) {
+    const { softwareTrait } = this.state;
+    this.setState({
+      newSoftware: {
+        softwareType: softwareTrait.traits.data[indexNo].softwareType,
+        name: softwareTrait.traits.data[indexNo].name,
+      },
+      isEdit: true,
+      indexNo,
+    });
+  }
+
+  /**
    * Add new software
    * @param answer user consent answer value
    */
   onAddSoftware(answer) {
-    const { newSoftware, personalizationTrait } = this.state;
+    const {
+      newSoftware, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -168,6 +189,9 @@ export default class Software extends ConsentComponent {
     const { softwareTrait } = this.state;
     if (softwareTrait.traits && softwareTrait.traits.data.length > 0) {
       const newSoftwareTrait = { ...softwareTrait };
+      if (isEdit) {
+        newSoftwareTrait.traits.data.splice(indexNo, 1);
+      }
       newSoftwareTrait.traits.data.push(newSoftware);
       this.setState({ softwareTrait: newSoftwareTrait });
       updateUserTrait(handle, 'software', newSoftwareTrait.traits.data, tokenV3);
@@ -184,7 +208,11 @@ export default class Software extends ConsentComponent {
       softwareType: '',
       name: '',
     };
-    this.setState({ newSoftware: empty });
+    this.setState({
+      newSoftware: empty,
+      isEdit: false,
+      indexNo: null,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -255,9 +283,23 @@ export default class Software extends ConsentComponent {
     return false;
   }
 
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        indexNo: null,
+        newSoftware: {
+          softwareType: '',
+          name: '',
+        },
+      });
+    }
+  }
+
   render() {
     const {
-      softwareTrait, isMobileView, showConfirmation, indexNo,
+      softwareTrait, isMobileView, showConfirmation, indexNo, isEdit,
     } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
@@ -289,11 +331,15 @@ export default class Software extends ConsentComponent {
               softwareList={{ items: softwareItems }}
               onDeleteItem={this.onHandleDeleteSoftware}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditSoftware}
             />
           )
         }
         <div styleName={`sub-title ${softwareItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new software
+          {
+            isEdit ? (<React.Fragment>Edit software</React.Fragment>)
+              : (<React.Fragment>Add a new software</React.Fragment>)
+          }
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
@@ -335,21 +381,41 @@ export default class Software extends ConsentComponent {
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             {errorMessage}
           </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait || !isValidSoftwareForm}
-            >
-              Add software to your list
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddSoftware}
+                disabled={!canModifyTrait || !isValidSoftwareForm}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit software to your list</React.Fragment>)
+                    : (<React.Fragment>Add software to your list</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         <div styleName="form-container-mobile">
           <form name="software-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Software
+                {
+                  isEdit ? (<React.Fragment>Edit Software</React.Fragment>)
+                    : (<React.Fragment>Add Software</React.Fragment>)
+                }
               </p>
             </div>
             <div styleName="row">
@@ -384,14 +450,31 @@ export default class Software extends ConsentComponent {
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             {errorMessage}
           </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait || !isValidSoftwareForm}
-            >
-              Add Software
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddSoftware}
+                disabled={!canModifyTrait || !isValidSoftwareForm}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit Software</React.Fragment>)
+                    : (<React.Fragment>Add Software</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         {
@@ -401,6 +484,7 @@ export default class Software extends ConsentComponent {
               softwareList={{ items: softwareItems }}
               onDeleteItem={this.onHandleDeleteSoftware}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditSoftware}
             />
           )
         }

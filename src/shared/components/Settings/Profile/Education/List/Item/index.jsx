@@ -1,6 +1,7 @@
 /**
  * render education Item
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import ReactSVG from 'react-svg';
@@ -19,7 +20,17 @@ export default function Item(props) {
     education,
     index,
     onDeleteItem,
+    onEditItem,
   } = props;
+
+  const hasSecondLine = () => {
+    if (_.isEmpty(education.timePeriodFrom) && _.isEmpty(education.timePeriodTo)
+      && !education.graduated) {
+      return false;
+    }
+
+    return true;
+  };
 
   return (
     <div styleName="container">
@@ -27,39 +38,71 @@ export default function Item(props) {
         <div styleName="education-icon">
           <ReactSVG path={assets('./ico-education.svg')} />
         </div>
-        <div styleName="education-parameters">
-          <div styleName="parameter-first-line">
+        <div styleName={`education-parameters${hasSecondLine() ? '' : ' single-line'}`}>
+          <div styleName={`parameter-first-line${hasSecondLine() ? '' : ' single-line'}`}>
             { `${education.schoolCollegeName} ${education.type}` }
           </div>
-          <div styleName="parameter-second-line">
-            { `${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')}${education.graduated ? ' | Graduated' : ''}` }
-          </div>
-          <div styleName="parameter-second-line-mobile">
-            <p>
-              {`${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')}`}
-            </p>
-            {
-              education.graduated && (
-                <p>
-                Graduated
-                </p>
-              )
-            }
-          </div>
+          {
+            hasSecondLine() && (
+              <React.Fragment>
+                <div styleName="parameter-second-line">
+                  {
+                    `${!_.isEmpty(education.timePeriodFrom) && !_.isEmpty(education.timePeriodTo) && !education.graduated ? `${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')}` : ''}`
+                  }
+                  {
+                    _.isEmpty(education.timePeriodFrom) && _.isEmpty(education.timePeriodTo) && `${education.graduated ? 'Graduated' : ''}`
+                  }
+                  {
+                    !_.isEmpty(education.timePeriodFrom) && !_.isEmpty(education.timePeriodTo) && education.graduated && `${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')} | Graduated`
+                  }
+                </div>
+                <div styleName="parameter-second-line-mobile">
+                  {
+                    !_.isEmpty(education.timePeriodFrom) && !_.isEmpty(education.timePeriodTo) && (
+                      <p>
+                        {`${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')}`}
+                      </p>
+                    )
+                  }
+                  {
+                    education.graduated && (
+                      <p>
+                        Graduated
+                      </p>
+                    )
+                  }
+                </div>
+              </React.Fragment>
+            )
+          }
         </div>
       </div>
-      <a
-        styleName="delete"
-        onKeyPress={() => onDeleteItem(index)}
-        tabIndex={0}
-        role="button"
-        onClick={() => onDeleteItem(index)}
-      >
-        <img src={assets('./ico-trash.svg')} alt="delete-icon" />
-        <p>
-          Delete
-        </p>
-      </a>
+      <div styleName="operation-container">
+        <a
+          styleName="edit"
+          onKeyPress={() => onEditItem(index)}
+          tabIndex={0}
+          role="button"
+          onClick={() => onEditItem(index)}
+        >
+          <img src={assets('./ico-edit.svg')} alt="edit-icon" />
+          <p>
+            Edit
+          </p>
+        </a>
+        <a
+          styleName="delete"
+          onKeyPress={() => onDeleteItem(index)}
+          tabIndex={0}
+          role="button"
+          onClick={() => onDeleteItem(index)}
+        >
+          <img src={assets('./ico-trash.svg')} alt="delete-icon" />
+          <p>
+            Delete
+          </p>
+        </a>
+      </div>
     </div>
   );
 }
@@ -68,4 +111,5 @@ Item.propTypes = {
   education: PT.shape().isRequired,
   index: PT.number.isRequired,
   onDeleteItem: PT.func.isRequired,
+  onEditItem: PT.func.isRequired,
 };

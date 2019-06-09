@@ -211,32 +211,43 @@
   }
 }
 
-.button-save {
-  align-self: center;
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  @include upto-sm {
-    margin-top: 10px;
-  }
-
-  button,
-  a {
-    @include roboto-medium;
-
-    height: 40px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 40px;
-    margin: 0;
-    padding: 0;
-    width: 214px;
+  .button-save,
+  .button-cancel {
+    align-self: center;
 
     @include upto-sm {
-      width: 156px;
+      margin-top: 10px;
+    }
+
+    button,
+    a {
+      @include roboto-medium;
+
+      height: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 40px;
+      margin: 0;
+      padding: 0;
+      width: 214px;
+
+      @include upto-sm {
+        width: 156px;
+      }
+    }
+
+    .complete {
+      color: $tc-white;
     }
   }
 
-  .complete {
-    color: $tc-white;
+  .button-cancel {
+    margin-left: 10px;
   }
 }
 

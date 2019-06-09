@@ -23,12 +23,14 @@ export default class Hobby extends ConsentComponent {
     super(props);
     this.onHandleDeleteHobby = this.onHandleDeleteHobby.bind(this);
     this.onDeleteHobby = this.onDeleteHobby.bind(this);
+    this.onEditHobby = this.onEditHobby.bind(this);
     this.loadHobbyTrait = this.loadHobbyTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onHandleAddHobby = this.onHandleAddHobby.bind(this);
     this.onAddHobby = this.onAddHobby.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -44,6 +46,7 @@ export default class Hobby extends ConsentComponent {
       screenSM: 767,
       showConfirmation: false,
       indexNo: null,
+      isEdit: false,
     };
   }
 
@@ -99,11 +102,6 @@ export default class Hobby extends ConsentComponent {
       invalid = true;
     }
 
-    if (!_.trim(newHobby.description).length) {
-      invalidFields.push('Description');
-      invalid = true;
-    }
-
     if (invalidFields.length > 0) {
       errorMessage += invalidFields.join(', ');
       errorMessage += ' cannot be empty';
@@ -155,7 +153,9 @@ export default class Hobby extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddHobby(answer) {
-    const { newHobby, personalizationTrait, hobbyTrait } = this.state;
+    const {
+      newHobby, personalizationTrait, hobbyTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -163,16 +163,23 @@ export default class Hobby extends ConsentComponent {
       updateUserTrait,
       addUserTrait,
     } = this.props;
+    const hobby = _.clone(newHobby);
+    if (_.isEmpty(hobby.description)) {
+      delete hobby.description;
+    }
 
     // save hobby
     if (hobbyTrait.traits && hobbyTrait.traits.data.length > 0) {
       const newHobbyTrait = { ...hobbyTrait };
-      newHobbyTrait.traits.data.push(newHobby);
+      if (isEdit) {
+        newHobbyTrait.traits.data.splice(indexNo, 1);
+      }
+      newHobbyTrait.traits.data.push(hobby);
       this.setState({ hobbyTrait: newHobbyTrait });
       updateUserTrait(handle, 'hobby', newHobbyTrait.traits.data, tokenV3);
     } else {
       const newHobbies = [];
-      newHobbies.push(newHobby);
+      newHobbies.push(hobby);
       const traits = {
         data: newHobbies,
       };
@@ -183,7 +190,11 @@ export default class Hobby extends ConsentComponent {
       hobby: '',
       description: '',
     };
-    this.setState({ newHobby: empty });
+    this.setState({
+      newHobby: empty,
+      isEdit: false,
+      indexNo: null,
+    });
 
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -234,6 +245,36 @@ export default class Hobby extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  /**
+   * Edit hobby by index
+   * @param indexNo the hobby index no
+   */
+  onEditHobby(indexNo) {
+    const { hobbyTrait } = this.state;
+    this.setState({
+      newHobby: {
+        hobby: hobbyTrait.traits.data[indexNo].hobby,
+        description: _.isEmpty(hobbyTrait.traits.data[indexNo].description) ? '' : hobbyTrait.traits.data[indexNo].description,
+      },
+      isEdit: true,
+      indexNo,
+    });
+  }
+
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        indexNo: null,
+        newHobby: {
+          hobby: '',
+          description: '',
+        },
+      });
+    }
+  }
+
   render() {
     const {
       settingsUI,
@@ -241,7 +282,7 @@ export default class Hobby extends ConsentComponent {
     const {
       hobbyTrait,
       isMobileView,
-      showConfirmation, indexNo,
+      showConfirmation, indexNo, isEdit,
     } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
     const tabs = settingsUI.TABS.PROFILE;
@@ -264,6 +305,9 @@ export default class Hobby extends ConsentComponent {
           />
         )}
         <div styleName="hobby-container">
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            {errorMessage}
+          </div>
           <h1>
             Hobby
           </h1>
@@ -276,11 +320,15 @@ export default class Hobby extends ConsentComponent {
               <HobbyList
                 hobbyList={{ items: hobbyItems }}
                 onDeleteItem={this.onHandleDeleteHobby}
+                onEditItem={this.onEditHobby}
               />
             )
           }
           <div styleName={`sub-title ${hobbyItems.length > 0 ? 'second' : 'first'}`}>
-            Add a new hobby
+            {
+              isEdit ? (<React.Fragment>Edit hobby</React.Fragment>)
+                : (<React.Fragment>Add a new hobby</React.Fragment>)
+            }
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
@@ -297,7 +345,7 @@ export default class Hobby extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label styleName="description-label" htmlFor="description">
                     Description
                     <input type="hidden" />
@@ -310,37 +358,54 @@ export default class Hobby extends ConsentComponent {
                         {newHobby.description.length}
                         /160
                       </span>
-                      <span styleName="text-required">* Required</span>
                     </div>
                     <textarea disabled={!canModifyTrait} id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
                   </div>
                 </div>
               </div>
             </form>
-            <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-              {errorMessage}
-            </div>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                disabled={!canModifyTrait}
-                onClick={this.onHandleAddHobby}
-              >
-                Add hobby to your list
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  disabled={!canModifyTrait}
+                  onClick={this.onHandleAddHobby}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit hobby to your list</React.Fragment>)
+                      : (<React.Fragment>Add hobby to your list</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           <div styleName="form-container-mobile">
             <form name="hobby-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
-                  Add Hobby
+                  {
+                    isEdit ? (<React.Fragment>Edit Hobby</React.Fragment>)
+                      : (<React.Fragment>Add Hobby</React.Fragment>)
+                  }
                 </p>
               </div>
               <div styleName="row">
                 <div styleName="field row-1">
                   <label htmlFor="hobby">
                     Hobby
+                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
@@ -362,14 +427,31 @@ export default class Hobby extends ConsentComponent {
                 </div>
               </div>
             </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                disabled={!canModifyTrait}
-                onClick={this.onHandleAddHobby}
-              >
-                Add Hobby
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  disabled={!canModifyTrait}
+                  onClick={this.onHandleAddHobby}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit Hobby</React.Fragment>)
+                      : (<React.Fragment>Add Hobby</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           {
@@ -378,6 +460,7 @@ export default class Hobby extends ConsentComponent {
               <HobbyList
                 hobbyList={{ items: hobbyItems }}
                 onDeleteItem={this.onHandleDeleteHobby}
+                onEditItem={this.onEditHobby}
               />
             )
           }

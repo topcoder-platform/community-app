@@ -15,6 +15,7 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
 import dropdowns from './dropdowns.json';
+import ConfirmationModal from '../../CofirmationModal';
 import EducationList from './List';
 
 import './styles.scss';
@@ -25,6 +26,7 @@ export default class Education extends ConsentComponent {
     super(props);
     this.onHandleDeleteEducation = this.onHandleDeleteEducation.bind(this);
     this.onDeleteEducation = this.onDeleteEducation.bind(this);
+    this.onEditEducation = this.onEditEducation.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadEducationTrait = this.loadEducationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -33,6 +35,7 @@ export default class Education extends ConsentComponent {
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
     this.onUpdateDate = this.onUpdateDate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -50,6 +53,9 @@ export default class Education extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      isEdit: false,
+      indexNo: null,
+      showConfirmation: false,
     };
   }
 
@@ -100,12 +106,7 @@ export default class Education extends ConsentComponent {
     }
 
     if (!_.trim(newEducation.schoolCollegeName).length) {
-      errorMessage += 'Name, ';
-      invalid = true;
-    }
-
-    if (!_.trim(newEducation.major).length) {
-      errorMessage += 'Major, ';
+      errorMessage += 'Name of College or University, ';
       invalid = true;
     }
 
@@ -113,16 +114,19 @@ export default class Education extends ConsentComponent {
       errorMessage += ' cannot be empty';
     }
 
-    const fromDate = new Date(newEducation.timePeriodFrom).getTime();
-    const toDate = new Date(newEducation.timePeriodTo).getTime();
+    if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      const fromDate = new Date(newEducation.timePeriodFrom).getTime();
+      const toDate = new Date(newEducation.timePeriodTo).getTime();
 
-    if (fromDate > toDate) {
-      dateError += 'From Date value should be smaller than To Date value. ';
-      dateInvalid = true;
-      haveDate = true;
+      if (fromDate > toDate) {
+        dateError += 'From Date value should be smaller than To Date value. ';
+        dateInvalid = true;
+        haveDate = true;
+      }
     }
 
-    if (!haveDate) {
+    if (!haveDate
+      && !(_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo))) {
       if (!_.trim(newEducation.timePeriodFrom).length) {
         dateError += 'From Date, ';
         dateInvalid = true;
@@ -139,7 +143,6 @@ export default class Education extends ConsentComponent {
       }
     }
 
-
     if (errorMessage.length > 0) {
       errorMessage = `${errorMessage}. \n${dateError}`;
     } else if (dateError.length > 0) {
@@ -152,7 +155,10 @@ export default class Education extends ConsentComponent {
   }
 
   onHandleDeleteEducation(indexNo) {
-    this.showConsent(this.onDeleteEducation.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   onUpdateDate(date, timePeriod) {
@@ -188,6 +194,31 @@ export default class Education extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'education', tokenV3);
     }
+
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+    });
+  }
+
+  /**
+   * Edit Education by index
+   * @param indexNo the education index no
+   */
+  onEditEducation(indexNo) {
+    const { educationTrait } = this.state;
+    this.setState({
+      newEducation: {
+        type: educationTrait.traits.data[indexNo].type,
+        schoolCollegeName: educationTrait.traits.data[indexNo].schoolCollegeName,
+        major: _.isEmpty(educationTrait.traits.data[indexNo].major) ? '' : educationTrait.traits.data[indexNo].major,
+        timePeriodFrom: _.isEmpty(educationTrait.traits.data[indexNo].timePeriodFrom) ? '' : educationTrait.traits.data[indexNo].timePeriodFrom,
+        timePeriodTo: _.isEmpty(educationTrait.traits.data[indexNo].timePeriodTo) ? '' : educationTrait.traits.data[indexNo].timePeriodTo,
+        graduated: educationTrait.traits.data[indexNo].graduated,
+      },
+      isEdit: true,
+      indexNo,
+    });
   }
 
   /**
@@ -195,7 +226,9 @@ export default class Education extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddEducation(answer) {
-    const { newEducation, personalizationTrait } = this.state;
+    const {
+      newEducation, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     if (this.onCheckFormValue(newEducation)) {
       return;
@@ -210,17 +243,32 @@ export default class Education extends ConsentComponent {
 
     const { educationTrait } = this.state;
 
-    newEducation.timePeriodFrom = new Date(newEducation.timePeriodFrom).getTime();
-    newEducation.timePeriodTo = new Date(newEducation.timePeriodTo).getTime();
+    const education = _.clone(newEducation);
+    if (_.isEmpty(education.major)) {
+      delete education.major;
+    }
+    if (_.isEmpty(education.timePeriodFrom)) {
+      delete education.timePeriodFrom;
+    } else {
+      education.timePeriodFrom = new Date(newEducation.timePeriodFrom).getTime();
+    }
+    if (_.isEmpty(education.timePeriodTo)) {
+      delete education.timePeriodTo;
+    } else {
+      education.timePeriodTo = new Date(newEducation.timePeriodTo).getTime();
+    }
 
     if (educationTrait.traits && educationTrait.traits.data.length > 0) {
       const newEducationTrait = { ...educationTrait };
-      newEducationTrait.traits.data.push(newEducation);
+      if (isEdit) {
+        newEducationTrait.traits.data.splice(indexNo, 1);
+      }
+      newEducationTrait.traits.data.push(education);
       this.setState({ educationTrait: newEducationTrait });
       updateUserTrait(handle, 'education', newEducationTrait.traits.data, tokenV3);
     } else {
       const newEducations = [];
-      newEducations.push(newEducation);
+      newEducations.push(education);
       const traits = {
         data: newEducations,
       };
@@ -235,7 +283,11 @@ export default class Education extends ConsentComponent {
       timePeriodTo: '',
       graduated: false,
     };
-    this.setState({ newEducation: empty });
+    this.setState({
+      newEducation: empty,
+      isEdit: false,
+      indexNo: null,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -311,6 +363,24 @@ export default class Education extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        indexNo: null,
+        newEducation: {
+          type: '',
+          schoolCollegeName: '',
+          major: '',
+          timePeriodFrom: '',
+          timePeriodTo: '',
+          graduated: false,
+        },
+      });
+    }
+  }
+
   render() {
     const {
       settingsUI,
@@ -318,6 +388,9 @@ export default class Education extends ConsentComponent {
     const {
       educationTrait,
       isMobileView,
+      isEdit,
+      showConfirmation,
+      indexNo,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -331,6 +404,17 @@ export default class Education extends ConsentComponent {
       <div styleName={containerStyle}>
         {
           this.shouldRenderConsent() && this.renderConsent()
+        }
+        {
+          showConfirmation && (
+            <ConfirmationModal
+              onConfirm={() => this.showConsent(this.onDeleteEducation.bind(this, indexNo))}
+              onCancel={() => this.setState({
+                showConfirmation: false,
+                indexNo: null,
+              })}
+            />
+          )
         }
         <div styleName="education-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -347,12 +431,16 @@ export default class Education extends ConsentComponent {
             && (
               <EducationList
                 educationList={{ items: educationItems }}
-                onDeleteItem={this.onDeleteEducation}
+                onDeleteItem={this.onHandleDeleteEducation}
+                onEditItem={this.onEditEducation}
               />
             )
           }
           <div styleName={`sub-title ${educationItems.length > 0 ? 'second' : 'first'}`}>
-            Add a new education
+            {
+              isEdit ? (<React.Fragment>Edit education</React.Fragment>)
+                : (<React.Fragment>Add a new education</React.Fragment>)
+            }
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
@@ -380,7 +468,7 @@ export default class Education extends ConsentComponent {
               <div styleName="row">
                 <div styleName="field col-1">
                   <label htmlFor="name">
-                    Name
+                    Name of College or University
                     <input type="hidden" />
                   </label>
                 </div>
@@ -390,26 +478,24 @@ export default class Education extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="major">
                     Major
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <input id="major" name="major" type="text" placeholder="Major" onChange={this.onUpdateInput} value={newEducation.major} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="timePeriodFrom">
                     From
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
@@ -422,14 +508,13 @@ export default class Education extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-no-padding">
                   <label htmlFor="timePeriodTo">
                     To
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
@@ -467,26 +552,47 @@ export default class Education extends ConsentComponent {
                 </div>
               </div>
             </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddEducation}
-              >
-                Add education to your list
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  onClick={this.onHandleAddEducation}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit education to your list</React.Fragment>)
+                      : (<React.Fragment>Add education to your list</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           <div styleName="form-container-mobile">
             <form name="education-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
-                  Add Education
+                  {
+                    isEdit ? (<React.Fragment>Edit Education</React.Fragment>)
+                      : (<React.Fragment>Add Education</React.Fragment>)
+                  }
                 </p>
               </div>
               <div styleName="row">
                 <div styleName="field col-1">
                   <label htmlFor="type">
                     Type
+                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <Select
@@ -502,7 +608,8 @@ export default class Education extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="schoolCollegeName">
-                    Name
+                    Name of College or University
+                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <input id="schoolCollegeName" name="schoolCollegeName" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newEducation.schoolCollegeName} maxLength="64" required />
@@ -565,13 +672,30 @@ export default class Education extends ConsentComponent {
                 </div>
               </div>
             </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddEducation}
-              >
-                Add Education
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  onClick={this.onHandleAddEducation}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit Education</React.Fragment>)
+                      : (<React.Fragment>Add Education</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           {
@@ -580,6 +704,7 @@ export default class Education extends ConsentComponent {
               <EducationList
                 educationList={{ items: educationItems }}
                 onDeleteItem={this.onHandleDeleteEducation}
+                onEditItem={this.onEditEducation}
               />
             )
           }

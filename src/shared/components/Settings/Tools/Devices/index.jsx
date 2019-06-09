@@ -23,6 +23,7 @@ export default class Devices extends ConsentComponent {
     super(props);
     this.onHandleDeleteDevice = this.onHandleDeleteDevice.bind(this);
     this.onDeleteDevice = this.onDeleteDevice.bind(this);
+    this.onEditDevice = this.onEditDevice.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadDeviceTrait = this.loadDeviceTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -30,6 +31,7 @@ export default class Devices extends ConsentComponent {
     this.onAddDevice = this.onAddDevice.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -49,6 +51,7 @@ export default class Devices extends ConsentComponent {
       screenSM: 767,
       showConfirmation: false,
       indexNo: null,
+      isEdit: false,
     };
   }
 
@@ -131,11 +134,33 @@ export default class Devices extends ConsentComponent {
   }
 
   /**
+   * Edit device by index
+   * @param indexNo the device index no
+   */
+  onEditDevice(indexNo) {
+    const { deviceTrait } = this.state;
+    this.setState({
+      newDevice: {
+        deviceType: deviceTrait.traits.data[indexNo].deviceType,
+        manufacturer: _.isEmpty(deviceTrait.traits.data[indexNo].manufacturer) ? '' : deviceTrait.traits.data[indexNo].manufacturer,
+        model: _.isEmpty(deviceTrait.traits.data[indexNo].model) ? '' : deviceTrait.traits.data[indexNo].model,
+        operatingSystem: _.isEmpty(deviceTrait.traits.data[indexNo].operatingSystem) ? '' : deviceTrait.traits.data[indexNo].operatingSystem,
+        osVersion: _.isEmpty(deviceTrait.traits.data[indexNo].osVersion) ? '' : deviceTrait.traits.data[indexNo].osVersion,
+        osLanguage: _.isEmpty(deviceTrait.traits.data[indexNo].osLanguage) ? '' : deviceTrait.traits.data[indexNo].osLanguage,
+      },
+      isEdit: true,
+      indexNo,
+    });
+  }
+
+  /**
    * Add new device
    * @param answer user consent answer value
    */
   onAddDevice(answer) {
-    const { newDevice, personalizationTrait } = this.state;
+    const {
+      newDevice, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -146,14 +171,33 @@ export default class Devices extends ConsentComponent {
     const {
       deviceTrait,
     } = this.state;
+    const device = _.clone(newDevice);
+    if (_.isEmpty(device.manufacturer)) {
+      delete device.manufacturer;
+    }
+    if (_.isEmpty(device.model)) {
+      delete device.model;
+    }
+    if (_.isEmpty(device.operatingSystem)) {
+      delete device.operatingSystem;
+    }
+    if (_.isEmpty(device.osVersion)) {
+      delete device.osVersion;
+    }
+    if (_.isEmpty(device.osVersion)) {
+      delete device.osVersion;
+    }
     if (deviceTrait.traits && deviceTrait.traits.data.length > 0) {
       const newDeviceTrait = { ...deviceTrait };
-      newDeviceTrait.traits.data.push(newDevice);
+      if (isEdit) {
+        newDeviceTrait.traits.data.splice(indexNo, 1);
+      }
+      newDeviceTrait.traits.data.push(device);
       this.setState({ deviceTrait: newDeviceTrait });
       updateUserTrait(handle, 'device', newDeviceTrait.traits.data, tokenV3);
     } else {
       const newDevices = [];
-      newDevices.push(newDevice);
+      newDevices.push(device);
       const traits = {
         data: newDevices,
       };
@@ -168,7 +212,11 @@ export default class Devices extends ConsentComponent {
       osVersion: '',
       osLanguage: '',
     };
-    this.setState({ newDevice: empty });
+    this.setState({
+      newDevice: empty,
+      isEdit: false,
+      indexNo: null,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -194,31 +242,6 @@ export default class Devices extends ConsentComponent {
     const invalidFields = [];
     if (!_.trim(newDevice.deviceType).length) {
       invalidFields.push('Type');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.manufacturer).length) {
-      invalidFields.push('Manufacturer');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.model).length) {
-      invalidFields.push('Model');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.operatingSystem).length) {
-      invalidFields.push('Operating system');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.osVersion).length) {
-      invalidFields.push('OS Version');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.osLanguage).length) {
-      invalidFields.push('OS Language');
       invalid = true;
     }
 
@@ -287,9 +310,27 @@ export default class Devices extends ConsentComponent {
     return this.onCheckFormValue(newDevice, false);
   }
 
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        indexNo: null,
+        newDevice: {
+          deviceType: '',
+          manufacturer: '',
+          model: '',
+          operatingSystem: '',
+          osVersion: '',
+          osLanguage: '',
+        },
+      });
+    }
+  }
+
   render() {
     const {
-      deviceTrait, isMobileView, showConfirmation, indexNo,
+      deviceTrait, isMobileView, showConfirmation, indexNo, isEdit,
     } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
@@ -321,11 +362,15 @@ export default class Devices extends ConsentComponent {
               deviceList={{ items: deviceItems }}
               onDeleteItem={this.onHandleDeleteDevice}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditDevice}
             />
           )
         }
         <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new device
+          {
+            isEdit ? (<React.Fragment>Edit device</React.Fragment>)
+              : (<React.Fragment>Add a new device</React.Fragment>)
+          }
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
@@ -352,62 +397,57 @@ export default class Devices extends ConsentComponent {
               </div>
             </div>
             <div styleName="row">
-              <div styleName="field col-1">
+              <div styleName="field col-1-no-padding">
                 <label htmlFor="manufacturer">
                   Manufacturer
                   <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
-              <div styleName="field col-1">
+              <div styleName="field col-1-no-padding">
                 <label htmlFor="model">
                   Model
                   <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
-              <div styleName="field col-1">
+              <div styleName="field col-1-no-padding">
                 <label htmlFor="operating-system">
                   Operating System(OS)
                   <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
-              <div styleName="field col-1">
+              <div styleName="field col-1-no-padding">
                 <label htmlFor="osVersion">
                   OS Version
                   <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
-              <div styleName="field col-1">
+              <div styleName="field col-1-no-padding">
                 <label htmlFor="osLanguage">
                   OS Language
                   <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
               </div>
             </div>
@@ -415,21 +455,41 @@ export default class Devices extends ConsentComponent {
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             {errorMessage}
           </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddDevice}
-              disabled={!canModifyTrait || isInValidDeviceForm}
-            >
-              Add device to your list
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddDevice}
+                disabled={!canModifyTrait || isInValidDeviceForm}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit device to your list</React.Fragment>)
+                    : (<React.Fragment>Add device to your list</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         <div styleName="form-container-mobile">
           <form name="device-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Device
+                {
+                  isEdit ? (<React.Fragment>Edit Device</React.Fragment>)
+                    : (<React.Fragment>Add Device</React.Fragment>)
+                }
               </p>
             </div>
             <div styleName="row">
@@ -454,7 +514,6 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="manufacturer">
                   Manufacturer
-                  <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
@@ -464,7 +523,6 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-2">
                 <label htmlFor="model">
                   Model
-                  <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
@@ -472,7 +530,6 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-2">
                 <label htmlFor="operating-system">
                   Operating System
-                  <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} d="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
@@ -482,7 +539,6 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-2">
                 <label htmlFor="osVersion">
                   OS version
-                  <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
@@ -490,7 +546,6 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-2">
                 <label htmlFor="osLanguage">
                   OS Language
-                  <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
@@ -500,14 +555,31 @@ export default class Devices extends ConsentComponent {
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             {errorMessage}
           </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddDevice}
-              disabled={!canModifyTrait || isInValidDeviceForm}
-            >
-              Add Device
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddDevice}
+                disabled={!canModifyTrait || isInValidDeviceForm}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit Device</React.Fragment>)
+                    : (<React.Fragment>Add Device</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         {
@@ -517,6 +589,7 @@ export default class Devices extends ConsentComponent {
               deviceList={{ items: deviceItems }}
               onDeleteItem={this.onHandleDeleteDevice}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditDevice}
             />
           )
         }
