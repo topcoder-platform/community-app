@@ -30,8 +30,7 @@ export default function ChallengeListingRoute({
           const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
 
           let { communityId } = query;
-          if (!communityId
-          && !_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')) {
+          if (!communityId && !_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')) {
             ({ communityId } = meta);
           }
 

@@ -6,7 +6,7 @@
     "groupIds": ["20000000"]
   },
   "challengeListing": {
-    "ignoreCommunityFilterByDefault": true,
+    "ignoreCommunityFilterByDefault": false,
     "openChallengesInNewTabs": false
   },
   "communityId": "wipro",

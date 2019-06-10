@@ -3,7 +3,7 @@
     "groupIds": ["20000013"]
   },
   "challengeListing": {
-    "ignoreCommunityFilterByDefault": true
+    "ignoreCommunityFilterByDefault": false
   },
   "communityId": "veterans",
   "communityName": "Veterans Community",
