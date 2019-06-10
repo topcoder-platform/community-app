@@ -236,23 +236,23 @@ module.exports = {
           subMenu: [
             {
               title: 'Competitive programming',
-              href: 'https://www.topcoder-dev.com/community/competitive-programming',
+              href: '/community/competitive-programming',
             },
             {
               title: 'Data Science',
-              href: 'https://www.topcoder-dev.com/community/data-science/',
+              href: '/community/data-science',
             },
             {
               title: 'Design',
-              href: 'https://www.topcoder-dev.com/community/design/',
+              href: '/community/design',
             },
             {
               title: 'Development',
-              href: 'https://www.topcoder-dev.com/community/development',
+              href: '/community/development',
             },
             {
               title: 'QA',
-              href: 'https://www.topcoder-dev.com/community/qa',
+              href: '/community/qa',
             },
           ],
         },
@@ -265,7 +265,7 @@ module.exports = {
             },
             {
               title: 'Programs',
-              href: 'https://www.topcoder-dev.com/community/member-programs',
+              href: '/community/member-programs',
             },
             {
               title: 'Forums',
@@ -273,11 +273,11 @@ module.exports = {
             },
             {
               title: 'Statistics',
-              href: 'https://www.topcoder-dev.com/community/statistics',
+              href: '/community/statistics',
             },
             {
               title: 'Events',
-              href: 'https://www.topcoder-dev.com/community/events',
+              href: '/community/events',
             },
             {
               title: 'Blog',
