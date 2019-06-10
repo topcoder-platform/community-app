@@ -235,8 +235,31 @@ $challenge-radius-4: $corner-radius * 2;
     margin-left: $base-unit * 4;
   }
 
+  @keyframes placeholderAnim {
+    0% {
+      background-position: -$base-unit * 94 0;
+    }
+
+    100% {
+      background-position: $base-unit * 94 0;
+    }
+  }
+
+  .animated-placeholder-template {
+    animation-duration: 1.25s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeholderAnim;
+    animation-timing-function: linear;
+    background: $tc-gray-neutral-dark;
+    background: linear-gradient(to right, $tc-gray-neutral-dark 8%, $tc-gray-10 18%, $tc-gray-neutral-dark 33%);
+    background-size: $base-unit * 256 $base-unit * 20;
+    position: relative;
+  }
+
   .placeholder-template {
-    background: $tc-gray-10;
     border-radius: $corner-radius;
+
+    @extend .animated-placeholder-template;
   }
 }
