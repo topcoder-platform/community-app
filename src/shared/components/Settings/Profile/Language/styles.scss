@@ -55,22 +55,6 @@
   }
 }
 
-.error-message {
-  display: none;
-
-  &.active {
-    @include roboto-medium;
-
-    display: block;
-    border-radius: 5px;
-    background-color: $tc-red-10;
-    color: $tc-red-110;
-    font-size: 15px;
-    padding: 15px;
-    margin-bottom: 15px;
-  }
-}
-
 .form-container-default {
   @include form-container-default;
 
@@ -140,7 +124,8 @@
       align-content: space-between;
 
       @include upto-sm {
-        display: block;
+        display: flex;
+        flex-direction: column;
         padding-bottom: 10px;
       }
 

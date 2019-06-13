@@ -9,7 +9,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConfirmationModal from '../../CofirmationModal';
@@ -35,7 +35,7 @@ export default class Hobby extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      errorMessage: '',
+      inputChanged: false,
       hobbyTrait: this.loadHobbyTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newHobby: {
@@ -62,7 +62,7 @@ export default class Hobby extends ConsentComponent {
       hobbyTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
+      inputChanged: false,
       newHobby: {
         hobby: '',
         description: '',
@@ -81,6 +81,7 @@ export default class Hobby extends ConsentComponent {
   onHandleAddHobby(e) {
     e.preventDefault();
     const { newHobby } = this.state;
+    this.setState({ inputChanged: true });
     if (this.onCheckFormValue(newHobby)) {
       return;
     }
@@ -95,19 +96,11 @@ export default class Hobby extends ConsentComponent {
   onCheckFormValue(newHobby) {
     let invalid = false;
 
-    let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newHobby.hobby).length) {
-      invalidFields.push('Hobby');
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
-      errorMessage += ' cannot be empty';
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
+    this.setState({ formInvalid: invalid });
     return invalid;
   }
 
@@ -145,6 +138,7 @@ export default class Hobby extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
+      inputChanged: false,
     });
   }
 
@@ -175,15 +169,10 @@ export default class Hobby extends ConsentComponent {
         newHobbyTrait.traits.data.splice(indexNo, 1);
       }
       newHobbyTrait.traits.data.push(hobby);
-      this.setState({ hobbyTrait: newHobbyTrait });
       updateUserTrait(handle, 'hobby', newHobbyTrait.traits.data, tokenV3);
     } else {
       const newHobbies = [];
       newHobbies.push(hobby);
-      const traits = {
-        data: newHobbies,
-      };
-      this.setState({ hobbyTrait: { traits } });
       addUserTrait(handle, 'hobby', newHobbies, tokenV3);
     }
     const empty = {
@@ -194,6 +183,7 @@ export default class Hobby extends ConsentComponent {
       newHobby: empty,
       isEdit: false,
       indexNo: null,
+      inputChanged: false,
     });
 
     // save personalization
@@ -217,7 +207,7 @@ export default class Hobby extends ConsentComponent {
     const { newHobby: oldHobby } = this.state;
     const newHobby = { ...oldHobby };
     newHobby[e.target.name] = e.target.value;
-    this.setState({ newHobby });
+    this.setState({ newHobby, inputChanged: true });
   }
 
   /**
@@ -267,6 +257,7 @@ export default class Hobby extends ConsentComponent {
       this.setState({
         isEdit: false,
         indexNo: null,
+        inputChanged: false,
         newHobby: {
           hobby: '',
           description: '',
@@ -290,7 +281,7 @@ export default class Hobby extends ConsentComponent {
     const containerStyle = currentTab === tabs.HOBBY ? '' : 'hide';
     const hobbyItems = hobbyTrait.traits
       ? hobbyTrait.traits.data.slice() : [];
-    const { newHobby, formInvalid, errorMessage } = this.state;
+    const { newHobby, inputChanged } = this.state;
 
     return (
       <div styleName={containerStyle}>
@@ -302,12 +293,10 @@ export default class Hobby extends ConsentComponent {
           <ConfirmationModal
             onConfirm={() => this.showConsent(this.onDeleteHobby.bind(this, indexNo))}
             onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+            name={hobbyTrait.traits.data[indexNo].hobby}
           />
         )}
         <div styleName="hobby-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
           <h1>
             Hobby
           </h1>
@@ -342,6 +331,7 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
                   <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
+                  <ErrorMessage invalid={_.isEmpty(newHobby.hobby) && inputChanged} message="Hobby cannot be empty" />
                 </div>
               </div>
               <div styleName="row">
@@ -409,6 +399,7 @@ export default class Hobby extends ConsentComponent {
                     <input type="hidden" />
                   </label>
                   <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
+                  <ErrorMessage invalid={_.isEmpty(newHobby.hobby) && inputChanged} message="Hobby cannot be empty" />
                 </div>
               </div>
               <div styleName="row">

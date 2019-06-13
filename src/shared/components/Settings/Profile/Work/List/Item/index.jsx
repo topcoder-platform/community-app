@@ -42,45 +42,16 @@ export default function Item(props) {
           <div styleName={`parameter-first-line${hasSecondLine() ? '' : ' single-line'}`}>
             { `${work.company}${_.isEmpty(work.industry) ? '' : ` | ${work.industry}`}${_.isEmpty(work.cityTown) ? '' : ` | ${work.cityTown}`}` }
           </div>
-          {
-            (_.isEmpty(work.timePeriodFrom) && _.isEmpty(work.timePeriodTo)
-              && !_.isEmpty(work.position)) && (
-              <div styleName="parameter-second-line">
-                { `${work.position}` }
-              </div>
-            )
-          }
-          {
-            (!_.isEmpty(work.timePeriodFrom) && !_.isEmpty(work.timePeriodTo)
-              && !_.isEmpty(work.position)) && (
-              <div styleName="parameter-second-line">
-                { `${moment(work.timePeriodFrom).format('YYYY')} - ${moment(work.timePeriodTo).format('YYYY')} | ${work.position}` }
-              </div>
-            )
-          }
-          {
-            !_.isEmpty(work.timePeriodFrom) && !_.isEmpty(work.timePeriodTo)
-              && _.isEmpty(work.position) && (
-              <div styleName="parameter-second-line">
-                { `${moment(work.timePeriodFrom).format('YYYY')} - ${moment(work.timePeriodTo).format('YYYY')}` }
-              </div>
-            )
-          }
+          <div styleName="parameter-second-line">
+            { `${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ''}${!_.isEmpty(work.position) && (!_.isEmpty(work.timePeriodTo) || !_.isEmpty(work.timePeriodFrom)) ? ' | ' : ''}${!_.isEmpty(work.position) ? `${work.position}` : ''}${work.working ? ' Current' : ''}` }
+          </div>
           <div styleName="parameter-second-line-mobile">
-            {
-              !_.isEmpty(work.timePeriodFrom) && !_.isEmpty(work.timePeriodTo) && (
-                <p>
-                  {`${moment(work.timePeriodFrom).format('YYYY')} - ${moment(work.timePeriodTo).format('YYYY')}`}
-                </p>
-              )
-            }
-            {
-              !_.isEmpty(work.position) && (
-                <p>
-                  { work.position }
-                </p>
-              )
-            }
+            <p>
+              {`${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ''}`}
+            </p>
+            <p>
+              {`${!_.isEmpty(work.position) ? `${work.position}` : ''}${work.working ? ' Current' : ''}`}
+            </p>
           </div>
         </div>
       </div>

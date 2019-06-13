@@ -169,7 +169,8 @@ textarea {
       margin-right: 10px;
 
       @include upto-sm {
-        display: block;
+        display: flex;
+        flex-direction: column;
         padding-bottom: 10px;
       }
 
