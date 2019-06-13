@@ -13,6 +13,7 @@ import moment from 'moment';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import ConfirmationModal from '../../CofirmationModal';
 import WorkList from './List';
 
@@ -37,7 +38,7 @@ export default class Work extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      errorMessage: '',
+      inputChanged: false,
       workTrait: this.loadWorkTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newWork: {
@@ -47,6 +48,7 @@ export default class Work extends ConsentComponent {
         timePeriodFrom: '',
         timePeriodTo: '',
         industry: '',
+        working: false,
       },
       isMobileView: false,
       screenSM: 767,
@@ -68,7 +70,7 @@ export default class Work extends ConsentComponent {
       workTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
+      inputChanged: false,
       newWork: {
         company: '',
         position: '',
@@ -76,6 +78,7 @@ export default class Work extends ConsentComponent {
         timePeriodFrom: '',
         timePeriodTo: '',
         industry: '',
+        working: false,
       },
     });
   }
@@ -91,6 +94,7 @@ export default class Work extends ConsentComponent {
   onHandleAddWork(e) {
     e.preventDefault();
     const { newWork } = this.state;
+    this.setState({ inputChanged: true });
     if (this.onCheckFormValue(newWork)) {
       return;
     }
@@ -104,59 +108,113 @@ export default class Work extends ConsentComponent {
    */
   onCheckFormValue(newWork) {
     let invalid = false;
-    let dateInvalid = false;
-    let errorMessage = '';
-    let dateCount = 0;
-    let dateError = '';
     let haveDate = false;
+    const currentDate = new Date().setHours(0, 0, 0, 0);
 
     if (!_.trim(newWork.company).length) {
-      errorMessage += 'Company ';
       invalid = true;
     }
 
-    if (errorMessage.length > 0) {
-      errorMessage += ' cannot be empty';
-    }
 
     if (!_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
-      const fromDate = new Date(newWork.timePeriodFrom).getTime();
-      const toDate = new Date(newWork.timePeriodTo).getTime();
+      const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
+      const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
+      haveDate = true;
 
-      if (fromDate > toDate) {
-        dateError += 'From Date value should be smaller than To Date value. ';
-        dateInvalid = true;
-        haveDate = true;
+      if (fromDate > currentDate) {
+        invalid = true;
+      }
+
+      if (!newWork.working && toDate > currentDate) {
+        invalid = true;
       }
     }
 
-    if (!haveDate
-      && !(_.isEmpty(newWork.timePeriodFrom) && _.isEmpty(newWork.timePeriodTo))) {
-      if (!_.trim(newWork.timePeriodFrom).length) {
-        dateError += 'From Date, ';
-        dateInvalid = true;
-        dateCount += 1;
-      }
+    if (!haveDate && !(!_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo))) {
+      if (!_.isEmpty(newWork.timePeriodFrom)) {
+        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
+        if (fromDate > currentDate && newWork.working) {
+          invalid = true;
+        }
 
-      if (!_.trim(newWork.timePeriodTo).length) {
-        dateError += 'To Date, ';
-        dateInvalid = true;
-        dateCount += 1;
-      }
-      if (dateError.length > 0) {
-        dateError = `The ${dateError} ${dateCount > 1 ? 'are' : 'is'} incomplete or ${dateCount > 1 ? 'have' : 'has'} an invalid date.`;
+        if (!_.isEmpty(newWork.timePeriodTo)) {
+          const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
+          if (fromDate > toDate) {
+            invalid = true;
+          }
+          if (toDate > currentDate && !newWork.working) {
+            invalid = true;
+          }
+        }
       }
     }
 
-    if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}. \n${dateError}`;
-    } else if (dateError.length > 0) {
-      errorMessage = dateError;
-      invalid = dateInvalid;
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
+    this.setState({ formInvalid: invalid });
     return invalid;
+  }
+
+  onCheckStartDate() {
+    const { newWork } = this.state;
+    const currentDate = new Date().setHours(0, 0, 0, 0);
+    const result = {
+      invalid: false,
+      message: '',
+    };
+
+    if (newWork.working && !_.isEmpty(newWork.timePeriodFrom)) {
+      const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
+      if (fromDate > currentDate) {
+        result.invalid = true;
+        result.message = 'Start Date should be in past or current';
+      }
+    }
+
+    if (!newWork.working) {
+      if (!_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
+        let fromDate = new Date(newWork.timePeriodFrom);
+        fromDate = fromDate.setHours(0, 0, 0, 0);
+        let toDate = new Date(newWork.timePeriodTo);
+        toDate = toDate.setHours(0, 0, 0, 0);
+
+        if (fromDate >= toDate) {
+          result.invalid = true;
+          result.message = 'Start Date should be before End Date';
+        }
+      }
+    }
+
+    if (_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
+      result.invalid = true;
+      result.message = 'Due to End Date has date, Start Date should be input';
+    }
+
+    return result;
+  }
+
+  onCheckEndDate() {
+    const { newWork } = this.state;
+    const currentDate = new Date().setHours(0, 0, 0, 0);
+    const result = {
+      invalid: false,
+      message: '',
+    };
+
+    if (!newWork.working && !_.isEmpty(newWork.timePeriodTo)) {
+      const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
+
+      if (toDate > currentDate) {
+        result.invalid = true;
+        result.message = 'End Date should be in past or current';
+      }
+    }
+
+    if (!newWork.working && !_.isEmpty(newWork.timePeriodFrom) && _.isEmpty(newWork.timePeriodTo)) {
+      result.invalid = true;
+      result.message = 'Due to Start Date has date, End Date should be input';
+    }
+
+
+    return result;
   }
 
   onHandleDeleteWork(indexNo) {
@@ -171,7 +229,7 @@ export default class Work extends ConsentComponent {
       const { newWork: oldWork } = this.state;
       const newWork = { ...oldWork };
       newWork[timePeriod] = date;
-      this.setState({ newWork });
+      this.setState({ newWork, inputChanged: true });
     }
   }
 
@@ -203,6 +261,7 @@ export default class Work extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
+      inputChanged: false,
     });
   }
 
@@ -220,6 +279,7 @@ export default class Work extends ConsentComponent {
         timePeriodFrom: _.isEmpty(workTrait.traits.data[indexNo].timePeriodFrom) ? '' : workTrait.traits.data[indexNo].timePeriodFrom,
         timePeriodTo: _.isEmpty(workTrait.traits.data[indexNo].timePeriodTo) ? '' : workTrait.traits.data[indexNo].timePeriodTo,
         industry: _.isEmpty(workTrait.traits.data[indexNo].industry) ? '' : workTrait.traits.data[indexNo].industry,
+        working: workTrait.traits.data[indexNo].working,
       },
       isEdit: true,
       indexNo,
@@ -271,20 +331,16 @@ export default class Work extends ConsentComponent {
         newWorkTrait.traits.data.splice(indexNo, 1);
       }
       newWorkTrait.traits.data.push(work);
-      this.setState({ workTrait: newWorkTrait });
       updateUserTrait(handle, 'work', newWorkTrait.traits.data, tokenV3);
     } else {
       const newWorks = [];
       newWorks.push(work);
-      const traits = {
-        data: newWorks,
-      };
-      this.setState({ workTrait: { traits } });
       addUserTrait(handle, 'work', newWorks, tokenV3);
     }
     this.setState({
       isEdit: false,
       indexNo: null,
+      inputChanged: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -306,8 +362,15 @@ export default class Work extends ConsentComponent {
   onUpdateInput(e) {
     const { newWork: oldWork } = this.state;
     const newWork = { ...oldWork };
-    newWork[e.target.name] = e.target.value;
-    this.setState({ newWork });
+    if (e.target.type !== 'checkbox') {
+      newWork[e.target.name] = e.target.value;
+    } else {
+      newWork[e.target.name] = e.target.checked;
+      if (e.target.checked) {
+        newWork.timePeriodTo = '';
+      }
+    }
+    this.setState({ newWork, inputChanged: true });
   }
 
   /**
@@ -340,6 +403,7 @@ export default class Work extends ConsentComponent {
     if (isEdit) {
       this.setState({
         isEdit: false,
+        inputChanged: false,
         indexNo: null,
         newWork: {
           company: '',
@@ -348,6 +412,7 @@ export default class Work extends ConsentComponent {
           timePeriodFrom: '',
           timePeriodTo: '',
           industry: '',
+          working: false,
         },
       });
     }
@@ -369,7 +434,7 @@ export default class Work extends ConsentComponent {
     const containerStyle = currentTab === tabs.WORK ? '' : 'hide';
     const workItems = workTrait.traits
       ? workTrait.traits.data.slice() : [];
-    const { newWork, formInvalid, errorMessage } = this.state;
+    const { newWork, inputChanged } = this.state;
 
     return (
       <div styleName={containerStyle}>
@@ -384,13 +449,11 @@ export default class Work extends ConsentComponent {
                 showConfirmation: false,
                 indexNo: null,
               })}
+              name={workTrait.traits.data[indexNo].company}
             />
           )
         }
         <div styleName="work-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
-          </div>
           <h1>
             Work
           </h1>
@@ -402,7 +465,7 @@ export default class Work extends ConsentComponent {
             && (
               <WorkList
                 workList={{ items: workItems }}
-                onDeleteItem={this.onDeleteWork}
+                onDeleteItem={this.onHandleDeleteWork}
                 onEditItem={this.onEditWork}
               />
             )
@@ -416,7 +479,7 @@ export default class Work extends ConsentComponent {
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-long-text">
                   <label htmlFor="company">
                     Company
                     <input type="hidden" />
@@ -425,10 +488,11 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
+                  <ErrorMessage invalid={_.isEmpty(newWork.company) && inputChanged} message="Company cannot be empty" />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName="field col-long-text">
                   <label htmlFor="position">
                     Position
                     <input type="hidden" />
@@ -439,7 +503,7 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName="field col-long-text">
                   <label htmlFor="industry">
                     Industry
                     <input type="hidden" />
@@ -450,7 +514,7 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName="field col-long-text">
                   <label htmlFor="cityTown">
                     City
                     <input type="hidden" />
@@ -461,9 +525,9 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName="field col-long-text">
                   <label htmlFor="timePeriodFrom">
-                    From
+                    Start Date
                     <input type="hidden" />
                   </label>
                 </div>
@@ -477,17 +541,22 @@ export default class Work extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
+                  <ErrorMessage
+                    invalid={this.onCheckStartDate(newWork).invalid && inputChanged}
+                    message={this.onCheckStartDate(newWork).message}
+                  />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName="field col-long-text">
                   <label htmlFor="timePeriodTo">
-                    To
+                    End Date
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
                   <DatePicker
+                    disabled={newWork.working}
                     readOnly
                     numberOfMonths={1}
                     isOutsideRange={moment()}
@@ -496,6 +565,35 @@ export default class Work extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
                   />
+                  <ErrorMessage
+                    invalid={this.onCheckEndDate(newWork).invalid && inputChanged}
+                    message={this.onCheckEndDate(newWork).message}
+                  />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text">
+                  <label htmlFor="working">
+                    I am currently working in this role
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <div styleName="tc-checkbox">
+                    <input
+                      name="working"
+                      checked={newWork.working}
+                      id="working"
+                      onChange={this.onUpdateInput}
+                      type="checkbox"
+                    />
+                    <label htmlFor="working">
+                      <div styleName="tc-checkbox-label">
+                        &nbsp;
+                      </div>
+                      <input type="hidden" />
+                    </label>
+                  </div>
                 </div>
               </div>
             </form>
@@ -543,6 +641,7 @@ export default class Work extends ConsentComponent {
                     <input type="hidden" />
                   </label>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
+                  <ErrorMessage invalid={_.isEmpty(newWork.company) && inputChanged} message="Company cannot be empty" />
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="position">
@@ -569,7 +668,7 @@ export default class Work extends ConsentComponent {
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodFrom">
-                    From
+                    Start Date
                     <input type="hidden" />
                   </label>
                   <DatePicker
@@ -581,21 +680,49 @@ export default class Work extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
+                  <ErrorMessage
+                    invalid={this.onCheckStartDate(newWork).invalid && inputChanged}
+                    message={this.onCheckStartDate(newWork).message}
+                  />
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
-                    To
+                    End Date
                     <input type="hidden" />
                   </label>
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
+                    disabled={newWork.working}
                     isOutsideRange={moment()}
                     date={newWork.timePeriodTo}
                     id="date-to2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
                   />
+                  <ErrorMessage
+                    invalid={this.onCheckEndDate(newWork).invalid && inputChanged}
+                    message={this.onCheckEndDate(newWork).message}
+                  />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-checkbox">
+                  <div styleName="tc-checkbox">
+                    <input
+                      name="working"
+                      checked={newWork.working}
+                      id="working"
+                      onChange={this.onUpdateInput}
+                      type="checkbox"
+                    />
+                    <label htmlFor="working">
+                      <div styleName="tc-checkbox-label">
+                        I am currently working in this role
+                      </div>
+                      <input type="hidden" />
+                    </label>
+                  </div>
                 </div>
               </div>
             </form>

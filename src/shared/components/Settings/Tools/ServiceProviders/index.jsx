@@ -10,6 +10,7 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConfirmationModal from '../../CofirmationModal';
@@ -37,7 +38,7 @@ export default class ServiceProviders extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      errorMessage: '',
+      inputChanged: false,
       serviceProviderTrait: this.loadServiceProviderTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newServiceProvider: {
@@ -64,7 +65,7 @@ export default class ServiceProviders extends ConsentComponent {
       serviceProviderTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
+      inputChanged: false,
       newServiceProvider: {
         serviceProviderType: '',
         name: '',
@@ -83,6 +84,7 @@ export default class ServiceProviders extends ConsentComponent {
   onHandleAddServiceProvider(e) {
     e.preventDefault();
     const { newServiceProvider } = this.state;
+    this.setState({ inputChanged: true });
     if (this.onCheckFormValue(newServiceProvider)) {
       return;
     }
@@ -113,24 +115,15 @@ export default class ServiceProviders extends ConsentComponent {
   onCheckFormValue(newServiceProvider) {
     let invalid = false;
 
-    let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newServiceProvider.serviceProviderType).length) {
-      invalidFields.push('Type');
       invalid = true;
     }
 
     if (!_.trim(newServiceProvider.name).length) {
-      invalidFields.push('Name');
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
-      errorMessage += ' cannot be empty';
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
+    this.setState({ formInvalid: invalid });
     return invalid;
   }
 
@@ -168,6 +161,7 @@ export default class ServiceProviders extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
+      inputChanged: false,
     });
   }
 
@@ -193,15 +187,10 @@ export default class ServiceProviders extends ConsentComponent {
         newServiceProviderTrait.traits.data.splice(indexNo, 1);
       }
       newServiceProviderTrait.traits.data.push(newServiceProvider);
-      this.setState({ serviceProviderTrait: newServiceProviderTrait });
       updateUserTrait(handle, 'service_provider', newServiceProviderTrait.traits.data, tokenV3);
     } else {
       const newServiceProviders = [];
       newServiceProviders.push(newServiceProvider);
-      const traits = {
-        data: newServiceProviders,
-      };
-      this.setState({ serviceProviderTrait: { traits } });
       addUserTrait(handle, 'service_provider', newServiceProviders, tokenV3);
     }
     const empty = {
@@ -212,6 +201,7 @@ export default class ServiceProviders extends ConsentComponent {
       newServiceProvider: empty,
       isEdit: false,
       indexNo: null,
+      inputChanged: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -234,7 +224,7 @@ export default class ServiceProviders extends ConsentComponent {
     const { newServiceProvider: oldServiceProvider } = this.state;
     const newServiceProvider = { ...oldServiceProvider };
     newServiceProvider[e.target.name] = e.target.value;
-    this.setState({ newServiceProvider });
+    this.setState({ newServiceProvider, inputChanged: true });
   }
 
   /**
@@ -246,7 +236,7 @@ export default class ServiceProviders extends ConsentComponent {
       const { newServiceProvider: oldServiceProvider } = this.state;
       const newServiceProvider = { ...oldServiceProvider };
       newServiceProvider[option.key] = option.name;
-      this.setState({ newServiceProvider });
+      this.setState({ newServiceProvider, inputChanged: true });
     }
   }
 
@@ -288,6 +278,7 @@ export default class ServiceProviders extends ConsentComponent {
     if (isEdit) {
       this.setState({
         isEdit: false,
+        inputChanged: false,
         indexNo: null,
         newServiceProvider: {
           serviceProviderType: '',
@@ -300,12 +291,12 @@ export default class ServiceProviders extends ConsentComponent {
   render() {
     const {
       serviceProviderTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      inputChanged,
     } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
-    const { newServiceProvider, formInvalid, errorMessage } = this.state;
+    const { newServiceProvider } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-    const isValidServiceProviderForm = this.isFormValid();
     return (
       <div styleName="service-provider-container">
         {
@@ -316,6 +307,7 @@ export default class ServiceProviders extends ConsentComponent {
           <ConfirmationModal
             onConfirm={() => this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo))}
             onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+            name={serviceProviderTrait.traits.data[indexNo].name}
           />
         )}
         <h1>
@@ -363,6 +355,7 @@ export default class ServiceProviders extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
+                <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && inputChanged} addMargin message="Type cannot be empty" />
               </div>
             </div>
             <div styleName="row">
@@ -375,18 +368,15 @@ export default class ServiceProviders extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && inputChanged} message="Name cannot be empty" />
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
-          </div>
           <div styleName="button-container">
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddServiceProvider}
-                disabled={!canModifyTrait || !isValidServiceProviderForm}
               >
                 {
                   isEdit ? (<React.Fragment>Edit service provider to your list</React.Fragment>)
@@ -436,6 +426,7 @@ export default class ServiceProviders extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
+                <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && inputChanged} addMargin message="Type cannot be empty" />
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
@@ -444,18 +435,15 @@ export default class ServiceProviders extends ConsentComponent {
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && inputChanged} message="Name cannot be empty" />
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
-          </div>
           <div styleName="button-container">
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddServiceProvider}
-                disabled={!canModifyTrait || !isValidServiceProviderForm}
               >
                 {
                   isEdit ? (<React.Fragment>Edit Provider</React.Fragment>)

@@ -13,6 +13,7 @@ import _ from 'lodash';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import LanguageList from './List';
@@ -38,7 +39,6 @@ export default class Language extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      errorMessage: '',
       languageTrait: this.loadLanguageTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newLanguage: {
@@ -51,6 +51,7 @@ export default class Language extends ConsentComponent {
       isEdit: false,
       indexNo: null,
       showConfirmation: false,
+      inputChanged: false,
     };
   }
 
@@ -66,7 +67,6 @@ export default class Language extends ConsentComponent {
       languageTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
       newLanguage: {
         language: '',
         spokenLevel: '',
@@ -87,7 +87,7 @@ export default class Language extends ConsentComponent {
     const { newLanguage: oldLanguage } = this.state;
     const newLanguage = { ...oldLanguage };
     newLanguage[e.target.name] = e.target.value.trim();
-    this.setState({ newLanguage });
+    this.setState({ newLanguage, inputChanged: true });
   }
 
   onHandleDeleteLanguage(indexNo) {
@@ -124,6 +124,7 @@ export default class Language extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
+      inputChanged: false,
     });
   }
 
@@ -152,14 +153,8 @@ export default class Language extends ConsentComponent {
   onCheckFormValue(newLanguage) {
     let invalid = false;
 
-    let errorMessage = '';
     if (!_.trim(newLanguage.language).length) {
-      errorMessage += 'Language ';
       invalid = true;
-    }
-
-    if (errorMessage.length > 0) {
-      errorMessage += ' cannot be empty';
     }
 
     const { languageTrait, isEdit } = this.state;
@@ -169,17 +164,17 @@ export default class Language extends ConsentComponent {
       ));
       if (result && result.length > 0 && !isEdit) {
         invalid = true;
-        errorMessage += errorMessage.length > 0 ? `. Language ${newLanguage.language} has been already added.` : `Language ${newLanguage.language} has been already added.`;
       }
     }
 
-    this.setState({ errorMessage, formInvalid: invalid });
+    this.setState({ formInvalid: invalid });
     return invalid;
   }
 
   onHandleAddLanguage(e) {
     e.preventDefault();
     const { newLanguage } = this.state;
+    this.setState({ inputChanged: true });
     if (this.onCheckFormValue(newLanguage)) {
       return;
     }
@@ -219,15 +214,10 @@ export default class Language extends ConsentComponent {
 
       newLanguageTrait.traits.data.push(language);
 
-      this.setState({ languageTrait: newLanguageTrait });
       updateUserTrait(handle, 'languages', newLanguageTrait.traits.data, tokenV3);
     } else {
       const newLanguages = [];
       newLanguages.push(language);
-      const traits = {
-        data: newLanguages,
-      };
-      this.setState({ languageTrait: { traits } });
       addUserTrait(handle, 'languages', newLanguages, tokenV3);
     }
     const empty = {
@@ -239,6 +229,7 @@ export default class Language extends ConsentComponent {
       newLanguage: empty,
       isEdit: false,
       indexNo: null,
+      inputChanged: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -262,7 +253,7 @@ export default class Language extends ConsentComponent {
       const { newLanguage: oldLanguage } = this.state;
       const newLanguage = { ...oldLanguage };
       newLanguage[option.key] = option.name;
-      this.setState({ newLanguage });
+      this.setState({ newLanguage, inputChanged: true });
     }
   }
 
@@ -272,6 +263,7 @@ export default class Language extends ConsentComponent {
       this.setState({
         isEdit: false,
         indexNo: null,
+        inputChanged: false,
         newLanguage: {
           language: '',
           spokenLevel: '',
@@ -316,13 +308,14 @@ export default class Language extends ConsentComponent {
       isEdit,
       showConfirmation,
       indexNo,
+      inputChanged,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.LANGUAGE ? '' : 'hide';
     const languageItems = languageTrait.traits
       ? languageTrait.traits.data.slice() : [];
-    const { newLanguage, formInvalid, errorMessage } = this.state;
+    const { newLanguage } = this.state;
 
     return (
       <div styleName={containerStyle}>
@@ -337,13 +330,11 @@ export default class Language extends ConsentComponent {
                 showConfirmation: false,
                 indexNo: null,
               })}
+              name={languageTrait.traits.data[indexNo].language}
             />
           )
         }
         <div styleName="language-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
           <h1>
             Language
           </h1>
@@ -387,6 +378,7 @@ export default class Language extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                   />
+                  <ErrorMessage invalid={_.isEmpty(newLanguage.language) && inputChanged} addMargin message="Language cannot be empty" />
                 </div>
               </div>
               <div styleName="row">
@@ -484,6 +476,7 @@ export default class Language extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                   />
+                  <ErrorMessage invalid={_.isEmpty(newLanguage.language) && inputChanged} addMargin message="Language cannot be empty" />
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="spokenLevel">

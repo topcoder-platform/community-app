@@ -8,53 +8,6 @@ $checkbox-bg-selected: $tc-dark-blue;
   display: none;
 }
 
-.work-container {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-
-  h1 {
-    @include roboto-regular;
-
-    font-size: 28px;
-    line-height: 35px;
-    font-weight: 400;
-    color: $tc-black;
-    margin-bottom: 20px;
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-
-  .sub-title {
-    @include roboto-light;
-
-    color: #888894;
-    line-height: 35px;
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 10px;
-
-    &.second {
-      margin-top: 50px;
-      margin-bottom: 30px;
-    }
-
-    &.first {
-      margin-bottom: 30px;
-    }
-
-    &.hidden {
-      display: none;
-    }
-
-    @include upto-sm {
-      display: none;
-    }
-  }
-}
-
 .error-message {
   display: none;
 
@@ -70,6 +23,66 @@ $checkbox-bg-selected: $tc-dark-blue;
     line-height: 21px;
     padding: 12px 15px;
     white-space: pre-line;
+  }
+}
+
+.tc-checkbox {
+  height: $checkbox-size;
+  width: $checkbox-size;
+  margin-bottom: 125px;
+  position: absolute;
+  display: inline-block;
+  bottom: 0;
+
+  @include upto-sm {
+    margin-bottom: 10px;
+  }
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer !important;
+    position: absolute !important;
+    display: inline-block !important;
+    width: $checkbox-size !important;
+    height: $checkbox-size !important;
+    top: 0 !important;
+    left: 0 !important;
+    border-radius: $corner-radius !important;
+    box-shadow: none !important;
+    border: 1px solid $tc-gray-50 !important;
+    background: $tc-gray-neutral-light !important;
+
+    &::after {
+      opacity: 0;
+      content: '';
+      position: absolute;
+      width: 13px;
+      height: 7px;
+      background: transparent;
+      top: 4px;
+      left: 3px;
+      border: 3px solid $tc-dark-blue;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+    }
+
+    &:hover::after {
+      opacity: 0.3;
+    }
+  }
+
+  input[type=checkbox]:checked ~ label {
+    background: $checkbox-bg-selected;
+    border-color: $checkbox-bg-selected;
+  }
+
+  input[type=checkbox]:checked + label::after {
+    opacity: 1;
+    border-color: $tc-white;
   }
 }
 
@@ -96,6 +109,19 @@ $checkbox-bg-selected: $tc-dark-blue;
     color: $tc-red-110;
     margin-bottom: 5px;
     text-align: right;
+  }
+
+  .tc-checkbox-label {
+    display: inline-block;
+
+    @include roboto-regular;
+
+    font-size: 13px;
+    line-height: $checkbox-size;
+    vertical-align: middle;
+    margin-left: $base-unit * 6;
+    user-select: none;
+    cursor: pointer;
   }
 }
 
@@ -146,25 +172,9 @@ $checkbox-bg-selected: $tc-dark-blue;
       align-content: space-between;
 
       @include upto-sm {
-        display: block;
+        display: flex;
+        flex-direction: column;
         padding-bottom: 10px;
-      }
-
-      label {
-        @include roboto-medium;
-
-        display: block;
-        font-size: 12px;
-        line-height: 15px;
-        font-weight: 500;
-        color: $tc-gray-80;
-        margin-bottom: 5px;
-
-        .text-required {
-          font-size: 10px;
-          color: $tc-red-110;
-          margin-left: 5px;
-        }
       }
 
       .date-input {
@@ -173,6 +183,8 @@ $checkbox-bg-selected: $tc-dark-blue;
       }
 
       &.col-1,
+      &.col-long-text,
+      &.col-1-long-text,
       &.col-1-no-padding {
         width: 42%;
 
@@ -232,6 +244,28 @@ $checkbox-bg-selected: $tc-dark-blue;
           width: 100%;
         }
       }
+
+      .tc-checkbox-label {
+        display: block;
+
+        @include roboto-regular;
+
+        font-size: 13px;
+        line-height: $checkbox-size;
+        vertical-align: middle;
+        margin-left: $base-unit * 6;
+        user-select: none;
+        cursor: pointer;
+        width: 500px;
+      }
+
+      &.col-checkbox {
+        position: relative;
+
+        @include upto-sm {
+          top: 25px;
+        }
+      }
     }
   }
 
@@ -253,6 +287,53 @@ $checkbox-bg-selected: $tc-dark-blue;
   }
 }
 
+.work-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+
+    @include upto-sm {
+      display: none;
+    }
+  }
+
+  .sub-title {
+    @include roboto-light;
+
+    color: #888894;
+    line-height: 35px;
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 10px;
+
+    &.second {
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    &.first {
+      margin-bottom: 30px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    @include upto-sm {
+      display: none;
+    }
+  }
+}
+
 .button-container {
   display: flex;
   justify-content: center;
@@ -263,7 +344,7 @@ $checkbox-bg-selected: $tc-dark-blue;
     align-self: center;
 
     @include upto-sm {
-      margin-top: 10px;
+      margin-top: 30px;
     }
 
     button,

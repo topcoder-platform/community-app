@@ -10,6 +10,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import ConsentComponent from 'components/Settings/ConsentComponent';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConfirmationModal from '../../CofirmationModal';
@@ -35,6 +36,7 @@ export default class Devices extends ConsentComponent {
 
     const { userTraits } = props;
     this.state = {
+      inputChanged: false,
       formInvalid: false,
       deviceTrait: this.loadDeviceTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
@@ -46,7 +48,6 @@ export default class Devices extends ConsentComponent {
         osVersion: '',
         osLanguage: '',
       },
-      errorMessage: '',
       isMobileView: false,
       screenSM: 767,
       showConfirmation: false,
@@ -67,7 +68,7 @@ export default class Devices extends ConsentComponent {
       deviceTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
+      inputChanged: false,
       newDevice: {
         deviceType: '',
         manufacturer: '',
@@ -90,6 +91,7 @@ export default class Devices extends ConsentComponent {
   onHandleAddDevice(e) {
     e.preventDefault();
     const { newDevice } = this.state;
+    this.setState({ inputChanged: true });
     if (this.onCheckFormValue(newDevice)) {
       return;
     }
@@ -130,6 +132,7 @@ export default class Devices extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
+      inputChanged: false,
     });
   }
 
@@ -193,15 +196,10 @@ export default class Devices extends ConsentComponent {
         newDeviceTrait.traits.data.splice(indexNo, 1);
       }
       newDeviceTrait.traits.data.push(device);
-      this.setState({ deviceTrait: newDeviceTrait });
       updateUserTrait(handle, 'device', newDeviceTrait.traits.data, tokenV3);
     } else {
       const newDevices = [];
       newDevices.push(device);
-      const traits = {
-        data: newDevices,
-      };
-      this.setState({ deviceTrait: { traits } });
       addUserTrait(handle, 'device', newDevices, tokenV3);
     }
     const empty = {
@@ -216,6 +214,7 @@ export default class Devices extends ConsentComponent {
       newDevice: empty,
       isEdit: false,
       indexNo: null,
+      inputChanged: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -238,20 +237,12 @@ export default class Devices extends ConsentComponent {
   onCheckFormValue(newDevice, updateState = true) {
     let invalid = false;
 
-    let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newDevice.deviceType).length) {
-      invalidFields.push('Type');
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
-      errorMessage += ' cannot be empty';
-    }
-
     if (updateState) {
-      this.setState({ errorMessage, formInvalid: invalid });
+      this.setState({ formInvalid: invalid });
     }
     return invalid;
   }
@@ -264,7 +255,7 @@ export default class Devices extends ConsentComponent {
     const { newDevice: device } = this.state;
     const newDevice = { ...device };
     newDevice[e.target.name] = e.target.value;
-    this.setState({ newDevice });
+    this.setState({ newDevice, inputChanged: false });
   }
 
   /**
@@ -276,7 +267,7 @@ export default class Devices extends ConsentComponent {
       const { newDevice: device } = this.state;
       const newDevice = { ...device };
       newDevice[option.key] = option.name;
-      this.setState({ newDevice });
+      this.setState({ newDevice, inputChanged: true });
     }
   }
 
@@ -315,6 +306,7 @@ export default class Devices extends ConsentComponent {
     if (isEdit) {
       this.setState({
         isEdit: false,
+        inputChanged: false,
         indexNo: null,
         newDevice: {
           deviceType: '',
@@ -331,12 +323,12 @@ export default class Devices extends ConsentComponent {
   render() {
     const {
       deviceTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      inputChanged,
     } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
-    const { newDevice, formInvalid, errorMessage } = this.state;
+    const { newDevice } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-    const isInValidDeviceForm = this.isFormValid();
     return (
       <div styleName="devices-container">
         {
@@ -344,10 +336,11 @@ export default class Devices extends ConsentComponent {
         }
         {showConfirmation
         && (
-        <ConfirmationModal
-          onConfirm={() => this.showConsent(this.onDeleteDevice.bind(this, indexNo))}
-          onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
-        />
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteDevice.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+            name={`${deviceTrait.traits.data[indexNo].deviceType}${!_.isEmpty(deviceTrait.traits.data[indexNo].manufacturer) ? ` ${deviceTrait.traits.data[indexNo].manufacturer}` : ''}`}
+          />
         )}
         <h1>
           Devices
@@ -394,6 +387,7 @@ export default class Devices extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
+                <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && inputChanged} addMargin message="Type cannot be empty" />
               </div>
             </div>
             <div styleName="row">
@@ -452,15 +446,11 @@ export default class Devices extends ConsentComponent {
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
           <div styleName="button-container">
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddDevice}
-                disabled={!canModifyTrait || isInValidDeviceForm}
               >
                 {
                   isEdit ? (<React.Fragment>Edit device to your list</React.Fragment>)
@@ -510,6 +500,7 @@ export default class Devices extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
+                <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && inputChanged} addMargin message="Type cannot be empty" />
               </div>
               <div styleName="field col-1">
                 <label htmlFor="manufacturer">
@@ -552,15 +543,11 @@ export default class Devices extends ConsentComponent {
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
           <div styleName="button-container">
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddDevice}
-                disabled={!canModifyTrait || isInValidDeviceForm}
               >
                 {
                   isEdit ? (<React.Fragment>Edit Device</React.Fragment>)

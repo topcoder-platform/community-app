@@ -52,22 +52,6 @@
   }
 }
 
-.error-message {
-  display: none;
-
-  &.active {
-    @include roboto-medium;
-
-    display: block;
-    border-radius: 5px;
-    background-color: $tc-red-10;
-    color: $tc-red-110;
-    font-size: 15px;
-    padding: 15px;
-    margin: 15px 0;
-  }
-}
-
 .form-container-default {
   @include form-container-default;
 
@@ -181,22 +165,6 @@
     }
   }
 
-  .error-message {
-    display: none;
-
-    &.active {
-      @include roboto-medium;
-
-      display: block;
-      border-radius: 5px;
-      background-color: $tc-red-10;
-      color: $tc-red-110;
-      font-size: 15px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-  }
-
   .form-container {
     flex: 1;
     display: flex;
@@ -238,7 +206,8 @@
         margin-right: 10px;
 
         @include upto-sm {
-          display: block;
+          display: flex;
+          flex-direction: column;
           margin-right: 0;
           padding-bottom: 10px;
         }
