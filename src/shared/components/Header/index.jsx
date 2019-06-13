@@ -35,6 +35,8 @@ const Header = ({ profile }) => {
     normalizedProfile = null;
   }
 
+  let pathname = window.location.pathname;
+
   if (TopNavRef) {
     return (
       <div>
@@ -57,6 +59,7 @@ const Header = ({ profile }) => {
           theme={config.HEADER_MENU_THEME}
           currentLevel1Id={activeLevel1Id}
           onChangeLevel1Id={handleChangeLevel1Id}
+          path={pathname}
         />
       </div>
     );
