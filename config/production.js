@@ -66,7 +66,7 @@ module.exports = {
           subMenu: [
             {
               title: 'All challenges',
-              link: '/challenges',
+              href: '/challenges',
             },
             {
               title: 'COMPETITIVE PROGRAMMING',
@@ -139,7 +139,7 @@ module.exports = {
   ACCOUNT_MENU: [
     {
       title: 'Settings',
-      link: '/settings/profile',
+      href: '/settings/profile',
     },
     {
       title: 'Payments',
