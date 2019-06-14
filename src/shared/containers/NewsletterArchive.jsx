@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -19,13 +20,14 @@ class NewsletterArchiveContainer extends React.Component {
 
   render() {
     const {
-      loading, error, archive,
+      loading, error, archive, limit,
     } = this.props;
     if (loading) return <LoadingIndicator />;
     if (error) {
       return <span><strong>Error loading MailChimp archive:</strong> {error.message}</span>;
     }
     if (!archive || !archive.campaigns) return null;
+    if (limit > 1) archive.campaigns = _.take(archive.campaigns, limit);
     return <NewsletterArchive archive={archive} />;
   }
 }
@@ -34,6 +36,7 @@ NewsletterArchiveContainer.defaultProps = {
   loading: false,
   archive: null,
   error: null,
+  limit: null,
 };
 
 NewsletterArchiveContainer.propTypes = {
@@ -42,6 +45,7 @@ NewsletterArchiveContainer.propTypes = {
   getNewsletterArchiveDone: PT.func.isRequired,
   archive: PT.shape(),
   error: PT.shape(),
+  limit: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
