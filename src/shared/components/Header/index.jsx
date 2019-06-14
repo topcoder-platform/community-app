@@ -28,8 +28,8 @@ const Header = ({ profile }) => {
     setOpenMore(false);
   };
 
-  const handleChangeOpenMore = (openMore) => {
-    setOpenMore(openMore);
+  const handleChangeOpenMore = (changedOpenMore) => {
+    setOpenMore(changedOpenMore);
   };
 
   const handleSwitchMenu = () => {
