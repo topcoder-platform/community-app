@@ -295,7 +295,7 @@ export default class Education extends ConsentComponent {
     }
 
     if (educationTrait.traits && educationTrait.traits.data.length > 0) {
-      const newEducationTrait = { ...educationTrait };
+      const newEducationTrait = _.cloneDeep(educationTrait);
       if (isEdit) {
         newEducationTrait.traits.data.splice(indexNo, 1);
       }
