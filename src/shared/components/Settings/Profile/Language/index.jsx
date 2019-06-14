@@ -206,7 +206,7 @@ export default class Language extends ConsentComponent {
       delete language.writtenLevel;
     }
     if (languageTrait.traits && languageTrait.traits.data.length > 0) {
-      const newLanguageTrait = { ...languageTrait };
+      const newLanguageTrait = _.cloneDeep(languageTrait);
 
       if (isEdit) {
         newLanguageTrait.traits.data.splice(indexNo, 1);

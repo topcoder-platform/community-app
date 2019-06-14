@@ -108,43 +108,50 @@ export default class Work extends ConsentComponent {
    */
   onCheckFormValue(newWork) {
     let invalid = false;
-    let haveDate = false;
     const currentDate = new Date().setHours(0, 0, 0, 0);
 
     if (!_.trim(newWork.company).length) {
       invalid = true;
     }
 
-
-    if (!_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
-      const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
-      const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-      haveDate = true;
-
-      if (fromDate > currentDate) {
-        invalid = true;
+    if (newWork.working) {
+      if (!_.isEmpty(newWork.timePeriodTo)) {
+        invalid = true; // timePeriodTo should be null
       }
 
-      if (!newWork.working && toDate > currentDate) {
-        invalid = true;
-      }
-    }
-
-    if (!haveDate && !(!_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo))) {
       if (!_.isEmpty(newWork.timePeriodFrom)) {
         const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
-        if (fromDate > currentDate && newWork.working) {
-          invalid = true;
+
+        if (fromDate > currentDate) {
+          invalid = true; // Start Date should be in past or current
+        }
+      }
+    } else if (!newWork.working) {
+      if (_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
+        // If enter End Date, the other becomes mandatory.
+        // Not as per requirement, both are optional
+        invalid = true;
+      }
+
+      if (!_.isEmpty(newWork.timePeriodFrom)) {
+        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
+
+        if (fromDate > currentDate) {
+          invalid = true; // Start Date should be in past or current
         }
 
         if (!_.isEmpty(newWork.timePeriodTo)) {
           const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-          if (fromDate > toDate) {
-            invalid = true;
+          if (fromDate >= toDate) {
+            invalid = true; // Start Date should be before End Date
           }
-          if (toDate > currentDate && !newWork.working) {
-            invalid = true;
-          }
+        }
+      }
+
+      if (!_.isEmpty(newWork.timePeriodTo)) {
+        const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
+        if (toDate > currentDate) {
+          invalid = true; // End Date should be in past or current
         }
       }
     }
@@ -161,33 +168,52 @@ export default class Work extends ConsentComponent {
       message: '',
     };
 
-    if (newWork.working && !_.isEmpty(newWork.timePeriodFrom)) {
-      const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
-      if (fromDate > currentDate) {
-        result.invalid = true;
-        result.message = 'Start Date should be in past or current';
-      }
-    }
+    if (newWork.working) {
+      // if (!_.isEmpty(newWork.timePeriodTo)) {
+      //   result.invalid = true;
+      //   result.message = 'End Date should be null';
+      // }
 
-    if (!newWork.working) {
-      if (!_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
-        let fromDate = new Date(newWork.timePeriodFrom);
-        fromDate = fromDate.setHours(0, 0, 0, 0);
-        let toDate = new Date(newWork.timePeriodTo);
-        toDate = toDate.setHours(0, 0, 0, 0);
+      if (!_.isEmpty(newWork.timePeriodFrom)) {
+        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
 
-        if (fromDate >= toDate) {
+        if (fromDate > currentDate) {
           result.invalid = true;
-          result.message = 'Start Date should be before End Date';
+          result.message = 'Start Date should be in past or current';
         }
       }
-    }
+    } else if (!newWork.working) {
+      if (_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
+        // If enter End Date, the other becomes mandatory.
+        // Not as per requirement, both are optional
+        result.invalid = true;
+        result.message = 'Start Date cannot be empty';
+      }
 
-    if (_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
-      result.invalid = true;
-      result.message = 'Due to End Date has date, Start Date should be input';
-    }
+      if (!_.isEmpty(newWork.timePeriodFrom)) {
+        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
 
+        if (fromDate > currentDate) {
+          result.invalid = true;
+          result.message = 'Start Date should be in past or current';
+        }
+
+        if (!_.isEmpty(newWork.timePeriodTo)) {
+          const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
+          if (fromDate >= toDate) {
+            result.invalid = true;
+            result.message = 'Start Date should be before End Date';
+          }
+        }
+      }
+
+      // if (!_.isEmpty(newWork.timePeriodTo)) {
+      //   const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
+      //   if (toDate > currentDate) {
+      //     invalid = true; // End Date should be in past or current
+      //   }
+      // }
+    }
     return result;
   }
 
@@ -199,21 +225,18 @@ export default class Work extends ConsentComponent {
       message: '',
     };
 
-    if (!newWork.working && !_.isEmpty(newWork.timePeriodTo)) {
+    if (newWork.working) {
+      if (!_.isEmpty(newWork.timePeriodTo)) {
+        result.invalid = true;
+        result.message = 'End Date should be null';
+      }
+    } else if (!newWork.working && !_.isEmpty(newWork.timePeriodTo)) {
       const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-
       if (toDate > currentDate) {
         result.invalid = true;
         result.message = 'End Date should be in past or current';
       }
     }
-
-    if (!newWork.working && !_.isEmpty(newWork.timePeriodFrom) && _.isEmpty(newWork.timePeriodTo)) {
-      result.invalid = true;
-      result.message = 'Due to Start Date has date, End Date should be input';
-    }
-
-
     return result;
   }
 
@@ -326,7 +349,7 @@ export default class Work extends ConsentComponent {
     }
 
     if (workTrait.traits && workTrait.traits.data.length > 0) {
-      const newWorkTrait = { ...workTrait };
+      const newWorkTrait = _.cloneDeep(workTrait);
       if (isEdit) {
         newWorkTrait.traits.data.splice(indexNo, 1);
       }
@@ -532,6 +555,11 @@ export default class Work extends ConsentComponent {
                   </label>
                 </div>
                 <div styleName="field col-2">
+                  {
+                    !_.isEmpty(newWork.timePeriodTo) && !newWork.working && (
+                      <span styleName="text-required">* Required</span>
+                    )
+                  }
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
@@ -669,6 +697,11 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodFrom">
                     Start Date
+                    {
+                      !_.isEmpty(newWork.timePeriodTo) && !newWork.working && (
+                        <span styleName="text-required">* Required</span>
+                      )
+                    }
                     <input type="hidden" />
                   </label>
                   <DatePicker

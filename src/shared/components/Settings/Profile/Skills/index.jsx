@@ -93,7 +93,7 @@ export default class Skills extends ConsentComponent {
       totalPage: 0,
       isMobileView: false,
       screenSM: 767,
-      deleteSKill: null,
+      deleteSkill: null,
       deleteSelector: null,
       showConfirmation: false,
       inputChanged: false,
@@ -401,7 +401,7 @@ export default class Skills extends ConsentComponent {
     newSkill[category] = result.length > 0 ? result.slice() : [];
     deleteUserSkill(handle, skill, tokenV3);
     this.setState({
-      deleteSKill: null,
+      deleteSkill: null,
       deleteSelector: null,
       showConfirmation: false,
       inputChanged: false,

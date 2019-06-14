@@ -191,7 +191,7 @@ export default class Devices extends ConsentComponent {
       delete device.osVersion;
     }
     if (deviceTrait.traits && deviceTrait.traits.data.length > 0) {
-      const newDeviceTrait = { ...deviceTrait };
+      const newDeviceTrait = _.cloneDeep(deviceTrait);
       if (isEdit) {
         newDeviceTrait.traits.data.splice(indexNo, 1);
       }

@@ -58,7 +58,8 @@
   }
 }
 
-.parameter-second-line {
+.parameter-second-line,
+.parameter-third-line {
   color: $tc-gray-50;
   font-weight: 400;
   word-break: break-all;

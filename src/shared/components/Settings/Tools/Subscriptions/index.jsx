@@ -172,7 +172,7 @@ export default class Subscription extends ConsentComponent {
     } = this.props;
     const { subscriptionTrait } = this.state;
     if (subscriptionTrait.traits && subscriptionTrait.traits.data.length > 0) {
-      const newSubscriptionTrait = { ...subscriptionTrait };
+      const newSubscriptionTrait = _.cloneDeep(subscriptionTrait);
       if (isEdit) {
         newSubscriptionTrait.traits.data.splice(indexNo, 1);
       }

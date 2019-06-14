@@ -91,42 +91,40 @@ export default class Education extends ConsentComponent {
    */
   onCheckFormValue(newEducation) {
     let invalid = false;
-    let haveDate = false;
     const currentDate = new Date().setHours(0, 0, 0, 0);
 
     if (!_.trim(newEducation.schoolCollegeName).length) {
       invalid = true;
     }
 
+    if (_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      // If enter End Date, the other becomes mandatory.
+      // Not as per requirement, both are optional
+      invalid = true;
+    } else if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
+      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
 
-    if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      if (fromDate > currentDate) {
+        invalid = true; // Start Date should be in past or current
+      }
+    } else if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
       const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
       const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
 
-      if (fromDate > toDate) {
-        haveDate = true;
-      }
-
       if (fromDate > currentDate) {
-        haveDate = true;
+        invalid = true; // Start Date should be in past or current
       }
 
-      if ((toDate > currentDate) && newEducation.graduated) {
-        haveDate = true;
-      }
-    }
-
-    if (!haveDate
-      && !(_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo))) {
-      if (!_.trim(newEducation.timePeriodFrom).length) {
+      if (fromDate >= toDate) { // Start Date should be before End Date
         invalid = true;
       }
 
-      if (!_.trim(newEducation.timePeriodTo).length) {
-        invalid = true;
+      if (newEducation.graduated) {
+        if (toDate > currentDate) {
+          invalid = true; // End Date should be in past or current
+        }
       }
     }
-
 
     this.setState({ formInvalid: invalid });
     return invalid;
@@ -140,26 +138,32 @@ export default class Education extends ConsentComponent {
       message: '',
     };
 
-    if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
-      let fromDate = new Date(newEducation.timePeriodFrom);
-      fromDate = fromDate.setHours(0, 0, 0, 0);
-      let toDate = new Date(newEducation.timePeriodTo);
-      toDate = toDate.setHours(0, 0, 0, 0);
 
-      if (fromDate > toDate) {
-        result.invalid = true;
-        result.message = 'Start Date should be before End Date';
-      }
+    if (_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      // If enter End Date, the other becomes mandatory.
+      // Not as per requirement, both are optional
+      result.invalid = true;
+      result.message = 'Start Date cannot be empty';
+    } else if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
+      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
 
       if (fromDate > currentDate) {
         result.invalid = true;
-        result.message = result.message.length > 0 ? `${result.message} and in past or current` : 'Start Date should be in past or current';
+        result.message = 'Start Date should be in past or current';
       }
-    }
+    } else if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
+      const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
 
-    if (_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
-      result.invalid = true;
-      result.message = 'Due to End Date has date, Start Date should be input';
+      if (fromDate > currentDate) {
+        result.invalid = true;
+        result.message = 'Start Date should be in past or current';
+      }
+
+      if (fromDate >= toDate) {
+        result.invalid = true;
+        result.message = 'Start Date should be before End Date';
+      }
     }
 
     return result;
@@ -176,15 +180,10 @@ export default class Education extends ConsentComponent {
     if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
       const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
 
-      if ((toDate > currentDate) && newEducation.graduated) {
+      if (newEducation.graduated && (toDate > currentDate)) {
         result.invalid = true;
-        result.message = 'End Date (or expected) should be in past or current';
+        result.message = 'End Date should be in past or current';
       }
-    }
-
-    if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
-      result.invalid = true;
-      result.message = 'Due to Start Date has date, End Date should be input';
     }
 
     return result;
@@ -235,6 +234,7 @@ export default class Education extends ConsentComponent {
       showConfirmation: false,
       indexNo: null,
       inputChanged: false,
+      isEdit: false,
     });
   }
 
@@ -343,9 +343,6 @@ export default class Education extends ConsentComponent {
       newEducation[e.target.name] = e.target.value;
     } else {
       newEducation[e.target.name] = e.target.checked;
-      if (e.target.checked) {
-        newEducation.timePeriodTo = '';
-      }
     }
 
     this.setState({ newEducation, inputChanged: true });
@@ -507,13 +504,18 @@ export default class Education extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName={`field ${_.isEmpty(newEducation.timePeriodTo) ? 'col-1-no-padding' : 'col-1'}`}>
                   <label htmlFor="timePeriodFrom">
                     Start Date
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
+                  {
+                    !_.isEmpty(newEducation.timePeriodTo) && (
+                      <span styleName="text-required">* Required</span>
+                    )
+                  }
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
@@ -650,6 +652,11 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodFrom">
                     Start Date
+                    {
+                      !_.isEmpty(newEducation.timePeriodTo) && (
+                        <span styleName="text-required">* Required</span>
+                      )
+                    }
                     <input type="hidden" />
                   </label>
                   <DatePicker

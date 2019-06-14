@@ -25,7 +25,7 @@ export default function Item(props) {
 
   const hasSecondLine = () => {
     if (_.isEmpty(work.timePeriodFrom) && _.isEmpty(work.timePeriodTo)
-      && _.isEmpty(work.position)) {
+      && _.isEmpty(work.position) && !work.working) {
       return false;
     }
 
@@ -43,15 +43,27 @@ export default function Item(props) {
             { `${work.company}${_.isEmpty(work.industry) ? '' : ` | ${work.industry}`}${_.isEmpty(work.cityTown) ? '' : ` | ${work.cityTown}`}` }
           </div>
           <div styleName="parameter-second-line">
-            { `${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ''}${!_.isEmpty(work.position) && (!_.isEmpty(work.timePeriodTo) || !_.isEmpty(work.timePeriodFrom)) ? ' | ' : ''}${!_.isEmpty(work.position) ? `${work.position}` : ''}${work.working ? ' Current' : ''}` }
+            { `${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ''}${!_.isEmpty(work.position) && (!_.isEmpty(work.timePeriodTo) || !_.isEmpty(work.timePeriodFrom)) ? ' | ' : ''}${!_.isEmpty(work.position) ? `${work.position}` : ''}` }
           </div>
+          {
+            work.working && (
+              <div styleName="parameter-second-line">
+                Current
+              </div>
+            )
+          }
           <div styleName="parameter-second-line-mobile">
             <p>
               {`${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ''}`}
             </p>
             <p>
-              {`${!_.isEmpty(work.position) ? `${work.position}` : ''}${work.working ? ' Current' : ''}`}
+              {`${!_.isEmpty(work.position) ? `${work.position}` : ''}`}
             </p>
+            {
+              work.working && (
+                <p>Current</p>
+              )
+            }
           </div>
         </div>
       </div>
