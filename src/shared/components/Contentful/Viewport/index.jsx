@@ -23,6 +23,7 @@ import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
 import ContentSlider from 'components/Contentful/ContentSlider';
 import Dropdown from 'components/Contentful/Dropdown';
+import MemberCard from 'components/Contentful/MemberCard';
 
 import Viewport from './Viewport';
 
@@ -49,6 +50,7 @@ const COMPONENTS = {
   viewport: null, /* Assigned to ViewportLoader below. */
   contentSlider: ContentSlider,
   dropdown: Dropdown,
+  memberCard: MemberCard,
 };
 
 const THEMES = {
