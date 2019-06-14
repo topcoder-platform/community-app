@@ -182,7 +182,7 @@ export default class ServiceProviders extends ConsentComponent {
     } = this.props;
     const { serviceProviderTrait } = this.state;
     if (serviceProviderTrait.traits && serviceProviderTrait.traits.data.length > 0) {
-      const newServiceProviderTrait = { ...serviceProviderTrait };
+      const newServiceProviderTrait = _.cloneDeep(serviceProviderTrait);
       if (isEdit) {
         newServiceProviderTrait.traits.data.splice(indexNo, 1);
       }

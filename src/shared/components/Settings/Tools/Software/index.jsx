@@ -182,7 +182,7 @@ export default class Software extends ConsentComponent {
     } = this.props;
     const { softwareTrait } = this.state;
     if (softwareTrait.traits && softwareTrait.traits.data.length > 0) {
-      const newSoftwareTrait = { ...softwareTrait };
+      const newSoftwareTrait = _.cloneDeep(softwareTrait);
       if (isEdit) {
         newSoftwareTrait.traits.data.splice(indexNo, 1);
       }

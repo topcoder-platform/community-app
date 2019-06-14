@@ -164,7 +164,7 @@ export default class Hobby extends ConsentComponent {
 
     // save hobby
     if (hobbyTrait.traits && hobbyTrait.traits.data.length > 0) {
-      const newHobbyTrait = { ...hobbyTrait };
+      const newHobbyTrait = _.cloneDeep(hobbyTrait);
       if (isEdit) {
         newHobbyTrait.traits.data.splice(indexNo, 1);
       }

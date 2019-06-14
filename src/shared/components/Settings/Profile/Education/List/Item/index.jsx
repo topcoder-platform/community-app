@@ -32,6 +32,51 @@ export default function Item(props) {
     return true;
   };
 
+  const getDate = () => {
+    let start = '';
+    if (!_.isEmpty(education.timePeriodFrom)) {
+      start = moment(education.timePeriodFrom).format('YYYY');
+    }
+    let end = '';
+    if (!_.isEmpty(education.timePeriodTo)) {
+      end = moment(education.timePeriodTo).format('YYYY');
+    }
+
+    if (_.isEmpty(start) && _.isEmpty(end)) {
+      return '';
+    }
+
+    if (!_.isEmpty(start) && !_.isEmpty(end)) {
+      return `${start} - ${end} `;
+    }
+
+    if (!_.isEmpty(start) && _.isEmpty(end)) {
+      return `${start} `;
+    }
+
+    if (_.isEmpty(start) && !_.isEmpty(end)) {
+      return `${end} `;
+    }
+
+    return '';
+  };
+
+  const getGraduated = () => {
+    const date = getDate();
+    if (!_.isEmpty(date)) {
+      if (education.graduated) {
+        return '| Graduated';
+      }
+
+      return '';
+    }
+
+    if (education.graduated) {
+      return 'Graduated';
+    }
+    return '';
+  };
+
   return (
     <div styleName="container">
       <div styleName="education-info">
@@ -47,20 +92,14 @@ export default function Item(props) {
               <React.Fragment>
                 <div styleName="parameter-second-line">
                   {
-                    `${!_.isEmpty(education.timePeriodFrom) && !_.isEmpty(education.timePeriodTo) && !education.graduated ? `${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')}` : ''}`
-                  }
-                  {
-                    _.isEmpty(education.timePeriodFrom) && _.isEmpty(education.timePeriodTo) && `${education.graduated ? 'Graduated' : ''}`
-                  }
-                  {
-                    !_.isEmpty(education.timePeriodFrom) && !_.isEmpty(education.timePeriodTo) && education.graduated && `${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')} | Graduated`
+                    `${getDate()}${getGraduated()}`
                   }
                 </div>
                 <div styleName="parameter-second-line-mobile">
                   {
-                    !_.isEmpty(education.timePeriodFrom) && !_.isEmpty(education.timePeriodTo) && (
+                    !_.isEmpty(getDate()) && (
                       <p>
-                        {`${moment(education.timePeriodFrom).format('YYYY')} - ${moment(education.timePeriodTo).format('YYYY')}`}
+                        {`${getDate()}`}
                       </p>
                     )
                   }
