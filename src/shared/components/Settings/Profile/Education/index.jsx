@@ -110,15 +110,74 @@ export default class Education extends ConsentComponent {
     const endDateValidResult = validateEndDate(newEducation.graduated,
       newEducation.timePeriodFrom, newEducation.timePeriodTo);
     const formInvalid = invalid || fromDateValidResult.invalid || endDateValidResult.invalid;
+    
+    if (fromDate > currentDate) {
+        invalid = true; // Start Date should be in past or current
+      }
+    } else if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
+      const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
 
-    this.setState({
-      formInvalid,
-      startDateInvalid: fromDateValidResult.invalid,
-      startDateInvalidMsg: fromDateValidResult.message,
-      endDateInvalidMsg: endDateValidResult.message,
-      endDateInvalid: endDateValidResult.invalid,
-    });
+      if (fromDate > currentDate // Start Date is in past or current
+        || fromDate >= toDate // Start Date is before End Date
+        || (newEducation.graduated && toDate > currentDate)) { // End Date is in past or current
+        invalid = true;
+      }
+    }
 
+    this.setState({ formInvalid: invalid });
+    return invalid;
+  }
+
+  onCheckStartDate() {
+    const { newEducation } = this.state;
+    const currentDate = new Date().setHours(0, 0, 0, 0);
+    const result = {
+      invalid: false,
+      message: '',
+    };
+
+    if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
+      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
+
+      if (fromDate > currentDate) {
+        result.invalid = true;
+        result.message = 'Start Date should be in past or current';
+      }
+    } else if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
+      const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
+
+      if (fromDate > currentDate) {
+        result.invalid = true;
+        result.message = 'Start Date should be in past or current';
+      }
+
+      if (fromDate >= toDate) {
+        result.invalid = true;
+        result.message = 'Start Date should be before End Date';
+      }
+    }
+
+    return result;
+  }
+
+  onCheckEndDate() {
+    const { newEducation } = this.state;
+    const currentDate = new Date().setHours(0, 0, 0, 0);
+    const result = {
+      invalid: false,
+      message: '',
+    };
+
+    if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
+      const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
+
+      if (newEducation.graduated && (toDate > currentDate)) {
+        result.invalid = true;
+        result.message = 'End Date should be in past or current';
+      }
+    }
     return formInvalid;
   }
 
@@ -287,6 +346,13 @@ export default class Education extends ConsentComponent {
       newEducation[e.target.name] = e.target.value;
     } else {
       newEducation[e.target.name] = e.target.checked;
+      if (e.target.checked) { // if graduated and toDate is in Future, nullify it
+        const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
+        const currentDate = new Date().setHours(0, 0, 0, 0);
+        if (toDate > currentDate) {
+          newEducation.timePeriodTo = '';
+        }
+      }
     }
 
     this.setState({ newEducation, isSubmit: false });
