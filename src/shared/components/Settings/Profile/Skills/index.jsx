@@ -451,6 +451,7 @@ export default class Skills extends ConsentComponent {
       deleteSkill,
       deleteSelector,
       inputChanged,
+      formInvalid,
     } = this.state;
 
     const canModifyTrait = !this.props.traitRequestCount;
@@ -596,7 +597,7 @@ export default class Skills extends ConsentComponent {
                     value={selectedSkill.name}
                     disabled={!canModifyTrait}
                   />
-                  <ErrorMessage invalid={_.isEmpty(selectedSkill.name) && inputChanged} addMargin message="Skill cannot be empty" />
+                  <ErrorMessage invalid={_.isEmpty(selectedSkill.name) && formInvalid} addMargin message="Skill cannot be empty" />
                 </div>
               </div>
             </form>

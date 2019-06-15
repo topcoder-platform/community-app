@@ -14,11 +14,11 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
 import ErrorMessage from 'components/Settings/ErrorMessage';
+import { validateStartDate, validateEndDate } from 'utils/settings';
 import ConfirmationModal from '../../CofirmationModal';
 import WorkList from './List';
 
 import './styles.scss';
-
 
 export default class Work extends ConsentComponent {
   constructor(props) {
@@ -38,7 +38,11 @@ export default class Work extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      inputChanged: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
+      isSumbit: false,
       workTrait: this.loadWorkTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newWork: {
@@ -69,8 +73,12 @@ export default class Work extends ConsentComponent {
     this.setState({
       workTrait,
       personalizationTrait,
+      isSubmit: false,
       formInvalid: false,
-      inputChanged: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
       newWork: {
         company: '',
         position: '',
@@ -94,7 +102,7 @@ export default class Work extends ConsentComponent {
   onHandleAddWork(e) {
     e.preventDefault();
     const { newWork } = this.state;
-    this.setState({ inputChanged: true });
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newWork)) {
       return;
     }
@@ -108,117 +116,26 @@ export default class Work extends ConsentComponent {
    */
   onCheckFormValue(newWork) {
     let invalid = false;
-    const currentDate = new Date().setHours(0, 0, 0, 0);
 
     if (!_.trim(newWork.company).length) {
       invalid = true;
     }
 
-    if (newWork.working) {
-      if (!_.isEmpty(newWork.timePeriodTo)) {
-        invalid = true; // timePeriodTo should be null
-      }
+    const fromDateValidResult = validateStartDate(newWork.working,
+      newWork.timePeriodFrom, newWork.timePeriodTo);
+    const endDateValidResult = validateEndDate(newWork.working,
+      newWork.timePeriodFrom, newWork.timePeriodTo);
+    const formInvalid = invalid || fromDateValidResult.invalid || endDateValidResult.invalid;
 
-      if (!_.isEmpty(newWork.timePeriodFrom)) {
-        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
+    this.setState({
+      formInvalid,
+      startDateInvalid: fromDateValidResult.invalid,
+      startDateInvalidMsg: fromDateValidResult.message,
+      endDateInvalid: endDateValidResult.invalid,
+      endDateInvalidMsg: endDateValidResult.message,
+    });
 
-        if (fromDate > currentDate) {
-          invalid = true; // Start Date should be in past or current
-        }
-      }
-    } else if (!newWork.working) {
-      if (_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
-        // If enter End Date, the other becomes mandatory.
-        // Not as per requirement, both are optional
-        invalid = true;
-      }
-
-      if (!_.isEmpty(newWork.timePeriodFrom)) {
-        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
-
-        if (fromDate > currentDate) {
-          invalid = true; // Start Date should be in past or current
-        }
-
-        if (!_.isEmpty(newWork.timePeriodTo)) {
-          const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-          if (fromDate >= toDate) {
-            invalid = true; // Start Date should be before End Date
-          }
-        }
-      }
-
-      if (!_.isEmpty(newWork.timePeriodTo)) {
-        const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-        if (toDate > currentDate) {
-          invalid = true; // End Date should be in past or current
-        }
-      }
-    }
-
-    this.setState({ formInvalid: invalid });
-    return invalid;
-  }
-
-  onCheckStartDate() {
-    const { newWork } = this.state;
-    const currentDate = new Date().setHours(0, 0, 0, 0);
-    const result = {
-      invalid: false,
-      message: '',
-    };
-
-    if (newWork.working) {
-      if (!_.isEmpty(newWork.timePeriodFrom)) {
-        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
-
-        if (fromDate > currentDate) {
-          result.invalid = true;
-          result.message = 'Start Date should be in past or current';
-        }
-      }
-    } else if (!newWork.working) {
-      if (!_.isEmpty(newWork.timePeriodFrom)) {
-        const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
-
-        if (fromDate > currentDate) {
-          result.invalid = true;
-          result.message = 'Start Date should be in past or current';
-        }
-
-        if (!_.isEmpty(newWork.timePeriodTo)) {
-          const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-          if (fromDate >= toDate) {
-            result.invalid = true;
-            result.message = 'Start Date should be before End Date';
-          }
-        }
-      }
-    }
-    return result;
-  }
-
-  onCheckEndDate() {
-    const { newWork } = this.state;
-    const currentDate = new Date().setHours(0, 0, 0, 0);
-    const result = {
-      invalid: false,
-      message: '',
-    };
-
-    if (newWork.working) {
-      if (!_.isEmpty(newWork.timePeriodTo)) {
-        result.invalid = true;
-        result.message = 'End Date should be null';
-      }
-    } else if (!newWork.working && !_.isEmpty(newWork.timePeriodTo)) {
-      const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-      if (toDate > currentDate) {
-        result.invalid = true;
-        result.message = 'End Date should be in past or current';
-      }
-    }
-    return result;
+    return formInvalid;
   }
 
   onHandleDeleteWork(indexNo) {
@@ -233,7 +150,7 @@ export default class Work extends ConsentComponent {
       const { newWork: oldWork } = this.state;
       const newWork = { ...oldWork };
       newWork[timePeriod] = date;
-      this.setState({ newWork, inputChanged: true });
+      this.setState({ newWork, isSubmit: false });
     }
   }
 
@@ -265,7 +182,12 @@ export default class Work extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
+      formInvalid: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
     });
   }
 
@@ -287,6 +209,12 @@ export default class Work extends ConsentComponent {
       },
       isEdit: true,
       indexNo,
+      formInvalid: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
+      isSubmit: false,
     });
   }
 
@@ -344,7 +272,7 @@ export default class Work extends ConsentComponent {
     this.setState({
       isEdit: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -370,11 +298,8 @@ export default class Work extends ConsentComponent {
       newWork[e.target.name] = e.target.value;
     } else {
       newWork[e.target.name] = e.target.checked;
-      if (e.target.checked) {
-        newWork.timePeriodTo = '';
-      }
     }
-    this.setState({ newWork, inputChanged: true });
+    this.setState({ newWork, isSubmit: false });
   }
 
   /**
@@ -407,7 +332,7 @@ export default class Work extends ConsentComponent {
     if (isEdit) {
       this.setState({
         isEdit: false,
-        inputChanged: false,
+        isSubmit: false,
         indexNo: null,
         newWork: {
           company: '',
@@ -418,6 +343,11 @@ export default class Work extends ConsentComponent {
           industry: '',
           working: false,
         },
+        formInvalid: false,
+        startDateInvalid: false,
+        startDateInvalidMsg: '',
+        endDateInvalid: false,
+        endDateInvalidMsg: '',
       });
     }
   }
@@ -432,13 +362,19 @@ export default class Work extends ConsentComponent {
       isEdit,
       showConfirmation,
       indexNo,
+      formInvalid,
+      startDateInvalid,
+      startDateInvalidMsg,
+      endDateInvalid,
+      endDateInvalidMsg,
+      isSubmit,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.WORK ? '' : 'hide';
     const workItems = workTrait.traits
       ? workTrait.traits.data.slice() : [];
-    const { newWork, inputChanged } = this.state;
+    const { newWork } = this.state;
 
     return (
       <div styleName={containerStyle}>
@@ -492,7 +428,11 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
-                  <ErrorMessage invalid={_.isEmpty(newWork.company) && inputChanged} message="Company cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newWork.company)} message="Company cannot be empty" />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -545,10 +485,14 @@ export default class Work extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
-                  <ErrorMessage
-                    invalid={this.onCheckStartDate(newWork).invalid && inputChanged}
-                    message={this.onCheckStartDate(newWork).message}
-                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={startDateInvalid}
+                        message={startDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -560,7 +504,6 @@ export default class Work extends ConsentComponent {
                 </div>
                 <div styleName="field col-2">
                   <DatePicker
-                    disabled={newWork.working}
                     readOnly
                     numberOfMonths={1}
                     isOutsideRange={moment()}
@@ -569,10 +512,14 @@ export default class Work extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
                   />
-                  <ErrorMessage
-                    invalid={this.onCheckEndDate(newWork).invalid && inputChanged}
-                    message={this.onCheckEndDate(newWork).message}
-                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={endDateInvalid}
+                        message={endDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -645,7 +592,11 @@ export default class Work extends ConsentComponent {
                     <input type="hidden" />
                   </label>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
-                  <ErrorMessage invalid={_.isEmpty(newWork.company) && inputChanged} message="Company cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newWork.company)} message="Company cannot be empty" />
+                    )
+                  }
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="position">
@@ -689,10 +640,14 @@ export default class Work extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
-                  <ErrorMessage
-                    invalid={this.onCheckStartDate(newWork).invalid && inputChanged}
-                    message={this.onCheckStartDate(newWork).message}
-                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={startDateInvalid}
+                        message={startDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
@@ -709,10 +664,14 @@ export default class Work extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
                   />
-                  <ErrorMessage
-                    invalid={this.onCheckEndDate(newWork).invalid && inputChanged}
-                    message={this.onCheckEndDate(newWork).message}
-                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={endDateInvalid}
+                        message={endDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">

@@ -35,7 +35,7 @@ export default class Hobby extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      inputChanged: false,
+      isSubmit: false,
       hobbyTrait: this.loadHobbyTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newHobby: {
@@ -62,7 +62,7 @@ export default class Hobby extends ConsentComponent {
       hobbyTrait,
       personalizationTrait,
       formInvalid: false,
-      inputChanged: false,
+      isSubmit: false,
       newHobby: {
         hobby: '',
         description: '',
@@ -81,7 +81,7 @@ export default class Hobby extends ConsentComponent {
   onHandleAddHobby(e) {
     e.preventDefault();
     const { newHobby } = this.state;
-    this.setState({ inputChanged: true });
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newHobby)) {
       return;
     }
@@ -138,7 +138,7 @@ export default class Hobby extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
     });
   }
 
@@ -207,7 +207,7 @@ export default class Hobby extends ConsentComponent {
     const { newHobby: oldHobby } = this.state;
     const newHobby = { ...oldHobby };
     newHobby[e.target.name] = e.target.value;
-    this.setState({ newHobby, inputChanged: true });
+    this.setState({ newHobby, isSubmit: false });
   }
 
   /**
@@ -248,6 +248,8 @@ export default class Hobby extends ConsentComponent {
       },
       isEdit: true,
       indexNo,
+      formInvalid: false,
+      isSubmit: false,
     });
   }
 
@@ -257,7 +259,8 @@ export default class Hobby extends ConsentComponent {
       this.setState({
         isEdit: false,
         indexNo: null,
-        inputChanged: false,
+        isSubmit: false,
+        formInvalid: false,
         newHobby: {
           hobby: '',
           description: '',
@@ -273,7 +276,8 @@ export default class Hobby extends ConsentComponent {
     const {
       hobbyTrait,
       isMobileView,
-      showConfirmation, indexNo, isEdit,
+      showConfirmation, indexNo, isEdit, isSubmit,
+      formInvalid,
     } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
     const tabs = settingsUI.TABS.PROFILE;
@@ -281,7 +285,7 @@ export default class Hobby extends ConsentComponent {
     const containerStyle = currentTab === tabs.HOBBY ? '' : 'hide';
     const hobbyItems = hobbyTrait.traits
       ? hobbyTrait.traits.data.slice() : [];
-    const { newHobby, inputChanged } = this.state;
+    const { newHobby } = this.state;
 
     return (
       <div styleName={containerStyle}>
@@ -331,7 +335,11 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
                   <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
-                  <ErrorMessage invalid={_.isEmpty(newHobby.hobby) && inputChanged} message="Hobby cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newHobby.hobby)} message="Hobby cannot be empty" />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -399,7 +407,11 @@ export default class Hobby extends ConsentComponent {
                     <input type="hidden" />
                   </label>
                   <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
-                  <ErrorMessage invalid={_.isEmpty(newHobby.hobby) && inputChanged} message="Hobby cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newHobby.hobby)} message="Hobby cannot be empty" />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">

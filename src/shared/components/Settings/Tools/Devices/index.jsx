@@ -36,7 +36,7 @@ export default class Devices extends ConsentComponent {
 
     const { userTraits } = props;
     this.state = {
-      inputChanged: false,
+      isSubmit: false,
       formInvalid: false,
       deviceTrait: this.loadDeviceTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
@@ -68,7 +68,7 @@ export default class Devices extends ConsentComponent {
       deviceTrait,
       personalizationTrait,
       formInvalid: false,
-      inputChanged: false,
+      isSubmit: false,
       newDevice: {
         deviceType: '',
         manufacturer: '',
@@ -91,7 +91,7 @@ export default class Devices extends ConsentComponent {
   onHandleAddDevice(e) {
     e.preventDefault();
     const { newDevice } = this.state;
-    this.setState({ inputChanged: true });
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newDevice)) {
       return;
     }
@@ -132,7 +132,8 @@ export default class Devices extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
+      formInvalid: false,
     });
   }
 
@@ -153,6 +154,7 @@ export default class Devices extends ConsentComponent {
       },
       isEdit: true,
       indexNo,
+      isSubmit: false,
     });
   }
 
@@ -214,7 +216,7 @@ export default class Devices extends ConsentComponent {
       newDevice: empty,
       isEdit: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -255,7 +257,7 @@ export default class Devices extends ConsentComponent {
     const { newDevice: device } = this.state;
     const newDevice = { ...device };
     newDevice[e.target.name] = e.target.value;
-    this.setState({ newDevice, inputChanged: false });
+    this.setState({ newDevice, isSubmit: false });
   }
 
   /**
@@ -267,7 +269,10 @@ export default class Devices extends ConsentComponent {
       const { newDevice: device } = this.state;
       const newDevice = { ...device };
       newDevice[option.key] = option.name;
-      this.setState({ newDevice, inputChanged: true });
+      this.setState({
+        newDevice,
+        isSubmit: false,
+      });
     }
   }
 
@@ -306,8 +311,9 @@ export default class Devices extends ConsentComponent {
     if (isEdit) {
       this.setState({
         isEdit: false,
-        inputChanged: false,
+        isSubmit: false,
         indexNo: null,
+        formInvalid: false,
         newDevice: {
           deviceType: '',
           manufacturer: '',
@@ -323,7 +329,7 @@ export default class Devices extends ConsentComponent {
   render() {
     const {
       deviceTrait, isMobileView, showConfirmation, indexNo, isEdit,
-      inputChanged,
+      formInvalid, isSubmit,
     } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
@@ -387,7 +393,11 @@ export default class Devices extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
-                <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && inputChanged} addMargin message="Type cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
             </div>
             <div styleName="row">
@@ -500,7 +510,11 @@ export default class Devices extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
-                <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && inputChanged} addMargin message="Type cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
               <div styleName="field col-1">
                 <label htmlFor="manufacturer">

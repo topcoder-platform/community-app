@@ -38,7 +38,7 @@ export default class Software extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      inputChanged: false,
+      isSubmit: false,
       softwareTrait: this.loadSoftwareTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newSoftware: {
@@ -65,7 +65,7 @@ export default class Software extends ConsentComponent {
       softwareTrait,
       personalizationTrait,
       formInvalid: false,
-      inputChanged: false,
+      isSubmit: false,
       newSoftware: {
         softwareType: '',
         name: '',
@@ -84,7 +84,7 @@ export default class Software extends ConsentComponent {
   onHandleAddSoftware(e) {
     e.preventDefault();
     const { newSoftware } = this.state;
-    this.setState({ inputChanged: true });
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newSoftware)) {
       return;
     }
@@ -115,6 +115,7 @@ export default class Software extends ConsentComponent {
     this.setState({
       showConfirmation: true,
       indexNo,
+      isSubmit: false,
     });
   }
 
@@ -145,7 +146,8 @@ export default class Software extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
+      formInvalid: false,
     });
   }
 
@@ -162,6 +164,7 @@ export default class Software extends ConsentComponent {
       },
       isEdit: true,
       indexNo,
+      isSubmit: false,
     });
   }
 
@@ -202,6 +205,7 @@ export default class Software extends ConsentComponent {
       isEdit: false,
       indexNo: null,
       inputChanged: false,
+      isSubmit: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -224,7 +228,7 @@ export default class Software extends ConsentComponent {
     const { newSoftware: oldSoftware } = this.state;
     const newSoftware = { ...oldSoftware };
     newSoftware[e.target.name] = e.target.value;
-    this.setState({ newSoftware, inputChanged: true });
+    this.setState({ newSoftware, isSubmit: false });
   }
 
   /**
@@ -236,7 +240,7 @@ export default class Software extends ConsentComponent {
       const { newSoftware: oldSoftware } = this.state;
       const newSoftware = { ...oldSoftware };
       newSoftware[option.key] = option.name;
-      this.setState({ newSoftware, inputChanged: true });
+      this.setState({ newSoftware, isSubmit: false });
     }
   }
 
@@ -280,10 +284,12 @@ export default class Software extends ConsentComponent {
         isEdit: false,
         indexNo: null,
         inputChanged: false,
+        formInvalid: false,
         newSoftware: {
           softwareType: '',
           name: '',
         },
+        isSubmit: false,
       });
     }
   }
@@ -291,7 +297,7 @@ export default class Software extends ConsentComponent {
   render() {
     const {
       softwareTrait, isMobileView, showConfirmation, indexNo, isEdit,
-      inputChanged,
+      formInvalid, isSubmit,
     } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
@@ -355,7 +361,11 @@ export default class Software extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
-                <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && inputChanged} addMargin message="Type cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
             </div>
             <div styleName="row">
@@ -368,7 +378,11 @@ export default class Software extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newSoftware.name) && inputChanged} message="Name cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>
@@ -426,7 +440,11 @@ export default class Software extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
-                <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && inputChanged} addMargin message="Type cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
@@ -435,7 +453,11 @@ export default class Software extends ConsentComponent {
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newSoftware.name) && inputChanged} message="Name cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>

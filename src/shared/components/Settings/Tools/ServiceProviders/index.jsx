@@ -38,7 +38,7 @@ export default class ServiceProviders extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      inputChanged: false,
+      isSubmit: false,
       serviceProviderTrait: this.loadServiceProviderTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newServiceProvider: {
@@ -65,7 +65,7 @@ export default class ServiceProviders extends ConsentComponent {
       serviceProviderTrait,
       personalizationTrait,
       formInvalid: false,
-      inputChanged: false,
+      isSubmit: false,
       newServiceProvider: {
         serviceProviderType: '',
         name: '',
@@ -84,7 +84,7 @@ export default class ServiceProviders extends ConsentComponent {
   onHandleAddServiceProvider(e) {
     e.preventDefault();
     const { newServiceProvider } = this.state;
-    this.setState({ inputChanged: true });
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newServiceProvider)) {
       return;
     }
@@ -104,6 +104,7 @@ export default class ServiceProviders extends ConsentComponent {
       },
       isEdit: true,
       indexNo,
+      isSubmit: false,
     });
   }
 
@@ -161,7 +162,8 @@ export default class ServiceProviders extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
-      inputChanged: false,
+      formInvalid: false,
+      isSubmit: false,
     });
   }
 
@@ -201,7 +203,7 @@ export default class ServiceProviders extends ConsentComponent {
       newServiceProvider: empty,
       isEdit: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -224,7 +226,7 @@ export default class ServiceProviders extends ConsentComponent {
     const { newServiceProvider: oldServiceProvider } = this.state;
     const newServiceProvider = { ...oldServiceProvider };
     newServiceProvider[e.target.name] = e.target.value;
-    this.setState({ newServiceProvider, inputChanged: true });
+    this.setState({ newServiceProvider, isSubmit: false });
   }
 
   /**
@@ -236,7 +238,7 @@ export default class ServiceProviders extends ConsentComponent {
       const { newServiceProvider: oldServiceProvider } = this.state;
       const newServiceProvider = { ...oldServiceProvider };
       newServiceProvider[option.key] = option.name;
-      this.setState({ newServiceProvider, inputChanged: true });
+      this.setState({ newServiceProvider, isSubmit: false });
     }
   }
 
@@ -278,8 +280,9 @@ export default class ServiceProviders extends ConsentComponent {
     if (isEdit) {
       this.setState({
         isEdit: false,
-        inputChanged: false,
+        isSubmit: false,
         indexNo: null,
+        formInvalid: false,
         newServiceProvider: {
           serviceProviderType: '',
           name: '',
@@ -291,7 +294,7 @@ export default class ServiceProviders extends ConsentComponent {
   render() {
     const {
       serviceProviderTrait, isMobileView, showConfirmation, indexNo, isEdit,
-      inputChanged,
+      formInvalid, isSubmit,
     } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
@@ -355,7 +358,11 @@ export default class ServiceProviders extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
-                <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && inputChanged} addMargin message="Type cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
             </div>
             <div styleName="row">
@@ -368,7 +375,11 @@ export default class ServiceProviders extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && inputChanged} message="Name cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>
@@ -426,7 +437,11 @@ export default class ServiceProviders extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
-                <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && inputChanged} addMargin message="Type cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
@@ -435,7 +450,11 @@ export default class ServiceProviders extends ConsentComponent {
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && inputChanged} message="Name cannot be empty" />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>
