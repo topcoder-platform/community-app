@@ -411,7 +411,7 @@ export default class Software extends ConsentComponent {
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="softwareType">
-                  Software Type
+                  Type
                   <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
@@ -426,7 +426,7 @@ export default class Software extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
-                <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && inputChanged} addMargin message="Software Type cannot be empty" />
+                <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && inputChanged} addMargin message="Type cannot be empty" />
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">

@@ -169,11 +169,6 @@ export default class Work extends ConsentComponent {
     };
 
     if (newWork.working) {
-      // if (!_.isEmpty(newWork.timePeriodTo)) {
-      //   result.invalid = true;
-      //   result.message = 'End Date should be null';
-      // }
-
       if (!_.isEmpty(newWork.timePeriodFrom)) {
         const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
 
@@ -183,13 +178,6 @@ export default class Work extends ConsentComponent {
         }
       }
     } else if (!newWork.working) {
-      if (_.isEmpty(newWork.timePeriodFrom) && !_.isEmpty(newWork.timePeriodTo)) {
-        // If enter End Date, the other becomes mandatory.
-        // Not as per requirement, both are optional
-        result.invalid = true;
-        result.message = 'Start Date cannot be empty';
-      }
-
       if (!_.isEmpty(newWork.timePeriodFrom)) {
         const fromDate = new Date(newWork.timePeriodFrom).setHours(0, 0, 0, 0);
 
@@ -206,13 +194,6 @@ export default class Work extends ConsentComponent {
           }
         }
       }
-
-      // if (!_.isEmpty(newWork.timePeriodTo)) {
-      //   const toDate = new Date(newWork.timePeriodTo).setHours(0, 0, 0, 0);
-      //   if (toDate > currentDate) {
-      //     invalid = true; // End Date should be in past or current
-      //   }
-      // }
     }
     return result;
   }
@@ -555,11 +536,6 @@ export default class Work extends ConsentComponent {
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  {
-                    !_.isEmpty(newWork.timePeriodTo) && !newWork.working && (
-                      <span styleName="text-required">* Required</span>
-                    )
-                  }
                   <DatePicker
                     readOnly
                     numberOfMonths={1}

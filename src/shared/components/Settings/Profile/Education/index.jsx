@@ -97,11 +97,7 @@ export default class Education extends ConsentComponent {
       invalid = true;
     }
 
-    if (_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
-      // If enter End Date, the other becomes mandatory.
-      // Not as per requirement, both are optional
-      invalid = true;
-    } else if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
+    if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
       const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
 
       if (fromDate > currentDate) {
@@ -111,18 +107,11 @@ export default class Education extends ConsentComponent {
       const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
       const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
 
-      if (fromDate > currentDate) {
-        invalid = true; // Start Date should be in past or current
-      }
+      if (fromDate > currentDate  // Start Date is in past or current
+        || fromDate >= toDate  // Start Date is before End Date
+        || (newEducation.graduated && toDate > currentDate)) { // End Date is in past or current 
 
-      if (fromDate >= toDate) { // Start Date should be before End Date
         invalid = true;
-      }
-
-      if (newEducation.graduated) {
-        if (toDate > currentDate) {
-          invalid = true; // End Date should be in past or current
-        }
       }
     }
 
@@ -138,13 +127,7 @@ export default class Education extends ConsentComponent {
       message: '',
     };
 
-
-    if (_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
-      // If enter End Date, the other becomes mandatory.
-      // Not as per requirement, both are optional
-      result.invalid = true;
-      result.message = 'Start Date cannot be empty';
-    } else if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
+    if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
       const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
 
       if (fromDate > currentDate) {
@@ -343,6 +326,13 @@ export default class Education extends ConsentComponent {
       newEducation[e.target.name] = e.target.value;
     } else {
       newEducation[e.target.name] = e.target.checked;
+      if(e.target.checked) { // if gradated and toDate is in Future, nullify it
+        const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
+        const currentDate = new Date().setHours(0, 0, 0, 0);
+        if (toDate > currentDate) {
+          newEducation.timePeriodTo = ''
+        }
+      }
     }
 
     this.setState({ newEducation, inputChanged: true });
@@ -511,11 +501,6 @@ export default class Education extends ConsentComponent {
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  {
-                    !_.isEmpty(newEducation.timePeriodTo) && (
-                      <span styleName="text-required">* Required</span>
-                    )
-                  }
                   <DatePicker
                     readOnly
                     numberOfMonths={1}

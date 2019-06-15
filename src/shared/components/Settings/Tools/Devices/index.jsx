@@ -485,7 +485,7 @@ export default class Devices extends ConsentComponent {
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="deviceType">
-                  Device Type
+                  Type
                   <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
