@@ -667,7 +667,6 @@ export default class Work extends ConsentComponent {
                     readOnly
                     disabled={endDateDisabled}
                     numberOfMonths={1}
-                    disabled={newWork.working}
                     isOutsideRange={moment()}
                     date={newWork.timePeriodTo}
                     id="date-to2"
