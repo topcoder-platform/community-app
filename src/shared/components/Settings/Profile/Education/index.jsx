@@ -110,7 +110,7 @@ export default class Education extends ConsentComponent {
     const endDateValidResult = validateEndDate(newEducation.graduated,
       newEducation.timePeriodFrom, newEducation.timePeriodTo);
     const formInvalid = invalid || fromDateValidResult.invalid || endDateValidResult.invalid;
-    
+
     this.setState({
       formInvalid,
       startDateInvalid: fromDateValidResult.invalid,
