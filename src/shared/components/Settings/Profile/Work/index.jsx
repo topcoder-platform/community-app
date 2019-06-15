@@ -41,6 +41,7 @@ export default class Work extends ConsentComponent {
       startDateInvalid: false,
       startDateInvalidMsg: '',
       endDateInvalid: false,
+      endDateDisabled: false,
       endDateInvalidMsg: '',
       isSumbit: false,
       workTrait: this.loadWorkTrait(userTraits),
@@ -78,6 +79,7 @@ export default class Work extends ConsentComponent {
       startDateInvalid: false,
       startDateInvalidMsg: '',
       endDateInvalid: false,
+      endDateDisabled: false,
       endDateInvalidMsg: '',
       newWork: {
         company: '',
@@ -187,6 +189,7 @@ export default class Work extends ConsentComponent {
       startDateInvalid: false,
       startDateInvalidMsg: '',
       endDateInvalid: false,
+      endDateDisabled: false,
       endDateInvalidMsg: '',
     });
   }
@@ -213,6 +216,7 @@ export default class Work extends ConsentComponent {
       startDateInvalid: false,
       startDateInvalidMsg: '',
       endDateInvalid: false,
+      endDateDisabled: false,
       endDateInvalidMsg: '',
       isSubmit: false,
     });
@@ -294,12 +298,19 @@ export default class Work extends ConsentComponent {
   onUpdateInput(e) {
     const { newWork: oldWork } = this.state;
     const newWork = { ...oldWork };
+    let endDateDisabled = false;
     if (e.target.type !== 'checkbox') {
       newWork[e.target.name] = e.target.value;
     } else {
       newWork[e.target.name] = e.target.checked;
+      if (e.target.checked) { // if working nullify toDate
+        newWork.timePeriodTo = '';
+        endDateDisabled = true;
+      } else {
+        endDateDisabled = false;
+      }
     }
-    this.setState({ newWork, isSubmit: false });
+    this.setState({ newWork, isSubmit: false, endDateDisabled });
   }
 
   /**
@@ -347,6 +358,7 @@ export default class Work extends ConsentComponent {
         startDateInvalid: false,
         startDateInvalidMsg: '',
         endDateInvalid: false,
+        endDateDisabled: false,
         endDateInvalidMsg: '',
       });
     }
@@ -366,6 +378,7 @@ export default class Work extends ConsentComponent {
       startDateInvalid,
       startDateInvalidMsg,
       endDateInvalid,
+      endDateDisabled,
       endDateInvalidMsg,
       isSubmit,
     } = this.state;
@@ -505,6 +518,7 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-2">
                   <DatePicker
                     readOnly
+                    disabled={endDateDisabled}
                     numberOfMonths={1}
                     isOutsideRange={moment()}
                     date={newWork.timePeriodTo}
@@ -624,11 +638,6 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodFrom">
                     Start Date
-                    {
-                      !_.isEmpty(newWork.timePeriodTo) && !newWork.working && (
-                        <span styleName="text-required">* Required</span>
-                      )
-                    }
                     <input type="hidden" />
                   </label>
                   <DatePicker
@@ -656,6 +665,7 @@ export default class Work extends ConsentComponent {
                   </label>
                   <DatePicker
                     readOnly
+                    disabled={endDateDisabled}
                     numberOfMonths={1}
                     disabled={newWork.working}
                     isOutsideRange={moment()}
