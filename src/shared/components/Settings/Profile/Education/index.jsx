@@ -14,6 +14,7 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
 import ErrorMessage from 'components/Settings/ErrorMessage';
+import { validateStartDate, validateEndDate } from 'utils/settings';
 import ConfirmationModal from '../../CofirmationModal';
 import EducationList from './List';
 
@@ -39,6 +40,10 @@ export default class Education extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
       educationTrait: this.loadEducationTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newEducation: {
@@ -48,7 +53,7 @@ export default class Education extends ConsentComponent {
         timePeriodTo: '',
         graduated: false,
       },
-      inputChanged: false,
+      isSubmit: false,
       isMobileView: false,
       screenSM: 767,
       isEdit: false,
@@ -69,7 +74,11 @@ export default class Education extends ConsentComponent {
       educationTrait,
       personalizationTrait,
       formInvalid: false,
-      inputChanged: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
+      isSubmit: false,
       newEducation: {
         schoolCollegeName: '',
         major: '',
@@ -91,30 +100,24 @@ export default class Education extends ConsentComponent {
    */
   onCheckFormValue(newEducation) {
     let invalid = false;
-    const currentDate = new Date().setHours(0, 0, 0, 0);
 
     if (!_.trim(newEducation.schoolCollegeName).length) {
       invalid = true;
     }
 
-    if (!_.isEmpty(newEducation.timePeriodFrom) && _.isEmpty(newEducation.timePeriodTo)) {
-      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
+    const fromDateValidResult = validateStartDate(newEducation.graduated,
+      newEducation.timePeriodFrom, newEducation.timePeriodTo);
+    const endDateValidResult = validateEndDate(newEducation.graduated,
+      newEducation.timePeriodFrom, newEducation.timePeriodTo);
+    const formInvalid = invalid || fromDateValidResult.invalid || endDateValidResult.invalid;
 
-      if (fromDate > currentDate) {
-        invalid = true; // Start Date should be in past or current
-      }
-    } else if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
-      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
-      const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
-
-      if (fromDate > currentDate // Start Date is in past or current
-        || fromDate >= toDate // Start Date is before End Date
-        || (newEducation.graduated && toDate > currentDate)) { // End Date is in past or current
-        invalid = true;
-      }
-    }
-
-    this.setState({ formInvalid: invalid });
+    this.setState({
+      formInvalid,
+      startDateInvalid: fromDateValidResult.invalid,
+      startDateInvalidMsg: fromDateValidResult.message,
+      endDateInvalidMsg: endDateValidResult.message,
+      endDateInvalid: endDateValidResult.invalid,
+    });
     return invalid;
   }
 
@@ -167,8 +170,7 @@ export default class Education extends ConsentComponent {
         result.message = 'End Date should be in past or current';
       }
     }
-
-    return result;
+    return formInvalid;
   }
 
   onHandleDeleteEducation(indexNo) {
@@ -183,7 +185,7 @@ export default class Education extends ConsentComponent {
       const { newEducation: oldEducation } = this.state;
       const newEducation = { ...oldEducation };
       newEducation[timePeriod] = date;
-      this.setState({ newEducation, inputChanged: true });
+      this.setState({ newEducation, isSubmit: false });
     }
   }
 
@@ -215,8 +217,13 @@ export default class Education extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
       isEdit: false,
+      formInvalid: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
     });
   }
 
@@ -234,8 +241,14 @@ export default class Education extends ConsentComponent {
         timePeriodTo: _.isEmpty(educationTrait.traits.data[indexNo].timePeriodTo) ? '' : educationTrait.traits.data[indexNo].timePeriodTo,
         graduated: educationTrait.traits.data[indexNo].graduated,
       },
+      isSubmit: false,
       isEdit: true,
       indexNo,
+      formInvalid: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateInvalidMsg: '',
     });
   }
 
@@ -299,7 +312,7 @@ export default class Education extends ConsentComponent {
       newEducation: empty,
       isEdit: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -334,7 +347,7 @@ export default class Education extends ConsentComponent {
       }
     }
 
-    this.setState({ newEducation, inputChanged: true });
+    this.setState({ newEducation, isSubmit: false });
   }
 
   /**
@@ -346,7 +359,7 @@ export default class Education extends ConsentComponent {
       const { newEducation: oldEducation } = this.state;
       const newEducation = { ...oldEducation };
       newEducation[option.key] = option.name;
-      this.setState({ newEducation, inputChanged: true });
+      this.setState({ newEducation, isSubmit: false });
     }
   }
 
@@ -357,7 +370,7 @@ export default class Education extends ConsentComponent {
   onHandleAddEducation(e) {
     e.preventDefault();
     const { newEducation } = this.state;
-    this.setState({ inputChanged: true });
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newEducation)) {
       return;
     }
@@ -394,7 +407,7 @@ export default class Education extends ConsentComponent {
     if (isEdit) {
       this.setState({
         isEdit: false,
-        inputChanged: false,
+        isSubmit: false,
         indexNo: null,
         newEducation: {
           schoolCollegeName: '',
@@ -403,6 +416,11 @@ export default class Education extends ConsentComponent {
           timePeriodTo: '',
           graduated: false,
         },
+        formInvalid: false,
+        startDateInvalid: false,
+        startDateInvalidMsg: '',
+        endDateInvalid: false,
+        endDateInvalidMsg: '',
       });
     }
   }
@@ -417,13 +435,19 @@ export default class Education extends ConsentComponent {
       isEdit,
       showConfirmation,
       indexNo,
+      formInvalid,
+      startDateInvalid,
+      startDateInvalidMsg,
+      endDateInvalid,
+      endDateInvalidMsg,
+      isSubmit,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.EDUCATION ? '' : 'hide';
     const educationItems = educationTrait.traits
       ? educationTrait.traits.data.slice() : [];
-    const { newEducation, inputChanged } = this.state;
+    const { newEducation } = this.state;
 
 
     return (
@@ -478,7 +502,11 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
                   <input id="schoolCollegeName" name="schoolCollegeName" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newEducation.schoolCollegeName} maxLength="64" required />
-                  <ErrorMessage invalid={_.isEmpty(newEducation.schoolCollegeName) && inputChanged} message="Name cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newEducation.schoolCollegeName)} message="Name cannot be empty" />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -509,10 +537,14 @@ export default class Education extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
-                  <ErrorMessage
-                    invalid={this.onCheckStartDate(newEducation).invalid && inputChanged}
-                    message={this.onCheckStartDate(newEducation).message}
-                  />
+                  {
+                    isSubmit && (
+                      <ErrorMessage
+                        invalid={startDateInvalid}
+                        message={startDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -546,10 +578,14 @@ export default class Education extends ConsentComponent {
                       />
                     )
                   }
-                  <ErrorMessage
-                    invalid={this.onCheckEndDate(newEducation).invalid && inputChanged}
-                    message={this.onCheckEndDate(newEducation).message}
-                  />
+                  {
+                    isSubmit && (
+                      <ErrorMessage
+                        invalid={endDateInvalid}
+                        message={endDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -622,7 +658,11 @@ export default class Education extends ConsentComponent {
                     <input type="hidden" />
                   </label>
                   <input id="schoolCollegeName" name="schoolCollegeName" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newEducation.schoolCollegeName} maxLength="64" required />
-                  <ErrorMessage invalid={_.isEmpty(newEducation.schoolCollegeName) && inputChanged} message="Name cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newEducation.schoolCollegeName)} message="Name cannot be empty" />
+                    )
+                  }
                 </div>
                 <div styleName="field col-3">
                   <label htmlFor="major">
@@ -652,10 +692,14 @@ export default class Education extends ConsentComponent {
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
-                  <ErrorMessage
-                    invalid={this.onCheckStartDate(newEducation).invalid && inputChanged}
-                    message={this.onCheckStartDate(newEducation).message}
-                  />
+                  {
+                    isSubmit && (
+                      <ErrorMessage
+                        invalid={startDateInvalid}
+                        message={startDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
@@ -685,10 +729,14 @@ export default class Education extends ConsentComponent {
                       />
                     )
                   }
-                  <ErrorMessage
-                    invalid={this.onCheckEndDate(newEducation).invalid && inputChanged}
-                    message={this.onCheckEndDate(newEducation).message}
-                  />
+                  {
+                    isSubmit && (
+                      <ErrorMessage
+                        invalid={endDateInvalid}
+                        message={endDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
                 <div styleName="field col-checkbox">
                   <div styleName="tc-checkbox">

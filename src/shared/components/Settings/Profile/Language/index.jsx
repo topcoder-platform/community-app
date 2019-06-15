@@ -39,6 +39,8 @@ export default class Language extends ConsentComponent {
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
+      languageNameInvalid: false,
+      languageNameInvalidMsg: '',
       languageTrait: this.loadLanguageTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newLanguage: {
@@ -51,7 +53,7 @@ export default class Language extends ConsentComponent {
       isEdit: false,
       indexNo: null,
       showConfirmation: false,
-      inputChanged: false,
+      isSubmit: false,
     };
   }
 
@@ -67,11 +69,14 @@ export default class Language extends ConsentComponent {
       languageTrait,
       personalizationTrait,
       formInvalid: false,
+      languageNameInvalid: false,
+      languageNameInvalidMsg: '',
       newLanguage: {
         language: '',
         spokenLevel: '',
         writtenLevel: '',
       },
+      isSubmit: false,
     });
   }
 
@@ -87,7 +92,7 @@ export default class Language extends ConsentComponent {
     const { newLanguage: oldLanguage } = this.state;
     const newLanguage = { ...oldLanguage };
     newLanguage[e.target.name] = e.target.value.trim();
-    this.setState({ newLanguage, inputChanged: true });
+    this.setState({ newLanguage, isSubmit: false });
   }
 
   onHandleDeleteLanguage(indexNo) {
@@ -107,6 +112,10 @@ export default class Language extends ConsentComponent {
     newLanguageTrait.traits.data.splice(indexNo, 1);
     this.setState({
       languageTrait: newLanguageTrait,
+      isEdit: false,
+      formInvalid: false,
+      languageNameInvalid: false,
+      languageNameInvalidMsg: '',
     });
 
     const {
@@ -124,7 +133,7 @@ export default class Language extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
     });
   }
 
@@ -142,6 +151,10 @@ export default class Language extends ConsentComponent {
       },
       isEdit: true,
       indexNo,
+      formInvalid: false,
+      languageNameInvalid: false,
+      languageNameInvalidMsg: '',
+      isSubmit: false,
     });
   }
 
@@ -152,29 +165,39 @@ export default class Language extends ConsentComponent {
    */
   onCheckFormValue(newLanguage) {
     let invalid = false;
+    let languageNameInvalid = false;
+    let languageNameInvalidMsg = '';
 
-    if (!_.trim(newLanguage.language).length) {
+    if (_.isEmpty(newLanguage.language.trim())) {
       invalid = true;
+      languageNameInvalid = true;
+      languageNameInvalidMsg = 'Language cannot be empty';
     }
 
-    const { languageTrait, isEdit } = this.state;
+    const { languageTrait } = this.state;
     if (!_.isEmpty(languageTrait)) {
       const result = _.filter(languageTrait.traits.data, item => (
         item.language.toLowerCase() === newLanguage.language.toLowerCase()
       ));
-      if (result && result.length > 0 && !isEdit) {
+      if (result && result.length > 0) {
         invalid = true;
+        languageNameInvalid = true;
+        languageNameInvalidMsg = 'Language already added';
       }
     }
 
-    this.setState({ formInvalid: invalid });
+    this.setState({
+      formInvalid: invalid,
+      languageNameInvalid,
+      languageNameInvalidMsg,
+    });
     return invalid;
   }
 
   onHandleAddLanguage(e) {
     e.preventDefault();
     const { newLanguage } = this.state;
-    this.setState({ inputChanged: true });
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newLanguage)) {
       return;
     }
@@ -229,7 +252,7 @@ export default class Language extends ConsentComponent {
       newLanguage: empty,
       isEdit: false,
       indexNo: null,
-      inputChanged: false,
+      isSubmit: false,
     });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
@@ -253,7 +276,7 @@ export default class Language extends ConsentComponent {
       const { newLanguage: oldLanguage } = this.state;
       const newLanguage = { ...oldLanguage };
       newLanguage[option.key] = option.name;
-      this.setState({ newLanguage, inputChanged: true });
+      this.setState({ newLanguage, isSubmit: false });
     }
   }
 
@@ -263,7 +286,10 @@ export default class Language extends ConsentComponent {
       this.setState({
         isEdit: false,
         indexNo: null,
-        inputChanged: false,
+        isSubmit: false,
+        formInvalid: false,
+        languageNameInvalid: false,
+        languageNameInvalidMsg: '',
         newLanguage: {
           language: '',
           spokenLevel: '',
@@ -306,9 +332,12 @@ export default class Language extends ConsentComponent {
       languageTrait,
       isMobileView,
       isEdit,
+      formInvalid,
       showConfirmation,
       indexNo,
-      inputChanged,
+      languageNameInvalid,
+      languageNameInvalidMsg,
+      isSubmit,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -378,7 +407,15 @@ export default class Language extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                   />
-                  <ErrorMessage invalid={_.isEmpty(newLanguage.language) && inputChanged} addMargin message="Language cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={languageNameInvalid}
+                        addMargin
+                        message={languageNameInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
@@ -476,7 +513,15 @@ export default class Language extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                   />
-                  <ErrorMessage invalid={_.isEmpty(newLanguage.language) && inputChanged} addMargin message="Language cannot be empty" />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={languageNameInvalid}
+                        addMargin
+                        message={languageNameInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="spokenLevel">
