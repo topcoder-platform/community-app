@@ -107,10 +107,9 @@ export default class Education extends ConsentComponent {
       const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
       const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
 
-      if (fromDate > currentDate  // Start Date is in past or current
-        || fromDate >= toDate  // Start Date is before End Date
-        || (newEducation.graduated && toDate > currentDate)) { // End Date is in past or current 
-
+      if (fromDate > currentDate // Start Date is in past or current
+        || fromDate >= toDate // Start Date is before End Date
+        || (newEducation.graduated && toDate > currentDate)) { // End Date is in past or current
         invalid = true;
       }
     }
@@ -326,11 +325,11 @@ export default class Education extends ConsentComponent {
       newEducation[e.target.name] = e.target.value;
     } else {
       newEducation[e.target.name] = e.target.checked;
-      if(e.target.checked) { // if gradated and toDate is in Future, nullify it
+      if (e.target.checked) { // if graduated and toDate is in Future, nullify it
         const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
         const currentDate = new Date().setHours(0, 0, 0, 0);
         if (toDate > currentDate) {
-          newEducation.timePeriodTo = ''
+          newEducation.timePeriodTo = '';
         }
       }
     }
