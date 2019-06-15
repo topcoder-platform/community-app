@@ -111,21 +111,13 @@ export default class Education extends ConsentComponent {
       newEducation.timePeriodFrom, newEducation.timePeriodTo);
     const formInvalid = invalid || fromDateValidResult.invalid || endDateValidResult.invalid;
     
-    if (fromDate > currentDate) {
-        invalid = true; // Start Date should be in past or current
-      }
-    } else if (!_.isEmpty(newEducation.timePeriodFrom) && !_.isEmpty(newEducation.timePeriodTo)) {
-      const fromDate = new Date(newEducation.timePeriodFrom).setHours(0, 0, 0, 0);
-      const toDate = new Date(newEducation.timePeriodTo).setHours(0, 0, 0, 0);
-
-      if (fromDate > currentDate // Start Date is in past or current
-        || fromDate >= toDate // Start Date is before End Date
-        || (newEducation.graduated && toDate > currentDate)) { // End Date is in past or current
-        invalid = true;
-      }
-    }
-
-    this.setState({ formInvalid: invalid });
+    this.setState({
+      formInvalid,
+      startDateInvalid: fromDateValidResult.invalid,
+      startDateInvalidMsg: fromDateValidResult.message,
+      endDateInvalidMsg: endDateValidResult.message,
+      endDateInvalid: endDateValidResult.invalid,
+    });
     return invalid;
   }
 
