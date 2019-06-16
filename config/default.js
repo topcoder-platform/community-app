@@ -219,6 +219,25 @@ module.exports = {
       title: 'WORK',
       subMenu: [
         {
+          id: 'profile',
+          title: 'Profile',
+          subMenu: [
+            {
+              title: 'Dashboard',
+              href: '/my-dashboard',
+            },
+            {
+              id: 'myprofile',
+              title: 'My Profile',
+              href: '/members/willFilledByUserName',
+            },
+            {
+              title: 'Payments',
+              href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+            },
+          ],
+        },
+        {
           title: 'Compete',
           subMenu: [
             {

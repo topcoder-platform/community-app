@@ -69,6 +69,8 @@ const Header = ({ profile }) => {
           onChangeLevel1Id={handleChangeLevel1Id}
           openMore={openMore}
           setOpenMore={handleChangeOpenMore}
+          loggedIn={!_.isEmpty(profile)}
+          profileHandle={profile ? profile.handle : ''}
         />
       </div>
     );
