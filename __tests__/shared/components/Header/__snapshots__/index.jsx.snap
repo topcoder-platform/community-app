@@ -32,23 +32,23 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/competitive-programming",
+                  "href": "/community/competitive-programming",
                   "title": "Competitive programming",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/data-science/",
+                  "href": "/community/data-science",
                   "title": "Data Science",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/design/",
+                  "href": "/community/design",
                   "title": "Design",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/development",
+                  "href": "/community/development",
                   "title": "Development",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/qa",
+                  "href": "/community/qa",
                   "title": "QA",
                 },
               ],
@@ -61,7 +61,7 @@ exports[`Default render 1`] = `
                   "title": "TCO",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/member-programs",
+                  "href": "/community/member-programs",
                   "title": "Programs",
                 },
                 Object {
@@ -69,11 +69,11 @@ exports[`Default render 1`] = `
                   "title": "Forums",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/statistics",
+                  "href": "/community/statistics",
                   "title": "Statistics",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/community/events",
+                  "href": "/community/events",
                   "title": "Events",
                 },
                 Object {
