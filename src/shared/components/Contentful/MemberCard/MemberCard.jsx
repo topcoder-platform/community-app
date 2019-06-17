@@ -49,7 +49,7 @@ export function MemberCardInner({
             <div className={theme.memberName}>{memberName}</div>
           )}
           { country && (
-            <div>
+            <div className={theme.countryWrapper}>
               <span className={`flag-icon flag-icon-${country} ${theme.flag}`} />
               <span className={theme.countryName}>
                 {getName(country).toLocaleUpperCase()}

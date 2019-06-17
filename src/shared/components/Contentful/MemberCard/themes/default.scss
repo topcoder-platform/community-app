@@ -1,16 +1,13 @@
 @import "~styles/mixins";
 
 .memberCard {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid #d5d5d5;
   border-radius: 6px;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15), inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-  max-width: 305px;
-  max-height: 322px;
+  width: 305px;
+  margin: auto;
 
   @include xs-to-sm {
     margin-bottom: 1em;
@@ -18,25 +15,23 @@
 }
 
 .imageWrapper {
-  flex: 1 1 70%;
-  max-height: 224px;
+  height: 219px;
+  width: 305px;
 
   img {
     width: 100%;
     height: 100%;
-    max-height: 224px;
-    max-width: 303px;
+    max-height: 219px;
+    max-width: 305px;
   }
 }
 
 .info {
-  flex: 1 1 30%;
   display: flex;
-  height: 96px;
+  min-height: 81px;
 
   .trackIcon {
-    width: 76px;
-    height: 96px;
+    width: 64px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +44,7 @@
 
   .handleWrapper {
     flex: 1 1 auto;
-    padding: 6%;
+    padding: 13px 0 15px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,8 +52,8 @@
     .handle {
       @include roboto-bold;
 
-      font-size: 1.2em;
-      color: $tc-dark-blue-110;
+      font-size: 20px;
+      color: #006dea;
       line-height: 30px;
     }
 
@@ -66,19 +61,28 @@
       color: #2a2a2b;
       font-size: 15px;
       font-weight: 500;
-      line-height: 30px;
+      line-height: 20px;
       text-align: left;
     }
 
-    .flag {
-      margin-right: 0.5em;
-    }
+    .countryWrapper {
+      display: flex;
+      align-items: center;
+      min-height: 25px;
 
-    .countryName {
-      @include roboto-regular;
+      .flag {
+        margin-right: 6px;
+        width: 19px;
+        height: 11px;
+      }
 
-      color: #555;
-      line-height: 25px;
+      .countryName {
+        @include roboto-regular;
+
+        color: #555;
+        line-height: 25px;
+        font-size: 15px;
+      }
     }
   }
 }
