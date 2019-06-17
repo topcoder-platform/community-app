@@ -66,35 +66,35 @@ module.exports = {
           subMenu: [
             {
               title: 'All Solutions',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
             {
               title: 'Apps',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
             {
               title: 'Websites',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
             {
               title: 'Product Design',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
             {
               title: 'Development Tasks',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
             {
               title: 'Analytics & Data Science',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
             {
               title: 'Testing & QA',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
             {
               title: 'How It Works',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
           ],
         },
@@ -103,7 +103,7 @@ module.exports = {
           subMenu: [
             {
               title: 'All Solutions',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
           ],
         },
@@ -112,7 +112,7 @@ module.exports = {
           subMenu: [
             {
               title: 'All Solutions',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
           ],
         },
@@ -121,7 +121,7 @@ module.exports = {
           subMenu: [
             {
               title: 'All Solutions',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
           ],
         },
@@ -130,7 +130,7 @@ module.exports = {
           subMenu: [
             {
               title: 'All Solutions',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
           ],
         },
@@ -139,7 +139,7 @@ module.exports = {
           subMenu: [
             {
               title: 'All Solutions',
-              href: 'https://www.topcoder.com/tco',
+              href: '',
             },
           ],
         },
