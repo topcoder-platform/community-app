@@ -27,6 +27,7 @@ Instructions are also provided below for developments that want to modify/create
         - [Navigation Menu](./NavigationMenu.md)
         - [Route](./Route.md)
         - [Viewport](./viewport.md)
+        - [Member Card](./memberCard.md)
     - [Preview Content](./preview-content.md)
     - [Custom inline components in Markdown fields](./custom-inline-components-in-markdown-fields.md)
     - [Miscellaneous CSS Solutions](./miscellaneous-CSS-solutions.md)

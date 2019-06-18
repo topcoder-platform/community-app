@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<a>
+  <div>
+    <div
+      style={
+        Object {
+          "backgroundColor": "#63c630",
+        }
+      }
+    >
+      <img
+        alt="track icon"
+        src="https://www.topcoder.com"
+      />
+    </div>
+    <div>
+      <div />
+      <div>
+        <span
+          className="flag-icon flag-icon-es undefined"
+        />
+        <span>
+          SPAIN
+        </span>
+      </div>
+    </div>
+  </div>
+</a>
+`;

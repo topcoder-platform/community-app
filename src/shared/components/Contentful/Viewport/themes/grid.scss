@@ -4,6 +4,7 @@
   display: grid;
   margin: 1em auto;
   overflow: auto;
+  justify-content: center;
 
   @include xl {
     max-width: $screen-lg;

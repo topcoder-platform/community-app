@@ -24,6 +24,7 @@ import { getAuthTokens } from 'utils/tc';
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
+import newsletterArchive from './newsletterArchive';
 import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
 import { factory as pageFactory } from './page';
@@ -130,6 +131,7 @@ export function factory(req) {
     topcoderHeader,
     rss,
     toastr: toastrReducer,
+    newsletterArchive,
   }));
 }
 
