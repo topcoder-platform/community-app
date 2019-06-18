@@ -14,6 +14,94 @@ exports[`Default render 1`] = `
     menu={
       Array [
         Object {
+          "id": "business",
+          "subMenu": Array [
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "",
+                  "title": "All Solutions",
+                },
+                Object {
+                  "href": "",
+                  "title": "Apps",
+                },
+                Object {
+                  "href": "",
+                  "title": "Websites",
+                },
+                Object {
+                  "href": "",
+                  "title": "Product Design",
+                },
+                Object {
+                  "href": "",
+                  "title": "Development Tasks",
+                },
+                Object {
+                  "href": "",
+                  "title": "Analytics & Data Science",
+                },
+                Object {
+                  "href": "",
+                  "title": "Testing & QA",
+                },
+                Object {
+                  "href": "",
+                  "title": "How It Works",
+                },
+              ],
+              "title": "Solutions",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "",
+                  "title": "All Solutions",
+                },
+              ],
+              "title": "Enterprise Programs",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "",
+                  "title": "All Solutions",
+                },
+              ],
+              "title": "Customer Success",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "",
+                  "title": "All Solutions",
+                },
+              ],
+              "title": "Company",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "",
+                  "title": "All Solutions",
+                },
+              ],
+              "title": "Resources",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "",
+                  "title": "All Solutions",
+                },
+              ],
+              "title": "Blog",
+            },
+          ],
+          "title": "BUSINESS",
+        },
+        Object {
           "id": "work",
           "subMenu": Array [
             Object {
@@ -85,94 +173,6 @@ exports[`Default render 1`] = `
             },
           ],
           "title": "WORK",
-        },
-        Object {
-          "id": "business",
-          "subMenu": Array [
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "All Solutions",
-                },
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "Apps",
-                },
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "Websites",
-                },
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "Product Design",
-                },
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "Development Tasks",
-                },
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "Analytics & Data Science",
-                },
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "Testing & QA",
-                },
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "How It Works",
-                },
-              ],
-              "title": "Solutions",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Enterprise Programs",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Customer Success",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Company",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Resources",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "https://www.topcoder.com/tco",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Blog",
-            },
-          ],
-          "title": "BUSINESS",
         },
       ]
     }
