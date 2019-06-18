@@ -189,7 +189,7 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fixes-2
+                - hot-fixes-4
                 - develop
                 - general-features
                 - develop-from-master-23may
