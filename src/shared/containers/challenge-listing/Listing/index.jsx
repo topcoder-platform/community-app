@@ -47,7 +47,6 @@ const DESIGN_TRACK_ONLY = ['WEB_DESIGNS', 'WIDGET_OR_MOBILE_SCREEN_DESIGN', 'DES
 
 const DATASCIENCE_TRACK_ONLY = ['DEVELOP_MARATHON_MATCH', 'MARATHON_MATCH', 'SRM'];
 
-
 export class ListingContainer extends React.Component {
   componentDidMount() {
     const {
@@ -256,7 +255,7 @@ export class ListingContainer extends React.Component {
     switch (bucket) {
       case BUCKETS.MY:
         if (!allMyChallengesLoaded) {
-          getMoreChallenges(bucket);
+          this.loadAllRestChallenges();
         }
         break;
       case BUCKETS.ONGOING:
@@ -453,7 +452,6 @@ export class ListingContainer extends React.Component {
       gettingMoreOnGoingChallenges,
       gettingMoreOpenChallenges,
     } = this.props;
-
     let loadMorePast;
     if (!allPastChallengesLoaded) {
       loadMorePast = this.createLoadMoreFunction(BUCKETS.PAST);
@@ -548,6 +546,7 @@ export class ListingContainer extends React.Component {
           loadMoreOpen={loadMoreOpen}
           loadMoreOnGoing={loadMoreOnGoing}
           reviewOpportunities={reviewOpportunities}
+          allMyChallengesLoaded={allMyChallengesLoaded}
           setFilterState={(state) => {
             setFilter(state);
             setSearchText(state.text || '');

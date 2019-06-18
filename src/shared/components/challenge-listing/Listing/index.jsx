@@ -46,6 +46,7 @@ function Listing({
   expandedTags,
   expandTag,
   loadMoreChallenges,
+  allMyChallengesLoaded,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
   const getBucket = (bucket, expanded = false) => {
@@ -118,6 +119,7 @@ function Listing({
             sort={sorts[bucket]}
             userHandle={_.get(auth, 'user.handle')}
             loadMoreChallenges={loadMoreChallenges}
+            allMyChallengesLoaded={allMyChallengesLoaded}
           />
         )
     );
@@ -202,6 +204,7 @@ Listing.propTypes = {
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
   loadMoreChallenges: PT.func,
+  allMyChallengesLoaded: PT.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {

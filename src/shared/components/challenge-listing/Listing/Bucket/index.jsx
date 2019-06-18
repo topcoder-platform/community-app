@@ -13,6 +13,7 @@ import Waypoint from 'react-waypoint';
 import { challenge as challengeUtil } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
+
 import './style.scss';
 
 const COLLAPSED_SIZE = 10;
@@ -42,6 +43,7 @@ export default function Bucket({
   expandedTags,
   expandTag,
   loadMoreChallenges,
+  allMyChallengesLoaded,
 }) {
   const activeSort = sort || bucket.sorts[0];
 
@@ -120,15 +122,16 @@ export default function Bucket({
         ) : null
       }
       {
-        (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
+        ((expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded)
+        || (!allMyChallengesLoaded && !loading) ? (
           <a
             href={`${challengesUrl}?${bucketQuery}`}
             onClick={(event) => {
+              event.preventDefault();
               expand();
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;
               loadMoreChallenges(bucketId);
-              event.preventDefault();
             }}
             role="button"
             styleName="view-more"
@@ -136,7 +139,7 @@ export default function Bucket({
           >
             View more challenges
           </a>
-        ) : null
+          ) : null
       }
     </div>
   );
@@ -180,4 +183,5 @@ Bucket.propTypes = {
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   loadMoreChallenges: PT.func,
+  allMyChallengesLoaded: PT.bool.isRequired,
 };
