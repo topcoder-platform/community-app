@@ -3,6 +3,7 @@
 exports[`Default render 1`] = `
 <div>
   <TopNav
+    handleShowSubnav={[Function]}
     logo={
       <Logo
         height="20"
@@ -17,6 +18,7 @@ exports[`Default render 1`] = `
           "id": "work",
           "subMenu": Array [
             Object {
+              "id": "compete",
               "subMenu": Array [
                 Object {
                   "href": "/challenges",
@@ -30,6 +32,7 @@ exports[`Default render 1`] = `
               "title": "Compete",
             },
             Object {
+              "id": "tracks",
               "subMenu": Array [
                 Object {
                   "href": "/community/competitive-programming",
@@ -55,6 +58,7 @@ exports[`Default render 1`] = `
               "title": "Tracks",
             },
             Object {
+              "id": "community",
               "subMenu": Array [
                 Object {
                   "href": "https://www.topcoder.com/tco",
@@ -89,6 +93,7 @@ exports[`Default render 1`] = `
       ]
     }
     onChangeLevel1Id={[Function]}
+    onChangeLevel2Id={[Function]}
     openMore={true}
     rightMenu={
       <LoginNav
@@ -152,6 +157,7 @@ exports[`Default render 1`] = `
       />
     }
     setOpenMore={[Function]}
+    showSubnav={false}
     theme="light"
   />
 </div>

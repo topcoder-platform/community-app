@@ -62,6 +62,7 @@ module.exports = {
       title: 'WORK',
       subMenu: [
         {
+          id: 'compete',
           title: 'Compete',
           subMenu: [
             {
@@ -75,6 +76,7 @@ module.exports = {
           ],
         },
         {
+          id: 'tracks',
           title: 'Tracks',
           subMenu: [
             {
@@ -100,6 +102,7 @@ module.exports = {
           ],
         },
         {
+          id: 'community',
           title: 'Community',
           subMenu: [
             {

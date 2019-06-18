@@ -19,10 +19,48 @@ try {
 const Header = ({ profile }) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
+  const [activeLevel2Id, setActiveLevel2Id] = useState();
+  const [showSubnav, setShowsubNav] = useState(false);
   const [openMore, setOpenMore] = useState(true);
+
+  const menuToShow = (pathname) => {
+    const option = config.HEADER_MENU[0].subMenu
+      .reduce((agg, val) => agg || val.subMenu.reduce((agg2, val2) => {
+        if (val2.href === pathname) {
+          return val;
+        }
+        return agg2;
+      }, ''),
+      '');
+    return option;
+  };
+
+  useEffect(() => {
+    const isChallengeDetails = _.size(window.location.pathname.match('^/challenges/\\d+$')) > 0;
+    const menu = menuToShow(window.location.pathname);
+    setActiveLevel1Id(menu || isChallengeDetails ? config.HEADER_MENU[0].id : undefined);
+    if (isChallengeDetails) {
+      setShowsubNav(false);
+      setActiveLevel2Id(config.HEADER_MENU[0].subMenu[0].id);
+    } else if (menu) {
+      setActiveLevel2Id(menu.id);
+      setShowsubNav(true);
+    } else {
+      setActiveLevel2Id();
+      setShowsubNav(false);
+    }
+  }, []);
 
   const handleChangeLevel1Id = (menuId) => {
     setActiveLevel1Id(menuId);
+  };
+
+  const handleChangeLevel2Id = (menuId) => {
+    setActiveLevel2Id(menuId);
+  };
+
+  const handleShowSubnav = (show) => {
+    setShowsubNav(show);
   };
 
   const handleCloseOpenMore = () => {
@@ -72,6 +110,10 @@ const Header = ({ profile }) => {
           currentLevel1Id={activeLevel1Id}
           onChangeLevel1Id={handleChangeLevel1Id}
           path={path}
+          currentLevel2Id={activeLevel2Id}
+          onChangeLevel2Id={handleChangeLevel2Id}
+          handleShowSubnav={handleShowSubnav}
+          showSubnav={showSubnav}
           openMore={openMore}
           setOpenMore={handleChangeOpenMore}
         />

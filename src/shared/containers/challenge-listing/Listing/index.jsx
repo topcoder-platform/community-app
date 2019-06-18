@@ -732,7 +732,7 @@ function mapDispatchToProps(dispatch) {
     setFilter: state => dispatch(a.setFilter(state)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
-    markHeaderMenu: () => dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
+    markHeaderMenu: () => dispatch(ah.setCurrentNav('Tracks', 'QA')),
     expandTag: id => dispatch(a.expandTag(id)),
   };
 }
