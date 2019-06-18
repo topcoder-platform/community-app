@@ -83,7 +83,7 @@ function ViewportContentLoader(props) {
   }
 
   if (themeName === 'Grid') {
-    extraStylesForContainer = _.assign(extraStylesForContainer || {}, {
+    extraStylesForContainer = _.defaults(extraStylesForContainer || {}, {
       'grid-template-columns': `repeat(${grid.columns || 3}, 1fr)`,
       'grid-gap': `${grid.gap || 10}px`,
     });
