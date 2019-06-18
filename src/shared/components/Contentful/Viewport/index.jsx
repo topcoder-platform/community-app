@@ -23,6 +23,7 @@ import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
 import ContentSlider from 'components/Contentful/ContentSlider';
 import Dropdown from 'components/Contentful/Dropdown';
+import MemberCard from 'components/Contentful/MemberCard';
 
 import Viewport from './Viewport';
 
@@ -49,6 +50,7 @@ const COMPONENTS = {
   viewport: null, /* Assigned to ViewportLoader below. */
   contentSlider: ContentSlider,
   dropdown: Dropdown,
+  memberCard: MemberCard,
 };
 
 const THEMES = {
@@ -81,7 +83,7 @@ function ViewportContentLoader(props) {
   }
 
   if (themeName === 'Grid') {
-    extraStylesForContainer = _.assign(extraStylesForContainer || {}, {
+    extraStylesForContainer = _.defaults(extraStylesForContainer || {}, {
       'grid-template-columns': `repeat(${grid.columns || 3}, 1fr)`,
       'grid-gap': `${grid.gap || 10}px`,
     });

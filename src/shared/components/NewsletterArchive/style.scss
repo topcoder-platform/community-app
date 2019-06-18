@@ -1,0 +1,22 @@
+@import "~styles/mixins";
+
+.archive-link {
+  display: block;
+  font-size: 15px;
+  color: $tc-dark-blue-110;
+
+  &:active,
+  &:focus,
+  &:visited,
+  &:hover {
+    color: $tc-dark-blue-110;
+  }
+}
+
+.archive-date {
+  color: $tc-gray-80;
+  font-size: 12px;
+  line-height: 15px;
+  margin-bottom: 10px;
+  display: block;
+}

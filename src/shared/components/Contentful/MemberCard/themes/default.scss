@@ -1,0 +1,100 @@
+@import "~styles/mixins";
+
+.memberCard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15), inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  width: 305px;
+  margin: auto;
+
+  @include xs-to-sm {
+    margin-bottom: 1em;
+  }
+}
+
+.imageWrapper {
+  height: 219px;
+  width: 305px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    max-height: 219px;
+    max-width: 305px;
+  }
+}
+
+.info {
+  display: flex;
+  min-height: 81px;
+
+  .trackIcon {
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+      max-height: 30px;
+      max-width: 30px;
+    }
+  }
+
+  .handleWrapper {
+    flex: 1 1 auto;
+    padding: 13px 0 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .handle {
+      @include roboto-bold;
+
+      font-size: 20px;
+      color: #006dea;
+      line-height: 30px;
+    }
+
+    .memberName {
+      color: #2a2a2b;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 20px;
+      text-align: left;
+    }
+
+    .countryWrapper {
+      display: flex;
+      align-items: center;
+      min-height: 25px;
+
+      .flag {
+        margin-right: 6px;
+        width: 19px;
+        height: 11px;
+      }
+
+      .countryName {
+        @include roboto-regular;
+
+        color: #555;
+        line-height: 25px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  margin: 0 auto;
+  max-width: $screen-md;
+  padding: 15px 0;
+  color: $tc-black;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
