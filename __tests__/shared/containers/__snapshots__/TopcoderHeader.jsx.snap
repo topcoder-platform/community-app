@@ -8,7 +8,6 @@ exports[`Matches shallow snapshot 1`] = `
   openMenu={[Function]}
   openMobileMenu={[Function]}
   openSearch={[Function]}
-  profile={Object {}}
   profile={
     Object {
       "roles": undefined,
