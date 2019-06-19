@@ -10,7 +10,10 @@ import { bindActionCreators } from 'redux';
 export default connect(
   state => ({
     ...state.topcoderHeader,
-    profile: state.auth.profile,
+    profile: {
+      ...state.auth.profile,
+      roles: state.auth && state.auth.user ? state.auth.user.roles : undefined,
+    },
   }),
   dispatch => bindActionCreators(actions.topcoderHeader, dispatch),
 )(TopcoderHeader);
