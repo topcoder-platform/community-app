@@ -2,18 +2,18 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-SortingSelectBar-___style__sortingBar___3esqf"
+  className="src-shared-components-SortingSelectBar-___style__sortingBar___3Y903"
 >
   <h1
-    className="src-shared-components-SortingSelectBar-___style__title___36eG5"
+    className="src-shared-components-SortingSelectBar-___style__title___2CIq3"
   >
     title
   </h1>
   <div
-    className="src-shared-components-SortingSelectBar-___style__view-options-toggle-container___1N4rY"
+    className="src-shared-components-SortingSelectBar-___style__view-options-toggle-container___17g9U"
   >
     <p
-      className="src-shared-components-SortingSelectBar-___style__view-options-toggle-container-label___1bC9s"
+      className="src-shared-components-SortingSelectBar-___style__view-options-toggle-container-label___2CmVT"
     >
       Sort by:
     </p>
@@ -78,10 +78,10 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-SortingSelectBar-___style__sortingBar___3esqf"
+  className="src-shared-components-SortingSelectBar-___style__sortingBar___3Y903"
 >
   <h1
-    className="src-shared-components-SortingSelectBar-___style__title___36eG5"
+    className="src-shared-components-SortingSelectBar-___style__title___2CIq3"
   >
     title
   </h1>

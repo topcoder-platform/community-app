@@ -2,10 +2,10 @@
 
 exports[`renders preferences setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-Preferences-___styles__preferences-container___m6Zzc"
+  className="src-shared-components-Settings-Preferences-___styles__preferences-container___tvLua"
 >
   <div
-    className="src-shared-components-Settings-Preferences-___styles__col-bar___2Fr2T"
+    className="src-shared-components-Settings-Preferences-___styles__col-bar___34pwi"
   >
     <SideBar
       currentTab="e-mail"
@@ -54,7 +54,7 @@ exports[`renders preferences setting page correctly 1`] = `
     />
   </div>
   <div
-    className="src-shared-components-Settings-Preferences-___styles__col-content___2OhJS"
+    className="src-shared-components-Settings-Preferences-___styles__col-content___3Fx0k"
   >
     <ErrorWrapper>
       <EmailPreferences />

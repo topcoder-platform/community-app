@@ -2,17 +2,17 @@
 
 exports[`renders setting page header correctly 1`] = `
 <div
-  className="src-shared-components-Settings-Header-___styles__Header___2G763"
+  className="src-shared-components-Settings-Header-___styles__Header___3AThA"
 >
   <div
-    className="src-shared-components-Settings-Header-___styles__title___2Pmjv"
+    className="src-shared-components-Settings-Header-___styles__title___1b4Bl"
   >
     <h1>
       Settings
     </h1>
   </div>
   <nav
-    className="src-shared-components-Settings-Header-___styles__tabs___3eOxJ"
+    className="src-shared-components-Settings-Header-___styles__tabs___2VvTD"
   >
     <ul>
       <li>

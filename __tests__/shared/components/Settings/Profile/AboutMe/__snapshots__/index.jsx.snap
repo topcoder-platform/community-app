@@ -20,7 +20,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
     className="section-fields"
   >
     <div
-      className="src-shared-components-Settings-Profile-AboutMe-___styles__image___2Pzzy"
+      className="src-shared-components-Settings-Profile-AboutMe-___styles__image___1S0pQ"
     >
       <div
         className="form-label"
@@ -28,15 +28,15 @@ exports[`renders about me section of profile setting page correctly 1`] = `
         your profile image
       </div>
       <div
-        className="src-shared-components-Settings-Profile-AboutMe-___styles__edit-image___3BNKa"
+        className="src-shared-components-Settings-Profile-AboutMe-___styles__edit-image___1WKpN"
       >
         <img
           alt="User"
-          className="src-shared-components-Settings-Profile-AboutMe-___styles__profile-circle___2aNdR"
+          className="src-shared-components-Settings-Profile-AboutMe-___styles__profile-circle___SeZJ6"
           src="https://topcoder-prod-media.s3.amazonaws.com/member/profile/tcscoder-1525559661069.png"
         />
         <div
-          className="src-shared-components-Settings-Profile-AboutMe-___styles__buttons___2PWXt"
+          className="src-shared-components-Settings-Profile-AboutMe-___styles__buttons___38iBe"
         >
           <ThemedButton
             active={false}
@@ -52,7 +52,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
             size={null}
             theme={
               Object {
-                "button": "src-shared-components-Settings-Profile-AboutMe-styles___file-upload___1uQbWx",
+                "button": "src-shared-components-Settings-Profile-AboutMe-styles___file-upload___AYY3iE",
               }
             }
             themePriority="adhoc-context-default"
@@ -72,7 +72,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-Settings-Profile-AboutMe-___styles__country___cWUCk"
+      className="src-shared-components-Settings-Profile-AboutMe-___styles__country___3livj"
     >
       <div
         className="form-label"
@@ -1102,7 +1102,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Settings-Profile-AboutMe-___styles__bio___2xDtf"
+      className="src-shared-components-Settings-Profile-AboutMe-___styles__bio___3_ye6"
     >
       <div
         className="form-label"

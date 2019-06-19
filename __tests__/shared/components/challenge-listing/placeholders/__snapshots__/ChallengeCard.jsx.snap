@@ -2,42 +2,42 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-ChallengeCard-___style__challengeCard___1TmHF src-shared-components-challenge-listing-ChallengeCard-___style__placeholder___1iCHM"
+  className="src-shared-components-challenge-listing-ChallengeCard-___style__challengeCard___GSv9m src-shared-components-challenge-listing-ChallengeCard-___style__placeholder___3o1Qm"
 >
   <div
-    className="src-shared-components-challenge-listing-ChallengeCard-___style__left-panel___1u9jz"
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__left-panel___1Mh1o"
   >
     <div
-      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-track___3L9Ng src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-track___3C7UO src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___3XVqb"
     />
     <div
-      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-details___1wy0w"
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-details___36JWo"
     >
       <div
-        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2 src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___1D8OG src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___3XVqb"
       />
       <div
-        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR- src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___1V0oj src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___3XVqb"
       />
     </div>
   </div>
   <div
-    className="src-shared-components-challenge-listing-ChallengeCard-___style__right-panel___3kYYO"
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__right-panel___1EIAf"
   >
     <div
-      className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3OPq9 src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___3XVqb"
     />
     <div
-      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-status___1-f7s"
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-status___1Vq9k"
     >
       <div
-        className="src-shared-components-challenge-listing-ChallengeCard-___style__progress-container___crSft src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__progress-container___wBCUT src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___3XVqb"
       />
       <div
-        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-stats-container___3N8yF"
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-stats-container___2UQ1J"
       >
         <div
-          className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-stats___25uRg src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+          className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-stats___19Ymz src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___3XVqb"
         />
       </div>
     </div>

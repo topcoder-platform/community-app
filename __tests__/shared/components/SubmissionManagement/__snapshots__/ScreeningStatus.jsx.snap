@@ -6,10 +6,10 @@ exports[`Snapshot match 1`] = `
   type="button"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__fail-with-no-warn___3zepk"
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___v2q5T src-shared-components-SubmissionManagement-ScreeningStatus-___styles__fail-with-no-warn___1r1cn"
   >
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___3QRQc"
     >
       fail
     </span>
@@ -23,15 +23,15 @@ exports[`Snapshot match 2`] = `
   type="button"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___v2q5T src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___YzGQN"
   >
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__failed___2N6ch"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___3QRQc src-shared-components-SubmissionManagement-ScreeningStatus-___styles__failed___X7OBe"
     >
       fail
     </span>
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___h968p"
     >
       0 
       warning
@@ -46,10 +46,10 @@ exports[`Snapshot match 3`] = `
   type="button"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pass-with-no-warn___2Lbv4"
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___v2q5T src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pass-with-no-warn___25xue"
   >
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___3QRQc"
     >
       pass
     </span>
@@ -63,15 +63,15 @@ exports[`Snapshot match 4`] = `
   type="button"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___v2q5T src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___YzGQN"
   >
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__passed___1R8KE"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___3QRQc src-shared-components-SubmissionManagement-ScreeningStatus-___styles__passed___3GkPg"
     >
       pass
     </span>
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___h968p"
     >
       0 
       warning
@@ -86,13 +86,13 @@ exports[`Snapshot match 5`] = `
   type="button"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pending___2TqCq"
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___v2q5T src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pending___2wVQ8"
   >
     <span>
       Not yet performed
     </span>
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___h968p"
     >
       0 
       warning
@@ -107,15 +107,15 @@ exports[`Snapshot match 6`] = `
   type="button"
 >
   <div
-    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___v2q5T src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___YzGQN"
   >
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___3QRQc"
     >
       
     </span>
     <span
-      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___h968p"
     >
       2 
        warnings

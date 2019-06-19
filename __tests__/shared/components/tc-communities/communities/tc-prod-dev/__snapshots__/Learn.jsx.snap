@@ -11,9 +11,9 @@ exports[`Snapshot match 1`] = `
     text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContainer___URpFK9",
-        "content": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContent___2VUWXS",
-        "contentInner": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContentInner___Q6kQGV",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContainer___1WbFfU",
+        "content": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContent___3ip_dG",
+        "contentInner": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContentInner___3CzYIW",
       }
     }
     themePriority="adhoc-context-default"
@@ -28,7 +28,7 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___learnBasicsContainer___1iYDCB",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___learnBasicsContainer___2gq7yP",
       }
     }
     themePriority="adhoc-context-default"
@@ -63,10 +63,10 @@ exports[`Snapshot match 1`] = `
             First things first, ...make sure you sign up for Topcoder. It's quick and painless and opens the door to a whole new world.
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnowWrap___nANRN"
+            className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnowWrap___2Lo20"
           >
             <Link
-              className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnow___3smhw"
+              className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnow___3wpYA"
               replace={false}
               to="learn"
             >
@@ -124,10 +124,10 @@ exports[`Snapshot match 1`] = `
             Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnowWrap___nANRN"
+            className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnowWrap___2Lo20"
           >
             <Link
-              className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnow___3smhw"
+              className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnow___3wpYA"
               replace={false}
               to="learn"
             >
@@ -167,10 +167,10 @@ exports[`Snapshot match 1`] = `
             page.  If there is nothing active, send us a note and tell us to stop slacking! :)
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnowWrap___nANRN"
+            className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnowWrap___2Lo20"
           >
             <Link
-              className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnow___3smhw"
+              className="src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__joinnow___3wpYA"
               replace={false}
               to="learn"
             >
@@ -239,7 +239,7 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___coursesContainer____PCRkh",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___coursesContainer___2HlJRe",
       }
     }
     themePriority="adhoc-context-default"
@@ -303,8 +303,8 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___resourcesContainer___1uPkYN",
-        "title": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___resourcesTitle___1JW2CI",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___resourcesContainer___2SUPyo",
+        "title": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___resourcesTitle___2WvusX",
       }
     }
     themePriority="adhoc-context-default"

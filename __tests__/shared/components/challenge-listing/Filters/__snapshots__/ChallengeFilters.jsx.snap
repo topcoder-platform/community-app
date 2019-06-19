@@ -2,10 +2,10 @@
 
 exports[`Matches shallow shapshot shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__challenge-filters___16ISg"
+  className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__challenge-filters___3-r7o"
 >
   <div
-    className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
+    className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___34p2k"
   >
     <FiltersCardsType
       isCardTypeSet="type"
@@ -19,18 +19,18 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     />
     
     <span
-      className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__pulled-right___bfsMZ"
+      className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__pulled-right___2riPd"
     >
       
       <span
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___1MVfy"
         onClick={[Function]}
         onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >
         <FiltersIcon
-          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___oiTgr"
           height="16"
           viewBox="0 0 16 16"
           width="16"
@@ -38,7 +38,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       </span>
       <FiltersSwitch
         active={false}
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1AhPQ"
         filtersCount={0}
         onSwitch={[MockFunction]}
       />
@@ -91,10 +91,10 @@ exports[`Matches shallow shapshot shapshot 1`] = `
 
 exports[`Matches shallow shapshot shapshot 2`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__challenge-filters___16ISg"
+  className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__challenge-filters___3-r7o"
 >
   <div
-    className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
+    className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___34p2k"
   >
     <FiltersCardsType
       isCardTypeSet="Challenges"
@@ -108,7 +108,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     />
     <span>
       <span
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___39tZ_"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -122,7 +122,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         />
       </span>
       <span
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___39tZ_"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -136,7 +136,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         />
       </span>
       <span
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___39tZ_"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -151,10 +151,10 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       </span>
     </span>
     <span
-      className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__pulled-right___bfsMZ"
+      className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__pulled-right___2riPd"
     >
       <span
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__track-btn___34Cfs"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__track-btn___1bFnR"
         onClick={[Function]}
         onKeyPress={[Function]}
         role="button"
@@ -162,31 +162,31 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       >
         Tracks
         <span
-          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__down-arrow___21HX_"
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__down-arrow___Y1WUb"
         />
       </span>
       <span
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___1MVfy"
         onClick={[Function]}
         onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >
         <FiltersIcon
-          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___oiTgr"
           height="16"
           viewBox="0 0 16 16"
           width="16"
         />
         <span
-          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___35dFo"
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___1fWD6"
         >
           3
         </span>
       </span>
       <FiltersSwitch
         active={false}
-        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1AhPQ"
         filtersCount={3}
         onSwitch={[MockFunction]}
       />

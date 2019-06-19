@@ -2,22 +2,22 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Dashboard-SRM-___SRMTile__srm___3Xmy7 src-shared-components-Dashboard-SRM-___SRMTile__tile-view___3PGSy"
+  className="src-shared-components-Dashboard-SRM-___SRMTile__srm___I1CVf src-shared-components-Dashboard-SRM-___SRMTile__tile-view___5tLR4"
 >
   <div>
     <div
-      className="src-shared-components-Dashboard-SRM-___SRMTile__challenge-track___3phXC"
+      className="src-shared-components-Dashboard-SRM-___SRMTile__challenge-track___cOiWF"
     />
     <header>
       <a
-        className="src-shared-components-Dashboard-SRM-___SRMTile__noclick___2OJeG"
+        className="src-shared-components-Dashboard-SRM-___SRMTile__noclick___1BNmM"
       />
     </header>
     <div
-      className="src-shared-components-Dashboard-SRM-___SRMTile__srm-details___1faDH"
+      className="src-shared-components-Dashboard-SRM-___SRMTile__srm-details___y7yAS"
     >
       <p
-        className="src-shared-components-Dashboard-SRM-___SRMTile__starts-in___aKyKH"
+        className="src-shared-components-Dashboard-SRM-___SRMTile__starts-in___3K3um"
       >
         Starts in
          
@@ -27,25 +27,25 @@ exports[`Matches shallow shapshot 1`] = `
         </span>
       </p>
       <div
-        className="src-shared-components-Dashboard-SRM-___SRMTile__srm-calendar___1v6RF"
+        className="src-shared-components-Dashboard-SRM-___SRMTile__srm-calendar___2FgV1"
       >
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__day___1Ls1h"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__day___QfuZ0"
         >
           31
         </span>
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__month___l_ZXu"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__month___19R97"
         >
           Dec
         </span>
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__hour___1BSyv"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__hour___2JoEY"
         >
           08:00 am
         </span>
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___3c317"
         >
           UTC
           2019-12-31T08:00:00.000Z
@@ -53,10 +53,10 @@ exports[`Matches shallow shapshot 1`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-Dashboard-SRM-___SRMTile__phase-status___2bDr5"
+      className="src-shared-components-Dashboard-SRM-___SRMTile__phase-status___1kQqL"
     >
       <div
-        className="src-shared-components-Dashboard-SRM-___SRMTile__registered___3HKr-"
+        className="src-shared-components-Dashboard-SRM-___SRMTile__registered___r_ywE"
       >
         Registered
       </div>
@@ -67,22 +67,22 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-Dashboard-SRM-___SRMTile__srm___3Xmy7 src-shared-components-Dashboard-SRM-___SRMTile__tile-view___3PGSy"
+  className="src-shared-components-Dashboard-SRM-___SRMTile__srm___I1CVf src-shared-components-Dashboard-SRM-___SRMTile__tile-view___5tLR4"
 >
   <div>
     <div
-      className="src-shared-components-Dashboard-SRM-___SRMTile__challenge-track___3phXC"
+      className="src-shared-components-Dashboard-SRM-___SRMTile__challenge-track___cOiWF"
     />
     <header>
       <a
-        className="src-shared-components-Dashboard-SRM-___SRMTile__noclick___2OJeG"
+        className="src-shared-components-Dashboard-SRM-___SRMTile__noclick___1BNmM"
       />
     </header>
     <div
-      className="src-shared-components-Dashboard-SRM-___SRMTile__srm-details___1faDH"
+      className="src-shared-components-Dashboard-SRM-___SRMTile__srm-details___y7yAS"
     >
       <p
-        className="src-shared-components-Dashboard-SRM-___SRMTile__starts-in___aKyKH"
+        className="src-shared-components-Dashboard-SRM-___SRMTile__starts-in___3K3um"
       >
         Starts in
          
@@ -92,25 +92,25 @@ exports[`Matches shallow shapshot 2`] = `
         </span>
       </p>
       <div
-        className="src-shared-components-Dashboard-SRM-___SRMTile__srm-calendar___1v6RF"
+        className="src-shared-components-Dashboard-SRM-___SRMTile__srm-calendar___2FgV1"
       >
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__day___1Ls1h"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__day___QfuZ0"
         >
           31
         </span>
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__month___l_ZXu"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__month___19R97"
         >
           Dec
         </span>
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__hour___1BSyv"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__hour___2JoEY"
         >
           08:00 am
         </span>
         <span
-          className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
+          className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___3c317"
         >
           UTC
           2019-12-31T08:00:00.000Z
@@ -118,11 +118,11 @@ exports[`Matches shallow shapshot 2`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-Dashboard-SRM-___SRMTile__phase-status___2bDr5"
+      className="src-shared-components-Dashboard-SRM-___SRMTile__phase-status___1kQqL"
     >
       <div>
         <a
-          className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-SRM-___SRMTile__tc-btn___3gPxt"
+          className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-SRM-___SRMTile__tc-btn___g5Zmz"
           href="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
         >
           Register

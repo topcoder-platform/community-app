@@ -2,7 +2,7 @@
 
 exports[`renders account setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
   onClick={[Function]}
   role="presentation"
 >
@@ -11,7 +11,7 @@ exports[`renders account setting page correctly 1`] = `
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___2zowc"
+    className="src-shared-components-Settings-___style__page___34Auk"
   >
     <Header
       selectTab={[Function]}
@@ -723,7 +723,7 @@ exports[`renders account setting page correctly 1`] = `
 
 exports[`renders preferences setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
   onClick={[Function]}
   role="presentation"
 >
@@ -732,7 +732,7 @@ exports[`renders preferences setting page correctly 1`] = `
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___2zowc"
+    className="src-shared-components-Settings-___style__page___34Auk"
   >
     <Header
       selectTab={[Function]}
@@ -1441,7 +1441,7 @@ exports[`renders preferences setting page correctly 1`] = `
 
 exports[`renders profile setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
   onClick={[Function]}
   role="presentation"
 >
@@ -1450,7 +1450,7 @@ exports[`renders profile setting page correctly 1`] = `
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___2zowc"
+    className="src-shared-components-Settings-___style__page___34Auk"
   >
     <Header
       selectTab={[Function]}
@@ -2165,7 +2165,7 @@ exports[`renders profile setting page correctly 1`] = `
 
 exports[`renders tools setting page correctly 1`] = `
 <div
-  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2e-XA"
   onClick={[Function]}
   role="presentation"
 >
@@ -2174,7 +2174,7 @@ exports[`renders tools setting page correctly 1`] = `
     title="Edit Profile | TopCoder"
   />
   <div
-    className="src-shared-components-Settings-___style__page___2zowc"
+    className="src-shared-components-Settings-___style__page___34Auk"
   >
     <Header
       selectTab={[Function]}

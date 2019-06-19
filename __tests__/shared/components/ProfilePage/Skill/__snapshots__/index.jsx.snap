@@ -2,10 +2,10 @@
 
 exports[`renders a skill correctly 1`] = `
 <div
-  className="src-shared-components-ProfilePage-Skill-___styles__container___bW089"
+  className="src-shared-components-ProfilePage-Skill-___styles__container___28HcQ"
 >
   <div
-    className="src-shared-components-ProfilePage-Skill-___styles__skill-icon___1-d49"
+    className="src-shared-components-ProfilePage-Skill-___styles__skill-icon___jKBwj"
   >
     <FallbackIcon
       height="64"
@@ -15,7 +15,7 @@ exports[`renders a skill correctly 1`] = `
     />
   </div>
   <div
-    className="src-shared-components-ProfilePage-Skill-___styles__name___31cKG"
+    className="src-shared-components-ProfilePage-Skill-___styles__name___2n9YF"
   >
     Test Skill
   </div>

@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
+  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___3dVAF"
 >
   <table>
     <thead>
@@ -17,12 +17,12 @@ exports[`Matches shallow shapshot 1`] = `
           Submission Date
         </th>
         <th
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1X1-o"
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1qDpX"
         >
           Screening Status
         </th>
         <th
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___1o0D9"
         >
           Actions
         </th>
@@ -42,10 +42,10 @@ exports[`Matches shallow shapshot 1`] = `
         type="DESIGN"
       />
       <tr
-        className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+        className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___iJgzm"
       >
         <td
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__dev-details___2GC2b"
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__dev-details___11Ipn"
           colSpan="6"
         >
           <ScreeningDetails
@@ -63,7 +63,7 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
+  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___3dVAF"
 >
   <table>
     <thead>
@@ -78,12 +78,12 @@ exports[`Matches shallow shapshot 2`] = `
           Submission Date
         </th>
         <th
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1X1-o"
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1qDpX"
         >
           Screening Status
         </th>
         <th
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___1o0D9"
         >
           Actions
         </th>
@@ -91,10 +91,10 @@ exports[`Matches shallow shapshot 2`] = `
     </thead>
     <tbody>
       <tr
-        className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+        className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___iJgzm"
       >
         <td
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__no-submission___1jFHS"
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__no-submission___2L7-2"
           colSpan="6"
         >
           You have no submission uploaded so far.

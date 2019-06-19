@@ -2,7 +2,7 @@
 
 exports[`renders external links section of profile setting page correctly 1`] = `
 <div
-  className="settings-section src-shared-components-Settings-Profile-ExternalLinks-___styles__links___1JKmc"
+  className="settings-section src-shared-components-Settings-Profile-ExternalLinks-___styles__links___3n_Ou"
 >
   <div
     className="section-info"

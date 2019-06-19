@@ -2,16 +2,16 @@
 
 exports[`renders a full Profile correctly 1`] = `
 <div
-  className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
+  className="src-shared-components-ProfilePage-___styles__outer-container___3PvBt"
 >
   <div
-    className="src-shared-components-ProfilePage-___styles__profile-container___13E1W"
+    className="src-shared-components-ProfilePage-___styles__profile-container___3Z43f"
   >
     <div
-      className="src-shared-components-ProfilePage-___styles__about-container___3Bxx5"
+      className="src-shared-components-ProfilePage-___styles__about-container___1kz3x"
     >
       <div
-        className="src-shared-components-ProfilePage-___styles__profile-header-container___28i-i"
+        className="src-shared-components-ProfilePage-___styles__profile-header-container___13RDZ"
       >
         <Sticky
           activeClass="active"
@@ -24,7 +24,7 @@ exports[`renders a full Profile correctly 1`] = `
           top={10}
         >
           <div
-            className="src-shared-components-ProfilePage-___styles__sticky-container___3neSB"
+            className="src-shared-components-ProfilePage-___styles__sticky-container___2x6Y7"
           >
             <ProfileHeader
               copilot={true}
@@ -63,24 +63,24 @@ exports[`renders a full Profile correctly 1`] = `
         </Sticky>
       </div>
       <div
-        className="src-shared-components-ProfilePage-___styles__profile-about-container___1Bqmr"
+        className="src-shared-components-ProfilePage-___styles__profile-about-container___3U_0Q"
       >
         <div
           id="profile-skills"
         >
           <div
-            className="src-shared-components-ProfilePage-___styles__skills___1HaSX"
+            className="src-shared-components-ProfilePage-___styles__skills___3nr69"
           >
             <h3
-              className="src-shared-components-ProfilePage-___styles__activity___1H__1"
+              className="src-shared-components-ProfilePage-___styles__activity___36M8X"
             >
               Skills
             </h3>
             <div
-              className="src-shared-components-ProfilePage-___styles__list___sjJ9L"
+              className="src-shared-components-ProfilePage-___styles__list___KxdKe"
             >
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="117"
@@ -88,7 +88,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="125"
@@ -96,7 +96,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="132"
@@ -104,7 +104,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="153"
@@ -112,7 +112,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="159"
@@ -120,7 +120,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="168"
@@ -128,7 +128,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="170"
@@ -136,7 +136,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="176"
@@ -144,7 +144,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="212"
@@ -152,7 +152,7 @@ exports[`renders a full Profile correctly 1`] = `
                 />
               </div>
               <div
-                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+                className="src-shared-components-ProfilePage-___styles__skill___3Xpbt"
               >
                 <Skill
                   tagId="247"
@@ -553,13 +553,13 @@ exports[`renders a full Profile correctly 1`] = `
           />
         </div>
         <div
-          className="src-shared-components-ProfilePage-___styles__external-links-container___2jHlD"
+          className="src-shared-components-ProfilePage-___styles__external-links-container___3PNDD"
         >
           <h3>
             On The Web
           </h3>
           <div
-            className="src-shared-components-ProfilePage-___styles__external-links___21O2N"
+            className="src-shared-components-ProfilePage-___styles__external-links___18lDm"
           >
             <ExternalLink
               data={
@@ -605,16 +605,16 @@ exports[`renders a full Profile correctly 1`] = `
 
 exports[`renders an empty Profile correctly 1`] = `
 <div
-  className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
+  className="src-shared-components-ProfilePage-___styles__outer-container___3PvBt"
 >
   <div
-    className="src-shared-components-ProfilePage-___styles__profile-container___13E1W"
+    className="src-shared-components-ProfilePage-___styles__profile-container___3Z43f"
   >
     <div
-      className="src-shared-components-ProfilePage-___styles__about-container___3Bxx5"
+      className="src-shared-components-ProfilePage-___styles__about-container___1kz3x"
     >
       <div
-        className="src-shared-components-ProfilePage-___styles__profile-header-container___28i-i"
+        className="src-shared-components-ProfilePage-___styles__profile-header-container___13RDZ"
       >
         <Sticky
           activeClass="active"
@@ -627,7 +627,7 @@ exports[`renders an empty Profile correctly 1`] = `
           top={10}
         >
           <div
-            className="src-shared-components-ProfilePage-___styles__sticky-container___3neSB"
+            className="src-shared-components-ProfilePage-___styles__sticky-container___2x6Y7"
           >
             <ProfileHeader
               copilot={false}
@@ -662,10 +662,10 @@ exports[`renders an empty Profile correctly 1`] = `
         </Sticky>
       </div>
       <div
-        className="src-shared-components-ProfilePage-___styles__profile-about-container___1Bqmr"
+        className="src-shared-components-ProfilePage-___styles__profile-about-container___3U_0Q"
       >
         <div
-          className="src-shared-components-ProfilePage-___styles__empty-profile___2vxMh"
+          className="src-shared-components-ProfilePage-___styles__empty-profile___2py4m"
         >
           <h2>
             BEEP. BEEP. HELLO!

@@ -43,7 +43,7 @@ exports[`Matches shallow shapshot 2`] = `
 <div>
   <ThemedButton
     active={false}
-    className="src-shared-components-tc-communities-JoinCommunity-style___joining___rq-m2x"
+    className="src-shared-components-tc-communities-JoinCommunity-style___joining___34GD9c"
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     disabled={false}
@@ -59,7 +59,7 @@ exports[`Matches shallow shapshot 2`] = `
     type="button"
   >
     <div
-      className="src-shared-components-tc-communities-JoinCommunity-style___joiningContainer___2P4Cvw"
+      className="src-shared-components-tc-communities-JoinCommunity-style___joiningContainer___WZlEu1"
     >
       <span>
         Joining...
@@ -70,7 +70,7 @@ exports[`Matches shallow shapshot 2`] = `
         mapThemrProps={[Function]}
         theme={
           Object {
-            "container": "src-shared-components-tc-communities-JoinCommunity-style___loadingIndicator___2RP1uY",
+            "container": "src-shared-components-tc-communities-JoinCommunity-style___loadingIndicator___1ykZ62",
           }
         }
         themePriority="adhoc-context-default"
@@ -82,7 +82,7 @@ exports[`Matches shallow shapshot 2`] = `
 
 exports[`Matches shallow shapshot 3`] = `
 <div
-  className="src-shared-components-tc-communities-JoinCommunity-___style__placeholder___1XfW2"
+  className="src-shared-components-tc-communities-JoinCommunity-___style__placeholder___leadO"
 >
   
 </div>
@@ -118,12 +118,12 @@ exports[`Matches shallow shapshot 4`] = `
     themePriority="adhoc-context-default"
   >
     <h1
-      className="src-shared-components-tc-communities-JoinCommunity-___style__modalTitle___1U_iw"
+      className="src-shared-components-tc-communities-JoinCommunity-___style__modalTitle___2kLZX"
     >
       Congratulations!
     </h1>
     <p
-      className="src-shared-components-tc-communities-JoinCommunity-___style__modalMsg___25f_a"
+      className="src-shared-components-tc-communities-JoinCommunity-___style__modalMsg___zO03w"
     >
       You have joined the ios!
     </p>
@@ -141,7 +141,7 @@ exports[`Matches shallow shapshot 4`] = `
       size={null}
       theme={
         Object {
-          "button": "src-shared-components-tc-communities-JoinCommunity-style___returnToCommunityButton___1YlEiP",
+          "button": "src-shared-components-tc-communities-JoinCommunity-style___returnToCommunityButton___3OT45z",
         }
       }
       themePriority="adhoc-context-default"

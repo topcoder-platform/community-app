@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
 <div
-  className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
+  className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___uH5-U"
   id="challengeFilterContainer"
 >
   <Connect(Container)
@@ -13,13 +13,13 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     setCardType={[Function]}
   />
   <div
-    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF src-shared-components-challenge-listing-___style__hidden___4C3Up"
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___LNp8g src-shared-components-challenge-listing-___style__hidden___1q8IO"
   >
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3m3up"
     />
     <div
-      className="src-shared-components-challenge-listing-___style__challenges-container___1invl src-shared-components-challenge-listing-___style__SRMs-container___1Kmjf"
+      className="src-shared-components-challenge-listing-___style__challenges-container___3Fx3a src-shared-components-challenge-listing-___style__SRMs-container___2us33"
     >
       <div>
         <SRMCard
@@ -29,14 +29,14 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       </div>
       <div>
         <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+          className="src-shared-components-challenge-listing-___style__title___ujxoU"
         >
           Upcoming SRMs
         </div>
       </div>
       <div>
         <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+          className="src-shared-components-challenge-listing-___style__title___ujxoU"
         >
           Past SRMs
         </div>
@@ -47,7 +47,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___nvoPb"
     >
       <Sticky
         activeClass="active"
@@ -62,10 +62,10 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     </div>
   </div>
   <div
-    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___LNp8g"
   >
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3m3up"
     >
       <Connect(SidebarContainer)
         loadMoreChallenges={null}
@@ -100,7 +100,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       sorts={Object {}}
     />
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___nvoPb"
     >
       <Sticky
         activeClass="active"
@@ -125,7 +125,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
 
 exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
 <div
-  className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
+  className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___uH5-U"
   id="challengeFilterContainer"
 >
   <Connect(Container)
@@ -136,13 +136,13 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
     setCardType={[Function]}
   />
   <div
-    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF src-shared-components-challenge-listing-___style__hidden___4C3Up"
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___LNp8g src-shared-components-challenge-listing-___style__hidden___1q8IO"
   >
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3m3up"
     />
     <div
-      className="src-shared-components-challenge-listing-___style__challenges-container___1invl src-shared-components-challenge-listing-___style__SRMs-container___1Kmjf"
+      className="src-shared-components-challenge-listing-___style__challenges-container___3Fx3a src-shared-components-challenge-listing-___style__SRMs-container___2us33"
     >
       <div>
         <SRMCard
@@ -152,14 +152,14 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
       </div>
       <div>
         <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+          className="src-shared-components-challenge-listing-___style__title___ujxoU"
         >
           Upcoming SRMs
         </div>
       </div>
       <div>
         <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+          className="src-shared-components-challenge-listing-___style__title___ujxoU"
         >
           Past SRMs
         </div>
@@ -170,7 +170,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___nvoPb"
     >
       <Sticky
         activeClass="active"
@@ -185,20 +185,20 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
     </div>
   </div>
   <div
-    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___LNp8g"
   >
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3m3up"
     >
       <Connect(SidebarContainer)
         loadMoreChallenges={null}
       />
     </div>
     <div
-      className="src-shared-components-challenge-listing-___style__challenge-cards-container___37tl8"
+      className="src-shared-components-challenge-listing-___style__challenge-cards-container___2NU-w"
     >
       <div
-        className="src-shared-components-challenge-listing-___style__ChallengeCardExamples___EHRPE"
+        className="src-shared-components-challenge-listing-___style__ChallengeCardExamples___U29zZ"
       >
         <ChallengeCardPlaceholder
           id={0}
@@ -227,7 +227,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
       </div>
     </div>
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___nvoPb"
     >
       <Sticky
         activeClass="active"
