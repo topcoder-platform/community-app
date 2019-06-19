@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
 import Logo from 'assets/images/tc-logo.svg';
@@ -18,6 +18,7 @@ try {
 
 const Header = ({ profile }) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
+  const [path, setPath] = useState();
   const [openMore, setOpenMore] = useState(true);
 
   const handleChangeLevel1Id = (menuId) => {
@@ -44,6 +45,9 @@ const Header = ({ profile }) => {
     normalizedProfile = null;
   }
 
+  useEffect(() => {
+    setPath(window.location.pathname);
+  }, []);
   if (TopNavRef) {
     return (
       <div>
@@ -67,6 +71,7 @@ const Header = ({ profile }) => {
           theme={config.HEADER_MENU_THEME}
           currentLevel1Id={activeLevel1Id}
           onChangeLevel1Id={handleChangeLevel1Id}
+          path={path}
           openMore={openMore}
           setOpenMore={handleChangeOpenMore}
         />
