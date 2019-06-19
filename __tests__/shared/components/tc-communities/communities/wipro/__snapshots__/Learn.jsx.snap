@@ -11,9 +11,9 @@ exports[`Snapshot match 1`] = `
     text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. Master the in-demand technologies to succeed in this rapidly changing technology landscape."
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContainer___uHU8w3",
-        "content": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContent___36CwDB",
-        "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContentInner___kCfomz",
+        "container": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContainer___1MiM0E",
+        "content": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContent___2rbyc6",
+        "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContentInner___4smdOr",
       }
     }
     themePriority="adhoc-context-default"
@@ -31,12 +31,12 @@ exports[`Snapshot match 1`] = `
     title={null}
   >
     <div
-      className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___-zsG5"
+      className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
     >
       <p>
         To access the TopGear
         <span
-          className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___1sFiD"
+          className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
         >
           Learning
         </span>
@@ -48,7 +48,7 @@ exports[`Snapshot match 1`] = `
         ”.
       </p>
       <p
-        className="src-shared-components-tc-communities-communities-wipro-Learn-___style__button-container___1G2C6"
+        className="src-shared-components-tc-communities-communities-wipro-Learn-___style__button-container___10Uat"
       >
         <ThemedButton
           active={false}

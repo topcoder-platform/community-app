@@ -2,19 +2,19 @@
 
 exports[`Snapshot match 1`] = `
 <tr
-  className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___3qYfw"
+  className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
 >
   <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___1_zXu"
+    className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   />
   <td />
   <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___303om"
+    className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
   >
     Invalid date
   </td>
   <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___31vp7"
+    className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
   >
     <div>
       <a>
@@ -26,7 +26,7 @@ exports[`Snapshot match 1`] = `
         />
       </a>
       <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2zo1O"
+        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -39,7 +39,7 @@ exports[`Snapshot match 1`] = `
         />
       </button>
       <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___2pInV src-shared-components-SubmissionManagement-Submission-___styles__expanded___1yXMz"
+        className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
         onClick={[Function]}
         type="button"
       >
@@ -57,21 +57,21 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <tr
-  className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___3qYfw"
+  className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
 >
   <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___1_zXu"
+    className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   >
     12345
   </td>
   <td />
   <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___303om"
+    className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
   >
     Invalid date
   </td>
   <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___31vp7"
+    className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
   >
     <div>
       <a>
@@ -83,7 +83,7 @@ exports[`Snapshot match 2`] = `
         />
       </a>
       <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2zo1O"
+        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
         disabled={true}
         onClick={[Function]}
         type="button"
@@ -96,7 +96,7 @@ exports[`Snapshot match 2`] = `
         />
       </button>
       <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___2pInV"
+        className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
         onClick={[Function]}
         type="button"
       >

@@ -2,15 +2,15 @@
 
 exports[`renders correctly with context 1`] = `
 <div
-  className="src-shared-components-Error404-___style__container___2itZc"
+  className="src-shared-components-Error404-___style__container___cTZne"
 >
   <h1
-    className="src-shared-components-Error404-___style__message___2Oieq"
+    className="src-shared-components-Error404-___style__message___AF2BX"
   >
     404 HTTP Error
   </h1>
   <p
-    className="src-shared-components-Error404-___style__details___2m9Px"
+    className="src-shared-components-Error404-___style__details___1BHqS"
   >
     The resource you are looking for does not exist in Topcoder community App :(
   </p>
@@ -19,15 +19,15 @@ exports[`renders correctly with context 1`] = `
 
 exports[`renders correctly without context 1`] = `
 <div
-  className="src-shared-components-Error404-___style__container___2itZc"
+  className="src-shared-components-Error404-___style__container___cTZne"
 >
   <h1
-    className="src-shared-components-Error404-___style__message___2Oieq"
+    className="src-shared-components-Error404-___style__message___AF2BX"
   >
     404 HTTP Error
   </h1>
   <p
-    className="src-shared-components-Error404-___style__details___2m9Px"
+    className="src-shared-components-Error404-___style__details___1BHqS"
   >
     The resource you are looking for does not exist in Topcoder community App :(
   </p>

@@ -2,7 +2,7 @@
 
 exports[`renders design 1`] = `
 <div
-  className="src-shared-components-ChallengeTile-___style__challenge___2bI0g src-shared-components-ChallengeTile-___style__tile___1XoeI"
+  className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile___1-M3K"
   style={
     Object {
       "margin": "10px 5px",
@@ -12,14 +12,14 @@ exports[`renders design 1`] = `
   }
 >
   <div
-    className="src-shared-components-ChallengeTile-___style__challenge___2bI0g src-shared-components-ChallengeTile-___style__tile-view___2CiHl src-shared-components-ChallengeTile-___style__DESIGN___3gFcw"
+    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__DESIGN___Qvjqd"
   >
     <div
-      className="src-shared-components-ChallengeTile-___style__completed-challenge___3fEul"
+      className="src-shared-components-ChallengeTile-___style__completed-challenge___3w5tT"
     >
       <header>
         <Link
-          className="src-shared-components-ChallengeTile-___style__name___3CeG_"
+          className="src-shared-components-ChallengeTile-___style__name___1jF7j"
           replace={false}
           to="/challenges/30051608"
         >
@@ -28,41 +28,41 @@ exports[`renders design 1`] = `
           </span>
         </Link>
         <p
-          className="src-shared-components-ChallengeTile-___style__subtrack-color___3XdcU"
+          className="src-shared-components-ChallengeTile-___style__subtrack-color___2AJaw"
         >
           LOGO DESIGN
         </p>
         <p
-          className="src-shared-components-ChallengeTile-___style__date-completed___PXe48"
+          className="src-shared-components-ChallengeTile-___style__date-completed___22F18"
         >
           October 2015
         </p>
       </header>
       <div
-        className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___3ccud"
+        className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___CYUWj"
       >
         <div
-          className="src-shared-components-ChallengeTile-___style__challenge-details___1Iia_ src-shared-components-ChallengeTile-___style__DATA_SCIENCE___3RazX"
+          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
         >
           <div
-            className="src-shared-components-ChallengeTile-___style__design-challenge-user-place___3w4Rq"
+            className="src-shared-components-ChallengeTile-___style__design-challenge-user-place___3v-1O"
           >
             <div
-              className="src-shared-components-ChallengeTile-___style__tile-view___2CiHl"
+              className="src-shared-components-ChallengeTile-___style__tile-view___1stZU"
             >
               <p
-                className="src-shared-components-ChallengeTile-___style__place___3WlNy"
+                className="src-shared-components-ChallengeTile-___style__place___18eIV"
               >
                 Passed Screening
               </p>
               <div
-                className="src-shared-components-ChallengeTile-___style__thumbnail___1dkLw"
+                className="src-shared-components-ChallengeTile-___style__thumbnail___2vRle"
               />
             </div>
           </div>
         </div>
         <p
-          className="src-shared-components-ChallengeTile-___style__roles___20v5l"
+          className="src-shared-components-ChallengeTile-___style__roles___1V-WA"
         >
           <span>
             <span>
@@ -81,7 +81,7 @@ exports[`renders design 1`] = `
 
 exports[`renders develop 1`] = `
 <div
-  className="src-shared-components-ChallengeTile-___style__challenge___2bI0g src-shared-components-ChallengeTile-___style__tile___1XoeI"
+  className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile___1-M3K"
   style={
     Object {
       "margin": "10px 5px",
@@ -91,14 +91,14 @@ exports[`renders develop 1`] = `
   }
 >
   <div
-    className="src-shared-components-ChallengeTile-___style__challenge___2bI0g src-shared-components-ChallengeTile-___style__tile-view___2CiHl src-shared-components-ChallengeTile-___style__DEVELOP___1dbQm"
+    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__DEVELOP___GgzgV"
   >
     <div
-      className="src-shared-components-ChallengeTile-___style__completed-challenge___3fEul"
+      className="src-shared-components-ChallengeTile-___style__completed-challenge___3w5tT"
     >
       <header>
         <Link
-          className="src-shared-components-ChallengeTile-___style__name___3CeG_"
+          className="src-shared-components-ChallengeTile-___style__name___1jF7j"
           replace={false}
           to="/challenges/30060905"
         >
@@ -107,17 +107,17 @@ exports[`renders develop 1`] = `
           </span>
         </Link>
         <p
-          className="src-shared-components-ChallengeTile-___style__subtrack-color___3XdcU"
+          className="src-shared-components-ChallengeTile-___style__subtrack-color___2AJaw"
         >
           FIRST 2 FINISH
         </p>
         <p
-          className="src-shared-components-ChallengeTile-___style__date-completed___PXe48"
+          className="src-shared-components-ChallengeTile-___style__date-completed___22F18"
         >
           December 2017
         </p>
         <div
-          className="src-shared-components-ChallengeTile-___style__winner-ribbon___2qfdT"
+          className="src-shared-components-ChallengeTile-___style__winner-ribbon___321bD"
         >
           <WinnerRibbon
             height="26"
@@ -128,19 +128,19 @@ exports[`renders develop 1`] = `
         </div>
       </header>
       <div
-        className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___3ccud"
+        className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___CYUWj"
       >
         <div
-          className="src-shared-components-ChallengeTile-___style__challenge-details___1Iia_ src-shared-components-ChallengeTile-___style__DATA_SCIENCE___3RazX"
+          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
         >
           <div
-            className="src-shared-components-ChallengeTile-___style__dev-challenge-user-place___VL66h"
+            className="src-shared-components-ChallengeTile-___style__dev-challenge-user-place___2tS8j"
           >
             <div
-              className="src-shared-components-ChallengeTile-___style__tile-view___2CiHl"
+              className="src-shared-components-ChallengeTile-___style__tile-view___1stZU"
             >
               <p
-                className="src-shared-components-ChallengeTile-___style__first-place___kIysV src-shared-components-ChallengeTile-___style__place___3WlNy"
+                className="src-shared-components-ChallengeTile-___style__first-place___2-nh_ src-shared-components-ChallengeTile-___style__place___18eIV"
               >
                 1
                 <span>
@@ -150,15 +150,15 @@ exports[`renders develop 1`] = `
                 Place
               </p>
               <div
-                className="src-shared-components-ChallengeTile-___style__challenge-score___232oX"
+                className="src-shared-components-ChallengeTile-___style__challenge-score___2RKXS"
               >
                 <p
-                  className="src-shared-components-ChallengeTile-___style__score___Aguxg"
+                  className="src-shared-components-ChallengeTile-___style__score___pPbmo"
                 >
                   100%
                 </p>
                 <p
-                  className="src-shared-components-ChallengeTile-___style__last-child___1s43e"
+                  className="src-shared-components-ChallengeTile-___style__last-child___10e2S"
                 >
                   Review Score
                 </p>
@@ -167,7 +167,7 @@ exports[`renders develop 1`] = `
           </div>
         </div>
         <p
-          className="src-shared-components-ChallengeTile-___style__roles___20v5l"
+          className="src-shared-components-ChallengeTile-___style__roles___1V-WA"
         >
           <span>
             <span>
@@ -186,7 +186,7 @@ exports[`renders develop 1`] = `
 
 exports[`renders marathon 1`] = `
 <div
-  className="src-shared-components-ChallengeTile-___style__challenge___2bI0g src-shared-components-ChallengeTile-___style__tile___1XoeI"
+  className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile___1-M3K"
   style={
     Object {
       "margin": "10px 5px",
@@ -196,40 +196,40 @@ exports[`renders marathon 1`] = `
   }
 >
   <div
-    className="src-shared-components-ChallengeTile-___style__challenge___2bI0g src-shared-components-ChallengeTile-___style__tile-view___2CiHl src-shared-components-ChallengeTile-___style__DATA_SCIENCE___3RazX"
+    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
   >
     <div
-      className="src-shared-components-ChallengeTile-___style__completed-challenge___3fEul"
+      className="src-shared-components-ChallengeTile-___style__completed-challenge___3w5tT"
     >
       <header>
         <a
-          className="src-shared-components-ChallengeTile-___style__name___3CeG_"
+          className="src-shared-components-ChallengeTile-___style__name___1jF7j"
           href="https://community.topcoder.com/longcontest/stats/?module=ViewOverview&rd=17153"
         >
           2018 TCO Marathon
         </a>
         <p
-          className="src-shared-components-ChallengeTile-___style__subtrack-color___3XdcU"
+          className="src-shared-components-ChallengeTile-___style__subtrack-color___2AJaw"
         >
           MARATHON MATCH
         </p>
         <p
-          className="src-shared-components-ChallengeTile-___style__date-completed___PXe48"
+          className="src-shared-components-ChallengeTile-___style__date-completed___22F18"
         >
           May 2018
         </p>
       </header>
       <div
-        className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___3ccud"
+        className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___CYUWj"
       >
         <div
-          className="src-shared-components-ChallengeTile-___style__challenge-details___1Iia_ src-shared-components-ChallengeTile-___style__DATA_SCIENCE___3RazX"
+          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
         >
           <div
-            className="src-shared-components-ChallengeTile-___style__marathon-score___3oOlQ"
+            className="src-shared-components-ChallengeTile-___style__marathon-score___V-afd"
           >
             <p
-              className="src-shared-components-ChallengeTile-___style__score___Aguxg"
+              className="src-shared-components-ChallengeTile-___style__score___pPbmo"
             >
               996714.71
             </p>
@@ -239,7 +239,7 @@ exports[`renders marathon 1`] = `
           </div>
         </div>
         <p
-          className="src-shared-components-ChallengeTile-___style__roles___20v5l"
+          className="src-shared-components-ChallengeTile-___style__roles___1V-WA"
         />
       </div>
     </div>

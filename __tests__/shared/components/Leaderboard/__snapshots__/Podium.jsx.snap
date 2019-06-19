@@ -2,13 +2,13 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Leaderboard-Podium-___styles__Podium___3Bd6Z"
+  className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
 >
   <div
-    className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2SVX2"
+    className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2Czwe"
   >
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___29JIg"
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
     >
       <PodiumSpot
         competitor={
@@ -27,7 +27,7 @@ exports[`Matches shallow shapshot 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___29JIg"
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
     >
       <PodiumSpot
         competitor={
@@ -46,7 +46,7 @@ exports[`Matches shallow shapshot 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___29JIg"
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
     >
       <PodiumSpot
         competitor={
@@ -65,7 +65,7 @@ exports[`Matches shallow shapshot 1`] = `
       />
     </div>
     <div
-      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___29JIg"
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
     >
       <PodiumSpot
         competitor={
@@ -89,10 +89,10 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-Leaderboard-Podium-___styles__Podium___3Bd6Z"
+  className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
 >
   <div
-    className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2SVX2"
+    className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2Czwe"
   />
 </div>
 `;

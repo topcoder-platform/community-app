@@ -2,12 +2,12 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2BrE8"
+  className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2ixiH"
   onClick={[Function]}
   onKeyPress={[Function]}
 >
   <FiltersIcon
-    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___3Rv8i"
+    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
     color="#5D5D66"
     height="16"
     viewBox="0 0 16 16"
@@ -19,12 +19,12 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2BrE8 src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__active___3fm9O"
+  className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2ixiH src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__active___2wLTl"
   onClick={[Function]}
   onKeyPress={[Function]}
 >
   <FiltersIcon
-    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___3Rv8i"
+    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
     color="#5D5D66"
     height="16"
     viewBox="0 0 16 16"
@@ -32,7 +32,7 @@ exports[`Matches shallow shapshot 2`] = `
   />
   Filters
   <span
-    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__filtersCount___1LzhK"
+    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__filtersCount___2MZij"
   >
     5
   </span>

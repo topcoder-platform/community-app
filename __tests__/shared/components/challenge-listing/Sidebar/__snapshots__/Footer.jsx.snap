@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Sidebar-Footer-___style__sidebar-footer___3NUkH"
+  className="src-shared-components-challenge-listing-Sidebar-Footer-___style__sidebar-footer___3pKhJ"
 >
   <ul>
     <li>
@@ -46,7 +46,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
   </ul>
   <p
-    className="src-shared-components-challenge-listing-Sidebar-Footer-___style__copyright___284dR"
+    className="src-shared-components-challenge-listing-Sidebar-Footer-___style__copyright___ghkHg"
   >
     Topcoder ©
     2019

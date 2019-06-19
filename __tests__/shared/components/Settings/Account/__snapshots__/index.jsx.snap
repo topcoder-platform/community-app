@@ -2,10 +2,10 @@
 
 exports[`renders account setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-Account-___styles__account-container___3A61k"
+  className="src-shared-components-Settings-Account-___styles__account-container___2rdYG"
 >
   <div
-    className="src-shared-components-Settings-Account-___styles__col-bar___29AFQ"
+    className="src-shared-components-Settings-Account-___styles__col-bar___3MCVp"
   >
     <SideBar
       icons={
@@ -33,7 +33,7 @@ exports[`renders account setting page correctly 1`] = `
     />
   </div>
   <div
-    className="src-shared-components-Settings-Account-___styles__col-content___CX4mR"
+    className="src-shared-components-Settings-Account-___styles__col-content___1gt_Z"
   >
     <ErrorWrapper>
       <Unknown />

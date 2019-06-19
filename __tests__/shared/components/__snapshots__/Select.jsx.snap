@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Select-___style__select___mwI9W"
+  className="src-shared-components-Select-___style__select___oXBnl"
 >
   <Select
     arrowRenderer={[Function]}

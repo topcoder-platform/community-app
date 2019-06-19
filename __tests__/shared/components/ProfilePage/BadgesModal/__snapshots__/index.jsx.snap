@@ -8,13 +8,13 @@ exports[`renders achievements correctly 1`] = `
   onCancel={[Function]}
   theme={
     Object {
-      "container": "src-shared-components-ProfilePage-BadgesModal-modal___container___3qOmKl",
+      "container": "src-shared-components-ProfilePage-BadgesModal-modal___container___4EvuJJ",
     }
   }
   themePriority="adhoc-context-default"
 >
   <header
-    className="src-shared-components-ProfilePage-BadgesModal-___styles__head___3reSG"
+    className="src-shared-components-ProfilePage-BadgesModal-___styles__head___2Awc5"
   >
     <div>
       <div>
@@ -23,14 +23,14 @@ exports[`renders achievements correctly 1`] = `
           testHandle
         </span>
         <span
-          className="src-shared-components-ProfilePage-BadgesModal-___styles__divider___2L-ZD"
+          className="src-shared-components-ProfilePage-BadgesModal-___styles__divider___3BuuF"
         >
            
           //
            
         </span>
         <span
-          className="src-shared-components-ProfilePage-BadgesModal-___styles__title___1ajxr"
+          className="src-shared-components-ProfilePage-BadgesModal-___styles__title___10epD"
         >
           BADGES
         </span>
@@ -38,10 +38,10 @@ exports[`renders achievements correctly 1`] = `
     </div>
   </header>
   <aside
-    className="src-shared-components-ProfilePage-BadgesModal-___styles__badges___O6dzG"
+    className="src-shared-components-ProfilePage-BadgesModal-___styles__badges___iTXkj"
   >
     <CloseButton
-      className="src-shared-components-ProfilePage-BadgesModal-___styles__close-button___wcA14"
+      className="src-shared-components-ProfilePage-BadgesModal-___styles__close-button___19iJL"
       height="36"
       onClick={[Function]}
       viewBox="0 0 36 36"
@@ -49,17 +49,17 @@ exports[`renders achievements correctly 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     />
     <div
-      className="src-shared-components-ProfilePage-BadgesModal-___styles__content___2k-Su"
+      className="src-shared-components-ProfilePage-BadgesModal-___styles__content___3wxpB"
     >
       <div
-        className="src-shared-components-ProfilePage-BadgesModal-___styles__badgeGroups___18Ns6"
+        className="src-shared-components-ProfilePage-BadgesModal-___styles__badgeGroups___3KAO2"
       >
         <div
-          className="src-shared-components-ProfilePage-BadgesModal-___badges__groupBadge___1jOLf src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts___1DqPI"
+          className="src-shared-components-ProfilePage-BadgesModal-___badges__groupBadge___3Cghu src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts___3cKMV"
         >
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date="2012-02-17T00:00:00.000-05:00"
@@ -78,12 +78,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-1___1VWte src-shared-components-ProfilePage-BadgesModal-___badges__selected___1Yot0"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-1___urckG src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date="2009-06-23T00:00:00.000-04:00"
@@ -102,12 +102,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-100___2VADn src-shared-components-ProfilePage-BadgesModal-___badges__selected___1Yot0"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-100___3rzCU src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date="2012-11-28T00:00:00.000-05:00"
@@ -126,12 +126,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-500___1i8iH src-shared-components-ProfilePage-BadgesModal-___badges__selected___1Yot0"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-500___2DHkn src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date="2012-04-30T00:00:00.000-04:00"
@@ -150,12 +150,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-1000___21LYn src-shared-components-ProfilePage-BadgesModal-___badges__selected___1Yot0"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-1000___oCnsV src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date="2005-01-29T00:00:00.000-05:00"
@@ -174,16 +174,16 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-5000___146sK src-shared-components-ProfilePage-BadgesModal-___badges__selected___1Yot0"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-5000___1ciJs src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
             />
           </Tooltip>
         </div>
         <div
-          className="src-shared-components-ProfilePage-BadgesModal-___badges__groupBadge___1jOLf src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions___3eV9Q"
+          className="src-shared-components-ProfilePage-BadgesModal-___badges__groupBadge___3Cghu src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions___3238v"
         >
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date="2012-09-29T00:00:00.000-04:00"
@@ -202,12 +202,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-1___1cuwJ src-shared-components-ProfilePage-BadgesModal-___badges__selected___1Yot0"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-1___1nPUK src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date=""
@@ -226,12 +226,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-50___qAYFD"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-50___1SmIh"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date=""
@@ -250,12 +250,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-100___1FEZG"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-100___2UZvi"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date=""
@@ -274,12 +274,12 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-250___1AiFf"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-250___20myV"
             />
           </Tooltip>
           <Tooltip
             align={Object {}}
-            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2dWqfb"
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
                 date=""
@@ -298,13 +298,13 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___1EGiW src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-500___31DIU"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-500___3Xkw3"
             />
           </Tooltip>
         </div>
       </div>
       <div
-        className="src-shared-components-ProfilePage-BadgesModal-___styles__footer-badges___1Duld"
+        className="src-shared-components-ProfilePage-BadgesModal-___styles__footer-badges___1Ak-p"
       />
     </div>
   </aside>
