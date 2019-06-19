@@ -62,8 +62,8 @@ module.exports = {
       title: 'WORK',
       subMenu: [
         {
-          id: 'profile',
-          title: 'Profile',
+          id: 'dashboardl2',
+          title: 'Dashboard',
           subMenu: [
             {
               title: 'Dashboard',
@@ -159,14 +159,6 @@ module.exports = {
     {
       title: 'Settings',
       href: '/settings/profile',
-    },
-    {
-      title: 'Payments',
-      href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
-    },
-    {
-      title: 'All projects',
-      link: null,
     },
     { separator: true },
     {
