@@ -38,7 +38,7 @@ const Header = ({ profile }) => {
 
   useEffect(() => {
     setPath(window.location.pathname);
-  }, [])
+  }, []);
   if (TopNavRef) {
     return (
       <div>
