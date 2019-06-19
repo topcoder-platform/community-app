@@ -19,9 +19,18 @@ try {
 const Header = ({ profile }) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
+  const [openMore, setOpenMore] = useState(true);
 
   const handleChangeLevel1Id = (menuId) => {
     setActiveLevel1Id(menuId);
+  };
+
+  const handleCloseOpenMore = () => {
+    setOpenMore(false);
+  };
+
+  const handleChangeOpenMore = (changedOpenMore) => {
+    setOpenMore(changedOpenMore);
   };
 
   const handleSwitchMenu = () => {
@@ -52,6 +61,7 @@ const Header = ({ profile }) => {
               accountMenu={config.ACCOUNT_MENU}
               switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
               onSwitch={handleSwitchMenu}
+              onMenuOpen={handleCloseOpenMore}
               showNotification={false}
               profile={normalizedProfile}
               authURLs={config.HEADER_AUTH_URLS}
@@ -62,6 +72,8 @@ const Header = ({ profile }) => {
           currentLevel1Id={activeLevel1Id}
           onChangeLevel1Id={handleChangeLevel1Id}
           path={path}
+          openMore={openMore}
+          setOpenMore={handleChangeOpenMore}
         />
       </div>
     );

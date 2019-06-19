@@ -19,7 +19,7 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "link": "/challenges",
+                  "href": "/challenges",
                   "title": "All challenges",
                 },
                 Object {
@@ -89,12 +89,13 @@ exports[`Default render 1`] = `
       ]
     }
     onChangeLevel1Id={[Function]}
+    openMore={true}
     rightMenu={
       <LoginNav
         accountMenu={
           Array [
             Object {
-              "link": "/settings/profile",
+              "href": "/settings/profile",
               "title": "Settings",
             },
             Object {
@@ -131,6 +132,7 @@ exports[`Default render 1`] = `
         loggedIn={true}
         notificationButtonState="none"
         notifications={Array []}
+        onMenuOpen={[Function]}
         onSwitch={[Function]}
         profile={
           Object {
@@ -149,6 +151,7 @@ exports[`Default render 1`] = `
         }
       />
     }
+    setOpenMore={[Function]}
     theme="light"
   />
 </div>
