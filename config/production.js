@@ -58,8 +58,8 @@ module.exports = {
   },
   HEADER_MENU: [
     {
-      id: 'work', // required for 'Switch to BUSINESS' to work
-      title: 'WORK',
+      id: 'community', // required for 'Switch to BUSINESS' to work
+      title: 'COMMUNITY',
       subMenu: [
         {
           title: 'Compete',
@@ -100,7 +100,7 @@ module.exports = {
           ],
         },
         {
-          title: 'Community',
+          title: 'Explore',
           subMenu: [
             {
               title: 'TCO',
