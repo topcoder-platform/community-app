@@ -74,6 +74,8 @@ const Header = ({ profile }) => {
           path={path}
           openMore={openMore}
           setOpenMore={handleChangeOpenMore}
+          loggedIn={!_.isEmpty(profile)}
+          profileHandle={profile ? profile.handle : ''}
         />
       </div>
     );
