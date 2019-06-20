@@ -58,7 +58,7 @@ exports[`Default render 1`] = `
               "title": "Tracks",
             },
             Object {
-              "id": "community",
+              "id": "explore",
               "subMenu": Array [
                 Object {
                   "href": "https://www.topcoder.com/tco",
