@@ -2,6 +2,7 @@
  * Container for the standard Topcoder header.
  */
 
+import _ from 'lodash';
 import actions from 'actions/topcoder_header';
 import TopcoderHeader from 'components/Header';
 import { connect } from 'react-redux';
@@ -12,7 +13,7 @@ export default connect(
     ...state.topcoderHeader,
     profile: {
       ...state.auth.profile,
-      roles: state.auth && state.auth.user ? state.auth.user.roles : undefined,
+      ..._.pickBy({ roles: state.auth.user ? state.auth.user.roles : undefined }),
     },
   }),
   dispatch => bindActionCreators(actions.topcoderHeader, dispatch),
