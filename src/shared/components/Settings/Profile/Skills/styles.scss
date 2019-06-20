@@ -317,15 +317,26 @@
     }
   }
 
-  .name {
-    @include roboto-regular;
-
+  .name-wrapper {
     margin-top: 10px;
-    font-size: 12px;
-    line-height: 15px;
-    color: #262628;
-    text-align: center;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .name {
+      @include roboto-regular;
+
+      font-size: 12px;
+      line-height: 15px;
+      color: #262628;
+      text-align: center;
+      width: 100%;
+    }
+
+    .verified-badge {
+      padding-left: 5px;
+      font-size: 0;
+    }
   }
 
   a.skill-hidden {
