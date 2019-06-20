@@ -12,7 +12,7 @@ export default connect(
     ...state.topcoderHeader,
     profile: {
       ...state.auth.profile,
-      roles: state.auth && state.auth.user ? state.auth.user.roles : undefined,
+      ..._.pickBy({roles: state.auth.user ? state.auth.user.roles : undefined}),
     },
   }),
   dispatch => bindActionCreators(actions.topcoderHeader, dispatch),
