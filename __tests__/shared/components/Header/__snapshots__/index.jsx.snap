@@ -14,7 +14,7 @@ exports[`Default render 1`] = `
     menu={
       Array [
         Object {
-          "id": "work",
+          "id": "community",
           "subMenu": Array [
             Object {
               "subMenu": Array [
@@ -81,10 +81,10 @@ exports[`Default render 1`] = `
                   "title": "Blog",
                 },
               ],
-              "title": "Community",
+              "title": "Explore",
             },
           ],
-          "title": "WORK",
+          "title": "COMMUNITY",
         },
       ]
     }
