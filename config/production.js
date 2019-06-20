@@ -58,28 +58,42 @@ module.exports = {
   },
   HEADER_MENU: [
     {
-      id: 'work', // required for 'Switch to BUSINESS' to work
-      title: 'WORK',
-      subMenu: [
+      id: 'community', // required for 'Switch to BUSINESS' to work
+      title: 'COMMUNITY',
+      secondaryMenuForLoggedInUser: [
         {
-          id: 'dashboardl2',
           title: 'Dashboard',
-          subMenu: [
-            {
-              title: 'Dashboard',
-              href: '/my-dashboard',
-            },
-            {
-              id: 'myprofile',
-              title: 'My Profile',
-              href: '/members/willFilledByUserName',
-            },
-            {
-              title: 'Payments',
-              href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
-            },
-          ],
+          href: '/my-dashboard',
         },
+        {
+          id: 'myprofile',
+          title: 'My Profile',
+          href: '/members/willFilledByUserName',
+        },
+        {
+          title: 'Payments',
+          href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+        },
+      ],
+      secondaryMenuForGuest: [
+        {
+          title: 'Overview',
+          href: 'https://www.topcoder.com/about',
+        },
+        {
+          title: 'How It Works',
+          href: 'https://www.topcoder.com/how-it-works/faqs/',
+        },
+        {
+          title: 'Tracks',
+          href: 'https://www.topcoder.com/community/learn',
+        },
+        {
+          title: 'Why Join',
+          href: 'https://www.topcoder.com/about/why-crowdsourcing/',
+        },
+      ],
+      subMenu: [
         {
           title: 'Compete',
           subMenu: [
@@ -119,7 +133,7 @@ module.exports = {
           ],
         },
         {
-          title: 'Community',
+          title: 'Explore',
           subMenu: [
             {
               title: 'TCO',
