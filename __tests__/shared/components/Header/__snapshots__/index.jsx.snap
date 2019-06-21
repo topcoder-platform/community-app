@@ -3,6 +3,7 @@
 exports[`Default render 1`] = `
 <div>
   <TopNav
+    loggedIn={true}
     logo={
       <Logo
         height="20"
@@ -15,6 +16,39 @@ exports[`Default render 1`] = `
       Array [
         Object {
           "id": "community",
+          "secondaryMenuForGuest": Array [
+            Object {
+              "href": "https://www.topcoder-dev.com/about",
+              "title": "Overview",
+            },
+            Object {
+              "href": "https://www.topcoder-dev.com/how-it-works/faqs/",
+              "title": "How It Works",
+            },
+            Object {
+              "href": "/community/learn",
+              "title": "Tracks",
+            },
+            Object {
+              "href": "https://www.topcoder-dev.com/about/why-crowdsourcing/",
+              "title": "Why Join",
+            },
+          ],
+          "secondaryMenuForLoggedInUser": Array [
+            Object {
+              "href": "/my-dashboard",
+              "title": "Dashboard",
+            },
+            Object {
+              "href": "/members/willFilledByUserName",
+              "id": "myprofile",
+              "title": "My Profile",
+            },
+            Object {
+              "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+              "title": "Payments",
+            },
+          ],
           "subMenu": Array [
             Object {
               "subMenu": Array [
@@ -90,6 +124,7 @@ exports[`Default render 1`] = `
     }
     onChangeLevel1Id={[Function]}
     openMore={true}
+    profileHandle="huanner"
     rightMenu={
       <LoginNav
         accountMenu={
@@ -97,14 +132,6 @@ exports[`Default render 1`] = `
             Object {
               "href": "/settings/profile",
               "title": "Settings",
-            },
-            Object {
-              "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-              "title": "Payments",
-            },
-            Object {
-              "link": null,
-              "title": "All projects",
             },
             Object {
               "separator": true,
