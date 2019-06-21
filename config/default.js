@@ -243,7 +243,7 @@ module.exports = {
         },
         {
           title: 'Tracks',
-          href: 'https://www.topcoder-dev.com/community/learn',
+          href: '/community/learn',
         },
         {
           title: 'Why Join',

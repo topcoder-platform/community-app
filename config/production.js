@@ -86,7 +86,7 @@ module.exports = {
         },
         {
           title: 'Tracks',
-          href: 'https://www.topcoder.com/community/learn',
+          href: '/community/learn',
         },
         {
           title: 'Why Join',
