@@ -57,7 +57,7 @@ const MENU = [{
   }],
 }, {
   title: 'Tracks',
-  url: `${BASE_URL}/community/learn`,
+  url: '/community/learn',
   items: [
   /* {
     enforceA: true,
@@ -66,29 +66,24 @@ const MENU = [{
     title: 'Getting Started',
   }, */
     {
-      enforceA: true,
       icon: <IconNavBookCP />,
-      link: `${BASE_URL}/community/competitive-programming`,
+      link: '/community/competitive-programming',
       title: 'Competitive Programming',
     }, {
-      enforceA: true,
       icon: <IconNavBookData />,
-      link: `${BASE_URL}/community/data-science/`,
+      link: '/community/data-science/',
       title: 'Data Science',
     }, {
-      enforceA: true,
       icon: <IconNavBookDesign />,
-      link: `${BASE_URL}/community/design`,
+      link: '/community/design',
       title: 'Design',
     }, {
-      enforceA: true,
       icon: <IconNavBoolDevelop />,
-      link: `${BASE_URL}/community/development`,
+      link: '/community/development',
       title: 'Development',
     }, {
-      enforceA: true,
       icon: <IconNavBoolDevelop />,
-      link: `${BASE_URL}/community/qa`,
+      link: '/community/qa',
       title: 'QA',
     }],
 }, {
@@ -99,28 +94,24 @@ const MENU = [{
     link: config.URL.TCO,
     title: 'TCO',
   }, {
-    enforceA: true,
     icon: <IconNavPrograms />,
-    link: `${BASE_URL}/community/member-programs`,
+    link: '/community/member-programs',
     title: 'Programs',
   }, {
     icon: <IconNavForums />,
     link: config.URL.FORUMS,
     title: 'Forums',
   }, {
-    enforceA: true,
     icon: <IconNavStatistics />,
-    link: `${BASE_URL}/community/statistics`,
+    link: '/community/statistics',
     title: 'Statistics',
   }, {
-    enforceA: true,
     icon: <IconNavEvents />,
-    link: `${BASE_URL}/community/events`,
+    link: '/community/events',
     title: 'Events',
   }, {
-    enforceA: true,
     icon: <IconNavBlog />,
-    link: `${BASE_URL}/blog`,
+    link: '/blog',
     title: 'Blog',
   }],
 }];
@@ -266,12 +257,10 @@ export default class TopcoderHeader extends React.Component {
       userSubMenu = {
         title: 'User',
         items: [{
-          enforceA: true,
           icon: <IconNavDashboard />,
-          link: `${BASE_URL}/my-dashboard`,
+          link: '/my-dashboard',
           title: 'Dashboard',
         }, {
-          enforceA: true,
           icon: <IconNavProfile />,
           link: `/members/${normalizedProfile.handle}`,
           title: 'My Profile',
@@ -280,7 +269,6 @@ export default class TopcoderHeader extends React.Component {
           link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
           title: 'Payments',
         }, {
-          enforceA: true,
           icon: <IconNavSettings />,
           link: '/settings/profile',
           title: 'Settings',

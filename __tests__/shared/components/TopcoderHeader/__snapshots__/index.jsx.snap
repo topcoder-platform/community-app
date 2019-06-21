@@ -39,7 +39,7 @@ exports[`Default render 1`] = `
         onTouchStart={[Function]}
       >
         <Link
-          to="https://www.topcoder-dev.com/community/learn"
+          to="/community/learn"
         >
           Tracks
         </Link>
@@ -127,63 +127,58 @@ exports[`Default render 1`] = `
         Object {
           "items": Array [
             Object {
-              "enforceA": true,
               "icon": <IconNavBookCP
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "link": "/community/competitive-programming",
               "title": "Competitive Programming",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBookData
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "link": "/community/data-science/",
               "title": "Data Science",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/design",
+              "link": "/community/design",
               "title": "Design",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/development",
+              "link": "/community/development",
               "title": "Development",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/qa",
+              "link": "/community/qa",
               "title": "QA",
             },
           ],
           "title": "Tracks",
-          "url": "https://www.topcoder-dev.com/community/learn",
+          "url": "/community/learn",
         },
         Object {
           "items": Array [
@@ -199,14 +194,13 @@ exports[`Default render 1`] = `
               "title": "TCO",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavPrograms
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/member-programs",
+              "link": "/community/member-programs",
               "title": "Programs",
             },
             Object {
@@ -220,36 +214,33 @@ exports[`Default render 1`] = `
               "title": "Forums",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavStatistics
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/statistics",
+              "link": "/community/statistics",
               "title": "Statistics",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavEvents
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/events",
+              "link": "/community/events",
               "title": "Events",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBlog
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/blog",
+              "link": "/blog",
               "title": "Blog",
             },
           ],
@@ -304,7 +295,7 @@ exports[`Render with open menu 1`] = `
         onTouchStart={[Function]}
       >
         <Link
-          to="https://www.topcoder-dev.com/community/learn"
+          to="/community/learn"
         >
           Tracks
         </Link>
@@ -403,63 +394,58 @@ exports[`Render with open menu 1`] = `
         Object {
           "items": Array [
             Object {
-              "enforceA": true,
               "icon": <IconNavBookCP
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "link": "/community/competitive-programming",
               "title": "Competitive Programming",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBookData
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "link": "/community/data-science/",
               "title": "Data Science",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/design",
+              "link": "/community/design",
               "title": "Design",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/development",
+              "link": "/community/development",
               "title": "Development",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/qa",
+              "link": "/community/qa",
               "title": "QA",
             },
           ],
           "title": "Tracks",
-          "url": "https://www.topcoder-dev.com/community/learn",
+          "url": "/community/learn",
         },
         Object {
           "items": Array [
@@ -475,14 +461,13 @@ exports[`Render with open menu 1`] = `
               "title": "TCO",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavPrograms
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/member-programs",
+              "link": "/community/member-programs",
               "title": "Programs",
             },
             Object {
@@ -496,36 +481,33 @@ exports[`Render with open menu 1`] = `
               "title": "Forums",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavStatistics
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/statistics",
+              "link": "/community/statistics",
               "title": "Statistics",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavEvents
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/events",
+              "link": "/community/events",
               "title": "Events",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBlog
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/blog",
+              "link": "/blog",
               "title": "Blog",
             },
           ],
@@ -580,7 +562,7 @@ exports[`Render with specified profile 1`] = `
         onTouchStart={[Function]}
       >
         <Link
-          to="https://www.topcoder-dev.com/community/learn"
+          to="/community/learn"
         >
           Tracks
         </Link>
@@ -687,63 +669,58 @@ exports[`Render with specified profile 1`] = `
         Object {
           "items": Array [
             Object {
-              "enforceA": true,
               "icon": <IconNavBookCP
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/competitive-programming",
+              "link": "/community/competitive-programming",
               "title": "Competitive Programming",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBookData
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/data-science/",
+              "link": "/community/data-science/",
               "title": "Data Science",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/design",
+              "link": "/community/design",
               "title": "Design",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/development",
+              "link": "/community/development",
               "title": "Development",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBoolDevelop
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/qa",
+              "link": "/community/qa",
               "title": "QA",
             },
           ],
           "title": "Tracks",
-          "url": "https://www.topcoder-dev.com/community/learn",
+          "url": "/community/learn",
         },
         Object {
           "items": Array [
@@ -759,14 +736,13 @@ exports[`Render with specified profile 1`] = `
               "title": "TCO",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavPrograms
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/member-programs",
+              "link": "/community/member-programs",
               "title": "Programs",
             },
             Object {
@@ -780,36 +756,33 @@ exports[`Render with specified profile 1`] = `
               "title": "Forums",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavStatistics
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/statistics",
+              "link": "/community/statistics",
               "title": "Statistics",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavEvents
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/events",
+              "link": "/community/events",
               "title": "Events",
             },
             Object {
-              "enforceA": true,
               "icon": <IconNavBlog
                 height="32"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/blog",
+              "link": "/blog",
               "title": "Blog",
             },
           ],
@@ -824,18 +797,16 @@ exports[`Render with specified profile 1`] = `
       Object {
         "items": Array [
           Object {
-            "enforceA": true,
             "icon": <IconNavDashboard
               height="32"
               viewBox="0 0 32 32"
               width="32"
               xmlns="http://www.w3.org/2000/svg"
             />,
-            "link": "https://www.topcoder-dev.com/my-dashboard",
+            "link": "/my-dashboard",
             "title": "Dashboard",
           },
           Object {
-            "enforceA": true,
             "icon": <IconNavProfile
               height="32"
               viewBox="0 0 32 32"
@@ -856,7 +827,6 @@ exports[`Render with specified profile 1`] = `
             "title": "Payments",
           },
           Object {
-            "enforceA": true,
             "icon": <IconNavSettings
               height="32"
               viewBox="0 0 32 32"
