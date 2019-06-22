@@ -80,18 +80,11 @@ $checkbox-bg-selected: $tc-dark-blue;
 label {
   @include roboto-medium;
 
-  display: block;
   font-size: 12px;
   line-height: 15px;
   font-weight: 500;
   color: $tc-gray-80;
   margin-bottom: 5px;
-
-  .text-required {
-    font-size: 10px;
-    color: $tc-red-110;
-    margin-left: 5px;
-  }
 }
 
 .tc-checkbox {
@@ -191,16 +184,6 @@ label {
     user-select: none;
     cursor: pointer;
   }
-
-  .row {
-    .field {
-      &.col-1,
-      &.col-1-no-padding {
-        max-width: 200px;
-        min-width: 200px;
-      }
-    }
-  }
 }
 
 .form-container-mobile {
@@ -250,8 +233,7 @@ label {
       margin-right: 10px;
 
       @include upto-sm {
-        display: flex;
-        flex-direction: column;
+        display: block;
         padding-bottom: 10px;
       }
 
@@ -273,8 +255,7 @@ label {
         align-items: center;
       }
 
-      &.col-1,
-      &.col-1-no-padding {
+      &.col-1 {
         width: 23%;
 
         @include upto-sm {
@@ -334,42 +315,31 @@ label {
   }
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button-save {
+  align-self: center;
 
-  .button-save,
-  .button-cancel {
-    align-self: center;
+  @include upto-sm {
+    margin-top: 30px;
+  }
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    width: 250px;
 
     @include upto-sm {
-      margin-top: 30px;
-    }
-
-    button,
-    a {
-      @include roboto-medium;
-
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      margin: 0;
-      padding: 0;
-      width: 250px;
-
-      @include upto-sm {
-        width: 156px;
-      }
-    }
-
-    .complete {
-      color: $tc-white;
+      width: 156px;
     }
   }
 
-  .button-cancel {
-    margin-left: 10px;
+  .complete {
+    color: $tc-white;
   }
 }
 

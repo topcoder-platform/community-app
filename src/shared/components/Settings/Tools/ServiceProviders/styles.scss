@@ -47,6 +47,22 @@
   }
 }
 
+.error-message {
+  display: none;
+
+  &.active {
+    @include roboto-medium;
+
+    display: block;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    padding: 15px;
+    margin: 15px 0;
+  }
+}
+
 .form-container-default {
   @include form-container-default;
 
@@ -119,8 +135,7 @@
       margin-right: 10px;
 
       @include upto-sm {
-        display: flex;
-        flex-direction: column;
+        display: block;
         padding-bottom: 10px;
       }
 
@@ -193,43 +208,32 @@
   }
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button-save {
+  align-self: center;
 
-  .button-save,
-  .button-cancel {
-    align-self: center;
+  @include upto-sm {
+    margin-top: 10px;
+  }
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    width: 300px;
 
     @include upto-sm {
-      margin-top: 10px;
-    }
-
-    button,
-    a {
-      @include roboto-medium;
-
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 40px;
-      margin: 0;
-      padding: 0;
-      width: 300px;
-
-      @include upto-sm {
-        width: 156px;
-      }
-    }
-
-    .complete {
-      color: $tc-white;
+      width: 156px;
     }
   }
 
-  .button-cancel {
-    margin-left: 10px;
+  .complete {
+    color: $tc-white;
   }
 }
 

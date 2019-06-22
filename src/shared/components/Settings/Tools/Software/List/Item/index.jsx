@@ -18,7 +18,6 @@ export default function Item(props) {
     software,
     index,
     onDeleteItem,
-    onEditItem,
   } = props;
 
   return (
@@ -36,32 +35,18 @@ export default function Item(props) {
           </div>
         </div>
       </div>
-      <div styleName="operation-container">
-        <a
-          styleName="edit"
-          onKeyPress={() => onEditItem(index)}
-          tabIndex={0}
-          role="button"
-          onClick={() => onEditItem(index)}
-        >
-          <img src={assets('./ico-edit.svg')} alt="edit-icon" />
-          <p>
-            Edit
-          </p>
-        </a>
-        <a
-          styleName="delete"
-          onKeyPress={() => onDeleteItem(index)}
-          tabIndex={0}
-          role="button"
-          onClick={() => onDeleteItem(index)}
-        >
-          <img src={assets('./trash.svg')} alt="delete-icon" />
-          <p>
-            Delete
-          </p>
-        </a>
-      </div>
+      <a
+        styleName="delete"
+        onKeyPress={() => onDeleteItem(index)}
+        tabIndex={0}
+        role="button"
+        onClick={() => onDeleteItem(index)}
+      >
+        <img src={assets('./trash.svg')} alt="delete-icon" />
+        <p>
+Delete
+        </p>
+      </a>
     </div>
   );
 }
@@ -70,5 +55,4 @@ Item.propTypes = {
   software: PT.shape().isRequired,
   index: PT.number.isRequired,
   onDeleteItem: PT.func.isRequired,
-  onEditItem: PT.func.isRequired,
 };

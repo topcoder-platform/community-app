@@ -169,29 +169,20 @@ textarea {
       margin-right: 10px;
 
       @include upto-sm {
-        display: flex;
-        flex-direction: column;
+        display: block;
         padding-bottom: 10px;
       }
 
       label {
         @include roboto-medium;
 
-        display: block;
         font-size: 12px;
         line-height: 15px;
         font-weight: 500;
         color: $tc-gray-80;
-
-        .text-required {
-          font-size: 10px;
-          color: $tc-red-110;
-          margin-left: 5px;
-        }
       }
 
-      &.col-1,
-      &.col-1-no-padding {
+      &.col-1 {
         // width: auto;
       }
 
@@ -266,33 +257,22 @@ textarea {
   }
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button-save {
+  align-self: center;
 
-  .button-save,
-  .button-cancel {
-    align-self: center;
+  button,
+  a {
+    @include roboto-medium;
 
-    button,
-    a {
-      @include roboto-medium;
-
-      height: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      margin: 0;
-      padding: 0;
-      min-width: 200px;
-    }
-
-    .complete {
-      color: $tc-white;
-    }
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    min-width: 200px;
   }
 
-  .button-cancel {
-    margin-left: 10px;
+  .complete {
+    color: $tc-white;
   }
 }

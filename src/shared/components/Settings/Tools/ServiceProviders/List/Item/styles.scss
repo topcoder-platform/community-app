@@ -48,69 +48,32 @@
   font-weight: 400;
 }
 
-.operation-container {
+.delete {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline-style: none;
 
-  .delete {
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    justify-content: center;
-    cursor: pointer;
-    outline-style: none;
-    margin-left: 10px;
+  img {
+    margin-bottom: 10px;
 
-    img {
-      margin-bottom: 10px;
-
-      @include upto-sm {
-        margin-bottom: 0;
-      }
-    }
-
-    p {
-      @include roboto-regular;
-
-      font-size: 11px;
-      line-height: 15px;
-      font-weight: 400;
-      color: $tc-gray-50;
-
-      @include upto-sm {
-        display: none;
-      }
+    @include upto-sm {
+      margin-bottom: 0;
     }
   }
 
-  .edit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    outline-style: none;
+  p {
+    @include roboto-regular;
 
-    img {
-      margin-bottom: 10px;
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 400;
+    color: $tc-gray-50;
 
-      @include upto-sm {
-        margin-bottom: 0;
-      }
-    }
-
-    p {
-      @include roboto-regular;
-
-      font-size: 11px;
-      line-height: 15px;
-      font-weight: 400;
-      color: $tc-gray-50;
-
-      @include upto-sm {
-        display: none;
-      }
+    @include upto-sm {
+      display: none;
     }
   }
 }

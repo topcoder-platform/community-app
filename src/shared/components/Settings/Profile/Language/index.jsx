@@ -6,15 +6,12 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable no-undef */
-/* eslint-disable react/jsx-boolean-value */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
-import ErrorMessage from 'components/Settings/ErrorMessage';
-import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import LanguageList from './List';
 
@@ -26,7 +23,6 @@ export default class Language extends ConsentComponent {
     super(props);
     this.onHandleDeleteLanguage = this.onHandleDeleteLanguage.bind(this);
     this.onDeleteLanguage = this.onDeleteLanguage.bind(this);
-    this.onEditLanguage = this.onEditLanguage.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadLanguageTrait = this.loadLanguageTrait.bind(this);
     this.onHandleAddLanguage = this.onHandleAddLanguage.bind(this);
@@ -34,13 +30,11 @@ export default class Language extends ConsentComponent {
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      languageNameInvalid: false,
-      languageNameInvalidMsg: '',
+      errorMessage: '',
       languageTrait: this.loadLanguageTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newLanguage: {
@@ -50,10 +44,6 @@ export default class Language extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
-      isEdit: false,
-      indexNo: null,
-      showConfirmation: false,
-      isSubmit: false,
     };
   }
 
@@ -69,14 +59,12 @@ export default class Language extends ConsentComponent {
       languageTrait,
       personalizationTrait,
       formInvalid: false,
-      languageNameInvalid: false,
-      languageNameInvalidMsg: '',
+      errorMessage: '',
       newLanguage: {
         language: '',
         spokenLevel: '',
         writtenLevel: '',
       },
-      isSubmit: false,
     });
   }
 
@@ -92,14 +80,11 @@ export default class Language extends ConsentComponent {
     const { newLanguage: oldLanguage } = this.state;
     const newLanguage = { ...oldLanguage };
     newLanguage[e.target.name] = e.target.value.trim();
-    this.setState({ newLanguage, isSubmit: false });
+    this.setState({ newLanguage });
   }
 
   onHandleDeleteLanguage(indexNo) {
-    this.setState({
-      showConfirmation: true,
-      indexNo,
-    });
+    this.showConsent(this.onDeleteLanguage.bind(this, indexNo));
   }
 
   /**
@@ -112,10 +97,6 @@ export default class Language extends ConsentComponent {
     newLanguageTrait.traits.data.splice(indexNo, 1);
     this.setState({
       languageTrait: newLanguageTrait,
-      isEdit: false,
-      formInvalid: false,
-      languageNameInvalid: false,
-      languageNameInvalidMsg: '',
     });
 
     const {
@@ -130,32 +111,6 @@ export default class Language extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'languages', tokenV3);
     }
-    this.setState({
-      showConfirmation: false,
-      indexNo: null,
-      isSubmit: false,
-    });
-  }
-
-  /**
-   * Edit language by index
-   * @param indexNo the language index no
-   */
-  onEditLanguage(indexNo) {
-    const { languageTrait } = this.state;
-    this.setState({
-      newLanguage: {
-        language: languageTrait.traits.data[indexNo].language,
-        spokenLevel: _.isEmpty(languageTrait.traits.data[indexNo].spokenLevel) ? '' : languageTrait.traits.data[indexNo].spokenLevel,
-        writtenLevel: _.isEmpty(languageTrait.traits.data[indexNo].writtenLevel) ? '' : languageTrait.traits.data[indexNo].writtenLevel,
-      },
-      isEdit: true,
-      indexNo,
-      formInvalid: false,
-      languageNameInvalid: false,
-      languageNameInvalidMsg: '',
-      isSubmit: false,
-    });
   }
 
   /**
@@ -165,13 +120,25 @@ export default class Language extends ConsentComponent {
    */
   onCheckFormValue(newLanguage) {
     let invalid = false;
-    let languageNameInvalid = false;
-    let languageNameInvalidMsg = '';
 
-    if (_.isEmpty(newLanguage.language.trim())) {
+    let errorMessage = '';
+    if (!_.trim(newLanguage.language).length) {
+      errorMessage += 'Language, ';
       invalid = true;
-      languageNameInvalid = true;
-      languageNameInvalidMsg = 'Language cannot be empty';
+    }
+
+    if (!_.trim(newLanguage.spokenLevel).length) {
+      errorMessage += 'Spoken level, ';
+      invalid = true;
+    }
+
+    if (!_.trim(newLanguage.writtenLevel).length) {
+      errorMessage += 'Written level, ';
+      invalid = true;
+    }
+
+    if (errorMessage.length > 0) {
+      errorMessage += ' cannot be empty';
     }
 
     const { languageTrait } = this.state;
@@ -181,23 +148,17 @@ export default class Language extends ConsentComponent {
       ));
       if (result && result.length > 0) {
         invalid = true;
-        languageNameInvalid = true;
-        languageNameInvalidMsg = 'Language already added';
+        errorMessage += errorMessage.length > 0 ? `. Language ${newLanguage.language} has been already added.` : `Language ${newLanguage.language} has been already added.`;
       }
     }
 
-    this.setState({
-      formInvalid: invalid,
-      languageNameInvalid,
-      languageNameInvalidMsg,
-    });
+    this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
   }
 
   onHandleAddLanguage(e) {
     e.preventDefault();
     const { newLanguage } = this.state;
-    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newLanguage)) {
       return;
     }
@@ -210,9 +171,7 @@ export default class Language extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddLanguage(answer) {
-    const {
-      newLanguage, personalizationTrait, isEdit, indexNo,
-    } = this.state;
+    const { newLanguage, personalizationTrait } = this.state;
 
     const {
       handle,
@@ -221,26 +180,18 @@ export default class Language extends ConsentComponent {
       addUserTrait,
     } = this.props;
     const { languageTrait } = this.state;
-    const language = _.clone(newLanguage);
-    if (_.isEmpty(language.spokenLevel)) {
-      delete language.spokenLevel;
-    }
-    if (_.isEmpty(language.writtenLevel)) {
-      delete language.writtenLevel;
-    }
     if (languageTrait.traits && languageTrait.traits.data.length > 0) {
-      const newLanguageTrait = _.cloneDeep(languageTrait);
-
-      if (isEdit) {
-        newLanguageTrait.traits.data.splice(indexNo, 1);
-      }
-
-      newLanguageTrait.traits.data.push(language);
-
+      const newLanguageTrait = { ...languageTrait };
+      newLanguageTrait.traits.data.push(newLanguage);
+      this.setState({ languageTrait: newLanguageTrait });
       updateUserTrait(handle, 'languages', newLanguageTrait.traits.data, tokenV3);
     } else {
       const newLanguages = [];
-      newLanguages.push(language);
+      newLanguages.push(newLanguage);
+      const traits = {
+        data: newLanguages,
+      };
+      this.setState({ languageTrait: { traits } });
       addUserTrait(handle, 'languages', newLanguages, tokenV3);
     }
     const empty = {
@@ -248,12 +199,7 @@ export default class Language extends ConsentComponent {
       spokenLevel: '',
       writtenLevel: '',
     };
-    this.setState({
-      newLanguage: empty,
-      isEdit: false,
-      indexNo: null,
-      isSubmit: false,
-    });
+    this.setState({ newLanguage: empty });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -276,26 +222,7 @@ export default class Language extends ConsentComponent {
       const { newLanguage: oldLanguage } = this.state;
       const newLanguage = { ...oldLanguage };
       newLanguage[option.key] = option.name;
-      this.setState({ newLanguage, isSubmit: false });
-    }
-  }
-
-  onCancelEditStatus() {
-    const { isEdit } = this.state;
-    if (isEdit) {
-      this.setState({
-        isEdit: false,
-        indexNo: null,
-        isSubmit: false,
-        formInvalid: false,
-        languageNameInvalid: false,
-        languageNameInvalidMsg: '',
-        newLanguage: {
-          language: '',
-          spokenLevel: '',
-          writtenLevel: '',
-        },
-      });
+      this.setState({ newLanguage });
     }
   }
 
@@ -331,39 +258,23 @@ export default class Language extends ConsentComponent {
     const {
       languageTrait,
       isMobileView,
-      isEdit,
-      formInvalid,
-      showConfirmation,
-      indexNo,
-      languageNameInvalid,
-      languageNameInvalidMsg,
-      isSubmit,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.LANGUAGE ? '' : 'hide';
     const languageItems = languageTrait.traits
       ? languageTrait.traits.data.slice() : [];
-    const { newLanguage } = this.state;
+    const { newLanguage, formInvalid, errorMessage } = this.state;
 
     return (
       <div styleName={containerStyle}>
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
-        {
-          showConfirmation && (
-            <ConfirmationModal
-              onConfirm={() => this.showConsent(this.onDeleteLanguage.bind(this, indexNo))}
-              onCancel={() => this.setState({
-                showConfirmation: false,
-                indexNo: null,
-              })}
-              name={languageTrait.traits.data[indexNo].language}
-            />
-          )
-        }
         <div styleName="language-container">
+          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+            {errorMessage}
+          </div>
           <h1>
             Language
           </h1>
@@ -375,16 +286,12 @@ export default class Language extends ConsentComponent {
             && (
               <LanguageList
                 languageList={{ items: languageItems }}
-                onDeleteItem={this.onHandleDeleteLanguage}
-                onEditItem={this.onEditLanguage}
+                onDeleteItem={this.onDeleteLanguage}
               />
             )
           }
           <div styleName={`sub-title ${languageItems.length > 0 ? 'second' : 'first'}`}>
-            {
-              isEdit ? (<React.Fragment>Edit language</React.Fragment>)
-                : (<React.Fragment>Add a new language</React.Fragment>)
-            }
+            Add a new language
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
@@ -407,25 +314,17 @@ export default class Language extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                   />
-                  {
-                    isSubmit && formInvalid && (
-                      <ErrorMessage
-                        invalid={languageNameInvalid}
-                        addMargin
-                        message={languageNameInvalidMsg}
-                      />
-                    )
-                  }
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName="field col-1">
                   <label htmlFor="spokenLevel">
                     Spoken Level
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
                   <Select
                     name="spokenLevel"
                     options={dropdowns.spokenLevel}
@@ -434,18 +333,19 @@ export default class Language extends ConsentComponent {
                     placeholder="Spoken level"
                     labelKey="name"
                     valueKey="name"
-                    clearable={true}
+                    clearable={false}
                   />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1-no-padding">
+                <div styleName="field col-1">
                   <label htmlFor="writtenLevel">
                     Written Level
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
                   <Select
                     name="writtenLevel"
                     options={dropdowns.writtenLevel}
@@ -454,53 +354,31 @@ export default class Language extends ConsentComponent {
                     placeholder="Written level"
                     labelKey="name"
                     valueKey="name"
-                    clearable={true}
+                    clearable={false}
                   />
                 </div>
               </div>
             </form>
-            <div styleName="button-container">
-              <div styleName="button-save">
-                <PrimaryButton
-                  styleName="complete"
-                  onClick={this.onHandleAddLanguage}
-                >
-                  {
-                    isEdit ? (<React.Fragment>Edit language to your list</React.Fragment>)
-                      : (<React.Fragment>Add language to your list</React.Fragment>)
-                  }
-                </PrimaryButton>
-              </div>
-              {
-                isEdit && (
-                  <div styleName="button-cancel">
-                    <PrimaryButton
-                      styleName="complete"
-                      onClick={this.onCancelEditStatus}
-                    >
-                      Cancel
-                    </PrimaryButton>
-                  </div>
-                )
-              }
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddLanguage}
+              >
+                Add language to your list
+              </PrimaryButton>
             </div>
-
           </div>
           <div styleName="form-container-mobile">
             <form name="language-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
-                  {
-                    isEdit ? (<React.Fragment>Edit Language</React.Fragment>)
-                      : (<React.Fragment>Add Language</React.Fragment>)
-                  }
+                  Add Language
                 </p>
               </div>
               <div styleName="row">
                 <div styleName="field col-1">
                   <label htmlFor="language">
                     Language
-                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <Select
@@ -513,15 +391,6 @@ export default class Language extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                   />
-                  {
-                    isSubmit && formInvalid && (
-                      <ErrorMessage
-                        invalid={languageNameInvalid}
-                        addMargin
-                        message={languageNameInvalidMsg}
-                      />
-                    )
-                  }
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="spokenLevel">
@@ -536,7 +405,7 @@ export default class Language extends ConsentComponent {
                     placeholder="Spoken level"
                     labelKey="name"
                     valueKey="name"
-                    clearable={true}
+                    clearable={false}
                   />
                 </div>
                 <div styleName="field col-2">
@@ -552,35 +421,18 @@ export default class Language extends ConsentComponent {
                     placeholder="Written level"
                     labelKey="name"
                     valueKey="name"
-                    clearable={true}
+                    clearable={false}
                   />
                 </div>
               </div>
             </form>
-            <div styleName="button-container">
-              <div styleName="button-save">
-                <PrimaryButton
-                  styleName="complete"
-                  onClick={this.onHandleAddLanguage}
-                >
-                  {
-                    isEdit ? (<React.Fragment>Edit Language</React.Fragment>)
-                      : (<React.Fragment>Add language</React.Fragment>)
-                  }
-                </PrimaryButton>
-              </div>
-              {
-                isEdit && (
-                  <div styleName="button-cancel">
-                    <PrimaryButton
-                      styleName="complete"
-                      onClick={this.onCancelEditStatus}
-                    >
-                      Cancel
-                    </PrimaryButton>
-                  </div>
-                )
-              }
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddLanguage}
+              >
+                Add Language
+              </PrimaryButton>
             </div>
           </div>
           {
@@ -589,7 +441,6 @@ export default class Language extends ConsentComponent {
               <LanguageList
                 languageList={{ items: languageItems }}
                 onDeleteItem={this.onHandleDeleteLanguage}
-                onEditItem={this.onEditLanguage}
               />
             )
           }

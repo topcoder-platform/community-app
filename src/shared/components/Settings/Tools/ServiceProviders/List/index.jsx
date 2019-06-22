@@ -12,7 +12,6 @@ export default function ServiceProviderList(props) {
     serviceProviderList,
     onDeleteItem,
     disabled,
-    onEditItem,
   } = props;
 
   return (
@@ -21,12 +20,7 @@ export default function ServiceProviderList(props) {
         {
           serviceProviderList.items.map((serviceProvider, index) => (
             <li key={`${serviceProvider.type}${index + 1}`}>
-              <Item
-                serviceProvider={serviceProvider}
-                index={index}
-                onDeleteItem={onDeleteItem}
-                onEditItem={onEditItem}
-              />
+              <Item serviceProvider={serviceProvider} index={index} onDeleteItem={onDeleteItem} />
             </li>
           ))
         }
@@ -38,7 +32,6 @@ export default function ServiceProviderList(props) {
 ServiceProviderList.propTypes = {
   serviceProviderList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
-  onEditItem: PT.func.isRequired,
   disabled: PT.bool,
 };
 

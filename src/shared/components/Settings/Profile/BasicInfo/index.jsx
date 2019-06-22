@@ -15,13 +15,11 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
-import ErrorMessage from 'components/Settings/ErrorMessage';
 import ImageInput from '../ImageInput';
 import Track from './Track';
 import DefaultImageInput from './ImageInput';
 import dropdowns from './dropdowns.json';
 import tracks from './tracks';
-
 
 import './styles.scss';
 
@@ -43,6 +41,7 @@ export default class BasicInfo extends ConsentComponent {
     this.state = {
       inputChanged: false,
       formInvalid: false,
+      errorMessage: '',
       basicInfoTrait: this.loadBasicInfoTraits(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newBasicInfo: {
@@ -99,26 +98,46 @@ export default class BasicInfo extends ConsentComponent {
 
   onCheckFormValue(newBasicInfo) {
     let invalid = false;
+    let errorMessage = '';
+    let dateError = '';
+    let birthDateInvalid = false;
+    const invalidFields = [];
 
     if (!_.trim(newBasicInfo.firstName).length) {
+      invalidFields.push('First Name');
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.lastName).length) {
+      invalidFields.push('Last Name');
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.country).length) {
+      invalidFields.push('Country');
       invalid = true;
+    }
+
+    if (invalidFields.length > 0) {
+      errorMessage += invalidFields.join(', ');
+      errorMessage += ' cannot be empty';
     }
 
     if (_.trim(newBasicInfo.birthDate).length > 0) {
       if (!moment().isAfter(newBasicInfo.birthDate)) {
-        invalid = true;
+        dateError = 'You must enter a valid date for Birth Date';
+        birthDateInvalid = true;
       }
     }
 
-    this.setState({ formInvalid: invalid });
+    if (errorMessage.length > 0) {
+      errorMessage = `${errorMessage}. ${dateError}`;
+    } else if (dateError.length > 0) {
+      errorMessage = dateError;
+      invalid = birthDateInvalid;
+    }
+
+    this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
   }
 
@@ -151,7 +170,7 @@ export default class BasicInfo extends ConsentComponent {
    */
   onHandleSaveBasicInfo(e) {
     e.preventDefault();
-    this.setState({ isSaving: true, inputChange: true });
+    this.setState({ isSaving: true });
     const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
       this.setState({ isSaving: false });
@@ -446,7 +465,8 @@ export default class BasicInfo extends ConsentComponent {
   render() {
     const {
       newBasicInfo,
-      inputChanged,
+      formInvalid,
+      errorMessage,
     } = this.state;
 
     const canModifyTrait = !this.props.traitRequestCount;
@@ -487,7 +507,6 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newBasicInfo.firstName) && inputChanged} message="First Name cannot be empty" />
               </div>
             </div>
             <div styleName="row">
@@ -500,7 +519,6 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newBasicInfo.lastName) && inputChanged} message="Last Name cannot be empty" />
               </div>
             </div>
             <div styleName="row">
@@ -601,7 +619,6 @@ export default class BasicInfo extends ConsentComponent {
                   disabled={!canModifyTrait}
                   clearable={false}
                 />
-                <ErrorMessage invalid={_.isEmpty(newBasicInfo.country) && inputChanged} message="Country cannot be empty" addMargin />
               </div>
             </div>
           </form>
@@ -728,7 +745,6 @@ export default class BasicInfo extends ConsentComponent {
                       </label>
 
                       <input disabled={!canModifyTrait} id="firstNameId" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
-                      <ErrorMessage invalid={_.isEmpty(newBasicInfo.firstName) && inputChanged} addMargin message="First Name cannot be empty" />
                     </div>
                     <div styleName="field">
                       <label htmlFor="lastNameId">
@@ -737,7 +753,6 @@ export default class BasicInfo extends ConsentComponent {
                         <input type="hidden" />
                       </label>
                       <input disabled={!canModifyTrait} id="lastNameId" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
-                      <ErrorMessage invalid={_.isEmpty(newBasicInfo.lastName) && inputChanged} addMargin message="Last Name cannot be empty" />
                     </div>
                   </div>
                 </div>
@@ -811,7 +826,6 @@ export default class BasicInfo extends ConsentComponent {
                     clearable={false}
                     disabled={!canModifyTrait}
                   />
-                  <ErrorMessage invalid={_.isEmpty(newBasicInfo.country) && inputChanged} message="Country cannot be empty" />
                 </div>
               </div>
               <div styleName="row">
@@ -916,6 +930,9 @@ export default class BasicInfo extends ConsentComponent {
               })
             }
           </div>
+        </div>
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          {errorMessage}
         </div>
         <div styleName="button-save">
           <PrimaryButton

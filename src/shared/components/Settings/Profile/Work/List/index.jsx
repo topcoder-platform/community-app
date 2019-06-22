@@ -11,7 +11,6 @@ export default function WorkList(props) {
   const {
     workList,
     onDeleteItem,
-    onEditItem,
   } = props;
 
   return (
@@ -20,7 +19,7 @@ export default function WorkList(props) {
         {
           workList.items.map((work, index) => (
             <li key={`${work.company}${index + 1}`}>
-              <Item work={work} index={index} onDeleteItem={onDeleteItem} onEditItem={onEditItem} />
+              <Item work={work} index={index} onDeleteItem={onDeleteItem} />
             </li>
           ))
         }
@@ -32,5 +31,4 @@ export default function WorkList(props) {
 WorkList.propTypes = {
   workList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
-  onEditItem: PT.func.isRequired,
 };

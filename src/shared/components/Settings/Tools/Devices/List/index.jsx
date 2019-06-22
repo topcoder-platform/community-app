@@ -12,7 +12,6 @@ export default function DeviceList(props) {
     deviceList,
     onDeleteItem,
     disabled,
-    onEditItem,
   } = props;
 
   return (
@@ -23,12 +22,7 @@ export default function DeviceList(props) {
             device
               ? (
                 <li key={`${device.deviceType}${index + 1}`}>
-                  <Item
-                    device={device}
-                    index={index}
-                    onDeleteItem={onDeleteItem}
-                    onEditItem={onEditItem}
-                  />
+                  <Item device={device} index={index} onDeleteItem={onDeleteItem} />
                 </li>
               ) : undefined
           ))
@@ -41,7 +35,6 @@ export default function DeviceList(props) {
 DeviceList.propTypes = {
   deviceList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
-  onEditItem: PT.func.isRequired,
   disabled: PT.bool,
 };
 
