@@ -175,6 +175,7 @@ workflows:
             branches:
               only: 
                 - develop
+                - feature-profile-enhancements
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
