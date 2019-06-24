@@ -163,7 +163,9 @@ export default class Language extends ConsentComponent {
    * Invalid value, can not save
    */
   onCheckFormValue() {
-    const { languageTrait, newLanguage, isEdit, indexNo } = this.state;
+    const {
+      languageTrait, newLanguage, isEdit, indexNo,
+    } = this.state;
 
     let invalid = false;
     let languageNameInvalid = false;
@@ -177,7 +179,7 @@ export default class Language extends ConsentComponent {
 
     if (isEdit) {
       const result = _.filter(languageTrait.traits.data, (item, index) => (
-        item.language.toLowerCase() === newLanguage.language.toLowerCase() && index != indexNo
+        item.language.toLowerCase() === newLanguage.language.toLowerCase() && index !== indexNo
       ));
 
       if (result && result.length > 0) {
@@ -185,17 +187,15 @@ export default class Language extends ConsentComponent {
         languageNameInvalid = true;
         languageNameInvalidMsg = 'Language already added';
       }
+    } else if (!_.isEmpty(languageTrait)) {
+      const result = _.filter(languageTrait.traits.data, item => (
+        item.language.toLowerCase() === newLanguage.language.toLowerCase()
+      ));
 
-    } else {
-      if (!_.isEmpty(languageTrait)) {
-        const result = _.filter(languageTrait.traits.data, item => (
-          item.language.toLowerCase() === newLanguage.language.toLowerCase()
-        ));
-        if (result && result.length > 0) {
-          invalid = true;
-          languageNameInvalid = true;
-          languageNameInvalidMsg = 'Language already added';
-        }
+      if (result && result.length > 0) {
+        invalid = true;
+        languageNameInvalid = true;
+        languageNameInvalidMsg = 'Language already added';
       }
     }
 
