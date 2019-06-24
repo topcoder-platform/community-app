@@ -175,6 +175,7 @@ workflows:
             branches:
               only: 
                 - develop
+                - fix-mm-leaderboard-sort
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
