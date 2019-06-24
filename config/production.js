@@ -252,7 +252,7 @@ module.exports = {
     },
   ],
   ACCOUNT_MENU_SWITCH_TEXT: {
-    title: 'Switch to BUSINESS', 
+    title: 'Switch to BUSINESS',
     href: 'http://connect.topcoder.com',
   },
 };
