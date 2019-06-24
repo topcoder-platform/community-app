@@ -99,7 +99,16 @@ function SubmissionsComponent({
   // Temporary fix for missing ranks
   if (isMM) {
     if (isReviewPhaseComplete) {
-      wrappedSubmissions.sort((a, b) => getFinalScore(b) - getFinalScore(a));
+      wrappedSubmissions.sort((a, b) => {
+        const scoreA = getFinalScore(a);
+        const scoreB = getFinalScore(b);
+        if (scoreA === scoreB) {
+          const timeA = new Date(_.get(a, 'submissions[0].submissionTime'));
+          const timeB = new Date(_.get(b, 'submissions[0].submissionTime'));
+          return timeB - timeA;
+        }
+        return scoreB - scoreA;
+      });
       _.each(wrappedSubmissions, (sub, i) => {
         if (!sub.rank) {
           wrappedSubmissions[i].rank = {
@@ -107,9 +116,19 @@ function SubmissionsComponent({
           };
         }
       });
+    } else {
+      wrappedSubmissions.sort((a, b) => {
+        const scoreA = getProvisionalScore(a);
+        const scoreB = getProvisionalScore(b);
+        if (scoreA === scoreB) {
+          const timeA = new Date(_.get(a, 'submissions[0].submissionTime'));
+          const timeB = new Date(_.get(b, 'submissions[0].submissionTime'));
+          return timeB - timeA;
+        }
+        return scoreB - scoreA;
+      });
     }
 
-    wrappedSubmissions.sort((a, b) => getProvisionalScore(b) - getProvisionalScore(a));
     _.each(wrappedSubmissions, (sub, i) => {
       if (!sub.rank) {
         wrappedSubmissions[i].rank = {
