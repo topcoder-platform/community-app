@@ -110,6 +110,7 @@ export default function ChallengeListing(props) {
         loadMoreActive={props.loadMoreActive}
         loadingActiveChallenges={props.loadingChallenges}
         loadMoreChallenges={props.loadMoreChallenges}
+        allMyChallengesLoaded={props.allMyChallengesLoaded}
       />
     );
   }
@@ -239,4 +240,5 @@ ChallengeListing.propTypes = {
   auth: PT.shape(),
   loadMoreActive: PT.func,
   loadMoreChallenges: PT.func,
+  allMyChallengesLoaded: PT.bool.isRequired,
 };
