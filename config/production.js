@@ -58,48 +58,103 @@ module.exports = {
   },
   HEADER_MENU: [
     {
-      id: 'community', // required for 'Switch to BUSINESS' to work
-      title: 'COMMUNITY',
-      secondaryMenuForLoggedInUser: [
+      id: 'business',
+      title: 'BUSINESS',
+      subMenu: [
         {
-          title: 'Dashboard',
-          href: '/my-dashboard',
+          title: 'Solutions',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+            {
+              title: 'Apps',
+              href: '',
+            },
+            {
+              title: 'Websites',
+              href: '',
+            },
+            {
+              title: 'Product Design',
+              href: '',
+            },
+            {
+              title: 'Development Tasks',
+              href: '',
+            },
+            {
+              title: 'Analytics & Data Science',
+              href: '',
+            },
+            {
+              title: 'Testing & QA',
+              href: '',
+            },
+            {
+              title: 'How It Works',
+              href: '',
+            },
+          ],
         },
         {
-          id: 'myprofile',
-          title: 'My Profile',
-          href: '/members/willFilledByUserName',
+          title: 'Enterprise Programs',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
         },
         {
-          title: 'Payments',
-          href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+          title: 'Customer Success',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Company',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Resources',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Blog',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
         },
       ],
-      secondaryMenuForGuest: [
-        {
-          title: 'Overview',
-          href: 'https://www.topcoder.com/about',
-        },
-        {
-          title: 'How It Works',
-          href: 'https://www.topcoder.com/how-it-works/faqs/',
-        },
-        {
-          title: 'Tracks',
-          href: '/community/learn',
-        },
-        {
-          title: 'Why Join',
-          href: 'https://www.topcoder.com/about/why-crowdsourcing/',
-        },
-      ],
+    },
+    {
+      id: 'work', // required for 'Switch to BUSINESS' to work
+      title: 'WORK',
       subMenu: [
         {
           title: 'Compete',
           subMenu: [
             {
               title: 'All challenges',
-              href: '/challenges',
+              link: '/challenges',
             },
             {
               title: 'COMPETITIVE PROGRAMMING',
@@ -133,7 +188,7 @@ module.exports = {
           ],
         },
         {
-          title: 'Explore',
+          title: 'Community',
           subMenu: [
             {
               title: 'TCO',
@@ -172,7 +227,15 @@ module.exports = {
   ACCOUNT_MENU: [
     {
       title: 'Settings',
-      href: '/settings/profile',
+      link: '/settings/profile',
+    },
+    {
+      title: 'Payments',
+      href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+    },
+    {
+      title: 'All projects',
+      link: null,
     },
     { separator: true },
     {
@@ -189,7 +252,7 @@ module.exports = {
     },
   ],
   ACCOUNT_MENU_SWITCH_TEXT: {
-    title: 'Switch to BUSINESS',
+    title: 'Switch to BUSINESS', 
     href: 'http://connect.topcoder.com',
   },
 };
