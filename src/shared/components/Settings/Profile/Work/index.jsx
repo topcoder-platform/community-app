@@ -216,7 +216,7 @@ export default class Work extends ConsentComponent {
       startDateInvalid: false,
       startDateInvalidMsg: '',
       endDateInvalid: false,
-      endDateDisabled: false,
+      endDateDisabled: workTrait.traits.data[indexNo].working,
       endDateInvalidMsg: '',
       isSubmit: false,
     });
@@ -492,7 +492,7 @@ export default class Work extends ConsentComponent {
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
-                    isOutsideRange={moment()}
+                    isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodFrom}
                     id="date-from1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
@@ -520,7 +520,7 @@ export default class Work extends ConsentComponent {
                     readOnly
                     disabled={endDateDisabled}
                     numberOfMonths={1}
-                    isOutsideRange={moment()}
+                    isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodTo}
                     id="date-to1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
@@ -643,7 +643,7 @@ export default class Work extends ConsentComponent {
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
-                    isOutsideRange={moment()}
+                    isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodFrom}
                     id="date-from2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
@@ -667,7 +667,7 @@ export default class Work extends ConsentComponent {
                     readOnly
                     disabled={endDateDisabled}
                     numberOfMonths={1}
-                    isOutsideRange={moment()}
+                    isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodTo}
                     id="date-to2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}

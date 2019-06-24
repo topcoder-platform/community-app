@@ -161,9 +161,10 @@ export default class Language extends ConsentComponent {
   /**
    * Check form fields value,
    * Invalid value, can not save
-   * @param newLanguage object
    */
-  onCheckFormValue(newLanguage) {
+  onCheckFormValue() {
+    const { languageTrait, newLanguage, isEdit, indexNo } = this.state;
+
     let invalid = false;
     let languageNameInvalid = false;
     let languageNameInvalidMsg = '';
@@ -174,15 +175,27 @@ export default class Language extends ConsentComponent {
       languageNameInvalidMsg = 'Language cannot be empty';
     }
 
-    const { languageTrait } = this.state;
-    if (!_.isEmpty(languageTrait)) {
-      const result = _.filter(languageTrait.traits.data, item => (
-        item.language.toLowerCase() === newLanguage.language.toLowerCase()
+    if (isEdit) {
+      const result = _.filter(languageTrait.traits.data, (item, index) => (
+        item.language.toLowerCase() === newLanguage.language.toLowerCase() && index != indexNo
       ));
+
       if (result && result.length > 0) {
         invalid = true;
         languageNameInvalid = true;
         languageNameInvalidMsg = 'Language already added';
+      }
+
+    } else {
+      if (!_.isEmpty(languageTrait)) {
+        const result = _.filter(languageTrait.traits.data, item => (
+          item.language.toLowerCase() === newLanguage.language.toLowerCase()
+        ));
+        if (result && result.length > 0) {
+          invalid = true;
+          languageNameInvalid = true;
+          languageNameInvalidMsg = 'Language already added';
+        }
       }
     }
 
@@ -196,9 +209,8 @@ export default class Language extends ConsentComponent {
 
   onHandleAddLanguage(e) {
     e.preventDefault();
-    const { newLanguage } = this.state;
     this.setState({ isSubmit: true });
-    if (this.onCheckFormValue(newLanguage)) {
+    if (this.onCheckFormValue()) {
       return;
     }
     this.showConsent(this.onAddLanguage.bind(this));

@@ -118,7 +118,7 @@ export default class Education extends ConsentComponent {
       endDateInvalidMsg: endDateValidResult.message,
       endDateInvalid: endDateValidResult.invalid,
     });
-    return invalid;
+    return formInvalid;
   }
 
   onCheckStartDate() {
@@ -531,7 +531,7 @@ export default class Education extends ConsentComponent {
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
-                    isOutsideRange={moment()}
+                    isOutsideRange={moment().subtract(1, 'd')}
                     date={newEducation.timePeriodFrom}
                     id="date-from1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
@@ -560,7 +560,7 @@ export default class Education extends ConsentComponent {
                       <DatePicker
                         readOnly
                         numberOfMonths={1}
-                        isOutsideRange={moment()}
+                        isOutsideRange={moment().subtract(1, 'd')}
                         date={newEducation.timePeriodTo}
                         id="date-to1"
                         onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
@@ -686,7 +686,7 @@ export default class Education extends ConsentComponent {
                   <DatePicker
                     readOnly
                     numberOfMonths={1}
-                    isOutsideRange={moment()}
+                    isOutsideRange={moment().subtract(1, 'd')}
                     date={newEducation.timePeriodFrom}
                     id="date-from2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
@@ -711,7 +711,7 @@ export default class Education extends ConsentComponent {
                       <DatePicker
                         readOnly
                         numberOfMonths={1}
-                        isOutsideRange={moment()}
+                        isOutsideRange={moment().subtract(1, 'd')}
                         date={newEducation.timePeriodTo}
                         id="date-to2"
                         onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
