@@ -58,6 +58,94 @@ module.exports = {
   },
   HEADER_MENU: [
     {
+      id: 'business',
+      title: 'BUSINESS',
+      subMenu: [
+        {
+          title: 'Solutions',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+            {
+              title: 'Apps',
+              href: '',
+            },
+            {
+              title: 'Websites',
+              href: '',
+            },
+            {
+              title: 'Product Design',
+              href: '',
+            },
+            {
+              title: 'Development Tasks',
+              href: '',
+            },
+            {
+              title: 'Analytics & Data Science',
+              href: '',
+            },
+            {
+              title: 'Testing & QA',
+              href: '',
+            },
+            {
+              title: 'How It Works',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Enterprise Programs',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Customer Success',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Company',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Resources',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+        {
+          title: 'Blog',
+          subMenu: [
+            {
+              title: 'All Solutions',
+              href: '',
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: 'community', // required for 'Switch to BUSINESS' to work
       title: 'COMMUNITY',
       secondaryMenuForLoggedInUser: [
