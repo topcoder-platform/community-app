@@ -189,7 +189,6 @@ workflows:
             branches:
               only:
                 - develop
-                - develop-from-master-23may
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
