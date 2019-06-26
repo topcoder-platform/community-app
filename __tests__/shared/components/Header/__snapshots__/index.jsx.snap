@@ -142,11 +142,11 @@ exports[`Default render 1`] = `
               "subMenu": Array [
                 Object {
                   "href": "/challenges",
-                  "title": "All challenges",
+                  "title": "All Challenges",
                 },
                 Object {
                   "href": "https://arena.topcoder-dev.com",
-                  "title": "Competitive programming",
+                  "title": "Competitive Programming",
                 },
               ],
               "title": "Compete",
@@ -155,7 +155,7 @@ exports[`Default render 1`] = `
               "subMenu": Array [
                 Object {
                   "href": "/community/competitive-programming",
-                  "title": "Competitive programming",
+                  "title": "Competitive Programming",
                 },
                 Object {
                   "href": "/community/data-science",

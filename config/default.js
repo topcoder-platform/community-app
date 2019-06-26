@@ -343,11 +343,11 @@ module.exports = {
           title: 'Compete',
           subMenu: [
             {
-              title: 'All challenges',
+              title: 'All Challenges',
               href: '/challenges',
             },
             {
-              title: 'Competitive programming',
+              title: 'Competitive Programming',
               href: 'https://arena.topcoder-dev.com',
             },
           ],
@@ -356,7 +356,7 @@ module.exports = {
           title: 'Tracks',
           subMenu: [
             {
-              title: 'Competitive programming',
+              title: 'Competitive Programming',
               href: '/community/competitive-programming',
             },
             {
