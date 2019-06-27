@@ -4,10 +4,10 @@
  */
 
 import React from 'react';
-
+import moment from 'moment';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
 import './style.scss';
-import moment from 'moment';
+
 
 export default function Footer2() {
   return (
