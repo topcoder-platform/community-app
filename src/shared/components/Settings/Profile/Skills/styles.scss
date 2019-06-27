@@ -268,7 +268,8 @@
     justify-content: center;
     align-items: center;
     width: 75px;
-    padding: 5px 0px 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
     flex-shrink: 0;
 
     .name {
@@ -293,7 +294,7 @@
     justify-content: center;
     align-items: center;
     background-color: #fbfbfb;
-    padding: 0px 10px 0px;
+    padding: 10px;
     border: 1px solid $tc-gray-20;
     border-radius: 6px;
     height: 75px;
