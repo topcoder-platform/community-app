@@ -15,9 +15,9 @@ exports[`Default render 1`] = `
     menu={
       Array [
         Object {
+          "href": "https://www.topcoder-dev.com",
           "id": "business",
           "title": "BUSINESS",
-          "href": "https://www.topcoder-dev.com",
         },
         Object {
           "id": "community",
@@ -96,7 +96,7 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "https://www.topcoder.com/tco",
+                  "href": "https://www.topcoder-dev.com/tco",
                   "title": "TCO",
                 },
                 Object {
@@ -142,7 +142,7 @@ exports[`Default render 1`] = `
               "separator": true,
             },
             Object {
-              "href": "https://help.topcoder.com/",
+              "href": "https://help.topcoder-dev.com/",
               "title": "Help",
             },
             Object {
@@ -157,8 +157,8 @@ exports[`Default render 1`] = `
         }
         authURLs={
           Object {
-            "href": "http://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
-            "location": "http://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main",
+            "href": "https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
+            "location": "https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main",
           }
         }
         loggedIn={true}
@@ -177,7 +177,7 @@ exports[`Default render 1`] = `
         showNotification={false}
         switchText={
           Object {
-            "href": "http://connect.topcoder-dev.com",
+            "href": "https://connect.topcoder-dev.com",
             "title": "Switch to BUSINESS",
           }
         }
