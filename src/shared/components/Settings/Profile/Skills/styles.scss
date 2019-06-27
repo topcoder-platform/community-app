@@ -228,7 +228,7 @@
   }
 
   li {
-    margin: 0 10px 55px;
+    margin: 0 10px 10px;
     border-radius: 6px;
 
     @include xs-to-lg {
@@ -261,6 +261,31 @@
     text-decoration: none;
   }
 
+  .name-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    padding: 5px 0px 10px;
+    flex-shrink: 0;
+
+    .name {
+      @include roboto-regular;
+
+      font-size: 12px;
+      line-height: 15px;
+      color: #262628;
+      text-align: center;
+    }
+
+    .verified-badge {
+      padding-left: 5px;
+      font-size: 0;
+    }
+  }
+
   .skill-icon {
     position: relative;
     display: flex;
@@ -268,7 +293,7 @@
     justify-content: center;
     align-items: center;
     background-color: #fbfbfb;
-    padding: 10px;
+    padding: 0px 10px 0px;
     border: 1px solid $tc-gray-20;
     border-radius: 6px;
     height: 75px;
@@ -314,28 +339,6 @@
       background-color: #f2faff;
       border: 1px solid #85ccff;
       box-shadow: 0 0 3px #0096ff;
-    }
-  }
-
-  .name-wrapper {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .name {
-      @include roboto-regular;
-
-      font-size: 12px;
-      line-height: 15px;
-      color: #262628;
-      text-align: center;
-      width: 100%;
-    }
-
-    .verified-badge {
-      padding-left: 5px;
-      font-size: 0;
     }
   }
 
