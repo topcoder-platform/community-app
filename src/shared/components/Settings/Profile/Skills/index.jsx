@@ -541,13 +541,13 @@ export default class Skills extends ConsentComponent {
                               <div styleName="hidden-indicator" />
                               { imageExist(`id-${skill.id}.svg`) ? getImage(`id-${skill.id}.svg`) : <FallbackIcon /> }
                             </div>
-                            <div styleName="name-wrapper">
-                              <div styleName="name">
-                                {_.truncate(skill.name, { length: 18, separator: ' ' })}
-                              </div>
-                              {_.includes(skill.sources, 'CHALLENGE') && <div styleName="verified-badge"><VerifiedBadgeIcon /></div> }
-                            </div>
                           </a>
+                          <div styleName="name-wrapper">
+                            <div styleName="name">
+                              {_.truncate(skill.name, { length: 18, separator: ' ' })}
+                            </div>
+                            {_.includes(skill.sources, 'CHALLENGE') && <div styleName="verified-badge"><VerifiedBadgeIcon /></div> }
+                          </div>
                         </div>
                       </li>
                     );
