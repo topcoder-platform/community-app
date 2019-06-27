@@ -60,90 +60,7 @@ module.exports = {
     {
       id: 'business',
       title: 'BUSINESS',
-      subMenu: [
-        {
-          title: 'Solutions',
-          subMenu: [
-            {
-              title: 'All Solutions',
-              href: '',
-            },
-            {
-              title: 'Apps',
-              href: '',
-            },
-            {
-              title: 'Websites',
-              href: '',
-            },
-            {
-              title: 'Product Design',
-              href: '',
-            },
-            {
-              title: 'Development Tasks',
-              href: '',
-            },
-            {
-              title: 'Analytics & Data Science',
-              href: '',
-            },
-            {
-              title: 'Testing & QA',
-              href: '',
-            },
-            {
-              title: 'How It Works',
-              href: '',
-            },
-          ],
-        },
-        {
-          title: 'Enterprise Programs',
-          subMenu: [
-            {
-              title: 'All Solutions',
-              href: '',
-            },
-          ],
-        },
-        {
-          title: 'Customer Success',
-          subMenu: [
-            {
-              title: 'All Solutions',
-              href: '',
-            },
-          ],
-        },
-        {
-          title: 'Company',
-          subMenu: [
-            {
-              title: 'All Solutions',
-              href: '',
-            },
-          ],
-        },
-        {
-          title: 'Resources',
-          subMenu: [
-            {
-              title: 'All Solutions',
-              href: '',
-            },
-          ],
-        },
-        {
-          title: 'Blog',
-          subMenu: [
-            {
-              title: 'All Solutions',
-              href: '',
-            },
-          ],
-        },
-      ],
+      href: 'https://www.topcoder.com',
     },
     {
       id: 'community', // required for 'Switch to BUSINESS' to work
@@ -254,8 +171,8 @@ module.exports = {
   ],
   HEADER_MENU_THEME: 'light',
   HEADER_AUTH_URLS: {
-    href: 'http://accounts.topcoder.com/member/registration?utm_source=community-app-main',
-    location: 'http://accounts.topcoder.com/member?retUrl=%S&utm_source=community-app-main',
+    href: 'https://accounts.topcoder.com/member/registration?utm_source=community-app-main',
+    location: 'https://accounts.topcoder.com/member?retUrl=%S&utm_source=community-app-main',
   },
   ACCOUNT_MENU: [
     {
@@ -278,6 +195,6 @@ module.exports = {
   ],
   ACCOUNT_MENU_SWITCH_TEXT: {
     title: 'Switch to BUSINESS',
-    href: 'http://connect.topcoder.com',
+    href: 'https://connect.topcoder.com',
   },
 };
