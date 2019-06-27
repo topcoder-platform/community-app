@@ -7,6 +7,7 @@ import React from 'react';
 
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
 import './style.scss';
+import moment from 'moment';
 
 export default function Footer2() {
   return (
@@ -14,7 +15,7 @@ export default function Footer2() {
       <div styleName="content">
         <TopcoderLogoGray />
         <span styleName="copyright">
-&copy; Topcoder, 2017
+&copy; Topcoder, {moment().year()}
         </span>
         <div styleName="right">
           <a
