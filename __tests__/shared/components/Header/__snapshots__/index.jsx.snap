@@ -15,91 +15,8 @@ exports[`Default render 1`] = `
     menu={
       Array [
         Object {
+          "href": "https://www.topcoder-dev.com",
           "id": "business",
-          "subMenu": Array [
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "",
-                  "title": "All Solutions",
-                },
-                Object {
-                  "href": "",
-                  "title": "Apps",
-                },
-                Object {
-                  "href": "",
-                  "title": "Websites",
-                },
-                Object {
-                  "href": "",
-                  "title": "Product Design",
-                },
-                Object {
-                  "href": "",
-                  "title": "Development Tasks",
-                },
-                Object {
-                  "href": "",
-                  "title": "Analytics & Data Science",
-                },
-                Object {
-                  "href": "",
-                  "title": "Testing & QA",
-                },
-                Object {
-                  "href": "",
-                  "title": "How It Works",
-                },
-              ],
-              "title": "Solutions",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Enterprise Programs",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Customer Success",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Company",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Resources",
-            },
-            Object {
-              "subMenu": Array [
-                Object {
-                  "href": "",
-                  "title": "All Solutions",
-                },
-              ],
-              "title": "Blog",
-            },
-          ],
           "title": "BUSINESS",
         },
         Object {
@@ -142,11 +59,11 @@ exports[`Default render 1`] = `
               "subMenu": Array [
                 Object {
                   "href": "/challenges",
-                  "title": "All challenges",
+                  "title": "All Challenges",
                 },
                 Object {
                   "href": "https://arena.topcoder-dev.com",
-                  "title": "Competitive programming",
+                  "title": "Competitive Programming",
                 },
               ],
               "title": "Compete",
@@ -155,7 +72,7 @@ exports[`Default render 1`] = `
               "subMenu": Array [
                 Object {
                   "href": "/community/competitive-programming",
-                  "title": "Competitive programming",
+                  "title": "Competitive Programming",
                 },
                 Object {
                   "href": "/community/data-science",
@@ -179,7 +96,7 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "https://www.topcoder.com/tco",
+                  "href": "https://www.topcoder-dev.com/tco",
                   "title": "TCO",
                 },
                 Object {
@@ -225,7 +142,7 @@ exports[`Default render 1`] = `
               "separator": true,
             },
             Object {
-              "href": "https://help.topcoder.com/",
+              "href": "https://help.topcoder-dev.com/",
               "title": "Help",
             },
             Object {
@@ -240,8 +157,8 @@ exports[`Default render 1`] = `
         }
         authURLs={
           Object {
-            "href": "http://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
-            "location": "http://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main",
+            "href": "https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
+            "location": "https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main",
           }
         }
         loggedIn={true}
@@ -260,7 +177,7 @@ exports[`Default render 1`] = `
         showNotification={false}
         switchText={
           Object {
-            "href": "http://connect.topcoder-dev.com",
+            "href": "https://connect.topcoder-dev.com",
             "title": "Switch to BUSINESS",
           }
         }
