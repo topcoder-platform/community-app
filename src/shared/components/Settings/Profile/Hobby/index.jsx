@@ -341,7 +341,6 @@ export default class Hobby extends ConsentComponent {
                 <div styleName="field row-1">
                   <label htmlFor="hobby">
                     Hobby
-                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <input disabled={!canModifyTrait} id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
@@ -352,7 +351,6 @@ export default class Hobby extends ConsentComponent {
                   <label styleName="description-label" htmlFor="description">
                     <span>
                       Description
-                      <span styleName="text-required">* Required</span>
                     </span>
                     {' '}
                     <span styleName="description-counts">

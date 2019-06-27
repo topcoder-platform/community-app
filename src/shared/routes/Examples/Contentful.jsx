@@ -22,6 +22,7 @@ import Tabs from 'components/Contentful/Tabs';
 import Blog from 'components/Contentful/Blog';
 import BlogFeed from 'containers/Contentful/BlogFeed';
 import Modal from 'components/Contentful/Modal';
+import MemberCard from 'components/Contentful/MemberCard';
 import qs from 'qs';
 
 import { Route, Switch } from 'react-router-dom';
@@ -205,6 +206,21 @@ export default function Contentful({ location, match }) {
           >
             <button type="button">click me</button>
           </Modal>
+        )}
+      />
+      <Route
+        path={`${base}/member-card/:id`}
+        component={p => (
+          <div>
+            <p>You can adjust wrapper size to scale the member card in devtools</p>
+            <div style={{ width: '350px', height: '350px' }}>
+              <MemberCard
+                id={p.match.params.id}
+                preview
+                spaceName={spaceName}
+              />
+            </div>
+          </div>
         )}
       />
     </Switch>

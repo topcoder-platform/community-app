@@ -17,17 +17,17 @@ const newsletters = [
   //   desc: 'News summary from all tracks and programs',
   // },
   {
-    id: 'Design Newsletter',
+    id: 'TOPCODER_NL_DESIGN',
     name: 'Design Newsletter',
     desc: 'Website, mobile and product design; UI and UX',
   },
   {
-    id: 'Dev Newsletter',
+    id: 'TOPCODER_NL_DEV',
     name: 'Development Newsletter',
     desc: 'Software architecture, component assembly, application development, and bug hunting',
   },
   {
-    id: 'Data Science Newsletter',
+    id: 'TOPCODER_NL_DATA',
     name: 'Data Science Newsletter',
     desc: 'Algorithm and data structures, statistical analysis',
   },
@@ -107,11 +107,8 @@ export default class EmailPreferences extends ConsentComponent {
 
   onChange(id, checked) {
     document.querySelectorAll(`#pre-onoffswitch-${id}`).forEach((el) => { el.checked = checked; }); // eslint-disable-line no-param-reassign
-    let { emailPreferences } = this.state;
-    emailPreferences = {
-      ...emailPreferences,
-      [id]: checked,
-    };
+    const { emailPreferences } = this.state;
+    emailPreferences[id] = checked;
     this.setState({
       emailPreferences,
     }, () => this.saveEmailPreferences());

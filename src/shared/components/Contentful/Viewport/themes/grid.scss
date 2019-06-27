@@ -3,8 +3,8 @@
 .container {
   display: grid;
   margin: 1em auto;
-  padding: 0 1em;
   overflow: auto;
+  justify-content: center;
 
   @include xl {
     max-width: $screen-lg;
