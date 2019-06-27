@@ -22,6 +22,7 @@ import VideoModalButton from 'components/VideoModalButton';
 import Looker from 'containers/Looker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
+import NewsletterArchive from 'containers/NewsletterArchive';
 
 import tco18 from 'components/buttons/outline/tco/tco18.scss';
 import tco16 from 'components/buttons/outline/tco/tco16.scss';
@@ -88,6 +89,7 @@ const customComponents = {
     },
   }),
   Modal: attrs => ({ type: Modal, props: attrs }),
+  NewsletterArchive: attrs => ({ type: NewsletterArchive, props: attrs }),
 };
 
 /**

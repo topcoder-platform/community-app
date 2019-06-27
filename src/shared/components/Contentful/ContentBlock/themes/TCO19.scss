@@ -107,6 +107,10 @@
       @include md-to-xl {
         white-space: nowrap;
       }
+
+      &:first-child {
+        padding-left: 10px;
+      }
     }
 
     td {
@@ -118,7 +122,7 @@
       color: $tc-gray-80;
       border-top: 1px solid #ededf2;
       border-bottom: 1px solid #ededf2;
-      padding: 20px 10px 20px 0;
+      padding: 20px 50px 20px 0;
       min-height: 51px;
 
       &:first-child {
