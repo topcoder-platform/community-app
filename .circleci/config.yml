@@ -191,7 +191,6 @@ workflows:
               only:
                 - hot-fixes-2
                 - develop
-                - general-features
                 - develop-from-master-23may
       # Production builds are exectuted only on tagged commits to the
       # master branch.
