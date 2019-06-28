@@ -228,7 +228,7 @@
   }
 
   li {
-    margin: 0 10px 55px;
+    margin: 0 10px 10px;
     border-radius: 6px;
 
     @include xs-to-lg {
@@ -259,6 +259,32 @@
 
   a:hover {
     text-decoration: none;
+  }
+
+  .name-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    flex-shrink: 0;
+
+    .name {
+      @include roboto-regular;
+
+      font-size: 12px;
+      line-height: 15px;
+      color: #262628;
+      text-align: center;
+    }
+
+    .verified-badge {
+      padding-left: 5px;
+      font-size: 0;
+    }
   }
 
   .skill-icon {
@@ -315,17 +341,6 @@
       border: 1px solid #85ccff;
       box-shadow: 0 0 3px #0096ff;
     }
-  }
-
-  .name {
-    @include roboto-regular;
-
-    margin-top: 10px;
-    font-size: 12px;
-    line-height: 15px;
-    color: #262628;
-    text-align: center;
-    width: 100%;
   }
 
   a.skill-hidden {
