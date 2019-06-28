@@ -192,6 +192,7 @@ workflows:
                 - hot-fixes-2
                 - develop
                 - develop-from-master-23may
+                - server_side_filtering
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
