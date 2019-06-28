@@ -20,6 +20,7 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import DevFallbackIcon from 'assets/images/profile/skills/id-develop.svg';
 import DesignFallbackIcon from 'assets/images/profile/skills/id-design.svg';
 import DataFallbackIcon from 'assets/images/profile/skills/id-data.svg';
+import VerifiedBadgeIcon from 'assets/images/verified-skill-badge.svg';
 import { isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
@@ -303,6 +304,7 @@ export default class Skills extends ConsentComponent {
           skill.id === arraySkill[i].tagId
         ));
         if (result && result.length > 0) {
+          result[0].sources = arraySkill[i].sources;
           filterUserSkills.push(result[0]);
           if (_.some(result[0].categories, category => category.toLowerCase() === 'design')) {
             design.push(result[0].name);
@@ -505,10 +507,13 @@ export default class Skills extends ConsentComponent {
                               <div styleName="hidden-indicator" />
                               { imageExist(`id-${skill.id}.svg`) ? getImage(`id-${skill.id}.svg`) : <FallbackIcon /> }
                             </div>
+                          </a>
+                          <div styleName="name-wrapper">
                             <div styleName="name">
                               {_.truncate(skill.name, { length: 18, separator: ' ' })}
                             </div>
-                          </a>
+                            {_.includes(skill.sources, 'CHALLENGE') && <div styleName="verified-badge"><VerifiedBadgeIcon /></div> }
+                          </div>
                         </div>
                       </li>
                     );
