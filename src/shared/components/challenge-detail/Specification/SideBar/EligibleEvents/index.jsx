@@ -43,5 +43,6 @@ EligibleEvents.propTypes = {
   eventDetails: PT.shape({
     eventName: PT.string.isRequired,
     eventDetails: PT.string.isRequired,
+    description: PT.string,
   }),
 };

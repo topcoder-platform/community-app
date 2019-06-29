@@ -436,6 +436,7 @@ ChallengeHeader.propTypes = {
     technologies: PT.array,
     platforms: PT.array,
     prizes: PT.array,
+    roundId: PT.string,
     numberOfCheckpointsPrizes: PT.number,
     topCheckPointPrize: PT.number,
     reliabilityBonus: PT.number,
