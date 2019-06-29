@@ -37,7 +37,10 @@ export default function Winners({
 }
 
 Winners.defaultProps = {
-  winners: [],
+  winners: PT.arrray(PT.shape({
+    photoURL: PT.string,
+    submissionDownloadLink: PT.string,
+  })),
   pointPrizes: [],
   prizes: [],
   submissions: [],

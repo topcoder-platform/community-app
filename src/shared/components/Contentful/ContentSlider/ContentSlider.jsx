@@ -107,6 +107,8 @@ ContentSlider.propTypes = {
   autoStart: PT.bool,
   duration: PT.number,
   theme: PT.shape({
+    multiContent: PT.string,
+    singleContent: PT.string,
     container: PT.string,
     content: PT.string,
     control: PT.string,

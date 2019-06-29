@@ -91,6 +91,10 @@ Footer.propTypes = {
   })).isRequired,
   isAuthorized: PT.bool.isRequired,
   theme: PT.shape({
+    link: PT.string,
+    item: PT.string,
+    itemLogo: PT.string,
+    logo: PT.string,
     container: PT.string,
     menu: PT.string,
     authorize: PT.string,

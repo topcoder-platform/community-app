@@ -34,7 +34,9 @@ export default function EligibleEvents({ eventDetails }) {
 }
 
 EligibleEvents.defaultProps = {
-  eventDetails: null,
+  eventDetails: PT.shape({
+    description: PT.string,
+  }),
 };
 
 EligibleEvents.propTypes = {
