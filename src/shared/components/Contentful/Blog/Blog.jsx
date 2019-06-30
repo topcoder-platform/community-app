@@ -164,6 +164,8 @@ Blog.propTypes = {
     pageCounter: PT.string.isRequired,
     pageNumber: PT.string.isRequired,
     button: PT.string.isRequired,
+    paginationLinks: PT.string,
+    disabledLink: PT.string,
   }).isRequired,
   pageNo: PT.number.isRequired,
   totalPage: PT.number.isRequired,

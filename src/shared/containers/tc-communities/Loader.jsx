@@ -152,6 +152,15 @@ Loader.propTypes = {
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
+    terms: PT.shape({
+      length: PT.number,
+    }),
+    groupIds: PT.array,
+    accessDeniedPage: PT.shape({
+      viewportId: PT.string,
+      spaceName: PT.string,
+      environment: PT.string,
+    }),
   }),
   tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),

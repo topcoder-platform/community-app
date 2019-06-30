@@ -93,6 +93,7 @@ Card.propTypes = {
   challenge: PT.shape({
     id: PT.number.isRequired,
     name: PT.string.isRequired,
+    subTrack: PT.string,
     platforms: PT.string.isRequired,
     prizes: PT.arrayOf(PT.number).isRequired,
     technologies: PT.string.isRequired,

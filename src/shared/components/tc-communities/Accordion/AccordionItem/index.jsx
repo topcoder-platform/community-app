@@ -72,6 +72,7 @@ AccordionItem.propTypes = {
   onTitleClick: PT.func,
   isOpen: PT.bool,
   theme: PT.shape({
+    title: PT.string,
     container: PT.string,
     containerOpen: PT.string,
     titleText: PT.string,

@@ -117,6 +117,9 @@ Submission.defaultProps = {
 Submission.propTypes = {
   submissionObject: PT.shape({
     submissionId: PT.number,
+    submissionType: PT.string,
+    submissionDate: PT.string,
+    download: PT.string,
     warpreviewnings: PT.string,
     screening: PT.shape({
       status: PT.string,
