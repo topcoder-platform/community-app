@@ -150,5 +150,7 @@ IoT.defaultProps = {
 
 IoT.propTypes = {
   base: PT.string,
-  meta: PT.shape({}),
+  meta: PT.shape({
+    communityId: PT.number,
+  }),
 };

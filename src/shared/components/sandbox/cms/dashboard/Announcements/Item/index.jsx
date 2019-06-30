@@ -49,6 +49,14 @@ Item.propTypes = {
     endDate: PT.string.isRequired,
     startDate: PT.string.isRequired,
     title: PT.string.isRequired,
+    fields: PT.shape({
+      endDate: PT.string,
+      startDate: PT.string,
+      title: PT.string,
+    }),
+    sys: PT.shape({
+      id: PT.number,
+    }),
   }).isRequired,
   level: PT.number.isRequired,
   top: PT.number.isRequired,

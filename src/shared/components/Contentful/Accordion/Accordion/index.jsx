@@ -98,6 +98,8 @@ Accordion.propTypes = {
   defaultSelectedIndex: PT.number,
   theme: PT.shape({
     container: PT.string,
+    outerContainer: PT.string,
+    description: PT.string,
     titleList: PT.string,
     titleListItem: PT.string,
     titleListItemSelected: PT.string,
