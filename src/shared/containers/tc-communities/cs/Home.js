@@ -1,17 +1,18 @@
-import challengeListingActions from 'actions/challenge-listing';
+import { actions, challenges } from 'topcoder-react-lib';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Home from 'components/tc-communities/communities/cs/Home';
 import { connect } from 'react-redux';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
+
+const Buckets = challenges.buckets;
 
 function mapDispatchToProps(dispatch) {
   return {
     resetChallengeListing: () => {
-      const a = challengeListingActions.challengeListing;
+      const a = actions.challengeListing;
       const sa = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(a.selectCommunity(''));
       dispatch(a.setFilter({}));
-      dispatch(sa.selectBucket(BUCKETS.ALL));
+      dispatch(sa.selectBucket(Buckets.BUCKETS.ALL));
     },
   };
 }

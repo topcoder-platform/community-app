@@ -96,5 +96,7 @@ Handle
 ScoreboardTable.propTypes = {
   challenge: PT.shape({
     id: PT.number,
+    type: PT.string,
+    submissions: PT.array,
   }).isRequired,
 };

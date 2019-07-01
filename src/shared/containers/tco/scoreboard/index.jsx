@@ -66,7 +66,11 @@ ScoreboardPageContainer.defaultProps = {
 
 ScoreboardPageContainer.propTypes = {
   challengeId: PT.number,
-  scoreboard: PT.shape({}),
+  scoreboard: PT.shape({
+    details: PT.shape({
+      submissions: PT.array,
+    }),
+  }),
   loading: PT.bool,
   loadScoreboard: PT.func,
 };

@@ -2,19 +2,20 @@
  * Container for the header filters panel.
  */
 /* global window */
-
-import actions from 'actions/challenge-listing/filter-panel';
-import challengeListingActions from 'actions/challenge-listing';
+import _ from 'lodash';
+import pactions from 'actions/challenge-listing/filter-panel';
+import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
 import communityActions from 'actions/tc-communities';
 import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
 import sidebarActions from 'actions/challenge-listing/sidebar';
-import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import qs from 'qs';
+
+const { BUCKETS, isReviewOpportunitiesBucket } = challengeUtil.buckets;
 
 /* The default name for user-saved challenge filters. An integer
  * number will be appended to it, when necessary, to keep filter
@@ -78,6 +79,7 @@ export class Container extends React.Component {
       selectedCommunityId,
       setFilterState,
       tokenV2,
+      challenges,
     } = this.props;
     const communityFilters2 = [
       {
@@ -93,6 +95,7 @@ export class Container extends React.Component {
     return (
       <FilterPanel
         {...this.props}
+        challenges={challenges}
         communityFilters={communityFilters2}
         saveFilter={() => {
           const name = getAvailableFilterName(savedFilters);
@@ -153,12 +156,13 @@ Container.propTypes = {
   setFilterState: PT.func.isRequired,
   auth: PT.shape().isRequired,
   tokenV2: PT.string,
+  setDatepickerStatus: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
-  const a = actions.challengeListing.filterPanel;
-  const cla = challengeListingActions.challengeListing;
-  const sa = sidebarActions.challengeListing.sidebar;
+  const a = pactions.challengeListingFrontend.filterPanel;
+  const cla = actions.challengeListing;
+  const sa = sidebarActions.challengeListingFrontend.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
     getSubtracks: () => {
@@ -181,16 +185,19 @@ function mapDispatchToProps(dispatch) {
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
+    setDatepickerStatus: status => dispatch(cla.setDatepickerStatus(status)),
   };
 }
 
 function mapStateToProps(state, ownProps) {
   const cl = state.challengeListing;
+  const clFrontend = state.challengeListingFrontend;
   const tc = state.tcCommunities;
   return {
     ...ownProps,
-    ...state.challengeListing.filterPanel,
-    activeBucket: cl.sidebar.activeBucket,
+    ...state.challengeListingFrontend.filterPanel,
+    challenges: _.has(cl.challenges, BUCKETS.ALL) ? cl.challenges[BUCKETS.ALL] : [],
+    activeBucket: clFrontend.sidebar.activeBucket,
     communityFilters: tc.list.data,
     communityList: tc.list,
     defaultCommunityId: ownProps.defaultCommunityId,
@@ -202,8 +209,8 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,
-    isSavingFilter: cl.sidebar.isSavingFilter,
-    savedFilters: cl.sidebar.savedFilters,
+    isSavingFilter: clFrontend.sidebar.isSavingFilter,
+    savedFilters: clFrontend.sidebar.savedFilters,
   };
 }
 

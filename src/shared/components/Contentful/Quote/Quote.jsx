@@ -67,6 +67,7 @@ Quote.propTypes = {
   avatar: PT.shape(),
   quote: PT.shape().isRequired,
   theme: PT.shape({
+    noImage: PT.string,
     container: PT.string.isRequired,
     contentWrapper: PT.string.isRequired,
     content: PT.string.isRequired,

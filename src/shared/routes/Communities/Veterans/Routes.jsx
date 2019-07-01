@@ -9,8 +9,7 @@ import Footer from 'components/tc-communities/communities/veterans/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'components/tc-communities/communities/veterans/Home';
 import imageTextStyle from 'components/tc-communities/communities/veterans/themes/image-text.scss';
-import PreListingMsg from
-  'components/tc-communities/communities/veterans/PreListingMsg';
+import PreListingMsg from 'components/tc-communities/communities/veterans/PreListingMsg';
 import Learn from 'components/tc-communities/communities/veterans/Learn';
 import PT from 'prop-types';
 import React from 'react';
@@ -19,10 +18,11 @@ import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
-import { BUCKETS, registerBucket } from 'utils/challenge-listing/buckets';
-import { SORTS } from 'utils/challenge-listing/sort';
-
+import { challenge as challengeUtil } from 'topcoder-react-lib';
 import Leaderboard from '../Leaderboard';
+
+const { BUCKETS, registerBucket } = challengeUtil.buckets;
+const { SORTS } = challengeUtil.sort;
 
 export default function Veterans({ base, member, meta }) {
   const ID = 'ACTIVE_VETERANS_CHALLENGES';

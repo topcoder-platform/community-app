@@ -12,7 +12,7 @@ import { handleActions } from 'redux-actions';
  * @return {Function} Reducer.
  */
 function create(initialState = {}) {
-  const a = actions.challengeListing.filterPanel;
+  const a = actions.challengeListingFrontend.filterPanel;
   return handleActions({
     [a.setExpanded]: (state, { payload }) => ({ ...state, expanded: payload }),
     [a.setSearchText]: (state, { payload }) => ({ ...state, searchText: payload }),

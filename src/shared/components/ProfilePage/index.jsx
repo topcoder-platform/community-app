@@ -270,7 +270,7 @@ On The Web
                   </h3>
                   <div styleName="external-links">
                     {
-                      externals.map(external => (
+                      externals.map(external => !_.isEmpty(external.data) && (
                         <ExternalLink
                           data={external.data}
                           key={external.type !== 'weblink'

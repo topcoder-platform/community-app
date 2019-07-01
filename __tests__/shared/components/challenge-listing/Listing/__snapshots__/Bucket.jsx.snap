@@ -20,13 +20,29 @@ exports[`Matches shallow shapshot 1`] = `
     challenges={
       Array [
         Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "Open",
+              "phaseType": "Registration",
+            },
+          ],
           "id": "1",
+          "isDataScience": true,
+          "prize": Array [
+            1200,
+            600,
+          ],
           "prizes": Array [
             1200,
             600,
           ],
           "status": "b",
+          "subTrack": "CODE",
+          "technologies": Array [
+            "Data Science",
+          ],
           "totalPrize": 1800,
+          "track": "DEVELOP",
           "users": Object {},
         },
         Object {
@@ -73,12 +89,13 @@ exports[`Matches shallow shapshot 1`] = `
     expandedTags={Array []}
     keepPlaceholders={false}
     loadMore={[MockFunction]}
+    loadMoreChallenges={null}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
-    sort=""
+    sort="current-phase"
     userHandle=""
   />
 </StaticRouter>
@@ -221,6 +238,7 @@ exports[`Matches shallow shapshot 2`] = `
     expandedTags={Array []}
     keepPlaceholders={false}
     loadMore={[MockFunction]}
+    loadMoreChallenges={null}
     loading={true}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
@@ -256,6 +274,7 @@ exports[`Matches shallow shapshot 3`] = `
     expandedTags={Array []}
     keepPlaceholders={false}
     loadMore={null}
+    loadMoreChallenges={null}
     loading={true}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
