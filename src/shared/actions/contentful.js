@@ -3,6 +3,7 @@ import { getService } from 'services/contentful';
 import { redux } from 'topcoder-react-utils';
 import { removeTrailingSlash } from 'utils/url';
 import { menuItemBuilder, target as urlTarget } from 'utils/contentful';
+import { services } from 'topcoder-react-lib';
 
 const ERRMSG_UNKNOWN_TARGET = 'Unknown action target';
 
@@ -229,6 +230,52 @@ async function getMenuDone(menuProps) {
   };
 }
 
+/**
+ * Prepare challenges block fetching
+ * @param {Object} blockProps
+ */
+function getChallengesBlockInit(blockProps) {
+  return {
+    ...blockProps,
+  };
+}
+
+/**
+ * Fetchs challenges block needed data
+ * @param {Object} blockProps
+ */
+async function getChallengesBlockDone(blockProps) {
+  const {
+    id, preview, spaceName, environment,
+  } = blockProps;
+  // get the Contentful data
+  const service = getService({ preview, spaceName, environment });
+  const block = await service.getEntry(id);
+  // prepare for getting the challenges
+  const challengesService = services.challenge.getService();
+  const filter = {};
+  if (!block.fields.completedChallenges) {
+    filter.status = 'ACTIVE';
+  }
+  if (block.fields.challengeTitleContains) {
+    filter.name = block.fields.challengeTitleContains;
+  }
+  if (block.fields.challengeType) {
+    filter.subTrack = block.fields.challengeType.join(',');
+  }
+  if (block.fields.technologies) {
+    filter.technologies = block.fields.technologies.join(',');
+  }
+  const challenges = await challengesService.getChallenges(filter);
+  // console.log('getChallengesBlockDone', block, challenges);
+
+  return {
+    id,
+    challenges: challenges.challenges,
+    fields: block.fields,
+  };
+}
+
 export default redux.createActions({
   CONTENTFUL: {
     BOOK_CONTENT: bookContent,
@@ -242,5 +289,7 @@ export default redux.createActions({
     QUERY_CONTENT_DONE: queryContentDone,
     GET_MENU_INIT: getMenuInit,
     GET_MENU_DONE: getMenuDone,
+    GET_CHALLENGES_BLOCK_INIT: getChallengesBlockInit,
+    GET_CHALLENGES_BLOCK_DONE: getChallengesBlockDone,
   },
 });

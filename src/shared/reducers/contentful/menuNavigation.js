@@ -36,7 +36,7 @@ function onGetMenuDone(state, action) {
 }
 
 /**
- * Creates newsletterArchive reducer with the specified initial state.
+ * Creates challengesBlock reducer with the specified initial state.
  * @param {Object} state Optional. If not given, the default one is
  *  generated automatically.
  * @return {Function} Reducer.

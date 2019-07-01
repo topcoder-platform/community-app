@@ -22,3 +22,16 @@
 
   margin-bottom: 40px;
 }
+
+.control {
+  border: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+}
+
+.multiContent {
+  width: 100%;
+}

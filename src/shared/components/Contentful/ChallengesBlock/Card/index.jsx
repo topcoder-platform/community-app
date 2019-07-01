@@ -20,7 +20,6 @@ const FORMAT = 'MMM D, HH:mm';
 export default function Card({
   baseUrl,
   challenge,
-  setChallengeListingFilter,
 }) {
   const {
     subTrack,
@@ -55,7 +54,6 @@ export default function Card({
   return (
     <div styleName="container">
       <TrackTag
-        onClick={() => setImmediate(() => setChallengeListingFilter({ subtracks: [subTrack] }))}
         to={`${baseUrl}/challenges?filter[subtracks][0]=${
           encodeURIComponent(subTrack)}`}
       >
@@ -100,5 +98,4 @@ Card.propTypes = {
     submissionEndDate: PT.string.isRequired,
     track: PT.string.isRequired,
   }).isRequired,
-  setChallengeListingFilter: PT.func.isRequired,
 };
