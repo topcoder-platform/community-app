@@ -255,7 +255,7 @@ export class ListingContainer extends React.Component {
     switch (bucket) {
       case BUCKETS.MY:
         if (!allMyChallengesLoaded) {
-          this.loadAllRestChallenges();
+          getMoreChallenges(bucket);
         }
         break;
       case BUCKETS.ONGOING:

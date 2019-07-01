@@ -99,6 +99,7 @@ Card.propTypes = {
     registrationStartDate: PT.string.isRequired,
     submissionEndDate: PT.string.isRequired,
     track: PT.string.isRequired,
+    subTrack: PT.string,
   }).isRequired,
   setChallengeListingFilter: PT.func.isRequired,
 };

@@ -563,8 +563,10 @@ ChallengeDetailsView.propTypes = {
   terms: PT.arrayOf(PT.shape()),
   hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
+    id: PT.number.isRequired,
     introduction: PT.string,
     detailedRequirements: PT.string,
+    subTrack: PT.string,
     track: PT.string.isRequired,
     groups: PT.shape().isRequired,
     screeningScorecardId: PT.number,
@@ -585,6 +587,7 @@ ChallengeDetailsView.propTypes = {
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
     }),
+    documents: PT.array,
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({
