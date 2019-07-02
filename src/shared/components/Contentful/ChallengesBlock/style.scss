@@ -10,7 +10,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 40px;
 
   @include xs-to-sm {
     flex-direction: column;

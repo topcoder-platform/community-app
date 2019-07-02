@@ -267,7 +267,6 @@ async function getChallengesBlockDone(blockProps) {
     filter.technologies = block.fields.technologies.join(',');
   }
   const challenges = await challengesService.getChallenges(filter);
-  // console.log('getChallengesBlockDone', block, challenges);
 
   return {
     id,
