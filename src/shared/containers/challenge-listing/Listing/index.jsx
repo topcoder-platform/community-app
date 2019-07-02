@@ -184,8 +184,6 @@ export class ListingContainer extends React.Component {
       selectedCommunityId,
     } = this.props;
 
-    const finalTracks = _.clone(filter.tracks) || {};
-    let finalSubTracks = _.clone(filter.subtracks);
 
     const f = {};
     if (!filter) {
@@ -196,28 +194,11 @@ export class ListingContainer extends React.Component {
       f.keywords = filter.tags.join(',');
     }
 
+    if (filter.subtracks) {
+      f.subTrack = filter.subtracks.join(',');
+    }
     if (filter.tracks) {
-      if (!(!filter.tracks.design && filter.tracks.develop && filter.tracks.data_science)) {
-        finalSubTracks = [];
-      }
-
-      if (filter.tracks.design) {
-        finalSubTracks = _.concat(finalSubTracks, DESIGN_TRACK_ONLY);
-      }
-
-      if (filter.tracks.develop && !filter.tracks.data_science) {
-        finalSubTracks = _.concat(finalSubTracks, DEVELOP_TRACK_ONLY);
-      } else if (!filter.tracks.develop && filter.tracks.data_science) {
-        finalTracks.develop = true;
-        finalSubTracks = _.concat(finalSubTracks, DATASCIENCE_TRACK_ONLY);
-      }
-    }
-
-    if (finalSubTracks) {
-      f.subTrack = finalSubTracks.join(',');
-    }
-    if (filter.tracks && finalTracks) {
-      const tracks = Object.keys(finalTracks).map(t => t.toUpperCase());
+      const tracks = Object.keys(filter.tracks).map(t => t.toUpperCase());
       f.track = tracks.join(',');
     }
     if (filter.text) {
