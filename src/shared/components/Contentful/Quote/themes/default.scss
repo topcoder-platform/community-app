@@ -32,7 +32,7 @@
   font-style: italic;
   line-height: 1.25;
   color: #262628;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .quoteTextWrapper::before {
@@ -41,7 +41,7 @@
   font-size: 82px;
   font-style: italic;
   margin-top: -30px;
-  margin-left: -20px;
+  margin-left: -30px;
   position: absolute;
   z-index: 1;
 
@@ -53,8 +53,8 @@
   color: #cfe6ff;
   font-size: 82px;
   font-style: italic;
-  margin-top: -30px;
-  margin-left: -10px;
+  margin-top: -20px;
+  margin-left: -30px;
   position: absolute;
   z-index: 1;
 
@@ -65,6 +65,12 @@
   position: relative;
   display: inline;
   z-index: 2;
+}
+
+.quoteTextWrapper h1 {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 300;
 }
 
 .authorInfo {
@@ -94,6 +100,7 @@
     height: 150px;
     margin-right: 40px;
     width: 150px;
+    border-radius: 6px;
 
     @include xs-to-sm {
       height: 50px;

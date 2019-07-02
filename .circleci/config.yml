@@ -174,7 +174,8 @@ workflows:
           filters:
             branches:
               only: 
-                - feature-profile-enhancements
+                - develop-from-master-23may
+                - hot-fixes-4
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -189,10 +190,10 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fixes
                 - develop
                 - general-features
                 - develop-from-master-23may
+                - hot-fixes-4
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":

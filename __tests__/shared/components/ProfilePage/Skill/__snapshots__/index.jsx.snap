@@ -15,9 +15,23 @@ exports[`renders a skill correctly 1`] = `
     />
   </div>
   <div
-    className="src-shared-components-ProfilePage-Skill-___styles__name___31cKG"
+    className="src-shared-components-ProfilePage-Skill-___styles__name-wrapper___2hnPT"
   >
-    Test Skill
+    <div
+      className="src-shared-components-ProfilePage-Skill-___styles__name___31cKG"
+    >
+      Test Skill
+    </div>
+    <div
+      className="src-shared-components-ProfilePage-Skill-___styles__verified-badge____BoiH"
+    >
+      <VerifiedBadgeIcon
+        height="14"
+        viewBox="0 0 14 14"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
   </div>
 </div>
 `;

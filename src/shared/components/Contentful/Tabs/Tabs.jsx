@@ -7,6 +7,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import MarkdownRenderer from 'components/MarkdownRenderer';
 import { AppComponentSwitch } from 'components/Contentful/AppComponent';
 import ContentBlockLoader from 'components/Contentful/ContentBlock';
+import Viewport from 'components/Contentful/Viewport';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import {
@@ -96,10 +97,11 @@ export default class TabsItemsLoader extends Component {
                         environment={environment}
                         render={(panelItem) => {
                           const { id } = panelItemLink.sys;
-                          if (panelItem.entries.items[id].sys.contentType.sys.id === 'appComponent') {
+                          const entryType = panelItem.entries.items[id].sys.contentType.sys.id;
+                          if (entryType === 'appComponent') {
                             return AppComponentSwitch(panelItem.entries.items[id]);
                           }
-                          if (panelItem.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
+                          if (entryType === 'contentBlock') {
                             return (
                               <ContentBlockLoader
                                 id={id}
@@ -109,7 +111,7 @@ export default class TabsItemsLoader extends Component {
                               />
                             );
                           }
-                          if (panelItem.entries.items[id].sys.contentType.sys.id === 'tabs') {
+                          if (entryType === 'tabs') {
                             const { fields } = panelItem.entries.items[id];
                             return (
                               <TabsItemsLoader
@@ -119,6 +121,17 @@ export default class TabsItemsLoader extends Component {
                                 environment={environment}
                                 selected={fields.selected}
                                 theme={TAB_THEMES[fields.theme || 'Default']}
+                              />
+                            );
+                          }
+
+                          if (entryType === 'viewport') {
+                            return (
+                              <Viewport
+                                id={id}
+                                preview={preview}
+                                spaceName={spaceName}
+                                environment={environment}
                               />
                             );
                           }
