@@ -298,7 +298,7 @@ export default class Work extends ConsentComponent {
   onUpdateInput(e) {
     const { newWork: oldWork } = this.state;
     const newWork = { ...oldWork };
-    let endDateDisabled = false;
+    let endDateDisabled = newWork['working'];
     if (e.target.type !== 'checkbox') {
       newWork[e.target.name] = e.target.value;
     } else {
