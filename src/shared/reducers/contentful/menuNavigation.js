@@ -16,6 +16,7 @@ function onGetMenuInit(state, action) {
     [action.payload.id]: {
       loading: true,
       menu: [],
+      menuLogo: {},
     },
   };
 }
@@ -31,6 +32,7 @@ function onGetMenuDone(state, action) {
     [action.payload.id]: {
       loading: false,
       menu: action.payload.menu,
+      menuLogo: action.payload.menuLogo || {},
     },
   };
 }

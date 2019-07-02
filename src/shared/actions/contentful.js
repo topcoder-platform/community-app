@@ -217,6 +217,11 @@ async function getMenuDone(menuProps) {
   );
   // Load and wait for all menu data
   const menuData = await Promise.all(l1P);
+  // Load logo if set
+  let menuLogo;
+  if (fields.logo) {
+    menuLogo = await service.getAsset(fields.logo.sys.id);
+  }
   // merge and return menu
   if (fields.title) {
     menu[0].subMenu = menuData;
@@ -227,6 +232,7 @@ async function getMenuDone(menuProps) {
   return {
     id: menuProps.id,
     menu,
+    menuLogo,
   };
 }
 

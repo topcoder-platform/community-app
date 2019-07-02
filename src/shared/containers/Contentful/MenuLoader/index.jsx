@@ -9,9 +9,10 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-// import Logo from 'assets/images/tc-logo.svg';
-import { isomorphy } from 'topcoder-react-utils';
+import Logo from 'assets/images/tc-logo.svg';
+import { isomorphy, config } from 'topcoder-react-utils';
 import actions from 'actions/contentful';
+
 
 class MenuLoaderContainer extends React.Component {
   constructor(props) {
@@ -24,6 +25,8 @@ class MenuLoaderContainer extends React.Component {
     // bind
     this.handleChangeOpenMore = this.handleChangeOpenMore.bind(this);
     this.handleChangeLevel1Id = this.handleChangeLevel1Id.bind(this);
+    this.handleCloseOpenMore = this.handleCloseOpenMore.bind(this);
+    this.handleSwitchMenu = this.handleSwitchMenu.bind(this);
   }
 
   componentDidMount() {
@@ -53,26 +56,51 @@ class MenuLoaderContainer extends React.Component {
     this.setState({ openMore: changedOpenMore });
   }
 
+  handleSwitchMenu() {
+    this.setState({ activeLevel1Id: null });
+  }
+
+  handleCloseOpenMore() {
+    this.setState({ openMore: false });
+  }
+
   render() {
-    const { menu, auth, loading } = this.props;
+    const {
+      menu, auth, loading, menuLogo,
+    } = this.props;
     const { openMore, path, activeLevel1Id } = this.state;
     if (loading) {
       return <LoadingIndicator />;
     }
     if (isomorphy.isClientSide()) {
       // eslint-disable-next-line global-require
-      const { TopNav } = require('navigation-component');
+      const { TopNav, LoginNav } = require('navigation-component');
+      const logoToUse = !_.isEmpty(menuLogo) ? <img src={menuLogo.fields.file.url} alt="menu logo" /> : <Logo />;
       return (
         <div>
           <TopNav
             menu={menu}
-            // logo={<Logo />}
-            loggedIn={!_.isEmpty(auth)}
+            logo={logoToUse}
             currentLevel1Id={activeLevel1Id}
             onChangeLevel1Id={this.handleChangeLevel1Id}
             path={path}
             openMore={openMore}
             setOpenMore={this.handleChangeOpenMore}
+            loggedIn={!_.isEmpty(auth.profile)}
+            rightMenu={(
+              <LoginNav
+                loggedIn={!_.isEmpty(auth.profile)}
+                notificationButtonState="none"
+                notifications={[]}
+                accountMenu={config.ACCOUNT_MENU}
+                switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
+                onSwitch={this.handleSwitchMenu}
+                onMenuOpen={this.handleCloseOpenMore}
+                showNotification={false}
+                profile={auth.profile}
+                authURLs={config.HEADER_AUTH_URLS}
+              />
+            )}
           />
         </div>
       );
@@ -100,6 +128,7 @@ MenuLoaderContainer.propTypes = {
   loadMenuData: PT.func.isRequired,
   menu: PT.arrayOf(PT.shape()),
   loading: PT.bool.isRequired,
+  menuLogo: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -107,6 +136,7 @@ function mapStateToProps(state, ownProps) {
     auth: state.auth || {},
     menu: state.menuNavigation[ownProps.id] ? state.menuNavigation[ownProps.id].menu : [],
     loading: state.menuNavigation[ownProps.id] ? state.menuNavigation[ownProps.id].loading : true,
+    menuLogo: state.menuNavigation[ownProps.id] ? state.menuNavigation[ownProps.id].menuLogo : {},
   };
 }
 
