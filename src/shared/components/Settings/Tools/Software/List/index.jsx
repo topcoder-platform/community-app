@@ -12,6 +12,7 @@ export default function SoftwareList(props) {
     softwareList,
     onDeleteItem,
     disabled,
+    onEditItem,
   } = props;
 
   return (
@@ -20,7 +21,12 @@ export default function SoftwareList(props) {
         {
           softwareList.items.map((software, index) => (
             <li key={`${software.type}${index + 1}`}>
-              <Item software={software} index={index} onDeleteItem={onDeleteItem} />
+              <Item
+                software={software}
+                index={index}
+                onDeleteItem={onDeleteItem}
+                onEditItem={onEditItem}
+              />
             </li>
           ))
         }
@@ -32,6 +38,7 @@ export default function SoftwareList(props) {
 SoftwareList.propTypes = {
   softwareList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
+  onEditItem: PT.func.isRequired,
   disabled: PT.bool,
 };
 

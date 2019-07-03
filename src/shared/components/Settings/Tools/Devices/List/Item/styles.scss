@@ -38,12 +38,21 @@
   line-height: 20px;
   padding-right: 20px;
   flex: 1;
+
+  &.single-line {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .parameter-first-line {
   font-weight: 500;
   color: $tc-black;
   margin-bottom: 10px;
+
+  &.single-line {
+    margin-bottom: 0;
+  }
 }
 
 .parameter-second-line {
@@ -51,34 +60,71 @@
   font-weight: 400;
 }
 
-.delete {
+.operation-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  outline-style: none;
-  margin-left: 10px;
+  flex-direction: row;
+  justify-content: space-between;
 
-  img {
-    margin-bottom: 10px;
+  .delete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    outline-style: none;
+    margin-left: 10px;
 
-    @include upto-sm {
-      margin-bottom: 0;
+    img {
+      margin-bottom: 10px;
+
+      @include upto-sm {
+        margin-bottom: 0;
+      }
+    }
+
+    p {
+      @include roboto-regular;
+
+      font-size: 11px;
+      line-height: 15px;
+      font-weight: 400;
+      color: $tc-gray-50;
+
+      @include upto-sm {
+        display: none;
+      }
     }
   }
 
-  p {
-    @include roboto-regular;
+  .edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline-style: none;
+    margin-left: 10px;
 
-    font-size: 11px;
-    line-height: 15px;
-    font-weight: 400;
-    color: $tc-gray-50;
+    img {
+      margin-bottom: 10px;
 
-    @include upto-sm {
-      display: none;
+      @include upto-sm {
+        margin-bottom: 0;
+      }
+    }
+
+    p {
+      @include roboto-regular;
+
+      font-size: 11px;
+      line-height: 15px;
+      font-weight: 400;
+      color: $tc-gray-50;
+
+      @include upto-sm {
+        display: none;
+      }
     }
   }
 }

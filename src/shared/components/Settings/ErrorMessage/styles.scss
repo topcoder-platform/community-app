@@ -1,0 +1,27 @@
+@import "../style";
+
+.error-message {
+  display: none;
+
+  &.active {
+    @include roboto-medium;
+
+    display: inline;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    margin: 0 auto 0 0;
+  }
+
+  &.active-margin {
+    @include roboto-medium;
+
+    display: inline;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    margin: 10px auto 0 0;
+  }
+}
