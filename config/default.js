@@ -211,4 +211,31 @@ module.exports = {
       GRANT_TYPE: '',
     },
   },
+  HEADER_AUTH_URLS: {
+    href: 'https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main',
+    location: 'https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main',
+  },
+  ACCOUNT_MENU: [
+    {
+      title: 'Settings',
+      href: '/settings/profile',
+    },
+    { separator: true },
+    {
+      title: 'Help',
+      href: 'https://help.topcoder-dev.com/',
+    },
+    {
+      title: 'About Topcoder',
+      href: 'https://www.topcoder.com/about/',
+    },
+    {
+      title: 'Log Out',
+      href: 'https://www.topcoder-dev.com/logout',
+    },
+  ],
+  ACCOUNT_MENU_SWITCH_TEXT: {
+    title: 'Switch to BUSINESS',
+    href: 'https://connect.topcoder-dev.com',
+  },
 };

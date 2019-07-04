@@ -25,6 +25,8 @@ import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
 import newsletterArchive from './newsletterArchive';
+import menuNavigation from './contentful/menuNavigation';
+import challengesBlock from './contentful/challengesBlock';
 import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
 import { factory as pageFactory } from './page';
@@ -132,6 +134,8 @@ export function factory(req) {
     rss,
     toastr: toastrReducer,
     newsletterArchive,
+    menuNavigation,
+    challengesBlock,
   }));
 }
 
