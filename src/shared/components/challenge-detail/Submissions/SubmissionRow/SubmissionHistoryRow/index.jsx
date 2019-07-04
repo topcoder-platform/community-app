@@ -13,7 +13,7 @@ export default function SubmissionHistoryRow({
   isMM,
   submission,
   finalScore,
-  initialScore,
+  provisionalScore,
   submissionTime,
   isReviewPhaseComplete,
 }) {
@@ -29,7 +29,7 @@ export default function SubmissionHistoryRow({
             {(isMM || (!finalScore && finalScore !== 0)) || !isReviewPhaseComplete ? '-' : finalScore}
           </div>
           <div styleName="col child">
-            {(!initialScore && initialScore !== 0) ? '-' : initialScore}
+            {(!provisionalScore && provisionalScore !== 0) ? '-' : provisionalScore}
           </div>
         </div>
         <div styleName="col-4 col history-time">
@@ -44,7 +44,7 @@ export default function SubmissionHistoryRow({
 
 SubmissionHistoryRow.defaultProps = {
   finalScore: null,
-  initialScore: null,
+  provisionalScore: null,
   isReviewPhaseComplete: false,
 };
 
@@ -52,7 +52,7 @@ SubmissionHistoryRow.propTypes = {
   isMM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.number,
-  initialScore: PT.number,
+  provisionalScore: PT.number,
   submissionTime: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
 };
