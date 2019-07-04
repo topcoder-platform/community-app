@@ -61,22 +61,6 @@
   }
 }
 
-.error-message {
-  display: none;
-
-  &.active {
-    @include roboto-medium;
-
-    display: block;
-    border-radius: 5px;
-    background-color: $tc-red-10;
-    color: $tc-red-110;
-    font-size: 15px;
-    padding: 15px;
-    margin: 15px 0;
-  }
-}
-
 .form-container-default {
   @include form-container-default;
 
@@ -154,7 +138,8 @@
       width: 100%;
 
       @include upto-sm {
-        display: block;
+        display: flex;
+        flex-direction: column;
         padding-bottom: 10px;
       }
 
@@ -165,6 +150,12 @@
         line-height: 15px;
         color: $tc-gray-80;
         margin-bottom: 6px;
+
+        .text-required {
+          font-size: 10px;
+          color: $tc-red-110;
+          margin-left: 5px;
+        }
       }
 
       .col-1,
