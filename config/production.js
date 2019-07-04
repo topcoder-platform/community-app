@@ -56,4 +56,41 @@ module.exports = {
   FILESTACK: {
     SUBMISSION_CONTAINER: 'topcoder-submissions-dmz',
   },
+  SECONDARY_MENU_FOR_LOGGED_USER: [
+    {
+      title: 'Dashboard',
+      href: '/my-dashboard',
+    },
+    {
+      id: 'myprofile',
+      title: 'My Profile',
+      href: '/members/',
+    },
+    {
+      title: 'Payments',
+      href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+    },
+  ],
+  SECONDARY_MENU_FOR_GUEST: [
+    {
+      title: 'Overview',
+      href: 'https://www.topcoder.com/about',
+    },
+    {
+      title: 'How It Works',
+      href: 'https://www.topcoder.com/how-it-works/faqs/',
+    },
+    {
+      title: 'Tracks',
+      href: '/community/learn',
+    },
+    {
+      title: 'Why Join',
+      href: 'https://www.topcoder.com/about/why-crowdsourcing/',
+    },
+  ],
+  ACCOUNT_MENU_SWITCH_TEXT: {
+    title: 'Switch to BUSINESS',
+    href: 'https://connect.topcoder.com',
+  },
 };

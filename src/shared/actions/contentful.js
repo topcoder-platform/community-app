@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { getService } from 'services/contentful';
-import { redux } from 'topcoder-react-utils';
+import { redux, config } from 'topcoder-react-utils';
 import { removeTrailingSlash } from 'utils/url';
 import { menuItemBuilder, target as urlTarget } from 'utils/contentful';
 import { services } from 'topcoder-react-lib';
@@ -228,6 +228,9 @@ async function getMenuDone(menuProps) {
   } else {
     menu = menuData;
   }
+  // add the preconfigured secondary menus
+  menu[0].secondaryMenuForLoggedInUser = config.SECONDARY_MENU_FOR_LOGGED_USER;
+  menu[0].secondaryMenuForGuest = config.SECONDARY_MENU_FOR_GUEST;
 
   return {
     id: menuProps.id,
