@@ -87,18 +87,43 @@ class MenuLoaderContainer extends React.Component {
             openMore={openMore}
             setOpenMore={this.handleChangeOpenMore}
             loggedIn={!_.isEmpty(auth.profile)}
+            // profileHandle={auth.profile ? auth.profile.handle : ''}
             rightMenu={(
               <LoginNav
                 loggedIn={!_.isEmpty(auth.profile)}
                 notificationButtonState="none"
                 notifications={[]}
-                accountMenu={config.ACCOUNT_MENU}
+                accountMenu={[
+                  {
+                    title: 'Settings',
+                    href: '/settings/profile',
+                  },
+                  { separator: true },
+                  {
+                    title: 'Help',
+                    href: config.URL.HELP,
+                  },
+                  {
+                    title: 'About Topcoder',
+                    href: `${config.URL.BASE}/about/`,
+                  },
+                  {
+                    title: 'Log Out',
+                    href: `${config.URL.BASE}/logout`,
+                  },
+                ]}
                 switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
                 onSwitch={this.handleSwitchMenu}
                 onMenuOpen={this.handleCloseOpenMore}
                 showNotification={false}
-                profile={auth.profile}
-                authURLs={config.HEADER_AUTH_URLS}
+                profile={{
+                  ...auth.profile,
+                  roles: auth.user ? auth.user.roles : [],
+                }}
+                authURLs={{
+                  href: `${config.URL.AUTH}/member/registration?utm_source=community-app-main`,
+                  location: `${config.URL.AUTH}/member?retUrl=%S&utm_source=community-app-main`,
+                }}
               />
             )}
           />

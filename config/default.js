@@ -211,27 +211,37 @@ module.exports = {
       GRANT_TYPE: '',
     },
   },
-  HEADER_AUTH_URLS: {
-    href: 'https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main',
-    location: 'https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main',
-  },
-  ACCOUNT_MENU: [
+  SECONDARY_MENU_FOR_LOGGED_USER: [
     {
-      title: 'Settings',
-      href: '/settings/profile',
-    },
-    { separator: true },
-    {
-      title: 'Help',
-      href: 'https://help.topcoder-dev.com/',
+      title: 'Dashboard',
+      href: '/my-dashboard',
     },
     {
-      title: 'About Topcoder',
-      href: 'https://www.topcoder.com/about/',
+      id: 'myprofile',
+      title: 'My Profile',
+      href: '/members/',
     },
     {
-      title: 'Log Out',
-      href: 'https://www.topcoder-dev.com/logout',
+      title: 'Payments',
+      href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+    },
+  ],
+  SECONDARY_MENU_FOR_GUEST: [
+    {
+      title: 'Overview',
+      href: 'https://www.topcoder-dev.com/about',
+    },
+    {
+      title: 'How It Works',
+      href: 'https://www.topcoder-dev.com/how-it-works/faqs/',
+    },
+    {
+      title: 'Tracks',
+      href: '/community/learn',
+    },
+    {
+      title: 'Why Join',
+      href: 'https://www.topcoder-dev.com/about/why-crowdsourcing/',
     },
   ],
   ACCOUNT_MENU_SWITCH_TEXT: {
