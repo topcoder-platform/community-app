@@ -184,6 +184,8 @@ export class ListingContainer extends React.Component {
       selectedCommunityId,
     } = this.props;
 
+    const finalTracks = _.clone(filter.tracks) || {};
+    let finalSubTracks = _.clone(filter.subtracks);
 
     const f = {};
     if (!filter) {
