@@ -43,7 +43,6 @@ export default function Bucket({
   expandedTags,
   expandTag,
   loadMoreChallenges,
-  allMyChallengesLoaded,
 }) {
   const activeSort = sort || bucket.sorts[0];
 
@@ -122,8 +121,7 @@ export default function Bucket({
         ) : null
       }
       {
-        ((expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded)
-        || (!allMyChallengesLoaded && !loading) ? (
+        (!loading && !keepPlaceholders && !expanded) ? (
           <a
             href={`${challengesUrl}?${bucketQuery}`}
             onClick={(event) => {
@@ -139,7 +137,7 @@ export default function Bucket({
           >
             View more challenges
           </a>
-          ) : null
+        ) : null
       }
     </div>
   );
@@ -183,5 +181,4 @@ Bucket.propTypes = {
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   loadMoreChallenges: PT.func,
-  allMyChallengesLoaded: PT.bool.isRequired,
 };
