@@ -71,14 +71,14 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
+                  "collapsed": true,
                   "href": "/community/competitive-programming",
                   "title": "Competitive Programming",
-                  "collapsed": true,
                 },
                 Object {
+                  "collapsed": true,
                   "href": "/community/data-science",
                   "title": "Data Science",
-                  "collapsed": true,
                 },
                 Object {
                   "href": "/community/design",
@@ -110,9 +110,9 @@ exports[`Default render 1`] = `
                   "title": "Forums",
                 },
                 Object {
+                  "collapsed": true,
                   "href": "/community/statistics",
                   "title": "Statistics",
-                  "collapsed": true,
                 },
                 Object {
                   "href": "/community/events",
