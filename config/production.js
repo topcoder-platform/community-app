@@ -118,10 +118,12 @@ module.exports = {
             {
               title: 'Competitive Programming',
               href: '/community/competitive-programming',
+              collapsed: true,
             },
             {
               title: 'Data Science',
               href: '/community/data-science',
+              collapsed: true,
             },
             {
               title: 'Design',
@@ -155,6 +157,7 @@ module.exports = {
             {
               title: 'Statistics',
               href: '/community/statistics',
+              collapsed: true,
             },
             {
               title: 'Events',

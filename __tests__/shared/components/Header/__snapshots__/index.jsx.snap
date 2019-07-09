@@ -73,10 +73,12 @@ exports[`Default render 1`] = `
                 Object {
                   "href": "/community/competitive-programming",
                   "title": "Competitive Programming",
+                  "collapsed": true,
                 },
                 Object {
                   "href": "/community/data-science",
                   "title": "Data Science",
+                  "collapsed": true,
                 },
                 Object {
                   "href": "/community/design",
@@ -110,6 +112,7 @@ exports[`Default render 1`] = `
                 Object {
                   "href": "/community/statistics",
                   "title": "Statistics",
+                  "collapsed": true,
                 },
                 Object {
                   "href": "/community/events",
