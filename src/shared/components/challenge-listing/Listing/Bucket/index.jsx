@@ -121,7 +121,7 @@ export default function Bucket({
         ) : null
       }
       {
-        (!loading && !keepPlaceholders && !expanded) ? (
+        (!loading && (expandable || !keepPlaceholders) && !expanded) ? (
           <a
             href={`${challengesUrl}?${bucketQuery}`}
             onClick={(event) => {
