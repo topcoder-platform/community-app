@@ -19,7 +19,7 @@ function Bucket({
   onClick,
   allActiveChallengesLoaded,
   meta,
-  auth
+  auth,
 }) {
   let countEl;
   if (!bucket.hideCount && !disabled) {
@@ -91,6 +91,7 @@ Bucket.defaultProps = {
   disabled: false,
   onClick: _.noop,
   meta: {},
+  auth: {},
 };
 
 Bucket.propTypes = {
@@ -111,11 +112,11 @@ Bucket.propTypes = {
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
-  const auth = state.auth;
+  const {auth} = state;
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     meta: cl.meta,
-    auth: auth,
+    auth,
   };
 };
 
