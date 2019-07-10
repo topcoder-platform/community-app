@@ -19,6 +19,7 @@ function Bucket({
   onClick,
   allActiveChallengesLoaded,
   meta,
+  auth
 }) {
   let countEl;
   if (!bucket.hideCount && !disabled) {
@@ -66,6 +67,10 @@ function Bucket({
     );
   }
 
+  if (bucket.name === 'My Challenges' && !auth.profile) {
+    return null;
+  }
+
   return (
     <div
       onClick={disabled ? _.noop : onClick}
@@ -100,14 +105,17 @@ Bucket.propTypes = {
   disabled: PT.bool,
   onClick: PT.func,
   meta: PT.shape(),
+  auth: PT.shape(),
   allActiveChallengesLoaded: PT.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
+  const auth = state.auth;
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     meta: cl.meta,
+    auth: auth,
   };
 };
 
