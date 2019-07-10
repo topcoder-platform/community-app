@@ -112,7 +112,7 @@ Bucket.propTypes = {
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
-  const {auth} = state;
+  const { auth } = state;
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     meta: cl.meta,
