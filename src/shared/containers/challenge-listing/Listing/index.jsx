@@ -301,6 +301,7 @@ export class ListingContainer extends React.Component {
       sort,
       activeBucket,
     );
+    this.loadMoreChallenges(activeBucket);
   }
 
   loadPastChallenges() {
