@@ -83,4 +83,25 @@ export function linkText(item) {
     || item.fields.linkText /* NavigationMenuItem-only */ || item.fields.name;
 }
 
+/**
+ * Builds navi menu items
+ * @param {String} baseUrl
+ * @param {Object} item
+ */
+export function menuItemBuilder(baseUrl, item) {
+  switch (item.sys.contentType.sys.id) {
+    case 'route':
+      return {
+        title: item.fields.naviMenuLinkText || item.fields.name,
+        href: target(baseUrl, item),
+      };
+    case 'navigationMenuItem':
+      return {
+        title: item.fields.linkText || item.fields.name,
+        href: target(baseUrl, item),
+      };
+    default: return {};
+  }
+}
+
 export default undefined;

@@ -4,6 +4,7 @@
 /* global window */
 import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
+import ContentfulMenuLoader from 'containers/Contentful/MenuLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
@@ -168,9 +169,24 @@ export default function ContentfulMenu(props) {
       preview={preview}
       spaceName={spaceName}
       environment={environment}
-      render={(data) => {
-        const { fields } = Object.values(data.entries.items)[0];
+      render={(menuData) => {
+        const { fields } = Object.values(menuData.entries.items)[0];
         if (!fields) return null;
+        if (fields.theme === 'General') {
+          // New navi style menu
+          // we deligate to special custom component and lib
+          return (
+            <ContentfulMenuLoader
+              id={id}
+              fields={fields}
+              preview={preview}
+              spaceName={spaceName}
+              environment={environment}
+            />
+          );
+        }
+        // legacy navi themes
+        // those are still supported...
         return (
           <MenuItemsLoader
             menuId={id}

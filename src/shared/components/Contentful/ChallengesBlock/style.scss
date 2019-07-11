@@ -10,7 +10,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 40px;
 
   @include xs-to-sm {
     flex-direction: column;
@@ -21,4 +20,17 @@
   @include tc-title;
 
   margin-bottom: 40px;
+}
+
+.control {
+  border: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+}
+
+.multiContent {
+  width: 100%;
 }
