@@ -175,6 +175,7 @@ workflows:
             branches:
               only: 
                 - develop-from-master-23may
+                - server_side_filtering
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -192,8 +193,6 @@ workflows:
                 - hot-fixes-2
                 - develop
                 - develop-from-master-23may
-                - server_side_filtering
-                - server_side_filtering_fixes
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
