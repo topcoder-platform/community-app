@@ -11,12 +11,12 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Rank
       </th>
-      <th
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
-        colSpan="2"
-      >
+      <th>
         Handle
       </th>
+      <th
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+      />
       <th
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
       >
@@ -79,7 +79,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
-        0
+        0.00
       </td>
     </tr>
     <tr>
@@ -131,7 +131,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
-        0
+        0.00
       </td>
     </tr>
     <tr>
@@ -183,7 +183,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
-        0
+        0.00
       </td>
     </tr>
     <tr>
@@ -235,7 +235,7 @@ exports[`Matches shallow shapshot 1`] = `
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
-        0
+        0.00
       </td>
     </tr>
   </tbody>

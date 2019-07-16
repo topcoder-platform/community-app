@@ -1,4 +1,5 @@
 @import "~styles/mixins";
+@import "./TCO19_thypo";
 
 .contentWrapper {
   background-color: #0ab88a;
@@ -29,79 +30,10 @@
   h6 {
     font-family: "Barlow", Helvetica, Arial, sans-serif;
     color: $tc-white;
+    text-transform: uppercase;
   }
 
-  h1 {
-    font-size: 80px;
-    font-weight: 600;
-    line-height: 74px;
-
-    @include xs-to-sm {
-      font-size: 42px;
-      font-weight: 600;
-      line-height: 38px;
-    }
-  }
-
-  h2 {
-    font-size: 60px;
-    font-weight: 500;
-    line-height: 58px;
-
-    @include xs-to-sm {
-      font-size: 36px;
-      font-weight: 500;
-    }
-  }
-
-  h3 {
-    font-size: 48px;
-    font-weight: 500;
-    line-height: 50px;
-
-    @include xs-to-sm {
-      font-size: 31px;
-      font-weight: 500;
-      line-height: 33px;
-    }
-  }
-
-  h4 {
-    font-size: 34px;
-    font-weight: 500;
-    line-height: 38px;
-
-    @include xs-to-sm {
-      font-size: 25px;
-      font-weight: 500;
-      line-height: 27px;
-    }
-  }
-
-  h5 {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 26px;
-
-    @include xs-to-sm {
-      font-size: 21px;
-      font-weight: 600;
-      line-height: 25px;
-    }
-  }
-
-  h6 {
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 26px;
-    letter-spacing: 0.3px;
-
-    @include xs-to-sm {
-      font-size: 18px;
-      font-weight: 600;
-      line-height: 22px;
-    }
-  }
+  @include TCO19-default-headers;
 
   p {
     font-family: "Roboto", Helvetica, Arial, sans-serif;

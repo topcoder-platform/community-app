@@ -12,6 +12,8 @@ import ContentSlider from 'components/Contentful/ContentSlider';
 import Accordion from 'components/Contentful/Accordion';
 import Menu from 'components/Contentful/Menu';
 import Banner from 'components/Contentful/Banner';
+import AppComponent from 'components/Contentful/AppComponent';
+import Countdown from 'components/Contentful/Countdown';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import BlogPostLoader, { HeroImageLoader } from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
@@ -69,6 +71,26 @@ export default function Contentful({ location, match }) {
         path={`${base}/banner/:id`}
         component={p => (
           <Banner
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/app-component/:id`}
+        component={p => (
+          <AppComponent
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/countdown/:id`}
+        component={p => (
+          <Countdown
             id={p.match.params.id}
             preview
             spaceName={spaceName}

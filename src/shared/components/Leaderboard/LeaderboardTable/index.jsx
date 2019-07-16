@@ -31,6 +31,12 @@ import { config } from 'topcoder-react-utils';
 import avatarStyles from '../avatarStyles.scss';
 import styles from './styles.scss'; // eslint-disable-line
 
+/**
+ * Format points number
+ * @param {Number} points points number
+ */
+const formatPoints = points => parseFloat(Math.round(points * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 export default function LeaderboardTable(props) {
@@ -88,7 +94,7 @@ export default function LeaderboardTable(props) {
             ) : null
           }
           <td styleName="styles.col-challenges">{competitor.challengecount}</td>
-          <td styleName="styles.col-points">{competitor.points}</td>
+          <td styleName="styles.col-points">{formatPoints(competitor.points)}</td>
           {
             isTopGear ? (
               <td styleName="styles.col-points">{competitor.wins}</td>
@@ -114,7 +120,8 @@ export default function LeaderboardTable(props) {
       <thead>
         <tr>
           <th styleName="styles.col-rank">Rank</th>
-          <th styleName="styles.col-handle" colSpan="2">Handle</th>
+          <th>Handle</th>
+          <th styleName="styles.col-handle" />
           {
             isCopilot ? (
               <th styleName="styles.col-fulfillment">Fulfillment</th>
