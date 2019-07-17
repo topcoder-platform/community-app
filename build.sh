@@ -33,6 +33,13 @@ docker build -t $TAG \
   --build-arg TC_M2M_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET \
   --build-arg TC_M2M_AUDIENCE=$TC_M2M_AUDIENCE \
   --build-arg TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE .
+  
+  --build-arg TC_M2M_AUTH0_AUDIENCE=$AUTH0_AUDIENCE \
+  --build-arg TC_M2M_TOKEN_CACHE_TIME=$TOKEN_CACHE_TIME \
+  --build-arg TC_M2M_AUTH0_PROXY_SERVER_URL=$TC_M2M_AUTH0_PROXY_SERVER_URL \
+  --build-arg TC_M2M_AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID \
+  --build-arg TC_M2M_AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET \
+
 
 # Copies "node_modules" from the created image, if necessary for caching.
 docker create --name app $TAG
