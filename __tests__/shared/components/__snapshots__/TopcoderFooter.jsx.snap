@@ -60,6 +60,7 @@ exports[`Matches shallow shapshot 1`] = `
     <a
       href="https://www.facebook.com/topcoder"
       target="fbwindow"
+      aria-label="Icon Facebook"
     >
       <svg
         height="28"
