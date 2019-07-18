@@ -280,6 +280,7 @@ exports[`Render with open menu 1`] = `
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"
@@ -556,6 +557,7 @@ exports[`Render with specified profile 1`] = `
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"
