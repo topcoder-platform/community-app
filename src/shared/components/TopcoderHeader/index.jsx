@@ -320,10 +320,11 @@ export default class TopcoderHeader extends React.Component {
               color: getRatingColor(_.get(normalizedProfile, 'maxRating.rating', 0)),
             }}
             styleName="user-menu-handle"
+            tabIndex={0}
           >
             {normalizedProfile.handle}
           </div>
-          {userAvatar}
+          <span tabIndex={0}>{userAvatar}</span>
         </div>
       );
     } else {
