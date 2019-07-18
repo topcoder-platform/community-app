@@ -73,6 +73,8 @@ export default function ChallengeViewSelector(props) {
       <div styleName="mask right" />
       <div styleName="challenge-view-selector">
         <a
+          tabIndex="0"
+          role="link"
           onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS)}
@@ -82,6 +84,8 @@ DETAILS
         {
           numRegistrants ? (
             <a
+              tabIndex="0"
+              role="link"
               onClick={(e) => {
                 handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
               }}
@@ -100,6 +104,8 @@ REGISTRANTS (
           trackLower === 'design' && checkpointCount > 0
           && (
           <a
+            tabIndex="0"
+            role="link"
             onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
@@ -113,6 +119,8 @@ CHECKPOINTS (
         {
           numSubmissions ? (
             <a
+              tabIndex="0"
+              role="link"
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
@@ -126,6 +134,8 @@ SUBMISSIONS (
         {
           numWinners ? (
             <a
+              tabIndex="0"
+              role="link"
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS)}
