@@ -103,7 +103,7 @@ DOWNLOADS:
             <h3>
 REVIEW STYLE:
             </h3>
-            <h4>
+            <h4 tabIndex={0}>
 Final Review:
             </h4>
             <span styleName="link-like-paragraph tooltip-container">
@@ -114,7 +114,7 @@ Final Review:
                 </div>
               </Tooltip>
             </span>
-            <h4>
+            <h4 tabIndex={0}>
 Approval:
             </h4>
             <span styleName="link-like-paragraph tooltip-container">
@@ -131,7 +131,7 @@ Approval:
         {
           !isMM && (
           <div>
-            <h3>
+            <h3 tabIndex={0}>
   CHALLENGE LINKS:
             </h3>
             {
