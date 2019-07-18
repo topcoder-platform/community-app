@@ -221,10 +221,9 @@ Fonts, Stock Photos, and Icons:
               All fonts, stock photos, and icons within your design must be declared
               when you submit. DO NOT include any 3rd party files in your
               submission or source files.
-              Read about the policy
               {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges">
-                here.
+                Read about the policy here.
               </a>
             </p>
             <h4>
@@ -235,10 +234,9 @@ Screening:
               holder picks winners. Don
               {"'"}
 t let your hard work go to waste.
-              Learn more about how to pass screening
               {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges">
-                here.
+                Learn more about how to pass screening here.
               </a>
             </p>
             <p styleName="link-like-paragraph">
