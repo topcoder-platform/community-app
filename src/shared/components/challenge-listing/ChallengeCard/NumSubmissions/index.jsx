@@ -53,7 +53,7 @@ export default function NumSubmissions({
           to={link}
         >
           <SubmissionsIcon />
-          <span styleName="number">
+          <span aria-label={`Number of registrants ${numSubmissions}`} styleName="number">
             {numSubmissions}
           </span>
         </Link>
