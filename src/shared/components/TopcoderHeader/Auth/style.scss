@@ -35,4 +35,13 @@
       }
     }
   }
+  .tc-btn-default {
+    border: 1px solid #0074E8;
+    color: #0074E8;
+
+    &:hover {
+      background: #0074E8;
+      color: $tc-white;
+    }
+  }
 }
