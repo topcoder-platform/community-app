@@ -53,7 +53,8 @@ $table-bg-hover: #f5f5f5;
     color: #888894;
     font-size: 20px;
     font-weight: 500;
-    line-height: 55px;
+    line-height: 24px;
+    padding: 19px 8px;
   }
 
   // Hover effect
@@ -87,15 +88,23 @@ $table-bg-hover: #f5f5f5;
   /* Column specific styling */
   .col-rank {
     text-align: center;
-    width: 30px;
+    width: 80px;
+
+    @include sm {
+      width: 40px;
+    }
   }
 
   .col-avatar {
     text-align: center;
-    width: 44px;
+    width: 80px;
 
     @include md-to-xl {
       line-height: 0;
+    }
+
+    @include sm {
+      width: 40px;
     }
   }
 
@@ -111,11 +120,11 @@ $table-bg-hover: #f5f5f5;
 
     .handle-link,
     a {
-      color: #006dea;
+      color: #0d61bf;
       font-weight: 500;
 
       &:hover {
-        color: $tc-dark-blue-110;
+        color: #0d61bf;
         cursor: pointer;
       }
     }
@@ -151,6 +160,8 @@ $table-bg-hover: #f5f5f5;
   .col-fulfillment,
   .col-challenges,
   .col-points {
+    width: 33%;
+
     @include sm {
       display: none !important;
     }

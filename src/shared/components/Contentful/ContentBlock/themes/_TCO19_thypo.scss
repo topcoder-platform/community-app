@@ -1,0 +1,78 @@
+@mixin TCO19-default-headers {
+  h1 {
+    @include barlow-condensed-semi-bold;
+
+    font-size: 80px;
+    line-height: 74px;
+
+    @include xs-to-sm {
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 38px;
+    }
+  }
+
+  h2 {
+    @include barlow-condensed-medium;
+
+    font-size: 60px;
+    line-height: 58px;
+
+    @include xs-to-sm {
+      font-size: 36px;
+      font-weight: 500;
+    }
+  }
+
+  h3 {
+    @include barlow-condensed-medium;
+
+    font-size: 48px;
+    line-height: 50px;
+
+    @include xs-to-sm {
+      font-size: 31px;
+      font-weight: 500;
+      line-height: 33px;
+    }
+  }
+
+  h4 {
+    @include barlow-condensed-medium;
+
+    font-size: 34px;
+    line-height: 38px;
+
+    @include xs-to-sm {
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 27px;
+    }
+  }
+
+  h5 {
+    @include barlow-bold;
+
+    font-size: 24px;
+    line-height: 26px;
+
+    @include xs-to-sm {
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 25px;
+    }
+  }
+
+  h6 {
+    @include barlow-bold;
+
+    font-size: 20px;
+    line-height: 24px;
+
+    @include xs-to-sm {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 22px;
+    }
+  }
+}

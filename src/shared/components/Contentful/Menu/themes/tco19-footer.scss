@@ -1,9 +1,14 @@
 @import '~styles/mixins';
 
 .outerContainer {
+  @include xs-to-sm {
+    margin-bottom: 1em !important;
+    margin-left: 35px;
+  }
+
   .title {
-    color: #37373b;
-    font-size: 15px;
+    color: #2a2a2a;
+    font-size: 16px;
     font-weight: 700;
     line-height: 25px;
     text-align: left;
@@ -28,16 +33,12 @@
     text-decoration: none;
     padding: 0;
 
-    @include tc-heading-sm;
     @include roboto-regular;
-  }
 
-  a {
-    color: $tc-black;
-
-    &:hover {
-      color: $tc-gray-60;
-    }
+    color: #2a2a2a;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
   }
 }
 

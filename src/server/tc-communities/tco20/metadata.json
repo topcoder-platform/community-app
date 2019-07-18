@@ -1,0 +1,20 @@
+{
+  "challengeFilter": {
+    "tags": ["TCO", "TCO20"]
+  },
+  "communityId": "tco20",
+  "communityName": "TCO20",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco/TCO20.svg",
+    "url": "https://tco20.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "6q4ckEC3QlJ8K30mZw641D"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco20"],
+  "description": "2020 Topcoder Open. The Ultimate Programming & Design Tournament",
+  "image": "tco20.jpg"
+}

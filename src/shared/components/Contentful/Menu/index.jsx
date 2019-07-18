@@ -182,6 +182,7 @@ export default function ContentfulMenu(props) {
               preview={preview}
               spaceName={spaceName}
               environment={environment}
+              baseUrl={baseUrl}
             />
           );
         }

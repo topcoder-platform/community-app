@@ -1,4 +1,5 @@
 @import "~styles/mixins";
+@import "./TCO19_thypo";
 
 .contentWrapper {
   display: flex;
@@ -34,8 +35,6 @@
     padding: 15px;
   }
 
-  color: $tc-black;
-
   @include roboto-regular;
 
   h1,
@@ -45,51 +44,26 @@
   h5,
   h6 {
     margin: 20px 0 10px;
-
-    @include roboto-regular;
+    color: $tco-black;
+    text-transform: uppercase;
   }
 
-  h1 {
-    font-size: 42px;
-    font-weight: 300;
-    line-height: 50px;
-  }
-
-  h2 {
-    font-size: 36px;
-    font-weight: 300;
-    line-height: 45px;
-  }
-
-  h3 {
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 35px;
-  }
-
-  h4 {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 30px;
-  }
-
-  h5 {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 25px;
-  }
-
-  h6 {
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 25px;
-  }
+  @include TCO19-default-headers;
 
   p {
     @include tc-body-md;
 
-    // color: $tc-black;
-    font-size: 15px;
+    color: $tco-black;
+    font-size: 16px;
+    line-height: 26px;
+
+    strong {
+      @include roboto-medium;
+
+      line-height: 20px;
+      text-align: left;
+      font-weight: 500;
+    }
   }
 
   table {
@@ -175,8 +149,31 @@
     vertical-align: baseline;
   }
 
-  sup { top: -0.5em; }
-  sub { bottom: -0.25em; }
+  sup {
+    top: -0.5em;
+  }
+
+  sub {
+    bottom: -0.25em;
+  }
+
+  a {
+    @include roboto-regular;
+
+    font-size: 16px;
+    line-height: 24px;
+    color: #0d61bf;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+      color: #0d61bf;
+    }
+
+    &:visited {
+      color: #8231a9;
+    }
+  }
 }
 
 .image {

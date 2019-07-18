@@ -1,0 +1,24 @@
+@import "~styles/mixins";
+
+$tco-seconary: #229174;
+$tco-seconary-border: #0ab88a;
+$tco-disabled-background: #e9e9e9;
+
+.tcoButton {
+  @include roboto-bold;
+
+  color: $tco-seconary !important;
+  background: $tc-white !important;
+  font-weight: 700 !important;
+  border: 1px solid $tco-seconary-border !important;
+  border-radius: 20px !important;
+  font-size: 14px !important;
+  letter-spacing: 0.8px;
+  text-decoration: none !important;
+  min-height: 40px !important;
+}
+
+.tcoButtonDisabled {
+  background-color: $tco-disabled-background !important;
+  border-radius: 20px !important;
+}

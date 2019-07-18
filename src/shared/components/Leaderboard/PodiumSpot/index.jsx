@@ -62,6 +62,12 @@ const DISPLAY_RANKING = {
   3: '3',
 };
 
+/**
+ * Format points number
+ * @param {Number} points points number
+ */
+const formatPoints = points => parseFloat(Math.round(points * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 export default function PodiumSpot(props) {
@@ -119,11 +125,11 @@ export default function PodiumSpot(props) {
         }
         <div styleName="styles.stats">
           <span styleName="styles.value">{competitor.challengecount}</span>
-          <span>challenges</span>
+          <span styleName="styles.value-title">challenges</span>
         </div>
         <div styleName="styles.stats">
-          <span styleName="styles.value">{competitor.points}</span>
-          <span>points</span>
+          <span styleName="styles.value">{formatPoints(competitor.points)}</span>
+          <span styleName="styles.value-title">points</span>
         </div>
         {
           isTopGear ? (

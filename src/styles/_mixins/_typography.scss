@@ -112,3 +112,38 @@
   font-family: "Garamond", Helvetica, Arial, sans-serif;
   font-weight: 600;
 }
+
+@mixin barlow {
+  font-family: "Barlow", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+@mixin barlow-medium {
+  font-family: "Barlow", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
+@mixin barlow-bold {
+  font-family: "Barlow", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+@mixin barlow-condensed {
+  font-family: "BarlowCondensed", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+@mixin barlow-condensed-medium {
+  font-family: "BarlowCondensed", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
+@mixin barlow-condensed-semi-bold {
+  font-family: "BarlowCondensed", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+}
+
+@mixin barlow-condensed-bold {
+  font-family: "BarlowCondensed", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
