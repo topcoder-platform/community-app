@@ -11,7 +11,6 @@ import 'moment-duration-format';
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
-import { Link } from 'topcoder-react-utils';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
 
