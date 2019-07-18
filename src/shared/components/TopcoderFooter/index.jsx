@@ -55,7 +55,7 @@ TERMS
       </nav>
       <div styleName="social-links">
         <hr />
-        <a href="https://www.facebook.com/topcoder" target="fbwindow">
+        <a href="https://www.facebook.com/topcoder" target="fbwindow" aria-label="Icon Facebook">
           <FacebookIcon />
         </a>
         <a href="http://www.twitter.com/topcoder" target="twwindow">
