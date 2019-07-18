@@ -8,7 +8,6 @@ set -eo pipefail
 TAG="communityapp:latest"
 
 docker build -t $TAG \
-  --build-arg AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID \
   --build-arg CDN_URL=$CDN_URL \
   --build-arg COGNITIVE_NEWSLETTER_SIGNUP_APIKEY=$COGNITIVE_NEWSLETTER_SIGNUP_APIKEY \
   --build-arg COGNITIVE_NEWSLETTER_SIGNUP_URL=$COGNITIVE_NEWSLETTER_SIGNUP_URL \
@@ -33,13 +32,13 @@ docker build -t $TAG \
   --build-arg TC_M2M_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET \
   --build-arg TC_M2M_AUDIENCE=$TC_M2M_AUDIENCE \
   --build-arg TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE .
-  
-  --build-arg TC_M2M_AUTH0_AUDIENCE=$AUTH0_AUDIENCE \
-  --build-arg TC_M2M_TOKEN_CACHE_TIME=$TOKEN_CACHE_TIME \
-  --build-arg TC_M2M_AUTH0_PROXY_SERVER_URL=$TC_M2M_AUTH0_PROXY_SERVER_URL \
-  --build-arg TC_M2M_AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID \
-  --build-arg TC_M2M_AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET \
 
+  --build-arg AUTH0_URL=$AUTH0_URL \
+  --build-arg AUTH0_PROXY_SERVER_URL=$AUTH0_PROXY_SERVER_URL \
+  --build-arg AUTH0_AUDIENCE=$AUTH0_AUDIENCE \
+  --build-arg AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID \
+  --build-arg AUTH0_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET \
+  --build-arg TOKEN_CACHE_TIME=$TOKEN_CACHE_TIME \
 
 # Copies "node_modules" from the created image, if necessary for caching.
 docker create --name app $TAG
