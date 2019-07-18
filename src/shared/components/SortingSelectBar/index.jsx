@@ -15,7 +15,7 @@ export default function SortingSelectBar({
       {
         options ? (
           <div styleName="view-options-toggle-container">
-            <p styleName="view-options-toggle-container-label">
+            <p tabindex="0" styleName="view-options-toggle-container-label">
               Sort by:
             </p>
             <Select
