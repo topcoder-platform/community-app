@@ -180,7 +180,7 @@ challenges in this sub community
 
   const communityOps = communityFilters.filter(community => !community.hidden)
     .map(community => ({
-      label: getLabel(community),
+      label: community.communityName,
       value: community.communityId,
       name: community.communityName,
     }));
