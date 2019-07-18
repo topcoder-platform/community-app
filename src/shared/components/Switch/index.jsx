@@ -17,6 +17,9 @@ function Switch({
 }) {
   return (
     <div
+      tabIndex="0"
+      role="switch"
+      aria-checked={enabled}
       className={`${theme.switch} ${enabled ? theme.enabled : theme.disabled}`}
       onClick={() => onSwitch(!enabled)}
       onKeyPress={() => onSwitch(!enabled)}
