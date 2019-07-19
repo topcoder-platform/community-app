@@ -1,0 +1,92 @@
+/* TCO20 banner styling. */
+
+@import "~styles/mixins";
+@import "../../ContentBlock/themes/TCO19_thypo";
+$contentWrapperPadding: 0;
+
+.container {
+  background-position: 50% 50%;
+  background-size: cover;
+  overflow: hidden;
+  height: auto;
+  display: flex;
+  justify-content: center;
+
+  .contentWrapper {
+    background: none;
+    opacity: 1;
+    position: static;
+    transform: none;
+    padding: 120px $contentWrapperPadding;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include xs-to-md {
+      padding: 60px 15px;
+    }
+
+    width: $screen-lg;
+
+    .content {
+      @include roboto-regular;
+
+      color: white;
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 30px 0;
+        text-transform: uppercase;
+      }
+
+      @include TCO19-default-headers;
+
+      p {
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 1em;
+
+        strong {
+          @include roboto-medium;
+
+          line-height: 20px;
+        }
+
+        em {
+          font-style: italic;
+        }
+      }
+
+      ul {
+        list-style: disc;
+        margin-bottom: 1em;
+        margin-left: 20px;
+      }
+
+      input {
+        max-width: 350px;
+        margin-right: 5px;
+      }
+
+      button {
+        margin-left: 0;
+      }
+
+      a,
+      a:hover,
+      a:visited,
+      a:focus {
+        @include roboto-regular;
+
+        font-size: 16px;
+        line-height: 19px;
+        color: #5fb7ee;
+      }
+    }
+  }
+}
