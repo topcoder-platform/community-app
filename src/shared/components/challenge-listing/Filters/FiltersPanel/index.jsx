@@ -183,6 +183,7 @@ challenges in this sub community
       label: community.communityName,
       value: community.communityId,
       name: community.communityName,
+      data: getLabel(community),
     }));
 
   const disableClearSaveFilterButtons = isSavingFilter || (
