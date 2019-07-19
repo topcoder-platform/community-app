@@ -6,7 +6,7 @@ exports[`Matches shallow shapshot 1`] = `
   onClick={[Function]}
   onKeyPress={[Function]}
   role="button"
-  tabIndex="0"
+  tabIndex={0}
 >
   <FiltersIcon
     className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
@@ -25,7 +25,7 @@ exports[`Matches shallow shapshot 2`] = `
   onClick={[Function]}
   onKeyPress={[Function]}
   role="button"
-  tabIndex="0"
+  tabIndex={0}
 >
   <FiltersIcon
     className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
