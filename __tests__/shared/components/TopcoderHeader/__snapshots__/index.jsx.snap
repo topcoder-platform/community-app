@@ -609,7 +609,7 @@ exports[`Render with specified profile 1`] = `
           className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
           style={
             Object {
-              "color": "#707594",
+              "color": "#555555",
             }
           }
         />

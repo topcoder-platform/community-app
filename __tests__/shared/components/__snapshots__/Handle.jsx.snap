@@ -6,7 +6,7 @@ exports[`Matches shallow shapshot 1`] = `
   href=""
   style={
     Object {
-      "color": "#707594",
+      "color": "#555555",
       "fontSize": "24px",
     }
   }
