@@ -7,6 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   <ul>
     <li>
       <a
+        aria-label="About"
         href="https://www.topcoder-dev.com/about"
       >
         About
@@ -15,6 +16,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
+        aria-label="Contact"
         href="https://help.topcoder-dev.com/hc/en-us/articles/219069687-Contact-Support"
       >
         Contact
@@ -23,6 +25,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
+        aria-label="Help"
         href="https://help.topcoder-dev.com"
       >
         Help
@@ -31,6 +34,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
+        aria-label="Privacy"
         href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
       >
         Privacy
@@ -39,6 +43,7 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
+        aria-label="Terms"
         href="https://www.topcoder-dev.com/community/how-it-works/terms/"
       >
         Terms
