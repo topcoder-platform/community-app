@@ -147,11 +147,11 @@ async function getMenuDone(menuProps) {
   const {
     preview, spaceName, environment, fields,
   } = menuProps;
-  let { baseUrl } = fields;
+  let { baseUrl } = menuProps;
   let menu = []; // will store results here
   const service = getService({ preview, spaceName, environment });
   // remove trail slash from baseUrl
-  baseUrl = baseUrl ? removeTrailingSlash(baseUrl) : baseUrl;
+  baseUrl = fields.baseUrl ? removeTrailingSlash(fields.baseUrl) : baseUrl;
   // different menu strucures depending on title
   // if title is set new navi supports only 2 levels of menus
   // otherwise 3 when directly loaded

@@ -1,6 +1,7 @@
 /* TCO19 banner styling. */
 
 @import "~styles/mixins";
+@import "../../ContentBlock/themes/TCO19_thypo";
 $contentWrapperPadding: 0;
 
 .container {
@@ -35,54 +36,25 @@ $contentWrapperPadding: 0;
 
       h1,
       h2,
-      h3 {
-        font-weight: 300;
-        margin: 30px 0;
-      }
-
-      h1 {
-        font-size: 42px;
-        font-weight: 300;
-        line-height: 50px;
-      }
-
-      h2 {
-        font-size: 36px;
-        font-weight: 300;
-        line-height: 45px;
-      }
-
-      h3 {
-        font-size: 28px;
-        font-weight: 400;
-        line-height: 35px;
-      }
-
-      h4 {
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 30px;
-      }
-
-      h5 {
-        font-size: 15px;
-        font-weight: 700;
-        line-height: 25px;
-      }
-
+      h3,
+      h4,
+      h5,
       h6 {
-        font-size: 13px;
-        font-weight: 700;
-        line-height: 25px;
+        margin: 30px 0;
+        text-transform: uppercase;
       }
+
+      @include TCO19-default-headers;
 
       p {
-        font-size: 15px;
+        font-size: 16px;
+        line-height: 26px;
         margin-bottom: 1em;
-        line-height: 25px;
 
         strong {
-          font-weight: bold;
+          @include roboto-medium;
+
+          line-height: 20px;
         }
 
         em {
@@ -103,6 +75,17 @@ $contentWrapperPadding: 0;
 
       button {
         margin-left: 0;
+      }
+
+      a,
+      a:hover,
+      a:visited,
+      a:focus {
+        @include roboto-regular;
+
+        font-size: 16px;
+        line-height: 19px;
+        color: #5fb7ee;
       }
     }
   }

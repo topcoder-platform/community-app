@@ -40,7 +40,9 @@ exports[`Matches shallow shapshot 1`] = `
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
       />
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value-title___1HWKy"
+      >
         challenges
       </span>
     </div>
@@ -50,9 +52,11 @@ exports[`Matches shallow shapshot 1`] = `
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
       >
-        0
+        0.00
       </span>
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value-title___1HWKy"
+      >
         points
       </span>
     </div>
@@ -100,7 +104,9 @@ exports[`Matches shallow shapshot 2`] = `
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
       />
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value-title___1HWKy"
+      >
         challenges
       </span>
     </div>
@@ -110,9 +116,11 @@ exports[`Matches shallow shapshot 2`] = `
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
       >
-        0
+        0.00
       </span>
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value-title___1HWKy"
+      >
         points
       </span>
     </div>

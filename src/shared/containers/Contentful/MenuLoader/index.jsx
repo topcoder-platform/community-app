@@ -37,6 +37,7 @@ class MenuLoaderContainer extends React.Component {
       preview,
       spaceName,
       environment,
+      baseUrl,
     } = this.props;
     // initiate loading the menu data
     loadMenuData({
@@ -45,6 +46,7 @@ class MenuLoaderContainer extends React.Component {
       preview,
       spaceName,
       environment,
+      baseUrl,
     });
   }
 
@@ -141,6 +143,7 @@ MenuLoaderContainer.defaultProps = {
   spaceName: null,
   environment: null,
   menu: [],
+  baseUrl: '',
 };
 
 MenuLoaderContainer.propTypes = {
@@ -154,6 +157,7 @@ MenuLoaderContainer.propTypes = {
   menu: PT.arrayOf(PT.shape()),
   loading: PT.bool.isRequired,
   menuLogo: PT.shape().isRequired,
+  baseUrl: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {

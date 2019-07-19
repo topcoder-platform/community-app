@@ -10,10 +10,12 @@ import _ from 'lodash';
 
 import MemberCard from './MemberCard';
 import defaultTheme from './themes/default.scss';
+import speakerCard from './themes/speakerCard.scss';
 
 // Future themes added here
 const THEMES = {
   Default: defaultTheme,
+  'Speaker Card': speakerCard,
 };
 
 /* Loads the main member card entry. */

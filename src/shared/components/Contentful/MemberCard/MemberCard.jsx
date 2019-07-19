@@ -24,7 +24,8 @@ export function MemberCardInner({
   const country = memberCard.country && memberCard.country.toLowerCase();
   const imageUrl = _.get(image, 'file.url');
   const trackIconUrl = _.get(trackIcon, 'file.url');
-  const { memberName, trackColor } = memberCard;
+  const { memberName, trackColor, description } = memberCard;
+
   return (
     <a
       href={memberCard.url}
@@ -48,6 +49,9 @@ export function MemberCardInner({
           { memberName && (
             <div className={theme.memberName}>{memberName}</div>
           )}
+          { description && (
+            <div className={theme.description}>{description}</div>
+          )}
           { country && (
             <div className={theme.countryWrapper}>
               <span className={`flag-icon flag-icon-${country} ${theme.flag}`} />
@@ -57,7 +61,6 @@ export function MemberCardInner({
             </div>
           )}
         </div>
-
       </div>
     </a>
   );

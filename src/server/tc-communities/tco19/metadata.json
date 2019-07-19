@@ -10,7 +10,7 @@
   "groupIds": ["20000078"],
   "hideSearch": true,
   "logos": [{
-    "img": "/community-app-assets/themes/tco19/TCO19-white.svg",
+    "img": "/community-app-assets/themes/tco/TCO19.svg",
     "url": "https://tco19.topcoder.com"
   }],
   "menuItems": [{

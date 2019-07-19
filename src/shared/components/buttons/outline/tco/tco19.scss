@@ -1,0 +1,24 @@
+@import "~styles/mixins";
+
+$tco-primary: #137d60;
+$tco-disabled-background: #e9e9e9;
+
+.tcoButton {
+  @include roboto-bold;
+
+  color: $tc-white !important;
+  background: $tco-primary !important;
+  font-weight: 700 !important;
+  border: 1px solid $tco-primary !important;
+  border-radius: 15px !important;
+  font-size: 12px !important;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  min-height: 30px !important;
+}
+
+.tcoButtonDisabled {
+  background-color: $tco-disabled-background !important;
+  border-radius: 20px !important;
+}

@@ -1,0 +1,72 @@
+@import "~styles/mixins";
+@import "./TCO19_thypo";
+
+.contentWrapper {
+  background-color: #0ab88a;
+  border-radius: 10px;
+  box-shadow: 0 10px 22px 0 rgba(0, 0, 0, 0.25);
+  width: 413px;
+  flex-direction: column;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin: 5px;
+  padding: 0;
+}
+
+.content {
+  padding: 17px 40px 30px 40px;
+  color: $tc-white;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Barlow", Helvetica, Arial, sans-serif;
+    color: $tc-white;
+    text-transform: uppercase;
+  }
+
+  @include TCO19-default-headers;
+
+  p {
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    color: $tc-white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+
+    @include xs-to-sm {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 30px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+  }
+
+  button {
+    margin: 10px 5px 0 0 !important;
+  }
+}
+
+.image {
+  flex: 1;
+  max-height: 225px;
+  margin: 0;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    max-width: 413px;
+  }
+}

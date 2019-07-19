@@ -24,6 +24,8 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
 import NewsletterArchive from 'containers/NewsletterArchive';
 
+import tco19Sec from 'components/buttons/outline/tco/tco19-sec.scss';
+import tco19 from 'components/buttons/outline/tco/tco19.scss';
 import tco18 from 'components/buttons/outline/tco/tco18.scss';
 import tco16 from 'components/buttons/outline/tco/tco16.scss';
 import tco14 from 'components/buttons/outline/tco/tco14.scss';
@@ -40,6 +42,8 @@ import tco07 from 'components/buttons/outline/tco/tco07.scss';
  * Should implement `.tcoButton` class
 */
 const tcoButtonThemes = {
+  'tco19-sec': tco19Sec,
+  tco19,
   tco18, // default
   tco17: tco18,
   tco16,
@@ -85,6 +89,9 @@ const customComponents = {
         button: tcoButtonThemes[attrs.theme]
           ? tcoButtonThemes[attrs.theme].tcoButton
           : tcoButtonThemes.tco18.tcoButton,
+        disabled: (tcoButtonThemes[attrs.theme] && tcoButtonThemes[attrs.theme].tcoButtonDisabled)
+          ? tcoButtonThemes[attrs.theme].tcoButtonDisabled
+          : '',
       },
     },
   }),
