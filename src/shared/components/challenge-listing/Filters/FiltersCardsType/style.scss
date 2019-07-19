@@ -15,7 +15,7 @@ $type-radius-4: $corner-radius * 2;
 
     height: $type-space-60;
     font-size: 20px;
-    color: $tc-dark-blue-70;
+    color: #006FEB;
     cursor: pointer;
     line-height: $type-space-60;
     display: inline-block;
@@ -34,7 +34,7 @@ $type-radius-4: $corner-radius * 2;
     }
 
     &:visited {
-      color: $tc-dark-blue-70;
+      color: #006FEB;
     }
 
     &:hover {
