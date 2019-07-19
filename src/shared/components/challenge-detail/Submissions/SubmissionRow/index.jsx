@@ -14,21 +14,15 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM,
-  openHistory,
-  submitter,
-  rank,
-  submissions,
-  score,
-  toggleHistory,
-  colorStyle,
-  isReviewPhaseComplete,
+  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle, isReviewPhaseComplete,
+  finalRank, provisionalRank,
 }) {
-  const { submissionTime } = submissions[0];
-  let { finalScore, initialScore } = submissions[0];
+  const {
+    submissionTime, provisionalScore,
+  } = submissions[0];
+  let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
-  initialScore = (!initialScore && initialScore < 0) ? '-' : initialScore;
-
+  const initialScore = (!provisionalScore || provisionalScore < 0) ? '-' : provisionalScore;
   return (
     <div styleName="container">
       <div styleName="row">
@@ -36,17 +30,19 @@ export default function SubmissionRow({
           isMM ? (
             <div styleName="col-1 col">
               <div styleName="col col-left">
-                { get((rank || {}), 'final', '-') }
+                {
+                  finalRank || '-'
+                }
               </div>
               <div styleName="col">
-                { (rank || {}).interim ? rank.interim : '-' }
+                { provisionalRank || '-' }
               </div>
             </div>
           ) : null
         }
         <div styleName="col-2 col">
-          <a href={`${config.URL.BASE}/member-profile/${submitter}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
-            {submitter}
+          <a href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
+            {member}
           </a>
         </div>
         <div styleName="col-3 col">
@@ -77,7 +73,7 @@ export default function SubmissionRow({
         </div>
       </div>
       {openHistory
-        && (
+      && (
         <div styleName="history">
           <div>
             <div styleName="row no-border history-head">
@@ -108,33 +104,31 @@ export default function SubmissionRow({
                 key={submissionHistory.submissionId}
               />
             ))
-            }
+          }
         </div>
-        )
-    }
+      )
+      }
     </div>
   );
 }
 
 SubmissionRow.defaultProps = {
   toggleHistory: () => {},
-  rank: {},
   colorStyle: {},
   score: {},
   isReviewPhaseComplete: false,
+  finalRank: null,
+  provisionalRank: null,
 };
 
 SubmissionRow.propTypes = {
   isMM: PT.bool.isRequired,
   openHistory: PT.bool.isRequired,
-  submitter: PT.string.isRequired,
-  rank: PT.shape({
-    interim: PT.number,
-  }),
+  member: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
     finalScore: PT.number,
     initialScore: PT.number,
-    submissionId: PT.number.isRequired,
+    submissionId: PT.string.isRequired,
     submissionTime: PT.string.isRequired,
   })).isRequired,
   score: PT.shape({
@@ -144,4 +138,6 @@ SubmissionRow.propTypes = {
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
   isReviewPhaseComplete: PT.bool,
+  finalRank: PT.number,
+  provisionalRank: PT.number,
 };
