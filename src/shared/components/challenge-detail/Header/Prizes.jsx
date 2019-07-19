@@ -24,7 +24,7 @@ export default function Prizes({ pointPrizes, prizes }) {
           if (!_.isUndefined(prizes[index])) pair.push(prizes[index].toLocaleString());
           if (!_.isUndefined(pointPrizes[index])) pair.push(`${pointPrizes[index]}pts`);
           return (
-            <div key={rank} tabIndex={0} aria-label={`${rank}${getOrdinal(rank)} prize ${!_.isUndefined(prizes[index]) ? '$' : ''}${pair.join(' + ')}`} styleName="prize-fill">
+            <div key={rank} aria-label={`${rank}${getOrdinal(rank)} prize ${!_.isUndefined(prizes[index]) ? '$' : ''}${pair.join(' + ')}`} styleName="prize-fill">
               <div id={`rank${rank}`} styleName="prize-card">
                 <p styleName="prize-rank">
                   {rank}
