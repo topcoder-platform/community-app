@@ -21,7 +21,7 @@ exports[`renders profile about header correctly 1`] = `
       className="src-shared-components-ProfilePage-Header-___styles__handle___-v11j"
       style={
         Object {
-          "color": "#9D9FA0",
+          "color": "#707594",
         }
       }
     >
