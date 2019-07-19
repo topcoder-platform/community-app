@@ -234,6 +234,7 @@ class ChallengeDetailPageContainer extends React.Component {
       unregisterFromChallenge,
       unregistering,
       updateChallenge,
+      isMenuOpened,
     } = this.props;
 
     const {
@@ -327,6 +328,7 @@ does not exist!
               hasRegistered={hasRegistered}
               hasFirstPlacement={hasFirstPlacement}
               challengeSubtracksMap={challengeSubtracksMap}
+              isMenuOpened={isMenuOpened}
             />
             )
           }
@@ -414,6 +416,7 @@ ChallengeDetailPageContainer.defaultProps = {
   // loadingCheckpointResults: false,
   results: null,
   terms: [],
+  isMenuOpened: false,
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -456,6 +459,7 @@ ChallengeDetailPageContainer.propTypes = {
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
   updateChallenge: PT.func.isRequired,
+  isMenuOpened: PT.bool,
 };
 
 function mapStateToProps(state, props) {
@@ -489,6 +493,7 @@ function mapStateToProps(state, props) {
     specsTabState: state.page.challengeDetails.specsTabState,
     terms: state.terms.terms,
     unregistering: state.challenge.unregistering,
+    isMenuOpened: !!state.topcoderHeader.openedMenu,
   };
 }
 
