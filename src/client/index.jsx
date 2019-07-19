@@ -59,6 +59,7 @@ function authenticate(store) {
     configureConnector({
       connectorUrl: window.CONFIG.URL.ACCOUNTS_APP_CONNECTOR,
       frameId: 'tc-accounts-iframe',
+      frameTitle: 'Accounts authentication window',
     });
   }
 
