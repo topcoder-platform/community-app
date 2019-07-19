@@ -9,6 +9,7 @@ exports[`Default render 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
+      aria-label="Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
@@ -274,6 +275,7 @@ exports[`Render with open menu 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
+      aria-label="Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
@@ -550,6 +552,7 @@ exports[`Render with specified profile 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
+      aria-label="Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
