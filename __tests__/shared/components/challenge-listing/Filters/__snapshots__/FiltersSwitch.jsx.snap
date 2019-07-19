@@ -5,6 +5,8 @@ exports[`Matches shallow shapshot 1`] = `
   className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2ixiH"
   onClick={[Function]}
   onKeyPress={[Function]}
+  role="button"
+  tabIndex="0"
 >
   <FiltersIcon
     className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
@@ -22,6 +24,8 @@ exports[`Matches shallow shapshot 2`] = `
   className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2ixiH src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__active___2wLTl"
   onClick={[Function]}
   onKeyPress={[Function]}
+  role="button"
+  tabIndex="0"
 >
   <FiltersIcon
     className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
