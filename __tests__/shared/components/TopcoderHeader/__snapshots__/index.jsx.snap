@@ -614,11 +614,11 @@ exports[`Render with specified profile 1`] = `
           }
           tabIndex={0}
         />
-        <div
-          className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
+        <span
+          tabIndex={0}
         >
-          <span 
-            tabIndex={0}
+          <div
+            className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
           >
             <ThemedAvatar
               composeAdhocTheme="deeply"
@@ -626,8 +626,8 @@ exports[`Render with specified profile 1`] = `
               mapThemrProps={[Function]}
               themePriority="adhoc-context-default"
             />
-          </span>
-        </div>
+          </div>
+        </span>
       </div>
       <div
         className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
