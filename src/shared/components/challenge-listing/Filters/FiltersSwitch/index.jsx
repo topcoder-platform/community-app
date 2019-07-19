@@ -39,7 +39,7 @@ export default function FiltersSwitch({
   return (
     <div
       styleName={className}
-      tabIndex="0"
+      tabIndex={0}
       role="button"
       className={`tc-outline-btn ${propClassName || ''}`}
       onClick={() => (onSwitch ? onSwitch(!active) : null)}
