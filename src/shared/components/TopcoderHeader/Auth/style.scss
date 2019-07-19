@@ -19,16 +19,6 @@
       text-align: center;
     }
   }
-  
-  .tc-btn-default {
-    border: 1px solid #0074E8;
-    color: #0074E8;
-
-    &:hover {
-      background: #0074E8;
-      color: $tc-white;
-    }
-  }
 
   :global {
     .tc-btn-primary {
@@ -36,11 +26,11 @@
     }
 
     .tc-btn-default {
-      border: 1px solid $tc-dark-blue;
-      color: $tc-dark-blue;
+      border: 1px solid #0074e8;
+      color: #0074e8;
 
       &:hover {
-        background: $tc-dark-blue;
+        background: #0074e8;
         color: $tc-white;
       }
     }
