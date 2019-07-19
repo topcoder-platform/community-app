@@ -612,16 +612,21 @@ exports[`Render with specified profile 1`] = `
               "color": "#9D9FA0",
             }
           }
+          tabIndex={0}
         />
         <div
           className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
         >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            themePriority="adhoc-context-default"
-          />
+          <span 
+            tabIndex={0}
+          >
+            <ThemedAvatar
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              mapThemrProps={[Function]}
+              themePriority="adhoc-context-default"
+            />
+          </span>
         </div>
       </div>
       <div
