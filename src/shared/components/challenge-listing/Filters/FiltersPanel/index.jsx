@@ -28,11 +28,8 @@ import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
-import Tooltip from 'components/Tooltip';
-import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
@@ -43,10 +40,8 @@ export default function FiltersPanel({
   communityFilters,
   defaultCommunityId,
   filterState,
-  challenges,
   hidden,
   isAuth,
-  auth,
   isReviewOpportunitiesBucket,
   onClose,
   onSaveFilter,
@@ -60,10 +55,6 @@ export default function FiltersPanel({
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
-
-  const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) => Boolean(
-    _.intersection(visitorGroupIds, communityGroupIds).length,
-  );
 
   const communityOps = communityFilters.filter(community => !community.hidden)
     .map(community => ({
