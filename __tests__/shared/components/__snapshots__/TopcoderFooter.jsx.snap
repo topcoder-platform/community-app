@@ -5,7 +5,7 @@ exports[`Matches shallow shapshot 1`] = `
   className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
 >
   <nav>
-    <ul>
+    <ol>
       <li
         className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
       >
@@ -51,7 +51,7 @@ exports[`Matches shallow shapshot 1`] = `
           TERMS
         </a>
       </li>
-    </ul>
+    </ol>
   </nav>
   <div
     className="src-shared-components-TopcoderFooter-___style__social-links___2G4Ia"
