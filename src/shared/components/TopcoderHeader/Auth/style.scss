@@ -26,11 +26,11 @@
     }
 
     .tc-btn-default {
-      border: 1px solid #0074e8;
-      color: #0074e8;
+      border: 1px solid $tc-dark-blue-120;
+      color: $tc-dark-blue-120;
 
       &:hover {
-        background: #0074e8;
+        background: $tc-dark-blue-120;
         color: $tc-white;
       }
     }
