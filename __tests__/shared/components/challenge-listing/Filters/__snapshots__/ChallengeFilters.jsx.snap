@@ -111,7 +111,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         aria-checked={false}
         aria-label="Filter"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
-        role="switch" 
+        role="switch"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
