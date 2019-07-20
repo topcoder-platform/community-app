@@ -61,7 +61,6 @@ export class ImageInner extends React.Component {
     const imageUrl = _.get(imageSource, 'file.url');
     const clipSvgUrl = _.get(clipSvg, 'file.url');
     const imgStyle = image.extraStylesForImage ? fixStyle(image.extraStylesForImage) : {};
-    console.log('imgStyle', imgStyle);
     if (clipSvgUrl) {
       imgStyle.display = 'none';
     }

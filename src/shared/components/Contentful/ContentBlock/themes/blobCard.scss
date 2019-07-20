@@ -4,9 +4,8 @@
 .contentWrapper {
   background-color: #0ab88a;
   border-radius: 10px;
-  box-shadow: 0 10px 22px 0 rgba(0, 0, 0, 0.25);
   width: 413px;
-  flex-direction: column;
+  flex-direction: column !important;
   padding: 0;
 }
 
