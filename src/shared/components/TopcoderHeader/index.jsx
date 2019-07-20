@@ -246,7 +246,7 @@ export default class TopcoderHeader extends React.Component {
             <Link to={item.url}>
               {item.title}
             </Link>
-          ) : item.title}
+          ) : <span role="link" tabIndex={0}>{item.title}</span>}
         </li>
       );
     });
