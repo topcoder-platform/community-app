@@ -39,11 +39,12 @@ export class ImageInner extends React.Component {
     const {
       id,
     } = this.props;
-    const imgTag = document.querySelector(`#${id} img`);
-    const svgClip = document.querySelector(`#${id} svg clipPath`);
-    if (svgClip) {
+    const imgTag = document.querySelector(`#image-${id} img`);
+    const svgClip = document.querySelector(`#image-${id} svg clipPath`);
+    if (svgClip && imgTag) {
       svgClip.id = `svg-id-${id}`;
       imgTag.style['clip-path'] = `url(#${svgClip.id})`;
+      imgTag.style['-webkit-clip-path'] = `url(#${svgClip.id})`;
       imgTag.style.display = 'block';
     }
   }
@@ -59,14 +60,15 @@ export class ImageInner extends React.Component {
 
     const imageUrl = _.get(imageSource, 'file.url');
     const clipSvgUrl = _.get(clipSvg, 'file.url');
-    const imgStyle = {};
+    const imgStyle = image.extraStylesForImage ? fixStyle(image.extraStylesForImage) : {};
+    console.log('imgStyle', imgStyle);
     if (clipSvgUrl) {
       imgStyle.display = 'none';
     }
 
     return (
       <div
-        id={id}
+        id={`image-${id}`}
         className={theme['img-wrap']}
         style={fixStyle(image.extraStylesForContainer)}
       >
