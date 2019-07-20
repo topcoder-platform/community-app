@@ -29,7 +29,12 @@ exports[`Default render 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
       >
-        Compete
+        <span
+          role="link"
+          tabIndex={0}
+        >
+          Compete
+        </span>
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
@@ -51,7 +56,12 @@ exports[`Default render 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
       >
-        Community
+        <span
+          role="link"
+          tabIndex={0}
+        >
+          Community
+        </span>
       </li>
     </ul>
     <div
@@ -296,7 +306,12 @@ exports[`Render with open menu 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
       >
-        Compete
+        <span
+          role="link"
+          tabIndex={0}
+        >
+          Compete
+        </span>
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
@@ -318,7 +333,12 @@ exports[`Render with open menu 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
       >
-        Community
+        <span
+          role="link"
+          tabIndex={0}
+        >
+          Community
+        </span>
       </li>
     </ul>
     <div
@@ -574,7 +594,12 @@ exports[`Render with specified profile 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
       >
-        Compete
+        <span
+          role="link"
+          tabIndex={0}
+        >
+          Compete
+        </span>
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
@@ -596,7 +621,12 @@ exports[`Render with specified profile 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
       >
-        Community
+        <span
+          role="link"
+          tabIndex={0}
+        >
+          Community
+        </span>
       </li>
     </ul>
     <div
