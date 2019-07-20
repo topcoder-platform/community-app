@@ -7,6 +7,13 @@ import './style.scss';
  * It renders a round-shaped medal with the specified place number inside it,
  * and the prize, formatted as currency, next to it.
  */
+
+const getOrdinal = (num) => {
+  const ordinals = ['th', 'st', 'nd', 'rd'];
+  const v = num % 100;
+  return ordinals[(v - 20) % 10] || ordinals[v] || ordinals[0];
+}
+
 export default function Prize({
   place,
   prize,
@@ -15,7 +22,7 @@ export default function Prize({
   let medalStyleName = 'medal';
   if (place <= 3) medalStyleName += ` place-${place}`;
   return (
-    <div styleName="prize">
+    <div styleName="prize" aria-label={`${place}${getOrdinal(place)} prize is ${prizeUnitSymbol}${prize.toLocaleString()}`}>
       <span styleName={medalStyleName}>
         {place}
       </span>
