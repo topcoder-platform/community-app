@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  id="1"
+  id="image-1"
 >
   <InlineSVG
     baseURL=""
