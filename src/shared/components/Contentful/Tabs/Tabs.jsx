@@ -21,12 +21,14 @@ import defaultTheme from './themes/style.scss';
 import zurichTheme from './themes/zurich.scss';
 import tabsGroup from './themes/tabsGroup.scss';
 import tabsGroupChildren from './themes/tabsGroupChildren.scss';
+import underlineTheme from './themes/underline.scss';
 
 export const TAB_THEMES = {
   Default: defaultTheme,
   Zurich: zurichTheme,
   'Tabs Group': tabsGroup,
   'Tabs Group Children': tabsGroupChildren,
+  Underline: underlineTheme,
 };
 
 export default class TabsItemsLoader extends Component {
