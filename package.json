@@ -85,6 +85,7 @@
     "react-image-fallback": "^7.1.0",
     "react-image-filter": "^0.1.2",
     "react-infinite-scroller": "^1.1.4",
+    "react-inlinesvg": "^0.8.4",
     "react-player": "^0.24.1",
     "react-redux": "^5.0.7",
     "react-redux-toastr": "^7.2.6",
