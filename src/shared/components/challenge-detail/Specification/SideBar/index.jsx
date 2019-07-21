@@ -106,7 +106,7 @@ REVIEW STYLE:
             <h4 tabIndex={0}>
 Final Review:
             </h4>
-            <span styleName="link-like-paragraph tooltip-container">
+            <span tabIndex={0} styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip content={reviewTip}>
                 <div styleName="tctooltip">
@@ -117,7 +117,7 @@ Final Review:
             <h4 tabIndex={0}>
 Approval:
             </h4>
-            <span styleName="link-like-paragraph tooltip-container">
+            <span tabIndex={0} styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
                 <div styleName="tctooltip">
@@ -138,7 +138,7 @@ Approval:
               isDevelop && environment && environment.length > 0
               && (
               <p styleName="link-like-paragraph">
-                <a href={`${environment}`}>
+                <a tabIndex={0} href={`${environment}`}>
   Environment
                 </a>
               </p>
@@ -148,7 +148,7 @@ Approval:
               isDevelop && codeRepo && codeRepo.length > 0
               && (
               <p styleName="link-like-paragraph">
-                <a href={`${codeRepo}`}>
+                <a tabIndex={0} href={`${codeRepo}`}>
   Code Repository
                 </a>
               </p>
@@ -158,7 +158,7 @@ Approval:
               screeningScorecardId > 0
               && (
               <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}${screeningScorecardId}`}>
+                <a tabIndex={0} href={`${scorecardURL}${screeningScorecardId}`}>
   Screening Scorecard
                 </a>
               </p>
@@ -168,7 +168,7 @@ Approval:
               reviewScorecardId > 0 && !isDesign
               && (
               <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}${reviewScorecardId}`}>
+                <a tabIndex={0} href={`${scorecardURL}${reviewScorecardId}`}>
   Review Scorecard
                 </a>
               </p>
