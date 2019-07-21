@@ -175,7 +175,6 @@ workflows:
             branches:
               only: 
                 - develop-from-master-23may
-                - hot-fixes-3
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -183,7 +182,6 @@ workflows:
             branches:
                 only:
                   - legacy-tco
-                  - hot-fixes-3
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
