@@ -12,7 +12,7 @@ const getOrdinal = (num) => {
   const ordinals = ['th', 'st', 'nd', 'rd'];
   const v = num % 100;
   return ordinals[(v - 20) % 10] || ordinals[v] || ordinals[0];
-}
+};
 
 export default function Prize({
   place,
