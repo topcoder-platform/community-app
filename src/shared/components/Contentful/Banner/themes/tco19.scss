@@ -86,6 +86,11 @@ $contentWrapperPadding: 0;
         font-size: 16px;
         line-height: 19px;
         color: #5fb7ee;
+        text-decoration: underline;
+      }
+
+      a:hover {
+        text-decoration: none;
       }
     }
   }
