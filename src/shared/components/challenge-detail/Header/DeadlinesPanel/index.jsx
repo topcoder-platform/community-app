@@ -16,7 +16,7 @@ export default function DeadlinesPanel({ deadlines }) {
   const started = moment(start).isBefore(moment());
 
   return (
-    <div styleName="panel" tabIndex="0">
+    <div styleName="panel" tabIndex="0" role="tabpanel">
       <p styleName="timezone">
 Timezone:
         {moment.tz.guess()}
