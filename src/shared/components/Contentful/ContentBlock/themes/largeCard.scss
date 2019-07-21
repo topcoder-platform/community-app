@@ -1,0 +1,95 @@
+@import "~styles/mixins";
+@import "./TCO19_thypo";
+
+.contentWrapper {
+  background-color: #555;
+  border-radius: 10px;
+  width: 100%;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin: 5px;
+  padding: 0;
+
+  @include xs-to-sm {
+    margin: 0 15px;
+  }
+}
+
+.content {
+  padding: 30px 40px 30px 40px;
+  color: $tc-white;
+
+  @include xs-to-sm {
+    padding: 20px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Barlow", Helvetica, Arial, sans-serif;
+    color: $tc-white;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  @include TCO19-default-headers;
+
+  p {
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    color: $tc-white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+
+    @include xs-to-sm {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 30px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    color: white;
+
+    li p {
+      margin: 0;
+    }
+  }
+
+  button {
+    margin: 40px 5px 0 0 !important;
+
+    @include xs-to-sm {
+      margin-top: 30px !important;
+    }
+  }
+}
+
+.image {
+  flex: 1;
+  margin: 0;
+
+  img {
+    height: 100%;
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    @include xs-to-sm {
+      border-top-left-radius: 10px;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
