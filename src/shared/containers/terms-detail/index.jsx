@@ -194,6 +194,7 @@ TermsDetailPageContainer.propTypes = {
     'terms-detail-container': PT.string.isRequired,
     'terms-acceptance-handler': PT.string.isRequired,
     'terms-title': PT.string.isRequired,
+    modalMsg: PT.any,
   }).isRequired,
 };
 
