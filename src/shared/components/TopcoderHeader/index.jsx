@@ -240,6 +240,16 @@ export default class TopcoderHeader extends React.Component {
               this.addGlobalTouchListener();
             }
           }}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowDown') {
+              event.preventDefault();
+              openMenu(item, event.target);
+            }
+            else if (event.key === 'ArrowUp') {
+              event.preventDefault();
+              closeMenu();
+            }
+          }}
           styleName={styleName}
         >
           {item.url ? (
