@@ -62,6 +62,8 @@ Header.propTypes = {
   mainMenu: PT.arrayOf(SUB_MENU_SHAPE).isRequired,
   open: PT.func.isRequired,
   opened: PT.bool,
-  profile: PT.shape({}),
+  profile: PT.shape({
+    photoURL: PT.any,
+  }),
   userMenu: SUB_MENU_SHAPE,
 };

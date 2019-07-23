@@ -72,6 +72,8 @@ Menu.propTypes = {
     titleListItem: PT.string,
     titleListItemSelected: PT.string,
     content: PT.string,
+    menuContainer: PT.any,
+    menuSwitchContainer: PT.any,
   }),
   menuItems: PT.arrayOf(PT.shape()),
   baseUrl: PT.string.isRequired,
