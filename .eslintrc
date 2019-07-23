@@ -2,7 +2,8 @@
   "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
   "rules": {
     "jsx-a11y/anchor-is-valid": false,
-    "import/no-cycle": [2, { "maxDepth": 1 }]
+    "import/no-cycle": [2, { "maxDepth": 1 }],
+    "react/prop-types": ["error", { "ignore": ["challenge","eventDetails","winner","bucket","theme","submissionObject","profile","communitiesList","meta","scoreboard","item","activeTrigger","menuItems","scoreboard"] }]
   },
   "env": {
     "browser": true
