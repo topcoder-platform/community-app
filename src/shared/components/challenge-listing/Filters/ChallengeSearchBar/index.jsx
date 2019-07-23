@@ -24,7 +24,7 @@ export default function ChallengeSearchBar({
   setQuery,
 }) {
   return (
-    <div styleName="ChallengeSearchBar">
+    <div styleName="ChallengeSearchBar" role="search">
       <input
         onChange={event => setQuery(event.target.value)}
         onKeyPress={event => (event.key === 'Enter' ? onSearch(query.trim()) : null)}
