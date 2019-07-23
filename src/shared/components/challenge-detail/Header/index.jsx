@@ -46,6 +46,7 @@ export default function ChallengeHeader(props) {
     selectedView,
     showDeadlineDetail,
     hasFirstPlacement,
+    isMenuOpened,
   } = props;
 
   const {
@@ -238,7 +239,6 @@ export default function ChallengeHeader(props) {
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
-        <div styleName="title-wrapper">
           <a href={challengesUrl} aria-label="Back to challenges page">
             <LeftArrow styleName="left-arrow" />
           </a>
@@ -420,6 +420,7 @@ Show Deadlines
 
 ChallengeHeader.defaultProps = {
   checkpoints: {},
+  isMenuOpened: false,
 };
 
 ChallengeHeader.propTypes = {
@@ -441,4 +442,5 @@ ChallengeHeader.propTypes = {
   unregistering: PT.bool.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
+  isMenuOpened: PT.bool,
 };
