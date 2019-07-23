@@ -98,19 +98,19 @@ export function getRatingLevel(rating) {
 /* TODO: The actual color values below are taken from topcoder-app. Probably,
  * they don't match colors in the current Topcoder style guide. */
 export const RATING_COLORS = [{
-  color: '#9D9FA0' /* Grey */,
+  color: '#555' /* Grey */,
   limit: 900,
 }, {
-  color: '#69C329' /* Green */,
+  color: '#55b000' /* Green */,
   limit: 1200,
 }, {
-  color: '#616BD5' /* Blue */,
+  color: '#006dea' /* Blue */,
   limit: 1500,
 }, {
-  color: '#FCD617' /* Yellow */,
+  color: '#F2C900' /* Yellow */,
   limit: 2200,
 }, {
-  color: '#EF3A3A' /* Red */,
+  color: '#ea1900' /* Red */,
   limit: Infinity,
 }];
 export function getRatingColor(rating) {
