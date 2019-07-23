@@ -22,6 +22,8 @@ import Countdown from 'components/Contentful/Countdown';
 import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
 import ContentSlider from 'components/Contentful/ContentSlider';
+import Image from 'components/Contentful/Image';
+import Shape from 'components/Contentful/Shape';
 import Dropdown from 'components/Contentful/Dropdown';
 import MemberCard from 'components/Contentful/MemberCard';
 
@@ -51,6 +53,8 @@ const COMPONENTS = {
   contentSlider: ContentSlider,
   dropdown: Dropdown,
   memberCard: MemberCard,
+  image: Image,
+  shape: Shape,
 };
 
 const THEMES = {

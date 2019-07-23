@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  id="1"
+  style={
+    Object {
+      "backgroundImage": "url(https://www.topcoder.com)",
+    }
+  }
+/>
+`;

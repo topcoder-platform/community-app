@@ -1,0 +1,20 @@
+@import "~styles/mixins";
+
+.img-wrap {
+  display: block;
+
+  svg {
+    width: 0;
+    height: 0;
+  }
+
+  img {
+    display: block;
+    margin: auto;
+
+    @include xs-to-sm {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}
