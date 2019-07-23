@@ -101,16 +101,16 @@ export const RATING_COLORS = [{
   color: '#555' /* Grey */,
   limit: 900,
 }, {
-  color: '#55b000' /* Green */,
+  color: '#55B000' /* Green */,
   limit: 1200,
 }, {
-  color: '#006dea' /* Blue */,
+  color: '#006DEA' /* Blue */,
   limit: 1500,
 }, {
   color: '#F2C900' /* Yellow */,
   limit: 2200,
 }, {
-  color: '#ea1900' /* Red */,
+  color: '#EA1900' /* Red */,
   limit: Infinity,
 }];
 export function getRatingColor(rating) {
