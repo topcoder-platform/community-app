@@ -240,9 +240,9 @@ export default function ChallengeHeader(props) {
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
         <div styleName="title-wrapper">
-          <Link to={challengesUrl}>
+          <a href={challengesUrl} aria-label="Back to challenges page">
             <LeftArrow styleName="left-arrow" />
-          </Link>
+          </a>
           <div>
             <h1 styleName="challenge-header">
               {name}
