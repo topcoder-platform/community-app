@@ -219,6 +219,15 @@ export default class TopcoderHeader extends React.Component {
       let styleName = 'main-menu-item';
       if (openedMenu && openedMenu.title === item.title) styleName += ' opened';
       if (item.title === currentNav.menuTitle) styleName += ' current';
+      const onMainMenuKeyDown = (event) => {
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          openMenu(item, event.target);
+        } else if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          closeMenu();
+        }
+      };
       return (
         <li
           key={item.title}
@@ -240,23 +249,13 @@ export default class TopcoderHeader extends React.Component {
               this.addGlobalTouchListener();
             }
           }}
-          onKeyDown={(event) => {
-            if (event.key === 'ArrowDown') {
-              event.preventDefault();
-              openMenu(item, event.target);
-            }
-            else if (event.key === 'ArrowUp') {
-              event.preventDefault();
-              closeMenu();
-            }
-          }}
           styleName={styleName}
         >
           {item.url ? (
-            <Link to={item.url}>
+            <Link to={item.url} onKeyDown={onMainMenuKeyDown}>
               {item.title}
             </Link>
-          ) : <span role="link" tabIndex={0}>{item.title}</span>}
+          ) : <span role="link" tabIndex={0} onKeyDown={onMainMenuKeyDown}>{item.title}</span>}
         </li>
       );
     });
