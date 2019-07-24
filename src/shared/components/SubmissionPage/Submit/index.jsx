@@ -318,7 +318,7 @@ Please follow the instructions on the Challenge Details page regarding
                   id="agree"
                   onChange={e => setAgreed(e.target.checked)}
                 />
-                <label htmlFor="agree">
+                <label htmlFor="agree" tabIndex={0} role="checkbox" aria-checked={agreed} aria-label="I UNDERSTAND AND AGREE">
                   <div styleName="tc-checkbox-label">
 I UNDERSTAND AND AGREE
                   </div>
