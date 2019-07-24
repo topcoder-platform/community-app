@@ -76,28 +76,21 @@ export default function ChallengeFilters({
           isCardTypeSet === 'Challenges'
             ? (
               <span>
-                <span 
-                  styleName="filter-switch-with-label"
-                  role="switch"
-                  aria-checked={isTrackOn(TRACKS.DESIGN)}>
+                <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DESIGN)}
                     labelBefore="Design"
                     onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label"
-                  role="switch"
-                  aria-checked={isTrackOn(TRACKS.DEVELOP)}>
+                <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DEVELOP)}
                     labelBefore="Development"
                     onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label"
-                  role="switch"
-                  aria-checked={isTrackOn(TRACKS.DATA_SCIENCE)}>
+                <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
                     labelBefore="Data Science"
