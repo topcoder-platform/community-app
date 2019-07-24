@@ -8,7 +8,8 @@
         "tags": ["h4", "div", "span"],
         "roles": [],
       },
-    ] 
+    ],
+    "react/prop-types": ["error", { "ignore": ["challenge","eventDetails","winner","bucket","theme","submissionObject","profile","communitiesList","meta","scoreboard","item","activeTrigger","menuItems","scoreboard"] }]
   },
   "env": {
     "browser": true
