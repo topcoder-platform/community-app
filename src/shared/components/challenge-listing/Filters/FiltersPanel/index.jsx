@@ -355,7 +355,7 @@ Clear filters
           disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
-          theme={{ button: style.button }}
+          theme={{ button: style.buttonSaveFilter }}
         >
 Save filter
         </PrimaryButton>
