@@ -18,31 +18,31 @@ export default function Footer({
         hideTcLinksInFooter ? null : (
           <ul>
             <li>
-              <a href={`${config.URL.BASE}/about`} aria-label="About">
+              <a href={`${config.URL.BASE}/about`} aria-label="About" tabIndex="0">
 About
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`} aria-label="Contact">
+              <a href={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`} aria-label="Contact" tabIndex="0">
 Contact
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={config.URL.HELP} aria-label="Help">
+              <a href={config.URL.HELP} aria-label="Help" tabIndex="0">
 Help
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={`${config.URL.BASE}/community/how-it-works/privacy-policy/`} aria-label="Privacy">
+              <a href={`${config.URL.BASE}/community/how-it-works/privacy-policy/`} aria-label="Privacy" tabIndex="0">
 Privacy
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={`${config.URL.BASE}/community/how-it-works/terms/`} aria-label="Terms">
+              <a href={`${config.URL.BASE}/community/how-it-works/terms/`} aria-label="Terms" tabIndex="0">
 Terms
               </a>
             </li>
