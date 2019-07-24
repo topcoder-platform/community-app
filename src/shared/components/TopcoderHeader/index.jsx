@@ -388,6 +388,7 @@ export default class TopcoderHeader extends React.Component {
           trigger={activeTrigger}
         />
         <div
+          role="search"
           className={searchOpened ? 'opened' : ''}
           onMouseLeave={(event) => {
             /* False when cursor leaves from the sub-menu to the element that has
@@ -402,7 +403,6 @@ export default class TopcoderHeader extends React.Component {
           styleName="search-field"
         >
           <input
-            role="search"
             ref={(input) => { this.searchInput = input; }}
             onKeyPress={(event) => {
               if (event.key === 'Enter') {
