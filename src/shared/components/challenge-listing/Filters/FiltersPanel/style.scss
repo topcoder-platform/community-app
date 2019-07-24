@@ -17,6 +17,10 @@ $panel-radius-4: $corner-radius * 2;
   font: 400 12px Arial, sans-serif !important;
   margin-bottom: 15px !important;
   width: 100px !important;
+}
+
+.buttonSaveFilter {
+  @extend .button;
   background-color: #006ad7 !important;
 }
 
