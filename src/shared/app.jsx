@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 export default function App() {
   return (
     <div>
-      <Helmet>
+      <Helmet htmlAttributes={{ lang: 'en' }}>
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="manifest" href="/challenges/manifest.json" />
       </Helmet>
