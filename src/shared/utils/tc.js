@@ -101,22 +101,23 @@ export const RATING_COLORS = [{
   color: '#555555' /* Grey */,
   limit: 900,
 }, {
-  color: '#2D7E2D' /* Green */,
+  color: '#258025' /* Green */,
   limit: 1200,
 }, {
-  color: '#616BD5' /* Blue */,
+  color: '#5656F4' /* Blue */,
   limit: 1500,
 }, {
-  color: '#FCD617' /* Yellow */,
+  color: '#9A6D00' /* Yellow */,
   limit: 2200,
 }, {
-  color: '#EF3A3A' /* Red */,
+  color: '#EA1900' /* Red */,
   limit: Infinity,
 }];
 export function getRatingColor(rating) {
+  const COLOR_BLACK = '#151516'
   let i = 0; const r = Number(rating);
   while (RATING_COLORS[i].limit <= r) i += 1;
-  return RATING_COLORS[i].color || 'black';
+  return RATING_COLORS[i].color || COLOR_BLACK;
 }
 
 /**
