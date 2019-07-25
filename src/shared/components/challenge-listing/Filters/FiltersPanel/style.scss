@@ -22,7 +22,7 @@ $panel-radius-4: $corner-radius * 2;
 .buttonSaveFilter {
   @extend .button;
 
-  background-color: #006ad7 !important;
+  background-color: $tc-dark-blue-110 !important;
 }
 
 .uppercase {
