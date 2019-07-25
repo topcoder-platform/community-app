@@ -19,15 +19,15 @@ export default function Prize({
   withoutTooltip,
 }) {
   const component = (
-    <div>
+    <div styleName="prize-wrapper">
+      <div styleName="label">
+        {label}
+      </div>
       <div styleName="prize">
         <span styleName="symbol">
           {prizeUnitSymbol}
         </span>
         {totalPrize.toLocaleString()}
-      </div>
-      <div styleName="label">
-        {label}
       </div>
     </div>
   );
