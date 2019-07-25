@@ -55,16 +55,16 @@ TERMS
       </nav>
       <div styleName="social-links">
         <hr />
-        <a href="https://www.facebook.com/topcoder" target="fbwindow">
+        <a href="https://www.facebook.com/topcoder" target="fbwindow" aria-label="Facebook">
           <FacebookIcon />
         </a>
-        <a href="http://www.twitter.com/topcoder" target="twwindow">
+        <a href="http://www.twitter.com/topcoder" target="twwindow" aria-label="Twitter">
           <TwitterIcon />
         </a>
-        <a href="https://www.linkedin.com/company/topcoder" target="liwindow">
+        <a href="https://www.linkedin.com/company/topcoder" target="liwindow" aria-label="Linkedin">
           <LinkedInIcon />
         </a>
-        <a href="https://www.instagram.com/topcoder" target="inwindow">
+        <a href="https://www.instagram.com/topcoder" target="inwindow" aria-label="Instagram">
           <InstagramIcon />
         </a>
       </div>
