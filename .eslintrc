@@ -1,14 +1,7 @@
 {
   "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
   "rules": {
-    "jsx-a11y/anchor-is-valid": false,
-    "import/no-cycle": [2, { "maxDepth": 1 }],
-    "jsx-a11y/no-noninteractive-tabindex": [
-      {
-        "tags": ["h4", "div"],
-        "roles": [],
-      },
-    ] 
+    "jsx-a11y/anchor-is-valid": false
   },
   "env": {
     "browser": true
