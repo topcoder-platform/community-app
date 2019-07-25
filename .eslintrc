@@ -3,16 +3,9 @@
   "rules": {
     "jsx-a11y/anchor-is-valid": false,
     "import/no-cycle": [2, { "maxDepth": 1 }],
-    "jsx-a11y/no-noninteractive-tabindex": [
-      {
-        "tags": ["h4"],
-        "roles": [],
-      },
-    ],
     "react/prop-types": ["error", { "ignore": ["challenge","eventDetails","winner","bucket","theme","submissionObject","profile","communitiesList","meta","scoreboard","item","activeTrigger","menuItems","scoreboard"] }]
   },
   "env": {
     "browser": true
-  },
- 
+  }
 }
