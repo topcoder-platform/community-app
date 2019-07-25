@@ -261,9 +261,9 @@ export default function ChallengeHeader(props) {
         </div>
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
-            <h3 styleName="prizes-title">
+            <h2 styleName="prizes-title">
 PRIZES
-            </h3>
+            </h2>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
               bonusType ? (
