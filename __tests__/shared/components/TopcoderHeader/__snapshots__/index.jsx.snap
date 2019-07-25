@@ -70,6 +70,7 @@ exports[`Default render 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex={0}
       >
         <MagnifyingGlass
@@ -336,6 +337,7 @@ exports[`Render with open menu 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex={0}
       >
         <MagnifyingGlass
@@ -632,6 +634,7 @@ exports[`Render with specified profile 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex={0}
       >
         <MagnifyingGlass
