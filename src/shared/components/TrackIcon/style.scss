@@ -28,17 +28,17 @@ $track-radius-4: $corner-radius * 2;
 
     &.design,
     &.generic {
-      background: $tc-light-blue;
+      background: $tc-light-blue-110;
     }
 
     &.develop {
-      background: $tc-green;
+      background: $tc-green-110;
     }
 
     &.data_science,
     &.data-science,
     &.data {
-      background: $tc-orange;
+      background: $tc-orange-110;
     }
   }
 
@@ -55,19 +55,19 @@ $track-radius-4: $corner-radius * 2;
 
     &.design,
     &.generic {
-      color: $tc-light-blue;
+      color: $tc-light-blue-110;
       background: $tc-light-blue-10;
     }
 
     &.develop {
-      color: #3e8000;
+      color: $tc-green-110;
       background: $tc-green-10;
     }
 
     &.data_science,
     &.data-science,
     &.data {
-      color: $tc-orange;
+      color: $tc-orange-110;
       background: $tc-orange-10;
     }
   }
