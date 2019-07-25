@@ -5,7 +5,6 @@ exports[`renders a skill correctly 1`] = `
   className="src-shared-components-ProfilePage-Skill-___styles__container___bW089"
 >
   <div
-    aria-label="Test Skill Icon"
     className="src-shared-components-ProfilePage-Skill-___styles__skill-icon___1-d49"
   >
     <FallbackIcon
