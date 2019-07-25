@@ -24,6 +24,8 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
 import NewsletterArchive from 'containers/NewsletterArchive';
 
+import tco19SecLg from 'components/buttons/outline/tco/tco19-sec-lg.scss';
+import tco19Lg from 'components/buttons/outline/tco/tco19-lg.scss';
 import tco19Sec from 'components/buttons/outline/tco/tco19-sec.scss';
 import tco19 from 'components/buttons/outline/tco/tco19.scss';
 import tco18 from 'components/buttons/outline/tco/tco18.scss';
@@ -43,7 +45,9 @@ import tco07 from 'components/buttons/outline/tco/tco07.scss';
 */
 const tcoButtonThemes = {
   'tco19-sec': tco19Sec,
+  'tco19-sec-lg': tco19SecLg,
   tco19,
+  'tco19-lg': tco19Lg,
   tco18, // default
   tco17: tco18,
   tco16,

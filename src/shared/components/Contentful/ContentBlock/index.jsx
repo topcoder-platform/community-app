@@ -16,6 +16,8 @@ import TCO19Theme from './themes/TCO19.scss';
 import zurichTheme from './themes/zurich.scss';
 import generalTheme from './themes/general.scss';
 import blobCard from './themes/blobCard.scss';
+import TCO20Theme from './themes/TCO20.scss';
+import largeCard from './themes/largeCard.scss';
 
 const THEMES = {
   Default: defaultTheme,
@@ -26,6 +28,8 @@ const THEMES = {
   Zurich: zurichTheme,
   General: generalTheme,
   'Blob Card': blobCard,
+  TCO20: TCO20Theme,
+  'Large Card': largeCard,
 };
 
 /* Loads content block background asset. */

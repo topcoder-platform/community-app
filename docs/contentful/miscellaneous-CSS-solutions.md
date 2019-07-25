@@ -21,3 +21,11 @@ Content
     "flex": "auto"
 }
 ```
+
+## Position banner content left/right
+Put this custom CSS on content field.
+```
+{
+    "margin-left/right": "calc(100vw - 50%)
+}
+```
