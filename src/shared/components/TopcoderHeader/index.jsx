@@ -324,7 +324,7 @@ export default class TopcoderHeader extends React.Component {
           >
             {normalizedProfile.handle}
           </div>
-          <span tabIndex={0}>{userAvatar}</span>
+          <span role="button" tabIndex={0}>{userAvatar}</span>
         </div>
       );
     } else {
