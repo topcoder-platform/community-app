@@ -108,7 +108,10 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     />
     <span>
       <span
+        aria-checked={false}
+        aria-label="Filter"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -122,7 +125,10 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         />
       </span>
       <span
+        aria-checked={false}
+        aria-label="Filter"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -136,7 +142,10 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         />
       </span>
       <span
+        aria-checked={false}
+        aria-label="Filter"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
