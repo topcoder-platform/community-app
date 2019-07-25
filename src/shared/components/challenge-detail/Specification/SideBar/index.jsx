@@ -120,7 +120,7 @@ Approval:
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip name="signOff" content={approvalTip} className={styles['tooltip-overlay']}>
-                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby="signOff"}>
+                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby="signOff">
 ?
                 </div>
               </Tooltip>
