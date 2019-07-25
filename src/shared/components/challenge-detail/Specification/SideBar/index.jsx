@@ -103,24 +103,24 @@ DOWNLOADS:
             <h3>
 REVIEW STYLE:
             </h3>
-            <h4 tabIndex={0}>
+            <h4>
 Final Review:
             </h4>
-            <span tabIndex={0} styleName="link-like-paragraph tooltip-container">
+            <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
-              <Tooltip content={reviewTip}>
-                <div styleName="tctooltip">
+              <Tooltip name={`finalReview`} content={reviewTip}>
+                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby={`finalReview`}>
 ?
                 </div>
               </Tooltip>
             </span>
-            <h4 tabIndex={0}>
+            <h4>
 Approval:
             </h4>
-            <span tabIndex={0} styleName="link-like-paragraph tooltip-container">
+            <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
-              <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
-                <div styleName="tctooltip">
+              <Tooltip name={`signOff`} content={approvalTip} className={styles['tooltip-overlay']}>
+                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby={`signOff`}>
 ?
                 </div>
               </Tooltip>
@@ -131,14 +131,14 @@ Approval:
         {
           !isMM && (
           <div>
-            <h3 tabIndex={0}>
+            <h3>
   CHALLENGE LINKS:
             </h3>
             {
               isDevelop && environment && environment.length > 0
               && (
               <p styleName="link-like-paragraph">
-                <a tabIndex={0} href={`${environment}`}>
+                <a href={`${environment}`}>
   Environment
                 </a>
               </p>
@@ -148,7 +148,7 @@ Approval:
               isDevelop && codeRepo && codeRepo.length > 0
               && (
               <p styleName="link-like-paragraph">
-                <a tabIndex={0} href={`${codeRepo}`}>
+                <a href={`${codeRepo}`}>
   Code Repository
                 </a>
               </p>
@@ -158,7 +158,7 @@ Approval:
               screeningScorecardId > 0
               && (
               <p styleName="link-like-paragraph">
-                <a tabIndex={0} href={`${scorecardURL}${screeningScorecardId}`}>
+                <a href={`${scorecardURL}${screeningScorecardId}`}>
   Screening Scorecard
                 </a>
               </p>
@@ -168,7 +168,7 @@ Approval:
               reviewScorecardId > 0 && !isDesign
               && (
               <p styleName="link-like-paragraph">
-                <a tabIndex={0} href={`${scorecardURL}${reviewScorecardId}`}>
+                <a href={`${scorecardURL}${reviewScorecardId}`}>
   Review Scorecard
                 </a>
               </p>
