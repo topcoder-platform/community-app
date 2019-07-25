@@ -58,6 +58,7 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <hr />
     <a
+      aria-label="Facebook"
       href="https://www.facebook.com/topcoder"
       target="fbwindow"
     >
@@ -78,6 +79,7 @@ exports[`Matches shallow shapshot 1`] = `
       </svg>
     </a>
     <a
+      aria-label="Twitter"
       href="http://www.twitter.com/topcoder"
       target="twwindow"
     >
@@ -98,6 +100,7 @@ exports[`Matches shallow shapshot 1`] = `
       </svg>
     </a>
     <a
+      aria-label="Linkedin"
       href="https://www.linkedin.com/company/topcoder"
       target="liwindow"
     >
@@ -118,6 +121,7 @@ exports[`Matches shallow shapshot 1`] = `
       </svg>
     </a>
     <a
+      aria-label="Instagram"
       href="https://www.instagram.com/topcoder"
       target="inwindow"
     >
