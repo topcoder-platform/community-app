@@ -35,7 +35,7 @@ export default function TopcoderFooter() {
   return (
     <div styleName="footer">
       <nav>
-        <ul>
+        <ol>
           <Link to={`${base}/community/about`}>
 ABOUT US
           </Link>
@@ -51,7 +51,7 @@ PRIVACY POLICY
           <Link to={`${base}/community/how-it-works/terms/`}>
 TERMS
           </Link>
-        </ul>
+        </ol>
       </nav>
       <div styleName="social-links">
         <hr />
