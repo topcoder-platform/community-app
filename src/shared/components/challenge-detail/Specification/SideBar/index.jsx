@@ -108,8 +108,8 @@ Final Review:
             </h4>
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
-              <Tooltip name={`finalReview`} content={reviewTip}>
-                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby={`finalReview`}>
+              <Tooltip name="finalReview" content={reviewTip}>
+                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby="finalReview">
 ?
                 </div>
               </Tooltip>
@@ -119,8 +119,8 @@ Approval:
             </h4>
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
-              <Tooltip name={`signOff`} content={approvalTip} className={styles['tooltip-overlay']}>
-                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby={`signOff`}>
+              <Tooltip name="signOff" content={approvalTip} className={styles['tooltip-overlay']}>
+                <div role="button" tabIndex={0} styleName="tctooltip" aria-describedby="signOff"}>
 ?
                 </div>
               </Tooltip>
