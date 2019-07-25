@@ -114,7 +114,7 @@ export const RATING_COLORS = [{
   limit: Infinity,
 }];
 export function getRatingColor(rating) {
-  const COLOR_BLACK = '#151516'
+  const COLOR_BLACK = '#151516';
   let i = 0; const r = Number(rating);
   while (RATING_COLORS[i].limit <= r) i += 1;
   return RATING_COLORS[i].color || COLOR_BLACK;
