@@ -99,12 +99,12 @@ Round 1 Submitted Date
 
             return (
               <div styleName="row" key={r.handle}>
-                <div styleName="col-1">
-                  <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
+                <div styleName="col-1" tabIndex={0} role="button">
+                  <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle} tabIndex={-1}>
                     {r.handle}
                   </a>
                 </div>
-                <div styleName="col-2">
+                <div styleName="col-2" tabIndex={0} role="button">
                   <div styleName="sm-only title">
 Registration Date
                   </div>
@@ -113,7 +113,7 @@ Registration Date
                 {
                   twoRounds
                   && (
-                  <div styleName="col-3">
+                  <div styleName="col-3" tabIndex={0} role="button">
                     <div styleName="sm-only title">
 Round 1 Submitted Date
                     </div>
@@ -129,7 +129,7 @@ Round 1 Submitted Date
                   </div>
                   )
                 }
-                <div styleName="col-4">
+                <div styleName="col-4" tabIndex={0} role="button">
                   <div styleName="sm-only title">
                     {twoRounds ? 'Round 2 ' : ''}
 Submitted Date
