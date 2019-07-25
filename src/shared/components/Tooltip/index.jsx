@@ -56,6 +56,7 @@ Tooltip.defaultProps = {
   suppressDiv: false,
   trigger: ['hover'],
   defaultVisible: false,
+  name: '',
 };
 
 Tooltip.propTypes = {
