@@ -321,10 +321,11 @@ export default class TopcoderHeader extends React.Component {
             }}
             styleName="user-menu-handle"
             tabIndex={0}
+            role="button"
           >
             {normalizedProfile.handle}
           </div>
-          <span role="button" tabIndex={0}>{userAvatar}</span>
+          <span role="link" tabIndex={0}>{userAvatar}</span>
         </div>
       );
     } else {
@@ -376,6 +377,8 @@ export default class TopcoderHeader extends React.Component {
                 }
               }}
               styleName="search-icon"
+              tabIndex="0"
+              role="button"
             >
               <MagnifyingGlass />
             </div>
