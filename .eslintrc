@@ -1,7 +1,8 @@
 {
   "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
   "rules": {
-    "jsx-a11y/anchor-is-valid": false
+    "jsx-a11y/anchor-is-valid": false,
+    "import/no-cycle": [2, { "maxDepth": 1 }]
   },
   "env": {
     "browser": true
