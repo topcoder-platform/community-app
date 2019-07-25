@@ -21,6 +21,7 @@ function Tooltip({
   suppressDiv,
   trigger,
   defaultVisible,
+  name
 }) {
   return (
     <RCTooltip
@@ -32,6 +33,7 @@ function Tooltip({
       onVisibleChange={_.once(onTooltipHover)}
       trigger={trigger}
       defaultVisible={defaultVisible}
+      id={name}
     >
       {
         suppressDiv ? children : (
@@ -67,6 +69,7 @@ Tooltip.propTypes = {
   suppressDiv: PT.bool,
   trigger: PT.arrayOf(PT.string),
   defaultVisible: PT.bool,
+  name: PT.string,
 };
 
 export default Tooltip;
