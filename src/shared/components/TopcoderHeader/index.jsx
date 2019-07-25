@@ -358,6 +358,7 @@ export default class TopcoderHeader extends React.Component {
             {userMenuHandle}
             {authButtons}
             <div
+              role="button"
               tabIndex={0}
               data-menu="search"
               className={searchOpened ? 'opened' : ''}
