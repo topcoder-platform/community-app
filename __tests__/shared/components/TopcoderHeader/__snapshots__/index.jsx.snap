@@ -78,6 +78,7 @@ exports[`Default render 1`] = `
         />
       </span>
       <div
+        aria-label="Search"
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onMouseEnter={[Function]}
@@ -359,6 +360,7 @@ exports[`Render with open menu 1`] = `
         />
       </span>
       <div
+        aria-label="Search"
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onMouseEnter={[Function]}
@@ -657,6 +659,8 @@ exports[`Render with specified profile 1`] = `
               "color": "#555555",
             }
           }
+          role="button"
+          tabIndex={0}
         />
         <div
           className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
@@ -670,6 +674,7 @@ exports[`Render with specified profile 1`] = `
         </div>
       </div>
       <div
+        aria-label="Search"
         className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onMouseEnter={[Function]}
