@@ -8,7 +8,7 @@ test('Matches shallow shapshot', () => {
   renderer.render((
     <Item
       currentSubMenuTitle="title"
-      icon="icon url"
+      icon={<div />}
       title="title"
       link="menu url"
     />
@@ -18,7 +18,7 @@ test('Matches shallow shapshot', () => {
   renderer.render((
     <Item
       currentSubMenuTitle="another title"
-      icon="icon url"
+      icon={<div />}
       title="title"
       link="menu url"
     />
