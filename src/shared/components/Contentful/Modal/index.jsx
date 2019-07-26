@@ -155,6 +155,7 @@ ContentfulModal.propTypes = {
   children: PT.node.isRequired,
   theme: PT.shape({
     modalTrigger: PT.string,
+    dismissButton: PT.any,
   }),
   preview: PT.bool,
   spaceName: PT.string,

@@ -6,6 +6,7 @@ exports[`renders a full Profile correctly 1`] = `
 >
   <div
     className="src-shared-components-ProfilePage-___styles__profile-container___13E1W"
+    role="main"
   >
     <div
       className="src-shared-components-ProfilePage-___styles__about-container___3Bxx5"
@@ -619,6 +620,7 @@ exports[`renders an empty Profile correctly 1`] = `
 >
   <div
     className="src-shared-components-ProfilePage-___styles__profile-container___13E1W"
+    role="main"
   >
     <div
       className="src-shared-components-ProfilePage-___styles__about-container___3Bxx5"

@@ -110,6 +110,8 @@ ContentSlider.propTypes = {
     container: PT.string,
     content: PT.string,
     control: PT.string,
+    multiContent: PT.any,
+    singleContent: PT.any,
   }),
   containerStyle: PT.shape(),
   slidesToShow: PT.number,
