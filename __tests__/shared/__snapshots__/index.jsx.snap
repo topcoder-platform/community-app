@@ -5,6 +5,11 @@ exports[`Snapshot match 1`] = `
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
+    htmlAttributes={
+      Object {
+        "lang": "en",
+      }
+    }
   >
     <meta
       content="#FFFFFF"
@@ -34,6 +39,11 @@ exports[`Snapshot match 2`] = `
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
+    htmlAttributes={
+      Object {
+        "lang": "en",
+      }
+    }
   >
     <meta
       content="#FFFFFF"
