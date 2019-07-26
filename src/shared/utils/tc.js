@@ -110,7 +110,7 @@ export const RATING_COLORS = [{
   color: '#FCD617' /* Yellow */,
   limit: 2200,
 }, {
-  color: '#EF3A3A' /* Red */,
+  color: '#EB1313' /* Red */,
   limit: Infinity,
 }];
 export function getRatingColor(rating) {
