@@ -55,7 +55,7 @@ class SubmissionsPageContainer extends React.Component {
     const isRegistered = registrants.find(r => _.toString(r.handle) === _.toString(handle));
     if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     return (
-      <div>
+      <React.Fragment>
         <MetaTags
           description={`Submit for ${challengeName}`}
           siteName="Topcoder"
@@ -65,7 +65,7 @@ class SubmissionsPageContainer extends React.Component {
           {...this.props}
           submitForm={this.handleSubmit}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
