@@ -86,6 +86,7 @@ HomeContainer.propTypes = {
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
     timestamp: PT.number.isRequired,
+    loadingUuid: PT.any,
   }).isRequired,
   getAllActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
