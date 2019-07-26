@@ -1,5 +1,5 @@
 export default returnUrl => `<!DOCTYPE html>
-  <html>
+  <html lang="en">
     <head>
       <title>Simple Mock of DocuSign page</title>
     </head>
