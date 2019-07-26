@@ -3,56 +3,55 @@
 exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
+  role="contentinfo"
 >
-  <nav>
-    <ol>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+  <ol>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/about"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/about"
-        >
-          ABOUT US
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        ABOUT US
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/contact"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/contact"
-        >
-          CONTACT US
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        CONTACT US
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://help.topcoder-dev.com"
       >
-        <a
-          href="https://help.topcoder-dev.com"
-        >
-          HELP CENTER
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        HELP CENTER
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
-        >
-          PRIVACY POLICY
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        PRIVACY POLICY
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/terms/"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/how-it-works/terms/"
-        >
-          TERMS
-        </a>
-      </li>
-    </ol>
-  </nav>
+        TERMS
+      </a>
+    </li>
+  </ol>
   <div
     className="src-shared-components-TopcoderFooter-___style__social-links___2G4Ia"
   >

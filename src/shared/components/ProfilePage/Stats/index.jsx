@@ -80,7 +80,7 @@ class ProfileStats extends React.Component {
     }
 
     return (
-      <div styleName="profile-subtrack-container">
+      <div styleName="profile-subtrack-container" role="main">
         <div styleName="content">
           <div styleName="page-state-header">
             <header>
