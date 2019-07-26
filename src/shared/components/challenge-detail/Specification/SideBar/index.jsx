@@ -109,7 +109,7 @@ Final Review:
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip content={reviewTip} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip">
+                <div styleName="tctooltip" tabIndex="0" role="button">
 ?
                 </div>
               </Tooltip>
@@ -120,7 +120,7 @@ Approval:
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip">
+                <div styleName="tctooltip" tabIndex="0" role="button">
 ?
                 </div>
               </Tooltip>
