@@ -90,6 +90,9 @@
   width: 100%;
   transition: all 0.25s ease-in-out;
   z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:global.opened {
     height: 128px;
@@ -111,6 +114,16 @@
     &::placeholder {
       color: $tc-gray-20;
     }
+  }
+
+  .search-label {
+    color: $tc-white;
+    font-size: 15px;
+    width: 160px;
+  }
+
+  .search-input {
+    margin-bottom: 0 !important;
   }
 }
 
