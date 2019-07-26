@@ -107,6 +107,7 @@ exports[`Default render 1`] = `
     role="search"
   >
     <input
+      aria-label="Find members by username or skill"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -399,6 +400,7 @@ exports[`Render with open menu 1`] = `
     role="search"
   >
     <input
+      aria-label="Find members by username or skill"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -699,6 +701,7 @@ exports[`Render with specified profile 1`] = `
     role="search"
   >
     <input
+      aria-label="Find members by username or skill"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />

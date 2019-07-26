@@ -413,6 +413,7 @@ export default class TopcoderHeader extends React.Component {
                 }`;
               }
             }}
+            aria-label="Find members by username or skill"
             placeholder="Find members by username or skill"
           />
         </div>
