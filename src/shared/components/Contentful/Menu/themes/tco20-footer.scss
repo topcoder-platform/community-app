@@ -1,0 +1,60 @@
+@import '~styles/mixins';
+
+.outerContainer {
+  @include xs-to-sm {
+    margin-bottom: 1em !important;
+    margin-left: 35px;
+  }
+
+  .title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 25px;
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .menuContainer {
+    display: flex;
+    align-items: left;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      list-style-type: none;
+      text-align: left;
+      padding: 0;
+    }
+  }
+
+  a.menuItemLink {
+    text-decoration: none;
+    padding: 0;
+
+    @include roboto-regular;
+
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+  }
+}
+
+.submenu {
+  display: none;
+
+  .outerContainer {
+    margin-left: 1em;
+  }
+
+  .menuContainer {
+    display: flex;
+    align-items: left;
+
+    .container {
+      flex-direction: column !important;
+    }
+  }
+}
