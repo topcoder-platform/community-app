@@ -35,6 +35,7 @@ export default class ShareSocial extends React.Component {
           <a
             className="addthis_button_facebook"
             title="Facebook"
+            aria-label="Share via Facebook"
             href="#"
           >
             <div styleName="facebook-icon">
@@ -46,6 +47,7 @@ f
           <a
             className="addthis_button_twitter"
             title="Twitter"
+            aria-label="Share via Twitter"
             href="#"
           >
             <TwitterIcon />
@@ -53,6 +55,7 @@ f
           <a
             className="addthis_button_print"
             title="Print"
+            aria-label="Print this challenge"
             href="#"
           >
             <PrintIcon />
@@ -61,6 +64,7 @@ f
             className="addthis_button_email"
             target="_blank"
             title="Email"
+            aria-label="Email this challenge"
             href="#"
           >
             <EmailIcon />
@@ -68,6 +72,7 @@ f
           <a
             className="addthis_button_compact"
             href="#"
+            aria-label="More sharing options"
           >
             <MoreIcon />
           </a>
