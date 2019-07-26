@@ -301,9 +301,10 @@ Uploading:
                 }).then(file => this.onSuccess(file, path));
                 return undefined;
               }}
-              role="button"
+              role="tab"
               styleName="drop-zone-mask"
               tabIndex={0}
+              aria-label="Select file to upload"
             />
           )}
         </div>

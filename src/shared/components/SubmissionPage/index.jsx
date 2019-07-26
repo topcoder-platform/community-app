@@ -40,7 +40,7 @@ function SubmissionsPage(props) {
 
   return (
     <div styleName="container">
-      <div styleName="content">
+      <div styleName="content" role="main">
         <Header
           challengeId={challengeId}
           challengesUrl={challengesUrl}

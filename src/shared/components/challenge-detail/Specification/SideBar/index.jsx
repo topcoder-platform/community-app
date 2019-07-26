@@ -100,12 +100,12 @@ DOWNLOADS:
         {
           !isDesign && !isMM && (
           <div>
-            <h3>
+            <h2>
 REVIEW STYLE:
-            </h3>
-            <h4>
+            </h2>
+            <h3>
 Final Review:
-            </h4>
+            </h3>
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip content={reviewTip}>
@@ -114,9 +114,9 @@ Final Review:
                 </div>
               </Tooltip>
             </span>
-            <h4>
+            <h3>
 Approval:
-            </h4>
+            </h3>
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
@@ -131,9 +131,9 @@ Approval:
         {
           !isMM && (
           <div>
-            <h3>
+            <h2>
   CHALLENGE LINKS:
-            </h3>
+            </h2>
             {
               isDevelop && environment && environment.length > 0
               && (
@@ -181,12 +181,12 @@ Approval:
           isDesign
           && (
           <div>
-            <h3>
+            <h2>
 SUBMISSION FORMAT:
-            </h3>
-            <h4>
+            </h2>
+            <h3>
 Your Design Files:
-            </h4>
+            </h3>
             <ol>
               <li>
                 {'Look for instructions in this challenge regarding what files to provide.'}
@@ -214,31 +214,29 @@ Your Design Files:
 Read the FAQ.
               </a>
             </p>
-            <h4>
+            <h3>
 Fonts, Stock Photos, and Icons:
-            </h4>
+            </h3>
             <p styleName="link-like-paragraph">
               All fonts, stock photos, and icons within your design must be declared
               when you submit. DO NOT include any 3rd party files in your
-              submission or source files.
-              Read about the policy
+              submission or source files. Read about the
               {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges">
-                here.
+                policy.
               </a>
             </p>
-            <h4>
+            <h3>
 Screening:
-            </h4>
+            </h3>
             <p styleName="link-like-paragraph">
               All submissions are screened for eligibility before the challenge
               holder picks winners. Don
               {"'"}
-t let your hard work go to waste.
-              Learn more about how to pass screening
+t let your hard work go to waste. Learn more about how to
               {' '}
               <a href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges">
-                here.
+                pass screening.
               </a>
             </p>
             <p styleName="link-like-paragraph">
@@ -250,9 +248,9 @@ t let your hard work go to waste.
                 </a>
               }
             </p>
-            <h3>
+            <h2>
 SOURCE FILES:
-            </h3>
+            </h2>
             <ul styleName="source-files-list">
               {
                 fileTypes && fileTypes.length > 0
@@ -267,9 +265,9 @@ SOURCE FILES:
             <p styleName="link-like-paragraph">
               You must include all source files with your submission.
             </p>
-            <h3>
+            <h2>
 SUBMISSION LIMIT:
-            </h3>
+            </h2>
             <p styleName="link-like-paragraph">
               {
                 submissionLimit
@@ -287,9 +285,9 @@ SUBMISSION LIMIT:
           terms.length > 0
           && (
           <div>
-            <h3>
+            <h2>
 CHALLENGE TERMS:
-            </h3>
+            </h2>
             <div styleName="link-like-paragraph">
               {
                 terms.map(t => (
@@ -308,9 +306,9 @@ CHALLENGE TERMS:
         }
         { shareable && (
           <div>
-            <h3>
+            <h2>
 SHARE:
-            </h3>
+            </h2>
             <ShareSocial />
           </div>
         )}

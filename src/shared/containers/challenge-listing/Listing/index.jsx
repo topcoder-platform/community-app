@@ -237,7 +237,7 @@ export class ListingContainer extends React.Component {
     }
 
     return (
-      <div styleName="container">
+      <div styleName="container" role="main">
         <MetaTags
           description={description}
           image={ogImage}
