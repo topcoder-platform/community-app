@@ -21,7 +21,7 @@ function Tooltip({
   suppressDiv,
   trigger,
   defaultVisible,
-  name
+  name,
 }) {
   return (
     <RCTooltip
