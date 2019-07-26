@@ -654,12 +654,12 @@ exports[`Render with specified profile 1`] = `
       >
         <div
           className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
+          role="button"
           style={
             Object {
               "color": "#555555",
             }
           }
-          role="button"
           tabIndex={0}
         />
         <div
