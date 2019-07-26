@@ -87,6 +87,7 @@ MemberCardInner.propTypes = {
     memberName: PT.any,
     countryWrapper: PT.any,
     countryName: PT.any,
+    description: PT.any,
   }).isRequired,
 };
 
