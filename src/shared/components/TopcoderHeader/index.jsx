@@ -380,8 +380,6 @@ export default class TopcoderHeader extends React.Component {
                 }
               }}
               styleName="search-icon"
-              tabIndex="0"
-              role="button"
             >
               <MagnifyingGlass />
             </div>
