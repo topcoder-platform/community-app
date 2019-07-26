@@ -261,9 +261,9 @@ export default function ChallengeHeader(props) {
         </div>
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
-            <h3 styleName="prizes-title">
+            <h2 styleName="prizes-title">
 PRIZES
-            </h3>
+            </h2>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
               bonusType ? (
@@ -429,6 +429,26 @@ ChallengeHeader.propTypes = {
   checkpoints: PT.shape(),
   challenge: PT.shape({
     id: PT.number.isRequired,
+    drPoints: PT.any,
+    name: PT.any,
+    subTrack: PT.any,
+    pointPrizes: PT.any,
+    events: PT.any,
+    technologies: PT.any,
+    platforms: PT.any,
+    prizes: PT.any,
+    numberOfCheckpointsPrizes: PT.any,
+    topCheckPointPrize: PT.any,
+    reliabilityBonus: PT.any,
+    userDetails: PT.any,
+    currentPhases: PT.any,
+    numRegistrants: PT.any,
+    numSubmissions: PT.any,
+    status: PT.any,
+    appealsEndDate: PT.any,
+    allPhases: PT.any,
+    track: PT.any,
+    roundId: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,

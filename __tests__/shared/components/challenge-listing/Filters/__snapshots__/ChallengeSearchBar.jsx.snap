@@ -3,6 +3,7 @@
 exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
+  role="search"
 >
   <input
     onChange={[Function]}
@@ -30,6 +31,7 @@ exports[`Matches shallow shapshot 1`] = `
 exports[`Matches shallow shapshot 2`] = `
 <div
   className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
+  role="search"
 >
   <input
     onChange={[Function]}

@@ -3,61 +3,61 @@
 exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
+  role="contentinfo"
 >
-  <nav>
-    <ul>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+  <ol>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/about"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/about"
-        >
-          ABOUT US
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        ABOUT US
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/contact"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/contact"
-        >
-          CONTACT US
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        CONTACT US
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://help.topcoder-dev.com"
       >
-        <a
-          href="https://help.topcoder-dev.com"
-        >
-          HELP CENTER
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        HELP CENTER
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
-        >
-          PRIVACY POLICY
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        PRIVACY POLICY
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/terms/"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/how-it-works/terms/"
-        >
-          TERMS
-        </a>
-      </li>
-    </ul>
-  </nav>
+        TERMS
+      </a>
+    </li>
+  </ol>
   <div
     className="src-shared-components-TopcoderFooter-___style__social-links___2G4Ia"
   >
     <hr />
     <a
+      aria-label="Facebook"
       href="https://www.facebook.com/topcoder"
       target="fbwindow"
     >
@@ -78,6 +78,7 @@ exports[`Matches shallow shapshot 1`] = `
       </svg>
     </a>
     <a
+      aria-label="Twitter"
       href="http://www.twitter.com/topcoder"
       target="twwindow"
     >
@@ -98,6 +99,7 @@ exports[`Matches shallow shapshot 1`] = `
       </svg>
     </a>
     <a
+      aria-label="Linkedin"
       href="https://www.linkedin.com/company/topcoder"
       target="liwindow"
     >
@@ -118,6 +120,7 @@ exports[`Matches shallow shapshot 1`] = `
       </svg>
     </a>
     <a
+      aria-label="Instagram"
       href="https://www.instagram.com/topcoder"
       target="inwindow"
     >

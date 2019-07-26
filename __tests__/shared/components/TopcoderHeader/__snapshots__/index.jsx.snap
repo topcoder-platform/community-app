@@ -4,6 +4,7 @@ exports[`Default render 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
   onMouseLeave={[Function]}
+  role="banner"
 >
   <div
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
@@ -22,6 +23,7 @@ exports[`Default render 1`] = `
     </a>
     <ul
       className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+      role="navigation"
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
@@ -82,7 +84,7 @@ exports[`Default render 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       >
         <MagnifyingGlass
           height="18"
@@ -102,6 +104,7 @@ exports[`Default render 1`] = `
   <div
     className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
+    role="search"
   >
     <input
       onKeyPress={[Function]}
@@ -282,6 +285,7 @@ exports[`Render with open menu 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
   onMouseLeave={[Function]}
+  role="banner"
 >
   <div
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
@@ -300,6 +304,7 @@ exports[`Render with open menu 1`] = `
     </a>
     <ul
       className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+      role="navigation"
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6 src-shared-components-TopcoderHeader-___style__opened___1WPVI src-shared-components-TopcoderHeader-___style__current___1Hk7o"
@@ -360,7 +365,7 @@ exports[`Render with open menu 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       >
         <MagnifyingGlass
           height="18"
@@ -391,6 +396,7 @@ exports[`Render with open menu 1`] = `
   <div
     className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
+    role="search"
   >
     <input
       onKeyPress={[Function]}
@@ -571,6 +577,7 @@ exports[`Render with specified profile 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
   onMouseLeave={[Function]}
+  role="banner"
 >
   <div
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
@@ -589,6 +596,7 @@ exports[`Render with specified profile 1`] = `
     </a>
     <ul
       className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+      role="navigation"
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
@@ -675,7 +683,7 @@ exports[`Render with specified profile 1`] = `
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       >
         <MagnifyingGlass
           height="18"
@@ -695,6 +703,7 @@ exports[`Render with specified profile 1`] = `
   <div
     className="opened src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
+    role="search"
   >
     <input
       onKeyPress={[Function]}

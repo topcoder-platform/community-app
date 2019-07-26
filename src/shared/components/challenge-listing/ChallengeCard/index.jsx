@@ -131,8 +131,7 @@ function ChallengeCard({
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
-          >
-            {challenge.name}
+          ><h3>{challenge.name}</h3>
           </Link>
           <div styleName="details-footer">
             <span styleName="date">

@@ -339,6 +339,7 @@ export default class TopcoderHeader extends React.Component {
     return (
       <div
         styleName="header"
+        role="banner"
         ref={(div) => { this.headerRoot = div; }}
         onMouseLeave={() => {
           if (openedMenu) {
@@ -353,13 +354,15 @@ export default class TopcoderHeader extends React.Component {
           <a href={BASE_URL} styleName="logo" aria-label="Topcoder Homepage">
             <LogoTopcoderWithName height={53} width={135} />
           </a>
-          <ul styleName="main-menu" ref={(ul) => { this.mainMenu = ul; }}>
+          <ul styleName="main-menu" role="navigation" ref={(ul) => { this.mainMenu = ul; }}>
             {mainMenu}
           </ul>
           <div styleName="right-menu">
             {userMenuHandle}
             {authButtons}
             <div
+              role="button"
+              tabIndex={0}
               data-menu="search"
               className={searchOpened ? 'opened' : ''}
               onMouseEnter={event => !isMobile && openSearch(event.target)}
@@ -391,6 +394,7 @@ export default class TopcoderHeader extends React.Component {
           trigger={activeTrigger}
         />
         <div
+          role="search"
           className={searchOpened ? 'opened' : ''}
           onMouseLeave={(event) => {
             /* False when cursor leaves from the sub-menu to the element that has
