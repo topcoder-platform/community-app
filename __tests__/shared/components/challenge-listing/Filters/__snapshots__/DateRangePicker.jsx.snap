@@ -46,6 +46,7 @@ exports[`Matches shallow shapshot 1`] = `
       "calendarLabel": "Calendar",
       "chooseAvailableEndDate": [Function],
       "chooseAvailableStartDate": [Function],
+      "clearDate": "Clear Date",
       "clearDates": "Clear Dates",
       "closeDatePicker": "Close",
       "dateIsSelected": [Function],
@@ -57,8 +58,8 @@ exports[`Matches shallow shapshot 1`] = `
       "focusStartDate": "Interact with the calendar and add the check-in date for your trip.",
       "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
       "homeEnd": "Home and end keys",
-      "jumpToNextMonth": "Move forward to switch to the next month.",
-      "jumpToPrevMonth": "Move backward to switch to the previous month.",
+      "jumpToNextMonth": "Next Month",
+      "jumpToPrevMonth": "Previous Month",
       "keyboardNavigationInstructions": "Press the down arrow key to interact with the calendar and
   select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
       "keyboardShortcuts": "Keyboard Shortcuts",
