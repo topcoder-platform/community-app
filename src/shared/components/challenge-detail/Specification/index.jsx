@@ -564,6 +564,9 @@ ChallengeDetailsView.propTypes = {
   hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     introduction: PT.string,
+    documents: PT.any,
+    id: PT.any,
+    subTrack: PT.any,
     detailedRequirements: PT.string,
     track: PT.string.isRequired,
     groups: PT.shape().isRequired,
