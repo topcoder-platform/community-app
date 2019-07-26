@@ -12,7 +12,7 @@ const Viewport = ({
   theme,
   viewportId,
 }) => (
-  <div id={viewportId} className={theme.container} style={extraStylesForContainer}>
+  <div id={viewportId} className={theme.container} style={extraStylesForContainer} role="main">
     {children}
   </div>
 );
