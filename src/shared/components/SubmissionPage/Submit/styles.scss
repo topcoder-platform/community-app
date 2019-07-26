@@ -187,7 +187,14 @@
       margin-bottom: 30px;
 
       input[type=checkbox] {
-        display: none;
+        opacity: 0;
+        visibility: visible;
+        width: 15px;
+        height: 15px;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        margin: 0;
       }
 
       label {
@@ -233,6 +240,11 @@
       input[type=checkbox]:checked + label::after {
         opacity: 1;
         border-color: $tc-white;
+      }
+
+      input[type=checkbox]:focus~label {
+        box-shadow: 0 0 0 1px $tc-dark-blue;
+        outline: 1px solid transparent; // For Windows high contrast mode.
       }
     }
   }
