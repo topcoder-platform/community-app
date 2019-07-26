@@ -81,6 +81,9 @@ MemberCardInner.propTypes = {
     handleWrapper: PT.string,
     handle: PT.string,
     flag: PT.string,
+    memberName: PT.any,
+    countryWrapper: PT.any,
+    countryName: PT.any,
   }).isRequired,
 };
 

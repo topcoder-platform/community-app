@@ -77,6 +77,7 @@ AccordionItem.propTypes = {
     titleText: PT.string,
     titleArrow: PT.string,
     content: PT.string,
+    title: PT.string,
   }),
 };
 
