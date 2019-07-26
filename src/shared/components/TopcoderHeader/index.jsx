@@ -391,7 +391,7 @@ export default class TopcoderHeader extends React.Component {
         />
         <div
           role="search"
-          className={searchOpened ? 'opened' : ''}
+          className={searchOpened ? 'opened' : 'closed'}
           onMouseLeave={(event) => {
             /* False when cursor leaves from the sub-menu to the element that has
              * opened it. In that case we want to keep the menu opened, and the
