@@ -139,5 +139,7 @@ Winner.propTypes = {
   winner: PT.shape({
     handle: PT.string.isRequired,
     placement: PT.number.isRequired,
+    photoURL: PT.any,
+    submissionDownloadLink: PT.any,
   }).isRequired,
 };

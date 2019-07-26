@@ -110,6 +110,8 @@ $challenge-radius-4: $corner-radius * 2;
   // date and technologies
   .details-footer {
     margin-top: $challenge-space-10;
+    width: max-content;
+    width: -webkit-max-content;
 
     .date {
       font-size: 12px;
@@ -138,6 +140,12 @@ $challenge-radius-4: $corner-radius * 2;
 
     .technology:hover {
       background: $tc-dark-blue-30;
+    }
+
+    button {
+      &:last-of-type {
+        margin-right: 0;
+      }
     }
   }
 

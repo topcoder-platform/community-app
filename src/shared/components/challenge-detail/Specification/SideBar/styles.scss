@@ -31,7 +31,7 @@
 }
 
 .tctooltip {
-  background: $tc-green;
+  background: $tc-green-110;
   font-style: roboto;
   font-weight: 700;
   font-size: 13px;
@@ -91,7 +91,7 @@
     padding-bottom: 7px;
   }
 
-  h3 {
+  h2 {
     @include roboto-bold;
 
     font-size: 13px;
@@ -100,7 +100,7 @@
     padding-bottom: 2px;
   }
 
-  h4 {
+  h3 {
     @include roboto-bold;
 
     font-size: 13px;
@@ -109,7 +109,7 @@
     margin-top: 4 * $base-unit;
   }
 
-  h4:first-of-type {
+  h3:first-of-type {
     margin-top: 2 * $base-unit;
   }
 

@@ -102,6 +102,8 @@ Accordion.propTypes = {
     titleListItem: PT.string,
     titleListItemSelected: PT.string,
     content: PT.string,
+    outerContainer: PT.any,
+    description: PT.any,
   }),
   title: PT.string,
   description: PT.string,

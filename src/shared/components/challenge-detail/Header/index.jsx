@@ -47,6 +47,7 @@ export default function ChallengeHeader(props) {
     selectedView,
     showDeadlineDetail,
     hasFirstPlacement,
+    isMenuOpened,
   } = props;
 
   const {
@@ -239,7 +240,7 @@ export default function ChallengeHeader(props) {
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
-        <div styleName="title-wrapper">
+        <div styleName="title-wrapper" aria-hidden={isMenuOpened}>
           <Link to={challengesUrl}>
             <LeftArrow styleName="left-arrow" />
           </Link>
@@ -260,9 +261,9 @@ export default function ChallengeHeader(props) {
         </div>
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
-            <h3 styleName="prizes-title">
+            <h2 styleName="prizes-title">
 PRIZES
-            </h3>
+            </h2>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
               bonusType ? (
@@ -421,12 +422,33 @@ Show Deadlines
 
 ChallengeHeader.defaultProps = {
   checkpoints: {},
+  isMenuOpened: false,
 };
 
 ChallengeHeader.propTypes = {
   checkpoints: PT.shape(),
   challenge: PT.shape({
     id: PT.number.isRequired,
+    drPoints: PT.any,
+    name: PT.any,
+    subTrack: PT.any,
+    pointPrizes: PT.any,
+    events: PT.any,
+    technologies: PT.any,
+    platforms: PT.any,
+    prizes: PT.any,
+    numberOfCheckpointsPrizes: PT.any,
+    topCheckPointPrize: PT.any,
+    reliabilityBonus: PT.any,
+    userDetails: PT.any,
+    currentPhases: PT.any,
+    numRegistrants: PT.any,
+    numSubmissions: PT.any,
+    status: PT.any,
+    appealsEndDate: PT.any,
+    allPhases: PT.any,
+    track: PT.any,
+    roundId: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
@@ -442,4 +464,5 @@ ChallengeHeader.propTypes = {
   unregistering: PT.bool.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
+  isMenuOpened: PT.bool,
 };
