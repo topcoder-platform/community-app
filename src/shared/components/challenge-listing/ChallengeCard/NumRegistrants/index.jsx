@@ -51,6 +51,7 @@ export default function NumRegistrants({
           )}
           styleName="link"
           to={link}
+          aria-label={`Number of registrants ${numRegistrants}`}
         >
           <RegistrantsIcon />
           <span styleName="number">
