@@ -21,5 +21,8 @@ function ThemableComponent({ theme }) {
 export default themr('ThemableComponent', style)(ThemableComponent);
 
 ThemableComponent.propTypes = {
-  theme: PT.shape({}).isRequired,
+  theme: PT.shape({
+    box: PT.any,
+    text: PT.any,
+  }).isRequired,
 };
