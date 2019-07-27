@@ -44,7 +44,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <a
         aria-label="Privacy"
-         onClick={[Function]}
+        onClick={[Function]}
         onKeyPress={[Function]}
         role="link"
         tabIndex="0"
