@@ -55,10 +55,11 @@
 
     font-size: 24px;
     line-height: 26px;
+    font-weight: 500;
 
     @include xs-to-sm {
       font-size: 21px;
-      font-weight: 600;
+      font-weight: 500;
       line-height: 25px;
     }
   }
@@ -68,10 +69,11 @@
 
     font-size: 20px;
     line-height: 24px;
+    font-weight: 500;
 
     @include xs-to-sm {
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 500;
       line-height: 22px;
     }
   }

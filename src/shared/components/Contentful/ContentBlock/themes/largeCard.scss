@@ -2,10 +2,9 @@
 @import "./TCO19_thypo";
 
 .contentWrapper {
-  background-color: #0ab88a;
+  background-color: #555;
   border-radius: 10px;
-  width: 413px;
-  flex-direction: column !important;
+  width: 100%;
   padding: 0;
 }
 
@@ -15,11 +14,19 @@
   justify-content: flex-end;
   margin: 5px;
   padding: 0;
+
+  @include xs-to-sm {
+    margin: 0 15px;
+  }
 }
 
 .content {
-  padding: 17px 40px 30px 40px;
+  padding: 30px 40px 30px 40px;
   color: $tc-white;
+
+  @include xs-to-sm {
+    padding: 20px;
+  }
 
   h1,
   h2,
@@ -30,6 +37,7 @@
     font-family: "Barlow", Helvetica, Arial, sans-serif;
     color: $tc-white;
     text-transform: uppercase;
+    margin-bottom: 20px;
   }
 
   @include TCO19-default-headers;
@@ -52,20 +60,36 @@
     }
   }
 
+  ul {
+    color: white;
+
+    li p {
+      margin: 0;
+    }
+  }
+
   button {
-    margin: 10px 5px 0 0 !important;
+    margin: 40px 5px 0 0 !important;
+
+    @include xs-to-sm {
+      margin-top: 30px !important;
+    }
   }
 }
 
 .image {
   flex: 1;
-  max-height: 225px;
   margin: 0;
 
   img {
-    object-fit: cover;
     height: 100%;
     width: 100%;
-    max-width: 413px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    @include xs-to-sm {
+      border-top-left-radius: 10px;
+      border-bottom-right-radius: 0;
+    }
   }
 }
