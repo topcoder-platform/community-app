@@ -15,10 +15,6 @@ export default function Auth({ column }) {
     <div
       className={column ? 'column' : ''}
       styleName="auth"
-      onClick={(event) => { event.stopPropagation(); }}
-      onKeyPress={null}
-      role="button"
-      tabIndex="0"
     >
       <a
         className="tc-btn-sm tc-btn-primary"
