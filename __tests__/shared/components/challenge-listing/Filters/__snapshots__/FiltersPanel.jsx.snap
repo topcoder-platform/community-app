@@ -60,7 +60,6 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
-          placeholder="Select Keywords"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
@@ -132,7 +131,6 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
-          placeholder="Select Subtrack"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
