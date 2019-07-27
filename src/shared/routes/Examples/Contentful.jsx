@@ -25,6 +25,8 @@ import Blog from 'components/Contentful/Blog';
 import BlogFeed from 'containers/Contentful/BlogFeed';
 import Modal from 'components/Contentful/Modal';
 import MemberCard from 'components/Contentful/MemberCard';
+import Image from 'components/Contentful/Image';
+import Shape from 'components/Contentful/Shape';
 import qs from 'qs';
 
 import { Route, Switch } from 'react-router-dom';
@@ -212,6 +214,26 @@ export default function Contentful({ location, match }) {
         path={`${base}/blog-feed/:id`}
         component={p => (
           <BlogFeed
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/shape/:id`}
+        component={p => (
+          <Shape
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/image/:id`}
+        component={p => (
+          <Image
             id={p.match.params.id}
             preview
             spaceName={spaceName}
