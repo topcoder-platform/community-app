@@ -187,7 +187,12 @@
       margin-bottom: 30px;
 
       input[type=checkbox] {
-        display: none;
+        visibility: visible;
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
       }
 
       label {
@@ -228,6 +233,10 @@
       input[type=checkbox]:checked ~ label {
         background: $tc-dark-blue;
         border-color: $tc-dark-blue;
+      }
+
+      input[type=checkbox]:focus ~ label {
+        outline: 2px auto $tc-dark-blue;
       }
 
       input[type=checkbox]:checked + label::after {
