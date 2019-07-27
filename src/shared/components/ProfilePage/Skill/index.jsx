@@ -22,8 +22,8 @@ const Skill = ({
   isVerified,
 }) => (
   <div styleName="container">
-    <div styleName="skill-icon">
-      { assets && assets.keys().includes(`./id-${tagId}.svg`) ? <img src={assets(`./id-${tagId}.svg`)} alt="Skill Icon" /> : <FallbackIcon /> }
+    <div styleName="skill-icon" aria-label={`${tagName} Icon`}>
+      { assets && assets.keys().includes(`./id-${tagId}.svg`) ? <img src={assets(`./id-${tagId}.svg`)} alt={`${tagName} Icon`} /> : <FallbackIcon /> }
     </div>
     <div styleName="name-wrapper">
       <div styleName="name">

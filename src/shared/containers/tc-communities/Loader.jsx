@@ -146,6 +146,9 @@ Loader.propTypes = {
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
+    terms: PT.any,
+    groupIds: PT.any,
+    accessDeniedPage: PT.any,
   }),
   tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),
