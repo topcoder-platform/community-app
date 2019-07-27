@@ -33,12 +33,27 @@ module.exports = {
     rules: [
       {
         test: /\.svg$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: '/images/',
-          publicPath: `${publicPath}/images`,
-        },
-        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: '/images/',
+              publicPath: `${publicPath}/images`,
+            },
+          },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                {
+                  prefixIds: {
+                    prefix: true,
+                  },
+                },
+              ],
+            },
+          },
+        ],
       },
     ],
   },
