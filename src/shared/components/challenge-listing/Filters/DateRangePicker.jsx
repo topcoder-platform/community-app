@@ -45,7 +45,6 @@ class DateRangePicker extends React.Component {
     };
     return (
       <WrappedDateRangePicker
-        hideKeyboardShortcutsPanel
         numberOfMonths={numberOfMonths}
         focusedInput={focusedInput}
         isOutsideRange={() => false}
