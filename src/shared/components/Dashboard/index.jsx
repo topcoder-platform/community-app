@@ -44,7 +44,7 @@ export default function Dashboard({
 }) {
   return (
     <div styleName="container">
-      <div styleName="page">
+      <div styleName="page" role="main">
         <Header
           achievements={achievements}
           achievementsLoading={achievementsLoading}

@@ -60,6 +60,7 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
+          placeholder="Select Keywords"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
@@ -84,9 +85,10 @@ exports[`Matches shallow shapshot 1`] = `
           options={
             Array [
               Object {
-                "label": <div>
+                "data": <div>
                   Sample community
                 </div>,
+                "label": "Sample community",
                 "name": "Sample community",
                 "value": "123",
               },
@@ -130,6 +132,7 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
+          placeholder="Select Subtrack"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
@@ -275,6 +278,7 @@ exports[`Matches shallow shapshot 2`] = `
           multi={true}
           onChange={[Function]}
           options={Array []}
+          placeholder="Select Keywords"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
@@ -299,9 +303,10 @@ exports[`Matches shallow shapshot 2`] = `
           options={
             Array [
               Object {
-                "label": <div>
+                "data": <div>
                   Sample community
                 </div>,
+                "label": "Sample community",
                 "name": "Sample community",
                 "value": "123",
               },
@@ -334,6 +339,7 @@ exports[`Matches shallow shapshot 2`] = `
           multi={true}
           onChange={[Function]}
           options={Array []}
+          placeholder="Select Subtrack"
           selectRef={[Function]}
           simpleValue={true}
           value={null}

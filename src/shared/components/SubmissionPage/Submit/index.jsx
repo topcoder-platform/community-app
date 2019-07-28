@@ -316,14 +316,15 @@ Please follow the instructions on the Challenge Details page regarding
                 <input
                   type="checkbox"
                   id="agree"
+                  aria-label="I understand and agree"
                   onChange={e => setAgreed(e.target.checked)}
                 />
                 <label htmlFor="agree">
-                  <div styleName="tc-checkbox-label">
-I UNDERSTAND AND AGREE
-                  </div>
                   <input type="hidden" />
                 </label>
+                <div styleName="tc-checkbox-label">
+I UNDERSTAND AND AGREE
+                </div>
               </div>
               <PrimaryButton
                 type="submit"

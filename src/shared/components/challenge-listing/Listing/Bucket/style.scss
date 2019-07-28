@@ -26,3 +26,8 @@
   text-transform: none;
   width: 100%;
 }
+
+.view-more:focus {
+  border: 3px solid #79a3ef;
+  border-radius: 4px;
+}

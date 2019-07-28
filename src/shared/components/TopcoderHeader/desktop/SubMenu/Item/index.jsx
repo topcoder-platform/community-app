@@ -18,6 +18,7 @@ export default function Item({
 }) {
   let styleName = 'item';
   if (currentSubMenuTitle === title) styleName += ' current';
+  const accessibleIcon = React.cloneElement(icon, { 'aria-label': `${title}` });
   return (
     /* TODO: Should be done in a clean way, witout disabling eslint rules. */
     /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
@@ -29,7 +30,7 @@ export default function Item({
       tabIndex={0}
     >
       <Link enforceA={enforceA} openNewTab={openNewTab} to={link}>
-        {icon}
+        {accessibleIcon}
         {title}
       </Link>
     </li>

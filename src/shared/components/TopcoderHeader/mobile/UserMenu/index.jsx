@@ -34,5 +34,8 @@ UserMenu.defaultProps = {
 
 UserMenu.propTypes = {
   menu: SUB_MENU_SHAPE,
-  profile: PT.shape({}),
+  profile: PT.shape({
+    handle: PT.string,
+    photoURL: PT.string,
+  }),
 };

@@ -75,6 +75,7 @@ Quote.propTypes = {
     authorName: PT.string.isRequired,
     authorAffiliation: PT.string.isRequired,
     avatarContainer: PT.string.isRequired,
+    noImage: PT.any,
   }).isRequired,
 };
 

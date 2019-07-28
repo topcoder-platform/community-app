@@ -94,6 +94,7 @@ Bucket.propTypes = {
     hideCount: PT.bool,
     name: PT.string.isRequired,
     error: PT.string,
+    filter: PT.any,
   }).isRequired,
   challenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,
