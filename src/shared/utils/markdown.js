@@ -183,10 +183,17 @@ function renderToken(tokens, index, md) {
 // Array destructuring is not appropriate for this use case
 /* eslint-disable prefer-destructuring */
 function renderTokens(tokens, startFrom, md) {
+  const filteredTokens = tokens.map((token) => {
+    const t = token;
+    if (t.tag === 'ul') {
+      t.tag = 'ol';
+    }
+    return t;
+  });
   let level = 0;
   const output = [];
-  for (let pos = startFrom; pos < tokens.length; pos += 1) {
-    const token = tokens[pos];
+  for (let pos = startFrom; pos < filteredTokens.length; pos += 1) {
+    const token = filteredTokens[pos];
     const content = token.content;
     const html = token.type === 'html_inline';
     if (token.nesting === -1 || (html && content.startsWith('</'))) {
@@ -196,7 +203,7 @@ function renderTokens(tokens, startFrom, md) {
         output.push(React.createElement(
           token.tag,
           getProps(token, pos),
-          renderTokens(tokens, 1 + pos, md),
+          renderTokens(filteredTokens, 1 + pos, md),
         ));
         level += 1;
       } else if (token.type === 'html_inline') {
@@ -220,11 +227,11 @@ function renderTokens(tokens, startFrom, md) {
             output.push(React.createElement(
               tag,
               { key: pos, ...props },
-              renderTokens(tokens, pos + 1, md),
+              renderTokens(filteredTokens, pos + 1, md),
             ));
           }
         }
-      } else output.push(renderToken(tokens, pos, md));
+      } else output.push(renderToken(filteredTokens, pos, md));
     } else if (token.nesting === 1) {
       level += 1;
     } else if (html) {
