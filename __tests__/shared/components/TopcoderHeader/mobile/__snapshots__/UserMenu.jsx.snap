@@ -18,7 +18,7 @@ exports[`Snapshot match 1`] = `
         className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__handle___CL0Tq"
         style={
           Object {
-            "color": "#9D9FA0",
+            "color": "#555555",
           }
         }
       >

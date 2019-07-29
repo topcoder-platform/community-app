@@ -304,6 +304,7 @@ Uploading:
               role="button"
               styleName="drop-zone-mask"
               tabIndex={0}
+              aria-label="Select file to upload"
             />
           )}
         </div>
