@@ -27,7 +27,6 @@ export default function Prizes({ pointPrizes, prizes }) {
             <div 
               key={rank}
               role="contentinfo"
-              tabIndex={0} 
               aria-label={`${rank}${getOrdinal(rank)} prize is ${!_.isUndefined(prizes[index]) ? '$' : ''}${pair.join(' + ')}`} 
               styleName="prize-fill"
             >
