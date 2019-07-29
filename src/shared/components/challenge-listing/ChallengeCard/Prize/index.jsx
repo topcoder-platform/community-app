@@ -19,7 +19,7 @@ export default function Prize({
   withoutTooltip,
 }) {
   const component = (
-    <div>
+    <div aria-label={`${label} ${prizeUnitSymbol} ${totalPrize.toLocaleString()}`}>
       <div styleName="prize">
         <span styleName="symbol">
           {prizeUnitSymbol}
