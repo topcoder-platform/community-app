@@ -241,7 +241,7 @@ export default function ChallengeHeader(props) {
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
         <div styleName="title-wrapper" aria-hidden={isMenuOpened}>
-          <Link to={challengesUrl}>
+          <Link to={challengesUrl} aria-label="Back to challenge list">
             <LeftArrow styleName="left-arrow" />
           </Link>
           <div>
