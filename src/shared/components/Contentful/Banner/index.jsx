@@ -21,6 +21,7 @@ const THEMES = {
   Veterans: require('./themes/veterans.scss'),
   Zurich: require('./themes/zurich.scss'),
   General: require('./themes/general.scss'),
+  TCO20: require('./themes/tco20.scss'),
 };
 /* eslint-enable global-require */
 
