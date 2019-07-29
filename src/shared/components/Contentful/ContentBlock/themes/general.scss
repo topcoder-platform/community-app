@@ -85,6 +85,15 @@
     line-height: 25px;
   }
 
+  a {
+    color: #0d61bf !important;
+    text-decoration: underline;
+
+    &:visited {
+      color: #8231a9 !important;
+    }
+  }
+
   p {
     @include tc-body-md;
 

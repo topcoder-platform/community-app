@@ -93,6 +93,10 @@ $down-arrow-size: $base-unit;
       @include roboto-regular;
     }
 
+    .is-focused {
+      outline: 3px auto #006dea;
+    }
+
     .Select-control {
       line-height: 12px;
       border-radius: 20px;

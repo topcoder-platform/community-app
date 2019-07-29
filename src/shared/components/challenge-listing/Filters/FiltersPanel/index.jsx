@@ -215,6 +215,7 @@ Keywords
               <input type="hidden" />
             </label>
             <Select
+              placeholder="Select Keywords"
               id="keyword-select"
               multi
               onChange={(value) => {
@@ -254,6 +255,7 @@ Subtrack
               <input type="hidden" />
             </label>
             <Select
+              placeholder="Select Subtrack"
               id="track-select"
               multi
               onChange={(value) => {
