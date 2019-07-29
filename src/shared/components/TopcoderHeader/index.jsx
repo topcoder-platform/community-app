@@ -406,6 +406,7 @@ export default class TopcoderHeader extends React.Component {
           }}
           styleName="search-field"
         >
+          <span styleName="search-label">Search Members:</span>
           <input
             ref={(input) => { this.searchInput = input; }}
             onKeyPress={(event) => {
@@ -416,6 +417,7 @@ export default class TopcoderHeader extends React.Component {
               }
             }}
             placeholder="Find members by username or skill"
+            styleName="search-input"
           />
         </div>
         <MobileHeader

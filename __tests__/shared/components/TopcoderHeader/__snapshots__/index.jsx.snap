@@ -106,7 +106,13 @@ exports[`Default render 1`] = `
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -398,7 +404,13 @@ exports[`Render with open menu 1`] = `
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -705,7 +717,13 @@ exports[`Render with specified profile 1`] = `
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
