@@ -23,6 +23,9 @@ function SwitchWithLabel({
       className={theme.wrapper}
       onClick={() => onSwitch(!enabled)}
       onKeyPress={() => onSwitch(!enabled)}
+      role="switch"
+      aria-checked={enabled}
+      tabIndex={0}
     >
       {labelBefore}
       <Switch

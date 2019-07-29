@@ -246,7 +246,7 @@ export default class TopcoderHeader extends React.Component {
             <Link to={item.url}>
               {item.title}
             </Link>
-          ) : item.title}
+          ) : <span role="link" tabIndex={0}>{item.title}</span>}
         </li>
       );
     });
@@ -358,6 +358,8 @@ export default class TopcoderHeader extends React.Component {
             {userMenuHandle}
             {authButtons}
             <div
+              role="button"
+              tabIndex={0}
               data-menu="search"
               className={searchOpened ? 'opened' : ''}
               onMouseEnter={event => !isMobile && openSearch(event.target)}

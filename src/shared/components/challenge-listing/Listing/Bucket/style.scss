@@ -16,7 +16,7 @@
   border-left: 0;
   border-radius: 0;
   border-right: 0;
-  color: $tc-gray-50;
+  color: $tc-gray-60;
   cursor: pointer;
   display: block;
   font: 300 13px Arial, sans-serif;
@@ -25,4 +25,9 @@
   text-align: center;
   text-transform: none;
   width: 100%;
+}
+
+.view-more:focus {
+  border: 3px solid #79a3ef;
+  border-radius: 4px;
 }
