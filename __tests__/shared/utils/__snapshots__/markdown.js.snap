@@ -8,7 +8,7 @@ Array [
   <p>
     This test covers custom inline elements:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         
@@ -111,7 +111,7 @@ Array [
         />
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     Nested buttons:
     <br />
@@ -371,7 +371,7 @@ Array [
       <br />
     </p>
     <br />
-    <ul>
+    <ol>
       <br />
       <li>
         Koyaanisqatsi
@@ -385,7 +385,7 @@ Array [
         Naqoyqatsi
       </li>
       <br />
-    </ul>
+    </ol>
     <br />
     <p>
       <br />
@@ -461,7 +461,7 @@ Array [
   <h1>
     Markdown: Syntax
   </h1>,
-  <ul>
+  <ol>
     <li>
       <p>
         <a
@@ -470,7 +470,7 @@ Array [
           Overview
         </a>
       </p>
-      <ul>
+      <ol>
         <li>
           <p>
             <a
@@ -498,7 +498,7 @@ Array [
             </a>
           </p>
         </li>
-      </ul>
+      </ol>
     </li>
     <li>
       <p>
@@ -508,7 +508,7 @@ Array [
           Block Elements
         </a>
       </p>
-      <ul>
+      <ol>
         <li>
           <p>
             <a
@@ -563,7 +563,7 @@ Array [
             </a>
           </p>
         </li>
-      </ul>
+      </ol>
     </li>
     <li>
       <p>
@@ -573,7 +573,7 @@ Array [
           Span Elements
         </a>
       </p>
-      <ul>
+      <ol>
         <li>
           <p>
             <a
@@ -610,7 +610,7 @@ Array [
             </a>
           </p>
         </li>
-      </ul>
+      </ol>
     </li>
     <li>
       <p>
@@ -620,7 +620,7 @@ Array [
           Miscellaneous
         </a>
       </p>
-      <ul>
+      <ol>
         <li>
           <p>
             <a
@@ -639,9 +639,9 @@ Array [
             </a>
           </p>
         </li>
-      </ul>
+      </ol>
     </li>
-  </ul>,
+  </ol>,
   <p>
     
     <strong>
@@ -941,7 +941,7 @@ Array [
     <br />
     -- as list markers:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         Red
@@ -957,11 +957,11 @@ Array [
         Blue
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     is equivalent to:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         Red
@@ -977,11 +977,11 @@ Array [
         Blue
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     and:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         Red
@@ -997,7 +997,7 @@ Array [
         Blue
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     Ordered lists use numbers followed by periods:
   </p>,
@@ -1079,7 +1079,7 @@ Array [
   <p>
     To make lists look nice, you can wrap items with hanging indents:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -1096,11 +1096,11 @@ Array [
         Suspendisse id sem consectetuer libero luctus adipiscing.
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     But if you want to be lazy, you don't have to:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -1117,7 +1117,7 @@ Array [
         Suspendisse id sem consectetuer libero luctus adipiscing.
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     List items may consist of multiple paragraphs. Each subsequent
     <br />
@@ -1155,7 +1155,7 @@ Array [
     <br />
     lazy:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         This is a list item with two paragraphs.
@@ -1173,7 +1173,7 @@ Array [
         Another item in the same list.
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     To put a blockquote within a list item, the blockquote's 
     <code>
@@ -1189,7 +1189,7 @@ Array [
     <br />
     delimiters need to be indented:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         A list item with a blockquote:
@@ -1202,7 +1202,7 @@ Array [
         </p>
       </blockquote>
     </li>
-  </ul>,
+  </ol>,
   <p>
     To put a code block within a list item, the code block needs
     <br />
@@ -1212,7 +1212,7 @@ Array [
     </em>
      -- 8 spaces or two tabs:
   </p>,
-  <ul>
+  <ol>
     <li>
       <p>
         A list item with a code block:
@@ -1222,7 +1222,7 @@ Array [
 
       </code>
     </li>
-  </ul>,
+  </ol>,
   <h3>
     Code Blocks
   </h3>,
@@ -1558,7 +1558,7 @@ Array [
     />
     Markdown Test Page
   </h1>,
-  <ul>
+  <ol>
     <li>
       <p>
         <a
@@ -1631,7 +1631,7 @@ Array [
         </a>
       </p>
     </li>
-  </ul>,
+  </ol>,
   <hr />,
   <h1>
     <a
@@ -1780,7 +1780,7 @@ Array [
       <p>
         Melon
       </p>
-      <ul>
+      <ol>
         <li>
           <p>
             Cantaloupe
@@ -1796,7 +1796,7 @@ Array [
             Watermelon
           </p>
         </li>
-      </ul>
+      </ol>
     </li>
     <li>
       <p>
@@ -1812,7 +1812,7 @@ Array [
   <h3>
     Unordered List
   </h3>,
-  <ul>
+  <ol>
     <li>
       <p>
         Olive
@@ -1822,7 +1822,7 @@ Array [
       <p>
         Orange
       </p>
-      <ul>
+      <ol>
         <li>
           <p>
             Blood orange
@@ -1833,7 +1833,7 @@ Array [
             Clementine
           </p>
         </li>
-      </ul>
+      </ol>
     </li>
     <li>
       <p>
@@ -1850,7 +1850,7 @@ Array [
         Passionfruit
       </p>
     </li>
-  </ul>,
+  </ol>,
   <p>
     <a
       href="#top"
