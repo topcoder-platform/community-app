@@ -99,7 +99,7 @@ export function getRatingLevel(rating) {
  * they don't match colors in the current Topcoder style guide. */
 export const RATING_COLORS = [{
   color: '#BA4C00' /* Orange */,
-  limit: 0
+  limit: 0,
 }, {
   color: '#555555' /* Grey */,
   limit: 900,

@@ -3,56 +3,55 @@
 exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
+  role="contentinfo"
 >
-  <nav>
-    <ol>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+  <ol>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/about"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/about"
-        >
-          ABOUT US
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        ABOUT US
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/contact"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/contact"
-        >
-          CONTACT US
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        CONTACT US
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://help.topcoder-dev.com"
       >
-        <a
-          href="https://help.topcoder-dev.com"
-        >
-          HELP CENTER
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        HELP CENTER
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
-        >
-          PRIVACY POLICY
-        </a>
-      </li>
-      <li
-        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+        PRIVACY POLICY
+      </a>
+    </li>
+    <li
+      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+    >
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/terms/"
       >
-        <a
-          href="https://www.topcoder-dev.com/community/how-it-works/terms/"
-        >
-          TERMS
-        </a>
-      </li>
-    </ol>
-  </nav>
+        TERMS
+      </a>
+    </li>
+  </ol>
   <div
     className="src-shared-components-TopcoderFooter-___style__social-links___2G4Ia"
   >
@@ -69,7 +68,7 @@ exports[`Matches shallow shapshot 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title>
-          icon facebook
+          facebook
         </title>
         <path
           d="M24 .5H3c-1.65 0-3 1.35-3 3v21c0 1.651 1.35 3 3 3h10.5V17h-3v-3.713h3v-3.074c0-3.247 1.818-5.527 5.649-5.527l2.705.003v3.908h-1.796C18.567 8.597 18 9.716 18 10.754v2.535h3.852L21 17h-3v10.5h6c1.65 0 3-1.349 3-3v-21c0-1.65-1.35-3-3-3z"
@@ -90,7 +89,7 @@ exports[`Matches shallow shapshot 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title>
-          icon twitter
+          twitter
         </title>
         <path
           d="M24.774 6.083c.012.243.016.489.016.732 0 7.485-5.695 16.113-16.11 16.113-3.199 0-6.174-.938-8.68-2.546.444.053.894.08 1.35.08 2.655 0 5.096-.906 7.032-2.422a5.668 5.668 0 0 1-5.289-3.932 5.787 5.787 0 0 0 2.557-.097A5.668 5.668 0 0 1 1.11 8.456v-.07c.763.424 1.637.679 2.564.709a5.662 5.662 0 0 1-1.751-7.561A16.073 16.073 0 0 0 13.593 7.45a5.72 5.72 0 0 1-.146-1.291A5.66 5.66 0 0 1 19.11.5c1.628 0 3.1.686 4.133 1.786 1.289-.255 2.501-.725 3.596-1.374a5.683 5.683 0 0 1-2.49 3.132 11.326 11.326 0 0 0 3.252-.89 11.435 11.435 0 0 1-2.826 2.929z"
@@ -111,7 +110,7 @@ exports[`Matches shallow shapshot 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title>
-          icon linkedln
+          linkedln
         </title>
         <path
           d="M6 3.5c0 1.65-1.05 3-3 3-1.8 0-3-1.35-3-2.85C0 2 1.2.5 3 .5s3 1.35 3 3zm-6 24h6V8H0v19.5zM20.4 8.3c-3.15 0-4.95 1.8-5.7 3h-.15l-.3-2.55h-5.4c0 1.65.15 3.6.15 5.85v12.9h6V16.85c0-.6 0-1.05.15-1.5.45-1.05 1.2-2.4 2.85-2.4 2.1 0 3 1.8 3 4.2V27.5h6V16.4c0-5.55-2.85-8.1-6.6-8.1z"
@@ -132,7 +131,7 @@ exports[`Matches shallow shapshot 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title>
-          icon instagram
+          instagram
         </title>
         <g
           fill="#A3A3AD"
