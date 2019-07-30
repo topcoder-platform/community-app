@@ -61,21 +61,23 @@ export default function Registrants({ challenge, checkpointResults, results }) {
   return (
     <div styleName={`container ${twoRounds ? 'design' : ''}`}>
       <table>
-        <thead styleName="head">
-          <td styleName="col-1">
-Username
-          </td>
-          <td styleName="col-2">
-Registration Date
-          </td>
-          {twoRounds && (
-          <td styleName="col-3">
-Round 1 Submitted Date
-          </td>
-          )}
-          <td styleName="col-4">
-            {twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}
-          </td>
+        <thead>
+          <tr styleName="head">
+            <th styleName="col-1">
+  Username
+            </th>
+            <th styleName="col-2">
+  Registration Date
+            </th>
+            {twoRounds && (
+            <th styleName="col-3">
+  Round 1 Submitted Date
+            </th>
+            )}
+            <th styleName="col-4">
+              {twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}
+            </th>
+          </tr>
         </thead>
         <tbody styleName="body">
           {
