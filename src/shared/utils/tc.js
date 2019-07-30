@@ -98,6 +98,9 @@ export function getRatingLevel(rating) {
 /* TODO: The actual color values below are taken from topcoder-app. Probably,
  * they don't match colors in the current Topcoder style guide. */
 export const RATING_COLORS = [{
+  color: '#BA4C00' /* Orange */,
+  limit: 0
+}, {
   color: '#555555' /* Grey */,
   limit: 900,
 }, {
@@ -116,6 +119,9 @@ export const RATING_COLORS = [{
 export function getRatingColor(rating) {
   const COLOR_BLACK = '#151516';
   let i = 0; const r = Number(rating);
+  if (!rating) {
+    return COLOR_BLACK;
+  }
   while (RATING_COLORS[i].limit <= r) i += 1;
   return RATING_COLORS[i].color || COLOR_BLACK;
 }
