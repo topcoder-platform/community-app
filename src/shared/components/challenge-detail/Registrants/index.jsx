@@ -60,24 +60,25 @@ export default function Registrants({ challenge, checkpointResults, results }) {
 
   return (
     <div styleName={`container ${twoRounds ? 'design' : ''}`}>
-      <div styleName="head">
-        <div styleName="col-1">
+      <table>
+        <thead styleName="head">
+          <td styleName="col-1">
 Username
-        </div>
-        <div styleName="col-2">
+          </td>
+          <td styleName="col-2">
 Registration Date
-        </div>
-        {twoRounds && (
-        <div styleName="col-3">
+          </td>
+          {twoRounds && (
+          <td styleName="col-3">
 Round 1 Submitted Date
-        </div>
-        )}
-        <div styleName="col-4">
-          {twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}
-        </div>
-      </div>
-      <div styleName="body">
-        {
+          </td>
+          )}
+          <td styleName="col-4">
+            {twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}
+          </td>
+        </thead>
+        <tbody styleName="body">
+          {
           registrants.map((r) => {
             const placement = getPlace(results, r.handle, places);
             const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
@@ -98,22 +99,22 @@ Round 1 Submitted Date
             }
 
             return (
-              <div styleName="row" key={r.handle}>
-                <div styleName="col-1">
+              <tr styleName="row" key={r.handle}>
+                <td styleName="col-1">
                   <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
                     {r.handle}
                   </a>
-                </div>
-                <div styleName="col-2">
+                </td>
+                <td styleName="col-2">
                   <div styleName="sm-only title">
 Registration Date
                   </div>
                   {formatDate(r.registrationDate)}
-                </div>
+                </td>
                 {
                   twoRounds
                   && (
-                  <div styleName="col-3">
+                  <td styleName="col-3">
                     <div styleName="sm-only title">
 Round 1 Submitted Date
                     </div>
@@ -126,10 +127,10 @@ Round 1 Submitted Date
                         && <CheckMark styleName="passed" />
                       }
                     </div>
-                  </div>
+                  </td>
                   )
                 }
-                <div styleName="col-4">
+                <td styleName="col-4">
                   <div styleName="sm-only title">
                     {twoRounds ? 'Round 2 ' : ''}
 Submitted Date
@@ -144,12 +145,13 @@ Submitted Date
                     </span>
                     )}
                   </div>
-                </div>
-              </div>
+                </td>
+              </tr>
             );
           })
         }
-      </div>
+        </tbody>
+      </table>
     </div>
   );
 }
