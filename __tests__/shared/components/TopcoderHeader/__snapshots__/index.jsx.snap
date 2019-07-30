@@ -107,7 +107,14 @@ exports[`Default render 1`] = `
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      aria-label="Find members by username or skill"
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -400,7 +407,14 @@ exports[`Render with open menu 1`] = `
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      aria-label="Find members by username or skill"
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -662,16 +676,21 @@ exports[`Render with specified profile 1`] = `
           }
           tabIndex={0}
         />
-        <div
-          className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
+        <span
+          role="link"
+          tabIndex={0}
         >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            themePriority="adhoc-context-default"
-          />
-        </div>
+          <div
+            className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
+          >
+            <ThemedAvatar
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              mapThemrProps={[Function]}
+              themePriority="adhoc-context-default"
+            />
+          </div>
+        </span>
       </div>
       <div
         aria-label="Search"
@@ -703,7 +722,14 @@ exports[`Render with specified profile 1`] = `
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      aria-label="Find members by username or skill"
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
