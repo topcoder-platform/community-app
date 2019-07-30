@@ -669,7 +669,7 @@ exports[`Render with specified profile 1`] = `
           role="button"
           style={
             Object {
-              "color": "#555555",
+              "color": "#151516",
             }
           }
           tabIndex={0}
