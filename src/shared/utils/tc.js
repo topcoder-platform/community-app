@@ -101,7 +101,7 @@ export const RATING_COLORS = [{
   color: '#BA4C00' /* Orange */,
   limit: 0,
 }, {
-  color: '#555555' /* Grey */,
+  color: '#555555' /*  Grey */,
   limit: 900,
 }, {
   color: '#258025' /* Green */,
