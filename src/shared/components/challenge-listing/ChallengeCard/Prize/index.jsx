@@ -19,7 +19,8 @@ export default function Prize({
   withoutTooltip,
 }) {
   const component = (
-    <div aria-label={`${label} ${prizeUnitSymbol} ${totalPrize.toLocaleString()}`}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+    <div tabIndex={0} role="figure" aria-label={`${label} ${prizeUnitSymbol} ${totalPrize.toLocaleString()}`}>
       <div styleName="prize">
         <span styleName="symbol">
           {prizeUnitSymbol}
