@@ -80,6 +80,8 @@ exports[`Default render 1`] = `
       <div
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -107,6 +109,7 @@ exports[`Default render 1`] = `
     role="search"
   >
     <input
+      onBlur={[Function]}
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -361,6 +364,8 @@ exports[`Render with open menu 1`] = `
       <div
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -399,6 +404,7 @@ exports[`Render with open menu 1`] = `
     role="search"
   >
     <input
+      onBlur={[Function]}
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -672,6 +678,8 @@ exports[`Render with specified profile 1`] = `
       <div
         className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -699,6 +707,7 @@ exports[`Render with specified profile 1`] = `
     role="search"
   >
     <input
+      onBlur={[Function]}
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
