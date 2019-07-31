@@ -59,28 +59,25 @@ export default function Registrants({ challenge, checkpointResults, results }) {
     - new Date(b.registrationDate).getTime());
 
   return (
-    <div styleName={`container ${twoRounds ? 'design' : ''}`}>
-      <table>
-        <thead>
-          <tr styleName="head">
-            <th styleName="col-1">
-  Username
-            </th>
-            <th styleName="col-2">
-  Registration Date
-            </th>
-            {twoRounds && (
-            <th styleName="col-3">
-  Round 1 Submitted Date
-            </th>
-            )}
-            <th styleName="col-4">
-              {twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}
-            </th>
-          </tr>
-        </thead>
-        <tbody styleName="body">
-          {
+    <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
+      <div styleName="head" role="rowgroup">
+        <div styleName="col-1" role="row">
+          <span role="columnheader">Username</span>
+        </div>
+        <div styleName="col-2">
+          <span role="columnheader">Registration Date</span>
+        </div>
+        {twoRounds && (
+        <div styleName="col-3">
+          <span role="columnheader">Round 1 Submitted Date</span>
+        </div>
+        )}
+        <div styleName="col-4">
+          <span role="columnheader">{twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}</span>
+        </div>
+      </div>
+      <div styleName="body" role="rowgroup">
+        {
           registrants.map((r) => {
             const placement = getPlace(results, r.handle, places);
             const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
@@ -101,27 +98,29 @@ export default function Registrants({ challenge, checkpointResults, results }) {
             }
 
             return (
-              <tr styleName="row" key={r.handle}>
-                <td styleName="col-1">
-                  <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
-                    {r.handle}
-                  </a>
-                </td>
-                <td styleName="col-2">
+              <div styleName="row" key={r.handle} role="row">
+                <div styleName="col-1">
+                  <span role="cell">
+                    <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
+                      {r.handle}
+                    </a>
+                  </span>
+                </div>
+                <div styleName="col-2">
                   <div styleName="sm-only title">
 Registration Date
                   </div>
-                  {formatDate(r.registrationDate)}
-                </td>
+                  <span role="cell">{formatDate(r.registrationDate)}</span>
+                </div>
                 {
                   twoRounds
                   && (
-                  <td styleName="col-3">
+                  <div styleName="col-3">
                     <div styleName="sm-only title">
 Round 1 Submitted Date
                     </div>
                     <div>
-                      <span>
+                      <span role="cell">
                         {checkpoint}
                       </span>
                       {
@@ -129,31 +128,30 @@ Round 1 Submitted Date
                         && <CheckMark styleName="passed" />
                       }
                     </div>
-                  </td>
+                  </div>
                   )
                 }
-                <td styleName="col-4">
+                <div styleName="col-4">
                   <div styleName="sm-only title">
                     {twoRounds ? 'Round 2 ' : ''}
 Submitted Date
                   </div>
                   <div>
-                    <span>
+                    <span role="cell">
                       {final}
                     </span>
                     {placement > 0 && (
-                    <span styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>
+                    <span role="cell" styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>
                       {placement}
                     </span>
                     )}
                   </div>
-                </td>
-              </tr>
+                </div>
+              </div>
             );
           })
         }
-        </tbody>
-      </table>
+      </div>
     </div>
   );
 }
