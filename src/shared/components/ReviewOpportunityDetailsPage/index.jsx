@@ -38,7 +38,7 @@ const ReviewOpportunityDetailsPage = ({
   toggleRole,
 }) => (
   <div styleName="outer-container">
-    <div styleName="page">
+    <div styleName="page" role="main">
 
       <div styleName="header">
         <h1 styleName="challenge-title">

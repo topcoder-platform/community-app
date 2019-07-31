@@ -167,7 +167,7 @@ class ProfilePage extends React.Component {
           />
           )
         }
-        <div styleName="profile-container">
+        <div styleName="profile-container" role="main">
           <div styleName="about-container">
             <div styleName="profile-header-container">
               <Sticky

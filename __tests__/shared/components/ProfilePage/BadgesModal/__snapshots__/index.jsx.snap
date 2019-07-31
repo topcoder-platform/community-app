@@ -67,6 +67,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -91,6 +92,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -115,6 +117,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -139,6 +142,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -163,6 +167,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -191,6 +196,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -215,6 +221,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -239,6 +246,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -263,6 +271,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
@@ -287,6 +296,7 @@ exports[`renders achievements correctly 1`] = `
               />
             }
             defaultVisible={false}
+            id=""
             onTooltipHover={[Function]}
             placeArrow={[Function]}
             position="top"
