@@ -320,10 +320,12 @@ export default class TopcoderHeader extends React.Component {
               color: getRatingColor(_.get(normalizedProfile, 'maxRating.rating', 0)),
             }}
             styleName="user-menu-handle"
+            role="button"
+            tabIndex={0}
           >
             {normalizedProfile.handle}
           </div>
-          {userAvatar}
+          <span role="link" tabIndex={0}>{userAvatar}</span>
         </div>
       );
     } else {
@@ -359,6 +361,7 @@ export default class TopcoderHeader extends React.Component {
             {userMenuHandle}
             {authButtons}
             <div
+              aria-label="Search"
               role="button"
               tabIndex={0}
               data-menu="search"
@@ -409,6 +412,7 @@ export default class TopcoderHeader extends React.Component {
           }}
           styleName="search-field"
         >
+          <span styleName="search-label">Search Members:</span>
           <input
             ref={(input) => { this.searchInput = input; }}
             onKeyPress={(event) => {
@@ -419,7 +423,9 @@ export default class TopcoderHeader extends React.Component {
               }
             }}
             onBlur={closeSearch}
+            aria-label="Find members by username or skill"
             placeholder="Find members by username or skill"
+            styleName="search-input"
           />
         </div>
         <MobileHeader

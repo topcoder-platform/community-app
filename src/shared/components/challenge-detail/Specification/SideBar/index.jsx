@@ -108,8 +108,8 @@ Final Review:
             </h3>
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
-              <Tooltip content={reviewTip}>
-                <div styleName="tctooltip">
+              <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="review-tip">
 ?
                 </div>
               </Tooltip>
@@ -119,8 +119,8 @@ Approval:
             </h3>
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
-              <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
-                <div styleName="tctooltip">
+              <Tooltip id="approval-tip" content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="approval-tip">
 ?
                 </div>
               </Tooltip>
