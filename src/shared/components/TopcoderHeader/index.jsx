@@ -363,6 +363,11 @@ export default class TopcoderHeader extends React.Component {
               tabIndex={0}
               data-menu="search"
               className={searchOpened ? 'opened' : ''}
+              onFocus={event => !isMobile && openSearch(event.target)}
+              onBlur={(event) => {
+                if (!isMobile && activeTrigger
+                  && 1 + event.pageY < activeTrigger.bottom) closeSearch();
+              }}
               onMouseEnter={event => !isMobile && openSearch(event.target)}
               onMouseLeave={(event) => {
                 if (!isMobile && activeTrigger
@@ -413,6 +418,7 @@ export default class TopcoderHeader extends React.Component {
                 }`;
               }
             }}
+            onBlur={closeSearch}
             placeholder="Find members by username or skill"
           />
         </div>
