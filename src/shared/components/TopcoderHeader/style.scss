@@ -100,6 +100,10 @@
     transition: all 0.25s ease-in-out;
   }
 
+  &:global.closed {
+    display: none;
+  }
+
   input,
   input:active,
   input:focus,

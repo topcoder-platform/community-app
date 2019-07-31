@@ -366,6 +366,11 @@ export default class TopcoderHeader extends React.Component {
               tabIndex={0}
               data-menu="search"
               className={searchOpened ? 'opened' : ''}
+              onFocus={event => !isMobile && openSearch(event.target)}
+              onBlur={(event) => {
+                if (!isMobile && activeTrigger
+                  && 1 + event.pageY < activeTrigger.bottom) closeSearch();
+              }}
               onMouseEnter={event => !isMobile && openSearch(event.target)}
               onMouseLeave={(event) => {
                 if (!isMobile && activeTrigger
@@ -394,7 +399,7 @@ export default class TopcoderHeader extends React.Component {
         />
         <div
           role="search"
-          className={searchOpened ? 'opened' : ''}
+          className={searchOpened ? 'opened' : 'closed'}
           onMouseLeave={(event) => {
             /* False when cursor leaves from the sub-menu to the element that has
              * opened it. In that case we want to keep the menu opened, and the
@@ -417,6 +422,7 @@ export default class TopcoderHeader extends React.Component {
                 }`;
               }
             }}
+            onBlur={closeSearch}
             aria-label="Find members by username or skill"
             placeholder="Find members by username or skill"
             styleName="search-input"
