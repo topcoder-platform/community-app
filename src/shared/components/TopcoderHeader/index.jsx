@@ -320,8 +320,8 @@ export default class TopcoderHeader extends React.Component {
               color: getRatingColor(_.get(normalizedProfile, 'maxRating.rating', 0)),
             }}
             styleName="user-menu-handle"
-            tabIndex={0}
             role="button"
+            tabIndex={0}
           >
             {normalizedProfile.handle}
           </div>
@@ -361,6 +361,7 @@ export default class TopcoderHeader extends React.Component {
             {userMenuHandle}
             {authButtons}
             <div
+              aria-label="Search"
               role="button"
               tabIndex={0}
               data-menu="search"
