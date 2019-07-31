@@ -284,7 +284,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     return (
       <div styleName="outer-container">
-        <div styleName="challenge-detail-container">
+        <div styleName="challenge-detail-container" role="main">
           { Boolean(isEmpty) && (
             <div styleName="page">
               Challenge #

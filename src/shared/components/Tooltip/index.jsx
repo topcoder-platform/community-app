@@ -21,9 +21,11 @@ function Tooltip({
   suppressDiv,
   trigger,
   defaultVisible,
+  id,
 }) {
   return (
     <RCTooltip
+      id={id}
       placement={position}
       overlay={content}
       overlayClassName={className}
@@ -49,6 +51,7 @@ Tooltip.defaultProps = {
   position: 'top',
   className: '',
   content: '',
+  id: '',
   onTooltipHover: _.noop,
   placeArrow: _.noop,
   suppressDiv: false,
@@ -60,6 +63,7 @@ Tooltip.propTypes = {
   align: PT.shape({}),
   position: PT.string,
   children: PT.node.isRequired,
+  id: PT.string,
   className: PT.string,
   content: PT.node,
   onTooltipHover: PT.func,
