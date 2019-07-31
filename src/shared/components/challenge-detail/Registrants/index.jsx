@@ -60,8 +60,8 @@ export default function Registrants({ challenge, checkpointResults, results }) {
 
   return (
     <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
-      <div styleName="head" role="rowgroup">
-        <div styleName="col-1" role="row">
+      <div styleName="head" role="row">
+        <div styleName="col-1">
           <span role="columnheader">Username</span>
         </div>
         <div styleName="col-2">
