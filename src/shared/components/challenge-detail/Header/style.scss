@@ -164,7 +164,7 @@
 
           margin-top: 20px;
           font-size: 10px;
-          color: $tc-gray-50;
+          color: $tc-gray-60;
           line-height: 10px;
           letter-spacing: 1.33px;
         }
@@ -188,13 +188,13 @@
                 @include roboto-regular;
 
                 font-size: 13px;
-                color: $tc-gray-50;
+                color: $tc-gray-60;
                 letter-spacing: 0;
                 line-height: 15px;
                 margin-bottom: 5px;
 
                 .rank-ordinal {
-                  color: $tc-gray-50;
+                  color: $tc-gray-60;
                 }
               }
 
@@ -265,7 +265,7 @@
 
           display: flex;
           justify-content: flex-start;
-          color: $tc-gray-30;
+          color: $tc-gray-10;
           line-height: 20px;
           padding: 15px 20px;
           font-size: 15px;
@@ -296,7 +296,7 @@
           @include roboto-medium;
 
           font-size: 13px;
-          color: $tc-gray-20;
+          color: $tc-gray-10;
           letter-spacing: 0;
           line-height: 20px;
           padding: 15px 20px;
