@@ -190,9 +190,9 @@ class Submit extends React.Component {
           >
             <div styleName="row">
               <div styleName="left">
-                <h4>
+                <h2>
                   { isChallengeBelongToTopgearGroup ? 'URL' : 'FILES'}
-                </h4>
+                </h2>
                 <p>
 Please follow the instructions on the Challenge Details page regarding
                   what your submission should contain and how it should be organized.
