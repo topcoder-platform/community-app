@@ -27,7 +27,6 @@ export default function Item({
       onClick={closeMenu}
       onKeyPress={closeMenu}
       role="button"
-      tabIndex={0}
     >
       <Link enforceA={enforceA} openNewTab={openNewTab} to={link}>
         {accessibleIcon}

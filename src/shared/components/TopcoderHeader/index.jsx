@@ -240,6 +240,21 @@ export default class TopcoderHeader extends React.Component {
               this.addGlobalTouchListener();
             }
           }}
+          onKeyDownCapture={(event) => {
+            if (event.keyCode === 40 && !isMobile) {
+              openMenu(item, event.target);
+              window.setTimeout(() => {
+                document.querySelector('#submenu a').focus();
+              }, 500);
+              event.preventDefault();
+            } else if (event.keyCode === 38 && !isMobile) {
+              closeMenu();
+              window.setTimeout(() => {
+                document.querySelector('#navmenu a').focus();
+              }, 500);
+              event.preventDefault();
+            }
+          }}
           styleName={styleName}
         >
           {item.url ? (
@@ -313,6 +328,21 @@ export default class TopcoderHeader extends React.Component {
               this.addGlobalTouchListener();
             }
           }}
+          onKeyDownCapture={(event) => {
+            if (event.keyCode === 40 && !isMobile) {
+              openMenu(userSubMenu, event.target);
+              window.setTimeout(() => {
+                document.querySelector('#submenu a').focus();
+              }, 500);
+              event.preventDefault();
+            } else if (event.keyCode === 38 && !isMobile) {
+              closeMenu();
+              window.setTimeout(() => {
+                document.querySelector('#navmenu a').focus();
+              }, 500);
+              event.preventDefault();
+            }
+          }}
           styleName="user-menu"
         >
           <div
@@ -325,7 +355,7 @@ export default class TopcoderHeader extends React.Component {
           >
             {normalizedProfile.handle}
           </div>
-          <span role="link" tabIndex={0}>{userAvatar}</span>
+          <span id="user-avatar" role="link" tabIndex={0}>{userAvatar}</span>
         </div>
       );
     } else {
@@ -354,7 +384,7 @@ export default class TopcoderHeader extends React.Component {
           <a href={BASE_URL} styleName="logo" aria-label="Topcoder Homepage">
             <LogoTopcoderWithName height={53} width={135} />
           </a>
-          <ul styleName="main-menu" role="navigation" ref={(ul) => { this.mainMenu = ul; }}>
+          <ul id="navmenu" styleName="main-menu" role="navigation" ref={(ul) => { this.mainMenu = ul; }}>
             {mainMenu}
           </ul>
           <div styleName="right-menu">
@@ -365,8 +395,15 @@ export default class TopcoderHeader extends React.Component {
               role="button"
               tabIndex={0}
               data-menu="search"
-              className={searchOpened ? 'opened' : ''}
-              onFocus={event => !isMobile && openSearch(event.target)}
+              className={searchOpened ? 'opened focus' : ''}
+              onFocus={(event) => {
+                if (!isMobile) {
+                  openSearch(event.target);
+                  window.setTimeout(() => {
+                    this.searchInput.focus();
+                  }, 500);
+                }
+              }}
               onBlur={(event) => {
                 if (!isMobile && activeTrigger
                   && 1 + event.pageY < activeTrigger.bottom) closeSearch();
@@ -422,7 +459,12 @@ export default class TopcoderHeader extends React.Component {
                 }`;
               }
             }}
-            onBlur={closeSearch}
+            onBlur={() => {
+              document.querySelector('#user-avatar').focus();
+              window.setTimeout(() => {
+                closeSearch();
+              }, 500);
+            }}
             aria-label="Find members by username or skill"
             placeholder="Find members by username or skill"
             styleName="search-input"

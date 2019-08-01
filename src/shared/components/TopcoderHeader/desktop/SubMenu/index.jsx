@@ -26,6 +26,7 @@ export default function SubMenu({
   }
   return (
     <ul
+      id="submenu"
       onMouseLeave={(event) => {
         /* False when cursor leaves from the sub-menu to the element that has
          * opened it. In that case we want to keep the menu opened, and the

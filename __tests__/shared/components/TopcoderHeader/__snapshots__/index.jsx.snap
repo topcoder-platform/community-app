@@ -23,11 +23,13 @@ exports[`Default render 1`] = `
     </a>
     <ul
       className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+      id="navmenu"
       role="navigation"
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Compete"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -42,6 +44,7 @@ exports[`Default render 1`] = `
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Tracks"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -55,6 +58,7 @@ exports[`Default render 1`] = `
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Community"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -315,11 +319,13 @@ exports[`Render with open menu 1`] = `
     </a>
     <ul
       className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+      id="navmenu"
       role="navigation"
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6 src-shared-components-TopcoderHeader-___style__opened___1WPVI src-shared-components-TopcoderHeader-___style__current___1Hk7o"
         data-menu="Compete"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -334,6 +340,7 @@ exports[`Render with open menu 1`] = `
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Tracks"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -347,6 +354,7 @@ exports[`Render with open menu 1`] = `
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Community"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -618,11 +626,13 @@ exports[`Render with specified profile 1`] = `
     </a>
     <ul
       className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+      id="navmenu"
       role="navigation"
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Compete"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -637,6 +647,7 @@ exports[`Render with specified profile 1`] = `
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Tracks"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -650,6 +661,7 @@ exports[`Render with specified profile 1`] = `
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
         data-menu="Community"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -668,6 +680,7 @@ exports[`Render with specified profile 1`] = `
       <div
         className="src-shared-components-TopcoderHeader-___style__user-menu___3CMgb"
         data-menu="userMenu"
+        onKeyDownCapture={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -683,6 +696,7 @@ exports[`Render with specified profile 1`] = `
           tabIndex={0}
         />
         <span
+          id="user-avatar"
           role="link"
           tabIndex={0}
         >
@@ -700,7 +714,7 @@ exports[`Render with specified profile 1`] = `
       </div>
       <div
         aria-label="Search"
-        className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        className="opened focus src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onBlur={[Function]}
         onFocus={[Function]}
