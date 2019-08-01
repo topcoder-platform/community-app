@@ -15,18 +15,16 @@ export default function Auth({ column }) {
     <div
       className={column ? 'column' : ''}
       styleName="auth"
-      onClick={(event) => { event.stopPropagation(); }}
-      onKeyPress={null}
-      role="button"
-      tabIndex="0"
     >
       <a
+        role="button"
         className="tc-btn-sm tc-btn-primary"
         href={`${config.URL.AUTH}/member/registration?utm_source=community-app-main`}
       >
 Join
       </a>
       <a
+        role="button"
         className="tc-btn-sm tc-btn-default"
         href={`${config.URL.AUTH}/member?utm_source=community-app-main`}
         onClick={(event) => {

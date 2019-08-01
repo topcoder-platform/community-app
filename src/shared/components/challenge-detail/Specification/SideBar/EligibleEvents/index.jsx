@@ -18,7 +18,7 @@ export default function EligibleEvents({ eventDetails }) {
 
   return (
     <div>
-      <h3>ELIGIBLE EVENTS:</h3>
+      <h2>ELIGIBLE EVENTS:</h2>
       <p styleName="link-like-paragraph">
         {/* TODO: It is not good to compose the event URL like this, as
           * in general there is not guaranteed to be correct. */}
@@ -41,5 +41,6 @@ EligibleEvents.propTypes = {
   eventDetails: PT.shape({
     eventName: PT.string.isRequired,
     eventDetails: PT.string.isRequired,
+    description: PT.string.isRequired,
   }),
 };

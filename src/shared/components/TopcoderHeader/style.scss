@@ -34,7 +34,7 @@
 }
 
 .main-menu-item {
-  color: $tc-gray-40;
+  color: $tc-gray-70;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -90,11 +90,18 @@
   width: 100%;
   transition: all 0.25s ease-in-out;
   z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:global.opened {
     height: 128px;
     padding: 48px;
     transition: all 0.25s ease-in-out;
+  }
+
+  &:global.closed {
+    display: none;
   }
 
   input,
@@ -111,6 +118,16 @@
     &::placeholder {
       color: $tc-gray-20;
     }
+  }
+
+  .search-label {
+    color: $tc-white;
+    font-size: 15px;
+    width: 160px;
+  }
+
+  .search-input {
+    margin-bottom: 0 !important;
   }
 }
 

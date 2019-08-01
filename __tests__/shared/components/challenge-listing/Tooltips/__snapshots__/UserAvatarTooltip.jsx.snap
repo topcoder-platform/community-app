@@ -18,6 +18,7 @@ exports[`Matches shallow shapshot 1`] = `
     />
   }
   defaultVisible={false}
+  id=""
   onTooltipHover={[Function]}
   placeArrow={[Function]}
   position="top"
@@ -56,6 +57,7 @@ exports[`Matches shallow shapshot 2`] = `
     />
   }
   defaultVisible={false}
+  id=""
   onTooltipHover={[Function]}
   placeArrow={[Function]}
   position="top"
