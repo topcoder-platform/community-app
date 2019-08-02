@@ -185,7 +185,6 @@ Approval:
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
                   <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="reviewscorecard-tip">
-
   ?
                   </div>
                 </Tooltip>
