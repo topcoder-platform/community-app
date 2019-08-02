@@ -351,8 +351,8 @@ export default class TopcoderHeader extends React.Component {
         }}
       >
         <div styleName="main-desktop-header">
-          <a href={BASE_URL} styleName="logo" aria-label="Topcoder Homepage">
-            <LogoTopcoderWithName height={53} width={135} />
+          <a href={BASE_URL} styleName="logo" aria-label="Graphic Topcoder logo link to Homepage">
+            <LogoTopcoderWithName height={53} width={135} title="Graphic Topcoder logo link to Homepage" />
           </a>
           <ul styleName="main-menu" role="navigation" ref={(ul) => { this.mainMenu = ul; }}>
             {mainMenu}
