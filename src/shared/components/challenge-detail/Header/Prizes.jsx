@@ -32,7 +32,7 @@ export default function Prizes({ pointPrizes, prizes }) {
               role="figure"
               aria-label={`${rank}${getOrdinal(rank)} prize is ${!_.isUndefined(prizes[index]) ? '$' : ''}${pair.join(' + ')}`}
             >
-              <div id={`rank${rank}`} styleName="prize-card">
+              <div id={`rank${rank}`} styleName="prize-card" aria-hidden="true">
                 <p styleName="prize-rank">
                   {rank}
                   <span styleName="rank-ordinal">
