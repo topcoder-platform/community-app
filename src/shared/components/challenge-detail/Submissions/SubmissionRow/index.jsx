@@ -126,6 +126,7 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
+    provisionalScore: PT.number,
     finalScore: PT.number,
     initialScore: PT.number,
     submissionId: PT.string.isRequired,

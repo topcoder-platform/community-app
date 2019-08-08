@@ -294,6 +294,7 @@ class SubmissionsComponent extends React.Component {
 SubmissionsComponent.propTypes = {
   auth: PT.shape().isRequired,
   challenge: PT.shape({
+    id: PT.any,
     checkpoints: PT.arrayOf(PT.object),
     submissions: PT.arrayOf(PT.object),
     submissionViewable: PT.string,
