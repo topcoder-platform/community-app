@@ -16,6 +16,7 @@ export default class TermDetails extends React.Component {
       loadingFrame: false,
     };
     this.frameLoaded = this.frameLoaded.bind(this);
+    this.iframe = React.createRef();
   }
 
   componentWillMount() {
@@ -30,6 +31,7 @@ export default class TermDetails extends React.Component {
     this.setState({
       loadingFrame: false,
     });
+    this.iframe.current.focus();
   }
 
   render() {
@@ -68,6 +70,7 @@ export default class TermDetails extends React.Component {
             }
             <iframe
               onLoad={this.frameLoaded}
+              ref={this.iframe}
               src={docuSignUrl}
               styleName={loadingFrame ? 'hidden' : 'frame'}
               title={details.title}
