@@ -11,6 +11,7 @@ export default function LanguageList(props) {
   const {
     languageList,
     onDeleteItem,
+    onEditItem,
   } = props;
 
   return (
@@ -19,7 +20,12 @@ export default function LanguageList(props) {
         {
           languageList.items.map((language, index) => (
             <li key={`${language.language}${index + 1}`}>
-              <Item language={language} index={index} onDeleteItem={onDeleteItem} />
+              <Item
+                language={language}
+                index={index}
+                onDeleteItem={onDeleteItem}
+                onEditItem={onEditItem}
+              />
             </li>
           ))
         }
@@ -31,4 +37,5 @@ export default function LanguageList(props) {
 LanguageList.propTypes = {
   languageList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
+  onEditItem: PT.func.isRequired,
 };

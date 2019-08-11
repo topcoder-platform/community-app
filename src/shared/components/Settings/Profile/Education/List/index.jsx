@@ -11,6 +11,7 @@ export default function EducationList(props) {
   const {
     educationList,
     onDeleteItem,
+    onEditItem,
   } = props;
 
   return (
@@ -19,7 +20,12 @@ export default function EducationList(props) {
         {
           educationList.items.map((education, index) => (
             <li key={`${education.type}${index + 1}`}>
-              <Item education={education} index={index} onDeleteItem={onDeleteItem} />
+              <Item
+                education={education}
+                index={index}
+                onDeleteItem={onDeleteItem}
+                onEditItem={onEditItem}
+              />
             </li>
           ))
         }
@@ -31,4 +37,5 @@ export default function EducationList(props) {
 EducationList.propTypes = {
   educationList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
+  onEditItem: PT.func.isRequired,
 };

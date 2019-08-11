@@ -57,7 +57,7 @@ const ExternalLink = ({ data, type }) => {
       </div>
       <div styleName="bottom">
         {
-          type === 'github'
+          type === 'github' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -85,7 +85,7 @@ repositories
           )
         }
         {
-          type === 'stackoverflow'
+          type === 'stackoverflow' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -113,7 +113,7 @@ answers
           )
         }
         {
-          type === 'behance'
+          type === 'behance' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -141,7 +141,7 @@ likes
           )
         }
         {
-          type === 'behance'
+          type === 'behance' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -169,7 +169,7 @@ likes
           )
         }
         {
-          type === 'dribbble'
+          type === 'dribbble' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -197,7 +197,7 @@ likes
           )
         }
         {
-          type === 'bitbucket'
+          type === 'bitbucket' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -225,7 +225,7 @@ repositories
           )
         }
         {
-          type === 'twitter'
+          type === 'twitter' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -253,7 +253,7 @@ followers
           )
         }
         {
-          type === 'linkedin'
+          type === 'linkedin' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -266,7 +266,7 @@ followers
           )
         }
         {
-          type === 'weblink'
+          type === 'weblink' && data !== null
           && (
           <div>
             <p styleName="link-title">

@@ -10,6 +10,7 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConfirmationModal from '../../CofirmationModal';
@@ -24,6 +25,7 @@ export default class Software extends ConsentComponent {
     super(props);
     this.onHandleDeleteSoftware = this.onHandleDeleteSoftware.bind(this);
     this.onDeleteSoftware = this.onDeleteSoftware.bind(this);
+    this.onEditSoftware = this.onEditSoftware.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadSoftwareTrait = this.loadSoftwareTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -31,11 +33,12 @@ export default class Software extends ConsentComponent {
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      errorMessage: '',
+      isSubmit: false,
       softwareTrait: this.loadSoftwareTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newSoftware: {
@@ -46,6 +49,7 @@ export default class Software extends ConsentComponent {
       screenSM: 767,
       showConfirmation: false,
       indexNo: null,
+      isEdit: false,
     };
   }
 
@@ -61,7 +65,7 @@ export default class Software extends ConsentComponent {
       softwareTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
+      isSubmit: false,
       newSoftware: {
         softwareType: '',
         name: '',
@@ -80,6 +84,7 @@ export default class Software extends ConsentComponent {
   onHandleAddSoftware(e) {
     e.preventDefault();
     const { newSoftware } = this.state;
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newSoftware)) {
       return;
     }
@@ -94,24 +99,15 @@ export default class Software extends ConsentComponent {
   onCheckFormValue(newSoftware) {
     let invalid = false;
 
-    let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newSoftware.softwareType).length) {
-      invalidFields.push('Type');
       invalid = true;
     }
 
     if (!_.trim(newSoftware.name).length) {
-      invalidFields.push('Name');
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
-      errorMessage += ' cannot be empty';
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
+    this.setState({ formInvalid: invalid });
     return invalid;
   }
 
@@ -119,6 +115,7 @@ export default class Software extends ConsentComponent {
     this.setState({
       showConfirmation: true,
       indexNo,
+      isSubmit: false,
     });
   }
 
@@ -149,6 +146,25 @@ export default class Software extends ConsentComponent {
     this.setState({
       showConfirmation: false,
       indexNo: null,
+      isSubmit: false,
+      formInvalid: false,
+    });
+  }
+
+  /**
+   * Edit software by index
+   * @param indexNo the software index no
+   */
+  onEditSoftware(indexNo) {
+    const { softwareTrait } = this.state;
+    this.setState({
+      newSoftware: {
+        softwareType: softwareTrait.traits.data[indexNo].softwareType,
+        name: softwareTrait.traits.data[indexNo].name,
+      },
+      isEdit: true,
+      indexNo,
+      isSubmit: false,
     });
   }
 
@@ -157,7 +173,9 @@ export default class Software extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddSoftware(answer) {
-    const { newSoftware, personalizationTrait } = this.state;
+    const {
+      newSoftware, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -167,24 +185,28 @@ export default class Software extends ConsentComponent {
     } = this.props;
     const { softwareTrait } = this.state;
     if (softwareTrait.traits && softwareTrait.traits.data.length > 0) {
-      const newSoftwareTrait = { ...softwareTrait };
+      const newSoftwareTrait = _.cloneDeep(softwareTrait);
+      if (isEdit) {
+        newSoftwareTrait.traits.data.splice(indexNo, 1);
+      }
       newSoftwareTrait.traits.data.push(newSoftware);
-      this.setState({ softwareTrait: newSoftwareTrait });
       updateUserTrait(handle, 'software', newSoftwareTrait.traits.data, tokenV3);
     } else {
       const newSoftwares = [];
       newSoftwares.push(newSoftware);
-      const traits = {
-        data: newSoftwares,
-      };
-      this.setState({ softwareTrait: { traits } });
       addUserTrait(handle, 'software', newSoftwares, tokenV3);
     }
     const empty = {
       softwareType: '',
       name: '',
     };
-    this.setState({ newSoftware: empty });
+    this.setState({
+      newSoftware: empty,
+      isEdit: false,
+      indexNo: null,
+      inputChanged: false,
+      isSubmit: false,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -206,7 +228,7 @@ export default class Software extends ConsentComponent {
     const { newSoftware: oldSoftware } = this.state;
     const newSoftware = { ...oldSoftware };
     newSoftware[e.target.name] = e.target.value;
-    this.setState({ newSoftware });
+    this.setState({ newSoftware, isSubmit: false });
   }
 
   /**
@@ -218,7 +240,7 @@ export default class Software extends ConsentComponent {
       const { newSoftware: oldSoftware } = this.state;
       const newSoftware = { ...oldSoftware };
       newSoftware[option.key] = option.name;
-      this.setState({ newSoftware });
+      this.setState({ newSoftware, isSubmit: false });
     }
   }
 
@@ -255,15 +277,32 @@ export default class Software extends ConsentComponent {
     return false;
   }
 
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        indexNo: null,
+        inputChanged: false,
+        formInvalid: false,
+        newSoftware: {
+          softwareType: '',
+          name: '',
+        },
+        isSubmit: false,
+      });
+    }
+  }
+
   render() {
     const {
-      softwareTrait, isMobileView, showConfirmation, indexNo,
+      softwareTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      formInvalid, isSubmit,
     } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
-    const { newSoftware, formInvalid, errorMessage } = this.state;
+    const { newSoftware } = this.state;
     const canModifyTrait = !this.props.traitRequestCount;
-    const isValidSoftwareForm = this.isFormValid();
     return (
       <div styleName="software-container">
         {
@@ -274,6 +313,7 @@ export default class Software extends ConsentComponent {
           <ConfirmationModal
             onConfirm={() => this.showConsent(this.onDeleteSoftware.bind(this, indexNo))}
             onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+            name={softwareTrait.traits.data[indexNo].name}
           />
         )}
         <h1>
@@ -289,11 +329,15 @@ export default class Software extends ConsentComponent {
               softwareList={{ items: softwareItems }}
               onDeleteItem={this.onHandleDeleteSoftware}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditSoftware}
             />
           )
         }
         <div styleName={`sub-title ${softwareItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new software
+          {
+            isEdit ? (<React.Fragment>Edit software</React.Fragment>)
+              : (<React.Fragment>Add a new software</React.Fragment>)
+          }
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
@@ -317,6 +361,11 @@ export default class Software extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
             </div>
             <div styleName="row">
@@ -329,33 +378,54 @@ export default class Software extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait || !isValidSoftwareForm}
-            >
-              Add software to your list
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddSoftware}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit software to your list</React.Fragment>)
+                    : (<React.Fragment>Add software to your list</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         <div styleName="form-container-mobile">
           <form name="software-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Software
+                {
+                  isEdit ? (<React.Fragment>Edit Software</React.Fragment>)
+                    : (<React.Fragment>Add Software</React.Fragment>)
+                }
               </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="softwareType">
-                  Software Type
+                  Type
                   <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
@@ -370,6 +440,11 @@ export default class Software extends ConsentComponent {
                   clearable={false}
                   disabled={!canModifyTrait}
                 />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.softwareType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
@@ -378,20 +453,38 @@ export default class Software extends ConsentComponent {
                   <input type="hidden" />
                 </label>
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddSoftware}
-              disabled={!canModifyTrait || !isValidSoftwareForm}
-            >
-              Add Software
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddSoftware}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit Software</React.Fragment>)
+                    : (<React.Fragment>Add Software</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         {
@@ -401,6 +494,7 @@ export default class Software extends ConsentComponent {
               softwareList={{ items: softwareItems }}
               onDeleteItem={this.onHandleDeleteSoftware}
               disabled={!canModifyTrait}
+              onEditItem={this.onEditSoftware}
             />
           )
         }

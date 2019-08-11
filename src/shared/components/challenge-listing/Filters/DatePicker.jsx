@@ -12,6 +12,7 @@ import './_fix_SingleDatePicker.css';
 
 const propTypes = {
   autoFocus: PropTypes.bool,
+  allowFutureYear: PropTypes.bool,
 
   ...omit({}, [
     'date',
@@ -23,7 +24,7 @@ const propTypes = {
 
 const defaultProps = {
   autoFocus: false,
-
+  allowFutureYear: false,
 };
 
 class DatePicker extends React.Component {
@@ -31,6 +32,7 @@ class DatePicker extends React.Component {
     super(props);
     this.state = {
       focused: props.autoFocus,
+      allowFutureYear: props.allowFutureYear,
     };
     this.onFocusChange = this.onFocusChange.bind(this);
   }
@@ -39,16 +41,17 @@ class DatePicker extends React.Component {
     this.setState({ focused });
   }
 
-  createOptions = () => {
+  createOptions = (allowFutureYear) => {
     const options = [];
-    for (let i = -100; i <= 0; i += 1) {
+    const futureYears = allowFutureYear ? 5 : 0;
+    for (let i = -100; i <= futureYears; i += 1) {
       options.push(<option value={moment().year() + i}>{moment().year() + i}</option>);
     }
     return options;
   };
 
   render() {
-    const { focused } = this.state;
+    const { focused, allowFutureYear } = this.state;
     const {
       id, date, onDateChange, isOutsideRange,
     } = this.props;
@@ -57,6 +60,7 @@ class DatePicker extends React.Component {
       'id',
       'autoFocus',
       'initialDate',
+      'allowFutureYear',
     ]);
 
     return (
@@ -94,7 +98,7 @@ class DatePicker extends React.Component {
                   onYearSelect(month, e.target.value);
                 }}
               >
-                {this.createOptions()}
+                {this.createOptions(allowFutureYear)}
               </select>
             </div>
           </div>

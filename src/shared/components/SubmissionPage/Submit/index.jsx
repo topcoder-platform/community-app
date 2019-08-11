@@ -190,9 +190,9 @@ class Submit extends React.Component {
           >
             <div styleName="row">
               <div styleName="left">
-                <h4>
+                <h2>
                   { isChallengeBelongToTopgearGroup ? 'URL' : 'FILES'}
-                </h4>
+                </h2>
                 <p>
 Please follow the instructions on the Challenge Details page regarding
                   what your submission should contain and how it should be organized.
@@ -316,14 +316,15 @@ Please follow the instructions on the Challenge Details page regarding
                 <input
                   type="checkbox"
                   id="agree"
+                  aria-label="I understand and agree"
                   onChange={e => setAgreed(e.target.checked)}
                 />
                 <label htmlFor="agree">
-                  <div styleName="tc-checkbox-label">
-I UNDERSTAND AND AGREE
-                  </div>
                   <input type="hidden" />
                 </label>
+                <div styleName="tc-checkbox-label">
+I UNDERSTAND AND AGREE
+                </div>
               </div>
               <PrimaryButton
                 type="submit"

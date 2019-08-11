@@ -3,14 +3,11 @@
 exports[`Snapshot match 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-Auth-___style__auth___3X0_r"
-  onClick={[Function]}
-  onKeyPress={null}
-  role="button"
-  tabIndex="0"
 >
   <a
     className="tc-btn-sm tc-btn-primary"
     href="http://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main"
+    role="button"
   >
     Join
   </a>
@@ -18,6 +15,7 @@ exports[`Snapshot match 1`] = `
     className="tc-btn-sm tc-btn-default"
     href="http://accounts.topcoder-dev.com/member?utm_source=community-app-main"
     onClick={[Function]}
+    role="button"
   >
     Log In
   </a>
@@ -27,14 +25,11 @@ exports[`Snapshot match 1`] = `
 exports[`Snapshot match 2`] = `
 <div
   className="column src-shared-components-TopcoderHeader-Auth-___style__auth___3X0_r"
-  onClick={[Function]}
-  onKeyPress={null}
-  role="button"
-  tabIndex="0"
 >
   <a
     className="tc-btn-sm tc-btn-primary"
     href="http://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main"
+    role="button"
   >
     Join
   </a>
@@ -42,6 +37,7 @@ exports[`Snapshot match 2`] = `
     className="tc-btn-sm tc-btn-default"
     href="http://accounts.topcoder-dev.com/member?utm_source=community-app-main"
     onClick={[Function]}
+    role="button"
   >
     Log In
   </a>

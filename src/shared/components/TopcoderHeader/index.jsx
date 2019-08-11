@@ -246,7 +246,7 @@ export default class TopcoderHeader extends React.Component {
             <Link to={item.url}>
               {item.title}
             </Link>
-          ) : item.title}
+          ) : <span role="link" tabIndex={0}>{item.title}</span>}
         </li>
       );
     });
@@ -320,10 +320,12 @@ export default class TopcoderHeader extends React.Component {
               color: getRatingColor(_.get(normalizedProfile, 'maxRating.rating', 0)),
             }}
             styleName="user-menu-handle"
+            role="button"
+            tabIndex={0}
           >
             {normalizedProfile.handle}
           </div>
-          {userAvatar}
+          <span role="link" tabIndex={0}>{userAvatar}</span>
         </div>
       );
     } else {
@@ -337,6 +339,7 @@ export default class TopcoderHeader extends React.Component {
     return (
       <div
         styleName="header"
+        role="banner"
         ref={(div) => { this.headerRoot = div; }}
         onMouseLeave={() => {
           if (openedMenu) {
@@ -348,18 +351,26 @@ export default class TopcoderHeader extends React.Component {
         }}
       >
         <div styleName="main-desktop-header">
-          <a href={BASE_URL} styleName="logo">
-            <LogoTopcoderWithName height={53} width={135} />
+          <a href={BASE_URL} styleName="logo" aria-label="Topcoder Logo link to Topcoder Homepage">
+            <LogoTopcoderWithName height={53} width={135} title="Topcoder Logo link to Topcoder Homepage" />
           </a>
-          <ul styleName="main-menu" ref={(ul) => { this.mainMenu = ul; }}>
+          <ul styleName="main-menu" role="navigation" ref={(ul) => { this.mainMenu = ul; }}>
             {mainMenu}
           </ul>
           <div styleName="right-menu">
             {userMenuHandle}
             {authButtons}
             <div
+              aria-label="Search"
+              role="button"
+              tabIndex={0}
               data-menu="search"
               className={searchOpened ? 'opened' : ''}
+              onFocus={event => !isMobile && openSearch(event.target)}
+              onBlur={(event) => {
+                if (!isMobile && activeTrigger
+                  && 1 + event.pageY < activeTrigger.bottom) closeSearch();
+              }}
               onMouseEnter={event => !isMobile && openSearch(event.target)}
               onMouseLeave={(event) => {
                 if (!isMobile && activeTrigger
@@ -387,7 +398,8 @@ export default class TopcoderHeader extends React.Component {
           trigger={activeTrigger}
         />
         <div
-          className={searchOpened ? 'opened' : ''}
+          role="search"
+          className={searchOpened ? 'opened' : 'closed'}
           onMouseLeave={(event) => {
             /* False when cursor leaves from the sub-menu to the element that has
              * opened it. In that case we want to keep the menu opened, and the
@@ -409,6 +421,8 @@ export default class TopcoderHeader extends React.Component {
                 }`;
               }
             }}
+            onBlur={closeSearch}
+            aria-label="Find members by username or skill"
             placeholder="Find members by username or skill"
           />
         </div>
