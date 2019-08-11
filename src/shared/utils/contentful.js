@@ -63,6 +63,13 @@ export function isActive(baseUrl, item, caller) {
     return false;
   }
 
+  // WIP need to test Contenful navigation under real domain
+  // should not land to production
+  // eslint-disable-next-line no-console
+  console.log('isActiveTEST', {
+    baseUrl, item, caller, to, location,
+  });
+
   // handles the special case when url === `/`
   if (caller === 'menuItem'
   && to === baseUrl
