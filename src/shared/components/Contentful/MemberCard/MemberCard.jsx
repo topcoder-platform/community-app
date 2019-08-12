@@ -35,7 +35,7 @@ export function MemberCardInner({
     >
       { imageUrl && (
         <div className={theme.imageWrapper}>
-          <img src={imageUrl} alt="profile" />
+          <img src={imageUrl} alt={`${memberName}'s profile`} />
         </div>
       )}
       <div className={theme.info}>
