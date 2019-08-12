@@ -86,11 +86,16 @@
   }
 
   a {
-    color: #0d61bf !important;
+    color: #0d61bf;
     text-decoration: underline;
 
     &:visited {
-      color: #8231a9 !important;
+      color: #8231a9;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: #0d61bf;
     }
   }
 
