@@ -2,6 +2,12 @@
 
 .container {
   width: 100%;
+
+  :global {
+    .slider-control-bottomcenter {
+      z-index: 999999;
+    }
+  }
 }
 
 .singleContent {

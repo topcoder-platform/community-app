@@ -22,7 +22,6 @@ exports[`Matches shallow shapshot 1`] = `
     wrapper={[Function]}
   />
   <img
-    alt=""
     src="https://www.topcoder.com"
     style={
       Object {

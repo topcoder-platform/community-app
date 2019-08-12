@@ -63,6 +63,11 @@ export function isActive(baseUrl, item, caller) {
     return false;
   }
 
+  // eslint-disable-next-line no-console
+  console.log('isActive debug', {
+    baseUrl, item, caller, to, location,
+  });
+
   // handles the special case when url === `/`
   if (caller === 'menuItem'
   && to === baseUrl
