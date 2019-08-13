@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /**
  * Terms component which displays modal window with term details
  */
@@ -54,6 +55,7 @@ export default class Terms extends React.Component {
     this.resizeHandler = this.resizeHandler.bind(this);
     this.nextTerm = this.nextTerm.bind(this);
     this.max = 0;
+    this.terms = React.createRef();
   }
 
   componentDidMount() {
@@ -63,6 +65,7 @@ export default class Terms extends React.Component {
     }
     window.addEventListener('message', this.messageHandler, false);
     window.addEventListener('resize', this.resizeHandler, false);
+    this.terms.current.focus();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,6 +84,10 @@ export default class Terms extends React.Component {
       onCancel();
       register();
     }
+  }
+
+  componentDidUpdate() {
+    this.terms.current.focus();
   }
 
   componentWillUnmount() {
@@ -162,7 +169,7 @@ export default class Terms extends React.Component {
           }
           {
             !isLoadingTerms && (
-              <div styleName="modal-content">
+              <div styleName="modal-content" ref={this.terms} tabIndex="0">
                 <div styleName="title">
                   {terms.length > 1 ? defaultTitle : terms[0].title}
                 </div>
@@ -216,6 +223,8 @@ export default class Terms extends React.Component {
                                 </div>
                                 <div
                                   styleName="tab-title"
+                                  tabIndex="0"
+                                  role="tab"
                                   onClick={() => this.selectTerm(t)}
                                   onKeyPress={() => this.selectTerm(t)}
                                 >
