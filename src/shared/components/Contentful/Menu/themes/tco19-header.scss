@@ -4,6 +4,10 @@
   width: 100%;
   background-color: $tc-black;
 
+  @include lg {
+    padding-left: 30px;
+  }
+
   .menuContainer {
     display: flex;
     width: 100%;
