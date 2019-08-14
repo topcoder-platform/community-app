@@ -196,6 +196,7 @@ exports[`renders a full Profile correctly 1`] = `
           id="profile-activity"
         >
           <StatsCategory
+            baseUrl=""
             className=""
             handle="testHandle"
             inModal={false}
@@ -696,6 +697,7 @@ exports[`renders an empty Profile correctly 1`] = `
           id="profile-activity"
         >
           <StatsCategory
+            baseUrl=""
             className=""
             handle="testHandle"
             inModal={false}

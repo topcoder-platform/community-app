@@ -11,6 +11,8 @@ import ChallengeListingRegisterToSee from
   'components/tc-communities/communities/blockchain/ChallengeListing/RegisterToSee';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
+import Profile from 'routes/Communities/Profile';
+import ProfileStats from 'routes/Communities/ProfileStats';
 import ContentfulRoute from 'components/Contentful/Route';
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
@@ -112,6 +114,16 @@ export default function Blockchain({ base, member, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+              />
+              <Route
+                component={routeProps => Profile({ ...routeProps, meta, baseUrl: base })}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                component={routeProps => ProfileStats({ ...routeProps, meta, baseUrl: base })}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}

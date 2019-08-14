@@ -158,9 +158,14 @@ function mapStateToProps(state, ownProps) {
   const { communityId } = ownProps;
 
   let { meta } = state.tcCommunities;
+  const { list: { data } } = state.tcCommunities;
   const loadingMeta = communityId === meta.loadingOperationId;
   meta = meta.data;
   if (_.get(meta, 'communityId') !== communityId) meta = null;
+  if (meta) {
+    // get community info from community api
+    meta.fullCommunityInfo = _.find(data, { communityId });
+  }
 
   return {
     Community: ownProps.communityComponent,

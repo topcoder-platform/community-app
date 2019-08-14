@@ -89,8 +89,8 @@ class StatsCategory extends React.Component {
       handle,
       className,
       inModal,
+      baseUrl,
     } = this.props;
-
     const activeTracks = this.getActiveTracks();
     return (
       <div styleName="categories" className={className}>
@@ -111,7 +111,7 @@ class StatsCategory extends React.Component {
               {
                 track.subTracks.map((subtrack, index) => (
                   <Link
-                    to={`/members/${handle}/details/?track=${track.name}&subTrack=${subtrack.name.replace(' ', '_')}`}
+                    to={`${baseUrl}/members/${handle}/details/?track=${track.name}&subTrack=${subtrack.name.replace(' ', '_')}`}
                     key={subtrack.name}
                     styleName={`subtrack ${index === 0 ? 'first' : ''}`}
                   >
@@ -179,6 +179,7 @@ Fulfillment
 StatsCategory.defaultProps = {
   className: '',
   inModal: false,
+  baseUrl: '',
 };
 
 StatsCategory.propTypes = {
@@ -186,6 +187,7 @@ StatsCategory.propTypes = {
   stats: PT.shape().isRequired,
   inModal: PT.bool,
   className: PT.string,
+  baseUrl: PT.string,
 };
 
 export default StatsCategory;

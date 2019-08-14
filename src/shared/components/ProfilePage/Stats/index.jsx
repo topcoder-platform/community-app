@@ -52,6 +52,7 @@ class ProfileStats extends React.Component {
       info,
       handleParam,
       activeChallengesCount,
+      baseUrl,
     } = this.props;
 
     const { activeGraph, showModal } = this.state;
@@ -250,7 +251,14 @@ Details
             }
           </div>
         </div>
-        {showModal && <StatsModal stats={stats} info={info} onClose={this.toggleModal} />}
+        {showModal && (
+          <StatsModal
+            stats={stats}
+            info={info}
+            onClose={this.toggleModal}
+            baseUrl={baseUrl}
+          />
+        )}
       </div>
     );
   }
@@ -261,6 +269,8 @@ ProfileStats.defaultProps = {
   statsDistribution: null,
   statsHistory: null,
   activeChallengesCount: null,
+  baseUrl: '',
+  achievements: null,
 };
 
 ProfileStats.propTypes = {
@@ -273,7 +283,8 @@ ProfileStats.propTypes = {
   statsDistribution: PT.shape(),
   statsHistory: PT.shape(),
   activeChallengesCount: PT.number,
-  achievements: PT.shape().isRequired,
+  achievements: PT.shape(),
+  baseUrl: PT.string,
 };
 
 export default ProfileStats;

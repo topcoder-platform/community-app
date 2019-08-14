@@ -66,7 +66,7 @@ function Header(props) {
       items: [{
         enforceA: true,
         icon: <IconNavProfile />,
-        link: `${BASE_URL}/members/${normalizedProfile.handle}`,
+        link: `${baseUrl}/members/${normalizedProfile.handle}`,
         title: 'My Profile',
       }, {
         openNewTab: true,

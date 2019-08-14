@@ -392,7 +392,7 @@ function mapDispatchToProps(dispatch) {
     getMemberStats: (handle, tokenV3) => {
       const uuid = shortId();
       dispatch(members.getStatsInit(handle, uuid));
-      dispatch(members.getStatsDone(handle, uuid, tokenV3));
+      dispatch(members.getStatsDone(handle, null, uuid, tokenV3));
     },
     getSrms: (handle, tokenV3) => {
       const uuid = shortId();

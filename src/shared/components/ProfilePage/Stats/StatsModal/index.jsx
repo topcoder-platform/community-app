@@ -17,7 +17,9 @@ class StatsModal extends React.Component {
   }
 
   render() {
-    const { info, stats, onClose } = this.props;
+    const {
+      info, stats, onClose, baseUrl,
+    } = this.props;
     return (
       <div styleName="stats-modal">
         <div styleName="nav-top">
@@ -34,18 +36,21 @@ class StatsModal extends React.Component {
           </a>
         </div>
         <hr />
-        <StatsCategory handle={info.handle} stats={stats} styleName="category" inModal />
+        <StatsCategory handle={info.handle} stats={stats} styleName="category" baseUrl={baseUrl} inModal />
       </div>
     );
   }
 }
 
-StatsModal.defaultProps = {};
+StatsModal.defaultProps = {
+  baseUrl: '',
+};
 
 StatsModal.propTypes = {
   stats: PT.shape().isRequired,
   info: PT.shape().isRequired,
   onClose: PT.func.isRequired,
+  baseUrl: PT.string,
 };
 
 export default StatsModal;

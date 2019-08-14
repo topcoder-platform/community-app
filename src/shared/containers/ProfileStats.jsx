@@ -22,10 +22,11 @@ class ProfileStatsContainer extends React.Component {
       handleParam,
       location,
       loadStats,
+      communityGroupIds,
       loadStatsHistoryAndDistribution,
     } = this.props;
     const trackAndSubTrack = getQueryParamsQuery(location);
-    loadStats(handleParam);
+    loadStats(handleParam, communityGroupIds);
     if (shouldShowGraph(trackAndSubTrack)) {
       loadStatsHistoryAndDistribution(
         handleParam,
@@ -41,6 +42,7 @@ class ProfileStatsContainer extends React.Component {
       location: nextLocation,
       loadStats,
       loadStatsHistoryAndDistribution,
+      communityGroupIds,
     } = nextProps;
     const {
       handleParam,
@@ -51,7 +53,7 @@ class ProfileStatsContainer extends React.Component {
     const trackAndSubTrack = getQueryParamsQuery(location);
 
     if (nextHandleParam !== handleParam) {
-      loadStats(nextHandleParam);
+      loadStats(nextHandleParam, communityGroupIds);
       if (
         nextQueryParams.track !== trackAndSubTrack.track
         || nextQueryParams.subTrack !== trackAndSubTrack.subTrack
@@ -100,6 +102,8 @@ ProfileStatsContainer.defaultProps = {
   stats: null,
   info: null,
   achievements: null,
+  communityGroupIds: [],
+  baseUrl: '',
 };
 
 ProfileStatsContainer.propTypes = {
@@ -114,24 +118,40 @@ ProfileStatsContainer.propTypes = {
   info: PT.shape(),
   achievements: PT.shape(),
   isLoading: PT.bool.isRequired,
+  baseUrl: PT.string,
+  communityGroupIds: PT.arrayOf(PT.string),
 };
 
 const mapStateToProps = (state, ownProps) => {
   const handleParam = ownProps.match.params.handle;
   const obj = _.get(state.members, handleParam, {});
+  let stats = _.get(obj, 'stats.data');
+  if (stats && stats instanceof Array && stats.length === 1) {
+    const firstStat = stats[0];
+    stats = firstStat;
+  }
+  let { profile: { achievements } } = state;
+  if (achievements instanceof Array) {
+    if (achievements.length === 1) {
+      const firstAchievement = achievements[0];
+      achievements = firstAchievement;
+    } else if (achievements.length === 0) {
+      achievements = null;
+    }
+  }
   return ({
     handleParam,
     loadingError: state.members.loadingError,
     isLoading: !state.profile.info
-      || !_.get(obj, 'stats.data')
+      || !stats
       || ('loadingUuid' in _.get(obj, 'statsHistory', {}))
       || ('loadingUuid' in _.get(obj, 'statsDistribution', {})),
-    stats: _.get(obj, 'stats.data'),
+    stats,
     statsHistory: _.get(obj, 'statsHistory.data'),
     statsDistribution: _.get(obj, 'statsDistribution.data'),
     activeChallengesCount: _.get(obj, 'activeChallengesCount'),
     info: state.profile.info,
-    achievements: state.profile.achievements,
+    achievements,
   });
 };
 
@@ -140,9 +160,14 @@ function mapDispatchToProps(dispatch) {
   const pa = actions.profile;
 
   return {
-    loadStats: (handle) => {
+    loadStats: (handle, communityGroupIds) => {
       dispatch(a.getStatsInit(handle));
-      dispatch(a.getStatsDone(handle));
+      if (communityGroupIds.length > 0) {
+        // get stats with community group id
+        dispatch(a.getStatsDone(handle, communityGroupIds[0]));
+      } else {
+        dispatch(a.getStatsDone(handle));
+      }
       dispatch(pa.getInfoInit(handle));
       dispatch(pa.getInfoDone(handle));
       dispatch(a.getActiveChallengesInit(handle));

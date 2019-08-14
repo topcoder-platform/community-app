@@ -12,6 +12,8 @@ import imageTextStyle from 'components/tc-communities/communities/veterans/theme
 import PreListingMsg from
   'components/tc-communities/communities/veterans/PreListingMsg';
 import Learn from 'components/tc-communities/communities/veterans/Learn';
+import Profile from 'routes/Communities/Profile';
+import ProfileStats from 'routes/Communities/ProfileStats';
 import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
@@ -96,6 +98,16 @@ export default function Veterans({ base, member, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+              />
+              <Route
+                component={routeProps => Profile({ ...routeProps, meta, baseUrl: base })}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                component={routeProps => ProfileStats({ ...routeProps, meta, baseUrl: base })}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
               />
               <Route
                 component={TermsDetail}

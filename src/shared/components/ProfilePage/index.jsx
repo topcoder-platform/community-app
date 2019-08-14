@@ -118,6 +118,7 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
+      baseUrl,
     } = this.props;
 
     const {
@@ -181,7 +182,7 @@ class ProfilePage extends React.Component {
                     country={country}
                     info={info}
                     onShowBadges={() => this.setState({ badgesModalOpen: true })}
-                    showBadgesButton={achievements.length > 0}
+                    showBadgesButton={achievements && (achievements.length > 0)}
                     wins={_.get(stats, 'wins', 0)}
                   />
                 </div>
@@ -257,7 +258,7 @@ VIEW LESS
               {
                 stats && (
                   <div id="profile-activity">
-                    <StatsCategory handle={info.handle} stats={stats} />
+                    <StatsCategory handle={info.handle} stats={stats} baseUrl={baseUrl} />
                   </div>
                 )
               }
@@ -295,17 +296,21 @@ ProfilePage.defaultProps = {
   achievements: [],
   skills: null,
   stats: null,
+  baseUrl: '',
+  externalAccounts: null,
+  externalLinks: null,
 };
 
 ProfilePage.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   copilot: PT.bool.isRequired,
-  externalAccounts: PT.shape().isRequired,
-  externalLinks: PT.arrayOf(PT.shape()).isRequired,
+  externalAccounts: PT.shape(),
+  externalLinks: PT.arrayOf(PT.shape()),
   info: PT.shape().isRequired,
   skills: PT.shape(),
   stats: PT.shape(),
   lookupData: PT.shape().isRequired,
+  baseUrl: PT.string,
 };
 
 export default ProfilePage;
