@@ -17,13 +17,14 @@ export default function Auth({ column }) {
       styleName="auth"
     >
       <a
+        role="button"
         className="tc-btn-sm tc-btn-primary"
         href={`${config.URL.AUTH}/member/registration?utm_source=community-app-main`}
-        role="button"
       >
 Join
       </a>
       <a
+        role="button"
         className="tc-btn-sm tc-btn-default"
         href={`${config.URL.AUTH}/member?utm_source=community-app-main`}
         onClick={(event) => {
@@ -31,7 +32,6 @@ Join
           window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=community-app-main`;
           event.preventDefault();
         }}
-        role="button"
       >
 Log In
       </a>

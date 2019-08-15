@@ -27,9 +27,9 @@ const Header = ({
 Back to challenge
       </p>
     </Link>
-    <h2>
+    <h1>
       {title}
-    </h2>
+    </h1>
   </div>
 );
 
