@@ -25,7 +25,7 @@ function BlogListView({
           heroImage ? (
             <div className={theme.imageWrapper}>
               <Link to={readMoreLink}>
-                <img alt="" src={heroImage.file.url} />
+                <img alt={blogPost.title} src={heroImage.file.url} />
               </Link>
             </div>
           ) : null
