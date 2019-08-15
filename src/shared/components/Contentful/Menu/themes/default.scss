@@ -3,6 +3,10 @@
 .outerContainer {
   width: 100%;
 
+  @include lg {
+    padding-left: 30px;
+  }
+
   .menuContainer {
     display: flex;
     width: 100%;

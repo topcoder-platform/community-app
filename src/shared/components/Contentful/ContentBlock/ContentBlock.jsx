@@ -38,7 +38,7 @@ function ContentBlock({
         {
           background ? (
             <div className={theme.image}>
-              <img alt="" src={background.file.url} />
+              <img alt={contentBlock.alt || contentBlock.name} src={background.file.url} />
             </div>
           ) : null
         }
