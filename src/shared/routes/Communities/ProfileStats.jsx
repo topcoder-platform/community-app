@@ -18,6 +18,10 @@ export default function ProfileStatsRoute(props) {
           if (communityGroupIds.length === 0) {
             communityGroupIds = _.get(meta, 'fullCommunityInfo.challengeFilter.groupIds', []);
           }
+          if (!communityGroupIds.length) {
+            // show loading if community list haven't loaded yet
+            return (<LoadingPagePlaceholder />);
+          }
           return (
             <ProfileStatsContainer
               {...props}

@@ -8,10 +8,12 @@
 /* global window */
 
 import _ from 'lodash';
+import shortId from 'shortid';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import actions from 'actions/tc-communities/meta';
 import LoadingPagePlaceholder
   from 'components/tc-communities/LoadingPagePlaceholder';
+import communityActions from 'actions/tc-communities';
 import PT from 'prop-types';
 import React from 'react';
 import { config } from 'topcoder-react-utils';
@@ -35,7 +37,13 @@ class Loader extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      communityId, loadingMeta, meta, tokenV3,
+      communityId,
+      loadingMeta,
+      meta,
+      tokenV3,
+      auth,
+      getCommunityList,
+      communityList,
     } = nextProps;
 
     const {
@@ -44,7 +52,10 @@ class Loader extends React.Component {
 
     if (!loadingMeta && (
       !meta /* || (Date.now() - meta.timestamp) > MAXAGE */
-    )) nextProps.loadMetaData(communityId, tokenV3);
+    )) nextProps.loadMetaData(communityId, tokenV3, auth);
+    if (!communityList.data.length && !communityList.loadingUuid) {
+      getCommunityList(auth);
+    }
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) and Zurich community visitors. Should be re-factored, but not it is not
@@ -131,6 +142,7 @@ class Loader extends React.Component {
 }
 
 Loader.defaultProps = {
+  auth: {},
   meta: null,
   isLoadingTerms: false,
   tokenV3: '',
@@ -138,10 +150,12 @@ Loader.defaultProps = {
 };
 
 Loader.propTypes = {
+  auth: PT.shape(),
   Community: PT.func.isRequired,
   communityId: PT.string.isRequired,
   loadingMeta: PT.bool.isRequired,
   loadMetaData: PT.func.isRequired,
+  getCommunityList: PT.func.isRequired,
   isLoadingTerms: PT.bool,
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
@@ -152,6 +166,14 @@ Loader.propTypes = {
   }),
   tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),
+  communityList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      communityId: PT.string.isRequired,
+      communityName: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -168,6 +190,8 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
+    communityList: state.tcCommunities.list,
+    auth: state.auth,
     Community: ownProps.communityComponent,
     communityId,
     loadingMeta,
@@ -187,6 +211,11 @@ function mapDispatchToProps(dispatch) {
     loadMetaData: (communityId, tokenV3) => {
       dispatch(a.fetchDataInit(communityId));
       dispatch(a.fetchDataDone(communityId, tokenV3));
+    },
+    getCommunityList: (auth) => {
+      const uuid = shortId();
+      dispatch(communityActions.tcCommunity.getListInit(uuid));
+      dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
     },
   };
 }
