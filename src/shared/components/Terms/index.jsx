@@ -10,6 +10,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import LoadingIndicator from 'components/LoadingIndicator';
+import FocusTrap from 'focus-trap-react';
 import TermDetails from './TermDetails';
 
 import style from './styles.scss';
@@ -159,15 +160,16 @@ export default class Terms extends React.Component {
 
     return (
       <div key={(selectedTerm || {}).termsOfUseId}>
-        <Modal
-          onCancel={onCancel}
-          theme={{ container: style['modal-container'] }}
-        >
-          {
+        <FocusTrap>
+          <Modal
+            onCancel={onCancel}
+            theme={{ container: style['modal-container'] }}
+          >
+            {
             isLoadingTerms
             && <LoadingIndicator />
           }
-          {
+            {
             !isLoadingTerms && (
               <div styleName="modal-content" ref={this.terms} tabIndex="0">
                 <div styleName="title">
@@ -327,7 +329,8 @@ export default class Terms extends React.Component {
               </div>
             )
           }
-        </Modal>
+          </Modal>
+        </FocusTrap>
       </div>
     );
   }
