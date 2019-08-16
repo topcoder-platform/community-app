@@ -168,6 +168,30 @@ class FilestackFilePicker extends React.Component {
       uploadArea.setAttribute('aria-label', 'Upload your file');
 
       sources[0].focus(); // Highlight the icon after modal is opened
+
+      // Trap focus inside the modal
+      root.addEventListener('keyup', (e) => {
+        const focusableEls = root.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex="0"]');
+        const firstFocusableEl = focusableEls[0];
+        const lastFocusableEl = focusableEls[focusableEls.length - 1];
+        const KEYCODE_TAB = 9;
+
+        const isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+
+        if (!isTabPressed) {
+          return;
+        }
+
+        if (e.shiftKey) /* shift + tab */ {
+          if (document.activeElement === firstFocusableEl) {
+            lastFocusableEl.focus();
+            e.preventDefault();
+          }
+        } else if (document.activeElement === lastFocusableEl) {
+          firstFocusableEl.focus();
+          e.preventDefault();
+        }
+      });
     }, 500);
   }
 
