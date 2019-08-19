@@ -164,32 +164,27 @@ class FilestackFilePicker extends React.Component {
 
       // Add aria tags to the upload area
       const uploadArea = document.querySelectorAll('.fsp-drop-area')[0];
-      uploadArea.tabIndex = 0;
       uploadArea.setAttribute('aria-label', 'Upload your file');
 
       sources[0].focus(); // Highlight the icon after modal is opened
 
       // Trap focus inside the modal
-      root.addEventListener('keyup', (e) => {
-        const focusableEls = root.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex="0"]');
+      root.addEventListener('keydown', (e) => {
+        const isTabPressed = (e.key === 'Tab' || e.keyCode === 9);
+        if (!isTabPressed) return;
+
+        const focusableEls = root.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex="0"]');
         const firstFocusableEl = focusableEls[0];
         const lastFocusableEl = focusableEls[focusableEls.length - 1];
-        const KEYCODE_TAB = 9;
-
-        const isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
-
-        if (!isTabPressed) {
-          return;
-        }
 
         if (e.shiftKey) /* shift + tab */ {
           if (document.activeElement === firstFocusableEl) {
-            lastFocusableEl.focus();
             e.preventDefault();
+            lastFocusableEl.focus();
           }
         } else if (document.activeElement === lastFocusableEl) {
-          firstFocusableEl.focus();
           e.preventDefault();
+          firstFocusableEl.focus();
         }
       });
     }, 500);
