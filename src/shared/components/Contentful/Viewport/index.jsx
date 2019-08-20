@@ -4,6 +4,7 @@
 
 import _ from 'lodash';
 import Accordion from 'components/Contentful/Accordion';
+import ArticleCard from 'components/Contentful/ArticleCard';
 import Banner from 'components/Contentful/Banner';
 import ChallengesBlock from 'containers/Contentful/ChallengesBlock';
 import ContentBlock from 'components/Contentful/ContentBlock';
@@ -38,6 +39,7 @@ const { fireErrorMessage } = errors;
 
 const COMPONENTS = {
   accordion: Accordion,
+  articleCard: ArticleCard,
   appComponent: AppComponentLoader,
   banner: Banner,
   blogPost: BlogPost,
