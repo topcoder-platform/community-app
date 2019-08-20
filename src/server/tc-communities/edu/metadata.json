@@ -1,0 +1,12 @@
+{
+  "communityId": "edu",
+  "hidden": true,
+  "communityName": "Education portal",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [],
+  "menuItems": [],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["edu"],
+  "description": "2020 Topcoder Education portal"
+}
