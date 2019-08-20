@@ -195,6 +195,7 @@ workflows:
                 - general-features
                 - develop-from-master-23may
                 - hot-fixes-4
+                - qa-accessibility
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
