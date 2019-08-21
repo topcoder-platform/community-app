@@ -10,12 +10,13 @@ exports[`Default render 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      aria-label="Topcoder Homepage"
+      aria-label="Topcoder Logo link to Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo link to Topcoder Homepage"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"
@@ -302,12 +303,13 @@ exports[`Render with open menu 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      aria-label="Topcoder Homepage"
+      aria-label="Topcoder Logo link to Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo link to Topcoder Homepage"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"
@@ -605,12 +607,13 @@ exports[`Render with specified profile 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      aria-label="Topcoder Homepage"
+      aria-label="Topcoder Logo link to Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo link to Topcoder Homepage"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"

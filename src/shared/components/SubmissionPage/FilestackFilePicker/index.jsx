@@ -141,6 +141,55 @@ class FilestackFilePicker extends React.Component {
     return `${challengeId}-${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
   }
 
+  makeModalAccessible() {
+    setTimeout(() => { // Wait for DOM to load
+      // Inject CSS for highlighting
+      const root = document.getElementById('__filestack-picker');
+      const style = document.createElement('style');
+      style.innerHTML = '.fsp-picker *:focus, .fsp-drop-area:focus-within { outline: 3px solid #55a5ff;}';
+      root.insertBefore(style, root.firstChild);
+
+      // Add aria tags to the sidebar icons
+      const sources = document.querySelectorAll('.fsp-source-list__icon');
+      for (let i = 0; i < sources.length; i += 1) {
+        sources[i].tabIndex = 0;
+        sources[i].setAttribute('aria-label', sources[i].nextElementSibling.textContent);
+        sources[i].setAttribute('role', 'button');
+        sources[i].addEventListener('keyup', (e) => {
+          if (e.keyCode === 13 || e.keyCode === 32) {
+            sources[i].click();
+          }
+        });
+      }
+
+      // Add aria tags to the upload area
+      const uploadArea = document.querySelectorAll('.fsp-drop-area')[0];
+      uploadArea.setAttribute('aria-label', 'Upload your file');
+
+      sources[0].focus(); // Highlight the icon after modal is opened
+
+      // Trap focus inside the modal
+      root.addEventListener('keydown', (e) => {
+        const isTabPressed = (e.key === 'Tab' || e.keyCode === 9);
+        if (!isTabPressed) return;
+
+        const focusableEls = root.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex="0"]');
+        const firstFocusableEl = focusableEls[0];
+        const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+        if (e.shiftKey) /* shift + tab */ {
+          if (document.activeElement === firstFocusableEl) {
+            e.preventDefault();
+            lastFocusableEl.focus();
+          }
+        } else if (document.activeElement === lastFocusableEl) {
+          e.preventDefault();
+          firstFocusableEl.focus();
+        }
+      });
+    }, 500);
+  }
+
   render() {
     const {
       fileName,
@@ -242,6 +291,7 @@ Uploading:
                     setDragged(false);
                     this.onSuccess(file, path);
                   },
+                  onOpen: this.makeModalAccessible,
                   startUploadingWhenMaxFilesReached: true,
                   storeTo: {
                     container: config.FILESTACK.SUBMISSION_CONTAINER,
@@ -268,6 +318,7 @@ Uploading:
                     setDragged(false);
                     this.onSuccess(file, path);
                   },
+                  onOpen: this.makeModalAccessible,
                   startUploadingWhenMaxFilesReached: true,
                   storeTo: {
                     container: config.FILESTACK.SUBMISSION_CONTAINER,
