@@ -39,7 +39,6 @@ import tco19 from './TCO19';
 import tco20 from './TCO20';
 import Mobile from './Mobile';
 import Zurich from './Zurich';
-import EDU from './EDU';
 
 const TCOs = {
   tco01,
@@ -82,7 +81,6 @@ export default function Communities({
     case 'cognitive': return <Cognitive base={base} member={member} meta={meta} />;
     case 'iot': return <IoT base={base} meta={meta} />;
     case 'mobile': return <Mobile base={base} meta={meta} />;
-    case 'edu': return <EDU base={base} meta={meta} />;
     default:
       // to avoid listing all TCOs we use defaut switch with a check
       if (TCOs[communityId]) {
