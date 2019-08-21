@@ -70,6 +70,18 @@ Customer has final opportunity to sign-off on the delivered assets.
     </div>
   );
 
+  const reviewScorecardTip = (
+    <div styleName="tctooltiptext tooltiptextapproval">
+      <h4>
+      See how you&apos;ll be reviewed.
+      </h4>
+      <p>
+Make sure you review the scorecard before you start.
+This will show you how your submission will be judged and scored.
+      </p>
+    </div>
+  );
+
   return (
     <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
@@ -108,8 +120,8 @@ Final Review:
             </h3>
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
-              <Tooltip content={reviewTip}>
-                <div styleName="tctooltip">
+              <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="review-tip">
 ?
                 </div>
               </Tooltip>
@@ -119,8 +131,8 @@ Approval:
             </h3>
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
-              <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
-                <div styleName="tctooltip">
+              <Tooltip id="approval-tip" content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="approval-tip">
 ?
                 </div>
               </Tooltip>
@@ -167,10 +179,15 @@ Approval:
             {
               reviewScorecardId > 0 && !isDesign
               && (
-              <p styleName="link-like-paragraph">
+              <p styleName="link-like-paragraph tooltip-container">
                 <a href={`${scorecardURL}${reviewScorecardId}`}>
   Review Scorecard
                 </a>
+                <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
+                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="reviewscorecard-tip">
+  ?
+                  </div>
+                </Tooltip>
               </p>
               )
             }

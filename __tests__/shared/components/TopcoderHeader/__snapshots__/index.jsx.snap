@@ -10,12 +10,13 @@ exports[`Default render 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      aria-label="Topcoder Homepage"
+      aria-label="Topcoder Logo link to Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo link to Topcoder Homepage"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"
@@ -78,8 +79,11 @@ exports[`Default render 1`] = `
         />
       </span>
       <div
+        aria-label="Search"
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -102,11 +106,19 @@ exports[`Default render 1`] = `
     trigger={null}
   />
   <div
-    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
+    className="closed src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      aria-label="Find members by username or skill"
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
+      onBlur={[Function]}
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -291,12 +303,13 @@ exports[`Render with open menu 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      aria-label="Topcoder Homepage"
+      aria-label="Topcoder Logo link to Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo link to Topcoder Homepage"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"
@@ -359,8 +372,11 @@ exports[`Render with open menu 1`] = `
         />
       </span>
       <div
+        aria-label="Search"
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -394,11 +410,19 @@ exports[`Render with open menu 1`] = `
     trigger={null}
   />
   <div
-    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
+    className="closed src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      aria-label="Find members by username or skill"
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
+      onBlur={[Function]}
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
@@ -583,12 +607,13 @@ exports[`Render with specified profile 1`] = `
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
   >
     <a
-      aria-label="Topcoder Homepage"
+      aria-label="Topcoder Logo link to Topcoder Homepage"
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={53}
+        title="Topcoder Logo link to Topcoder Homepage"
         viewBox="0 0 135 21"
         width={135}
         xmlns="http://www.w3.org/2000/svg"
@@ -652,26 +677,36 @@ exports[`Render with specified profile 1`] = `
       >
         <div
           className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
+          role="button"
           style={
             Object {
-              "color": "#555555",
+              "color": "#151516",
             }
           }
+          tabIndex={0}
         />
-        <div
-          className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
+        <span
+          role="link"
+          tabIndex={0}
         >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            themePriority="adhoc-context-default"
-          />
-        </div>
+          <div
+            className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
+          >
+            <ThemedAvatar
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              mapThemrProps={[Function]}
+              themePriority="adhoc-context-default"
+            />
+          </div>
+        </span>
       </div>
       <div
+        aria-label="Search"
         className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
@@ -698,7 +733,15 @@ exports[`Render with specified profile 1`] = `
     onMouseLeave={[Function]}
     role="search"
   >
+    <span
+      className="src-shared-components-TopcoderHeader-___style__search-label___2zeW2"
+    >
+      Search Members:
+    </span>
     <input
+      aria-label="Find members by username or skill"
+      className="src-shared-components-TopcoderHeader-___style__search-input___3GySi"
+      onBlur={[Function]}
       onKeyPress={[Function]}
       placeholder="Find members by username or skill"
     />
