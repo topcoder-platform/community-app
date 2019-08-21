@@ -153,7 +153,7 @@ class ChallengeDetailPageContainer extends React.Component {
        * currently available challenge details have been fetched without
        * authentication. */
       || (auth.tokenV2 && auth.tokenV3
-        && !challenge.fetchedWithAuth)
+      && !challenge.fetchedWithAuth)
 
     ) {
       loadChallengeDetails(auth, challengeId);
@@ -235,6 +235,9 @@ class ChallengeDetailPageContainer extends React.Component {
       unregistering,
       updateChallenge,
       isMenuOpened,
+      loadMMSubmissions,
+      mmSubmissions,
+      loadingMMSubmissionsForChallengeId,
     } = this.props;
 
     const {
@@ -290,20 +293,20 @@ class ChallengeDetailPageContainer extends React.Component {
               Challenge #
               {challengeId}
               {' '}
-does not exist!
+              does not exist!
             </div>
           )}
           {
             !isEmpty
             && (
-            <MetaTags
-              description={description.slice(0, 155)}
-              image={getOgImage(challenge)}
-              siteName="Topcoder"
-              socialDescription={description.slice(0, 200)}
-              socialTitle={`${prizesStr}${title}`}
-              title={title}
-            />
+              <MetaTags
+                description={description.slice(0, 155)}
+                image={getOgImage(challenge)}
+                siteName="Topcoder"
+                socialDescription={description.slice(0, 200)}
+                socialTitle={`${prizesStr}${title}`}
+                title={title}
+              />
             )
           }
           {
@@ -335,60 +338,68 @@ does not exist!
           {
             !isEmpty && selectedTab === DETAIL_TABS.DETAILS
             && (
-            <ChallengeDetailsView
-              challenge={challenge}
-              challengesUrl={challengesUrl}
-              communitiesList={communitiesList.data}
-              introduction={challenge.introduction}
-              detailedRequirements={challenge.detailedRequirements}
-              terms={terms}
-              hasRegistered={hasRegistered}
-              savingChallenge={savingChallenge}
-              setSpecsTabState={setSpecsTabState}
-              specsTabState={specsTabState}
-              updateChallenge={x => updateChallenge(x, auth.tokenV3)}
-            />
+              <ChallengeDetailsView
+                challenge={challenge}
+                challengesUrl={challengesUrl}
+                communitiesList={communitiesList.data}
+                introduction={challenge.introduction}
+                detailedRequirements={challenge.detailedRequirements}
+                terms={terms}
+                hasRegistered={hasRegistered}
+                savingChallenge={savingChallenge}
+                setSpecsTabState={setSpecsTabState}
+                specsTabState={specsTabState}
+                updateChallenge={x => updateChallenge(x, auth.tokenV3)}
+              />
             )
           }
           {
             !isEmpty && selectedTab === DETAIL_TABS.REGISTRANTS
             && (
-            <Registrants
-              challenge={challenge}
-              checkpointResults={
-                _.merge(
-                  checkpointResults,
-                  checkpointResultsUi,
-                )
-              }
-              results={results2}
-            />
+              <Registrants
+                challenge={challenge}
+                checkpointResults={
+                  _.merge(
+                    checkpointResults,
+                    checkpointResultsUi,
+                  )
+                }
+                results={results2}
+              />
             )
           }
           {
             !isEmpty && selectedTab === DETAIL_TABS.CHECKPOINTS
             && (
-            <ChallengeCheckpoints
-              checkpoints={checkpoints}
-              toggleCheckpointFeedback={toggleCheckpointFeedback}
-            />
+              <ChallengeCheckpoints
+                checkpoints={checkpoints}
+                toggleCheckpointFeedback={toggleCheckpointFeedback}
+              />
             )
           }
           {
             !isEmpty && selectedTab === DETAIL_TABS.SUBMISSIONS
-            && <Submissions challenge={challenge} />
+            && (
+              <Submissions
+                challenge={challenge}
+                loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
+                mmSubmissions={mmSubmissions}
+                loadMMSubmissions={loadMMSubmissions}
+                auth={auth}
+              />
+            )
           }
           {
             !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
             && (
-            <Winners
-              winners={winners}
-              pointPrizes={challenge.pointPrizes}
-              prizes={challenge.prizes}
-              submissions={challenge.submissions}
-              viewable={challenge.submissionsViewable === 'true'}
-              isDesign={challenge.track.toLowerCase() === 'design'}
-            />
+              <Winners
+                winners={winners}
+                pointPrizes={challenge.pointPrizes}
+                prizes={challenge.prizes}
+                submissions={challenge.submissions}
+                viewable={challenge.submissionsViewable === 'true'}
+                isDesign={challenge.track.toLowerCase() === 'design'}
+              />
             )
           }
         </div>
@@ -417,6 +428,8 @@ ChallengeDetailPageContainer.defaultProps = {
   results: null,
   terms: [],
   isMenuOpened: false,
+  loadingMMSubmissionsForChallengeId: '',
+  mmSubmissions: [],
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -460,6 +473,9 @@ ChallengeDetailPageContainer.propTypes = {
   unregistering: PT.bool.isRequired,
   updateChallenge: PT.func.isRequired,
   isMenuOpened: PT.bool,
+  loadingMMSubmissionsForChallengeId: PT.string,
+  mmSubmissions: PT.arrayOf(PT.shape()),
+  loadMMSubmissions: PT.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -494,6 +510,8 @@ function mapStateToProps(state, props) {
     terms: state.terms.terms,
     unregistering: state.challenge.unregistering,
     isMenuOpened: !!state.topcoderHeader.openedMenu,
+    loadingMMSubmissionsForChallengeId: state.challenge.loadingMMSubmissionsForChallengeId,
+    mmSubmissions: state.challenge.mmSubmissions,
   };
 }
 
@@ -590,6 +608,11 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.updateChallengeInit(uuid));
       dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
+    },
+    loadMMSubmissions: (challengeId, submitterIds, registrants, tokenV3) => {
+      const a = actions.challenge;
+      dispatch(a.getMmSubmissionsInit(challengeId));
+      dispatch(a.getMmSubmissionsDone(challengeId, submitterIds, registrants, tokenV3));
     },
   };
 };
