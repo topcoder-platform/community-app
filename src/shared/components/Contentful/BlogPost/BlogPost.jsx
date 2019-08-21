@@ -75,7 +75,7 @@ function BlogPost({
         {
           heroImage ? (
             <div className={theme.image}>
-              <img alt="" src={heroImage.file.url} />
+              <img alt={blogPost.title} src={heroImage.file.url} />
             </div>
           ) : null
         }

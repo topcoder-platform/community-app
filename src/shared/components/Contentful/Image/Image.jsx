@@ -81,7 +81,7 @@ export class ImageInner extends React.Component {
         )}
         <img
           src={imageUrl}
-          alt=""
+          alt={image.alt || image.name}
           style={imgStyle}
         />
       </div>
