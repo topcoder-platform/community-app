@@ -25,20 +25,23 @@ export default function ChallengeSearchBar({
 }) {
   return (
     <div styleName="ChallengeSearchBar" role="search">
-      <input
-        onChange={event => setQuery(event.target.value)}
-        onKeyPress={event => (event.key === 'Enter' ? onSearch(query.trim()) : null)}
-        placeholder={placeholder}
-        type="text"
-        value={query}
-      />
-      <span
-        styleName={`SearchButton ${query ? 'active' : ''}`}
-        onClick={() => onSearch(query.trim())}
-        onKeyPress={() => onSearch(query.trim())}
-      >
-        <ZoomIcon styleName="zoomIcon" />
-      </span>
+      <label htmlFor="search-challenges">SEARCH CHALLENGES
+        <input
+          id="search-challenges"
+          onChange={event => setQuery(event.target.value)}
+          onKeyPress={event => (event.key === 'Enter' ? onSearch(query.trim()) : null)}
+          placeholder={placeholder}
+          type="text"
+          value={query}
+        />
+        <span
+          styleName={`SearchButton ${query ? 'active' : ''}`}
+          onClick={() => onSearch(query.trim())}
+          onKeyPress={() => onSearch(query.trim())}
+        >
+          <ZoomIcon styleName="zoomIcon" />
+        </span>
+      </label>
     </div>
   );
 }

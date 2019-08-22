@@ -19,6 +19,10 @@ $search-input-width: '100% - 56px';
   position: relative;
   top: 1px;
 
+  label {
+    font-size: 10px;
+  }
+
   @include xs-to-md {
     display: none;
   }
@@ -33,6 +37,7 @@ $search-input-width: '100% - 56px';
     background: $tc-white;
     border: 1px solid $tc-gray-20;
     border-radius: $challenge-radius-4 0 0 $challenge-radius-4;
+    height: 35px;
     margin-bottom: 0;
     vertical-align: middle;
 
@@ -54,10 +59,10 @@ $search-input-width: '100% - 56px';
     display: inline-block;
     background: $tc-gray-20;
     cursor: pointer;
-    padding: $challenge-space-10 + 1 $challenge-space-20 $challenge-space-10 - 2;
+    padding: $challenge-space-10 $challenge-space-20 $challenge-space-10;
     border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
     vertical-align: middle;
-    height: 40px;
+    height: 35px;
 
     &.active,
     &:hover {
@@ -65,8 +70,8 @@ $search-input-width: '100% - 56px';
     }
 
     .zoomIcon {
-      height: 16px;
-      width: 16px;
+      height: 15px;
+      width: 15px;
     }
   }
 }
