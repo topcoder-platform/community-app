@@ -190,9 +190,6 @@ workflows:
               only:
                 - hot-fixes-2
                 - develop
-                - develop-from-master-23may
-                - server_side_filtering
-                - server_side_filtering_fixes
                 - ssf-merged-to-new-develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
