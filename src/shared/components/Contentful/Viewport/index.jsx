@@ -27,6 +27,7 @@ import Image from 'components/Contentful/Image';
 import Shape from 'components/Contentful/Shape';
 import Dropdown from 'components/Contentful/Dropdown';
 import MemberCard from 'components/Contentful/MemberCard';
+import Article from 'components/Contentful/Article';
 
 import Viewport from './Viewport';
 
@@ -57,6 +58,7 @@ const COMPONENTS = {
   memberCard: MemberCard,
   image: Image,
   shape: Shape,
+  article: Article,
 };
 
 const THEMES = {

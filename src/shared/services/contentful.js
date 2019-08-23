@@ -247,6 +247,31 @@ class Service {
     }
     return res.json();
   }
+
+  /**
+   * Vote on article
+   * @param {String} id Entry ID.
+   * @param {Array} data The updated data array
+   * @returns {Promise<void>}
+   */
+  async articleVote(id, votes) {
+    // eslint-disable-next-line prefer-template
+    const url = this.private.baseUrl + '/votes';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id, votes,
+      }),
+    });
+    if (!res.ok) {
+      const error = new Error('Failed to update article votes.');
+      logger.error(error);
+    }
+    return res.json();
+  }
 }
 
 /**
