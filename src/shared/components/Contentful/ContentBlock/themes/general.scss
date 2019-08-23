@@ -102,12 +102,9 @@
   p {
     @include tc-body-md;
 
-    // color: $tc-black;
     font-size: 15px;
-    letter-spacing: 2px;
     line-height: 25px;
     margin-bottom: 30px;
-    word-spacing: 2.5px;
   }
 
   table {
