@@ -51,6 +51,7 @@
     "filestack-js": "^1.7.7",
     "filestack-react": "^2.0.0",
     "flag-icon-css": "^3.3.0",
+    "focus-trap-react": "^6.0.0",
     "helmet": "^3.12.1",
     "highlight.js": "^9.13.1",
     "html-to-text": "^3.3.0",
