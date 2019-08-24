@@ -109,7 +109,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     <span>
       <span
         aria-checked={false}
-        aria-label="Filter"
+        aria-label="Design toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
         role="switch"
       >
@@ -126,7 +126,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       </span>
       <span
         aria-checked={false}
-        aria-label="Filter"
+        aria-label="Development toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
         role="switch"
       >
@@ -143,7 +143,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       </span>
       <span
         aria-checked={false}
-        aria-label="Filter"
+        aria-label="Data Science toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
         role="switch"
       >
