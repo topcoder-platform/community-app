@@ -1,0 +1,20 @@
+@import "~styles/mixins";
+
+.container {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 50px;
+
+  h1 {
+    margin-bottom: 50px;
+  }
+}
+
+@include xs-to-sm {
+  .container {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+}

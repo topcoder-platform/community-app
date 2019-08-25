@@ -256,4 +256,6 @@ module.exports = {
     title: 'Switch to BUSINESS',
     href: 'https://connect.topcoder-dev.com',
   },
+  // Config for TC EDU
+  TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
 };

@@ -1,0 +1,59 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: row;
+  color: $text-black;
+  background-color: $tc-white;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 14px;
+  height: 38px;
+  max-width: 235px;
+
+  :global {
+    .SingleDatePicker {
+      width: 90px;
+      margin-left: 6px;
+    }
+
+    input {
+      height: 21px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      font-size: 14px !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+.title {
+  position: absolute;
+  color: #aaa;
+  font-size: 12px;
+  background: $tc-white;
+  padding: 0 7px;
+  left: 8px;
+  top: -7px;
+}
+
+.separator {
+  margin-left: 3px;
+  margin-right: 3px;
+}

@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div>
+  <div
+    className="undefined undefined"
+  >
+    <span>
+      filter
+    </span>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <IconCloseBig
+        height="14"
+        viewBox="0 0 14 14"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </button>
+  </div>
+  <ThemedTracksTagsInner
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
+    mapThemrProps={[Function]}
+    onAddNewTag={[Function]}
+    onRemoveTag={[Function]}
+    tags={Array []}
+    themePriority="adhoc-context-default"
+  />
+  <div>
+    <ThemedTracksAuthorInner
+      className=""
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      mapThemrProps={[Function]}
+      onSelected={[Function]}
+      options={Array []}
+      selected=""
+      themePriority="adhoc-context-default"
+    />
+    <ThemedTracksDateInner
+      className=""
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      endDate={null}
+      mapThemrProps={[Function]}
+      onSelectEndDate={[Function]}
+      onSelectStartDate={[Function]}
+      startDate={null}
+      themePriority="adhoc-context-default"
+    />
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      RESET
+    </button>
+    <button
+      type="button"
+    >
+      APPLY FILTER
+    </button>
+  </div>
+</div>
+`;
