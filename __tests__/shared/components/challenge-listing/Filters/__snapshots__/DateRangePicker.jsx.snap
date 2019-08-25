@@ -60,10 +60,10 @@ exports[`Matches shallow shapshot 1`] = `
       "homeEnd": "Home and end keys",
       "jumpToNextMonth": "Next Month",
       "jumpToPrevMonth": "Previous Month",
-      "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and
-  select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-      "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and
-  select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+      "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the questio
+n mark key to get the keyboard shortcuts for changing dates.",
+      "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the questio
+n mark key to get the keyboard shortcuts for changing dates.",
       "keyboardShortcuts": "Keyboard Shortcuts",
       "leftArrowRightArrow": "Right and left arrow keys",
       "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
