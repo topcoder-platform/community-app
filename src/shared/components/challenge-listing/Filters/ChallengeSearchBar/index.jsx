@@ -38,6 +38,8 @@ export default function ChallengeSearchBar({
           styleName={`SearchButton ${query ? 'active' : ''}`}
           onClick={() => onSearch(query.trim())}
           onKeyPress={() => onSearch(query.trim())}
+          tabIndex="0"
+          role="button"
         >
           <ZoomIcon styleName="zoomIcon" />
         </span>
