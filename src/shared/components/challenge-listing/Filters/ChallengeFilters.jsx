@@ -68,7 +68,8 @@ export default function ChallengeFilters({
         />
         <ChallengeSearchBar
           onSearch={text => setFilterState(Filter.setText(filterState, text))}
-          placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Search Challenges'}
+          label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
+          placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Type the challenge name here'}
           query={searchText}
           setQuery={setSearchText}
         />

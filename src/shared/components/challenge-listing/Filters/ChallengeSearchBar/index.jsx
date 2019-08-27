@@ -22,10 +22,11 @@ export default function ChallengeSearchBar({
   placeholder,
   query,
   setQuery,
+  label,
 }) {
   return (
     <div styleName="ChallengeSearchBar" role="search">
-      <label htmlFor="search-challenges">SEARCH CHALLENGES
+      <label htmlFor="search-challenges">{label}
         <input
           id="search-challenges"
           onChange={event => setQuery(event.target.value)}
@@ -50,10 +51,12 @@ export default function ChallengeSearchBar({
 
 ChallengeSearchBar.defaultProps = {
   placeholder: '',
+  label: 'Search: ',
 };
 
 ChallengeSearchBar.propTypes = {
   onSearch: PT.func.isRequired,
+  label: PT.string,
   placeholder: PT.string,
   query: PT.string.isRequired,
   setQuery: PT.func.isRequired,

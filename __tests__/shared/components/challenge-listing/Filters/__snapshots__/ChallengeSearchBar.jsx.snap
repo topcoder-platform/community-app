@@ -8,7 +8,7 @@ exports[`Matches shallow shapshot 1`] = `
   <label
     htmlFor="search-challenges"
   >
-    SEARCH CHALLENGES
+    Search: 
     <input
       id="search-challenges"
       onChange={[Function]}
@@ -44,7 +44,7 @@ exports[`Matches shallow shapshot 2`] = `
   <label
     htmlFor="search-challenges"
   >
-    SEARCH CHALLENGES
+    Search: 
     <input
       id="search-challenges"
       onChange={[Function]}
