@@ -36,7 +36,6 @@ $search-input-width: '100% - 56px';
   input:not([type="checkbox"]) {
     display: inline-block;
     flex: 1;
-
     background: $tc-white;
     border: 1px solid $tc-gray-20;
     border-radius: $challenge-radius-4 0 0 $challenge-radius-4;
