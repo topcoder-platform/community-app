@@ -677,8 +677,6 @@ exports[`Render with specified profile 1`] = `
       >
         <div
           className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
-          onBlur={[Function]}
-          onFocus={[Function]}
           role="button"
           style={
             Object {
