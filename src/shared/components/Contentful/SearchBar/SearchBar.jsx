@@ -6,6 +6,7 @@ import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
 import { config } from 'topcoder-react-utils';
+import { getService } from 'services/contentful';
 
 import IconFilterAll from 'assets/images/tc-edu/icon-filter-all.svg';
 import IconFilterAuthor from 'assets/images/tc-edu/icon-filter-author.svg';
@@ -15,6 +16,8 @@ import IconDropdownSmall from 'assets/images/tc-edu/icon-arrow-up-small.svg';
 import IconSearch from 'assets/images/tc-edu/icon-search.svg';
 import IconPlay from 'assets/images/tc-edu/icon-play-video.svg';
 import defaultTheme from './themes/default.scss';
+
+const RESULT_IMAGE_PLACEHOLDER = 'https://images.ctfassets.net/piwi0eufbb2g/838SkGfa1WgtwLY9NK03c/8501550a85be07f220b09ad903a5e575/image-placeholder.png';
 
 const filterOptions = [
   {
@@ -47,11 +50,13 @@ export class SearchBarInner extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     // using debounce to avoid processing or requesting too much
     this.updateSuggestionListWithNewSearch = _.debounce(
-      this.updateSuggestionListWithNewSearch.bind(this), 100,
+      this.updateSuggestionListWithNewSearch.bind(this), 400,
     );
     this.setSearchFieldRef = this.setSearchFieldRef.bind(this);
     this.setPopupSearchResultRef = this.setPopupSearchResultRef.bind(this);
     this.updatePopupSearchResultSize = this.updatePopupSearchResultSize.bind(this);
+    // create a service to work with Contentful
+    this.apiService = getService({ spaceName: 'EDU' });
   }
 
   /**
@@ -135,14 +140,20 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <img
-                      className={theme['cell-image']}
-                      src={item.featuredImage}
-                      alt="article thumnail"
-                    />
-                    <span className={theme['cell-text']}>
-                      {item.title}
-                    </span>
+                    <a className={theme.articleLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                      {
+                        item.featuredImage ? (
+                          <img
+                            className={theme.fImage}
+                            src={item.featuredImage}
+                            alt="article thumnail"
+                          />
+                        ) : null
+                      }
+                      <span className={theme['cell-text']}>
+                        {item.title}
+                      </span>
+                    </a>
                   </div>
                 ))
               }
@@ -160,16 +171,23 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <div className={theme['cell-image']}>
-                      <img
-                        src={item.featuredImage}
-                        alt="video thumnail"
-                      />
-                      <IconPlay className={theme['icon-play']} />
-                    </div>
-                    <span className={theme['cell-text']}>
-                      {item.title}
-                    </span>
+                    <a className={theme.articleLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                      {
+                        item.featuredImage ? (
+                          <div className={theme['cell-image']}>
+                            <img
+                              className={theme.fImage}
+                              src={item.featuredImage}
+                              alt="video thumnail"
+                            />
+                            <IconPlay className={theme['icon-play']} />
+                          </div>
+                        ) : null
+                      }
+                      <span className={theme['cell-text']}>
+                        {item.title}
+                      </span>
+                    </a>
                   </div>
                 ))
               }
@@ -186,16 +204,18 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <span className={theme['cell-text']}>
-                      {item.title}
-                    </span>
+                    <a className={theme.forumLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                      <span className={theme['cell-text']}>
+                        {item.title}
+                      </span>
+                    </a>
                   </div>
                 ))
               }
             </div>
           </div>
         )}
-        <a className={theme['view-all-results']} href="#">View all results</a>
+        <a className={theme['view-all-results']} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}`}>View all results</a>
       </div>
     ));
   }
@@ -221,84 +241,81 @@ export class SearchBarInner extends Component {
    */
   updateSuggestionListWithNewSearch(searchText) {
     const {
-      AutoSuggestList,
-    } = this.props;
-
-    const {
       selectedFilter,
     } = this.state;
 
     if (searchText) {
-      const suggestionList = _.groupBy(
-        _.filter(
-          AutoSuggestList, (item) => {
-            const query = searchText.toLowerCase();
-            const searchByAuthor = () => {
-              for (let i = 0; i < item.contentAuthor.length; i += 1) {
-                const author = item.contentAuthor[i];
-                if (
-                  author.name.toLowerCase().indexOf(query) >= 0
-                  || author.email.toLowerCase().indexOf(query) >= 0
-                  || author.TCHandle.toLowerCase().indexOf(query) >= 0
-                ) {
-                  return true;
+      const query = {
+        content_type: 'article',
+      };
+      if (selectedFilter.name === 'All') {
+        query.query = searchText;
+      }
+      if (selectedFilter.name === 'Author') {
+        query.content_type = 'person';
+        query['fields.name[match]'] = searchText;
+      }
+      if (selectedFilter.name === 'Tags') {
+        query['fields.tags[in]'] = searchText;
+      }
+      this.apiService.queryEntries(query)
+        .then((results) => {
+          // Nothing found?
+          if (!results.total) {
+            this.setState({ suggestionList: {} });
+            return;
+          }
+          // Author query?
+          if (selectedFilter.name === 'Author') {
+            this.apiService.queryEntries({
+              content_type: 'article',
+              links_to_entry: results.items[0].sys.id,
+            })
+              .then((authorResults) => {
+                if (!authorResults.total) {
+                  this.setState({ suggestionList: {} });
+                  return;
                 }
-              }
-              return false;
-            };
-            const searchByTags = () => {
-              for (let i = 0; i < item.tags.length; i += 1) {
-                const tag = item.tags[i];
-                if (tag.toLowerCase().indexOf(query) >= 0) {
-                  return true;
-                }
-              }
-              return false;
-            };
-
-            switch (selectedFilter.name) {
-              case 'All': {
-                if (
-                  searchByAuthor()
-                  || searchByTags()
-                  || item.title.toLowerCase().indexOf(query) >= 0
-                  || item.content.toLowerCase().indexOf(query) >= 0
-                ) {
-                  return true;
-                }
-                return false;
-              }
-              case 'Author': {
-                if (searchByAuthor()) {
-                  return true;
-                }
-                return false;
-              }
-              case 'Tags': {
-                if (searchByTags()) {
-                  return true;
-                }
-                return false;
-              }
-              default: {
-                return false;
-              }
-            }
-          },
-        ),
-        'type',
-      );
-
-      _.forOwn(suggestionList, (value, key) => {
-        suggestionList[key].length = Math.min(
-          value.length,
-          config.TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP,
-        );
-      });
-      this.setState({ suggestionList });
+                const suggestionList = this.groupResults(authorResults);
+                this.setState({ suggestionList });
+              });
+            return;
+          }
+          // ALL && Tags
+          const suggestionList = this.groupResults(results);
+          this.setState({ suggestionList });
+        });
     } else {
       this.setState({ suggestionList: {} });
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  groupResults(results) {
+    const suggestionList = _.groupBy(
+      _.map(results.items, (item) => {
+        const { fields } = item;
+        const featuredImage = fields.featuredImage
+          ? _.find(results.includes.Asset, { sys: { id: fields.featuredImage.sys.id } })
+          : { fields: { file: { url: RESULT_IMAGE_PLACEHOLDER } } };
+        return {
+          title: fields.title,
+          type: fields.type,
+          content: fields.content,
+          featuredImage: featuredImage.fields.file.url,
+          tags: fields.tags,
+        };
+      }),
+      'type',
+    );
+    // limit results per group
+    _.forOwn(suggestionList, (value, key) => {
+      suggestionList[key].length = Math.min(
+        value.length,
+        config.TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP,
+      );
+    });
+    return suggestionList;
   }
 
   /**
@@ -389,20 +406,10 @@ SearchBarInner.propTypes = {
     'is-mobile': PT.string.isRequired,
     'is-desktop': PT.string.isRequired,
     'icon-dropdown': PT.string.isRequired,
+    fImage: PT.string.isRequired,
+    articleLink: PT.string.isRequired,
+    forumLink: PT.string.isRequired,
   }).isRequired,
-  AutoSuggestList: PT.arrayOf(PT.shape({
-    title: PT.string.isRequired,
-    type: PT.oneOf(['Article', 'Forum post', 'Video']).isRequired,
-    content: PT.string.isRequired,
-    featuredImage: PT.string.isRequired,
-    tags: PT.arrayOf(PT.string).isRequired,
-    contentAuthor: PT.arrayOf(PT.shape({
-      TCHandle: PT.string.isRequired,
-      email: PT.string.isRequired,
-      name: PT.string.isRequired,
-    })).isRequired,
-
-  })).isRequired,
 };
 
 export default themr('Contentful-Blog', defaultTheme)(SearchBarInner);

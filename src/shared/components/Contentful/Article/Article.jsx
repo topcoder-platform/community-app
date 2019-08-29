@@ -10,9 +10,11 @@ import { getService } from 'services/contentful';
 import MarkdownRenderer from 'components/MarkdownRenderer';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
+import YouTubeVideo from 'components/YouTubeVideo';
 import moment from 'moment';
 import localStorage from 'localStorage';
 import { Modal } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
 import RightArrowIcon from 'assets/images/small-right-arrow.svg';
@@ -189,6 +191,11 @@ export default class Article extends React.Component {
           {/* Content */}
           <div className={theme.articleContent}>
             <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
+            {
+              fields.type === 'Video' && fields.contentUrl ? (
+                <YouTubeVideo src={fields.contentUrl} />
+              ) : null
+            }
           </div>
           {/* Voting */}
           <div className={theme.actionContainer}>
@@ -241,7 +248,7 @@ export default class Article extends React.Component {
                         ) : null
                       }
                       <h3 className={theme.recommendedCardTitle}>
-                        {subData.entries.items[rec.sys.id].fields.title}
+                        <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`}>{subData.entries.items[rec.sys.id].fields.title}</a>
                       </h3>
                       <div className={theme.recommendedCardContent}>
                         {
@@ -264,7 +271,7 @@ export default class Article extends React.Component {
 Article.defaultProps = {
   spaceName: null,
   environment: null,
-  EDU_BASE_URL: '',
+  EDU_BASE_URL: config.TC_EDU_BASE_PATH,
 };
 
 Article.propTypes = {

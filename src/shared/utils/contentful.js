@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import _ from 'lodash';
 import { isomorphy } from 'topcoder-react-utils';
 import { removeTrailingSlash } from 'utils/url';
@@ -102,6 +103,23 @@ export function menuItemBuilder(baseUrl, item) {
       };
     default: return {};
   }
+}
+
+/**
+ * Normalizes the EDU taxonomy object as fetched from Contentful
+ * @param {Object} EDUTaxonomy The EDU taxonomy
+ * @param {Object} query The current url query
+ */
+export function tracksTreeBuilder(EDUTaxonomy, query) {
+  let id = 0;
+  return _.map(EDUTaxonomy, (categories, track) => ({
+    title: track,
+    id: id++,
+    items: _.map(categories, cat => ({
+      title: cat.name, id: id++, items: [], track, selected: query.tax === cat.name,
+    })),
+    selected: query.track === track,
+  }));
 }
 
 export default undefined;

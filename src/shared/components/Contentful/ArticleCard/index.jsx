@@ -12,12 +12,14 @@ import articleSmallTheme from './themes/article_small.scss';
 import articleLargeTheme from './themes/article_large.scss';
 import forumPostTheme from './themes/forum_post.scss';
 import videoTheme from './themes/video.scss';
+import recommendedTheme from './themes/recommended.scss';
 
 const THEMES = {
   'Article large': articleLargeTheme,
   'Article small': articleSmallTheme,
   'Forum post': forumPostTheme,
   Video: videoTheme,
+  Recommended: recommendedTheme,
 };
 
 /* Loads the article card's related entries and assets. */
@@ -140,7 +142,7 @@ ArticleAssetsLoader.propTypes = {
 };
 
 /* Loads the article card's article entry */
-function ArticleLoader(props) {
+export function ArticleLoader(props) {
   const {
     articleCard, preview, spaceName, environment,
   } = props;

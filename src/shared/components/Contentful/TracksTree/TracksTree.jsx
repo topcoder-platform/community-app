@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
  * The core track tree rendering.
  */
@@ -13,10 +14,9 @@ import ChildList from './ChildList';
 export class TracksTreeInner extends Component {
   constructor(props) {
     super(props);
-    const { currentItem } = this.props;
     const list = _.cloneDeep(props.list);
     this.state = {
-      expandedTrack: this.getExpandedTrack(list, currentItem),
+      expandedTrack: this.getExpandedTrack(list),
       list,
       isShowFullList: false,
     };
@@ -25,14 +25,13 @@ export class TracksTreeInner extends Component {
   /**
    * Get current expanded track
    * @param {Array} list list of track item
-   * @param {Number} currentItem current item
    */
-  getExpandedTrack(list, currentItem) {
+  getExpandedTrack(list) {
     let expandedTrack = -1;
     for (let i = 0; i < list.length; i += 1) {
       const item = list[i];
-      let tmpExpanedTrack = this.getExpandedTrack(item.items, currentItem);
-      if (item.id === currentItem) {
+      let tmpExpanedTrack = this.getExpandedTrack(item.items);
+      if (item.selected) {
         tmpExpanedTrack = item.id;
       }
       if (tmpExpanedTrack > 0) {
@@ -46,6 +45,7 @@ export class TracksTreeInner extends Component {
   render() {
     const {
       theme,
+      onItemClick,
     } = this.props;
     const {
       list,
@@ -91,6 +91,20 @@ export class TracksTreeInner extends Component {
                     if (selectedItem.items.length === 0) {
                       this.setState({ isShowFullList: false });
                     }
+                    // update the list and set it in state
+                    const listUpdated = _.map(list, (item) => {
+                      item.selected = item.title === selectedItem.track;
+                      item.items = _.map(item.items, (subItem) => {
+                        subItem.selected = subItem.title === selectedItem.title;
+                        return subItem;
+                      });
+                      return item;
+                    });
+                    this.setState({
+                      list: listUpdated,
+                    });
+                    // callback invocation
+                    onItemClick(selectedItem);
                   }}
                 />
               )}
@@ -103,7 +117,6 @@ export class TracksTreeInner extends Component {
 }
 
 TracksTreeInner.defaultProps = {
-  currentItem: null,
   list: [],
 };
 
@@ -127,7 +140,7 @@ TracksTreeInner.propTypes = {
       items: PT.array.isRequired,
     })).isRequired,
   })),
-  currentItem: PT.number,
+  onItemClick: PT.func.isRequired,
 };
 
 export default themr('Contentful-Blog', defaultTheme)(TracksTreeInner);

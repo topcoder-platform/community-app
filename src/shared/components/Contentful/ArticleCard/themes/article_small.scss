@@ -2,7 +2,7 @@
 @import "../../_default";
 
 .container {
-  border: 1px solid #d4d4d4;
+  background-color: #f4f4f4;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
@@ -169,7 +169,7 @@
 .image {
   width: 155px;
   min-width: 155px;
-  min-height: 1px;
+  min-height: 138px;
 
   &::before {
     content: '';

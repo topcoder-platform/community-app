@@ -36,19 +36,23 @@ exports[`Matches shallow shapshot 1`] = `
       composeContextTheme="softly"
       mapThemrProps={[Function]}
       onSelected={[Function]}
-      options={Array []}
-      selected=""
+      options={
+        Array [
+          "All authors",
+        ]
+      }
+      selected="All authors"
       themePriority="adhoc-context-default"
     />
     <ThemedTracksDateInner
       className=""
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      endDate={null}
+      endDate={"2019-08-29T11:14:00.861Z"}
       mapThemrProps={[Function]}
       onSelectEndDate={[Function]}
       onSelectStartDate={[Function]}
-      startDate={null}
+      startDate={"2019-08-29T11:14:00.861Z"}
       themePriority="adhoc-context-default"
     />
   </div>

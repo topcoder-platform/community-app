@@ -9,12 +9,14 @@ import { logger } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
+import { config } from 'topcoder-react-utils';
 // SVG assets
 import ThumbUpIcon from 'assets/images/ico-thumb-up.svg';
 import CommentIcon from 'assets/images/ico-comment.svg';
 import TodayIcon from 'assets/images/ico-today.svg';
 import PersonIcon from 'assets/images/ico-person.svg';
 import PlayIcon from 'assets/images/ico-play.svg';
+import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
 
 // date/time format to use for the creation date
 const FORMAT = 'MMM DD, YYYY';
@@ -110,7 +112,7 @@ class ArticleCard extends React.Component {
 
     // truncate content for 'Article large' cards
     const content = (
-      themeName === 'Article large'
+      (themeName === 'Article large' || themeName === 'Recommended')
       && article.content.length > CONTENT_PREVIEW_LENGTH)
       ? `${article.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`
       : undefined;
@@ -142,7 +144,7 @@ class ArticleCard extends React.Component {
               <div className={theme.tags}>
                 {
                   /* eslint-disable react/no-array-index-key */
-                  article.tags && article.tags.map((tag, index) => (
+                  themeName !== 'Recommended' && article.tags && article.tags.map((tag, index) => (
                     <span
                       key={index}
                       className={theme.tag}
@@ -156,82 +158,90 @@ class ArticleCard extends React.Component {
               <div className={theme.readTime}>
                 <p>{article.readTime}</p>
               </div>
-              <h3 className={theme.title}>{title}</h3>
+              <h3 className={theme.title}>
+                <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.title}`}>{title}</a>
+              </h3>
               <div className={theme.contentPreview}>
                 <p>{content}</p>
               </div>
-              <div className={theme.infoContainer}>
-                <div className={theme.articleInfo}>
-                  <div className={theme.authors}>
-                    {
-                      contentAuthor && contentAuthor.length > 0 ? (
-                        contentAuthor.map(author => (
-                          <div key={author.key} className={theme.author}>
-                            {
-                              author.fields ? (
-                                <div className={theme.avatarWrapper}>
-                                  <img src={author.fields.file.url} alt={author.fields.title} />
-                                </div>
-                              ) : (
-                                <div className={theme.iconWrapper}>
-                                  <PersonIcon className={theme.personIcon} />
-                                </div>
-                              )
-                            }
-                            <p>{author.name}</p>
-                          </div>
-                        ))
-                      ) : null
-                    }
-                  </div>
-                  {
-                    showArticleInfo() && (
-                      <div className={theme.creationDate}>
-                        <TodayIcon className={theme.calendarIcon} />
-                        <p>{localTime(article.creationDate, datetimeFormat)}</p>
+              {
+                themeName !== 'Recommended' ? (
+                  <div className={theme.infoContainer}>
+                    <div className={theme.articleInfo}>
+                      <div className={theme.authors}>
+                        {
+                          contentAuthor && contentAuthor.length > 0 ? (
+                            contentAuthor.map(author => (
+                              <div key={author.key} className={theme.author}>
+                                {
+                                  author.fields ? (
+                                    <div className={theme.avatarWrapper}>
+                                      <img src={author.fields.file.url} alt={author.fields.title} />
+                                    </div>
+                                  ) : (
+                                    <div className={theme.iconWrapper}>
+                                      <PersonIcon className={theme.personIcon} />
+                                    </div>
+                                  )
+                                }
+                                <p>{author.name}</p>
+                              </div>
+                            ))
+                          ) : null
+                        }
                       </div>
-                    )
-                  }
-                  {
-                    showArticleInfo() && (
-                      <p className={theme.readTimeInfo}>
-                        {themeName === 'Article large' ? <span>&nbsp;.&nbsp;</span> : null}
-                        {article.readTime}
-                      </p>
-                    )
-                  }
-                </div>
-                {
-                  (article.upvotes || article.commentsCount) && (
-                    <div className={theme.articleStats}>
                       {
-                        article.upvotes && (
-                          <div className={theme.stat}>
-                            <ThumbUpIcon className={theme.statIcon} />
-                            <p>{formatCount(article.upvotes)}</p>
+                        showArticleInfo() && (
+                          <div className={theme.creationDate}>
+                            <TodayIcon className={theme.calendarIcon} />
+                            <p>{localTime(article.creationDate, datetimeFormat)}</p>
                           </div>
                         )
                       }
                       {
-                        article.commentsCount && (
-                          <div className={theme.stat}>
-                            <CommentIcon className={theme.statIcon} />
-                            <p>{formatCount(article.commentsCount)}</p>
-                          </div>
+                        showArticleInfo() && (
+                          <p className={theme.readTimeInfo}>
+                            {themeName === 'Article large' ? <span>&nbsp;.&nbsp;</span> : null}
+                            {article.readTime}
+                          </p>
                         )
                       }
                     </div>
-                  )
-                }
-              </div>
+                    {
+                      (article.upvotes || article.commentsCount) && (
+                        <div className={theme.articleStats}>
+                          {
+                            article.upvotes && (
+                              <div className={theme.stat}>
+                                <ThumbUpIcon className={theme.statIcon} />
+                                <p>{formatCount(article.upvotes)}</p>
+                              </div>
+                            )
+                          }
+                          {
+                            article.commentsCount && (
+                              <div className={theme.stat}>
+                                <CommentIcon className={theme.statIcon} />
+                                <p>{formatCount(article.commentsCount)}</p>
+                              </div>
+                            )
+                          }
+                        </div>
+                      )
+                    }
+                  </div>
+                ) : (
+                  <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.title}`} className={theme.readMore}>Read More <ReadMoreArrow /></a>
+                )
+              }
             </div>
             {
               (
-                (themeName === 'Article small' || themeName === 'Article large')
+                (themeName === 'Article small' || themeName === 'Article large' || themeName === 'Recommended')
                 && featuredImage
                 && (
                   <div
-                    className={theme.image}
+                    className={themeName === 'Recommended' ? theme.imageRecommended : theme.image}
                     style={{
                       backgroundImage: `url(${featuredImage.file.url})`,
                       backgroundSize: 'cover',
@@ -268,8 +278,8 @@ ArticleCard.propTypes = {
     playIconContainer: PT.string.isRequired,
     playIconWrapper: PT.string.isRequired,
     playIcon: PT.string.isRequired,
-    tags: PT.string.isRequired,
-    tag: PT.string.isRequired,
+    tags: PT.string,
+    tag: PT.string,
     readTime: PT.string.isRequired,
     title: PT.string.isRequired,
     contentPreview: PT.string.isRequired,
@@ -287,6 +297,8 @@ ArticleCard.propTypes = {
     stat: PT.string.isRequired,
     statIcon: PT.string.isRequired,
     image: PT.string.isRequired,
+    imageRecommended: PT.string,
+    readMore: PT.string,
   }).isRequired,
   themeName: PT.string.isRequired,
 };

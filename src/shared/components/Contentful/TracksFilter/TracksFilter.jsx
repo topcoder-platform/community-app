@@ -1,11 +1,12 @@
 /**
- * The core search bar rendering.
+ * The core tracks filter
  */
 import _ from 'lodash';
 import moment from 'moment';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
+import { getService } from 'services/contentful';
 
 import IconCloseBig from 'assets/images/tc-edu/icon-close-big.svg';
 import TracksTags from './TracksTags';
@@ -21,12 +22,31 @@ export class TracksFilterInner extends Component {
     this.state = {
       selectedAuthor: props.selectedAuthor,
       authorList: props.authorList,
-      tags: _.cloneDeep(props.tags),
+      tags: props.tags,
       startDate: props.startDate,
       endDate: props.endDate,
     };
 
+    // create a service to work with Contentful
+    this.apiService = getService({ spaceName: 'EDU' });
+
     this.onReset = this.onReset.bind(this);
+  }
+
+  componentDidMount() {
+    // Load all persons from Contentful
+    this.apiService.queryEntries({
+      content_type: 'person',
+      limit: 1000,
+    })
+      .then((results) => {
+        if (results.total) {
+          const { authorList } = this.state;
+          this.setState({
+            authorList: _.concat(authorList, _.map(results.items, item => item.fields.name)),
+          });
+        }
+      });
   }
 
   /**
@@ -42,7 +62,7 @@ export class TracksFilterInner extends Component {
 
     this.setState({
       selectedAuthor,
-      tags: _.cloneDeep(tags),
+      tags,
       startDate,
       endDate,
     });
@@ -119,10 +139,10 @@ export class TracksFilterInner extends Component {
 
 TracksFilterInner.defaultProps = {
   onClose: () => {},
-  selectedAuthor: '',
-  authorList: [],
-  startDate: null,
-  endDate: null,
+  selectedAuthor: 'All authors',
+  authorList: ['All authors'],
+  startDate: moment(),
+  endDate: moment(),
   tags: [],
 };
 

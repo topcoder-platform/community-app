@@ -3,14 +3,13 @@
 
 .container {
   flex: 1;
-  min-width: 0;
   background: #f4f4f4;
   border-radius: 10px;
+  max-width: 369px;
+  min-height: 217px;
 
   @include xs-to-sm {
-    display: block;
-    min-width: 100%;
-    max-width: 100%;
+    margin: auto;
   }
 }
 

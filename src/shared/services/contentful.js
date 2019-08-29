@@ -23,6 +23,14 @@ if (isomorphy.isServerSide()) {
 
 const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
 
+// Education Center Taxonomy
+const EDU_TAXONOMY_ID = '15caxocitaxyK65K9oSd91';
+// The keys for subcategory lists/references
+// If need to add new track add its fieldID here to be autopickuped
+const EDU_TRACK_KEYS = ['dataScience', 'competitiveProgramming', 'design', 'development', 'qualityAssurance'];
+
+const EDU_ARTICLE_TYPES = ['Article', 'Video', 'Forum post'];
+
 /* Holds URL of Community App CDN (and the dedicated Contentful endpoint
  * there). */
 // const CDN_URL = `${config.CDN.PUBLIC}/contentful`;
@@ -271,6 +279,56 @@ class Service {
       logger.error(error);
     }
     return res.json();
+  }
+
+  /**
+   * Retrieve EDU taxonomy from Contentful by fixed id
+   */
+  async getEDUTaxonomy() {
+    let EDUtax = await this.getEntry(EDU_TAXONOMY_ID);
+    EDUtax = _.pick(EDUtax.fields, EDU_TRACK_KEYS);
+    const IDs = _.flatten(
+      _.map(EDUtax, items => items.map(item => item.sys.id)),
+    );
+    let taxonomy = await this.queryEntries({
+      'sys.id[in]': IDs.join(','),
+      limit: 1000,
+    });
+    taxonomy = _.groupBy(taxonomy.items.map(item => item.fields), 'trackParent');
+
+    return taxonomy;
+  }
+
+  /**
+   * Query EDU articles and group results
+   * @param {String} track
+   */
+  async getEDUContent({ track }) {
+    const query = {
+      content_type: 'article',
+    };
+    if (track) {
+      query['fields.trackCategory'] = track;
+    }
+    const content = {};
+    await Promise.all(
+      _.map(EDU_ARTICLE_TYPES,
+        type => this.queryEntries({ ...query, 'fields.type': type })
+          // eslint-disable-next-line no-return-assign
+          .then(results => content[type] = results)),
+    );
+    return content;
+  }
+
+  /**
+   * Get a list of all EDU content authors
+   */
+  async getEDUAuthors() {
+    const authors = await this.queryEntries({
+      content_type: 'person',
+      limit: 1000,
+    });
+    return authors;
   }
 }
 

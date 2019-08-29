@@ -9,12 +9,11 @@ $green-color: #137d60;
   display: flex;
   flex-direction: column;
   color: $text-black;
-  background-color: $tc-white;
+  background-color: #f4f4f4;
   border-radius: 10px;
-  box-shadow: 0 10px 22px 0 rgba(0, 0, 0, 0.05), 0 -4px 8px 0 rgba(0, 0, 0, 0.03);
-  max-width: 765px;
   width: 100%;
   padding: 31px 31px 28px 30px;
+  margin-top: 14px;
 
   button {
     background: transparent;

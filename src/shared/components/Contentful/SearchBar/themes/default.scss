@@ -8,8 +8,7 @@ $link-color: #0d61bf;
 
   display: flex;
   height: 60px;
-  padding: 0 20px;
-  justify-content: center;
+  justify-content: flex-start;
   color: $text-black;
 
   input {
@@ -121,6 +120,8 @@ $link-color: #0d61bf;
   display: flex;
   flex-direction: column;
   left: 0;
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.15);
+  z-index: 999;
 }
 
 .dropdown-item {
@@ -153,6 +154,8 @@ $link-color: #0d61bf;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.15);
+  z-index: 999;
 }
 
 .icon-search {
@@ -259,6 +262,19 @@ $link-color: #0d61bf;
   }
 }
 
+.fImage {
+  width: 90px;
+  height: 80px;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.articleLink {
+  display: flex;
+  align-items: center;
+}
+
 .icon-play {
   width: 50%;
   height: 50%;
@@ -269,7 +285,8 @@ $link-color: #0d61bf;
   margin-top: -20px;
 }
 
-.view-all-results {
+.view-all-results,
+.forumLink {
   @include roboto-medium;
 
   text-decoration: underline;
