@@ -16,11 +16,21 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { goToLogin } from 'utils/tc';
 import Lock from '../icons/lock.svg';
 import SubmissionRow from './SubmissionRow';
+import SubmissionInformationModal from './SubmissionInformationModal';
 import './style.scss';
 
 const { getProvisionalScore, getFinalScore } = submissionUtils;
 
 class SubmissionsComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowInformation: false,
+      memberOfModal: '',
+    };
+    this.onHandleInformationPopup = this.onHandleInformationPopup.bind(this);
+  }
+
   componentDidMount() {
     const { challenge, loadMMSubmissions, auth } = this.props;
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
@@ -37,12 +47,29 @@ class SubmissionsComponent extends React.Component {
     }
   }
 
+  onHandleInformationPopup(status, submissionId = null, member = '') {
+    const { loadSubmissionInformation, auth } = this.props;
+    this.setState({
+      isShowInformation: status,
+      memberOfModal: member,
+    });
+
+    if (status) {
+      loadSubmissionInformation(submissionId, auth.tokenV3);
+    }
+  }
+
   render() {
     const {
       challenge, toggleSubmissionHistory,
       submissionHistoryOpen,
       mmSubmissions,
       loadingMMSubmissionsForChallengeId,
+      isLoadingSubmissionInformation,
+      submissionInformation,
+      toggleSubmissionTestcase,
+      submissionTestcaseOpen,
+      clearSubmissionTestcaseOpen,
     } = this.props;
     const {
       checkpoints,
@@ -50,6 +77,10 @@ class SubmissionsComponent extends React.Component {
       registrants,
       allPhases,
     } = challenge;
+    const { isShowInformation, memberOfModal } = this.state;
+
+    const modalSubmissionBasicInfo = () => _.find(mmSubmissions,
+      item => item.member === memberOfModal);
 
     const renderSubmission = s => (
       <div styleName="submission" key={s.submissionId}>
@@ -144,7 +175,7 @@ class SubmissionsComponent extends React.Component {
       return challenge.submissionViewable === 'true' ? (
         <div styleName="container view">
           <div styleName="title">
-              ROUND 2 (FINAL) SUBMISSIONS
+            ROUND 2 (FINAL) SUBMISSIONS
           </div>
           <div styleName="content">
             {
@@ -259,6 +290,9 @@ class SubmissionsComponent extends React.Component {
                 {...submission}
                 toggleHistory={() => { toggleSubmissionHistory(index); }}
                 openHistory={(submissionHistoryOpen[index.toString()] || false)}
+                isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                submissionInformation={submissionInformation}
+                onShowPopup={this.onHandleInformationPopup}
               />
             ))
           )
@@ -286,10 +320,29 @@ class SubmissionsComponent extends React.Component {
             ))
           )
         }
+        {
+          isMM && isShowInformation && (
+            <SubmissionInformationModal
+              isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+              submissionInformation={submissionInformation}
+              onClose={this.onHandleInformationPopup}
+              toggleTestcase={toggleSubmissionTestcase}
+              openTestcase={submissionTestcaseOpen}
+              clearTestcaseOpen={clearSubmissionTestcaseOpen}
+              submission={modalSubmissionBasicInfo()}
+              isReviewPhaseComplete={isReviewPhaseComplete}
+            />
+          )
+        }
       </div>
     );
   }
 }
+
+SubmissionsComponent.defaultProps = {
+  isLoadingSubmissionInformation: false,
+  submissionInformation: null,
+};
 
 SubmissionsComponent.propTypes = {
   auth: PT.shape().isRequired,
@@ -308,6 +361,12 @@ SubmissionsComponent.propTypes = {
   loadMMSubmissions: PT.func.isRequired,
   mmSubmissions: PT.arrayOf(PT.shape()).isRequired,
   loadingMMSubmissionsForChallengeId: PT.string.isRequired,
+  isLoadingSubmissionInformation: PT.bool,
+  submissionInformation: PT.shape(),
+  loadSubmissionInformation: PT.func.isRequired,
+  toggleSubmissionTestcase: PT.func.isRequired,
+  clearSubmissionTestcaseOpen: PT.func.isRequired,
+  submissionTestcaseOpen: PT.shape({}).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -315,12 +374,22 @@ function mapDispatchToProps(dispatch) {
     toggleSubmissionHistory: index => dispatch(
       challengeDetailsActions.page.challengeDetails.submissions.toggleSubmissionHistory(index),
     ),
+    toggleSubmissionTestcase: index => dispatch(
+      challengeDetailsActions.page.challengeDetails.submissions.toggleSubmissionTestcase(index),
+    ),
+    clearSubmissionTestcaseOpen: () => dispatch(
+      challengeDetailsActions.page.challengeDetails.submissions.clearSubmissionTestcaseOpen(),
+    ),
   };
 }
 
 function mapStateToProps(state) {
   return {
     submissionHistoryOpen: state.page.challengeDetails.submissionHistoryOpen,
+    submissionTestcaseOpen: state.page.challengeDetails.submissionTestcaseOpen,
+    isLoadingSubmissionInformation:
+      Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
+    submissionInformation: state.challenge.submissionInformation,
   };
 }
 

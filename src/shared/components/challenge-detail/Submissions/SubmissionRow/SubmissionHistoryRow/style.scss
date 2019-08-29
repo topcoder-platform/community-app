@@ -114,6 +114,17 @@
           flex: 1;
         }
       }
+
+      &.mm {
+        flex: 25;
+      }
+    }
+
+    &.col-5 {
+      flex: 10;
+      color: #0a71e6;
+      cursor: pointer;
+      min-width: 83px;
     }
   }
 }

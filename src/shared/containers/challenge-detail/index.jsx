@@ -238,6 +238,9 @@ class ChallengeDetailPageContainer extends React.Component {
       loadMMSubmissions,
       mmSubmissions,
       loadingMMSubmissionsForChallengeId,
+      isLoadingSubmissionInformation,
+      submissionInformation,
+      loadSubmissionInformation,
     } = this.props;
 
     const {
@@ -312,27 +315,27 @@ class ChallengeDetailPageContainer extends React.Component {
           {
             !isEmpty
             && (
-            <ChallengeHeader
-              challenge={challenge}
-              challengeId={challengeId}
-              challengesUrl={challengesUrl}
-              numWinners={!isLegacyMM && winners.length}
-              showDeadlineDetail={showDeadlineDetail}
-              onToggleDeadlines={this.onToggleDeadlines}
-              onSelectorClicked={onSelectorClicked}
-              registerForChallenge={this.registerForChallenge}
-              registering={registering}
-              selectedView={selectedTab}
-              setChallengeListingFilter={setChallengeListingFilter}
-              unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
-              }
-              unregistering={unregistering}
-              checkpoints={checkpoints}
-              hasRegistered={hasRegistered}
-              hasFirstPlacement={hasFirstPlacement}
-              challengeSubtracksMap={challengeSubtracksMap}
-              isMenuOpened={isMenuOpened}
-            />
+              <ChallengeHeader
+                challenge={challenge}
+                challengeId={challengeId}
+                challengesUrl={challengesUrl}
+                numWinners={!isLegacyMM && winners.length}
+                showDeadlineDetail={showDeadlineDetail}
+                onToggleDeadlines={this.onToggleDeadlines}
+                onSelectorClicked={onSelectorClicked}
+                registerForChallenge={this.registerForChallenge}
+                registering={registering}
+                selectedView={selectedTab}
+                setChallengeListingFilter={setChallengeListingFilter}
+                unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
+                }
+                unregistering={unregistering}
+                checkpoints={checkpoints}
+                hasRegistered={hasRegistered}
+                hasFirstPlacement={hasFirstPlacement}
+                challengeSubtracksMap={challengeSubtracksMap}
+                isMenuOpened={isMenuOpened}
+              />
             )
           }
           {
@@ -386,6 +389,9 @@ class ChallengeDetailPageContainer extends React.Component {
                 mmSubmissions={mmSubmissions}
                 loadMMSubmissions={loadMMSubmissions}
                 auth={auth}
+                isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                submssionInformation={submissionInformation}
+                loadSubmissionInformation={loadSubmissionInformation}
               />
             )
           }
@@ -430,6 +436,8 @@ ChallengeDetailPageContainer.defaultProps = {
   isMenuOpened: false,
   loadingMMSubmissionsForChallengeId: '',
   mmSubmissions: [],
+  isLoadingSubmissionInformation: false,
+  submissionInformation: null,
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -476,6 +484,9 @@ ChallengeDetailPageContainer.propTypes = {
   loadingMMSubmissionsForChallengeId: PT.string,
   mmSubmissions: PT.arrayOf(PT.shape()),
   loadMMSubmissions: PT.func.isRequired,
+  isLoadingSubmissionInformation: PT.bool,
+  submissionInformation: PT.shape(),
+  loadSubmissionInformation: PT.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -511,6 +522,9 @@ function mapStateToProps(state, props) {
     unregistering: state.challenge.unregistering,
     isMenuOpened: !!state.topcoderHeader.openedMenu,
     loadingMMSubmissionsForChallengeId: state.challenge.loadingMMSubmissionsForChallengeId,
+    isLoadingSubmissionInformation:
+      Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
+    submissionInformation: state.challenge.submissionInformation,
     mmSubmissions: state.challenge.mmSubmissions,
   };
 }
@@ -613,6 +627,11 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getMmSubmissionsInit(challengeId));
       dispatch(a.getMmSubmissionsDone(challengeId, submitterIds, registrants, tokenV3));
+    },
+    loadSubmissionInformation: (submissionId, tokenV3) => {
+      const a = actions.challenge;
+      dispatch(a.getSubmissionInformationInit(submissionId));
+      dispatch(a.getSubmissionInformationDone(submissionId, tokenV3));
     },
   };
 };
