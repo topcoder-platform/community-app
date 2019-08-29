@@ -123,6 +123,7 @@ should be used for
           <Color name="tc-yellow-10" />
         </Group>
         <Group title="Green Shades">
+          <Color name="tc-green-120" />
           <Color name="tc-green-110" />
           <Color name="tc-green-100" />
           <Color name="tc-green-70" />
