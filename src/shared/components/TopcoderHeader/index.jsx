@@ -313,6 +313,11 @@ export default class TopcoderHeader extends React.Component {
               this.addGlobalTouchListener();
             }
           }}
+          onFocus={event => !isMobile && openMenu(userSubMenu, event.target)}
+          onBlur={(event) => {
+            if (!isMobile && activeTrigger
+              && 1 + event.pageY < activeTrigger.bottom) closeMenu();
+          }}
           styleName="user-menu"
         >
           <div
@@ -322,11 +327,6 @@ export default class TopcoderHeader extends React.Component {
             styleName="user-menu-handle"
             role="button"
             tabIndex={0}
-            onFocus={event => !isMobile && openMenu(userSubMenu, event.target)}
-            onBlur={(event) => {
-              if (!isMobile && activeTrigger
-                && 1 + event.pageY < activeTrigger.bottom) closeMenu();
-            }}
           >
             {normalizedProfile.handle}
           </div>
