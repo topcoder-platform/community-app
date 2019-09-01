@@ -2,6 +2,7 @@
  * Container for EDU Portal tracks page.
  */
 import _ from 'lodash';
+import moment from 'moment';
 import React from 'react';
 import { config, isomorphy } from 'topcoder-react-utils';
 import Viewport from 'components/Contentful/Viewport';
@@ -19,10 +20,11 @@ import Design from 'assets/images/img_design.png';
 import DS from 'assets/images/img-data-science.png';
 import Algo from 'assets/images/img-algorithm.png';
 import QA from 'assets/images/img-QA.png';
+// Partials
+import ResultTabs from './partials/ResultTabs';
 // CSS
 import tracksTheme from './styles/tracks.scss';
 
-const DEFAULT_TRACK = 'Development';
 const TRACK_COLORS = {
   Development: '#35AC35',
   Design: '#2C95D7',
@@ -46,7 +48,6 @@ export default class EDUTracks extends React.Component {
     // init state
     this.state = {
       query: {
-        track: DEFAULT_TRACK,
         tags: [],
       },
       tree: [],
@@ -54,6 +55,7 @@ export default class EDUTracks extends React.Component {
     };
     // bindings
     this.onTreeClick = this.onTreeClick.bind(this);
+    this.onApplyFilter = this.onApplyFilter.bind(this);
   }
 
   componentDidMount() {
@@ -61,8 +63,9 @@ export default class EDUTracks extends React.Component {
     let urlQuery = {};
     if (isomorphy.isClientSide()) {
       urlQuery = qs.parse(window.location.search.slice(1));
-      urlQuery.track = urlQuery.track ? urlQuery.track : DEFAULT_TRACK;
-      urlQuery.tags = _.isArray(urlQuery.tags) ? urlQuery.tags : [urlQuery.tags];
+      // eslint-disable-next-line no-nested-ternary
+      urlQuery.tags = _.isArray(urlQuery.tags)
+        ? urlQuery.tags : (urlQuery.tags ? [urlQuery.tags] : []);
       this.setState({
         query: urlQuery,
       });
@@ -75,6 +78,7 @@ export default class EDUTracks extends React.Component {
         const tree = tracksTreeBuilder(taxonomy, query);
         this.setState({
           tree,
+          taxonomy,
         });
       });
     // Get counters
@@ -95,7 +99,7 @@ export default class EDUTracks extends React.Component {
    * @param {Object} selectedItem
    */
   onTreeClick(selectedItem) {
-    // Update the counters
+    // Update the counters if track changed
     const { query } = this.state;
     if (query.track !== selectedItem.track) {
       this.apiService.getEDUContent({
@@ -111,10 +115,10 @@ export default class EDUTracks extends React.Component {
     }
     // Update the state
     this.setState({
-      query: {
+      query: _.merge(query, {
         track: selectedItem.track,
         tax: selectedItem.title,
-      },
+      }),
     });
     // Update the url query
     updateQuery({
@@ -123,17 +127,36 @@ export default class EDUTracks extends React.Component {
     });
   }
 
+  onApplyFilter(filterState) {
+    const { query } = this.state;
+    const queryUpdate = {
+      author: filterState.selectedAuthor,
+      tags: filterState.tags,
+      startDate: filterState.startDate.format(),
+      endDate: filterState.endDate.format(),
+    };
+    // Update the state
+    this.setState({
+      query: _.merge(query, queryUpdate),
+    });
+    // Update the url query
+    updateQuery({ ...queryUpdate });
+  }
+
   render() {
     const {
-      query, tree, isShowFilter,
+      taxonomy, query, tree, isShowFilter,
       articleCnt, videoCnt, forumCnt,
     } = this.state;
+    // This container needs at least those variables
+    // to be able to render meaningful data
+    if (!query.track || !query.tax || !taxonomy) return <LoadingIndicator />;
     return (
       <div className={tracksTheme.container}>
         {/* Banner */}
         <div
           className={tracksTheme.bannerContainer}
-          style={{ backgroundColor: TRACK_COLORS[query.track] || TRACK_COLORS[DEFAULT_TRACK] }}
+          style={{ backgroundColor: TRACK_COLORS[query.track] }}
         >
           {
             TRACK_IMAGES[query.track] ? (
@@ -188,12 +211,14 @@ export default class EDUTracks extends React.Component {
             <div className={isShowFilter ? tracksTheme.filterVisible : tracksTheme.filterHidden}>
               <TracksFilter
                 onClose={() => this.setState({ isShowFilter: false })}
+                onApply={this.onApplyFilter}
                 selectedAuthor={query.author}
                 tags={query.tags}
-                startDate={query.startDate}
-                endDate={query.endDate}
+                startDate={query.startDate ? moment(query.startDate) : undefined}
+                endDate={query.endDate ? moment(query.endDate) : undefined}
               />
             </div>
+            <ResultTabs query={query} taxonomy={taxonomy} />
           </div>
         </div>
         {/* Top Design Videos & Recommended for you sections are Contentful editable via ID */}

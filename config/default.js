@@ -257,7 +257,7 @@ module.exports = {
     href: 'https://connect.topcoder-dev.com',
   },
   // Config for TC EDU
-  TC_EDU_BASE_PATH: '/edu',
+  TC_EDU_BASE_PATH: '/thrive',
   TC_EDU_TRACKS_PATH: '/tracks',
   TC_EDU_ARTICLES_PATH: '/articles',
   TC_EDU_SEARCH_PATH: '/search',

@@ -24,6 +24,7 @@ import Article from 'components/Contentful/Article';
 
 import EDUHome from 'containers/EDU/Home';
 import EDUTracks from 'containers/EDU/Tracks';
+import EDUSearch from 'containers/EDU/Search';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import Settings from '../Settings';
@@ -100,6 +101,11 @@ export default function Topcoder() {
                 component={EDUTracks}
                 exact
                 path={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}`}
+              />
+              <Route
+                component={EDUSearch}
+                exact
+                path={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}`}
               />
               <Route
                 component={(p) => {

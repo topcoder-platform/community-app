@@ -43,7 +43,7 @@ export class FilterSelectionInner extends Component {
               >
                 {option.selected ? (<IconChecked />) : (<IconUnCheck />)}
               </button>
-              <span>{option.name}</span>
+              <span>{option.title}</span>
             </div>
           ))
         }
@@ -65,7 +65,7 @@ FilterSelectionInner.propTypes = {
   }).isRequired,
   className: PT.string,
   options: PT.arrayOf(PT.shape({
-    name: PT.string.isRequired,
+    title: PT.string.isRequired,
     selected: PT.bool.isRequired,
   })),
   onSelected: PT.func,

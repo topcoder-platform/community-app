@@ -346,7 +346,9 @@ export class SearchBarInner extends Component {
             type="text"
             placeholder="Search.."
             onBlur={() => {
-              this.setState({ isShowSuggestion: false });
+              _.delay(() => {
+                this.setState({ isShowSuggestion: false });
+              }, 100);
             }}
             onFocus={(e) => {
               this.updateSuggestionListWithNewSearch(e.target.value);

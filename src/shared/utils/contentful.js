@@ -111,12 +111,13 @@ export function menuItemBuilder(baseUrl, item) {
  * @param {Object} query The current url query
  */
 export function tracksTreeBuilder(EDUTaxonomy, query) {
+  const tax = _.isArray(query.tax) ? query.tax : [query.tax];
   let id = 0;
   return _.map(EDUTaxonomy, (categories, track) => ({
     title: track,
     id: id++,
     items: _.map(categories, cat => ({
-      title: cat.name, id: id++, items: [], track, selected: query.tax === cat.name,
+      title: cat.name, id: id++, items: [], track, selected: _.indexOf(tax, cat.name) !== -1,
     })),
     selected: query.track === track,
   }));

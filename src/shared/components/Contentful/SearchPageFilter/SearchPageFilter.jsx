@@ -6,6 +6,7 @@ import moment from 'moment';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
+import { getService } from 'services/contentful';
 
 import IconCloseBig from 'assets/images/tc-edu/icon-close-big.svg';
 import IconArrowUpSmall from 'assets/images/tc-edu/icon-arrow-up-small.svg';
@@ -16,13 +17,13 @@ import FilterRadio from './FilterRadio';
 import FilterSelection from './FilterSelection';
 import defaultTheme from './themes/default.scss';
 
-
+const DEF_SELECTED_AUTHOR = 'All authors';
 export class SearchPageFilterInner extends Component {
   constructor(props) {
     super(props);
 
     const { categories, selectedCategory } = props;
-    const selectedCategoryObject = _.find(categories, { name: selectedCategory });
+    const selectedCategoryObject = _.find(categories, { title: selectedCategory });
     this.state = {
       isShowSubCategory: true,
       selectedAuthor: props.selectedAuthor,
@@ -33,12 +34,31 @@ export class SearchPageFilterInner extends Component {
       selectedCategory: selectedCategoryObject ? _.cloneDeep(selectedCategoryObject) : null,
       categories,
     };
+    // create a service to work with Contentful
+    this.apiService = getService({ spaceName: 'EDU' });
+  }
+
+  componentDidMount() {
+    // Load all persons from Contentful
+    this.apiService.queryEntries({
+      content_type: 'person',
+      limit: 1000,
+    })
+      .then((results) => {
+        if (results.total) {
+          const { authorList } = this.state;
+          this.setState({
+            authorList: _.concat(authorList, _.map(results.items, item => item.fields.name)),
+          });
+        }
+      });
   }
 
   render() {
     const {
       theme,
       onClose,
+      onApply,
       className,
       isShowInMobile,
     } = this.props;
@@ -72,13 +92,13 @@ export class SearchPageFilterInner extends Component {
             <span className={theme['section-title']}>category</span>
           </div>
           <FilterRadio
-            selected={selectedCategory ? selectedCategory.name : null}
+            selected={selectedCategory ? selectedCategory.title : null}
             options={categories}
             onSelected={(item) => {
               if (item) {
                 const newSelectedCategory = _.cloneDeep(item);
-                for (let i = 0; i < newSelectedCategory.subCategories.length; i += 1) {
-                  newSelectedCategory.subCategories[i].selected = false;
+                for (let i = 0; i < newSelectedCategory.items.length; i += 1) {
+                  newSelectedCategory.items[i].selected = false;
                 }
                 this.setState({ selectedCategory: newSelectedCategory });
               }
@@ -96,9 +116,9 @@ export class SearchPageFilterInner extends Component {
           </button>
           {selectedCategory && isShowSubCategory && (
             <FilterSelection
-              options={selectedCategory.subCategories}
+              options={selectedCategory.items}
               onSelected={(index) => {
-                const subCategory = selectedCategory.subCategories[index];
+                const subCategory = selectedCategory.items[index];
                 subCategory.selected = !subCategory.selected;
                 this.setState({ selectedCategory });
               }}
@@ -141,6 +161,13 @@ export class SearchPageFilterInner extends Component {
           <button
             type="button"
             className={theme['btn-apply']}
+            onClick={() => onApply({
+              selectedAuthor,
+              startDate,
+              endDate,
+              tags,
+              selectedCategory,
+            })}
           >APPLY FILTER
           </button>
         </div>
@@ -150,11 +177,12 @@ export class SearchPageFilterInner extends Component {
 }
 
 SearchPageFilterInner.defaultProps = {
-  onClose: () => {},
-  selectedAuthor: '',
-  authorList: [],
-  startDate: null,
-  endDate: null,
+  onClose: () => { },
+  onApply: () => { },
+  selectedAuthor: DEF_SELECTED_AUTHOR,
+  authorList: [DEF_SELECTED_AUTHOR],
+  startDate: moment().subtract(1, 'months'),
+  endDate: moment(),
   tags: [],
   selectedCategory: '',
   categories: [],
@@ -178,6 +206,7 @@ SearchPageFilterInner.propTypes = {
     'is-desktop': PT.string.isRequired,
   }).isRequired,
   onClose: PT.func,
+  onApply: PT.func,
   selectedAuthor: PT.string,
   startDate: PT.instanceOf(moment),
   endDate: PT.instanceOf(moment),
@@ -185,14 +214,14 @@ SearchPageFilterInner.propTypes = {
   tags: PT.arrayOf(PT.string),
   selectedCategory: PT.string,
   categories: PT.arrayOf(PT.shape({
-    name: PT.string.isRequired,
-    subCategories: PT.arrayOf(PT.shape({
-      name: PT.string.isRequired,
+    title: PT.string.isRequired,
+    items: PT.arrayOf(PT.shape({
+      title: PT.string.isRequired,
       selected: PT.bool,
     })),
   })),
   className: PT.string,
-  isShowInMobile: PT.string,
+  isShowInMobile: PT.bool,
 };
 
 export default themr('Contentful-Blog', defaultTheme)(SearchPageFilterInner);

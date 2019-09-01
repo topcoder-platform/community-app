@@ -174,9 +174,9 @@ class ArticleCard extends React.Component {
                             contentAuthor.map(author => (
                               <div key={author.key} className={theme.author}>
                                 {
-                                  author.fields ? (
+                                  author.file ? (
                                     <div className={theme.avatarWrapper}>
-                                      <img src={author.fields.file.url} alt={author.fields.title} />
+                                      <img src={author.file.url} alt={`${author.name} avatar`} />
                                     </div>
                                   ) : (
                                     <div className={theme.iconWrapper}>

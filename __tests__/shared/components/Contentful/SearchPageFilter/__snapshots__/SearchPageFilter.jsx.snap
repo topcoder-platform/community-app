@@ -79,24 +79,29 @@ exports[`Matches shallow shapshot 1`] = `
       composeContextTheme="softly"
       mapThemrProps={[Function]}
       onSelected={[Function]}
-      options={Array []}
-      selected=""
+      options={
+        Array [
+          "All authors",
+        ]
+      }
+      selected="All authors"
       themePriority="adhoc-context-default"
     />
     <ThemedFilterDateInner
       className=""
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      endDate={null}
+      endDate={"2019-09-01T07:21:19.056Z"}
       mapThemrProps={[Function]}
       onSelectEndDate={[Function]}
       onSelectStartDate={[Function]}
-      startDate={null}
+      startDate={"2019-08-01T07:21:19.055Z"}
       themePriority="adhoc-context-default"
     />
   </div>
   <div>
     <button
+      onClick={[Function]}
       type="button"
     >
       APPLY FILTER

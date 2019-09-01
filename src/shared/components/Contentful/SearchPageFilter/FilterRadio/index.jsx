@@ -28,9 +28,9 @@ export function FilterRadioInner(props) {
               type="button"
               onClick={() => { onSelected(option); }}
             >
-              {(option.name === selected) ? (<RadioChecked />) : (<RadioUnCheck />)}
+              {(option.title === selected) ? (<RadioChecked />) : (<RadioUnCheck />)}
             </button>
-            <span>{option.name}</span>
+            <span>{option.title}</span>
           </div>
         ))
       }
@@ -52,7 +52,7 @@ FilterRadioInner.propTypes = {
   }).isRequired,
   className: PT.string,
   options: PT.arrayOf(PT.shape({
-    name: PT.string.isRequired,
+    title: PT.string.isRequired,
   })),
   selected: PT.string,
   onSelected: PT.func,

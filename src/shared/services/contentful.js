@@ -294,29 +294,65 @@ class Service {
       'sys.id[in]': IDs.join(','),
       limit: 1000,
     });
-    taxonomy = _.groupBy(taxonomy.items.map(item => item.fields), 'trackParent');
-
+    taxonomy = _.groupBy(taxonomy.items.map(item => ({ ...item.fields, id: item.sys.id })), 'trackParent');
     return taxonomy;
   }
 
   /**
-   * Query EDU articles and group results
-   * @param {String} track
+   * Query EDU articles
+   * @param {Object} query
    */
-  async getEDUContent({ track }) {
+  async getEDUContent({
+    track, types, limit = 10, skip = 0, tags,
+    tax, startDate, endDate, author, taxonomy,
+  }) {
     const query = {
       content_type: 'article',
+      limit,
+      skip,
     };
-    if (track) {
-      query['fields.trackCategory'] = track;
+    if (author && author !== 'All authors') {
+      // author based articles query need the authorID
+      // thus we need to find it first
+      await this.queryEntries({
+        content_type: 'person',
+        'fields.name': author,
+      })
+        .then((result) => {
+          if (result.total) {
+            query['fields.contentAuthor.sys.id'] = result.items[0].sys.id;
+          }
+        });
     }
+    if (tax && track && taxonomy && taxonomy[track]) {
+      // tax query is based on linked items
+      // we need to find all articles that link to that specific tax[s]
+      const taxIDs = [];
+      if (_.isArray(tax)) {
+        _.map(taxonomy[track], (contentTax) => {
+          if (_.indexOf(tax, contentTax.name) !== -1) {
+            taxIDs.push(contentTax.id);
+          }
+        });
+      } else {
+        const taxId = _.find(taxonomy[track], ['name', tax]).id;
+        taxIDs.push(taxId);
+      }
+      if (taxIDs.length) query['fields.contentCategory.sys.id[in]'] = taxIDs.join(',');
+    }
+    if (track) query['fields.trackCategory'] = track;
+    if (!_.isEmpty(tags)) query['fields.tags[all]'] = tags.join(',');
+    if (startDate) query['sys.createdAt[gte]'] = startDate;
+    if (endDate) query['sys.createdAt[lte]'] = endDate;
     const content = {};
     await Promise.all(
-      _.map(EDU_ARTICLE_TYPES,
+      _.map(types || EDU_ARTICLE_TYPES,
         type => this.queryEntries({ ...query, 'fields.type': type })
           // eslint-disable-next-line no-return-assign
           .then(results => content[type] = results)),
     );
+    // eslint-disable-next-line max-len
+    // console.log('getEDUContent', {track, types, limit, skip, tags, tax, startDate, endDate, author, taxonomy}, query, content);
     return content;
   }
 

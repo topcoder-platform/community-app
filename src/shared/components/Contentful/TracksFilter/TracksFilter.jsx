@@ -14,7 +14,7 @@ import TracksAuthor from './TracksAuthor';
 import TracksDate from './TracksDate';
 import defaultTheme from './themes/default.scss';
 
-
+const DEF_SELECTED_AUTHOR = 'All authors';
 export class TracksFilterInner extends Component {
   constructor(props) {
     super(props);
@@ -53,25 +53,21 @@ export class TracksFilterInner extends Component {
    * Reset filter form to init value
    */
   onReset() {
-    const {
-      selectedAuthor,
-      startDate,
-      endDate,
-      tags,
-    } = this.props;
-
     this.setState({
-      selectedAuthor,
-      tags,
-      startDate,
-      endDate,
+      selectedAuthor: DEF_SELECTED_AUTHOR,
+      tags: [],
+      startDate: moment().subtract(1, 'months'),
+      endDate: moment(),
     });
   }
+
+  onAp
 
   render() {
     const {
       theme,
       onClose,
+      onApply,
     } = this.props;
 
     const {
@@ -129,6 +125,9 @@ export class TracksFilterInner extends Component {
           <button
             type="button"
             className={theme['btn-apply']}
+            onClick={() => {
+              onApply(this.state);
+            }}
           >APPLY FILTER
           </button>
         </div>
@@ -139,9 +138,10 @@ export class TracksFilterInner extends Component {
 
 TracksFilterInner.defaultProps = {
   onClose: () => {},
-  selectedAuthor: 'All authors',
-  authorList: ['All authors'],
-  startDate: moment(),
+  onApply: () => {},
+  selectedAuthor: DEF_SELECTED_AUTHOR,
+  authorList: [DEF_SELECTED_AUTHOR],
+  startDate: moment().subtract(1, 'months'),
   endDate: moment(),
   tags: [],
 };
@@ -159,6 +159,7 @@ TracksFilterInner.propTypes = {
     'is-mobile': PT.string.isRequired,
   }).isRequired,
   onClose: PT.func,
+  onApply: PT.func,
   selectedAuthor: PT.string,
   startDate: PT.instanceOf(moment),
   endDate: PT.instanceOf(moment),
