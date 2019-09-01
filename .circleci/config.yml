@@ -195,6 +195,7 @@ workflows:
                 - mm-leaderboard
                 - hot-fixes-4
                 - release-qa-accessibility
+                - mm-leaderboard-misc-fixes
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
