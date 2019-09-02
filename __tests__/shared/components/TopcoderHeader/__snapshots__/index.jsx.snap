@@ -671,11 +671,12 @@ exports[`Render with specified profile 1`] = `
       <div
         className="src-shared-components-TopcoderHeader-___style__user-menu___3CMgb"
         data-menu="userMenu"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
-        onBlur={[Function]}
-        onFocus={[Function]}
+
       >
         <div
           className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
