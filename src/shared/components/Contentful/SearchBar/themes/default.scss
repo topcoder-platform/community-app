@@ -258,7 +258,6 @@ $link-color: #0d61bf;
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
   }
 }
 
@@ -285,15 +284,35 @@ $link-color: #0d61bf;
   margin-top: -20px;
 }
 
-.view-all-results,
-.forumLink {
+.view-all-results {
+  margin-left: 50px;
+
   @include roboto-medium;
 
   text-decoration: underline;
   color: $link-color;
   margin-top: 2px;
-  margin-left: 50px;
   font-size: 16px !important;
+
+  &:visited {
+    color: $link-color;
+  }
+}
+
+.forumLink {
+  display: flex;
+  align-items: flex-start;
+
+  @include roboto-medium;
+
+  text-decoration: underline;
+  color: $link-color;
+  margin-top: 2px;
+  font-size: 16px !important;
+
+  &:visited {
+    color: $link-color;
+  }
 }
 
 @include xs-to-sm {
@@ -345,6 +364,7 @@ $link-color: #0d61bf;
 
     .group-cell {
       width: 100%;
+      align-items: flex-start;
     }
   }
 

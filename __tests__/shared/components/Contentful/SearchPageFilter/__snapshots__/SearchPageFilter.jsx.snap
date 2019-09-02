@@ -91,11 +91,11 @@ exports[`Matches shallow shapshot 1`] = `
       className=""
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      endDate={"2019-09-01T07:21:19.056Z"}
+      endDate="2019-09-01T07:21:20.249Z"
       mapThemrProps={[Function]}
       onSelectEndDate={[Function]}
       onSelectStartDate={[Function]}
-      startDate={"2019-08-01T07:21:19.055Z"}
+      startDate="2019-08-01T07:21:20.249Z"
       themePriority="adhoc-context-default"
     />
   </div>

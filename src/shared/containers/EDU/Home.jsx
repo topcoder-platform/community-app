@@ -47,7 +47,10 @@ export default class EDUHome extends React.Component {
         <div className={homeTheme.bannerContainer}>
           <div className={homeTheme.bannerImage} />
           <div className={homeTheme.bannerWrapp}>
-            <h1 className={homeTheme.bannerText}>THRIVE</h1>
+            <h1 className={homeTheme.bannerTitle}>THRIVE</h1>
+            <p className={homeTheme.bannerText}>
+              Grow with us. Tutorials and workshops that matter.
+            </p>
           </div>
           <div className={homeTheme.searchBarWrapp}>
             <SearchBar />

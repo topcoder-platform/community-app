@@ -27,7 +27,7 @@ export class TracksTreeInner extends Component {
    * @param {Array} list list of track item
    */
   getExpandedTrack(list) {
-    let expandedTrack = -1;
+    let expandedTrack = 0;
     for (let i = 0; i < list.length; i += 1) {
       const item = list[i];
       let tmpExpanedTrack = this.getExpandedTrack(item.items);
