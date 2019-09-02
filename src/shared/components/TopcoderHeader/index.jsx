@@ -361,7 +361,7 @@ export default class TopcoderHeader extends React.Component {
             {userMenuHandle}
             {authButtons}
             <div
-              aria-label="Search"
+              aria-label="Find members by username or skill"
               role="button"
               tabIndex={0}
               data-menu="search"
