@@ -12,8 +12,9 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       setCardType={[MockFunction]}
     />
     <ChallengeSearchBar
+      label="Search Challenges:"
       onSearch={[Function]}
-      placeholder="Search Challenges"
+      placeholder="Type the challenge name here"
       query=""
       setQuery={[MockFunction]}
     />
@@ -101,8 +102,9 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       setCardType={[MockFunction]}
     />
     <ChallengeSearchBar
+      label="Search Challenges:"
       onSearch={[Function]}
-      placeholder="Search Challenges"
+      placeholder="Type the challenge name here"
       query=""
       setQuery={[MockFunction]}
     />
