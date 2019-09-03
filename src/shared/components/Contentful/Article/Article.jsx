@@ -15,10 +15,9 @@ import moment from 'moment';
 import localStorage from 'localStorage';
 import { Modal } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import ShareSocial from 'components/challenge-detail/Specification/SideBar/ShareSocial';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
-import RightArrowIcon from 'assets/images/small-right-arrow.svg';
-import CalendarIcon from 'assets/images/icon-calendar.svg';
 import UserDefault from 'assets/images/ico-user-default.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
 
@@ -98,7 +97,7 @@ export default class Article extends React.Component {
 
   render() {
     const {
-      theme, fields, subData, spaceName, environment, preview, EDU_BASE_URL,
+      theme, fields, subData, spaceName, environment, preview,
     } = this.props;
     const contentfulConfig = {
       spaceName, environment, preview,
@@ -116,11 +115,6 @@ export default class Article extends React.Component {
         }
         {/* Banner */}
         <div className={theme.bannerContainer}>
-          <div className={theme.contentWrapper}>
-            <div className={theme.content}>
-              <h1>{fields.title}</h1>
-            </div>
-          </div>
           {
             fields.featuredImage ? (
               <div className={theme.featuredImage} style={{ backgroundImage: `url(${subData.assets.items[fields.featuredImage.sys.id].fields.file.url})` }} />
@@ -132,88 +126,92 @@ export default class Article extends React.Component {
           className={theme.contentContainer}
           style={fixStyle(fields.extraStylesForContainer)}
         >
-          {/* Authors */}
-          <div className={theme.authorContainer}>
-            {
-              _.map(fields.contentAuthor, author => (
-                <div key={author.sys.id} className={theme.authorWrapper}>
-                  {
-                    subData.entries.items[author.sys.id].fields.avatar ? (
-                      <ContentfulLoader
-                        assetIds={subData.entries.items[author.sys.id].fields.avatar.sys.id}
-                        preview={preview}
-                        spaceName={spaceName}
-                        environment={environment}
-                        render={avatarData => (
-                          <img src={avatarData.assets.items[subData.entries.items[author.sys.id].fields.avatar.sys.id].fields.file.url} alt="article author avatar" className={theme.avatar} />
-                        )}
-                        renderPlaceholder={LoadingIndicator}
-                      />
-                    ) : (
-                      <UserDefault alt="article author avatar" className={theme.avatar} />
-                    )
-                  }
-                  <span className={theme.name}>
-                    {subData.entries.items[author.sys.id].fields.name}
-                  </span>
-                  {
-                    subData.entries.items[author.sys.id].fields.tcHandle ? (
-                      <span className={theme.handle}>
-                        ({subData.entries.items[author.sys.id].fields.tcHandle})
+          <div className={theme.contentLeftBar}>
+            {/* Authors */}
+            <div className={theme.authorContainer}>
+              {
+                _.map(fields.contentAuthor, author => (
+                  <div key={author.sys.id} className={theme.authorWrapper}>
+                    {
+                      subData.entries.items[author.sys.id].fields.avatar ? (
+                        <ContentfulLoader
+                          assetIds={subData.entries.items[author.sys.id].fields.avatar.sys.id}
+                          preview={preview}
+                          spaceName={spaceName}
+                          environment={environment}
+                          render={avatarData => (
+                            <img src={avatarData.assets.items[subData.entries.items[author.sys.id].fields.avatar.sys.id].fields.file.url} alt="article author avatar" className={theme.avatar} />
+                          )}
+                          renderPlaceholder={LoadingIndicator}
+                        />
+                      ) : (
+                        <UserDefault alt="article author avatar" className={theme.avatar} />
+                      )
+                    }
+                    <div className={theme.authorInfos}>
+                      <span className={theme.name}>
+                        {subData.entries.items[author.sys.id].fields.name}
                       </span>
-                    ) : null
-                  }
-                </div>
-              ))
-            }
-          </div>
-          {/* Navi */}
-          <div className={theme.titleContainer}>
-            <div className={theme.left}>
-              <div className={theme.breadcrumbs}>
-                <a className={theme.item} href={`${EDU_BASE_URL}`}>Home</a><RightArrowIcon />
-              </div>
-              <span className={theme.titleItem}>{fields.title}</span>
+                      {
+                        subData.entries.items[author.sys.id].fields.tcHandle ? (
+                          <span className={theme.handle}>
+                            {subData.entries.items[author.sys.id].fields.tcHandle}
+                          </span>
+                        ) : null
+                      }
+                    </div>
+                  </div>
+                ))
+              }
             </div>
-            <div className={theme.right}>
-              <CalendarIcon />
-              <span>{moment(fields.creationDate).format('MMM DD, YYYY')} . {fields.readTime}</span>
+            <div className={theme.separator} />
+            <h3 className={theme.label}>DURATION</h3>
+            <span className={theme.duration}>{fields.readTime}</span>
+            <div className={theme.separator} />
+            <h3 className={theme.label}>categories & Tags</h3>
+            {/* Tags */}
+            <div className={theme.tagContainer}>
+              {
+                _.map(fields.tags, tag => (
+                  <div className={theme.tagItem} key={tag}>{tag}</div>
+                ))
+              }
             </div>
-          </div>
-          {/* Tags */}
-          <div className={theme.tagContainer}>
-            {
-              _.map(fields.tags, tag => (
-                <div className={theme.tagItem} key={tag}>{tag}</div>
-              ))
-            }
+            <div className={theme.separator} />
+            <h3 className={theme.label}>share</h3>
+            <ShareSocial />
+            <div className={theme.mobileSeparator} />
           </div>
           {/* Content */}
           <div className={theme.articleContent}>
+            <div className={theme.articleContentTop}>
+              <h4 className={theme.articleDate}>{moment(fields.creationDate).format('MMMM D, YYYY')}</h4>
+              <h1 className={theme.articleTitle}>{fields.title}</h1>
+            </div>
             <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
             {
               fields.type === 'Video' && fields.contentUrl ? (
                 <YouTubeVideo src={fields.contentUrl} />
               ) : null
             }
-          </div>
-          {/* Voting */}
-          <div className={theme.actionContainer}>
-            <div className={theme.action}>
-              <div tabIndex={0} role="button" className={theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
-                <GestureIcon />
+            {/* Voting */}
+            <div className={theme.actionContainer}>
+              <div className={theme.action}>
+                <div tabIndex={0} role="button" className={theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
+                  <GestureIcon />
+                </div>
+                <span>
+                  {
+                    upvotes
+                  }
+                </span>
               </div>
-              <span>
-                {
-                  upvotes
-                }
-              </span>
-            </div>
-            <div className={theme.action}>
-              <div tabIndex={0} role="button" className={theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
-                <GestureIcon />
+              <div className={theme.action}>
+                <div tabIndex={0} role="button" className={theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
+                  <GestureIcon />
+                </div>
+                <span>{downvotes}</span>
               </div>
-              <span>{downvotes}</span>
             </div>
           </div>
         </div>
@@ -271,7 +269,6 @@ export default class Article extends React.Component {
 Article.defaultProps = {
   spaceName: null,
   environment: null,
-  EDU_BASE_URL: config.TC_EDU_BASE_PATH,
 };
 
 Article.propTypes = {
@@ -282,5 +279,4 @@ Article.propTypes = {
   preview: PT.bool.isRequired,
   spaceName: PT.string,
   environment: PT.string,
-  EDU_BASE_URL: PT.string,
 };

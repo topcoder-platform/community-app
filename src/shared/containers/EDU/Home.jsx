@@ -90,9 +90,9 @@ export default class EDUHome extends React.Component {
           <div className={homeTheme.trackWrapp}>
             <div className={homeTheme.trackInfos}>
               <div className={homeTheme.trackIconQA}><QATrackIcon /></div>
-              <TrackInfoInner track="Quality Assurance" theme={homeTheme} taxonomy={taxonomy} />
+              <TrackInfoInner track="QA" theme={homeTheme} taxonomy={taxonomy} />
             </div>
-            <TrackCards theme={homeTheme} track="Quality Assurance" />
+            <TrackCards theme={homeTheme} track="QA" />
           </div>
         </div>
         {/* Latest & Recommended are Contentful editable sections */}
