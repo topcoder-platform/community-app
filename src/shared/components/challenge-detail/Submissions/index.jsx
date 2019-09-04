@@ -31,9 +31,8 @@ class SubmissionsComponent extends React.Component {
       return;
     }
 
-    if (isMM && _.has(challenge, 'submissions') && challenge.submissions.length > 0) {
-      const submitterIds = _.map(challenge.submissions, item => item.submitterId);
-      loadMMSubmissions(challenge.id, submitterIds, challenge.registrants, auth.tokenV3);
+    if (isMM) {
+      loadMMSubmissions(challenge.id, challenge.registrants, auth.tokenV3);
     }
   }
 
@@ -92,6 +91,13 @@ class SubmissionsComponent extends React.Component {
     let wrappedSubmissions;
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
 
+    let isReviewPhaseComplete = false;
+    _.forEach(allPhases, (phase) => {
+      if (phase.phaseType === 'Review' && phase.phaseStatus === 'Closed') {
+        isReviewPhaseComplete = true;
+      }
+    });
+
     // copy colorStyle from registrants to submissions
     if (!isMM) {
       wrappedSubmissions = submissions.map((s) => {
@@ -106,14 +112,10 @@ class SubmissionsComponent extends React.Component {
       });
     } else {
       wrappedSubmissions = _.cloneDeep(mmSubmissions);
-    }
-
-    let isReviewPhaseComplete = false;
-    _.forEach(allPhases, (phase) => {
-      if (phase.phaseType === 'Review' && phase.phaseStatus === 'Closed') {
-        isReviewPhaseComplete = true;
+      if (!isReviewPhaseComplete) {
+        wrappedSubmissions.sort((a, b) => a.provisionalRank - b.provisionalRank);
       }
-    });
+    }
 
     if (!isMM) {
       wrappedSubmissions.sort((a, b) => {
