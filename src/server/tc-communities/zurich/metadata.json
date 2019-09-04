@@ -6,7 +6,7 @@
     "groupIds": ["20000145"]
   },
   "challengeListing": {
-    "ignoreCommunityFilterByDefault": true,
+    "ignoreCommunityFilterByDefault": false,
     "openChallengesInNewTabs": false
   },
   "communityId": "zurich",
