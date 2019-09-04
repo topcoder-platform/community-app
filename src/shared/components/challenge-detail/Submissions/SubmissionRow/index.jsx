@@ -31,7 +31,7 @@ export default function SubmissionRow({
             <div styleName="col-1 col">
               <div styleName="col col-left">
                 {
-                  finalRank || '-'
+                  isReviewPhaseComplete ? finalRank || '-' : '-'
                 }
               </div>
               <div styleName="col">

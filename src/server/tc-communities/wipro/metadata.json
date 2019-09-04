@@ -6,7 +6,7 @@
     "groupIds": ["20000000"]
   },
   "challengeListing": {
-    "ignoreCommunityFilterByDefault": true,
+    "ignoreCommunityFilterByDefault": false,
     "openChallengesInNewTabs": false
   },
   "communityId": "wipro",
@@ -25,7 +25,7 @@
   ],
   "hideSearch": true,
   "chevronOverAvatar": true,
-  "footerText": "© Copyright Wipro Ltd 2017",
+  "footerText": "© Copyright Wipro Ltd 2019",
   "menuItems": [
     {
       "title": "Home",
