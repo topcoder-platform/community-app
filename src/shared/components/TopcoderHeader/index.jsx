@@ -314,7 +314,7 @@ export default class TopcoderHeader extends React.Component {
             }
           }}
           onFocus={event => !isMobile && openMenu(userSubMenu, event.target)}
-          onBlur={(event) => {
+          onBlur={() => {
             if (!isMobile) closeMenu();
           }}
           role="link"
