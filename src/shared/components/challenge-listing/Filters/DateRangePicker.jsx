@@ -65,7 +65,7 @@ class DateRangePicker extends React.Component {
 
 DateRangePicker.defaultProps = {
   onDatesChange: () => true,
-  readOnly: true,
+  readOnly: false,
 };
 
 DateRangePicker.propTypes = {
