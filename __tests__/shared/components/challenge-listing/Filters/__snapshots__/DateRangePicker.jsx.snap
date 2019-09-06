@@ -60,8 +60,8 @@ exports[`Matches shallow shapshot 1`] = `
       "homeEnd": "Home and end keys",
       "jumpToNextMonth": "Next Month",
       "jumpToPrevMonth": "Previous Month",
-      "keyboardNavigationInstructions": "Press the down arrow key to interact with the calendar and
-  select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+      "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+      "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
       "keyboardShortcuts": "Keyboard Shortcuts",
       "leftArrowRightArrow": "Right and left arrow keys",
       "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
@@ -72,12 +72,13 @@ exports[`Matches shallow shapshot 1`] = `
       "pageUpPageDown": "page up and page down keys",
       "questionMark": "Question mark",
       "returnFocusToInput": "Return to the date input field.",
+      "roleDescription": "datepicker",
       "selectFocusedDate": "Select the date in focus.",
       "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
       "upArrowDownArrow": "up and down arrow keys",
     }
   }
-  readOnly={true}
+  readOnly={false}
   regular={false}
   renderCalendarInfo={null}
   renderDayContents={null}
