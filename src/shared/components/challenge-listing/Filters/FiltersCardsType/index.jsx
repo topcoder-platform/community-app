@@ -13,13 +13,11 @@ import './style.scss';
 
 const FiltersCardsType = ({ hideSrm, isCardTypeSet }) => (
   <div styleName="cards-type-col">
-    <a
+    <h1
       styleName={`${isCardTypeSet === 'Challenges' ? 'active' : ''}`}
-      onClick={e => e.preventDefault()}
-      onKeyPress={e => e.preventDefault()}
     >
 Challenges
-    </a>
+    </h1>
     {
       hideSrm ? null : (
         <a
