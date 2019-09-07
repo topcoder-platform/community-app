@@ -246,14 +246,36 @@ export default class Article extends React.Component {
                         ) : null
                       }
                       <h3 className={theme.recommendedCardTitle}>
-                        <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`}>{subData.entries.items[rec.sys.id].fields.title}</a>
+                        {
+                          subData.entries.items[rec.sys.id].fields.externalArticle
+                            && subData.entries.items[rec.sys.id].fields.contentUrl ? (
+                              <a href={subData.entries.items[rec.sys.id].fields.contentUrl} target="_blank" rel="noopener noreferrer">
+                                {subData.entries.items[rec.sys.id].fields.title}
+                              </a>
+                            ) : (
+                              <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`}>
+                                {subData.entries.items[rec.sys.id].fields.title}
+                              </a>
+                            )
+                        }
                       </h3>
                       <div className={theme.recommendedCardContent}>
                         {
                           `${subData.entries.items[rec.sys.id].fields.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`
                         }
                       </div>
-                      <a href="#" className={theme.readMore}>Read More <ReadMoreArrow /></a>
+                      {
+                        subData.entries.items[rec.sys.id].fields.externalArticle
+                          && subData.entries.items[rec.sys.id].fields.contentUrl ? (
+                            <a href={subData.entries.items[rec.sys.id].fields.contentUrl} target="_blank" rel="noopener noreferrer" className={theme.readMore}>
+                              Read More <ReadMoreArrow />
+                            </a>
+                          ) : (
+                            <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`} className={theme.readMore}>
+                              Read More <ReadMoreArrow />
+                            </a>
+                          )
+                      }
                     </div>
                   ))
                 }

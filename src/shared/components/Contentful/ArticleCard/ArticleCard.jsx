@@ -49,6 +49,14 @@ class ArticleCard extends React.Component {
       themeName,
     } = this.props;
 
+    // determine if article cards will redirect to external link or article details page
+    const articlePageUrl = article.externalArticle && article.contentUrl
+      ? article.contentUrl
+      : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.title}`;
+    const articlePageTarget = article.externalArticle && article.contentUrl
+      ? '_blank'
+      : '_self';
+
     /**
      * Applies additional styles (background img) to the container
      * Only for 'Video' cards when a featuredImage is available
@@ -159,7 +167,7 @@ class ArticleCard extends React.Component {
                 <p>{article.readTime}</p>
               </div>
               <h3 className={theme.title}>
-                <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.title}`}>{title}</a>
+                <a href={articlePageUrl} target={articlePageTarget}>{title}</a>
               </h3>
               <div className={theme.contentPreview}>
                 <p>{content}</p>
@@ -231,7 +239,13 @@ class ArticleCard extends React.Component {
                     }
                   </div>
                 ) : (
-                  <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.title}`} className={theme.readMore}>Read More <ReadMoreArrow /></a>
+                  <a
+                    href={articlePageUrl}
+                    className={theme.readMore}
+                    target={articlePageTarget}
+                  >
+                      Read More <ReadMoreArrow />
+                  </a>
                 )
               }
             </div>
