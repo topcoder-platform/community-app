@@ -18,6 +18,17 @@ $text-gray: #7f7f7f;
     outline: none;
     margin: 0;
   }
+
+  .homeLink {
+    text-transform: uppercase;
+    margin-bottom: 29px;
+    color: #7f7f7f;
+    font-family: "Barlow", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0.2px;
+    line-height: 26px;
+  }
 }
 
 .is-mobile {

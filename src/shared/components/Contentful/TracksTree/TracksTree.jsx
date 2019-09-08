@@ -6,6 +6,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
+import { config } from 'topcoder-react-utils';
 
 import IconArrowUpBig from 'assets/images/tc-edu/icon-arrow-up-big.svg';
 import defaultTheme from './themes/default.scss';
@@ -56,6 +57,7 @@ export class TracksTreeInner extends Component {
     const selectedTrack = _.find(list, { id: expandedTrack });
     return (
       <div className={`${theme.container} ${isShowFullList ? theme['show-full-mobile'] : ''}`}>
+        <a href={`${config.TC_EDU_BASE_PATH}`} className={theme.homeLink}>THRIVE</a>
         {!isShowFullList && selectedTrack && (
           <button
             className={`${theme['is-mobile']} ${theme['mobile-header']}`}
@@ -129,6 +131,7 @@ TracksTreeInner.propTypes = {
     'is-mobile': PT.string.isRequired,
     'mobile-header': PT.string.isRequired,
     'show-full-mobile': PT.string.isRequired,
+    homeLink: PT.string.isRequired,
     expanded: PT.string.isRequired,
   }).isRequired,
   list: PT.arrayOf(PT.shape({
