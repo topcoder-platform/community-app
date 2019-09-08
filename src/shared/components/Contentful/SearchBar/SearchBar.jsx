@@ -253,7 +253,7 @@ export class SearchBarInner extends Component {
       }
       if (selectedFilter.name === 'Author') {
         query.content_type = 'person';
-        query['fields.name[match]'] = searchText;
+        query.query = searchText;
       }
       if (selectedFilter.name === 'Tags') {
         query['fields.tags[in]'] = searchText;
