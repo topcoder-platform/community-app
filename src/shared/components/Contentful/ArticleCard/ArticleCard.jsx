@@ -10,6 +10,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
 import { config } from 'topcoder-react-utils';
+import markdown from 'utils/markdown';
 // SVG assets
 import ThumbUpIcon from 'assets/images/ico-thumb-up.svg';
 import CommentIcon from 'assets/images/ico-comment.svg';
@@ -122,7 +123,7 @@ class ArticleCard extends React.Component {
     const content = (
       (themeName === 'Article large' || themeName === 'Recommended')
       && article.content.length > CONTENT_PREVIEW_LENGTH)
-      ? `${article.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`
+      ? markdown(`${article.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`)
       : undefined;
 
     // set the correct format to apply to the `article.creationDate`

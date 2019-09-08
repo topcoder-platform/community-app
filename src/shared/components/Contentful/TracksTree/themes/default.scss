@@ -28,6 +28,10 @@ $text-gray: #7f7f7f;
     font-size: 24px;
     letter-spacing: 0.2px;
     line-height: 26px;
+
+    @include xs-to-sm {
+      text-align: center;
+    }
   }
 }
 
