@@ -400,3 +400,18 @@ $link-color: #0d61bf;
     transform: scale(-1, -1);
   }
 }
+
+.cellWrap {
+  display: flex;
+  flex-direction: column;
+
+  .cellAuthor {
+    @include barlow-semi-bold;
+
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    line-height: 20px;
+    margin-left: 16px;
+    text-transform: capitalize;
+  }
+}

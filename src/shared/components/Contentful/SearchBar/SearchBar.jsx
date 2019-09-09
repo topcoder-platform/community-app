@@ -150,9 +150,14 @@ export class SearchBarInner extends Component {
                           />
                         ) : null
                       }
-                      <span className={theme['cell-text']}>
-                        {item.title}
-                      </span>
+                      <div className={theme.cellWrap}>
+                        <span className={theme['cell-text']}>
+                          {item.title}
+                        </span>
+                        <span className={theme.cellAuthor}>
+                          {item.contentAuthor.name}
+                        </span>
+                      </div>
                     </a>
                   </div>
                 ))
@@ -184,9 +189,14 @@ export class SearchBarInner extends Component {
                           </div>
                         ) : null
                       }
-                      <span className={theme['cell-text']}>
-                        {item.title}
-                      </span>
+                      <div className={theme.cellWrap}>
+                        <span className={theme['cell-text']}>
+                          {item.title}
+                        </span>
+                        <span className={theme.cellAuthor}>
+                          {item.contentAuthor.name}
+                        </span>
+                      </div>
                     </a>
                   </div>
                 ))
@@ -298,12 +308,16 @@ export class SearchBarInner extends Component {
         const featuredImage = fields.featuredImage
           ? _.find(results.includes.Asset, { sys: { id: fields.featuredImage.sys.id } })
           : { fields: { file: { url: RESULT_IMAGE_PLACEHOLDER } } };
+        const contentAuthor = _.find(
+          results.includes.Entry, { sys: { id: fields.contentAuthor[0].sys.id } },
+        );
         return {
           title: fields.title,
           type: fields.type,
           content: fields.content,
           featuredImage: featuredImage.fields.file.url,
           tags: fields.tags,
+          contentAuthor: contentAuthor.fields,
         };
       }),
       'type',
@@ -411,6 +425,8 @@ SearchBarInner.propTypes = {
     fImage: PT.string.isRequired,
     articleLink: PT.string.isRequired,
     forumLink: PT.string.isRequired,
+    cellWrap: PT.string.isRequired,
+    cellAuthor: PT.string.isRequired,
   }).isRequired,
 };
 
