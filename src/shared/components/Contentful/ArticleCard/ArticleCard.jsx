@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /**
  * The core article card rendering.
  */
@@ -37,6 +38,16 @@ class ArticleCard extends React.Component {
     // containerRef is used to get the card width, in order to customize
     // the appearance of 'Article large' cards.
     this.containerRef = React.createRef();
+  }
+
+  cardClick(e, articlePageUrl, articlePageTarget) {
+    // do nothing for clicks on links
+    if (e.target.tagName.toLowerCase() === 'a') return;
+    if (articlePageTarget === '_self') {
+      window.location.href = articlePageUrl;
+    } else {
+      window.open(articlePageUrl, articlePageTarget);
+    }
   }
 
   render() {
@@ -143,7 +154,13 @@ class ArticleCard extends React.Component {
           className={theme.contentWrapper}
           style={fixStyle(articleCard.extraStylesForContentWrapper)}
         >
-          <div className={theme.content}>
+          <div
+            className={theme.content}
+            onClick={e => this.cardClick(e, articlePageUrl, articlePageTarget)}
+            onKeyPress={e => this.cardClick(e, articlePageUrl, articlePageTarget)}
+            role="button"
+            tabIndex="0"
+          >
             <div className={theme.main}>
               <div className={theme.playIconContainer}>
                 <div className={theme.playIconWrapper}>
