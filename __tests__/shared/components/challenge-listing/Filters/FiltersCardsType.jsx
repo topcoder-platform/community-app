@@ -27,6 +27,6 @@ class Wrapper extends React.Component {
 test('handle events', () => {
   const instance = TU.renderIntoDocument((<Wrapper />));
   const matches = TU.scryRenderedDOMComponentsWithTag(instance, 'a');
-  expect(matches).toHaveLength(2);
+  expect(matches).toHaveLength(1);
   TU.Simulate.click(matches[0]);
 });

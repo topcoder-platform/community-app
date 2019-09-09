@@ -19,6 +19,14 @@ $search-input-width: '100% - 56px';
   position: relative;
   top: 1px;
 
+  label {
+    font-size: 12px;
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
   @include xs-to-md {
     display: none;
   }
@@ -27,13 +35,12 @@ $search-input-width: '100% - 56px';
 
   input:not([type="checkbox"]) {
     display: inline-block;
-
-    @include calc(width, $search-input-width);
-
+    flex: 1;
     background: $tc-white;
     border: 1px solid $tc-gray-20;
     border-radius: $challenge-radius-4 0 0 $challenge-radius-4;
     margin-bottom: 0;
+    margin-left: 10px;
     vertical-align: middle;
 
     @include placeholder {
