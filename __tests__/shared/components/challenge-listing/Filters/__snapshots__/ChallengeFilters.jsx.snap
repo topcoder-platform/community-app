@@ -12,8 +12,9 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       setCardType={[MockFunction]}
     />
     <ChallengeSearchBar
+      label="Search Challenges:"
       onSearch={[Function]}
-      placeholder="Search Challenges"
+      placeholder="Type the challenge name here"
       query=""
       setQuery={[MockFunction]}
     />
@@ -101,15 +102,16 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       setCardType={[MockFunction]}
     />
     <ChallengeSearchBar
+      label="Search Challenges:"
       onSearch={[Function]}
-      placeholder="Search Challenges"
+      placeholder="Type the challenge name here"
       query=""
       setQuery={[MockFunction]}
     />
     <span>
       <span
         aria-checked={false}
-        aria-label="Filter"
+        aria-label="Design toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
         role="switch"
       >
@@ -126,7 +128,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       </span>
       <span
         aria-checked={false}
-        aria-label="Filter"
+        aria-label="Development toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
         role="switch"
       >
@@ -143,7 +145,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       </span>
       <span
         aria-checked={false}
-        aria-label="Filter"
+        aria-label="Data Science toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
         role="switch"
       >
