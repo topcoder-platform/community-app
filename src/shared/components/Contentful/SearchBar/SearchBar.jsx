@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
 import { config } from 'topcoder-react-utils';
 import { getService } from 'services/contentful';
+import qs from 'qs';
 
 import IconFilterAll from 'assets/images/tc-edu/icon-filter-all.svg';
 import IconFilterAuthor from 'assets/images/tc-edu/icon-filter-author.svg';
@@ -123,7 +124,13 @@ export class SearchBarInner extends Component {
     const {
       isShowSuggestion,
       suggestionList,
+      selectedFilter,
     } = this.state;
+
+    const searchQuery = {};
+    if (this.searchFieldRef && this.searchFieldRef.value && selectedFilter.name === 'Tags') {
+      searchQuery.tags = [this.searchFieldRef.value];
+    }
 
     return (suggestionList && !_.isEmpty(suggestionList) && isShowSuggestion && (
       <div
@@ -225,7 +232,9 @@ export class SearchBarInner extends Component {
             </div>
           </div>
         )}
-        <a className={theme['view-all-results']} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}`}>View all results</a>
+        <a className={theme['view-all-results']} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify(searchQuery)}`}>
+          View all results
+        </a>
       </div>
     ));
   }
