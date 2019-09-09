@@ -185,6 +185,7 @@ workflows:
                 only:
                   - legacy-tco
                   - hot-fixes-3
+                  - mm-leaderboard-misc-fixes
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
