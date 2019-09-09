@@ -74,6 +74,12 @@
   text-transform: none;
 }
 
+.submission-information-error {
+  color: $tc-red;
+  padding: 20px 0;
+  text-align: center;
+}
+
 .submission-information-details {
   margin: 10px 0;
   width: 100%;

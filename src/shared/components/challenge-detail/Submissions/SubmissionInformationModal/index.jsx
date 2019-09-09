@@ -73,36 +73,44 @@ class SubmissionInformationModal extends React.Component {
           !isLoadingSubmissionInformation && (
             <React.Fragment>
               <div styleName="modal.submission-information-title">Advanced Details</div>
-              <div styleName="modal.submission-information-details">
-                <div styleName="modal.submission-information-details-row1">
-                  <span styleName="modal.submission-information-details-title">Submission:&nbsp;</span>
-                  <span styleName="modal.submission-information-details-id">{submissionInformation.id}</span>
-                </div>
-                <div styleName="modal.submission-information-details-row2">
-                  <div styleName="modal.details-header">
-                    <div styleName="modal.header-item">Final Score</div>
-                    <div styleName="modal.header-item">Provissional Score</div>
-                    <div styleName="modal.header-item">Time</div>
+              {
+                submissionBasicInfo ? (
+                  <div styleName="modal.submission-information-details">
+                    <div styleName="modal.submission-information-details-row1">
+                      <span styleName="modal.submission-information-details-title">Submission:&nbsp;</span>
+                      <span styleName="modal.submission-information-details-id">{submissionInformation.id}</span>
+                    </div>
+                    <div styleName="modal.submission-information-details-row2">
+                      <div styleName="modal.details-header">
+                        <div styleName="modal.header-item">Final Score</div>
+                        <div styleName="modal.header-item">Provissional Score</div>
+                        <div styleName="modal.header-item">Time</div>
+                      </div>
+                      <div styleName="modal.details-grid">
+                        <div
+                          styleName="modal.details-item"
+                        >
+                          {(!submissionBasicInfo.finalScore && submissionBasicInfo.finalScore !== 0) || !isReviewPhaseComplete ? '-' : submissionBasicInfo.finalScore}
+                        </div>
+                        <div
+                          styleName="modal.details-item"
+                        >
+                          {(!submissionBasicInfo.provisionalScore && submissionBasicInfo.provisionalScore !== 0) ? '-' : submissionBasicInfo.provisionalScore}
+                        </div>
+                        <div styleName="modal.details-item">
+                          {moment(submissionBasicInfo.submissionTime)
+                            .format('DD MMM YYYY')} {moment(submissionBasicInfo.submissionTime)
+                              .format('HH:mm:ss')}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div styleName="modal.details-grid">
-                    <div
-                      styleName="modal.details-item"
-                    >
-                      {(!submissionBasicInfo.finalScore && submissionBasicInfo.finalScore !== 0) || !isReviewPhaseComplete ? '-' : submissionBasicInfo.finalScore}
-                    </div>
-                    <div
-                      styleName="modal.details-item"
-                    >
-                      {(!submissionBasicInfo.provisionalScore && submissionBasicInfo.provisionalScore !== 0) ? '-' : submissionBasicInfo.provisionalScore}
-                    </div>
-                    <div styleName="modal.details-item">
-                      {moment(submissionBasicInfo.submissionTime)
-                        .format('DD MMM YYYY')} {moment(submissionBasicInfo.submissionTime)
-                          .format('HH:mm:ss')}
-                    </div>
+                ) : (
+                  <div styleName="modal.submission-information-error">
+                    You don&#39;t have permission to view the advanced details for this submission
                   </div>
-                </div>
-              </div>
+                )
+              }
               {
                 testcases.length > 0 && (
                   <React.Fragment>
