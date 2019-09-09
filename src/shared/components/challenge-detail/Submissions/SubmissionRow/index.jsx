@@ -14,8 +14,8 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle, isReviewPhaseComplete,
-  finalRank, provisionalRank,
+  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
+  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup,
 }) {
   const {
     submissionTime, provisionalScore,
@@ -89,9 +89,14 @@ export default function SubmissionRow({
                   Provisional
                 </div>
               </div>
-              <div styleName="col-4 col">
+              <div styleName={`col-4 col ${isMM ? 'mm' : ''}`}>
                 Time
               </div>
+              {
+                isMM && (
+                  <div styleName="col-5 col">&nbsp;</div>
+                )
+              }
             </div>
           </div>
           {
@@ -102,6 +107,8 @@ export default function SubmissionRow({
                 submission={submissions.length - index}
                 {...submissionHistory}
                 key={submissionHistory.submissionId}
+                onShowPopup={onShowPopup}
+                member={member}
               />
             ))
           }
@@ -141,4 +148,5 @@ SubmissionRow.propTypes = {
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,
+  onShowPopup: PT.func.isRequired,
 };
