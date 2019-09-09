@@ -40,8 +40,8 @@ class SubmissionInformationModal extends React.Component {
 
     let list = [];
     _.forEach(submissionInformation.review, (item) => {
-      if (_.has(item, 'metadata') && _.has(item.metadata, 'testcases') && item.metadata.testcases.length > 0) {
-        list = list.concat(item.metadata.testcases);
+      if (_.has(item, 'metadata.public.testcases') && item.metadata.public.testcases.length > 0) {
+        list = list.concat(item.metadata.public.testcases);
       }
     });
 

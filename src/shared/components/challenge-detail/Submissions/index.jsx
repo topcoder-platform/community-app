@@ -41,9 +41,8 @@ class SubmissionsComponent extends React.Component {
       return;
     }
 
-    if (isMM && _.has(challenge, 'submissions') && challenge.submissions.length > 0) {
-      const submitterIds = _.map(challenge.submissions, item => item.submitterId);
-      loadMMSubmissions(challenge.id, submitterIds, challenge.registrants, auth.tokenV3);
+    if (isMM) {
+      loadMMSubmissions(challenge.id, challenge.registrants, auth.tokenV3);
     }
   }
 
