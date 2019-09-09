@@ -181,7 +181,7 @@ class ArticleCard extends React.Component {
                         {
                           contentAuthor && contentAuthor.length > 0 ? (
                             contentAuthor.map(author => (
-                              <div key={author.key} className={theme.author}>
+                              <div key={author.key || author.name} className={theme.author}>
                                 {
                                   author.file ? (
                                     <div className={theme.avatarWrapper}>
@@ -211,7 +211,11 @@ class ArticleCard extends React.Component {
                         showArticleInfo() && (
                           <p className={theme.readTimeInfo}>
                             {themeName === 'Article large' ? <span>&nbsp;.&nbsp;</span> : null}
-                            {article.readTime}
+                            {
+                              contentAuthor && contentAuthor.length > 0 ? (
+                                contentAuthor[0].name
+                              ) : null
+                            }
                           </p>
                         )
                       }

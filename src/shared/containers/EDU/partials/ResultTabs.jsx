@@ -142,6 +142,9 @@ export default class ResultTabs extends React.Component {
                   ) : null}
                   theme={THEMES['Article large']}
                   themeName="Article large"
+                  contentAuthor={[
+                    _.find(articles.includes.Entry, ['sys.id', article.fields.contentAuthor[0].sys.id]).fields,
+                  ]}
                 />
               ))
             ) : (<h3>Nothing Found</h3>)
