@@ -13,7 +13,6 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import YouTubeVideo from 'components/YouTubeVideo';
 import moment from 'moment';
 import localStorage from 'localStorage';
-import { Modal } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import ShareSocial from 'components/challenge-detail/Specification/SideBar/ShareSocial';
 // SVGs and assets
@@ -32,7 +31,6 @@ export default class Article extends React.Component {
     this.setState({
       upvotes: fields.upvotes || 0,
       downvotes: fields.downvotes || 0,
-      showModal: false,
     });
   }
 
@@ -90,7 +88,6 @@ export default class Article extends React.Component {
         this.setState({
           upvotes,
           downvotes,
-          showModal: true,
         });
       });
   }
@@ -102,17 +99,10 @@ export default class Article extends React.Component {
     const contentfulConfig = {
       spaceName, environment, preview,
     };
-    const { upvotes, downvotes, showModal } = this.state || {};
+    const { upvotes, downvotes } = this.state || {};
 
     return (
       <React.Fragment>
-        {
-          showModal ? (
-            <Modal onCancel={() => this.setState({ showModal: false })}>
-              <h1 className={theme.modalText}>Thank You for voting!</h1>
-            </Modal>
-          ) : null
-        }
         {/* Banner */}
         <div className={theme.bannerContainer}>
           {
