@@ -174,7 +174,7 @@ workflows:
           filters:
             branches:
               only: 
-                - develop-from-master-23may
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -188,7 +188,6 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fixes-2
                 - develop
                 - ssf-merged-to-new-develop
       # Production builds are exectuted only on tagged commits to the
