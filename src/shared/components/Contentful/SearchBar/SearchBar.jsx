@@ -275,7 +275,7 @@ export class SearchBarInner extends Component {
         query.query = searchText;
       }
       if (selectedFilter.name === 'Tags') {
-        query['fields.tags[in]'] = searchText;
+        query['fields.tags[match]'] = searchText;
       }
       this.apiService.queryEntries(query)
         .then((results) => {
