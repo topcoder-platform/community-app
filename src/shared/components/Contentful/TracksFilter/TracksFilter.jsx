@@ -61,8 +61,6 @@ export class TracksFilterInner extends Component {
     });
   }
 
-  onAp
-
   render() {
     const {
       theme,

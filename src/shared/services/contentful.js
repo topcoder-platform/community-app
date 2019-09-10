@@ -341,7 +341,13 @@ class Service {
       if (taxIDs.length) query['fields.contentCategory.sys.id[in]'] = taxIDs.join(',');
     }
     if (track) query['fields.trackCategory'] = track;
-    if (!_.isEmpty(tags)) query['fields.tags[all]'] = tags.join(',');
+    if (!_.isEmpty(tags)) {
+      if (tags.length === 1) {
+        query['fields.tags[match]'] = tags.join(',');
+      } else {
+        query.query = tags.join(' ');
+      }
+    }
     if (startDate) query['sys.createdAt[gte]'] = startDate;
     if (endDate) query['sys.createdAt[lte]'] = endDate;
     const content = {};
