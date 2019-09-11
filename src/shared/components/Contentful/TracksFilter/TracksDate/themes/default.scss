@@ -15,7 +15,7 @@ $text-black: #2a2a2a;
   display: flex;
   flex-direction: row;
   color: $text-black;
-  background-color: $tc-white;
+  background-color: #f4f4f4;
   border-radius: 6px;
   border: 1px solid #aaa;
   position: relative;
@@ -38,6 +38,7 @@ $text-black: #2a2a2a;
       font-size: 14px !important;
       border: none !important;
       box-shadow: none !important;
+      background-color: #f4f4f4 !important;
     }
 
     @include xs-to-sm {
@@ -53,10 +54,10 @@ $text-black: #2a2a2a;
   position: absolute;
   color: #aaa;
   font-size: 12px;
-  background: $tc-white;
   padding: 0 7px;
   left: 8px;
   top: -7px;
+  background: #f4f4f4;
 }
 
 .separator {

@@ -25,7 +25,7 @@ $text-gray: #7f7f7f;
     color: #7f7f7f;
     font-family: "Barlow", Helvetica, Arial, sans-serif;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 20px;
     letter-spacing: 0.2px;
     line-height: 26px;
 
@@ -42,7 +42,7 @@ $text-gray: #7f7f7f;
 .row-item {
   @include barlow-semi-bold;
 
-  font-size: 24px;
+  font-size: 20px;
   letter-spacing: 0.2px;
   line-height: 26px;
   margin-bottom: 5px;
@@ -133,7 +133,7 @@ $text-gray: #7f7f7f;
     span {
       @include barlow-semi-bold;
 
-      font-size: 24px;
+      font-size: 20px;
       letter-spacing: 0.2px;
       text-transform: uppercase;
     }

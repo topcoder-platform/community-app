@@ -8,7 +8,7 @@ $text-black: #2a2a2a;
   display: flex;
   flex-direction: row;
   color: $text-black;
-  background-color: $tc-white;
+  background-color: #f4f4f4;
   border-radius: 6px;
   width: 100%;
   border: 1px solid #aaa;
@@ -23,10 +23,10 @@ $text-black: #2a2a2a;
   position: absolute;
   color: #aaa;
   font-size: 12px;
-  background: $tc-white;
   padding: 0 7px;
   left: 8px;
   top: -7px;
+  background: #f4f4f4;
 }
 
 .header {
