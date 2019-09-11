@@ -128,7 +128,6 @@ export default class EDUTracks extends React.Component {
   }
 
   onApplyFilter(filterState) {
-    const { query } = this.state;
     const queryUpdate = {
       author: filterState.selectedAuthor,
       tags: filterState.tags,
@@ -136,9 +135,15 @@ export default class EDUTracks extends React.Component {
       endDate: filterState.endDate.format(),
     };
     // Update the state
-    this.setState({
-      query: _.merge(query, queryUpdate),
-    });
+    this.setState(prevState => ({
+      query: {
+        ...prevState.query,
+        author: queryUpdate.author,
+        tags: queryUpdate.tags,
+        startDate: queryUpdate.startDate,
+        endDate: queryUpdate.endDate,
+      },
+    }));
     // Update the url query
     updateQuery({ ...queryUpdate });
   }

@@ -67,7 +67,6 @@ export default class EDUSearch extends React.Component {
   }
 
   onApplyFilter(filterState) {
-    const { query } = this.state;
     const queryUpdate = {
       author: filterState.selectedAuthor,
       tags: filterState.tags,
@@ -81,7 +80,7 @@ export default class EDUSearch extends React.Component {
     };
     // Update the state
     this.setState({
-      query: _.merge(query, queryUpdate),
+      query: queryUpdate,
     });
     // Update the url query
     updateQuery({ ...queryUpdate });

@@ -90,12 +90,16 @@ export class TracksFilterInner extends Component {
         <TracksTags
           tags={tags}
           onAddNewTag={(tag) => {
-            tags.push(tag);
-            this.setState({ tags });
+            this.setState(prevState => ({
+              tags: [...prevState.tags, tag],
+            }));
           }}
           onRemoveTag={(index) => {
-            tags.splice(index, 1);
-            this.setState({ tags });
+            const newTags = _.cloneDeep(tags);
+            if (index !== -1) {
+              newTags.splice(index, 1);
+              this.setState({ tags: newTags });
+            }
           }}
         />
         <div className={theme['author-date-container']}>
