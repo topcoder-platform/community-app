@@ -42,12 +42,13 @@ $text-black: #2a2a2a;
   padding-left: 13px;
   height: 30px;
   align-items: center;
-  background: #f4f4f4;
+  background: #fff;
   border-radius: 15px;
   margin-top: 11px;
   margin-right: 5px;
   max-width: 100%;
   padding-bottom: 2px;
+  border: 1px solid #2a2a2a;
 
   span {
     @include min-ellipsis;
