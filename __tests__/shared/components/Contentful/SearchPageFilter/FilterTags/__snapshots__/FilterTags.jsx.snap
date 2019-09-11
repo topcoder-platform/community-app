@@ -3,6 +3,7 @@
 exports[`Matches shallow shapshot 1`] = `
 <div>
   <input
+    id="search-tags-input"
     onChange={[Function]}
     onKeyDown={[Function]}
     placeholder="Add tags..."
