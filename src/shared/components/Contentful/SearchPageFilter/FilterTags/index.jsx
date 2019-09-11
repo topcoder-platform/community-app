@@ -5,6 +5,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
+import { isomorphy } from 'topcoder-react-utils';
 
 import IconCloseSmall from 'assets/images/tc-edu/icon-close-small.svg';
 import defaultTheme from './themes/default.scss';
@@ -16,6 +17,24 @@ export class FilterTagsInner extends Component {
     this.state = {
       inputValue: '',
     };
+
+    // this method to export ref of this component
+    // won't work if there are multipe instances of it on the same page!
+    if (isomorphy.isClientSide()) {
+      window.SearchTags = this;
+    }
+  }
+
+  componentWillUnmount() {
+    if (isomorphy.isClientSide()) {
+      window.SearchTags = null;
+    }
+  }
+
+  resetTagsInput() {
+    this.setState({
+      inputValue: '',
+    });
   }
 
   render() {
@@ -40,6 +59,7 @@ export class FilterTagsInner extends Component {
     return (
       <div className={theme.container}>
         <input
+          id="search-tags-input"
           type="text"
           className={theme['tags-field']}
           placeholder="Add tags..."

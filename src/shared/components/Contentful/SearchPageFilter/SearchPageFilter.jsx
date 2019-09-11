@@ -161,13 +161,25 @@ export class SearchPageFilterInner extends Component {
           <button
             type="button"
             className={theme['btn-apply']}
-            onClick={() => onApply({
-              selectedAuthor,
-              startDate,
-              endDate,
-              tags,
-              selectedCategory,
-            })}
+            onClick={() => {
+              const tagsInput = document.getElementById('search-tags-input').value;
+              if (tagsInput) {
+                // eslint-disable-next-line no-shadow
+                const { tags } = this.state;
+                tags.push(tagsInput);
+                this.setState({
+                  tags,
+                });
+                window.SearchTags.resetTagsInput();
+              }
+              onApply({
+                selectedAuthor,
+                startDate,
+                endDate,
+                tags,
+                selectedCategory,
+              });
+            }}
           >APPLY FILTER
           </button>
         </div>

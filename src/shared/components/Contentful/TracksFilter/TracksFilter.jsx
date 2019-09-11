@@ -124,6 +124,16 @@ export class TracksFilterInner extends Component {
             type="button"
             className={theme['btn-apply']}
             onClick={() => {
+              const tagsInput = document.getElementById('track-tags-input').value;
+              if (tagsInput) {
+                // eslint-disable-next-line no-shadow
+                const { tags } = this.state;
+                tags.push(tagsInput);
+                this.setState({
+                  tags,
+                });
+                window.TracksTags.resetTagsInput();
+              }
               onApply(this.state);
             }}
           >APPLY FILTER

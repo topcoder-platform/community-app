@@ -5,6 +5,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
+import { isomorphy } from 'topcoder-react-utils';
 
 import IconCloseSmall from 'assets/images/tc-edu/icon-close-small.svg';
 import defaultTheme from './themes/default.scss';
@@ -16,6 +17,24 @@ export class TracksTagsInner extends Component {
     this.state = {
       inputValue: '',
     };
+
+    // this method to export ref of this component
+    // won't work if there are multipe instances of it on the same page!
+    if (isomorphy.isClientSide()) {
+      window.TracksTags = this;
+    }
+  }
+
+  componentWillUnmount() {
+    if (isomorphy.isClientSide()) {
+      window.TracksTags = null;
+    }
+  }
+
+  resetTagsInput() {
+    this.setState({
+      inputValue: '',
+    });
   }
 
   render() {
@@ -55,6 +74,7 @@ export class TracksTagsInner extends Component {
             ))
           }
           <input
+            id="track-tags-input"
             value={inputValue}
             onChange={(e) => { this.setState({ inputValue: e.target.value }); }}
             onKeyDown={(e) => {
