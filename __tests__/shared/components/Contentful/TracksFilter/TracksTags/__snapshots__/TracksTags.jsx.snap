@@ -10,6 +10,7 @@ exports[`Matches shallow shapshot 1`] = `
       id="track-tags-input"
       onChange={[Function]}
       onKeyDown={[Function]}
+      placeholder="Add tags to filter..."
       type="text"
       value=""
     />
