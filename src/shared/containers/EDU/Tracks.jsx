@@ -26,11 +26,11 @@ import ResultTabs from './partials/ResultTabs';
 import tracksTheme from './styles/tracks.scss';
 
 const TRACK_COLORS = {
-  Development: '#35AC35',
-  Design: '#2C95D7',
-  'Data Science': '#F46500',
-  'Competitive Programming': '#FD7D01',
-  QA: '#4CC94C',
+  Development: '#8AFB8A',
+  Design: '#50ADE8',
+  'Data Science': '#FFA45D',
+  'Competitive Programming': '#FFA45D',
+  QA: '#8AFB8A',
 };
 const TRACK_IMAGES = {
   Development: Dev,

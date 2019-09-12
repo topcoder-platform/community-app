@@ -13,7 +13,7 @@ $text-black: #2a2a2a;
   width: 100%;
   border: 1px solid #aaa;
   position: relative;
-  padding: 0 10px 9px;
+  padding: 0 10px;
   flex-shrink: 0;
   align-items: flex-start;
 }
@@ -77,6 +77,14 @@ $text-black: #2a2a2a;
   margin-top: 11px;
   min-width: 50px;
   background: #f4f4f4 !important;
+  color: #2a2a2a !important;
+  font-size: 16px !important;
+
+  &::placeholder {
+    color: #aaa;
+    text-transform: none;
+    font-size: 16px;
+  }
 }
 
 @include xs-to-sm {

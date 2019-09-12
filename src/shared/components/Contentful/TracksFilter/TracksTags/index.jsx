@@ -85,6 +85,7 @@ export class TracksTagsInner extends Component {
             }}
             type="text"
             className={theme['tags-field']}
+            placeholder="Add tags to filter..."
           />
         </div>
       </div>

@@ -27,7 +27,7 @@ $text-black: #2a2a2a;
 
   :global {
     .SingleDatePicker {
-      width: 90px;
+      width: 105px;
       margin-left: 12px;
     }
 
@@ -35,15 +35,16 @@ $text-black: #2a2a2a;
       height: 21px !important;
       margin: 0 !important;
       padding: 0 !important;
-      font-size: 14px !important;
       border: none !important;
       box-shadow: none !important;
       background-color: #f4f4f4 !important;
+      color: #2a2a2a !important;
+      font-size: 16px !important;
     }
 
     @include xs-to-sm {
       .SingleDatePicker {
-        width: 90px;
+        width: 105px;
         margin-left: 6px;
       }
     }
