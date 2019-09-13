@@ -79,7 +79,12 @@ export class TracksTreeInner extends Component {
               <button
                 type="button"
                 onClick={() => {
-                  this.setState({ expandedTrack: (expandedTrack !== option.id) ? option.id : 0 });
+                  this.setState({ expandedTrack: option.id });
+                  option.items = _.map(option.items, (subItem) => {
+                    subItem.selected = false;
+                    return subItem;
+                  });
+                  onItemClick(option);
                 }}
                 className={`${theme['row-item']} ${(expandedTrack === option.id) ? theme.expanded : ''}`}
               >

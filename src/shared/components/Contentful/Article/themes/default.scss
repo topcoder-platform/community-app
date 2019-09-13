@@ -130,20 +130,21 @@
     .tagItem {
       @include roboto-regular;
 
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      line-height: 15px;
       height: 23px;
       width: auto;
       padding: 4px 6px;
-      color: $tc-white;
-      background-color: #aaa;
-      border-radius: 5px;
       margin-right: 3px;
-      user-select: none;
       white-space: nowrap;
       margin-top: 5px;
+      border: 1px solid #2a2a2a;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #2a2a2a;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      line-height: 15px;
+      text-align: left;
     }
   }
 

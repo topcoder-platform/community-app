@@ -40,23 +40,6 @@ exports[`Matches shallow shapshot 1`] = `
     />
   </div>
   <div>
-    <button
-      className="undefined undefined"
-      onClick={[Function]}
-      type="button"
-    >
-      <span>
-        sub category
-      </span>
-      <IconArrowUpSmall
-        height="8"
-        viewBox="0 0 12 8"
-        width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-    </button>
-  </div>
-  <div>
     <div
       type="button"
     >

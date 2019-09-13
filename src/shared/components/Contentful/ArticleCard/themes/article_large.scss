@@ -53,17 +53,19 @@
 }
 
 .tag {
-  background: #aaa;
   height: 23px;
   border-radius: 5px;
   padding: 4px 6px;
   margin-right: 3px;
-  color: #fff;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 400;
   line-height: 15px;
+  background-color: #fff;
+  border: 1px solid #2a2a2a;
+  color: #2a2a2a;
   letter-spacing: 0.4px;
+  text-align: left;
 }
 
 .readTime {

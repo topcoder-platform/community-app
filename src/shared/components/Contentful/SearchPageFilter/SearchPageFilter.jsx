@@ -105,26 +105,30 @@ export class SearchPageFilterInner extends Component {
             }}
           />
         </div>
-        <div className={theme.section}>
-          <button
-            type="button"
-            className={`${theme['section-header']} ${isShowSubCategory ? theme.expanded : ''}`}
-            onClick={() => { this.setState({ isShowSubCategory: !isShowSubCategory }); }}
-          >
-            <span className={theme['section-title']}>sub category</span>
-            <IconArrowUpSmall />
-          </button>
-          {selectedCategory && isShowSubCategory && (
-            <FilterSelection
-              options={selectedCategory.items}
-              onSelected={(index) => {
-                const subCategory = selectedCategory.items[index];
-                subCategory.selected = !subCategory.selected;
-                this.setState({ selectedCategory });
-              }}
-            />
-          )}
-        </div>
+        {
+          selectedCategory ? (
+            <div className={theme.section}>
+              <button
+                type="button"
+                className={`${theme['section-header']} ${isShowSubCategory ? theme.expanded : ''}`}
+                onClick={() => { this.setState({ isShowSubCategory: !isShowSubCategory }); }}
+              >
+                <span className={theme['section-title']}>sub category</span>
+                <IconArrowUpSmall />
+              </button>
+              {selectedCategory && isShowSubCategory && (
+                <FilterSelection
+                  options={selectedCategory.items}
+                  onSelected={(index) => {
+                    const subCategory = selectedCategory.items[index];
+                    subCategory.selected = !subCategory.selected;
+                    this.setState({ selectedCategory });
+                  }}
+                />
+              )}
+            </div>
+          ) : null
+        }
         <div className={theme.section}>
           <div
             type="button"

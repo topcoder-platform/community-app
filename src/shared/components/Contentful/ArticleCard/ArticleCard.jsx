@@ -19,6 +19,7 @@ import TodayIcon from 'assets/images/ico-today.svg';
 import PersonIcon from 'assets/images/ico-person.svg';
 import PlayIcon from 'assets/images/ico-play.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
+import qs from 'qs';
 
 // date/time format to use for the creation date
 const FORMAT = 'MMM DD, YYYY';
@@ -174,8 +175,9 @@ class ArticleCard extends React.Component {
                     <span
                       key={index}
                       className={theme.tag}
+                      title={`Search for articles labelled as ${tag}`}
                     >
-                      {tag}
+                      <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</a>
                     </span>
                   ))
                   /* eslint-enable react/no-array-index-key */
@@ -185,7 +187,13 @@ class ArticleCard extends React.Component {
                 <p>{article.readTime}</p>
               </div>
               <h3 className={theme.title}>
-                <a href={articlePageUrl} target={articlePageTarget}>{title}</a>
+                <a
+                  href={articlePageUrl}
+                  target={articlePageTarget}
+                  title={article.title}
+                >
+                  {title}
+                </a>
               </h3>
               <div className={theme.contentPreview}>
                 <p>{content}</p>
@@ -210,7 +218,13 @@ class ArticleCard extends React.Component {
                                     </div>
                                   )
                                 }
-                                <p>{author.name}</p>
+                                <a
+                                  href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: author.name })}`}
+                                  key={`${author.name}`}
+                                  title={`Search for articles from ${author.name}`}
+                                >
+                                  {author.name}
+                                </a>
                               </div>
                             ))
                           ) : null
@@ -230,7 +244,13 @@ class ArticleCard extends React.Component {
                             {themeName === 'Article large' ? <span>&nbsp;.&nbsp;</span> : null}
                             {
                               contentAuthor && contentAuthor.length > 0 ? (
-                                contentAuthor[0].name
+                                <a
+                                  href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: contentAuthor[0].name })}`}
+                                  key={`${contentAuthor[0].name}`}
+                                  title={`Search for articles from ${contentAuthor[0].name}`}
+                                >
+                                  {contentAuthor[0].name}
+                                </a>
                               ) : null
                             }
                           </p>

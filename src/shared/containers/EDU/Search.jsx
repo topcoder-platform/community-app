@@ -18,9 +18,6 @@ import ResultTabs from './partials/ResultTabs';
 // CSS
 import searchTheme from './styles/search.scss';
 
-// Default to this track if url query is missing track paramater
-const DEFAULT_TRACK = 'Development';
-
 export default class EDUSearch extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +43,6 @@ export default class EDUSearch extends React.Component {
       // eslint-disable-next-line no-nested-ternary
       urlQuery.tags = _.isArray(urlQuery.tags)
         ? urlQuery.tags : (urlQuery.tags ? [urlQuery.tags] : []);
-      urlQuery.track = urlQuery.track ? urlQuery.track : DEFAULT_TRACK;
       this.setState({
         query: urlQuery,
       });
@@ -72,11 +68,11 @@ export default class EDUSearch extends React.Component {
       tags: filterState.tags,
       startDate: filterState.startDate.format(),
       endDate: filterState.endDate.format(),
-      track: filterState.selectedCategory.title,
-      tax: _.map(
+      track: filterState.selectedCategory ? filterState.selectedCategory.title : null,
+      tax: filterState.selectedCategory ? _.map(
         _.filter(filterState.selectedCategory.items, item => item.selected),
         item => item.title,
-      ),
+      ) : null,
     };
     // Update the state
     this.setState({
@@ -92,7 +88,7 @@ export default class EDUSearch extends React.Component {
     } = this.state;
     // This container needs at least those variables
     // to be able to render meaningful data
-    if (!query.track || !taxonomy) return <LoadingIndicator />;
+    if (!taxonomy) return <LoadingIndicator />;
     return (
       <div className={searchTheme.container}>
         {/* Banner */}

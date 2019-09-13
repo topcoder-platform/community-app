@@ -303,7 +303,7 @@ class Service {
    * @param {Object} query
    */
   async getEDUContent({
-    track, types, limit = 10, skip = 0, tags,
+    track, types, limit = 5, skip = 0, tags,
     tax, startDate, endDate, author, taxonomy,
   }) {
     const query = {
@@ -316,7 +316,7 @@ class Service {
       // thus we need to find it first
       await this.queryEntries({
         content_type: 'person',
-        'fields.name': author,
+        query: author,
       })
         .then((result) => {
           if (result.total) {
@@ -357,8 +357,6 @@ class Service {
           // eslint-disable-next-line no-return-assign
           .then(results => content[type] = results)),
     );
-    // eslint-disable-next-line max-len
-    // console.log('getEDUContent', {track, types, limit, skip, tags, tax, startDate, endDate, author, taxonomy}, query, content);
     return content;
   }
 

@@ -19,6 +19,7 @@ import ShareSocial from 'components/challenge-detail/Specification/SideBar/Share
 import GestureIcon from 'assets/images/icon-gesture.svg';
 import UserDefault from 'assets/images/ico-user-default.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
+import qs from 'qs';
 
 // character length for the content preview
 const CONTENT_PREVIEW_LENGTH = 110;
@@ -163,7 +164,9 @@ export default class Article extends React.Component {
             <div className={theme.tagContainer}>
               {
                 _.map(fields.tags, tag => (
-                  <div className={theme.tagItem} key={tag}>{tag}</div>
+                  <div className={theme.tagItem} key={tag} title={`Search for articles labelled as ${tag}`}>
+                    <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</a>
+                  </div>
                 ))
               }
             </div>

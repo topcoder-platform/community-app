@@ -101,9 +101,12 @@ export default class EDUTracks extends React.Component {
   onTreeClick(selectedItem) {
     // Update the counters if track changed
     const { query } = this.state;
-    if (query.track !== selectedItem.track) {
+    // if track is not empty, it means clicked from child, otherwise clicked from parent
+    const track = selectedItem.track ? selectedItem.track : selectedItem.title;
+    const tax = selectedItem.track ? selectedItem.title : null;
+    if (query.track !== track) {
       this.apiService.getEDUContent({
-        track: selectedItem.track,
+        track,
       })
         .then((content) => {
           this.setState({
@@ -116,14 +119,14 @@ export default class EDUTracks extends React.Component {
     // Update the state
     this.setState({
       query: _.merge(query, {
-        track: selectedItem.track,
-        tax: selectedItem.title,
+        track,
+        tax,
       }),
     });
     // Update the url query
     updateQuery({
-      track: selectedItem.track,
-      tax: selectedItem.title,
+      track,
+      tax,
     });
   }
 
@@ -155,13 +158,13 @@ export default class EDUTracks extends React.Component {
     } = this.state;
     // This container needs at least those variables
     // to be able to render meaningful data
-    if (!query.track || !query.tax || !taxonomy) return <LoadingIndicator />;
+    if (!taxonomy) return <LoadingIndicator />;
     return (
       <div className={tracksTheme.container}>
         {/* Banner */}
         <div
           className={tracksTheme.bannerContainer}
-          style={{ backgroundColor: TRACK_COLORS[query.track] }}
+          style={{ backgroundColor: TRACK_COLORS[query.track || 'Design'] }}
         >
           {
             TRACK_IMAGES[query.track] ? (
@@ -169,7 +172,7 @@ export default class EDUTracks extends React.Component {
             ) : null
           }
           <div className={tracksTheme.bannerWrapp}>
-            <h1 className={tracksTheme.bannerText}>{query.track}</h1>
+            <h1 className={tracksTheme.bannerText}>{query.track || 'THRIVE'}</h1>
             <div className={tracksTheme.bannerCounters}>
               <div className={tracksTheme.bannerCounterWrap}>
                 <div className={tracksTheme.bannerCount}>{articleCnt}</div>
