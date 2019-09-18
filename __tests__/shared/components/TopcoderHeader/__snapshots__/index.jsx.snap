@@ -274,17 +274,6 @@ exports[`Default render 1`] = `
               "link": "https://www.topcoder-dev.com/blog",
               "title": "Blog",
             },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavThrive
-                height="29"
-                viewBox="0 0 32 29"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/thrive",
-              "title": "Thrive",
-            },
           ],
           "title": "Community",
         },
@@ -582,17 +571,6 @@ exports[`Render with open menu 1`] = `
               />,
               "link": "https://www.topcoder-dev.com/blog",
               "title": "Blog",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavThrive
-                height="29"
-                viewBox="0 0 32 29"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/thrive",
-              "title": "Thrive",
             },
           ],
           "title": "Community",
@@ -906,17 +884,6 @@ exports[`Render with specified profile 1`] = `
               />,
               "link": "https://www.topcoder-dev.com/blog",
               "title": "Blog",
-            },
-            Object {
-              "enforceA": true,
-              "icon": <IconNavThrive
-                height="29"
-                viewBox="0 0 32 29"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/thrive",
-              "title": "Thrive",
             },
           ],
           "title": "Community",
