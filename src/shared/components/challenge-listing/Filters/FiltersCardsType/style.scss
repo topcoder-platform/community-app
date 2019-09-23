@@ -10,7 +10,8 @@ $type-radius-4: $corner-radius * 2;
   vertical-align: middle;
   font-size: 0;
 
-  > a {
+  > a,
+  h1 {
     @include roboto-regular;
 
     height: $type-space-60;
