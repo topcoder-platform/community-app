@@ -183,6 +183,7 @@
 
         .trackInfosInner {
           margin-left: 15px;
+          flex: 1;
 
           @include xs-to-sm {
             margin: 32px 0 0 0;
@@ -198,6 +199,7 @@
             text-align: left;
             text-transform: uppercase;
             margin-bottom: 13px;
+            display: block;
 
             @include xs-to-sm {
               text-align: center;

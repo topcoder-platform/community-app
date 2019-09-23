@@ -8,7 +8,9 @@ export default function TrackInfoInner(props) {
   const { track, taxonomy, theme } = props;
   return (
     <div className={theme.trackInfosInner}>
-      <div className={theme.trackTitle}>{track}</div>
+      <a className={theme.trackTitle} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track })}`}>
+        {track}
+      </a>
       {
         taxonomy[track] ? (
           <div className={theme.trackSubs}>
