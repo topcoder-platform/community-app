@@ -1,4 +1,5 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /**
  * SubmissionHistoryRow component.
  */
@@ -16,6 +17,9 @@ export default function SubmissionHistoryRow({
   provisionalScore,
   submissionTime,
   isReviewPhaseComplete,
+  onShowPopup,
+  submissionId,
+  member,
 }) {
   return (
     <div styleName="container">
@@ -32,11 +36,25 @@ export default function SubmissionHistoryRow({
             {(!provisionalScore && provisionalScore !== 0) ? '-' : provisionalScore}
           </div>
         </div>
-        <div styleName="col-4 col history-time">
+        <div styleName={`col-4 col history-time ${isMM ? 'mm' : ''}`}>
           <div styleName="col child">
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
           </div>
         </div>
+        {
+          isMM && (
+            <div styleName="col-5 col">
+              <div
+                role="button"
+                tabIndex={0}
+                styleName="col child"
+                onClick={() => onShowPopup(true, submissionId, member)}
+              >
+                View Details
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
   );
@@ -49,10 +67,13 @@ SubmissionHistoryRow.defaultProps = {
 };
 
 SubmissionHistoryRow.propTypes = {
+  member: PT.string.isRequired,
   isMM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.number,
   provisionalScore: PT.number,
   submissionTime: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
+  submissionId: PT.string.isRequired,
+  onShowPopup: PT.func.isRequired,
 };
