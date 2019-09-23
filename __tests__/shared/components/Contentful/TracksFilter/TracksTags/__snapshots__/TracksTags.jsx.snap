@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div>
+  <span>
+    Tags
+  </span>
+  <div>
+    <input
+      id="track-tags-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Add tags to filter..."
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;

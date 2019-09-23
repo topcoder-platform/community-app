@@ -1,0 +1,51 @@
+@import "~styles/mixins";
+
+.container {
+  background: $tc-white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 50px;
+  align-items: center;
+}
+
+.show-hide-filter {
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 765px;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 50px;
+
+  button {
+    @include roboto-regular;
+
+    font-size: 16px;
+    color: #0d61bf;
+    line-height: 19px;
+  }
+}
+
+@include xs-to-sm {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .header {
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+  }
+}

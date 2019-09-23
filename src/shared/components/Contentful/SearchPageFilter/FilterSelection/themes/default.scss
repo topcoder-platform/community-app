@@ -1,0 +1,32 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: column;
+  color: $text-black;
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 9px;
+  height: 21px;
+
+  span {
+    margin-left: 11px;
+  }
+}

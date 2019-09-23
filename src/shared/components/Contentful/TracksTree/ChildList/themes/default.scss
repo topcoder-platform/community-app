@@ -1,0 +1,12 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+
+.child-list {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+  color: $text-black;
+}

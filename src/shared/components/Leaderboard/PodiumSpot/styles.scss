@@ -27,6 +27,10 @@ $podium-border-color: #ededf2;
     font-size: 15px;
   }
 
+  .winnings-info span {
+    display: block;
+  }
+
   .winnings-info {
     margin-top: 16px;
     border-top: 1px solid $podium-border-color;
@@ -53,6 +57,11 @@ $podium-border-color: #ededf2;
         font-weight: 500;
         line-height: 25px;
       }
+
+      span {
+        font-size: 16px !important;
+        line-height: 25px !important;
+      }
     }
 
     @include xs-to-sm {
@@ -62,10 +71,6 @@ $podium-border-color: #ededf2;
     @include md-to-lg {
       font-size: 14px;
     }
-  }
-
-  .winnings-info span {
-    display: block;
   }
 
   a.profile-link {

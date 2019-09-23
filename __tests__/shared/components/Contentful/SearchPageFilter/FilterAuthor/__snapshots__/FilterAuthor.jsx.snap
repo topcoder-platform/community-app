@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="undefined "
+>
+  <span>
+    Author
+  </span>
+  <button
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      All authors
+    </span>
+    <IconArrow
+      height="10"
+      viewBox="0 0 16 10"
+      width="16"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+  </button>
+</div>
+`;

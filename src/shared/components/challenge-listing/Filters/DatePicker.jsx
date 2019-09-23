@@ -45,7 +45,7 @@ class DatePicker extends React.Component {
     const options = [];
     const futureYears = allowFutureYear ? 5 : 0;
     for (let i = -100; i <= futureYears; i += 1) {
-      options.push(<option value={moment().year() + i}>{moment().year() + i}</option>);
+      options.push(<option key={i} value={moment().year() + i}>{moment().year() + i}</option>);
     }
     return options;
   };
@@ -86,7 +86,7 @@ class DatePicker extends React.Component {
                 }}
               >
                 {moment.months().map((label, value) => (
-                  <option value={value}>{label}</option>
+                  <option key={`${label}`} value={value}>{label}</option>
                 ))}
               </select>
             </div>

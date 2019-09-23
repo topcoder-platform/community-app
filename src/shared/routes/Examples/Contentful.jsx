@@ -27,6 +27,7 @@ import Modal from 'components/Contentful/Modal';
 import MemberCard from 'components/Contentful/MemberCard';
 import Image from 'components/Contentful/Image';
 import Shape from 'components/Contentful/Shape';
+import Article from 'components/Contentful/Article';
 import qs from 'qs';
 
 import { Route, Switch } from 'react-router-dom';
@@ -264,6 +265,18 @@ export default function Contentful({ location, match }) {
                 spaceName={spaceName}
               />
             </div>
+          </div>
+        )}
+      />
+      <Route
+        path={`${base}/article/:id`}
+        component={p => (
+          <div>
+            <Article
+              id={p.match.params.id}
+              preview
+              spaceName={spaceName}
+            />
           </div>
         )}
       />

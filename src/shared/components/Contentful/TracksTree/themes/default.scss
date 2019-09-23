@@ -1,0 +1,150 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+$text-gray: #7f7f7f;
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  width: 404px;
+  color: $text-black;
+  flex-direction: column;
+
+  button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    margin: 0;
+  }
+
+  .homeLink {
+    text-transform: uppercase;
+    margin-bottom: 29px;
+    color: #7f7f7f;
+    font-family: "Barlow", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.2px;
+    line-height: 26px;
+
+    @include xs-to-sm {
+      text-align: center;
+    }
+  }
+}
+
+.is-mobile {
+  display: none !important;
+}
+
+.row-item {
+  @include barlow-semi-bold;
+
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  line-height: 26px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: $tc-white;
+
+  span {
+    @include min-ellipsis;
+
+    margin-right: 13px;
+    color: $text-gray;
+  }
+
+  > svg {
+    flex-shrink: 0;
+    -moz-transform: scale(-1, -1);
+    -o-transform: scale(-1, -1);
+    -webkit-transform: scale(-1, -1);
+    transform: scale(-1, -1);
+
+    polygon {
+      fill: $text-gray;
+    }
+  }
+}
+
+.expanded {
+  > span {
+    color: $text-black;
+  }
+
+  > svg {
+    -moz-transform: none;
+    -o-transform: none;
+    -webkit-transform: none;
+    transform: none;
+
+    polygon {
+      fill: $text-black;
+    }
+  }
+}
+
+.row-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 29px;
+}
+
+.show-full-mobile {
+  position: relative;
+}
+
+@include xs-to-sm {
+  .container {
+    width: 100%;
+  }
+
+  .show-full-mobile {
+    padding: 40px;
+    box-shadow: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 999999;
+    background: $tc-white;
+  }
+
+  .is-mobile {
+    display: flex !important;
+  }
+
+  .is-desktop {
+    display: none !important;
+  }
+
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $tc-white;
+
+    span {
+      @include barlow-semi-bold;
+
+      font-size: 20px;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+    }
+
+    svg {
+      margin-left: 12px;
+      flex-shrink: 0;
+      -moz-transform: scale(-1, -1);
+      -o-transform: scale(-1, -1);
+      -webkit-transform: scale(-1, -1);
+      transform: scale(-1, -1);
+    }
+  }
+}

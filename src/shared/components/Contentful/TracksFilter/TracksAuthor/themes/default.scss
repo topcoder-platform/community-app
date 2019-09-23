@@ -1,0 +1,94 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: row;
+  color: $text-black;
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #aaa;
+  position: relative;
+  padding: 0 15px;
+  max-width: 220px;
+  height: 38px;
+  align-items: center;
+}
+
+.title {
+  position: absolute;
+  color: #aaa;
+  font-size: 12px;
+  padding: 0 7px;
+  left: 8px;
+  top: -7px;
+  background: #f4f4f4;
+}
+
+.header {
+  @include roboto-regular;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: $tc-white;
+
+  span {
+    @include min-ellipsis;
+
+    font-size: 14px;
+  }
+}
+
+.icon-arrow {
+  -moz-transform: scale(-1, -1);
+  -o-transform: scale(-1, -1);
+  -webkit-transform: scale(-1, -1);
+  transform: scale(-1, -1);
+
+  polygon {
+    fill: #aaa;
+  }
+}
+
+.popup {
+  position: absolute;
+  left: 0;
+  top: 46px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  width: 100%;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.05), 0 -4px 8px 0 rgba(0, 0, 0, 0.03);
+  padding: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+  align-items: flex-start;
+  border-radius: 4px;
+  z-index: 1;
+
+  button {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    background: $tc-white;
+  }
+
+  span {
+    @include roboto-regular;
+    @include min-ellipsis;
+
+    height: 100%;
+    display: block;
+    color: #2a2a2a !important;
+    font-size: 16px !important;
+  }
+}

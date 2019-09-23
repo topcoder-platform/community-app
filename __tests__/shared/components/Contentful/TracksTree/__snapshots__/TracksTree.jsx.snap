@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="undefined "
+>
+  <a
+    href="/thrive"
+  >
+    THRIVE
+  </a>
+</div>
+`;

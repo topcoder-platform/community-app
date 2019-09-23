@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="192px" viewBox="0 0 1440 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>04-leaderboard-stages-shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="TCO19" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="04-Leaderboard" transform="translate(0.000000, -683.000000)" fill="#FFFFFF">
+            <g id="stages" transform="translate(0.000000, 555.000000)">
+                <path d="M1440,133.608945 L1440,320 L0,320 L0,127.258357 L0,146.516715 C56.3333333,165.994189 129.333333,174.169575 219,171.042873 C352.10119,166.401597 496.359375,133.608945 668,146.516715 C898.474113,163.848897 1024.36706,175.042172 1184,146.516715 C1286,128.289921 1371.33333,123.987331 1440,133.608945 Z" id="04-leaderboard-stages-shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

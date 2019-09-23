@@ -175,8 +175,8 @@ workflows:
             branches:
               only: 
                 - develop
-                - mm-leaderboard
                 - hot-fixes-4
+                - feature-contentful
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
