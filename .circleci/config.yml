@@ -175,7 +175,8 @@ workflows:
             branches:
               only: 
                 - develop
-      # This is alternate dev env for parallel testing
+                - ssf-merged-to-new-develop
+# This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
