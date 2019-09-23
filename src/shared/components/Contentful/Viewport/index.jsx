@@ -4,6 +4,7 @@
 
 import _ from 'lodash';
 import Accordion from 'components/Contentful/Accordion';
+import ArticleCard from 'components/Contentful/ArticleCard';
 import Banner from 'components/Contentful/Banner';
 import ChallengesBlock from 'containers/Contentful/ChallengesBlock';
 import ContentBlock from 'components/Contentful/ContentBlock';
@@ -26,6 +27,7 @@ import Image from 'components/Contentful/Image';
 import Shape from 'components/Contentful/Shape';
 import Dropdown from 'components/Contentful/Dropdown';
 import MemberCard from 'components/Contentful/MemberCard';
+import Article from 'components/Contentful/Article';
 
 import Viewport from './Viewport';
 
@@ -38,6 +40,7 @@ const { fireErrorMessage } = errors;
 
 const COMPONENTS = {
   accordion: Accordion,
+  articleCard: ArticleCard,
   appComponent: AppComponentLoader,
   banner: Banner,
   blogPost: BlogPost,
@@ -55,6 +58,7 @@ const COMPONENTS = {
   memberCard: MemberCard,
   image: Image,
   shape: Shape,
+  article: Article,
 };
 
 const THEMES = {

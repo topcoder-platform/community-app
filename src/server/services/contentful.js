@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
  * Server-side functions necessary for effective integration with Contentful
  * CMS.
@@ -9,6 +10,8 @@ import fetch from 'isomorphic-fetch';
 // import logger from 'utils/logger';
 // import moment from 'moment';
 import qs from 'qs';
+
+const contentful = require('contentful-management');
 
 /* Holds Contentful CDN URL. */
 const CDN_URL = 'https://cdn.contentful.com/spaces';
@@ -153,6 +156,39 @@ class ApiService {
   queryEntries(query) {
     return this.fetch('/entries', query);
   }
+}
+
+/**
+ * Updates votes count in Contentful articles
+ * @param {Object} body
+ * @param {String} body.id
+ * @param {Object} body.votes
+ */
+export function articleVote(body) {
+  const client = contentful.createClient({
+    accessToken: config.SECRET.CONTENTFUL.MANAGEMENT_TOKEN,
+  });
+  return client.getSpace(config.SECRET.CONTENTFUL.EDU.SPACE_ID)
+    .then(space => space.getEnvironment('master'))
+    .then(environment => environment.getEntry(body.id))
+    .then((entry) => {
+      if (!entry.fields.upvotes) {
+        entry.fields.upvotes = {
+          'en-US': body.votes.upvotes,
+        };
+      } else {
+        entry.fields.upvotes['en-US'] = body.votes.upvotes;
+      }
+      if (!entry.fields.downvotes) {
+        entry.fields.downvotes = {
+          'en-US': body.votes.downvotes,
+        };
+      } else {
+        entry.fields.downvotes['en-US'] = body.votes.downvotes;
+      }
+      return entry.update();
+    })
+    .then(entry => entry.publish());
 }
 
 // /* Contentful CDN service. */

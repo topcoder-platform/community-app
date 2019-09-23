@@ -1,0 +1,236 @@
+@import "~styles/mixins";
+@import "../../_default";
+
+.container {
+  background: #f4f4f4;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  position: relative;
+  max-height: 315px;
+
+  @include xs-to-sm {
+    margin: auto;
+  }
+}
+
+.contentWrapper {
+  height: 100%;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 0 20px;
+}
+
+.playIconContainer {
+  display: none;
+}
+
+.playIconWrapper {
+  display: none;
+}
+
+.playIcon {
+  display: none;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  margin: 28px 0 15px;
+
+  @include xs-to-sm {
+    margin: 17px 0 7px;
+  }
+}
+
+.tag {
+  height: 23px;
+  border-radius: 5px;
+  padding: 4px 6px;
+  margin-right: 3px;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 15px;
+  background-color: #fff;
+  border: 1px solid #2a2a2a;
+  color: #2a2a2a;
+  letter-spacing: 0.4px;
+  text-align: left;
+}
+
+.readTime {
+  display: none;
+}
+
+.title {
+  color: #2a2a2a;
+  font-family: 'Barlow', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contentPreview {
+  margin-top: 8px;
+
+  @include xs-to-sm {
+    display: none;
+  }
+
+  p {
+    color: #2a2a2a;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0 24px;
+
+  @include xs-to-sm {
+    margin: 15px 0;
+  }
+}
+
+.articleInfo {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  order: 2;
+}
+
+.authors {
+  display: none;
+}
+
+.author {
+  display: none;
+
+  p {
+    display: none;
+  }
+}
+
+.avatarWrapper {
+  display: none;
+
+  img {
+    display: none;
+  }
+}
+
+.iconWrapper {
+  display: none;
+}
+
+.personIcon {
+  display: none;
+}
+
+.creationDate {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  @include xs-to-sm {
+    display: none;
+  }
+
+  p {
+    color: #555;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+}
+
+.calendarIcon {
+  height: 15px;
+  fill: #555;
+}
+
+.readTimeInfo {
+  color: #555;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+
+  @include xs-to-sm {
+    display: none;
+  }
+}
+
+.articleStats {
+  display: flex;
+  flex-direction: row;
+  order: 1;
+}
+
+.stat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20px;
+
+  p {
+    color: #555;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+  }
+}
+
+.statIcon {
+  height: 15px;
+  fill: #555;
+}
+
+.image {
+  width: 200px;
+  min-width: 200px;
+  min-height: 1px;
+
+  @include xs-to-sm {
+    width: 150px;
+    min-width: 150px;
+  }
+
+  &::before {
+    content: '';
+    width: 35px;
+    height: calc(100% + 4px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='62px' height='243px' viewBox='0 0 62 243' version='1.1'%3E%3C!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com --%3E%3Ctitle%3EPath%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cg id='Page-1' stroke='none' stroke-width='0' fill='%23F4F4F4' fill-rule='evenodd'%3E%3Cg id='D02_1_Sub-Categories' transform='translate(-942.000000, -765.000000)' stroke='%23D4D4D4'%3E%3Cg id='Group-12' transform='translate(487.000000, 765.000000)'%3E%3Cg id='Group-6'%3E%3Cg id='Rectangle'%3E%3Cpath d='M509.30846,0.5 L455.5,0.5 L455.5,242.5 L508.617085,242.5 C507.565627,231.458342 505.342443,222.812797 499.81365,205.498144 C498.841092,202.452361 498.803426,202.334252 498.441929,201.192793 C490.772688,176.976448 488.598592,162.883515 491.893617,144.520969 C494.226825,131.518446 497.32869,120.750152 502.214017,107.197394 C502.600941,106.124 507.246472,93.5421986 508.498983,89.9414647 C513.151743,76.565653 515.483741,66.1807 516.061901,53.7719377 C516.75289,38.9415855 514.689419,21.8799506 509.308459,0.500000054 Z' id='Path'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right -2px;
+    position: absolute;
+  }
+}

@@ -56,6 +56,12 @@
   overflow: hidden;
 }
 
+@mixin min-ellipsis {
+  @include ellipsis;
+
+  min-width: 0;
+}
+
 // Replace the bourbon background with simple linear gradient - we only use this for the buttons;
 @mixin background-gradient($start, $stop) {
   background: $start;

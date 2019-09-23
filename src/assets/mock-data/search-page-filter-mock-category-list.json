@@ -1,0 +1,87 @@
+[
+  {
+    "name": "Programming",
+    "subCategories": [
+      {
+        "name": "Programming sub 1",
+        "selected": false
+      },
+      {
+        "name": "Programming sub 2",
+        "selected": false
+      },
+      {
+        "name": "Programming sub 3",
+        "selected": false
+      }
+    ]
+  },
+  {
+    "name": "Data Science",
+    "subCategories": [
+      {
+        "name": "Data Science sub 1",
+        "selected": false
+      },
+      {
+        "name": "Data Science sub 2",
+        "selected": false
+      },
+      {
+        "name": "Data Science sub 3",
+        "selected": false
+      }
+    ]
+  },
+  {
+    "name": "Design",
+    "subCategories": [
+      {
+        "name": "Challenge Tips",
+        "selected": false
+      },
+      {
+        "name": "Design Tutorials",
+        "selected": false
+      },
+      {
+        "name": "Special Design Tutorials",
+        "selected": false
+      }
+    ]
+  },
+  {
+    "name": "Developement",
+    "subCategories": [
+      {
+        "name": "Developement sub 1",
+        "selected": false
+      },
+      {
+        "name": "Developement sub 2",
+        "selected": false
+      },
+      {
+        "name": "Developement sub 3",
+        "selected": false
+      }
+    ]
+  },
+  {
+    "name": "QA",
+    "subCategories": [
+      {
+        "name": "QA sub 1",
+        "selected": false
+      },
+      {
+        "name": "QA sub 2",
+        "selected": false
+      },
+      {
+        "name": "QA sub 3",
+        "selected": false
+      }
+    ]
+  }
+]
