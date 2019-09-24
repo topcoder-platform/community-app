@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<ArticleCard
+  article={
+    Object {
+      "commentsCount": undefined,
+      "content": "Some words",
+      "creationDate": "2018-12-25",
+      "readTime": "5 min read",
+      "tags": Array [
+        "TCO",
+      ],
+      "title": "Lorem ipsum",
+      "upvotes": undefined,
+    }
+  }
+  articleCard={Object {}}
+  contentAuthor={null}
+  featuredImage={null}
+  id="1"
+  theme={Object {}}
+  themeName="Article large"
+/>
+`;

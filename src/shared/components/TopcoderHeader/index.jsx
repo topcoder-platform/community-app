@@ -19,6 +19,7 @@ import IconNavPrograms from '../../../assets/images/nav/programs.svg';
 import IconNavRocket from '../../../assets/images/nav/rocket.svg';
 import IconNavStatistics from '../../../assets/images/nav/statistics.svg';
 import IconNavTcoGeneric from '../../../assets/images/nav/tco-generic.svg';
+// import IconNavThrive from '../../../assets/images/nav/thrive.svg';
 
 /* For user sub-menu. */
 import IconNavDashboard from '../../../assets/images/nav/dashboard.svg';
@@ -123,6 +124,12 @@ const MENU = [{
     link: `${BASE_URL}/blog`,
     title: 'Blog',
   }],
+  // }, {
+  //   enforceA: true,
+  //   icon: <IconNavThrive />,
+  //   link: `${BASE_URL}/thrive`,
+  //   title: 'Thrive',
+  // }],
 }];
 
 export default class TopcoderHeader extends React.Component {
@@ -313,6 +320,12 @@ export default class TopcoderHeader extends React.Component {
               this.addGlobalTouchListener();
             }
           }}
+          onFocus={event => !isMobile && openMenu(userSubMenu, event.target)}
+          onBlur={() => {
+            if (!isMobile) closeMenu();
+          }}
+          role="link"
+          tabIndex={0}
           styleName="user-menu"
         >
           <div
@@ -320,12 +333,10 @@ export default class TopcoderHeader extends React.Component {
               color: getRatingColor(_.get(normalizedProfile, 'maxRating.rating', 0)),
             }}
             styleName="user-menu-handle"
-            role="button"
-            tabIndex={0}
           >
             {normalizedProfile.handle}
           </div>
-          <span role="link" tabIndex={0}>{userAvatar}</span>
+          <span>{userAvatar}</span>
         </div>
       );
     } else {
@@ -361,7 +372,7 @@ export default class TopcoderHeader extends React.Component {
             {userMenuHandle}
             {authButtons}
             <div
-              aria-label="Search"
+              aria-label="Find members by username or skill"
               role="button"
               tabIndex={0}
               data-menu="search"

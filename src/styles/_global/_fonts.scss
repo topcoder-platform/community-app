@@ -118,6 +118,7 @@
 /* Barlow and BarlowCondensed is being used by TCO19 */
 @include font-family('Barlow', 400, normal, 'assets/fonts/Barlow/', 'Barlow-Regular');
 @include font-family('Barlow', 500, normal, 'assets/fonts/Barlow/', 'Barlow-Medium');
+@include font-family('Barlow', 600, normal, 'assets/fonts/Barlow/', 'Barlow-Semi-Bold');
 @include font-family('Barlow', 700, normal, 'assets/fonts/Barlow/', 'Barlow-Bold');
 @include font-family('BarlowCondensed', 400, normal, 'assets/fonts/BarlowCondensed/', 'BarlowCondensed-Regular');
 @include font-family('BarlowCondensed', 500, normal, 'assets/fonts/BarlowCondensed/', 'BarlowCondensed-Medium');

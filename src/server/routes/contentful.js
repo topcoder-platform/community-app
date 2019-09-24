@@ -10,6 +10,7 @@ import {
   IMAGES_DOMAIN,
   getService,
   getSpaceId,
+  articleVote,
 } from '../services/contentful';
 
 const routes = express.Router();
@@ -122,6 +123,12 @@ routes.use('/:spaceName/:environment/published/entries', (req, res, next) => {
   const { environment, spaceName } = req.params;
   getService(spaceName, environment, false)
     .queryEntries(req.query)
+    .then(res.send.bind(res), next);
+});
+
+/* Update votes on article. */
+routes.use('/:spaceName/:environment/votes', (req, res, next) => {
+  articleVote(req.body)
     .then(res.send.bind(res), next);
 });
 

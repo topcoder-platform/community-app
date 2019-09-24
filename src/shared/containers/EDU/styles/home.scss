@@ -1,0 +1,263 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .bannerContainer {
+    background-image: linear-gradient(98.81deg, #8b41b0 0%, #ef476f 100%);
+    min-height: 665px;
+    width: 100%;
+    position: relative;
+
+    @include xs-to-md {
+      padding: 0 20px;
+    }
+
+    @include xs-to-sm {
+      padding-top: 60px;
+    }
+
+    .bannerImage {
+      background-image: url(assets/images/img-homepage-masked.png);
+      background-size: cover;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 767px;
+      height: 655px;
+      z-index: 2;
+
+      @include xs-to-sm {
+        margin-top: -200px;
+      }
+    }
+
+    .bannerWrapp {
+      max-width: $screen-lg;
+      margin: 72px auto 49px auto;
+      position: relative;
+      z-index: 3;
+
+      .bannerTitle {
+        color: #fff;
+        font-family: BarlowCondensed, sans-serif;
+        font-size: 245px;
+        font-weight: 600;
+        letter-spacing: 0.81px;
+        line-height: 220px;
+        max-width: 684px;
+        text-align: left;
+        text-transform: uppercase;
+
+        @include xs-to-sm {
+          font-size: 120px;
+          letter-spacing: 0.44px;
+          line-height: 120px;
+          margin-top: 233px;
+        }
+      }
+
+      .bannerText {
+        color: #fff;
+        font-family: Roboto, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 36px;
+        text-align: left;
+
+        @include xs-to-sm {
+          font-size: 20px;
+          line-height: 26px;
+        }
+      }
+    }
+
+    .searchBarWrapp {
+      margin: auto;
+      max-width: $screen-lg;
+      width: 100%;
+      position: relative;
+      z-index: 3;
+
+      @include xs-to-sm {
+        position: absolute;
+        top: 0;
+        margin-left: -20px;
+      }
+    }
+  }
+
+  .shapeBanner {
+    background-image: url(assets/images/shape-white.svg);
+    height: 120px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tracksContainer {
+    max-width: $screen-lg;
+    margin: auto;
+    width: 100%;
+
+    @include xs-to-md {
+      padding: 0 20px;
+      margin-top: 40px;
+    }
+
+    .trackWrapp {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 75px;
+
+      @media (min-width: 1500px) {
+        margin-left: -90px;
+      }
+
+      .trackInfos {
+        display: flex;
+        align-items: center;
+
+        @include xs-to-sm {
+          flex-direction: column;
+        }
+
+        .trackIconAlgo {
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url(assets/images/competitive-back.svg);
+          width: 74px;
+          height: 69px;
+        }
+
+        .trackIconMM {
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url(assets/images/data-back.svg);
+          width: 78px;
+          height: 69px;
+        }
+
+        .trackIconDesign {
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url(assets/images/design.svg);
+          width: 76px;
+          height: 71px;
+        }
+
+        .trackIconDev {
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url(assets/images/dev-back.svg);
+          width: 70px;
+          height: 73px;
+        }
+
+        .trackIconQA {
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url(assets/images/qa-back.svg);
+          width: 72px;
+          height: 71px;
+        }
+
+        .trackInfosInner {
+          margin-left: 15px;
+          flex: 1;
+
+          @include xs-to-sm {
+            margin: 32px 0 0 0;
+          }
+
+          .trackTitle {
+            color: #555;
+            font-family: Barlow, sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.17px;
+            line-height: 22px;
+            text-align: left;
+            text-transform: uppercase;
+            margin-bottom: 13px;
+            display: block;
+
+            @include xs-to-sm {
+              text-align: center;
+            }
+          }
+
+          .trackSubs {
+            display: flex;
+            flex-wrap: wrap;
+
+            @include xs-to-sm {
+              justify-content: center;
+            }
+
+            a {
+              color: #0d61bf;
+              font-family: Roboto, sans-serif;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 21px;
+              text-align: left;
+              text-decoration: underline;
+              margin-right: 15px;
+
+              @include xs-to-sm {
+                margin-top: 13px;
+              }
+
+              &:hover {
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+
+      .trackCards {
+        display: grid;
+        margin-top: 19px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 25px;
+        margin-left: 85px;
+
+        @include xs-to-sm {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          flex-direction: column;
+          margin-top: 50px;
+          margin-left: 0;
+
+          &:global {
+            > div {
+              margin-bottom: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

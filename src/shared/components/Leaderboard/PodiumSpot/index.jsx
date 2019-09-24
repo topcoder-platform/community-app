@@ -151,7 +151,7 @@ export default function PodiumSpot(props) {
           isAlgo ? (
             <div styleName="styles.stats">
               <span styleName="styles.value">{competitor['srm_tco19.score']}</span>
-              <span>Total Score</span>
+              <span>total score</span>
             </div>
           ) : null
         }

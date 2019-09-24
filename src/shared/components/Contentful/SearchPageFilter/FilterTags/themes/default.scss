@@ -1,0 +1,95 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: column;
+  color: $text-black;
+  background-color: $tc-white;
+  width: 100%;
+  position: relative;
+}
+
+.item {
+  display: flex;
+  padding-left: 13px;
+  height: 30px;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 15px;
+  margin-top: 8px;
+  margin-right: 5px;
+  max-width: 100%;
+  padding-bottom: 2px;
+
+  span {
+    @include min-ellipsis;
+
+    font-size: 14px;
+    line-height: normal;
+  }
+}
+
+.btn-close {
+  background: transparent;
+  height: 100%;
+  padding-left: 16px !important;
+  padding-right: 13px !important;
+}
+
+.tags-field {
+  border: 1px solid #aaa !important;
+  outline: none !important;
+  box-shadow: none !important;
+  height: 38px !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 15px !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  color: #2a2a2a !important;
+
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    @include roboto-regular;
+
+    color: #aaa;
+    font-weight: 400;
+    font-size: 14px !important;
+    text-transform: none;
+  }
+
+  &::-moz-placeholder { /* Firefox 19+ */
+    @include roboto-regular;
+
+    color: #aaa;
+    font-weight: 400;
+    font-size: 14px !important;
+    text-transform: none;
+  }
+
+  &:-ms-input-placeholder { /* IE 10+ */
+    @include roboto-regular;
+
+    color: #aaa;
+    font-weight: 400;
+    font-size: 14px !important;
+    text-transform: none;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    @include roboto-regular;
+
+    color: #aaa;
+    font-weight: 400;
+    font-size: 14px !important;
+    text-transform: none;
+  }
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+}

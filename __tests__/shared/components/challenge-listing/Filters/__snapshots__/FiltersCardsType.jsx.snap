@@ -4,13 +4,11 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___39JxY"
 >
-  <a
+  <h1
     className=""
-    onClick={[Function]}
-    onKeyPress={[Function]}
   >
     Challenges
-  </a>
+  </h1>
   <a
     href="https://arena.topcoder-dev.com"
     rel="noopener noreferrer"
@@ -25,13 +23,11 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___39JxY"
 >
-  <a
+  <h1
     className=""
-    onClick={[Function]}
-    onKeyPress={[Function]}
   >
     Challenges
-  </a>
+  </h1>
   <a
     href="https://arena.topcoder-dev.com"
     rel="noopener noreferrer"

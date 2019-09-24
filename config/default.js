@@ -168,6 +168,7 @@ module.exports = {
    * parameters that should never be send to the client side. */
   SECRET: {
     CONTENTFUL: {
+      MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
       default: { // Human-readable name of space
         SPACE_ID: '',
         master: { // Name of an environment
@@ -185,6 +186,13 @@ module.exports = {
       },
       /* Contentful Space for TopGear community content. */
       topgear: {
+        SPACE_ID: '',
+        master: {
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
+      EDU: {
         SPACE_ID: '',
         master: {
           CDN_API_KEY: '',
@@ -248,4 +256,10 @@ module.exports = {
     title: 'Switch to BUSINESS',
     href: 'https://connect.topcoder-dev.com',
   },
+  // Config for TC EDU
+  TC_EDU_BASE_PATH: '/thrive',
+  TC_EDU_TRACKS_PATH: '/tracks',
+  TC_EDU_ARTICLES_PATH: '/articles',
+  TC_EDU_SEARCH_PATH: '/search',
+  TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
 };

@@ -1,0 +1,167 @@
+@import "~styles/mixins";
+@import "../../_default";
+
+.container {
+  flex: 1;
+  background: #f4f4f4;
+  border-radius: 10px;
+  max-width: 369px;
+  min-height: 217px;
+
+  @include xs-to-sm {
+    margin: auto;
+  }
+}
+
+.contentWrapper {
+  padding: 0 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: block;
+}
+
+.playIconContainer {
+  height: 168px;
+  display: flex;
+  justify-content: center;
+
+  @include xs-to-sm {
+    font-size: 152px;
+  }
+}
+
+.playIconWrapper {
+  margin-top: 84px;
+  height: 52px;
+  width: 52px;
+
+  @include xs-to-sm {
+    margin-top: 79px;
+    height: 44px;
+    width: 44px;
+  }
+}
+
+.playIcon {
+  display: block;
+  position: relative;
+  height: 52px;
+  width: 52px;
+  fill: #fff;
+
+  @include xs-to-sm {
+    height: 44px;
+    width: 44px;
+  }
+}
+
+.tags {
+  display: none;
+}
+
+.tag {
+  display: none;
+}
+
+.readTime {
+  display: none;
+}
+
+.title {
+  color: #fff;
+  font-family: 'Barlow', Helvetica, Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contentPreview {
+  display: none;
+}
+
+.infoContainer {
+  margin: 6px 0 12px;
+}
+
+.articleInfo {
+  display: none;
+}
+
+.authors {
+  display: none;
+}
+
+.author {
+  display: none;
+
+  p {
+    display: none;
+  }
+}
+
+.avatarWrapper {
+  display: none;
+
+  img {
+    display: none;
+  }
+}
+
+.iconWrapper {
+  display: none;
+}
+
+.personIcon {
+  display: none;
+}
+
+.creationDate {
+  display: none;
+}
+
+.calendarIcon {
+  display: none;
+}
+
+.readTimeInfo {
+  display: none;
+}
+
+.articleStats {
+  display: flex;
+  flex-direction: row;
+}
+
+.stat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  p {
+    color: #fff;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+  }
+}
+
+.statIcon {
+  height: 15px;
+  fill: #fff;
+}
+
+.image {
+  display: none;
+}

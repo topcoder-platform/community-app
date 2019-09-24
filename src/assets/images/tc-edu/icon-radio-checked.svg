@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>UI Kit/Selects/Checkbox LG/selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-10.0%" y="-10.0%" width="120.0%" height="120.0%" filterUnits="objectBoundingBox" id="tc-edu-icon-radio-checked-filter-2">
+            <feGaussianBlur stdDeviation="1" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.29 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <filter x="-28.6%" y="-14.3%" width="157.1%" height="157.1%" filterUnits="objectBoundingBox" id="tc-edu-icon-radio-checked-filter-4">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.35 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="D02_6_Search-Result" transform="translate(-30.000000, -413.000000)">
+            <g id="Group-15" transform="translate(20.000000, 321.000000)">
+                <g id="UI-Kit/Selects/Radio-SM/selected" transform="translate(10.000000, 92.000000)">
+                    <g id="Oval-2">
+                        <circle fill="#0AB88A" fill-rule="evenodd" cx="7.5" cy="7.5" r="7.5"></circle>
+                        <circle fill="black" fill-opacity="1" filter="url(#tc-edu-icon-radio-checked-filter-2)" cx="7.5" cy="7.5" r="7.5"></circle>
+                    </g>
+                    <g id="Rectangle-1468">
+                        <rect fill="black" fill-opacity="1" filter="url(#tc-edu-icon-radio-checked-filter-4)" x="4" y="4" width="7" height="7" rx="3.5"></rect>
+                        <rect fill="#FFFFFF" fill-rule="evenodd" x="4" y="4" width="7" height="7" rx="3.5"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

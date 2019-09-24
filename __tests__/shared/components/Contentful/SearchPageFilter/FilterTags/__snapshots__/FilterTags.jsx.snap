@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div>
+  <input
+    id="search-tags-input"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    placeholder="Add tags..."
+    type="text"
+    value=""
+  />
+  <div />
+</div>
+`;

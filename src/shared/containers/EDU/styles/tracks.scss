@@ -1,0 +1,194 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .bannerContainer {
+    min-height: 475px;
+    width: 100%;
+    position: relative;
+
+    @include xs-to-md {
+      padding: 0 20px;
+    }
+
+    @include xs-to-sm {
+      padding-top: 60px;
+    }
+
+    .bannerImage {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 501px;
+      height: 468px;
+      z-index: 2;
+
+      @include xs-to-sm {
+        top: 80px;
+        right: 0;
+      }
+    }
+
+    .bannerWrapp {
+      max-width: $screen-lg;
+      margin: 72px auto 49px auto;
+      position: relative;
+      z-index: 3;
+
+      @include xs-to-sm {
+        margin-bottom: 300px;
+      }
+
+      .bannerText {
+        color: #2a2a2a;
+        font-family: BarlowCondensed, sans-serif;
+        font-size: 80px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        line-height: 74px;
+        text-align: left;
+        text-transform: uppercase;
+
+        @include xs-to-sm {
+          font-size: 70px;
+          letter-spacing: 0.44px;
+          line-height: 60px;
+          margin-top: 233px;
+        }
+      }
+
+      .bannerCounters {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 17px;
+
+        .bannerCounterWrap {
+          display: flex;
+          flex-direction: column;
+          margin-right: 30px;
+
+          .bannerCount {
+            color: #2a2a2a;
+            font-family: BarlowCondensed, sans-serif;
+            font-size: 34px;
+            font-weight: 500;
+            line-height: 38px;
+          }
+
+          .bannerCountLabel {
+            color: #2a2a2a;
+            font-family: Roboto, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            line-height: 18px;
+            text-align: left;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+
+    .searchBarWrapp {
+      margin: auto;
+      max-width: $screen-lg;
+      width: 100%;
+      position: relative;
+      z-index: 3;
+
+      @include xs-to-sm {
+        position: absolute;
+        top: 0;
+        margin-left: -20px;
+      }
+    }
+  }
+
+  .shapeBanner {
+    background-image: url(assets/images/shape-white.svg);
+    height: 120px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .main {
+    display: flex;
+    max-width: $screen-lg;
+    margin: auto;
+    width: 100%;
+    margin-top: 90px;
+
+    @include xs-to-sm {
+      flex-direction: column;
+      margin-top: 0;
+    }
+
+    @include md {
+      padding: 0 20px;
+    }
+
+    .tracksTree {
+      flex: 1;
+      margin-top: 12px;
+    }
+
+    .tracksContent {
+      flex: 2;
+
+      @include xs-to-sm {
+        margin-top: 40px;
+      }
+
+      .tracksContentTop {
+        display: flex;
+        justify-content: space-between;
+
+        @include xs-to-sm {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .trackTitle {
+          color: #2a2a2a;
+          font-family: BarlowCondensed, sans-serif;
+          font-size: 48px;
+          font-weight: 500;
+          letter-spacing: 0.3px;
+          line-height: 50px;
+          text-transform: uppercase;
+        }
+
+        .filterToggle {
+          color: #0d61bf;
+          font-family: Roboto, sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 19px;
+          background: transparent;
+          border: none;
+          padding: 0;
+          outline: none;
+          margin: 0;
+
+          @include xs-to-sm {
+            margin-top: 38px;
+          }
+        }
+      }
+
+      .filterVisible {
+        display: flex;
+      }
+
+      .filterHidden {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="29px" viewBox="0 0 32 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>icon/thrive</title>
+    <desc>Created with Sketch.</desc>
+    <g id="EDU-Center" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="D01_2_Homepage---Dropdown" transform="translate(-1157.000000, -102.000000)" stroke="#FFFFFF">
+            <g id="navigation" transform="translate(0.000000, 60.000000)">
+                <g id="nav-links" transform="translate(244.000000, 41.000000)">
+                    <g id="icon/thrive" transform="translate(914.000000, 2.000000)">
+                        <g>
+                            <path d="M22.5,0 C18.358,0 15,1.559 15,3.818 C15,1.559 11.642,0 7.5,0 C3.358,0 0,1.559 0,3.818 L0,27 C0,24.741 3.358,23 7.5,23 C11.642,23 15,24.741 15,27 C15,24.741 18.358,23 22.5,23 C26.642,23 30,24.741 30,27 L30,3.818 C30,1.559 26.642,0 22.5,0 L22.5,0 L22.5,0 Z" id="Stroke-177" stroke-width="1.70000005" stroke-linejoin="round"></path>
+                            <path d="M19,17 L25,17" id="Stroke-181" stroke-width="1.70000005" stroke-linejoin="round"></path>
+                            <path d="M19,12 L25,12" id="Stroke-181" stroke-width="1.70000005" stroke-linejoin="round"></path>
+                            <path d="M19,7 L25,7" id="Stroke-181" stroke-width="1.70000005" stroke-linejoin="round"></path>
+                            <path d="M5,17 L11,17" id="Stroke-181" stroke-width="1.70000005" stroke-linejoin="round"></path>
+                            <path d="M5,12 L11,12" id="Stroke-181" stroke-width="1.70000005" stroke-linejoin="round"></path>
+                            <path d="M5,7 L11,7" id="Stroke-181" stroke-width="1.70000005" stroke-linejoin="round"></path>
+                            <path d="M15,4 L15,25.2070313" id="Line-2" stroke-width="1.7"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
