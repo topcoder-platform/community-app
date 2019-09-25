@@ -34,6 +34,7 @@ exports[`Default render 1`] = `
         onTouchStart={[Function]}
       >
         <span
+          onKeyDown={[Function]}
           role="link"
           tabIndex={0}
         >
@@ -48,6 +49,7 @@ exports[`Default render 1`] = `
         onTouchStart={[Function]}
       >
         <Link
+          onKeyDown={[Function]}
           to="https://www.topcoder-dev.com/community/learn"
         >
           Tracks
@@ -61,6 +63,7 @@ exports[`Default render 1`] = `
         onTouchStart={[Function]}
       >
         <span
+          onKeyDown={[Function]}
           role="link"
           tabIndex={0}
         >
@@ -327,6 +330,7 @@ exports[`Render with open menu 1`] = `
         onTouchStart={[Function]}
       >
         <span
+          onKeyDown={[Function]}
           role="link"
           tabIndex={0}
         >
@@ -341,6 +345,7 @@ exports[`Render with open menu 1`] = `
         onTouchStart={[Function]}
       >
         <Link
+          onKeyDown={[Function]}
           to="https://www.topcoder-dev.com/community/learn"
         >
           Tracks
@@ -354,6 +359,7 @@ exports[`Render with open menu 1`] = `
         onTouchStart={[Function]}
       >
         <span
+          onKeyDown={[Function]}
           role="link"
           tabIndex={0}
         >
@@ -631,6 +637,7 @@ exports[`Render with specified profile 1`] = `
         onTouchStart={[Function]}
       >
         <span
+          onKeyDown={[Function]}
           role="link"
           tabIndex={0}
         >
@@ -645,6 +652,7 @@ exports[`Render with specified profile 1`] = `
         onTouchStart={[Function]}
       >
         <Link
+          onKeyDown={[Function]}
           to="https://www.topcoder-dev.com/community/learn"
         >
           Tracks
@@ -658,6 +666,7 @@ exports[`Render with specified profile 1`] = `
         onTouchStart={[Function]}
       >
         <span
+          onKeyDown={[Function]}
           role="link"
           tabIndex={0}
         >
