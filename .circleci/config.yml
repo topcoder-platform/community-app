@@ -175,7 +175,6 @@ workflows:
             branches:
               only: 
                 - develop
-                - ssf-merged-to-new-develop
 # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -183,14 +182,14 @@ workflows:
             branches:
                 only:
                   - hot-fixes-3
-      # This is beta env for production soft releases
+                  - ssf-merged-to-new-develop
+# This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
                 - develop
-                - ssf-merged-to-new-develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
