@@ -70,6 +70,15 @@ export default function Bucket({
     }
   }
 
+  if (challengeList.length && challengeList.length < COLLAPSED_SIZE && placeholders.length > 0
+    && (!expandable && loadMore && !loading)) {
+    // loaded challenge list has less than configured collapsed and placeholders have been added
+    // the placeholders make the listing seems to be loading forever
+    // invoke loadMore here
+    // instead of waiting for scrolling to hit the react-waypoint to do the loadMore
+    loadMore();
+  }
+
   if (!challengeList.length && !loadMore) {
     if (loading) {
       return (
