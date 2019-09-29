@@ -27,12 +27,12 @@ const mockUserObj2 = {
 test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
   renderer.render((
-    <PodiumSpot competitor={mockUserObj} themeName='Default' />
+    <PodiumSpot competitor={mockUserObj} themeName="Default" />
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
 
   renderer.render((
-    <PodiumSpot competitor={mockUserObj2} themeName='Default' />
+    <PodiumSpot competitor={mockUserObj2} themeName="Default" />
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
