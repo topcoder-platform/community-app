@@ -304,7 +304,7 @@ class Service {
    */
   async getEDUContent({
     track, types, limit = 5, skip = 0, tags,
-    tax, startDate, endDate, author, taxonomy,
+    tax, startDate, endDate, author, taxonomy, phrase,
   }) {
     const query = {
       content_type: 'article',
@@ -350,6 +350,7 @@ class Service {
     }
     if (startDate) query['sys.createdAt[gte]'] = startDate;
     if (endDate) query['sys.createdAt[lte]'] = endDate;
+    if (phrase) query.query = phrase;
     const content = {};
     await Promise.all(
       _.map(types || EDU_ARTICLE_TYPES,

@@ -184,6 +184,8 @@ workflows:
             branches:
                 only:
                   - legacy-tco
+                  - hot-fix
+                  - mm-leaderboard-misc-fixes
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -191,10 +193,7 @@ workflows:
             branches:
               only:
                 - develop
-                - mm-leaderboard
-                - hot-fixes-4
-                - release-qa-accessibility
-                - mm-leaderboard-misc-fixes
+                - hot-fix
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
