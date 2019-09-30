@@ -44,6 +44,7 @@ export class SearchBarInner extends Component {
       selectedFilter: filterOptions[0],
       isShowSuggestion: false,
       suggestionList: {},
+      inputlVal: props.inputlVal,
     };
 
     this.getDropdownPopup = this.getDropdownPopup.bind(this);
@@ -128,8 +129,13 @@ export class SearchBarInner extends Component {
     } = this.state;
 
     const searchQuery = {};
-    if (this.searchFieldRef && this.searchFieldRef.value && selectedFilter.name === 'Tags') {
-      searchQuery.tags = [this.searchFieldRef.value];
+    if (this.searchFieldRef && this.searchFieldRef.value) {
+      if (selectedFilter.name === 'Tags') {
+        searchQuery.tags = [this.searchFieldRef.value];
+      }
+      if (selectedFilter.name === 'All') {
+        searchQuery.phrase = this.searchFieldRef.value;
+      }
     }
 
     return (suggestionList && !_.isEmpty(suggestionList) && isShowSuggestion && (
@@ -348,6 +354,9 @@ export class SearchBarInner extends Component {
   handleSearchChange(e) {
     const val = e.target.value;
     this.updateSuggestionListWithNewSearch(val);
+    this.setState({
+      inputlVal: val,
+    });
   }
 
   render() {
@@ -358,6 +367,7 @@ export class SearchBarInner extends Component {
     const {
       isShowFilterPopup,
       selectedFilter,
+      inputlVal,
     } = this.state;
 
     return (
@@ -365,6 +375,7 @@ export class SearchBarInner extends Component {
         <div className={theme.content}>
           <IconSearch className={theme['icon-search']} />
           <input
+            value={inputlVal}
             ref={this.setSearchFieldRef}
             type="text"
             placeholder="Search.."
@@ -437,6 +448,11 @@ SearchBarInner.propTypes = {
     cellWrap: PT.string.isRequired,
     cellAuthor: PT.string.isRequired,
   }).isRequired,
+  inputlVal: PT.string,
+};
+
+SearchBarInner.defaultProps = {
+  inputlVal: '',
 };
 
 export default themr('Contentful-Blog', defaultTheme)(SearchBarInner);
