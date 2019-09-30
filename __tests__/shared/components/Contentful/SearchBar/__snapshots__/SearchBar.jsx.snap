@@ -15,6 +15,7 @@ exports[`Matches shallow shapshot 1`] = `
       onFocus={[Function]}
       placeholder="Search.."
       type="text"
+      value=""
     />
     <div>
       <button

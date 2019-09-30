@@ -7,6 +7,9 @@ $text-color-pannel: #4a4a4a;
 
 .container {
   @include roboto-regular;
+
+  max-width: $screen-lg;
+  margin: auto;
 }
 
 .tablist {
