@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
@@ -8,7 +9,7 @@ function Footer({ theme }) {
   return (
     <footer className={theme.footer}>
       <div className={theme.footerText}>
-        &copy; Copyright Wipro Ltd 2017
+        &copy; Copyright Wipro Ltd {moment().year()}
       </div>
     </footer>
   );
