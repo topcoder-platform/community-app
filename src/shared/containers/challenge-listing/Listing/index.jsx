@@ -116,11 +116,11 @@ export class ListingContainer extends React.Component {
   getBackendFilter() {
     const {
       communitiesList,
-      selectedCommunityId,
+      communityId,
     } = this.props;
     let { filter } = this.props;
     let communityFilter = communitiesList.data.find(
-      item => item.communityId === selectedCommunityId,
+      item => item.communityId === communityId,
     );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
