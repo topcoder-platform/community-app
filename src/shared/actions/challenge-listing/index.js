@@ -279,7 +279,8 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
  */
 function getReviewOpportunitiesDone(uuid, page, tokenV3, filter) {
   return getReviewOpportunitiesService(tokenV3)
-    .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE, filter)
+    .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE,
+      filter)
     .then(loaded => ({ uuid, loaded }))
     .catch((error) => {
       fireErrorMessage('Error Getting Review Opportunities', error.content || error);

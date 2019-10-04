@@ -217,7 +217,7 @@ export class ListingContainer extends React.Component {
         const f = this.getBackendFilter();
         getReviewOpportunities(
           1 + lastRequestedPageOfReviewOpportunities, tokenV3,
-          f.back
+          f.back,
         );
       };
     }
