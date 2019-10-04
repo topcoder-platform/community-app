@@ -213,9 +213,13 @@ export class ListingContainer extends React.Component {
 
     let loadMoreReviewOpportunities;
     if (!allReviewOpportunitiesLoaded) {
-      loadMoreReviewOpportunities = () => getReviewOpportunities(
-        1 + lastRequestedPageOfReviewOpportunities, tokenV3,
-      );
+      loadMoreReviewOpportunities = () => {
+        const f = this.getBackendFilter();
+        getReviewOpportunities(
+          1 + lastRequestedPageOfReviewOpportunities, tokenV3,
+          f.back
+        );
+      };
     }
 
     let communityFilter = communityFilters.find(item => item.communityId === selectedCommunityId);
@@ -454,10 +458,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
       dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
     },
-    getReviewOpportunities: (page, token) => {
+    getReviewOpportunities: (page, token, filter) => {
       const uuid = shortId();
       dispatch(a.getReviewOpportunitiesInit(uuid, page));
-      dispatch(a.getReviewOpportunitiesDone(uuid, page, token));
+      dispatch(a.getReviewOpportunitiesDone(uuid, page, token, filter));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectChallengeDetailsTab:
