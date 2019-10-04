@@ -14,6 +14,7 @@ import actions from 'actions/challenge-listing';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
+import * as queryString from 'query-string';
 import { logger, challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
@@ -121,8 +122,13 @@ export class ListingContainer extends React.Component {
       communityId,
     } = this.props;
     let { filter } = this.props;
+
+    // eslint-disable-next-line
+    const params = queryString.parse(this.props.location.search);
+    const selectedCommunity = selectedCommunityId || params.communityId;
+
     let communityFilter = communitiesList.data.find(
-      item => item.communityId === selectedCommunityId,
+      item => item.communityId === selectedCommunity,
     );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
