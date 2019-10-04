@@ -117,6 +117,8 @@ export class ListingContainer extends React.Component {
     const {
       communitiesList,
       selectedCommunityId,
+      groupIds,
+      communityId,
     } = this.props;
     let { filter } = this.props;
     let communityFilter = communitiesList.data.find(
@@ -124,6 +126,9 @@ export class ListingContainer extends React.Component {
     );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
+    if (communityId && groupIds.length > 0) {
+      filter.groupIds = groupIds;
+    }
     return {
       back: mapToBackend(filter),
       front: filter,
