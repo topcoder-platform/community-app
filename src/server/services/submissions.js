@@ -197,7 +197,7 @@ export function processMMSubmissions(submissions, registrants) {
  * @param {String} challengeId
  * @return {Promise} Resolves to the api response.
  */
-export async function getSubmissions(challengeId, req) {
+export async function getSubmissions(challengeId) {
   const raw = await getAll(async (params) => {
     const query = { challengeId, ...params };
     const url = `/submissions?${qs.stringify(query, { encode: false })}`;
@@ -206,7 +206,7 @@ export async function getSubmissions(challengeId, req) {
     return responseHandler(response);
   });
 
-  const token = req.headers.authorization.match(/Bearer (.*)/)[1];
+  const token = await getM2MToken();
   const challengeService = await services.challenge.getService(token);
   const challenge = await challengeService.getChallengeDetails(challengeId);
   return processMMSubmissions(raw, challenge.registrants);

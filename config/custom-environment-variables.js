@@ -80,7 +80,7 @@ module.exports = {
     },
 
     TC_M2M: {
-      AUTH0_URL: 'AUTH0_URL',
+      AUTH0_URL: 'TC_M2M_AUTH0_PROXY_SERVER_URL',
       CLIENT_ID: 'TC_M2M_CLIENT_ID',
       CLIENT_SECRET: 'TC_M2M_CLIENT_SECRET',
       AUDIENCE: 'TC_M2M_AUDIENCE',
