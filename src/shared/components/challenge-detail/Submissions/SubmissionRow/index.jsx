@@ -21,8 +21,8 @@ export default function SubmissionRow({
     submissionTime, provisionalScore,
   } = submissions[0];
   let { finalScore } = submissions[0];
-  finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-1' : finalScore;
-  const initialScore = (!provisionalScore || provisionalScore < 0) ? '-1' : provisionalScore;
+  finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
+  const initialScore = (!provisionalScore || provisionalScore < 0) ? '-' : provisionalScore;
   return (
     <div styleName="container">
       <div styleName="row">
