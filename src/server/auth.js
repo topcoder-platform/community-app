@@ -9,6 +9,11 @@ import m2mAuth from 'tc-core-library-js/lib/auth/m2m';
 
 const { JWT_AUTH, TC_M2M } = SECRET;
 
+console.log({
+  AUTH_SECRET: JWT_AUTH.SECRET,
+  VALID_ISSUERS: JWT_AUTH.VALID_ISSUERS,
+})
+
 /**
  * ExpressJS middleware to authenticate incoming requests from TC users.
  * On success it attaches user information to `req.authUser`.
@@ -26,6 +31,14 @@ export const authMiddleware = jwtAuthenticator({
  * @return {Promise} Resolves to the token.
  */
 export async function getM2MToken() {
+  console.log('---- m2mToekn ----')
+  console.log({
+    AUTH0_URL: TC_M2M.AUTH0_URL,
+    AUTH0_AUDIENCE: TC_M2M.AUDIENCE,
+    CLIENT_ID: TC_M2M.CLIENT_ID,
+    CLIENT_SECRET: TC_M2M.CLIENT_SECRET,
+  })
+  console.log('---- m2mToekn ----')
   return getM2MToken.m2m.getMachineToken(
     TC_M2M.CLIENT_ID,
     TC_M2M.CLIENT_SECRET,
