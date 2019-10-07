@@ -44,7 +44,7 @@ let ts = path.resolve(__dirname, '../../.build-info');
 ts = JSON.parse(fs.readFileSync(ts));
 ts = moment(ts.timestamp).valueOf();
 
-const sw = `sw.js${process.env.NODE_ENV === 'production' ? '' : '?debug'}`;
+const sw = `sw.js${process.env.NODE_ENV === 'production' ? '?debug' : '?debug'}`;
 const swScope = '/challenges'; // we are currently only interested in improving challenges pages
 
 const EXTRA_SCRIPTS = [
