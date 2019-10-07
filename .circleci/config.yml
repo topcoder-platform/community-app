@@ -62,7 +62,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,dev_communityapp_taskvar -i communityapp
             
   # Build & Deploy against testing backend
   "build-test":
@@ -90,7 +90,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,test_communityapp_taskvar -i communityapp
             
   # Build & Deploy against prod api backend
   "build-prod-beta":
@@ -118,7 +118,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,beta_communityapp_taskvar, -i communityapp
             
   # Build & Deploy against production backend
   "build-prod":
@@ -146,7 +146,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,prod_communityapp_taskvar -i communityapp
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
