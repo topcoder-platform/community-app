@@ -217,7 +217,7 @@ module.exports = {
     AV_SCAN_SCORER_REVIEW_TYPE_ID: '',
 
     JWT_AUTH: {
-      SECRET: 'mysecret',
+      SECRET: '',
       VALID_ISSUERS: deferConfig(function d() {
         return this.VALID_ISSUERS ? this.VALID_ISSUERS.replace(/\\"/g, '')
           : '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/"]';
