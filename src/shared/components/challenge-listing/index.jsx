@@ -37,17 +37,20 @@ export default function ChallengeListing(props) {
     hideSrm,
     hideTcLinksInFooter,
     keepPastPlaceholders,
+    keepMyPlaceholders,
     loadingChallenges,
     preListingMsg,
   } = props;
 
-  let { challenges } = props;
+  let { challenges, myChallenges } = props;
 
   if (communityFilter) {
     challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
+    myChallenges = myChallenges.filter(Filter.getFilterFunction(props.communityFilter));
   }
 
   challenges = challenges.filter(Filter.getFilterFunction(filterState));
+  myChallenges = myChallenges.filter(Filter.getFilterFunction(filterState));
 
   const expanded = false;
 
@@ -87,6 +90,7 @@ export default function ChallengeListing(props) {
         activeBucket={activeBucket}
         auth={props.auth}
         challenges={challenges}
+        myChallenges={myChallenges}
         challengesUrl={props.challengesUrl}
         communityName={props.communityName}
         expandedTags={props.expandedTags}
@@ -94,9 +98,12 @@ export default function ChallengeListing(props) {
         extraBucket={extraBucket}
         filterState={props.filterState}
         keepPastPlaceholders={keepPastPlaceholders}
+        keepMyPlaceholders={keepMyPlaceholders}
         loadingPastChallenges={props.loadingPastChallenges}
+        loadingMyChallenges={props.loadingMyChallenges}
         loadingReviewOpportunities={props.loadingReviewOpportunities}
         loadMorePast={props.loadMorePast}
+        loadMyChallenges={props.loadMyChallenges}
         loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
         openChallengesInNewTabs={props.openChallengesInNewTabs}
@@ -186,6 +193,7 @@ ChallengeListing.defaultProps = {
   extraBucket: null,
   hideTcLinksInFooter: false,
   loadMorePast: null,
+  loadMyChallenges: null,
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
@@ -200,6 +208,7 @@ ChallengeListing.defaultProps = {
 ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  myChallenges: PT.arrayOf(PT.shape()).isRequired,
   challengesUrl: PT.string.isRequired,
   communityFilter: PT.shape(),
   communityName: PT.string,
@@ -211,11 +220,14 @@ ChallengeListing.propTypes = {
   hideSrm: PT.bool.isRequired,
   hideTcLinksInFooter: PT.bool,
   keepPastPlaceholders: PT.bool.isRequired,
+  keepMyPlaceholders: PT.bool.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
+  loadingMyChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMorePast: PT.func,
+  loadMyChallenges: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,

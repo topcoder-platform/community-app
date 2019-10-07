@@ -15,14 +15,18 @@ function Listing({
   activeBucket,
   auth,
   challenges,
+  myChallenges,
   challengesUrl,
   communityName,
   extraBucket,
   filterState,
   keepPastPlaceholders,
+  keepMyPlaceholders,
   loadingPastChallenges,
+  loadingMyChallenges,
   loadingReviewOpportunities,
   loadMorePast,
+  loadMyChallenges,
   loadMoreReviewOpportunities,
   newChallengeDetails,
   openChallengesInNewTabs,
@@ -48,6 +52,11 @@ function Listing({
         keepPlaceholders = keepPastPlaceholders;
         loading = loadingPastChallenges;
         loadMore = loadMorePast;
+        break;
+      case BUCKETS.MY:
+        keepPlaceholders = keepMyPlaceholders;
+        loading = loadingMyChallenges;
+        loadMore = loadMyChallenges;
         break;
       default:
         break;
@@ -76,7 +85,7 @@ function Listing({
           <Bucket
             bucket={buckets[bucket]}
             bucketId={bucket}
-            challenges={challenges}
+            challenges={(bucket === BUCKETS.MY) ? myChallenges : challenges}
             challengesUrl={challengesUrl}
             communityName={communityName}
             expand={() => selectBucket(bucket)}
@@ -123,6 +132,7 @@ function Listing({
 
 Listing.defaultProps = {
   challenges: [],
+  myChallenges: [],
   communityName: null,
   // currentFilterName: '',
   // expanded: false,
@@ -130,6 +140,7 @@ Listing.defaultProps = {
   expandTag: null,
   extraBucket: null,
   loadMorePast: null,
+  loadMyChallenges: null,
   loadMoreReviewOpportunities: null,
   preListingMsg: null,
   reviewOpportunities: [],
@@ -147,6 +158,7 @@ Listing.propTypes = {
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),
+  myChallenges: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
@@ -154,9 +166,12 @@ Listing.propTypes = {
   extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
+  keepMyPlaceholders: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
+  loadingMyChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMorePast: PT.func,
+  loadMyChallenges: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
