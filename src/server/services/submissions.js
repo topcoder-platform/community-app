@@ -59,9 +59,10 @@ function getAll(getter, page = 1, perPage = SUBMISSIONS_PAGE_SIZE, prev) {
  * @param {Object} fetchResult API response.
  * @return {Promise} Resolves to the response payload, or rejects with error.
  */
-function responseHandler(fetchResult) {
+async function responseHandler(fetchResult) {
   if (!fetchResult.ok) fail(fetchResult.statusText);
-  return fetchResult.json();
+  const response = await fetchResult.json();
+  return response;
 }
 
 function removeDecimal(num) {
@@ -196,17 +197,17 @@ export function processMMSubmissions(submissions, registrants) {
  * @param {String} challengeId
  * @return {Promise} Resolves to the api response.
  */
-export async function getSubmissions(challengeId) {
+export async function getSubmissions(challengeId, req) {
   const raw = await getAll(async (params) => {
     const query = { challengeId, ...params };
     const url = `/submissions?${qs.stringify(query, { encode: false })}`;
-
     const api = await getApi();
-    return responseHandler(await api.get(url));
+    const response = await api.get(url);
+    return responseHandler(response);
   });
 
-  const token = await getM2MToken();
-  const challengeService = services.challenge.getService(token);
+  const token = req.headers.authorization.match(/Bearer (.*)/)[1];
+  const challengeService = await services.challenge.getService(token);
   const challenge = await challengeService.getChallengeDetails(challengeId);
   return processMMSubmissions(raw, challenge.registrants);
 }
@@ -219,5 +220,6 @@ export async function getSubmissions(challengeId) {
 export async function getSubmissionInformation(submissionId) {
   const url = `/submissions/${submissionId}`;
   const api = await getApi();
-  return responseHandler(await api.get(url));
+  const response = await api.get(url);
+  return responseHandler(response);
 }

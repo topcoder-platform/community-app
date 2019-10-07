@@ -67,7 +67,7 @@ export async function getSubmissionsController(req, res, next) {
     assert(req.query, getSubmissionsController.querySchema);
     const { challengeId } = req.query;
 
-    const submissions = await getSubmissions(challengeId);
+    const submissions = await getSubmissions(challengeId, req);
 
     let userRoles = _.get(req.authUser, 'payload.roles', []);
     /* If user does not have a global admin role, who can see any challenges,
