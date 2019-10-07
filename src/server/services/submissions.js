@@ -22,8 +22,6 @@ const SUBMISSIONS_PAGE_SIZE = 500;
  */
 async function getApi() {
   const token = await getM2MToken();
-  console.log('--- m2m ---');
-  console.log(token);
   return services.api.getApi('V5', token);
 }
 
