@@ -232,6 +232,7 @@ module.exports = {
       CLIENT_SECRET: '',
       AUDIENCE: '',
       GRANT_TYPE: '',
+      AUTH0_PROXY_SERVER_URL: '',
     },
   },
 
