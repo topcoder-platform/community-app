@@ -319,6 +319,12 @@ export default class TopcoderHeader extends React.Component {
               this.addGlobalTouchListener();
             }
           }}
+          onFocus={event => !isMobile && openMenu(userSubMenu, event.target)}
+          onBlur={() => {
+            if (!isMobile) closeMenu();
+          }}
+          role="link"
+          tabIndex={0}
           styleName="user-menu"
         >
           <div
@@ -326,12 +332,10 @@ export default class TopcoderHeader extends React.Component {
               color: getRatingColor(_.get(normalizedProfile, 'maxRating.rating', 0)),
             }}
             styleName="user-menu-handle"
-            role="button"
-            tabIndex={0}
           >
             {normalizedProfile.handle}
           </div>
-          <span role="link" tabIndex={0}>{userAvatar}</span>
+          <span>{userAvatar}</span>
         </div>
       );
     } else {
@@ -367,7 +371,7 @@ export default class TopcoderHeader extends React.Component {
             {userMenuHandle}
             {authButtons}
             <div
-              aria-label="Search"
+              aria-label="Find members by username or skill"
               role="button"
               tabIndex={0}
               data-menu="search"

@@ -92,6 +92,15 @@ export default function Bucket({
     }
   }
 
+  if (filteredChallenges.length && filteredChallenges.length < COLLAPSED_SIZE
+    && placeholders.length
+    && (!expandable && loadMore && !loading)) {
+    // loaded challenge list has less than configured collapsed
+    // invoke loadMore here
+    // instead of waiting for scrolling to hit the react-waypoint to do the loadMore
+    loadMore();
+  }
+
   return (
     <div styleName="bucket">
       <SortingSelectBar
@@ -109,12 +118,12 @@ export default function Bucket({
         }}
       />
       {cards}
-      {placeholders}
       {
         !expandable && loadMore && !loading ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }
+      {placeholders}
       {
         (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
           <a

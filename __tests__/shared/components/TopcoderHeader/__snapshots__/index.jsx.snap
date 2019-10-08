@@ -79,7 +79,7 @@ exports[`Default render 1`] = `
         />
       </span>
       <div
-        aria-label="Search"
+        aria-label="Find members by username or skill"
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onBlur={[Function]}
@@ -377,7 +377,7 @@ exports[`Render with open menu 1`] = `
         />
       </span>
       <div
-        aria-label="Search"
+        aria-label="Find members by username or skill"
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onBlur={[Function]}
@@ -681,24 +681,23 @@ exports[`Render with specified profile 1`] = `
       <div
         className="src-shared-components-TopcoderHeader-___style__user-menu___3CMgb"
         data-menu="userMenu"
+        onBlur={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}
+        role="link"
+        tabIndex={0}
       >
         <div
           className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
-          role="button"
           style={
             Object {
               "color": "#555555",
             }
           }
-          tabIndex={0}
         />
-        <span
-          role="link"
-          tabIndex={0}
-        >
+        <span>
           <div
             className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
           >
@@ -712,7 +711,7 @@ exports[`Render with specified profile 1`] = `
         </span>
       </div>
       <div
-        aria-label="Search"
+        aria-label="Find members by username or skill"
         className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
         onBlur={[Function]}

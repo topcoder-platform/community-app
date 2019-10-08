@@ -405,6 +405,12 @@ export default function Content() {
             Veterans Community
           </Link>
         </li>
+        <li>
+          <Link to="/__community__/zurich">
+            Zurich Community
+          </Link>
+        </li>
+
       </ul>
 
       <h3>

@@ -262,7 +262,7 @@ export default function ChallengeHeader(props) {
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
             <h2 styleName="prizes-title">
-PRIZES
+Key Information
             </h2>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {

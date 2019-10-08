@@ -68,7 +68,8 @@ export default function ChallengeFilters({
         />
         <ChallengeSearchBar
           onSearch={text => setFilterState(Filter.setText(filterState, text))}
-          placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Search Challenges'}
+          label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
+          placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Type the challenge name here'}
           query={searchText}
           setQuery={setSearchText}
         />
@@ -76,21 +77,21 @@ export default function ChallengeFilters({
           isCardTypeSet === 'Challenges'
             ? (
               <span>
-                <span styleName="filter-switch-with-label" aria-label="Filter" role="switch" aria-checked={isTrackOn(TRACKS.DESIGN)}>
+                <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn(TRACKS.DESIGN) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DESIGN)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DESIGN)}
                     labelBefore="Design"
                     onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label" aria-label="Filter" role="switch" aria-checked={isTrackOn(TRACKS.DEVELOP)}>
+                <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn(TRACKS.DEVELOP) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DEVELOP)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DEVELOP)}
                     labelBefore="Development"
                     onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label" aria-label="Filter" role="switch" aria-checked={isTrackOn(TRACKS.DATA_SCIENCE)}>
+                <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn(TRACKS.DATA_SCIENCE) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DATA_SCIENCE)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
                     labelBefore="Data Science"
