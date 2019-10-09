@@ -27,7 +27,6 @@ export default function SubmissionRow({
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
   const initialScore = (!provisionalScore || provisionalScore < 0) ? '-' : provisionalScore;
-  console.log(status)
   return (
     <div styleName="container">
       <div styleName="row">
