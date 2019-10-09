@@ -7,7 +7,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import Completed from '../../../icons/completed.svg';
+// import Completed from '../../../icons/completed.svg';
 import Failed from '../../../icons/failed.svg';
 import InReview from '../../../icons/in-review.svg';
 import Queued from '../../../icons/queued.svg';
