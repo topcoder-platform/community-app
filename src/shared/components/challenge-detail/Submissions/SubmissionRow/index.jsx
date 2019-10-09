@@ -9,6 +9,10 @@ import { get } from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
+import Completed from '../../icons/completed.svg';
+import Failed from '../../icons/failed.svg';
+import InReview from '../../icons/in-review.svg';
+import Queued from '../../icons/queued.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
 
 import './style.scss';
@@ -18,11 +22,12 @@ export default function SubmissionRow({
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup,
 }) {
   const {
-    submissionTime, provisionalScore,
+    submissionTime, provisionalScore, status,
   } = submissions[0];
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
   const initialScore = (!provisionalScore || provisionalScore < 0) ? '-' : provisionalScore;
+  console.log(status)
   return (
     <div styleName="container">
       <div styleName="row">
@@ -46,6 +51,12 @@ export default function SubmissionRow({
           </a>
         </div>
         <div styleName="col-3 col">
+          <div styleName="col">
+            {status === 'completed' && (<Completed />)}
+            {status === 'failed' && (<Failed />)}
+            {status === 'in-review' && (<InReview />)}
+            {status === 'queued' && (<Queued />)}
+          </div>
           <div styleName="col col-left">
             { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
           </div>
@@ -82,6 +93,7 @@ export default function SubmissionRow({
                 Submission
               </div>
               <div styleName="col-3 col">
+                <div styleName="col" />
                 <div styleName="col">
                   Final
                 </div>
@@ -136,6 +148,7 @@ SubmissionRow.propTypes = {
     provisionalScore: PT.number,
     finalScore: PT.number,
     initialScore: PT.number,
+    status: PT.string.isRequired,
     submissionId: PT.string.isRequired,
     submissionTime: PT.string.isRequired,
   })).isRequired,

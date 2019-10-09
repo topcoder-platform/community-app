@@ -159,6 +159,7 @@ export function processMMSubmissions(submissions, registrants) {
 
     const provisionalScore = toFixed(_.get(validReviews, '[0].score', '-'), 5);
     const finalScore = toFixed(_.get(submission, 'reviewSummation[0].aggregateScore', '-'), 5);
+    const status = _.get(validReviews, '[0].status', 'queued');
 
     const datum = {
       ...submission,
@@ -166,6 +167,7 @@ export function processMMSubmissions(submissions, registrants) {
       submissionTime: submission.created,
       provisionalScore,
       finalScore,
+      status,
     };
     const d = data[submission.createdBy];
     if (d) d.push(datum);
@@ -208,8 +210,8 @@ export async function getSubmissions(challengeId) {
 
   const token = await getM2MToken();
   const challengeService = await services.challenge.getService(token);
-  const challenge = await challengeService.getChallengeDetails(challengeId);
-  return processMMSubmissions(raw, challenge.registrants);
+  const registrants = await challengeService.getChallengeRegistrants(challengeId);
+  return processMMSubmissions(raw, registrants);
 }
 
 /**

@@ -270,6 +270,9 @@ class SubmissionsComponent extends React.Component {
               <div styleName="col-2 col" />
               <div styleName="col-3 col">
                 <div styleName="col">
+                  Status
+                </div>
+                <div styleName="col">
                   Final
                 </div>
                 <div styleName="col">
