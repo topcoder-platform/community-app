@@ -26,8 +26,7 @@ export default function SubmissionRow({
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
   let initialScore;
-  
-  if (provisionalScore && (provisionalScore >= 0 || provisionalScore == -1)) {
+  if (provisionalScore && (provisionalScore >= 0 || provisionalScore === -1)) {
     initialScore = provisionalScore;
   }
 

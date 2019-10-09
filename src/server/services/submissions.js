@@ -86,11 +86,11 @@ function toFixed(num, decimal) {
   return res;
 }
 
-function getMMChallengeHandleStyle(handle, registrants) {
-  const style = _.get(_.find(registrants, m => m.handle === handle), 'colorStyle', null);
-  if (style) return JSON.parse(style.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
-  return {};
-}
+// function getMMChallengeHandleStyle(handle, registrants) {
+//   const style = _.get(_.find(registrants, m => m.handle === handle), 'colorStyle', null);
+//   if (style) return JSON.parse(style.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+//   return {};
+// }
 
 /**
  * Process each submission rank of MM challenge

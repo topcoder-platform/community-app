@@ -66,7 +66,6 @@ class SubmissionInformationModal extends React.Component {
     const submissionBasicInfo = isLoadingSubmissionInformation
       ? null : this.getSubmissionBasicInfo();
     const testcases = isLoadingSubmissionInformation ? [] : this.getTestcases();
-    console.log(testcases)
 
     return (
       <Modal theme={{ container: modal.container }} onCancel={() => onClose(false)}>
