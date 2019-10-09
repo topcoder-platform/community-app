@@ -114,6 +114,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     this.state = {
       showDeadlineDetail: false,
+      registrantsSort: {
+        field: '',
+        sort: '',
+      },
     };
 
     this.instanceId = shortId();
@@ -131,6 +135,8 @@ class ChallengeDetailPageContainer extends React.Component {
       challengeId,
       challengeSubtracksMap,
       getSubtracks,
+      allCountries,
+      getAllCountries,
     } = this.props;
 
     if (
@@ -157,6 +163,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     ) {
       loadChallengeDetails(auth, challengeId);
+    }
+
+    if (!allCountries.length) {
+      getAllCountries(auth.tokenV3);
     }
 
     getCommunitiesList(auth);
@@ -245,6 +255,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const {
       showDeadlineDetail,
+      registrantsSort,
     } = this.state;
 
     /* Generation of data for SEO meta-tags. */
@@ -361,6 +372,7 @@ class ChallengeDetailPageContainer extends React.Component {
             && (
               <Registrants
                 challenge={challenge}
+                registrants={challenge.registrants}
                 checkpointResults={
                   _.merge(
                     checkpointResults,
@@ -368,6 +380,8 @@ class ChallengeDetailPageContainer extends React.Component {
                   )
                 }
                 results={results2}
+                registrantsSort={registrantsSort}
+                onSortChange={sort => this.setState({ registrantsSort: sort })}
               />
             )
           }
@@ -433,6 +447,7 @@ ChallengeDetailPageContainer.defaultProps = {
   // loadingCheckpointResults: false,
   results: null,
   terms: [],
+  allCountries: [],
   isMenuOpened: false,
   loadingMMSubmissionsForChallengeId: '',
   mmSubmissions: [],
@@ -460,6 +475,7 @@ ChallengeDetailPageContainer.propTypes = {
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
+  getAllCountries: PT.func.isRequired,
   // loadResults: PT.func.isRequired,
   // loadingCheckpointResults: PT.bool,
   // loadingResultsForChallengeId: PT.string.isRequired,
@@ -476,6 +492,7 @@ ChallengeDetailPageContainer.propTypes = {
   setSpecsTabState: PT.func.isRequired,
   specsTabState: PT.string.isRequired,
   terms: PT.arrayOf(PT.shape()),
+  allCountries: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
@@ -490,9 +507,18 @@ ChallengeDetailPageContainer.propTypes = {
 };
 
 function mapStateToProps(state, props) {
+  const { lookup: { allCountries } } = state;
+  const challenge = state.challenge.details || {};
+  if (challenge.registrants) {
+    challenge.registrants = challenge.registrants.map(registrant => ({
+      ...registrant,
+      countryInfo: _.find(allCountries, { countryCode: registrant.countryCode }),
+    }));
+  }
+
   return {
     auth: state.auth,
-    challenge: state.challenge.details || {},
+    challenge,
     challengeId: Number(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
     challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
@@ -526,16 +552,22 @@ function mapStateToProps(state, props) {
       Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
     submissionInformation: state.challenge.submissionInformation,
     mmSubmissions: state.challenge.mmSubmissions,
+    allCountries: state.lookup.allCountries,
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
+  const lookupActions = actions.lookup;
   return {
     getCommunitiesList: (auth) => {
       const uuid = shortId();
       dispatch(ca.getListInit(uuid));
       dispatch(ca.getListDone(uuid, auth));
+    },
+    getAllCountries: (tokenV3) => {
+      dispatch(lookupActions.getAllCountriesInit());
+      dispatch(lookupActions.getAllCountriesDone(tokenV3));
     },
     loadChallengeDetails: (tokens, challengeId) => {
       const a = actions.challenge;
