@@ -9,7 +9,6 @@ import { get } from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
-import Completed from '../../icons/completed.svg';
 import Failed from '../../icons/failed.svg';
 import InReview from '../../icons/in-review.svg';
 import Queued from '../../icons/queued.svg';
@@ -26,7 +25,29 @@ export default function SubmissionRow({
   } = submissions[0];
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
-  const initialScore = (!provisionalScore || provisionalScore < 0) ? '-' : provisionalScore;
+  let initialScore;
+  
+  if (provisionalScore && (provisionalScore >= 0 || provisionalScore == -1)) {
+    initialScore = provisionalScore;
+  }
+
+  const getInitialReviewResult = () => {
+    const s = isMM ? get(score, 'provisional', initialScore) : initialScore;
+    if (s && s < 0) return <Failed />;
+    switch (status) {
+      case 'completed':
+        return s;
+      case 'in-review':
+        return <InReview />;
+      case 'queued':
+        return <Queued />;
+      case 'failed':
+        return <Failed />;
+      default:
+        return s;
+    }
+  };
+
   return (
     <div styleName="container">
       <div styleName="row">
@@ -50,17 +71,11 @@ export default function SubmissionRow({
           </a>
         </div>
         <div styleName="col-3 col">
-          <div styleName="col">
-            {status === 'completed' && (<Completed />)}
-            {status === 'failed' && (<Failed />)}
-            {status === 'in-review' && (<InReview />)}
-            {status === 'queued' && (<Queued />)}
-          </div>
           <div styleName="col col-left">
             { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
           </div>
           <div styleName="col">
-            { isMM ? get(score, 'provisional', initialScore) : initialScore }
+            {getInitialReviewResult()}
           </div>
           <div styleName="col time">
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}

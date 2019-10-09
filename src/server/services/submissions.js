@@ -144,7 +144,8 @@ function processRanks(submissions) {
  * @param submissions the array of submissions
  * @param registrants the challenge registrants
  */
-export function processMMSubmissions(submissions, registrants) {
+// export function processMMSubmissions(submissions, registrants) {
+export function processMMSubmissions(submissions) {
   const data = {};
   const result = [];
 
@@ -179,7 +180,7 @@ export function processMMSubmissions(submissions, registrants) {
       submissions: [...value.sort((a, b) => new Date(b.submissionTime)
         .getTime() - new Date(a.submissionTime).getTime())],
       member: key,
-      colorStyle: getMMChallengeHandleStyle(key, registrants),
+      // colorStyle: getMMChallengeHandleStyle(key, registrants),
     });
   });
 
@@ -208,10 +209,11 @@ export async function getSubmissions(challengeId) {
     return responseHandler(response);
   });
 
-  const token = await getM2MToken();
-  const challengeService = await services.challenge.getService(token);
-  const registrants = await challengeService.getChallengeRegistrants(challengeId);
-  return processMMSubmissions(raw, registrants);
+  // const token = await getM2MToken();
+  // const challengeService = await services.challenge.getService(token);
+  // const registrants = await challengeService.getChallengeRegistrants(challengeId);
+  // return processMMSubmissions(raw, registrants);
+  return processMMSubmissions(raw);
 }
 
 /**

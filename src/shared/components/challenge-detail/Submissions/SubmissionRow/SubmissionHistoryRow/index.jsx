@@ -26,6 +26,21 @@ export default function SubmissionHistoryRow({
   status,
   member,
 }) {
+  const getInitialReviewResult = () => {
+    if (provisionalScore && provisionalScore < 0) return <Failed />;
+    switch (status) {
+      case 'completed':
+        return provisionalScore;
+      case 'in-review':
+        return <InReview />;
+      case 'queued':
+        return <Queued />;
+      case 'failed':
+        return <Failed />;
+      default:
+        return provisionalScore;
+    }
+  };
   return (
     <div styleName="container">
       <div styleName="row no-border">
@@ -35,16 +50,10 @@ export default function SubmissionHistoryRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col child">
-            {status === 'completed' && (<Completed />)}
-            {status === 'failed' && (<Failed />)}
-            {status === 'in-review' && (<InReview />)}
-            {status === 'queued' && (<Queued />)}
-          </div>
-          <div styleName="col child">
             {(isMM || (!finalScore && finalScore !== 0)) || !isReviewPhaseComplete ? '-' : finalScore}
           </div>
           <div styleName="col child">
-            {(!provisionalScore && provisionalScore !== 0) ? '-' : provisionalScore}
+            {getInitialReviewResult()}
           </div>
         </div>
         <div styleName={`col-4 col history-time ${isMM ? 'mm' : ''}`}>
