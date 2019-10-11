@@ -209,6 +209,7 @@
 
 .table-header {
   cursor: pointer;
+  background: transparent;
 
   &:hover {
     color: $tc-dark-blue;
