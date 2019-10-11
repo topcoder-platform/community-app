@@ -37,6 +37,11 @@ let mounted = false;
 const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
 export class ListingContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.loadMyChallenges = this.loadMyChallenges.bind(this);
+  }
+
   componentDidMount() {
     const {
       activeBucket,
@@ -48,6 +53,7 @@ export class ListingContainer extends React.Component {
       selectBucket,
       selectCommunity,
       queryBucket,
+      allActiveChallengesLoaded,
     } = this.props;
 
     markHeaderMenu();
@@ -68,6 +74,10 @@ export class ListingContainer extends React.Component {
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
+
+    if (activeBucket === BUCKETS.MY && !allActiveChallengesLoaded) {
+      this.loadMyChallenges();
+    }
 
     this.loadChallenges();
   }
@@ -150,6 +160,16 @@ export class ListingContainer extends React.Component {
     );
   }
 
+  loadMyChallenges() {
+    const { getMyChallenges, auth: { tokenV3 } } = this.props;
+    const f = this.getBackendFilter();
+    getMyChallenges(
+      f.back,
+      tokenV3,
+      f.front,
+    );
+  }
+
   render() {
     const {
       auth,
@@ -218,14 +238,8 @@ export class ListingContainer extends React.Component {
     }
 
     if (!allMyChallengesLoaded) {
-      loadMyChallenges = () => {
-        const f = this.getBackendFilter();
-        getMyChallenges(
-          f.back,
-          tokenV3,
-          f.front,
-        );
-      };
+      // eslint-disable-next-line prefer-destructuring
+      loadMyChallenges = this.loadMyChallenges;
     }
 
     let loadMoreReviewOpportunities;
