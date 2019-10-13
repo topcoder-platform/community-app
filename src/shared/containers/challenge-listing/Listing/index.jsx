@@ -193,7 +193,6 @@ export class ListingContainer extends React.Component {
       filter,
       groupIds,
       getPastChallenges,
-      getMyChallenges,
       getReviewOpportunities,
       hideSrm,
       keepPastPlaceholders,
