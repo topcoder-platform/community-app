@@ -28,6 +28,7 @@ export default function SideBarFilters({
   activeSavedFilter,
   buckets,
   challenges,
+  myChallenges,
   changeFilterName,
   communityFilter,
   deleteSavedFilter,
@@ -70,6 +71,7 @@ export default function SideBarFilters({
             activeSavedFilter={activeSavedFilter}
             buckets={buckets}
             challenges={challenges}
+            myChallenges={myChallenges}
             communityFilter={communityFilter}
             disabled={disabled}
             extraBucket={extraBucket}
@@ -101,6 +103,9 @@ SideBarFilters.propTypes = {
   activeSavedFilter: PT.number.isRequired,
   buckets: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape({
+    registrationOpen: PT.string.isRequired,
+  })).isRequired,
+  myChallenges: PT.arrayOf(PT.shape({
     registrationOpen: PT.string.isRequired,
   })).isRequired,
   changeFilterName: PT.func.isRequired,
