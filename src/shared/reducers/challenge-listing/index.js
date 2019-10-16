@@ -438,6 +438,9 @@ function create(initialState) {
       expandedTags: [...state.expandedTags, payload],
     }),
 
+    [a.getMyChallengesInit]: onGetMyChallengesInit,
+    [a.getMyChallengesDone]: onGetMyChallengesDone,
+    
     [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
     [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
 
@@ -461,9 +464,6 @@ function create(initialState) {
 
     [a.getPastChallengesInit]: onGetPastChallengesInit,
     [a.getPastChallengesDone]: onGetPastChallengesDone,
-
-    [a.getMyChallengesInit]: onGetMyChallengesInit,
-    [a.getMyChallengesDone]: onGetMyChallengesDone,
 
     [a.getReviewOpportunitiesInit]: onGetReviewOpportunitiesInit,
     [a.getReviewOpportunitiesDone]: onGetReviewOpportunitiesDone,

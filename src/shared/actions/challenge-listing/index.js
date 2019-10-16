@@ -354,6 +354,9 @@ export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
 
+    GET_MY_CHALLENGES_INIT: getMyChallengesInit,
+    GET_MY_CHALLENGES_DONE: getMyChallengesDone,
+
     GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
 
@@ -371,9 +374,6 @@ export default createActions({
 
     GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
     GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
-
-    GET_MY_CHALLENGES_INIT: getMyChallengesInit,
-    GET_MY_CHALLENGES_DONE: getMyChallengesDone,
 
     GET_REVIEW_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
     GET_REVIEW_OPPORTUNITIES_DONE: getReviewOpportunitiesDone,
