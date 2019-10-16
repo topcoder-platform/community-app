@@ -191,7 +191,6 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-sort-registrations
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
