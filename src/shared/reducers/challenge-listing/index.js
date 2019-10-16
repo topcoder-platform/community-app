@@ -440,7 +440,7 @@ function create(initialState) {
 
     [a.getMyChallengesInit]: onGetMyChallengesInit,
     [a.getMyChallengesDone]: onGetMyChallengesDone,
-    
+
     [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
     [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
 
