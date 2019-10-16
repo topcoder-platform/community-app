@@ -238,9 +238,39 @@ export class SearchBarInner extends Component {
             </div>
           </div>
         )}
-        <a className={theme['view-all-results']} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify(searchQuery)}`}>
-          View all results
-        </a>
+        {suggestionList.Author && (suggestionList.Author.length > 0) && (
+          <div className={`${theme['group-container']} ${theme['group-authors']}`}>
+            <span className={theme['group-title']}>Authors</span>
+            <div className={theme['group-content']}>
+              {
+                _.map(suggestionList.Author, item => (
+                  <div
+                    key={`${item.name}`}
+                    className={theme['group-cell']}
+                  >
+                    <a className={theme.authorLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?author=${item.name}`}>
+                      {item.tcHandle}
+                      {
+                        item.tcHandle ? (
+                          <span className={theme.authorName}>
+                            {item.name}
+                          </span>
+                        ) : null
+                      }
+                    </a>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        )}
+        {
+          selectedFilter.name !== 'Author' ? (
+            <a className={theme['view-all-results']} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify(searchQuery)}`}>
+              View all results
+            </a>
+          ) : null
+        }
       </div>
     ));
   }
@@ -277,6 +307,11 @@ export class SearchBarInner extends Component {
         query.query = searchText;
       }
       if (selectedFilter.name === 'Author') {
+        // author queries for >= 2 symbols
+        if (searchText.length <= 1) {
+          this.setState({ suggestionList: {} });
+          return;
+        }
         query.content_type = 'person';
         query.query = searchText;
       }
@@ -292,18 +327,10 @@ export class SearchBarInner extends Component {
           }
           // Author query?
           if (selectedFilter.name === 'Author') {
-            this.apiService.queryEntries({
-              content_type: 'article',
-              links_to_entry: results.items[0].sys.id,
-            })
-              .then((authorResults) => {
-                if (!authorResults.total) {
-                  this.setState({ suggestionList: {} });
-                  return;
-                }
-                const suggestionList = this.groupResults(authorResults);
-                this.setState({ suggestionList });
-              });
+            const suggestionList = {
+              Author: _.map(results.items, item => ({ ...item.fields })),
+            };
+            this.setState({ suggestionList });
             return;
           }
           // ALL && Tags
@@ -447,6 +474,9 @@ SearchBarInner.propTypes = {
     forumLink: PT.string.isRequired,
     cellWrap: PT.string.isRequired,
     cellAuthor: PT.string.isRequired,
+    authorLink: PT.string.isRequired,
+    authorName: PT.string.isRequired,
+    'group-authors': PT.string.isRequired,
   }).isRequired,
   inputlVal: PT.string,
 };
