@@ -7,6 +7,10 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+// import Completed from '../../../icons/completed.svg';
+import Failed from '../../../icons/failed.svg';
+import InReview from '../../../icons/in-review.svg';
+import Queued from '../../../icons/queued.svg';
 
 import './style.scss';
 
@@ -19,8 +23,24 @@ export default function SubmissionHistoryRow({
   isReviewPhaseComplete,
   onShowPopup,
   submissionId,
+  status,
   member,
 }) {
+  const getInitialReviewResult = () => {
+    if (provisionalScore && provisionalScore < 0) return <Failed />;
+    switch (status) {
+      case 'completed':
+        return provisionalScore;
+      case 'in-review':
+        return <InReview />;
+      case 'queued':
+        return <Queued />;
+      case 'failed':
+        return <Failed />;
+      default:
+        return provisionalScore;
+    }
+  };
   return (
     <div styleName="container">
       <div styleName="row no-border">
@@ -33,7 +53,7 @@ export default function SubmissionHistoryRow({
             {(isMM || (!finalScore && finalScore !== 0)) || !isReviewPhaseComplete ? '-' : finalScore}
           </div>
           <div styleName="col child">
-            {(!provisionalScore && provisionalScore !== 0) ? '-' : provisionalScore}
+            {getInitialReviewResult()}
           </div>
         </div>
         <div styleName={`col-4 col history-time ${isMM ? 'mm' : ''}`}>
@@ -71,6 +91,7 @@ SubmissionHistoryRow.propTypes = {
   isMM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.number,
+  status: PT.string.isRequired,
   provisionalScore: PT.number,
   submissionTime: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
