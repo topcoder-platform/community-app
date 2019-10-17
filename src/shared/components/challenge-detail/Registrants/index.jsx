@@ -200,8 +200,8 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Username': {
-          valueA = `${a.handle}`;
-          valueB = `${b.handle}`;
+          valueA = `${a.handle.toLowerCase()}`;
+          valueB = `${b.handle.toLowerCase()}`;
           valueIsString = true;
           break;
         }
