@@ -18,7 +18,7 @@ install_dependency: &install_dependency
 install_deploysuite: &install_deploysuite
           name: Installation of install_deploysuite.
           command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            git clone --branch dev_comm https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
             cp ./../buildscript/master_deploy.sh .
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
@@ -118,7 +118,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
             
   # Build & Deploy against production backend
   "build-prod":
@@ -184,6 +184,7 @@ workflows:
             branches:
                 only:
                   - hot-fix
+                  - feature-groups-api
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -191,6 +192,8 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-groups-api
+                - mm-broker-api
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
