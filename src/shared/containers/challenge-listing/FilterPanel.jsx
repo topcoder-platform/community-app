@@ -2,6 +2,7 @@
  * Container for the header filters panel.
  */
 /* global window */
+/* eslint-disable max-len */
 
 import actions from 'actions/challenge-listing/filter-panel';
 import challengeListingActions from 'actions/challenge-listing';
@@ -64,6 +65,36 @@ export class Container extends React.Component {
     if (query.filter && !filterState.track) {
       setFilterState(query.filter);
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      selectCommunity,
+      communityFilters,
+    } = this.props;
+
+    if (communityFilters.length > 0 && prevProps.communityFilters.length === 0) {
+      const query = qs.parse(window.location.search.slice(1));
+      if (query.communityId) {
+        const communityList = communityFilters.filter(community => !community.hidden && query.communityId === community.communityId);
+        if (communityList.length) {
+          selectCommunity(query.communityId);
+        } else {
+          // in case of changing user
+          selectCommunity('');
+        }
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    const {
+      selectCommunity,
+      setFilterState,
+    } = this.props;
+    // when click topBar 'ALL CHALLENGES', clear form
+    selectCommunity('');
+    setFilterState({});
   }
 
   render() {
@@ -144,6 +175,7 @@ Container.propTypes = {
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
+  selectCommunity: PT.func.isRequired,
   isSavingFilter: PT.bool,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,
