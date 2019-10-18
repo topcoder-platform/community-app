@@ -47,6 +47,7 @@ export class SidebarContainer extends React.Component {
   render() {
     const {
       communityFilters,
+      challenges,
       deleteSavedFilter,
       extraBucket,
       savedFilters: origSavedFilters,
@@ -80,7 +81,10 @@ export class SidebarContainer extends React.Component {
       item => item.communityId === selectedCommunityId,
     );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
-
+    let isTrueCommunityId = true;
+    if (selectedCommunityId && communityFilters.length > 0 && communityFilter === undefined) {
+      isTrueCommunityId = false;
+    }
     const savedFilters = checkFilterErrors(origSavedFilters, updatedCommunityFilters);
 
     return (
@@ -88,6 +92,7 @@ export class SidebarContainer extends React.Component {
         {...this.props}
         buckets={buckets}
         extraBucket={extraBucket}
+        challenges={isTrueCommunityId ? challenges : []}
         savedFilters={savedFilters}
         communityFilter={communityFilter}
         deleteSavedFilter={id => deleteSavedFilter(id, tokenV2)}
@@ -122,6 +127,7 @@ SidebarContainer.propTypes = {
     communityId: PT.string.isRequired,
   })).isRequired,
   deleteSavedFilter: PT.func.isRequired,
+  challenges: PT.arrayOf(PT.shape({})).isRequired,
   extraBucket: PT.shape(),
   getSavedFilters: PT.func.isRequired,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,

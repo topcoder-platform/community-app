@@ -2,6 +2,7 @@
  * Container for the header filters panel.
  */
 /* global window */
+/* eslint-disable max-len */
 
 import actions from 'actions/challenge-listing/filter-panel';
 import challengeListingActions from 'actions/challenge-listing';
@@ -63,6 +64,20 @@ export class Container extends React.Component {
     const query = qs.parse(window.location.search.slice(1));
     if (query.filter && !filterState.track) {
       setFilterState(query.filter);
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    const {
+      selectCommunity,
+      communityFilters,
+    } = this.props;
+
+    if (nextProps.communityFilters.length > 0 && communityFilters.length === 0) {
+      const query = qs.parse(window.location.search.slice(1));
+      if (query.communityId) {
+        selectCommunity(query.communityId);
+      }
     }
   }
 
@@ -144,6 +159,7 @@ Container.propTypes = {
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
+  selectCommunity: PT.func.isRequired,
   isSavingFilter: PT.bool,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,

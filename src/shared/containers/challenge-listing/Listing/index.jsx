@@ -218,8 +218,12 @@ export class ListingContainer extends React.Component {
       );
     }
 
+    let isTrueCommunityId = true;
     let communityFilter = communityFilters.find(item => item.communityId === selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
+    if (selectedCommunityId && communityFilters.length > 0 && communityFilter === undefined) {
+      isTrueCommunityId = false;
+    }
 
     const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
 
@@ -252,7 +256,7 @@ export class ListingContainer extends React.Component {
         {banner}
         <ChallengeListing
           activeBucket={activeBucket}
-          challenges={challenges}
+          challenges={isTrueCommunityId ? challenges : []}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
           challengesUrl={challengesUrl}
