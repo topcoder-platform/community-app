@@ -176,7 +176,7 @@ workflows:
               only: 
                 - develop
                 - hot-fixes-4
-                - feature-contentful
+                - build-improvement
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -193,10 +193,7 @@ workflows:
             branches:
               only:
                 - develop
-                - mm-leaderboard
-                - hot-fixes-4
-                - release-qa-accessibility
-                - mm-leaderboard-misc-fixes
+                - build-improvement
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
