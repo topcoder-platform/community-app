@@ -206,18 +206,18 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Registration Date': {
-          valueA = new Date(a.registrationDate).getTime();
-          valueB = new Date(b.registrationDate).getTime();
+          valueA = new Date(a.registrationDate);
+          valueB = new Date(b.registrationDate);
           break;
         }
         case 'Round 1 Submitted Date': {
           const checkpointA = this.getCheckPoint(a);
           const checkpointB = this.getCheckPoint(b);
           if (checkpointA) {
-            valueA = new Date(checkpointA).getTime();
+            valueA = new Date(checkpointA);
           }
           if (checkpointB) {
-            valueB = new Date(checkpointB).getTime();
+            valueB = new Date(checkpointB);
           }
           break;
         }
@@ -225,10 +225,10 @@ export default class Registrants extends React.Component {
           const checkpointA = this.getFinal(a);
           const checkpointB = this.getFinal(b);
           if (checkpointA) {
-            valueA = new Date(checkpointA).getTime();
+            valueA = new Date(checkpointA);
           }
           if (checkpointB) {
-            valueB = new Date(checkpointB).getTime();
+            valueB = new Date(checkpointB);
           }
           break;
         }
