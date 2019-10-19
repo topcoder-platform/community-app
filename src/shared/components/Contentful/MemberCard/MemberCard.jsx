@@ -27,6 +27,7 @@ export function MemberCardInner({
   const { memberName, trackColor, description } = memberCard;
   let countryName = getName(country).toLocaleUpperCase();
   if (countryName === 'UNITED STATES OF AMERICA') countryName = 'USA';
+  if (countryName === 'VENEZUELA, BOLIVARIAN REPUBLIC OF') countryName = 'VENEZUELA';
 
   return (
     <a
