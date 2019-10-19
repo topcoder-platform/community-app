@@ -50,6 +50,7 @@ module.exports = {
       ZURICH: 'https://zurich.topcoder.com',
     },
     EMAIL_VERIFY_URL: 'http://www.topcoder.com/settings/account/changeEmail',
+    COUNTRY_FLAG_URL: 'http://countries.topcoder.com.s3.amazonaws.com',
   },
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */
