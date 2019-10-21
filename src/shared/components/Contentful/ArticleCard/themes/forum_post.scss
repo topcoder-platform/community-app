@@ -5,6 +5,10 @@
   background: #f4f4f4;
   border-radius: 10px;
   margin-bottom: 20px !important;
+
+  @include xs-to-sm {
+    margin: 5px !important;
+  }
 }
 
 .contentWrapper {
