@@ -32,6 +32,9 @@ function ContentSliderItemsLoader(props) {
     cellSpacing,
     cellAlign,
     wrapAround,
+    spaceName,
+    environment,
+
   } = props;
 
   return (
@@ -61,6 +64,8 @@ function ContentSliderItemsLoader(props) {
                 title={data.entries.items[itemId].fields.name}
                 type={data.entries.items[itemId].sys.contentType.sys.id}
                 preview={preview}
+                spaceName={spaceName}
+                environment={environment}
               />
             ))
           }
@@ -82,12 +87,16 @@ ContentSliderItemsLoader.defaultProps = {
   cellSpacing: null,
   cellAlign: 'center',
   wrapAround: true,
+  spaceName: null,
+  environment: null,
 };
 
 ContentSliderItemsLoader.propTypes = {
   sliderId: PT.string.isRequired,
   ids: PT.arrayOf(PT.string).isRequired,
   preview: PT.bool.isRequired,
+  spaceName: PT.string,
+  environment: PT.string,
   autoStart: PT.bool,
   duration: PT.number,
   theme: PT.string.isRequired,
@@ -105,6 +114,8 @@ export default function ContentfulSlider(props) {
   const {
     id,
     preview,
+    spaceName,
+    environment,
   } = props;
 
   return (
@@ -119,6 +130,8 @@ export default function ContentfulSlider(props) {
             sliderId={id}
             ids={_.map(fields.items, 'sys.id')}
             preview={preview}
+            spaceName={spaceName}
+            environment={environment}
             autoStart={fields.autoStart}
             duration={fields.duration}
             theme={fields.theme}
@@ -140,9 +153,13 @@ export default function ContentfulSlider(props) {
 
 ContentfulSlider.defaultProps = {
   preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 ContentfulSlider.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };

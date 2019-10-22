@@ -222,8 +222,9 @@ class ArticleCard extends React.Component {
                                   href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: author.name })}`}
                                   key={`${author.name}`}
                                   title={`Search for articles from ${author.name}`}
+                                  className={theme.authorLink}
                                 >
-                                  {author.name}
+                                  {author.tcHandle}
                                 </a>
                               </div>
                             ))
@@ -355,6 +356,7 @@ ArticleCard.propTypes = {
     image: PT.string.isRequired,
     imageRecommended: PT.string,
     readMore: PT.string,
+    authorLink: PT.string,
   }).isRequired,
   themeName: PT.string.isRequired,
 };

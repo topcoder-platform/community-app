@@ -14,7 +14,7 @@ import { themr } from 'react-css-super-themr';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeHistoryModalContainer from './ChallengeHistoryModal';
 
-import defaultTheme from './styles.scss';
+import defaultTheme from './themes/styles.scss';
 
 // The container component
 class LeaderboardPageContainer extends React.Component {
@@ -59,7 +59,7 @@ class LeaderboardPageContainer extends React.Component {
   render() {
     const {
       leaderboardData, title, podiumSpots, isCopilot, hasChallengeHistory,
-      tcoPointsApiUrl, memberLimit, isAlgo, isLoadingLeaderboard,
+      tcoPointsApiUrl, memberLimit, isAlgo, isLoadingLeaderboard, themeName,
     } = this.props;
     const { competitor } = this.state;
     let ld = leaderboardData || [];
@@ -79,12 +79,14 @@ class LeaderboardPageContainer extends React.Component {
               isCopilot={isCopilot}
               isAlgo={isAlgo}
               onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
+              themeName={themeName}
             />
             <LeaderboardTable
               competitors={ld.slice(podiumSpots)}
               isCopilot={isCopilot}
               isAlgo={isAlgo}
               onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
+              themeName={themeName}
             />
             {
               hasChallengeHistory && competitor ? (
@@ -117,6 +119,7 @@ LeaderboardPageContainer.defaultProps = {
   tcoPointsApiUrl: null,
   memberLimit: null,
   isAlgo: false,
+  themeName: 'Default',
 };
 
 LeaderboardPageContainer.propTypes = {
@@ -135,6 +138,7 @@ LeaderboardPageContainer.propTypes = {
   tcoPointsApiUrl: PT.string,
   memberLimit: PT.number,
   isAlgo: PT.bool,
+  themeName: PT.string,
 };
 
 function mapStateToProps(state, props) {

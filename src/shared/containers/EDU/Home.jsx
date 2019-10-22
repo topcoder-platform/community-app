@@ -12,6 +12,7 @@ import DevTrackIcon from 'assets/images/track-development.svg';
 import DesignTrackIcon from 'assets/images/track-design.svg';
 import MMTrackIcon from 'assets/images/track-MM.svg';
 import AlgoTrackIcon from 'assets/images/track-ALGO.svg';
+import TCTrackIcon from 'assets/images/tc-logo-icon.svg';
 // CSS
 import homeTheme from './styles/home.scss';
 
@@ -93,6 +94,13 @@ export default class EDUHome extends React.Component {
               <TrackInfoInner track="QA" theme={homeTheme} taxonomy={taxonomy} />
             </div>
             <TrackCards theme={homeTheme} track="QA" />
+          </div>
+          <div className={homeTheme.trackWrapp}>
+            <div className={homeTheme.trackInfos}>
+              <div className={homeTheme.trackIconTC}><TCTrackIcon /></div>
+              <TrackInfoInner track="Topcoder" theme={homeTheme} taxonomy={taxonomy} />
+            </div>
+            <TrackCards theme={homeTheme} track="Topcoder" />
           </div>
         </div>
         {/* Latest & Recommended are Contentful editable sections */}

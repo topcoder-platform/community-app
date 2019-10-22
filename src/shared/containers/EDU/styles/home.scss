@@ -181,6 +181,17 @@
           height: 71px;
         }
 
+        .trackIconTC {
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url(assets/images/tc-back.svg);
+          width: 72px;
+          height: 71px;
+        }
+
         .trackInfosInner {
           margin-left: 15px;
           flex: 1;
