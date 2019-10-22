@@ -88,16 +88,14 @@ Topcoder Cognitive Community
             real-life business problems for companies in need of cognitive
             expertise. Develop your skills and you may even win a trip to the
             &zwnj;
-            {
-              <a
-                href={config.URL.TCO}
-                rel="noopener noreferrer"
-                styleName="link"
-                target="_blank"
-              >
-                Topcoder Open
-              </a>
-            }
+            <a
+              href={config.URL.TCO}
+              rel="noopener noreferrer"
+              styleName="link"
+              target="_blank"
+            >
+              Topcoder Open
+            </a>
 ,
             our largest competitive programming and design
             competition of the year.
@@ -147,16 +145,14 @@ Dave Messinger
               <p styleName="joining-is-simple-text">
                 Also, be sure to check out the cognitive computing zone on
                 &zwnj;
-                {
-                  <a
-                    href="https://www.ibm.com/developerworks/"
-                    rel="noopener noreferrer"
-                    styleName="link"
-                    target="_blank"
-                  >
-                    IBM developerWorks
-                  </a>
-                }
+                <a
+                  href="https://www.ibm.com/developerworks/"
+                  rel="noopener noreferrer"
+                  styleName="link"
+                  target="_blank"
+                >
+                  IBM developerWorks
+                </a>
 .
                 There you’ll find how-to content and community
                 expertise to help you succeed with your own cognitive apps and
@@ -195,14 +191,12 @@ the Topcoder Cognitive Community
                 <p styleName="joining-point-text">
                   Register for
                   &zwnj;
-                  {
-                    <Link
-                      styleName="link"
-                      to={`${baseUrl}/challenges`}
-                    >
-                      cognitive challenges
-                    </Link>
-                  }
+                  <Link
+                    styleName="link"
+                    to={`${baseUrl}/challenges`}
+                  >
+                    cognitive challenges
+                  </Link>
                 </p>
               </div>
               <div styleName="joining-point-container">
@@ -212,23 +206,21 @@ the Topcoder Cognitive Community
                 <p styleName="joining-point-text">
                   Compete using
                   &nbsp;
-                  {
-                    <Link
-                      onClick={() => {
-                        if (!allFaqItemsClosedInResourcesPage) {
-                          closeAllFaqItemsInResourcesPage();
-                        }
-                        toggleFaqItemInResourcesPage(
-                          'whyDoINeedIbmCloudAccount',
-                          true,
-                        );
-                      }}
-                      styleName="link"
-                      to={`${baseUrl}/resources`}
-                    >
-                      IBM Cloud
-                    </Link>
-                  }
+                  <Link
+                    onClick={() => {
+                      if (!allFaqItemsClosedInResourcesPage) {
+                        closeAllFaqItemsInResourcesPage();
+                      }
+                      toggleFaqItemInResourcesPage(
+                        'whyDoINeedIbmCloudAccount',
+                        true,
+                      );
+                    }}
+                    styleName="link"
+                    to={`${baseUrl}/resources`}
+                  >
+                    IBM Cloud
+                  </Link>
                 </p>
               </div>
             </div>
