@@ -91,32 +91,28 @@ export default function Resources({
                 and deliver solutions. You can put data to work&nbsp;— protect
                 it, move it, integrate it, and unlock intelligence from it.
                 &zwnj;
-                {
-                  <a
-                    href="https://www.ibm.com/cloud/lite-account"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    styleName="style.link"
-                  >
-                    Learn more about IBM Cloud
-                  </a>
-                }
+                <a
+                  href="https://www.ibm.com/cloud/lite-account"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  styleName="style.link"
+                >
+                  Learn more about IBM Cloud
+                </a>
               </p>
               <p styleName="style.faqPSpacing">
                 Signing up for an IBM Cloud trial account is an important
                 step because in order to participate in cognitive challenges on
                 Topcoder, you’ll need to deploy your code to IBM Cloud.
                 &zwnj;
-                {
-                  <a
-                    href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    styleName="style.link"
-                  >
-                    Sign up for IBM Cloud
-                  </a>
-                }
+                <a
+                  href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  styleName="style.link"
+                >
+                  Sign up for IBM Cloud
+                </a>
               </p>
             </FaqItem>
             <FaqItem

@@ -17,11 +17,9 @@ export default function EditorExample() {
         connector={connector}
         nodeId="editor-toolbar"
       />
-      {
-        <Sticky innerZ={1} top="#editor-toolbar">
-          <Previewer connector={connector} />
-        </Sticky>
-      }
+      <Sticky innerZ={1} top="#editor-toolbar">
+        <Previewer connector={connector} />
+      </Sticky>
       <div styleName="container">
         <div styleName="content">
           <h1 styleName="title">

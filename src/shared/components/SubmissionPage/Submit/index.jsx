@@ -224,16 +224,14 @@ Please follow the instructions on the Challenge Details page regarding
                       </ol>
                       <p>For detailed information on packaging your submission, please visit the
                       &zwnj;
-                        {
-                          <a
-                            href="https://help.topcoder.com/hc/en-us/articles/
-                              219122667-Formatting-Your-Submission-for-Design-Challenges"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            help center.
-                          </a>
-                        }
+                        <a
+                          href="https://help.topcoder.com/hc/en-us/articles/
+                            219122667-Formatting-Your-Submission-for-Design-Challenges"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          help center.
+                        </a>
                       </p>
                     </div>
                   ) : null }
@@ -268,13 +266,11 @@ Please follow the instructions on the Challenge Details page regarding
                     If you are having trouble submitting, please send
                     your submission to
                     &zwnj;
-                      {
-                        <a
-                          href="mailto://support@topcoder.com"
-                        >
-                          support@topcoder.com
-                        </a>
-                      }
+                      <a
+                        href="mailto://support@topcoder.com"
+                      >
+                        support@topcoder.com
+                      </a>
                     </p>
                   )
                   : (
@@ -282,13 +278,11 @@ Please follow the instructions on the Challenge Details page regarding
                     If you are having trouble uploading your file, please send
                     your submission to
                     &zwnj;
-                      {
-                        <a
-                          href="mailto://support@topcoder.com"
-                        >
-                          support@topcoder.com
-                        </a>
-                      }
+                      <a
+                        href="mailto://support@topcoder.com"
+                      >
+                        support@topcoder.com
+                      </a>
                     </p>
                   )}
               </div>
@@ -297,15 +291,13 @@ Please follow the instructions on the Challenge Details page regarding
               <p>
                 Submitting your files means you hereby agree to the
                 &zwnj;
-                {
-                  <a
-                    href={config.URL.INFO.TOPCODER_TERMS}
-                    rel="noreferrer noopener"
-                    target="_blank"
-                  >
-                    Topcoder terms of use
-                  </a>
-                }
+                <a
+                  href={config.URL.INFO.TOPCODER_TERMS}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >
+                  Topcoder terms of use
+                </a>
 &zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
                 you hereby assign, grant and transfer and agree to assign, grant and
