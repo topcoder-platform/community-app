@@ -4,6 +4,7 @@
   @include roboto-bold;
 
   font-weight: 700 !important;
+  text-decoration: none !important;
 }
 
 @mixin primary-green {
@@ -101,6 +102,7 @@
   @include roboto-bold;
 
   font-weight: 700 !important;
+  text-decoration: none !important;
 }
 
 @mixin secondary-gray {
