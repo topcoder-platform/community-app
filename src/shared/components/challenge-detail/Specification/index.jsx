@@ -391,12 +391,9 @@ How To Submit
                         <li>
                           New to Studio?
                           &zwnj;
-                          {
-                            <a href={config.URL.INFO.DESIGN_CHALLENGE_TYPES}>
-                              Learn how to compete here
-                            </a>
-                          }
-.
+                          <a href={config.URL.INFO.DESIGN_CHALLENGE_TYPES}>
+                            Learn how to compete here
+                          </a>
                         </li>
                         <li>
                           Upload your submission in three parts (
@@ -458,15 +455,13 @@ Payments
                       considered as per Wipro standard currency conversion
                       guidelines. Please refer to policy document at
                       &zwnj;
-                      {
-                        <a
-                          href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
+                      <a
+                        href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
 https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
-                        </a>
-                      }
+                      </a>
 &zwnj;
                       for details regarding the policy.
                     </p>
@@ -479,16 +474,13 @@ https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/Top
                     profile to receive payments, and general payment questions,
                     please refer to
                     &zwnj;
-                    {
-                      <a
-                        href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
+                    <a
+                      href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
 https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
-                      </a>
-                    }
-.
+                    </a>
                   </p>
                 )
               }

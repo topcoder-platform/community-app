@@ -248,6 +248,34 @@ $link-color: #0d61bf;
   }
 }
 
+.group-authors {
+  padding: 0 50px;
+
+  .group-title {
+    margin-bottom: 7px;
+  }
+
+  .group-content {
+    flex-wrap: wrap;
+  }
+
+  .group-cell {
+    height: 46px;
+    width: 100%;
+    align-items: center;
+    margin-left: -10px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+  }
+
+  .cell-text {
+    font-size: 16px;
+    line-height: 19px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .cell-image {
   width: 90px;
   height: 80px;
@@ -299,7 +327,16 @@ $link-color: #0d61bf;
   }
 }
 
-.forumLink {
+.authorLink {
+  font-size: 18px !important;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-decoration: none !important;
+}
+
+.forumLink,
+.authorLink {
   display: flex;
   align-items: flex-start;
 
@@ -313,6 +350,12 @@ $link-color: #0d61bf;
   &:visited {
     color: $link-color;
   }
+}
+
+.authorName {
+  color: #000;
+  font-size: 14px !important;
+  margin-top: 5px;
 }
 
 @include xs-to-sm {

@@ -87,44 +87,36 @@ export default function Challenges({
                         You have no active challenges at this moment. What are
                         you interested&nbsp;in?
                         &zwnj;
-                        {
-                          <Link
-                            openNewTab
-                            to={config.URL.ARENA}
-                          >
-                            Competitive Programming
-                          </Link>
-                        }
+                        <Link
+                          openNewTab
+                          to={config.URL.ARENA}
+                        >
+                          Competitive Programming
+                        </Link>
 ?
                         &zwnj;
-                        {
-                          <Link
-                            openNewTab
-                            to="/challenges?filter[tracks][data_science]=true"
-                          >
-                            Data Science
-                          </Link>
-                        }
+                        <Link
+                          openNewTab
+                          to="/challenges?filter[tracks][data_science]=true"
+                        >
+                          Data Science
+                        </Link>
 ?
                         &zwnj;
-                        {
-                          <Link
-                            openNewTab
-                            to="/challenges?filter[tracks][design]=true"
-                          >
-                            Design
-                          </Link>
-                        }
+                        <Link
+                          openNewTab
+                          to="/challenges?filter[tracks][design]=true"
+                        >
+                          Design
+                        </Link>
 ?
                         &zwnj;
-                        {
-                          <Link
-                            openNewTab
-                            to="/challenges?filter[tracks][develop]=true"
-                          >
-                            Software Development
-                          </Link>
-                        }
+                        <Link
+                          openNewTab
+                          to="/challenges?filter[tracks][develop]=true"
+                        >
+                          Software Development
+                        </Link>
 ?
                       </p>
                     </div>

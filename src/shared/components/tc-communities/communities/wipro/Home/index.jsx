@@ -165,14 +165,6 @@ export default function Home(props) {
             link={[{
               title: 'Start Earning',
               url: 'challenges',
-            }, {
-              newTab: true,
-              title: 'Become a Reviewer',
-              url: 'https://help.topcoder.com/hc/requests/new',
-            }, {
-              newTab: true,
-              title: 'Become a Copilot',
-              url: 'https://help.topcoder.com/hc/requests/new',
             }]}
             theme={ImageTextStyles}
             imageSrc="/community-app-assets/themes/wipro/home/image-text-do.png"

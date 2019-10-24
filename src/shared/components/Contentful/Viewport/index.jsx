@@ -163,7 +163,7 @@ ViewportContentLoader.propTypes = {
 };
 
 /* Loads the main viewport entry. */
-function ViewportLoader(props) {
+export function ViewportLoader(props) {
   const {
     id,
     preview,
