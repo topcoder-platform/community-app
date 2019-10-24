@@ -206,22 +206,23 @@ Your Design Files:
             </h3>
             <ol>
               <li>
-                {'Look for instructions in this challenge regarding what files to provide.'}
+                Look for instructions in this challenge regarding what files to provide.
               </li>
               <li>
-                {'Place your submission files into a "Submission.zip" file.'}
+                Place your submission files into a &quot;Submission.zip&quot; file.
               </li>
               <li>
-                {'Place all of your source files into a "Source.zip" file.'}
+                Place all of your source files into a &quot;Source.zip&quot; file.
               </li>
               <li>
-                {'Declare your fonts, stock photos, and icons in a "Declaration.txt" file.'}
+                Declare your fonts, stock photos, and icons in a &quot;Declaration.txt&quot; file.
               </li>
               <li>
-                {'Create a JPG preview file.'}
+                Create a JPG preview file.
               </li>
               <li>
-                {'Place the 4 files you just created into a single zip file. This will be what you upload.'}
+                Place the 4 files you just created into a single zip file.
+                This will be what you upload.
               </li>
             </ol>
             <p styleName="link-like-paragraph">
@@ -249,9 +250,9 @@ Screening:
             <p styleName="link-like-paragraph">
               All submissions are screened for eligibility before the challenge
               holder picks winners. Don
-              {"'"}
+              &quot;
 t let your hard work go to waste. Learn more about how to
-              {' '}
+              &nbsp;
               <a href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges">
                 pass screening.
               </a>
@@ -259,11 +260,9 @@ t let your hard work go to waste. Learn more about how to
             <p styleName="link-like-paragraph">
               Questions?
               &zwnj;
-              {
-                <a href={forumLink}>
-                  Ask in the Challenge Discussion Forums.
-                </a>
-              }
+              <a href={forumLink}>
+                Ask in the Challenge Discussion Forums.
+              </a>
             </p>
             <h2>
 SOURCE FILES:

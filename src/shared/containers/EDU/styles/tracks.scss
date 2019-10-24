@@ -37,13 +37,14 @@
       margin: 72px auto 49px auto;
       position: relative;
       z-index: 3;
+      color: #2a2a2a;
 
       @include xs-to-sm {
         margin-bottom: 200px;
       }
 
       .bannerText {
-        color: #2a2a2a;
+        color: inherit;
         font-family: BarlowCondensed, sans-serif;
         font-size: 80px;
         font-weight: 600;
@@ -71,7 +72,7 @@
           margin-right: 30px;
 
           .bannerCount {
-            color: #2a2a2a;
+            color: inherit;
             font-family: BarlowCondensed, sans-serif;
             font-size: 34px;
             font-weight: 500;
@@ -79,7 +80,7 @@
           }
 
           .bannerCountLabel {
-            color: #2a2a2a;
+            color: inherit;
             font-family: Roboto, sans-serif;
             font-size: 12px;
             font-weight: 700;

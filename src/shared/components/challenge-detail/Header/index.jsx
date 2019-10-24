@@ -219,11 +219,9 @@ export default function ChallengeHeader(props) {
         <div>
           Status:
           &zwnj;
-          {
-            <span styleName="deadline-highlighted">
-              {_.upperFirst(_.lowerCase(status))}
-            </span>
-          }
+          <span styleName="deadline-highlighted">
+            {_.upperFirst(_.lowerCase(status))}
+          </span>
         </div>
       );
       break;

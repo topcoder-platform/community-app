@@ -25,6 +25,7 @@ Completed Challenges History
           competitor={competitor}
           isCopilot={isCopilot}
           isAlgo={isAlgo}
+          themeName="Default"
         />
       </div>
       <div styleName="head">
