@@ -176,7 +176,7 @@ workflows:
               only: 
                 - develop
                 - hot-fix
-                - feature-sort-submissions
+                - feature-sort-registrations
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
