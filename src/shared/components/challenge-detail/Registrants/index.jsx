@@ -10,6 +10,7 @@ import _ from 'lodash';
 import cn from 'classnames';
 import { config } from 'topcoder-react-utils';
 
+import sortList from 'utils/challenge-detail/sort';
 import Tooltip from 'components/Tooltip';
 import CheckMark from '../icons/check-mark.svg';
 import ArrowDown from '../../../../assets/images/arrow-down.svg';
@@ -47,16 +48,14 @@ export default class Registrants extends React.Component {
     super(props, context);
 
     this.state = {
-      notFoundFlagTry1: {},
-      notFoundFlagTry2: {},
       sortedRegistrants: [],
     };
 
     this.getCheckPoint = this.getCheckPoint.bind(this);
     this.getCheckPointDate = this.getCheckPointDate.bind(this);
     this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
-    this.getFlagSecondTry = this.getFlagSecondTry.bind(this);
     this.sortRegistrants = this.sortRegistrants.bind(this);
+    this.getRegistrantsSortParam = this.getRegistrantsSortParam.bind(this);
     this.updateSortedRegistrants = this.updateSortedRegistrants.bind(this);
   }
 
@@ -129,8 +128,8 @@ export default class Registrants extends React.Component {
    * @param {Object} registrant registrant info
    */
   getFlagFirstTry(registrant) {
-    const { notFoundFlagTry1 } = this.state;
-    if (!registrant.countryInfo || notFoundFlagTry1[registrant.handle]) {
+    const { notFoundCountryFlagUrl } = this.props;
+    if (!registrant.countryInfo || notFoundCountryFlagUrl[registrant.countryInfo.countryCode]) {
       return null;
     }
 
@@ -138,21 +137,28 @@ export default class Registrants extends React.Component {
   }
 
   /**
-   * Check if it have flag for second try
-   * @param {Object} registrant registrant info
+   * Get registrans sort parameter
    */
-  getFlagSecondTry(registrant) {
-    const { notFoundFlagTry2 } = this.state;
-    if (notFoundFlagTry2[registrant.handle]) {
-      return null;
+  getRegistrantsSortParam() {
+    const {
+      registrantsSort,
+    } = this.props;
+    let { field, sort } = registrantsSort;
+    if (!field) {
+      field = 'Rating'; // default field for registrans sorting
+    }
+    if (!sort) {
+      sort = 'desc'; // default order for registrans sorting
     }
 
-    return `${config.URL.COUNTRY_FLAG_URL}/${registrant.countryCode}.svg`;
+    return {
+      field,
+      sort,
+    };
   }
 
   /**
    * Update sorted registrant array
-   * @param {Array} sortedRegistrants sorted registrant array
    */
   updateSortedRegistrants() {
     const { registrants } = this.props;
@@ -166,24 +172,8 @@ export default class Registrants extends React.Component {
    * @param {Array} registrants array of registrant
    */
   sortRegistrants(registrants) {
-    const {
-      registrantsSort,
-    } = this.props;
-    const { field, sort } = registrantsSort;
-
-    const compare = (a, b) => {
-      if (a > b) {
-        return 1;
-      }
-
-      if (a === b) {
-        return 0;
-      }
-
-      return -1;
-    };
-
-    registrants.sort((a, b) => {
+    const { field, sort } = this.getRegistrantsSortParam();
+    return sortList(registrants, field, sort, (a, b) => {
       let valueA = 0;
       let valueB = 0;
       let valueIsString = false;
@@ -200,8 +190,8 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Username': {
-          valueA = `${a.handle.toLowerCase()}`;
-          valueB = `${b.handle.toLowerCase()}`;
+          valueA = `${a.handle}`.toLowerCase();
+          valueB = `${b.handle}`.toLowerCase();
           valueIsString = true;
           break;
         }
@@ -234,26 +224,12 @@ export default class Registrants extends React.Component {
         }
         default:
       }
-      if (valueIsString) {
-        if (_.isNil(valueA)) {
-          valueA = '';
-        }
-        if (_.isNil(valueB)) {
-          valueB = '';
-        }
-      } else {
-        if (_.isNil(valueA)) {
-          valueA = 0;
-        }
-        if (_.isNil(valueB)) {
-          valueB = 0;
-        }
-      }
-      if (sort === 'desc') {
-        return compare(valueB, valueA);
-      }
 
-      return compare(valueA, valueB);
+      return {
+        valueA,
+        valueB,
+        valueIsString,
+      };
     });
   }
 
@@ -262,20 +238,14 @@ export default class Registrants extends React.Component {
       challenge,
       checkpointResults,
       results,
-      registrantsSort,
       onSortChange,
+      onGetFlagImageFail,
     } = this.props;
     const {
       prizes,
     } = challenge;
-    const { notFoundFlagTry1, notFoundFlagTry2, sortedRegistrants } = this.state;
-    let { field, sort } = registrantsSort;
-    if (!field) {
-      field = 'Rating';
-    }
-    if (!sort) {
-      sort = 'desc';
-    }
+    const { sortedRegistrants } = this.state;
+    const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
 
     const checkpoints = challenge.checkpoints || [];
@@ -439,7 +409,6 @@ export default class Registrants extends React.Component {
               }
 
               const flagFistTry = this.getFlagFirstTry(r);
-              const flagSecondTry = this.getFlagSecondTry(r);
 
               return (
                 <div styleName="row" key={r.handle} role="row">
@@ -448,37 +417,21 @@ export default class Registrants extends React.Component {
   Country
                     </div>
                     <span role="cell">
-                      {r.countryInfo && (flagFistTry || flagSecondTry) && (
+                      {r.countryInfo && flagFistTry && (
                         <Tooltip
                           content={(
                             <div styleName="tooltip">{r.countryInfo.name}</div>
                         )}
                         >
-                          {flagFistTry && (
-                            <img
-                              width="25"
-                              src={flagFistTry}
-                              alt="country"
-                              onError={() => {
-                                notFoundFlagTry1[r.handle] = true;
-                                this.setState({ notFoundFlagTry1 });
-                              }}
-                            />
-                          )}
-                          {!flagFistTry && (
-                            <img
-                              width="25"
-                              src={flagSecondTry}
-                              alt="country"
-                              onError={() => {
-                                notFoundFlagTry2[r.handle] = true;
-                                this.setState({ notFoundFlagTry2 });
-                              }}
-                            />
-                          )}
+                          <img
+                            width="25"
+                            src={flagFistTry}
+                            alt="country"
+                            onError={() => onGetFlagImageFail(r.countryInfo)}
+                          />
                         </Tooltip>
                       )}
-                      {r.countryInfo && !flagFistTry && !flagSecondTry && (r.countryInfo.name)}
+                      {r.countryInfo && !flagFistTry && (r.countryInfo.name)}
                       {!r.countryInfo && ('-')}
                     </span>
                   </div>
@@ -555,6 +508,7 @@ Registrants.defaultProps = {
   checkpointResults: {},
   registrantsSort: {},
   onSortChange: () => {},
+  onGetFlagImageFail: () => {},
   registrants: [],
 };
 
@@ -573,10 +527,12 @@ Registrants.propTypes = {
   }).isRequired,
   results: PT.arrayOf(PT.shape()),
   checkpointResults: PT.shape(),
+  registrants: PT.arrayOf(PT.shape()),
   registrantsSort: PT.shape({
     field: PT.string,
     sort: PT.string,
   }),
   onSortChange: PT.func,
-  registrants: PT.arrayOf(PT.shape()),
+  notFoundCountryFlagUrl: PT.objectOf(PT.bool).isRequired,
+  onGetFlagImageFail: PT.func,
 };

@@ -149,8 +149,6 @@ module.exports = {
     COMMUNITY_API: 'http://localhost:8000',
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
     EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
-
-    COUNTRY_FLAG_URL: 'http://countries.topcoder-dev.com.s3.amazonaws.com',
   },
 
   /* Information about Topcoder user groups can be cached in various places.

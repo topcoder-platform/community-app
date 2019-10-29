@@ -118,6 +118,11 @@ class ChallengeDetailPageContainer extends React.Component {
         field: '',
         sort: '',
       },
+      submissionsSort: {
+        field: '',
+        sort: '',
+      },
+      notFoundCountryFlagUrl: {},
     };
 
     this.instanceId = shortId();
@@ -256,6 +261,8 @@ class ChallengeDetailPageContainer extends React.Component {
     const {
       showDeadlineDetail,
       registrantsSort,
+      submissionsSort,
+      notFoundCountryFlagUrl,
     } = this.state;
 
     /* Generation of data for SEO meta-tags. */
@@ -381,6 +388,11 @@ class ChallengeDetailPageContainer extends React.Component {
                 }
                 results={results2}
                 registrantsSort={registrantsSort}
+                notFoundCountryFlagUrl={notFoundCountryFlagUrl}
+                onGetFlagImageFail={(countryInfo) => {
+                  notFoundCountryFlagUrl[countryInfo.countryCode] = true;
+                  this.setState({ notFoundCountryFlagUrl });
+                }}
                 onSortChange={sort => this.setState({ registrantsSort: sort })}
               />
             )
@@ -399,6 +411,7 @@ class ChallengeDetailPageContainer extends React.Component {
             && (
               <Submissions
                 challenge={challenge}
+                submissions={challenge.submissions}
                 loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                 mmSubmissions={mmSubmissions}
                 loadMMSubmissions={loadMMSubmissions}
@@ -406,6 +419,13 @@ class ChallengeDetailPageContainer extends React.Component {
                 isLoadingSubmissionInformation={isLoadingSubmissionInformation}
                 submssionInformation={submissionInformation}
                 loadSubmissionInformation={loadSubmissionInformation}
+                submissionsSort={submissionsSort}
+                notFoundCountryFlagUrl={notFoundCountryFlagUrl}
+                onGetFlagImageFail={(countryInfo) => {
+                  notFoundCountryFlagUrl[countryInfo.countryCode] = true;
+                  this.setState({ notFoundCountryFlagUrl });
+                }}
+                onSortChange={sort => this.setState({ submissionsSort: sort })}
               />
             )
           }
@@ -508,12 +528,52 @@ ChallengeDetailPageContainer.propTypes = {
 
 function mapStateToProps(state, props) {
   const { lookup: { allCountries } } = state;
+  let { challenge: { mmSubmissions } } = state;
   const challenge = state.challenge.details || {};
   if (challenge.registrants) {
     challenge.registrants = challenge.registrants.map(registrant => ({
       ...registrant,
       countryInfo: _.find(allCountries, { countryCode: registrant.countryCode }),
     }));
+
+    if (challenge.submissions) {
+      challenge.submissions = challenge.submissions.map(submission => ({
+        ...submission,
+        registrant: _.find(challenge.registrants, { handle: submission.submitter }),
+      }));
+    }
+
+    if (mmSubmissions) {
+      mmSubmissions = mmSubmissions.map((submission) => {
+        let registrant;
+        let { member } = submission;
+        let submissionDetail = _.find(challenge.submissions, { submitter: submission.member });
+        if (!submissionDetail) {
+          // get submission detail from submissions challenge detail
+          submissionDetail = _.find(challenge.submissions, s => (`${s.submitterId}` === `${submission.member}`));
+        }
+
+        if (submissionDetail) {
+          member = submissionDetail.submitter;
+          ({ registrant } = submissionDetail);
+        }
+
+        if (!registrant) {
+          registrant = _.find(challenge.registrants, { handle: submission.member });
+        }
+
+        if (!submissionDetail && registrant) {
+          // sometime member is member id, do this to make sure it's alway member handle
+          member = registrant.handle;
+        }
+
+        return ({
+          ...submission,
+          registrant,
+          member,
+        });
+      });
+    }
   }
 
   return {
@@ -551,7 +611,7 @@ function mapStateToProps(state, props) {
     isLoadingSubmissionInformation:
       Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
     submissionInformation: state.challenge.submissionInformation,
-    mmSubmissions: state.challenge.mmSubmissions,
+    mmSubmissions,
     allCountries: state.lookup.allCountries,
   };
 }

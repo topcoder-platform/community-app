@@ -5,24 +5,25 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { get } from 'lodash';
+import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
+
+import Tooltip from 'components/Tooltip';
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
 
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup,
+  isMM, openHistory, member, submissions, toggleHistory, colorStyle,
+  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, registrant,
+  getFlagFirstTry, onGetFlagImageFail, finalScore, provisionalScore,
 }) {
   const {
-    submissionTime, provisionalScore,
+    submissionTime,
   } = submissions[0];
-  let { finalScore } = submissions[0];
-  finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
-  const initialScore = (!provisionalScore || provisionalScore < 0) ? '-' : provisionalScore;
+  const flagFistTry = registrant ? getFlagFirstTry(registrant) : null;
   return (
     <div styleName="container">
       <div styleName="row">
@@ -41,16 +42,39 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          <a href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
-            {member}
+          <div styleName="col">
+            {registrant && registrant.countryInfo && flagFistTry && (
+              <Tooltip
+                content={(
+                  <div styleName="tooltip">{registrant.countryInfo.name}</div>
+              )}
+              >
+                <img
+                  width="25"
+                  src={flagFistTry}
+                  alt="country"
+                  onError={() => onGetFlagImageFail(registrant.countryInfo)}
+                />
+              </Tooltip>
+            )}
+            {registrant && registrant.countryInfo && !flagFistTry && (
+              registrant.countryInfo.name
+            )}
+            {(!registrant || !registrant.countryInfo) && ('-')}
+          </div>
+          <span styleName="col" style={colorStyle}>
+            { (registrant && !_.isNil(registrant.rating)) ? registrant.rating : '-'}
+          </span>
+          <a styleName="col" href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
+            {member || '-'}
           </a>
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
+            { (!_.isNil(finalScore)) ? finalScore : '-' }
           </div>
           <div styleName="col">
-            { isMM ? get(score, 'provisional', initialScore) : initialScore }
+            { (!_.isNil(provisionalScore)) ? provisionalScore : '-' }
           </div>
           <div styleName="col time">
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
@@ -126,6 +150,11 @@ SubmissionRow.defaultProps = {
   isReviewPhaseComplete: false,
   finalRank: null,
   provisionalRank: null,
+  registrant: null,
+  getFlagFirstTry: () => (null),
+  onGetFlagImageFail: () => {},
+  finalScore: null,
+  provisionalScore: null,
 };
 
 SubmissionRow.propTypes = {
@@ -133,8 +162,10 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
-    provisionalScore: PT.number,
-    finalScore: PT.number,
+    provisionalScore: PT.oneOfType([
+      PT.string,
+      PT.number,
+    ]),
     initialScore: PT.number,
     submissionId: PT.string.isRequired,
     submissionTime: PT.string.isRequired,
@@ -143,10 +174,20 @@ SubmissionRow.propTypes = {
     final: PT.number,
     provisional: PT.number,
   }),
+  registrant: PT.shape({
+    rating: PT.number,
+    countryInfo: PT.shape({
+      name: PT.string,
+    }),
+  }),
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,
+  finalScore: PT.number,
+  provisionalScore: PT.number,
   onShowPopup: PT.func.isRequired,
+  getFlagFirstTry: PT.func,
+  onGetFlagImageFail: PT.func,
 };

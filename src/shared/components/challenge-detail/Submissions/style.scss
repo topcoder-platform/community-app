@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import '~styles/mixins';
 
 .container {
   @include roboto-regular;
@@ -6,6 +6,10 @@
   max-width: 1060px;
   margin-left: auto;
   margin-right: auto;
+
+  div {
+    white-space: nowrap;
+  }
 
   &.no-view {
     display: flex;
@@ -182,7 +186,7 @@
     text-align: center;
 
     &.col-1 {
-      flex: 20;
+      flex: 22;
       display: flex;
 
       .col {
@@ -191,13 +195,17 @@
     }
 
     &.col-2 {
-      flex: 15;
-      text-align: left;
-      margin-left: 10px;
+      flex: 35;
+      display: flex;
       color: $tc-gray-50;
+      padding-left: 10px;
 
       a {
         color: black;
+      }
+
+      .col {
+        flex: 1;
       }
     }
 
@@ -247,19 +255,95 @@
     .col-1 {
       padding-left: 30px;
       text-align: left;
-      width: 33%;
+      width: 10%;
+      justify-content: flex-start;
+      display: flex;
+      min-width: 140px;
+
+      @include xs-to-sm {
+        min-width: none;
+      }
     }
 
     .col-2 {
-      width: 33%;
+      width: 10%;
+      justify-content: flex-start;
+      display: flex;
     }
 
     .col-3 {
-      width: 33%;
+      width: 26.6%;
+    }
+
+    .col-4 {
+      width: 26.6%;
+    }
+
+    .col-5 {
+      width: 26.6%;
     }
 
     .handle {
       color: $tc-black;
+    }
+  }
+}
+
+.tooltip {
+  font-size: 14px;
+  margin: 10px 10px 0 10px;
+  padding-top: 5px;
+}
+
+.col-arrow {
+  display: flex;
+  padding-left: 5px;
+
+  :global {
+    svg {
+      margin-bottom: -1px;
+    }
+  }
+}
+
+.col-arrow-is-sorting {
+  :global {
+    g {
+      fill: $tc-dark-blue;
+    }
+  }
+}
+
+.col-arrow-sort-asc {
+  :global {
+    svg {
+      -moz-transform: scale(1, -1);
+      -o-transform: scale(1, -1);
+      -webkit-transform: scale(1, -1);
+      transform: scale(1, -1);
+    }
+  }
+}
+
+.header-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  background: transparent;
+
+  &:hover {
+    color: $tc-dark-blue;
+
+    :global {
+      g {
+        fill: $tc-dark-blue;
+      }
     }
   }
 }
