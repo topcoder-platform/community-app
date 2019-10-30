@@ -2,7 +2,7 @@
 
 There are total 4 deployment environments
 
-| # | Environment  | Backend API |        Purpose        |                   URL                        |
+| S | Environment  | Backend API |        Purpose        |                   URL                        |
 | - | ------------ | ----------- | --------------------- | -------------------------------------------- |
 | 1 | Development  | Development | feature/fixes testing | `https://community-app.topcoder-dev.com`     |
 | 2 | Test         | Development | feature/fixes testing | `https://test-community-app.topcoder-dev.com`|
