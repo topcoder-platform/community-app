@@ -353,7 +353,6 @@ class SubmissionsComponent extends React.Component {
     );
 
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     // copy colorStyle from registrants to submissions
@@ -444,7 +443,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Rating') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-1 header-sort"
+                styleName="col-2 header-sort"
               >
                 <span>Rating</span>
                 <div
@@ -466,7 +465,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Username') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-2 header-sort"
+                styleName="col-3 header-sort"
               >
                 <span>Username</span>
                 <div
@@ -488,7 +487,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Submission Date') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-3 header-sort"
+                styleName="col-4 header-sort"
               >
                 <span>Submission Date</span>
                 <div
@@ -510,7 +509,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Initial / Final Score') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-4 header-sort"
+                styleName="col-5 header-sort"
               >
                 <span>Initial / Final Score</span>
                 <div
@@ -720,18 +719,18 @@ class SubmissionsComponent extends React.Component {
           !isMM && (
             sortedSubmissions.map(s => (
               <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
-                <div styleName="col-1" style={s.colorStyle}>
+                <div styleName="col-2" style={s.colorStyle}>
                   { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
                 </div>
-                <div styleName="col-2">
+                <div styleName="col-3">
                   <a href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle" style={s.colorStyle}>
                     {s.submitter}
                   </a>
                 </div>
-                <div styleName="col-3">
+                <div styleName="col-4">
                   {moment(s.submissions[0].submissionTime).format('MMM DD, YYYY HH:mm')}
                 </div>
-                <div styleName="col-4">
+                <div styleName="col-5">
                   {s.submissions[0].initialScore ? s.submissions[0].initialScore.toFixed(2) : 'N/A'}
                   &zwnj;
                   &zwnj;/

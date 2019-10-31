@@ -245,6 +245,7 @@ export default class Registrants extends React.Component {
     const { sortedRegistrants } = this.state;
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
+    const isDesign = challenge.track.toLowerCase() === 'design';
 
     const checkpoints = challenge.checkpoints || [];
 
@@ -254,29 +255,33 @@ export default class Registrants extends React.Component {
     return (
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
-          <button
-            type="button"
-            onClick={() => {
-              onSortChange({
-                field: 'Rating',
-                sort: (field === 'Rating') ? revertSort : 'desc',
-              });
-            }}
-            styleName="col-1 table-header"
-          >
-            <span role="columnheader">Rating</span>
-            <div
-              styleName={cn(
-                'col-arrow',
-                {
-                  'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
-                  'col-arrow-is-sorting': field === 'Rating',
-                },
-              )}
-              type="button"
-            ><ArrowDown />
-            </div>
-          </button>
+          {
+            !isDesign && (
+              <button
+                type="button"
+                onClick={() => {
+                  onSortChange({
+                    field: 'Rating',
+                    sort: (field === 'Rating') ? revertSort : 'desc',
+                  });
+                }}
+                styleName="col-2 table-header"
+              >
+                <span role="columnheader">Rating</span>
+                <div
+                  styleName={cn(
+                    'col-arrow',
+                    {
+                      'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
+                      'col-arrow-is-sorting': field === 'Rating',
+                    },
+                  )}
+                  type="button"
+                ><ArrowDown />
+                </div>
+              </button>
+            )
+          }
           <button
             onClick={() => {
               onSortChange({
@@ -285,7 +290,7 @@ export default class Registrants extends React.Component {
               });
             }}
             type="button"
-            styleName="col-2 table-header"
+            styleName="col-3 table-header"
           >
             <span role="columnheader">Username</span>
             <div
@@ -300,7 +305,7 @@ export default class Registrants extends React.Component {
             </div>
           </button>
           <button
-            styleName="col-3 table-header"
+            styleName="col-4 table-header"
             onClick={() => {
               onSortChange({
                 field: 'Registration Date',
@@ -323,7 +328,7 @@ export default class Registrants extends React.Component {
           </button>
           {twoRounds && (
           <button
-            styleName="col-4 table-header"
+            styleName="col-5 table-header"
             onClick={() => {
               onSortChange({
                 field: 'Round 1 Submitted Date',
@@ -353,7 +358,7 @@ export default class Registrants extends React.Component {
               });
             }}
             type="button"
-            styleName="col-5 table-header"
+            styleName="col-6 table-header"
           >
             <span role="columnheader">{twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}</span>
             <div
@@ -386,24 +391,28 @@ export default class Registrants extends React.Component {
 
               return (
                 <div styleName="row" key={r.handle} role="row">
-                  <div styleName="col-1">
-                    <div styleName="sm-only title">
+                  {
+                    !isDesign && (
+                      <div styleName="col-2">
+                        <div styleName="sm-only title">
   Rating
-                    </div>
-                    <div>
-                      <span style={colorStyle} role="cell">
-                        { !_.isNil(r.rating) ? r.rating : '-'}
-                      </span>
-                    </div>
-                  </div>
-                  <div styleName="col-2">
+                        </div>
+                        <div>
+                          <span style={colorStyle} role="cell">
+                            { !_.isNil(r.rating) ? r.rating : '-'}
+                          </span>
+                        </div>
+                      </div>
+                    )
+                  }
+                  <div styleName="col-3">
                     <span role="cell">
                       <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
                         {r.handle}
                       </a>
                     </span>
                   </div>
-                  <div styleName="col-3">
+                  <div styleName="col-4">
                     <div styleName="sm-only title">
   Registration Date
                     </div>
@@ -412,7 +421,7 @@ export default class Registrants extends React.Component {
                   {
                     twoRounds
                     && (
-                    <div styleName="col-4">
+                    <div styleName="col-5">
                       <div styleName="sm-only title">
   Round 1 Submitted Date
                       </div>
@@ -428,7 +437,7 @@ export default class Registrants extends React.Component {
                     </div>
                     )
                   }
-                  <div styleName="col-5">
+                  <div styleName="col-6">
                     <div styleName="sm-only title">
                       {twoRounds ? 'Round 2 ' : ''}
   Submitted Date
@@ -470,6 +479,7 @@ Registrants.propTypes = {
       scheduledEndTime: PT.string,
     })).isRequired,
     checkpoints: PT.arrayOf(PT.shape()),
+    track: PT.any,
     prizes: PT.arrayOf(PT.number).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
