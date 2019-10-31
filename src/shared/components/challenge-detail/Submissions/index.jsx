@@ -353,6 +353,7 @@ class SubmissionsComponent extends React.Component {
     );
 
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     // copy colorStyle from registrants to submissions
@@ -435,28 +436,32 @@ class SubmissionsComponent extends React.Component {
             </div>
           ) : (
             <div styleName="head">
-              <button
-                type="button"
-                onClick={() => {
-                  onSortChange({
-                    field: 'Rating',
-                    sort: (field === 'Rating') ? revertSort : 'desc',
-                  });
-                }}
-                styleName="col-2 header-sort"
-              >
-                <span>Rating</span>
-                <div
-                  styleName={cn(
-                    'col-arrow',
-                    {
-                      'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
-                      'col-arrow-is-sorting': field === 'Rating',
-                    },
-                  )}
-                ><ArrowDown />
-                </div>
-              </button>
+              {
+                !isF2F && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Rating',
+                        sort: (field === 'Rating') ? revertSort : 'desc',
+                      });
+                    }}
+                    styleName="col-2 header-sort"
+                  >
+                    <span>Rating</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Rating',
+                        },
+                      )}
+                    ><ArrowDown />
+                    </div>
+                  </button>
+                )
+              }
               <button
                 type="button"
                 onClick={() => {
@@ -719,9 +724,13 @@ class SubmissionsComponent extends React.Component {
           !isMM && (
             sortedSubmissions.map(s => (
               <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
-                <div styleName="col-2" style={s.colorStyle}>
-                  { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
-                </div>
+                {
+                  !isF2F && (
+                    <div styleName="col-2" style={s.colorStyle}>
+                      { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
+                    </div>
+                  )
+                }
                 <div styleName="col-3">
                   <a href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle" style={s.colorStyle}>
                     {s.submitter}

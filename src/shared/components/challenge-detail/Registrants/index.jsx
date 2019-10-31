@@ -246,6 +246,7 @@ export default class Registrants extends React.Component {
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = challenge.track.toLowerCase() === 'design';
+    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
 
     const checkpoints = challenge.checkpoints || [];
 
@@ -256,7 +257,7 @@ export default class Registrants extends React.Component {
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
           {
-            !isDesign && (
+            !isDesign && !isF2F && (
               <button
                 type="button"
                 onClick={() => {
@@ -392,7 +393,7 @@ export default class Registrants extends React.Component {
               return (
                 <div styleName="row" key={r.handle} role="row">
                   {
-                    !isDesign && (
+                    !isDesign && !isF2F && (
                       <div styleName="col-2">
                         <div styleName="sm-only title">
   Rating
@@ -480,6 +481,7 @@ Registrants.propTypes = {
     })).isRequired,
     checkpoints: PT.arrayOf(PT.shape()),
     track: PT.any,
+    subTrack: PT.any,
     prizes: PT.arrayOf(PT.number).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
