@@ -13,7 +13,6 @@ import { isTokenExpired } from 'tc-accounts';
 import cn from 'classnames';
 
 import sortList from 'utils/challenge-detail/sort';
-import Tooltip from 'components/Tooltip';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { goToLogin } from 'utils/tc';
@@ -437,28 +436,6 @@ class SubmissionsComponent extends React.Component {
             </div>
           ) : (
             <div styleName="head">
-              {/*<button
-                styleName="col-1 header-sort"
-                type="button"
-                onClick={() => {
-                  onSortChange({
-                    field: 'Country',
-                    sort: (field === 'Country') ? revertSort : 'desc',
-                  });
-                }}
-              >
-                <span>Country</span>
-                <div
-                  styleName={cn(
-                    'col-arrow',
-                    {
-                      'col-arrow-sort-asc': (field === 'Country') && (sort === 'asc'),
-                      'col-arrow-is-sorting': field === 'Country',
-                    },
-                  )}
-                ><ArrowDown />
-                </div>
-              </button>*/}
               <button
                 type="button"
                 onClick={() => {
@@ -467,7 +444,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Rating') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-2 header-sort"
+                styleName="col-1 header-sort"
               >
                 <span>Rating</span>
                 <div
@@ -489,7 +466,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Username') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-3 header-sort"
+                styleName="col-2 header-sort"
               >
                 <span>Username</span>
                 <div
@@ -511,7 +488,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Submission Date') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-4 header-sort"
+                styleName="col-3 header-sort"
               >
                 <span>Submission Date</span>
                 <div
@@ -533,7 +510,7 @@ class SubmissionsComponent extends React.Component {
                     sort: (field === 'Initial / Final Score') ? revertSort : 'desc',
                   });
                 }}
-                styleName="col-5 header-sort"
+                styleName="col-4 header-sort"
               >
                 <span>Initial / Final Score</span>
                 <div
@@ -600,28 +577,6 @@ class SubmissionsComponent extends React.Component {
                 </button>
               </div>
               <div styleName="col-2 col">
-                {/*<button
-                  type="button"
-                  onClick={() => {
-                    onSortChange({
-                      field: 'Country',
-                      sort: (field === 'Country') ? revertSort : 'desc',
-                    });
-                  }}
-                  styleName="col header-sort"
-                >
-                  <span>Country</span>
-                  <div
-                    styleName={cn(
-                      'col-arrow',
-                      {
-                        'col-arrow-sort-asc': (field === 'Country') && (sort === 'asc'),
-                        'col-arrow-is-sorting': field === 'Country',
-                      },
-                    )}
-                  ><ArrowDown />
-                  </div>
-                </button>*/}
                 <button
                   type="button"
                   onClick={() => {
@@ -763,51 +718,28 @@ class SubmissionsComponent extends React.Component {
         }
         {
           !isMM && (
-            sortedSubmissions.map((s) => {
-              const flagFistTry = s.registrant ? this.getFlagFirstTry(s.registrant) : null;
-              return (
-                <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
-                  {/*<div styleName="col-1">
-                    {s.registrant && s.registrant.countryInfo && flagFistTry && (
-                      <Tooltip
-                        content={(
-                          <div styleName="tooltip">{s.registrant.countryInfo.name}</div>
-                      )}
-                      >
-                        <img
-                          width="25"
-                          src={flagFistTry}
-                          alt="country"
-                          onError={() => onGetFlagImageFail(s.registrant.countryInfo)}
-                        />
-                      </Tooltip>
-                    )}
-                    {s.registrant && s.registrant.countryInfo && !flagFistTry && (
-                      s.registrant.countryInfo.name
-                    )}
-                    {(!s.registrant || !s.registrant.countryInfo) && ('-')}
-                  </div>*/}
-                  <div styleName="col-2" style={s.colorStyle}>
-                    { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
-                  </div>
-                  <div styleName="col-3">
-                    <a href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle" style={s.colorStyle}>
-                      {s.submitter}
-                    </a>
-                  </div>
-                  <div styleName="col-4">
-                    {moment(s.submissions[0].submissionTime).format('MMM DD, YYYY HH:mm')}
-                  </div>
-                  <div styleName="col-5">
-                    {s.submissions[0].initialScore ? s.submissions[0].initialScore.toFixed(2) : 'N/A'}
-                    &zwnj;
-                    &zwnj;/
-                    &zwnj;
-                    {s.submissions[0].finalScore ? s.submissions[0].finalScore.toFixed(2) : 'N/A'}
-                  </div>
+            sortedSubmissions.map(s => (
+              <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
+                <div styleName="col-1" style={s.colorStyle}>
+                  { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
                 </div>
-              );
-            })
+                <div styleName="col-2">
+                  <a href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle" style={s.colorStyle}>
+                    {s.submitter}
+                  </a>
+                </div>
+                <div styleName="col-3">
+                  {moment(s.submissions[0].submissionTime).format('MMM DD, YYYY HH:mm')}
+                </div>
+                <div styleName="col-4">
+                  {s.submissions[0].initialScore ? s.submissions[0].initialScore.toFixed(2) : 'N/A'}
+                  &zwnj;
+                  &zwnj;/
+                  &zwnj;
+                  {s.submissions[0].finalScore ? s.submissions[0].finalScore.toFixed(2) : 'N/A'}
+                </div>
+              </div>
+            ))
           )
         }
         {

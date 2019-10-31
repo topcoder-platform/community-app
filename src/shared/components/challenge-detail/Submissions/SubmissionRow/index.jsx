@@ -9,7 +9,6 @@ import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 
-import Tooltip from 'components/Tooltip';
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
 
@@ -18,12 +17,11 @@ import './style.scss';
 export default function SubmissionRow({
   isMM, openHistory, member, submissions, toggleHistory, colorStyle,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, registrant,
-  getFlagFirstTry, onGetFlagImageFail, finalScore, provisionalScore,
+  finalScore, provisionalScore,
 }) {
   const {
     submissionTime,
   } = submissions[0];
-  const flagFistTry = registrant ? getFlagFirstTry(registrant) : null;
   return (
     <div styleName="container">
       <div styleName="row">
@@ -42,26 +40,6 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          {/*<div styleName="col">
-            {registrant && registrant.countryInfo && flagFistTry && (
-              <Tooltip
-                content={(
-                  <div styleName="tooltip">{registrant.countryInfo.name}</div>
-              )}
-              >
-                <img
-                  width="25"
-                  src={flagFistTry}
-                  alt="country"
-                  onError={() => onGetFlagImageFail(registrant.countryInfo)}
-                />
-              </Tooltip>
-            )}
-            {registrant && registrant.countryInfo && !flagFistTry && (
-              registrant.countryInfo.name
-            )}
-            {(!registrant || !registrant.countryInfo) && ('-')}
-          </div>*/}
           <span styleName="col" style={colorStyle}>
             { (registrant && !_.isNil(registrant.rating)) ? registrant.rating : '-'}
           </span>
@@ -151,8 +129,6 @@ SubmissionRow.defaultProps = {
   finalRank: null,
   provisionalRank: null,
   registrant: null,
-  getFlagFirstTry: () => (null),
-  onGetFlagImageFail: () => {},
   finalScore: null,
   provisionalScore: null,
 };
@@ -188,6 +164,4 @@ SubmissionRow.propTypes = {
   finalScore: PT.number,
   provisionalScore: PT.number,
   onShowPopup: PT.func.isRequired,
-  getFlagFirstTry: PT.func,
-  onGetFlagImageFail: PT.func,
 };

@@ -11,7 +11,6 @@ import cn from 'classnames';
 import { config } from 'topcoder-react-utils';
 
 import sortList from 'utils/challenge-detail/sort';
-import Tooltip from 'components/Tooltip';
 import CheckMark from '../icons/check-mark.svg';
 import ArrowDown from '../../../../assets/images/arrow-down.svg';
 import './style.scss';
@@ -239,7 +238,6 @@ export default class Registrants extends React.Component {
       checkpointResults,
       results,
       onSortChange,
-      onGetFlagImageFail,
     } = this.props;
     const {
       prizes,
@@ -256,30 +254,6 @@ export default class Registrants extends React.Component {
     return (
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
-          {/*
-          <button
-            type="button"
-            onClick={() => {
-              onSortChange({
-                field: 'Country',
-                sort: (field === 'Country') ? revertSort : 'desc',
-              });
-            }}
-            styleName="col-1 table-header"
-          >
-            <span role="columnheader">Country</span>
-            <div
-              styleName={cn(
-                'col-arrow',
-                {
-                  'col-arrow-sort-asc': (field === 'Country') && (sort === 'asc'),
-                  'col-arrow-is-sorting': field === 'Country',
-                },
-              )}
-            ><ArrowDown />
-            </div>
-          </button>
-          */}
           <button
             type="button"
             onClick={() => {
@@ -288,7 +262,7 @@ export default class Registrants extends React.Component {
                 sort: (field === 'Rating') ? revertSort : 'desc',
               });
             }}
-            styleName="col-2 table-header"
+            styleName="col-1 table-header"
           >
             <span role="columnheader">Rating</span>
             <div
@@ -311,7 +285,7 @@ export default class Registrants extends React.Component {
               });
             }}
             type="button"
-            styleName="col-3 table-header"
+            styleName="col-2 table-header"
           >
             <span role="columnheader">Username</span>
             <div
@@ -326,7 +300,7 @@ export default class Registrants extends React.Component {
             </div>
           </button>
           <button
-            styleName="col-4 table-header"
+            styleName="col-3 table-header"
             onClick={() => {
               onSortChange({
                 field: 'Registration Date',
@@ -349,7 +323,7 @@ export default class Registrants extends React.Component {
           </button>
           {twoRounds && (
           <button
-            styleName="col-5 table-header"
+            styleName="col-4 table-header"
             onClick={() => {
               onSortChange({
                 field: 'Round 1 Submitted Date',
@@ -379,7 +353,7 @@ export default class Registrants extends React.Component {
               });
             }}
             type="button"
-            styleName="col-6 table-header"
+            styleName="col-5 table-header"
           >
             <span role="columnheader">{twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}</span>
             <div
@@ -410,34 +384,9 @@ export default class Registrants extends React.Component {
                 final = '-';
               }
 
-              const flagFistTry = this.getFlagFirstTry(r);
-
               return (
                 <div styleName="row" key={r.handle} role="row">
-                  {/*<div styleName="col-1">
-                    <div styleName="sm-only title">
-  Country
-                    </div>
-                    <span role="cell">
-                      {r.countryInfo && flagFistTry && (
-                        <Tooltip
-                          content={(
-                            <div styleName="tooltip">{r.countryInfo.name}</div>
-                        )}
-                        >
-                          <img
-                            width="25"
-                            src={flagFistTry}
-                            alt="country"
-                            onError={() => onGetFlagImageFail(r.countryInfo)}
-                          />
-                        </Tooltip>
-                      )}
-                      {r.countryInfo && !flagFistTry && (r.countryInfo.name)}
-                      {!r.countryInfo && ('-')}
-                    </span>
-                  </div>*/}
-                  <div styleName="col-2">
+                  <div styleName="col-1">
                     <div styleName="sm-only title">
   Rating
                     </div>
@@ -447,14 +396,14 @@ export default class Registrants extends React.Component {
                       </span>
                     </div>
                   </div>
-                  <div styleName="col-3">
+                  <div styleName="col-2">
                     <span role="cell">
                       <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
                         {r.handle}
                       </a>
                     </span>
                   </div>
-                  <div styleName="col-4">
+                  <div styleName="col-3">
                     <div styleName="sm-only title">
   Registration Date
                     </div>
@@ -463,7 +412,7 @@ export default class Registrants extends React.Component {
                   {
                     twoRounds
                     && (
-                    <div styleName="col-5">
+                    <div styleName="col-4">
                       <div styleName="sm-only title">
   Round 1 Submitted Date
                       </div>
@@ -479,7 +428,7 @@ export default class Registrants extends React.Component {
                     </div>
                     )
                   }
-                  <div styleName="col-6">
+                  <div styleName="col-5">
                     <div styleName="sm-only title">
                       {twoRounds ? 'Round 2 ' : ''}
   Submitted Date
@@ -510,7 +459,6 @@ Registrants.defaultProps = {
   checkpointResults: {},
   registrantsSort: {},
   onSortChange: () => {},
-  onGetFlagImageFail: () => {},
   registrants: [],
 };
 
@@ -536,5 +484,4 @@ Registrants.propTypes = {
   }),
   onSortChange: PT.func,
   notFoundCountryFlagUrl: PT.objectOf(PT.bool).isRequired,
-  onGetFlagImageFail: PT.func,
 };
