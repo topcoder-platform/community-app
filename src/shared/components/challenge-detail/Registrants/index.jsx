@@ -256,6 +256,7 @@ export default class Registrants extends React.Component {
     return (
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
+          {/*
           <button
             type="button"
             onClick={() => {
@@ -278,6 +279,7 @@ export default class Registrants extends React.Component {
             ><ArrowDown />
             </div>
           </button>
+          */}
           <button
             type="button"
             onClick={() => {
@@ -412,7 +414,7 @@ export default class Registrants extends React.Component {
 
               return (
                 <div styleName="row" key={r.handle} role="row">
-                  <div styleName="col-1">
+                  {/*<div styleName="col-1">
                     <div styleName="sm-only title">
   Country
                     </div>
@@ -434,7 +436,7 @@ export default class Registrants extends React.Component {
                       {r.countryInfo && !flagFistTry && (r.countryInfo.name)}
                       {!r.countryInfo && ('-')}
                     </span>
-                  </div>
+                  </div>*/}
                   <div styleName="col-2">
                     <div styleName="sm-only title">
   Rating

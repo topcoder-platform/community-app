@@ -437,7 +437,7 @@ class SubmissionsComponent extends React.Component {
             </div>
           ) : (
             <div styleName="head">
-              <button
+              {/*<button
                 styleName="col-1 header-sort"
                 type="button"
                 onClick={() => {
@@ -458,7 +458,7 @@ class SubmissionsComponent extends React.Component {
                   )}
                 ><ArrowDown />
                 </div>
-              </button>
+              </button>*/}
               <button
                 type="button"
                 onClick={() => {
@@ -600,7 +600,7 @@ class SubmissionsComponent extends React.Component {
                 </button>
               </div>
               <div styleName="col-2 col">
-                <button
+                {/*<button
                   type="button"
                   onClick={() => {
                     onSortChange({
@@ -621,7 +621,7 @@ class SubmissionsComponent extends React.Component {
                     )}
                   ><ArrowDown />
                   </div>
-                </button>
+                </button>*/}
                 <button
                   type="button"
                   onClick={() => {
@@ -767,7 +767,7 @@ class SubmissionsComponent extends React.Component {
               const flagFistTry = s.registrant ? this.getFlagFirstTry(s.registrant) : null;
               return (
                 <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
-                  <div styleName="col-1">
+                  {/*<div styleName="col-1">
                     {s.registrant && s.registrant.countryInfo && flagFistTry && (
                       <Tooltip
                         content={(
@@ -786,7 +786,7 @@ class SubmissionsComponent extends React.Component {
                       s.registrant.countryInfo.name
                     )}
                     {(!s.registrant || !s.registrant.countryInfo) && ('-')}
-                  </div>
+                  </div>*/}
                   <div styleName="col-2" style={s.colorStyle}>
                     { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
                   </div>

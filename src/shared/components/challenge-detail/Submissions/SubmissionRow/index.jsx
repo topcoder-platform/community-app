@@ -42,7 +42,7 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          <div styleName="col">
+          {/*<div styleName="col">
             {registrant && registrant.countryInfo && flagFistTry && (
               <Tooltip
                 content={(
@@ -61,7 +61,7 @@ export default function SubmissionRow({
               registrant.countryInfo.name
             )}
             {(!registrant || !registrant.countryInfo) && ('-')}
-          </div>
+          </div>*/}
           <span styleName="col" style={colorStyle}>
             { (registrant && !_.isNil(registrant.rating)) ? registrant.rating : '-'}
           </span>
