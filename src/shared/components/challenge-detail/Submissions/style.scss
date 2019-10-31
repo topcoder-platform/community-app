@@ -54,6 +54,7 @@
       color: $tc-gray-50;
       line-height: 25px;
       width: 500px;
+      white-space: pre-wrap;
 
       @include xs-to-sm {
         margin-left: 28px;
