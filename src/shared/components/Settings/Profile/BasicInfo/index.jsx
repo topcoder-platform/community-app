@@ -923,9 +923,7 @@ export default class BasicInfo extends ConsentComponent {
             disabled={!canModifyTrait}
             onClick={this.onHandleSaveBasicInfo}
           >
-            {
-              'Save Changes'
-            }
+            Save Changes
           </PrimaryButton>
         </div>
       </div>

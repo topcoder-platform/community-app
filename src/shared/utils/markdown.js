@@ -37,10 +37,11 @@ import tco11 from 'components/buttons/outline/tco/tco11.scss';
 import tco10 from 'components/buttons/outline/tco/tco10.scss';
 import tco09 from 'components/buttons/outline/tco/tco09.scss';
 import tco07 from 'components/buttons/outline/tco/tco07.scss';
+import tc from 'components/buttons/themed/tc.scss';
 
 /**
  * Themes of legacy TCO buttons
- * those overwrite PrimaryButton stylwe to match legacy TCO styles
+ * those overwrite PrimaryButton style to match legacy TCO styles
  * Should implement `.tcoButton` class
 */
 const tcoButtonThemes = {
@@ -59,6 +60,14 @@ const tcoButtonThemes = {
   tco10,
   tco09,
   tco07,
+};
+
+/** Themes for buttons
+ * those overwrite PrimaryButton style to match achieve various styles.
+ * Should implement pattern of classes.
+ */
+const buttonThemes = {
+  tc,
 };
 
 /**
@@ -101,6 +110,19 @@ const customComponents = {
   }),
   Modal: attrs => ({ type: Modal, props: attrs }),
   NewsletterArchive: attrs => ({ type: NewsletterArchive, props: attrs }),
+  ThemedButton: (attrs) => {
+    const t = attrs.theme.split('-');
+    return {
+      type: PrimaryButton,
+      props: {
+        ...attrs,
+        theme: {
+          button: buttonThemes[t[0]][`${t[1]}-${t[2]}-${t[3]}`],
+          disabled: buttonThemes[t[0]].themedButtonDisabled,
+        },
+      },
+    };
+  },
 };
 
 /**
