@@ -25,7 +25,7 @@ export default function Header({
         styleName="header"
         tabIndex={0}
       >
-        {<span aria-label="Topcoder Homepage" role="banner"><LogoTopcoder styleName="logo" /></span>}
+        <span aria-label="Topcoder Homepage" role="banner"><LogoTopcoder styleName="logo" /></span>
         <div styleName="menu">
 Menu
         </div>

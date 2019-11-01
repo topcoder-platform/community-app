@@ -224,7 +224,7 @@ class ArticleCard extends React.Component {
                                   title={`Search for articles from ${author.name}`}
                                   className={theme.authorLink}
                                 >
-                                  {author.name}
+                                  {author.tcHandle}
                                 </a>
                               </div>
                             ))

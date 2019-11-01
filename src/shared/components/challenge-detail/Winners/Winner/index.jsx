@@ -40,32 +40,30 @@ export default function Winner({
 
   return (
     <div styleName={`winner ${placeStyle}`}>
-      {
-        <div styleName="thumbnail">
-          <div styleName="flag">
-            {winner.placement}
-          </div>
-          {
-            (viewable && isDesign)
-              ? (
-                <img
-                  styleName="preview"
-                  alt=""
-                  src={`${config.URL.STUDIO}/studio.jpg`
-                    + `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
-                />
-              )
-              : (
-                <div styleName="lock">
-                  <Lock styleName="lock-icon" />
-                  <div styleName="text">
-LOCKED
-                  </div>
-                </div>
-              )
-          }
+      <div styleName="thumbnail">
+        <div styleName="flag">
+          {winner.placement}
         </div>
-      }
+        {
+          (viewable && isDesign)
+            ? (
+              <img
+                styleName="preview"
+                alt=""
+                src={`${config.URL.STUDIO}/studio.jpg`
+                  + `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
+              />
+            )
+            : (
+              <div styleName="lock">
+                <Lock styleName="lock-icon" />
+                <div styleName="text">
+LOCKED
+                </div>
+              </div>
+            )
+        }
+      </div>
       <div styleName="info">
         <div styleName="avatar-prize">
           <Avatar

@@ -23,9 +23,12 @@ import { redux, server as serverFactory } from 'topcoder-react-utils';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
+import { authMiddleware } from './auth';
 import cdnRouter from './routes/cdn';
 import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
+
+import submissionsRouter from './routes/submissions';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
@@ -133,6 +136,7 @@ async function onExpressJsSetup(server) {
 
   server.use('/api/cdn', cdnRouter);
   server.use('/api/mailchimp', mailChimpRouter);
+  server.use('/api/v5/submissions', authMiddleware, submissionsRouter);
 
   // serve demo api
   server.use(
