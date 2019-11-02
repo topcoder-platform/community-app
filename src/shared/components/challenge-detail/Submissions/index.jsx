@@ -9,6 +9,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
+import { submission as submissionUtils } from 'topcoder-react-lib';
 import { isTokenExpired } from 'tc-accounts';
 import cn from 'classnames';
 
@@ -22,6 +23,8 @@ import SubmissionInformationModal from './SubmissionInformationModal';
 import ArrowDown from '../../../../assets/images/arrow-down.svg';
 import './style.scss';
 
+const { getProvisionalScore, getFinalScore } = submissionUtils;
+
 class SubmissionsComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -32,12 +35,9 @@ class SubmissionsComponent extends React.Component {
     };
     this.onHandleInformationPopup = this.onHandleInformationPopup.bind(this);
     this.getSubmissionsSortParam = this.getSubmissionsSortParam.bind(this);
-    this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
     this.updateSortedSubmissions = this.updateSortedSubmissions.bind(this);
     this.sortSubmissions = this.sortSubmissions.bind(this);
     this.checkIsReviewPhaseComplete = this.checkIsReviewPhaseComplete.bind(this);
-    this.getFinalScore = this.getFinalScore.bind(this);
-    this.getProvisionalScore = this.getProvisionalScore.bind(this);
   }
 
   componentDidMount() {
@@ -83,19 +83,6 @@ class SubmissionsComponent extends React.Component {
   }
 
   /**
-   * Check if it have flag for first try
-   * @param {Object} registrant registrant info
-   */
-  getFlagFirstTry(registrant) {
-    const { notFoundCountryFlagUrl } = this.props;
-    if (!registrant.countryInfo || notFoundCountryFlagUrl[registrant.countryInfo.countryCode]) {
-      return null;
-    }
-
-    return registrant.countryInfo.countryFlag;
-  }
-
-  /**
    * Get submission sort parameter
    */
   getSubmissionsSortParam() {
@@ -114,58 +101,6 @@ class SubmissionsComponent extends React.Component {
       field,
       sort,
     };
-  }
-
-  /**
-   * Get final score of submission
-   * @param {Object} submission submission object
-   */
-  getFinalScore(submission) {
-    const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    if (!submission.submissions || !submission.submissions.length) {
-      return 0;
-    }
-    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
-
-    let { finalScore } = submission.submissions[0];
-    if (isMM) {
-      finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? null : finalScore;
-
-      if (isReviewPhaseComplete) {
-        finalScore = _.get(submission.score, 'final', finalScore);
-      }
-    }
-    // eslint-disable-next-line no-restricted-globals
-    if (!isNaN(finalScore) && !_.isNil(finalScore) && finalScore !== '') {
-      return parseFloat(finalScore);
-    }
-    return null; // no final score
-  }
-
-  /**
-   * Get provisional score of submission
-   * @param {Object} submission submission object
-   */
-  getProvisionalScore(submission) {
-    const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    if (!submission.submissions || !submission.submissions.length) {
-      return 0;
-    }
-    let { provisionalScore } = submission.submissions[0];
-    const initialScore = (!provisionalScore || provisionalScore < 0) ? '-' : provisionalScore;
-
-    if (isMM) {
-      provisionalScore = _.get(submission.score, 'provisional', initialScore);
-    } else {
-      provisionalScore = initialScore;
-    }
-    // eslint-disable-next-line no-restricted-globals
-    if (!isNaN(provisionalScore) && !_.isNil(provisionalScore) && provisionalScore !== '') {
-      return parseFloat(provisionalScore);
-    }
-    return null; // no provisional score
   }
 
   /**
@@ -227,8 +162,8 @@ class SubmissionsComponent extends React.Component {
         }
         case 'Initial / Final Score': {
           if (isHaveFinalScore) {
-            valueA = this.getFinalScore(a);
-            valueB = this.getFinalScore(b);
+            valueA = getFinalScore(a);
+            valueB = getFinalScore(b);
           } else {
             valueA = a.submissions[0].initialScore;
             valueB = b.submissions[0].initialScore;
@@ -248,13 +183,13 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Final Score': {
-          valueA = this.getFinalScore(a);
-          valueB = this.getFinalScore(b);
+          valueA = getFinalScore(a);
+          valueB = getFinalScore(b);
           break;
         }
         case 'Provisional Score': {
-          valueA = this.getProvisionalScore(a);
-          valueB = this.getProvisionalScore(b);
+          valueA = getProvisionalScore(a);
+          valueB = getProvisionalScore(b);
           break;
         }
         default:
@@ -300,7 +235,6 @@ class SubmissionsComponent extends React.Component {
       toggleSubmissionTestcase,
       submissionTestcaseOpen,
       clearSubmissionTestcaseOpen,
-      onGetFlagImageFail,
       onSortChange,
     } = this.props;
     const {
@@ -712,10 +646,6 @@ class SubmissionsComponent extends React.Component {
                 isLoadingSubmissionInformation={isLoadingSubmissionInformation}
                 submissionInformation={submissionInformation}
                 onShowPopup={this.onHandleInformationPopup}
-                getFlagFirstTry={this.getFlagFirstTry}
-                onGetFlagImageFail={onGetFlagImageFail}
-                finalScore={this.getFinalScore(submission)}
-                provisionalScore={this.getProvisionalScore(submission)}
               />
             ))
           )
@@ -775,7 +705,6 @@ SubmissionsComponent.defaultProps = {
   submissions: [],
   submissionsSort: {},
   onSortChange: () => {},
-  onGetFlagImageFail: () => {},
 };
 
 SubmissionsComponent.propTypes = {
@@ -808,7 +737,6 @@ SubmissionsComponent.propTypes = {
   }),
   onSortChange: PT.func,
   notFoundCountryFlagUrl: PT.objectOf(PT.bool).isRequired,
-  onGetFlagImageFail: PT.func,
 };
 
 function mapDispatchToProps(dispatch) {
