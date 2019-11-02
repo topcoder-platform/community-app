@@ -167,7 +167,7 @@ class ProfilePage extends React.Component {
           />
           )
         }
-        <div styleName="profile-container">
+        <div styleName="profile-container" role="main">
           <div styleName="about-container">
             <div styleName="profile-header-container">
               <Sticky
@@ -212,13 +212,16 @@ Skills
                     </h3>
                     <div styleName="list">
                       {
-                        skills.map(({ tagId, tagName, hidden }) => (
+                        skills.map(({
+                          tagId, tagName, hidden, sources,
+                        }) => (
                           !hidden
                           && (
                           <div key={tagId} styleName="skill">
                             <Skill
                               tagId={tagId}
                               tagName={tagName}
+                              isVerified={_.includes(sources, 'CHALLENGE')}
                             />
                           </div>
                           )
@@ -267,7 +270,7 @@ On The Web
                   </h3>
                   <div styleName="external-links">
                     {
-                      externals.map(external => !_.isEmpty(external.data) && (
+                      externals.map(external => (
                         <ExternalLink
                           data={external.data}
                           key={external.type !== 'weblink'

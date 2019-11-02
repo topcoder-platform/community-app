@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
-import { challenge as challengeUtil } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
 import ChallengeSearchBar from './ChallengeSearchBar';
@@ -18,7 +18,7 @@ import FiltersCardsType from './FiltersCardsType';
 
 import './ChallengeFilters.scss';
 
-const Filter = challengeUtil.filter;
+const Filter = challengeUtils.filter;
 
 export default function ChallengeFilters({
   communityFilters,
@@ -45,7 +45,6 @@ export default function ChallengeFilters({
   validKeywords,
   validSubtracks,
   isSavingFilter,
-  setDatepickerStatus,
 }) {
   let filterRulesCount = 0;
   if (filterState.tags) filterRulesCount += 1;
@@ -69,7 +68,8 @@ export default function ChallengeFilters({
         />
         <ChallengeSearchBar
           onSearch={text => setFilterState(Filter.setText(filterState, text))}
-          placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Search Challenges'}
+          label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
+          placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Type the challenge name here'}
           query={searchText}
           setQuery={setSearchText}
         />
@@ -77,21 +77,21 @@ export default function ChallengeFilters({
           isCardTypeSet === 'Challenges'
             ? (
               <span>
-                <span styleName="filter-switch-with-label">
+                <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn(TRACKS.DESIGN) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DESIGN)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DESIGN)}
                     labelBefore="Design"
                     onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label">
+                <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn(TRACKS.DEVELOP) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DEVELOP)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DEVELOP)}
                     labelBefore="Development"
                     onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label">
+                <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn(TRACKS.DATA_SCIENCE) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DATA_SCIENCE)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
                     labelBefore="Data Science"
@@ -165,7 +165,6 @@ export default function ChallengeFilters({
         validKeywords={validKeywords}
         validSubtracks={validSubtracks}
         isSavingFilter={isSavingFilter}
-        setDatepickerStatus={setDatepickerStatus}
       />
 
       <EditTrackPanel
@@ -217,5 +216,4 @@ ChallengeFilters.propTypes = {
   trackModalShown: PT.bool.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.object).isRequired,
-  setDatepickerStatus: PT.func.isRequired,
 };

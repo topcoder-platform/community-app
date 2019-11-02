@@ -2,6 +2,12 @@
 
 .container {
   width: 100%;
+
+  :global {
+    .slider-control-bottomcenter {
+      z-index: 999999;
+    }
+  }
 }
 
 .singleContent {
@@ -14,9 +20,7 @@
 
 .control {
   border: 0;
-  background: rgba(0, 0, 0, 0.4);
   color: white;
-  padding: 10px;
   cursor: pointer;
   display: flex;
 }

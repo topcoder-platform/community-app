@@ -1,8 +1,7 @@
+/* eslint-disable no-plusplus */
 import _ from 'lodash';
 import { isomorphy } from 'topcoder-react-utils';
-import { url as urlUtil } from 'topcoder-react-lib';
-
-const { removeTrailingSlash } = urlUtil;
+import { removeTrailingSlash } from 'utils/url';
 
 /**
  * Normalizes styles object to ReactJS format (camelCase property names).
@@ -83,6 +82,45 @@ export function isActive(baseUrl, item, caller) {
 export function linkText(item) {
   return item.fields.naviMenuLinkText /* Route-only */
     || item.fields.linkText /* NavigationMenuItem-only */ || item.fields.name;
+}
+
+/**
+ * Builds navi menu items
+ * @param {String} baseUrl
+ * @param {Object} item
+ */
+export function menuItemBuilder(baseUrl, item) {
+  switch (item.sys.contentType.sys.id) {
+    case 'route':
+      return {
+        title: item.fields.naviMenuLinkText || item.fields.name,
+        href: target(baseUrl, item),
+      };
+    case 'navigationMenuItem':
+      return {
+        title: item.fields.linkText || item.fields.name,
+        href: target(baseUrl, item),
+      };
+    default: return {};
+  }
+}
+
+/**
+ * Normalizes the EDU taxonomy object as fetched from Contentful
+ * @param {Object} EDUTaxonomy The EDU taxonomy
+ * @param {Object} query The current url query
+ */
+export function tracksTreeBuilder(EDUTaxonomy, query) {
+  const tax = _.isArray(query.tax) ? query.tax : [query.tax];
+  let id = 0;
+  return _.map(EDUTaxonomy, (categories, track) => ({
+    title: track,
+    id: id++,
+    items: _.map(categories, cat => ({
+      title: cat.name, id: id++, items: [], track, selected: _.indexOf(tax, cat.name) !== -1,
+    })),
+    selected: query.track === track,
+  }));
 }
 
 export default undefined;

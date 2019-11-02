@@ -4,11 +4,13 @@
 /* global window */
 import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
+import ContentfulMenuLoader from 'containers/Contentful/MenuLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import { removeTrailingSlash } from 'utils/url';
 import { isActive, target } from 'utils/contentful';
+import { isomorphy } from 'topcoder-react-utils';
 
 import NavMenu from './Menu';
 
@@ -17,6 +19,7 @@ const THEMES = {
   Default: require('./themes/default.scss'),
   'TCO19 - Header Menu': require('./themes/tco19-header.scss'),
   'TCO19 - Footer Menu': require('./themes/tco19-footer.scss'),
+  'TCO20 - Footer Menu': require('./themes/tco20-footer.scss'),
 };
 /* eslint-enable global-require */
 
@@ -64,23 +67,93 @@ function MenuItemsLoader(props) {
               </div>
             );
           }
-          if (menuItem.fields.childRoutes && menuItem.fields.excludeFromNavigationMenus !== true && isActive(baseUrl, menuItem, 'childRoutes')) {
-            return (
-              <div className={themeToUse.submenu} key={menuItem.sys.id}>
-                <MenuItemsLoader
-                  menuId={menuItem.sys.id}
-                  ids={_.map(menuItem.fields.childRoutes, 'sys.id')}
+          if (menuItem.fields.childRoutes && menuItem.fields.excludeFromNavigationMenus !== true) {
+            if (menuItem.fields.url && menuItem.fields.url !== '/' && isActive(baseUrl, menuItem, 'childRoutes')) {
+              return (
+                <div className={themeToUse.submenu} key={menuItem.sys.id}>
+                  <MenuItemsLoader
+                    menuId={menuItem.sys.id}
+                    ids={_.map(menuItem.fields.childRoutes, 'sys.id')}
+                    preview={preview}
+                    themeName={themeName}
+                    theme={themeToUse}
+                    baseUrl={target(baseUrl, menuItem)}
+                    parentBaseUrl={baseUrl}
+                    parentItems={_.values(data.entries.items)}
+                    activeParentItem={menuItem}
+                    level={level + 1}
+                  />
+                </div>
+              );
+            }
+            if (!menuItem.fields.url || menuItem.fields.url === '/') {
+              // need to load the submenu to see if it matches for the location
+              // this is special case when we have sub menus under root "/"" path
+              // all other cases are covered by above rule.
+
+              // get the current location 1st
+              let location = '';
+              if (isomorphy.isClientSide()) {
+                location = window.location.pathname;
+                location = location.toLowerCase();
+                location = _.replace(location, '/__community__/tco19', '');
+              } else {
+                // TODO: should probably get the current URL from the web framework
+              }
+              // When we are at home/root just load the menu directly
+              if (!location || location === '/') {
+                return (
+                  <div className={themeToUse.submenu} key={menuItem.sys.id}>
+                    <MenuItemsLoader
+                      menuId={menuItem.sys.id}
+                      ids={_.map(menuItem.fields.childRoutes, 'sys.id')}
+                      preview={preview}
+                      themeName={themeName}
+                      theme={themeToUse}
+                      baseUrl={target(baseUrl, menuItem)}
+                      parentBaseUrl={baseUrl}
+                      parentItems={_.values(data.entries.items)}
+                      activeParentItem={menuItem}
+                      level={level + 1}
+                    />
+                  </div>
+                );
+              }
+              // In all other cases we need to load the menu items
+              // to check if some matches against location path
+              return (
+                <ContentfulLoader
+                  entryIds={_.map(menuItem.fields.childRoutes, 'sys.id')}
                   preview={preview}
-                  themeName={themeName}
-                  theme={themeToUse}
-                  baseUrl={target(baseUrl, menuItem)}
-                  parentBaseUrl={baseUrl}
-                  parentItems={_.values(data.entries.items)}
-                  activeParentItem={menuItem}
-                  level={level + 1}
+                  spaceName={spaceName}
+                  environment={environment}
+                  key={menuItem.sys.id}
+                  render={(childRoutesData) => {
+                    const links = _.values(childRoutesData.entries.items).map(childItem => `/${childItem.fields.url}`);
+                    if (links.some(link => location.startsWith(link))) {
+                      return (
+                        <div className={themeToUse.submenu} key={menuItem.sys.id}>
+                          <MenuItemsLoader
+                            menuId={menuItem.sys.id}
+                            ids={_.map(menuItem.fields.childRoutes, 'sys.id')}
+                            preview={preview}
+                            themeName={themeName}
+                            theme={themeToUse}
+                            baseUrl={target(baseUrl, menuItem)}
+                            parentBaseUrl={baseUrl}
+                            parentItems={_.values(data.entries.items)}
+                            activeParentItem={menuItem}
+                            level={level + 1}
+                          />
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                  renderPlaceholder={LoadingIndicator}
                 />
-              </div>
-            );
+              );
+            }
           }
           return null;
         }));
@@ -168,9 +241,25 @@ export default function ContentfulMenu(props) {
       preview={preview}
       spaceName={spaceName}
       environment={environment}
-      render={(data) => {
-        const { fields } = Object.values(data.entries.items)[0];
+      render={(menuData) => {
+        const { fields } = Object.values(menuData.entries.items)[0];
         if (!fields) return null;
+        if (fields.theme === 'General') {
+          // New navi style menu
+          // we deligate to special custom component and lib
+          return (
+            <ContentfulMenuLoader
+              id={id}
+              fields={fields}
+              preview={preview}
+              spaceName={spaceName}
+              environment={environment}
+              baseUrl={baseUrl}
+            />
+          );
+        }
+        // legacy navi themes
+        // those are still supported...
         return (
           <MenuItemsLoader
             menuId={id}

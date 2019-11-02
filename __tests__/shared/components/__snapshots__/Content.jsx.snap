@@ -475,6 +475,14 @@ exports[`Matches shallow shapshot 1`] = `
         Veterans Community
       </Link>
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/__community__/zurich"
+      >
+        Zurich Community
+      </Link>
+    </li>
   </ul>
   <h3>
     Previews of Contentful Components

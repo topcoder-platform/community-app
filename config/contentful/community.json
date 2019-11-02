@@ -369,7 +369,7 @@
         "id": "banner",
         "type": "ContentType",
         "createdAt": "2018-05-13T20:19:15.459Z",
-        "updatedAt": "2018-09-04T11:35:27.746Z",
+        "updatedAt": "2019-06-07T20:26:18.952Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -377,8 +377,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 33,
-        "publishedAt": "2018-09-04T11:35:27.746Z",
+        "publishedVersion": 51,
+        "publishedAt": "2019-06-07T20:26:18.952Z",
         "firstPublishedAt": "2018-05-13T20:19:15.804Z",
         "createdBy": {
           "sys": {
@@ -391,16 +391,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 17,
-        "version": 34,
+        "publishedCounter": 26,
+        "version": 52,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         }
       },
@@ -478,6 +478,7 @@
           "validations": [
             {
               "in": [
+                "General",
                 "Default",
                 "Default Sub-Community",
                 "Simple Title above Background",
@@ -540,7 +541,7 @@
         "id": "contentBlock",
         "type": "ContentType",
         "createdAt": "2018-05-25T13:14:48.111Z",
-        "updatedAt": "2018-09-04T11:35:28.815Z",
+        "updatedAt": "2019-07-15T06:00:12.136Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -548,8 +549,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 19,
-        "publishedAt": "2018-09-04T11:35:28.815Z",
+        "publishedVersion": 31,
+        "publishedAt": "2019-07-15T06:00:12.136Z",
         "firstPublishedAt": "2018-05-25T13:14:52.506Z",
         "createdBy": {
           "sys": {
@@ -562,16 +563,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 10,
-        "version": 20,
+        "publishedCounter": 16,
+        "version": 32,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         }
       },
@@ -646,10 +647,12 @@
           "validations": [
             {
               "in": [
+                "General",
                 "Default",
                 "Veteran",
                 "Row Item",
                 "Card",
+                "Blob Card",
                 "TCO19"
               ],
               "message": "Unknown theme"
@@ -1909,7 +1912,7 @@
         "id": "route",
         "type": "ContentType",
         "createdAt": "2018-06-13T15:22:31.400Z",
-        "updatedAt": "2018-09-04T11:35:01.923Z",
+        "updatedAt": "2019-05-03T08:47:14.400Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -1917,8 +1920,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 7,
-        "publishedAt": "2018-09-04T11:35:01.923Z",
+        "publishedVersion": 11,
+        "publishedAt": "2019-05-03T08:47:14.400Z",
         "firstPublishedAt": "2018-06-13T15:22:37.786Z",
         "createdBy": {
           "sys": {
@@ -1931,16 +1934,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 4,
-        "version": 8,
+        "publishedCounter": 6,
+        "version": 12,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         }
       },
@@ -1974,6 +1977,28 @@
                 "pattern": "^[\\w#!:.?+=&%@!\\-\\/]+$"
               }
             }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "naviMenuLinkText",
+          "name": "Navi Menu Link Text",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "excludeFromNavigationMenus",
+          "name": "Exclude from navigation menus",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
           ],
           "disabled": false,
           "omitted": false
@@ -4788,7 +4813,7 @@
         "id": "navigationMenu",
         "type": "ContentType",
         "createdAt": "2018-07-18T14:18:24.541Z",
-        "updatedAt": "2018-09-04T11:35:19.917Z",
+        "updatedAt": "2019-07-02T13:25:04.903Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4796,8 +4821,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 23,
-        "publishedAt": "2018-09-04T11:35:19.917Z",
+        "publishedVersion": 35,
+        "publishedAt": "2019-07-02T13:25:04.903Z",
         "firstPublishedAt": "2018-07-18T14:18:25.117Z",
         "createdBy": {
           "sys": {
@@ -4810,16 +4835,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 12,
-        "version": 24,
+        "publishedCounter": 18,
+        "version": 36,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         }
       },
@@ -4858,8 +4883,10 @@
           "validations": [
             {
               "in": [
+                "General",
                 "TCO19 - Header Menu",
-                "TCO19 - Footer Menu"
+                "TCO19 - Footer Menu",
+                "Default"
               ]
             }
           ],
@@ -4881,7 +4908,8 @@
             "validations": [
               {
                 "linkContentType": [
-                  "navigationMenuItem"
+                  "navigationMenuItem",
+                  "route"
                 ]
               }
             ],
@@ -4903,6 +4931,37 @@
           ],
           "disabled": false,
           "omitted": false
+        },
+        {
+          "id": "logo",
+          "name": "Logo",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ],
+              "message": "Only image files"
+            },
+            {
+              "assetImageDimensions": {
+                "width": {
+                  "min": null,
+                  "max": 54
+                },
+                "height": {
+                  "min": null,
+                  "max": 54
+                }
+              },
+              "message": "Logo should be 54px x 54px max"
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
         }
       ]
     },
@@ -4918,7 +4977,7 @@
         "id": "navigationMenuItem",
         "type": "ContentType",
         "createdAt": "2018-07-18T14:31:27.431Z",
-        "updatedAt": "2018-09-04T11:35:20.900Z",
+        "updatedAt": "2019-06-28T08:17:08.238Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4926,8 +4985,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 57,
-        "publishedAt": "2018-09-04T11:35:20.900Z",
+        "publishedVersion": 59,
+        "publishedAt": "2019-06-28T08:17:08.238Z",
         "firstPublishedAt": "2018-07-18T14:31:27.813Z",
         "createdBy": {
           "sys": {
@@ -4940,16 +4999,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 29,
-        "version": 58,
+        "publishedCounter": 30,
+        "version": 60,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         }
       },
@@ -4984,7 +5043,7 @@
           "name": "Slug",
           "type": "Symbol",
           "localized": false,
-          "required": true,
+          "required": false,
           "validations": [
             {
               "regexp": {
@@ -5258,7 +5317,7 @@
         "id": "tabs",
         "type": "ContentType",
         "createdAt": "2018-07-25T11:32:08.806Z",
-        "updatedAt": "2018-11-09T10:02:46.056Z",
+        "updatedAt": "2019-06-11T09:00:57.498Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -5266,8 +5325,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 15,
-        "publishedAt": "2018-11-09T10:02:46.056Z",
+        "publishedVersion": 19,
+        "publishedAt": "2019-06-11T09:00:57.498Z",
         "firstPublishedAt": "2018-07-25T11:32:09.272Z",
         "createdBy": {
           "sys": {
@@ -5283,8 +5342,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 8,
-        "version": 16,
+        "publishedCounter": 10,
+        "version": 20,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -5377,7 +5436,7 @@
         "id": "tabsItem",
         "type": "ContentType",
         "createdAt": "2018-07-25T11:40:02.668Z",
-        "updatedAt": "2018-11-09T13:21:54.199Z",
+        "updatedAt": "2019-06-11T09:01:16.643Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -5385,8 +5444,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 25,
-        "publishedAt": "2018-11-09T13:21:54.199Z",
+        "publishedVersion": 27,
+        "publishedAt": "2019-06-11T09:01:16.643Z",
         "firstPublishedAt": "2018-07-25T11:40:03.141Z",
         "createdBy": {
           "sys": {
@@ -5402,8 +5461,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 13,
-        "version": 26,
+        "publishedCounter": 14,
+        "version": 28,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -5455,7 +5514,8 @@
                 "linkContentType": [
                   "accordion",
                   "appComponent",
-                  "contentBlock"
+                  "contentBlock",
+                  "viewport"
                 ]
               }
             ],
@@ -5476,7 +5536,7 @@
         "id": "contentSlider",
         "type": "ContentType",
         "createdAt": "2018-08-06T07:26:55.622Z",
-        "updatedAt": "2019-02-25T06:53:55.920Z",
+        "updatedAt": "2019-04-11T06:41:00.117Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -5484,8 +5544,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 11,
-        "publishedAt": "2019-02-25T06:53:55.920Z",
+        "publishedVersion": 31,
+        "publishedAt": "2019-04-11T06:41:00.117Z",
         "firstPublishedAt": "2018-08-06T07:26:56.458Z",
         "createdBy": {
           "sys": {
@@ -5501,8 +5561,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 6,
-        "version": 12,
+        "publishedCounter": 16,
+        "version": 32,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -5541,7 +5601,8 @@
             "validations": [
               {
                 "linkContentType": [
-                  "banner"
+                  "banner",
+                  "contentBlock"
                 ]
               }
             ],
@@ -5576,6 +5637,17 @@
           "omitted": false
         },
         {
+          "id": "wrapAround",
+          "name": "Wrap around",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
           "id": "duration",
           "name": "Duration",
           "type": "Integer",
@@ -5587,6 +5659,84 @@
                 "min": 1
               }
             }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "slidesToShow",
+          "name": "Slides to show",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 1
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "cellSpacing",
+          "name": "Cell spacing",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "cellAlign",
+          "name": "Cell align",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "in": [
+                "center",
+                "left",
+                "right"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "framePadding",
+          "name": "Frame padding",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "vertical",
+          "name": "Vertical",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "withoutControls",
+          "name": "Without controls",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
           ],
           "disabled": false,
           "omitted": false
@@ -5616,7 +5766,7 @@
         "id": "challengesBlock",
         "type": "ContentType",
         "createdAt": "2018-08-08T14:03:49.293Z",
-        "updatedAt": "2018-09-04T11:35:20.430Z",
+        "updatedAt": "2019-07-01T09:18:33.569Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -5624,8 +5774,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 3,
-        "publishedAt": "2018-09-04T11:35:20.430Z",
+        "publishedVersion": 29,
+        "publishedAt": "2019-07-01T09:18:33.569Z",
         "firstPublishedAt": "2018-08-08T14:03:50.106Z",
         "createdBy": {
           "sys": {
@@ -5638,16 +5788,16 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 2,
-        "version": 4,
+        "publishedCounter": 15,
+        "version": 30,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         }
       },
@@ -5662,6 +5812,127 @@
           "localized": false,
           "required": false,
           "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "challengeTitleContains",
+          "name": "Challenge Title Contains",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "challengeType",
+          "name": "Challenge Type",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+              {
+                "in": [
+                  "BUG_HUNT",
+                  "CODE",
+                  "DESIGN",
+                  "DESIGN_FIRST_2_FINISH",
+                  "DEVELOPMENT",
+                  "DEVELOP_MARATHON_MATCH",
+                  "FIRST_2_FINISH",
+                  "TEST_SCENARIOS",
+                  "TEST_SUITES"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "technologies",
+          "name": "Technologies",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+            ]
+          }
+        },
+        {
+          "id": "completedChallenges",
+          "name": "Completed Challenges",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "limit",
+          "name": "Limit",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 1
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "buttonText",
+          "name": "Button Text",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "buttonUrl",
+          "name": "Button URL",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$"
+              }
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -11156,6 +11427,831 @@
           "omitted": false
         }
       ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "modal",
+        "type": "ContentType",
+        "createdAt": "2019-03-26T09:53:50.426Z",
+        "updatedAt": "2019-03-26T09:54:29.286Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 3,
+        "publishedAt": "2019-03-26T09:54:29.286Z",
+        "firstPublishedAt": "2019-03-26T09:53:51.048Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        }
+      },
+      "displayField": "name",
+      "name": "Modal",
+      "description": "Wraps the TC themeable modal window to the modal content type.",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "content",
+          "name": "Content",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkContentType": [
+                "banner",
+                "contentBlock",
+                "viewport"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "theme",
+          "name": "Theme",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "in": [
+                "Default"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "memberCard",
+        "type": "ContentType",
+        "createdAt": "2019-06-11T08:53:53.665Z",
+        "updatedAt": "2019-07-12T14:57:59.352Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 29,
+        "publishedAt": "2019-07-12T14:57:59.352Z",
+        "firstPublishedAt": "2019-06-11T08:53:54.331Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 15,
+        "version": 30,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        }
+      },
+      "displayField": "name",
+      "name": "Member Card",
+      "description": "A card looking component representing member/speaker/person.",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "memberHandle",
+          "name": "Member Handle",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "memberName",
+          "name": "Member Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "description",
+          "name": "Description",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "trackIcon",
+          "name": "Track Icon",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "trackColor",
+          "name": "Track Color",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "image",
+          "name": "Image",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "country",
+          "name": "Country",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "url",
+          "name": "URL",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "theme",
+          "name": "Theme",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "in": [
+                "Default",
+                "Speaker Card"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContainer",
+          "name": "Extra Styles for Container",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "article",
+        "type": "ContentType",
+        "createdAt": "2019-06-23T08:09:04.713Z",
+        "updatedAt": "2019-06-23T08:48:55.974Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 21,
+        "publishedAt": "2019-06-23T08:48:55.974Z",
+        "firstPublishedAt": "2019-06-23T08:09:05.212Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 11,
+        "version": 22,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        }
+      },
+      "displayField": "title",
+      "name": "Article",
+      "description": "A generic container for educational resources/pages.",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "creationDate",
+          "name": "Creation Date",
+          "type": "Date",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "trackCategory",
+          "name": "Track Category",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+              {
+                "in": [
+                  "Design",
+                  "Development",
+                  "Data Science",
+                  "QA",
+                  "Competitive Programming"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "contentUrl",
+          "name": "Content URL",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "readTime",
+          "name": "Read Time",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "content",
+          "name": "Content",
+          "type": "Text",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "featuredImage",
+          "name": "Featured Image",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "contentAuthor",
+          "name": "Content Author",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "person"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "contentCategory",
+          "name": "Content Category",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+            ]
+          }
+        },
+        {
+          "id": "tags",
+          "name": "Tags",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+            ]
+          }
+        },
+        {
+          "id": "upvotes",
+          "name": "Upvotes",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 0
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "downvotes",
+          "name": "Downvotes",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 0
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "recommended",
+          "name": "Recommended",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "article"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "journeyPrevious",
+          "name": "Journey Previous",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "article"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "journeyNext",
+          "name": "Journey Next",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "article"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "shape",
+        "type": "ContentType",
+        "createdAt": "2019-07-12T09:30:04.316Z",
+        "updatedAt": "2019-07-15T08:12:59.877Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2019-07-15T08:12:59.877Z",
+        "firstPublishedAt": "2019-07-12T09:30:04.999Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 5,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        }
+      },
+      "displayField": "name",
+      "name": "Shape",
+      "description": "A generic component that renders SVG based shapes.",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "shapeSvg",
+          "name": "Shape SVG",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "inline",
+          "name": "Inline",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "backgroundColor",
+          "name": "Background color",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "height",
+          "name": "Height",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContainer",
+          "name": "Extra Styles for Container",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "image",
+        "type": "ContentType",
+        "createdAt": "2019-07-12T10:42:42.336Z",
+        "updatedAt": "2019-07-15T08:46:48.481Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2019-07-15T08:46:48.481Z",
+        "firstPublishedAt": "2019-07-12T10:42:42.738Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        }
+      },
+      "displayField": "name",
+      "name": "Image",
+      "description": "Component that renders images",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "source",
+          "name": "Source",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "clipSvg",
+          "name": "Clip SVG",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "extraStylesForContainer",
+          "name": "Extra Styles for Container",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
     }
   ],
   "editorInterfaces": [
@@ -11394,7 +12490,7 @@
             "linkType": "Space"
           }
         },
-        "version": 33,
+        "version": 51,
         "createdAt": "2018-05-13T20:19:16.031Z",
         "createdBy": {
           "sys": {
@@ -11403,10 +12499,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-09-04T11:35:38.562Z",
+        "updatedAt": "2019-06-07T20:26:19.852Z",
         "updatedBy": {
           "sys": {
-            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
             "type": "Link",
             "linkType": "User"
           }
@@ -11432,49 +12528,56 @@
           "settings": {
             "helpText": "Banner name. It will be shown only in CMS, and not rendered at the banner itself."
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "text",
           "settings": {
             "helpText": "Text to render at the banner."
           },
-          "widgetId": "markdown"
+          "widgetId": "markdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "backgroundImage",
           "settings": {
             "helpText": "Background image."
           },
-          "widgetId": "assetLinkEditor"
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "baseTheme",
           "settings": {
             "helpText": "Base style of the banner."
           },
-          "widgetId": "dropdown"
+          "widgetId": "dropdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "containerStyles",
           "settings": {
             "helpText": "Optional. Additional styles for banner container (root) element."
           },
-          "widgetId": "objectEditor"
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "contentWrapperStyles",
           "settings": {
             "helpText": "Optional. Additional styles for the content wrapper element. This element takes care about positioning of textual content, and its background."
           },
-          "widgetId": "objectEditor"
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "contentStyles",
           "settings": {
             "helpText": "Optional. Additional styles for the textual content."
           },
-          "widgetId": "objectEditor"
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -11489,7 +12592,7 @@
             "linkType": "Space"
           }
         },
-        "version": 19,
+        "version": 31,
         "createdAt": "2018-05-25T13:14:52.634Z",
         "createdBy": {
           "sys": {
@@ -11498,10 +12601,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-09-04T11:35:45.891Z",
+        "updatedAt": "2019-07-15T06:00:13.019Z",
         "updatedBy": {
           "sys": {
-            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
             "type": "Link",
             "linkType": "User"
           }
@@ -11524,34 +12627,44 @@
       "controls": [
         {
           "fieldId": "name",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "text",
-          "widgetId": "markdown"
+          "widgetId": "markdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "image",
-          "widgetId": "assetLinkEditor"
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "baseTheme",
           "settings": {
             "helpText": "Content block theme"
           },
-          "widgetId": "dropdown"
+          "widgetId": "dropdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "extraStylesForContainer",
-          "widgetId": "objectEditor"
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "extraStylesForContentWrapper",
-          "widgetId": "objectEditor"
+          "settings": {
+            "helpText": "For blue card use: {\"background-color\": \"#2984BD\"}"
+          },
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "extraStylesForContent",
-          "widgetId": "objectEditor"
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -12342,7 +13455,7 @@
             "linkType": "Space"
           }
         },
-        "version": 8,
+        "version": 12,
         "createdAt": "2018-06-13T15:22:37.895Z",
         "createdBy": {
           "sys": {
@@ -12351,10 +13464,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-09-04T11:35:53.908Z",
+        "updatedAt": "2019-05-03T08:47:15.848Z",
         "updatedBy": {
           "sys": {
-            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
             "type": "Link",
             "linkType": "User"
           }
@@ -12380,21 +13493,42 @@
           "settings": {
             "helpText": "This is the identifier that will be passed to the <ContentfulRoute> component, it will not be displayed."
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "url",
           "settings": {
             "helpText": "The URL segment represented by the route.  Ex.  /test/"
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "naviMenuLinkText",
+          "settings": {
+            "helpText": "Text of the link in Navigation Menus. Will default to `name` if not set otherwise."
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "excludeFromNavigationMenus",
+          "settings": {
+            "helpText": "If YES this route won't be rendered in navigation menus",
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "viewport",
           "settings": {
             "helpText": "A Viewport to be rendered at the provided URL"
           },
-          "widgetId": "entryLinkEditor"
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "childRoutes",
@@ -12402,56 +13536,64 @@
             "helpText": "Additional sub-routes which will available at /URL/childURL/",
             "bulkEditing": false
           },
-          "widgetId": "entryLinksEditor"
+          "widgetId": "entryLinksEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "pageTitle",
           "settings": {
             "helpText": "Page Title Meta Tag"
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "description",
           "settings": {
             "helpText": "Page Description Meta Tag"
           },
-          "widgetId": "markdown"
+          "widgetId": "markdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "socialThumbnail",
           "settings": {
             "helpText": "Twitter/Facebook Meta Tag"
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "socialSiteName",
           "settings": {
             "helpText": "Twitter/Facebook Meta Tag"
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "socialDescription",
           "settings": {
             "helpText": "Twitter/Facebook Meta Tag"
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "socialTitle",
           "settings": {
             "helpText": "Twitter/Facebook Meta Tag"
           },
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "socialUrl",
           "settings": {
             "helpText": "Twitter/Facebook Meta Tag"
           },
-          "widgetId": "urlEditor"
+          "widgetId": "urlEditor",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -13978,7 +15120,7 @@
             "linkType": "Space"
           }
         },
-        "version": 24,
+        "version": 36,
         "createdAt": "2018-07-18T14:18:25.278Z",
         "createdBy": {
           "sys": {
@@ -13987,10 +15129,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-09-04T11:35:43.575Z",
+        "updatedAt": "2019-07-02T13:25:05.753Z",
         "updatedBy": {
           "sys": {
-            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
             "type": "Link",
             "linkType": "User"
           }
@@ -14013,26 +15155,39 @@
       "controls": [
         {
           "fieldId": "name",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "title",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "theme",
-          "widgetId": "dropdown"
+          "widgetId": "dropdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "items",
           "settings": {
             "bulkEditing": false
           },
-          "widgetId": "entryLinksEditor"
+          "widgetId": "entryLinksEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "baseUrl",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "logo",
+          "settings": {
+            "helpText": "Menu navigation logo on the left max 54px x 54px. If not set defaults to standard TC logo"
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -14047,7 +15202,7 @@
             "linkType": "Space"
           }
         },
-        "version": 58,
+        "version": 60,
         "createdAt": "2018-07-18T14:31:28.050Z",
         "createdBy": {
           "sys": {
@@ -14056,10 +15211,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-09-04T11:35:39.460Z",
+        "updatedAt": "2019-06-28T08:17:09.963Z",
         "updatedBy": {
           "sys": {
-            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
             "type": "Link",
             "linkType": "User"
           }
@@ -14082,30 +15237,36 @@
       "controls": [
         {
           "fieldId": "name",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "linkText",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "slug",
-          "widgetId": "slugEditor"
+          "widgetId": "slugEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "url",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "viewport",
           "settings": {
             "helpText": "Pick a viewport to link"
           },
-          "widgetId": "entryLinkEditor"
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "submenu",
-          "widgetId": "entryLinkEditor"
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "inNewTab",
@@ -14113,7 +15274,8 @@
             "trueLabel": "Yes",
             "falseLabel": "No"
           },
-          "widgetId": "boolean"
+          "widgetId": "boolean",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -14252,7 +15414,7 @@
             "linkType": "Space"
           }
         },
-        "version": 16,
+        "version": 20,
         "createdAt": "2018-07-25T11:32:09.396Z",
         "createdBy": {
           "sys": {
@@ -14261,7 +15423,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-11-09T10:02:46.786Z",
+        "updatedAt": "2019-06-11T09:00:58.364Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -14287,25 +15449,29 @@
       "controls": [
         {
           "fieldId": "name",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "tabsList",
           "settings": {
             "bulkEditing": false
           },
-          "widgetId": "entryLinksEditor"
+          "widgetId": "entryLinksEditor",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "theme",
-          "widgetId": "dropdown"
+          "widgetId": "dropdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "selected",
           "settings": {
             "helpText": "Defaults to 0"
           },
-          "widgetId": "numberEditor"
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -14320,7 +15486,7 @@
             "linkType": "Space"
           }
         },
-        "version": 26,
+        "version": 28,
         "createdAt": "2018-07-25T11:40:03.377Z",
         "createdBy": {
           "sys": {
@@ -14329,7 +15495,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-11-09T13:21:54.866Z",
+        "updatedAt": "2019-06-11T09:01:17.414Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -14355,18 +15521,21 @@
       "controls": [
         {
           "fieldId": "name",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "tab",
-          "widgetId": "markdown"
+          "widgetId": "markdown",
+          "widgetNamespace": "builtin"
         },
         {
           "fieldId": "panel",
           "settings": {
             "bulkEditing": false
           },
-          "widgetId": "entryLinksEditor"
+          "widgetId": "entryLinksEditor",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -14381,7 +15550,7 @@
             "linkType": "Space"
           }
         },
-        "version": 12,
+        "version": 32,
         "createdAt": "2018-08-06T07:26:56.660Z",
         "createdBy": {
           "sys": {
@@ -14390,7 +15559,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2019-02-25T06:53:56.558Z",
+        "updatedAt": "2019-04-11T06:41:00.809Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -14442,11 +15611,62 @@
           "widgetNamespace": "builtin"
         },
         {
+          "fieldId": "wrapAround",
+          "settings": {
+            "helpText": "Defaults to `Yes` if not set otherwise",
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean",
+          "widgetNamespace": "builtin"
+        },
+        {
           "fieldId": "duration",
           "settings": {
             "helpText": "Slide duration in seconds"
           },
           "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "slidesToShow",
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "cellSpacing",
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "cellAlign",
+          "settings": {
+            "helpText": "Defaults to 'center' if not set otherwise"
+          },
+          "widgetId": "dropdown",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "framePadding",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "vertical",
+          "settings": {
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "withoutControls",
+          "settings": {
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean",
           "widgetNamespace": "builtin"
         },
         {
@@ -14467,7 +15687,7 @@
             "linkType": "Space"
           }
         },
-        "version": 4,
+        "version": 30,
         "createdAt": "2018-08-08T14:03:50.464Z",
         "createdBy": {
           "sys": {
@@ -14476,10 +15696,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-09-04T11:35:43.557Z",
+        "updatedAt": "2019-07-01T09:18:34.630Z",
         "updatedBy": {
           "sys": {
-            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
             "type": "Link",
             "linkType": "User"
           }
@@ -14502,7 +15722,71 @@
       "controls": [
         {
           "fieldId": "name",
-          "widgetId": "singleLine"
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "Section title at the top of the componet"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "challengeTitleContains",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "challengeType",
+          "settings": {
+            "helpText": "Pull challenges that are selected types"
+          },
+          "widgetId": "checkbox",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "technologies",
+          "settings": {
+            "helpText": "Insert technology and hit \"Enter\" to include it in search query"
+          },
+          "widgetId": "tagEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "completedChallenges",
+          "settings": {
+            "helpText": "Defaults to \"No\". If \"Yes\" is selected, the list will include completed challenges too",
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "limit",
+          "settings": {
+            "helpText": "Limit challenges that will be displayed. Defaults to 10 if not set otherwise"
+          },
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "buttonText",
+          "settings": {
+            "helpText": "Text of button bellow the section"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "buttonUrl",
+          "settings": {
+            "helpText": "Link for the button"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
         }
       ]
     },
@@ -17356,6 +18640,493 @@
           "widgetId": "objectEditor"
         }
       ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 4,
+        "createdAt": "2019-03-26T09:53:51.198Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2019-03-26T09:54:30.171Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "modal",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "content",
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "theme",
+          "widgetId": "dropdown",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 30,
+        "createdAt": "2019-06-11T08:53:54.488Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2019-07-12T14:58:00.541Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "memberCard",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "memberHandle",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "memberName",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "description",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "trackIcon",
+          "settings": {
+            "helpText": "Recommended size: 30px x 30px; TC colors for icon area: Green - #5CC900; Blue - #15ACEC; Orange - #FD7D00"
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "trackColor",
+          "widgetId": "colourpicker",
+          "widgetNamespace": "extension"
+        },
+        {
+          "fieldId": "image",
+          "settings": {
+            "helpText": "Member image. Recommended size: 305px x 219px"
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "country",
+          "widgetId": "cf-contentful-ui-country-select",
+          "widgetNamespace": "extension"
+        },
+        {
+          "fieldId": "url",
+          "settings": {
+            "helpText": "The address for linking"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "theme",
+          "settings": {
+            "helpText": "Default theme is applied if not otherwise specified"
+          },
+          "widgetId": "dropdown",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "extraStylesForContainer",
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 22,
+        "createdAt": "2019-06-23T08:09:05.380Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2019-06-23T08:48:57.302Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "article",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "creationDate",
+          "settings": {
+            "ampm": "24",
+            "format": "timeZ",
+            "helpText": "Creation date of content"
+          },
+          "widgetId": "datePicker",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "trackCategory",
+          "settings": {
+            "helpText": "1+ required"
+          },
+          "widgetId": "checkbox",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "contentUrl",
+          "widgetId": "urlEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "readTime",
+          "settings": {
+            "helpText": "Suggested format: 5 min read"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "content",
+          "widgetId": "markdown",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "featuredImage",
+          "settings": {
+            "helpText": "Featured Image of article in index/search pages."
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "contentAuthor",
+          "settings": {
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "contentCategory",
+          "widgetId": "tagEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "tags",
+          "widgetId": "tagEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "upvotes",
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "downvotes",
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "recommended",
+          "settings": {
+            "helpText": "Recommended for you resources",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "journeyPrevious",
+          "settings": {
+            "helpText": "Making members see what’s previous article if selected"
+          },
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "journeyNext",
+          "settings": {
+            "helpText": "Making members see what’s next article if selected"
+          },
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 10,
+        "createdAt": "2019-07-12T09:30:05.149Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2019-07-15T08:13:00.810Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "shape",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "shapeSvg",
+          "settings": {
+            "helpText": "Select the shape SVG file to be applied to the component"
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "inline",
+          "settings": {
+            "helpText": "Embed the shape as inline SVG element. Defaults to \"No\" which means the shape is applied as background image to the element.",
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "backgroundColor",
+          "widgetId": "colourpicker",
+          "widgetNamespace": "extension"
+        },
+        {
+          "fieldId": "height",
+          "settings": {
+            "helpText": "Shapes need some height defined. Defaults to 100px if not set otherwise"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "extraStylesForContainer",
+          "settings": {
+            "helpText": "Define extra CSS inline styles that will overwrite defaults"
+          },
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 8,
+        "createdAt": "2019-07-12T10:42:42.935Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2019-07-15T08:46:51.210Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "image",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "source",
+          "settings": {
+            "helpText": "The image source"
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "clipSvg",
+          "settings": {
+            "helpText": "A SVG file that define \"clip-path\" to be applied on the image"
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "extraStylesForContainer",
+          "settings": {
+            "helpText": "Inline CSS styles to apply on container"
+          },
+          "widgetId": "objectEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
     }
   ],
   "locales": [
@@ -17403,5 +19174,7 @@
         "updatedAt": "2018-11-09T17:58:07Z"
       }
     }
+  ],
+  "webhooks": [
   ]
 }

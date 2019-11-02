@@ -10,13 +10,14 @@
  * the 'onDatesChanged' property, if any, passing in the object having
  * 'startDate' and 'endDate' fields the user wants to set.
  */
-import _ from 'lodash';
+
 import React from 'react';
 import PT from 'prop-types';
 import 'react-dates/initialize';
 import { DateRangePicker as WrappedDateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
+import defaultPhrases from 'react-dates/lib/defaultPhrases';
 
 class DateRangePicker extends React.Component {
   constructor(props) {
@@ -33,30 +34,30 @@ class DateRangePicker extends React.Component {
       numberOfMonths,
       readOnly,
       startDate,
-      setDatepickerStatus,
     } = this.props;
     const {
       focusedInput,
     } = this.state;
+    const phraseOverrides = {
+      ...defaultPhrases,
+      jumpToPrevMonth: 'Previous Month',
+      jumpToNextMonth: 'Next Month',
+    };
     return (
       <WrappedDateRangePicker
-        hideKeyboardShortcutsPanel
         numberOfMonths={numberOfMonths}
         focusedInput={focusedInput}
         isOutsideRange={() => false}
         onDatesChange={onDatesChange}
         onFocusChange={(newFocusedInput) => {
-          const status = !_.isEmpty(newFocusedInput);
-          setDatepickerStatus(status);
           this.setState({ focusedInput: newFocusedInput });
         }}
         startDate={startDate}
         endDate={endDate}
-        endDateId="date-range-picker-two-month"
-        startDateId="date-range-picker-one-month"
         anchorDirection="right"
         displayFormat="MMM DD, YYYY"
         readOnly={readOnly}
+        phrases={phraseOverrides}
       />
     );
   }
@@ -70,7 +71,6 @@ DateRangePicker.defaultProps = {
 DateRangePicker.propTypes = {
   onDatesChange: PT.func,
   readOnly: PT.bool,
-  setDatepickerStatus: PT.func.isRequired,
 };
 
 export default DateRangePicker;

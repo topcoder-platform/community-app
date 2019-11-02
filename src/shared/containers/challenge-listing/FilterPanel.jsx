@@ -2,23 +2,25 @@
  * Container for the header filters panel.
  */
 /* global window */
-import _ from 'lodash';
-import pactions from 'actions/challenge-listing/filter-panel';
-import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
+
+import actions from 'actions/challenge-listing/filter-panel';
+import challengeListingActions from 'actions/challenge-listing';
+import communityActions from 'actions/tc-communities';
+import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
 import sidebarActions from 'actions/challenge-listing/sidebar';
+import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import qs from 'qs';
-
-const { BUCKETS, isReviewOpportunitiesBucket } = challengeUtil.buckets;
 
 /* The default name for user-saved challenge filters. An integer
  * number will be appended to it, when necessary, to keep filter
  * names unique. */
 const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
+const MIN = 60 * 1000;
 
 /**
  * Returns a vacant name for the user saved filter.
@@ -45,7 +47,15 @@ export class Container extends React.Component {
       loadingSubtracks,
       setFilterState,
       filterState,
+      communityList,
+      getCommunityList,
+      auth,
     } = this.props;
+
+    if (communityList && !communityList.loadingUuid
+    && (Date.now() - communityList.timestamp > 5 * MIN)) {
+      getCommunityList(auth);
+    }
     if (!loadingSubtracks) getSubtracks();
     if (!loadingKeywords) getKeywords();
 
@@ -68,7 +78,6 @@ export class Container extends React.Component {
       selectedCommunityId,
       setFilterState,
       tokenV2,
-      challenges,
     } = this.props;
     const communityFilters2 = [
       {
@@ -84,7 +93,6 @@ export class Container extends React.Component {
     return (
       <FilterPanel
         {...this.props}
-        challenges={challenges}
         communityFilters={communityFilters2}
         saveFilter={() => {
           const name = getAvailableFilterName(savedFilters);
@@ -122,6 +130,15 @@ Container.propTypes = {
   activeBucket: PT.string.isRequired,
   communityFilters: PT.arrayOf(PT.object).isRequired,
   defaultCommunityId: PT.string.isRequired,
+  getCommunityList: PT.func.isRequired,
+  communityList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      communityId: PT.string.isRequired,
+      communityName: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   filterState: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape()),
   selectedCommunityId: PT.string.isRequired,
@@ -136,18 +153,22 @@ Container.propTypes = {
   setFilterState: PT.func.isRequired,
   auth: PT.shape().isRequired,
   tokenV2: PT.string,
-  setDatepickerStatus: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
-  const a = pactions.challengeListingFrontend.filterPanel;
-  const cla = actions.challengeListing;
-  const sa = sidebarActions.challengeListingFrontend.sidebar;
+  const a = actions.challengeListing.filterPanel;
+  const cla = challengeListingActions.challengeListing;
+  const sa = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
     getSubtracks: () => {
       dispatch(cla.getChallengeSubtracksInit());
       dispatch(cla.getChallengeSubtracksDone());
+    },
+    getCommunityList: (auth) => {
+      const uuid = shortId();
+      dispatch(communityActions.tcCommunity.getListInit(uuid));
+      dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
     },
     getKeywords: () => {
       dispatch(cla.getChallengeTagsInit());
@@ -160,20 +181,18 @@ function mapDispatchToProps(dispatch) {
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
-    setDatepickerStatus: status => dispatch(cla.setDatepickerStatus(status)),
   };
 }
 
 function mapStateToProps(state, ownProps) {
   const cl = state.challengeListing;
-  const clFrontend = state.challengeListingFrontend;
   const tc = state.tcCommunities;
   return {
     ...ownProps,
-    ...state.challengeListingFrontend.filterPanel,
-    challenges: _.has(cl.challenges, BUCKETS.ALL) ? cl.challenges[BUCKETS.ALL] : [],
-    activeBucket: clFrontend.sidebar.activeBucket,
+    ...state.challengeListing.filterPanel,
+    activeBucket: cl.sidebar.activeBucket,
     communityFilters: tc.list.data,
+    communityList: tc.list,
     defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,
@@ -183,8 +202,8 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,
-    isSavingFilter: clFrontend.sidebar.isSavingFilter,
-    savedFilters: clFrontend.sidebar.savedFilters,
+    isSavingFilter: cl.sidebar.isSavingFilter,
+    savedFilters: cl.sidebar.savedFilters,
   };
 }
 

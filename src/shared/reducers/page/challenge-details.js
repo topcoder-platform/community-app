@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import actions, { SPECS_TAB_STATES } from 'actions/page/challenge-details';
 import { handleActions } from 'redux-actions';
-import { url } from 'topcoder-react-lib';
+import { updateQuery } from 'utils/url';
 
 /**
  * Handles challengeActions.toggleCheckpointFeedback action.
@@ -30,7 +30,7 @@ function onToggleCheckpointFeedback(state, action) {
  * @return {Object}
  */
 function onSelectTab(state, { payload }) {
-  url.updateQuery({ tab: payload });
+  updateQuery({ tab: payload });
   return { ...state, selectedTab: payload };
 }
 
@@ -57,6 +57,27 @@ function toggleSubmissionHistory(state, { payload }) {
 }
 
 /**
+ * Handler for open state of testcase of submission.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function toggleSubmissionTestcase(state, { payload }) {
+  const newSubmissionTestcaseOpen = _.clone(state.submissionTestcaseOpen);
+  newSubmissionTestcaseOpen[payload.toString()] = !newSubmissionTestcaseOpen[payload.toString()];
+  return { ...state, submissionTestcaseOpen: newSubmissionTestcaseOpen };
+}
+
+/**
+ * Handler for clear state of testcase open of submission.
+ * @param {Object} state
+ * @return {Object} New state.
+ */
+function clearSubmissionTestcaseOpen(state) {
+  return { ...state, submissionTestcaseOpen: {} };
+}
+
+/**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
  * @return {Function} Reducer.
@@ -68,10 +89,13 @@ function create(state = {}) {
     [a.setSpecsTabState]: onSetSpecsTabState,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
     [a.submissions.toggleSubmissionHistory]: toggleSubmissionHistory,
+    [a.submissions.toggleSubmissionTestcase]: toggleSubmissionTestcase,
+    [a.submissions.clearSubmissionTestcaseOpen]: clearSubmissionTestcaseOpen,
   }, _.defaults(state, {
     checkpoints: {},
     specsTabState: SPECS_TAB_STATES.VIEW,
     submissionHistoryOpen: {},
+    submissionTestcaseOpen: {},
   }));
 }
 

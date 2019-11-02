@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="undefined  undefined"
+>
+  <div
+    className="undefined undefined"
+  >
+    <span>
+      filter
+    </span>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <IconCloseBig
+        height="14"
+        viewBox="0 0 14 14"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </button>
+  </div>
+  <div>
+    <div>
+      <span>
+        category
+      </span>
+    </div>
+    <ThemedFilterRadioInner
+      className=""
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      mapThemrProps={[Function]}
+      onSelected={[Function]}
+      options={Array []}
+      selected={null}
+      themePriority="adhoc-context-default"
+    />
+  </div>
+  <div>
+    <div
+      type="button"
+    >
+      <span>
+        filter
+      </span>
+    </div>
+    <ThemedFilterTagsInner
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      mapThemrProps={[Function]}
+      onAddNewTag={[Function]}
+      onRemoveTag={[Function]}
+      tags={Array []}
+      themePriority="adhoc-context-default"
+    />
+    <ThemedFilterAuthorInner
+      className=""
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      mapThemrProps={[Function]}
+      onSelected={[Function]}
+      options={
+        Array [
+          "All authors",
+        ]
+      }
+      selected="All authors"
+      themePriority="adhoc-context-default"
+    />
+    <ThemedFilterDateInner
+      className=""
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      endDate="2019-09-01T07:21:20.249Z"
+      mapThemrProps={[Function]}
+      onSelectEndDate={[Function]}
+      onSelectStartDate={[Function]}
+      startDate="2019-08-01T07:21:20.249Z"
+      themePriority="adhoc-context-default"
+    />
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      APPLY FILTER
+    </button>
+  </div>
+</div>
+`;

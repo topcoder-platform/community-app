@@ -1,11 +1,10 @@
-import pageAactions from 'actions/page/communities/iot/assets';
+import actions from 'actions/page/communities/iot/assets';
 import _ from 'lodash';
-import { actions, challenges } from 'topcoder-react-lib';
+import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Assets from 'components/tc-communities/communities/iot/Assets';
 import { connect } from 'react-redux';
-
-const Buckets = challenges.buckets;
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 function mapStateToProps(state) {
   return {
@@ -17,18 +16,18 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     resetChallengeListing: () => {
-      const a = actions.challengeListing;
+      const a = challengeListingActions.challengeListing;
       const sa = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(a.selectCommunity(''));
       dispatch(a.setFilter({}));
-      dispatch(sa.selectBucket(Buckets.BUCKETS.ALL));
+      dispatch(sa.selectBucket(BUCKETS.ALL));
     },
     toggleGrid: () => {
-      const a = pageAactions.page.communities.iot.assets;
+      const a = actions.page.communities.iot.assets;
       dispatch(a.toggleGrid());
     },
     toggleList: () => {
-      const a = pageAactions.page.communities.iot.assets;
+      const a = actions.page.communities.iot.assets;
       dispatch(a.toggleList());
     },
   };

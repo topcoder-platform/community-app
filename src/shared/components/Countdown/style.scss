@@ -21,21 +21,21 @@ $container-background-yello: #fce217;
   }
 
   .title {
-    color: $text-color-gray;
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 34px;
+    @include barlow-condensed-medium;
+
+    color: $tco-black;
+    font-size: 34px;
+    line-height: 38px;
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
+    text-transform: uppercase;
 
     &.colon {
       margin-right: 30px;
     }
 
     @media only screen and (max-width: 767px) {
-      @include roboto-light;
-
       margin-bottom: 20px;
 
       &.colon {
@@ -54,27 +54,25 @@ $container-background-yello: #fce217;
   }
 
   .time-value {
-    @include roboto-bold;
+    @include barlow-condensed-bold;
 
-    color: $text-color-gray;
+    color: $tco-black;
     font-size: 42px;
-    font-weight: 700;
     line-height: 50px;
     text-align: center;
   }
 
   .time-label {
+    @include barlow-condensed-medium;
+
     color: $text-color-gray;
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 18px;
     line-height: 30px;
     text-align: center;
-    margin-top: 10px;
     width: 100px;
+    text-transform: uppercase;
 
     @media only screen and (max-width: 767px) {
-      @include roboto-light;
-
       width: auto;
       margin-left: 10px;
       margin-right: 10px;

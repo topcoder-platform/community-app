@@ -30,14 +30,17 @@ module.exports = {
        * are not bundled. */
       /utils[\\/]router[\\/]require/,
     ],
-    rules: [{
-      test: /\.svg$/,
-      loader: 'file-loader',
-      options: {
-        outputPath: '/images/',
-        publicPath: `${publicPath}/images`,
+    rules: [
+      {
+        test: /\.svg$/,
+        loader: 'file-loader',
+        options: {
+          outputPath: '/images/',
+          publicPath: `${publicPath}/images`,
+        },
+        exclude: /node_modules/,
       },
-    }],
+    ],
   },
   plugins: [
     new CopyWebpackPlugin([{

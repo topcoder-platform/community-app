@@ -11,6 +11,7 @@ export default function HobbyList(props) {
   const {
     hobbyList,
     onDeleteItem,
+    onEditItem,
   } = props;
 
   return (
@@ -19,7 +20,12 @@ export default function HobbyList(props) {
         {
           hobbyList.items.map((hobby, index) => (
             <li key={`${hobby.hobby}${index + 1}`}>
-              <Item hobby={hobby} index={index} onDeleteItem={onDeleteItem} />
+              <Item
+                hobby={hobby}
+                index={index}
+                onDeleteItem={onDeleteItem}
+                onEditItem={onEditItem}
+              />
             </li>
           ))
         }
@@ -31,4 +37,5 @@ export default function HobbyList(props) {
 HobbyList.propTypes = {
   hobbyList: PT.shape().isRequired,
   onDeleteItem: PT.func.isRequired,
+  onEditItem: PT.func.isRequired,
 };

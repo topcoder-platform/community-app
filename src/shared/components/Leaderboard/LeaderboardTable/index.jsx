@@ -29,7 +29,19 @@ import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 
 import avatarStyles from '../avatarStyles.scss';
-import styles from './styles.scss'; // eslint-disable-line
+import defaultStyles from './themes/styles.scss'; // eslint-disable-line
+import tco20Styles from './themes/tco20.scss'; // eslint-disable-line
+
+const THEME = {
+  Default: 'defaultStyles',
+  TCO20: 'tco20Styles',
+};
+
+/**
+ * Format points number
+ * @param {Number} points points number
+ */
+const formatPoints = points => parseFloat(Math.round(points * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -40,7 +52,9 @@ export default function LeaderboardTable(props) {
     onUsernameClick,
     isTopGear,
     isAlgo,
+    themeName,
   } = props;
+  const stylesName = THEME[themeName];
   const renderTableRows = comps => (
     comps.map((competitor) => {
       let photoUrl = competitor.avatar;
@@ -50,9 +64,9 @@ export default function LeaderboardTable(props) {
       }
       return (
         <tr key={competitor.rank}>
-          <td styleName="styles.col-rank">{competitor.rank}</td>
-          <td styleName="styles.col-avatar">
-            <span styleName="styles.leaderboard-avatar">
+          <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
+          <td styleName={`${stylesName}.col-avatar`}>
+            <span styleName={`${stylesName}.leaderboard-avatar`}>
               <Avatar
                 theme={{
                   avatar: avatarStyles.default,
@@ -61,11 +75,11 @@ export default function LeaderboardTable(props) {
               />
             </span>
           </td>
-          <td styleName="styles.col-handle">
+          <td styleName={`${stylesName}.col-handle`}>
             {
               onUsernameClick ? (
                 <div
-                  styleName="styles.handle-link"
+                  styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
                 >
                   {competitor.handle}
@@ -76,7 +90,7 @@ export default function LeaderboardTable(props) {
                 </a>
               )
             }
-            <div styleName="styles.winnings-info">
+            <div styleName={`${stylesName}.winnings-info`}>
               {competitor.fulfillment && (<span>{competitor.fulfillment} fulfillment</span>)}
               <span>{competitor.points} points</span>
               <span>{competitor.challengecount} challenges</span>
@@ -84,24 +98,24 @@ export default function LeaderboardTable(props) {
           </td>
           {
             isCopilot ? (
-              <td styleName="styles.col-fulfillment">{competitor.fulfillment}</td>
+              <td styleName={`${stylesName}.col-fulfillment`}>{competitor.fulfillment}</td>
             ) : null
           }
-          <td styleName="styles.col-challenges">{competitor.challengecount}</td>
-          <td styleName="styles.col-points">{competitor.points}</td>
+          <td styleName={`${stylesName}.col-challenges`}>{competitor.challengecount}</td>
+          <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor.points)}</td>
           {
             isTopGear ? (
-              <td styleName="styles.col-points">{competitor.wins}</td>
+              <td styleName={`${stylesName}.col-points`}>{competitor.wins}</td>
             ) : null
           }
           {
             isTopGear ? (
-              <td styleName="styles.col-points">{competitor.total_earnings}</td>
+              <td styleName={`${stylesName}.col-points`}>{competitor.total_earnings}</td>
             ) : null
           }
           {
             isAlgo ? (
-              <td styleName="styles.col-points">{competitor['srm_tco19.score']}</td>
+              <td styleName={`${stylesName}.col-points`}>{competitor['srm_tco19.score']}</td>
             ) : null
           }
         </tr>
@@ -110,31 +124,31 @@ export default function LeaderboardTable(props) {
   );
 
   return (
-    <table styleName="styles.LeaderboardTable">
+    <table styleName={`${stylesName}.LeaderboardTable`}>
       <thead>
-        <tr>
-          <th styleName="styles.col-rank">Rank</th>
-          <th styleName="styles.col-handle" colSpan="2">Handle</th>
+        <tr styleName={`${stylesName}.table-header`}>
+          <th styleName={`${stylesName}.col-rank`}>Rank</th>
+          <th styleName={`${stylesName}.col-handleHeader`} colSpan="2">Handle</th>
           {
             isCopilot ? (
-              <th styleName="styles.col-fulfillment">Fulfillment</th>
+              <th styleName={`${stylesName}.col-fulfillment`}>Fulfillment</th>
             ) : null
           }
-          <th styleName="styles.col-challenges"># of Challenges</th>
-          <th styleName="styles.col-points">Points</th>
+          <th styleName={`${stylesName}.col-challenges`}># of Challenges</th>
+          <th styleName={`${stylesName}.col-points`}>Points</th>
           {
             isTopGear ? (
-              <th styleName="styles.col-points">Wins</th>
+              <th styleName={`${stylesName}.col-points`}>Wins</th>
             ) : null
           }
           {
             isTopGear ? (
-              <th styleName="styles.col-points">Total Earnings</th>
+              <th styleName={`${stylesName}.col-points`}>Total Earnings</th>
             ) : null
           }
           {
             isAlgo ? (
-              <th styleName="styles.col-points">Total Score</th>
+              <th styleName={`${stylesName}.col-points`}>Total Score</th>
             ) : null
           }
         </tr>
@@ -163,6 +177,7 @@ LeaderboardTable.propTypes = {
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
   isAlgo: PT.bool,
+  themeName: PT.string,
 };
 
 LeaderboardTable.defaultProps = {
@@ -170,4 +185,5 @@ LeaderboardTable.defaultProps = {
   onUsernameClick: null,
   isTopGear: false,
   isAlgo: false,
+  themeName: 'Default',
 };

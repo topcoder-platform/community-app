@@ -7,12 +7,12 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
-import { logger, challenge as challengeUtil, url } from 'topcoder-react-lib';
+import { logger } from 'topcoder-react-lib';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { handleActions } from 'redux-actions';
+import { updateQuery } from 'utils/url';
 
 const MAX_FILTER_NAME_LENGTH = 35;
-const { BUCKETS } = challengeUtil.buckets;
-const { updateQuery } = url;
 
 /**
  * Handles changeFilterName action.
@@ -135,8 +135,7 @@ function onSelectBucket(state, { payload }) {
 function onSelectSavedFilter(state, { payload }) {
   const { isForReviewOpportunities } = state.savedFilters[payload].filter;
   updateQuery({
-    bucket: isForReviewOpportunities
-      ? BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : undefined,
+    bucket: isForReviewOpportunities ? BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : undefined,
   });
   return {
     ...state,
@@ -165,7 +164,7 @@ function onUpdateSavedFilter(state, action) {
 }
 
 function create(initialState = {}) {
-  const a = actions.challengeListingFrontend.sidebar;
+  const a = actions.challengeListing.sidebar;
   return handleActions({
     [a.changeFilterName]: onChangeFilterName,
     [a.deleteSavedFilter]: onDeleteSavedFilter,

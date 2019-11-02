@@ -194,10 +194,47 @@ module.exports = {
     {
       title: 'Log Out',
       href: 'https://www.topcoder.com/logout',
+    }
+  ],
+  SECONDARY_MENU_FOR_LOGGED_USER: [
+    {
+      title: 'Dashboard',
+      href: '/my-dashboard',
+    },
+    {
+      id: 'myprofile',
+      title: 'My Profile',
+      href: '/members/',
+    },
+    {
+      title: 'Payments',
+      href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+    },
+  ],
+  SECONDARY_MENU_FOR_GUEST: [
+    {
+      title: 'Overview',
+      href: 'https://www.topcoder.com/about',
+    },
+    {
+      title: 'How It Works',
+      href: 'https://www.topcoder.com/how-it-works/faqs/',
+    },
+    {
+      title: 'Tracks',
+      href: '/community/learn',
+    },
+    {
+      title: 'Why Join',
+      href: 'https://www.topcoder.com/about/why-crowdsourcing/',
     },
   ],
   ACCOUNT_MENU_SWITCH_TEXT: {
     title: 'Switch to BUSINESS',
     href: 'https://connect.topcoder.com',
+  },
+
+  SECRET: {
+    AV_SCAN_SCORER_REVIEW_TYPE_ID: '55bbb17d-aac2-45a6-89c3-a8d102863d05',
   },
 };

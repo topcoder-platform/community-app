@@ -1,6 +1,7 @@
 /**
  * render work Item
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import ReactSVG from 'react-svg';
@@ -19,7 +20,19 @@ export default function Item(props) {
     work,
     index,
     onDeleteItem,
+    onEditItem,
   } = props;
+
+  const hasSecondLine = () => {
+    if (_.isEmpty(work.timePeriodFrom) && _.isEmpty(work.timePeriodTo)
+      && _.isEmpty(work.position) && !work.working) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const current = work.working ? '- Current' : '';
 
   return (
     <div styleName="container">
@@ -27,35 +40,49 @@ export default function Item(props) {
         <div styleName="work-icon">
           <ReactSVG path={assets('./ico-work.svg')} />
         </div>
-        <div styleName="work-parameters">
-          <div styleName="parameter-first-line">
-            { `${work.company} | ${work.industry} | ${work.cityTown}` }
+        <div styleName={`work-parameters${hasSecondLine() ? '' : ' single-line'}`}>
+          <div styleName={`parameter-first-line${hasSecondLine() ? '' : ' single-line'}`}>
+            { `${work.company}${_.isEmpty(work.industry) ? '' : ` | ${work.industry}`}${_.isEmpty(work.cityTown) ? '' : ` | ${work.cityTown}`}` }
           </div>
           <div styleName="parameter-second-line">
-            { `${moment(work.timePeriodFrom).format('YYYY')} - ${moment(work.timePeriodTo).format('YYYY')} | ${work.position}` }
+            { `${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ` ${current}`} ${!_.isEmpty(work.position) && (!_.isEmpty(work.timePeriodTo) || !_.isEmpty(work.timePeriodFrom)) ? ' | ' : ''}${!_.isEmpty(work.position) ? `${work.position}` : ''}` }
           </div>
           <div styleName="parameter-second-line-mobile">
             <p>
-              {`${moment(work.timePeriodFrom).format('YYYY')} - ${moment(work.timePeriodTo).format('YYYY')}`}
+              {`${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ` ${current}`}`}
             </p>
             <p>
-              { work.position }
+              {`${!_.isEmpty(work.position) ? `${work.position}` : ''}`}
             </p>
           </div>
         </div>
       </div>
-      <a
-        styleName="delete"
-        onKeyPress={() => onDeleteItem(index)}
-        tabIndex={0}
-        role="button"
-        onClick={() => onDeleteItem(index)}
-      >
-        <img src={assets('./ico-trash.svg')} alt="delete-icon" />
-        <p>
-          Delete
-        </p>
-      </a>
+      <div styleName="operation-container">
+        <a
+          styleName="edit"
+          onKeyPress={() => onEditItem(index)}
+          tabIndex={0}
+          role="button"
+          onClick={() => onEditItem(index)}
+        >
+          <img src={assets('./ico-edit.svg')} alt="edit-icon" />
+          <p>
+            Edit
+          </p>
+        </a>
+        <a
+          styleName="delete"
+          onKeyPress={() => onDeleteItem(index)}
+          tabIndex={0}
+          role="button"
+          onClick={() => onDeleteItem(index)}
+        >
+          <img src={assets('./ico-trash.svg')} alt="delete-icon" />
+          <p>
+            Delete
+          </p>
+        </a>
+      </div>
     </div>
   );
 }
@@ -64,4 +91,5 @@ Item.propTypes = {
   work: PT.shape().isRequired,
   index: PT.number.isRequired,
   onDeleteItem: PT.func.isRequired,
+  onEditItem: PT.func.isRequired,
 };

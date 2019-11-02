@@ -252,7 +252,12 @@ Toggle navigation
         <div className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}>
           {
             menuItems[0] && menuItems[0].navigationMenu ? (
-              <Menu id={menuItems[0].navigationMenu} baseUrl={baseUrl} />
+              <Menu
+                id={menuItems[0].navigationMenu}
+                baseUrl={baseUrl}
+                spaceName={menuItems[0].spaceName}
+                environment={menuItems[0].environment}
+              />
             ) : (
               <ul className={theme.menu}>
                 {_.map(menuItems, menuIterator)}
@@ -330,7 +335,9 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  activeTrigger: PT.shape({}),
+  activeTrigger: PT.shape({
+    bottom: PT.string,
+  }),
   baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
   communityId: PT.string.isRequired,
@@ -342,6 +349,8 @@ Header.propTypes = {
     title: PT.string,
     url: PT.string,
     navigationMenu: PT.string,
+    spaceName: PT.string,
+    environment: PT.string,
   })),
   logos: PT.arrayOf(PT.oneOfType([
     PT.string,
@@ -358,7 +367,11 @@ Header.propTypes = {
   openMenu: PT.func.isRequired,
   pageId: PT.string.isRequired,
   onMobileToggleClick: PT.func.isRequired,
-  profile: PT.shape({}),
+  profile: PT.shape({
+    photoURL: PT.string,
+    groups: PT.any,
+    handle: PT.string,
+  }),
   theme: PT.shape().isRequired,
   logoutRedirect: PT.string,
   meta: PT.shape().isRequired,

@@ -1,10 +1,9 @@
 import _ from 'lodash';
-import { actions, challenges } from 'topcoder-react-lib';
+import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import About from 'components/tc-communities/communities/iot/About';
 import { connect } from 'react-redux';
-
-const Buckets = challenges.buckets;
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 function mapStateToProps(state) {
   return {
@@ -15,11 +14,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     resetChallengeListing: () => {
-      const a = actions.challengeListing;
+      const a = challengeListingActions.challengeListing;
       const sa = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(a.selectCommunity(''));
       dispatch(a.setFilter({}));
-      dispatch(sa.selectBucket(Buckets.BUCKETS.ALL));
+      dispatch(sa.selectBucket(BUCKETS.ALL));
     },
   };
 }

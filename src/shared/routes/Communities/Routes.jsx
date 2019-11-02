@@ -36,6 +36,7 @@ import tco16 from './TCO16';
 import tco17 from './TCO17';
 import tco18 from './TCO18';
 import tco19 from './TCO19';
+import tco20 from './TCO20';
 import Mobile from './Mobile';
 import Zurich from './Zurich';
 
@@ -59,6 +60,7 @@ const TCOs = {
   tco17,
   tco18,
   tco19,
+  tco20,
 };
 
 export default function Communities({

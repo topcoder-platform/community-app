@@ -11,6 +11,7 @@ import communityActions from 'actions/tc-communities';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
+import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
@@ -26,9 +27,10 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeDetailsActions, { TABS as DETAIL_TABS }
   from 'actions/page/challenge-details';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
-import { actions, challenge as challengeUtil } from 'topcoder-react-lib';
+import { actions } from 'topcoder-react-lib';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -52,11 +54,10 @@ import og48hUiPrototype from
   '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
 
 /* A fallback image, just in case we missed some corner case. */
-import ogImage from '../../../assets/images/og_image.jpg';
+import ogImage from
+  '../../../assets/images/og_image.jpg';
 
 import './styles.scss';
-
-const { BUCKETS } = challengeUtil.buckets;
 
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
@@ -233,6 +234,13 @@ class ChallengeDetailPageContainer extends React.Component {
       unregisterFromChallenge,
       unregistering,
       updateChallenge,
+      isMenuOpened,
+      loadMMSubmissions,
+      mmSubmissions,
+      loadingMMSubmissionsForChallengeId,
+      isLoadingSubmissionInformation,
+      submissionInformation,
+      loadSubmissionInformation,
     } = this.props;
 
     const {
@@ -282,7 +290,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     return (
       <div styleName="outer-container">
-        <div styleName="challenge-detail-container">
+        <div styleName="challenge-detail-container" role="main">
           { Boolean(isEmpty) && (
             <div styleName="page">
               Challenge #
@@ -307,26 +315,27 @@ class ChallengeDetailPageContainer extends React.Component {
           {
             !isEmpty
             && (
-              <ChallengeHeader
-                challenge={challenge}
-                challengeId={challengeId}
-                challengesUrl={challengesUrl}
-                numWinners={!isLegacyMM && winners.length}
-                showDeadlineDetail={showDeadlineDetail}
-                onToggleDeadlines={this.onToggleDeadlines}
-                onSelectorClicked={onSelectorClicked}
-                registerForChallenge={this.registerForChallenge}
-                registering={registering}
-                selectedView={selectedTab}
-                setChallengeListingFilter={setChallengeListingFilter}
-                unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
-                }
-                unregistering={unregistering}
-                checkpoints={checkpoints}
-                hasRegistered={hasRegistered}
-                hasFirstPlacement={hasFirstPlacement}
-                challengeSubtracksMap={challengeSubtracksMap}
-              />
+            <ChallengeHeader
+              challenge={challenge}
+              challengeId={challengeId}
+              challengesUrl={challengesUrl}
+              numWinners={!isLegacyMM && winners.length}
+              showDeadlineDetail={showDeadlineDetail}
+              onToggleDeadlines={this.onToggleDeadlines}
+              onSelectorClicked={onSelectorClicked}
+              registerForChallenge={this.registerForChallenge}
+              registering={registering}
+              selectedView={selectedTab}
+              setChallengeListingFilter={setChallengeListingFilter}
+              unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
+              }
+              unregistering={unregistering}
+              checkpoints={checkpoints}
+              hasRegistered={hasRegistered}
+              hasFirstPlacement={hasFirstPlacement}
+              challengeSubtracksMap={challengeSubtracksMap}
+              isMenuOpened={isMenuOpened}
+            />
             )
           }
           {
@@ -373,7 +382,18 @@ class ChallengeDetailPageContainer extends React.Component {
           }
           {
             !isEmpty && selectedTab === DETAIL_TABS.SUBMISSIONS
-            && <Submissions challenge={challenge} />
+            && (
+              <Submissions
+                challenge={challenge}
+                loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
+                mmSubmissions={mmSubmissions}
+                loadMMSubmissions={loadMMSubmissions}
+                auth={auth}
+                isLoadingSubmissionInformation={isLoadingSubmissionInformation}
+                submssionInformation={submissionInformation}
+                loadSubmissionInformation={loadSubmissionInformation}
+              />
+            )
           }
           {
             !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
@@ -413,6 +433,11 @@ ChallengeDetailPageContainer.defaultProps = {
   // loadingCheckpointResults: false,
   results: null,
   terms: [],
+  isMenuOpened: false,
+  loadingMMSubmissionsForChallengeId: '',
+  mmSubmissions: [],
+  isLoadingSubmissionInformation: false,
+  submissionInformation: null,
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -455,6 +480,13 @@ ChallengeDetailPageContainer.propTypes = {
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
   updateChallenge: PT.func.isRequired,
+  isMenuOpened: PT.bool,
+  loadingMMSubmissionsForChallengeId: PT.string,
+  mmSubmissions: PT.arrayOf(PT.shape()),
+  loadMMSubmissions: PT.func.isRequired,
+  isLoadingSubmissionInformation: PT.bool,
+  submissionInformation: PT.shape(),
+  loadSubmissionInformation: PT.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -488,6 +520,12 @@ function mapStateToProps(state, props) {
     specsTabState: state.page.challengeDetails.specsTabState,
     terms: state.terms.terms,
     unregistering: state.challenge.unregistering,
+    isMenuOpened: !!state.topcoderHeader.openedMenu,
+    loadingMMSubmissionsForChallengeId: state.challenge.loadingMMSubmissionsForChallengeId,
+    isLoadingSubmissionInformation:
+      Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
+    submissionInformation: state.challenge.submissionInformation,
+    mmSubmissions: state.challenge.mmSubmissions,
   };
 }
 
@@ -540,8 +578,8 @@ const mapDispatchToProps = (dispatch) => {
         });
     },
     setChallengeListingFilter: (filter) => {
+      const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
-      const cl = actions.challenge;
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
@@ -572,7 +610,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(selectTab(tab));
     },
     getSubtracks: () => {
-      const cl = actions.challengeListing;
+      const cl = challengeListingActions.challengeListing;
       dispatch(cl.getChallengeSubtracksInit());
       dispatch(cl.getChallengeSubtracksDone());
     },
@@ -584,6 +622,16 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.updateChallengeInit(uuid));
       dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
+    },
+    loadMMSubmissions: (challengeId, registrants, tokenV3) => {
+      const a = actions.challenge;
+      dispatch(a.getMmSubmissionsInit(challengeId));
+      dispatch(a.getMmSubmissionsDone(challengeId, registrants, tokenV3));
+    },
+    loadSubmissionInformation: (submissionId, tokenV3) => {
+      const a = actions.challenge;
+      dispatch(a.getSubmissionInformationInit(submissionId));
+      dispatch(a.getSubmissionInformationDone(submissionId, tokenV3));
     },
   };
 };

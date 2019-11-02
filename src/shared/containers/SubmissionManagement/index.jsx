@@ -81,7 +81,7 @@ class SubmissionManagementPageContainer extends React.Component {
 
     return (
       <div styleName="outer-container">
-        <div styleName="submission-management-container">
+        <div styleName="submission-management-container" role="main">
           {!isEmpty
             && (
             <SubmissionManagement

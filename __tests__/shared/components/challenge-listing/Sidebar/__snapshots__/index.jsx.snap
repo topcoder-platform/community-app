@@ -24,7 +24,6 @@ exports[`Matches shallow shapshot 1`] = `
       extraBucket={null}
       filterState={Object {}}
       isAuth={false}
-      loadMoreChallenges={null}
       savedFilters={Array []}
       selectBucket={[MockFunction]}
       selectSavedFilter={[MockFunction]}

@@ -3,13 +3,13 @@
  */
 
 import _ from 'lodash';
-import { challenge as challengeUtil } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import React from 'react';
 import './style.scss';
 
-const Filter = challengeUtil.filter;
+const Filter = challengeUtils.filter;
 
 function Bucket({
   active,
@@ -94,6 +94,7 @@ Bucket.propTypes = {
     hideCount: PT.bool,
     name: PT.string.isRequired,
     error: PT.string,
+    filter: PT.any,
   }).isRequired,
   challenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,

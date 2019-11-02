@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { createActions } from 'redux-actions';
 
 export default createActions({
-  CHALLENGE_LISTING_FRONTEND: {
+  CHALLENGE_LISTING: {
     FILTER_PANEL: {
       /* Expands / collapses the filter panel. */
       SET_EXPANDED: _.identity,

@@ -67,9 +67,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     <div
       className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
     >
-      <Connect(SidebarContainer)
-        loadMoreChallenges={null}
-      />
+      <Connect(SidebarContainer) />
     </div>
     <Connect(Listing)
       activeBucket="abc"
@@ -81,10 +79,6 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       extraBucket={null}
       filterState={Object {}}
       loadMoreActive={null}
-      loadMoreChallenges={null}
-      loadMoreMy={null}
-      loadMoreOnGoing={null}
-      loadMoreOpen={null}
       loadMorePast={null}
       loadMoreReviewOpportunities={null}
       loadingActiveChallenges={false}
@@ -115,7 +109,6 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         <Connect(SidebarContainer)
           extraBucket={null}
           hideTcLinksInFooter={false}
-          loadMoreChallenges={null}
         />
       </Sticky>
     </div>
@@ -190,9 +183,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
     <div
       className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
     >
-      <Connect(SidebarContainer)
-        loadMoreChallenges={null}
-      />
+      <Connect(SidebarContainer) />
     </div>
     <div
       className="src-shared-components-challenge-listing-___style__challenge-cards-container___37tl8"
@@ -242,7 +233,6 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         <Connect(SidebarContainer)
           extraBucket={null}
           hideTcLinksInFooter={false}
-          loadMoreChallenges={null}
         />
       </Sticky>
     </div>

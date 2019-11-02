@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div>
+  <div>
+    <IconSearch
+      height="16"
+      viewBox="0 0 16 16"
+      width="16"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    <input
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="Search.."
+      type="text"
+      value=""
+    />
+    <div>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        <div>
+          <IconFilterAll
+            height="25"
+            viewBox="0 0 25 25"
+            width="25"
+            xmlns="http://www.w3.org/2000/svg"
+          />
+          <span>
+            All
+          </span>
+        </div>
+        <IconDropdown
+          height="12"
+          viewBox="0 0 8 12"
+          width="8"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <IconDropdownSmall
+          className="undefined undefined"
+          height="8"
+          viewBox="0 0 12 8"
+          width="12"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;

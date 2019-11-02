@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="undefined "
+>
+  <span>
+    Date
+  </span>
+  <IconCalendar
+    height="16"
+    viewBox="0 0 16 16"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  />
+  <DatePicker
+    allowFutureYear={false}
+    autoFocus={false}
+    date={null}
+    displayFormat="MMM D, YYYY"
+    id="date-picker-start-date"
+    numberOfMonths={1}
+    onDateChange={[Function]}
+  />
+  <span>
+    -
+  </span>
+  <IconCalendar
+    height="16"
+    viewBox="0 0 16 16"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  />
+  <DatePicker
+    allowFutureYear={false}
+    autoFocus={false}
+    date={null}
+    displayFormat="MMM D, YYYY"
+    id="date-picker-end-date"
+    numberOfMonths={1}
+    onDateChange={[Function]}
+  />
+</div>
+`;

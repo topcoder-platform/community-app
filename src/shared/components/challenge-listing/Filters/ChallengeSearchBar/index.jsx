@@ -22,33 +22,41 @@ export default function ChallengeSearchBar({
   placeholder,
   query,
   setQuery,
+  label,
 }) {
   return (
-    <div styleName="ChallengeSearchBar">
-      <input
-        onChange={event => setQuery(event.target.value)}
-        onKeyPress={event => (event.key === 'Enter' ? onSearch(query.trim()) : null)}
-        placeholder={placeholder}
-        type="text"
-        value={query}
-      />
-      <span
-        styleName={`SearchButton ${query ? 'active' : ''}`}
-        onClick={() => onSearch(query.trim())}
-        onKeyPress={() => onSearch(query.trim())}
-      >
-        <ZoomIcon styleName="zoomIcon" />
-      </span>
+    <div styleName="ChallengeSearchBar" role="search">
+      <label htmlFor="search-challenges">{label}
+        <input
+          id="search-challenges"
+          onChange={event => setQuery(event.target.value)}
+          onKeyPress={event => (event.key === 'Enter' ? onSearch(query.trim()) : null)}
+          placeholder={placeholder}
+          type="text"
+          value={query}
+        />
+        <span
+          styleName={`SearchButton ${query ? 'active' : ''}`}
+          onClick={() => onSearch(query.trim())}
+          onKeyPress={() => onSearch(query.trim())}
+          tabIndex="0"
+          role="button"
+        >
+          <ZoomIcon styleName="zoomIcon" />
+        </span>
+      </label>
     </div>
   );
 }
 
 ChallengeSearchBar.defaultProps = {
   placeholder: '',
+  label: 'Search: ',
 };
 
 ChallengeSearchBar.propTypes = {
   onSearch: PT.func.isRequired,
+  label: PT.string,
   placeholder: PT.string,
   query: PT.string.isRequired,
   setQuery: PT.func.isRequired,

@@ -22,7 +22,12 @@ import VideoModalButton from 'components/VideoModalButton';
 import Looker from 'containers/Looker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
+import NewsletterArchive from 'containers/NewsletterArchive';
 
+import tco19SecLg from 'components/buttons/outline/tco/tco19-sec-lg.scss';
+import tco19Lg from 'components/buttons/outline/tco/tco19-lg.scss';
+import tco19Sec from 'components/buttons/outline/tco/tco19-sec.scss';
+import tco19 from 'components/buttons/outline/tco/tco19.scss';
 import tco18 from 'components/buttons/outline/tco/tco18.scss';
 import tco16 from 'components/buttons/outline/tco/tco16.scss';
 import tco14 from 'components/buttons/outline/tco/tco14.scss';
@@ -32,13 +37,18 @@ import tco11 from 'components/buttons/outline/tco/tco11.scss';
 import tco10 from 'components/buttons/outline/tco/tco10.scss';
 import tco09 from 'components/buttons/outline/tco/tco09.scss';
 import tco07 from 'components/buttons/outline/tco/tco07.scss';
+import tc from 'components/buttons/themed/tc.scss';
 
 /**
  * Themes of legacy TCO buttons
- * those overwrite PrimaryButton stylwe to match legacy TCO styles
+ * those overwrite PrimaryButton style to match legacy TCO styles
  * Should implement `.tcoButton` class
 */
 const tcoButtonThemes = {
+  'tco19-sec': tco19Sec,
+  'tco19-sec-lg': tco19SecLg,
+  tco19,
+  'tco19-lg': tco19Lg,
   tco18, // default
   tco17: tco18,
   tco16,
@@ -50,6 +60,14 @@ const tcoButtonThemes = {
   tco10,
   tco09,
   tco07,
+};
+
+/** Themes for buttons
+ * those overwrite PrimaryButton style to match achieve various styles.
+ * Should implement pattern of classes.
+ */
+const buttonThemes = {
+  tc,
 };
 
 /**
@@ -84,10 +102,27 @@ const customComponents = {
         button: tcoButtonThemes[attrs.theme]
           ? tcoButtonThemes[attrs.theme].tcoButton
           : tcoButtonThemes.tco18.tcoButton,
+        disabled: (tcoButtonThemes[attrs.theme] && tcoButtonThemes[attrs.theme].tcoButtonDisabled)
+          ? tcoButtonThemes[attrs.theme].tcoButtonDisabled
+          : '',
       },
     },
   }),
   Modal: attrs => ({ type: Modal, props: attrs }),
+  NewsletterArchive: attrs => ({ type: NewsletterArchive, props: attrs }),
+  ThemedButton: (attrs) => {
+    const t = attrs.theme.split('-');
+    return {
+      type: PrimaryButton,
+      props: {
+        ...attrs,
+        theme: {
+          button: buttonThemes[t[0]][`${t[1]}-${t[2]}-${t[3]}`],
+          disabled: buttonThemes[t[0]].themedButtonDisabled,
+        },
+      },
+    };
+  },
 };
 
 /**

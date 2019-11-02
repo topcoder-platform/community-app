@@ -32,6 +32,12 @@ other types too.
   *Example:* `<TCOButton theme="tco18">TCO18/17 View Competition Rules</TCOButton>`
 
   Renders
+  [Themed Buttons](https://community-app.topcoder.com/examples/contentful/contentblock/3k7k1JpnSvIRrJYWs4izYi);
+
+- #### Themed Button
+  *Example:* `<ThemedButton theme="[tc-theme-color-size]">White</ThemedButton>`
+
+  Renders
   [TCOX Legacy Button](https://community-app.topcoder.com/examples/contentful/contentblock/FNmL56lEahdv0irLASC5a) that
   acts as a hyperlink;
 
@@ -89,6 +95,14 @@ other types too.
   - `videoUrl` &ndash; URL of the video stream. Current version of the
     component works only with YouTube videos, and the URL should be similar to
     `https://www.youtube.com/embed/mD12LIqdxqk` ().
+
+- #### NewsletterArchive
+  *Example:* `<NewsletterArchive name="Design Newsletter" />`
+  
+  A list of archive links sorted by descending `sent_date` from a MailChimp's campaign folder. Sould be working under any MarkdownParser component.
+
+  The properties are:
+  - `name` - the unique name of the camplaing foler. It has to be only one name entity. If those duplicate first found will be picked up and rest ignored.
 
 ## Links
 

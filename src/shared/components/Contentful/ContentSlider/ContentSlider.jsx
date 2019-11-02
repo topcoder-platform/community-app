@@ -11,8 +11,8 @@ import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
 
-import ArrowNext from 'assets/images/arrow_right.svg';
-import ArrowPrev from 'assets/images/arrow-left.svg';
+import ArrowNext from 'assets/images/new-arrow-right.svg';
+import ArrowPrev from 'assets/images/new-arrow-left.svg';
 import defaultTheme from './themes/default.scss';
 
 
@@ -110,6 +110,8 @@ ContentSlider.propTypes = {
     container: PT.string,
     content: PT.string,
     control: PT.string,
+    multiContent: PT.any,
+    singleContent: PT.any,
   }),
   containerStyle: PT.shape(),
   slidesToShow: PT.number,

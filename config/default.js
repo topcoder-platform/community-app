@@ -1,6 +1,8 @@
 /* All availalbe configuration options should be documented in the default
  * config file, even when they are overriden in every custom configuration. */
 
+const { deferConfig } = require('config/defer');
+
 module.exports = {
   /* Configuration of Topcoder APIs. */
   API: {
@@ -8,6 +10,7 @@ module.exports = {
     V3: 'https://api.topcoder-dev.com/v3',
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
+    MM_BROKER: '/api',
   },
 
   /* Auth0 config */
@@ -168,6 +171,7 @@ module.exports = {
    * parameters that should never be send to the client side. */
   SECRET: {
     CONTENTFUL: {
+      MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
       default: { // Human-readable name of space
         SPACE_ID: '',
         master: { // Name of an environment
@@ -191,6 +195,13 @@ module.exports = {
           PREVIEW_API_KEY: '',
         },
       },
+      EDU: {
+        SPACE_ID: '',
+        master: {
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
     },
 
     MAILCHIMP: {
@@ -202,16 +213,66 @@ module.exports = {
 
     OPEN_EXCHANGE_RATES_KEY: '',
 
+    /* Review type ID for AV Scans. */
+    AV_SCAN_SCORER_REVIEW_TYPE_ID: '',
+
+    JWT_AUTH: {
+      SECRET: '',
+      VALID_ISSUERS: deferConfig(function d() {
+        return this.VALID_ISSUERS ? this.VALID_ISSUERS.replace(/\\"/g, '')
+          : '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/"]';
+      }),
+    },
+
     /* These credentials allow Community App server to communicate with
      * protected TC API endpoints (on behalf of the app itself). */
     TC_M2M: {
+      AUTH0_URL: '',
       CLIENT_ID: '',
       CLIENT_SECRET: '',
       AUDIENCE: '',
       GRANT_TYPE: '',
+      AUTH0_PROXY_SERVER_URL: '',
     },
   },
 
+  SECONDARY_MENU_FOR_LOGGED_USER: [
+    {
+      title: 'Dashboard',
+      href: '/my-dashboard',
+    },
+    {
+      id: 'myprofile',
+      title: 'My Profile',
+      href: '/members/',
+    },
+    {
+      title: 'Payments',
+      href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+    },
+  ],
+  SECONDARY_MENU_FOR_GUEST: [
+    {
+      title: 'Overview',
+      href: 'https://www.topcoder-dev.com/about',
+    },
+    {
+      title: 'How It Works',
+      href: 'https://www.topcoder-dev.com/how-it-works/faqs/',
+    },
+    {
+      title: 'Tracks',
+      href: '/community/learn',
+    },
+    {
+      title: 'Why Join',
+      href: 'https://www.topcoder-dev.com/about/why-crowdsourcing/',
+    },
+  ],
+  ACCOUNT_MENU_SWITCH_TEXT: {
+    title: 'Switch to BUSINESS',
+    href: 'https://connect.topcoder-dev.com',
+  },
 
   HEADER_MENU: [
     {
@@ -353,8 +414,10 @@ module.exports = {
       href: 'https://www.topcoder-dev.com/logout',
     },
   ],
-  ACCOUNT_MENU_SWITCH_TEXT: {
-    title: 'Switch to BUSINESS',
-    href: 'https://connect.topcoder-dev.com',
-  },
+  // Config for TC EDU
+  TC_EDU_BASE_PATH: '/thrive',
+  TC_EDU_TRACKS_PATH: '/tracks',
+  TC_EDU_ARTICLES_PATH: '/articles',
+  TC_EDU_SEARCH_PATH: '/search',
+  TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
 };

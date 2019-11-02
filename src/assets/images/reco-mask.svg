@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="413px" height="220px" viewBox="0 0 413 220" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>rawpixel-703123-unsplash</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M124.848485,-99.6419505 C124.848485,-99.6419505 191.515151,-100.094634 324.848485,-101 L324.848485,322.97343 C196.780809,323.65781 123.114143,324 103.848485,324 C161.848485,217.236715 89.8484848,179.253623 103.848485,101.2343 C117.848485,23.2149758 154.848485,10.8961353 124.848485,-99.6419505 Z" id="path-1"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="section-/-recommended-for-you" transform="translate(-879.000000, -107.000000)">
+            <g id="Group-17">
+                <g id="Rectangle" transform="translate(879.000000, 107.000000)">
+                    <g id="rawpixel-703123-unsplash" transform="translate(-1.000000, -3.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Mask" fill="#555555" transform="translate(213.424242, 111.500000) scale(-1, 1) rotate(-90.000000) translate(-213.424242, -111.500000) " xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

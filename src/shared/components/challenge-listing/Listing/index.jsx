@@ -6,12 +6,10 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import { challenge as challengeUtil } from 'topcoder-react-lib';
+import { BUCKETS, getBuckets, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
 import './style.scss';
-
-const { BUCKETS, getBuckets, isReviewOpportunitiesBucket } = challengeUtil.buckets;
 
 function Listing({
   activeBucket,
@@ -23,14 +21,8 @@ function Listing({
   filterState,
   keepPastPlaceholders,
   loadingPastChallenges,
-  loadingMyChallenges,
-  loadingOnGoingChallenges,
-  loadingOpenChallenges,
   loadingReviewOpportunities,
   loadMorePast,
-  loadMoreMy,
-  loadMoreOpen,
-  loadMoreOnGoing,
   loadMoreReviewOpportunities,
   newChallengeDetails,
   openChallengesInNewTabs,
@@ -45,7 +37,6 @@ function Listing({
   sorts,
   expandedTags,
   expandTag,
-  loadMoreChallenges,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
   const getBucket = (bucket, expanded = false) => {
@@ -57,18 +48,6 @@ function Listing({
         keepPlaceholders = keepPastPlaceholders;
         loading = loadingPastChallenges;
         loadMore = loadMorePast;
-        break;
-      case BUCKETS.MY:
-        loading = loadingMyChallenges;
-        loadMore = loadMoreMy;
-        break;
-      case BUCKETS.ONGOING:
-        loading = loadingOnGoingChallenges;
-        loadMore = loadMoreOnGoing;
-        break;
-      case BUCKETS.OPEN_FOR_REGISTRATION:
-        loading = loadingOpenChallenges;
-        loadMore = loadMoreOpen;
         break;
       default:
         break;
@@ -97,7 +76,7 @@ function Listing({
           <Bucket
             bucket={buckets[bucket]}
             bucketId={bucket}
-            challenges={_.has(challenges, bucket) ? challenges[bucket] : []}
+            challenges={challenges}
             challengesUrl={challengesUrl}
             communityName={communityName}
             expand={() => selectBucket(bucket)}
@@ -117,14 +96,13 @@ function Listing({
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
             userHandle={_.get(auth, 'user.handle')}
-            loadMoreChallenges={loadMoreChallenges}
           />
         )
     );
   };
 
   if ((activeBucket !== BUCKETS.ALL)
-    && (activeBucket !== BUCKETS.SAVED_FILTER)) {
+  && (activeBucket !== BUCKETS.SAVED_FILTER)) {
     return (
       <div styleName="challengeCardContainer">
         {getBucket(activeBucket, true)}
@@ -144,7 +122,7 @@ function Listing({
 }
 
 Listing.defaultProps = {
-  challenges: {},
+  challenges: [],
   communityName: null,
   // currentFilterName: '',
   // expanded: false,
@@ -152,16 +130,12 @@ Listing.defaultProps = {
   expandTag: null,
   extraBucket: null,
   loadMorePast: null,
-  loadMoreMy: null,
-  loadMoreOpen: null,
-  loadMoreOnGoing: null,
   loadMoreReviewOpportunities: null,
   preListingMsg: null,
   reviewOpportunities: [],
   // onTechTagClicked: _.noop,
   // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
-  loadMoreChallenges: null,
 };
 
 Listing.propTypes = {
@@ -172,7 +146,7 @@ Listing.propTypes = {
       handle: PT.string,
     }),
   }).isRequired,
-  challenges: PT.shape(),
+  challenges: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
@@ -181,14 +155,8 @@ Listing.propTypes = {
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
-  loadingMyChallenges: PT.bool.isRequired,
-  loadingOnGoingChallenges: PT.bool.isRequired,
-  loadingOpenChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMorePast: PT.func,
-  loadMoreMy: PT.func,
-  loadMoreOpen: PT.func,
-  loadMoreOnGoing: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
@@ -201,7 +169,6 @@ Listing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
-  loadMoreChallenges: PT.func,
 };
 
 const mapStateToProps = (state) => {

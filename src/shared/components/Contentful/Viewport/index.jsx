@@ -4,8 +4,9 @@
 
 import _ from 'lodash';
 import Accordion from 'components/Contentful/Accordion';
+import ArticleCard from 'components/Contentful/ArticleCard';
 import Banner from 'components/Contentful/Banner';
-import ChallengesBlock from 'containers/ChallengesBlock';
+import ChallengesBlock from 'containers/Contentful/ChallengesBlock';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulLoader from 'containers/ContentfulLoader';
@@ -22,7 +23,11 @@ import Countdown from 'components/Contentful/Countdown';
 import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
 import ContentSlider from 'components/Contentful/ContentSlider';
+import Image from 'components/Contentful/Image';
+import Shape from 'components/Contentful/Shape';
 import Dropdown from 'components/Contentful/Dropdown';
+import MemberCard from 'components/Contentful/MemberCard';
+import Article from 'components/Contentful/Article';
 
 import Viewport from './Viewport';
 
@@ -35,6 +40,7 @@ const { fireErrorMessage } = errors;
 
 const COMPONENTS = {
   accordion: Accordion,
+  articleCard: ArticleCard,
   appComponent: AppComponentLoader,
   banner: Banner,
   blogPost: BlogPost,
@@ -49,6 +55,10 @@ const COMPONENTS = {
   viewport: null, /* Assigned to ViewportLoader below. */
   contentSlider: ContentSlider,
   dropdown: Dropdown,
+  memberCard: MemberCard,
+  image: Image,
+  shape: Shape,
+  article: Article,
 };
 
 const THEMES = {
@@ -81,7 +91,7 @@ function ViewportContentLoader(props) {
   }
 
   if (themeName === 'Grid') {
-    extraStylesForContainer = _.assign(extraStylesForContainer || {}, {
+    extraStylesForContainer = _.defaults(extraStylesForContainer || {}, {
       'grid-template-columns': `repeat(${grid.columns || 3}, 1fr)`,
       'grid-gap': `${grid.gap || 10}px`,
     });
@@ -153,7 +163,7 @@ ViewportContentLoader.propTypes = {
 };
 
 /* Loads the main viewport entry. */
-function ViewportLoader(props) {
+export function ViewportLoader(props) {
   const {
     id,
     preview,

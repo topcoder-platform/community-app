@@ -8,16 +8,17 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
+import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { challenge as challengeUtil } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import './style.scss';
 
 const COLLAPSED_SIZE = 10;
 
-const { SORTS_DATA } = challengeUtil.sort;
+const Filter = challengeUtils.filter;
 
 export default function Bucket({
   bucket,
@@ -41,9 +42,12 @@ export default function Bucket({
   userHandle,
   expandedTags,
   expandTag,
-  loadMoreChallenges,
 }) {
+  const filter = Filter.getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
+
+  const sortedChallenges = _.clone(challenges);
+  sortedChallenges.sort(Sort[activeSort].func);
 
   const bucketQuery = qs.stringify({
     bucket: bucketId,
@@ -52,35 +56,20 @@ export default function Bucket({
   }, { encodeValuesOnly: true });
 
   let expandable = false;
-  const challengeList = [];
-  for (let i = 0; i < challenges.length; i += 1) {
-    challengeList.push(challenges[i]);
-    if (!expanded && challengeList.length >= COLLAPSED_SIZE) {
+  const filteredChallenges = [];
+  for (let i = 0; i < sortedChallenges.length; i += 1) {
+    if (filter(sortedChallenges[i])) {
+      filteredChallenges.push(sortedChallenges[i]);
+    }
+    if (!expanded && filteredChallenges.length >= COLLAPSED_SIZE) {
       expandable = true;
       break;
     }
   }
 
+  if (!filteredChallenges.length && !loadMore) return null;
 
-  const placeholders = [];
-  if ((loading || keepPlaceholders) && (!expandable || expanded)) {
-    for (let i = 0; i < 8; i += 1) {
-      placeholders.push(<CardPlaceholder id={i} key={i} />);
-    }
-  }
-
-  if (!challengeList.length && !loadMore) {
-    if (loading) {
-      return (
-        <div styleName="bucket">
-          {placeholders}
-        </div>
-      );
-    }
-    return null;
-  }
-
-  const cards = challengeList.map(item => (
+  const cards = filteredChallenges.map(item => (
     <ChallengeCard
       challenge={item}
       challengesUrl={challengesUrl}
@@ -96,29 +85,45 @@ export default function Bucket({
     />
   ));
 
+  const placeholders = [];
+  if ((loading || keepPlaceholders) && (!expandable || expanded)) {
+    for (let i = 0; i < 8; i += 1) {
+      placeholders.push(<CardPlaceholder id={i} key={i} />);
+    }
+  }
+
+  if (filteredChallenges.length && filteredChallenges.length < COLLAPSED_SIZE
+    && placeholders.length
+    && (!expandable && loadMore && !loading)) {
+    // loaded challenge list has less than configured collapsed
+    // invoke loadMore here
+    // instead of waiting for scrolling to hit the react-waypoint to do the loadMore
+    loadMore();
+  }
+
   return (
     <div styleName="bucket">
       <SortingSelectBar
         onSelect={setSort}
         options={
           bucket.sorts.map(item => ({
-            label: SORTS_DATA[item].name,
+            label: Sort[item].name,
             value: item,
           }))
         }
         title={bucket.name}
         value={{
-          label: SORTS_DATA[activeSort].name,
+          label: Sort[activeSort].name,
           value: activeSort,
         }}
       />
       {cards}
-      {placeholders}
       {
         !expandable && loadMore && !loading ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }
+      {placeholders}
       {
         (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
           <a
@@ -127,14 +132,13 @@ export default function Bucket({
               expand();
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;
-              loadMoreChallenges(bucketId);
               event.preventDefault();
             }}
             role="button"
             styleName="view-more"
             tabIndex={0}
           >
-            View more challenges
+View more challenges
           </a>
         ) : null
       }
@@ -154,7 +158,6 @@ Bucket.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
-  loadMoreChallenges: null,
 };
 
 Bucket.propTypes = {
@@ -179,5 +182,4 @@ Bucket.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
-  loadMoreChallenges: PT.func,
 };
