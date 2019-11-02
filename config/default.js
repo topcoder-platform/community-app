@@ -273,7 +273,6 @@ module.exports = {
     title: 'Switch to BUSINESS',
     href: 'https://connect.topcoder-dev.com',
   },
-
   HEADER_MENU: [
     {
       id: 'business',
