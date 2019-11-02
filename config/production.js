@@ -194,7 +194,7 @@ module.exports = {
     {
       title: 'Log Out',
       href: 'https://www.topcoder.com/logout',
-    }
+    },
   ],
   SECONDARY_MENU_FOR_LOGGED_USER: [
     {

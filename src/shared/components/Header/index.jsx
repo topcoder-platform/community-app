@@ -91,6 +91,7 @@ Header.defaultProps = {
 Header.propTypes = {
   profile: PT.shape({
     photoURL: PT.string,
+    handle: PT.string,
   }),
 };
 
