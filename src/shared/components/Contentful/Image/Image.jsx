@@ -10,6 +10,10 @@ import _ from 'lodash';
 import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
 import SVG from 'react-inlinesvg';
+import { isomorphy } from 'topcoder-react-utils';
+
+// AOS
+import AOS from 'aos';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import defaultTheme from './themes/default.scss';
@@ -20,6 +24,16 @@ export class ImageInner extends React.Component {
     this.state = {};
 
     this.onLoadSvg = this.onLoadSvg.bind(this);
+  }
+
+  componentDidMount() {
+    const {
+      animation,
+    } = this.props;
+    // Animations only on client side
+    if (animation.animateOnScroll && isomorphy.isClientSide()) {
+      AOS.init();
+    }
   }
 
   componentDidUpdate() {
@@ -56,6 +70,7 @@ export class ImageInner extends React.Component {
       image,
       imageSource,
       clipSvg,
+      animation,
     } = this.props;
 
     const imageUrl = _.get(imageSource, 'file.url');
@@ -79,11 +94,29 @@ export class ImageInner extends React.Component {
             onLoad={this.onLoadSvg}
           />
         )}
-        <img
-          src={imageUrl}
-          alt={image.alt || image.name}
-          style={imgStyle}
-        />
+        {
+          animation.animateOnScroll ? (
+            <img
+              src={imageUrl}
+              alt={image.alt || image.name}
+              style={imgStyle}
+              data-aos={animation.animateOnScroll}
+              data-aos-once={animation.animateOnScrollOnce}
+              data-aos-delay={animation.animateOnScrollDelay}
+              data-aos-duration={animation.animateOnScrollDuration}
+              data-aos-easing={animation.animateOnScrollEasing}
+              data-aos-mirror={animation.animateOnScrollMirror}
+              data-aos-anchor-placement={animation.animateOnScrollAnchor}
+              data-aos-offset={animation.animateOnScrollOffset}
+            />
+          ) : (
+            <img
+              src={imageUrl}
+              alt={image.alt || image.name}
+              style={imgStyle}
+            />
+          )
+        }
       </div>
     );
   }
@@ -91,6 +124,7 @@ export class ImageInner extends React.Component {
 
 ImageInner.defaultProps = {
   clipSvg: null,
+  animation: {},
 };
 
 ImageInner.propTypes = {
@@ -101,6 +135,7 @@ ImageInner.propTypes = {
   theme: PT.shape({
     'img-wrap': PT.string,
   }).isRequired,
+  animation: PT.shape(),
 };
 
 export default themr('Image', defaultTheme)(ImageInner);

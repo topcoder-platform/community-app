@@ -28,9 +28,15 @@ export default function ImageLoader(props) {
         const imgId = _.get(fields, 'source.sys.id');
         const clipSvgId = _.get(fields, 'clipSvg.sys.id');
         const assetIds = _.compact([imgId, clipSvgId]);
+        const animationId = _.get(fields, 'animationOnScroll.sys.id');
+        const entryIds = [];
+        if (animationId) {
+          entryIds.push(animationId);
+        }
         if (assetIds.length !== 0) {
           return (
             <ContentfulLoader
+              entryIds={entryIds}
               assetIds={assetIds}
               preview={preview}
               spaceName={spaceName}
@@ -39,6 +45,10 @@ export default function ImageLoader(props) {
                 const { items } = assetData.assets;
                 const imgFields = _.get(items, [imgId, 'fields']);
                 const clipSvgFields = _.get(items, [clipSvgId, 'fields']);
+                let animation = {};
+                if (animationId) {
+                  animation = { ...assetData.entries.items[animationId].fields };
+                }
                 return (
                   <Image
                     {...props}
@@ -46,6 +56,7 @@ export default function ImageLoader(props) {
                     clipSvg={clipSvgFields}
                     image={fields}
                     theme={defaultTheme}
+                    animation={animation}
                   />
                 );
               }}
