@@ -186,6 +186,7 @@ workflows:
                 only:
                   - hot-fix
                   - feature-groups-api
+                  - feature-new-nav-master
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
