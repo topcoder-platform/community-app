@@ -36,6 +36,9 @@ docker build -t $TAG \
   --build-arg TC_M2M_CLIENT_ID=$TC_M2M_CLIENT_ID \
   --build-arg TC_M2M_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET \
   --build-arg TC_M2M_AUDIENCE=$TC_M2M_AUDIENCE \
+  --build-arg TC_M2M_AUTH0_PROXY_SERVER_URL=$TC_M2M_AUTH0_PROXY_SERVER_URL \
+  --build-arg TC_M2M_AUTH0_URL=$TC_M2M_AUTH0_URL \
+  --build-arg AUTH_SECRET=$AUTH_SECRET \
   --build-arg TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE .
 
 # Copies "node_modules" from the created image, if necessary for caching.

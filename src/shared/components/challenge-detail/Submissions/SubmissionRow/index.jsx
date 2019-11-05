@@ -10,6 +10,9 @@ import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
+import Failed from '../../icons/failed.svg';
+import InReview from '../../icons/in-review.svg';
+import Queued from '../../icons/queued.svg';
 import SubmissionHistoryRow from './SubmissionHistoryRow';
 
 import './style.scss';
@@ -20,8 +23,32 @@ export default function SubmissionRow({
   finalScore, provisionalScore,
 }) {
   const {
-    submissionTime,
+    submissionTime, provisionalScore, status,
   } = submissions[0];
+  let { finalScore } = submissions[0];
+  finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
+  let initialScore;
+  if (provisionalScore && (provisionalScore >= 0 || provisionalScore === -1)) {
+    initialScore = provisionalScore;
+  }
+
+  const getInitialReviewResult = () => {
+    const s = isMM ? get(score, 'provisional', initialScore) : initialScore;
+    if (s && s < 0) return <Failed />;
+    switch (status) {
+      case 'completed':
+        return s;
+      case 'in-review':
+        return <InReview />;
+      case 'queued':
+        return <Queued />;
+      case 'failed':
+        return <Failed />;
+      default:
+        return s;
+    }
+  };
+
   return (
     <div styleName="container">
       <div styleName="row">
@@ -52,7 +79,7 @@ export default function SubmissionRow({
             { (!_.isNil(finalScore)) ? finalScore : '-' }
           </div>
           <div styleName="col">
-            { (!_.isNil(provisionalScore)) ? provisionalScore : '-' }
+            {getInitialReviewResult()}
           </div>
           <div styleName="col time">
             {moment(submissionTime).format('DD MMM YYYY')} {moment(submissionTime).format('HH:mm:ss')}
@@ -84,6 +111,7 @@ export default function SubmissionRow({
                 Submission
               </div>
               <div styleName="col-3 col">
+                <div styleName="col" />
                 <div styleName="col">
                   Final
                 </div>
@@ -143,6 +171,7 @@ SubmissionRow.propTypes = {
       PT.number,
     ]),
     initialScore: PT.number,
+    status: PT.string.isRequired,
     submissionId: PT.string.isRequired,
     submissionTime: PT.string.isRequired,
   })).isRequired,
