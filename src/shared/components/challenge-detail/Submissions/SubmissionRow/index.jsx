@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
+import { get, _ } from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 
@@ -18,9 +18,8 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, toggleHistory, colorStyle,
+  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, registrant,
-  finalScore, provisionalScore,
 }) {
   const {
     submissionTime, provisionalScore, status,
@@ -76,7 +75,7 @@ export default function SubmissionRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { (!_.isNil(finalScore)) ? finalScore : '-' }
+            { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
           </div>
           <div styleName="col">
             {getInitialReviewResult()}
@@ -157,8 +156,6 @@ SubmissionRow.defaultProps = {
   finalRank: null,
   provisionalRank: null,
   registrant: null,
-  finalScore: null,
-  provisionalScore: null,
 };
 
 SubmissionRow.propTypes = {
@@ -166,10 +163,8 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
-    provisionalScore: PT.oneOfType([
-      PT.string,
-      PT.number,
-    ]),
+    provisionalScore: PT.number,
+    finalScore: PT.number,
     initialScore: PT.number,
     status: PT.string.isRequired,
     submissionId: PT.string.isRequired,
@@ -190,7 +185,5 @@ SubmissionRow.propTypes = {
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,
-  finalScore: PT.number,
-  provisionalScore: PT.number,
   onShowPopup: PT.func.isRequired,
 };
