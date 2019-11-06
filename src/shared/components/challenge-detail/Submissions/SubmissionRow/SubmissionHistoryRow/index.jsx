@@ -42,10 +42,10 @@ export default function SubmissionHistoryRow({
     }
   };
   const getFinalScore = () => {
-    if (isMM && finalScore && finalScore > -1 && isReviewPhaseComplete) return finalScore;
-    else {
-      return '-';
+    if (isMM && finalScore && finalScore > -1 && isReviewPhaseComplete) {
+      return finalScore;
     }
+    return '-';
   };
 
   return (
