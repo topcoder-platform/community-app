@@ -628,10 +628,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getMmSubmissionsInit(challengeId));
       dispatch(a.getMmSubmissionsDone(challengeId, registrants, tokenV3));
     },
-    loadSubmissionInformation: (submissionId, tokenV3) => {
+    loadSubmissionInformation: (challengeId, submissionId, tokenV3) => {
       const a = actions.challenge;
-      dispatch(a.getSubmissionInformationInit(submissionId));
-      dispatch(a.getSubmissionInformationDone(submissionId, tokenV3));
+      dispatch(a.getSubmissionInformationInit(challengeId, submissionId));
+      dispatch(a.getSubmissionInformationDone(challengeId, submissionId, tokenV3));
     },
   };
 };

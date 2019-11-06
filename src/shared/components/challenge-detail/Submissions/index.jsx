@@ -47,14 +47,14 @@ class SubmissionsComponent extends React.Component {
   }
 
   onHandleInformationPopup(status, submissionId = null, member = '') {
-    const { loadSubmissionInformation, auth } = this.props;
+    const { loadSubmissionInformation, auth, challenge } = this.props;
     this.setState({
       isShowInformation: status,
       memberOfModal: member,
     });
 
     if (status) {
-      loadSubmissionInformation(submissionId, auth.tokenV3);
+      loadSubmissionInformation(challenge.id, submissionId, auth.tokenV3);
     }
   }
 
