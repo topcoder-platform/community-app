@@ -1,8 +1,6 @@
 /* All availalbe configuration options should be documented in the default
  * config file, even when they are overriden in every custom configuration. */
 
-const { deferConfig } = require('config/defer');
-
 module.exports = {
   /* Configuration of Topcoder APIs. */
   API: {
