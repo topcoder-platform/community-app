@@ -41,6 +41,13 @@ export default function SubmissionHistoryRow({
         return provisionalScore;
     }
   };
+  const getFinalScore = () => {
+    if (isMM && finalScore && finalScore > -1 && isReviewPhaseComplete) return finalScore;
+    else {
+      return '-';
+    }
+  };
+
   return (
     <div styleName="container">
       <div styleName="row no-border">
@@ -50,7 +57,7 @@ export default function SubmissionHistoryRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col child">
-            {(isMM || (!finalScore && finalScore !== 0)) || !isReviewPhaseComplete ? '-' : finalScore}
+            {getFinalScore()}
           </div>
           <div styleName="col child">
             {getInitialReviewResult()}

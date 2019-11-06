@@ -213,21 +213,9 @@ module.exports = {
 
     OPEN_EXCHANGE_RATES_KEY: '',
 
-    /* Review type ID for AV Scans. */
-    AV_SCAN_SCORER_REVIEW_TYPE_ID: '',
-
-    JWT_AUTH: {
-      SECRET: '',
-      VALID_ISSUERS: deferConfig(function d() {
-        return this.VALID_ISSUERS ? this.VALID_ISSUERS.replace(/\\"/g, '')
-          : '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/"]';
-      }),
-    },
-
     /* These credentials allow Community App server to communicate with
      * protected TC API endpoints (on behalf of the app itself). */
     TC_M2M: {
-      AUTH0_URL: '',
       CLIENT_ID: '',
       CLIENT_SECRET: '',
       AUDIENCE: '',
