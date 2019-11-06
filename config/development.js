@@ -4,4 +4,8 @@ module.exports = {
   URL: {
     USER_SETTINGS: '', /* No dev server is available for saved searches */
   },
+
+  SECRET: {
+    AV_SCAN_SCORER_REVIEW_TYPE_ID: '68c5a381-c8ab-48af-92a7-7a869a4ee6c3',
+  },
 };
