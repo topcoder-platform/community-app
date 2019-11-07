@@ -18,7 +18,7 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, key, score, toggleHistory, colorStyle,
+  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, registrant,
 }) {
   const {
