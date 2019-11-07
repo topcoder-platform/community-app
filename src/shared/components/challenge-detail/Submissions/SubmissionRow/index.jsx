@@ -18,7 +18,7 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
+  isMM, openHistory, member, submissions, key, score, toggleHistory, colorStyle,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, registrant,
 }) {
   const {
@@ -176,9 +176,6 @@ SubmissionRow.propTypes = {
   }),
   registrant: PT.shape({
     rating: PT.number,
-    countryInfo: PT.shape({
-      name: PT.string,
-    }),
   }),
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
