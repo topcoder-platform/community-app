@@ -309,10 +309,10 @@ class SubmissionsComponent extends React.Component {
     _.forEach(sortedSubmissions, (s) => {
       if (s.registrant && s.registrant.colorStyle && !s.colorStyle) {
         const { colorStyle, rating } = s.registrant;
+        console.log('s.registrant : ' + JSON.stringify(s.registrant));
         /* eslint-disable no-param-reassign */
         s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
-        s.registrant = {};
-        s.registrant.rating = JSON.parse(rating);
+        s.rating = rating;
         /* eslint-enable no-param-reassign */
       }
     });

@@ -19,7 +19,7 @@ import './style.scss';
 
 export default function SubmissionRow({
   isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, registrant,
+  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating,
 }) {
   const {
     submissionTime, provisionalScore, status,
@@ -67,7 +67,7 @@ export default function SubmissionRow({
         }
         <div styleName="col-2 col">
           <span styleName="col" style={colorStyle}>
-            { (registrant && !_.isNil(registrant.rating)) ? registrant.rating : '-'}
+            { rating || '-'}
           </span>
           <a styleName="col" href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
             {member || '-'}
