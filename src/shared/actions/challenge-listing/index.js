@@ -271,6 +271,30 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
 }
 
 /**
+ * Notifies the state that we are about to load my challenges.
+ * @param {String} uuid
+ * @return {Object}
+ */
+function getMyChallengesInit(uuid, frontFilter) {
+  return { uuid, frontFilter };
+}
+
+/**
+ * Gets my challenges.
+ * @param {String} uuid
+ * @param {Object} filter Backend filter to use.
+ * @param {String} tokenV3 Topcoder auth token v3.
+ * @param {Object}
+ */
+function getMyChallengesDone(uuid, filter, tokenV3) {
+  const service = getService(tokenV3);
+  return service.getMyChallenges({
+    ...filter,
+    status: 'Active',
+  }, null).then(({ challenges }) => ({ uuid, challenges }));
+}
+
+/**
  * Action to get a list of currently open Review Opportunities using V3 API
  * @param {String} uuid Unique identifier for init/donen instance from shortid module
  * @param {Number} page Page of review opportunities to fetch.
@@ -329,6 +353,9 @@ function getSrmsDone(uuid, handle, params, tokenV3) {
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
+
+    GET_MY_CHALLENGES_INIT: getMyChallengesInit,
+    GET_MY_CHALLENGES_DONE: getMyChallengesDone,
 
     GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,

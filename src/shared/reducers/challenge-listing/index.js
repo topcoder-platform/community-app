@@ -225,6 +225,40 @@ function onGetPastChallengesDone(state, { error, payload }) {
   };
 }
 
+function onGetMyChallengesInit(state, action) {
+  const { frontFilter, uuid } = action.payload;
+  const tracks = frontFilter && frontFilter.tracks;
+  if (tracks && _.isEmpty(tracks)) {
+    return {
+      ...state,
+      allMyChallengesLoaded: true,
+      loadingMyChallengesUUID: '',
+    };
+  }
+
+  return {
+    ...state,
+    loadingMyChallengesUUID: uuid,
+  };
+}
+
+function onGetMyChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, challenges } = payload;
+  if (uuid !== state.loadingMyChallengesUUID) return state;
+
+  return {
+    ...state,
+    allMyChallengesLoaded: true,
+    myChallenges: challenges,
+    keepMyPlaceholders: false,
+    loadingMyChallengesUUID: '',
+  };
+}
+
 function onSelectCommunity(state, { payload }) {
   updateQuery({ communityId: payload || undefined });
   return {
@@ -237,6 +271,7 @@ function onSelectCommunity(state, { payload }) {
       * challenges). */
     allPastChallengesLoaded: false,
     lastRequestedPageOfPastChallenges: -1,
+    allMyChallengesLoaded: false,
   };
 }
 
@@ -273,6 +308,7 @@ function onSetFilter(state, { payload }) {
      * the code simple we just reset them each time a filter is modified. */
     allPastChallengesLoaded: false,
     lastRequestedPageOfPastChallenges: -1,
+    allMyChallengesLoaded: false,
   };
 }
 
@@ -375,6 +411,7 @@ function create(initialState) {
       ...state,
       allActiveChallengesLoaded: false,
       allPastChallengesLoaded: false,
+      allMyChallengesLoaded: false,
       allReviewOpportunitiesLoaded: false,
       challenges: [],
       lastRequestedPageOfActiveChallenges: -1,
@@ -384,6 +421,7 @@ function create(initialState) {
       loadingActiveChallengesUUID: '',
       loadingRestActiveChallengesUUID: '',
       loadingPastChallengesUUID: '',
+      loadingMyChallengesUUID: '',
       loadingReviewOpportunitiesUUID: '',
       reviewOpportunities: [],
       meta: {
@@ -399,6 +437,9 @@ function create(initialState) {
       ...state,
       expandedTags: [...state.expandedTags, payload],
     }),
+
+    [a.getMyChallengesInit]: onGetMyChallengesInit,
+    [a.getMyChallengesDone]: onGetMyChallengesDone,
 
     [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
     [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
@@ -443,9 +484,11 @@ function create(initialState) {
   }, _.defaults(_.clone(initialState) || {}, {
     allActiveChallengesLoaded: false,
     allPastChallengesLoaded: false,
+    allMyChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 
     challenges: [],
+    myChallenges: [],
     challengeSubtracks: [],
     challengeSubtracksMap: {},
     challengeTags: [],
@@ -455,6 +498,7 @@ function create(initialState) {
     filter: {},
 
     keepPastPlaceholders: false,
+    keepMyPlaceholders: false,
 
     lastRequestedPageOfActiveChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
@@ -464,6 +508,7 @@ function create(initialState) {
     loadingActiveChallengesUUID: '',
     loadingRestActiveChallengesUUID: '',
     loadingPastChallengesUUID: '',
+    loadingMyChallengesUUID: '',
     loadingReviewOpportunitiesUUID: '',
 
     loadingChallengeSubtracks: false,

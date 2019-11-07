@@ -22,6 +22,7 @@ export default function BucketSelector({
   activeSavedFilter,
   buckets,
   challenges,
+  myChallenges,
   communityFilter,
   disabled,
   extraBucket,
@@ -33,9 +34,10 @@ export default function BucketSelector({
   setEditSavedFiltersMode,
 }) {
   let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
-
+  let filteredMyChallenges = myChallenges.filter(Filter.getFilterFunction(filterState));
   if (communityFilter) {
     filteredChallenges = filteredChallenges.filter(Filter.getFilterFunction(communityFilter));
+    filteredMyChallenges = filteredMyChallenges.filter(Filter.getFilterFunction(communityFilter));
   }
 
   const getBucket = bucket => (
@@ -43,6 +45,8 @@ export default function BucketSelector({
       active={!disabled && activeBucket === bucket}
       bucket={buckets[bucket]}
       challenges={filteredChallenges}
+      myChallenges={filteredMyChallenges}
+      allMyChallenges={myChallenges}
       disabled={disabled}
       onClick={() => {
         selectBucket(bucket);
@@ -130,6 +134,9 @@ BucketSelector.propTypes = {
   activeSavedFilter: PT.number.isRequired,
   buckets: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape({
+    registrationOpen: PT.string.isRequired,
+  })).isRequired,
+  myChallenges: PT.arrayOf(PT.shape({
     registrationOpen: PT.string.isRequired,
   })).isRequired,
   communityFilter: PT.shape(),
