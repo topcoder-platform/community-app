@@ -154,6 +154,7 @@ function mapStateToProps(state, ownProps) {
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
+    myChallenges: state.challengeListing.myChallenges,
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
     extraBucket: ownProps.extraBucket,
     hideTcLinksInFooter: ownProps.hideTcLinksInFooter,

@@ -15,17 +15,30 @@ function Bucket({
   active,
   bucket,
   challenges,
+  myChallenges,
+  allMyChallenges,
   disabled,
   onClick,
   allActiveChallengesLoaded,
+  allMyChallengesLoaded,
   meta,
 }) {
   let countEl;
   if (!bucket.hideCount && !disabled) {
     const filter = Filter.getFilterFunction(bucket.filter);
+    const allFilter = Filter.getFilterFunction(bucket.allFilter);
     let count;
-    if (allActiveChallengesLoaded) {
-      count = challenges.filter(filter).length;
+    if (
+      (allMyChallengesLoaded && bucket.name === 'My Challenges')
+      || (allMyChallenges.length > 0 && bucket.name === 'My Challenges')
+    ) {
+      count = myChallenges.filter(filter).length;
+    } else if (allActiveChallengesLoaded && bucket.name !== 'My Challenges') {
+      if (bucket.name === 'My Challenges') {
+        count = challenges.filter(allFilter).length;
+      } else {
+        count = challenges.filter(filter).length;
+      }
     } else {
       switch (bucket.name) {
         case 'All Challenges':
@@ -95,18 +108,23 @@ Bucket.propTypes = {
     name: PT.string.isRequired,
     error: PT.string,
     filter: PT.any,
+    allFilter: PT.any,
   }).isRequired,
   challenges: PT.arrayOf(PT.shape).isRequired,
+  myChallenges: PT.arrayOf(PT.shape).isRequired,
+  allMyChallenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,
   onClick: PT.func,
   meta: PT.shape(),
   allActiveChallengesLoaded: PT.bool.isRequired,
+  allMyChallengesLoaded: PT.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    allMyChallengesLoaded: cl.allMyChallengesLoaded,
     meta: cl.meta,
   };
 };

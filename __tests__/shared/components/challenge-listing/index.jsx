@@ -11,6 +11,7 @@ const setSort = jest.fn();
 const mockData1 = {
   activeBucket: 'abc',
   challenges: [],
+  myChallenges: [],
   filterState: {},
   lastUpdateOfActiveChallenges: 1500124537142,
   loadingChallenges: false,

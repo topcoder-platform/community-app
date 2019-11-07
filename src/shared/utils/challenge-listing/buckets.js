@@ -33,6 +33,11 @@ const BUCKET_DATA = {
       status: ['ACTIVE'],
       // users: [userHandle],
     },
+    allFilter: {
+      started: true,
+      status: ['ACTIVE'],
+      // users: [userHandle],
+    },
     hideCount: false,
     name: 'My Challenges',
     sorts: [
@@ -126,7 +131,7 @@ const BUCKET_DATA = {
  */
 export function getBuckets(userHandle) {
   const res = _.cloneDeep(BUCKET_DATA);
-  res[BUCKETS.MY].filter.users = [userHandle];
+  res[BUCKETS.MY].allFilter.users = [userHandle];
   return res;
 }
 

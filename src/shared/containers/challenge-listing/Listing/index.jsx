@@ -37,6 +37,11 @@ let mounted = false;
 const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
 export class ListingContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.loadMyChallenges = this.loadMyChallenges.bind(this);
+  }
+
   componentDidMount() {
     const {
       activeBucket,
@@ -48,6 +53,7 @@ export class ListingContainer extends React.Component {
       selectBucket,
       selectCommunity,
       queryBucket,
+      allActiveChallengesLoaded,
     } = this.props;
 
     markHeaderMenu();
@@ -68,6 +74,10 @@ export class ListingContainer extends React.Component {
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
+
+    if (activeBucket === BUCKETS.MY && !allActiveChallengesLoaded) {
+      this.loadMyChallenges();
+    }
 
     this.loadChallenges();
   }
@@ -150,14 +160,26 @@ export class ListingContainer extends React.Component {
     );
   }
 
+  loadMyChallenges() {
+    const { getMyChallenges, auth: { tokenV3 } } = this.props;
+    const f = this.getBackendFilter();
+    getMyChallenges(
+      f.back,
+      tokenV3,
+      f.front,
+    );
+  }
+
   render() {
     const {
       auth,
       allPastChallengesLoaded,
+      allMyChallengesLoaded,
       allReviewOpportunitiesLoaded,
       activeBucket,
       ChallengeListingBanner,
       challenges,
+      myChallenges,
       challengesUrl,
       challengeSubtracks,
       challengeTags,
@@ -174,11 +196,13 @@ export class ListingContainer extends React.Component {
       getReviewOpportunities,
       hideSrm,
       keepPastPlaceholders,
+      keepMyPlaceholders,
       lastRequestedPageOfPastChallenges,
       lastRequestedPageOfReviewOpportunities,
       lastUpdateOfActiveChallenges,
       loadingActiveChallengesUUID,
       loadingPastChallengesUUID,
+      loadingMyChallengesUUID,
       loadingReviewOpportunitiesUUID,
       listingOnly,
       newChallengeDetails,
@@ -198,6 +222,7 @@ export class ListingContainer extends React.Component {
 
     const { tokenV3 } = auth;
 
+    let loadMyChallenges;
     let loadMorePast;
     if (!allPastChallengesLoaded) {
       loadMorePast = () => {
@@ -209,6 +234,11 @@ export class ListingContainer extends React.Component {
           f.front,
         );
       };
+    }
+
+    if (!allMyChallengesLoaded) {
+      // eslint-disable-next-line prefer-destructuring
+      loadMyChallenges = this.loadMyChallenges;
     }
 
     let loadMoreReviewOpportunities;
@@ -240,7 +270,6 @@ export class ListingContainer extends React.Component {
         />
       );
     }
-
     return (
       <div styleName="container" role="main">
         <MetaTags
@@ -253,6 +282,7 @@ export class ListingContainer extends React.Component {
         <ChallengeListing
           activeBucket={activeBucket}
           challenges={challenges}
+          myChallenges={myChallenges}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
           challengesUrl={challengesUrl}
@@ -266,9 +296,11 @@ export class ListingContainer extends React.Component {
           hideSrm={hideSrm}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
           keepPastPlaceholders={keepPastPlaceholders}
+          keepMyPlaceholders={keepMyPlaceholders}
           lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           loadingChallenges={Boolean(loadingActiveChallengesUUID)}
           loadingPastChallenges={Boolean(loadingPastChallengesUUID)}
+          loadingMyChallenges={Boolean(loadingMyChallengesUUID)}
           loadingReviewOpportunities={Boolean(loadingReviewOpportunitiesUUID)}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
@@ -278,6 +310,7 @@ export class ListingContainer extends React.Component {
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           selectedCommunityId={selectedCommunityId}
           loadMorePast={loadMorePast}
+          loadMyChallenges={loadMyChallenges}
           loadMoreReviewOpportunities={loadMoreReviewOpportunities}
           reviewOpportunities={reviewOpportunities}
           setFilterState={(state) => {
@@ -327,9 +360,11 @@ ListingContainer.propTypes = {
   }).isRequired,
   allActiveChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
+  allMyChallengesLoaded: PT.bool.isRequired,
   allReviewOpportunitiesLoaded: PT.bool.isRequired,
   ChallengeListingBanner: PT.node,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
+  myChallenges: PT.arrayOf(PT.shape({})).isRequired,
   challengesUrl: PT.string,
   challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
@@ -354,14 +389,17 @@ ListingContainer.propTypes = {
   getRestActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
+  getMyChallenges: PT.func.isRequired,
   getReviewOpportunities: PT.func.isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
+  keepMyPlaceholders: PT.bool.isRequired,
   lastRequestedPageOfActiveChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
   lastRequestedPageOfReviewOpportunities: PT.number.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
+  loadingMyChallengesUUID: PT.string.isRequired,
   loadingReviewOpportunitiesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
   newChallengeDetails: PT.bool,
@@ -393,9 +431,11 @@ const mapStateToProps = (state, ownProps) => {
     auth: state.auth,
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     allPastChallengesLoaded: cl.allPastChallengesLoaded,
+    allMyChallengesLoaded: cl.allMyChallengesLoaded,
     allReviewOpportunitiesLoaded: cl.allReviewOpportunitiesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
+    myChallenges: cl.myChallenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
     communitiesList: tc.list,
@@ -404,12 +444,14 @@ const mapStateToProps = (state, ownProps) => {
     extraBucket: ownProps.extraBucket,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
+    keepMyPlaceholders: cl.keepMyPlaceholders,
     lastRequestedPageOfActiveChallenges: cl.lastRequestedPageOfActiveChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastRequestedPageOfReviewOpportunities: cl.lastRequestedPageOfReviewOpportunities,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
+    loadingMyChallengesUUID: cl.loadingMyChallengesUUID,
     loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
     loadingChallengeTags: cl.loadingChallengeTags,
@@ -453,6 +495,11 @@ function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
       dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
+    },
+    getMyChallenges: (filter, token, frontFilter) => {
+      const uuid = shortId();
+      dispatch(a.getMyChallengesInit(uuid, frontFilter));
+      dispatch(a.getMyChallengesDone(uuid, filter, token, frontFilter));
     },
     getReviewOpportunities: (page, token) => {
       const uuid = shortId();
