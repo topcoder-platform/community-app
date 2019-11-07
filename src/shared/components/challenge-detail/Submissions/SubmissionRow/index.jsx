@@ -5,9 +5,10 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { get } from 'lodash';
+import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
+
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import Failed from '../../icons/failed.svg';
 import InReview from '../../icons/in-review.svg';
@@ -17,8 +18,9 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup,
+  isMM, openHistory, member, submissions, toggleHistory, colorStyle,
+  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, registrant,
+  finalScore, provisionalScore,
 }) {
   const {
     submissionTime, provisionalScore, status,
@@ -65,13 +67,16 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          <a href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
-            {member}
+          <span styleName="col" style={colorStyle}>
+            { (registrant && !_.isNil(registrant.rating)) ? registrant.rating : '-'}
+          </span>
+          <a styleName="col" href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
+            {member || '-'}
           </a>
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
+            { (!_.isNil(finalScore)) ? finalScore : '-' }
           </div>
           <div styleName="col">
             {getInitialReviewResult()}
@@ -151,6 +156,9 @@ SubmissionRow.defaultProps = {
   isReviewPhaseComplete: false,
   finalRank: null,
   provisionalRank: null,
+  registrant: null,
+  finalScore: null,
+  provisionalScore: null,
 };
 
 SubmissionRow.propTypes = {
@@ -158,8 +166,10 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
-    provisionalScore: PT.number,
-    finalScore: PT.number,
+    provisionalScore: PT.oneOfType([
+      PT.string,
+      PT.number,
+    ]),
     initialScore: PT.number,
     status: PT.string.isRequired,
     submissionId: PT.string.isRequired,
@@ -169,10 +179,18 @@ SubmissionRow.propTypes = {
     final: PT.number,
     provisional: PT.number,
   }),
+  registrant: PT.shape({
+    rating: PT.number,
+    countryInfo: PT.shape({
+      name: PT.string,
+    }),
+  }),
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,
+  finalScore: PT.number,
+  provisionalScore: PT.number,
   onShowPopup: PT.func.isRequired,
 };
