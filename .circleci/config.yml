@@ -176,6 +176,7 @@ workflows:
               only: 
                 - develop
                 - hot-fix
+                - feature-contentful
                 - survey_tc
                 - fix-groups-updates
       # This is alternate dev env for parallel testing
@@ -193,6 +194,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-contentful
                 - survey_tc
                 - feature-groups-api
                 - mm-broker-api
