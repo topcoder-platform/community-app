@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { get, _ } from 'lodash';
+import { get } from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 
@@ -67,7 +67,7 @@ export default function SubmissionRow({
         }
         <div styleName="col-2 col">
           <span styleName="col" style={colorStyle}>
-            { rating || '-'}
+            {rating || '-'}
           </span>
           <a styleName="col" href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
             {member || '-'}
@@ -155,7 +155,7 @@ SubmissionRow.defaultProps = {
   isReviewPhaseComplete: false,
   finalRank: null,
   provisionalRank: null,
-  registrant: null,
+  rating: null,
 };
 
 SubmissionRow.propTypes = {
@@ -174,9 +174,7 @@ SubmissionRow.propTypes = {
     final: PT.number,
     provisional: PT.number,
   }),
-  registrant: PT.shape({
-    rating: PT.number,
-  }),
+  rating: PT.number,
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
   isReviewPhaseComplete: PT.bool,

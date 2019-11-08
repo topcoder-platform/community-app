@@ -308,10 +308,15 @@ class SubmissionsComponent extends React.Component {
     // copy colorStyle from registrants to submissions
     _.forEach(sortedSubmissions, (s) => {
       if (s.registrant && s.registrant.colorStyle && !s.colorStyle) {
-        const { colorStyle, rating } = s.registrant;
-        console.log('s.registrant : ' + JSON.stringify(s.registrant));
+        const { colorStyle } = s.registrant;
         /* eslint-disable no-param-reassign */
         s.colorStyle = JSON.parse(colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+        /* eslint-enable no-param-reassign */
+      }
+
+      if (s.registrant && s.registrant.rating && !s.rating) {
+        const { rating } = s.registrant;
+        /* eslint-disable no-param-reassign */
         s.rating = rating;
         /* eslint-enable no-param-reassign */
       }
