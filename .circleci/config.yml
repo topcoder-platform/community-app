@@ -98,7 +98,14 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-            
+            if [[ true ]]; then
+                ./buildenv.sh -e DEV -b dev_communityapp_qa_appvar
+                source buildenvvar  
+                curl --user ${QA_USER_TOKEN}: \
+                  --data build_parameters[CIRCLE_JOB]=build \
+                  https://circleci.com/api/v1.1/project/github/$QA_PROJECT_USERNAME/$QA_PROJECT_REPONAME/tree/$QA_BRANCH
+            fi             
+                        
   # Build & Deploy against prod api backend
   "build-prod-beta":
     <<: *defaults
@@ -194,6 +201,7 @@ workflows:
                 only:
                   - hot-fix
                   - feature-groups-api
+                  - smoke_testing_develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
