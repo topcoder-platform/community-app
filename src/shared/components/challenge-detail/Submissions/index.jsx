@@ -108,18 +108,17 @@ class SubmissionsComponent extends React.Component {
       field = 'Submission Date'; // default field for submission sorting
     }
     if (!sort) {
-      sort = 'desc'; // default order for submission sorting
+      sort = 'asc'; // default order for submission sorting
     }
 
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     if (isMM) {
-      if (isReviewPhaseComplete) {
+      if (this.checkIsReviewPhaseComplete()) {
         field = 'Final Score';
       } else {
         field = 'Provisional Score';
       }
-      sort = 'asc';
+      sort = 'desc';
     }
 
     return {
