@@ -99,26 +99,27 @@ class SubmissionsComponent extends React.Component {
   /**
    * Get submission sort parameter
    */
-  getSubmissionsSortParam(challenge) {
+  getSubmissionsSortParam(isMM, isReviewPhaseComplete) {
     const {
       submissionsSort,
     } = this.props;
     let { field, sort } = submissionsSort;
     if (!field) {
       field = 'Submission Date'; // default field for submission sorting
-    }
-    if (!sort) {
-      sort = 'asc'; // default order for submission sorting
+      if (isMM) {
+        if (isReviewPhaseComplete) {
+          field = 'Final Score';
+        } else {
+          field = 'Provisional Score';
+        }
+      }
     }
 
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    if (isMM) {
-      if (this.checkIsReviewPhaseComplete()) {
-        field = 'Final Score';
-      } else {
-        field = 'Provisional Score';
+    if (!sort) {
+      sort = 'asc'; // default order for submission sorting
+      if (isMM) {
+        sort = 'desc';
       }
-      sort = 'desc';
     }
 
     return {
@@ -146,7 +147,8 @@ class SubmissionsComponent extends React.Component {
   sortSubmissions(submissions) {
     const { challenge } = this.props;
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    const { field, sort } = this.getSubmissionsSortParam(challenge);
+    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
+    const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
     if (field === 'Initial / Final Score') {
       isHaveFinalScore = _.some(submissions, s => !_.isNil(s.submissions[0].finalScore));
@@ -265,7 +267,11 @@ class SubmissionsComponent extends React.Component {
     const {
       checkpoints,
     } = challenge;
-    const { field, sort } = this.getSubmissionsSortParam(challenge);
+
+    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
+
+    const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
 
     const { isShowInformation, memberOfModal, sortedSubmissions } = this.state;
@@ -311,10 +317,8 @@ class SubmissionsComponent extends React.Component {
       </div>
     );
 
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
     const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
     const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
-    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     // copy colorStyle from registrants to submissions
     _.forEach(sortedSubmissions, (s) => {
