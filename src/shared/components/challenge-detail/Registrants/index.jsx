@@ -147,7 +147,7 @@ export default class Registrants extends React.Component {
       field = 'Registration Date'; // default field for registrans sorting
     }
     if (!sort) {
-      sort = 'desc'; // default order for registrans sorting
+      sort = 'asc'; // default order for registrans sorting
     }
 
     return {
@@ -247,6 +247,7 @@ export default class Registrants extends React.Component {
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = challenge.track.toLowerCase() === 'design';
     const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
+    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
 
     const checkpoints = challenge.checkpoints || [];
 
@@ -257,7 +258,7 @@ export default class Registrants extends React.Component {
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
           {
-            !isDesign && !isF2F && (
+            !isDesign && !isF2F && !isBugHunt && (
               <button
                 type="button"
                 onClick={() => {
@@ -393,7 +394,7 @@ export default class Registrants extends React.Component {
               return (
                 <div styleName="row" key={r.handle} role="row">
                   {
-                    !isDesign && !isF2F && (
+                    !isDesign && !isF2F && !isBugHunt && (
                       <div styleName="col-2">
                         <div styleName="sm-only title">
   Rating

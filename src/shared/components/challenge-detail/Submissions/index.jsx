@@ -99,16 +99,27 @@ class SubmissionsComponent extends React.Component {
   /**
    * Get submission sort parameter
    */
-  getSubmissionsSortParam() {
+  getSubmissionsSortParam(challenge) {
     const {
       submissionsSort,
     } = this.props;
     let { field, sort } = submissionsSort;
     if (!field) {
-      field = 'Rating'; // default field for submission sorting
+      field = 'Submission Date'; // default field for submission sorting
     }
     if (!sort) {
       sort = 'desc'; // default order for submission sorting
+    }
+
+    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
+    if (isMM) {
+      if (isReviewPhaseComplete) {
+        field = 'Final Score';
+      } else {
+        field = 'Provisional Score';
+      }
+      sort = 'asc';
     }
 
     return {
@@ -136,7 +147,7 @@ class SubmissionsComponent extends React.Component {
   sortSubmissions(submissions) {
     const { challenge } = this.props;
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    const { field, sort } = this.getSubmissionsSortParam();
+    const { field, sort } = this.getSubmissionsSortParam(challenge);
     let isHaveFinalScore = false;
     if (field === 'Initial / Final Score') {
       isHaveFinalScore = _.some(submissions, s => !_.isNil(s.submissions[0].finalScore));
@@ -255,7 +266,7 @@ class SubmissionsComponent extends React.Component {
     const {
       checkpoints,
     } = challenge;
-    const { field, sort } = this.getSubmissionsSortParam();
+    const { field, sort } = this.getSubmissionsSortParam(challenge);
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
 
     const { isShowInformation, memberOfModal, sortedSubmissions } = this.state;
@@ -303,6 +314,7 @@ class SubmissionsComponent extends React.Component {
 
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
     const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
+    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     // copy colorStyle from registrants to submissions
@@ -393,7 +405,7 @@ class SubmissionsComponent extends React.Component {
           ) : (
             <div styleName="head">
               {
-                !isF2F && (
+                !isF2F && !isBugHunt && (
                   <button
                     type="button"
                     onClick={() => {
@@ -679,7 +691,7 @@ class SubmissionsComponent extends React.Component {
             sortedSubmissions.map(s => (
               <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
                 {
-                  !isF2F && (
+                  !isF2F && !isBugHunt && (
                     <div styleName="col-2" style={s.colorStyle}>
                       { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
                     </div>
