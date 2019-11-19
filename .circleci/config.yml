@@ -183,7 +183,7 @@ workflows:
             branches:
                 only:
                   - hot-fix
-                  - feature-sort-submissions_latest
+                  - sort_registrations_submissions
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -191,7 +191,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-sort-submissions_latest
+                - sort_registrations_submissions
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
