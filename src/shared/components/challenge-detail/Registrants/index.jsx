@@ -144,7 +144,7 @@ export default class Registrants extends React.Component {
     } = this.props;
     let { field, sort } = registrantsSort;
     if (!field) {
-      field = 'Rating'; // default field for registrans sorting
+      field = 'Registration Date'; // default field for registrans sorting
     }
     if (!sort) {
       sort = 'desc'; // default order for registrans sorting
