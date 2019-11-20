@@ -108,18 +108,15 @@ class SubmissionsComponent extends React.Component {
       field = 'Submission Date'; // default field for submission sorting
       if (isMM) {
         if (isReviewPhaseComplete) {
-          field = 'Final Score';
+          field = 'Final Rank';
         } else {
-          field = 'Provisional Score';
+          field = 'Provisional Rank';
         }
       }
     }
 
     if (!sort) {
       sort = 'asc'; // default order for submission sorting
-      if (isMM) {
-        sort = 'desc';
-      }
     }
 
     return {
@@ -219,6 +216,11 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         default:
+      }
+
+      if (valueIsString === false) {
+        if (valueA === '-') valueA = 0;
+        if (valueB === '-') valueB = 0;
       }
 
       return {

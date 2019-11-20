@@ -48,6 +48,15 @@ export default function SubmissionRow({
     }
   };
 
+  const getFinalReviewResult = () => {
+    const s = isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore;
+    if (isReviewPhaseComplete) {
+      if (s && s < 0) return 0;
+      return s;
+    }
+    return '-';
+  };
+
   return (
     <div styleName="container">
       <div styleName="row">
@@ -75,7 +84,7 @@ export default function SubmissionRow({
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
+            {getFinalReviewResult()}
           </div>
           <div styleName="col">
             {getInitialReviewResult()}
