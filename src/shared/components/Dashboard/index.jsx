@@ -2,7 +2,7 @@ import Announcement from 'containers/Dashboard/Announcement';
 import PT from 'prop-types';
 import React from 'react';
 
-import CommunityBlog from './CommunityBlog';
+// import CommunityBlog from './CommunityBlog';
 import MemberMetrics from './MemberMetrics';
 import CurrentActivity from './CurrentActivity';
 import Header from './Header';
@@ -35,12 +35,12 @@ export default function Dashboard({
   switchShowEarnings,
   switchTab,
   tab,
-  tcBlogLoading,
-  tcBlogPosts,
+  // tcBlogLoading,
+  // tcBlogPosts,
   unregisterFromChallenge,
   userGroups,
   xlBadge,
-  errorLoadingRss,
+  // errorLoadingRss,
 }) {
   return (
     <div styleName="container">
@@ -82,7 +82,9 @@ export default function Dashboard({
           unregisterFromChallenge={unregisterFromChallenge}
           userGroups={userGroups}
         />
-        {!errorLoadingRss && <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />}
+        {/* {!errorLoadingRss && (
+            <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />
+        )} */}
       </div>
     </div>
   );
@@ -118,10 +120,10 @@ Dashboard.propTypes = {
   switchShowEarnings: PT.func.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.string.isRequired,
-  tcBlogLoading: PT.bool.isRequired,
-  tcBlogPosts: PT.arrayOf(PT.object).isRequired,
+  // tcBlogLoading: PT.bool.isRequired,
+  // tcBlogPosts: PT.arrayOf(PT.object).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   userGroups: PT.arrayOf(PT.string).isRequired,
   xlBadge: PT.string.isRequired,
-  errorLoadingRss: PT.bool.isRequired,
+  // errorLoadingRss: PT.bool.isRequired,
 };
