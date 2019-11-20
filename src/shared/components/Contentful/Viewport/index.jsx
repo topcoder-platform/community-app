@@ -28,6 +28,11 @@ import Shape from 'components/Contentful/Shape';
 import Dropdown from 'components/Contentful/Dropdown';
 import MemberCard from 'components/Contentful/MemberCard';
 import Article from 'components/Contentful/Article';
+import { isomorphy } from 'topcoder-react-utils';
+
+// AOS
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import Viewport from './Viewport';
 
@@ -79,6 +84,7 @@ function ViewportContentLoader(props) {
     grid,
     baseUrl,
     viewportId,
+    animationOnScroll,
   } = props;
   let {
     extraStylesForContainer,
@@ -103,36 +109,48 @@ function ViewportContentLoader(props) {
       preview={preview}
       spaceName={spaceName}
       environment={environment}
-      render={data => (
-        <Viewport
-          viewportId={viewportId}
-          extraStylesForContainer={fixStyle(extraStylesForContainer)}
-          theme={theme}
-        >
-          {
-            contentIds.map((id) => {
-              const type = data.entries.items[id].sys.contentType.sys.id;
-              const Component = COMPONENTS[type];
-              if (Component) {
-                return (
-                  <Component
-                    baseUrl={baseUrl}
-                    environment={environment}
-                    id={id}
-                    key={id}
-                    preview={preview}
-                    spaceName={spaceName}
-                  />
-                );
-              }
-              return fireErrorMessage(
-                'Unsupported content type from contentful',
-                '',
-              );
-            })
+      render={(data) => {
+        let animation = {};
+        if (animationOnScroll) {
+          contentIds.pop();
+          animation = { ...data.entries.items[animationOnScroll.sys.id].fields };
+          // Animations only on client side
+          if (isomorphy.isClientSide()) {
+            AOS.init();
           }
-        </Viewport>
-      )}
+        }
+        return (
+          <Viewport
+            viewportId={viewportId}
+            extraStylesForContainer={fixStyle(extraStylesForContainer)}
+            theme={theme}
+            animation={animation}
+          >
+            {
+              contentIds.map((id) => {
+                const type = data.entries.items[id].sys.contentType.sys.id;
+                const Component = COMPONENTS[type];
+                if (Component) {
+                  return (
+                    <Component
+                      baseUrl={baseUrl}
+                      environment={environment}
+                      id={id}
+                      key={id}
+                      preview={preview}
+                      spaceName={spaceName}
+                    />
+                  );
+                }
+                return fireErrorMessage(
+                  'Unsupported content type from contentful',
+                  '',
+                );
+              })
+            }
+          </Viewport>
+        );
+      }}
       renderPlaceholder={LoadingIndicator}
     />
   );
@@ -148,6 +166,7 @@ ViewportContentLoader.defaultProps = {
     columns: 3,
     gap: 10,
   }),
+  animationOnScroll: null,
 };
 
 ViewportContentLoader.propTypes = {
@@ -160,6 +179,7 @@ ViewportContentLoader.propTypes = {
   themeName: PT.string,
   grid: PT.shape(),
   baseUrl: PT.string.isRequired,
+  animationOnScroll: PT.shape(),
 };
 
 /* Loads the main viewport entry. */
@@ -189,30 +209,42 @@ export function ViewportLoader(props) {
       preview={preview}
       spaceName={spaceName}
       environment={environment}
-      render={data => _.map(data.entries.items, viewport => (
-        <ViewportContentLoader
-          {...props}
-          viewportId={viewport.sys.id}
-          contentIds={_.map(viewport.fields.content, 'sys.id')}
-          extraStylesForContainer={viewport.fields.extraStylesForContainer}
-          key={viewport.sys.id}
-          preview={preview}
-          spaceName={spaceName}
-          environment={environment}
-          themeName={viewport.fields.theme}
-          grid={{
-            columns: viewport.fields.gridColumns,
-            gap: viewport.fields.gridGap,
-          }}
-          baseUrl={baseUrl}
-        />
-      ))}
+      render={data => _.map(data.entries.items, (viewport) => {
+        const contentIds = _.map(viewport.fields.content, 'sys.id');
+        if (viewport.fields.animationOnScroll) {
+          // Animated viewport. Add animation for loading...
+          contentIds.push(viewport.fields.animationOnScroll.sys.id);
+        }
+        return (
+          <ViewportContentLoader
+            {...props}
+            viewportId={viewport.sys.id}
+            contentIds={contentIds}
+            extraStylesForContainer={viewport.fields.extraStylesForContainer}
+            key={viewport.sys.id}
+            preview={preview}
+            spaceName={spaceName}
+            environment={environment}
+            themeName={viewport.fields.theme}
+            grid={{
+              columns: viewport.fields.gridColumns,
+              gap: viewport.fields.gridGap,
+            }}
+            baseUrl={baseUrl}
+            animationOnScroll={viewport.fields.animationOnScroll}
+          />
+        );
+      })}
       renderPlaceholder={LoadingIndicator}
     />
   );
 }
 
 COMPONENTS.viewport = ViewportLoader;
+// Animations only on client side
+// if (isomorphy.isClientSide()) {
+//   AOS.init();
+// }
 
 ViewportLoader.defaultProps = {
   id: null,
