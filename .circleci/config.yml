@@ -179,6 +179,7 @@ workflows:
                 - feature-contentful
                 - survey_tc
                 - fix-groups-updates
+                - sort_registrations_submissions
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -186,7 +187,6 @@ workflows:
             branches:
                 only:
                   - hot-fix
-                  - feature-groups-api
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -199,6 +199,7 @@ workflows:
                 - feature-groups-api
                 - mm-broker-api
                 - fix-groups-updates
+                - sort_registrations_submissions
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
