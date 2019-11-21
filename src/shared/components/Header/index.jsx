@@ -39,8 +39,8 @@ const Header = ({ profile }) => {
 
   let normalizedProfile = profile && _.clone(profile);
   if (profile) {
-    normalizedProfile.photoURL = (_.has(profile, 'photoURL') && profile.photoURL !== null) ?
-      `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(profile.photoURL)}?size=32` : '';
+    normalizedProfile.photoURL = (_.has(profile, 'photoURL') && profile.photoURL !== null)
+      ? `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(profile.photoURL)}?size=32` : '';
   } else {
     normalizedProfile = null;
   }
