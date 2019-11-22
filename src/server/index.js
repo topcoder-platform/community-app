@@ -160,7 +160,7 @@ async function onExpressJsSetup(server) {
 
   /* Proxy endpoint for GET requests (to fetch data from resources prohibiting
    * cross-origin requests). */
-  server.use(
+  /*  server.use(
     '/community-app-assets/api/proxy-get',
     checkAuthorizationHeader, async (req, res, next) => {
       try {
@@ -172,6 +172,7 @@ async function onExpressJsSetup(server) {
       }
     },
   );
+  */
 
   /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
    * cross-origin requests). */

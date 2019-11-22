@@ -108,15 +108,15 @@ export class DashboardPageContainer extends React.Component {
     getMemberFinances,
     getMemberStats,
     getSrms,
-    getTopcoderBlogFeed,
+    // getTopcoderBlogFeed,
     handle,
     profile,
     srmsLoading,
     srmsTimestamp,
     statsLoading,
     statsTimestamp,
-    tcBlogLoading,
-    tcBlogTimestamp,
+    // tcBlogLoading,
+    // tcBlogTimestamp,
     tokenV3,
   }) {
     if (authenticating || !this.authCheck(tokenV3)) return;
@@ -141,8 +141,8 @@ export class DashboardPageContainer extends React.Component {
     if (now - statsTimestamp > CACHE_MAX_AGE
     && !statsLoading) getMemberStats(handle, tokenV3);
 
-    if (now - tcBlogTimestamp > CACHE_MAX_AGE
-    && !tcBlogLoading) getTopcoderBlogFeed();
+    // if (now - tcBlogTimestamp > CACHE_MAX_AGE
+    // && !tcBlogLoading) getTopcoderBlogFeed();
 
     if (now - communitiesTimestamp < CACHE_MAX_AGE
     && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
