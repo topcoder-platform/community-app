@@ -8,6 +8,7 @@ module.exports = {
     V3: 'https://api.topcoder-dev.com/v3',
     V4: 'https://api.topcoder-dev.com/v4',
     V5: 'https://api.topcoder-dev.com/v5',
+    MM_BROKER: '/api',
   },
 
   /* Auth0 config */
@@ -217,8 +218,10 @@ module.exports = {
       CLIENT_SECRET: '',
       AUDIENCE: '',
       GRANT_TYPE: '',
+      AUTH0_PROXY_SERVER_URL: '',
     },
   },
+
   SECONDARY_MENU_FOR_LOGGED_USER: [
     {
       title: 'Dashboard',

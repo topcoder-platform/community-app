@@ -32,6 +32,12 @@ other types too.
   *Example:* `<TCOButton theme="tco18">TCO18/17 View Competition Rules</TCOButton>`
 
   Renders
+  [Themed Buttons](https://community-app.topcoder.com/examples/contentful/contentblock/3k7k1JpnSvIRrJYWs4izYi);
+
+- #### Themed Button
+  *Example:* `<ThemedButton theme="[tc-theme-color-size]">White</ThemedButton>`
+
+  Renders
   [TCOX Legacy Button](https://community-app.topcoder.com/examples/contentful/contentblock/FNmL56lEahdv0irLASC5a) that
   acts as a hyperlink;
 

@@ -26,6 +26,7 @@ export function AppComponentSwitch(appComponent) {
         memberLimit={appComponent.fields.props.memberLimit}
         isAlgo={appComponent.fields.props.isAlgo}
         key={appComponent.sys.id}
+        themeName={appComponent.fields.theme}
       />
     );
   }

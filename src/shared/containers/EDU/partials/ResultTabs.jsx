@@ -37,6 +37,7 @@ export default class ResultTabs extends React.Component {
       articles: { total: 0 },
       videos: { total: 0 },
       posts: { total: 0 },
+      tabIndex: 0,
     };
     // create a service to work with Contentful
     this.apiService = getService({ spaceName: 'EDU' });
@@ -46,11 +47,17 @@ export default class ResultTabs extends React.Component {
     const { query, taxonomy } = this.state;
     this.apiService.getEDUContent({ ...query, taxonomy })
       .then((data) => {
+        // Select Videos or Forum posts tab
+        // if Articles tab is empty
+        let tabIndex = 0;
+        if (!data.Article.total && data.Video.total) tabIndex = 1;
+        if (!data.Article.total && data['Forum post'].total) tabIndex = 2;
         this.setState({
           loading: false,
           articles: data.Article,
           videos: data.Video,
           posts: data['Forum post'],
+          tabIndex,
         });
       });
   }
@@ -63,12 +70,18 @@ export default class ResultTabs extends React.Component {
     if (!_.isEqual(newQuery, oldQuery)) {
       this.apiService.getEDUContent({ ...newQuery, taxonomy: this.state.taxonomy })
         .then((data) => {
+          // Select Videos or Forum posts tab
+          // if Articles tab is empty
+          let tabIndex = 0;
+          if (!data.Article.total && data.Video.total) tabIndex = 1;
+          if (!data.Article.total && data['Forum post'].total) tabIndex = 2;
           this.setState({
             loading: false,
             query: _.cloneDeep(newQuery),
             articles: data.Article,
             videos: data.Video,
             posts: data['Forum post'],
+            tabIndex,
           });
         });
     }
@@ -104,13 +117,15 @@ export default class ResultTabs extends React.Component {
 
   render() {
     const {
-      articles, videos, posts, loading,
+      articles, videos, posts, loading, tabIndex,
     } = this.state;
     if (loading) return <LoadingIndicator />;
     return (
       <Tabs
         className={theme.container}
         selectedTabClassName={theme.selected}
+        selectedIndex={tabIndex}
+        onSelect={selectedTabIndex => this.setState({ tabIndex: selectedTabIndex })}
       >
         <div className={theme.tabListWrap}>
           <TabList className={theme.tablist}>

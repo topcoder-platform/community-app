@@ -12,9 +12,10 @@
     display: block;
     margin: auto;
 
-    @include xs-to-sm {
+    @include xs-to-md {
       max-width: 100%;
       max-height: 100%;
+      position: relative !important;
     }
   }
 }
