@@ -2,7 +2,7 @@
  * Container for the Learn page of Blockchain community.
  */
 
-import LearnPage from 'components/tc-communities/communities/blockchain/Learn';
+// import LearnPage from 'components/tc-communities/communities/blockchain/Learn';
 import rssActions from 'actions/rss';
 import PT from 'prop-types';
 import React from 'react';
@@ -25,8 +25,8 @@ const TOPCODER_BLOCKCHAIN_BLOG_RSS_URL = `/community-app-assets/api/proxy-get?ur
 
 class LearnPageContainer extends React.Component {
   componentDidMount() {
-    this.updateConsenSysRss();
-    this.updateTopcoderBlockchainBlogRss();
+    // this.updateConsenSysRss();
+    // this.updateTopcoderBlockchainBlogRss();
   }
 
   /**
@@ -52,17 +52,18 @@ class LearnPageContainer extends React.Component {
   }
 
   render() {
-    const {
-      baseUrl,
-      consenSysRss,
-      topcoderBlockchainBlogRss,
-    } = this.props;
+    // const {
+    //   baseUrl,
+    //   consenSysRss,
+    //   topcoderBlockchainBlogRss,
+    // } = this.props;
     return (
-      <LearnPage
-        baseUrl={baseUrl}
-        consenSysRss={consenSysRss}
-        topcoderBlockchainBlogRss={topcoderBlockchainBlogRss}
-      />
+      // <LearnPage
+      //   baseUrl={baseUrl}
+      //   consenSysRss={consenSysRss}
+      //   topcoderBlockchainBlogRss={topcoderBlockchainBlogRss}
+      // />
+      <div />
     );
   }
 }
@@ -73,7 +74,7 @@ LearnPageContainer.defaultProps = {
 };
 
 LearnPageContainer.propTypes = {
-  baseUrl: PT.string.isRequired,
+  // baseUrl: PT.string.isRequired,
   consenSysRss: PT.shape({
     data: PT.object,
     loadingUuid: PT.string.isRequired,
