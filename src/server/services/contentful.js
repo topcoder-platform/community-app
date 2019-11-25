@@ -297,7 +297,10 @@ export async function pollArticlesForThrive() {
     }
   }
   // schedule a repeat each TC_EDU_POLL_TIME
-  setTimeout(pollArticlesForThrive, config.TC_EDU_POLL_TIME * 1000).unref();
+  setTimeout(
+    pollArticlesForThrive,
+    config.TC_EDU_POLL_TIME * 1000 + (Math.floor(Math.random() * Math.floor(10)) * 60 * 1000),
+  ).unref();
 }
 
 // /* Contentful CDN service. */
