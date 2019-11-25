@@ -10,8 +10,10 @@ import fetch from 'isomorphic-fetch';
 // import logger from 'utils/logger';
 // import moment from 'moment';
 import qs from 'qs';
+import { logger } from 'topcoder-react-lib';
 
 const contentful = require('contentful-management');
+const xml2json = require('xml2json');
 
 /* Holds Contentful CDN URL. */
 const CDN_URL = 'https://cdn.contentful.com/spaces';
@@ -189,6 +191,113 @@ export function articleVote(body) {
       return entry.update();
     })
     .then(entry => entry.publish());
+}
+
+/**
+ * This function fetches TC RSS feed to create draft articles in THRIVE for the new posted blogs.
+ * It calls itself by interval to poll for new blogs.
+ * Runs on server side only.
+ */
+export async function pollArticlesForThrive() {
+  // make this function execute only when in production
+  if (process.env.BABEL_ENV !== 'production') return;
+  logger.log('polling blog articles for THRIVE -> INIT');
+  // fetch the RSS feed and parse it
+  const feedXML = await fetch(config.URL.THRIVE_POLL_FEED);
+  if (feedXML.ok) {
+    let feed = await feedXML.text();
+    feed = await Promise.resolve(xml2json.toJson(feed, { object: true }));
+    if (feed) {
+      // when feed loaded and parsed ok
+      // connect to Thrive space
+      const client = contentful.createClient({
+        accessToken: config.SECRET.CONTENTFUL.MANAGEMENT_TOKEN,
+      });
+      client.getSpace(config.SECRET.CONTENTFUL.EDU.SPACE_ID)
+        .then(space => space.getEnvironment('master'))
+        // loop all feed items and check if those exists in space
+        // if not existing then create
+        .then(env => Promise.all(
+          _.map(feed.rss.channel.item,
+            blogPost => env.getEntries({
+              content_type: 'article',
+              'fields.title[match]': blogPost.title,
+            })
+              .then((queryData) => {
+                if (queryData.total === 0) {
+                  // article not found in Contentful space
+                  // will create it with payload...
+                  const article = {
+                    fields: {
+                      title: { 'en-US': blogPost.title },
+                      type: { 'en-US': 'Article' },
+                      tags: { 'en-US': blogPost.category },
+                      creationDate: { 'en-US': new Date(blogPost.pubDate) },
+                      content: { 'en-US': blogPost.description },
+                      externalArticle: { 'en-US': true },
+                      contentUrl: { 'en-US': blogPost.link },
+                    },
+                  };
+                  // check if author exists
+                  // if yes link it if no create it?
+                  return env.getEntries({
+                    content_type: 'person',
+                    query: blogPost['dc:creator'],
+                  })
+                    .then((author) => {
+                      // found an author that matches link it
+                      if (author.total) {
+                        article.fields.contentAuthor = {
+                          'en-US': [{
+                            sys: {
+                              type: 'Link', linkType: 'Entry', id: author.items[0].sys.id,
+                            },
+                          }],
+                        };
+                      }
+                      // try get the page to extract its featured image
+                      return fetch(blogPost.link)
+                        .then(rsp => rsp.text())
+                        .then((HTMLsrc) => {
+                          const match = /<image [^>]*href="([^"]+)"/gm.exec(HTMLsrc);
+                          if (match && match[1]) {
+                            // create the asset in Contentful
+                            return env.createAsset({
+                              fields: {
+                                title: { 'en-US': blogPost.title },
+                                file: {
+                                  'en-US': { fileName: blogPost.title, contentType: 'image', upload: match[1] },
+                                },
+                              },
+                            })
+                              .then(asset => asset.processForAllLocales())
+                              .then((asset) => {
+                                article.fields.featuredImage = {
+                                  'en-US': {
+                                    sys: {
+                                      type: 'Link', linkType: 'Asset', id: asset.sys.id,
+                                    },
+                                  },
+                                };
+                                return env.createEntry('article', article);
+                              });
+                          }
+                          // could not find image
+                          // just create the article without it...
+                          return env.createEntry('article', article);
+                        });
+                    });
+                }
+                // Article exists in Contentful space
+                // do nothing...
+                return 1;
+              })),
+        ))
+        .then(() => logger.log('polling blog articles for THRIVE -> DONE'));
+    }
+  }
+  // schedule a repeat each TC_EDU_POLL_TIME
+  setTimeout(pollArticlesForThrive, config.TC_EDU_POLL_TIME * 1000).unref();
 }
 
 // /* Contentful CDN service. */
