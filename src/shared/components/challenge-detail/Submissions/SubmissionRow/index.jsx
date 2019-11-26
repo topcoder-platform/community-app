@@ -18,12 +18,13 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating,
+  isMM, openHistory, mine, member, submissions, score, toggleHistory, colorStyle,
+  isReviewPhaseComplete, finalRank, provisionalRank, rating, challengeId,
 }) {
   const {
     submissionTime, provisionalScore, status,
   } = submissions[0];
+
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
   let initialScore;
@@ -56,7 +57,6 @@ export default function SubmissionRow({
     }
     return '-';
   };
-
   return (
     <div styleName="container">
       <div styleName="row">
@@ -94,19 +94,22 @@ export default function SubmissionRow({
           </div>
         </div>
         <div styleName="col-4 col">
-          <a
-            onClick={toggleHistory}
-            onKeyPress={toggleHistory}
-          >
-            <span>
-              <span styleName="text">
-                History (
-                {submissions.length}
-                )
+          {
+            mine && (
+            <a
+              onClick={toggleHistory}
+              onKeyPress={toggleHistory}
+            >
+              <span>
+                <span styleName="text">
+                  My History (
+                  {submissions.length}
+                  )
+                </span>
+                { openHistory ? (<ArrowNext styleName="icon down" />) : (<ArrowNext styleName="icon" />)}
               </span>
-              { openHistory ? (<ArrowNext styleName="icon down" />) : (<ArrowNext styleName="icon" />)}
-            </span>
-          </a>
+            </a>
+            )}
         </div>
       </div>
       {openHistory
@@ -145,8 +148,8 @@ export default function SubmissionRow({
                 submission={submissions.length - index}
                 {...submissionHistory}
                 key={submissionHistory.submissionId}
-                onShowPopup={onShowPopup}
-                member={member}
+                challengeId={challengeId}
+                submissionId={submissionHistory.submissionId}
               />
             ))
           }
@@ -189,5 +192,6 @@ SubmissionRow.propTypes = {
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,
-  onShowPopup: PT.func.isRequired,
+  mine: PT.bool.isRequired,
+  challengeId: PT.string.isRequired,
 };

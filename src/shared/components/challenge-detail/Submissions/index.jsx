@@ -38,7 +38,6 @@ class SubmissionsComponent extends React.Component {
     this.getFlagFirstTry = this.getFlagFirstTry.bind(this);
     this.updateSortedSubmissions = this.updateSortedSubmissions.bind(this);
     this.sortSubmissions = this.sortSubmissions.bind(this);
-    this.checkIsReviewPhaseComplete = this.checkIsReviewPhaseComplete.bind(this);
   }
 
   componentDidMount() {
@@ -142,9 +141,8 @@ class SubmissionsComponent extends React.Component {
    * @param {Array} submissions array of submission
    */
   sortSubmissions(submissions) {
-    const { challenge } = this.props;
+    const { challenge, isReviewPhaseComplete } = this.props;
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
     if (field === 'Initial / Final Score') {
@@ -194,7 +192,7 @@ class SubmissionsComponent extends React.Component {
           break;
         }
         case 'Final Rank': {
-          if (this.checkIsReviewPhaseComplete()) {
+          if (isReviewPhaseComplete) {
             valueA = a.finalRank ? a.finalRank : 0;
             valueB = b.finalRank ? b.finalRank : 0;
           }
@@ -231,27 +229,6 @@ class SubmissionsComponent extends React.Component {
     });
   }
 
-  /**
-   * Check if review phase complete
-   */
-  checkIsReviewPhaseComplete() {
-    const {
-      challenge,
-    } = this.props;
-
-    const {
-      allPhases,
-    } = challenge;
-
-    let isReviewPhaseComplete = false;
-    _.forEach(allPhases, (phase) => {
-      if (phase.phaseType === 'Review' && phase.phaseStatus === 'Closed') {
-        isReviewPhaseComplete = true;
-      }
-    });
-    return isReviewPhaseComplete;
-  }
-
   render() {
     const {
       challenge, toggleSubmissionHistory,
@@ -265,13 +242,15 @@ class SubmissionsComponent extends React.Component {
       clearSubmissionTestcaseOpen,
       onGetFlagImageFail,
       onSortChange,
+      auth,
+      isReviewPhaseComplete,
     } = this.props;
     const {
       checkpoints,
+      id: challengeId,
     } = challenge;
 
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
@@ -676,6 +655,7 @@ class SubmissionsComponent extends React.Component {
             sortedSubmissions.map((submission, index) => (
               <SubmissionRow
                 submissions={sortedSubmissions}
+                mine={auth.user.handle === submission.member}
                 isReviewPhaseComplete={isReviewPhaseComplete}
                 isMM={isMM}
                 key={submission.member}
@@ -686,6 +666,7 @@ class SubmissionsComponent extends React.Component {
                 submissionInformation={submissionInformation}
                 onShowPopup={this.onHandleInformationPopup}
                 getFlagFirstTry={this.getFlagFirstTry}
+                challengeId={challengeId}
                 onGetFlagImageFail={onGetFlagImageFail}
               />
             ))
@@ -780,6 +761,7 @@ SubmissionsComponent.propTypes = {
   onSortChange: PT.func,
   notFoundCountryFlagUrl: PT.objectOf(PT.bool).isRequired,
   onGetFlagImageFail: PT.func,
+  isReviewPhaseComplete: PT.bool.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

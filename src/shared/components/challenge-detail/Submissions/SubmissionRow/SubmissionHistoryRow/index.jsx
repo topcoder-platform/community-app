@@ -21,10 +21,9 @@ export default function SubmissionHistoryRow({
   provisionalScore,
   submissionTime,
   isReviewPhaseComplete,
-  onShowPopup,
   submissionId,
   status,
-  member,
+  challengeId,
 }) {
   const getInitialReviewResult = () => {
     if (provisionalScore && provisionalScore < 0) return <Failed />;
@@ -75,7 +74,9 @@ export default function SubmissionHistoryRow({
                 role="button"
                 tabIndex={0}
                 styleName="col child"
-                onClick={() => onShowPopup(true, submissionId, member)}
+                onClick={() => {
+                  window.location = `/challenges/${challengeId}/submissions/${submissionId}`;
+                }}
               >
                 View Details
               </div>
@@ -94,7 +95,6 @@ SubmissionHistoryRow.defaultProps = {
 };
 
 SubmissionHistoryRow.propTypes = {
-  member: PT.string.isRequired,
   isMM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.number,
@@ -103,5 +103,5 @@ SubmissionHistoryRow.propTypes = {
   submissionTime: PT.string.isRequired,
   isReviewPhaseComplete: PT.bool,
   submissionId: PT.string.isRequired,
-  onShowPopup: PT.func.isRequired,
+  challengeId: PT.string.isRequired,
 };

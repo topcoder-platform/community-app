@@ -16,6 +16,7 @@ import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
+import MySubmissions from 'components/challenge-detail/MySubmissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
 import Terms from 'containers/Terms';
@@ -137,6 +138,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       getCommunitiesList,
       loadChallengeDetails,
+      loadMySubmissions,
       challengeId,
       challengeSubtracksMap,
       getSubtracks,
@@ -168,6 +170,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     ) {
       loadChallengeDetails(auth, challengeId);
+      loadMySubmissions(auth.tokenV2, challengeId);
     }
 
     if (!allCountries.length) {
@@ -200,6 +203,27 @@ class ChallengeDetailPageContainer extends React.Component {
     this.setState({
       showDeadlineDetail: !showDeadlineDetail,
     });
+  }
+
+  /**
+   * Check if review phase complete
+   */
+  checkIsReviewPhaseComplete() {
+    const {
+      challenge,
+    } = this.props;
+
+    const {
+      allPhases,
+    } = challenge;
+
+    let isReviewPhaseComplete = false;
+    _.forEach(allPhases, (phase) => {
+      if (phase.phaseType === 'Review' && phase.phaseStatus === 'Closed') {
+        isReviewPhaseComplete = true;
+      }
+    });
+    return isReviewPhaseComplete;
   }
 
   registerForChallenge() {
@@ -256,14 +280,16 @@ class ChallengeDetailPageContainer extends React.Component {
       isLoadingSubmissionInformation,
       submissionInformation,
       loadSubmissionInformation,
+      mySubmissions,
     } = this.props;
-
     const {
       showDeadlineDetail,
       registrantsSort,
       submissionsSort,
       notFoundCountryFlagUrl,
     } = this.state;
+
+    const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
@@ -285,8 +311,9 @@ class ChallengeDetailPageContainer extends React.Component {
       ? results : null;
 
     const isEmpty = _.isEmpty(challenge);
+    const isMM = challenge.subTrack && (challenge.subTrack.indexOf('MARATHON_MATCH') > -1 || challenge.subTrack.indexOf('"DEVELOP_MARATHON_MATCH"') > -1);
     const isLegacyMM = challenge.subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
-
+    const submissionEnded = challenge.status === 'COMPLETED';
     const hasRegistered = isRegistered(
       challenge.userDetails,
       challenge.registrants,
@@ -336,6 +363,7 @@ class ChallengeDetailPageContainer extends React.Component {
             <ChallengeHeader
               challenge={challenge}
               challengeId={challengeId}
+              mySubmissions={mySubmissions}
               challengesUrl={challengesUrl}
               numWinners={!isLegacyMM && winners.length}
               showDeadlineDetail={showDeadlineDetail}
@@ -353,6 +381,7 @@ class ChallengeDetailPageContainer extends React.Component {
               hasFirstPlacement={hasFirstPlacement}
               challengeSubtracksMap={challengeSubtracksMap}
               isMenuOpened={isMenuOpened}
+              isMM={isMM}
             />
             )
           }
@@ -425,7 +454,24 @@ class ChallengeDetailPageContainer extends React.Component {
                   notFoundCountryFlagUrl[countryInfo.countryCode] = true;
                   this.setState({ notFoundCountryFlagUrl });
                 }}
+                isReviewPhaseComplete={isReviewPhaseComplete}
                 onSortChange={sort => this.setState({ submissionsSort: sort })}
+              />
+            )
+          }
+          {
+            !isEmpty && (isMM || isLegacyMM) && selectedTab === DETAIL_TABS.MY_SUBMISSIONS
+            && (
+              <MySubmissions
+                submissionEnded={submissionEnded}
+                isLegacyMM={isLegacyMM}
+                unregistering={unregistering}
+                hasRegistered={hasRegistered}
+                challengesUrl={challengesUrl}
+                challengeId={challengeId}
+                auth={auth}
+                isReviewPhaseComplete={isReviewPhaseComplete}
+                mySubmissions={mySubmissions}
               />
             )
           }
@@ -471,6 +517,7 @@ ChallengeDetailPageContainer.defaultProps = {
   isMenuOpened: false,
   loadingMMSubmissionsForChallengeId: '',
   mmSubmissions: [],
+  mySubmissions: [],
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
 };
@@ -524,12 +571,16 @@ ChallengeDetailPageContainer.propTypes = {
   isLoadingSubmissionInformation: PT.bool,
   submissionInformation: PT.shape(),
   loadSubmissionInformation: PT.func.isRequired,
+  loadMySubmissions: PT.func.isRequired,
+  mySubmissions: PT.arrayOf(PT.shape()),
 };
 
 function mapStateToProps(state, props) {
   const { lookup: { allCountries } } = state;
   let { challenge: { mmSubmissions } } = state;
   const challenge = state.challenge.details || {};
+  let mySubmissions = [];
+
   if (challenge.registrants) {
     challenge.registrants = challenge.registrants.map(registrant => ({
       ...registrant,
@@ -541,8 +592,17 @@ function mapStateToProps(state, props) {
         ...submission,
         registrant: _.find(challenge.registrants, { handle: submission.submitter }),
       }));
+      mySubmissions = challenge.submissions.filter(
+        (submissionsForPerson) => {
+          const submitterId = submissionsForPerson.submitterId.toString();
+          const userId = state.auth.user.userId.toString();
+          return submitterId === userId;
+        },
+      );
+      if (mySubmissions && mySubmissions.length) {
+        mySubmissions = mySubmissions[0].submissions;
+      }
     }
-
     if (mmSubmissions) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
@@ -575,7 +635,6 @@ function mapStateToProps(state, props) {
       });
     }
   }
-
   return {
     auth: state.auth,
     challenge,
@@ -599,18 +658,17 @@ function mapStateToProps(state, props) {
     results: state.challenge.results,
     resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
     savingChallenge: Boolean(state.challenge.updatingChallengeUuid),
-
     /* TODO: Carefully move default value to defaultProps. */
     selectedTab: state.page.challengeDetails.selectedTab || 'details',
-
     specsTabState: state.page.challengeDetails.specsTabState,
     terms: state.terms.terms,
     unregistering: state.challenge.unregistering,
     isMenuOpened: !!state.topcoderHeader.openedMenu,
     loadingMMSubmissionsForChallengeId: state.challenge.loadingMMSubmissionsForChallengeId,
     isLoadingSubmissionInformation:
-      Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
+    Boolean(state.challenge.loadingSubmissionInformationForSubmissionId),
     submissionInformation: state.challenge.submissionInformation,
+    mySubmissions,
     mmSubmissions,
     allCountries: state.lookup.allCountries,
   };
@@ -649,6 +707,11 @@ const mapDispatchToProps = (dispatch) => {
           } else dispatch(a.dropResults());
           return res;
         });
+    },
+    loadMySubmissions: (tokenV2, challengeId) => {
+      const a = actions.challenge;
+      dispatch(a.getSubmissionsInit(challengeId));
+      dispatch(a.getSubmissionsDone(challengeId, tokenV2));
     },
     registerForChallenge: (auth, challengeId) => {
       const a = actions.challenge;

@@ -16,6 +16,7 @@ import React from 'react';
 import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
+import SubmissionDetail from 'routes/SubmissionDetail';
 import { Route, Switch } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 import ContentfulLoader from 'containers/ContentfulLoader';
@@ -71,6 +72,11 @@ export default function Topcoder() {
                 component={SubmissionManagement}
                 exact
                 path="/challenges/:challengeId(\d{8}|\d{5})/my-submissions"
+              />
+              <Route
+                component={SubmissionDetail}
+                exact
+                path="/challenges/:challengeId(\d{8}|\d{5})/submissions/:submissionId"
               />
               <Route
                 component={Submission}

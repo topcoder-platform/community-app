@@ -48,8 +48,9 @@ export default function ChallengeHeader(props) {
     showDeadlineDetail,
     hasFirstPlacement,
     isMenuOpened,
+    isMM,
+    mySubmissions,
   } = props;
-
   const {
     drPoints,
     id: challengeId,
@@ -412,6 +413,8 @@ Show Deadlines
           numSubmissions={numSubmissions}
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
+          isMM={isMM}
+          mySubmissions={mySubmissions}
         />
       </div>
     </div>
@@ -463,4 +466,6 @@ ChallengeHeader.propTypes = {
   challengeSubtracksMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
+  isMM: PT.bool.isRequired,
+  mySubmissions: PT.arrayOf(PT.shape()).isRequired,
 };

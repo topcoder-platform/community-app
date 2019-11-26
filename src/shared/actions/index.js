@@ -11,4 +11,5 @@ export default {
   ...pageActions,
   memberTasks: actions.memberTasks,
   direct: actions.direct,
+  challenge: actions.challenge,
 };

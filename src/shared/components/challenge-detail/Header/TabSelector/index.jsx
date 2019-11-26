@@ -28,6 +28,8 @@ export default function ChallengeViewSelector(props) {
     selectedView,
     trackLower,
     hasRegistered,
+    isMM,
+    mySubmissions,
   } = props;
 
   const forumId = _.get(challenge, 'forumId') || 0;
@@ -161,6 +163,20 @@ CHALLENGE FORUM
           </a>
           )
         }
+        { (isMM && (hasRegistered || Boolean(roles.length)))
+          && (
+          <a
+            tabIndex="0"
+            role="tab"
+            aria-selected={selectedView === DETAIL_TABS.MY_SUBMISSIONS}
+            onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
+            onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
+            styleName={getSelectorStyle(selectedView, DETAIL_TABS.MY_SUBMISSIONS)}
+          >
+MY SUBMISSIONS {mySubmissions.length ? `(${mySubmissions.length})` : ''}
+          </a>
+          )
+        }
       </div>
     </div>
   );
@@ -191,4 +207,6 @@ ChallengeViewSelector.propTypes = {
   selectedView: PT.string.isRequired,
   trackLower: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
+  isMM: PT.bool.isRequired,
+  mySubmissions: PT.arrayOf(PT.shape()).isRequired,
 };

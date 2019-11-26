@@ -1,0 +1,341 @@
+@import '~styles/mixins';
+
+.main {
+  padding: 50px;
+}
+
+.submitBtn {
+  width: 200px;
+  margin-top: 20px !important;
+  align-self: center;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  display: flex;
+  color: $tc-gray-50;
+  flex: 1;
+  justify-content: center;
+
+  &.time {
+    flex: 2;
+  }
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  color: $tc-black;
+  margin-bottom: 10px;
+  text-align: center;
+  white-space: normal;
+
+  @include xs-to-sm {
+    font-size: 28px;
+    line-height: 30px;
+  }
+}
+
+.empty {
+  padding: 20px;
+  width: 100%;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: $tc-gray-90;
+  line-height: 25px;
+  margin-bottom: 30px;
+  white-space: normal;
+
+  @include xs-to-sm {
+    margin-left: 35px;
+    margin-right: 35px;
+  }
+}
+
+.container {
+  @include roboto-regular;
+
+  width: 100%;
+  max-width: 1060px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .submit-btn {
+    margin: $base-unit auto;
+    width: 200px;
+    display: block;
+    align-self: center;
+  }
+
+  &.no-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 150px 0;
+
+    @include xs-to-sm {
+      padding: (10 * $base-unit) (5 * $base-unit);
+      text-align: center;
+    }
+
+    .desc {
+      font-size: 15px;
+      color: $tc-gray-50;
+      line-height: 25px;
+      width: 500px;
+      white-space: pre-wrap;
+
+      @include xs-to-sm {
+        margin-left: 28px;
+        margin-right: 28px;
+        width: auto;
+      }
+    }
+  }
+
+  &.view {
+    padding: 4 * $base-unit;
+
+    .title {
+      color: $tc-black;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      margin-left: 20px;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 500;
+      text-align: center;
+
+      @include xs-to-sm {
+        text-align: center;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .submission {
+      border: 1px solid $tc-gray-10;
+      margin: 0 14px 25px;
+      width: 227px;
+      font-size: 12px;
+
+      img {
+        width: 225px;
+        height: 226px;
+      }
+    }
+
+    .bottom-info {
+      background: #f7f7f7;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      line-height: 20px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+    }
+
+    .handle {
+      color: $tc-orange;
+    }
+  }
+
+  .head {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+    color: $tc-gray-50;
+    background: #e8e8e8;
+    display: flex;
+    border-radius: 5px 5px 0 0;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .sub-head {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    color: $tc-gray-50;
+    background: #faf9fa;
+    display: flex;
+    border-bottom: 1px solid $tc-gray-10;
+
+    @include xs-to-sm {
+      display: none;
+    }
+
+    .handle {
+      color: $tc-dark-blue-110;
+    }
+  }
+
+  .lock {
+    fill: $tc-light-blue;
+    height: 136px;
+    margin-bottom: 30px;
+    width: 110px;
+  }
+}
+
+.container.dev {
+  padding-bottom: 30px;
+  line-height: 50px;
+  border: 1px solid #e9ebed;
+  text-align: center;
+
+  @include xs-to-sm {
+    margin: 30px 0;
+    line-height: 20px;
+  }
+
+  .col {
+    text-align: center;
+  }
+
+  .handle {
+    color: $tc-dark-blue;
+  }
+
+  &.non-mm {
+    .head {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+      padding-bottom: 14px;
+      color: $tc-gray-50;
+      display: flex;
+      border-bottom: 1px solid $tc-gray-10;
+      background: transparent;
+
+      @include xs-to-sm {
+        display: none;
+      }
+    }
+
+    .row {
+      color: $tc-gray-70;
+      display: flex;
+      border-bottom: 1px solid $tc-gray-10;
+      font-size: 15px;
+    }
+
+    .col-1 {
+      padding-left: 30px;
+      text-align: left;
+      width: 10%;
+      justify-content: flex-start;
+      display: flex;
+      min-width: 140px;
+
+      @include xs-to-sm {
+        min-width: none;
+      }
+    }
+
+    .col-2 {
+      width: 10%;
+      justify-content: flex-start;
+      display: flex;
+    }
+
+    .col-3 {
+      width: 26.6%;
+    }
+
+    .col-4 {
+      width: 26.6%;
+    }
+
+    .col-5 {
+      width: 26.6%;
+    }
+
+    .handle {
+      color: $tc-black;
+    }
+  }
+}
+
+.tooltip {
+  font-size: 14px;
+  margin: 10px 10px 0 10px;
+  padding-top: 5px;
+}
+
+.col-arrow {
+  display: flex;
+  padding-left: 5px;
+
+  :global {
+    svg {
+      margin-bottom: -1px;
+    }
+  }
+}
+
+.col-arrow-is-sorting {
+  :global {
+    g {
+      fill: $tc-dark-blue;
+    }
+  }
+}
+
+.col-arrow-sort-asc {
+  :global {
+    svg {
+      -moz-transform: scale(1, -1);
+      -o-transform: scale(1, -1);
+      -webkit-transform: scale(1, -1);
+      transform: scale(1, -1);
+    }
+  }
+}
+
+.header-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  background: transparent;
+
+  &:hover {
+    color: $tc-dark-blue;
+
+    :global {
+      g {
+        fill: $tc-dark-blue;
+      }
+    }
+  }
+}

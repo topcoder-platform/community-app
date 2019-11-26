@@ -14,6 +14,7 @@ export const TABS = {
   SUBMISSIONS: 'submissions',
   WINNERS: 'winners',
   CHALLENGE_FORUM: 'challenge_forum',
+  MY_SUBMISSIONS: 'my_submissions',
 };
 
 /* Holds valid values for the specs tab state. */
