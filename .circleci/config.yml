@@ -176,7 +176,6 @@ workflows:
               only: 
                 - develop
                 - hot-fix
-                - feature-contentful
                 - survey_tc
                 - fix-groups-updates
                 - sort_registrations_submissions
@@ -185,8 +184,9 @@ workflows:
           context : org-global      
           filters:
             branches:
-                only:
-                  - develop
+              only:
+                - develop
+                - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -194,12 +194,6 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-contentful
-                - survey_tc
-                - feature-groups-api
-                - mm-broker-api
-                - fix-groups-updates
-                - sort_registrations_submissions
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
