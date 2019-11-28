@@ -150,6 +150,7 @@ module.exports = {
     COMMUNITY_API: 'http://localhost:8000',
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
     EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
+    THRIVE_POLL_FEED: 'https://www.topcoder.com/feed',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -259,7 +260,7 @@ module.exports = {
     title: 'Switch to BUSINESS',
     href: 'https://connect.topcoder-dev.com',
   },
-  // Config for TC EDU
+  // Config for TC EDU - THRIVE
   TC_EDU_BASE_PATH: '/thrive',
   TC_EDU_TRACKS_PATH: '/tracks',
   TC_EDU_ARTICLES_PATH: '/articles',
