@@ -2,7 +2,7 @@
  * Stats Page.  Displays the stats of a TopCoder member.
  */
 /* eslint-env browser */
-import _ from 'lodash';
+import { _, get } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -17,6 +17,7 @@ import styles from './styles.scss';
 import StatsModal from './StatsModal';
 import SRMStats from './SRMStats';
 import SubTrackChallengeView from './SubTrackChallengeView';
+import DefaultPortrait from 'assets/images/ico-user-default.svg';
 
 
 class ProfileStats extends React.Component {
@@ -64,6 +65,11 @@ class ProfileStats extends React.Component {
     const subTrackStats = getSubTrackStats(stats, track, subTrack);
     const subTrackSummary = getSummary(stats, track, subTrack) || [];
     const subTrackDetails = getDetails(stats, track, subTrack) || [];
+    let srmRating = 0;
+    const ratingObj = subTrackSummary.filter((k) => k.label === 'rating');
+    if (ratingObj) {
+      srmRating = ratingObj[0].value;
+    }
 
     if (track === 'DEVELOP') {
       const reliability = subTrackSummary.find(stat => stat.label === 'reliability');
@@ -128,6 +134,21 @@ Active Challenges
               }
             </ul>
             <ul styleName="subtrack-stats">
+              {
+                subTrackSummary && info &&
+                  <li key={info.handle}>
+                    <div>
+                      { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
+                    </div>
+                    <div
+                      styleName="value"
+                      className={info.maxRating ? styles.rating : ''}
+                      style={{ color: srmRating ? getRatingColor(parseInt(srmRating.replace(/\D/g, ''), 10))  : undefined }}
+                      >
+                      {info.handle || '-'}
+                    </div>
+                  </li>
+              }
               {
                 subTrackSummary.map(({ label, value, link }) => (
                   <li key={label}>
