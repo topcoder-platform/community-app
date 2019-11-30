@@ -2,12 +2,13 @@
  * Stats Page.  Displays the stats of a TopCoder member.
  */
 /* eslint-env browser */
-import { _, get } from 'lodash';
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
+import DefaultPortrait from 'assets/images/ico-user-default.svg';
 import {
   shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails,
 } from 'utils/memberStats';
@@ -17,7 +18,6 @@ import styles from './styles.scss';
 import StatsModal from './StatsModal';
 import SRMStats from './SRMStats';
 import SubTrackChallengeView from './SubTrackChallengeView';
-import DefaultPortrait from 'assets/images/ico-user-default.svg';
 
 
 class ProfileStats extends React.Component {
@@ -65,11 +65,8 @@ class ProfileStats extends React.Component {
     const subTrackStats = getSubTrackStats(stats, track, subTrack);
     const subTrackSummary = getSummary(stats, track, subTrack) || [];
     const subTrackDetails = getDetails(stats, track, subTrack) || [];
-    let srmRating = 0;
-    const ratingObj = subTrackSummary.filter((k) => k.label === 'rating');
-    if (ratingObj) {
-      srmRating = ratingObj[0].value;
-    }
+    const ratingObj = subTrackSummary.filter(k => k.label === 'rating');
+    const subTrackRating = ratingObj ? ratingObj[0].value : 0;
 
     if (track === 'DEVELOP') {
       const reliability = subTrackSummary.find(stat => stat.label === 'reliability');
@@ -135,7 +132,8 @@ Active Challenges
             </ul>
             <ul styleName="subtrack-stats">
               {
-                subTrackSummary && info &&
+                subTrackSummary
+                && (
                   <li key={info.handle}>
                     <div>
                       { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
@@ -143,11 +141,12 @@ Active Challenges
                     <div
                       styleName="value"
                       className={info.maxRating ? styles.rating : ''}
-                      style={{ color: srmRating ? getRatingColor(parseInt(srmRating.replace(/\D/g, ''), 10))  : undefined }}
-                      >
+                      style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.replace(/\D/g, ''), 10)) : undefined }}
+                    >
                       {info.handle || '-'}
                     </div>
                   </li>
+                )
               }
               {
                 subTrackSummary.map(({ label, value, link }) => (
