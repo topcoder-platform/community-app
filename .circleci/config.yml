@@ -181,7 +181,6 @@ workflows:
                 - feature-contentful
                 - survey_tc
                 - fix-groups-updates
-                - smoke_testing_develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
