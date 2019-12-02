@@ -62,7 +62,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            #./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
             ./topcoder-community-smoke-test/smoketest.sh dev            
             
   # Build & Deploy against testing backend
