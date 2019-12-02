@@ -3,8 +3,8 @@
 ./node_modules/.bin/webdriver-manager start --detach
 #Set configuration for different environment
 echo pwd
-echo echo $SMOKE_CONFIG_PROD 
-echo $SMOKE_CONFIG_PROD | base64 -d > config.json 
+echo "{$SMOKE_CONFIG_PROD}" 
+echo "{$SMOKE_CONFIG_PROD}"  | base64 -d > config.json 
 cat config.json
 ls
 npm run test
