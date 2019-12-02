@@ -196,6 +196,13 @@
         }
       }
 
+      img.profile-circle {
+        border-radius: 50%;
+        display: inline;
+        width: 140px;
+        height: 140px;
+      }
+
       & + .develop {
         // move the cards up to compensate for size. Refactor of the component will make this obsolete!
         margin-top: -40px;

@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
+import DefaultPortrait from 'assets/images/ico-user-default.svg';
 import {
   shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails,
 } from 'utils/memberStats';
@@ -64,6 +65,8 @@ class ProfileStats extends React.Component {
     const subTrackStats = getSubTrackStats(stats, track, subTrack);
     const subTrackSummary = getSummary(stats, track, subTrack) || [];
     const subTrackDetails = getDetails(stats, track, subTrack) || [];
+    const ratingObj = subTrackSummary.filter(k => k.label === 'rating');
+    const subTrackRating = ratingObj ? ratingObj[0].value : 0;
 
     if (track === 'DEVELOP') {
       const reliability = subTrackSummary.find(stat => stat.label === 'reliability');
@@ -128,6 +131,23 @@ Active Challenges
               }
             </ul>
             <ul styleName="subtrack-stats">
+              {
+                subTrackSummary
+                && (
+                  <li key={info.handle}>
+                    <div>
+                      { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
+                    </div>
+                    <div
+                      styleName="value"
+                      className={info.maxRating ? styles.rating : ''}
+                      style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.replace(/\D/g, ''), 10)) : undefined }}
+                    >
+                      {info.handle || '-'}
+                    </div>
+                  </li>
+                )
+              }
               {
                 subTrackSummary.map(({ label, value, link }) => (
                   <li key={label}>
