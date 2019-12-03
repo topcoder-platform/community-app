@@ -194,6 +194,7 @@ workflows:
             branches:
               only:
                 - develop
+                - issue_3469
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
