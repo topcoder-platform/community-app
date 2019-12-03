@@ -342,7 +342,7 @@ class SubmissionsDetailView extends React.Component {
                     },
                   )}
                 >
-                  <span>{score}</span>
+                  {(score < 0) ? (<IconFail />) : (<span>{score}</span>)}
                 </div>
                 <div
                   styleName={cn(

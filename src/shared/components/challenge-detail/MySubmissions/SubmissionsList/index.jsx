@@ -13,6 +13,7 @@ import sortList from 'utils/challenge-detail/sort';
 
 import IconComplete from '../../icons/completed.svg';
 import IconQueued from '../../icons/queued.svg';
+import IconFail from '../../icons/failed.svg';
 import DownloadIcon from '../../../SubmissionManagement/Icons/IconSquareDownload.svg';
 import ArrowDown from '../../../../../assets/images/arrow-down.svg';
 
@@ -392,7 +393,7 @@ class SubmissionsListView extends React.Component {
                         },
                       )}
                     >
-                      <span>{finalScore}</span>
+                      {(finalScore < 0) ? (<IconFail />) : (<span>{finalScore}</span>)}
                     </div>
                     <div
                       styleName={cn(
@@ -402,7 +403,7 @@ class SubmissionsListView extends React.Component {
                         },
                       )}
                     >
-                      <span>{provisionalScore}</span>
+                      {(provisionalScore < 0) ? (<IconFail />) : (<span>{provisionalScore}</span>)}
                     </div>
                     <div
                       styleName={cn(
