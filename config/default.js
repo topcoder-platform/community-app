@@ -1,8 +1,6 @@
 /* All availalbe configuration options should be documented in the default
  * config file, even when they are overriden in every custom configuration. */
 
-const { deferConfig } = require('config/defer');
-
 module.exports = {
   /* Configuration of Topcoder APIs. */
   API: {
@@ -152,6 +150,7 @@ module.exports = {
     COMMUNITY_API: 'http://localhost:8000',
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
     EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
+    THRIVE_POLL_FEED: 'https://www.topcoder.com/feed',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -213,21 +212,9 @@ module.exports = {
 
     OPEN_EXCHANGE_RATES_KEY: '',
 
-    /* Review type ID for AV Scans. */
-    AV_SCAN_SCORER_REVIEW_TYPE_ID: '',
-
-    JWT_AUTH: {
-      SECRET: '',
-      VALID_ISSUERS: deferConfig(function d() {
-        return this.VALID_ISSUERS ? this.VALID_ISSUERS.replace(/\\"/g, '')
-          : '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/"]';
-      }),
-    },
-
     /* These credentials allow Community App server to communicate with
      * protected TC API endpoints (on behalf of the app itself). */
     TC_M2M: {
-      AUTH0_URL: '',
       CLIENT_ID: '',
       CLIENT_SECRET: '',
       AUDIENCE: '',
@@ -413,7 +400,7 @@ module.exports = {
       href: 'https://www.topcoder-dev.com/logout',
     },
   ],
-  // Config for TC EDU
+  // Config for TC EDU - THRIVE
   TC_EDU_BASE_PATH: '/thrive',
   TC_EDU_TRACKS_PATH: '/tracks',
   TC_EDU_ARTICLES_PATH: '/articles',

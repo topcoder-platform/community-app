@@ -33,5 +33,6 @@ Instructions are also provided below for developments that want to modify/create
     - [Custom inline components in Markdown fields](./custom-inline-components-in-markdown-fields.md)
     - [Miscellaneous CSS Solutions](./miscellaneous-CSS-solutions.md)
     - [Duplicate tool](https://github.com/topcoder-platform/contentful-duplicate-tool/blob/master/docs/contentful-duplicate.md)
+    - [Animate Components On Scroll](./animations.md)
 
 To request additional content types or adjustments to existing content models, please send  you request to support@topcoder.com.
