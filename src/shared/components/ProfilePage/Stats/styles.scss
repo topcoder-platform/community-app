@@ -237,6 +237,13 @@
           }
         }
 
+        .valueHandle {
+          position: relative;
+          margin-bottom: 7px;
+          font-size: 18px;
+          color: #3d3d3d;
+        }
+
         &:not(:first-child)::before {
           content: "";
           top: 32px;

@@ -67,6 +67,7 @@ class ProfileStats extends React.Component {
     const subTrackDetails = getDetails(stats, track, subTrack) || [];
     const ratingObj = subTrackSummary.filter(k => k.label === 'rating');
     const subTrackRating = ratingObj ? ratingObj[0].value : 0;
+    const isSRM = subTrack === 'SRM';
 
     if (track === 'DEVELOP') {
       const reliability = subTrackSummary.find(stat => stat.label === 'reliability');
@@ -88,6 +89,10 @@ class ProfileStats extends React.Component {
           <div styleName="page-state-header">
             <header>
               <div styleName="page-info">
+                <Link to={`/members/${handleParam}`}>
+                  <h1><span >&#x2039;</span></h1>
+                </Link>
+                &nbsp;
                 <h1>
                   {subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}
                 </h1>
@@ -132,6 +137,8 @@ Active Challenges
             </ul>
             <ul styleName="subtrack-stats">
               {
+                isSRM
+                &&
                 subTrackSummary
                 && (
                   <li key={info.handle}>
@@ -139,11 +146,13 @@ Active Challenges
                       { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
                     </div>
                     <div
-                      styleName="value"
+                      styleName="valueHandle"
                       className={info.maxRating ? styles.rating : ''}
                       style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.replace(/\D/g, ''), 10)) : undefined }}
                     >
-                      {info.handle || '-'}
+                      <Link to={`/members/${info.handle}`}>
+                        {info.handle || '-'}
+                      </Link>
                     </div>
                   </li>
                 )
