@@ -90,7 +90,7 @@ class ProfileStats extends React.Component {
             <header>
               <div styleName="page-info">
                 <Link to={`/members/${handleParam}`}>
-                  <h1><span >&#x2039;</span></h1>
+                  <h1><span>&#x2039;</span></h1>
                 </Link>
                 &nbsp;
                 <h1>
@@ -137,9 +137,7 @@ Active Challenges
             </ul>
             <ul styleName="subtrack-stats">
               {
-                isSRM
-                &&
-                subTrackSummary
+                isSRM && subTrackSummary
                 && (
                   <li key={info.handle}>
                     <div>
