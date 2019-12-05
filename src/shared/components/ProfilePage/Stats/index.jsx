@@ -67,8 +67,10 @@ class ProfileStats extends React.Component {
     const subTrackSummary = getSummary(stats, track, subTrack) || [];
     const subTrackDetails = getDetails(stats, track, subTrack) || [];
     const ratingObj = subTrackSummary.filter(k => k.label === 'rating');
-    const subTrackRating = ratingObj ? ratingObj[0].value : 0;
-    const isSRM = subTrack === 'SRM';
+    let subTrackRating = ratingObj && ratingObj[0] ? ratingObj[0].value : 0;
+    if (subTrackRating === 0 || !subTrackRating) { // if subtrack has no rating, pick default rating
+      subTrackRating = info.maxRating ? info.maxRating.rating : 0;
+    }
 
     if (track === 'DEVELOP') {
       const reliability = subTrackSummary.find(stat => stat.label === 'reliability');
@@ -138,7 +140,7 @@ Active Challenges
             </ul>
             <ul styleName="subtrack-stats">
               {
-                isSRM && subTrackSummary
+                subTrackSummary
                 && (
                   <li key={info.handle}>
                     <div>
@@ -146,8 +148,8 @@ Active Challenges
                     </div>
                     <div
                       styleName="valueHandle"
-                      className={info.maxRating ? styles.rating : ''}
-                      style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.replace(/\D/g, ''), 10)) : undefined }}
+                      className={subTrackRating ? styles.rating : ''}
+                      style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.toString().replace(/\D/g, ''), 10)) : undefined }}
                     >
                       <Link to={`/members/${info.handle}`}>
                         {info.handle || '-'}
