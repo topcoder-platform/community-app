@@ -20,17 +20,19 @@ import Design from 'assets/images/img_design.png';
 import DS from 'assets/images/img-data-science.png';
 import Algo from 'assets/images/img-algorithm.png';
 import QA from 'assets/images/img-QA.png';
+import Topcoder from 'assets/images/img-Topcoder.png';
 // Partials
 import ResultTabs from './partials/ResultTabs';
 // CSS
 import tracksTheme from './styles/tracks.scss';
 
-const TRACK_COLORS = {
+const TRACK_BANNER_BACK_COLORS = {
   Development: '#8AFB8A',
   Design: '#50ADE8',
   'Data Science': '#FFA45D',
   'Competitive Programming': '#FFA45D',
   QA: '#8AFB8A',
+  Topcoder: '#2A2A2A',
 };
 const TRACK_IMAGES = {
   Development: Dev,
@@ -38,6 +40,7 @@ const TRACK_IMAGES = {
   'Data Science': DS,
   'Competitive Programming': Algo,
   QA,
+  Topcoder,
 };
 
 export default class EDUTracks extends React.Component {
@@ -164,14 +167,14 @@ export default class EDUTracks extends React.Component {
         {/* Banner */}
         <div
           className={tracksTheme.bannerContainer}
-          style={{ backgroundColor: TRACK_COLORS[query.track || 'Design'] }}
+          style={{ backgroundColor: TRACK_BANNER_BACK_COLORS[query.track || 'Design'] }}
         >
           {
             TRACK_IMAGES[query.track] ? (
               <img src={TRACK_IMAGES[query.track]} alt="Track banner" className={tracksTheme.bannerImage} />
             ) : null
           }
-          <div className={tracksTheme.bannerWrapp}>
+          <div className={tracksTheme.bannerWrapp} style={query.track === 'Topcoder' ? { color: '#fff' } : {}}>
             <h1 className={tracksTheme.bannerText}>{query.track || 'THRIVE'}</h1>
             <div className={tracksTheme.bannerCounters}>
               <div className={tracksTheme.bannerCounterWrap}>

@@ -25,6 +25,9 @@ export function MemberCardInner({
   const imageUrl = _.get(image, 'file.url');
   const trackIconUrl = _.get(trackIcon, 'file.url');
   const { memberName, trackColor, description } = memberCard;
+  let countryName = getName(country).toLocaleUpperCase();
+  if (countryName === 'UNITED STATES OF AMERICA') countryName = 'USA';
+  if (countryName === 'VENEZUELA, BOLIVARIAN REPUBLIC OF') countryName = 'VENEZUELA';
 
   return (
     <a
@@ -56,7 +59,7 @@ export function MemberCardInner({
             <div className={theme.countryWrapper}>
               <span className={`flag-icon flag-icon-${country} ${theme.flag}`} />
               <span className={theme.countryName}>
-                {getName(country).toLocaleUpperCase()}
+                {countryName}
               </span>
             </div>
           )}

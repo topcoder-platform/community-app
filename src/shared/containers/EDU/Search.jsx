@@ -94,7 +94,7 @@ export default class EDUSearch extends React.Component {
         {/* Banner */}
         <div className={searchTheme.bannerContainer}>
           <div className={searchTheme.searchBarWrapp}>
-            <SearchBar />
+            <SearchBar inputlVal={query.phrase} />
           </div>
         </div>
         <div className={searchTheme.shapeBanner} />

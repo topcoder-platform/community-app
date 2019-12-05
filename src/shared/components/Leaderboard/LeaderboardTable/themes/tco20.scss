@@ -1,6 +1,6 @@
 @import '~styles/mixins';
 $table-cell-padding: 8px;
-$table-border-color: #ededf2;
+$table-border-color: #d4d4d4;
 $table-bg-hover: #f5f5f5;
 
 .LeaderboardTable {
@@ -89,6 +89,11 @@ $table-bg-hover: #f5f5f5;
   .col-rank {
     text-align: center;
     width: 80px;
+    text-transform: uppercase;
+    color: #2a2a2a;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
 
     @include sm {
       width: 40px;
@@ -122,12 +127,19 @@ $table-bg-hover: #f5f5f5;
     a {
       color: #0d61bf;
       font-weight: 500;
+      font-size: 16px;
+      text-decoration: underline;
 
       &:hover {
         color: #0d61bf;
         cursor: pointer;
+        text-decoration: none;
       }
     }
+  }
+
+  .col-handleHeader {
+    text-align: left;
   }
 
   .col-handle .winnings-info {
@@ -149,6 +161,7 @@ $table-bg-hover: #f5f5f5;
 
   .col-fulfillment {
     text-align: center;
+    text-transform: uppercase;
   }
 
   .col-points {
@@ -161,9 +174,28 @@ $table-bg-hover: #f5f5f5;
   .col-challenges,
   .col-points {
     width: 33%;
+    color: #2a2a2a;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
 
     @include sm {
       display: none !important;
     }
+  }
+}
+
+.table-header {
+  .col-handleHeader,
+  .col-rank,
+  .col-fulfillment,
+  .col-challenges,
+  .col-points {
+    color: #7f7f7f;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
 }

@@ -38,6 +38,7 @@ export default function Podium(props) {
     onUsernameClick,
     isTopGear,
     isAlgo,
+    themeName,
   } = props;
 
   const renderPodium = (comps) => {
@@ -49,6 +50,7 @@ export default function Podium(props) {
           onUsernameClick={onUsernameClick}
           isTopGear={isTopGear}
           isAlgo={isAlgo}
+          themeName={themeName}
         />
       </div>
     ));
@@ -85,6 +87,7 @@ Podium.propTypes = {
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
   isAlgo: PT.bool,
+  themeName: PT.string.isRequired,
 };
 
 Podium.defaultProps = {
