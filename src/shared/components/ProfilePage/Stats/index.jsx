@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
+import LeftArrow from 'assets/images/arrow-prev.svg';
 import {
   shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails,
 } from 'utils/memberStats';
@@ -90,7 +91,7 @@ class ProfileStats extends React.Component {
             <header>
               <div styleName="page-info">
                 <Link to={`/members/${handleParam}`}>
-                  <h1><span>&#x2039;</span></h1>
+                  <LeftArrow styleName="left-arrow" />
                 </Link>
                 &nbsp;
                 <h1>

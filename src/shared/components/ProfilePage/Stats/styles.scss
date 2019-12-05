@@ -177,6 +177,10 @@
       .page-info {
         display: flex;
         justify-content: center;
+
+        .left-arrow {
+          margin: 15px;
+        }
       }
     }
 
