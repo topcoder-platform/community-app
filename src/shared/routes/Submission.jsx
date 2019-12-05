@@ -15,8 +15,8 @@ export default function SubmissionsPageRoute(props) {
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={() => {
         const p = webpack.resolveWeak('containers/SubmissionPage');
-        const ChallengeDetails = webpack.requireWeak(path.resolve(__dirname, p));
-        return <ChallengeDetails {...props} />;
+        const SubmissionsPageContainer = webpack.requireWeak(path.resolve(__dirname, p));
+        return <SubmissionsPageContainer {...props} />;
       }}
     />
   );
