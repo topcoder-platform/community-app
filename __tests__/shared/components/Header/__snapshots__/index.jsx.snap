@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<div>
+  <TopNav
+    loggedIn={true}
+    logo={
+      <Logo
+        height="20"
+        viewBox="0 0 54 20"
+        width="54"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    }
+    menu={
+      Array [
+        Object {
+          "href": "https://www.topcoder-dev.com",
+          "id": "business",
+          "title": "BUSINESS",
+        },
+        Object {
+          "id": "community",
+          "secondaryMenuForGuest": Array [
+            Object {
+              "href": "https://www.topcoder-dev.com/about",
+              "title": "Overview",
+            },
+            Object {
+              "href": "https://www.topcoder-dev.com/how-it-works/faqs/",
+              "title": "How It Works",
+            },
+            Object {
+              "href": "/community/learn",
+              "title": "Tracks",
+            },
+            Object {
+              "href": "https://www.topcoder-dev.com/about/why-crowdsourcing/",
+              "title": "Why Join",
+            },
+          ],
+          "secondaryMenuForLoggedInUser": Array [
+            Object {
+              "href": "/my-dashboard",
+              "title": "Dashboard",
+            },
+            Object {
+              "href": "/members/willFilledByUserName",
+              "id": "myprofile",
+              "title": "My Profile",
+            },
+            Object {
+              "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+              "title": "Payments",
+            },
+          ],
+          "subMenu": Array [
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "/challenges",
+                  "title": "All Challenges",
+                },
+                Object {
+                  "href": "https://arena.topcoder-dev.com",
+                  "title": "Competitive Programming",
+                },
+              ],
+              "title": "Compete",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "/community/competitive-programming",
+                  "title": "Competitive Programming",
+                },
+                Object {
+                  "href": "/community/data-science",
+                  "title": "Data Science",
+                },
+                Object {
+                  "href": "/community/design",
+                  "title": "Design",
+                },
+                Object {
+                  "href": "/community/development",
+                  "title": "Development",
+                },
+                Object {
+                  "href": "/community/qa",
+                  "title": "QA",
+                },
+              ],
+              "title": "Tracks",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "https://www.topcoder-dev.com/tco",
+                  "title": "TCO",
+                },
+                Object {
+                  "href": "/community/member-programs",
+                  "title": "Programs",
+                },
+                Object {
+                  "href": "https://apps.topcoder-dev.com/forums",
+                  "title": "Forums",
+                },
+                Object {
+                  "href": "/community/statistics",
+                  "title": "Statistics",
+                },
+                Object {
+                  "href": "/community/events",
+                  "title": "Events",
+                },
+                Object {
+                  "href": "https://www.topcoder-dev.com/blog",
+                  "title": "Blog",
+                },
+              ],
+              "title": "Explore",
+            },
+          ],
+          "title": "COMMUNITY",
+        },
+      ]
+    }
+    onChangeLevel1Id={[Function]}
+    openMore={true}
+    profileHandle="huanner"
+    rightMenu={
+      <LoginNav
+        accountMenu={
+          Array [
+            Object {
+              "href": "/settings/profile",
+              "title": "Settings",
+            },
+            Object {
+              "separator": true,
+            },
+            Object {
+              "href": "https://help.topcoder-dev.com/",
+              "title": "Help",
+            },
+            Object {
+              "href": "https://www.topcoder.com/about/",
+              "title": "About Topcoder",
+            },
+            Object {
+              "href": "https://www.topcoder-dev.com/logout",
+              "title": "Log Out",
+            },
+          ]
+        }
+        authURLs={
+          Object {
+            "href": "https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
+            "location": "https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main",
+          }
+        }
+        loggedIn={true}
+        notificationButtonState="none"
+        notifications={Array []}
+        onMenuOpen={[Function]}
+        onSwitch={[Function]}
+        profile={
+          Object {
+            "description": "devxxxxxx",
+            "email": "liwanxiang@gmail.com",
+            "handle": "huanner",
+            "photoURL": "https://d1aahxkjiobka8.cloudfront.net/avatar/https%3A%2F%2Ftopcoder-dev-media.s3.amazonaws.com%2Fmember%2Fprofile%2Fhuanner-1552562543506.png?size=32",
+          }
+        }
+        showNotification={false}
+        switchText={
+          Object {
+            "href": "https://connect.topcoder-dev.com",
+            "title": "Switch to BUSINESS",
+          }
+        }
+      />
+    }
+    setOpenMore={[Function]}
+    theme="light"
+  />
+</div>
+`;
