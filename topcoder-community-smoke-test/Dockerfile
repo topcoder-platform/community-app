@@ -18,6 +18,7 @@ RUN export CHROMEDRIVER_RELEASE=$(curl --location --fail --retry 3 http://chrome
       && chromedriver --version 
 RUN sudo apt-get install -y libgconf-2-4   
 RUN sudo apt-get install -y xvfb 
+RUN sudo apt-get install -y jq 
 ENV DISPLAY :99
 RUN printf '#!/bin/sh\nXvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /tmp/entrypoint \
   && chmod +x /tmp/entrypoint \

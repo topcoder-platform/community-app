@@ -2,9 +2,11 @@
 #./node_modules/.bin/webdriver-manager start --versions.chrome=75.0.3770.142 --detach
 ./node_modules/.bin/webdriver-manager start --detach
 npm run test
-#get user name and passwrod from config file for test quality
+#get user name and passwrod from config file for test quality app
+email=$(cat config.json | jq '.testQualityEmail') 
+password=$(cat config.json | jq '.testQualityPassword') 
 sudo chmod 755 testquality-linux
-./testquality-linux login drasticdpk@outlook.com Testquality@100  --save
+./testquality-linux login ${email} ${password}  --save
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderAccountPageTests.xml --project_name='topcoder-community-smoke-test' --plan_name='community app test plan' 
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeDetailPageTests.xml --project_name='topcoder-community-smoke-test' --plan_name='community app test plan'
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeListingPageTests.xml --project_name='topcoder-community-smoke-test' --plan_name='community app test plan'
