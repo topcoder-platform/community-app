@@ -28,8 +28,10 @@ export default function ChallengeViewSelector(props) {
     selectedView,
     trackLower,
     hasRegistered,
+    mySubmissions,
   } = props;
 
+  const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
   const forumId = _.get(challenge, 'forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
 
@@ -136,6 +138,22 @@ SUBMISSIONS (
           ) : null
         }
         {
+          (hasRegistered && isMM && mySubmissions) ? (
+            <a
+              tabIndex="0"
+              role="tab"
+              aria-selected={selectedView === DETAIL_TABS.MY_SUBMISSIONS}
+              onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
+              onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.MY_SUBMISSIONS)}
+            >
+MY SUBMISSIONS (
+              {mySubmissions.length}
+)
+            </a>
+          ) : null
+        }
+        {
           numWinners ? (
             <a
               tabIndex="0"
@@ -176,6 +194,7 @@ ChallengeViewSelector.defaultProps = {
 
 ChallengeViewSelector.propTypes = {
   challenge: PT.shape({
+    subTrack: PT.any,
     details: PT.shape({
       forumId: PT.number.isRequired,
     }),
@@ -191,4 +210,5 @@ ChallengeViewSelector.propTypes = {
   selectedView: PT.string.isRequired,
   trackLower: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
+  mySubmissions: PT.arrayOf(PT.shape()).isRequired,
 };
