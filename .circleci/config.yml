@@ -180,7 +180,6 @@ workflows:
                 - survey_tc
                 - fix-groups-updates
                 - sort_registrations_submissions
-                - issue_3470
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -201,6 +200,7 @@ workflows:
                 - mm-broker-api
                 - fix-groups-updates
                 - sort_registrations_submissions
+                - issue_3470
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
