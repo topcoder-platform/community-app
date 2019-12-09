@@ -36,7 +36,7 @@ export default function Looker(props) {
 
   const renderData = () => {
     if (property) {
-      if (lookerData.length > 0) {
+      if (lookerData.length > 0 && lookerData[0][property]) {
         if (typeof lookerData[0][property] === 'string') {
           return lookerData[0][property];
         }
