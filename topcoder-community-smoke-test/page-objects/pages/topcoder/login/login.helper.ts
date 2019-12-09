@@ -26,7 +26,6 @@ export class LoginPageHelper {
         await LoginPageObject.usernameField.sendKeys(username);
         await LoginPageObject.passwordField.sendKeys(password);
 
-        await console.log('Login form filled with values: username - ' + username + ', password - ' + password);
 
         const loginButton = LoginPageObject.loginButton;
         expect(loginButton.isEnabled()).toBeTruthy();

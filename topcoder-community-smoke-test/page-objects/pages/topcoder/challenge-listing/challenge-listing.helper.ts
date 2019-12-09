@@ -368,9 +368,28 @@ export class ChallengeListingPageHelper {
     static async selectDateRange() {
         const dateRangeStartDate = await ChallengeListingPageObject.dateRangeStartDate();
         await dateRangeStartDate.click();
-        await commonPageObjects.getLinkByAriaLabel('Choose Wednesday, November 27, 2019 as your check-in date. It’s available.').click();
+
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+        const now = new Date();
+        const currentDay = days[ now.getDay() ];
+        const currentMonth = months[ now.getMonth() ];
+        const currentYear = now.getFullYear();
+        
+        const nowPlusOne = new Date();
+        nowPlusOne.setDate(nowPlusOne.getDate() + 1);
+
+        const nextDay = days[ nowPlusOne.getDay() ];
+        const nextDayMonth = months[ nowPlusOne.getMonth() ];
+        const nextDayYear = nowPlusOne.getFullYear();
+
+        const currentDayAriaText = 'Choose ' + currentDay + ', ' + currentMonth + ' ' + now.getDate() + ', ' + currentYear + ' as your check-in date. It’s available.';
+        const nextDayAriaText = 'Choose ' + nextDay + ', ' + nextDayMonth + ' ' + nowPlusOne.getDate() + ', ' + nextDayYear + ' as your check-out date. It’s available.';
+
+        await commonPageObjects.getLinkByAriaLabel(currentDayAriaText).click();
         await browser.sleep(1000);
-        await commonPageObjects.getLinkByAriaLabel('Choose Thursday, November 28, 2019 as your check-out date. It’s available.').click();
+        await commonPageObjects.getLinkByAriaLabel(nextDayAriaText).click();
         await browser.sleep(1000);
     }
 
@@ -522,10 +541,19 @@ export class ChallengeListingPageHelper {
         const challenges = await ChallengeListingPageObject.challengeLinks;
         for (let i = 0; i < challenges.length; i++) {
             const parentDiv = challenges[i].element(by.xpath('..'));
-            const skills = parentDiv.all(by.css('button[type=button]'));
+            let skills = await parentDiv.all(by.css('button[type=button]'));
+
+            // expand skills by clicking on the hidden `+x` button
+            for (let i = 0; i < skills.length; i++) {
+                const skill = await skills[i];
+                const text = await skill.getText();
+                if (text[0] == '+') {
+                    await skill.click();
+                }
+            }
+
+            skills = parentDiv.all(by.css('button[type=button]'));
             const skillsText = await skills.getText();
-            console.log('Found following skills');
-            console.log(skillsText);
             expect(skillsText.filter((s: string) => {
                 for (let j = 0; j < filters.length; j++) {
                     if (s.includes(filters[j])) {

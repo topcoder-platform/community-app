@@ -81,4 +81,12 @@ export class ToolsPageObject {
     static getEditButton(type: string) {
         return commonPageObjects.findElementByText('button', 'Edit ' + type + ' to your list');
     }
+
+    static async getDeleteIcons() {
+        return await element.all(by.css('[alt="delete-icon"]'));
+    }
+    
+    static get deleteIcon() {
+        return element(by.css('[alt="delete-icon"]'));
+    }
 }

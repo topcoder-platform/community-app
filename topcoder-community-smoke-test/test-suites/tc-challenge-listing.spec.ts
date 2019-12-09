@@ -92,7 +92,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
         await ChallengeListingPageHelper.verifyFilterBySubCommunity();
     });
 
-    it('should verify that the "Filter" option for "Date range" is workingcorrectly', async () => {
+    it('should verify that the "Filter" option for "Date range" is working correctly', async () => {
         await ChallengeListingPageHelper.get();
         await ChallengeListingPageHelper.openFiltersPanel();
         await ChallengeListingPageHelper.selectDateRange();

@@ -14,6 +14,8 @@ export class ToolsPageHelper {
     static async addDevice() {
         const until = protractor.ExpectedConditions;
 
+        await this.deleteAll();
+
         await this.operateSelect(ToolsPageObject.deviceTypeInput, 'Desktop');
 
         await ToolsPageObject.manufacturer.clear();
@@ -76,8 +78,22 @@ export class ToolsPageHelper {
         expect(isDisplayed).toBe(false);
     }
 
+    static async deleteAll() {
+        const until = protractor.ExpectedConditions;
+        const deleteIcons = await ToolsPageObject.getDeleteIcons();
+        for (let i = 0; i < deleteIcons.length; i++) {
+            await ToolsPageObject.deleteIcon.click();
+            await ToolsPageObject.deleteConfirmation.click();
+            const successEl = ToolsPageObject.successMsg;
+            await browser.wait(until.visibilityOf(successEl));
+            await browser.wait(until.invisibilityOf(successEl));
+        }
+    }
+
     static async addSoftware() {
         const until = protractor.ExpectedConditions;
+
+        await this.deleteAll();
 
         await this.operateSelect(ToolsPageObject.softwareInput, 'Developer Tools');
 
@@ -133,6 +149,8 @@ export class ToolsPageHelper {
     static async addServiceProvider() {
         const until = protractor.ExpectedConditions;
 
+        await this.deleteAll();
+
         await this.operateSelect(ToolsPageObject.serviceProviderInput, 'Television');
 
         await ToolsPageObject.serviceProviderName.clear();
@@ -186,6 +204,8 @@ export class ToolsPageHelper {
 
     static async addSubscription() {
         const until = protractor.ExpectedConditions;
+
+        await this.deleteAll();
 
         await ToolsPageObject.subscriptionName.clear();
         await ToolsPageObject.subscriptionName.sendKeys('Test subscription');

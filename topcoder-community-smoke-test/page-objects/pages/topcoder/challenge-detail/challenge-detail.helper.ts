@@ -145,10 +145,10 @@ export class ChallengeDetailPageHelper {
     }
 
     static async verifySubmissionsTab() {
-        const isUsernameDisplayed = await commonPageObjects.findElementByText('div', 'Username').isDisplayed();
+        const isUsernameDisplayed = await commonPageObjects.findElementByText('span', 'Username').isDisplayed();
         expect(isUsernameDisplayed).toBe(true);
 
-        const isSubmissionDateDisplayed = await commonPageObjects.findElementByText('div', 'Submission Date').isDisplayed();
+        const isSubmissionDateDisplayed = await commonPageObjects.findElementByText('span', 'Submission Date').isDisplayed();
         expect(isSubmissionDateDisplayed).toBe(true);
 
         const tabs = await this.getAllTabs();
