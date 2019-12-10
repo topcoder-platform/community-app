@@ -21,5 +21,5 @@ aws s3 cp s3://tc-platform-${ENV}/securitymanager/${APPCONFIGFILENAME} .
 track_error $? "Environment setting"
 mv ${APPCONFIGFILENAME} config.json
 docker build -t comm-smoke:latest .
-docker run comm-smoke:latest ./testrun.sh -v /dev/shm:/dev/shm
+docker run comm-smoke:latest ./testrun.sh 
 track_error $? "Test case Failed"
