@@ -200,7 +200,6 @@ workflows:
                 - mm-broker-api
                 - fix-groups-updates
                 - sort_registrations_submissions
-                - issue_3470
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
