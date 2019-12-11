@@ -26,7 +26,13 @@ export class ChallengeDetailPageHelper {
     }
 
     static async clickOnTermsLink() {
-        const link = await commonPageObjects.findElementByText('a', 'Standard Terms for Topcoder Competitions v2.2');
+        let link = null;
+        if (browser.params.mode === 'dev') {
+            link = await element(by.css("[href='/challenges/terms/detail/21303']"));
+        } else {
+            link = await commonPageObjects.findElementByText('a', 'Standard Terms for Topcoder Competitions v2.2');
+        }
+        
         await link.click();
         await console.log('Terms link clicked');
     }

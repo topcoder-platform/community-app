@@ -1,7 +1,7 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper";
 
 export class PaymentsPageConstants {
     static get url() {
-        return 'https://community.' + config.baseUrl + '/PactsMemberServlet?module=PaymentHistory&full_list=false';
+        return 'https://community.' + commonPageHelper.getConfig().baseUrl + '/PactsMemberServlet?module=PaymentHistory&full_list=false';
     }
 }

@@ -1,7 +1,6 @@
 import { protractor, browser, element, by } from "protractor";
 import { HeaderPageObject } from "./header.po";
 import { ChallengeListingPageHelper } from "../challenge-listing/challenge-listing.helper";
-import * as config from "../../../../config.json";
 import { commonPageObjects } from "../../../common/common.po";
 import { commonPageHelper } from "../../../common/common.helper";
 import { ArenaPageConstants } from "../arena/arena.constants";
@@ -60,7 +59,7 @@ export class HeaderHelper {
 
     static async verifyAllCommunityLinks() {
         const links = ['TCO', 'Programs', 'Statistics', 'Events', 'Blog', 'Thrive'];
-        const urls = ['https://www.' + config.baseUrl + '/tco', 'https://www.' + config.baseUrl + '/community/member-programs', 'https://www.' + config.baseUrl + '/community/statistics', 'https://www.' + config.baseUrl + '/community/events', 'https://www.' + config.baseUrl + '/blog', 'https://www.' + config.baseUrl + '/thrive']
+        const urls = ['https://www.topcoder.com/tco', 'https://www.' + commonPageHelper.getConfig().baseUrl + '/community/member-programs', 'https://www.' + commonPageHelper.getConfig().baseUrl + '/community/statistics', 'https://www.' + commonPageHelper.getConfig().baseUrl + '/community/events', 'https://www.' + commonPageHelper.getConfig().baseUrl + '/blog', 'https://www.' + commonPageHelper.getConfig().baseUrl + '/thrive']
 
         for (let i = 0; i < links.length; i++) {
             const until = protractor.ExpectedConditions;

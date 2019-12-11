@@ -1,7 +1,7 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper";
 
 export class SearchPageConstants {
     static getUrl(query: string) {
-        return 'https://www.' + config.baseUrl + '/search/members/?q=' + query;
+        return 'https://www.' + commonPageHelper.getConfig().baseUrl + '/search/members/?q=' + query;
     }
 }

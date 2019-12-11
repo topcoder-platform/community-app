@@ -1,7 +1,6 @@
 import { protractor, browser } from "protractor";
 import { PaymentsPageConstants } from "./payments.constants";
 import { PaymentsPageObject } from "./payments.po";
-import * as config from "../../../../config.json";
 
 export class PaymentsPageHelper {
     static async verifyPaymentsPage() {

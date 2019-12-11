@@ -1,7 +1,7 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper.js";
 
 export class ChallengeDetailPageConstants {
     static get url() {
-        return 'https://www.' + config.baseUrl + '/challenges/30106190';
+        return commonPageHelper.getConfig().challengeUrl;
     }
 }

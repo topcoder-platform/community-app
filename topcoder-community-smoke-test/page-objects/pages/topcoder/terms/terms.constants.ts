@@ -1,13 +1,13 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper";
 
 export class TermsPageConstants {
     static get url() {
-        return 'https://www.' + config.baseUrl + '/community/how-it-works/terms/';
+        return 'https://www.' + commonPageHelper.getConfig().baseUrl + '/community/how-it-works/terms/';
     }
 
     static get content() {
         return {
-            redirectUrl: 'https://www.' + config.baseUrl + '/challenges/terms/detail/21303'
+            redirectUrl: 'https://www.' + commonPageHelper.getConfig().baseUrl + '/challenges/terms/detail/21303'
         };
     }
 }

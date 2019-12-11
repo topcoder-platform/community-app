@@ -1,7 +1,7 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper";
 
 export class SettingsPageConstants {
     static get url() {
-        return config.profile.testingUrl;
+        return commonPageHelper.getConfig().profile.testingUrl;
     }
 }

@@ -1,13 +1,14 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper";
+
 
 export class ForumPageConstants {
     static get url() {
-        return 'https://apps.' + config.baseUrl + '/forums';
+        return 'https://apps.' + commonPageHelper.getConfig().baseUrl + '/forums';
     }
 
     static get content() {
         return {
-            challengeForumUrl: 'https://apps.' + config.baseUrl + '/forums/?module=Category&categoryID=82117'
+            challengeForumUrl: commonPageHelper.getConfig().challengeForumUrl
         }
     }
 }

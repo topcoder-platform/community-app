@@ -1,7 +1,7 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper.js";
 
 export class AccountPageConstants {
     static get url() {
-        return config.account.testingUrl;
+        return commonPageHelper.getConfig().account.testingUrl;
     }
 }

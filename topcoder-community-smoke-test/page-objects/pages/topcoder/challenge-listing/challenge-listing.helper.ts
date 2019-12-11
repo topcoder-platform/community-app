@@ -2,7 +2,6 @@ import { protractor, browser, by, element } from "protractor";
 import { ChallengeListingPageConstants } from "./challenge-listing.constants";
 import { commonPageHelper } from "../../../common/common.helper";
 import { ChallengeListingPageObject } from "./challenge-listing.po";
-import * as config from "../../../../config.json";
 import { commonPageObjects } from "../../../common/common.po";
 
 export class ChallengeListingPageHelper {
@@ -216,7 +215,7 @@ export class ChallengeListingPageHelper {
         const until = protractor.ExpectedConditions;
         await browser.wait(until.visibilityOf(ChallengeListingPageObject.firstChallengeLink));
 
-        const searchString = config.challengeListing.search.query;
+        const searchString = commonPageHelper.getConfig().challengeListing.search.query;
         await ChallengeListingPageObject.challengeSearchBox.sendKeys(searchString);
         await ChallengeListingPageObject.challengeSearchButton.click();
         await browser.sleep(2000);
@@ -256,6 +255,12 @@ export class ChallengeListingPageHelper {
         expect(filtersVisibility).toBe(true);
 
         await this.selectSubtrack('Web Design');
+
+        const els = await ChallengeListingPageObject.viewMoreChallenges();
+        if (els.length > 0) {
+            await els[0].click();
+        }
+
         const count = await this.getAllChallengesCount();
         await this.verifyChallengesMatchingSubtrack(count,
             [
@@ -314,6 +319,11 @@ export class ChallengeListingPageHelper {
         await this.selectSubtrack('Assembly Competition');
         await this.selectSubtrack('Code');
 
+        const els = await ChallengeListingPageObject.viewMoreChallenges();
+        if (els.length > 0) {
+            await els[0].click();
+        }
+
         const count = await this.getAllChallengesCount();
 
         await this.verifyChallengesMatchingSubtrack(count, [
@@ -331,11 +341,10 @@ export class ChallengeListingPageHelper {
 
     static async verifyRemovalOfSubtrack() {
         const removeTags = await ChallengeListingPageObject.allRemoveTags();
-        // remove Code subtrack
-        await removeTags[2].click();
+        await removeTags[1].click();
         const count = await this.getAllChallengesCount();
         await this.verifyChallengesMatchingSubtrack(count, [
-            { name: 'As' }
+            { name: 'Cd' }
         ]);
     }
 
@@ -461,8 +470,11 @@ export class ChallengeListingPageHelper {
     static async verifyChallengesByChallengeTag() {
         const until = protractor.ExpectedConditions;
 
-        await browser.wait(until.visibilityOf(ChallengeListingPageObject.qaTag));
-        await ChallengeListingPageObject.qaTag.click();
+        const tag = commonPageHelper.getChallengeTag();
+        const tagText = commonPageHelper.getChallengeTagText();
+
+        await browser.wait(until.visibilityOf(tag));
+        await tag.click();
         // waiting for re-render to happen
         await browser.sleep(2000);
 
@@ -470,14 +482,14 @@ export class ChallengeListingPageHelper {
 
         for (let i = 0; i < registrationChallenges.length; i++) {
             const skills = await ChallengeListingPageObject.findSkillsForChallenge(registrationChallenges[i]);
-            expect(skills.includes('QA')).toBe(true);
+            expect(skills.includes(tagText)).toBe(true);
         }
 
         const ongoingChallenges = await ChallengeListingPageObject.ongoingChallenges;
 
         for (let i = 0; i < ongoingChallenges.length; i++) {
             const skills = await ChallengeListingPageObject.findSkillsForChallenge(ongoingChallenges[i]);
-            expect(skills.includes('QA')).toBe(true);
+            expect(skills.includes(tagText)).toBe(true);
         }
     }
 

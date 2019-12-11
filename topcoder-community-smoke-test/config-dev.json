@@ -1,0 +1,38 @@
+{
+    "baseUrl": "topcoder-dev.com",
+    "login": {
+        "testingUrl": "https://accounts.topcoder-dev.com/member",
+        "homePageUrl": "https://www.topcoder-dev.com/",
+        "email": "e20190928114000@gmail.com",
+        "username": "e2e20190909",
+        "password": "Password@123"
+    },
+    "challengeListing": {
+        "search" : {
+            "query": "Dev-MM-Challenge-For-Processor"
+        }
+    },
+    "challengeDetail": {
+        "customUrl": "https://www.topcoder-dev.com/challenges/30055164"
+    },
+    "profile": {
+        "testingUrl": "https://www.topcoder-dev.com/settings/profile"
+    },
+    "tools": {
+        "testingUrl": "https://www.topcoder-dev.com/settings/tools"
+    },
+    "preferences": {
+        "testingUrl": "https://www.topcoder-dev.com/settings/preferences",
+        "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Settings",
+        "paymentUrl": "https://community.topcoder-dev.com/tc?module=EditPaymentPreferences",
+        "invitationLetterUrl": "https://community.topcoder-dev.com/tc?module=VisaSelection",
+        "referralsUrl": "https://community.topcoder-dev.com/tc?module=ViewReferrals"
+    },
+    "account": {
+        "testingUrl": "https://www.topcoder-dev.com/settings/account"
+    },
+    "challengeId": "30055164",
+    "challengeUrl": "https://www.topcoder-dev.com/challenges/30055164",
+    "challengeForumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=11111",
+    "reviewScorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001552"
+}

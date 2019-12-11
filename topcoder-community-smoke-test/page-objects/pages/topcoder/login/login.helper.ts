@@ -1,7 +1,6 @@
 import { protractor, browser } from "protractor";
 import { LoginPageConstants } from "../login/login.constants";
 import { LoginPageObject } from "../login/login.po";
-import * as config from "../../../../config.json";
 import { commonPageHelper } from "../../../common/common.helper";
 
 export class LoginPageHelper {
@@ -19,13 +18,12 @@ export class LoginPageHelper {
     static async fillLoginForm(shouldFillUsingEmail: boolean) {
         const until = protractor.ExpectedConditions;
         const username = shouldFillUsingEmail ? commonPageHelper.getConfigEmail() : commonPageHelper.getConfigUserName();
-        const password = config.login.password;
+        const password = commonPageHelper.getConfig().login.password;
 
         await browser.wait(until.presenceOf(LoginPageObject.usernameField), 2000);
 
         await LoginPageObject.usernameField.sendKeys(username);
         await LoginPageObject.passwordField.sendKeys(password);
-
 
         const loginButton = LoginPageObject.loginButton;
         expect(loginButton.isEnabled()).toBeTruthy();

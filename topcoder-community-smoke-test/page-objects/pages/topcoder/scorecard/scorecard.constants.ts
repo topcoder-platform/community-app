@@ -1,7 +1,7 @@
-import * as config from "../../../../config.json";
+import { commonPageHelper } from "../../../common/common.helper";
 
 export class ScorecardPageConstants {
     static get url() {
-        return 'https://software.' + config.baseUrl + '/review/actions/ViewScorecard?scid=30002133'
+        return commonPageHelper.getConfig().reviewScorecardUrl;
     }
 }

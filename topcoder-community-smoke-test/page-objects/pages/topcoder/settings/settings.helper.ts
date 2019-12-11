@@ -1,7 +1,6 @@
 import { protractor, browser } from "protractor";
 import { SettingsPageConstants } from "./settings.constants";
 import { SettingsPageObject } from "./settings.po";
-import * as config from "../../../../config.json";
 
 export class SettingsPageHelper {
     static async verifySettingsPage() {

@@ -188,6 +188,10 @@ export class ChallengeListingPageObject {
         return els;
     }
 
+    static get nodeJsTag() {
+        return commonPageObjects.findElementByText('button', 'Node.js');
+    }
+
     static get qaTag() {
         return commonPageObjects.findElementByText('button', 'QA');
     }
