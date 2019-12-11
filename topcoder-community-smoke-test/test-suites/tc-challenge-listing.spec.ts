@@ -203,72 +203,75 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     it('should verify whether the page is redirected to the respective page on clicking the link(About, Contact, Help, Privacy, Terms).', async () => {
         await ChallengeListingPageHelper.get();
         await ChallengeListingPageHelper.verifyLinksUnderRss();
+    });  
+});
+
+describe('After login test cases', () => {
+    beforeAll(async () => {
+        browser.driver.manage().window().maximize();
+        browser.ignoreSynchronization = true;
+        
+        await LoginPageHelper.get();
+        await LoginPageHelper.waitForLoginForm();
+        await LoginPageHelper.fillLoginForm(false);
+        await LoginPageHelper.waitForLoginSuccessWithoutLoggingOut();
     });
 
-    describe('After login test cases', () => {
-        beforeAll(async () => {
-            await LoginPageHelper.get();
-            await LoginPageHelper.waitForLoginForm();
-            await LoginPageHelper.fillLoginForm(false);
-            await LoginPageHelper.waitForLoginSuccessWithoutLoggingOut();
-        });
+    it('should verify whether the current page is redirected to my Dashboard page on clicking the Dashboard under the Username menu.', async () => {
+        await ChallengeListingPageHelper.get();
+        await HeaderHelper.clickOnDashboardLink();
+        await DashboardPageHelper.verifyDashboardPage();
+    });
 
-        fit('should verify whether the current page is redirected to my Dashboard page on clicking the Dashboard under the Username menu.', async () => {
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.clickOnDashboardLink();
-            await DashboardPageHelper.verifyDashboardPage();
-        });
+    it('should verify whether the current page is redirected to my profile page on clicking the my profile under the Username menu.', async () => {
+        await ChallengeListingPageHelper.get();
+        await HeaderHelper.clickOnMyProfileLink();
+        await ProfilePageHelper.verifyProfilePage();
+    });
 
-        fit('should verify whether the current page is redirected to my profile page on clicking the my profile under the Username menu.', async () => {
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.clickOnMyProfileLink();
-            await ProfilePageHelper.verifyProfilePage();
-        });
+    it('should verify whether the current page is redirected to the payments page on clicking the payments under the Username menu.', async () => {
+        await ChallengeListingPageHelper.get();
+        await HeaderHelper.clickOnPaymentsLink();
+        await PaymentsPageHelper.verifyPaymentsPage();
+    });
 
-        it('should verify whether the current page is redirected to the payments page on clicking the payments under the Username menu.', async () => {
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.clickOnPaymentsLink();
-            await PaymentsPageHelper.verifyPaymentsPage();
-        });
+    it('should verify whether the current page is redirected to the settings page on clicking the settings under the Username menu.', async () => {
+        await ChallengeListingPageHelper.get();
+        await HeaderHelper.clickOnSettingsLink();
+        await SettingsPageHelper.verifySettingsPage();
+    });
 
-        it('should verify whether the current page is redirected to the settings page on clicking the settings under the Username menu.', async () => {
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.clickOnSettingsLink();
-            await SettingsPageHelper.verifySettingsPage();
-        });
+    it('should verify whether the user is able to search the member by their username/skill using the search icon.', async () => {
+        await ChallengeListingPageHelper.get();
+        await HeaderHelper.search(commonPageHelper.getConfigUserName());
+        await SearchPageHelper.verifySearchErrorPage(commonPageHelper.getConfigUserName());
 
-        it('should verify whether the user is able to search the member by their username/skill using the search icon.', async () => {
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.search(commonPageHelper.getConfigUserName());
-            await SearchPageHelper.verifySearchErrorPage(commonPageHelper.getConfigUserName());
+        await ChallengeListingPageHelper.get();
+        await HeaderHelper.search('Java');
+        await SearchPageHelper.verifySearchErrorPage('Java');
+    });
 
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.search('Java');
-            await SearchPageHelper.verifySearchErrorPage('Java');
-        });
+    it('should verify whether all the my challenges, open for registration and Ongoing challenges are listed on clicking the Challenge tab.', async () => {
+        await ChallengeListingPageHelper.get();
+        await ChallengeListingPageHelper.verifyChallengesAfterLogin();
+    });
 
-        it('should verify whether all the my challenges, open for registration and Ongoing challenges are listed on clicking the Challenge tab.', async () => {
-            await ChallengeListingPageHelper.get();
-            await ChallengeListingPageHelper.verifyChallengesAfterLogin();
-        });
+    it('should verify whether the Topcoder arena page is opened on clicking the SRM tab. ', async () => {
+        await ChallengeListingPageHelper.get();
+        await ChallengeListingPageHelper.clickOnSRMTab();
+        
+        const windows = await browser.getAllWindowHandles();
+        expect(windows.length).toBe(2);
+        await browser.switchTo().window(windows[1]);
 
-        it('should verify whether the Topcoder arena page is opened on clicking the SRM tab. ', async () => {
-            await ChallengeListingPageHelper.get();
-            await ChallengeListingPageHelper.clickOnSRMTab();
-            
-            const windows = await browser.getAllWindowHandles();
-            expect(windows.length).toBe(2);
-            await browser.switchTo().window(windows[1]);
+        await ArenaPageHelper.verifyArenaPage();
+        await browser.driver.close();
+        await browser.switchTo().window(windows[0]);
+    });
 
-            await ArenaPageHelper.verifyArenaPage();
-            await browser.driver.close();
-            await browser.switchTo().window(windows[0]);
-        });
-
-        it('should verify whether the logout happens on clicking the logout under the Username menu.', async () => {
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.clickOnLogoutLink();
-            await HomePageHelper.verifyHomePage();
-        });
+    it('should verify whether the logout happens on clicking the logout under the Username menu.', async () => {
+        await ChallengeListingPageHelper.get();
+        await HeaderHelper.clickOnLogoutLink();
+        await HomePageHelper.verifyHomePage();
     });
 });

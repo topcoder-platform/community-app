@@ -21,9 +21,13 @@ describe('Topcoder Dashboard Tests: ', () => {
         });
 
         afterAll(async () => {
-            await ChallengeListingPageHelper.get();
-            await HeaderHelper.clickOnLogoutLink();
-            await HomePageHelper.verifyHomePage();
+            try {
+                await ChallengeListingPageHelper.get();
+                await HeaderHelper.clickOnLogoutLink();
+                await HomePageHelper.verifyHomePage();
+            } catch (e) {
+                await browser.restart();
+            }
         });
 
         it('To verify that user is able to view dashboard when logged in', async () => {

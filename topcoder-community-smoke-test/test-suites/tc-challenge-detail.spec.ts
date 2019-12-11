@@ -7,9 +7,9 @@ import { ForumPageHelper } from "../page-objects/pages/topcoder/forum/forum.help
 import { SubmissionPageHelper } from "../page-objects/pages/topcoder/submission/submission.helper";
 import { ScorecardPageHelper } from "../page-objects/pages/topcoder/scorecard/scorecard.helper";
 import { TermsPageHelper } from "../page-objects/pages/topcoder/terms/terms.helper";
-import * as config from "../config.json";
 import { HeaderHelper } from "../page-objects/pages/topcoder/header/header.helper";
 import { HomePageHelper } from "../page-objects/pages/topcoder/home/home.helper";
+import { commonPageHelper } from "../page-objects/common/common.helper";
 
 describe('Topcoder Challenge Detail Page Tests: ', () => {
     beforeEach(async () => {
@@ -50,7 +50,7 @@ describe('Topcoder Challenge Detail Page Tests: ', () => {
         });
 
         it('should verify that a user is able to successfully enter a submission to a code challenge', async () => {
-            await ChallengeDetailPageHelper.getUsingCustomUrl(config.challengeDetail.customUrl);
+            await ChallengeDetailPageHelper.getUsingCustomUrl(commonPageHelper.getConfig().challengeDetail.customUrl);
             await ChallengeDetailPageHelper.registerIfNotAlreadyRegistered();
             await ChallengeDetailPageHelper.uploadSubmission();
         });

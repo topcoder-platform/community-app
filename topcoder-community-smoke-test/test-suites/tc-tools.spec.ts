@@ -19,9 +19,13 @@ describe('Topcoder Tools Page Tests: ', () => {
     });
 
     afterAll(async () => {
-        await ChallengeListingPageHelper.get();
-        await HeaderHelper.clickOnLogoutLink();
-        await HomePageHelper.verifyHomePage();
+        try {
+            await ChallengeListingPageHelper.get();
+            await HeaderHelper.clickOnLogoutLink();
+            await HomePageHelper.verifyHomePage();
+        } catch (e) {
+            await browser.restart();
+        }
     });
 
     it('should verify User can Add/Update/Delete Device', async () => {
