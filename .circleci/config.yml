@@ -175,10 +175,7 @@ workflows:
             branches:
               only: 
                 - develop
-                - hot-fix
-                - survey_tc
-                - fix-groups-updates
-                - sort_registrations_submissions
+                - issue_3474
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
