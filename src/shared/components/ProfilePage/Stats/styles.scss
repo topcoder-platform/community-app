@@ -177,6 +177,10 @@
       .page-info {
         display: flex;
         justify-content: center;
+
+        .left-arrow {
+          margin: 15px;
+        }
       }
     }
 
@@ -194,6 +198,13 @@
         li {
           width: 130px;
         }
+      }
+
+      img.profile-circle {
+        border-radius: 50%;
+        display: inline;
+        width: 140px;
+        height: 140px;
       }
 
       & + .develop {
@@ -228,6 +239,13 @@
               height: 6px;
             }
           }
+        }
+
+        .valueHandle {
+          position: relative;
+          margin-bottom: 7px;
+          font-size: 18px;
+          color: #3d3d3d;
         }
 
         &:not(:first-child)::before {

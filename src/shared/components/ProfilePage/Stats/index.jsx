@@ -8,6 +8,8 @@ import PT from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
+import DefaultPortrait from 'assets/images/ico-user-default.svg';
+import LeftArrow from 'assets/images/arrow-prev.svg';
 import {
   shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails,
 } from 'utils/memberStats';
@@ -64,6 +66,11 @@ class ProfileStats extends React.Component {
     const subTrackStats = getSubTrackStats(stats, track, subTrack);
     const subTrackSummary = getSummary(stats, track, subTrack) || [];
     const subTrackDetails = getDetails(stats, track, subTrack) || [];
+    const ratingObj = subTrackSummary.filter(k => k.label === 'rating');
+    let subTrackRating = ratingObj && ratingObj[0] ? ratingObj[0].value : 0;
+    if (subTrackRating === 0 || !subTrackRating) { // if subtrack has no rating, pick default rating
+      subTrackRating = info.maxRating ? info.maxRating.rating : 0;
+    }
 
     if (track === 'DEVELOP') {
       const reliability = subTrackSummary.find(stat => stat.label === 'reliability');
@@ -85,6 +92,10 @@ class ProfileStats extends React.Component {
           <div styleName="page-state-header">
             <header>
               <div styleName="page-info">
+                <Link to={`/members/${handleParam}`}>
+                  <LeftArrow styleName="left-arrow" />
+                </Link>
+                &nbsp;
                 <h1>
                   {subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}
                 </h1>
@@ -128,6 +139,25 @@ Active Challenges
               }
             </ul>
             <ul styleName="subtrack-stats">
+              {
+                subTrackSummary
+                && (
+                  <li key={info.handle}>
+                    <div>
+                      { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
+                    </div>
+                    <div
+                      styleName="valueHandle"
+                      className={subTrackRating ? styles.rating : ''}
+                      style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.toString().replace(/\D/g, ''), 10)) : undefined }}
+                    >
+                      <Link to={`/members/${info.handle}`}>
+                        {info.handle || '-'}
+                      </Link>
+                    </div>
+                  </li>
+                )
+              }
               {
                 subTrackSummary.map(({ label, value, link }) => (
                   <li key={label}>
