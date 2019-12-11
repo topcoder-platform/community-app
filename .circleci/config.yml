@@ -186,8 +186,6 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-contentful
-                - issue_3465
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
