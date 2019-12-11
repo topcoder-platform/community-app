@@ -213,13 +213,13 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
             await LoginPageHelper.waitForLoginSuccessWithoutLoggingOut();
         });
 
-        it('should verify whether the current page is redirected to my Dashboard page on clicking the Dashboard under the Username menu.', async () => {
+        fit('should verify whether the current page is redirected to my Dashboard page on clicking the Dashboard under the Username menu.', async () => {
             await ChallengeListingPageHelper.get();
             await HeaderHelper.clickOnDashboardLink();
             await DashboardPageHelper.verifyDashboardPage();
         });
 
-        it('should verify whether the current page is redirected to my profile page on clicking the my profile under the Username menu.', async () => {
+        fit('should verify whether the current page is redirected to my profile page on clicking the my profile under the Username menu.', async () => {
             await ChallengeListingPageHelper.get();
             await HeaderHelper.clickOnMyProfileLink();
             await ProfilePageHelper.verifyProfilePage();
