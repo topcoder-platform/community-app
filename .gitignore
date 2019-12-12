@@ -52,3 +52,6 @@ set-env*.sh
 set-test-env.sh
 .idea
 *.iml
+
+# e2e test case
+topcoder-community-smoke-test/temp
