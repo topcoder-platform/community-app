@@ -55,3 +55,4 @@ set-test-env.sh
 
 # e2e test case
 topcoder-community-smoke-test/temp
+topcoder-community-smoke-test/test-results
