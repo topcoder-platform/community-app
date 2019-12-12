@@ -53,9 +53,12 @@ describe('Topcoder Header Tests: ', () => {
         const url = await browser.getCurrentUrl();
         expect(url).toEqual(LoginPageConstants.url);
     });
+});
 
     describe('Tests with login as pre-requisite', () => {
         beforeAll(async () => {
+            browser.driver.manage().window().maximize();
+            browser.ignoreSynchronization = true;
             await LoginPageHelper.get();
             await LoginPageHelper.waitForLoginForm();
             await LoginPageHelper.fillLoginForm(false);
@@ -96,4 +99,3 @@ describe('Topcoder Header Tests: ', () => {
             await HomePageHelper.verifyHomePage();
         });
     });
-});
