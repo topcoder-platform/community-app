@@ -27,7 +27,7 @@ exports[`Default render 1`] = `
               "title": "Overview",
             },
             Object {
-              "href": "https://www.topcoder-dev.com/how-it-works/faqs/",
+              "href": "https://www.topcoder.com/thrive/tracks?track=Topcoder",
               "title": "How It Works",
             },
           ],

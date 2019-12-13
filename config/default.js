@@ -291,7 +291,7 @@ module.exports = {
         },
         {
           title: 'How It Works',
-          href: 'https://www.topcoder-dev.com/how-it-works/faqs/',
+          href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
         },
       ],
       subMenu: [
