@@ -23,7 +23,7 @@ exports[`Default render 1`] = `
           "id": "community",
           "secondaryMenuForGuest": Array [
             Object {
-              "href": "https://www.topcoder-dev.com/about",
+              "href": "https://www.topcoder.com/community/learn",
               "title": "Overview",
             },
             Object {

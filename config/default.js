@@ -287,7 +287,7 @@ module.exports = {
       secondaryMenuForGuest: [
         {
           title: 'Overview',
-          href: 'https://www.topcoder-dev.com/about',
+          href: 'https://www.topcoder.com/community/learn',
         },
         {
           title: 'How It Works',
