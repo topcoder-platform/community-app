@@ -89,14 +89,6 @@ module.exports = {
           title: 'How It Works',
           href: 'https://www.topcoder.com/how-it-works/faqs/',
         },
-        {
-          title: 'Tracks',
-          href: '/community/learn',
-        },
-        {
-          title: 'Why Join',
-          href: 'https://www.topcoder.com/about/why-crowdsourcing/',
-        },
       ],
       subMenu: [
         {

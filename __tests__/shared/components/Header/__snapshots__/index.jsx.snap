@@ -30,14 +30,6 @@ exports[`Default render 1`] = `
               "href": "https://www.topcoder-dev.com/how-it-works/faqs/",
               "title": "How It Works",
             },
-            Object {
-              "href": "/community/learn",
-              "title": "Tracks",
-            },
-            Object {
-              "href": "https://www.topcoder-dev.com/about/why-crowdsourcing/",
-              "title": "Why Join",
-            },
           ],
           "secondaryMenuForLoggedInUser": Array [
             Object {

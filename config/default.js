@@ -293,14 +293,6 @@ module.exports = {
           title: 'How It Works',
           href: 'https://www.topcoder-dev.com/how-it-works/faqs/',
         },
-        {
-          title: 'Tracks',
-          href: '/community/learn',
-        },
-        {
-          title: 'Why Join',
-          href: 'https://www.topcoder-dev.com/about/why-crowdsourcing/',
-        },
       ],
       subMenu: [
         {
