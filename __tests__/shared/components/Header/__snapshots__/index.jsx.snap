@@ -138,8 +138,7 @@ exports[`Default render 1`] = `
               "title": "Help",
             },
             Object {
-              "href": "https://www.topcoder.com/about/",
-              "title": "About Topcoder",
+              "separator": true,
             },
             Object {
               "href": "https://www.topcoder-dev.com/logout",

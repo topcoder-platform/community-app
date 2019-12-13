@@ -380,10 +380,7 @@ module.exports = {
       title: 'Help',
       href: 'https://help.topcoder-dev.com/',
     },
-    {
-      title: 'About Topcoder',
-      href: 'https://www.topcoder.com/about/',
-    },
+    { separator: true },
     {
       title: 'Log Out',
       href: 'https://www.topcoder-dev.com/logout',
