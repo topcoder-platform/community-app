@@ -79,8 +79,8 @@ jobs:
       - run: 
           name: "configuring environment"
           command: |
-            ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar            
+            #./awsconfiguration.sh DEV
+            #./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar            
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -89,9 +89,9 @@ jobs:
       - deploy:
           name: Running MasterScript
           command: |
-            source awsenvconf
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
+            #source awsenvconf
+            #source buildenvvar
+            #./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
             ./topcoder-community-smoke-test/smoketest.sh dev dev-community-app-qavar.json              
                         
   # Build & Deploy against prod api backend

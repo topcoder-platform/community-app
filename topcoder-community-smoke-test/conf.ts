@@ -28,22 +28,22 @@ exports.config = {
     framework: 'jasmine2',
 
     specs: [
-        '../temp/test-suites/tc-profile.spec.js', 
-        '../temp/test-suites/tc-tools.spec.js', 
-        '../temp/test-suites/tc-account.spec.js', 
-        '../temp/test-suites/tc-preferences.spec.js',
+        // '../temp/test-suites/tc-profile.spec.js', 
+        // '../temp/test-suites/tc-tools.spec.js', 
+        // '../temp/test-suites/tc-account.spec.js', 
+         '../temp/test-suites/tc-preferences.spec.js',
 
-        '../temp/test-suites/tc-challenge-listing.spec.js', 
-        '../temp/test-suites/tc-challenge-detail.spec.js', 
-        '../temp/test-suites/tc-dashboard.spec.js', 
-        '../temp/test-suites/tc-footer.spec.js', 
-        '../temp/test-suites/tc-header.spec.js'
+        // '../temp/test-suites/tc-challenge-listing.spec.js', 
+        // '../temp/test-suites/tc-challenge-detail.spec.js', 
+        // '../temp/test-suites/tc-dashboard.spec.js', 
+        // '../temp/test-suites/tc-footer.spec.js', 
+        // '../temp/test-suites/tc-header.spec.js'
     ],
 
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 3000000,
+        defaultTimeoutInterval: 9000,
         isVerbose: true
     },
 
