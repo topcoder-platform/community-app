@@ -3,7 +3,6 @@ import { ChallengeListingPageHelper } from "../page-objects/pages/topcoder/chall
 import { LoginPageHelper } from "../page-objects/pages/topcoder/login/login.helper";
 import { ChallengeListingPageConstants } from "../page-objects/pages/topcoder/challenge-listing/challenge-listing.constants";
 import { ChallengeDetailPageHelper } from "../page-objects/pages/topcoder/challenge-detail/challenge-detail.helper";
-import { ForumPageHelper } from "../page-objects/pages/topcoder/forum/forum.helper";
 import { SubmissionPageHelper } from "../page-objects/pages/topcoder/submission/submission.helper";
 import { ScorecardPageHelper } from "../page-objects/pages/topcoder/scorecard/scorecard.helper";
 import { TermsPageHelper } from "../page-objects/pages/topcoder/terms/terms.helper";
