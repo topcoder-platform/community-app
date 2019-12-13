@@ -111,6 +111,10 @@ exports[`Default render 1`] = `
                   "href": "https://www.topcoder-dev.com/blog",
                   "title": "Blog",
                 },
+                Object {
+                  "href": "https://www.topcoder.com/thrive",
+                  "title": "Thrive",
+                },
               ],
               "title": "Explore",
             },

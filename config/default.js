@@ -360,6 +360,10 @@ module.exports = {
               title: 'Blog',
               href: 'https://www.topcoder-dev.com/blog',
             },
+            {
+              title: 'Thrive',
+              href: 'https://www.topcoder.com/thrive',
+            },
           ],
         },
       ],
