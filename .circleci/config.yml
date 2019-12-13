@@ -79,7 +79,7 @@ jobs:
       - run: 
           name: "configuring environment"
           command: |
-            #./awsconfiguration.sh DEV
+            ./awsconfiguration.sh DEV
             #./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar            
       # Build of Docker image.
       - run: *build_docker_image
