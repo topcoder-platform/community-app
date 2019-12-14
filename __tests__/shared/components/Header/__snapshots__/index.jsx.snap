@@ -23,11 +23,11 @@ exports[`Default render 1`] = `
           "id": "community",
           "secondaryMenuForGuest": Array [
             Object {
-              "href": "https://www.topcoder.com/community/learn",
+              "href": "/community/learn",
               "title": "Overview",
             },
             Object {
-              "href": "https://www.topcoder.com/thrive/tracks?track=Topcoder",
+              "href": "/thrive/tracks?track=Topcoder",
               "title": "How It Works",
             },
           ],
@@ -88,7 +88,7 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "https://www.topcoder-dev.com/tco",
+                  "href": "/tco",
                   "title": "TCO",
                 },
                 Object {
@@ -108,11 +108,11 @@ exports[`Default render 1`] = `
                   "title": "Events",
                 },
                 Object {
-                  "href": "https://www.topcoder-dev.com/blog",
+                  "href": "/blog",
                   "title": "Blog",
                 },
                 Object {
-                  "href": "https://www.topcoder.com/thrive",
+                  "href": "/thrive",
                   "title": "Thrive",
                 },
               ],
