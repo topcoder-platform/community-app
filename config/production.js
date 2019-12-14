@@ -56,6 +56,11 @@ module.exports = {
   FILESTACK: {
     SUBMISSION_CONTAINER: 'topcoder-submissions-dmz',
   },
+
+  ACCOUNT_MENU_SWITCH_TEXT: {
+    title: 'Switch to BUSINESS',
+    href: 'https://connect.topcoder.com',
+  },
   HEADER_MENU: [
     {
       id: 'business',
@@ -83,19 +88,11 @@ module.exports = {
       secondaryMenuForGuest: [
         {
           title: 'Overview',
-          href: 'https://www.topcoder.com/about',
-        },
-        {
-          title: 'How It Works',
-          href: 'https://www.topcoder.com/how-it-works/faqs/',
-        },
-        {
-          title: 'Tracks',
           href: '/community/learn',
         },
         {
-          title: 'Why Join',
-          href: 'https://www.topcoder.com/about/why-crowdsourcing/',
+          title: 'How It Works',
+          href: '/thrive/tracks?track=Topcoder',
         },
       ],
       subMenu: [
@@ -142,7 +139,7 @@ module.exports = {
           subMenu: [
             {
               title: 'TCO',
-              href: 'https://www.topcoder.com/tco',
+              href: '/tco',
             },
             {
               title: 'Programs',
@@ -162,7 +159,11 @@ module.exports = {
             },
             {
               title: 'Blog',
-              href: 'https://www.topcoder.com/blog',
+              href: '/blog',
+            },
+            {
+              title: 'Thrive',
+              href: '/thrive',
             },
           ],
         },
@@ -184,50 +185,16 @@ module.exports = {
       title: 'Help',
       href: 'https://help.topcoder.com/',
     },
-    {
-      title: 'About Topcoder',
-      href: 'https://www.topcoder.com/about/',
-    },
+    { separator: true },
     {
       title: 'Log Out',
       href: 'https://www.topcoder.com/logout',
     },
   ],
-  SECONDARY_MENU_FOR_LOGGED_USER: [
-    {
-      title: 'Dashboard',
-      href: '/my-dashboard',
-    },
-    {
-      id: 'myprofile',
-      title: 'My Profile',
-      href: '/members/',
-    },
-    {
-      title: 'Payments',
-      href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
-    },
-  ],
-  SECONDARY_MENU_FOR_GUEST: [
-    {
-      title: 'Overview',
-      href: 'https://www.topcoder.com/about',
-    },
-    {
-      title: 'How It Works',
-      href: 'https://www.topcoder.com/how-it-works/faqs/',
-    },
-    {
-      title: 'Tracks',
-      href: '/community/learn',
-    },
-    {
-      title: 'Why Join',
-      href: 'https://www.topcoder.com/about/why-crowdsourcing/',
-    },
-  ],
-  ACCOUNT_MENU_SWITCH_TEXT: {
-    title: 'Switch to BUSINESS',
-    href: 'https://connect.topcoder.com',
-  },
+  // Config for TC EDU - THRIVE
+  TC_EDU_BASE_PATH: '/thrive',
+  TC_EDU_TRACKS_PATH: '/tracks',
+  TC_EDU_ARTICLES_PATH: '/articles',
+  TC_EDU_SEARCH_PATH: '/search',
+  TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
 };
