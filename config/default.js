@@ -305,7 +305,7 @@ module.exports = {
           subMenu: [
             {
               title: 'TCO',
-              href: '/tco',
+              href: '/community/member-programs/topcoder-open',
             },
             {
               title: 'Programs',

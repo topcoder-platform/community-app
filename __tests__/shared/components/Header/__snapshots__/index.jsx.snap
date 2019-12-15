@@ -88,7 +88,7 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "/tco",
+                  "href": "/community/member-programs/topcoder-open",
                   "title": "TCO",
                 },
                 Object {
