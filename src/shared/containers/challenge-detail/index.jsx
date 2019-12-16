@@ -79,7 +79,7 @@ function getOgImage(challenge) {
   switch (challenge.subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
-      const submission = challenge.allPhases
+      const submission = (challenge.allPhases || challenge.phases || [])
         .find(p => p.phaseType === CHALLENGE_PHASE_TYPES.SUBMISSION);
       if (submission) {
         if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
@@ -143,7 +143,6 @@ class ChallengeDetailPageContainer extends React.Component {
       allCountries,
       getAllCountries,
     } = this.props;
-
     if (
       (challenge.id !== challengeId)
 
@@ -575,11 +574,10 @@ function mapStateToProps(state, props) {
       });
     }
   }
-
   return {
     auth: state.auth,
     challenge,
-    challengeId: Number(props.match.params.challengeId),
+    challengeId: props.match.params.challengeId,
     challengesUrl: props.challengesUrl,
     challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
     checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,

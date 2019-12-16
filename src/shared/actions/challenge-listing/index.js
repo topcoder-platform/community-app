@@ -40,8 +40,8 @@ function getAll(getter, page = 0, prev) {
    * explicitely required. */
 
   return getter({
-    limit: PAGE_SIZE,
-    offset: page * PAGE_SIZE,
+    perPage: PAGE_SIZE,
+    page: page + 1,
   }).then(({ challenges: chunk }) => {
     if (!chunk.length) return prev || [];
     return getAll(getter, 1 + page, prev ? prev.concat(chunk) : chunk);
@@ -88,7 +88,7 @@ function getAllActiveChallengesInit(uuid) {
   return uuid;
 }
 function getAllActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+  const filter = { status: 'Active' };
   const service = getService(tokenV3);
   const calls = [
     getAll(params => service.getChallenges(filter, params)),
@@ -142,13 +142,13 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
 function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const filter = {
     ...backendFilter,
-    status: 'ACTIVE',
+    status: 'Active',
   };
   const service = getService(tokenV3);
   const calls = [
     service.getChallenges(filter, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
+      perPage: PAGE_SIZE,
+      page: page + 1,
     }),
   ];
   let user;
@@ -204,7 +204,7 @@ function getRestActiveChallengesInit(uuid) {
  * @param {*} tokenV3
  */
 function getRestActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+  const filter = { status: 'Active' };
   const service = getService(tokenV3);
   const calls = [
     getAll(params => service.getChallenges(filter, params), 1),
@@ -263,10 +263,10 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
   const service = getService(tokenV3);
   return service.getChallenges({
     ...filter,
-    status: 'COMPLETED',
+    status: 'Completed',
   }, {
-    limit: PAGE_SIZE,
-    offset: page * PAGE_SIZE,
+    perPage: PAGE_SIZE,
+    page: page + 1,
   }).then(({ challenges }) => ({ uuid, challenges, frontFilter }));
 }
 

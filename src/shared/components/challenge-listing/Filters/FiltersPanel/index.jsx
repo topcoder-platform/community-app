@@ -75,7 +75,8 @@ export default function FiltersPanel({
       );
     }
 
-    const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
+    // eslint-disable-next-line max-len
+    const visitorGroupIds = (auth.profile && auth.profile.groups) ? auth.profile.groups.map(g => g.id) : [];
     const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,

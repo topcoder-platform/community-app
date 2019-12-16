@@ -6,6 +6,26 @@ const mockFetch = (ok, resolvesTo) => jest.fn(
   () => Promise.resolve({ ok, json: () => resolvesTo }),
 );
 
+const createXHRmock = () => {
+  let open, send;
+  open = jest.fn();
+  // be aware we use *function* because we need to get *this*
+  // from *new XmlHttpRequest()* call
+  send = jest.fn().mockImplementation(function() {
+    this.onload();
+  });
+  const xhrMockClass = function () {
+    return {
+      open,
+      send,
+      setRequestHeader: jest.fn(),
+      getAllResponseHeaders: jest.fn(),
+    };
+  };
+
+  window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass);
+}
+
 let originalFetch;
 
 beforeAll(() => {
@@ -32,6 +52,7 @@ describe('challengeListing.sidebar.changeFilterName', () => {
 
 describe('challengeListing.sidebar.deleteSavedFilter', () => {
   global.fetch = mockFetch(true, 'dummy');
+  createXHRmock();
 
   const a = actions.deleteSavedFilter('id', 'token');
 

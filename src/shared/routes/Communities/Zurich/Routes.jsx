@@ -93,7 +93,7 @@ function Zurich({ base, meta, userGroups }) {
                     communityId: meta.communityId,
                   })}
                   exact
-                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+                  path={`${base}/challenges/:challengeId`}
                 />
                 <Route
                   component={routeProps => Submission({
@@ -101,7 +101,7 @@ function Zurich({ base, meta, userGroups }) {
                     challengesUrl: `${base}/challenges`,
                   })}
                   exact
-                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+                  path={`${base}/challenges/:challengeId/submit`}
                 />
                 <Route
                   component={routeProps => SubmissionManagement({
@@ -109,7 +109,7 @@ function Zurich({ base, meta, userGroups }) {
                     challengesUrl: `${base}/challenges`,
                   })}
                   exact
-                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+                  path={`${base}/challenges/:challengeId/my-submissions`}
                 />
                 <Route
                   component={TermsDetail}

@@ -70,7 +70,7 @@ function ChallengeCard({
     challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
   }
 
-  const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
+  const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
 
   /* Preparation of data to show in the prize component,

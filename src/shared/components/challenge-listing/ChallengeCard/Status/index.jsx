@@ -159,7 +159,7 @@ Results
       detailLink,
       openChallengesInNewTabs,
     } = props;
-    const timeDiff = getTimeLeft(challenge.allPhases.find(p => p.phaseType === 'Registration'));
+    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.phaseType === 'Registration'));
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
