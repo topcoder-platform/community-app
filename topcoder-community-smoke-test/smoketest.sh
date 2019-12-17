@@ -16,8 +16,8 @@ track_error()
 
 ENV=$1
 APPCONFIGFILENAME=$2
-#cd topcoder-community-smoke-test
-#aws s3 cp s3://tc-platform-${ENV}/securitymanager/${APPCONFIGFILENAME} .
+cd topcoder-community-smoke-test
+aws s3 cp s3://tc-platform-${ENV}/securitymanager/${APPCONFIGFILENAME} .
 track_error $? "Environment setting"
 mv ${APPCONFIGFILENAME} config.json
 docker build -t comm-smoke:latest .
