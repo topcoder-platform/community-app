@@ -24,7 +24,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "clean": "rimraf temp/ && rimraf download/",
+    "clean": "rimraf temp/ && rimraf download/ && rimraf test-results/",
     "pretest": "npm run clean && npm run tsc",
     "test": "protractor temp/conf.js",
     "webdriver-update": "node node_modules/protractor/bin/webdriver-manager update"
