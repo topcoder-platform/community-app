@@ -153,14 +153,12 @@ class SubmissionsListView extends React.Component {
     const {
       sortedSubmissions,
     } = this.state;
-    const description = 'We always recommend to download your submission to check you uploaded the correct zip file. If you don’t want to see the submission, simply delete. If you have a new submission, use the Upload Submission button to overwrite the current one.';
     return (
       <div styleName="wrapper">
         <article>
           <h2 styleName="h2">
             My Submissions
           </h2>
-          {/*<span styleName="description">{description}</span>*/}
         </article>
         <div styleName="submission-table">
           <div styleName="submission-table-header submission-table-row">
