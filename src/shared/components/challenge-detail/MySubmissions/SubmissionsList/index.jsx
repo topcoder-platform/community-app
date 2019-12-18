@@ -158,9 +158,9 @@ class SubmissionsListView extends React.Component {
       <div styleName="wrapper">
         <article>
           <h2 styleName="h2">
-            My Submission
+            My Submissions
           </h2>
-          <span styleName="description">{description}</span>
+          {/*<span styleName="description">{description}</span>*/}
         </article>
         <div styleName="submission-table">
           <div styleName="submission-table-header submission-table-row">

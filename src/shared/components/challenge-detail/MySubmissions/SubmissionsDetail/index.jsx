@@ -161,7 +161,7 @@ class SubmissionsDetailView extends React.Component {
         <div styleName="table-header table-row">
           <button onClick={onCancel} type="button" styleName="btn-back">
             <ArrowDown styleName="back-icon" />
-            <span>My Submission</span>
+            <span> My Submissions</span>
           </button>
           <div styleName="table-title">
             <span>Submission Details: </span>
