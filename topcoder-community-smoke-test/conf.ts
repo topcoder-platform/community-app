@@ -19,8 +19,8 @@ exports.config = {
     // Capabilities to be passed to the webdriver instance.
     capabilities: {
         'browserName': 'chrome',
-        'shardTestFiles': true,
-        'maxInstances': 2,
+        // 'shardTestFiles': true,
+        // 'maxInstances': 2,
         chromeOptions: {
             args: ['--headless', '--disable-gpu', '--window-size=1325x744']
         }
@@ -31,8 +31,8 @@ exports.config = {
 
     specs: [
         '../temp/test-suites/tc-profile.spec.js', 
-        '../temp/test-suites/tc-tools.spec.js', 
-        '../temp/test-suites/tc-account.spec.js', 
+         '../temp/test-suites/tc-tools.spec.js', 
+         '../temp/test-suites/tc-account.spec.js', 
         '../temp/test-suites/tc-preferences.spec.js',
 
         '../temp/test-suites/tc-challenge-listing.spec.js', 

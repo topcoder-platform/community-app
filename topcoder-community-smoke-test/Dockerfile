@@ -27,7 +27,6 @@ RUN printf '#!/bin/sh\nXvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /tmp/en
 COPY . /topcoder-community-smoke-test 
 WORKDIR /topcoder-community-smoke-test 
 RUN npm install
-#RUN ./node_modules/.bin/webdriver-manager update --versions.chrome=75.0.3770.142
-RUN ./node_modules/.bin/webdriver-manager update 
+RUN ./node_modules/.bin/webdriver-manager update --versions.chrome=="$(google-chrome -version)" 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/bin/sh"]
