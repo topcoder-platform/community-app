@@ -325,7 +325,7 @@ module.exports = {
             },
             {
               title: 'Blog',
-              href: '/blog',
+              href: 'https://www.topcoder.com/blog',
             },
             {
               title: 'Thrive',
