@@ -108,7 +108,7 @@ exports[`Default render 1`] = `
                   "title": "Events",
                 },
                 Object {
-                  "href": "/blog",
+                  "href": "https://www.topcoder-dev.com/blog",
                   "title": "Blog",
                 },
                 Object {
