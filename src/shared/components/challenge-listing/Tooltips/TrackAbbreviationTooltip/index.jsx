@@ -68,6 +68,7 @@ const TRACK_COLOR_CLASS = {
 function Tip({
   subTrack,
   track,
+  challengeType,
 }) {
   return (
     <div styleName="track-abbreviation-tooltip">
@@ -75,15 +76,24 @@ function Tip({
         {HEADER[subTrack]}
       </div>
       <div styleName="body">
-        {DESCRIPTION[subTrack]}
+        {subTrack ? DESCRIPTION[subTrack] : ''}
+        {challengeType ? challengeType.abbreviation : ''}
       </div>
     </div>
   );
 }
 
+Tip.defaultProps = {
+  subTrack: '',
+  challengeType: null,
+};
+
 Tip.propTypes = {
-  subTrack: PT.string.isRequired,
+  subTrack: PT.string,
   track: PT.string.isRequired,
+  challengeType: PT.shape({
+    abbreviation: PT.string,
+  }),
 };
 
 function placeArrow(TooltipNode) {
@@ -98,8 +108,9 @@ function TrackAbbreviationTooltip({
   children,
   subTrack,
   track,
+  challengeType,
 }) {
-  const tip = <Tip track={track} subTrack={subTrack} />;
+  const tip = <Tip track={track} subTrack={subTrack} challengeType={challengeType} />;
   return (
     <Tooltip
       className="track-abbreviation-tooltip"
@@ -112,9 +123,17 @@ function TrackAbbreviationTooltip({
   );
 }
 
+TrackAbbreviationTooltip.defaultProps = {
+  subTrack: '',
+  challengeType: null,
+};
+
 TrackAbbreviationTooltip.propTypes = {
   children: PT.node.isRequired,
-  subTrack: PT.string.isRequired,
+  subTrack: PT.string,
+  challengeType: PT.shape({
+    abbreviation: PT.string,
+  }),
   track: PT.string.isRequired,
 };
 

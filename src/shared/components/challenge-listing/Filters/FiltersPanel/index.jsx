@@ -193,7 +193,7 @@ challenges in this sub community
   );
 
   const mapOps = item => ({ label: item, value: item });
-  const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
+  const mapSubtracks = item => ({ label: item.name, value: item.id });
   return (
     <div styleName={className}>
       <div styleName="header">

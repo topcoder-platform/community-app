@@ -10,6 +10,7 @@ import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
 import { config } from 'topcoder-react-utils';
+import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
@@ -45,7 +46,7 @@ export default function ChallengeDetailsView(props) {
     submissionLimit,
     mainEvent,
     documents,
-    technologies,
+    tags,
     fileTypes,
     round1Introduction,
     round2Introduction,
@@ -69,7 +70,7 @@ export default function ChallengeDetailsView(props) {
     isWipro = wiproCommunity.groupIds.some(id => groups[id]);
   }
 
-  const isDataScience = technologies.includes('Data Science');
+  const isDataScience = tags.includes('Data Science');
   let accentedStyle = 'challenge-specs-design';
   if (track.toLowerCase() === 'develop') {
     accentedStyle = isDataScience ? 'challenge-specs-datasci' : 'challenge-specs-develop';
@@ -517,7 +518,7 @@ Reliability Rating and Bonus
           fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
-          isMM={challenge.subTrack.toUpperCase().indexOf('MARATHON_MATCH') > -1}
+          isMM={isMM(challenge)}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}
@@ -539,7 +540,7 @@ ChallengeDetailsView.defaultProps = {
     submissionLimit: 0,
     mainEvent: undefined,
     reviewType: undefined,
-    technologies: '',
+    tags: [],
     fileTypes: [],
     numberOfCheckpointsPrizes: 0,
     round1Introduction: '',
@@ -561,14 +562,14 @@ ChallengeDetailsView.propTypes = {
     subTrack: PT.any,
     detailedRequirements: PT.string,
     track: PT.string.isRequired,
-    groups: PT.shape().isRequired,
+    groups: PT.any,
     screeningScorecardId: PT.number,
     reviewScorecardId: PT.number,
     forumId: PT.number.isRequired,
     submissionLimit: PT.number,
     mainEvent: PT.shape(),
     reviewType: PT.string,
-    technologies: PT.arrayOf(PT.string),
+    tags: PT.arrayOf(PT.string),
     fileTypes: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
     round1Introduction: PT.string,

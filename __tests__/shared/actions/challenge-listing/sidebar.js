@@ -7,11 +7,10 @@ const mockFetch = (ok, resolvesTo) => jest.fn(
 );
 
 const createXHRmock = () => {
-  let open, send;
-  open = jest.fn();
+  const open = jest.fn();
   // be aware we use *function* because we need to get *this*
   // from *new XmlHttpRequest()* call
-  send = jest.fn().mockImplementation(function() {
+  const send = jest.fn().mockImplementation(function () {
     this.onload();
   });
   const xhrMockClass = function () {
@@ -24,7 +23,7 @@ const createXHRmock = () => {
   };
 
   window.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass);
-}
+};
 
 let originalFetch;
 

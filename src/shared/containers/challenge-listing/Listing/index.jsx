@@ -26,6 +26,7 @@ import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { MetaTags } from 'topcoder-react-utils';
 import { USER_GROUP_MAXAGE } from 'config';
+import { updateChallengeType } from 'utils/challenge';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
@@ -389,6 +390,9 @@ ListingContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const cl = state.challengeListing;
   const tc = state.tcCommunities;
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+  );
   return {
     auth: state.auth,
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,

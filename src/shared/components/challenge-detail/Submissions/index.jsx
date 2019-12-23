@@ -6,6 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import { isMM as checkIsMM } from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -43,7 +44,7 @@ class SubmissionsComponent extends React.Component {
 
   componentDidMount() {
     const { challenge, loadMMSubmissions, auth } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
 
     // Check auth token, go to login page if invalid
     if (isMM && (_.isEmpty(auth) || _.isEmpty(auth.tokenV3) || isTokenExpired(auth.tokenV3))) {
@@ -59,7 +60,7 @@ class SubmissionsComponent extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
 
     const { submissions, mmSubmissions, submissionsSort } = this.props;
     if (
@@ -130,7 +131,7 @@ class SubmissionsComponent extends React.Component {
    */
   updateSortedSubmissions() {
     const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
     const { submissions, mmSubmissions } = this.props;
     const sortedSubmissions = _.cloneDeep(isMM ? mmSubmissions : submissions);
     this.sortSubmissions(sortedSubmissions);
@@ -143,7 +144,7 @@ class SubmissionsComponent extends React.Component {
    */
   sortSubmissions(submissions) {
     const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
@@ -239,13 +240,11 @@ class SubmissionsComponent extends React.Component {
       challenge,
     } = this.props;
 
-    const {
-      allPhases,
-    } = challenge;
+    const allPhases = challenge.allPhases || challenge.phases || [];
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
-      if (phase.phaseType === 'Review' && phase.phaseStatus === 'Closed') {
+      if (phase.name === 'Review' && !phase.isActive) {
         isReviewPhaseComplete = true;
       }
     });
@@ -270,7 +269,7 @@ class SubmissionsComponent extends React.Component {
       checkpoints,
     } = challenge;
 
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
@@ -759,6 +758,7 @@ SubmissionsComponent.propTypes = {
     track: PT.string.isRequired,
     registrants: PT.any,
     allPhases: PT.any,
+    phases: PT.any,
     subTrack: PT.any,
   }).isRequired,
   toggleSubmissionHistory: PT.func.isRequired,

@@ -79,7 +79,7 @@ export default class Registrants extends React.Component {
     const {
       challenge,
     } = this.props;
-    const checkpointPhase = (challenge.allPhases || challenge.phases || []).find(x => x.phaseType === 'Checkpoint Submission');
+    const checkpointPhase = (challenge.allPhases || challenge.phases || []).find(x => x.name === 'Checkpoint Submission');
     return moment(checkpointPhase
       ? checkpointPhase.actualEndTime || checkpointPhase.scheduledEndTime : 0);
   }

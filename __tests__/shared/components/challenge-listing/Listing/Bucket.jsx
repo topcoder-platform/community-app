@@ -37,6 +37,7 @@ const mockDatas = [{
       id: '2',
       status: 'a',
       technologies: ['a', 'b', 'c'],
+      tags: ['a', 'b', 'c'],
       allPhases: [{
         phaseType: 'Registration',
         phaseStatus: 'Open',

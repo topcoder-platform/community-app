@@ -64,7 +64,7 @@ export default function Topcoder() {
               <Route
                 component={ReviewOpportunityDetails}
                 exact
-                path="/challenges/:challengeId/review-opportunities"
+                path="/challenges/:challengeId(\d{8}|\d{5})/review-opportunities"
               />
               <Route component={Scoreboard} exact path="/scoreboard/:challengeId(\d+)" />
               <Route

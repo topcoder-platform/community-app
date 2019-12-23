@@ -99,7 +99,9 @@ function Tip(props) {
   // The result should be fine for simple dev challenges, but will be strange for
   // such as Assembly, etc.
   // Component is updated with TC API v3
-  const endPhaseDate = Math.max(...c.allPhases.map(d => new Date(d.scheduledEndTime)));
+  const allPhases = c.allPhases || c.phases || [];
+  const currentPhases = c.currentPhases || [];
+  const endPhaseDate = Math.max(...allPhases.map(d => new Date(d.scheduledEndTime)));
   steps.push({
     date: new Date(c.registrationStartDate),
     name: 'Start',
@@ -110,7 +112,7 @@ function Tip(props) {
       name: 'Checkpoint',
     });
   }
-  const iterativeReviewPhase = c.currentPhases.find(phase => phase.phaseStatus === 'Open' && phase.phaseType === 'Iterative Review');
+  const iterativeReviewPhase = currentPhases.find(phase => phase.isActive && phase.name === 'Iterative Review');
   if (iterativeReviewPhase) {
     steps.push({
       date: new Date(iterativeReviewPhase.scheduledEndTime),

@@ -124,11 +124,11 @@ exports[`Matches shallow shapshot 1`] = `
             Array [
               Object {
                 "label": "sub",
-                "value": "sub",
+                "value": undefined,
               },
               Object {
                 "label": "track",
-                "value": "track",
+                "value": undefined,
               },
             ]
           }
