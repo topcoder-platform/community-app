@@ -68,25 +68,25 @@ class Submit extends React.Component {
     } = this.props;
     const statusPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
     const checkpoint = _.find(statusPhases, {
-      phaseType: 'Checkpoint Submission',
+      name: 'Checkpoint Submission',
     });
     const submission = _.find(statusPhases, {
-      phaseType: 'Submission',
+      name: 'Submission',
     });
     const finalFix = _.find(statusPhases, {
-      phaseType: 'Final Fix',
+      name: 'Final Fix',
     });
     let subType;
     let subPhaseId;
 
     // Submission type logic
-    if (checkpoint && checkpoint.phaseStatus === 'Open') {
+    if (checkpoint && checkpoint.isActive) {
       subType = 'Checkpoint Submission';
       subPhaseId = checkpoint.id;
-    } else if (checkpoint && checkpoint.phaseStatus === 'Close' && submission && submission.phaseStatus === 'Open') {
+    } else if (checkpoint && !checkpoint.isActive && submission && submission.isActive) {
       subType = 'Contest Submission';
       subPhaseId = submission.id;
-    } else if (finalFix && finalFix.phaseStatus === 'Open') {
+    } else if (finalFix && finalFix.isActive) {
       subType = 'Studio Final Fix Submission';
       subPhaseId = finalFix.id;
     } else {

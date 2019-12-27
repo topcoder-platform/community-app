@@ -66,7 +66,7 @@ export default function NumRegistrants({
 NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
-    numRegistrants: PT.number.isRequired,
+    numRegistrants: PT.number,
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,

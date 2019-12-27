@@ -6,6 +6,7 @@ import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { convertNow as convertMoney } from 'services/money';
 import { config, Link } from 'topcoder-react-utils';
+import { isMM, isDevelopMM } from 'utils/challenge';
 
 import Tags from '../Tags';
 
@@ -25,9 +26,10 @@ export const PRIZE_MODE = {
 
 // Get the End date of a challenge
 const getEndDate = (c) => {
-  let phases = c.allPhases;
+  const allPhases = c.allPhases || c.phases || [];
+  let phases = allPhases;
   if (c.subTrack === 'FIRST_2_FINISH' && c.status === 'COMPLETED') {
-    phases = c.allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+    phases = allPhases.filter(p => p.name === 'Iterative Review' && !p.isActive);
   }
   const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
   return moment(endPhaseDate).format('MMM DD');
@@ -54,24 +56,23 @@ function ChallengeCard({
   const challenge = passedInChallenge;
   const {
     id,
-    subTrack,
     track,
     status,
   } = challenge;
 
   challenge.isDataScience = false;
-  if (challenge.technologies.includes('Data Science') || subTrack === 'DEVELOP_MARATHON_MATCH') {
+  if ((challenge.tags && challenge.tags.includes('Data Science')) || isDevelopMM(challenge)) {
     challenge.isDataScience = true;
   }
   challenge.prize = challenge.prizes || [];
 
   let challengeDetailLink = `${challengesUrl}/${id}`;
-  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
+  if (track === 'DATA_SCIENCE' && isMM(challenge) && status === 'Active') {
     challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
   }
 
-  const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
-  const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
+  const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
+  const isRegistrationOpen = registrationPhase ? registrationPhase.isActive : false;
 
   /* Preparation of data to show in the prize component,
    * depending on options. */
@@ -113,11 +114,11 @@ function ChallengeCard({
     <div styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
+          <TrackAbbreviationTooltip track={challenge.track} challengeType={challenge.challengeType}>
             <span>
               <TrackIcon
                 track={challenge.track}
-                subTrack={challenge.subTrack}
+                challengeType={challenge.challengeType}
                 tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />
@@ -135,12 +136,11 @@ function ChallengeCard({
           </Link>
           <div styleName="details-footer">
             <span styleName="date">
-              {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
+              {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge)}
             </span>
             <Tags
-              technologies={challenge.technologies}
-              platforms={challenge.platforms}
+              tags={challenge.tags}
               onTechTagClicked={onTechTagClicked}
               isExpanded={expandedTags.includes(challenge.id)}
               expand={() => expandTag(challenge.id)}

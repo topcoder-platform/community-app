@@ -7,6 +7,7 @@
  *   Passes the relevent state and setters as properties to the UI components.
  */
 import actions from 'actions/page/submission';
+import { isMM } from 'utils/challenge';
 import communityActions from 'actions/tc-communities';
 import shortId from 'shortid';
 import React from 'react';
@@ -42,11 +43,11 @@ class SubmissionsPageContainer extends React.Component {
       tokenV3,
       submit,
       challengeId,
-      subTrack,
+      challenge,
       track,
     } = this.props;
 
-    submit(tokenV3, tokenV2, challengeId, body, subTrack === 'MARATHON_MATCH' ? 'DEVELOP' : track);
+    submit(tokenV3, tokenV2, challengeId, body, isMM(challenge) ? 'DEVELOP' : track);
   }
 
   render() {
@@ -99,7 +100,7 @@ SubmissionsPageContainer.propTypes = {
   submit: PT.func.isRequired,
   challengeId: PT.number.isRequired,
   track: PT.string.isRequired,
-  subTrack: PT.string.isRequired,
+  challenge: PT.shap({}).isRequired,
   status: PT.string.isRequired,
   groups: PT.shape({}).isRequired,
   errorMsg: PT.string.isRequired,
@@ -138,10 +139,12 @@ SubmissionsPageContainer.propTypes = {
  */
 const mapStateToProps = (state, ownProps) => {
   const { submission } = state.page;
+  const allPhases = state.challenge.details.allPhases || state.challenge.details.phases || [];
+  const currentPhases = state.challenge.details.currentPhases || [];
   return {
     auth: state.auth,
-    currentPhases: state.challenge.details.currentPhases,
-    allPhases: state.challenge.details.allPhases,
+    currentPhases,
+    allPhases,
     communitiesList: state.tcCommunities.list,
     /* Older stuff below. */
     userId: state.auth.user.userId,
@@ -151,7 +154,7 @@ const mapStateToProps = (state, ownProps) => {
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
     track: state.challenge.details.track,
-    subTrack: state.challenge.details.subTrack,
+    challenge: state.challenge,
     status: state.challenge.details.status,
     groups: state.challenge.details.groups,
     isSubmitting: submission.isSubmitting,

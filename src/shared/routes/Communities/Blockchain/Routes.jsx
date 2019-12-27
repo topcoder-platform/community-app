@@ -90,7 +90,7 @@ export default function Blockchain({ base, member, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+                path={`${base}/challenges/:challengeId`}
               />
               <Route
                 component={routeProps => Submission({
@@ -98,7 +98,7 @@ export default function Blockchain({ base, member, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+                path={`${base}/challenges/:challengeId/submit`}
               />
               <Route
                 component={TermsDetail}
@@ -111,7 +111,7 @@ export default function Blockchain({ base, member, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+                path={`${base}/challenges/:challengeId/my-submissions`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}

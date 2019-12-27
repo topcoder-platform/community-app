@@ -20,6 +20,7 @@ import shortId from 'shortid';
 
 import { connect } from 'react-redux';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { updateChallengeType } from 'utils/challenge';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
@@ -318,6 +319,9 @@ function mapStateToProps(state, props) {
   const dash = state.page.dashboard;
 
   const tcBlog = state.rss ? (state.rss[TOPCODER_BLOG_ID] || {}) : {};
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+  );
   return {
     achievements: achievements.data,
     achievementsLoading: Boolean(achievements.loadingUuid),

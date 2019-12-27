@@ -37,7 +37,7 @@ function onGetAllActiveChallengesDone(state, { error, payload }) {
   const ids = new Set();
   loaded.forEach(item => ids.add(item.id));
   const challenges = state.challenges
-    .filter(item => item.status !== 'ACTIVE' && !ids.has(item.id))
+    .filter(item => item.status !== 'Active' && !ids.has(item.id))
     .concat(loaded);
 
   return {
@@ -71,7 +71,7 @@ function onGetActiveChallengesDone(state, { error, payload }) {
    * loaded to the state before. */
   const filter = state.lastRequestedPageOfActiveChallenges
     ? item => !ids.has(item.id)
-    : item => !ids.has(item.id) && item.status !== 'ACTIVE';
+    : item => !ids.has(item.id) && item.status !== 'Active';
 
   const challenges = state.challenges
     .filter(filter)
@@ -153,7 +153,7 @@ function onGetChallengeSubtracksDone(state, action) {
   return {
     ...state,
     challengeSubtracks: action.error ? [] : action.payload,
-    challengeSubtracksMap: action.error ? {} : _.keyBy(action.payload, 'subTrack'),
+    challengeSubtracksMap: action.error ? {} : _.keyBy(action.payload, 'id'),
     loadingChallengeSubtracks: false,
   };
 }

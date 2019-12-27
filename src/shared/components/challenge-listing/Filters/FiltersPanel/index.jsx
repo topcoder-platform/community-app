@@ -75,7 +75,8 @@ export default function FiltersPanel({
       );
     }
 
-    const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
+    // eslint-disable-next-line max-len
+    const visitorGroupIds = (auth.profile && auth.profile.groups) ? auth.profile.groups.map(g => g.id) : [];
     const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,
@@ -192,7 +193,7 @@ challenges in this sub community
   );
 
   const mapOps = item => ({ label: item, value: item });
-  const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
+  const mapSubtracks = item => ({ label: item.name, value: item.id });
   return (
     <div styleName={className}>
       <div styleName="header">

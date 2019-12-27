@@ -8,6 +8,7 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
+import { isMM } from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -79,8 +80,8 @@ function getOgImage(challenge) {
   switch (challenge.subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
-      const submission = challenge.allPhases
-        .find(p => p.phaseType === CHALLENGE_PHASE_TYPES.SUBMISSION);
+      const submission = (challenge.allPhases || challenge.phases || [])
+        .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
       if (submission) {
         if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
         if (submission.duration < 2.1 * DAY) return og48hUiPrototype;
@@ -143,7 +144,6 @@ class ChallengeDetailPageContainer extends React.Component {
       allCountries,
       getAllCountries,
     } = this.props;
-
     if (
       (challenge.id !== challengeId)
 
@@ -265,6 +265,10 @@ class ChallengeDetailPageContainer extends React.Component {
       notFoundCountryFlagUrl,
     } = this.state;
 
+    const {
+      legacyId,
+    } = challenge;
+
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
     if (challenge.prizes && challenge.prizes.length) {
@@ -285,7 +289,7 @@ class ChallengeDetailPageContainer extends React.Component {
       ? results : null;
 
     const isEmpty = _.isEmpty(challenge);
-    const isLegacyMM = challenge.subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
+    const isLegacyMM = isMM(challenge) && Boolean(challenge.roundId);
 
     const hasRegistered = isRegistered(
       challenge.userDetails,
@@ -443,15 +447,17 @@ class ChallengeDetailPageContainer extends React.Component {
             )
           }
         </div>
-        <Terms
-          defaultTitle="Challenge Prerequisites"
-          entity={{ type: 'challenge', id: challengeId.toString() }}
-          instanceId={this.instanceId}
-          description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
-          register={() => {
-            registerForChallenge(auth, challengeId);
-          }}
-        />
+        {legacyId && (
+          <Terms
+            defaultTitle="Challenge Prerequisites"
+            entity={{ type: 'challenge', id: legacyId.toString() }}
+            instanceId={this.instanceId}
+            description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
+            register={() => {
+              registerForChallenge(auth, challengeId);
+            }}
+          />
+        )}
       </div>
     );
   }
@@ -478,7 +484,7 @@ ChallengeDetailPageContainer.defaultProps = {
 ChallengeDetailPageContainer.propTypes = {
   auth: PT.shape().isRequired,
   challenge: PT.shape().isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
@@ -575,11 +581,10 @@ function mapStateToProps(state, props) {
       });
     }
   }
-
   return {
     auth: state.auth,
     challenge,
-    challengeId: Number(props.match.params.challengeId),
+    challengeId: props.match.params.challengeId,
     challengesUrl: props.challengesUrl,
     challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
     checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
@@ -636,9 +641,9 @@ const mapDispatchToProps = (dispatch) => {
         .then((res) => {
           const ch = res.payload;
           if (ch.track === 'DESIGN') {
-            const p = ch.allPhases
-              .filter(x => x.phaseType === 'Checkpoint Review');
-            if (p.length && p[0].phaseStatus === 'Closed') {
+            const p = ch.allPhases || ch.phases || []
+              .filter(x => x.name === 'Checkpoint Review');
+            if (p.length && !p[0].isActive) {
               dispatch(a.fetchCheckpointsInit());
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
             } else dispatch(a.dropCheckpoints());
@@ -660,9 +665,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
           if (challengeDetails.track === 'DESIGN') {
-            const p = challengeDetails.allPhases
-              .filter(x => x.phaseType === 'Checkpoint Review');
-            if (p.length && p[0].phaseStatus === 'Closed') {
+            const p = challengeDetails.allPhases || challengeDetails.phases || []
+              .filter(x => x.name === 'Checkpoint Review');
+            if (p.length && !p[0].isActive) {
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
             }
           }

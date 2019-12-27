@@ -33,7 +33,7 @@ const DAY_MS = 24 * HOUR_MS;
  */
 const getTimeLeft = (phase) => {
   if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG };
-  if (phase.phaseType === 'Final Fix') {
+  if (phase.name === 'Final Fix') {
     return { late: false, text: FF_TIME_LEFT_MSG };
   }
 
@@ -159,7 +159,7 @@ Results
       detailLink,
       openChallengesInNewTabs,
     } = props;
-    const timeDiff = getTimeLeft(challenge.allPhases.find(p => p.phaseType === 'Registration'));
+    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.name === 'Registration'));
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
@@ -229,31 +229,33 @@ to register
   function activeChallenge() {
     const { challenge } = props;
     const {
-      allPhases,
       currentPhases,
       forumId,
       myChallenge,
       status,
       subTrack,
     } = challenge;
+    const allPhases = challenge.allPhases || challenge.phases || [];
 
     const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
     let statusPhase = checkPhases
-      .filter(p => p.phaseType !== 'Registration')
+      .filter(p => p.name !== 'Registration')
       .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
 
     if (!statusPhase && subTrack === 'FIRST_2_FINISH' && checkPhases.length) {
       statusPhase = _.clone(checkPhases[0]);
-      statusPhase.phaseType = 'Submission';
+      statusPhase.name = 'Submission';
     }
 
     const registrationPhase = allPhases
-      .find(p => p.phaseType === 'Registration');
+      .find(p => p.name === 'Registration');
     const isRegistrationOpen = registrationPhase
-      && (registrationPhase.phaseStatus === 'Open' || moment(registrationPhase.scheduledEndTime).diff(new Date()) > 0);
+      && (
+        registrationPhase.isActive
+        || moment(registrationPhase.scheduledEndTime).diff(new Date()) > 0);
 
     let phaseMessage = STALLED_MSG;
-    if (statusPhase) phaseMessage = statusPhase.phaseType;
+    if (statusPhase) phaseMessage = statusPhase.name;
     else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
 
     const showRegisterInfo = isRegistrationOpen && !challenge.users[userHandle];
@@ -293,7 +295,7 @@ to register
         </span>
         <ProgressBarTooltip challenge={challenge}>
           {
-            status === 'ACTIVE' && statusPhase ? (
+            status === 'Active' && statusPhase ? (
               <div>
                 <ChallengeProgressBar
                   color="green"

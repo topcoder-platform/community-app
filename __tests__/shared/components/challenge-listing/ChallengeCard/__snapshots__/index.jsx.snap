@@ -29,6 +29,9 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
       ],
       "status": "ACTIVE",
       "subTrack": "CODE",
+      "tags": Array [
+        "Data Science",
+      ],
       "technologies": Array [
         "Data Science",
       ],
@@ -66,6 +69,9 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
         600,
       ],
       "subTrack": "CODE",
+      "tags": Array [
+        "Go",
+      ],
       "technologies": Array [
         "Go",
       ],
@@ -103,6 +109,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
         600,
       ],
       "subTrack": "CODE",
+      "tags": Array [],
       "technologies": Array [],
       "totalPrize": 1800,
       "track": "DATA_SCIENCE",

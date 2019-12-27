@@ -65,7 +65,7 @@ export default function NumSubmissions({
 NumSubmissions.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
-    numSubmissions: PT.number.isRequired,
+    numSubmissions: PT.number,
     status: PT.string.isRequired,
     track: PT.string.isRequired,
   }).isRequired,

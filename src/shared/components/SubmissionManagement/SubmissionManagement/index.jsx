@@ -75,7 +75,7 @@ export default function SubmissionManagement(props) {
         </div>
         <div styleName="right-col">
           <p styleName="round">
-            {currentPhase.phaseType}
+            {currentPhase.name}
           </p>
           {
             challenge.status !== 'COMPLETED' ? (
@@ -110,7 +110,7 @@ Manage your submissions
             isDesign && (
               <p styleName="round-ends">
                 <span styleName="ends-label">
-                  {currentPhase.phaseType}
+                  {currentPhase.name}
                   {' '}
 Ends:
                 </span>

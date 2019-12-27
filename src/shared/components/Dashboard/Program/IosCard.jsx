@@ -90,7 +90,7 @@ Peer Review Challenge
           )
         }
         <p styleName="technologies">
-          {challenge.technologies}
+          {challenge.tags}
         </p>
       </div>
     </div>
