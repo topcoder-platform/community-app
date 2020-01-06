@@ -12,9 +12,11 @@ There are total 4 deployment environments
 
 ## Deploy your branch on test environments
 
-Deploy your branch on test and development envuronemnt, please do communicate before you do that as other might be using the environemnt of testing.
+Deploy your branch on test and development environements by making following changes. 
 
-Got to `.circleci/config.yml` and add [your-branch] under these environemtns, please dont change anything under production worfflow.
+1. Please do communicate on slack (#community-app channel) before you do that as other might be using the environemnt of testing.
+2. Checkout the intended branch
+3. Got to `.circleci/config.yml` and add [your-branch] under desired environement, please dont change anything under production workflow. Add branch to only one workflow.
 
 ```
 workflows:
@@ -45,3 +47,4 @@ workflows:
                 - develop
       # Production builds are exectuted only on tagged commits to the
 ```
+3. Commit the changes
