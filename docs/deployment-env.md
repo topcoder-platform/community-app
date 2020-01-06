@@ -46,4 +46,4 @@ workflows:
               only:
                 - develop
 ```
-3. Commit the changes
+4. Commit the changes
