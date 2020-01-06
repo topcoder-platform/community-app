@@ -45,6 +45,5 @@ workflows:
             branches:
               only:
                 - develop
-      # Production builds are exectuted only on tagged commits to the
 ```
 3. Commit the changes
