@@ -10,7 +10,7 @@ There are total 4 deployment environments
 | 4 | Production   | Production  | Main production       | `https://www.topcoder.com`                   |
 
 
-## Deployment your branch on test environments
+## Deploy your branch on test environments
 
 Deploy your branch on test and development envuronemnt, please do communicate before you do that as other might be using the environemnt of testing.
 
