@@ -175,10 +175,7 @@ workflows:
             branches:
               only: 
                 - develop
-                - hot-fix
-                - survey_tc
-                - fix-groups-updates
-                - sort_registrations_submissions
+                - nav-hot-fix
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -192,7 +189,8 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - develop                
+                - nav-hot-fix
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
