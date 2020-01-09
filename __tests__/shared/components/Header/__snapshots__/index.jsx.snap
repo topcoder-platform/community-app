@@ -104,10 +104,6 @@ exports[`Default render 1`] = `
                   "title": "Statistics",
                 },
                 Object {
-                  "href": "/community/events",
-                  "title": "Events",
-                },
-                Object {
                   "href": "https://www.topcoder-dev.com/blog",
                   "title": "Blog",
                 },
