@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import { get } from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
+
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import Failed from '../../icons/failed.svg';
 import InReview from '../../icons/in-review.svg';
@@ -18,7 +19,7 @@ import './style.scss';
 
 export default function SubmissionRow({
   isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup,
+  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating,
 }) {
   const {
     submissionTime, provisionalScore, status,
@@ -26,7 +27,7 @@ export default function SubmissionRow({
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
   let initialScore;
-  if (provisionalScore && (provisionalScore >= 0 || provisionalScore === -1)) {
+  if (provisionalScore >= 0 || provisionalScore === -1) {
     initialScore = provisionalScore;
   }
 
@@ -47,6 +48,15 @@ export default function SubmissionRow({
     }
   };
 
+  const getFinalReviewResult = () => {
+    const s = isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore;
+    if (isReviewPhaseComplete) {
+      if (s && s < 0) return 0;
+      return s;
+    }
+    return '-';
+  };
+
   return (
     <div styleName="container">
       <div styleName="row">
@@ -65,13 +75,16 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          <a href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
-            {member}
+          <span styleName="col" style={colorStyle}>
+            {rating || '-'}
+          </span>
+          <a styleName="col" href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
+            {member || '-'}
           </a>
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
+            {getFinalReviewResult()}
           </div>
           <div styleName="col">
             {getInitialReviewResult()}
@@ -151,6 +164,7 @@ SubmissionRow.defaultProps = {
   isReviewPhaseComplete: false,
   finalRank: null,
   provisionalRank: null,
+  rating: null,
 };
 
 SubmissionRow.propTypes = {
@@ -169,6 +183,7 @@ SubmissionRow.propTypes = {
     final: PT.number,
     provisional: PT.number,
   }),
+  rating: PT.number,
   toggleHistory: PT.func,
   colorStyle: PT.shape(),
   isReviewPhaseComplete: PT.bool,

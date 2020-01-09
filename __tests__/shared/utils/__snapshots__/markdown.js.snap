@@ -653,7 +653,7 @@ Array [
     <a
       href="/projects/markdown/syntax.text"
     >
-      see the source for it by adding '.text' to the URL
+      see the source for it by adding ‘.text’ to the URL
     </a>
     .
   </p>,
@@ -672,11 +672,11 @@ Array [
     <br />
     document should be publishable as-is, as plain text, without looking
     <br />
-    like it's been marked up with tags or formatting instructions. While
+    like it’s been marked up with tags or formatting instructions. While
     <br />
-    Markdown's syntax has been influenced by several existing text-to-HTML
+    Markdown’s syntax has been influenced by several existing text-to-HTML
     <br />
-    filters -- including 
+    filters – including 
     <a
       href="http://docutils.sourceforge.net/mirror/setext.html"
     >
@@ -713,9 +713,9 @@ Array [
     >
       EtText
     </a>
-     -- the single biggest source of
+     – the single biggest source of
     <br />
-    inspiration for Markdown's syntax is the format of plain text email.
+    inspiration for Markdown’s syntax is the format of plain text email.
   </p>,
   <h2>
     Block Elements
@@ -728,18 +728,18 @@ Array [
     <br />
     by one or more blank lines. (A blank line is any line that looks like a
     <br />
-    blank line -- a line containing nothing but spaces or tabs is considered
+    blank line – a line containing nothing but spaces or tabs is considered
     <br />
     blank.) Normal paragraphs should not be indented with spaces or tabs.
   </p>,
   <p>
-    The implication of the "one or more consecutive lines of text" rule is
+    The implication of the “one or more consecutive lines of text” rule is
     <br />
-    that Markdown supports "hard-wrapped" text paragraphs. This differs
+    that Markdown supports “hard-wrapped” text paragraphs. This differs
     <br />
     significantly from most other text-to-HTML formatters (including Movable
     <br />
-    Type's "Convert Line Breaks" option) which translate every line break
+    Type’s “Convert Line Breaks” option) which translate every line break
     <br />
     character in a paragraph into a 
     <code>
@@ -775,11 +775,11 @@ Array [
     Markdown supports two styles of headers, [Setext] [1] and [atx] [2].
   </p>,
   <p>
-    Optionally, you may "close" atx-style headers. This is purely
+    Optionally, you may “close” atx-style headers. This is purely
     <br />
-    cosmetic -- you can use this if you think it looks better. The
+    cosmetic – you can use this if you think it looks better. The
     <br />
-    closing hashes don't even need to match the number of hashes
+    closing hashes don’t even need to match the number of hashes
     <br />
     used to open the header. (The number of opening hashes
     <br />
@@ -800,7 +800,7 @@ Array [
         className="bash"
       />
     </code>
-     characters for blockquoting. If you're
+     characters for blockquoting. If you’re
     <br />
     familiar with quoting passages of text in an email message, then you
     <br />
@@ -916,7 +916,7 @@ Array [
       </li>
     </ol>
     <p>
-      Here's some example code:
+      Here’s some example code:
     </p>
     <code>
       return shell_exec("echo $input | $markdown_script");
@@ -937,9 +937,9 @@ Array [
     Markdown supports ordered (numbered) and unordered (bulleted) lists.
   </p>,
   <p>
-    Unordered lists use asterisks, pluses, and hyphens -- interchangably
+    Unordered lists use asterisks, pluses, and hyphens – interchangably
     <br />
-    -- as list markers:
+    – as list markers:
   </p>,
   <ul>
     <li>
@@ -1019,7 +1019,7 @@ Array [
     </li>
   </ol>,
   <p>
-    It's important to note that the actual numbers you use to mark the
+    It’s important to note that the actual numbers you use to mark the
     <br />
     list have no effect on the HTML output Markdown produces. The HTML
     <br />
@@ -1068,13 +1068,13 @@ Array [
     </li>
   </ol>,
   <p>
-    you'd get the exact same HTML output. The point is, if you want to,
+    you’d get the exact same HTML output. The point is, if you want to,
     <br />
     you can use ordinal numbers in your ordered Markdown lists, so that
     <br />
     the numbers in your source match the numbers in your published HTML.
     <br />
-    But if you want to be lazy, you don't have to.
+    But if you want to be lazy, you don’t have to.
   </p>,
   <p>
     To make lists look nice, you can wrap items with hanging indents:
@@ -1098,7 +1098,7 @@ Array [
     </li>
   </ul>,
   <p>
-    But if you want to be lazy, you don't have to:
+    But if you want to be lazy, you don’t have to:
   </p>,
   <ul>
     <li>
@@ -1161,7 +1161,7 @@ Array [
         This is a list item with two paragraphs.
       </p>
       <p>
-        This is the second paragraph in the list item. You're
+        This is the second paragraph in the list item. You’re
         <br />
         only required to indent the first line. Lorem ipsum dolor
         <br />
@@ -1175,7 +1175,7 @@ Array [
     </li>
   </ul>,
   <p>
-    To put a blockquote within a list item, the blockquote's 
+    To put a blockquote within a list item, the blockquote’s 
     <code>
       <span
         className="hljs-meta"
@@ -1210,7 +1210,7 @@ Array [
     <em>
       twice
     </em>
-     -- 8 spaces or two tabs:
+     – 8 spaces or two tabs:
   </p>,
   <ul>
     <li>
@@ -1305,7 +1305,7 @@ end tell
     <br />
     are automatically converted into HTML entities. This makes it very
     <br />
-    easy to include example HTML source code using Markdown -- just paste
+    easy to include example HTML source code using Markdown – just paste
     <br />
     it and indent it, and Markdown will handle the hassle of encoding the
     <br />
@@ -1322,7 +1322,7 @@ end tell
     <br />
     asterisks are just literal asterisks within a code block. This means
     <br />
-    it's also easy to use Markdown to write about Markdown's own syntax.
+    it’s also easy to use Markdown to write about Markdown’s own syntax.
   </p>,
   Array [
     <pre
@@ -1388,7 +1388,7 @@ end tell
   <p>
     To create an inline link, use a set of regular parentheses immediately
     <br />
-    after the link text's closing square bracket. Inside the parentheses,
+    after the link text’s closing square bracket. Inside the parentheses,
     <br />
     put the URL where you want the link to point, along with an 
     <em>

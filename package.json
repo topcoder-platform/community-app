@@ -31,8 +31,8 @@
     "npm": "^5.6.0"
   },
   "dependencies": {
-    "aos": "^2.3.4",
     "@hapi/joi": "^16.1.4",
+    "aos": "^2.3.4",
     "atob": "^2.1.1",
     "babel-register": "^6.26.0",
     "babel-runtime": "^6.26.0",
@@ -66,6 +66,8 @@
     "localStorage": "^1.0.4",
     "lodash": "^4.17.10",
     "markdown-it": "^8.4.1",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "moment-timezone": "^0.5.21",
@@ -118,7 +120,7 @@
     "supertest": "^3.1.0",
     "tc-accounts": "git+https://github.com/appirio-tech/accounts-app.git#dev",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3",
-    "topcoder-react-lib": "0.8.3",
+    "topcoder-react-lib": "0.10.0",
     "topcoder-react-ui-kit": "^1.0.11",
     "topcoder-react-utils": "0.7.8",
     "turndown": "^4.0.2",

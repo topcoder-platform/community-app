@@ -26,12 +26,17 @@ import { toJson as xmlToJson } from 'utils/xml2json';
 import cdnRouter from './routes/cdn';
 import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
+// import { pollArticlesForThrive } from 'server/services/contentful';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
 
 import webpackConfigFactory from '../../webpack.config';
 /* eslint-enable */
+
+// DISABLED
+// Init TC Blog -> THRIVE poll bridge
+// pollArticlesForThrive();
 
 global.atob = atob;
 
@@ -160,7 +165,7 @@ async function onExpressJsSetup(server) {
 
   /* Proxy endpoint for GET requests (to fetch data from resources prohibiting
    * cross-origin requests). */
-  server.use(
+  /*  server.use(
     '/community-app-assets/api/proxy-get',
     checkAuthorizationHeader, async (req, res, next) => {
       try {
@@ -172,6 +177,7 @@ async function onExpressJsSetup(server) {
       }
     },
   );
+  */
 
   /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
    * cross-origin requests). */
