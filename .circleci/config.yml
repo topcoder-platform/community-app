@@ -211,7 +211,7 @@ workflows:
           filters:
             branches:
               only:
-                - smoke_testing_develop
+                - develop-smoke-testing-merged
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
