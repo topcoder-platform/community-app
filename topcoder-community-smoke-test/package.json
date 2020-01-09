@@ -1,0 +1,37 @@
+{
+  "name": "topcoder-community-smoke-test",
+  "version": "1.0.0",
+  "description": "E2E tests for Topcoder's community app",
+  "main": "conf.js",
+  "dependencies": {
+    "@types/node": "^12.7.8",
+    "exceljs": "^1.13.0",
+    "jasmine": "^3.4.0",
+    "jasmine-reporters": "^2.3.2",
+    "jsdom": "^15.1.1",
+    "mail-listener2": "^0.3.1",
+    "papaparse": "^4.6.3",
+    "protractor": "^5.4.2",
+    "protractor-beautiful-reporter": "^1.2.8",
+    "typescript": "^3.5.3",
+    "webdriver-manager": "^12.1.7"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.3.16",
+    "@types/jasminewd2": "^2.0.6",
+    "rimraf": "^2.6.3",
+    "tslint": "^5.18.0"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "clean": "rimraf temp/ && rimraf download/ && rimraf test-results/",
+    "pretest": "npm run clean && npm run tsc",
+    "test": "protractor temp/conf.js",
+    "webdriver-update": "node node_modules/protractor/bin/webdriver-manager update"
+  },
+  "keywords": [
+    "protractor",
+    "jasmine",
+    "typescript"
+  ]
+}
