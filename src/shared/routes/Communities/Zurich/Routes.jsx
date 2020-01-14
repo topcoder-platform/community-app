@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import Error404 from 'components/Error404';
 import FAQ from 'components/tc-communities/communities/zurich/FAQ';
 import Footer from 'components/tc-communities/communities/zurich/Footer';
+import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/zurich/Home';
 import Learn from 'components/tc-communities/communities/zurich/Learn';
 import ContentfulRoute from 'components/Contentful/Route';
@@ -21,8 +22,8 @@ import React from 'react';
 import theme from 'components/tc-communities/communities/zurich/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { config } from 'topcoder-react-utils';
 import Viewport from 'components/Contentful/Viewport';
-import ContentfulMenu from 'components/Contentful/Menu';
 
 function Zurich({ base, meta, userGroups }) {
   // Only members of `Requestor`|`Approver` gropus
@@ -64,19 +65,15 @@ function Zurich({ base, meta, userGroups }) {
         path={`${base}/forbidden`}
       />
       <Route
-        component={() => (
+        component={({ match }) => (
           <ThemeProvider theme={theme}>
             <div>
-              {
-                meta.menuItems ? (
-                  <ContentfulMenu
-                    id={meta.menuItems[0].navigationMenu}
-                    spaceName={meta.menuItems[0].spaceName}
-                    environment={meta.menuItems[0].environment}
-                    baseUrl={base}
-                  />
-                ) : null
-              }
+              <Header
+                baseUrl={base}
+                pageId={match.params.pageId || 'home'}
+                hideJoinNow
+                logoutRedirect={config.URL.COMMUNITIES.ZURICH}
+              />
               <Switch>
                 <Route
                   component={() => ChallengeListing({
