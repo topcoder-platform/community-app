@@ -21,29 +21,32 @@ exports[`Default render 1`] = `
         },
         Object {
           "id": "community",
-          "secondaryMenuForGuest": Array [
-            Object {
-              "href": "/community/learn",
-              "title": "Overview",
-            },
-            Object {
-              "href": "/thrive/tracks?track=Topcoder",
-              "title": "How It Works",
-            },
-          ],
-          "secondaryMenuForLoggedInUser": Array [
+          "secondaryMenu": Array [
             Object {
               "href": "/my-dashboard",
+              "logged": true,
               "title": "Dashboard",
             },
             Object {
               "href": "/members/willFilledByUserName",
               "id": "myprofile",
+              "logged": true,
               "title": "My Profile",
             },
             Object {
               "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+              "logged": true,
               "title": "Payments",
+            },
+            Object {
+              "href": "/community/learn",
+              "logged": false,
+              "title": "Overview",
+            },
+            Object {
+              "href": "/thrive/tracks?track=Topcoder",
+              "logged": false,
+              "title": "How It Works",
             },
           ],
           "subMenu": Array [
@@ -102,10 +105,6 @@ exports[`Default render 1`] = `
                 Object {
                   "href": "/community/statistics",
                   "title": "Statistics",
-                },
-                Object {
-                  "href": "/community/events",
-                  "title": "Events",
                 },
                 Object {
                   "href": "https://www.topcoder-dev.com/blog",
