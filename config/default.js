@@ -323,10 +323,6 @@ module.exports = {
               href: '/community/statistics',
             },
             {
-              title: 'Events',
-              href: '/community/events',
-            },
-            {
               title: 'Blog',
               href: 'https://www.topcoder-dev.com/blog',
             },
