@@ -252,6 +252,7 @@ module.exports = {
           title: 'Payments',
           href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
           logged: true,
+          openNewTab: true,
         },
         {
           title: 'Overview',
