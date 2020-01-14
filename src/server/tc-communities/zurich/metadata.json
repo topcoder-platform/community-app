@@ -22,24 +22,10 @@
     "url": "https://www.topcoder.com"
   }],
   "footerText": "© Copyright Topcoder, 2019",
-  "menuItems": [
-    {
-      "title": "Home",
-      "url": "/"
-    }, {
-      "title": "How it works",
-      "url": "/learn"
-    }, {
-      "title": "Catalog",
-      "url": "/catalog"
-    }, {
-      "title": "FAQ",
-      "url": "/faq"
-    }, {
-      "title": "Challenges",
-      "url": "/challenges?communityId=zurich"
-    }
-  ],
+  "menuItems": [{
+    "navigationMenu": "2rUBPkaTK3UInCz4h7GOZG",
+    "spaceName": "zurich"
+  }],
   "hideSearch": true,
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["zurich", "community-zurich"],
