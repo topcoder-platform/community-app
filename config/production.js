@@ -70,30 +70,33 @@ module.exports = {
     {
       id: 'community', // required for 'Switch to BUSINESS' to work
       title: 'COMMUNITY',
-      secondaryMenuForLoggedInUser: [
+      secondaryMenu: [
         {
           title: 'Dashboard',
           href: '/my-dashboard',
+          logged: true,
         },
         {
           id: 'myprofile',
           title: 'My Profile',
           href: '/members/willFilledByUserName',
+          logged: true,
         },
         {
           title: 'Payments',
           href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
           openNewTab: true,
+          logged: true,
         },
-      ],
-      secondaryMenuForGuest: [
         {
           title: 'Overview',
           href: '/community/learn',
+          logged: false,
         },
         {
           title: 'How It Works',
           href: '/thrive/tracks?track=Topcoder',
+          logged: false,
         },
       ],
       subMenu: [
@@ -153,10 +156,6 @@ module.exports = {
             {
               title: 'Statistics',
               href: '/community/statistics',
-            },
-            {
-              title: 'Events',
-              href: '/community/events',
             },
             {
               title: 'Blog',
