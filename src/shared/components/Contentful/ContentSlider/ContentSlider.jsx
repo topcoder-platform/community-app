@@ -63,7 +63,7 @@ class ContentSlider extends Component {
               onKeyPress={previousSlide}
               role="button"
               tabIndex={0}
-              className={theme.control}
+              className={theme.controlLeft}
             >
               <ArrowPrev />
             </a>
@@ -74,7 +74,7 @@ class ContentSlider extends Component {
               onKeyPress={nextSlide}
               role="button"
               tabIndex={0}
-              className={theme.control}
+              className={theme.controlRight}
             >
               <ArrowNext />
             </a>
@@ -109,7 +109,8 @@ ContentSlider.propTypes = {
   theme: PT.shape({
     container: PT.string,
     content: PT.string,
-    control: PT.string,
+    controlLeft: PT.string,
+    controlRight: PT.string,
     multiContent: PT.any,
     singleContent: PT.any,
   }),

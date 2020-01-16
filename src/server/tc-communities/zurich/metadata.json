@@ -38,6 +38,10 @@
     }, {
       "title": "Challenges",
       "url": "/challenges?communityId=zurich"
+    }, {
+      "title": "THRIVE/LEARN",
+      "url": "https://topcoder.com/thrive",
+      "openNewTab": true
     }
   ],
   "hideSearch": true,
