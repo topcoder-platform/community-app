@@ -114,7 +114,7 @@ const interestingData = {
     { key: 'rank.overallPercentile', label: 'percentile', postFunc: percentileFunc },
     { key: 'submissions.submissions', label: 'challenges', postFunc: null },
     { key: 'wins', label: 'wins', postFunc: null },
-    { key: 'rank.reliability', label: 'reliability', postFunc: percentageFunc },
+    { key: 'submissions.submissionRate', label: 'reliability', postFunc: percentageFunc },
   ],
   'DATA_SCIENCE.SRM': [
     { key: 'rank.rating', label: 'rating', postFunc: ratingFunc },
