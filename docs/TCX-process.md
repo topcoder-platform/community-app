@@ -1,10 +1,15 @@
 ## Code Phase
 
 1. Co-pilot will prepare and launch a ticket
+	
 	i.   Add Prize in the issue title [$SOMEAMOUT]
+	
 	ii.  Mention PR branch, this branch should be always in sync with master
+	
 	iii. Change label to `tcx_OpenForPickup`
+	
 	iv.  Tag the community @topcoder-platform/tcxcommunity @topcoder-platform/topcodercompetitors 	
+	
 2. A competitor takes a ticket (`tcx_Assigned`), writes code
 3. Competitor PR to the branch (submission) and they should change the label to `tcx_ReadyForReview`
 
