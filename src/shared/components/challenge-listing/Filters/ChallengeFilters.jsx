@@ -55,7 +55,9 @@ export default function ChallengeFilters({
 
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
-    setFilterState(act(filterState, track));
+    const filterObj = act(filterState, track);
+    localStorage.setItem('trackStatus', JSON.stringify(filterObj));
+    setFilterState(filterObj);
   };
 
   return (
