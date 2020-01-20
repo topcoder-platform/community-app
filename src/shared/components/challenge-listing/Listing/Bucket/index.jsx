@@ -67,7 +67,13 @@ export default function Bucket({
     }
   }
 
-  if (!filteredChallenges.length && !loadMore) return null;
+  if (!filteredChallenges.length && !loadMore) {
+    return (
+      <h3>
+        No Live Challenges found
+      </h3>
+    );
+  }
 
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
