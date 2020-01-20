@@ -6,8 +6,11 @@ This document describes the Topcoder issue/feature release process using TCX. Th
 1. Create a branch from the `master` and name it as `hot-fix-fixtitle` or `feature-featuretitle`
 2. Co-pilot will prepare and launch a ticket (co-pilot has to drive)    
     a.  Add Prize in the issue title [$SOMEAMOUT]
+    
     b.  Mention PR branch, this branch should be always in sync with master or newly created as mentioned in 1
+    
     c.  Change label to `tcx_OpenForPickup`
+    
     d. Tag the community @topcoder-platform/tcxcommunity @topcoder-platform/topcodercompetitors     
 3. A competitor takes a ticket (`tcx_Assigned`), writes code
 4. Competitor PR to the branch (submission) and they should change the label to `tcx_ReadyForReview`
