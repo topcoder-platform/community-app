@@ -22,7 +22,7 @@ This document describes the Topcoder issue/feature release process using TCX. Th
  
      a. `tcx_Feedback` - Feedback should be mentioned in the comments section, this may lead to asking for patch PR
      
-     b. `Code Review Passed` - This goes to QA Deployment Phase
+     b. `Code Review Passed` and `tcx_FixAccepted`- This goes to QA Deployment Phase
      
      c. `Code Review Failed` - This goes to 1
     
