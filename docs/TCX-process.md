@@ -29,15 +29,26 @@ This document describes the Topcoder issue/feature release process using TCX. Th
 ## QA Deployment Phase
     
 5. Based on the label `Code Review Passed`, co-pilot should request deployment to the architect. Based on whatever testing deployment environment is available to code will be deployed.  
+
 6. Once deployed on the environment co-pilot will change the label to `Ready for QA` and will inform the QA team on #community-app slack channel.
+
 7. Based on QA feedback label should be `QA Pass` or `QA Fail`
+
 8. `QA Fail` label will go to **Review Phase** again
+
 9. `QA Pass` label is a candidate for production deployment 
+
 10. Co-pilot will create PR to `fix-branch > develop` branch
+
 11. An architect will merge PR and ask for smoke testing to the QA team 
+
 12. If smoke testing goes well, co-pilot create PR to `develop > master` 
+
 13. It takes around 20 mins for deployment on any deployment.
+
 14. QA team will verify the post-production issue fix.
+
 15. If post-production test passes QA team will change the label to `Prod QA Pass`, Co-pilot will close this ticket
+
 17. If post-production test fails QA team will change the label to `Prod QA Failed`
 
