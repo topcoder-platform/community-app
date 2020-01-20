@@ -5,6 +5,7 @@ This document describes the Topcoder issue/feature release process using TCX. Th
 
 1. Create a branch from the `master` and name it as `hot-fix-fixtitle` or `feature-featuretitle`
 2. Co-pilot will prepare and launch a ticket (co-pilot has to drive)    
+
     a.  Add Prize in the issue title [$SOMEAMOUT]
     
     b.  Mention PR branch, this branch should be always in sync with master or newly created as mentioned in 1
@@ -18,8 +19,11 @@ This document describes the Topcoder issue/feature release process using TCX. Th
 ## Review Phase
 
  4. Co-pilot will review the code, based on review change the label to
+ 
      a. `tcx_Feedback` - Feedback should be mentioned in the comments section, this may lead to asking for patch PR
+     
      b. `Code Review Passed` - This goes to QA Deployment Phase
+     
      c. `Code Review Failed` - This goes to 1
     
 ## QA Deployment Phase
