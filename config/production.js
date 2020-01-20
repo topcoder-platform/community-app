@@ -152,6 +152,7 @@ module.exports = {
             {
               title: 'Forums',
               href: 'https://apps.topcoder.com/forums',
+              openNewTab: true,
             },
             {
               title: 'Statistics',
