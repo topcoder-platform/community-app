@@ -73,7 +73,7 @@ class LeaderboardPageContainer extends React.Component {
       ? (<LoadingIndicator />) : (
         <div>
           <div styleName="Leaderboard">
-            <h2 styleName="section-title">{title}</h2>
+            {title ? (<h2 styleName="section-title">{title}</h2>) : null}
             <Podium
               competitors={ld.slice(0, podiumSpots)}
               isCopilot={isCopilot}
