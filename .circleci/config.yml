@@ -174,9 +174,9 @@ workflows:
           filters:
             branches:
               only: 
-                - develop
-                - feature-contentful
-# This is alternate dev env for parallel testing
+                - develop                
+                - feature-member-profiles
+      # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
