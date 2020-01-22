@@ -69,9 +69,9 @@ export default function Bucket({
 
   if (!filteredChallenges.length && !loadMore) {
     return (
-      <h3>
+      <div>
         No Live Challenges found
-      </h3>
+      </div>
     );
   }
 
