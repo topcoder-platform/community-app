@@ -124,7 +124,8 @@ function Listing({
     );
   }
 
-  let isFilled = isChallengesAvailable(BUCKETS.OPEN_FOR_REGISTRATION) || isChallengesAvailable(BUCKETS.ONGOING);
+  let isFilled = isChallengesAvailable(BUCKETS.OPEN_FOR_REGISTRATION)
+  || isChallengesAvailable(BUCKETS.ONGOING);
   if (auth.user) {
     isFilled = isFilled || isChallengesAvailable(BUCKETS.MY);
   }
