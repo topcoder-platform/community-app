@@ -27,6 +27,7 @@ module.exports = {
 
     AUTH: 'https://accounts.topcoder.com',
     BASE: 'https://www.topcoder.com',
+    HOME: '/my-dashboard',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
     HELP: 'https://help.topcoder.com',
