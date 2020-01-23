@@ -6,9 +6,10 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
+import ReactSVG from 'react-svg';
+import { isomorphy } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
-import DefaultPortrait from 'assets/images/ico-user-default.svg';
 import LeftArrow from 'assets/images/arrow-prev.svg';
 import {
   shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails,
@@ -20,6 +21,10 @@ import StatsModal from './StatsModal';
 import SRMStats from './SRMStats';
 import SubTrackChallengeView from './SubTrackChallengeView';
 
+let assets;
+if (isomorphy.isClientSide()) {
+  assets = require.context('assets/images', false, /svg/);
+}
 
 class ProfileStats extends React.Component {
   constructor(props) {
@@ -144,7 +149,7 @@ Active Challenges
                 && (
                   <li key={info.handle}>
                     <div>
-                      { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
+                      { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <ReactSVG path={assets('./ico-user-default.svg')} /> }
                     </div>
                     <div
                       styleName="valueHandle"
