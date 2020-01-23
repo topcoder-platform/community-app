@@ -291,6 +291,7 @@ ProfileStats.defaultProps = {
   statsDistribution: null,
   statsHistory: null,
   activeChallengesCount: null,
+  achievements: null,
 };
 
 ProfileStats.propTypes = {
@@ -303,7 +304,7 @@ ProfileStats.propTypes = {
   statsDistribution: PT.shape(),
   statsHistory: PT.shape(),
   activeChallengesCount: PT.number,
-  achievements: PT.shape().isRequired,
+  achievements: PT.arrayOf(PT.shape()),
 };
 
 export default ProfileStats;
