@@ -175,8 +175,7 @@ workflows:
             branches:
               only: 
                 - develop                
-                - hot-fix-performance
-                - feature-member-profiles
+                - hot-fix-challenge-details
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
