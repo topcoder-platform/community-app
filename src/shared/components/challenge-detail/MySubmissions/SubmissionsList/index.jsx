@@ -165,7 +165,7 @@ class SubmissionsListView extends React.Component {
             <div styleName="submission-table-column column-1">
               <span>Submission</span>
             </div>
-            <div styleName="submission-table-column column-2">
+            <div styleName="submission-table-column column-2 score-title">
               <span>Score</span>
             </div>
           </div>

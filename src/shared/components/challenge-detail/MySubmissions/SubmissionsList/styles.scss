@@ -91,6 +91,13 @@ button.column-1-1,
   width: 70%;
 }
 
+.score-title {
+  justify-content: unset;
+  span {
+    margin-left: 28%;
+  }
+}
+
 .column-1-2 {
   width: 50%;
 }
