@@ -42,6 +42,7 @@ const PODIUM_ITEM_MODIFIER = {
   1: 'first',
   2: 'second',
   3: 'third',
+  4: 'fourth',
 };
 
 /**
@@ -53,11 +54,13 @@ const CUSTOM_STYLES = {
     1: avatarStyles.gold,
     2: avatarStyles.silver,
     3: avatarStyles.bronze,
+    4: avatarStyles.iron,
   },
   TCO20: {
     1: avatarStyles['tco20-1'],
     2: avatarStyles['tco20-2'],
     3: avatarStyles['tco20-3'],
+    4: avatarStyles['tco20-4'],
   },
 };
 
@@ -68,6 +71,7 @@ const DISPLAY_RANKING = {
   1: '1',
   2: '2',
   3: '3',
+  4: '4',
 };
 
 const THEME = {
@@ -158,7 +162,7 @@ export default function PodiumSpot(props) {
           isCopilot ? (
             <div styleName={`${stylesName}.stats`}>
               <span styleName={`${stylesName}.value`}>{competitor.fulfillment}</span>
-              <span>fulfillment</span>
+              <span styleName={`${stylesName}.value-title`}>fulfillment</span>
             </div>
           ) : null
         }
