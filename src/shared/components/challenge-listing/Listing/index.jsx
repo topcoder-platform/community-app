@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import { BUCKETS, getBuckets, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+import { BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG } from 'utils/challenge-listing/buckets';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
@@ -131,8 +131,8 @@ function Listing({
   }
   if (!isFilled) {
     return (
-      <div styleName="challengeCardContainer">
-        <h3>No Live challenges found </h3>
+      <div styleName="no-results">
+        {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
       </div>
     );
   }

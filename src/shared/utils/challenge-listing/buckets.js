@@ -119,6 +119,16 @@ const BUCKET_DATA = {
   },
 };
 
+export const NO_LIVE_CHALLENGES_CONFIG = {
+  [BUCKETS.ALL]: 'No Live Challenges',
+  [BUCKETS.MY]: 'No challenges found in My Challenges',
+  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found Open for Registration',
+  [BUCKETS.ONGOING]: 'No challenges found Ongoing',
+  [BUCKETS.PAST]: 'No challenges found in Past',
+  [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
+  [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
+};
+
 /**
  * Returns configuration of all possible challenge buckets.
  * @param {String} userHandle Handle of the authenticated

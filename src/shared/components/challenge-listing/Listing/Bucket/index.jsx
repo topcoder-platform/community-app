@@ -9,6 +9,7 @@ import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
+import { NO_LIVE_CHALLENGES_CONFIG } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -67,7 +68,13 @@ export default function Bucket({
     }
   }
 
-  if (!filteredChallenges.length && !loadMore) return null;
+  if (!filteredChallenges.length && !loadMore) {
+    return (
+      <div styleName="no-results">
+        {`${NO_LIVE_CHALLENGES_CONFIG[bucket]}`}
+      </div>
+    );
+  }
 
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
