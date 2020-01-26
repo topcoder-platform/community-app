@@ -71,7 +71,7 @@ export default function Bucket({
   if (!filteredChallenges.length && !loadMore) {
     return (
       <div styleName="no-results">
-        {`${NO_LIVE_CHALLENGES_CONFIG[bucket]}`}
+        {`${NO_LIVE_CHALLENGES_CONFIG[bucketId]}`}
       </div>
     );
   }

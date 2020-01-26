@@ -133,8 +133,10 @@ function Listing({
   }
   if (!isFilled) {
     return (
-      <div styleName="no-results">
-        {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+      <div styleName="challengeCardContainer">
+        <div styleName="no-results">
+          {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+        </div>
       </div>
     );
   }
