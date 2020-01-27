@@ -112,6 +112,7 @@ function Listing({
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
             userHandle={_.get(auth, 'user.handle')}
+            activeBucket={activeBucket}
           />
         )
     );
