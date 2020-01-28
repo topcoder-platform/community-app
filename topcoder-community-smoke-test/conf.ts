@@ -22,7 +22,7 @@ exports.config = {
         // 'shardTestFiles': true,
         // 'maxInstances': 2,
         chromeOptions: {
-            args: ['--headless', '--disable-gpu', '--window-size=1325x744']
+            args: [ '--headless', '--disable-gpu', '--window-size=1325x744']
         }
     },
 

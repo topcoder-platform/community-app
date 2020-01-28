@@ -8,6 +8,7 @@ import { ChallengeListingPageHelper } from "../page-objects/pages/topcoder/chall
 
 describe('Topcoder Profile Page Tests: ', () => {
     beforeAll(async () => {
+        await browser.restart();
         await browser.driver.manage().window().maximize();
         browser.ignoreSynchronization = false;
 
@@ -19,7 +20,7 @@ describe('Topcoder Profile Page Tests: ', () => {
 
     afterAll(async () => {
         try {
-            await ChallengeListingPageHelper.get();
+            await HomePageHelper.get();
             await HeaderHelper.clickOnLogoutLink();
             await HomePageHelper.verifyHomePage();
         } catch (e) {

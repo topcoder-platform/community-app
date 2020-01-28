@@ -10,4 +10,12 @@ export class HomePageHelper {
         expect(browserUrl).toEqual(HomePageConstants.url);
         console.log('User redirected to home-page');
     }
+
+    /**
+     * Gets the home page
+     */
+    static async get() {
+        await browser.get(HomePageConstants.url);
+        await console.log('User navigated to Home Page');
+    }
 }

@@ -1,8 +1,8 @@
-# Topcoder account app - E2E Tests - series 2
+# Topcoder account app - E2E Tests - series 3
 
 #### Software Required
 Nodejs v8.11.4+
-Chrome Browser v78
+Chrome Browser v79
 
 #### Installation:
 - Install protractor
@@ -15,8 +15,12 @@ Chrome Browser v78
 `npm install`
 - In case the webdriver needs to be updated, run the below command
 `webdriver-manager update`
-- To run tests
-`npm run test`
+- To run tests for the development environment
+`npm run test:dev`
+- To run tests for the qa environment
+`npm run test:qa`
+- To run tests for the production environment
+`npm run test:prod`
 - Test results are generated in test-results/ folder
 ```
 HTML report - TestResult.html
@@ -27,22 +31,13 @@ Junit report - junitresults-TopcoderLoginPageTests.xml and junitresults-Topcoder
 - HTML report from Junit reports can be generated using this command
 `xunit-viewer --results=test-results/ --output=/home/Documents/`
 
-As of now, the tests are running in headless mode. To view the actual chrom browser running the tests, you can remove `--headless` option from `chromeOptions.args` in `config.ts` 
+As of now, the tests are running in headless mode. To view the actual chrome browser running the tests, you can remove `--headless` option from `chromeOptions.args` in `config.ts`
 - To test against a different browser version, change the webdriver-manager version in package.json
 
-#### Circle CI deployment:
-`config.yml` in `.circleci` folder has been updated to run `npm run test` during Circle CI deployment.
-
-#### Implementation Details:
-- Total of 80 specs added, covering all scenarios present in the test-cases folder
-- ```80 specs, 0 failures
-Finished in 1625.705 seconds```
-- Along with Junit XML Reporter, Jasmine HTML reporter has also been added for convenience. 
-
 #### Configuration details:
-- config.json holds the data level configuration, 
- - in case the credentials need to be changed, `config.login.username` and `config.login.password` need to be updated
- - in case the environment has to be changed, the `config.baseUrl` field need to be changed
+- config-dev.json contains configuration for the development environment.
+- config-qa.json contains configuration for the QA environment (it still uses some configuration for the development environment, since not all the features are implemented in the qa-community-app)
+- config.prod.json contains configuration for the production environment.
 - conf.ts holds the application configuration, like jasmine reporters to be configured, specs to be run etc.
 
 #### NOTES

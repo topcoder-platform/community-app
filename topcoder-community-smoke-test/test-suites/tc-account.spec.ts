@@ -8,6 +8,7 @@ import { HeaderHelper } from "../page-objects/pages/topcoder/header/header.helpe
 
 describe('Topcoder Account Page Tests: ', () => {
     beforeAll(async () => {
+        await browser.restart();
         await browser.driver.manage().window().maximize();
         browser.ignoreSynchronization = false;
 
@@ -19,7 +20,7 @@ describe('Topcoder Account Page Tests: ', () => {
 
     afterAll(async () => {
         try {
-            await ChallengeListingPageHelper.get();
+            await HomePageHelper.get();
             await HeaderHelper.clickOnLogoutLink();
             await HomePageHelper.verifyHomePage();
         } catch (e) {

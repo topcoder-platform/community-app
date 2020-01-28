@@ -4,6 +4,7 @@ import { protractor, browser, by, element } from "protractor";
 import { commonPageObjects } from "./common.po";
 import * as configProd from "../../config-prod.json";
 import * as configDev from "../../config-dev.json";
+import * as configQa from "../../config-qa.json";
 import { ChallengeListingPageObject } from "../pages/topcoder/challenge-listing/challenge-listing.po";
 
 const jsdom = require("jsdom");
@@ -87,8 +88,12 @@ export class commonPageHelper {
     }
 
     static getConfig() {
-        if (browser.params && browser.params.mode === 'dev') {
-            return configDev;
+        if (browser.params) {
+            if(browser.params.mode === 'dev') {
+                return configDev
+            } else if(browser.params.mode === 'qa') {
+                return configQa
+            }
         }
         return configProd;
     }
@@ -103,5 +108,17 @@ export class commonPageHelper {
 
     static getChallengeTagText() {
         return browser.params.mode === 'dev' ? 'Node.js' : 'QA';
+    }
+
+    static async deleteAll() {
+        const until = protractor.ExpectedConditions;
+        const deleteIcons = await commonPageObjects.getDeleteIcons();
+        for (let i = 0; i < deleteIcons.length; i++) {
+            await commonPageObjects.deleteIcon.click();
+            await commonPageObjects.deleteConfirmation.click();
+            const successEl = commonPageObjects.successMsg;
+            await browser.wait(until.visibilityOf(successEl));
+            await browser.wait(until.invisibilityOf(successEl));
+        }
     }
 }

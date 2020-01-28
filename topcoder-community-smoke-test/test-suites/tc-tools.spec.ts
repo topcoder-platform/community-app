@@ -9,6 +9,7 @@ import { HomePageHelper } from "../page-objects/pages/topcoder/home/home.helper"
 
 describe('Topcoder Tools Page Tests: ', () => {
     beforeAll(async () => {
+        await browser.restart();
         await browser.driver.manage().window().maximize();
         browser.ignoreSynchronization = false;
 
@@ -20,7 +21,7 @@ describe('Topcoder Tools Page Tests: ', () => {
 
     afterAll(async () => {
         try {
-            await ChallengeListingPageHelper.get();
+            await HomePageHelper.get();
             await HeaderHelper.clickOnLogoutLink();
             await HomePageHelper.verifyHomePage();
         } catch (e) {

@@ -2,6 +2,7 @@ import { protractor, browser, element, by, WebElement, Key } from "protractor";
 import { ProfilePageConstants } from "./profile.constants";
 import { ProfilePageObject } from "./profile.po";
 import { commonPageObjects } from "../../../common/common.po";
+import { commonPageHelper } from "../../../common/common.helper";
 
 export class ProfilePageHelper {
     private static DATE;
@@ -21,9 +22,11 @@ export class ProfilePageHelper {
     }
 
     static async fillPersonalDetails() {
+        await browser.sleep(1000);
         await ProfilePageObject.firstName.clear();
         await ProfilePageObject.firstName.sendKeys('Test1');
 
+        await browser.sleep(1000);
         await ProfilePageObject.lastName.clear();
         await ProfilePageObject.lastName.sendKeys('User1');
         
@@ -49,18 +52,23 @@ export class ProfilePageHelper {
         this.DATE = await ProfilePageObject.dob.getAttribute('value');
 
         await ProfilePageObject.address1.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.address1.sendKeys('Address1');
         
         await ProfilePageObject.address2.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.address2.sendKeys('Address2');
         
         await ProfilePageObject.city.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.city.sendKeys('TestCity');
         
         await ProfilePageObject.state.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.state.sendKeys('TestState');
         
         await ProfilePageObject.zip.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.zip.sendKeys('560000');
         
         await this.operateSelect(ProfilePageObject.countryInput, 'India');
@@ -71,12 +79,15 @@ export class ProfilePageHelper {
         await this.operateSelect(ProfilePageObject.sizeInput, 'XXS');
 
         await ProfilePageObject.currentLocation.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.currentLocation.sendKeys('India');
 
         await ProfilePageObject.primaryInterestInTopcoder.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.primaryInterestInTopcoder.sendKeys('Coding');
 
         await ProfilePageObject.description.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.description.sendKeys('Lorem Ipsum lorem ipsum');
     }
 
@@ -159,6 +170,8 @@ export class ProfilePageHelper {
     static async addLanguage() {
         const until = protractor.ExpectedConditions;
 
+        await commonPageHelper.deleteAll();
+
         await this.operateSelect(ProfilePageObject.languageInput, 'English');
         await this.operateSelect(ProfilePageObject.spokenLevelInput, 'Basic');
         await this.operateSelect(ProfilePageObject.writtenLevelInput, 'Basic');
@@ -211,6 +224,8 @@ export class ProfilePageHelper {
 
     static async addEducation() {
         const until = protractor.ExpectedConditions;
+
+        await commonPageHelper.deleteAll();
 
         await ProfilePageObject.schoolCollegeName.clear();
         await ProfilePageObject.schoolCollegeName.sendKeys('Test college');
@@ -272,16 +287,22 @@ export class ProfilePageHelper {
     static async addWork() {
         const until = protractor.ExpectedConditions;
 
+        await commonPageHelper.deleteAll();
+
         await ProfilePageObject.company.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.company.sendKeys('Test company');
 
         await ProfilePageObject.position.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.position.sendKeys('Test Position');
         
         await ProfilePageObject.industry.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.industry.sendKeys('Test Industry');
 
         await ProfilePageObject.cityTown.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.cityTown.sendKeys('Test City');
 
         let elm = ProfilePageObject.dateFrom;
@@ -316,6 +337,7 @@ export class ProfilePageHelper {
         await browser.wait(until.visibilityOf(successEl));
         await browser.wait(until.invisibilityOf(successEl));
 
+        await browser.sleep(1000);
         const el = commonPageObjects.findElementByText('div', 'Test company1');
         const isDisplayed = await el.isDisplayed();
         expect(isDisplayed).toBe(true);
@@ -330,6 +352,7 @@ export class ProfilePageHelper {
         await browser.wait(until.visibilityOf(successEl));
         await browser.wait(until.invisibilityOf(successEl));
 
+        await browser.sleep(1000);
         const el = commonPageObjects.findElementByText('div', 'Test company1');
         const isDisplayed = await el.isPresent();
         expect(isDisplayed).toBe(false);
@@ -337,7 +360,11 @@ export class ProfilePageHelper {
 
     static async addSkill() {
         const until = protractor.ExpectedConditions;
+
+        await commonPageHelper.deleteAll();
+
         await this.operateSelect(ProfilePageObject.skillInput, 'API');
+        await browser.sleep(1000);
         await ProfilePageObject.addSkillButton.click();
         await browser.sleep(1000);
         await browser.wait(until.visibilityOf(ProfilePageObject.skillSuccessMsg));
@@ -356,6 +383,7 @@ export class ProfilePageHelper {
         await browser.wait(until.visibilityOf(ProfilePageObject.skillSuccessMsg));
         await browser.wait(until.invisibilityOf(ProfilePageObject.skillSuccessMsg));
 
+        await browser.sleep(1000);
         const el = commonPageObjects.findElementByText('div', 'API');
         const isDisplayed = await el.isPresent();
         expect(isDisplayed).toBe(false);
@@ -364,10 +392,14 @@ export class ProfilePageHelper {
     static async addHobby() {
         const until = protractor.ExpectedConditions;
 
+        await commonPageHelper.deleteAll();
+
         await ProfilePageObject.hobby.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.hobby.sendKeys('Test hobby');
 
         await ProfilePageObject.description.clear();
+        await browser.sleep(1000);
         await ProfilePageObject.description.sendKeys('Test Description');
         
         await ProfilePageObject.addHobbyButton.click();
@@ -404,6 +436,7 @@ export class ProfilePageHelper {
         await browser.wait(until.visibilityOf(successEl));
         await browser.wait(until.invisibilityOf(successEl));
 
+        await browser.sleep(1000);
         const el = commonPageObjects.findElementByText('div', 'Test hobby1');
         const isDisplayed = await el.isPresent();
         expect(isDisplayed).toBe(false);

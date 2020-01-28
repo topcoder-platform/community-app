@@ -108,7 +108,7 @@ export class HeaderHelper {
     }
 
     static async clickOnLogoutLink() {
-        await this.clickOnUserSpecificLink('Log Out');
+        await commonPageObjects.clickOnAnchorText('Log Out')
     }
 
     static async search(inputString: string) {

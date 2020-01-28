@@ -98,4 +98,20 @@ export class commonPageObjects {
         const els = await element.all(by.css('[aria-label="' + label + '"]'));
         return els;
     }
+
+    static async getDeleteIcons() {
+        return await element.all(by.css('[alt="delete-icon"]'));
+    }
+
+    static get deleteIcon() {
+        return element(by.css('[alt="delete-icon"]'));
+    }
+
+    static get deleteConfirmation() {
+        return commonPageObjects.findElementByText('button', 'Yes, Delete');
+    }
+
+    static get successMsg() {
+        return commonPageObjects.findElementByText('div', 'Your information has been updated');
+    }
 }

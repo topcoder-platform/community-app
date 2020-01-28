@@ -3,6 +3,7 @@ import { browser, element, by } from "protractor";
 import { ToolsPageObject } from "./tools.po";
 import { commonPageObjects } from "../../../common/common.po";
 import { ToolsPageConstants } from "./tools.constants";
+import { commonPageHelper } from "../../../common/common.helper";
 
 export class ToolsPageHelper {
     static async get() {
@@ -14,25 +15,32 @@ export class ToolsPageHelper {
     static async addDevice() {
         const until = protractor.ExpectedConditions;
 
-        await this.deleteAll();
+        await commonPageHelper.deleteAll();
 
+        await browser.sleep(1000);
         await this.operateSelect(ToolsPageObject.deviceTypeInput, 'Desktop');
+        await browser.sleep(1000);
 
         await ToolsPageObject.manufacturer.clear();
         await ToolsPageObject.manufacturer.sendKeys('Test manufacturer');
+        await browser.sleep(1000);
 
         await ToolsPageObject.model.clear();
         await ToolsPageObject.model.sendKeys('Test Model');
+        await browser.sleep(1000);
 
         await ToolsPageObject.os.clear();
         await ToolsPageObject.os.sendKeys('Linux');
+        await browser.sleep(1000);
 
         await ToolsPageObject.osVersion.clear();
         await ToolsPageObject.osVersion.sendKeys('Ubuntu');
+        await browser.sleep(1000);
 
         await ToolsPageObject.osLang.clear();
         await ToolsPageObject.osLang.sendKeys('English');
 
+        await browser.sleep(1000);
         await ToolsPageObject.getAddButton('device').click();
         
         const successEl = ToolsPageObject.successMsg;
@@ -78,22 +86,10 @@ export class ToolsPageHelper {
         expect(isDisplayed).toBe(false);
     }
 
-    static async deleteAll() {
-        const until = protractor.ExpectedConditions;
-        const deleteIcons = await ToolsPageObject.getDeleteIcons();
-        for (let i = 0; i < deleteIcons.length; i++) {
-            await ToolsPageObject.deleteIcon.click();
-            await ToolsPageObject.deleteConfirmation.click();
-            const successEl = ToolsPageObject.successMsg;
-            await browser.wait(until.visibilityOf(successEl));
-            await browser.wait(until.invisibilityOf(successEl));
-        }
-    }
-
     static async addSoftware() {
         const until = protractor.ExpectedConditions;
 
-        await this.deleteAll();
+        await commonPageHelper.deleteAll();
 
         await this.operateSelect(ToolsPageObject.softwareInput, 'Developer Tools');
 
@@ -149,7 +145,7 @@ export class ToolsPageHelper {
     static async addServiceProvider() {
         const until = protractor.ExpectedConditions;
 
-        await this.deleteAll();
+        await commonPageHelper.deleteAll();
 
         await this.operateSelect(ToolsPageObject.serviceProviderInput, 'Television');
 
@@ -205,7 +201,7 @@ export class ToolsPageHelper {
     static async addSubscription() {
         const until = protractor.ExpectedConditions;
 
-        await this.deleteAll();
+        await commonPageHelper.deleteAll();
 
         await ToolsPageObject.subscriptionName.clear();
         await ToolsPageObject.subscriptionName.sendKeys('Test subscription');

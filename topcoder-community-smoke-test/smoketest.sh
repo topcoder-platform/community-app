@@ -19,7 +19,15 @@ APPCONFIGFILENAME=$2
 cd topcoder-community-smoke-test
 aws s3 cp s3://tc-platform-${ENV}/securitymanager/${APPCONFIGFILENAME} .
 track_error $? "Environment setting"
+if [ $ENV == 'qa' ]; then
+  cp  $cAPPCONFIGFILENAME config-qa.json
+elif [ $ENV == 'dev' ]; then
+   cp  $APPCONFIGFILENAME config-dev.json
+else
+   cp  $APPCONFIGFILENAME config-prod.json
+fi
+
 mv ${APPCONFIGFILENAME} config.json
 docker build -t comm-smoke:latest .
-docker run --shm-size=2g comm-smoke:latest ./testrun.sh -d -p 4444:4444
+docker run --shm-size=2g comm-smoke:latest ./testrun.sh ${ENV} -d -p 4444:4444
 track_error $? "Test case Failed"
