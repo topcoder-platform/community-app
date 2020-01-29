@@ -151,9 +151,9 @@ Active Challenges
                       className={subTrackRating ? styles.rating : ''}
                       style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.toString().replace(/\D/g, ''), 10)) : undefined }}
                     >
-                      <Link to={`/members/${info.handle}`}>
+                      <a href={`/members/${info.handle}`} target="_blank" rel="noopener noreferrer">
                         {info.handle || '-'}
-                      </Link>
+                      </a>
                     </div>
                   </li>
                 )
