@@ -90,7 +90,6 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
-            Commented temporarily 
             ./topcoder-community-smoke-test/smoketest.sh qa qa_communityapp_qavar.json           
             
   # Build & Deploy against testing backend
