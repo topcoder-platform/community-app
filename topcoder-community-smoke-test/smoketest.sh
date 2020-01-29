@@ -26,7 +26,7 @@ elif [ $ENV == 'dev' ]; then
 else
    cp  $APPCONFIGFILENAME config-prod.json
 fi
-
+# for config file
 mv ${APPCONFIGFILENAME} config.json
 docker build -t comm-smoke:latest .
 docker run --shm-size=2g comm-smoke:latest ./testrun.sh ${ENV} -d -p 4444:4444
