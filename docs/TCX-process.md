@@ -10,9 +10,11 @@ This document describes the Topcoder issue/feature release process using TCX. Th
     
     b.  Mention PR branch, this branch should be always in sync with master or newly created as mentioned in 1
     
-    c.  Change label to `tcx_OpenForPickup`
+    c. Add this to instruction that all the PR should pass `npm test`
     
-    d. Tag the community @topcoder-platform/tcxcommunity @topcoder-platform/topcodercompetitors     
+    d.  Change label to `tcx_OpenForPickup`
+    
+    e. Tag the community @topcoder-platform/tcxcommunity @topcoder-platform/topcodercompetitors     
 3. A competitor assings a ticket to self (`tcx_Assigned`), writes the code for the fix
 4. Competitor, PR to the branch (submission) and they should change the label to `tcx_ReadyForReview`
 
