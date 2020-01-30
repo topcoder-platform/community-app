@@ -112,7 +112,7 @@ ProfileStatsContainer.propTypes = {
   statsDistribution: PT.shape(),
   stats: PT.shape(),
   info: PT.shape(),
-  achievements: PT.shape(),
+  achievements: PT.arrayOf(PT.shape()),
   isLoading: PT.bool.isRequired,
 };
 
