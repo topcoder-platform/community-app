@@ -6,6 +6,11 @@ exports[`Matches shallow shapshot 1`] = `
 >
   <div
     className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2Czwe"
+    style={
+      Object {
+        "justify-content": "space-between",
+      }
+    }
   >
     <div
       className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
@@ -93,6 +98,7 @@ exports[`Matches shallow shapshot 2`] = `
 >
   <div
     className="src-shared-components-Leaderboard-Podium-___styles__PodiumWrap___2Czwe"
+    style={Object {}}
   />
 </div>
 `;
