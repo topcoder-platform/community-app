@@ -6,10 +6,15 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import { BUCKETS, getBuckets, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+import {
+  BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
+} from 'utils/challenge-listing/buckets';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
 import './style.scss';
+
+const Filter = challengeUtils.filter;
 
 function Listing({
   activeBucket,
@@ -39,6 +44,17 @@ function Listing({
   expandTag,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
+  const isChallengesAvailable = (bucket) => {
+    const filter = Filter.getFilterFunction(buckets[bucket].filter);
+    const clonedChallenges = _.clone(challenges);
+    const filteredChallenges = [];
+    for (let i = 0; i < clonedChallenges.length; i += 1) {
+      if (filter(clonedChallenges[i])) {
+        filteredChallenges.push(clonedChallenges[i]);
+      }
+    }
+    return filteredChallenges.length > 0;
+  };
   const getBucket = (bucket, expanded = false) => {
     let keepPlaceholders = false;
     let loading;
@@ -96,6 +112,7 @@ function Listing({
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
             userHandle={_.get(auth, 'user.handle')}
+            activeBucket={activeBucket}
           />
         )
     );
@@ -110,6 +127,20 @@ function Listing({
     );
   }
 
+  let isFilled = isChallengesAvailable(BUCKETS.OPEN_FOR_REGISTRATION)
+  || isChallengesAvailable(BUCKETS.ONGOING);
+  if (auth.user) {
+    isFilled = isFilled || isChallengesAvailable(BUCKETS.MY);
+  }
+  if (!isFilled) {
+    return (
+      <div styleName="challengeCardContainer">
+        <div styleName="no-results">
+          {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+        </div>
+      </div>
+    );
+  }
   return (
     <div styleName="challengeCardContainer">
       {preListingMsg}

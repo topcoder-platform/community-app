@@ -179,8 +179,8 @@ class SubmissionsComponent extends React.Component {
         }
         case 'Time':
         case 'Submission Date': {
-          valueA = new Date(a.submissions[0].submissionTime);
-          valueB = new Date(b.submissions[0].submissionTime);
+          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
+          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
           break;
         }
         case 'Initial / Final Score': {
