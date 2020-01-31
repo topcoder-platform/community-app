@@ -56,7 +56,7 @@ export default function Podium(props) {
     ));
 
     return (
-      <div styleName="PodiumWrap">
+      <div styleName="PodiumWrap" style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
         {podiumSpots}
       </div>
     );
