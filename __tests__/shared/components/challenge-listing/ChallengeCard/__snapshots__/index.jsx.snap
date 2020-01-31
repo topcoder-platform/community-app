@@ -37,6 +37,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
       "users": Object {},
     }
   }
+  domRef={null}
   expandTag={null}
   expandedTags={Array []}
   newChallengeDetails={false}
@@ -74,6 +75,7 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       "users": Object {},
     }
   }
+  domRef={null}
   expandTag={null}
   expandedTags={Array []}
   newChallengeDetails={false}
@@ -109,6 +111,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       "users": Object {},
     }
   }
+  domRef={null}
   expandTag={null}
   expandedTags={Array []}
   newChallengeDetails={false}

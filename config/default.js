@@ -158,6 +158,12 @@ module.exports = {
    * object should be considered outdated, and updated as soon as possible. */
   USER_GROUP_MAXAGE: 24 * 60 * 60 * 1000,
 
+  /* Maximum time to wait before timeout on searching past challenges (seconds)
+   * when no result at all.
+   * Default: 30 seconds.
+   */
+  SEARCH_TIMEOUT: 30 * 1000,
+
   /* Filestack configuration for uploading Submissions
    * These are for the development back end */
   FILESTACK: {
