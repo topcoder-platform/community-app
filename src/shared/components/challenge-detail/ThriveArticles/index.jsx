@@ -44,7 +44,7 @@ export default function ThriveArticles({ articles }) {
           Recommended THRIVE Articles
         </div>
         <div styleName="right-url">
-          <a href="http://topcoder.com/thrive" rel="noopener noreferrer" target="_blank">Explore THRIVE</a>
+          <a href={config.URL.THRIVE} rel="noopener noreferrer" target="_blank">Explore THRIVE</a>
         </div>
       </div>
       <div styleName="articles">

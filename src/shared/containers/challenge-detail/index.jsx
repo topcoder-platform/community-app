@@ -203,10 +203,12 @@ class ChallengeDetailPageContainer extends React.Component {
     }
     if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
       && thriveArticles.length === 0) {
-      if (!(nextProps.challenge.technologies.length === 1 && nextProps.challenge.technologies[0] === 'Other')) {
+      const { technologies } = nextProps.challenge;
+      if (technologies.length > 0 && !(technologies.length === 1 && technologies[0] === 'Other')) {
+        // for technologies = ['Other', ...], if 'Other' is first, use second value
         this.apiService.getEDUContent({
           limit: 3,
-          phrase: nextProps.challenge.technologies[0],
+          phrase: technologies[0] === 'Other' ? technologies[1] : technologies[0],
           types: ['Article'],
         }).then((content) => {
         // format image file data
