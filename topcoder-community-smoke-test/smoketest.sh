@@ -16,8 +16,9 @@ track_error()
 
 ENV=$1
 APPCONFIGFILENAME=$2
+LOGICAL_PATH=$3
 cd topcoder-community-smoke-test
-aws s3 cp s3://tc-platform-${ENV}/securitymanager/${APPCONFIGFILENAME} .
+aws s3 cp s3://tc-platform-${LOGICAL_PATH}/securitymanager/${APPCONFIGFILENAME} .
 track_error $? "Environment setting"
 if [ $ENV == 'qa' ]; then
   cp  $cAPPCONFIGFILENAME config-qa.json
