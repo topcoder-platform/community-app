@@ -4,7 +4,7 @@ npm run test:$1
 #get user name and passwrod from config file for test quality app
 email=$(cat config.json | jq '.testQualityEmail') 
 password=$(cat config.json | jq '.testQualityPassword') 
-planName=$('community app smoke test-'+$1)
+planName="community app test plan-"$1
 sudo chmod 755 testquality-linux
 ./testquality-linux login ${email} ${password}  --save 
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderAccountPageTests.xml --project_name='Community App' --plan_name=${planName}
@@ -19,8 +19,7 @@ sudo chmod 755 testquality-linux
 
 
 if [ $? -eq 0 ]; then
-  echo "Test case successfully completed"
-  echo ${planName}
+  echo "Test case successfully completed for $planName "
 else
   echo "Test case Failed  - $result"
   exit 1

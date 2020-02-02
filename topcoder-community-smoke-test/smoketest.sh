@@ -23,7 +23,7 @@ aws s3 cp s3://tc-platform-${LOGICAL_PATH}/securitymanager/${APPCONFIGFILENAME} 
 track_error $? "Environment setting"
 cp ${APPCONFIGFILENAME} config.json
 if [ $ENV == 'qa' ]; then
-  mv  $cAPPCONFIGFILENAME config-qa.json
+  mv  $APPCONFIGFILENAME config-qa.json
 elif [ $ENV == 'dev' ]; then
    mv  $APPCONFIGFILENAME config-dev.json
 else
