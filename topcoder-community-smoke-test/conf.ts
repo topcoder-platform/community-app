@@ -21,8 +21,9 @@ exports.config = {
         'browserName': 'chrome',
         // 'shardTestFiles': true,
         // 'maxInstances': 2,
+        'acceptInsecureCerts': true,
         chromeOptions: {
-            args: [ '--headless', '--disable-gpu', '--window-size=1325x744']
+            args: ['--headless', '--disable-gpu', '--window-size=1325x744']
         }
     },
 
