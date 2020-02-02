@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /**
  * Challenge header component.
  * This component renders all other child components part of the header.
@@ -47,6 +48,7 @@ export default function ChallengeHeader(props) {
     selectedView,
     showDeadlineDetail,
     hasFirstPlacement,
+    hasThriveArticles,
     isMenuOpened,
   } = props;
 
@@ -246,15 +248,29 @@ export default function ChallengeHeader(props) {
             <h1 styleName="challenge-header">
               {name}
             </h1>
-            <ChallengeTags
-              subTrack={subTrack}
-              track={trackLower}
-              challengesUrl={challengesUrl}
-              challengeSubtracksMap={challengeSubtracksMap}
-              events={eventNames}
-              technPlatforms={miscTags}
-              setChallengeListingFilter={setChallengeListingFilter}
-            />
+            <div styleName="tag-container">
+              <ChallengeTags
+                subTrack={subTrack}
+                track={trackLower}
+                challengesUrl={challengesUrl}
+                challengeSubtracksMap={challengeSubtracksMap}
+                events={eventNames}
+                technPlatforms={miscTags}
+                setChallengeListingFilter={setChallengeListingFilter}
+              />
+              {hasThriveArticles && (
+              <div
+                styleName="recommend-tag"
+                role="button"
+                tabIndex={0}
+                onClick={
+                  () => {
+                    window.document.body.scrollIntoView(false);
+                  }}
+              >Recommended THRIVE Articles
+              </div>
+              )}
+            </div>
           </div>
         </div>
         <div styleName="prizes-ops-container">
@@ -450,6 +466,7 @@ ChallengeHeader.propTypes = {
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
+  hasThriveArticles: PT.bool.isRequired,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,

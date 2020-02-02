@@ -124,6 +124,21 @@
       }
     }
 
+    .tag-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .recommend-tag {
+      @include roboto-regular;
+
+      width: 199px;
+      margin-left: 12px;
+      font-size: 14px;
+      color: $tc-dark-blue-110;
+    }
+
     @include design-accent-bg;
     @include develop-accent-bg;
     @include datasci-accent-bg;

@@ -18,6 +18,7 @@ import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
+import RecommendedThriveArticles from 'components/challenge-detail/ThriveArticles';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
@@ -31,6 +32,8 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
+import { getService } from 'services/contentful';
+
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -112,7 +115,10 @@ class ChallengeDetailPageContainer extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    // create a service to work with Contentful
+    this.apiService = getService({ spaceName: 'EDU' });
     this.state = {
+      thriveArticles: [],
       showDeadlineDetail: false,
       registrantsSort: {
         field: '',
@@ -186,11 +192,34 @@ class ChallengeDetailPageContainer extends React.Component {
       challengeId,
       reloadChallengeDetails,
     } = this.props;
+    const {
+      thriveArticles,
+    } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
+    }
+    if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
+      && thriveArticles.length === 0) {
+      if (!(nextProps.challenge.technologies.length === 1 && nextProps.challenge.technologies[0] === 'Other')) {
+        this.apiService.getEDUContent({
+          limit: 3,
+          phrase: nextProps.challenge.technologies[0],
+          types: ['Article'],
+        }).then((content) => {
+        // format image file data
+          _.forEach(content.Article.items, (item) => {
+            const asset = _.find(content.Article.includes.Asset,
+              a => a.sys.id === item.fields.featuredImage.sys.id);
+            _.assign(item.fields.featuredImage, { file: asset.fields.file });
+          });
+          this.setState({
+            thriveArticles: content.Article.items,
+          });
+        });
+      }
     }
   }
 
@@ -259,6 +288,7 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.props;
 
     const {
+      thriveArticles,
       showDeadlineDetail,
       registrantsSort,
       submissionsSort,
@@ -344,6 +374,7 @@ class ChallengeDetailPageContainer extends React.Component {
               registerForChallenge={this.registerForChallenge}
               registering={registering}
               selectedView={selectedTab}
+              hasThriveArticles={selectedTab === DETAIL_TABS.DETAILS && thriveArticles.length > 0}
               setChallengeListingFilter={setChallengeListingFilter}
               unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
               }
@@ -452,7 +483,13 @@ class ChallengeDetailPageContainer extends React.Component {
             registerForChallenge(auth, challengeId);
           }}
         />
+        {
+        !isEmpty && selectedTab === DETAIL_TABS.DETAILS && thriveArticles.length ? (
+          <RecommendedThriveArticles articles={thriveArticles} />
+        ) : null
+      }
       </div>
+
     );
   }
 }

@@ -101,7 +101,7 @@ export default function ChallengeDetailsView(props) {
 
   /* TODO: This render markup is monstrous - should be refactored. */
   return (
-    <div>
+    <div styleName="container">
       {
         isSaving ? (
           <SaveConfirmationModal
