@@ -17,6 +17,7 @@ track_error()
 ENV=$1
 APPCONFIGFILENAME=$2
 LOGICAL_PATH=$3
+
 cd topcoder-community-smoke-test
 aws s3 cp s3://tc-platform-${LOGICAL_PATH}/securitymanager/${APPCONFIGFILENAME} .
 track_error $? "Environment setting"
@@ -28,6 +29,7 @@ elif [ $ENV == 'dev' ]; then
 else
    mv  $APPCONFIGFILENAME config-prod.json
 fi
+
 docker build -t comm-smoke:latest .
 docker run --shm-size=2g comm-smoke:latest ./testrun.sh ${ENV} -d -p 4444:4444
 track_error $? "Test case Failed"
