@@ -115,6 +115,8 @@ module.exports = {
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     HELP: 'https://help.topcoder-dev.com',
 
+    THRIVE: 'https://www.topcoder.com/thrive',
+
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
       COGNITIVE: 'https://cognitive.topcoder-dev.com',
