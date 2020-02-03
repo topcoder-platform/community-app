@@ -7,7 +7,7 @@ password=$(cat config.json | jq '.testQualityPassword')
 planName="community app test plan-"$1
 sudo chmod 755 testquality-linux
 ./testquality-linux login ${email} ${password}  --save 
-./testquality-linux upload_test_run test-results/junitresults-TopcoderAccountPageTests.xml --project_name='Community App' --plan_name=${planName}
+./testquality-linux upload_test_run test-results/junitresults-TopcoderAccountPageTests.xml --project_name='Community App' --plan_name="'$planName'"
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeDetailPageTests.xml --project_name='Community App' --plan_name=${planName}
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeListingPageTests.xml --project_name='Community App' --plan_name=${planName}
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderDashboardTests.xml --project_name='Community App' --plan_name=${planName}
