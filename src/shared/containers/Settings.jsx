@@ -160,6 +160,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
+    } else if (settingsTab === TABS.TOOLS) {
+      dispatch(lookupActions.getTypesInit());
+      dispatch(lookupActions.getTypesDone());
     }
   };
 
@@ -172,6 +175,30 @@ function mapDispatchToProps(dispatch) {
     addWebLink: (handle, tokenV3, webLink) => {
       dispatch(profileActions.addWebLinkInit());
       dispatch(profileActions.addWebLinkDone(handle, tokenV3, webLink));
+    },
+    getDeviceTypes: () => {
+      dispatch(lookupActions.getTypesInit());
+      dispatch(lookupActions.getTypesDone());
+    },
+    getManufacturers: (type) => {
+      dispatch(lookupActions.getManufacturersInit());
+      dispatch(lookupActions.getManufacturersDone(type));
+    },
+    getModels: (page, type, manufacturer) => {
+      dispatch(lookupActions.getModelsInit(page));
+      dispatch(lookupActions.getModelsDone(page, type, manufacturer));
+    },
+    getMoreModels: (page, type, manufacturer) => {
+      dispatch(lookupActions.getModelsInit(page));
+      dispatch(lookupActions.getModelsDone(page, type, manufacturer));
+    },
+    getOses: (page, type, manufacturer, model) => {
+      dispatch(lookupActions.getOsesInit(page));
+      dispatch(lookupActions.getOsesDone(page, type, manufacturer, model));
+    },
+    getMoreOses: (page, type, manufacturer, model) => {
+      dispatch(lookupActions.getOsesInit(page));
+      dispatch(lookupActions.getOsesDone(page, type, manufacturer, model));
     },
     deleteWebLink: (handle, tokenV3, webLink) => {
       dispatch(profileActions.deleteWebLinkInit(webLink));

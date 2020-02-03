@@ -22,14 +22,9 @@ export default function Item(props) {
     onEditItem,
   } = props;
 
-  const hasSecondLine = () => {
-    if (_.isEmpty(device.operatingSystem) && _.isEmpty(device.osVersion)
-      && _.isEmpty(device.osLanguage)) {
-      return false;
-    }
-
-    return true;
-  };
+  const hasModel = !_.isEmpty(device.model);
+  const secondLine = device.deviceType + (device.manufacturer ? ` | ${device.manufacturer}` : '')
+                                      + (device.operatingSystem ? ` | ${device.operatingSystem}` : '');
 
   return (
     <div styleName="container">
@@ -37,21 +32,15 @@ export default function Item(props) {
         <div styleName="device-icon">
           { assets && assets.keys().includes(`./${device.deviceType.toLowerCase()}.svg`) ? <ReactSVG path={assets(`./${device.deviceType.toLowerCase()}.svg`)} /> : '' }
         </div>
-        <div styleName={`device-parameters${hasSecondLine() ? '' : ' single-line'}`}>
-          <div styleName={`parameter-first-line${hasSecondLine() ? '' : ' single-line'}`}>
-            {
-              `${_.isEmpty(device.manufacturer) ? '' : `${device.manufacturer} | `}${_.isEmpty(device.model) ? '' : `${device.model} | `}${device.deviceType}`
-            }
+        <div styleName="device-parameters">
+          {hasModel ? (
+            <div styleName="parameter-model">
+              {device.model}
+            </div>
+          ) : null}
+          <div styleName="parameter-second-line">
+            {secondLine}
           </div>
-          {
-            hasSecondLine() && (
-              <div styleName="parameter-second-line">
-                {
-                  `${_.isEmpty(device.operatingSystem) ? '' : `${device.operatingSystem} `}${_.isEmpty(device.osVersion) ? '' : `${device.osVersion} `}${_.isEmpty(device.osLanguage) ? '' : `${device.osLanguage}`}`
-                }
-              </div>
-            )
-          }
         </div>
       </div>
       <div styleName="operation-container">
