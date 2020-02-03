@@ -1,0 +1,2 @@
+- name: Commit Linter
+  uses: wagoid/commitlint-github-action@v1.4.0
