@@ -15,7 +15,8 @@
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "start": "cross-env BABEL_ENV=production NODE_ENV=production node ./bin/www",
     "test": "npm run lint && npm run jest",
-    "commitlint": "commitlint -E HUSKY_GIT_PARAMS"
+    "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
+    "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s"
   },
   "repository": {
     "type": "git",
