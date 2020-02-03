@@ -190,3 +190,12 @@ given credentials relate to.
 * **XXX**_TC_M2M_CLIENT_SECRET
 * **XXX**_TC_M2M_AUDIENCE
 * **XXX**_TC_M2M_GRANT_TYPE
+
+
+### Changelog
+
+[https://github.com/topcoder-platform/community-app/blob/master/CHANGELOG.md](Check the latest changes)
+
+### Submitting Changes 
+
+Please check the [https://github.com/topcoder-platform/community-app/blob/master/CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on rules to be followed.
