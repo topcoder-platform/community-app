@@ -8,14 +8,14 @@ planName="community app test plan-"$1
 sudo chmod 755 testquality-linux
 ./testquality-linux login ${email} ${password}  --save 
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderAccountPageTests.xml --project_name='Community App' --plan_name="'$planName'"
-./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeDetailPageTests.xml --project_name='Community App' --plan_name=${planName}
-./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeListingPageTests.xml --project_name='Community App' --plan_name=${planName}
-./testquality-linux upload_test_run test-results/junitresults-TopcoderDashboardTests.xml --project_name='Community App' --plan_name=${planName}
-./testquality-linux upload_test_run test-results/junitresults-TopcoderFooterTests.xml --project_name='Community App' --plan_name=${planName}
-./testquality-linux upload_test_run test-results/junitresults-TopcoderHeaderTests.xml --project_name='Community App' --plan_name=${planName}
-./testquality-linux upload_test_run test-results/junitresults-TopcoderPreferencesPageTests.xml --project_name='Community App' --plan_name=${planName}
-./testquality-linux upload_test_run test-results/junitresults-TopcoderProfilePageTests.xml --project_name='Community App' --plan_name=${planName}
-./testquality-linux upload_test_run test-results/junitresults-TopcoderToolsPageTests.xml --project_name='Community App' --plan_name=${planName}
+./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeDetailPageTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux upload_test_run test-results/junitresults-TopcoderChallengeListingPageTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux upload_test_run test-results/junitresults-TopcoderDashboardTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux upload_test_run test-results/junitresults-TopcoderFooterTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux upload_test_run test-results/junitresults-TopcoderHeaderTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux upload_test_run test-results/junitresults-TopcoderPreferencesPageTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux upload_test_run test-results/junitresults-TopcoderProfilePageTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux upload_test_run test-results/junitresults-TopcoderToolsPageTests.xml --project_name='Community App' --plan_name="'$planName'"
 
 
 if [ $? -eq 0 ]; then
