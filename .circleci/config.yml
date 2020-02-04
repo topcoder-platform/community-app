@@ -189,7 +189,7 @@ workflows:
             branches:
               only:
                 - develop
-                - recovered-smp-from
+                - feature-member-profiles
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
