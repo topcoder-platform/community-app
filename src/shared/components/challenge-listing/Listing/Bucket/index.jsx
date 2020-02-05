@@ -9,6 +9,7 @@ import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
+import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -42,6 +43,7 @@ export default function Bucket({
   userHandle,
   expandedTags,
   expandTag,
+  activeBucket,
 }) {
   const filter = Filter.getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
@@ -67,7 +69,16 @@ export default function Bucket({
     }
   }
 
-  if (!filteredChallenges.length && !loadMore) return null;
+  if (!filteredChallenges.length && !loadMore) {
+    if (activeBucket === BUCKETS.ALL) {
+      return null;
+    }
+    return (
+      <div styleName="no-results">
+        {`${NO_LIVE_CHALLENGES_CONFIG[bucketId]}`}
+      </div>
+    );
+  }
 
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
@@ -158,6 +169,7 @@ Bucket.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
+  activeBucket: '',
 };
 
 Bucket.propTypes = {
@@ -182,4 +194,5 @@ Bucket.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  activeBucket: PT.string,
 };
