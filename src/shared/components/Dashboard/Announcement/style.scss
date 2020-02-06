@@ -74,7 +74,7 @@
 .text {
   @include tc-typography;
 
-  * {
+  *:not(button):not(a):not(div.disabled) {
     color: inherit !important;
   }
 }
