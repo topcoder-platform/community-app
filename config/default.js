@@ -113,7 +113,7 @@ module.exports = {
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
-    HELP: 'https://help.topcoder-dev.com',
+    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
 
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
