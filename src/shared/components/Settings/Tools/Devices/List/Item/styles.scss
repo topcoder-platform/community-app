@@ -12,6 +12,10 @@
   border: 1px solid $tc-gray-10;
   border-bottom: none;
   background-color: $tc-white;
+
+  &.isEditing {
+    border: 1px solid $tc-gray-75;
+  }
 }
 
 .device-info {

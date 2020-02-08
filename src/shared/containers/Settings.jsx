@@ -180,6 +180,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(lookupActions.getTypesInit());
       dispatch(lookupActions.getTypesDone());
     },
+    clearDeviceState: () => {
+      // reset manufacturers, models, oses
+      dispatch(lookupActions.getManufacturersInit());
+    },
     getManufacturers: (type) => {
       dispatch(lookupActions.getManufacturersInit());
       dispatch(lookupActions.getManufacturersDone(type));

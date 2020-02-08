@@ -5,6 +5,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import ReactSVG from 'react-svg';
+import cn from 'classnames';
 import { isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
@@ -18,6 +19,7 @@ export default function Item(props) {
   const {
     device,
     index,
+    isEditing,
     onDeleteItem,
     onEditItem,
   } = props;
@@ -27,7 +29,7 @@ export default function Item(props) {
                                       + (device.operatingSystem ? ` | ${device.operatingSystem}` : '');
 
   return (
-    <div styleName="container">
+    <div styleName={cn('container', { isEditing })}>
       <div styleName="device-info">
         <div styleName="device-icon">
           { assets && assets.keys().includes(`./${device.deviceType.toLowerCase()}.svg`) ? <ReactSVG path={assets(`./${device.deviceType.toLowerCase()}.svg`)} /> : '' }
@@ -76,6 +78,7 @@ export default function Item(props) {
 Item.propTypes = {
   device: PT.shape().isRequired,
   index: PT.number.isRequired,
+  isEditing: PT.bool.isRequired,
   onDeleteItem: PT.func.isRequired,
   onEditItem: PT.func.isRequired,
 };

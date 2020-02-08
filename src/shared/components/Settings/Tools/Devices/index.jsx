@@ -179,6 +179,7 @@ export default class Devices extends ConsentComponent {
       tokenV3,
       updateUserTrait,
       addUserTrait,
+      clearDeviceState,
     } = this.props;
     const {
       deviceTrait,
@@ -217,6 +218,7 @@ export default class Devices extends ConsentComponent {
       indexNo: null,
       isSubmit: false,
     });
+    clearDeviceState();
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -379,6 +381,7 @@ export default class Devices extends ConsentComponent {
   }
 
   onCancelEditStatus() {
+    const { clearDeviceState } = this.props;
     const { isEdit } = this.state;
     if (isEdit) {
       this.setState({
@@ -393,6 +396,7 @@ export default class Devices extends ConsentComponent {
           operatingSystem: '',
         },
       });
+      clearDeviceState();
     }
   }
 
@@ -443,6 +447,7 @@ export default class Devices extends ConsentComponent {
             <DeviceList
               deviceList={{ items: deviceItems }}
               onDeleteItem={this.onHandleDeleteDevice}
+              indexNo={indexNo}
               disabled={!canModifyTrait}
               onEditItem={this.onEditDevice}
             />
@@ -713,6 +718,7 @@ export default class Devices extends ConsentComponent {
           && (
             <DeviceList
               deviceList={{ items: deviceItems }}
+              indexNo={indexNo}
               onDeleteItem={this.onHandleDeleteDevice}
               disabled={!canModifyTrait}
               onEditItem={this.onEditDevice}
