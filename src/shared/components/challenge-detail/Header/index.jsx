@@ -49,6 +49,7 @@ export default function ChallengeHeader(props) {
     showDeadlineDetail,
     hasFirstPlacement,
     hasThriveArticles,
+    hasRecommendedChallenges,
     isMenuOpened,
   } = props;
 
@@ -258,17 +259,39 @@ export default function ChallengeHeader(props) {
                 technPlatforms={miscTags}
                 setChallengeListingFilter={setChallengeListingFilter}
               />
-              {hasThriveArticles && (
-              <div
-                styleName="recommend-tag"
-                role="button"
-                tabIndex={0}
-                onClick={
-                  () => {
-                    window.document.body.scrollIntoView(false);
-                  }}
-              >Recommended THRIVE Articles
-              </div>
+              {(hasRecommendedChallenges || hasThriveArticles) && (
+                <div styleName="recommend-container">
+                  {hasRecommendedChallenges && (
+                    <div
+                      styleName="recommend-tag link"
+                      role="button"
+                      tabIndex={0}
+                      onClick={
+                        () => {
+                          document.getElementById('recommendedActiveChallenges').scrollIntoView();
+                        }}
+                    >
+                      Recommended Challenges
+                    </div>
+                  )}
+
+                  {hasRecommendedChallenges && hasThriveArticles && (
+                    <div styleName="recommend-tag separator" />
+                  )}
+
+                  {hasThriveArticles && (
+                    <div
+                      styleName="recommend-tag link"
+                      role="button"
+                      tabIndex={0}
+                      onClick={
+                        () => {
+                          document.getElementById('recommendedThriveArticles').scrollIntoView();
+                        }}
+                    >Recommended THRIVE Articles
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -437,6 +460,8 @@ Show Deadlines
 ChallengeHeader.defaultProps = {
   checkpoints: {},
   isMenuOpened: false,
+  hasThriveArticles: false,
+  hasRecommendedChallenges: false,
 };
 
 ChallengeHeader.propTypes = {
@@ -466,7 +491,8 @@ ChallengeHeader.propTypes = {
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
-  hasThriveArticles: PT.bool.isRequired,
+  hasThriveArticles: PT.bool,
+  hasRecommendedChallenges: PT.bool,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,

@@ -38,7 +38,7 @@ export default function ThriveArticles({ articles }) {
     </div>
   ));
   return (
-    <div styleName="container">
+    <div id="recommendedThriveArticles" styleName="container">
       <div styleName="header-container">
         <div styleName="header">
           Recommended THRIVE Articles

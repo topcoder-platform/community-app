@@ -6,6 +6,9 @@ import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 import { config, Link } from 'topcoder-react-utils';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import 'moment-duration-format';
+import {
+  getTimeLeft,
+} from 'utils/challenge-detail/helper';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
@@ -20,36 +23,6 @@ import NumSubmissions from '../NumSubmissions';
 const MAX_VISIBLE_WINNERS = 3;
 const STALLED_MSG = 'Stalled';
 const DRAFT_MSG = 'In Draft';
-const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
-const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
-
-const HOUR_MS = 60 * 60 * 1000;
-const DAY_MS = 24 * HOUR_MS;
-
-/**
- * Generates human-readable string containing time till the phase end.
- * @param {Object} phase
- * @return {String}
- */
-const getTimeLeft = (phase) => {
-  if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG };
-  if (phase.phaseType === 'Final Fix') {
-    return { late: false, text: FF_TIME_LEFT_MSG };
-  }
-
-  let time = moment(phase.scheduledEndTime).diff();
-  const late = time < 0;
-  if (late) time = -time;
-
-  let format;
-  if (time > DAY_MS) format = 'D[d] H[h]';
-  else if (time > HOUR_MS) format = 'H[h] m[min]';
-  else format = 'm[min] s[s]';
-
-  time = moment.duration(time).format(format);
-  time = late ? `Late by ${time}` : `${time} to go`;
-  return { late, text: time };
-};
 
 /**
  * Calculates progress of the specified phase (as a percentage).
@@ -312,11 +285,11 @@ to register
     );
   }
 
-  const { challenge } = props;
+  const { challenge, className } = props;
   const completed = challenge.status === 'COMPLETED';
   const status = completed ? 'completed' : '';
   return (
-    <div styleName={`challenge-status ${status}`}>
+    <div className={className} styleName={`challenge-status ${status}`}>
       {completed ? completedChallenge() : activeChallenge()}
     </div>
   );
@@ -327,6 +300,7 @@ ChallengeStatus.defaultProps = {
   detailLink: '',
   openChallengesInNewTabs: false,
   userHandle: '',
+  className: '',
 };
 
 ChallengeStatus.propTypes = {
@@ -337,4 +311,5 @@ ChallengeStatus.propTypes = {
   openChallengesInNewTabs: PT.bool,
   selectChallengeDetailsTab: PT.func.isRequired,
   userHandle: PT.string,
+  className: PT.string,
 };
