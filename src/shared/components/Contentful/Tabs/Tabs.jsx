@@ -23,6 +23,7 @@ import tabsGroup from './themes/tabsGroup.scss';
 import tabsGroupChildren from './themes/tabsGroupChildren.scss';
 import underlineTheme from './themes/underline.scss';
 import verticalTheme from './themes/vertical.scss';
+import pillsTheme from './themes/pills.scss';
 
 export const TAB_THEMES = {
   Default: defaultTheme,
@@ -31,6 +32,7 @@ export const TAB_THEMES = {
   'Tabs Group Children': tabsGroupChildren,
   Underline: underlineTheme,
   Vertical: verticalTheme,
+  Pills: pillsTheme,
 };
 
 export default class TabsItemsLoader extends Component {
