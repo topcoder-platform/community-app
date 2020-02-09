@@ -190,6 +190,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 
   .button-save,
   .button-cancel {
@@ -265,4 +266,22 @@
 
 .devices-container .form-container .row .field :global .Select-placeholder {
   color: $tc-gray-50;
+}
+
+.help-text-container {
+  margin-top: 45px;
+  margin-bottom: 40px;
+  font-size: 15px;
+  color: $tc-black;
+  text-align: center;
+}
+
+.help-text-label {
+  @include roboto-bold;
+}
+
+.help-text-email {
+  @include roboto-regular;
+
+  margin-top: 10px;
 }

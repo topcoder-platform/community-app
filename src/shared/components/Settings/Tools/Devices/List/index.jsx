@@ -13,6 +13,7 @@ export default function DeviceList(props) {
     onDeleteItem,
     disabled,
     onEditItem,
+    indexNo,
   } = props;
 
   return (
@@ -24,6 +25,7 @@ export default function DeviceList(props) {
               ? (
                 <li key={`${device.deviceType}${index + 1}`}>
                   <Item
+                    isEditing={indexNo === index}
                     device={device}
                     index={index}
                     onDeleteItem={onDeleteItem}
@@ -43,8 +45,10 @@ DeviceList.propTypes = {
   onDeleteItem: PT.func.isRequired,
   onEditItem: PT.func.isRequired,
   disabled: PT.bool,
+  indexNo: PT.number,
 };
 
 DeviceList.defaultProps = {
   disabled: false,
+  indexNo: null,
 };

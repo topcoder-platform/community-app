@@ -1,0 +1,21 @@
+@import '~styles/mixins';
+
+.item {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 15px;
+  color: #262628;
+  font-size: 14px;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    background-color: $tc-dark-blue-10;
+  }
+}
+
+.is-select {
+  @include roboto-bold;
+}
