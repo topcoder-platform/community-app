@@ -17,7 +17,7 @@ import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch } from 'react-router-dom';
-import { config } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Article from 'components/Contentful/Article';
@@ -120,6 +120,11 @@ export default function Topcoder() {
                       render={(data) => {
                         if (_.isEmpty(data.entries.items)) return <Error404 />;
                         const id = data.entries.matches[0].items[0];
+                        const { externalArticle, contentUrl } = data.entries.items[id].fields;
+                        if (externalArticle && contentUrl && isomorphy.isClientSide()) {
+                          window.location.href = contentUrl;
+                          return null;
+                        }
                         return (
                           <Article
                             id={id}
