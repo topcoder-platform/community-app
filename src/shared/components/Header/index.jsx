@@ -16,7 +16,10 @@ try {
   // window is undefined
 }
 
-const Header = ({ profile }) => {
+const Header = ({
+  profile, notifications, loadNotifications, markNotificationAsRead, markAllNotificationAsRead,
+  markAllNotificationAsSeen,
+}) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
   const [openMore, setOpenMore] = useState(true);
@@ -47,6 +50,7 @@ const Header = ({ profile }) => {
 
   useEffect(() => {
     setPath(window.location.pathname);
+    loadNotifications();
   }, []);
   if (TopNavRef) {
     return (
@@ -56,13 +60,16 @@ const Header = ({ profile }) => {
           rightMenu={(
             <LoginNavRef
               loggedIn={!_.isEmpty(profile)}
-              notificationButtonState="none"
-              notifications={[]}
+              notificationButtonState="new"
+              notifications={notifications || []}
+              markNotificationAsRead={markNotificationAsRead}
+              markAllNotificationAsRead={markAllNotificationAsRead}
+              markAllNotificationAsSeen={markAllNotificationAsSeen}
               accountMenu={config.ACCOUNT_MENU}
               switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
               onSwitch={handleSwitchMenu}
               onMenuOpen={handleCloseOpenMore}
-              showNotification={false}
+              showNotification
               profile={normalizedProfile}
               authURLs={config.HEADER_AUTH_URLS}
             />
@@ -93,6 +100,11 @@ Header.propTypes = {
     photoURL: PT.string,
     handle: PT.string,
   }),
+  notifications: PT.arrayOf(PT.object).isRequired,
+  loadNotifications: PT.func.isRequired,
+  markNotificationAsRead: PT.func.isRequired,
+  markAllNotificationAsRead: PT.func.isRequired,
+  markAllNotificationAsSeen: PT.func.isRequired,
 };
 
 export default Header;
