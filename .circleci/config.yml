@@ -182,6 +182,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-devices-lookup
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
