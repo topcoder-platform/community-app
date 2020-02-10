@@ -157,7 +157,7 @@ exports[`Default render 1`] = `
           }
         }
         loggedIn={true}
-        notificationButtonState="none"
+        notificationButtonState="new"
         notifications={Array []}
         onMenuOpen={[Function]}
         onSwitch={[Function]}
@@ -169,7 +169,7 @@ exports[`Default render 1`] = `
             "photoURL": "https://d1aahxkjiobka8.cloudfront.net/avatar/https%3A%2F%2Ftopcoder-dev-media.s3.amazonaws.com%2Fmember%2Fprofile%2Fhuanner-1552562543506.png?size=32",
           }
         }
-        showNotification={false}
+        showNotification={true}
         switchText={
           Object {
             "href": "https://connect.topcoder-dev.com",
