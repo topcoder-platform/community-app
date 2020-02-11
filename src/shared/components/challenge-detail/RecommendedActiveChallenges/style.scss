@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: -20px;
-  padding: 0 13px 0 33px;
+  padding: 0 13px;
   flex-wrap: wrap;
 }
 
@@ -39,7 +39,6 @@
 .challenges {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .challenge-card {

@@ -81,7 +81,7 @@ export default function ChallengesCard({
               onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
               to={challengeDetailLink}
               styleName="challenge-title"
-              openNewTab={false}
+              openNewTab
             ><p>{challenge.name}</p>
             </Link>
             <div styleName="endtime-prize-container">

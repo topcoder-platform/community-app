@@ -414,11 +414,8 @@ class ChallengeDetailPageContainer extends React.Component {
               registerForChallenge={this.registerForChallenge}
               registering={registering}
               selectedView={selectedTab}
-              hasRecommendedChallenges={
-                selectedTab === DETAIL_TABS.DETAILS && displayRecommendedChallenges.length > 0
-              }
-              hasThriveArticles={
-                selectedTab === DETAIL_TABS.DETAILS && (thriveArticles.length > 0)}
+              hasRecommendedChallenges={displayRecommendedChallenges.length > 0}
+              hasThriveArticles={thriveArticles.length > 0}
               setChallengeListingFilter={setChallengeListingFilter}
               unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
               }
@@ -528,8 +525,7 @@ class ChallengeDetailPageContainer extends React.Component {
           }}
         />
         {
-        !isEmpty && selectedTab === DETAIL_TABS.DETAILS
-        && displayRecommendedChallenges.length ? (
+        !isEmpty && displayRecommendedChallenges.length ? (
           <RecommendedActiveChallenges
             challenges={displayRecommendedChallenges}
             prizeMode={prizeMode}
@@ -539,10 +535,10 @@ class ChallengeDetailPageContainer extends React.Component {
             expandedTags={expandedTags}
             expandTag={expandTag}
           />
-          ) : null
+        ) : null
         }
         {
-        !isEmpty && selectedTab === DETAIL_TABS.DETAILS && thriveArticles.length ? (
+        !isEmpty && thriveArticles.length ? (
           <RecommendedThriveArticles articles={thriveArticles} />
         ) : null
         }
