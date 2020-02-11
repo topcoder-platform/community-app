@@ -228,4 +228,5 @@ PodiumSpot.defaultProps = {
   onUsernameClick: null,
   isTopGear: false,
   isAlgo: false,
+  themeName: 'Default',
 };
