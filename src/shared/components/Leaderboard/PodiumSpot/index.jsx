@@ -220,7 +220,7 @@ PodiumSpot.propTypes = {
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
   isAlgo: PT.bool,
-  themeName: PT.string.isRequired,
+  themeName: PT.string,
 };
 
 PodiumSpot.defaultProps = {
