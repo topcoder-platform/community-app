@@ -122,9 +122,9 @@ const BUCKET_DATA = {
 export const NO_LIVE_CHALLENGES_CONFIG = {
   [BUCKETS.ALL]: 'No Live Challenges found in All Challenges',
   [BUCKETS.MY]: 'No challenges found in My Challenges',
-  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found in Open for Registration',
+  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found in Open for Registration Challenges',
   [BUCKETS.ONGOING]: 'No challenges found in Ongoing Challenges',
-  [BUCKETS.PAST]: 'No challenges found in Past',
+  [BUCKETS.PAST]: 'No challenges found in Past Challenges',
   [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
   [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
 };
