@@ -13,11 +13,13 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import Blog from 'components/Contentful/Blog';
 import { HeroImageLoader } from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
+import Profile from 'routes/Profile';
+import ProfileStats from 'routes/ProfileStats';
 
 
 import headerTheme from 'components/tc-communities/communities/tco19/themes/header.scss';
 
-export default function TCO19({ base }) {
+export default function TCO19({ base, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -28,6 +30,16 @@ export default function TCO19({ base }) {
             theme={headerTheme}
           />
           <Switch>
+            <Route
+              render={props => <Profile {...props} meta={meta} />}
+              exact
+              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+            />
+            <Route
+              render={props => <ProfileStats {...props} meta={meta} />}
+              exact
+              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+            />
             <Route
               path={`${base}/blog/:page?`}
               component={(p) => {
@@ -90,4 +102,5 @@ TCO19.defaultProps = {
 
 TCO19.propTypes = {
   base: PT.string,
+  meta: PT.shape().isRequired,
 };
