@@ -22,6 +22,7 @@ export default function NumSubmissions({
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
+  openChallengesInNewTabs,
 }) {
   let tip;
   switch (numSubmissions) {
@@ -42,7 +43,7 @@ export default function NumSubmissions({
           <div styleName="tooltip">
             {tip}
           </div>
-)}
+        )}
       >
         <Link
           onClick={() => (
@@ -51,6 +52,7 @@ export default function NumSubmissions({
           )}
           styleName="link"
           to={link}
+          openNewTab={openChallengesInNewTabs}
         >
           <SubmissionsIcon />
           <span styleName="number">
@@ -61,6 +63,9 @@ export default function NumSubmissions({
     </div>
   );
 }
+NumSubmissions.defaultProps = {
+  openChallengesInNewTabs: false,
+};
 
 NumSubmissions.propTypes = {
   challenge: PT.shape({
@@ -72,4 +77,5 @@ NumSubmissions.propTypes = {
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
+  openChallengesInNewTabs: PT.bool,
 };

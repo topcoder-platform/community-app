@@ -60,6 +60,7 @@ export default function ChallengeStatus(props) {
     newChallengeDetails,
     selectChallengeDetailsTab,
     userHandle,
+    openChallengesInNewTabs,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -67,7 +68,6 @@ export default function ChallengeStatus(props) {
     const {
       challenge,
       detailLink,
-      openChallengesInNewTabs,
     } = props;
 
     let winners = _.map(
@@ -121,7 +121,7 @@ export default function ChallengeStatus(props) {
         )}
         to={detailLink}
       >
-Results
+        Results
       </Link>
     );
   }
@@ -130,7 +130,6 @@ Results
     const {
       challenge,
       detailLink,
-      openChallengesInNewTabs,
     } = props;
     const timeDiff = getTimeLeft(challenge.allPhases.find(p => p.phaseType === 'Registration'));
     let timeNote = timeDiff.text;
@@ -149,10 +148,10 @@ Results
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
         <span>
-          { timeNote }
+          {timeNote}
         </span>
         <span styleName="to-register">
-to register
+          to register
         </span>
       </a>
     );
@@ -174,6 +173,7 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
             />
           </div>
           <div styleName="spacing">
@@ -182,16 +182,17 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
             />
           </div>
           {
             challenge.myChallenge
             && (
-            <div styleName="spacing">
-              <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}>
-                <ForumIcon />
-              </a>
-            </div>
+              <div styleName="spacing">
+                <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}>
+                  <ForumIcon />
+                </a>
+              </div>
             )
           }
         </span>
@@ -234,7 +235,7 @@ to register
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
         <span styleName="current-phase">
-          { phaseMessage }
+          {phaseMessage}
         </span>
         <span styleName="challenge-stats">
           <div styleName="spacing">
@@ -243,6 +244,7 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
             />
           </div>
           <div styleName="spacing">
@@ -251,16 +253,17 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
             />
           </div>
           {
             myChallenge
             && (
-            <div styleName="spacing">
-              <a styleName="link-forum" href={`${FORUM_URL}${forumId}`}>
-                <ForumIcon />
-              </a>
-            </div>
+              <div styleName="spacing">
+                <a styleName="link-forum" href={`${FORUM_URL}${forumId}`}>
+                  <ForumIcon />
+                </a>
+              </div>
             )
           }
         </span>

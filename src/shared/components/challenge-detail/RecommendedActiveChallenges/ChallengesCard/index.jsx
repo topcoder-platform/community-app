@@ -99,7 +99,7 @@ export default function ChallengesCard({
               challengesUrl={challengesUrl}
               detailLink={challengeDetailLink}
               newChallengeDetails
-              openChallengesInNewTabs={false}
+              openChallengesInNewTabs
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               userHandle={userHandle}
               className={styles['challenge-status-container']}
