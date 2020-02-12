@@ -42,6 +42,7 @@ function Listing({
   sorts,
   expandedTags,
   expandTag,
+  pastSearchTimestamp,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
   const isChallengesAvailable = (bucket) => {
@@ -59,11 +60,13 @@ function Listing({
     let keepPlaceholders = false;
     let loading;
     let loadMore;
+    let searchTimestamp;
     switch (bucket) {
       case BUCKETS.PAST:
         keepPlaceholders = keepPastPlaceholders;
         loading = loadingPastChallenges;
         loadMore = loadMorePast;
+        searchTimestamp = pastSearchTimestamp;
         break;
       default:
         break;
@@ -113,6 +116,7 @@ function Listing({
             sort={sorts[bucket]}
             userHandle={_.get(auth, 'user.handle')}
             activeBucket={activeBucket}
+            searchTimestamp={searchTimestamp}
           />
         )
     );
@@ -167,6 +171,7 @@ Listing.defaultProps = {
   // onTechTagClicked: _.noop,
   // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
+  pastSearchTimestamp: 0,
 };
 
 Listing.propTypes = {
@@ -200,12 +205,14 @@ Listing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
+  pastSearchTimestamp: PT.number,
 };
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    pastSearchTimestamp: cl.pastSearchTimestamp,
   };
 };
 
