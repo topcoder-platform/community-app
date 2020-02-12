@@ -29,6 +29,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        themeName="Default"
       />
     </div>
     <div
@@ -48,6 +49,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        themeName="Default"
       />
     </div>
     <div
@@ -67,6 +69,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        themeName="Default"
       />
     </div>
     <div
@@ -86,6 +89,7 @@ exports[`Matches shallow shapshot 1`] = `
         isCopilot={false}
         isTopGear={false}
         onUsernameClick={null}
+        themeName="Default"
       />
     </div>
   </div>
