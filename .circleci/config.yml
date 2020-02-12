@@ -183,6 +183,7 @@ workflows:
             branches:
               only:
                 - develop
+                - hot-fixes-leaderboard
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -190,7 +191,7 @@ workflows:
             branches:
               only:
                 - develop
-                - smp-1
+                - feature-contentful
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
