@@ -100,7 +100,10 @@ export default function ChallengesCard({
               detailLink={challengeDetailLink}
               newChallengeDetails
               openChallengesInNewTabs
-              selectChallengeDetailsTab={selectChallengeDetailsTab}
+              selectChallengeDetailsTab={
+                () => selectChallengeDetailsTab(
+                  challenge.numSubmissions === 0 ? DETAIL_TABS.DETAILS : DETAIL_TABS.SUBMISSIONS,
+                )}
               userHandle={userHandle}
               className={styles['challenge-status-container']}
             />
