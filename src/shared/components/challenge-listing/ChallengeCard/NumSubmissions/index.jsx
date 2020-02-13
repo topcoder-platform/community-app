@@ -17,7 +17,7 @@ import './style.scss';
 
 export default function NumSubmissions({
   challenge: {
-    id, numSubmissions, status, track,
+    id, numSubmissions, track,
   },
   challengesUrl,
   newChallengeDetails,
