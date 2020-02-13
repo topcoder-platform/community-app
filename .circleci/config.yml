@@ -190,7 +190,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-contentful
+                - feature-details-page-suggestion-card-newtab
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
