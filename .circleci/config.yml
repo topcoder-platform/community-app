@@ -191,6 +191,7 @@ workflows:
               only:
                 - develop
                 - feature-contentful
+                - test-feature-recommendation 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
