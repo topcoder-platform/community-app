@@ -66,11 +66,11 @@ class ProfilePage extends React.Component {
     const { copilot, stats } = this.props;
     const activeTracks = [];
 
-    if (copilot && stats && stats.COPILOT && stats.COPILOT.fulfillment) {
+    if (copilot && stats && stats[0] && stats[0].COPILOT && stats[0].COPILOT.fulfillment) {
       activeTracks.push({
         name: 'COPILOT',
         subTracks: [{
-          fulfillment: stats.COPILOT.fulfillment,
+          fulfillment: stats[0].COPILOT.fulfillment,
           name: 'COPILOT',
         }],
       });
@@ -78,13 +78,13 @@ class ProfilePage extends React.Component {
 
     ['DEVELOP', 'DESIGN', 'DATA_SCIENCE'].forEach((track) => {
       const active = [];
-      const subTracks = stats && stats[track] ? stats[track].subTracks || [] : [];
+      const subTracks = stats && stats[0] && stats[0][track] ? stats[0][track].subTracks || [] : [];
 
-      if (stats && stats[track].SRM) {
-        subTracks.push({ ...stats[track].SRM, name: 'SRM' });
+      if (stats && stats[0] && stats[0][track].SRM) {
+        subTracks.push({ ...stats[0][track].SRM, name: 'SRM' });
       }
-      if (stats && stats[track].MARATHON_MATCH) {
-        subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
+      if (stats && stats[0] && stats[0][track].MARATHON_MATCH) {
+        subTracks.push({ ...stats[0][track].MARATHON_MATCH, name: 'MARATHON MATCH' });
       }
 
       subTracks.forEach((subtrack) => {
@@ -182,7 +182,7 @@ class ProfilePage extends React.Component {
                     info={info}
                     onShowBadges={() => this.setState({ badgesModalOpen: true })}
                     showBadgesButton={achievements && achievements.length > 0}
-                    wins={_.get(stats, 'wins', 0)}
+                    wins={stats ? _.get(stats[0], 'wins', 0) : 0}
                   />
                 </div>
               </Sticky>
@@ -255,9 +255,9 @@ VIEW LESS
                 )
               }
               {
-                stats && (
+                stats && stats[0] && (
                   <div id="profile-activity">
-                    <StatsCategory handle={info.handle} stats={stats} />
+                    <StatsCategory handle={info.handle} stats={stats[0]} />
                   </div>
                 )
               }
@@ -306,7 +306,7 @@ ProfilePage.propTypes = {
   externalLinks: PT.arrayOf(PT.shape()),
   info: PT.shape().isRequired,
   skills: PT.shape(),
-  stats: PT.shape(),
+  stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
 };
 
