@@ -27,9 +27,6 @@
     "clean": "rimraf temp/ && rimraf download/ && rimraf test-results/",
     "pretest": "npm run clean && npm run tsc",
     "test": "protractor temp/conf.js",
-    "test:dev": "npm run pretest && protractor temp/conf.js --params.mode=dev",
-    "test:qa": "npm run pretest && protractor temp/conf.js --params.mode=qa",
-    "test:prod": "npm run pretest && protractor temp/conf.js --params.mode=prod",
     "webdriver-update": "node node_modules/protractor/bin/webdriver-manager update"
   },
   "keywords": [

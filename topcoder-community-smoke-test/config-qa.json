@@ -1,5 +1,7 @@
 {
+    "env" : "qa",
     "baseUrl": "topcoder-dev.com",
+    "helpUrl": "https://help.topcoder-dev.com/hc/en-us/",
     "login": {
         "testingUrl": "https://accounts.topcoder-dev.com/member",
         "homePageUrl": "https://www.topcoder-dev.com/",
@@ -13,26 +15,34 @@
         }
     },
     "challengeDetail": {
-        "customUrl": "https://www.topcoder-dev.com/challenges/30055164"
+        "customUrl": "https://qa-community-app.topcoder-dev.com/challenges/30055164",
+        "termsLinkText": "Standard Terms for TopCoder Competitions v2.2"
     },
     "profile": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/profile"
+        "testingUrl": "https://qa-community-app.topcoder-dev.com/settings/profile"
     },
     "tools": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/tools"
+        "testingUrl": "https://qa-community-app.topcoder-dev.com/settings/tools"
     },
     "preferences": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/preferences",
+        "testingUrl": "https://qa-community-app.topcoder-dev.com/settings/preferences",
         "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Settings",
         "paymentUrl": "https://community.topcoder-dev.com/tc?module=EditPaymentPreferences",
         "invitationLetterUrl": "https://community.topcoder-dev.com/tc?module=VisaSelection",
         "referralsUrl": "https://community.topcoder-dev.com/tc?module=ViewReferrals"
     },
     "account": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/account"
+        "testingUrl": "https://qa-community-app.topcoder-dev.com/settings/account"
+    },
+    "terms" : {
+        "container" : {
+            "class" : "N/A",
+            "h3Text" : "Acceptance of Terms and Conditions"
+        }
     },
     "challengeId": "30055164",
-    "challengeUrl": "https://www.topcoder-dev.com/challenges/30055164",
+    "challengeUrl": "https://qa-community-app.topcoder-dev.com/challenges/30055164",
     "challengeForumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=11111",
-    "reviewScorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001552"
+    "reviewScorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001552",
+    "challengeTagText" : "QA"
 }

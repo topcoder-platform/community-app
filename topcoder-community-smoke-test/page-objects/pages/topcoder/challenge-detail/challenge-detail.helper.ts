@@ -2,6 +2,7 @@ import { browser, protractor, by, element } from "protractor";
 import { ChallengeDetailPageConstants } from "./challenge-detail.constants";
 import { ChallengeDetailPageObject } from "./challenge-detail.po";
 import { commonPageObjects } from "../../../common/common.po";
+import { commonPageHelper } from "../../../common/common.helper";
 import { ForumPageConstants } from "../forum/forum.constants";
 const path = require('path');
 
@@ -26,13 +27,9 @@ export class ChallengeDetailPageHelper {
     }
 
     static async clickOnTermsLink() {
-        let link = null;
-        if (browser.params.mode === 'dev') {
-            link = await element(by.css("[href='/challenges/terms/detail/21303']"));
-        } else {
-            link = await commonPageObjects.findElementByText('a', 'Standard Terms for Topcoder Competitions v2.2');
-        }
-        
+        let link = await commonPageObjects.findElementByText('a',
+                commonPageHelper.getConfig().challengeDetail.termsLinkText);
+
         await link.click();
         await console.log('Terms link clicked');
     }
@@ -193,7 +190,7 @@ export class ChallengeDetailPageHelper {
         const until = protractor.ExpectedConditions;
 
         await this.clickOnSubmitButton();
-        
+
         await browser.wait(until.visibilityOf(ChallengeDetailPageObject.pickFile));
 
         await ChallengeDetailPageObject.pickFile.click();
@@ -205,10 +202,10 @@ export class ChallengeDetailPageHelper {
         const fileToUpload = '../../../../../resources/submission.zip';
         const absolutePath = path.resolve(__dirname, fileToUpload);
 
-        await ChallengeDetailPageObject.inputFile.sendKeys(absolutePath);   
+        await ChallengeDetailPageObject.inputFile.sendKeys(absolutePath);
 
         await browser.wait(until.invisibilityOf(ChallengeDetailPageObject.fileModal));
-        
+
         await ChallengeDetailPageObject.agreeToTerms.click();
         await browser.sleep(1000);
         await ChallengeDetailPageObject.submitButton.click();

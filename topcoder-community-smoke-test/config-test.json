@@ -1,5 +1,5 @@
 {
-    "env": "dev",
+    "env": "test",
     "baseUrl": "topcoder-dev.com",
     "helpUrl": "https://help.topcoder-dev.com/",
     "login": {
@@ -15,34 +15,34 @@
         }
     },
     "challengeDetail": {
-        "customUrl": "https://www.topcoder-dev.com/challenges/30055164",
-        "termsLinkText": "Standard Terms for TopCoder Competitions v2.2"
+        "customUrl": "https://test-community-app.topcoder-dev.com/challenges/30050680",
+        "termsLinkText": "Standard Terms for TopCoder Competitions v2.1"
     },
     "profile": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/profile"
+        "testingUrl": "https://test-community-app.topcoder-dev.com/settings/profile"
     },
     "tools": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/tools"
+        "testingUrl": "https://test-community-app.topcoder-dev.com/settings/tools"
     },
     "preferences": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/preferences",
+        "testingUrl": "https://test-community-app.topcoder-dev.com/settings/preferences",
         "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Settings",
         "paymentUrl": "https://community.topcoder-dev.com/tc?module=EditPaymentPreferences",
         "invitationLetterUrl": "https://community.topcoder-dev.com/tc?module=VisaSelection",
         "referralsUrl": "https://community.topcoder-dev.com/tc?module=ViewReferrals"
     },
     "account": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/account"
+        "testingUrl": "https://test-community-app.topcoder-dev.com/settings/account"
     },
     "terms" : {
         "container" : {
-            "class" : "MsoNormal",
-            "h3Text" : "N/A"
+            "class": "N/A",
+            "h3Text": "Acceptance of Terms and Conditions"
         }
     },
-    "challengeId": "30055164",
-    "challengeUrl": "https://www.topcoder-dev.com/challenges/30055164",
-    "challengeForumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=11111",
-    "reviewScorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001552",
+    "challengeId": "30050680",
+    "challengeUrl": "https://test-community-app.topcoder-dev.com/challenges/30050680",
+    "challengeForumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=29549",
+    "reviewScorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001610",
     "challengeTagText" : "dev"
 }

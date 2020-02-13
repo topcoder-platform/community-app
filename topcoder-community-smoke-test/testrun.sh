@@ -1,10 +1,11 @@
 #!/bin/bash
 ./node_modules/.bin/webdriver-manager start --detach
-npm run test:$1
+npm run test
 #get user name and passwrod from config file for test quality app
-email=$(cat config.json | jq '.testQualityEmail') 
-password=$(cat config.json | jq '.testQualityPassword') 
-planName="community app test plan-"$1
+env=$(cat config.json | jq '.env')
+email=$(cat config.json | jq '.testQualityEmail')
+password=$(cat config.json | jq '.testQualityPassword')
+planName="community app test plan-"$env
 sudo chmod 755 testquality-linux
 ./testquality-linux login ${email} ${password}  --save 
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderAccountPageTests.xml --project_name='Community App' --plan_name="'$planName'"

@@ -1,14 +1,12 @@
 var path = require('path');
 
-import { protractor, browser, by, element } from "protractor";
-import { commonPageObjects } from "./common.po";
-import * as configProd from "../../config-prod.json";
-import * as configDev from "../../config-dev.json";
-import * as configQa from "../../config-qa.json";
-import { ChallengeListingPageObject } from "../pages/topcoder/challenge-listing/challenge-listing.po";
+import {protractor, browser, by, element} from "protractor";
+import {commonPageObjects} from "./common.po";
+import * as config from "../../config.json";
+import {ChallengeListingPageObject} from "../pages/topcoder/challenge-listing/challenge-listing.po";
 
 const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+const {JSDOM} = jsdom;
 
 export class commonPageHelper {
 
@@ -88,26 +86,19 @@ export class commonPageHelper {
     }
 
     static getConfig() {
-        if (browser.params) {
-            if(browser.params.mode === 'dev') {
-                return configDev
-            } else if(browser.params.mode === 'qa') {
-                return configQa
-            }
-        }
-        return configProd;
+        return config;
     }
 
     static getHelpUrl() {
-        return browser.params.mode === 'dev' ? 'https://help.' + commonPageHelper.getConfig().baseUrl + '/' : 'https://help.' + commonPageHelper.getConfig().baseUrl + '/hc/en-us';
+        return this.getConfig().helpUrl;
     }
 
     static getChallengeTag() {
-        return browser.params.mode === 'dev' ? ChallengeListingPageObject.nodeJsTag : ChallengeListingPageObject.qaTag;
+        return commonPageObjects.findElementByText('button', this.getChallengeTagText());
     }
 
     static getChallengeTagText() {
-        return browser.params.mode === 'dev' ? 'Node.js' : 'QA';
+        return this.getConfig().challengeTagText;
     }
 
     static async deleteAll() {

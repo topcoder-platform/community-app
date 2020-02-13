@@ -15,12 +15,28 @@ Chrome Browser v79
 `npm install`
 - In case the webdriver needs to be updated, run the below command
 `webdriver-manager update`
-- To run tests for the development environment
-`npm run test:dev`
-- To run tests for the qa environment
-`npm run test:qa`
-- To run tests for the production environment
-`npm run test:prod`
+- To run tests locally for the development environment
+```
+cp config-dev.json config.json
+npm run test
+```
+- To run tests locally for the qa environment
+```
+cp config-qa.json config.json
+npm run test
+```
+- To run tests locally for the production environment
+```
+cp config-prod.json config.json
+npm run test
+```
+- To run tests locally for the test environment
+```
+cp config-test.json config.json
+npm run test
+```
+
+
 - Test results are generated in test-results/ folder
 ```
 HTML report - TestResult.html
@@ -37,6 +53,7 @@ As of now, the tests are running in headless mode. To view the actual chrome bro
 #### Configuration details:
 - config-dev.json contains configuration for the development environment.
 - config-qa.json contains configuration for the QA environment (it still uses some configuration for the development environment, since not all the features are implemented in the qa-community-app)
+- config-test.json contains configuration for the QA environment (it still uses some configuration for the development environment, since not all the features are implemented in the test-community-app)
 - config.prod.json contains configuration for the production environment.
 - conf.ts holds the application configuration, like jasmine reporters to be configured, specs to be run etc.
 
@@ -47,5 +64,5 @@ comment: `"FIXME - below condition has to be fixed by Topcoder Devs"`
 
 #### Docker Deployment
 Run the below command at project root folder.
--  `./smoketest.sh dev dev-community-app-qavar.json`
+-  `topcoder-community-smoke-test/smoketest.sh dev-community-app-qavar.json`
 -  Note: Give execute permission to your script `chmod +x /path/to/yourscript.sh`

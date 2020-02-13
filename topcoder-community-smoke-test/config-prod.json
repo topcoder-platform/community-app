@@ -1,38 +1,48 @@
 {
-    "baseUrl": "topcoder-dev.com",
+    "env" : "prod",
+    "baseUrl": "topcoder.com",
+    "helpUrl": "https://help.topcoder.com/hc/en-us",
     "login": {
-        "testingUrl": "https://accounts.topcoder-dev.com/member",
-        "homePageUrl": "https://www.topcoder-dev.com/",
-        "email": "e20190928114000@gmail.com",
-        "username": "e2e20190909",
-        "password": "Password@123"
+        "testingUrl": "https://accounts.topcoder.com/member",
+        "homePageUrl": "https://www.topcoder.com/",
+        "email": "e20190928114001@gmail.com",
+        "username": "e20190928114001",
+        "password": "**********"
     },
     "challengeListing": {
         "search" : {
-            "query": "Dev-MM-Challenge-For-Processor"
+            "query": "[Do not register] Sample challenge for Automation."
         }
     },
     "challengeDetail": {
-        "customUrl": "https://www.topcoder-dev.com/challenges/30055164"
+        "customUrl": "https://www.topcoder.com/challenges/30106190",
+        "termsLinkText": "Standard Terms for TopCoder Competitions v2.2"
     },
     "profile": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/profile"
+        "testingUrl": "https://www.topcoder.com/settings/profile"
     },
     "tools": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/tools"
+        "testingUrl": "https://www.topcoder.com/settings/tools"
     },
     "preferences": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/preferences",
-        "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Settings",
-        "paymentUrl": "https://community.topcoder-dev.com/tc?module=EditPaymentPreferences",
-        "invitationLetterUrl": "https://community.topcoder-dev.com/tc?module=VisaSelection",
-        "referralsUrl": "https://community.topcoder-dev.com/tc?module=ViewReferrals"
+        "testingUrl": "https://www.topcoder.com/settings/preferences",
+        "forumUrl": "https://apps.topcoder.com/forums/?module=Settings",
+        "paymentUrl": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+        "invitationLetterUrl": "https://community.topcoder.com/tc?module=VisaSelection",
+        "referralsUrl": "https://community.topcoder.com/tc?module=ViewReferrals"
     },
     "account": {
-        "testingUrl": "https://www.topcoder-dev.com/settings/account"
+        "testingUrl": "https://www.topcoder.com/settings/account"
     },
-    "challengeId": "30055164",
-    "challengeUrl": "https://www.topcoder-dev.com/challenges/30055164",
-    "challengeForumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=11111",
-    "reviewScorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001552"
+    "terms" : {
+        "container" : {
+            "class" : "N/A",
+            "h3Text" : "Acceptance of Terms and Conditions"
+        }
+    },
+    "challengeId": "30106190",
+    "challengeUrl": "https://www.topcoder.com/challenges/30106190",
+    "challengeForumUrl": "https://apps.topcoder.com/forums/?module=Category&categoryID=82117",
+    "reviewScorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133",
+    "challengeTagText" : "N/A"
 }
