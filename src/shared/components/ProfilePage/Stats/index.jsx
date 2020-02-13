@@ -68,9 +68,9 @@ class ProfileStats extends React.Component {
       tabs.push(subTrack === 'SRM' ? 'Past srm' : 'challenges');
     }
 
-    const subTrackStats = getSubTrackStats(stats, track, subTrack);
-    const subTrackSummary = getSummary(stats, track, subTrack) || [];
-    const subTrackDetails = getDetails(stats, track, subTrack) || [];
+    const subTrackStats = getSubTrackStats(stats[0], track, subTrack);
+    const subTrackSummary = getSummary(stats[0], track, subTrack) || [];
+    const subTrackDetails = getDetails(stats[0], track, subTrack) || [];
     const ratingObj = subTrackSummary.filter(k => k.label === 'rating');
     let subTrackRating = ratingObj && ratingObj[0] ? ratingObj[0].value : 0;
     if (subTrackRating === 0 || !subTrackRating) { // if subtrack has no rating, pick default rating
@@ -285,7 +285,7 @@ Details
             }
           </div>
         </div>
-        {showModal && <StatsModal stats={stats} info={info} onClose={this.toggleModal} />}
+        {showModal && <StatsModal stats={stats[0]} info={info} onClose={this.toggleModal} />}
       </div>
     );
   }
@@ -300,7 +300,7 @@ ProfileStats.defaultProps = {
 };
 
 ProfileStats.propTypes = {
-  stats: PT.shape().isRequired,
+  stats: PT.arrayOf(PT.shape()).isRequired,
   handleParam: PT.string.isRequired,
   track: PT.string.isRequired,
   subTrack: PT.string.isRequired,
