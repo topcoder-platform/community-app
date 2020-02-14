@@ -173,7 +173,7 @@ workflows:
           context : org-global
           filters:
             branches:
-              only: 
+              only:
                 - develop                
                 - feature-details-page-suggestion-cards
       # This is alternate dev env for parallel testing
@@ -190,7 +190,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-contentful
+                - feature-member-profiles
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
