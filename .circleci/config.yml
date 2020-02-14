@@ -63,6 +63,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            ./topcoder-community-smoke-test/smoketest.sh dev_community-app-qavar.json dev
   # Build & Deploy against development backend
   "build-qa":
     <<: *defaults
@@ -119,7 +120,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-            #./topcoder-community-smoke-test/smoketest.sh dev dev-community-app-qavar.json dev             
+            ./topcoder-community-smoke-test/smoketest.sh test_community-app-qavar.json dev            
                         
   # Build & Deploy against prod api backend
   "build-prod-beta":

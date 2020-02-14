@@ -2,7 +2,7 @@
 ./node_modules/.bin/webdriver-manager start --detach
 npm run test
 #get user name and passwrod from config file for test quality app
-env=$(cat config.json | jq '.env')
+env=$(cat config.json | jq -r '.env')
 email=$(cat config.json | jq '.testQualityEmail')
 password=$(cat config.json | jq '.testQualityPassword')
 planName="community app test plan-"$env
