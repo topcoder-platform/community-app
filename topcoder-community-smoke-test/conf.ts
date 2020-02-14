@@ -23,7 +23,7 @@ exports.config = {
         // 'maxInstances': 2,
         'acceptInsecureCerts': true,
         chromeOptions: {
-            args: ['--headless', '--disable-gpu', '--window-size=1325x744']
+            args: ['--headless', '--disable-gpu','--no-sandbox', '--window-size=1325x744']
         }
     },
 
