@@ -51,6 +51,8 @@ export default function ChallengeHeader(props) {
     hasThriveArticles,
     hasRecommendedChallenges,
     isMenuOpened,
+    submissionEnded,
+    mySubmissions,
   } = props;
 
   const {
@@ -88,10 +90,6 @@ export default function ChallengeHeader(props) {
   if (status !== 'COMPLETED' && regPhase) {
     registrationEnded = regPhase.phaseStatus !== 'Open';
   }
-
-  const submissionEnded = status === 'COMPLETED'
-    || (_.get(phases, 'submission.phaseStatus') !== 'Open'
-      && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -451,6 +449,7 @@ Show Deadlines
           numSubmissions={numSubmissions}
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
+          mySubmissions={mySubmissions}
         />
       </div>
     </div>
@@ -493,6 +492,7 @@ ChallengeHeader.propTypes = {
   hasRegistered: PT.bool.isRequired,
   hasThriveArticles: PT.bool,
   hasRecommendedChallenges: PT.bool,
+  submissionEnded: PT.bool.isRequired,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,
@@ -506,4 +506,5 @@ ChallengeHeader.propTypes = {
   challengeSubtracksMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
+  mySubmissions: PT.arrayOf(PT.shape()).isRequired,
 };

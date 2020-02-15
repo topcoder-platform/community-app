@@ -29,7 +29,7 @@ module.exports = {
     BASE: 'https://www.topcoder.com',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
-    HELP: 'https://help.topcoder.com',
+    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',

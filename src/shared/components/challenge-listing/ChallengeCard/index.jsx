@@ -35,6 +35,7 @@ function ChallengeCard({
   sampleWinnerProfile,
   selectChallengeDetailsTab,
   userHandle,
+  domRef,
 }) {
   const challenge = passedInChallenge;
   const {
@@ -59,7 +60,7 @@ function ChallengeCard({
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
 
   return (
-    <div styleName="challengeCard">
+    <div ref={domRef} styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
@@ -128,6 +129,7 @@ ChallengeCard.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
+  domRef: null,
 };
 
 ChallengeCard.propTypes = {
@@ -142,6 +144,7 @@ ChallengeCard.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  domRef: PT.func,
 };
 
 export default ChallengeCard;

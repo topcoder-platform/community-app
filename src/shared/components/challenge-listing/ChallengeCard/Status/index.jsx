@@ -309,9 +309,9 @@ ChallengeStatus.defaultProps = {
 ChallengeStatus.propTypes = {
   challenge: PT.shape(),
   challengesUrl: PT.string.isRequired,
-  detailLink: PT.string,
+  detailLink: PT.string, // eslint-disable-line react/no-unused-prop-types
   newChallengeDetails: PT.bool.isRequired,
-  openChallengesInNewTabs: PT.bool,
+  openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   userHandle: PT.string,
   className: PT.string,

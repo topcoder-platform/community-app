@@ -312,12 +312,16 @@ function onGetPastChallengesDone(state, { error, payload }) {
     keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
   }
 
+  const pastSearchTimestamp = state.pastSearchTimestamp && state.pastSearchTimestamp > 0
+    ? state.pastSearchTimestamp : Date.now();
+
   return {
     ...state,
     allPastChallengesLoaded: loaded.length === 0,
     challenges,
     keepPastPlaceholders,
     loadingPastChallengesUUID: '',
+    pastSearchTimestamp,
   };
 }
 
@@ -333,6 +337,7 @@ function onSelectCommunity(state, { payload }) {
       * challenges). */
     allPastChallengesLoaded: false,
     lastRequestedPageOfPastChallenges: -1,
+    pastSearchTimestamp: -1,
   };
 }
 
@@ -369,6 +374,7 @@ function onSetFilter(state, { payload }) {
      * the code simple we just reset them each time a filter is modified. */
     allPastChallengesLoaded: false,
     lastRequestedPageOfPastChallenges: -1,
+    pastSearchTimestamp: -1,
   };
 }
 
@@ -594,6 +600,8 @@ function create(initialState) {
       openChallengesCount: 0,
       totalCount: 0,
     },
+
+    pastSearchTimestamp: -1,
   }));
 }
 
