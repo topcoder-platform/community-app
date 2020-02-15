@@ -175,6 +175,7 @@ workflows:
             branches:
               only:
                 - develop                
+                - feature-details-page-suggestion-cards
                 - hot-fix-past-challenge-search
       # This is alternate dev env for parallel testing
       - "build-test":
