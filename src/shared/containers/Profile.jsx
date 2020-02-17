@@ -14,13 +14,10 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     const {
       handleParam,
-      profileForHandle,
       loadProfile,
     } = this.props;
 
-    if (handleParam !== profileForHandle) {
-      loadProfile(handleParam);
-    }
+    loadProfile(handleParam);
   }
 
   componentWillReceiveProps(nextProps) {

@@ -42,7 +42,7 @@ export default function Podium(props) {
   } = props;
 
   const renderPodium = (comps) => {
-    let podiumSpots = comps.map(comp => (
+    const podiumSpots = comps.map(comp => (
       <div key={comp.rank} styleName="podium-column">
         <PodiumSpot
           competitor={comp}
@@ -55,18 +55,8 @@ export default function Podium(props) {
       </div>
     ));
 
-    if (comps.length === 3) {
-      podiumSpots = [
-        ...podiumSpots.slice(0, 0),
-        podiumSpots[1],
-        ...podiumSpots.slice(1, 1),
-        podiumSpots[0],
-        ...podiumSpots.slice(2),
-      ];
-    }
-
     return (
-      <div styleName="PodiumWrap">
+      <div styleName="PodiumWrap" style={comps.length === 4 ? { 'justify-content': 'space-between' } : {}}>
         {podiumSpots}
       </div>
     );

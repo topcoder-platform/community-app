@@ -173,20 +173,17 @@ workflows:
           context : org-global
           filters:
             branches:
-              only: 
-                - develop
-                - hot-fix
-                - feature-contentful
-                - survey_tc
-                - fix-groups-updates
-                - sort_registrations_submissions
+              only:
+                - develop                
+                - hot-fix-past-challenge-search
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
-                only:
-                  - develop
+              only:
+                - develop
+                - hot-fixes-leaderboard
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -195,11 +192,6 @@ workflows:
               only:
                 - develop
                 - feature-contentful
-                - survey_tc
-                - feature-groups-api
-                - mm-broker-api
-                - fix-groups-updates
-                - sort_registrations_submissions
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":

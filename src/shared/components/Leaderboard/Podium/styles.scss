@@ -20,7 +20,7 @@
 
 .PodiumWrap {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 
   @include xs-to-sm {
     flex-direction: column;
@@ -30,5 +30,8 @@
 
 .Podium .podium-column {
   display: inline-block;
-  padding: 0 15px;
+
+  @include xs-to-sm {
+    margin-bottom: 15px;
+  }
 }
