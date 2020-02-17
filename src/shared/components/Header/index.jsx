@@ -18,7 +18,7 @@ try {
 
 const Header = ({
   profile, notifications, loadNotifications, markNotificationAsRead, markAllNotificationAsRead,
-  markAllNotificationAsSeen,
+  markAllNotificationAsSeen, dismissChallengeNotifications,
 }) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
@@ -65,6 +65,7 @@ const Header = ({
               markNotificationAsRead={markNotificationAsRead}
               markAllNotificationAsRead={markAllNotificationAsRead}
               markAllNotificationAsSeen={markAllNotificationAsSeen}
+              dismissChallengeNotifications={dismissChallengeNotifications}
               accountMenu={config.ACCOUNT_MENU}
               switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
               onSwitch={handleSwitchMenu}
@@ -105,6 +106,7 @@ Header.propTypes = {
   markNotificationAsRead: PT.func.isRequired,
   markAllNotificationAsRead: PT.func.isRequired,
   markAllNotificationAsSeen: PT.func.isRequired,
+  dismissChallengeNotifications: PT.func.isRequired,
 };
 
 export default Header;

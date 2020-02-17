@@ -5,6 +5,7 @@ exports[`Matches shallow snapshot 1`] = `
   closeMenu={[Function]}
   closeMobileMenu={[Function]}
   closeSearch={[Function]}
+  dismissChallengeNotifications={[Function]}
   loadNotifications={[Function]}
   markAllNotificationAsRead={[Function]}
   markAllNotificationAsSeen={[Function]}

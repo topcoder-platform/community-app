@@ -29,6 +29,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.notifications.markAllNotificationAsSeenInit());
       dispatch(actions.notifications.markAllNotificationAsSeenDone());
     },
+    dismissChallengeNotifications: (challegeId) => {
+      dispatch(actions.notifications.dismissChallengeNotificationsInit());
+      dispatch(actions.notifications.dismissChallengeNotificationsDone(challegeId));
+    },
   };
 }
 export default connect(
