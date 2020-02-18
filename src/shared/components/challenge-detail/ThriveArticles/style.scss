@@ -17,7 +17,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 .header {
@@ -36,14 +35,15 @@
 
 .articles {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .article {
   display: flex;
+  width: 380px;
   position: relative;
   overflow: hidden;
-  flex: 1;
-  margin: 0 13px;
+  margin: 20px 13px 0;
   border-radius: (5 * $corner-radius);
   background-color: #f4f4f4;
 }
@@ -108,5 +108,11 @@
     background-position: right -2px;
     position: absolute;
     margin-left: -1px;
+  }
+}
+
+@include xs-to-md {
+  .article {
+    width: 100%;
   }
 }
