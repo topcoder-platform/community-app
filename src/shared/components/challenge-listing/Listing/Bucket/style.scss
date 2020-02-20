@@ -31,3 +31,12 @@
   border: 3px solid #79a3ef;
   border-radius: 4px;
 }
+
+.no-results {
+  @include tc-label-lg;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $base-unit * 5;
+}

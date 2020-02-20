@@ -7,8 +7,10 @@
 import _ from 'lodash';
 import PT from 'prop-types';
 import qs from 'qs';
-import React from 'react';
+import React, { useRef } from 'react';
+import { config } from 'topcoder-react-utils';
 import Sort from 'utils/challenge-listing/sort';
+import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -42,7 +44,16 @@ export default function Bucket({
   userHandle,
   expandedTags,
   expandTag,
+  activeBucket,
+  searchTimestamp,
 }) {
+  const refs = useRef([]);
+  refs.current = [];
+  const addToRefs = (el) => {
+    if (el) {
+      refs.current.push(el);
+    }
+  };
   const filter = Filter.getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
 
@@ -67,7 +78,24 @@ export default function Bucket({
     }
   }
 
-  if (!filteredChallenges.length && !loadMore) return null;
+  let noPastResult = false;
+  // check if no past challenge is found after configurable amount of time has passed
+  if (activeBucket === BUCKETS.PAST && searchTimestamp > 0
+    && !filteredChallenges.length && !refs.current.length) {
+    const elapsedTime = Date.now() - searchTimestamp;
+    noPastResult = elapsedTime > config.SEARCH_TIMEOUT;
+  }
+
+  if (noPastResult || (!filteredChallenges.length && !loadMore)) {
+    if (activeBucket === BUCKETS.ALL) {
+      return null;
+    }
+    return (
+      <div styleName="no-results">
+        {`${NO_LIVE_CHALLENGES_CONFIG[bucketId]}`}
+      </div>
+    );
+  }
 
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
@@ -82,6 +110,7 @@ export default function Bucket({
       userHandle={userHandle}
       expandedTags={expandedTags}
       expandTag={expandTag}
+      domRef={addToRefs}
     />
   ));
 
@@ -158,6 +187,8 @@ Bucket.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
+  activeBucket: '',
+  searchTimestamp: 0,
 };
 
 Bucket.propTypes = {
@@ -182,4 +213,6 @@ Bucket.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  activeBucket: PT.string,
+  searchTimestamp: PT.number,
 };

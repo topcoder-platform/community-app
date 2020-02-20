@@ -1,0 +1,69 @@
+@import '~styles/mixins';
+
+$text-color-black: #262628;
+
+.container {
+  @include roboto-regular;
+
+  max-width: $screen-lg;
+  margin: auto;
+}
+
+.tablist {
+  @include roboto-regular;
+
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  -webkit-flex-direction: row; /* Safari */
+  flex-direction: row;
+  -webkit-justify-content: center; /* Safari */
+  justify-content: center;
+  list-style-type: none;
+  border-bottom: none;
+
+  @include xs-to-sm {
+    -webkit-flex-direction: column; /* Safari */
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.tab {
+  text-align: center;
+  margin: 0 10px;
+  color: $text-color-black;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 30px;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 0 15px;
+
+  @include xs-to-sm {
+    margin: 2px;
+  }
+
+  &:hover {
+    background: #d4d4d4;
+  }
+
+  &.selected {
+    background-color: #7f7f7f;
+    box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.25);
+    color: $tc-white;
+  }
+
+  p {
+    strong {
+      font-weight: bold;
+    }
+  }
+}
+
+.tabpannel {
+  display: none;
+}
+
+.selectedTabPanel {
+  display: block;
+}

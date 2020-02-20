@@ -16,8 +16,11 @@ import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
+import MySubmissions from 'components/challenge-detail/MySubmissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
+import RecommendedThriveArticles from 'components/challenge-detail/ThriveArticles';
+import RecommendedActiveChallenges from 'components/challenge-detail/RecommendedActiveChallenges';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
@@ -31,6 +34,11 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
+import { getService } from 'services/contentful';
+import {
+  getDisplayRecommendedChallenges,
+  getRecommendedTechnology,
+} from 'utils/challenge-detail/helper';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -112,13 +120,20 @@ class ChallengeDetailPageContainer extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    // create a service to work with Contentful
+    this.apiService = getService({ spaceName: 'EDU' });
     this.state = {
+      thriveArticles: [],
       showDeadlineDetail: false,
       registrantsSort: {
         field: '',
         sort: '',
       },
       submissionsSort: {
+        field: '',
+        sort: '',
+      },
+      mySubmissionsSort: {
         field: '',
         sort: '',
       },
@@ -141,7 +156,9 @@ class ChallengeDetailPageContainer extends React.Component {
       challengeSubtracksMap,
       getSubtracks,
       allCountries,
+      reviewTypes,
       getAllCountries,
+      getReviewTypes,
     } = this.props;
 
     if (
@@ -179,18 +196,70 @@ class ChallengeDetailPageContainer extends React.Component {
     if (_.isEmpty(challengeSubtracksMap)) {
       getSubtracks();
     }
+
+    if (!reviewTypes.length) {
+      getReviewTypes(auth.tokenV3);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     const {
       challengeId,
       reloadChallengeDetails,
+      getAllRecommendedChallenges,
+      recommendedChallenges,
+      auth,
+      challenge,
+      loadingRecommendedChallengesUUID,
     } = this.props;
+
+    const recommendedTechnology = getRecommendedTechnology(challenge);
+    if (
+      challenge
+      && challenge.id === challengeId
+      && !loadingRecommendedChallengesUUID
+      && (
+        !recommendedChallenges[recommendedTechnology]
+        || (
+          Date.now() - recommendedChallenges[recommendedTechnology].lastUpdateOfActiveChallenges
+          > 10 * MIN
+        )
+      )
+    ) {
+      getAllRecommendedChallenges(auth.tokenV3, recommendedTechnology);
+    }
+
+
+    const {
+      thriveArticles,
+    } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
+    }
+    if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
+      && thriveArticles.length === 0) {
+      const { technologies } = nextProps.challenge;
+      if (technologies.length > 0 && !(technologies.length === 1 && technologies[0] === 'Other')) {
+        // for technologies = ['Other', ...], if 'Other' is first, use second value
+        this.apiService.getEDUContent({
+          limit: 3,
+          phrase: technologies[0] === 'Other' ? technologies[1] : technologies[0],
+          types: ['Article'],
+        }).then((content) => {
+        // format image file data
+          _.forEach(content.Article.items, (item) => {
+            const asset = _.find(content.Article.includes.Asset,
+              a => a.sys.id === item.fields.featuredImage.sys.id);
+            _.assign(item.fields.featuredImage, { file: asset.fields.file });
+          });
+          this.setState({
+            thriveArticles: content.Article.items,
+          });
+        });
+      }
     }
   }
 
@@ -256,14 +325,36 @@ class ChallengeDetailPageContainer extends React.Component {
       isLoadingSubmissionInformation,
       submissionInformation,
       loadSubmissionInformation,
+      selectChallengeDetailsTab,
+      prizeMode,
+      recommendedChallenges,
+      expandedTags,
+      expandTag,
+      mySubmissions,
+      reviewTypes,
     } = this.props;
 
+    const displayRecommendedChallenges = getDisplayRecommendedChallenges(
+      challenge,
+      recommendedChallenges,
+      auth,
+    );
+
     const {
+      thriveArticles,
       showDeadlineDetail,
       registrantsSort,
       submissionsSort,
       notFoundCountryFlagUrl,
+      mySubmissionsSort,
     } = this.state;
+
+    const {
+      status,
+      allPhases,
+    } = challenge;
+
+    const isMM = challenge.subTrack && challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
@@ -306,6 +397,17 @@ class ChallengeDetailPageContainer extends React.Component {
       hasFirstPlacement = _.some(winners, { placement: 1, handle: userHandle });
     }
 
+
+    const phases = {};
+    if (allPhases) {
+      allPhases.forEach((phase) => {
+        phases[_.camelCase(phase.phaseType)] = phase;
+      });
+    }
+    const submissionEnded = status === 'COMPLETED'
+      || (_.get(phases, 'submission.phaseStatus') !== 'Open'
+        && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
+
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container" role="main">
@@ -344,6 +446,8 @@ class ChallengeDetailPageContainer extends React.Component {
               registerForChallenge={this.registerForChallenge}
               registering={registering}
               selectedView={selectedTab}
+              hasRecommendedChallenges={displayRecommendedChallenges.length > 0}
+              hasThriveArticles={thriveArticles.length > 0}
               setChallengeListingFilter={setChallengeListingFilter}
               unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
               }
@@ -353,6 +457,8 @@ class ChallengeDetailPageContainer extends React.Component {
               hasFirstPlacement={hasFirstPlacement}
               challengeSubtracksMap={challengeSubtracksMap}
               isMenuOpened={isMenuOpened}
+              submissionEnded={submissionEnded}
+              mySubmissions={hasRegistered ? mySubmissions : []}
             />
             )
           }
@@ -426,6 +532,31 @@ class ChallengeDetailPageContainer extends React.Component {
                   this.setState({ notFoundCountryFlagUrl });
                 }}
                 onSortChange={sort => this.setState({ submissionsSort: sort })}
+                hasRegistered={hasRegistered}
+                unregistering={unregistering}
+                isLegacyMM={isLegacyMM}
+                submissionEnded={submissionEnded}
+                challengesUrl={challengesUrl}
+              />
+            )
+          }
+          {
+            isMM && !isEmpty && selectedTab === DETAIL_TABS.MY_SUBMISSIONS
+            && (
+              <MySubmissions
+                challengesUrl={challengesUrl}
+                challenge={challenge}
+                hasRegistered={hasRegistered}
+                unregistering={unregistering}
+                submissionEnded={submissionEnded}
+                isLegacyMM={isLegacyMM}
+                loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
+                auth={auth}
+                loadMMSubmissions={loadMMSubmissions}
+                mySubmissions={hasRegistered ? mySubmissions : []}
+                reviewTypes={reviewTypes}
+                submissionsSort={mySubmissionsSort}
+                onSortChange={sort => this.setState({ mySubmissionsSort: sort })}
               />
             )
           }
@@ -452,7 +583,26 @@ class ChallengeDetailPageContainer extends React.Component {
             registerForChallenge(auth, challengeId);
           }}
         />
+        {
+        !isEmpty && displayRecommendedChallenges.length ? (
+          <RecommendedActiveChallenges
+            challenges={displayRecommendedChallenges}
+            prizeMode={prizeMode}
+            challengesUrl={challengesUrl}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
+            auth={auth}
+            expandedTags={expandedTags}
+            expandTag={expandTag}
+          />
+        ) : null
+        }
+        {
+        !isEmpty && thriveArticles.length ? (
+          <RecommendedThriveArticles articles={thriveArticles} />
+        ) : null
+        }
       </div>
+
     );
   }
 }
@@ -468,11 +618,14 @@ ChallengeDetailPageContainer.defaultProps = {
   results: null,
   terms: [],
   allCountries: [],
+  reviewTypes: [],
   isMenuOpened: false,
   loadingMMSubmissionsForChallengeId: '',
   mmSubmissions: [],
+  mySubmissions: [],
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
+  prizeMode: 'money-usd',
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -484,6 +637,7 @@ ChallengeDetailPageContainer.propTypes = {
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpointResultsUi: PT.shape().isRequired,
   checkpoints: PT.shape(),
+  recommendedChallenges: PT.shape().isRequired,
   communityId: PT.string,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
@@ -496,6 +650,7 @@ ChallengeDetailPageContainer.propTypes = {
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   getAllCountries: PT.func.isRequired,
+  getReviewTypes: PT.func.isRequired,
   // loadResults: PT.func.isRequired,
   // loadingCheckpointResults: PT.bool,
   // loadingResultsForChallengeId: PT.string.isRequired,
@@ -513,6 +668,8 @@ ChallengeDetailPageContainer.propTypes = {
   specsTabState: PT.string.isRequired,
   terms: PT.arrayOf(PT.shape()),
   allCountries: PT.arrayOf(PT.shape()),
+  reviewTypes: PT.arrayOf(PT.shape()),
+  mySubmissions: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
@@ -524,12 +681,21 @@ ChallengeDetailPageContainer.propTypes = {
   isLoadingSubmissionInformation: PT.bool,
   submissionInformation: PT.shape(),
   loadSubmissionInformation: PT.func.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
+  getAllRecommendedChallenges: PT.func.isRequired,
+  prizeMode: PT.string,
+  expandedTags: PT.arrayOf(PT.number).isRequired,
+  expandTag: PT.func.isRequired,
+  loadingRecommendedChallengesUUID: PT.string.isRequired,
 };
 
 function mapStateToProps(state, props) {
-  const { lookup: { allCountries } } = state;
+  const cl = state.challengeListing;
+  const { lookup: { allCountries, reviewTypes } } = state;
   let { challenge: { mmSubmissions } } = state;
+  const { auth } = state;
   const challenge = state.challenge.details || {};
+  let mySubmissions = [];
   if (challenge.registrants) {
     challenge.registrants = challenge.registrants.map(registrant => ({
       ...registrant,
@@ -547,6 +713,14 @@ function mapStateToProps(state, props) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
         let { member } = submission;
+        if (auth.user.handle === submission.member) {
+          mySubmissions = submission.submissions || [];
+          mySubmissions = mySubmissions.map((mySubmission, index) => {
+            // eslint-disable-next-line no-param-reassign
+            mySubmission.id = mySubmissions.length - index;
+            return mySubmission;
+          });
+        }
         let submissionDetail = _.find(challenge.submissions, { submitter: submission.member });
         if (!submissionDetail) {
           // get submission detail from submissions challenge detail
@@ -579,6 +753,9 @@ function mapStateToProps(state, props) {
   return {
     auth: state.auth,
     challenge,
+    recommendedChallenges: cl.recommendedChallenges,
+    loadingRecommendedChallengesUUID: cl.loadingRecommendedChallengesUUID,
+    expandedTags: cl.expandedTags,
     challengeId: Number(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
     challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
@@ -613,6 +790,8 @@ function mapStateToProps(state, props) {
     submissionInformation: state.challenge.submissionInformation,
     mmSubmissions,
     allCountries: state.lookup.allCountries,
+    mySubmissions,
+    reviewTypes,
   };
 }
 
@@ -620,6 +799,16 @@ const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
   const lookupActions = actions.lookup;
   return {
+    getAllRecommendedChallenges: (tokenV3, recommendedTechnology) => {
+      const uuid = shortId();
+      const cl = challengeListingActions.challengeListing;
+      dispatch(cl.getAllRecommendedChallengesInit(uuid));
+      dispatch(
+        cl.getAllRecommendedChallengesDone(
+          uuid, tokenV3, recommendedTechnology,
+        ),
+      );
+    },
     getCommunitiesList: (auth) => {
       const uuid = shortId();
       dispatch(ca.getListInit(uuid));
@@ -628,6 +817,10 @@ const mapDispatchToProps = (dispatch) => {
     getAllCountries: (tokenV3) => {
       dispatch(lookupActions.getAllCountriesInit());
       dispatch(lookupActions.getAllCountriesDone(tokenV3));
+    },
+    getReviewTypes: (tokenV3) => {
+      dispatch(lookupActions.getReviewTypesInit());
+      dispatch(lookupActions.getReviewTypesDone(tokenV3));
     },
     loadChallengeDetails: (tokens, challengeId) => {
       const a = actions.challenge;
@@ -701,6 +894,8 @@ const mapDispatchToProps = (dispatch) => {
       const { selectTab } = challengeDetailsActions.page.challengeDetails;
       dispatch(selectTab(tab));
     },
+    selectChallengeDetailsTab:
+      tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     getSubtracks: () => {
       const cl = challengeListingActions.challengeListing;
       dispatch(cl.getChallengeSubtracksInit());
@@ -724,6 +919,10 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getSubmissionInformationInit(challengeId, submissionId));
       dispatch(a.getSubmissionInformationDone(challengeId, submissionId, tokenV3));
+    },
+    expandTag: (id) => {
+      const a = challengeListingActions.challengeListing;
+      dispatch(a.expandTag(id));
     },
   };
 };

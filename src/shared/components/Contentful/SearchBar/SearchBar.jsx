@@ -153,7 +153,11 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <a className={theme.articleLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                    <a
+                      className={theme.articleLink}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                    >
                       {
                         item.featuredImage ? (
                           <img
@@ -189,7 +193,11 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <a className={theme.articleLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                    <a
+                      className={theme.articleLink}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                    >
                       {
                         item.featuredImage ? (
                           <div className={theme['cell-image']}>
@@ -227,7 +235,11 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <a className={theme.forumLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                    <a
+                      className={theme.forumLink}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                    >
                       <span className={theme['cell-text']}>
                         {item.title}
                       </span>
@@ -360,6 +372,8 @@ export class SearchBarInner extends Component {
           featuredImage: featuredImage.fields.file.url,
           tags: fields.tags,
           contentAuthor: contentAuthor.fields,
+          externalArticle: fields.externalArticle,
+          contentUrl: fields.contentUrl,
         };
       }),
       'type',

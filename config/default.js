@@ -32,6 +32,9 @@ module.exports = {
    */
   CHALLENGE_DETAILS_REFRESH_DELAY: 3000,
 
+  /* Max number of recommended challenges */
+  CHALLENGE_DETAILS_MAX_NUMBER_RECOMMENDED_CHALLENGES: 3,
+
   COOKIES: {
     /* Expiration time [days] for browser cookies set by the App. */
     MAXAGE: 7,
@@ -113,7 +116,9 @@ module.exports = {
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
-    HELP: 'https://help.topcoder-dev.com',
+    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+
+    THRIVE: 'https://www.topcoder.com/thrive',
 
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
@@ -157,6 +162,12 @@ module.exports = {
    * This value [seconds] specifies the maximum age after which a group data
    * object should be considered outdated, and updated as soon as possible. */
   USER_GROUP_MAXAGE: 24 * 60 * 60 * 1000,
+
+  /* Maximum time to wait before timeout on searching past challenges (seconds)
+   * when no result at all.
+   * Default: 30 seconds.
+   */
+  SEARCH_TIMEOUT: 30 * 1000,
 
   /* Filestack configuration for uploading Submissions
    * These are for the development back end */

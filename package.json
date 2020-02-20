@@ -4,6 +4,7 @@
   "description": "Topcoder community website",
   "main": "index.js",
   "scripts": {
+    "conventional-changelog": "conventional-changelog",
     "build": "npm run clean && ./node_modules/.bin/webpack --env=production --progress --profile --colors --display-optimization-bailout",
     "build:dev": "npm run clean && ./node_modules/.bin/webpack --env=development --progress --profile --colors --display-optimization-bailout",
     "clean": "rimraf build",
@@ -13,7 +14,9 @@
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "start": "cross-env BABEL_ENV=production NODE_ENV=production node ./bin/www",
-    "test": "npm run lint && npm run jest"
+    "test": "npm run lint && npm run jest",
+    "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
+    "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s"
   },
   "repository": {
     "type": "git",
@@ -86,6 +89,7 @@
     "react-anchor-link-smooth-scroll": "^1.0.11",
     "react-color": "^2.13.8",
     "react-css-super-themr": "^2.2.0",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dates": "^18.2.2",
     "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0",
@@ -130,6 +134,8 @@
     "xml2json": "^0.11.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "autoprefixer": "^8.6.4",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.5",
@@ -149,6 +155,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
+    "conventional-changelog-cli": "^2.0.31",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
@@ -162,6 +169,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.10.0",
     "file-loader": "^1.1.11",
+    "husky": "^4.2.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.2.0",
     "jsdoc-to-markdown": "^4.0.1",
