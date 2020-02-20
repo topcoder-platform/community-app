@@ -32,6 +32,9 @@ module.exports = {
    */
   CHALLENGE_DETAILS_REFRESH_DELAY: 3000,
 
+  /* Max number of recommended challenges */
+  CHALLENGE_DETAILS_MAX_NUMBER_RECOMMENDED_CHALLENGES: 3,
+
   COOKIES: {
     /* Expiration time [days] for browser cookies set by the App. */
     MAXAGE: 7,
@@ -114,6 +117,8 @@ module.exports = {
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+
+    THRIVE: 'https://www.topcoder.com/thrive',
 
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
