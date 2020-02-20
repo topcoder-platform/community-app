@@ -40,7 +40,7 @@ describe('challengeListing.sidebar.deleteSavedFilter', () => {
   });
 
   // FIXME: Broken in topcoder-react-lib v1000.8.0
-  // test('payload is a promise which resolves to the expected object', () => 
+  // test('payload is a promise which resolves to the expected object', () =>
   //   a.payload.then(res => expect(res).toEqual('id')));
 });
 
