@@ -5,7 +5,8 @@ npm run test
 env=$(cat config.json | jq -r '.env')
 email=$(cat config.json | jq '.testQualityEmail')
 password=$(cat config.json | jq '.testQualityPassword')
-planName="community app test plan-"$env
+planName="Automate Execution-"$env
+runName=$planName" for Build no: "$CIRCLE_BUILD_NUM
 sudo chmod 755 testquality-linux
 ./testquality-linux login ${email} ${password}  --save 
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderAccountPageTests.xml --project_name='Community App' --plan_name="'$planName'"
@@ -17,6 +18,7 @@ sudo chmod 755 testquality-linux
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderPreferencesPageTests.xml --project_name='Community App' --plan_name="'$planName'"
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderProfilePageTests.xml --project_name='Community App' --plan_name="'$planName'"
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderToolsPageTests.xml --project_name='Community App' --plan_name="'$planName'"
+./testquality-linux create_manual_run --project_name='Community App' --plan_name='Manual Execution'  --run_name="'$runName'"
 
 
 if [ $? -eq 0 ]; then
