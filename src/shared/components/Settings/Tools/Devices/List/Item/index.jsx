@@ -25,8 +25,16 @@ export default function Item(props) {
   } = props;
 
   const hasModel = !_.isEmpty(device.model);
-  const secondLine = device.deviceType + (device.manufacturer ? ` | ${device.manufacturer}` : '')
-                                      + (device.operatingSystem ? ` | ${device.operatingSystem}` : '');
+  const secondLineItems = [];
+  if (device.manufacturer) {
+    secondLineItems.push(device.manufacturer);
+  }
+  if (device.operatingSystem) {
+    secondLineItems.push(device.operatingSystem);
+  }
+
+  secondLineItems.push(device.deviceType);
+  const secondLine = secondLineItems.join(' | ');
 
   return (
     <div styleName={cn('container', { isEditing })}>
