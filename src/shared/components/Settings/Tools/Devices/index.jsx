@@ -103,7 +103,7 @@ export default class Devices extends ConsentComponent {
    * @param indexNo the device index no
    */
   onDeleteDevice(indexNo) {
-    const { deviceTrait } = this.state;
+    const { deviceTrait, isEdit } = this.state;
     const newDeviceTrait = { ...deviceTrait };
     newDeviceTrait.traits.data.splice(indexNo, 1);
     this.setState({
@@ -128,6 +128,9 @@ export default class Devices extends ConsentComponent {
       isSubmit: false,
       formInvalid: false,
     });
+    if (isEdit) {
+      this.onCancelEditStatus();
+    }
   }
 
   /**
@@ -584,7 +587,7 @@ export default class Devices extends ConsentComponent {
                 Don&#39;t see your device?
             </div>
             <div styleName="help-text-email">
-                Contact Support at support@topcoder.com
+                Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
             </div>
           </div>
         </div>
@@ -709,7 +712,7 @@ export default class Devices extends ConsentComponent {
                 Don&#39;t see your device?
             </div>
             <div styleName="help-text-email">
-                Contact Support at support@topcoder.com
+                Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
             </div>
           </div>
         </div>
