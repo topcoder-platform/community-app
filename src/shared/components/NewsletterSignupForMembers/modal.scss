@@ -1,5 +1,5 @@
 @import "~styles/mixins";
-@import "~components/Contentful/ContentBlock/themes/TCO19_thypo";
+@import "~components/Contentful/default";
 
 .container {
   padding: 90px 60px;
@@ -18,7 +18,7 @@
 
 .modalMsg {
   @include tc-body-md;
-  @include TCO19-default-headers;
+  @include gui-kit-headers;
 
   margin: 24px 0;
   color: #2a2a2a;
