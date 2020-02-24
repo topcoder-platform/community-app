@@ -188,7 +188,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature-contentful
+                - develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
