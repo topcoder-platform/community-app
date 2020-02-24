@@ -228,10 +228,19 @@ module.exports = {
     TC_M2M: {
       CLIENT_ID: '',
       CLIENT_SECRET: '',
-      AUDIENCE: '',
+      AUTH0_AUDIENCE: '',
       GRANT_TYPE: '',
       AUTH0_PROXY_SERVER_URL: '',
+      AUTH0_URL: '',
+      TOKEN_CACHE_TIME: '',
     },
+  },
+
+  AUTH_CONFIG: {
+    AUTH0_URL: 'TC_M2M_AUTH0_URL',
+    AUTH0_AUDIENCE: 'TC_M2M_AUDIENCE',
+    AUTH0_PROXY_SERVER_URL: 'TC_M2M_AUTH0_PROXY_SERVER_URL',
+    TOKEN_CACHE_TIME: 'TOKEN_CACHE_TIME',
   },
 
   ACCOUNT_MENU_SWITCH_TEXT: {
