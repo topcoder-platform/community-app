@@ -250,6 +250,10 @@
       @include roboto-regular;
 
       color: $tc-black;
+
+      li p {
+        margin-bottom: 0;
+      }
     }
 
     ul {
@@ -276,6 +280,10 @@
       color: rgb(120, 125, 129);
       line-height: 1.5;
       white-space: pre;
+    }
+
+    pre {
+      margin-bottom: 20px;
     }
 
     sub,
