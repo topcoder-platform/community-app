@@ -144,7 +144,7 @@ class ProfilePage extends React.Component {
       skills = skills.slice(0, MAX_SKILLS);
     }
 
-    let externals = _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
+    let externals = externalAccounts ? _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data })) : [];
     if (externalLinks) {
       externalLinks.map(data => externals.push(({ type: 'weblink', data })));
       externals = _.filter(externals, 'data');
@@ -181,7 +181,7 @@ class ProfilePage extends React.Component {
                     country={country}
                     info={info}
                     onShowBadges={() => this.setState({ badgesModalOpen: true })}
-                    showBadgesButton={achievements.length > 0}
+                    showBadgesButton={achievements && achievements.length > 0}
                     wins={_.get(stats, 'wins', 0)}
                   />
                 </div>
@@ -292,6 +292,8 @@ On The Web
 }
 
 ProfilePage.defaultProps = {
+  externalAccounts: null,
+  externalLinks: null,
   achievements: [],
   skills: null,
   stats: null,
@@ -300,8 +302,8 @@ ProfilePage.defaultProps = {
 ProfilePage.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   copilot: PT.bool.isRequired,
-  externalAccounts: PT.shape().isRequired,
-  externalLinks: PT.arrayOf(PT.shape()).isRequired,
+  externalAccounts: PT.shape(),
+  externalLinks: PT.arrayOf(PT.shape()),
   info: PT.shape().isRequired,
   skills: PT.shape(),
   stats: PT.shape(),

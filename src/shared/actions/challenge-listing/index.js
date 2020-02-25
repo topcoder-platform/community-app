@@ -80,18 +80,17 @@ function getActiveChallengesInit(uuid, page, frontFilter) {
   return { uuid, page, frontFilter };
 }
 
-/** TODO: Inspect if the 2 actions bellow can be removed?
- * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
- * which was refactored in listing-improve
+/**
+ * Get all challenges and match with user challenges
+ * @param {String} uuid progress id
+ * @param {String} tokenV3 token v3
+ * @param {Object} filter filter object
+ * @param {number} page start page
  */
-function getAllActiveChallengesInit(uuid) {
-  return uuid;
-}
-function getAllActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
   const service = getService(tokenV3);
   const calls = [
-    getAll(params => service.getChallenges(filter, params)),
+    getAll(params => service.getChallenges(filter, params), page),
   ];
   let user;
   if (tokenV3) {
@@ -99,7 +98,7 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
     // Handle any errors on this endpoint so that the non-user specific challenges
     // will still be loaded.
     calls.push(getAll(params => service.getUserChallenges(user, filter, params)
-      .catch(() => ({ challenges: [] }))));
+      .catch(() => ({ challenges: [] }))), page);
   }
   return Promise.all(calls).then(([ch, uch]) => {
     /* uch array contains challenges where the user is participating in
@@ -120,8 +119,20 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
       });
     }
 
-    return { uuid, challenges: ch };
+    return { uuid, challenges: ch, ...filter };
   });
+}
+
+/** TODO: Inspect if the 2 actions bellow can be removed?
+ * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
+ * which was refactored in listing-improve
+ */
+function getAllActiveChallengesInit(uuid) {
+  return uuid;
+}
+function getAllActiveChallengesDone(uuid, tokenV3) {
+  const filter = { status: 'ACTIVE' };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
 /**
@@ -200,43 +211,33 @@ function getRestActiveChallengesInit(uuid) {
 
 /**
  * Loading all challenges
- * @param {*} uuid
- * @param {*} tokenV3
+ * @param {String} uuid progress id
+ * @param {String} tokenV3 token v3
  */
 function getRestActiveChallengesDone(uuid, tokenV3) {
   const filter = { status: 'ACTIVE' };
-  const service = getService(tokenV3);
-  const calls = [
-    getAll(params => service.getChallenges(filter, params), 1),
-  ];
-  let user;
-  if (tokenV3) {
-    user = decodeToken(tokenV3).handle;
-    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
-      .catch(() => ({ challenges: [] }))), 1);
-  }
-  return Promise.all(calls).then(([ch, uch]) => {
-    /* uch array contains challenges where the user is participating in
-     * some role. The same challenge are already listed in res array, but they
-     * are not attributed to the user there. This block of code marks user
-     * challenges in an efficient way. */
-    if (uch) {
-      const map = {};
-      uch.forEach((item) => { map[item.id] = item; });
-      ch.forEach((item) => {
-        if (map[item.id]) {
-          /* It is fine to reassing, as the array we modifying is created just
-           * above within the same function. */
-          /* eslint-disable no-param-reassign */
-          item.users[user] = true;
-          item.userDetails = map[item.id].userDetails;
-          /* eslint-enable no-param-reassign */
-        }
-      });
-    }
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, 1);
+}
 
-    return { uuid, challenges: ch };
-  });
+/**
+ * Prepare for getting all recommended challenges
+ * @param {String} uuid progress id
+ */
+function getAllRecommendedChallengesInit(uuid) {
+  return uuid;
+}
+/**
+ * Get all recommended challenges
+ * @param {String} uuid progress id
+ * @param {String} tokenV3 token v3
+ * @param {*} recommendedTechnology recommended technoloty
+ */
+function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTechnology) {
+  const filter = {
+    status: 'ACTIVE',
+    technologies: recommendedTechnology,
+  };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
 /**
@@ -332,6 +333,9 @@ export default createActions({
 
     GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
+
+    GET_ALL_RECOMMENDED_CHALLENGES_INIT: getAllRecommendedChallengesInit,
+    GET_ALL_RECOMMENDED_CHALLENGES_DONE: getAllRecommendedChallengesDone,
 
     GET_ACTIVE_CHALLENGES_INIT: getActiveChallengesInit,
     GET_ACTIVE_CHALLENGES_DONE: getActiveChallengesDone,

@@ -15,7 +15,9 @@ export default function TrackInfoInner(props) {
         taxonomy[track] ? (
           <div className={theme.trackSubs}>
             {
-              _.map(taxonomy[track], tax => <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track, tax: tax.name })}`} key={`${track}:${tax.name}`}>{tax.name}</a>)
+              _.map(
+                _.sortBy(taxonomy[track], ['name']), tax => <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track, tax: tax.name })}`} key={`${track}:${tax.name}`}>{tax.name}</a>,
+              )
             }
           </div>
         ) : null

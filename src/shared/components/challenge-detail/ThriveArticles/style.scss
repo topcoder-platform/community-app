@@ -1,0 +1,118 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-regular;
+
+  max-width: 1240px;
+  width: 100%;
+  display: flex;
+  background-color: $tc-white;
+  flex-direction: column;
+  border-radius: (3 * $corner-radius);
+  padding: 22px 11px 28px;
+  margin: 50px auto 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  @include roboto-bold;
+
+  margin-left: 13px;
+  font-size: 20px;
+  color: $tc-black;
+}
+
+.right-url {
+  margin-right: 13px;
+  font-size: 15px;
+  color: $tc-dark-blue-110;
+}
+
+.articles {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.article {
+  display: flex;
+  width: 380px;
+  position: relative;
+  overflow: hidden;
+  margin: 20px 13px 0;
+  border-radius: (5 * $corner-radius);
+  background-color: #f4f4f4;
+}
+
+.article-left {
+  display: flex;
+  flex: 1;
+  padding: 0 20px;
+  flex-direction: column;
+}
+
+.article-read-time {
+  @include roboto-regular;
+
+  margin-top: 13px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.33px;
+  color: $tc-gray-70;
+}
+
+.article-title {
+  @include barlow-semi-bold;
+
+  margin-top: 1px;
+  font-size: 20px;
+  line-height: 1.1;
+  color: $tc-gray-70;
+}
+
+.article-create-time {
+  @include roboto-regular;
+
+  display: flex;
+  align-items: center;
+  margin-top: 11px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.33px;
+  color: $tc-gray-70;
+
+  svg {
+    margin-right: 5px;
+  }
+}
+
+.article-right {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 155px;
+  min-width: 155px;
+  min-height: 138px;
+
+  &::before {
+    content: "";
+    width: 20px;
+    height: calc(100% + 4px);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='62' height='243' viewBox='0 0 62 243'%3E%3Ctitle%3EPath%3C/title%3E%3Cpath d='M54.308.5H.5v242h53.117c-1.051-11.042-3.275-19.687-8.803-37.002-.973-3.046-1.01-3.164-1.372-4.305-7.67-24.217-9.843-38.31-6.548-56.672 2.333-13.003 5.435-23.77 10.32-37.324.387-1.073 5.032-13.655 6.285-17.256 4.653-13.375 6.985-23.76 7.563-36.17.69-14.83-1.373-31.891-6.754-53.271z' stroke='%23D4D4D4' stroke-width='0' fill='%23F4F4F4' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right -2px;
+    position: absolute;
+    margin-left: -1px;
+  }
+}
+
+@include xs-to-md {
+  .article {
+    width: 100%;
+  }
+}

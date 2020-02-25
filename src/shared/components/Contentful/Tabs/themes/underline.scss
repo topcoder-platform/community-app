@@ -8,7 +8,7 @@ $text-color-pannel: #4a4a4a;
 .container {
   @include roboto-regular;
 
-  max-width: $screen-lg;
+  max-width: $screen-md;
   margin: auto;
 }
 

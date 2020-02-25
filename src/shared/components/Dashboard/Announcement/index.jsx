@@ -77,7 +77,7 @@ export default function Announcement({
         <div
           styleName="text"
         >
-          {text}
+          {publicTitle || title}
         </div>
       </div>
     );
