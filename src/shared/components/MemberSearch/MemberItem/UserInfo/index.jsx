@@ -51,12 +51,17 @@ UserInfo.propTypes = {
     photoURL: PropTypes.string,
     handle: PropTypes.string,
     competitionCountryCode: PropTypes.string,
-    wins: PropTypes.oneOf([PropTypes.number, null, undefined]),
-    createdAt: PropTypes.string,
+    wins: PropTypes.number,
+    createdAt: PropTypes.number,
     description: PropTypes.string,
   }).isRequired,
-  userPlace: PropTypes.number.isRequired,
-  withBio: PropTypes.bool.isRequired,
+  userPlace: PropTypes.number,
+  withBio: PropTypes.bool,
+};
+
+UserInfo.defaultProps = {
+  userPlace: null,
+  withBio: false,
 };
 
 export default UserInfo;

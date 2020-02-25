@@ -212,15 +212,22 @@ MemberSearchView.propTypes = {
   loadingMore: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
 
-  usernameMatches: PropTypes.arrayOf({}).isRequired,
+  usernameMatches: PropTypes.arrayOf(PropTypes.shape({
+    handle: PropTypes.string,
+  })).isRequired,
   moreMatchesAvailable: PropTypes.bool.isRequired,
   totalCount: PropTypes.number.isRequired,
-  topMembers: PropTypes.shape([]).isRequired,
+  topMembers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 
-  previousSearchTerm: PropTypes.string.isRequired,
-  searchTermTag: PropTypes.shape({}).isRequired,
+  previousSearchTerm: PropTypes.string,
+  searchTermTag: PropTypes.shape({}),
 
   loadMemberSearch: PropTypes.func.isRequired,
+};
+
+MemberSearchView.defaultProps = {
+  previousSearchTerm: null,
+  searchTermTag: null,
 };
 
 export default MemberSearchView;

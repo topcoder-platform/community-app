@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import shortId from 'shortid';
 import TagItem from './TagItem';
 
 import './style.scss';
@@ -17,7 +18,7 @@ const TagList = ({ tags, label, emptyMessage = '' }) => {
 
   const noTagsMessage = !tags.length && emptyMessage ? emptyMessage : null;
 
-  const tagItems = tags.map(t => <TagItem key={t} tag={t} />);
+  const tagItems = tags.map(t => <TagItem key={shortId()} tag={t} />);
 
   return (
     <div styleName={tagListStyles}>
@@ -31,7 +32,7 @@ const TagList = ({ tags, label, emptyMessage = '' }) => {
 };
 
 TagList.propTypes = {
-  tags: PropTypes.shape([]).isRequired,
+  tags: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   label: PropTypes.string,
   emptyMessage: PropTypes.string.isRequired,
 };

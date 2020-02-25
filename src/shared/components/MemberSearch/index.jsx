@@ -14,10 +14,13 @@ export default class MemberSearch extends Component {
 
   componentWillMount() {
     const { location, loadMemberSearch } = this.props;
-    window.addEventListener('scroll', this.handleScroll);
 
     this.searchTermFromQuery = qs.parse(location.search, { ignoreQueryPrefix: true }).q || '';
     loadMemberSearch(this.searchTermFromQuery);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
@@ -58,13 +61,18 @@ MemberSearch.propTypes = {
   loadingMore: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
 
-  usernameMatches: PropTypes.arrayOf({}).isRequired,
+  usernameMatches: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   moreMatchesAvailable: PropTypes.bool.isRequired,
   totalCount: PropTypes.number.isRequired,
-  topMembers: PropTypes.shape([]).isRequired,
+  topMembers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 
-  previousSearchTerm: PropTypes.string.isRequired,
-  searchTermTag: PropTypes.shape({}).isRequired,
+  previousSearchTerm: PropTypes.string,
+  searchTermTag: PropTypes.shape({}),
 
   loadMemberSearch: PropTypes.func.isRequired,
+};
+
+MemberSearch.defaultProps = {
+  previousSearchTerm: null,
+  searchTermTag: null,
 };

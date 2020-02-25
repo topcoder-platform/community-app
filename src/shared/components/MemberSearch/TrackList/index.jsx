@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import shortId from 'shortid';
 import TrackItem from './TrackItem';
 
 import './style.scss';
@@ -7,7 +8,7 @@ import './style.scss';
 const TrackList = ({ tracks }) => {
   let trackItems;
   if (tracks.length) {
-    trackItems = tracks.map(t => <TrackItem key={t} track={t} />);
+    trackItems = tracks.map(t => <TrackItem key={shortId()} track={t} />);
   } else {
     trackItems = <TrackItem track="" />;
   }
@@ -20,7 +21,7 @@ const TrackList = ({ tracks }) => {
 };
 
 TrackList.propTypes = {
-  tracks: PropTypes.shape([]).isRequired,
+  tracks: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TrackList;

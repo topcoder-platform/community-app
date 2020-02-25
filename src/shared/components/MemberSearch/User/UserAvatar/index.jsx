@@ -9,7 +9,11 @@ const UserAvatar = ({ showLevel, rating, photoURL }) => {
   let levelIcon;
 
   if (showLevel) {
-    levelIcon = <LevelDesignatorIcon level={memberLevelByRating(rating)} height="17px" width="17px" />;
+    levelIcon = (
+      <span styleName="user-rank">
+        <LevelDesignatorIcon level={memberLevelByRating(rating)} height="17px" width="17px" />
+      </span>
+    );
   }
 
   /* eslint-disable global-require */

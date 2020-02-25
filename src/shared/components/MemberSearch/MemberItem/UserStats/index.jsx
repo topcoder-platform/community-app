@@ -39,15 +39,16 @@ const UserStats = ({ member, userPlace, searchTermTag }) => {
 
 UserStats.propTypes = {
   member: PropTypes.shape({
-    skills: PropTypes.arrayOf({}),
+    skills: PropTypes.arrayOf(PropTypes.shape({})),
     tracks: PropTypes.arrayOf(PropTypes.string),
-    stats: PropTypes.shape({}),
+    stats: PropTypes.arrayOf(PropTypes.shape({})),
   }).isRequired,
-  userPlace: PropTypes.number.isRequired,
+  userPlace: PropTypes.number,
   searchTermTag: PropTypes.shape({}),
 };
 
 UserStats.defaultProps = {
+  userPlace: null,
   searchTermTag: null,
 };
 

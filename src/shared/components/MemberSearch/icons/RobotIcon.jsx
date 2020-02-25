@@ -26,13 +26,13 @@ const RobotIcon = ({ width, height }) => (
 );
 
 RobotIcon.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };
 
 RobotIcon.defaultProps = {
-  width: 0,
-  height: 0,
+  width: '',
+  height: '',
 };
 
 export default RobotIcon;

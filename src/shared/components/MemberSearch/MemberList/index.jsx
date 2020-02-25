@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import shortId from 'shortid';
 import MemberItem from '../MemberItem';
 
 import './style.scss';
@@ -7,7 +8,7 @@ import './style.scss';
 const MemberList = (({ members }) => (
   <div styleName="member-list">
     {
-      members.map(member => <MemberItem key={member} member={member} />)
+      members.map(member => <MemberItem key={shortId()} member={member} />)
     }
   </div>
 ));

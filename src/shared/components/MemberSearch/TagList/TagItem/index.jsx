@@ -20,8 +20,8 @@ const TagItem = ({ tag }) => {
 
 TagItem.propTypes = {
   tag: PropTypes.shape({
-    searchedTag: PropTypes.string,
-    specialTag: PropTypes.string,
+    searchedTag: PropTypes.bool,
+    specialTag: PropTypes.bool,
     name: PropTypes.string,
   }).isRequired,
 };

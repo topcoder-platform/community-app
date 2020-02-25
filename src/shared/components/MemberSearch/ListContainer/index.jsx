@@ -46,7 +46,7 @@ ListContainer.propTypes = {
 
 ListContainer.defaultProps = {
   headerHighlightedText: '',
-  numListItems: [],
+  numListItems: 0,
 };
 
 export default ListContainer;
