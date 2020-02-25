@@ -194,7 +194,7 @@ class Submit extends React.Component {
                   { isChallengeBelongToTopgearGroup ? 'URL' : 'FILES'}
                 </h2>
                 <p>
-Please follow the instructions on the Challenge Details page regarding
+                  Please follow the instructions on the Challenge Details page regarding
                   what your submission should contain and how it should be organized.
                 </p>
               </div>
@@ -215,15 +215,15 @@ Please follow the instructions on the Challenge Details page regarding
                         <li>Create a JPG preview file.</li>
                         <li>
                           Create a declaration.txt file. Document fonts, stock art
-                           and icons used.
+                          and icons used.
                         </li>
                         <li>
                           Zip the 4 files from the previous steps
-                           into a single zip file and upload below.
+                          into a single zip file and upload below.
                         </li>
                       </ol>
                       <p>For detailed information on packaging your submission, please visit the
-                      &zwnj;
+                        &zwnj;
                         <a
                           href="https://help.topcoder.com/hc/en-us/articles/
                             219122667-Formatting-Your-Submission-for-Design-Challenges"
@@ -263,9 +263,9 @@ Please follow the instructions on the Challenge Details page regarding
                 { isChallengeBelongToTopgearGroup
                   ? (
                     <p>
-                    If you are having trouble submitting, please send
-                    your submission to
-                    &zwnj;
+                      If you are having trouble submitting, please send
+                      your submission to
+                      &zwnj;
                       <a
                         href="mailto://support@topcoder.com"
                       >
@@ -275,9 +275,9 @@ Please follow the instructions on the Challenge Details page regarding
                   )
                   : (
                     <p>
-                    If you are having trouble uploading your file, please send
-                    your submission to
-                    &zwnj;
+                      If you are having trouble uploading your file, please send
+                      your submission to
+                      &zwnj;
                       <a
                         href="mailto://support@topcoder.com"
                       >
@@ -298,7 +298,7 @@ Please follow the instructions on the Challenge Details page regarding
                 >
                   Topcoder terms of use
                 </a>
-&zwnj;
+                &zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
                 you hereby assign, grant and transfer and agree to assign, grant and
                 transfer to topcoder all right and title in and to the Winning Submission
@@ -315,7 +315,7 @@ Please follow the instructions on the Challenge Details page regarding
                   <input type="hidden" />
                 </label>
                 <div styleName="tc-checkbox-label">
-I UNDERSTAND AND AGREE
+                  I UNDERSTAND AND AGREE
                 </div>
               </div>
               <PrimaryButton

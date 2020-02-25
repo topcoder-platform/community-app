@@ -67,12 +67,12 @@ export default class EditModal extends React.Component {
             <Button
               onClick={() => this.setState({ previewURL: st.editURL })}
             >
-Preview
+              Preview
             </Button>
             <PrimaryButton
               onClick={() => onSave(st.editURL, st.size)}
             >
-Save
+              Save
             </PrimaryButton>
           </div>
           { st.previewURL

@@ -16,7 +16,7 @@ const ChallengeSpecTab = ({ challenge }) => (
       && (
       <article>
         <h2 styleName="h2">
-Challenge Overview
+          Challenge Overview
         </h2>
         <div
           /* eslint-disable react/no-danger */
@@ -34,7 +34,7 @@ Challenge Overview
       && (
       <article>
         <h2 styleName="h2">
-Final Submission Guidelines
+          Final Submission Guidelines
         </h2>
         <div
           /* eslint-disable react/no-danger */

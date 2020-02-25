@@ -34,7 +34,7 @@ export default function BsicHackathon() {
       </div>
       <div styleName="contentBlock">
         <h1 styleName="h1">
-About the Incubator
+          About the Incubator
         </h1>
         <p>
           The Decentralized Impact Incubator was a 6-week program built off of
@@ -52,7 +52,7 @@ About the Incubator
       </div>
       <div styleName="contentBlock">
         <h1 styleName="h1">
-Prizes
+          Prizes
         </h1>
         <div>
           Cash prize of $50,000 USD to best teams of each challenge category:
@@ -77,7 +77,7 @@ Prizes
       </div>
       <div styleName="contentBlock">
         <h1 styleName="h1">
-Judging Criteria
+          Judging Criteria
         </h1>
         <ul>
           <li>

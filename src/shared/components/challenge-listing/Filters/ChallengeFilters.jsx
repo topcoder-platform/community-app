@@ -105,7 +105,7 @@ export default function ChallengeFilters({
                   styleName="track-btn"
                   tabIndex={0}
                 >
-                Tracks
+                  Tracks
                   <span styleName="down-arrow" />
                 </span>
               ) : ''

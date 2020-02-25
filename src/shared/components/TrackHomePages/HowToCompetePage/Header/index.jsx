@@ -33,7 +33,7 @@ const Header = ({ data }) => (
                     {item.fields.time}
                   </span>
                   {' '}
-    -
+                  -
                   {item.fields.description}
                 </div>
               ))
@@ -74,7 +74,7 @@ const Header = ({ data }) => (
                   {item.fields.time}
                 </span>
                 {' '}
-    -
+                -
                 {item.fields.description}
               </div>
             ))

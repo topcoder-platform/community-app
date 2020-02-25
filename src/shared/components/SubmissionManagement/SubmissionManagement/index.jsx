@@ -84,18 +84,18 @@ export default function SubmissionManagement(props) {
                   {days > 0 && (`${days}D`)}
                   {' '}
                   {hours}
-H
+                  H
                   {' '}
                   {minutes}
-M
+                  M
                 </p>
                 <p styleName="left-label">
-left
+                  left
                 </p>
               </div>
             ) : (
               <p styleName="time-left">
-The challenge has ended
+                The challenge has ended
               </p>
             )
           }
@@ -104,7 +104,7 @@ The challenge has ended
       <div styleName="submission-management-content">
         <div styleName="content-head">
           <p styleName="title">
-Manage your submissions
+            Manage your submissions
           </p>
           {
             isDesign && (
@@ -112,7 +112,7 @@ Manage your submissions
                 <span styleName="ends-label">
                   {currentPhase.phaseType}
                   {' '}
-Ends:
+                  Ends:
                 </span>
                 {' '}
                 {end.format('dddd MM/DD/YY hh:mm A')}
@@ -137,7 +137,7 @@ Ends:
               the correct zip file.
               If you don’t want to see the submission, simply delete.
               If you have a new submission, use the Upload Submission button to
-                overwrite the current one.
+              overwrite the current one.
             </p>
           )
         }

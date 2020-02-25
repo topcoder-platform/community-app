@@ -82,7 +82,7 @@ export default function ChallengeViewSelector(props) {
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS)}
         >
-DETAILS
+          DETAILS
         </a>
         {
           numRegistrants ? (
@@ -98,9 +98,9 @@ DETAILS
               }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
             >
-REGISTRANTS (
+              REGISTRANTS (
               {numRegistrants}
-)
+              )
             </a>
           ) : null
         }
@@ -115,9 +115,9 @@ REGISTRANTS (
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
           >
-CHECKPOINTS (
+            CHECKPOINTS (
             {checkpointCount}
-)
+            )
           </a>
           )
         }
@@ -131,9 +131,9 @@ CHECKPOINTS (
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >
-SUBMISSIONS (
+              SUBMISSIONS (
               {numSubmissions}
-)
+              )
             </a>
           ) : null
         }
@@ -147,9 +147,9 @@ SUBMISSIONS (
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.MY_SUBMISSIONS)}
             >
-MY SUBMISSIONS (
+              MY SUBMISSIONS (
               {mySubmissions.length}
-)
+              )
             </a>
           ) : null
         }
@@ -163,9 +163,9 @@ MY SUBMISSIONS (
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS)}
             >
-WINNERS (
+              WINNERS (
               { numWinners }
-)
+              )
             </a>
           ) : null
         }
@@ -175,7 +175,7 @@ WINNERS (
             href={`${config.URL.FORUMS}${forumEndpoint}`}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
           >
-CHALLENGE FORUM
+            CHALLENGE FORUM
           </a>
           )
         }

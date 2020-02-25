@@ -99,7 +99,7 @@ export default function Home({ news }) {
       >
         <Text>
           <p>
-Through Topcoder TaskForce you can easily and quickly get quality design, development, and data tasks accomplished. No matchmaking, no searching for talent, simply tell us what you need done and we’ll take care of the rest.
+            Through Topcoder TaskForce you can easily and quickly get quality design, development, and data tasks accomplished. No matchmaking, no searching for talent, simply tell us what you need done and we’ll take care of the rest.
           </p>
         </Text>
       </Section>

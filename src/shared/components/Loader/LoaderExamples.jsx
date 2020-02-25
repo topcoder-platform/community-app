@@ -4,7 +4,7 @@ import Loader from './Loader';
 const LoaderExamples = () => (
   <div className="LoaderExamples flex column middle center">
     <h1>
-Default
+      Default
     </h1>
 
     <Loader />

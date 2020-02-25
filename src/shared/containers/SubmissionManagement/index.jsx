@@ -109,7 +109,7 @@ class SubmissionManagementPageContainer extends React.Component {
                 <span styleName="id">
                   {toBeDeletedId}
                 </span>
-?
+                ?
               </p>
               <p styleName="remove-warn">
                 This will permanently remove all
@@ -135,7 +135,7 @@ class SubmissionManagementPageContainer extends React.Component {
                   className="tc-btn-sm tc-btn-default"
                   onClick={() => onCancelSubmissionDelete()}
                 >
-Cancel
+                  Cancel
                 </Button>
                 <Button
                   className="tc-btn-sm tc-btn-warning"
@@ -146,7 +146,7 @@ Cancel
                     )
                   }
                 >
-Delete Submission
+                  Delete Submission
                 </Button>
               </div>
             </div>
