@@ -190,6 +190,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-m2m-token
        # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
