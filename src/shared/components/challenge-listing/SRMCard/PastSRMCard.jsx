@@ -40,14 +40,14 @@ const PastSRMCard = () => (
         </div>
         <div className="SRM-details">
           <p className="past-title">
-Competitive Programming - Single Round Match 679
+            Competitive Programming - Single Round Match 679
           </p>
         </div>
       </div>
       <div className="right-panel past">
         <div className="past-info">
           <div className="SRM-date">
-Aug 31, 2015
+            Aug 31, 2015
           </div>
           <span className="challenge-stats">
             <span>

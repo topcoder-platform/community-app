@@ -84,7 +84,7 @@ export default function FiltersPanel({
     const registrationStatus = visitorRegisteredToCommunity
       ? (
         <div>
-Registered
+          Registered
         </div>
       )
       : (
@@ -92,10 +92,10 @@ Registered
           You are
           {' '}
           <span styleName="bold uppercase">
-not
+            not
           </span>
           {' '}
-registered.
+          registered.
           <Link
             onMouseDown={(e) => {
               const url = community.mainSubdomain ? (
@@ -154,20 +154,20 @@ registered.
           content={(
             <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
               <p>
-You are
+                You are
                 { !visitorRegisteredToCommunity && (
                 <span styleName="bold">
-NOT
+                  NOT
                 </span>
                 )}
                 {' '}
-registered for this sub community.
+                registered for this sub community.
               </p>
               <p>
-There are
+                There are
                 {challengesInCommunity}
                 {' '}
-challenges in this sub community
+                challenges in this sub community
               </p>
             </div>
 )}
@@ -197,7 +197,7 @@ challenges in this sub community
     <div styleName={className}>
       <div styleName="header">
         <span styleName="title">
-Filters
+          Filters
         </span>
         <span
           styleName="close-icon"
@@ -211,7 +211,7 @@ Filters
         <div styleName="filter-row">
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">
-Keywords
+              Keywords
               <input type="hidden" />
             </label>
             <Select
@@ -229,7 +229,7 @@ Keywords
           </div>
           <div styleName="filter community">
             <label htmlFor="community-select">
-Sub community
+              Sub community
               <input type="hidden" />
             </label>
             <Select
@@ -251,7 +251,7 @@ Sub community
         <div styleName="filter-row">
           <div styleName="filter track">
             <label htmlFor="track-select" styleName="left-label">
-Subtrack
+              Subtrack
               <input type="hidden" />
             </label>
             <Select
@@ -274,7 +274,7 @@ Subtrack
             ? (
               <div styleName="filter review-type">
                 <label htmlFor="review-type-select">
-Review Type
+                  Review Type
                   <input type="hidden" />
                 </label>
                 <Select
@@ -297,7 +297,7 @@ Review Type
           }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
-Date range
+              Date range
               <input type="hidden" />
             </label>
             <DateRangePicker
@@ -318,7 +318,7 @@ Date range
           </div>
           <div styleName="filter dates hideonemonthdatepicker">
             <label htmlFor="date-range-picker-two-months">
-Date range
+              Date range
               <input type="hidden" />
             </label>
             <DateRangePicker
@@ -352,7 +352,7 @@ Date range
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >
-Clear filters
+          Clear filters
         </Button>
         <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
@@ -360,7 +360,7 @@ Clear filters
           size="sm"
           theme={{ button: style.button }}
         >
-Save filter
+          Save filter
         </PrimaryButton>
       </div>
     </div>

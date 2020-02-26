@@ -9,7 +9,7 @@ class Wrapper extends React.Component {
     return (
       <Text {...this.props}>
         <div>
-content
+          content
         </div>
       </Text>
     );

@@ -18,7 +18,7 @@ function ChallengeHistoryModal({
   return (
     <Modal onCancel={onCancel} theme={theme}>
       <h1>
-Completed Challenges History
+        Completed Challenges History
       </h1>
       <div styleName="podium-spot-wrapper">
         <PodiumSpot
@@ -30,7 +30,7 @@ Completed Challenges History
       </div>
       <div styleName="head">
         <div styleName="col-1">
-Challenge Name
+          Challenge Name
         </div>
         {
           !isCopilot ? (
@@ -38,7 +38,7 @@ Challenge Name
           ) : null
         }
         <div styleName="col-3">
-TCO Points
+          TCO Points
         </div>
       </div>
       <div styleName="body">
@@ -67,7 +67,7 @@ TCO Points
       }
       <div styleName="buttons">
         <PrimaryButton onClick={onCancel}>
-Close
+          Close
         </PrimaryButton>
       </div>
     </Modal>

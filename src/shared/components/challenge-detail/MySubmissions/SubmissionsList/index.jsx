@@ -445,7 +445,7 @@ class SubmissionsListView extends React.Component {
           disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
           to={`${challengesUrl}/${challengeId}/submit`}
         >
-        Add Submission
+          Add Submission
         </PrimaryButton>
       </div>
     );

@@ -13,7 +13,7 @@ test('Snapshot match', () => {
       title="Test title"
     >
       <div>
-Test content
+        Test content
       </div>
     </AccordionItem>
   ));
@@ -25,7 +25,7 @@ Test content
       isOpen
     >
       <div>
-Test content
+        Test content
       </div>
     </AccordionItem>
   ));
@@ -40,7 +40,7 @@ class Wrapper extends React.Component {
       <div>
         <AccordionItem {...this.props} title="Test title">
           <div>
-Test content
+            Test content
           </div>
         </AccordionItem>
       </div>

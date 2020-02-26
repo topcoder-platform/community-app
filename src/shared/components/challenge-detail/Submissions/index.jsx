@@ -350,7 +350,7 @@ class SubmissionsComponent extends React.Component {
       return challenge.submissionViewable === 'true' ? (
         <div styleName="container view">
           <div styleName="title">
-              ROUND 2 (FINAL) SUBMISSIONS
+            ROUND 2 (FINAL) SUBMISSIONS
           </div>
           <div styleName="content">
             {
@@ -734,7 +734,7 @@ class SubmissionsComponent extends React.Component {
             theme={{ button: style.challengeAction }}
             to={`${challengesUrl}/${challengeId}/submit`}
           >
-          Add Submission
+            Add Submission
           </PrimaryButton>
         )}
         {

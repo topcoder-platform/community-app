@@ -139,14 +139,14 @@ export default function ChallengeListing(props) {
           {/* upcoming SRMs */}
           <div>
             <div styleName="title">
-Upcoming SRMs
+              Upcoming SRMs
             </div>
             { /* UpcomingSrm */ }
           </div>
           {/* past SRMs */}
           <div>
             <div styleName="title">
-Past SRMs
+              Past SRMs
             </div>
             <SRMCard category="past" />
           </div>
