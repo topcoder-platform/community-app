@@ -267,6 +267,7 @@
     img {
       max-width: 70%;
       border-radius: 6px;
+      margin-bottom: 20px;
 
       @include xs-to-sm {
         max-width: 100%;
