@@ -93,7 +93,7 @@ ProfileContainer.propTypes = {
   loadProfile: PT.func.isRequired,
   profileForHandle: PT.string,
   skills: PT.shape(),
-  stats: PT.shape(),
+  stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
   meta: PT.shape(),
 };

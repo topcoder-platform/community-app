@@ -116,7 +116,7 @@ ProfileStatsContainer.propTypes = {
   handleParam: PT.string.isRequired,
   statsHistory: PT.shape(),
   statsDistribution: PT.shape(),
-  stats: PT.shape(),
+  stats: PT.arrayOf(PT.shape()),
   info: PT.shape(),
   achievements: PT.arrayOf(PT.shape()),
   isLoading: PT.bool.isRequired,
@@ -157,7 +157,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getActiveChallengesDone(handle));
     },
     loadStatsHistoryAndDistribution: (handle, groupIds, track, subTrack) => {
-      dispatch(a.getStatsHistoryInit(handle));
+      dispatch(a.getStatsHistoryInit(handle, groupIds));
       dispatch(a.getStatsHistoryDone(handle, groupIds));
       dispatch(a.getStatsDistributionInit(handle));
       dispatch(a.getStatsDistributionDone(handle, track, subTrack));
