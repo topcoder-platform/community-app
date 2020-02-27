@@ -174,7 +174,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature-group-stats
+                - feature-m2m-with-stats
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
