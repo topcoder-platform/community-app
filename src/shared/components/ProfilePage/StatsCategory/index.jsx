@@ -60,10 +60,10 @@ class StatsCategory extends React.Component {
       const active = [];
       const subTracks = stats[track] ? stats[track].subTracks || [] : [];
 
-      if (stats[track].SRM) {
+      if (stats[track] && stats[track].SRM) {
         subTracks.push({ ...stats[track].SRM, name: 'SRM' });
       }
-      if (stats[track].MARATHON_MATCH) {
+      if (stats[track] && stats[track].MARATHON_MATCH) {
         subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
       }
 
