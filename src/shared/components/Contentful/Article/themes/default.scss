@@ -1,5 +1,5 @@
 @import "~styles/mixins";
-@import "../../ContentBlock/themes/TCO19_thypo";
+@import "~components/Contentful/default";
 
 .bannerBottomShape {
   background-image: url(assets/images/wave.svg);
@@ -170,7 +170,7 @@
       text-transform: uppercase;
     }
 
-    @include TCO19-default-headers;
+    @include gui-kit-headers;
 
     p {
       @include tc-body-md;
@@ -178,6 +178,7 @@
       color: $tco-black;
       font-size: 16px;
       line-height: 26px;
+      margin-bottom: 20px;
 
       strong {
         @include roboto-medium;
@@ -249,6 +250,10 @@
       @include roboto-regular;
 
       color: $tc-black;
+
+      li p {
+        margin-bottom: 0;
+      }
     }
 
     ul {
@@ -260,8 +265,12 @@
     }
 
     img {
-      max-width: 100%;
+      max-width: 70%;
       border-radius: 6px;
+
+      @include xs-to-sm {
+        max-width: 100%;
+      }
     }
 
     code {
@@ -270,6 +279,10 @@
       color: rgb(120, 125, 129);
       line-height: 1.5;
       white-space: pre;
+    }
+
+    pre {
+      margin-bottom: 20px;
     }
 
     sub,

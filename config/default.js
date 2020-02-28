@@ -362,7 +362,7 @@ module.exports = {
     { separator: true },
     {
       title: 'Help',
-      href: 'https://help.topcoder-dev.com/',
+      href: 'https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder',
     },
     { separator: true },
     {

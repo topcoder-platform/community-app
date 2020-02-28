@@ -139,7 +139,7 @@ exports[`Default render 1`] = `
               "separator": true,
             },
             Object {
-              "href": "https://help.topcoder-dev.com/",
+              "href": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder",
               "title": "Help",
             },
             Object {
