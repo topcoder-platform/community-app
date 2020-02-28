@@ -92,7 +92,7 @@ export default class LinkAccounts extends React.Component {
                 account.status === 'linked'
                 && (
                 <div styleName="status already-connected">
-Connected
+                  Connected
                 </div>
                 )
               }
@@ -100,18 +100,18 @@ Connected
                 account.status === 'pending'
                 && (
                 <div styleName="status already-connected">
-Connecting
+                  Connecting
                 </div>
                 )
               }
               <div styleName="status disconnect">
-Disconnect
+                Disconnect
               </div>
               {
                 account.status === 'unlinked' && !account.disabled
                 && (
                 <div styleName="status">
-Connect
+                  Connect
                 </div>
                 )
               }
@@ -119,7 +119,7 @@ Connect
                 account.disabled
                 && (
                 <div styleName="status">
-Coming Soon
+                  Coming Soon
                 </div>
                 )
               }

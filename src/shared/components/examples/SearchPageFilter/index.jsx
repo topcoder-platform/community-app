@@ -19,7 +19,7 @@ export default class SearchPageFilterExample extends Component {
       <div styleName="container">
         <div styleName="header">
           <h1>
-          SearchPageFilter Preview
+            SearchPageFilter Preview
           </h1>
           <button
             type="button"

@@ -112,6 +112,7 @@ module.exports = {
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
+    HOME: '/my-dashboard',
     BLOG: 'https://www.topcoder-dev.com/blog',
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
@@ -247,29 +248,33 @@ module.exports = {
     {
       id: 'community', // required for 'Switch to BUSINESS' to work
       title: 'COMMUNITY',
-      secondaryMenuForLoggedInUser: [
+      secondaryMenu: [
         {
           title: 'Dashboard',
           href: '/my-dashboard',
+          logged: true,
         },
         {
           id: 'myprofile',
           title: 'My Profile',
           href: '/members/willFilledByUserName',
+          logged: true,
         },
         {
           title: 'Payments',
           href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+          logged: true,
+          openNewTab: true,
         },
-      ],
-      secondaryMenuForGuest: [
         {
           title: 'Overview',
           href: '/community/learn',
+          logged: false,
         },
         {
           title: 'How It Works',
           href: '/thrive/tracks?track=Topcoder',
+          logged: false,
         },
       ],
       subMenu: [
@@ -325,14 +330,11 @@ module.exports = {
             {
               title: 'Forums',
               href: 'https://apps.topcoder-dev.com/forums',
+              openNewTab: true,
             },
             {
               title: 'Statistics',
               href: '/community/statistics',
-            },
-            {
-              title: 'Events',
-              href: '/community/events',
             },
             {
               title: 'Blog',

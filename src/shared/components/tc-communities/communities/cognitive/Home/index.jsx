@@ -57,7 +57,7 @@ export default function Home({
         <div styleName="head-banner-overlay" />
         <div styleName="head-banner-text-content">
           <h1 styleName="head-banner-title">
-Topcoder Cognitive Community
+            Topcoder Cognitive Community
           </h1>
           <p styleName="head-banner-text">
             Join the world’s premier cognitive community and get hands-on
@@ -96,14 +96,14 @@ Topcoder Cognitive Community
             >
               Topcoder Open
             </a>
-,
+            ,
             our largest competitive programming and design
             competition of the year.
             <PrimaryButton
               theme={{ button: style['mission-details-button'] }}
               to={`${baseUrl}/get-started`}
             >
-Get Started
+              Get Started
             </PrimaryButton>
           </div>
         </div>
@@ -119,7 +119,7 @@ Get Started
               Developers with this skill set will be in high demand.”
             </p>
             <p styleName="quote-author-name">
-Dave Messinger
+              Dave Messinger
             </p>
             <p styleName="qoute-author-who">
               Topcoder VP of Product Architecture & Global Developer Community
@@ -153,7 +153,7 @@ Dave Messinger
                 >
                   IBM developerWorks
                 </a>
-.
+                .
                 There you’ll find how-to content and community
                 expertise to help you succeed with your own cognitive apps and
                 solutions, and get more information on machine learning and AI.
@@ -161,11 +161,11 @@ Dave Messinger
             </div>
             <div styleName="joining-howto">
               <h2 styleName="joining-h2">
-Get Started Today
+                Get Started Today
               </h2>
               <div styleName="joining-point-container">
                 <div styleName="joining-point">
-1
+                  1
                 </div>
                 <p styleName="joining-point-text">
                   {
@@ -181,12 +181,12 @@ Get Started Today
                     )
                   }
                   {' '}
-the Topcoder Cognitive Community
+                  the Topcoder Cognitive Community
                 </p>
               </div>
               <div styleName="joining-point-container">
                 <div styleName="joining-point">
-2
+                  2
                 </div>
                 <p styleName="joining-point-text">
                   Register for
@@ -201,7 +201,7 @@ the Topcoder Cognitive Community
               </div>
               <div styleName="joining-point-container">
                 <div styleName="joining-point">
-3
+                  3
                 </div>
                 <p styleName="joining-point-text">
                   Compete using
@@ -230,14 +230,14 @@ the Topcoder Cognitive Community
       <div styleName="learn-container">
         <div styleName="learn-content">
           <h1 styleName="learn-title">
-Learn and Compete
+            Learn and Compete
           </h1>
           <div styleName="style.cardsBlock">
             <div styleName="style.card style.card-01">
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
                 <h1>
-Resources
+                  Resources
                 </h1>
                 <Link
                   onClick={() => {
@@ -252,7 +252,7 @@ Resources
                   styleName="card-link"
                   to={`${baseUrl}/resources`}
                 >
-What is IBM Cloud?
+                  What is IBM Cloud?
                 </Link>
                 <a
                   href="https://www.ibm.com/developerworks/"
@@ -260,7 +260,7 @@ What is IBM Cloud?
                   styleName="card-link"
                   target="_blank"
                 >
-Explore IBM developerWorks
+                  Explore IBM developerWorks
                 </a>
                 <a
                   href="https://developer.ibm.com/events/"
@@ -268,14 +268,14 @@ Explore IBM developerWorks
                   styleName="card-link"
                   target="_blank"
                 >
-Take part in a developerWorks Event
+                  Take part in a developerWorks Event
                 </a>
                 <PrimaryButton
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/resources`}
                   size="sm"
                 >
-View Resources
+                  View Resources
                 </PrimaryButton>
               </div>
             </div>
@@ -283,7 +283,7 @@ View Resources
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
                 <h1>
-Live Challenges
+                  Live Challenges
                 </h1>
                 {liveChallengeLinks}
                 <PrimaryButton
@@ -291,7 +291,7 @@ Live Challenges
                   to={`${baseUrl}/challenges`}
                   size="sm"
                 >
-View All Challenges
+                  View All Challenges
                 </PrimaryButton>
               </div>
             </div>
@@ -299,7 +299,7 @@ View All Challenges
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
                 <h1>
-Upcoming Challenges
+                  Upcoming Challenges
                 </h1>
                 <p styleName="cardRegularText">
                   Get a sneak peak of upcoming challenges
@@ -310,7 +310,7 @@ Upcoming Challenges
                   to={`${baseUrl}/challenges`}
                   size="sm"
                 >
-View All Challenges
+                  View All Challenges
                 </PrimaryButton>
               </div>
             </div>

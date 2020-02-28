@@ -7,7 +7,7 @@ export default function JoinBlock() {
   return (
     <div styleName="container">
       <h1 styleName="title">
-Bluemix is Now IBM Cloud
+        Bluemix is Now IBM Cloud
       </h1>
       <p styleName="text">
         While everything you loved about Bluemix is the same under IBM Cloud,
@@ -20,7 +20,7 @@ Bluemix is Now IBM Cloud
         theme={{ button: style.button }}
         to="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
       >
-Sign up for IBM Cloud Lite
+        Sign up for IBM Cloud Lite
       </PrimaryButton>
     </div>
   );

@@ -48,7 +48,7 @@ const BadgesModal = ({
               {' '}
             </span>
             <span styleName="styles.title">
-BADGES
+              BADGES
             </span>
           </div>
         </div>

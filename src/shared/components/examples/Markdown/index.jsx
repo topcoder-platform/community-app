@@ -46,10 +46,10 @@ const example = `
 const MarkdownExample = () => (
   <div styleName="container">
     <h1>
-Markdown using &lt;MarkdownRenderer&gt;
+      Markdown using &lt;MarkdownRenderer&gt;
     </h1>
     <h2>
-Example Usage:
+      Example Usage:
     </h2>
     <code>
       <pre>
@@ -57,52 +57,52 @@ Example Usage:
       </pre>
     </code>
     <h2>
-Results:
+      Results:
     </h2>
     <MarkdownRenderer
       markdown={markdown}
     />
     <h2>
-Currently Supported JSX Elements
+      Currently Supported JSX Elements
     </h2>
     <ul>
       <li>
-Button, PrimaryButton, SecondaryButton
+        Button, PrimaryButton, SecondaryButton
       </li>
       <li>
-JoinCommunity
+        JoinCommunity
       </li>
       <li>
-Link
+        Link
         <li>
-Looker(property, table, and simple render function currently)
+          Looker(property, table, and simple render function currently)
         </li>
       </li>
     </ul>
     <h2>
-Notes
+      Notes
     </h2>
     <ul>
       <li>
-  Additional JSX components can be supported by adding a
-  field to customComponents in
+        Additional JSX components can be supported by adding a
+        field to customComponents in
         {' '}
         <code>
-utils/markdown.js
+          utils/markdown.js
         </code>
       </li>
       <li>
-  Custom Renderer can also be called directly by importing
-  the
+        Custom Renderer can also be called directly by importing
+        the
         {' '}
         <code>
-render
+          render
         </code>
         {' '}
-function from
+        function from
         {' '}
         <code>
-utils/markdown
+          utils/markdown
         </code>
       </li>
     </ul>

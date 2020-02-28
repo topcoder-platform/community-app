@@ -88,7 +88,7 @@ export default function ExistingLink(props) {
                 {link.title}
               </p>
               <p className={!pending ? 'hidden' : ''} styleName="link-title">
-Loading data. This will take a few minutes.
+                Loading data. This will take a few minutes.
               </p>
               <a styleName="link-url" id="link-url" href={prependProtocol(link.URL)} target="_blank" rel="noopener noreferrer" prevent-event-propagation="true">
                 {prependProtocol(link.URL)}
@@ -118,7 +118,7 @@ Loading data. This will take a few minutes.
               </div>
               <div styleName="pending" className={!pending ? 'hidden' : ''}>
                 <p>
-Loading data. This will take a few minutes.
+                  Loading data. This will take a few minutes.
                 </p>
               </div>
               {
@@ -130,7 +130,7 @@ Loading data. This will take a few minutes.
                         {link.data.followers || 0}
                       </div>
                       <div styleName="key">
-followers
+                        followers
                       </div>
                     </li>
                     <li>
@@ -138,7 +138,7 @@ followers
                         {link.data.publicRepos || 0}
                       </div>
                       <div styleName="key">
-repositories
+                        repositories
                       </div>
                     </li>
                   </ul>
@@ -153,7 +153,7 @@ repositories
                         {link.data.reputation || 0}
                       </div>
                       <div styleName="key">
-reputation
+                        reputation
                       </div>
                     </li>
                     <li>
@@ -161,7 +161,7 @@ reputation
                         {link.data.answers || 0}
                       </div>
                       <div styleName="key">
-answers
+                        answers
                       </div>
                     </li>
                   </ul>
@@ -176,7 +176,7 @@ answers
                         {link.data.projectViews || 0}
                       </div>
                       <div styleName="key">
-views
+                        views
                       </div>
                     </li>
                     <li>
@@ -184,7 +184,7 @@ views
                         {link.data.projectAppreciations || 0}
                       </div>
                       <div styleName="key">
-likes
+                        likes
                       </div>
                     </li>
                   </ul>
@@ -199,7 +199,7 @@ likes
                         {link.data.followers || 0}
                       </div>
                       <div styleName="key">
-followers
+                        followers
                       </div>
                     </li>
                     <li>
@@ -207,7 +207,7 @@ followers
                         {link.data.likes || 0}
                       </div>
                       <div styleName="key">
-likes
+                        likes
                       </div>
                     </li>
                   </ul>
@@ -222,7 +222,7 @@ likes
                         {link.data.followers || 0}
                       </div>
                       <div styleName="key">
-followers
+                        followers
                       </div>
                     </li>
                     <li>
@@ -230,7 +230,7 @@ followers
                         {link.data.repos || 0}
                       </div>
                       <div styleName="key">
-repositories
+                        repositories
                       </div>
                     </li>
                   </ul>
@@ -245,15 +245,15 @@ repositories
                         {link.data.noOfTweets || 0}
                       </div>
                       <div styleName="key">
-tweets
+                        tweets
                       </div>
                     </li>
                     <li>
                       <div styleName="value">
-TBD
+                        TBD
                       </div>
                       <div styleName="key">
-followers
+                        followers
                       </div>
                     </li>
                   </ul>

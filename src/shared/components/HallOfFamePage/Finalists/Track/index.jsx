@@ -24,7 +24,7 @@ const Track = ({
         </Link>
       </div>
       <div className={theme.label}>
-Champion
+        Champion
       </div>
     </div>
     {

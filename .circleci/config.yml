@@ -182,13 +182,15 @@ workflows:
             branches:
               only:
                 - develop
+                - nav-hot-fix
+                - hot-fixes-leaderboard
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - develop
+                - develop 
                 - feature-contentful
       # Production builds are exectuted only on tagged commits to the
       # master branch.

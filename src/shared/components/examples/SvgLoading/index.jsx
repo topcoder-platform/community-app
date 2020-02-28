@@ -10,21 +10,21 @@ export default function SvgLoading() {
   return (
     <div>
       <h1>
-SVG Loading
+        SVG Loading
       </h1>
       <p>
         This component show how to load
         {' '}
         <code>
-.svg
+          .svg
         </code>
         {' '}
-assets with use of
+        assets with use of
         <code>
           {' '}
-babel-plugin-inline-react-svg
+          babel-plugin-inline-react-svg
         </code>
-.
+        .
       </p>
       <SampleAsset
         width="640px"

@@ -105,7 +105,7 @@ const resultsRows = MOCK_RESULTS.map(row => (
             {' '}
             <span className="number">
               {row.percent}
-%
+              %
             </span>
           </a>
         </Tooltip>
