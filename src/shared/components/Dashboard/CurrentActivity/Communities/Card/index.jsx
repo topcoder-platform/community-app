@@ -44,7 +44,7 @@ export default function CommunityTile(props) {
                     {(stats.numMembers || 0).toLocaleString()}
                   </div>
                   <div styleName="label">
-Members
+                    Members
                   </div>
                 </div>
                 <div styleName="stats-item">
@@ -52,7 +52,7 @@ Members
                     {stats.numChallenges || 0}
                   </div>
                   <div styleName="label">
-Challenges
+                    Challenges
                   </div>
                 </div>
                 <div styleName="stats-item">
@@ -60,7 +60,7 @@ Challenges
                     {stats.openPrizes || '$0'}
                   </div>
                   <div styleName="label">
-Purse Cash
+                    Purse Cash
                   </div>
                 </div>
               </div>

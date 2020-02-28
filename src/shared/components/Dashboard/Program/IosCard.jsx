@@ -40,7 +40,7 @@ const IosCard = (props) => {
           <a href={`${config.URL.FORUMS}/?module=Category&categoryID=${challenge.forumId}`} styleName="forum">
             <div styleName="forum-icon" />
             <p>
-Posts
+              Posts
             </p>
           </a>
         </div>
@@ -54,7 +54,7 @@ Posts
           && (
           <div styleName="challenge-calendar">
             <p>
-Ends In
+              Ends In
             </p>
             <p styleName="time-remaining">
               {challenge.userCurrentPhaseEndTime[0]}
@@ -69,7 +69,7 @@ Ends In
           !challenge.userCurrentPhaseEndTime
           && (
           <div styleName="stalled-challenge">
-This challenge is currently paused.
+            This challenge is currently paused.
           </div>
           )
         }
@@ -77,7 +77,7 @@ This challenge is currently paused.
           challenge.reviewType === 'PEER'
           && (
           <p styleName="prize-money">
-Peer Review Challenge
+            Peer Review Challenge
           </p>
           )
         }

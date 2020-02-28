@@ -133,7 +133,7 @@ export default function Resources({
                 </a>
               }
               {' '}
-to get an IBM Cloud account.
+              to get an IBM Cloud account.
             </FaqItem>
             <FaqItem
               open={shownFaqItems.prerequisites}
@@ -161,7 +161,7 @@ to get an IBM Cloud account.
               toggle={show => toggleFaqItem('tco18Rules', show)}
             >
               <h3>
-Cognitive Points
+                Cognitive Points
               </h3>
               <p>
                 Every educational Cognitive challenge gives you an opportunity
@@ -194,10 +194,10 @@ Cognitive Points
                 are First 2 Finish challenges:
               </p>
               <p>
-Winner: 250pts
+                Winner: 250pts
               </p>
               <h3>
-Cognitive Leaderboard and Prize Schedule
+                Cognitive Leaderboard and Prize Schedule
               </h3>
               <p>
                 All Cognitive Points earned between January 2018 and August 31,
@@ -210,7 +210,7 @@ Cognitive Leaderboard and Prize Schedule
                 eligible for the TCO19 trip prize.
               </p>
               <h3>
-TCO Trip Prizes
+                TCO Trip Prizes
               </h3>
               <p>
                 The Topcoder Cognitive Community member with the most
@@ -229,7 +229,7 @@ TCO Trip Prizes
                 prize will be offered to the next highest point scorer in line.
               </p>
               <h3>
-Tiebreaker
+                Tiebreaker
               </h3>
               <p>
                 If there is a tie for first place, all tied members will
@@ -259,7 +259,7 @@ Tiebreaker
                     theme={{ button: style.joinButton }}
                     to={`${baseUrl}/challenges`}
                   >
-View Challenges
+                    View Challenges
                   </PrimaryButton>
                 </div>
               ) : (
@@ -289,7 +289,7 @@ View Challenges
       </div>
       <div styleName="style.moreQContainer">
         <h1 styleName="style.moreQTitle">
-Still Have Questions or Need Help?
+          Still Have Questions or Need Help?
         </h1>
         <div styleName="style.moreQContent">
           <div styleName="style.moreQCard style.moreQCard1">
@@ -299,7 +299,7 @@ Still Have Questions or Need Help?
               theme={{ button: style.moreQCardButton }}
               to="https://help.topcoder.com/hc/en-us/articles/219069687-Contact-Support"
             >
-Contact Us
+              Contact Us
             </Button>
           </div>
           <div styleName="style.moreQCard style.moreQCard2">
@@ -309,7 +309,7 @@ Contact Us
               theme={{ button: style.moreQCardButton }}
               to="https://apps.topcoder.com/forums/?module=ThreadList&forumID=609116"
             >
-Cognitive Forum
+              Cognitive Forum
             </Button>
           </div>
           <div styleName="style.moreQCard style.moreQCard3">
@@ -319,7 +319,7 @@ Cognitive Forum
               theme={{ button: style.moreQCardButton }}
               to="https://www.ibm.com/developerworks/"
             >
-developerWorks&reg;
+              developerWorks&reg;
             </Button>
           </div>
         </div>

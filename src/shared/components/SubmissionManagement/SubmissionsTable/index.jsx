@@ -93,21 +93,21 @@ export default function SubmissionsTable(props) {
         <thead>
           <tr>
             <th>
-ID
+              ID
             </th>
             <th>
-Type
+              Type
             </th>
             <th>
-Submission Date
+              Submission Date
             </th>
             {type === 'DESIGN' && (
             <th styleName="status">
-Screening Status
+              Screening Status
             </th>
             )}
             <th styleName="actions">
-Actions
+              Actions
             </th>
           </tr>
         </thead>

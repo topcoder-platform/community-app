@@ -28,7 +28,7 @@ export default function Dial({
         {
           show ? Math.round(amount).toLocaleString() : (
             <div styleName="hidden">
-hidden
+              hidden
             </div>
           )
         }

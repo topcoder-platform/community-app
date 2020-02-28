@@ -69,7 +69,7 @@ const ExternalLink = ({ data, type }) => {
                   {data.followers || 0}
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
               <li>
@@ -77,7 +77,7 @@ followers
                   {data.publicRepos || 0}
                 </div>
                 <div styleName="key">
-repositories
+                  repositories
                 </div>
               </li>
             </ul>
@@ -97,7 +97,7 @@ repositories
                   {data.reputation || 0}
                 </div>
                 <div styleName="key">
-reputation
+                  reputation
                 </div>
               </li>
               <li>
@@ -105,7 +105,7 @@ reputation
                   {data.answers || 0}
                 </div>
                 <div styleName="key">
-answers
+                  answers
                 </div>
               </li>
             </ul>
@@ -125,7 +125,7 @@ answers
                   {data.projectViews || 0}
                 </div>
                 <div styleName="key">
-views
+                  views
                 </div>
               </li>
               <li>
@@ -133,7 +133,7 @@ views
                   {data.projectAppreciations || 0}
                 </div>
                 <div styleName="key">
-likes
+                  likes
                 </div>
               </li>
             </ul>
@@ -153,7 +153,7 @@ likes
                   {data.projectViews || 0}
                 </div>
                 <div styleName="key">
-views
+                  views
                 </div>
               </li>
               <li>
@@ -161,7 +161,7 @@ views
                   {data.projectAppreciations || 0}
                 </div>
                 <div styleName="key">
-likes
+                  likes
                 </div>
               </li>
             </ul>
@@ -181,7 +181,7 @@ likes
                   {data.followers || 0}
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
               <li>
@@ -189,7 +189,7 @@ followers
                   {data.likes || 0}
                 </div>
                 <div styleName="key">
-likes
+                  likes
                 </div>
               </li>
             </ul>
@@ -209,7 +209,7 @@ likes
                   {data.followers || 0}
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
               <li>
@@ -217,7 +217,7 @@ followers
                   {data.repos || 0}
                 </div>
                 <div styleName="key">
-repositories
+                  repositories
                 </div>
               </li>
             </ul>
@@ -237,15 +237,15 @@ repositories
                   {data.tweets || 0}
                 </div>
                 <div styleName="key">
-tweets
+                  tweets
                 </div>
               </li>
               <li>
                 <div styleName="value">
-TBD
+                  TBD
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
             </ul>

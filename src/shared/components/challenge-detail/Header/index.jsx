@@ -297,7 +297,7 @@ export default function ChallengeHeader(props) {
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
             <h2 styleName="prizes-title">
-Key Information
+              Key Information
             </h2>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
@@ -308,27 +308,27 @@ Key Information
                       ? (
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          BONUS:
+                            BONUS:
                             {' '}
                             {numberOfCheckpointsPrizes}
                           </span>
-                        &zwnj;
-                        CHECKPOINTS AWARDED WORTH
-                        &zwnj;
+                          &zwnj;
+                          CHECKPOINTS AWARDED WORTH
+                          &zwnj;
                           <span
                             styleName={`bonus-highlight ${trackLower}-accent-color`}
                           >
-                          $
+                            $
                             {topCheckPointPrize}
                           </span>
-                        &zwnj;
-                        EACH
+                          &zwnj;
+                          EACH
                         </p>
                       )
                       : (
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          RELIABILITY BONUS: $
+                            RELIABILITY BONUS: $
                             {reliabilityBonus.toFixed()}
                           </span>
                         </p>
@@ -342,7 +342,7 @@ Key Information
                 <div styleName="bonus-div">
                   <p styleName="bonus-text">
                     <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-POINTS:
+                      POINTS:
                       {drPoints}
                     </span>
                   </p>
@@ -360,7 +360,7 @@ POINTS:
                   onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
                 >
-Unregister
+                  Unregister
                 </DangerButton>
               ) : (
                 <PrimaryButton
@@ -369,7 +369,7 @@ Unregister
                   onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
                 >
-Register
+                  Register
                 </PrimaryButton>
               )}
               <PrimaryButton
@@ -377,7 +377,7 @@ Register
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
-Submit
+                Submit
               </PrimaryButton>
               {
                 track === 'DESIGN' && hasRegistered && !unregistering
@@ -386,7 +386,7 @@ Submit
                     theme={{ button: style.challengeAction }}
                     to={`${challengesUrl}/${challengeId}/my-submissions`}
                   >
-View Submissions
+                    View Submissions
                   </PrimaryButton>
                 )
               }
@@ -405,7 +405,7 @@ View Submissions
                     {timeLeft}
                   </span>
                   {' '}
-until current deadline ends
+                  until current deadline ends
                 </div>
                 )
               }
@@ -420,13 +420,13 @@ until current deadline ends
               {showDeadlineDetail
                 ? (
                   <span styleName="collapse-text">
-Hide Deadlines
+                    Hide Deadlines
                     <ArrowDown />
                   </span>
                 )
                 : (
                   <span styleName="collapse-text">
-Show Deadlines
+                    Show Deadlines
                     <ArrowUp />
                   </span>
                 )

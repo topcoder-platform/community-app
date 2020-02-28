@@ -17,7 +17,7 @@ export default function Page404() {
         }}
       />
       <h1 styleName="message">
-404 HTTP Error
+        404 HTTP Error
       </h1>
       <p styleName="details">
         The resource you are looking for does not exist in Topcoder community App :(

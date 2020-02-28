@@ -8,7 +8,7 @@ export default function MarkdownMonitor({ connector }) {
   return (
     <div styleName="container">
       <div styleName="title">
-Markdown Rendering Preview
+        Markdown Rendering Preview
       </div>
       <Editor
         ref={(node) => {

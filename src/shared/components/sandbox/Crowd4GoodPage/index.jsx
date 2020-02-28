@@ -11,7 +11,7 @@ export default function Crowd4GoodPage() {
     <div styleName="container">
       <img alt="Banner" src={BannerImage} styleName="banner" />
       <h1>
-Crowd for Good - A Topcoder Initiative
+        Crowd for Good - A Topcoder Initiative
       </h1>
       <p>
         Crowdsourcing has come a long way since the last 10 years. For the most

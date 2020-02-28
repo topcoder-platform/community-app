@@ -1,8 +1,6 @@
 /**
  * Challenge search & filters panel.
  */
-
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
@@ -15,7 +13,6 @@ import EditTrackPanel from './EditTrackPanel';
 import FiltersIcon from './FiltersSwitch/filters-icon.svg';
 import FiltersPanel from './FiltersPanel';
 import FiltersSwitch from './FiltersSwitch';
-import FiltersCardsType from './FiltersCardsType';
 
 import './ChallengeFilters.scss';
 
@@ -30,14 +27,12 @@ export default function ChallengeFilters({
   filterState,
   isAuth,
   auth,
-  hideSrm,
   isCardTypeSet,
   isReviewOpportunitiesBucket,
   saveFilter,
   searchText,
   selectCommunity,
   selectedCommunityId,
-  setCardType,
   setExpanded,
   setFilterState,
   setSearchText,
@@ -64,11 +59,6 @@ export default function ChallengeFilters({
   return (
     <div styleName="challenge-filters">
       <div styleName="filter-header">
-        <FiltersCardsType
-          hideSrm={hideSrm}
-          isCardTypeSet={isCardTypeSet}
-          setCardType={setCardType}
-        />
         <ChallengeSearchBar
           onSearch={text => setFilterState(Filter.setText(filterState, text))}
           label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
@@ -115,7 +105,7 @@ export default function ChallengeFilters({
                   styleName="track-btn"
                   tabIndex={0}
                 >
-                Tracks
+                  Tracks
                   <span styleName="down-arrow" />
                 </span>
               ) : ''
@@ -190,7 +180,6 @@ ChallengeFilters.defaultProps = {
   isCardTypeSet: '',
   isReviewOpportunitiesBucket: false,
   isSavingFilter: false,
-  setCardType: _.noop,
   challenges: [],
 };
 
@@ -203,14 +192,12 @@ ChallengeFilters.propTypes = {
   filterState: PT.shape().isRequired,
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
-  hideSrm: PT.bool.isRequired,
   isCardTypeSet: PT.string,
   isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
   saveFilter: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
-  setCardType: PT.func,
   setExpanded: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   searchText: PT.string.isRequired,

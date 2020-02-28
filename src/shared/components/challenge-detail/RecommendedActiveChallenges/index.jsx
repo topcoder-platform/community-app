@@ -32,7 +32,7 @@ export default function RecommendedActiveChallenges({
     <div id="recommendedActiveChallenges" styleName="container">
       <div styleName="header-container">
         <div styleName="header">
-        Recommended Active Challenges
+          Recommended Active Challenges
         </div>
         <div styleName="right-url">
           <a href={`${challengesUrl}?bucket=openForRegistration`} rel="noopener noreferrer" target="_blank">All Active Challenges</a>
