@@ -180,7 +180,18 @@ async function getMenuDone(menuProps) {
                 sI2.subMenu = await Promise.all(_.map(
                   cR2.fields.childRoutes,
                   cR3 => service.getEntry(cR3.sys.id).then(
-                    c3 => menuItemBuilder(urlTarget(url2, cR2), c3),
+                    async (c3) => {
+                      const sI3 = menuItemBuilder(url2, c3);
+                      if (c3.fields.childRoutes) {
+                        sI3.subMenu = await Promise.all(_.map(
+                          c3.fields.childRoutes,
+                          cR4 => service.getEntry(cR4.sys.id).then(
+                            c4 => menuItemBuilder(urlTarget(url2, c3), c4),
+                          ),
+                        ));
+                      }
+                      return sI3;
+                    },
                   ),
                 ));
               }
