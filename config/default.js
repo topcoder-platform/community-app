@@ -289,6 +289,10 @@ module.exports = {
               title: 'Competitive Programming',
               href: 'https://arena.topcoder-dev.com',
             },
+            {
+              title: 'TaaS',
+              href: '/community/taas',
+            },
           ],
         },
         {
