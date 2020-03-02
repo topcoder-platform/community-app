@@ -3,6 +3,10 @@ $white: white;
 $turquoise-dark: turquoise;
 $turquoise-super-dark: turquoise;
 
+*:focus {
+  outline: none;
+}
+
 .outer-container {
   width: 1000px;
   height: auto;
@@ -63,7 +67,6 @@ $turquoise-super-dark: turquoise;
 
         font-weight: 500;
         line-height: 22px;
-        // padding-left: 20px;
         margin-top: -2px;
         padding: 5px 20px;
         display: flex;
@@ -85,7 +88,6 @@ $turquoise-super-dark: turquoise;
             @include roboto-regular;
 
             font-size: 20px;
-            // margin: auto 0px;
             width: 10px;
             height: 10px;
           }
@@ -115,14 +117,9 @@ $turquoise-super-dark: turquoise;
 
         .btn-close {
           display: block;
-          // background: url(#{$img-path}/e-remove.svg) center center no-repeat;
           background-size: 10px;
           width: 20px;
           height: 20px;
-
-          &:hover {
-            // background: url(#{$img-path}/delete-small.svg) center center no-repeat;
-          }
         }
 
         .black-txt {
