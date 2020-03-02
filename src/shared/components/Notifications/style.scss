@@ -222,10 +222,12 @@ $turquoise-super-dark: turquoise;
     }
   }
 }
+
 @media (max-width: $screen-sm + 1px) {
   .outer-container {
     margin: 15px auto 50px auto;
     padding: 0 10px;
+
     .heading {
       font-size: 40px;
     }
