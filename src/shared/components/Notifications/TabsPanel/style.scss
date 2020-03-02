@@ -7,7 +7,6 @@
   height: 30px;
   margin-top: 50px;
   margin-bottom: 20px;
-  padding-left: 14px;
 
   .lefts {
     display: flex;
@@ -15,19 +14,21 @@
     max-width: 345px;
 
     .btn {
+      @include roboto-bold;
       color: #2a2a2a;
       background-color: $tc-white;
-
-      @include roboto-bold;
-
       font-size: 12px;
       font-weight: 400;
+      text-transform: uppercase;
       line-height: 30px;
       text-align: center;
-      width: 177px;
       height: 30px;
+      padding: 0 15px;
       cursor: pointer;
-      text-transform: uppercase;
+
+      &:not(:first-of-type) {
+        margin-left: 5px;
+      }
     }
 
     .active {
