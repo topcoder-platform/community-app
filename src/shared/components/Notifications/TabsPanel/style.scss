@@ -54,3 +54,9 @@
     }
   }
 }
+
+@media (max-width: $screen-sm + 1px) {
+  .container {
+    margin: 15px 0;
+  }
+}
