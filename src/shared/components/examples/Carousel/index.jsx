@@ -9,7 +9,7 @@ export default function Carousel() {
   return (
     <div styleName="container">
       <h1>
-Carousel
+        Carousel
       </h1>
       <XCarousel>
         <Card color="red" height={90} />

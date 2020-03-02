@@ -5,7 +5,7 @@ export default function CodeSplitting() {
   return (
     <div styleName="code-splitting">
       <h1>
-Code Splitting Test
+        Code Splitting Test
       </h1>
       <p>
         If code splitting works properly, this page should render nicely and
@@ -21,21 +21,21 @@ Code Splitting Test
           </a>
         }
         {' '}
-of
+        of
         {' '}
         <strong>
-react-router
+          react-router
         </strong>
         {' '}
-documentation for further details
+        documentation for further details
         one code splitting implementation for ReactJS. Here is the qoute:
       </p>
       <div styleName="quote">
         <h3>
-Code-splitting + server rendering
+          Code-splitting + server rendering
         </h3>
         <p>
-We’ve tried and failed a couple of times. What we learned:
+          We’ve tried and failed a couple of times. What we learned:
         </p>
         <ol>
           <li>
@@ -60,9 +60,9 @@ We’ve tried and failed a couple of times. What we learned:
           those who attempt the server-rendered, code-split apps.
         </p>
         <em styleName="author">
-From Code Splitting documentation of
+          From Code Splitting documentation of
           <strong>
-react-router
+            react-router
           </strong>
         </em>
       </div>
@@ -74,9 +74,9 @@ react-router
         Instructions on using our implementation of code splitting are
         &zwnj;
         <a href="https://github.com/topcoder-platform/community-app/blob/develop/docs/code-splitting.md">
-available here
+          available here
         </a>
-.
+        .
       </p>
     </div>
   );

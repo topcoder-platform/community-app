@@ -193,11 +193,11 @@ class ProfilePage extends React.Component {
                 && (
                 <div styleName="empty-profile">
                   <h2>
-BEEP. BEEP. HELLO!
+                    BEEP. BEEP. HELLO!
                   </h2>
                   <Robot />
                   <p>
-Seems like this member doesn’t have much information to share yet.
+                    Seems like this member doesn’t have much information to share yet.
                   </p>
                 </div>
                 )
@@ -208,7 +208,7 @@ Seems like this member doesn’t have much information to share yet.
                 <div id="profile-skills">
                   <div styleName="skills">
                     <h3 styleName="activity">
-Skills
+                      Skills
                     </h3>
                     <div styleName="list">
                       {
@@ -235,7 +235,7 @@ Skills
                         onClick={() => this.setState({ skillsExpanded: true })}
                         theme={style}
                       >
-VIEW ALL
+                        VIEW ALL
                       </PrimaryButton>
                       )
                     }
@@ -246,7 +246,7 @@ VIEW ALL
                         onClick={() => this.setState({ skillsExpanded: false })}
                         theme={style}
                       >
-VIEW LESS
+                        VIEW LESS
                       </PrimaryButton>
                       )
                     }
@@ -266,7 +266,7 @@ VIEW LESS
                 && (
                 <div styleName="external-links-container">
                   <h3>
-On The Web
+                    On The Web
                   </h3>
                   <div styleName="external-links">
                     {

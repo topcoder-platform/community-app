@@ -15,17 +15,17 @@ import './styles.scss';
 const ApplicationsTab = ({ applications }) => (
   <div styleName="container">
     <h3>
-Review Applications
+      Review Applications
     </h3>
     <div styleName="head">
       <div styleName="col-1">
-Handle
+        Handle
       </div>
       <div styleName="col-2">
-Role
+        Role
       </div>
       <div styleName="col-3">
-Application Date
+        Application Date
       </div>
     </div>
     <div styleName="body">
@@ -40,13 +40,13 @@ Application Date
             </div>
             <div styleName="col-2">
               <div styleName="sm-only title">
-Role
+                Role
               </div>
               {app.role}
             </div>
             <div styleName="col-3">
               <div styleName="sm-only title">
-Application Date
+                Application Date
               </div>
               <div>
                 <span>

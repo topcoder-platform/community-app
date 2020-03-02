@@ -95,11 +95,13 @@ export function menuItemBuilder(baseUrl, item) {
       return {
         title: item.fields.naviMenuLinkText || item.fields.name,
         href: target(baseUrl, item),
+        id: item.sys.id,
       };
     case 'navigationMenuItem':
       return {
         title: item.fields.linkText || item.fields.name,
         href: target(baseUrl, item),
+        id: item.sys.id,
       };
     default: return {};
   }

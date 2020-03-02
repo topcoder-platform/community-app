@@ -51,7 +51,7 @@ export default function SideBar({
   const reviewTip = (
     <div styleName="tctooltiptext tooltiptextreview">
       <h4>
-Final Review:
+        Final Review:
       </h4>
       <p>
         {reviewTypeDescription}
@@ -62,10 +62,10 @@ Final Review:
   const approvalTip = (
     <div styleName="tctooltiptext tooltiptextapproval">
       <h4>
-Approval:
+        Approval:
       </h4>
       <p>
-Customer has final opportunity to sign-off on the delivered assets.
+        Customer has final opportunity to sign-off on the delivered assets.
       </p>
     </div>
   );
@@ -73,11 +73,11 @@ Customer has final opportunity to sign-off on the delivered assets.
   const reviewScorecardTip = (
     <div styleName="tctooltiptext tooltiptextapproval">
       <h4>
-      See how you&apos;ll be reviewed.
+        See how you&apos;ll be reviewed.
       </h4>
       <p>
-Make sure you review the scorecard before you start.
-This will show you how your submission will be judged and scored.
+        Make sure you review the scorecard before you start.
+        This will show you how your submission will be judged and scored.
       </p>
     </div>
   );
@@ -89,7 +89,7 @@ This will show you how your submission will be judged and scored.
           hasRegistered && documents && documents.length > 0 && (
             <div>
               <h3>
-DOWNLOADS:
+                DOWNLOADS:
               </h3>
               <ul>
                 {
@@ -113,27 +113,27 @@ DOWNLOADS:
           !isDesign && !isMM && (
           <div>
             <h2>
-REVIEW STYLE:
+              REVIEW STYLE:
             </h2>
             <h3>
-Final Review:
+              Final Review:
             </h3>
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
                 <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="review-tip">
-?
+                  ?
                 </div>
               </Tooltip>
             </span>
             <h3>
-Approval:
+              Approval:
             </h3>
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip id="approval-tip" content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
                 <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="approval-tip">
-?
+                  ?
                 </div>
               </Tooltip>
             </span>
@@ -144,14 +144,14 @@ Approval:
           !isMM && (
           <div>
             <h2>
-  CHALLENGE LINKS:
+              CHALLENGE LINKS:
             </h2>
             {
               isDevelop && environment && environment.length > 0
               && (
               <p styleName="link-like-paragraph">
                 <a href={`${environment}`}>
-  Environment
+                  Environment
                 </a>
               </p>
               )
@@ -161,7 +161,7 @@ Approval:
               && (
               <p styleName="link-like-paragraph">
                 <a href={`${codeRepo}`}>
-  Code Repository
+                  Code Repository
                 </a>
               </p>
               )
@@ -171,7 +171,7 @@ Approval:
               && (
               <p styleName="link-like-paragraph">
                 <a href={`${scorecardURL}${screeningScorecardId}`}>
-  Screening Scorecard
+                  Screening Scorecard
                 </a>
               </p>
               )
@@ -181,11 +181,11 @@ Approval:
               && (
               <p styleName="link-like-paragraph tooltip-container">
                 <a href={`${scorecardURL}${reviewScorecardId}`}>
-  Review Scorecard
+                  Review Scorecard
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
                   <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="reviewscorecard-tip">
-  ?
+                    ?
                   </div>
                 </Tooltip>
               </p>
@@ -199,10 +199,10 @@ Approval:
           && (
           <div>
             <h2>
-SUBMISSION FORMAT:
+              SUBMISSION FORMAT:
             </h2>
             <h3>
-Your Design Files:
+              Your Design Files:
             </h3>
             <ol>
               <li>
@@ -229,11 +229,11 @@ Your Design Files:
               Trouble formatting your submission or want to learn more?
               &zwnj;
               <a href={faqURL}>
-Read the FAQ.
+                Read the FAQ.
               </a>
             </p>
             <h3>
-Fonts, Stock Photos, and Icons:
+              Fonts, Stock Photos, and Icons:
             </h3>
             <p styleName="link-like-paragraph">
               All fonts, stock photos, and icons within your design must be declared
@@ -245,13 +245,13 @@ Fonts, Stock Photos, and Icons:
               </a>
             </p>
             <h3>
-Screening:
+              Screening:
             </h3>
             <p styleName="link-like-paragraph">
               All submissions are screened for eligibility before the challenge
               holder picks winners. Don
               &quot;
-t let your hard work go to waste. Learn more about how to
+              t let your hard work go to waste. Learn more about how to
               &nbsp;
               <a href="https://help.topcoder.com/hc/en-us/articles/217959577-How-to-Pass-Screening-in-Design-Challenges">
                 pass screening.
@@ -265,7 +265,7 @@ t let your hard work go to waste. Learn more about how to
               </a>
             </p>
             <h2>
-SOURCE FILES:
+              SOURCE FILES:
             </h2>
             <ul styleName="source-files-list">
               {
@@ -282,7 +282,7 @@ SOURCE FILES:
               You must include all source files with your submission.
             </p>
             <h2>
-SUBMISSION LIMIT:
+              SUBMISSION LIMIT:
             </h2>
             <p styleName="link-like-paragraph">
               {
@@ -302,7 +302,7 @@ SUBMISSION LIMIT:
           && (
           <div>
             <h2>
-CHALLENGE TERMS:
+              CHALLENGE TERMS:
             </h2>
             <div styleName="link-like-paragraph">
               {
@@ -323,7 +323,7 @@ CHALLENGE TERMS:
         { shareable && (
           <div>
             <h2>
-SHARE:
+              SHARE:
             </h2>
             <ShareSocial />
           </div>

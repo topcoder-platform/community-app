@@ -30,7 +30,7 @@ const renderPhase = phase => (
       <strong>
         {moment(phase.scheduledStartTime).format('MMM DD')}
       </strong>
-,
+      ,
       {moment(phase.scheduledStartTime).format('hh:mma')}
     </div>
     <div styleName="duration">
@@ -60,12 +60,12 @@ const PhaseList = ({ isExpanded, phases, onExpand }) => (
         <Button onClick={onExpand} theme={style}>
           {isExpanded ? (
             <span>
-Hide Phases
+              Hide Phases
               <ArrowUp />
             </span>
           ) : (
             <span>
-View All Phases
+              View All Phases
               <ArrowDown />
             </span>
           )}

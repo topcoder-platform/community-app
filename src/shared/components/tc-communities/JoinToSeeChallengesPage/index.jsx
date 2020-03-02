@@ -14,7 +14,7 @@ export default function JoinToSeeChallengesPage() {
       <h1
         styleName="message"
       >
-Only members of community can see the challenges
+        Only members of community can see the challenges
       </h1>
       <JoinCommuity />
     </div>

@@ -130,7 +130,7 @@ class ChallengeTile extends React.Component {
                       { challenge.pointTotal || 0 }
                     </p>
                     <p>
-Total Points
+                      Total Points
                     </p>
                   </div>
                   ) }
@@ -146,32 +146,32 @@ Total Points
                             { getPlacementPostfix(challenge.highestPlacement) }
                           </span>
                           {' '}
-Place
+                          Place
                         </p>
                         )
                       }
                       { challenge.userStatus === 'NOT_FINISHED'
                         && (
                         <p styleName="place">
-Didn&apos;t Finish
+                          Didn&apos;t Finish
                         </p>
                         ) }
                       { challenge.userStatus === 'PASSED_SCREENING'
                         && (
                         <p styleName="place">
-Passed Screening
+                          Passed Screening
                         </p>
                         ) }
                       { !challenge.highestPlacement && challenge.userStatus === 'PASSED_REVIEW'
                         && (
                         <p styleName="place">
-Passed Review
+                          Passed Review
                         </p>
                         ) }
                       { challenge.userStatus === 'COMPLETED'
                         && (
                         <p styleName="place">
-COMPLETED
+                          COMPLETED
                         </p>
                         ) }
                       { challenge.userStatus === 'PASSED_REVIEW'
@@ -181,7 +181,7 @@ COMPLETED
                             { percentage(challenge.userDetails.submissionReviewScore / 100) }
                           </p>
                           <p styleName="last-child">
-Review Score
+                            Review Score
                           </p>
                         </div>
                       ) }
@@ -203,32 +203,32 @@ Review Score
                             { getPlacementPostfix(challenge.highestPlacement) }
                           </span>
                           {' '}
-Place
+                          Place
                         </p>
                         )
                         }
                         { challenge.userStatus === 'NOT_FINISHED'
                           && (
                           <p styleName="place">
-Didn&apos;t Finish
+                            Didn&apos;t Finish
                           </p>
                           ) }
                         { challenge.userStatus === 'PASSED_SCREENING'
                           && (
                           <p styleName="place">
-Passed Screening
+                            Passed Screening
                           </p>
                           ) }
                         { !challenge.highestPlacement && challenge.userStatus === 'PASSED_REVIEW'
                           && (
                           <p styleName="place">
-Passed Review
+                            Passed Review
                           </p>
                           ) }
                         { challenge.userStatus === 'COMPLETED'
                           && (
                           <p styleName="place">
-COMPLETED
+                            COMPLETED
                           </p>
                           ) }
                         {
@@ -254,7 +254,7 @@ COMPLETED
                                 <div styleName="private-challenge-banner" title="Submissions for this challenge are confidential">
                                   <Private />
                                   <span>
-PRIVATE CHALLENGE
+                                    PRIVATE CHALLENGE
                                   </span>
                                 </div>
                                 )
@@ -271,14 +271,14 @@ PRIVATE CHALLENGE
                                       <span>
                                         {challenge.numImages}
                                         {' '}
-IMAGES
+                                        IMAGES
                                       </span>
                                       )
                                     }
                                     {!challenge.submissionViewable
                                       && (
                                       <span>
-No image is visible
+                                        No image is visible
                                       </span>
                                       )
                                     }
@@ -298,13 +298,13 @@ No image is visible
                 && (
                 <div styleName="invite-only-banner">
                   <div styleName="title">
-INVITE-ONLY CHALLENGE
+                    INVITE-ONLY CHALLENGE
                   </div>
                   <InviteOnly />
                   <span>
-CHALLENGE INFORMATION IS CONFIDENTIAL
+                    CHALLENGE INFORMATION IS CONFIDENTIAL
                     <br />
-                  RESULTS ARE NOT INCLUDED IN STATISTICS
+                    RESULTS ARE NOT INCLUDED IN STATISTICS
                   </span>
                 </div>
                 ) }
@@ -315,7 +315,7 @@ CHALLENGE INFORMATION IS CONFIDENTIAL
                   && (
                   <span>
                     <span>
-Role: &nbsp;
+                      Role: &nbsp;
                     </span>
                     <span>
                       { listRoles(challenge.userDetails.roles) }

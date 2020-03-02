@@ -14,14 +14,14 @@ export default function SaveConfirmationModal({
       theme={{ container: style.container }}
     >
       <h1 styleName="title">
-Saving The Challenge
+        Saving The Challenge
       </h1>
       {
         saving ? <LoadingIndicator /> : (
           <PrimaryButton
             onClick={onDone}
           >
-Done
+            Done
           </PrimaryButton>
         )
       }

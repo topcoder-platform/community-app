@@ -14,25 +14,25 @@ export default function ScalableRect() {
         Demo/test of the
         {' '}
         <code>
-ScalableRect
+          ScalableRect
         </code>
         {' '}
-component
+        component
       </h1>
       <h3>
-A rect with 16:9 side ratio
+        A rect with 16:9 side ratio
       </h3>
       <Rect ratio="16:9">
         <div styleName="test-content" />
       </Rect>
       <h3>
-A small default (1:1) rect, occupying 20% of the pagewidth
+        A small default (1:1) rect, occupying 20% of the pagewidth
       </h3>
       <Rect styleName="small">
         <div styleName="test-content" />
       </Rect>
       <h3>
-A small 4:3 rect, occupying 20% of the page width
+        A small 4:3 rect, occupying 20% of the page width
       </h3>
       <Rect ratio="4:3" styleName="small">
         <div styleName="test-content" />

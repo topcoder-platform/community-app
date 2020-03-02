@@ -6,7 +6,7 @@ export default function Typography() {
   return (
     <div styleName="container">
       <h1 styleName="title">
-Standard Topcoder Typography
+        Standard Topcoder Typography
       </h1>
       <p styleName="text">
         Most of Topcoder websites use the same styleguide for the design.
@@ -17,53 +17,53 @@ Standard Topcoder Typography
       <div styleName="panels">
         <div styleName="panel">
           <h3 styleName="panel-title">
-Labels
+            Labels
           </h3>
           <p styleName="label-xl">
             20/25px &mdash; Extra Large Label &mdash;
             {' '}
             <code>
-@mixin tc-label-xl;
+              @mixin tc-label-xl;
             </code>
           </p>
           <p styleName="label-lg">
             15/20px &mdash; Large Label &mdash;
             {' '}
             <code>
-@mixin tc-label-lg;
+              @mixin tc-label-lg;
             </code>
           </p>
           <p styleName="label-md">
             13/20px &mdash; Medium Label &mdash;
             {' '}
             <code>
-@mixin tc-label-md;
+              @mixin tc-label-md;
             </code>
           </p>
           <p styleName="label-sm">
             12/15px &mdash; Small Label &mdash;
             {' '}
             <code>
-@mixin tc-label-sm;
+              @mixin tc-label-sm;
             </code>
           </p>
           <p styleName="label-xs">
             11/15px &mdash; Extra Small Label &mdash;
             {' '}
             <code>
-@mixin tc-label-xs;
+              @mixin tc-label-xs;
             </code>
           </p>
         </div>
         <div styleName="panel">
           <h3 styleName="panel-title">
-Regular Text (Body)
+            Regular Text (Body)
           </h3>
           <p styleName="body-lg">
             20/25px &mdash; Large body text &mdash;
             &zwnj;
             <code>
-@mixin tc-body-lg;
+              @mixin tc-body-lg;
             </code>
             <br />
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id
@@ -83,7 +83,7 @@ Regular Text (Body)
             15/25px &mdash; Main body text &mdash;
             &zwnj;
             <code>
-@mixin tc-body-md;
+              @mixin tc-body-md;
             </code>
             <br />
             Quisque sodales ipsum ut mauris auctor, in placerat purus
@@ -99,7 +99,7 @@ Regular Text (Body)
             13/25px &mdash; Small body text &mdash;
             &zwnj;
             <code>
-@mixin tc-body-sm;
+              @mixin tc-body-sm;
             </code>
             <br />
             In quis vestibulum ipsum, in ultrices velit. Integer suscipit mi
@@ -118,7 +118,7 @@ Regular Text (Body)
             11/20px &mdash; Extra small body text &mdash;
             &zwnj;
             <code>
-@mixin tc-body-xs;
+              @mixin tc-body-xs;
             </code>
             <br />
             In tempor vitae risus nec sodales. Sed tempus diam mi, quis
@@ -136,53 +136,53 @@ Regular Text (Body)
         </div>
         <div styleName="panel">
           <h3 styleName="panel-title">
-Headings
+            Headings
           </h3>
           <h1 styleName="h-xl">
             36/45px &mdash; XL - Heading &mdash;
             &zwnj;
             <code>
-@mixin tc-heading-xl;
+              @mixin tc-heading-xl;
             </code>
           </h1>
           <h2 styleName="h-lg">
             28/35px &mdash; LG - Heading &mdash;
             &zwnj;
             <code>
-@mixin tc-heading-lg;
+              @mixin tc-heading-lg;
             </code>
           </h2>
           <h3 styleName="h-md">
             20/30px &mdash; MD - Heading (level 3) &mdash;
             &zwnj;
             <code>
-@mixin tc-heading-md;
+              @mixin tc-heading-md;
             </code>
           </h3>
           <h4 styleName="h-sm">
             15/25px &mdash; SM - Heading (level 4) &mdash;
             &zwnj;
             <code>
-@mixin tc-heading-sm;
+              @mixin tc-heading-sm;
             </code>
           </h4>
           <h5 styleName="h-xs">
             13/25px &mdash; XS - Heading (level 5) &mdash;
             &zwnj;
             <code>
-@mixin tc-heading-xs;
+              @mixin tc-heading-xs;
             </code>
           </h5>
         </div>
         <div styleName="panel">
           <h3 styleName="panel-title">
-Titles
+            Titles
           </h3>
           <h1 styleName="title">
             42/50px &mdash; XXL - Heading (level 1) &mdash;
             &zwnj;
             <code>
-@mixin tc-title;
+              @mixin tc-title;
             </code>
           </h1>
         </div>
