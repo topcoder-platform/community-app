@@ -796,6 +796,9 @@ Array [
       >
         &gt;
       </span>
+      <span
+        className="bash"
+      />
     </code>
      characters for blockquoting. If you’re
     <br />
@@ -810,6 +813,9 @@ Array [
       >
         &gt;
       </span>
+      <span
+        className="bash"
+      />
     </code>
      before every line:
   </p>,
@@ -835,6 +841,9 @@ Array [
       >
         &gt;
       </span>
+      <span
+        className="bash"
+      />
     </code>
      before the first
     <br />
@@ -866,6 +875,9 @@ Array [
       >
         &gt;
       </span>
+      <span
+        className="bash"
+      />
     </code>
     :
   </p>,
@@ -1170,6 +1182,9 @@ Array [
       >
         &gt;
       </span>
+      <span
+        className="bash"
+      />
     </code>
     <br />
     delimiters need to be indented:
@@ -1282,6 +1297,9 @@ end tell
       >
         &gt;
       </span>
+      <span
+        className="bash"
+      />
     </code>
     )
     <br />
@@ -1411,7 +1429,7 @@ end tell
     ) and underscores (
     <code>
       <span
-        className="hljs-literal"
+        className="hljs-keyword"
       >
         _
       </span>
@@ -1429,7 +1447,7 @@ end tell
      or 
     <code>
       <span
-        className="hljs-literal"
+        className="hljs-keyword"
       >
         _
       </span>
@@ -1455,7 +1473,7 @@ end tell
     's or 
     <code>
       <span
-        className="hljs-literal"
+        className="hljs-keyword"
       >
         _
       </span>
@@ -2180,42 +2198,39 @@ Array [
     Ad amet irure est magna id mollit Lorem in do duis enim. Excepteur velit nisi magna ea pariatur pariatur ullamco fugiat deserunt sint non sint. Duis duis est 
     <code>
       <span
-        className="hljs-built_in"
+        className="hljs-selector-tag"
       >
         code
       </span>
-       in 
+       
       <span
-        className="hljs-built_in"
+        className="hljs-keyword"
       >
-        text
+        in
       </span>
+       text
     </code>
      velit velit aute culpa ex quis pariatur pariatur laborum aute pariatur duis tempor sunt ad. Irure magna voluptate dolore consectetur consectetur irure esse. Anim magna 
     <code>
+      &lt;
       <span
-        className="hljs-tag"
+        className="hljs-keyword"
       >
-        &lt;
-        <span
-          className="hljs-name"
-        >
-          strong
-        </span>
-        &gt;
+        strong
       </span>
-      in culpa qui officia
+      &gt;
       <span
-        className="hljs-tag"
+        className="hljs-keyword"
       >
-        &lt;/
-        <span
-          className="hljs-name"
-        >
-          strong
-        </span>
-        &gt;
+        in
       </span>
+       culpa qui officia&lt;/
+      <span
+        className="hljs-keyword"
+      >
+        strong
+      </span>
+      &gt;
     </code>
      dolor eiusmod esse amet aute cupidatat aliqua do id voluptate cupidatat reprehenderit amet labore deserunt.
   </p>,

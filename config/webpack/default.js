@@ -15,6 +15,10 @@ module.exports = {
     /* NodeJS library for https://logentries.com. It is server-side only. Exclude it as null. */
     le_node: 'null',
   },
+  node: {
+    tls: 'empty',
+    net: 'empty',
+  },
   module: {
     noParse: [
 
