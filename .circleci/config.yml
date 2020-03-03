@@ -183,8 +183,7 @@ workflows:
             branches:
               only:
                 - develop
-                - nav-hot-fix
-                - hot-fixes-leaderboard
+                - feature-member-search-list
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
