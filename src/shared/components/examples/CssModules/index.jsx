@@ -10,10 +10,10 @@ export default function CssModules() {
   return (
     <div>
       <h1>
-CSS Modules
+        CSS Modules
       </h1>
       <p>
-Here is a simple demo/test of CSS modules in action.
+        Here is a simple demo/test of CSS modules in action.
       </p>
       <A />
       <B />

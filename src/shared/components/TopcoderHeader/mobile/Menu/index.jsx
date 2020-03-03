@@ -27,7 +27,7 @@ export default function Menu({
           styleName="x-cross"
           tabIndex={0}
         >
-&times;
+          &times;
         </span>
       </div>
       <Search />

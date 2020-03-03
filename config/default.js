@@ -32,6 +32,9 @@ module.exports = {
    */
   CHALLENGE_DETAILS_REFRESH_DELAY: 3000,
 
+  /* Max number of recommended challenges */
+  CHALLENGE_DETAILS_MAX_NUMBER_RECOMMENDED_CHALLENGES: 3,
+
   COOKIES: {
     /* Expiration time [days] for browser cookies set by the App. */
     MAXAGE: 7,
@@ -109,11 +112,14 @@ module.exports = {
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
+    HOME: '/my-dashboard',
     BLOG: 'https://www.topcoder-dev.com/blog',
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+
+    THRIVE: 'https://www.topcoder.com/thrive',
 
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
@@ -223,10 +229,19 @@ module.exports = {
     TC_M2M: {
       CLIENT_ID: '',
       CLIENT_SECRET: '',
-      AUDIENCE: '',
+      AUTH0_AUDIENCE: '',
       GRANT_TYPE: '',
       AUTH0_PROXY_SERVER_URL: '',
+      AUTH0_URL: '',
+      TOKEN_CACHE_TIME: '',
     },
+  },
+
+  AUTH_CONFIG: {
+    AUTH0_URL: 'TC_M2M_AUTH0_URL',
+    AUTH0_AUDIENCE: 'TC_M2M_AUDIENCE',
+    AUTH0_PROXY_SERVER_URL: 'TC_M2M_AUTH0_PROXY_SERVER_URL',
+    TOKEN_CACHE_TIME: 'TOKEN_CACHE_TIME',
   },
 
   ACCOUNT_MENU_SWITCH_TEXT: {
@@ -242,29 +257,33 @@ module.exports = {
     {
       id: 'community', // required for 'Switch to BUSINESS' to work
       title: 'COMMUNITY',
-      secondaryMenuForLoggedInUser: [
+      secondaryMenu: [
         {
           title: 'Dashboard',
           href: '/my-dashboard',
+          logged: true,
         },
         {
           id: 'myprofile',
           title: 'My Profile',
           href: '/members/willFilledByUserName',
+          logged: true,
         },
         {
           title: 'Payments',
           href: 'https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+          logged: true,
+          openNewTab: true,
         },
-      ],
-      secondaryMenuForGuest: [
         {
           title: 'Overview',
           href: '/community/learn',
+          logged: false,
         },
         {
           title: 'How It Works',
           href: '/thrive/tracks?track=Topcoder',
+          logged: false,
         },
       ],
       subMenu: [
@@ -320,14 +339,11 @@ module.exports = {
             {
               title: 'Forums',
               href: 'https://apps.topcoder-dev.com/forums',
+              openNewTab: true,
             },
             {
               title: 'Statistics',
               href: '/community/statistics',
-            },
-            {
-              title: 'Events',
-              href: '/community/events',
             },
             {
               title: 'Blog',
@@ -355,7 +371,7 @@ module.exports = {
     { separator: true },
     {
       title: 'Help',
-      href: 'https://help.topcoder-dev.com/',
+      href: 'https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder',
     },
     { separator: true },
     {

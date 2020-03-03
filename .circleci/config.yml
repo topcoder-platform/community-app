@@ -174,8 +174,8 @@ workflows:
           filters:
             branches:
               only:
-                - develop                
-                - hot-fix-past-challenge-search
+                - develop
+                - feature-m2m-token
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -183,6 +183,7 @@ workflows:
             branches:
               only:
                 - develop
+                - nav-hot-fix
                 - hot-fixes-leaderboard
       # This is beta env for production soft releases
       - "build-prod-beta":
@@ -190,7 +191,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - develop 
                 - feature-contentful
       # Production builds are exectuted only on tagged commits to the
       # master branch.

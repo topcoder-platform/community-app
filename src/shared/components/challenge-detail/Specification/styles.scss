@@ -1,6 +1,10 @@
 @import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
+.container {
+  border-radius: 0 0 (3 * $corner-radius) (3 * $corner-radius);
+}
+
 @mixin noteStyle {
   @include roboto-regular;
 

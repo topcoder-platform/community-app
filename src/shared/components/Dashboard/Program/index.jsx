@@ -18,10 +18,10 @@ const Program = (props) => {
         <header>
           <h1 styleName="section-title">
             <span>
-iOS
+              iOS
             </span>
             {' '}
-Community
+            Community
           </h1>
         </header>
         )
@@ -33,7 +33,7 @@ Community
           <div styleName="unregistered">
             <div styleName="empty-state-placeholder sky">
               <div styleName="title">
-iOS Community
+                iOS Community
               </div>
               <div styleName="content" />
               <div styleName="description">
@@ -49,12 +49,12 @@ iOS Community
                     styleName="tc-btn"
                     title="Participate"
                   >
-Participate
+                    Participate
                   </a>
                 </div>
                 <div styleName="help-link">
                   <a href={config.URL.IOS} styleName="learn-more">
-Learn More
+                    Learn More
                   </a>
                 </div>
               </div>
@@ -70,7 +70,7 @@ Learn More
               <div styleName="registered-badge">
                 <div styleName="flex-wrapper">
                   <p>
-iOS Community
+                    iOS Community
                   </p>
                   <div styleName="badge-timeline">
                     <MemberIcon />

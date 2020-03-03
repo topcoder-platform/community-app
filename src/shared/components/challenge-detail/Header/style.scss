@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import '~styles/mixins';
 
 .challengeAction {
   margin: $base-unit 0;
@@ -124,6 +124,38 @@
       }
     }
 
+    .tag-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .recommend-container {
+      display: flex;
+      align-items: center;
+      margin-left: -5px;
+      margin-bottom: 2px;
+    }
+
+    .recommend-tag {
+      @include roboto-regular;
+
+      margin-left: 17px;
+      font-size: 14px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+
+      &.link {
+        cursor: pointer;
+        color: $tc-dark-blue-110;
+      }
+
+      &.separator {
+        width: 1px;
+        background: #979797;
+      }
+    }
+
     @include design-accent-bg;
     @include develop-accent-bg;
     @include datasci-accent-bg;
@@ -213,15 +245,15 @@
               }
             }
 
-            .prize-card[id=rank1] {
+            .prize-card[id='rank1'] {
               border-bottom: $tc-gold solid 3px;
             }
 
-            .prize-card[id=rank2] {
+            .prize-card[id='rank2'] {
               border-bottom: $tc-silver solid 3px;
             }
 
-            .prize-card[id=rank3] {
+            .prize-card[id='rank3'] {
               border-bottom: $tc-bronze solid 3px;
             }
           }

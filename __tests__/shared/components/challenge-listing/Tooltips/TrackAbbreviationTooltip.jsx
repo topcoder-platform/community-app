@@ -20,7 +20,7 @@ test('Matches shallow shapshot', () => {
     renderer.render((
       <TrackAbbreviationTooltip {...data}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </TrackAbbreviationTooltip>
     ));
@@ -35,7 +35,7 @@ class Wrapper extends React.Component {
     return (
       <TrackAbbreviationTooltip {...this.props}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </TrackAbbreviationTooltip>
     );

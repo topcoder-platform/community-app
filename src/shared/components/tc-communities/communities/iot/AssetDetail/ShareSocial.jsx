@@ -39,7 +39,7 @@ export default class ShareSocial extends React.Component {
           >
             <div styleName="facebook-icon">
               <span>
-f
+                f
               </span>
             </div>
           </a>

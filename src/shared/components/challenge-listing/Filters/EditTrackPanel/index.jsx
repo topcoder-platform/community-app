@@ -38,7 +38,7 @@ function EditTrackPanel({
     <div styleName={`EditTrackPanel ${opened === true ? 'opened' : 'closed'}`}>
       <div styleName="header">
         <span styleName="title">
-  Tracks
+          Tracks
         </span>
         <span
           styleName="close-icon"
@@ -50,7 +50,7 @@ function EditTrackPanel({
       </div>
       <div styleName="row">
         <span>
-  Design
+          Design
         </span>
         <Switch
           enabled={designEnabled}
@@ -59,7 +59,7 @@ function EditTrackPanel({
       </div>
       <div styleName="row">
         <span>
-  Development
+          Development
         </span>
         <Switch
           enabled={devEnabled}
@@ -68,7 +68,7 @@ function EditTrackPanel({
       </div>
       <div styleName="row">
         <span>
-  Data Science
+          Data Science
         </span>
         <Switch
           enabled={dataScienceEnabled}

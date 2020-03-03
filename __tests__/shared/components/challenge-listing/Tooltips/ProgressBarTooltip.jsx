@@ -35,7 +35,7 @@ test('Matches shallow shapshot', () => {
     renderer.render((
       <ProgressBarTooltip {...data}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </ProgressBarTooltip>
     ));
@@ -50,7 +50,7 @@ class Wrapper extends React.Component {
     return (
       <ProgressBarTooltip {...this.props}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </ProgressBarTooltip>
     );

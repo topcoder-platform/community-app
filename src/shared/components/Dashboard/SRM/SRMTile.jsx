@@ -49,7 +49,7 @@ const SRMTile = (props) => {
           <div styleName="phase-status">
             {srm.userStatus === 'registered' && (
             <div styleName="registered">
-Registered
+              Registered
             </div>
             )}
             {
@@ -62,7 +62,7 @@ Registered
                   styleName="tc-btn"
                   className="tc-btn tc-btn-s tc-btn-wide"
                 >
-Register
+                  Register
                 </a>
               </div>
               )

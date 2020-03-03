@@ -170,7 +170,7 @@ class FilestackFilePicker extends React.Component {
           {
             mandatory && (
             <p styleName="mandatory">
-*mandatory
+              *mandatory
             </p>
             )
           }
@@ -181,17 +181,17 @@ class FilestackFilePicker extends React.Component {
           {
             !fileName && !isChallengeBelongToTopgearGroup && (
             <p>
-Drag and drop your
+              Drag and drop your
               {fileExtensions.join(' or ')}
               {' '}
-file here.
+              file here.
             </p>
             )
           }
           {
             !fileName && !isChallengeBelongToTopgearGroup && (
             <span>
-or
+              or
             </span>
             )
           }
@@ -205,9 +205,9 @@ or
           {
             _.isNumber(uploadProgress) && uploadProgress < 100 ? (
               <p styleName="file-name">
-Uploading:
+                Uploading:
                 {uploadProgress}
-%
+                %
               </p>
             ) : null
           }

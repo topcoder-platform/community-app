@@ -61,7 +61,7 @@ export default function ScreeningStatus(props) {
           )
           : (
             <span>
-Not yet performed
+              Not yet performed
             </span>
           )}
         {/* pending */}
