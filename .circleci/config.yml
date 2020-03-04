@@ -175,13 +175,13 @@ workflows:
             branches:
               only:
                 - feature-m2m-with-stats
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:
-                - develop
                 - nav-hot-fix
                 - hot-fixes-leaderboard
       # This is beta env for production soft releases
