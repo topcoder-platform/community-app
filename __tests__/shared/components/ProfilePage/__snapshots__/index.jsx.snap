@@ -199,6 +199,7 @@ exports[`renders a full Profile correctly 1`] = `
             className=""
             handle="testHandle"
             inModal={false}
+            meta={null}
             stats={
               Object {
                 "COPILOT": Object {
@@ -699,6 +700,7 @@ exports[`renders an empty Profile correctly 1`] = `
             className=""
             handle="testHandle"
             inModal={false}
+            meta={null}
             stats={
               Object {
                 "COPILOT": null,
