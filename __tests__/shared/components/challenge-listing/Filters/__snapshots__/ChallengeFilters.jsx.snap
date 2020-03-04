@@ -7,10 +7,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
-    <FiltersCardsType
-      isCardTypeSet="type"
-      setCardType={[MockFunction]}
-    />
     <ChallengeSearchBar
       label="Search Challenges:"
       onSearch={[Function]}
@@ -97,10 +93,6 @@ exports[`Matches shallow shapshot shapshot 2`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
-    <FiltersCardsType
-      isCardTypeSet="Challenges"
-      setCardType={[MockFunction]}
-    />
     <ChallengeSearchBar
       label="Search Challenges:"
       onSearch={[Function]}

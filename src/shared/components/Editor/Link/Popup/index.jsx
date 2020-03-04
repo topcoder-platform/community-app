@@ -37,7 +37,7 @@ export default class Popup extends React.Component {
           onClick={() => this.setState({ editing: true })}
           size="sm"
         >
-Edit
+          Edit
         </GhostButton>
       </div>
     );
@@ -62,7 +62,7 @@ Edit
           }}
           size="sm"
         >
-Done
+          Done
         </GhostButton>
       </div>
     );

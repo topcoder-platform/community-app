@@ -117,7 +117,7 @@ class ProfileStats extends React.Component {
                     {activeChallengesCount}
                   </div>
                   <div styleName="title">
-Active Challenges
+                    Active Challenges
                   </div>
                 </div>
                 {
@@ -247,7 +247,7 @@ Active Challenges
                     && (
                     <div styleName="details">
                       <h2>
-Details
+                        Details
                       </h2>
                       {
                         subTrack !== 'SRM'

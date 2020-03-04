@@ -287,7 +287,7 @@ class ArticleCard extends React.Component {
                     className={theme.readMore}
                     target={articlePageTarget}
                   >
-                      Read More <ReadMoreArrow />
+                    Read More <ReadMoreArrow />
                   </a>
                 )
               }

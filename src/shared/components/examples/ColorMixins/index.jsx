@@ -9,58 +9,58 @@ export default function ColorMixins() {
   return (
     <div styleName="container">
       <h1 styleName="title">
-Color Mixins
+        Color Mixins
       </h1>
       <div styleName="text">
         The numeral suffixes of color constants indicate mix levels of black
         and white.
         {' '}
         <code>
-100
+          100
         </code>
         {' '}
-means the base color (and the base colors
+        means the base color (and the base colors
         are aliased under the same names without suffixes); levels below
         &zwnj;
         <code>
-100
+          100
         </code>
         {' '}
-mean the mix of base with white; levels above
+        mean the mix of base with white; levels above
         &zwnj;
         <code>
-100
+          100
         </code>
         {' '}
-mean the mix of base with black.
+        mean the mix of base with black.
       </div>
       <div styleName="text">
         In general, colors with
         {' '}
         <code>
-110
+          110
         </code>
         {' '}
-suffix should be used for text
+        suffix should be used for text
         only. For the Metals,
         {' '}
         <code>
-110
+          110
         </code>
         {' '}
-should be used for the normal and
+        should be used for the normal and
         larger text above the metal, and
         {' '}
         <code>
-130
+          130
         </code>
         {' '}
-should be used for
+        should be used for
         text with small font, for better visibility.
       </div>
       <div styleName="text">
-          For convenience, all base colors are aliased under the same names
-          without any suffix (see Brand Colors section).
+        For convenience, all base colors are aliased under the same names
+        without any suffix (see Brand Colors section).
       </div>
       <div styleName="content">
         <Group title="Grayscale">

@@ -96,7 +96,7 @@ function ReviewOpportunityCard({
                 <div key={payment.role}>
                   {payment.role}
                   {' '}
-- $
+                  - $
                   {payment.payment.toLocaleString()}
                 </div>
               ))}
@@ -105,11 +105,11 @@ function ReviewOpportunityCard({
         >
           <div styleName="payment">
             <span>
-$
+              $
             </span>
             {_.sumBy(opportunity.payments, 'payment').toLocaleString()}
             <div styleName="payment-type">
-Payment
+              Payment
             </div>
           </div>
         </Tooltip>
@@ -150,7 +150,7 @@ Payment
             { start.isAfter() ? formatDuration(start.diff()) : `Late by ${formatDuration(-start.diff())}` }
           </span>
           <span styleName="to-register">
-to apply
+            to apply
           </span>
         </Link>
       </div>

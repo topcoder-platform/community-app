@@ -34,7 +34,7 @@ export default function TrackIcon({
       )}
       <a href={`${TCO_URL}`}>
         <div styleName={tcoEligible ? `${(isDataScience ? 'data_science' : track.toLowerCase())} tco-icon` : 'hidden'}>
-TCO
+          TCO
         </div>
       </a>
     </span>

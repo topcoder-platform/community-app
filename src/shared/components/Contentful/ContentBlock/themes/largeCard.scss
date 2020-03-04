@@ -1,5 +1,5 @@
 @import "~styles/mixins";
-@import "./TCO19_thypo";
+@import "~components/Contentful/default";
 
 .contentWrapper {
   background-color: #555;
@@ -40,7 +40,7 @@
     margin-bottom: 20px;
   }
 
-  @include TCO19-default-headers;
+  @include gui-kit-headers;
 
   p {
     font-family: "Roboto", Helvetica, Arial, sans-serif;

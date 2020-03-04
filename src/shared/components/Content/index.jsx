@@ -22,7 +22,7 @@ export default function Content() {
       </h1>
       <p>
         Isomorphic ReactJS App for new version of Topcoder community website.
-                Technological stack includes:
+        Technological stack includes:
       </p>
       <ul>
         <li>
@@ -90,19 +90,19 @@ export default function Content() {
         </li>
         <li>
           Topcoder API v2 and v3 service
-                    (see
+          (see
           <code>
             topcoder-react-lib/src/services/api.js
           </code>
           ), with support of TC
-                    authentication (look for auth tokens either
-                    in
+          authentication (look for auth tokens either
+          in
           <code>
             store.auth
           </code>
           {' '}
           of Redux store, or
-                    in
+          in
           <code>
             v3jwt
           </code>
@@ -113,7 +113,7 @@ export default function Content() {
           </code>
           {' '}
           cookies of the front-end
-                    requests to the server);
+          requests to the server);
         </li>
         <li>
           Stylefmt;
@@ -142,7 +142,7 @@ export default function Content() {
           </strong>
           {' '}
           is available at the
-                    endpoint
+          endpoint
           <code>
             /challenges/:challengeId
           </code>
@@ -162,27 +162,27 @@ export default function Content() {
             data science challenge
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30058473">
             code challenge
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30058433">
             design challenge
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30058529">
             design challenge 2
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30058281">
             design challenge 3
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30057690">
             design challenge 4
           </Link>
@@ -194,29 +194,29 @@ export default function Content() {
             development
           </strong>
           &zwnj;
-                    environment:
+          environment:
           <br />
           &zwnj;
           <Link to="/challenges/30049604">
             data science challenge
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30050680">
             code challenge
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30050463">
             code challenge 2
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30049552">
             design challenge
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/30050696">
             design challenge 2
           </Link>
@@ -267,7 +267,7 @@ export default function Content() {
             simple
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/challenges/terms/detail/21153">
             DocuSign
           </Link>
@@ -276,16 +276,16 @@ export default function Content() {
         <li>
           <a href="/challenges/30050696/my-submissions">
             Submission Management
-                      Page
+            Page
           </a>
           {' '}
           &ndash; generally available at
-                    the endpoint
+          the endpoint
           <code>
             /challenges/:challengeId/my-submissions
           </code>
           ;
-                    the link here leads to a test challenge.
+          the link here leads to a test challenge.
         </li>
         <li>
           <Link to="/settings/profile">
@@ -313,21 +313,21 @@ export default function Content() {
             /scoreboard/:id
           </code>
           ,
-                    where
+          where
           {' '}
           <code>
             :id
           </code>
           {' '}
           is the competition ID, not related to the
-                    regular challenge IDs. Here are two demo links for the scoreboards
-                    for the competitions created by the scoreboard init script:
-                    &zwnj;
+          regular challenge IDs. Here are two demo links for the scoreboards
+          for the competitions created by the scoreboard init script:
+          &zwnj;
           <Link to="/scoreboard/123">
             ID = 123
           </Link>
           ,
-                    &zwnj;
+          &zwnj;
           <Link to="/scoreboard/1234">
             ID = 1234
           </Link>
@@ -392,7 +392,7 @@ export default function Content() {
         <li>
           <Link to="/__community__/tc-prod-dev">
             Topcoder Product
-                      Development community
+            Development community
           </Link>
         </li>
         <li>
@@ -420,7 +420,7 @@ export default function Content() {
         <li>
           <Link to="/examples/contentful/slider/6VvsA1RgkwaEamS66wiEMy">
             <code>
-ContentSlider
+              ContentSlider
             </code>
           </Link>
         </li>
@@ -448,14 +448,14 @@ ContentSlider
         <li>
           <Link to="/examples/contentful/blogpost/1tKTZsVzk40kSYgG0imCKS">
             <code>
-BlogPost
+              BlogPost
             </code>
           </Link>
         </li>
         <li>
           <Link to="/examples/contentful/blog/TCO Blog/1">
             <code>
-Blog
+              Blog
             </code>
           </Link>
         </li>
@@ -645,8 +645,8 @@ Blog
           </Link>
           {' '}
           &mdash;
-                    This is a part of simple PoC for CMS integration (Countentful CMS is
-                    the currently tested option);
+          This is a part of simple PoC for CMS integration (Countentful CMS is
+          the currently tested option);
         </li>
         <li>
           <Link to="/examples/buttons/">
@@ -654,8 +654,8 @@ Blog
           </Link>
           {' '}
           &mdash; Demo/test of
-                    standard buttons already available in the code, and customizable with
-                    help of
+          standard buttons already available in the code, and customizable with
+          help of
           <code>
             react-css-themr
           </code>
@@ -677,7 +677,7 @@ Blog
           </Link>
           {' '}
           &mdash; Live
-                    demo of TC UI Kit color pallete;
+          demo of TC UI Kit color pallete;
         </li>
         <li>
           <Link to="/examples/css-modules">
@@ -692,9 +692,9 @@ Blog
           </Link>
           {' '}
           - Demonstrates how
-                    data fetching should be implemented in
-                    isomorphic way, using Redux with Flux Standard Actions and
-                    promise;
+          data fetching should be implemented in
+          isomorphic way, using Redux with Flux Standard Actions and
+          promise;
         </li>
         <li>
           <Link to="/examples/editor">
@@ -707,7 +707,7 @@ Blog
           </Link>
           {' '}
           - Demonstrates
-                    UI component for errors messaging;
+          UI component for errors messaging;
         </li>
         <li>
           <Link to="/examples/fonts-test">
@@ -715,8 +715,8 @@ Blog
           </Link>
           {' '}
           - A simple showcase
-                    of the fonts included into this repo, and the test of their proper
-                    inclusion into the bundle;
+          of the fonts included into this repo, and the test of their proper
+          inclusion into the bundle;
         </li>
         <li>
           <Link
@@ -741,7 +741,7 @@ Blog
         </li>
         <li>
           <Link to="/examples/looker">
-              Looker
+            Looker
           </Link>
           &zwnj;
           &ndash; Looker examples.
@@ -752,7 +752,7 @@ Blog
           </Link>
           {' '}
           component makes
-                    it easy to create dynamically scaled components with fixed side ratio.
+          it easy to create dynamically scaled components with fixed side ratio.
         </li>
         <li>
           <Link to="/examples/svg-loading">
@@ -760,13 +760,13 @@ Blog
           </Link>
           {' '}
           - Shows how to
-                    load
+          load
           <code>
             .svg
           </code>
           {' '}
           assets with use
-                    of
+          of
           <code>
             babel-plugin-inline-react-svg
           </code>
@@ -778,8 +778,8 @@ Blog
           </Link>
           {' '}
           - Demo/test of standard
-                    tags already available in the code, and customizable with help
-                    of
+          tags already available in the code, and customizable with help
+          of
           <code>
             react-css-themr
           </code>
@@ -802,10 +802,10 @@ Blog
           </Link>
           {' '}
           - Most of Topcoder
-                    websites use the same styleguide for the design. In particular, all
-                    typography is supposed to use the set of styles from this example.
-                    For all these styles we have global mixins, which should be used
-                    whenever possible (but never modified without explicit approval).
+          websites use the same styleguide for the design. In particular, all
+          typography is supposed to use the set of styles from this example.
+          For all these styles we have global mixins, which should be used
+          whenever possible (but never modified without explicit approval).
         </li>
       </ul>
     </div>

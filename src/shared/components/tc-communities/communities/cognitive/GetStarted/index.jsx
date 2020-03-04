@@ -41,7 +41,7 @@ export default function GetStarted({ baseUrl }) {
           }}
         >
           <h1 styleName="style.cardHeading">
-Current Cognitive Challenges
+            Current Cognitive Challenges
           </h1>
           <p styleName="style.cardText">
             Topcoder and IBM have partnered to roll out a series of educational
@@ -54,7 +54,7 @@ Current Cognitive Challenges
             theme={{ button: style.cardButton }}
             to={`${baseUrl}/challenges`}
           >
-View Challenges
+            View Challenges
           </PrimaryButton>
         </ImageText>
         <ImageText
@@ -66,7 +66,7 @@ View Challenges
           }}
         >
           <h1 styleName="style.cardHeading">
-Perks and Prizes
+            Perks and Prizes
           </h1>
           <p styleName="style.cardText">
             The Topcoder Cognitive Community is free to join — no strings

@@ -137,7 +137,7 @@ class StatsCategory extends React.Component {
                           {subtrack.rank.rating}
                         </div>
                         <div styleName="tag">
-Rating
+                          Rating
                         </div>
                       </div>
                       )
@@ -151,7 +151,7 @@ Rating
                           {subtrack.wins ? subtrack.wins : 0}
                         </div>
                         <div styleName="tag">
-Wins
+                          Wins
                         </div>
                       </div>
                       )
@@ -164,7 +164,7 @@ Wins
                           {`${subtrack.fulfillment}%`}
                         </div>
                         <div styleName="tag">
-Fulfillment
+                          Fulfillment
                         </div>
                       </div>
                       )

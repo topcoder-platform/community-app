@@ -1,3 +1,5 @@
+@import "~styles/mixins";
+
 @mixin default-headers {
   h1,
   h2,
@@ -48,5 +50,113 @@
     line-height: 25px;
 
     @include roboto-bold;
+  }
+}
+
+@mixin gui-kit-headers {
+  h1 {
+    @include barlow-condensed-semi-bold;
+
+    font-size: 80px;
+    line-height: 74px;
+    text-transform: uppercase;
+    margin-top: 80px;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 38px;
+      margin-top: 42px;
+      margin-bottom: 10px;
+    }
+  }
+
+  h2 {
+    @include barlow-condensed-medium;
+
+    font-size: 60px;
+    line-height: 58px;
+    text-transform: uppercase;
+    margin-top: 60px;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      font-size: 36px;
+      font-weight: 500;
+      margin-top: 36px;
+      margin-bottom: 10px;
+    }
+  }
+
+  h3 {
+    @include barlow-condensed-medium;
+
+    font-size: 48px;
+    line-height: 50px;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      font-size: 31px;
+      font-weight: 500;
+      line-height: 33px;
+      margin-top: 31px;
+      margin-bottom: 10px;
+    }
+  }
+
+  h4 {
+    @include barlow-condensed-medium;
+
+    font-size: 34px;
+    line-height: 38px;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 27px;
+      margin-top: 25px;
+    }
+  }
+
+  h5 {
+    @include barlow-bold;
+
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      font-size: 21px;
+      font-weight: 500;
+      line-height: 25px;
+      margin-top: 21px;
+    }
+  }
+
+  h6 {
+    @include barlow-bold;
+
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 22px;
+      margin-top: 18px;
+    }
   }
 }

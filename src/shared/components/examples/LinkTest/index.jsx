@@ -7,16 +7,16 @@ export default function LinkTest() {
   return (
     <div styleName="container">
       <h1>
-Link Test
+        Link Test
       </h1>
       <div>
         <Link to="/">
-Internal Link
+          Internal Link
         </Link>
       </div>
       <div>
         <Link to="https://www.google.com">
-External Link
+          External Link
         </Link>
       </div>
     </div>
