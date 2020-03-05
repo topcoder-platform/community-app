@@ -175,7 +175,6 @@ workflows:
             branches:
               only:
                 - feature-m2m-with-stats
-                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
