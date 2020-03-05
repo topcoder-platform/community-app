@@ -147,6 +147,10 @@
       }
     }
 
+    .disablelink {
+      pointer-events: none;
+    }
+
     .icon {
       width: 80px;
       height: 80px;
