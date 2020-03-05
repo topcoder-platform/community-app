@@ -43,11 +43,7 @@ const isActiveSubtrack = (subtrack) => {
 
 class StatsCategory extends React.Component {
   getActiveTracks() {
-    let { stats } = this.props;
-    if (_.isArray(stats)) {
-      // eslint-disable-next-line prefer-destructuring
-      stats = stats[0];
-    }
+    const { stats } = this.props;
     const activeTracks = [];
 
     if (stats.COPILOT && stats.COPILOT.fulfillment) {
@@ -93,7 +89,6 @@ class StatsCategory extends React.Component {
       handle,
       className,
       inModal,
-      meta,
     } = this.props;
 
     const activeTracks = this.getActiveTracks();
@@ -118,7 +113,7 @@ class StatsCategory extends React.Component {
                   <Link
                     to={`/members/${handle}/details/?track=${track.name}&subTrack=${subtrack.name.replace(' ', '_')}`}
                     key={subtrack.name}
-                    styleName={`subtrack ${index === 0 ? 'first' : ''} ${meta ? 'disablelink' : ''}`}
+                    styleName={`subtrack ${index === 0 ? 'first' : ''}`}
                   >
                     <div
                       styleName="name"
@@ -184,15 +179,13 @@ class StatsCategory extends React.Component {
 StatsCategory.defaultProps = {
   className: '',
   inModal: false,
-  meta: null,
 };
 
 StatsCategory.propTypes = {
   handle: PT.string.isRequired,
-  stats: PT.arrayOf(PT.shape()).isRequired,
+  stats: PT.shape().isRequired,
   inModal: PT.bool,
   className: PT.string,
-  meta: PT.shape(),
 };
 
 export default StatsCategory;

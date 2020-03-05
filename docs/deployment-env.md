@@ -48,4 +48,3 @@ workflows:
                 - develop
 ```
 4. Commit the changes
-5. Status of the deployment environments can be checked here https://cci-reporter.herokuapp.com/

@@ -16,8 +16,6 @@ import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
-import Profile from 'routes/Profile';
-import ProfileStats from 'routes/ProfileStats';
 
 import socialImage from 'assets/images/communities/cognitive/social.jpg';
 
@@ -97,16 +95,6 @@ export default function Cognitive({ base, member, meta }) {
               component={TermsDetail}
               exact
               path={`${base}/challenges/terms/detail/:termId`}
-            />
-            <Route
-              render={props => <Profile {...props} meta={meta} />}
-              exact
-              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
-            />
-            <Route
-              render={props => <ProfileStats {...props} meta={meta} />}
-              exact
-              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
             />
             <Route
               component={() => <Resources baseUrl={base} member={member} />}

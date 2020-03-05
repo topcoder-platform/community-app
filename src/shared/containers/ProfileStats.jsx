@@ -23,15 +23,12 @@ class ProfileStatsContainer extends React.Component {
       location,
       loadStats,
       loadStatsHistoryAndDistribution,
-      meta,
     } = this.props;
-
     const trackAndSubTrack = getQueryParamsQuery(location);
-    loadStats(handleParam, _.join(_.get(meta, 'groupIds', [])));
+    loadStats(handleParam);
     if (shouldShowGraph(trackAndSubTrack)) {
       loadStatsHistoryAndDistribution(
         handleParam,
-        _.join(_.get(meta, 'groupIds', [])),
         trackAndSubTrack.track,
         trackAndSubTrack.subTrack,
       );
@@ -44,7 +41,6 @@ class ProfileStatsContainer extends React.Component {
       location: nextLocation,
       loadStats,
       loadStatsHistoryAndDistribution,
-      meta,
     } = nextProps;
     const {
       handleParam,
@@ -55,7 +51,7 @@ class ProfileStatsContainer extends React.Component {
     const trackAndSubTrack = getQueryParamsQuery(location);
 
     if (nextHandleParam !== handleParam) {
-      loadStats(nextHandleParam, _.join(_.get(meta, 'groupIds', [])));
+      loadStats(nextHandleParam);
       if (
         nextQueryParams.track !== trackAndSubTrack.track
         || nextQueryParams.subTrack !== trackAndSubTrack.subTrack
@@ -64,7 +60,6 @@ class ProfileStatsContainer extends React.Component {
           && !nextQueryParams.tab) {
           loadStatsHistoryAndDistribution(
             nextHandleParam,
-            _.join(_.get(meta, 'groupIds', [])),
             nextQueryParams.track,
             nextQueryParams.subTrack,
           );
@@ -78,7 +73,6 @@ class ProfileStatsContainer extends React.Component {
       loadingError,
       location,
       isLoading,
-      meta,
     } = this.props;
 
     const { track, subTrack, tab } = getQueryParamsQuery(location);
@@ -94,7 +88,6 @@ class ProfileStatsContainer extends React.Component {
           track={track}
           subTrack={subTrack}
           tab={tab}
-          meta={meta}
         />
       );
   }
@@ -107,7 +100,6 @@ ProfileStatsContainer.defaultProps = {
   stats: null,
   info: null,
   achievements: null,
-  meta: null,
 };
 
 ProfileStatsContainer.propTypes = {
@@ -118,11 +110,10 @@ ProfileStatsContainer.propTypes = {
   handleParam: PT.string.isRequired,
   statsHistory: PT.shape(),
   statsDistribution: PT.shape(),
-  stats: PT.arrayOf(PT.shape()),
+  stats: PT.shape(),
   info: PT.shape(),
   achievements: PT.arrayOf(PT.shape()),
   isLoading: PT.bool.isRequired,
-  meta: PT.shape(),
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -140,7 +131,6 @@ const mapStateToProps = (state, ownProps) => {
     statsDistribution: _.get(obj, 'statsDistribution.data'),
     activeChallengesCount: _.get(obj, 'activeChallengesCount'),
     info: state.profile.info,
-    meta: ownProps.meta,
     achievements: state.profile.achievements,
   });
 };
@@ -150,17 +140,17 @@ function mapDispatchToProps(dispatch) {
   const pa = actions.profile;
 
   return {
-    loadStats: (handle, groupIds) => {
+    loadStats: (handle) => {
       dispatch(a.getStatsInit(handle));
-      dispatch(a.getStatsDone(handle, groupIds));
+      dispatch(a.getStatsDone(handle));
       dispatch(pa.getInfoInit(handle));
       dispatch(pa.getInfoDone(handle));
       dispatch(a.getActiveChallengesInit(handle));
       dispatch(a.getActiveChallengesDone(handle));
     },
-    loadStatsHistoryAndDistribution: (handle, groupIds, track, subTrack) => {
-      dispatch(a.getStatsHistoryInit(handle, groupIds));
-      dispatch(a.getStatsHistoryDone(handle, groupIds));
+    loadStatsHistoryAndDistribution: (handle, track, subTrack) => {
+      dispatch(a.getStatsHistoryInit(handle));
+      dispatch(a.getStatsHistoryDone(handle));
       dispatch(a.getStatsDistributionInit(handle));
       dispatch(a.getStatsDistributionDone(handle, track, subTrack));
     },
