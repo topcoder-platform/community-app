@@ -16,7 +16,7 @@ const FiltersCardsType = ({ hideSrm, isCardTypeSet }) => (
     <h1
       styleName={`${isCardTypeSet === 'Challenges' ? 'active' : ''}`}
     >
-Challenges
+      Challenges
     </h1>
     {
       hideSrm ? null : (
@@ -25,7 +25,7 @@ Challenges
           target="_blank"
           rel="noopener noreferrer"
         >
-SRMs
+          SRMs
         </a>
       )
     }

@@ -37,7 +37,7 @@ const Skill = ({
 Skill.propTypes = {
   tagId: PT.string.isRequired,
   tagName: PT.string.isRequired,
-  isVerified: PT.string.isRequired,
+  isVerified: PT.bool.isRequired,
 };
 
 export default Skill;

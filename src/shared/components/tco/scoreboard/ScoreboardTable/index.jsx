@@ -78,10 +78,10 @@ export default function ScoreboardTable(props) {
       <thead>
         <tr>
           <th styleName="styles.col-rank">
-Rank
+            Rank
           </th>
           <th styleName="styles.col-handle">
-Handle
+            Handle
           </th>
           {getTemplateHeader(fields)}
         </tr>

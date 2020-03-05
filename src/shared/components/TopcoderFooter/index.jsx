@@ -36,19 +36,19 @@ export default function TopcoderFooter() {
     <div styleName="footer" role="contentinfo">
       <ol>
         <Link to={`${base}/community/about`}>
-ABOUT US
+          ABOUT US
         </Link>
         <Link to={`${base}/community/contact`}>
-CONTACT US
+          CONTACT US
         </Link>
         <Link to={config.URL.HELP}>
-HELP CENTER
+          HELP CENTER
         </Link>
         <Link to={`${base}/community/how-it-works/privacy-policy/`}>
-PRIVACY POLICY
+          PRIVACY POLICY
         </Link>
         <Link to={`${base}/community/how-it-works/terms/`}>
-TERMS
+          TERMS
         </Link>
       </ol>
       <div styleName="social-links">

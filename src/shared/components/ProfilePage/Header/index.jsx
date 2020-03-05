@@ -71,15 +71,15 @@ class ProfileHeader extends React.Component {
             {Boolean(wins) && (
             <span>
               {' '}
-    |
+              |
               {wins}
               {' '}
-    Wins
+              Wins
             </span>
             ) }
           </h3>
           <h3 styleName="tenure">
-    Member Since
+            Member Since
             {' '}
             {moment(info.createdAt).format('MMMM, YYYY')}
           </h3>
@@ -126,7 +126,7 @@ class ProfileHeader extends React.Component {
             ) : null
           }
           <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">
-    Forum Posts
+            Forum Posts
           </a>
         </div>
       </div>

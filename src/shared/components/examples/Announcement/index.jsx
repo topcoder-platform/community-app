@@ -8,7 +8,7 @@ export default function AnnouncementExample({ match }) {
   return (
     <div styleName="container">
       <h1>
-Announcement Preview
+        Announcement Preview
       </h1>
       <Announcement previewId={match.params.id} />
     </div>

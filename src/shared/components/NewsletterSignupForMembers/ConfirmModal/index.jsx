@@ -11,10 +11,21 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { Modal, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { themr } from 'react-css-super-themr';
+import tc from 'components/buttons/themed/tc.scss';
 import defaultStyle from './style.scss';
+import modalStyle from '../modal.scss';
+
+/** Themes for buttons
+ * those overwrite PrimaryButton style to match achieve various styles.
+ * Should implement pattern of classes.
+ */
+const buttonThemes = {
+  tc,
+};
+
 
 function ConfirmModal({
   customTcAuthModalText,
@@ -27,20 +38,20 @@ function ConfirmModal({
   let text;
   if (token) {
     text = (
-      <p>
-        Do you want to subscribe to this newsletter?
-      </p>
+      <div className={modalStyle.modalMsg}>
+        <h4>Sign up for the Topcoder Newsletter</h4>
+        <p style={{ 'font-size': '24px' }}>Do you want to subscribe to this newsletter?</p>
+      </div>
     );
     if (skipConfirmSignup) {
       setImmediate(() => signup());
     }
   } else {
     text = customTcAuthModalText || (
-      <div>
+      <div className={modalStyle.modalMsg}>
+        <h4>Sign up for the Topcoder Newsletter</h4>
         <p>
           You must be a Topcoder member before you can signup for Newsletter.
-        </p>
-        <p>
           To signup, login if you are already a member. If not, register first.
         </p>
       </div>
@@ -60,15 +71,21 @@ function ConfirmModal({
       { token ? (
         <div className={theme.signupButtons}>
           <PrimaryButton
-            onClick={() => signup()}
-          >
-            Signup
-          </PrimaryButton>
-          <SecondaryButton
             onClick={resetSignupButton}
+            theme={{
+              button: buttonThemes.tc['primary-white-md'],
+            }}
           >
-            Cancel
-          </SecondaryButton>
+            CANCEL
+          </PrimaryButton>
+          <PrimaryButton
+            onClick={() => signup()}
+            theme={{
+              button: buttonThemes.tc['primary-green-md'],
+            }}
+          >
+            SIGNUP
+          </PrimaryButton>
         </div>
       ) : (
         <div className={theme.loginButtons}>
@@ -77,8 +94,11 @@ function ConfirmModal({
               const url = encodeURIComponent(autoSignupUrl);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
             }}
+            theme={{
+              button: buttonThemes.tc['primary-white-md'],
+            }}
           >
-            Login
+            LOGIN
           </PrimaryButton>
           <PrimaryButton
             onClick={() => {
@@ -87,14 +107,12 @@ function ConfirmModal({
               url = encodeURIComponent(url);
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
             }}
+            theme={{
+              button: buttonThemes.tc['primary-green-md'],
+            }}
           >
-            Register
+            REGISTER
           </PrimaryButton>
-          <SecondaryButton
-            onClick={resetSignupButton}
-          >
-            Cancel
-          </SecondaryButton>
         </div>
       )}
     </Modal>

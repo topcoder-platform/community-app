@@ -69,7 +69,7 @@ export default function JoinCommunity({
         { state === STATE.JOINING ? (
           <div className={style.joiningContainer}>
             <span>
-Joining...
+              Joining...
             </span>
             <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
@@ -78,7 +78,7 @@ Joining...
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
           <h1 styleName="style.modalTitle">
-Congratulations!
+            Congratulations!
           </h1>
           <p styleName="style.modalMsg">
             {
@@ -92,7 +92,7 @@ Congratulations!
               button: style.returnToCommunityButton,
             }}
           >
-Return to the Community
+            Return to the Community
           </PrimaryButton>
         </Modal>
       ) : null}

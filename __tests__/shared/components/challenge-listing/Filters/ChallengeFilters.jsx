@@ -16,7 +16,6 @@ afterAll(() => {
 
 const saveFilter = jest.fn();
 const selectCommunity = jest.fn();
-const setCardType = jest.fn();
 const setExpanded = jest.fn();
 const setFilterState = jest.fn();
 const setSearchText = jest.fn();
@@ -33,7 +32,6 @@ const mockDatas = [{
   saveFilter,
   selectCommunity,
   selectedCommunityId: '3',
-  setCardType,
   setExpanded,
   setFilterState,
   searchText: '',
@@ -54,7 +52,6 @@ const mockDatas = [{
   saveFilter,
   selectCommunity,
   selectedCommunityId: '3',
-  setCardType,
   setExpanded,
   setFilterState,
   searchText: '',

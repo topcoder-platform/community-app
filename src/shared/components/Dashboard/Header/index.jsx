@@ -20,7 +20,7 @@ export default function Header(props) {
   return (
     <div styleName="container">
       <h1 styleName="title">
-Dashboard
+        Dashboard
       </h1>
       <div styleName="badges">
         {

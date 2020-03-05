@@ -21,7 +21,7 @@ export default function Auth({ column }) {
         className="tc-btn-sm tc-btn-primary"
         href={`${config.URL.AUTH}/member/registration?utm_source=community-app-main`}
       >
-Join
+        Join
       </a>
       <a
         role="button"
@@ -33,7 +33,7 @@ Join
           event.preventDefault();
         }}
       >
-Log In
+        Log In
       </a>
     </div>
   );

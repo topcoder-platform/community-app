@@ -58,7 +58,7 @@ export default function Winner({
               <div styleName="lock">
                 <Lock styleName="lock-icon" />
                 <div styleName="text">
-LOCKED
+                  LOCKED
                 </div>
               </div>
             )
@@ -78,7 +78,7 @@ LOCKED
               {winner.handle}
             </a>
             <div styleName="prize">
-$
+              $
               {prize}
             </div>
           </div>
@@ -87,9 +87,9 @@ $
           submissionId
           && (
           <div styleName="id">
-ID:
+            ID:
             <span>
-#
+              #
               {getId(submissions, winner.placement)}
             </span>
           </div>
@@ -105,7 +105,7 @@ ID:
             challenge
             rel="noopener noreferrer"
           >
-Download
+            Download
           </a>
           )
         }

@@ -1,5 +1,5 @@
 @import "~styles/mixins";
-@import "./TCO19_thypo";
+@import "~components/Contentful/default";
 
 .contentWrapper {
   display: flex;
@@ -45,10 +45,9 @@
   h6 {
     margin: 10px 0 10px;
     color: $tco-black;
-    text-transform: uppercase;
   }
 
-  @include TCO19-default-headers;
+  @include gui-kit-headers;
 
   p {
     @include tc-body-md;

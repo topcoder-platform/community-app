@@ -30,9 +30,9 @@ export default function ScoreboardChallengeHeader(props) {
             {title}
           </h1>
           <p>
-[
+            [
             {type}
-]
+            ]
           </p>
           <h3>
             {description}

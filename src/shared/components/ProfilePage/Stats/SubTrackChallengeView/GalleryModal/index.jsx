@@ -64,7 +64,7 @@ class GalleryModal extends React.Component {
             <div styleName="info">
               {selected + 1}
               {' '}
-of
+              of
               {' '}
               {this.length}
             </div>
