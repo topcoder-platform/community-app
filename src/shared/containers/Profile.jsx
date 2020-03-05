@@ -1,7 +1,6 @@
 /**
  * Connects the Redux store to the Profile display components.
  */
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,10 +15,9 @@ class ProfileContainer extends React.Component {
     const {
       handleParam,
       loadProfile,
-      meta,
     } = this.props;
 
-    loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
+    loadProfile(handleParam);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,11 +25,10 @@ class ProfileContainer extends React.Component {
       handleParam,
       profileForHandle,
       loadProfile,
-      meta,
     } = nextProps;
 
     if (handleParam !== profileForHandle) {
-      loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
+      loadProfile(handleParam);
     }
   }
 
@@ -78,7 +75,6 @@ ProfileContainer.defaultProps = {
   profileForHandle: '',
   skills: null,
   stats: null,
-  meta: null,
 };
 
 ProfileContainer.propTypes = {
@@ -93,9 +89,8 @@ ProfileContainer.propTypes = {
   loadProfile: PT.func.isRequired,
   profileForHandle: PT.string,
   skills: PT.shape(),
-  stats: PT.arrayOf(PT.shape()),
+  stats: PT.shape(),
   lookupData: PT.shape().isRequired,
-  meta: PT.shape(),
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -105,7 +100,6 @@ const mapStateToProps = (state, ownProps) => ({
   externalAccounts: state.profile.externalAccounts,
   externalLinks: state.profile.externalLinks,
   handleParam: ownProps.match.params.handle,
-  meta: ownProps.meta,
   info: state.profile.info,
   loadingError: state.profile.loadingError,
   profileForHandle: state.profile.profileForHandle,
@@ -118,7 +112,7 @@ function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   const lookupActions = actions.lookup;
   return {
-    loadProfile: (handle, groupIds) => {
+    loadProfile: (handle) => {
       dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
@@ -133,7 +127,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
       dispatch(a.getSkillsDone(handle));
-      dispatch(a.getStatsDone(handle, groupIds));
+      dispatch(a.getStatsDone(handle));
       dispatch(lookupActions.getCountriesDone());
     },
   };
