@@ -3,7 +3,7 @@ import PT from 'prop-types';
 import React from 'react';
 
 // import CommunityBlog from './CommunityBlog';
-import MemberMetrics from './MemberMetrics';
+// import MemberMetrics from './MemberMetrics';
 import CurrentActivity from './CurrentActivity';
 import Header from './Header';
 
@@ -19,20 +19,20 @@ export default function Dashboard({
   communities,
   communitiesLoading,
   communityStats,
-  finances,
-  financesLoading,
+  // finances,
+  // financesLoading,
   selectChallengeDetailsTab,
   setChallengeListingFilter,
   showChallengeFilter,
-  showEarnings,
+  // showEarnings,
   showXlBadge,
   srms,
   srmsLoading,
-  stats,
-  statsLoading,
+  // stats,
+  // statsLoading,
   switchChallengeFilter,
   switchShowChallengeFilter,
-  switchShowEarnings,
+  // switchShowEarnings,
   switchTab,
   tab,
   // tcBlogLoading,
@@ -55,14 +55,14 @@ export default function Dashboard({
           hidePreviewMetaData
           previewId={announcementPreviewId}
         />
-        <MemberMetrics
+        {/* <MemberMetrics
           finances={finances}
           financesLoading={financesLoading}
           showEarnings={showEarnings}
           stats={stats}
           statsLoading={statsLoading}
           switchShowEarnings={switchShowEarnings}
-        />
+        /> */}
         <CurrentActivity
           challengeFilter={challengeFilter}
           challenges={challenges}
@@ -104,20 +104,20 @@ Dashboard.propTypes = {
   communities: PT.arrayOf(PT.object).isRequired,
   communitiesLoading: PT.bool.isRequired,
   communityStats: PT.shape().isRequired,
-  finances: PT.arrayOf(PT.object).isRequired,
-  financesLoading: PT.bool.isRequired,
+  // finances: PT.arrayOf(PT.object).isRequired,
+  // financesLoading: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
-  showEarnings: PT.bool.isRequired,
+  // showEarnings: PT.bool.isRequired,
   showXlBadge: PT.func.isRequired,
   srms: PT.arrayOf(PT.object).isRequired,
   srmsLoading: PT.bool.isRequired,
-  stats: PT.shape().isRequired,
-  statsLoading: PT.bool.isRequired,
+  // stats: PT.shape().isRequired,
+  // statsLoading: PT.bool.isRequired,
   switchChallengeFilter: PT.func.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
-  switchShowEarnings: PT.func.isRequired,
+  // switchShowEarnings: PT.func.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.string.isRequired,
   // tcBlogLoading: PT.bool.isRequired,
