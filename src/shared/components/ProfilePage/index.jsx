@@ -63,12 +63,7 @@ class ProfilePage extends React.Component {
   }
 
   getActiveTracks() {
-    const { copilot } = this.props;
-    let { stats } = this.props;
-    if (_.isArray(stats)) {
-      // eslint-disable-next-line prefer-destructuring
-      stats = stats[0];
-    }
+    const { copilot, stats } = this.props;
     const activeTracks = [];
 
     if (copilot && stats && stats.COPILOT && stats.COPILOT.fulfillment) {
@@ -123,7 +118,6 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
-      meta,
     } = this.props;
 
     const {
@@ -263,7 +257,7 @@ class ProfilePage extends React.Component {
               {
                 stats && (
                   <div id="profile-activity">
-                    <StatsCategory handle={info.handle} stats={stats} meta={meta} />
+                    <StatsCategory handle={info.handle} stats={stats} />
                   </div>
                 )
               }
@@ -303,7 +297,6 @@ ProfilePage.defaultProps = {
   achievements: [],
   skills: null,
   stats: null,
-  meta: null,
 };
 
 ProfilePage.propTypes = {
@@ -313,9 +306,8 @@ ProfilePage.propTypes = {
   externalLinks: PT.arrayOf(PT.shape()),
   info: PT.shape().isRequired,
   skills: PT.shape(),
-  stats: PT.arrayOf(PT.shape()),
+  stats: PT.shape(),
   lookupData: PT.shape().isRequired,
-  meta: PT.shape(),
 };
 
 export default ProfilePage;

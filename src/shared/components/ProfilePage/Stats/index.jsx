@@ -5,8 +5,9 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import { Link } from 'react-router-dom';
 import ReactSVG from 'react-svg';
-import { Link, isomorphy } from 'topcoder-react-utils';
+import { isomorphy } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
 import LeftArrow from 'assets/images/arrow-prev.svg';
@@ -49,6 +50,7 @@ class ProfileStats extends React.Component {
 
   render() {
     const {
+      stats,
       statsDistribution,
       statsHistory,
       track,
@@ -58,11 +60,6 @@ class ProfileStats extends React.Component {
       handleParam,
       activeChallengesCount,
     } = this.props;
-    let { stats } = this.props;
-    if (_.isArray(stats)) {
-      // eslint-disable-next-line prefer-destructuring
-      stats = stats[0];
-    }
 
     const { activeGraph, showModal } = this.state;
 
@@ -303,7 +300,7 @@ ProfileStats.defaultProps = {
 };
 
 ProfileStats.propTypes = {
-  stats: PT.arrayOf(PT.shape()).isRequired,
+  stats: PT.shape().isRequired,
   handleParam: PT.string.isRequired,
   track: PT.string.isRequired,
   subTrack: PT.string.isRequired,
