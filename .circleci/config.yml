@@ -213,6 +213,7 @@ workflows:
             branches:
               only:
                 - develop
+                - QA_ENV_smoke_testing_develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global
@@ -220,6 +221,7 @@ workflows:
             branches:
               only:
                 - hot-fix
+                - QA_ENV_smoke_testing_develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
