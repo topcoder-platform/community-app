@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
-import { config } from 'topcoder-react-utils';
 import UserInfo from './UserInfo';
 import UserStats from './UserStats';
 
@@ -22,7 +21,7 @@ const MemberItem = ({
   const memberItem = (
     <a
       styleName={memberItemStyles}
-      href={`${config.URL.BASE}/members/${member.handle}`}
+      href={`${window.origin}/members/${member.handle}`}
     >
       <UserInfo user={member} userPlace={userPlace} withBio={withBio} />
 
