@@ -7,7 +7,17 @@ const path = require('path');
 let publicPath = process.env.CDN_URL || '/api/cdn/public';
 publicPath += '/static-assets';
 
-module.exports = {
+// Import Speed measure plugin
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+
+// Import Happypack plugin
+const HappyPack = require('happypack');
+
+// Create Speed measure plugin instance to measure the build time
+const smp = new SpeedMeasurePlugin();
+
+// Wrap the webpack config with Speed measure plugin instance to measure the build time
+module.exports = smp.wrap({
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
   },
@@ -34,17 +44,20 @@ module.exports = {
        * are not bundled. */
       /utils[\\/]router[\\/]require/,
     ],
+    /* Changed the rule to support for .png .svg and .jpg and jpeg files and
+     * using happypack loader for parallelism
+     */
     rules: [
       {
-        test: /\.svg$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: '/images/',
-          publicPath: `${publicPath}/images`,
-        },
+        test: /\.(png|jpe?g|svg)$/i,
         exclude: /node_modules/,
+        use: ['happypack/loader'],
       },
     ],
+  },
+  // Marking optimization as false to cut time in terser plugin minification step
+  optimization: {
+    minimize: false,
   },
   plugins: [
     new CopyWebpackPlugin([{
@@ -81,5 +94,18 @@ module.exports = {
       swDest: path.resolve(__dirname, '../../build/sw.js'),
       importWorkboxFrom: 'local',
     }),
+    // Adding happypack plugin
+    new HappyPack({
+      // Adding the file-loader alongwith its options to instansiate with happypack
+      loaders: [
+        {
+          loader: 'file-loader',
+          options: {
+            outputPath: '/images/',
+            publicPath: `${publicPath}/images`,
+          },
+        },
+      ],
+    }),
   ],
-};
+});
