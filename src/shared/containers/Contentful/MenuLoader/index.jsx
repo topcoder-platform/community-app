@@ -101,6 +101,7 @@ class MenuLoaderContainer extends React.Component {
                 onSwitch={this.handleSwitchMenu}
                 onMenuOpen={this.handleCloseOpenMore}
                 profile={normalizedProfile}
+                auth={auth}
                 authURLs={config.HEADER_AUTH_URLS}
               />
             )}

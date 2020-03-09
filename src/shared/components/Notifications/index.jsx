@@ -7,13 +7,20 @@ import IconArrow from 'assets/images/notifications/arrow.svg';
 import styles from './style.scss';
 import TabsPanel from './TabsPanel';
 
+// TODO: We change this later based on API event mapping
 const eventTypes = {
   PROJECT: {
-    ACTIVE: 'connect.notification.project.active',
-    COMPLETED: 'connect.notification.project.completed',
+    ACTIVE: [
+      'challenge.notification.events',
+      'submission.notification.create',
+    ],
+    COMPLETED: 'challenge.notification.completed',
   },
+  BROADCAST: 'admin.notification.broadcast',
 };
-const Item = ({ item, markNotificationAsRead, showPoint }) => (
+const Item = ({
+  item, auth, markNotificationAsRead, showPoint,
+}) => (
   <div className={styles['noti-item']}>
     <div className={styles.left}>
       <p className={styles.txt}>{item.contents}</p>
@@ -27,8 +34,12 @@ const Item = ({ item, markNotificationAsRead, showPoint }) => (
           <div
             role="button"
             className={cn([styles.point, item.isSeen && styles['point-grey'], !item.isSeen && styles['point-red']])}
-            onClick={() => { markNotificationAsRead(item); }}
-            onKeyPress={() => { markNotificationAsRead(item); }}
+            onClick={() => {
+              markNotificationAsRead(item, auth.tokenV3);
+            }}
+            onKeyPress={() => {
+              markNotificationAsRead(item, auth.tokenV3);
+            }}
             tabIndex="0"
           />
         )}
@@ -36,7 +47,8 @@ const Item = ({ item, markNotificationAsRead, showPoint }) => (
   </div>
 );
 Item.propTypes = {
-  item: PropTypes.shape.isRequired,
+  item: PropTypes.shape().isRequired,
+  auth: PropTypes.shape().isRequired,
   markNotificationAsRead: PropTypes.func.isRequired,
   showPoint: PropTypes.bool.isRequired,
 };
@@ -58,14 +70,26 @@ export default class NotificationList extends React.Component {
     super(props);
     this.state = {
       collapsedChallenges: {},
-      showCompleted: false,
+      activeTab: 'active',
     };
   }
 
   componentWillUnmount() {
     // mark all notifications as seen when go to another page
-    const { markAllNotificationAsSeen } = this.props;
-    markAllNotificationAsSeen();
+    const {
+      markAllNotificationAsSeen, notifications, auth,
+    } = this.props;
+    const notificationsList = _.filter((notifications || []), t => !t.isSeen);
+    const result = _.map(notificationsList, 'id').join('-');
+    if (result) {
+      markAllNotificationAsSeen(result, auth.tokenV3);
+    }
+  }
+
+  changeTab = (tab) => {
+    this.setState({
+      activeTab: tab,
+    });
   }
 
   toggleChallenge = (challengeIdx, collapsedChallenges) => {
@@ -80,27 +104,27 @@ export default class NotificationList extends React.Component {
 
   render() {
     const {
-      notifications, markNotificationAsRead,
+      auth, notifications, loadNotifications, markNotificationAsRead,
       dismissChallengeNotifications,
     } = this.props;
-    const { collapsedChallenges, showCompleted } = this.state;
+    const { collapsedChallenges, activeTab } = this.state;
     let challengesList = [];
-    if (showCompleted) {
+    if (activeTab === 'active') {
       challengesList = _.filter((notifications || []),
-        t => t.eventType === eventTypes.PROJECT.COMPLETED);
+        t => eventTypes.PROJECT.ACTIVE.includes(t.eventType));
+    } else if (activeTab === 'completed') {
+      challengesList = _.filter((notifications || []),
+        t => eventTypes.PROJECT.COMPLETED.includes(t.eventType));
     } else {
       challengesList = _.filter((notifications || []),
-        t => t.eventType !== eventTypes.PROJECT.COMPLETED);
+        t => eventTypes.BROADCAST.includes(t.eventType));
     }
     return (
       <div className={styles['outer-container']}>
         <h1 className={styles.heading}>Notifications</h1>
         <div className={styles['notifications-panel']}>
           <TabsPanel
-            showActive={() => {
-              this.setState({ showCompleted: false });
-            }}
-            showCompleted={() => this.setState({ showCompleted: true })}
+            changeTab={tab => this.setState({ activeTab: tab })}
           />
           <div className={styles['noti-body']}>
             <Fragment key="nonComplete">
@@ -114,7 +138,7 @@ export default class NotificationList extends React.Component {
                       <div key={`noti-${challegeId}`} className={styles['challenge-title']}>
                         <span>{challenge.challengeTitle}</span>
                         <div className={cn([styles['challenge-header-rights'],
-                          !showCompleted && styles['hide-challenge-header-rights']])}
+                          activeTab !== 'completed' && styles['hide-challenge-header-rights']])}
                         >
                           <div
                             role="button"
@@ -122,12 +146,12 @@ export default class NotificationList extends React.Component {
                             className={styles['dismiss-challenge']}
                             onClick={() => {
                               if (challegeId) {
-                                dismissChallengeNotifications(challegeId);
+                                dismissChallengeNotifications(challegeId, auth.tokenV3);
                               }
                             }}
                             onKeyPress={() => {
                               if (challegeId) {
-                                dismissChallengeNotifications(challegeId);
+                                dismissChallengeNotifications(challegeId, auth.tokenV3);
                               }
                             }}
                           >&times;
@@ -149,10 +173,13 @@ export default class NotificationList extends React.Component {
                         (!collapsedChallenges[challegeId])
                         && challenge.items.map(item => (
                           <Item
+                            notifications={notifications}
                             item={item}
+                            auth={auth}
+                            loadNotifications={loadNotifications}
                             markNotificationAsRead={markNotificationAsRead}
                             key={`noti-item-${item.id}`}
-                            showPoint={!showCompleted}
+                            showPoint={activeTab !== 'completed'}
                           />
                         ))}
                     </Fragment>
@@ -167,11 +194,8 @@ export default class NotificationList extends React.Component {
   }
 }
 
-NotificationList.defaultProps = {
-  notifications: [],
-};
-
 NotificationList.propTypes = {
+  auth: PropTypes.shape().isRequired,
   /**
    * Array of Notifications, each with properties:
    *
@@ -186,8 +210,9 @@ NotificationList.propTypes = {
    *   - contents {string} message
    *
   */
-  notifications: PropTypes.arrayOf(PropTypes.object),
+  notifications: PropTypes.arrayOf(PropTypes.object).isRequired,
 
+  loadNotifications: PropTypes.func.isRequired,
 
   /**
    * Called with item to be marked as read.

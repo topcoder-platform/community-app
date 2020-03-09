@@ -2,6 +2,11 @@
 
 exports[`Matches shallow snapshot 1`] = `
 <Header
+  auth={
+    Object {
+      "profile": Object {},
+    }
+  }
   closeMenu={[Function]}
   closeMobileMenu={[Function]}
   closeSearch={[Function]}

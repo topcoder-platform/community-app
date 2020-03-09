@@ -9,33 +9,39 @@ import { connect } from 'react-redux';
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadNotifications: () => {
+    loadNotifications: (tokenV3) => {
       dispatch(actions.notifications.getNotificationsInit());
-      dispatch(actions.notifications.getNotificationsDone());
+      dispatch(actions.notifications.getNotificationsDone(tokenV3));
     },
-    markNotificationAsRead: (item) => {
+    markNotificationAsRead: (item, tokenV3) => {
       dispatch(actions.notifications.markNotificationAsReadInit());
-      dispatch(actions.notifications.markNotificationAsReadDone(item));
+      dispatch(actions.notifications.markNotificationAsReadDone(item, tokenV3));
     },
-    markAllNotificationAsRead: () => {
+    markAllNotificationAsRead: (tokenV3) => {
       dispatch(actions.notifications.markAllNotificationAsReadInit());
-      dispatch(actions.notifications.markAllNotificationAsReadDone());
+      dispatch(actions.notifications.markAllNotificationAsReadDone(tokenV3));
     },
-    markAllNotificationAsSeen: () => {
+    markAllNotificationAsSeen: (items, tokenV3) => {
       dispatch(actions.notifications.markAllNotificationAsSeenInit());
-      dispatch(actions.notifications.markAllNotificationAsSeenDone());
+      dispatch(actions.notifications.markAllNotificationAsSeenDone(items, tokenV3));
     },
-    dismissChallengeNotifications: (challegeId) => {
+    dismissChallengeNotifications: (challegeId, tokenV3) => {
       dispatch(actions.notifications.dismissChallengeNotificationsInit());
-      dispatch(actions.notifications.dismissChallengeNotificationsDone(challegeId));
+      dispatch(actions.notifications.dismissChallengeNotificationsDone(challegeId, tokenV3));
     },
   };
 }
-export default connect(
-  state => ({
+
+function mapStateToProps(state) {
+  return {
     notifications: (state.notifications
       && state.notifications.items
       && [...state.notifications.items]) || [],
-  }),
+    auth: state.auth,
+  };
+}
+
+export default connect(
+  mapStateToProps,
   mapDispatchToProps,
 )(Notifications);

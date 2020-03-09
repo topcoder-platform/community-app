@@ -17,8 +17,8 @@ try {
 }
 
 const Header = ({
-  profile, notifications, loadNotifications, markNotificationAsRead, markAllNotificationAsRead,
-  markAllNotificationAsSeen, dismissChallengeNotifications,
+  profile, auth, notifications, loadNotifications, markNotificationAsRead,
+  markAllNotificationAsRead, markAllNotificationAsSeen, dismissChallengeNotifications,
 }) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
@@ -50,7 +50,7 @@ const Header = ({
 
   useEffect(() => {
     setPath(window.location.pathname);
-    loadNotifications();
+    loadNotifications(auth.tokenV3);
   }, []);
   if (TopNavRef) {
     return (
@@ -62,6 +62,7 @@ const Header = ({
               loggedIn={!_.isEmpty(profile)}
               notificationButtonState="new"
               notifications={notifications || []}
+              loadNotifications={loadNotifications}
               markNotificationAsRead={markNotificationAsRead}
               markAllNotificationAsRead={markAllNotificationAsRead}
               markAllNotificationAsSeen={markAllNotificationAsSeen}
@@ -71,6 +72,7 @@ const Header = ({
               onSwitch={handleSwitchMenu}
               onMenuOpen={handleCloseOpenMore}
               showNotification
+              auth={auth}
               profile={normalizedProfile}
               authURLs={config.HEADER_AUTH_URLS}
             />
@@ -94,6 +96,7 @@ const Header = ({
 
 Header.defaultProps = {
   profile: null,
+  auth: null,
 };
 
 Header.propTypes = {
@@ -101,6 +104,7 @@ Header.propTypes = {
     photoURL: PT.string,
     handle: PT.string,
   }),
+  auth: PT.shape(),
   notifications: PT.arrayOf(PT.object).isRequired,
   loadNotifications: PT.func.isRequired,
   markNotificationAsRead: PT.func.isRequired,

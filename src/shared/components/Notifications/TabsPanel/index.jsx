@@ -6,6 +6,7 @@ import styles from './style.scss';
 
 const TABS = {
   COMPLETED: 'completed',
+  BROADCAST: 'broadcast',
   ACTIVE: 'active',
 };
 
@@ -19,7 +20,7 @@ export default class TabsPanel extends React.Component {
 
 
   render() {
-    const { showActive, showCompleted } = this.props;
+    const { changeTab } = this.props;
     const { tab } = this.state;
     return (
       <div className={styles.container}>
@@ -31,16 +32,34 @@ export default class TabsPanel extends React.Component {
             onClick={
               () => {
                 this.setState({ tab: TABS.ACTIVE });
-                showActive();
+                changeTab(TABS.ACTIVE);
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.ACTIVE });
-                showActive();
+                changeTab(TABS.ACTIVE);
               }
             }
           >ACTIVE CHALLENGES
+          </div>
+          <div
+            className={cn([styles.btn, tab === TABS.BROADCAST && styles.active])}
+            role="tab"
+            tabIndex="0"
+            onClick={
+              () => {
+                this.setState({ tab: TABS.BROADCAST });
+                changeTab(TABS.BROADCAST);
+              }
+            }
+            onKeyPress={
+              () => {
+                this.setState({ tab: TABS.BROADCAST });
+                changeTab(TABS.BROADCAST);
+              }
+            }
+          >NOTIFICATIONS
           </div>
           <div
             className={cn([styles.btn, tab === TABS.COMPLETED && styles.active])}
@@ -49,13 +68,13 @@ export default class TabsPanel extends React.Component {
             onClick={
               () => {
                 this.setState({ tab: TABS.COMPLETED });
-                showCompleted();
+                changeTab(TABS.COMPLETED);
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.COMPLETED });
-                showCompleted();
+                changeTab(TABS.COMPLETED);
               }
             }
           >COMPLETED CHALLENGES
@@ -71,6 +90,5 @@ export default class TabsPanel extends React.Component {
 
 
 TabsPanel.propTypes = {
-  showActive: PropTypes.func.isRequired,
-  showCompleted: PropTypes.func.isRequired,
+  changeTab: PropTypes.func.isRequired,
 };
