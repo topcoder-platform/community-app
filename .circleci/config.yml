@@ -229,6 +229,7 @@ workflows:
             branches:
               only:
                 - develop
+                - QA_ENV_smoke_testing_develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
