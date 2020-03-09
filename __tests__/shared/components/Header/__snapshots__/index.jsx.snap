@@ -150,6 +150,7 @@ exports[`Default render 1`] = `
             },
           ]
         }
+        auth={null}
         authURLs={
           Object {
             "href": "https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
