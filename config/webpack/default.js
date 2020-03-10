@@ -1,23 +1,15 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
+// Import Happypack plugin
+const HappyPack = require('happypack');
 
 const path = require('path');
 
 let publicPath = process.env.CDN_URL || '/api/cdn/public';
 publicPath += '/static-assets';
 
-// Import Speed measure plugin
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-
-// Import Happypack plugin
-const HappyPack = require('happypack');
-
-// Create Speed measure plugin instance to measure the build time
-const smp = new SpeedMeasurePlugin();
-
-// Wrap the webpack config with Speed measure plugin instance to measure the build time
-module.exports = smp.wrap({
+module.exports = {
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
   },
@@ -108,4 +100,4 @@ module.exports = smp.wrap({
       ],
     }),
   ],
-});
+};
