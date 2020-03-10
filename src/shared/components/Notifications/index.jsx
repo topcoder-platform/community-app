@@ -135,7 +135,7 @@ export default class NotificationList extends React.Component {
   isLink = (item) => {
     const ret = (eventTypes.PROJECT.ACTIVE.includes(item.eventType)
       || eventTypes.PROJECT.COMPLETED.includes(item.eventType))
-      && item.sourceId;
+      && item.sourceId > 0;
     return ret;
   }
 
@@ -171,8 +171,8 @@ export default class NotificationList extends React.Component {
                     && challenge.items[0].sourceId;
 
                   return (
-                    <Fragment key={`challenge-${challegeId}`}>
-                      <div key={`noti-${challegeId}`} className={styles['challenge-title']}>
+                    <Fragment key={`c-${challenge.items[0].id}`}>
+                      <div className={styles['challenge-title']}>
                         <span>{challenge.challengeTitle}</span>
                         <div className={cn([styles['challenge-header-rights'],
                           activeTab !== 'completed' && styles['hide-challenge-header-rights']])}
