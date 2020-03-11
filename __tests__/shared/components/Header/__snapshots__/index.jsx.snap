@@ -61,6 +61,10 @@ exports[`Default render 1`] = `
                   "href": "https://arena.topcoder-dev.com",
                   "title": "Competitive Programming",
                 },
+                Object {
+                  "href": "/community/taas",
+                  "title": "TaaS",
+                },
               ],
               "title": "Compete",
             },
