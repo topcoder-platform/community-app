@@ -293,7 +293,7 @@ $panel-radius-4: $corner-radius * 2;
   .filter-row {
     display: flex;
     align-items: center;
-    margin-right: $panel-space-100 + 17;
+    // margin-right: $panel-space-100 + 17;
 
     @include xs-to-md {
       display: block;

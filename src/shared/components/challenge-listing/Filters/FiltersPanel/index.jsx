@@ -339,7 +339,7 @@ export default function FiltersPanel({
           </div>
         </div>
       </div>
-      <div styleName="buttons">
+      {/* <div styleName="buttons">
         <Button
           composeContextTheme={COMPOSE.SOFT}
           disabled={disableClearSaveFilterButtons}
@@ -362,7 +362,7 @@ export default function FiltersPanel({
         >
           Save filter
         </PrimaryButton>
-      </div>
+      </div> */}
     </div>
   );
 }
