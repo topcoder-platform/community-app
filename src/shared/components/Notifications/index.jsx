@@ -13,7 +13,7 @@ const eventTypes = {
   PROJECT: {
     ACTIVE: [
       'challenge.notification.events',
-      'submission.notification.create',
+      'notifications.autopilot.events',
     ],
     COMPLETED: 'challenge.notification.completed',
   },
