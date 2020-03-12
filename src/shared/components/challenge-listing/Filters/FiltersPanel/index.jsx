@@ -41,7 +41,7 @@ const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
   communityFilters,
-  defaultCommunityId,
+  // defaultCommunityId,
   filterState,
   challenges,
   hidden,
@@ -56,7 +56,7 @@ export default function FiltersPanel({
   // setSearchText,
   validKeywords,
   validSubtracks,
-  isSavingFilter,
+  // isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -373,7 +373,7 @@ FiltersPanel.defaultProps = {
   isAuth: false,
   isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
-  onSaveFilter: _.noop,
+  // onSaveFilter: _.noop,
   onClose: _.noop,
 };
 
@@ -382,19 +382,19 @@ FiltersPanel.propTypes = {
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
   })).isRequired,
-  defaultCommunityId: PT.string.isRequired,
+  // defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape()),
   hidden: PT.bool,
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
-  isSavingFilter: PT.bool,
+  // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
-  onSaveFilter: PT.func,
+  // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
-  setSearchText: PT.func.isRequired,
+  // setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
