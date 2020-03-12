@@ -27,14 +27,14 @@ import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
-import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
+// import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
-import { COMPOSE, PRIORITY } from 'react-css-super-themr';
+// import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
-import style from './style.scss';
+// import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
 const Filter = challengeUtils.filter;
@@ -49,11 +49,11 @@ export default function FiltersPanel({
   auth,
   isReviewOpportunitiesBucket,
   onClose,
-  onSaveFilter,
+  // onSaveFilter,
   selectCommunity,
   selectedCommunityId,
   setFilterState,
-  setSearchText,
+  // setSearchText,
   validKeywords,
   validSubtracks,
   isSavingFilter,
@@ -186,10 +186,10 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  const disableClearSaveFilterButtons = isSavingFilter || (
-    selectedCommunityId === defaultCommunityId
-    && _.isEmpty(filterState)
-  );
+  // const disableClearSaveFilterButtons = isSavingFilter || (
+  //   selectedCommunityId === defaultCommunityId
+  //   && _.isEmpty(filterState)
+  // );
 
   const mapOps = item => ({ label: item, value: item });
   const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
