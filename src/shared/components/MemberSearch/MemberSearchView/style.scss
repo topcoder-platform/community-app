@@ -1,0 +1,10 @@
+@import '~tc-ui/src/styles/tc-includes';
+
+.member-search-view {
+  margin: 0 32px;
+  background-color: $tc-gray-neutral-dark;
+
+  @media (max-width: 700px) {
+    margin: 0 10px;
+  }
+}
