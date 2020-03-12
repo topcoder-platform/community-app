@@ -371,7 +371,7 @@ FiltersPanel.defaultProps = {
   challenges: [],
   hidden: false,
   isAuth: false,
-  isSavingFilter: false,
+  // isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
   // onSaveFilter: _.noop,
   onClose: _.noop,
