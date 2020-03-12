@@ -34,7 +34,7 @@ import { config, Link } from 'topcoder-react-utils';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
-import style from './style.scss';
+import style from './style.scss'; // eslint-disable-line no-unused-vars
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
 const Filter = challengeUtils.filter;
