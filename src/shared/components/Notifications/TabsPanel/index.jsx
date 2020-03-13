@@ -80,9 +80,13 @@ export default class TabsPanel extends React.Component {
           >COMPLETED CHALLENGES
           </div>
         </div>
+        {/*
+          * Disabled until Settings page is ready
+          *
         <div className={styles.rights}>
           <div className={styles['notification-setting']}>Notification Settings</div>
         </div>
+        */}
       </div>
     );
   }
