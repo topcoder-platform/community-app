@@ -32,6 +32,7 @@ import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
 import ProfileStats from '../ProfileStats';
+import MemberSearch from '../../containers/MemberSearch';
 
 import './styles.scss';
 
@@ -138,6 +139,11 @@ export default function Topcoder() {
                 }}
                 exact
                 path={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/:articleTitle`}
+              />
+              <Route
+                component={MemberSearch}
+                exact
+                path="/search/members"
               />
               <Error404 />
             </Switch>

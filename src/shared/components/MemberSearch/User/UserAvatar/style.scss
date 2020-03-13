@@ -1,0 +1,23 @@
+@import '~tc-ui/src/styles/tc-includes';
+
+// Delete -r when taking member search back out of the angular app
+// Renamed to -r to avoid naming collisions
+.user-avatar-r {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+  position: relative;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+
+  @media (max-width: 700px) {
+    margin-right: 10px;
+  }
+
+  .user-rank {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
