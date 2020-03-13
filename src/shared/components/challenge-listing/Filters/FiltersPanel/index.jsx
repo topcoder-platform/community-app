@@ -27,21 +27,21 @@ import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
-import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
+// import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
-import { COMPOSE, PRIORITY } from 'react-css-super-themr';
+// import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
-import style from './style.scss';
+import style from './style.scss'; // eslint-disable-line no-unused-vars
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
 const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
   communityFilters,
-  defaultCommunityId,
+  // defaultCommunityId,
   filterState,
   challenges,
   hidden,
@@ -49,14 +49,14 @@ export default function FiltersPanel({
   auth,
   isReviewOpportunitiesBucket,
   onClose,
-  onSaveFilter,
+  // onSaveFilter,
   selectCommunity,
   selectedCommunityId,
   setFilterState,
-  setSearchText,
+  // setSearchText,
   validKeywords,
   validSubtracks,
-  isSavingFilter,
+  // isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -186,10 +186,10 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  const disableClearSaveFilterButtons = isSavingFilter || (
-    selectedCommunityId === defaultCommunityId
-    && _.isEmpty(filterState)
-  );
+  // const disableClearSaveFilterButtons = isSavingFilter || (
+  //   selectedCommunityId === defaultCommunityId
+  //   && _.isEmpty(filterState)
+  // );
 
   const mapOps = item => ({ label: item, value: item });
   const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
@@ -339,7 +339,7 @@ export default function FiltersPanel({
           </div>
         </div>
       </div>
-      <div styleName="buttons">
+      {/* <div styleName="buttons">
         <Button
           composeContextTheme={COMPOSE.SOFT}
           disabled={disableClearSaveFilterButtons}
@@ -362,7 +362,7 @@ export default function FiltersPanel({
         >
           Save filter
         </PrimaryButton>
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -371,9 +371,9 @@ FiltersPanel.defaultProps = {
   challenges: [],
   hidden: false,
   isAuth: false,
-  isSavingFilter: false,
+  // isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
-  onSaveFilter: _.noop,
+  // onSaveFilter: _.noop,
   onClose: _.noop,
 };
 
@@ -382,19 +382,19 @@ FiltersPanel.propTypes = {
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
   })).isRequired,
-  defaultCommunityId: PT.string.isRequired,
+  // defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape()),
   hidden: PT.bool,
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
-  isSavingFilter: PT.bool,
+  // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
-  onSaveFilter: PT.func,
+  // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
-  setSearchText: PT.func.isRequired,
+  // setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
