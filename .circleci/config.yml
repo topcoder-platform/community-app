@@ -192,6 +192,7 @@ workflows:
             branches:
               only:
                 - develop
+                - build-tune
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
