@@ -27,7 +27,7 @@ import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
-import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
+import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
@@ -49,7 +49,7 @@ export default function FiltersPanel({
   auth,
   isReviewOpportunitiesBucket,
   onClose,
-  onSaveFilter,
+  // onSaveFilter,
   selectCommunity,
   selectedCommunityId,
   setFilterState,
@@ -354,14 +354,14 @@ export default function FiltersPanel({
         >
           Clear filters
         </Button>
-        <PrimaryButton
+        {/* <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
           theme={{ button: style.button }}
         >
           Save filter
-        </PrimaryButton>
+        </PrimaryButton> */}
       </div>
     </div>
   );
@@ -373,7 +373,7 @@ FiltersPanel.defaultProps = {
   isAuth: false,
   isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
-  onSaveFilter: _.noop,
+  // onSaveFilter: _.noop,
   onClose: _.noop,
 };
 
@@ -390,7 +390,7 @@ FiltersPanel.propTypes = {
   auth: PT.shape().isRequired,
   isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
-  onSaveFilter: PT.func,
+  // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
