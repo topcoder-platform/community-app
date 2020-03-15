@@ -46,8 +46,8 @@ export default function ChallengeFilters({
   if (filterState.tags) filterRulesCount += 1;
   if (filterState.subtracks) filterRulesCount += 1;
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
+  if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
   if (selectedCommunityId !== '') filterRulesCount += 1;
-
   const isTrackOn = track => !filterState.tracks || Boolean(filterState.tracks[track]);
 
   const switchTrack = (track, on) => {
