@@ -35,7 +35,7 @@ export default function TopcoderFooter() {
   return (
     <div styleName="footer" role="contentinfo">
       <ol>
-        <Link to={`${base}/community/about`}>
+        <Link to={`${base}/community/learn`}>
           ABOUT US
         </Link>
         <Link to={`${base}/community/contact`}>
