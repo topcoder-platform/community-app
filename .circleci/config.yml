@@ -174,8 +174,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature-m2m-with-stats
-                - develop
+                - build-tune
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -193,6 +192,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-contentful
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
