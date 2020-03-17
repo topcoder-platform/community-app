@@ -1,4 +1,4 @@
-import * as config from "../config-dev.json";
+import * as config from "../config.json";
 
 export const ConfigHelper = {
   /**
