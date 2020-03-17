@@ -1,0 +1,6 @@
+{
+  "Timeout": {
+    "FieldVisibility": 5000,
+    "SubmitForm": 9000
+  }
+}

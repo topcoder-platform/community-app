@@ -1,0 +1,10 @@
+{
+  "login": {
+    "invalidUsername": "gjhhvv",
+    "invalidPassword": "invalidpassword"
+  },
+  "tools": {
+    "subscription": "Sample A",
+    "newSubscription": "Sample B"
+  }
+}
