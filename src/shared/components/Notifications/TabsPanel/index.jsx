@@ -41,7 +41,7 @@ export default class TabsPanel extends React.Component {
                 changeTab(TABS.ACTIVE);
               }
             }
-          >ACTIVE CHALLENGES
+          >CHALLENGES
           </div>
           <div
             className={cn([styles.btn, tab === TABS.BROADCAST && styles.active])}
@@ -61,6 +61,9 @@ export default class TabsPanel extends React.Component {
             }
           >NOTIFICATIONS
           </div>
+          {/*
+            * Disabled until Backend updated (add flag completed in notifications)
+            *
           <div
             className={cn([styles.btn, tab === TABS.COMPLETED && styles.active])}
             role="tab"
@@ -79,6 +82,7 @@ export default class TabsPanel extends React.Component {
             }
           >COMPLETED CHALLENGES
           </div>
+          */}
         </div>
         {/*
           * Disabled until Settings page is ready
