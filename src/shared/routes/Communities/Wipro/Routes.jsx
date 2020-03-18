@@ -83,8 +83,8 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
               />
               <Route
-                component={() => <Settings base="/settings" />}
-                path="/settings"
+                component={() => <Settings base={`${base}/settings`} />}
+                path={`${base}/settings`}
               />
               <Route
                 component={TermsDetail}
