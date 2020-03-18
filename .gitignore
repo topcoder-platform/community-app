@@ -54,5 +54,5 @@ set-test-env.sh
 *.iml
 
 # e2e test case
-tcommunity-app-tests/temp
-community-app-tests/test-results
+#community-app-tests/temp
+#community-app-tests/test-results
