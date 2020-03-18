@@ -52,3 +52,7 @@ set-env*.sh
 set-test-env.sh
 .idea
 *.iml
+
+# e2e test case
+tcommunity-app-tests/temp
+community-app-tests/test-results
