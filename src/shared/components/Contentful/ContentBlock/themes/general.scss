@@ -104,10 +104,17 @@
 
     font-size: 15px;
     line-height: 25px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    margin-top: 0;
+
+    strong {
+      font-weight: 600;
+    }
   }
 
   table {
+    margin-bottom: 20px;
+
     th {
       @include roboto-regular;
 
@@ -159,6 +166,10 @@
     @include roboto-regular;
 
     color: $tc-black;
+
+    li p {
+      margin-bottom: 0;
+    }
   }
 
   ul {

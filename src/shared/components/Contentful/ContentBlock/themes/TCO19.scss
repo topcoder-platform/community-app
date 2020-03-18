@@ -55,18 +55,22 @@
     color: $tco-black;
     font-size: 16px;
     line-height: 26px;
+    margin-bottom: 20px;
+    margin-top: 0;
 
     strong {
       @include roboto-medium;
 
       line-height: 20px;
       text-align: left;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 20px;
     }
   }
 
   table {
+    margin-bottom: 20px;
+
     th {
       @include roboto-regular;
 
@@ -118,6 +122,10 @@
     @include roboto-regular;
 
     color: $tc-black;
+
+    li p {
+      margin-bottom: 0;
+    }
   }
 
   ul {

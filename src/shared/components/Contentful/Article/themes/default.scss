@@ -185,7 +185,7 @@
 
         line-height: 20px;
         text-align: left;
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: 20px;
       }
 
@@ -199,6 +199,8 @@
     }
 
     table {
+      margin-bottom: 20px;
+
       th {
         @include roboto-regular;
 
@@ -237,6 +239,10 @@
 
         &:last-child {
           padding-right: 10px;
+        }
+
+        strong {
+          font-weight: 600;
         }
       }
     }
