@@ -174,7 +174,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
                 - hot-fix-delete-submission
       # This is alternate dev env for parallel testing
       - "build-test":
