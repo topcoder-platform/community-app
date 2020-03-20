@@ -1,10 +1,10 @@
 {
-  "env" : "qa",
+  "env": "qa",
   "loginUrl": "https://accounts.topcoder-dev.com/member",
   "homePageUrl": "https://qa-community-app.topcoder-dev.com",
   "logoutUrl": "https://www.topcoder-dev.com/logout",
   "toolsUrl": "https://qa-community-app.topcoder-dev.com/settings/tools",
   "email": "e20190928114000@gmail.com",
   "username": "e2e20190909",
-  "password": "Password@123" 
+  "password": "Password@123"
 }
