@@ -56,6 +56,12 @@ $turquoise-super-dark: turquoise;
           text-align: center;
           margin: 15px auto 25px auto;
         }
+
+        a {
+          color: #0d61bf;
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
 
       .challenge-title {

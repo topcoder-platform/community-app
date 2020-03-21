@@ -49,7 +49,12 @@ const Item = ({
   >
     <Fragment>
       <div className={styles.left}>
-        <p className={styles.txt}>{item.contents}</p>
+        <p
+          className={styles.txt}
+          dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+            __html: item.contents || '',
+          }}
+        />
         <span className={styles['time-txt']}>{moment(item.date).fromNow()}</span>
       </div>
       <div className={styles.right}>
