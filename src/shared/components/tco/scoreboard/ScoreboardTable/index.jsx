@@ -24,7 +24,7 @@ import PT from 'prop-types';
 import codeFields from 'shared/fields/submissionCodeFields.json';
 import designFields from 'shared/fields/submissionDesignFields.json';
 
-import { config } from 'topcoder-react-utils';
+import { Link } from 'topcoder-react-utils';
 
 import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 
@@ -53,9 +53,9 @@ export default function ScoreboardTable(props) {
             {index + 1}
           </td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${submission.handle}/`}>
+            <Link to={`/members/${submission.handle}/`}>
               {submission.handle}
-            </a>
+            </Link>
           </td>
           {getTemplateValues(fields, challenge.type === 'Code' ? submission.submissionCode : submission.submissionDesign)}
         </tr>

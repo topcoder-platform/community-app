@@ -27,7 +27,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -129,9 +129,9 @@ export default function PodiumSpot(props) {
                   {competitor.handle}
                 </div>
               ) : (
-                <a styleName={`${stylesName}.profile-link`} href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+                <Link styleName={`${stylesName}.profile-link`} to={`/members/${competitor.handle}/`}>
                   {competitor.handle}
-                </a>
+                </Link>
               )
             }
           </div>
@@ -150,9 +150,9 @@ export default function PodiumSpot(props) {
                     {competitor.handle}
                   </div>
                 ) : (
-                  <a styleName={`${stylesName}.profile-link`} href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+                  <Link styleName={`${stylesName}.profile-link`} to={`/members/${competitor.handle}/`}>
                     {competitor.handle}
-                  </a>
+                  </Link>
                 )
               }
             </div>

@@ -1,7 +1,7 @@
 import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import React from 'react';
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import Lock from '../../icons/lock.svg';
 
@@ -71,12 +71,12 @@ export default function Winner({
             url={avatarUrl}
           />
           <div>
-            <a
-              href={`${config.URL.BASE}/members/${winner.handle}`}
+            <Link
+              to={`/members/${winner.handle}`}
               styleName="handle"
             >
               {winner.handle}
-            </a>
+            </Link>
             <div styleName="prize">
               $
               {prize}

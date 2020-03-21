@@ -25,9 +25,9 @@ exports[`Matches shallow shapshot 1`] = `
     </div>
   </span>
   <div>
-    <a
+    <Link
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
-      href="https://www.topcoder-dev.com/members/undefined/"
+      to="/members/undefined/"
     />
   </div>
   <div
@@ -89,9 +89,9 @@ exports[`Matches shallow shapshot 2`] = `
     </div>
   </span>
   <div>
-    <a
+    <Link
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
-      href="https://www.topcoder-dev.com/members/undefined/"
+      to="/members/undefined/"
     />
   </div>
   <div

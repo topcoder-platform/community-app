@@ -8,7 +8,7 @@ import PT from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import cn from 'classnames';
-import { config } from 'topcoder-react-utils';
+import { Link } from 'topcoder-react-utils';
 
 import sortList from 'utils/challenge-detail/sort';
 import CheckMark from '../icons/check-mark.svg';
@@ -409,9 +409,9 @@ export default class Registrants extends React.Component {
                   }
                   <div styleName="col-3">
                     <span role="cell">
-                      <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
+                      <Link to={`/members/${r.handle}`} style={colorStyle}>
                         {r.handle}
-                      </a>
+                      </Link>
                     </span>
                   </div>
                   <div styleName="col-4">

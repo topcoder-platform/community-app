@@ -4,7 +4,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import { config, Link } from 'topcoder-react-utils';
+import { Link } from 'topcoder-react-utils';
 
 import defaultStyles from './styles.scss';
 
@@ -16,7 +16,7 @@ const Role = ({ data, theme }) => (
     {
       data.members.map(member => (
         <div key={member.fields.handle} className={theme.winner}>
-          <Link to={`${config.URL.BASE}/members/${member.fields.handle}`}>
+          <Link to={`/members/${member.fields.handle}`}>
             {member.fields.handle}
           </Link>
         </div>

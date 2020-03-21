@@ -8,7 +8,7 @@ import PT from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import { submission as submissionUtils } from 'topcoder-react-lib';
 import { isTokenExpired } from 'tc-accounts';
 import cn from 'classnames';
@@ -309,14 +309,13 @@ class SubmissionsComponent extends React.Component {
             >
               {`#${s.submissionId}`}
             </a>
-            <a
-              href={`${config.URL.BASE}/members/${s.submitter}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={_.get(s, 'colorStyle')}
+            <Link
+              to={`/members/${s.submitter}`}
+              openNewTab
+              styleName={_.get(s, 'colorStyle')}
             >
               {s.submitter}
-            </a>
+            </Link>
           </div>
           <div>
             {moment(s.submissionTime)
