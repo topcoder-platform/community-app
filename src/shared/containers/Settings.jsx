@@ -91,6 +91,8 @@ SettingsContainer.defaultProps = {
   handle: '',
   tokenV3: '',
   profile: null,
+  notificationSettings: {},
+  fetchNotificationsFailure: false,
 };
 
 SettingsContainer.propTypes = {
@@ -115,6 +117,9 @@ SettingsContainer.propTypes = {
   lookupData: PT.shape().isRequired,
   loadingError: PT.bool.isRequired,
   updateEmailConflict: PT.func.isRequired,
+  notificationSettings: PT.shape(),
+  saveNotificationSettings: PT.func.isRequired,
+  fetchNotificationsFailure: PT.bool,
 };
 
 function mapStateToProps(state) {
@@ -134,12 +139,15 @@ function mapStateToProps(state) {
     traitRequestCount: state.settings.traitRequestCount,
     userTraits: state.settings.userTraits,
     skills: state.profile.skills,
+    notificationSettings: state.notifications.notificationSettings,
+    fetchNotificationsFailure: state.notifications.fetchNotificationsFailure,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   const profileActions = actions.profile;
   const lookupActions = actions.lookup;
+  const notificationActions = actions.notifications;
 
   const loadTabData = ({
     handle,
@@ -156,6 +164,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(lookupActions.getCountriesDone());
     } else if (settingsTab === TABS.PREFERENCES) {
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
+      dispatch(notificationActions.getNotificationSettingsInit());
+      dispatch(notificationActions.getNotificationSettingsDone(tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalLinksDone(handle));
@@ -244,6 +254,10 @@ function mapDispatchToProps(dispatch) {
     },
     updateEmailConflict: (state) => {
       dispatch(actions.profile.updateEmailConflict(state));
+    },
+    saveNotificationSettings: (data, tokenV3) => {
+      dispatch(notificationActions.saveNotificationSettingsInit());
+      dispatch(notificationActions.saveNotificationSettingsDone(JSON.stringify(data), tokenV3));
     },
   };
 }

@@ -1,0 +1,72 @@
+@import "../../style";
+
+.NotificationPreferences {
+  .title {
+    @include tc-heading-lg;
+
+    margin-bottom: 25px;
+
+    @include upto-sm {
+      font-size: 20px;
+      line-height: 30px;
+      margin: 20px;
+    }
+  }
+
+  .heading {
+    background-color: $tc-gray-neutral-dark;
+    padding: 12.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sub-title {
+    @include tc-heading-sm;
+
+    margin-left: 7.5px;
+  }
+
+  .notification-options {
+    @include roboto-regular;
+
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    @include upto-sm {
+      width: 17%;
+      margin-right: 20px;
+    }
+
+    div {
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .icon-website {
+    margin-right: 40px;
+    padding: 10px 0;
+  }
+
+  .icon-email {
+    padding: 10px 7.5px 10px 0;
+  }
+
+  .icon-text {
+    margin-left: 5px;
+
+    @include upto-sm {
+      display: none;
+    }
+  }
+
+  .preferences-container {
+    border-top: 1px solid $tc-gray-neutral-dark;
+  }
+}
