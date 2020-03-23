@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { Link } from 'topcoder-react-utils';
 import styles from './style.scss';
 
 
@@ -81,7 +82,9 @@ export default class TabsPanel extends React.Component {
           </div>
         </div>
         <div className={styles.rights}>
-          <div className={styles['notification-setting']}>Notification Settings</div>
+          <div className={styles['notification-setting']}>
+            <Link to="/settings/preferences"> Notification Settings</Link>
+          </div>
         </div>
       </div>
     );

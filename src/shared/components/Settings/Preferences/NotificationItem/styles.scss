@@ -1,0 +1,84 @@
+@import "../../style";
+
+.NotificationItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $tc-gray-neutral-dark;
+  border-top: 0;
+  padding: 20px;
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+  }
+
+  p.primary {
+    @include roboto-bold;
+
+    color: $tc-black;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 10px;
+
+    @include upto-sm {
+      @include roboto-medium;
+
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+  }
+
+  p.secondary {
+    @include roboto-medium;
+
+    color: $tc-gray-50;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    width: 520px;
+    height: 40px;
+
+    @include upto-sm {
+      font-size: 11px;
+      width: 90%;
+      height: 100%;
+      // margin-top: 10px;
+    }
+
+    @include from-sm-to-lg {
+      font-size: 11px;
+      width: 246px;
+      height: 60px;
+    }
+  }
+
+  .emptyToggler {
+    align-self: center;
+    margin-right: 10px;
+    margin-left: 22px;
+    height: 20px;
+    width: 34px;
+    box-sizing: border-box;
+    position: relative;
+
+    @include upto-sm {
+      width: 25vw;
+    }
+  }
+
+  .toggler {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 180px;
+
+    @include upto-sm {
+      width: 25vw;
+    }
+  }
+}

@@ -8,7 +8,7 @@ exports[`renders preferences setting page correctly 1`] = `
     className="src-shared-components-Settings-Preferences-___styles__col-bar___2Fr2T"
   >
     <SideBar
-      currentTab="e-mail"
+      currentTab="notifications"
       icons={
         Object {
           "e-mail": <EmailIcon
@@ -29,6 +29,12 @@ exports[`renders preferences setting page correctly 1`] = `
             width="30"
             xmlns="http://www.w3.org/2000/svg"
           />,
+          "notifications": <NotificationIcon
+            height="32"
+            viewBox="0 0 30 32"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
           "payment": <Payment
             viewBox="0 0 34 30"
             xmlns="http://www.w3.org/2000/svg"
@@ -43,6 +49,7 @@ exports[`renders preferences setting page correctly 1`] = `
       }
       names={
         Array [
+          "notifications",
           "e-mail",
           "forum",
           "payment",
@@ -57,7 +64,11 @@ exports[`renders preferences setting page correctly 1`] = `
     className="src-shared-components-Settings-Preferences-___styles__col-content___2OhJS"
   >
     <ErrorWrapper>
-      <EmailPreferences />
+      <NotificationPreferences
+        fetchNotificationsFailure={false}
+        notificationSettings={Object {}}
+        tokenV3=""
+      />
     </ErrorWrapper>
   </div>
 </div>

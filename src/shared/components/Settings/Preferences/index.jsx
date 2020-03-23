@@ -10,6 +10,7 @@ import { config } from 'topcoder-react-utils';
 
 import Accordion from 'components/Settings/Accordion';
 import LoadingIndicator from 'components/LoadingIndicator';
+import NotificationIcon from 'assets/images/preferences/notifications.svg';
 import EmailIcon from 'assets/images/preferences/email.svg';
 import Forum from 'assets/images/preferences/forum.svg';
 import Invletter from 'assets/images/preferences/invletter.svg';
@@ -18,11 +19,13 @@ import Referral from 'assets/images/preferences/referral.svg';
 import SideBar from 'components/Settings/SideBar';
 import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import Email from './Email';
+import Notifications from './Notifications';
 import { SCREEN_SIZE } from '../constants';
 
 import './styles.scss';
 
 const tabs = {
+  NOTIFICATIONS: 'notifications',
   EMAIL: 'e-mail',
   FORUM: 'forum',
   PAYMENT: 'payment',
@@ -31,6 +34,7 @@ const tabs = {
 };
 
 const icons = {
+  notifications: <NotificationIcon />,
   'e-mail': <EmailIcon />,
   forum: <Forum />,
   payment: <Payment />,
@@ -42,7 +46,7 @@ export default class Preferences extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTab: 'e-mail',
+      currentTab: 'notifications',
       isMobileView: false,
     };
     this.previousTab = null;
@@ -90,6 +94,8 @@ export default class Preferences extends React.Component {
 
   renderTabContent(tab) {
     switch (tab) {
+      case 'notifications':
+        return <Notifications {...this.props} />;
       case 'e-mail':
         return <Email {...this.props} />;
       case 'forum':
