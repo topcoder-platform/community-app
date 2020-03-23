@@ -10,6 +10,7 @@ import { actions } from 'topcoder-react-lib';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
+import ProfilePagePrivate from 'components/ProfilePagePrivate';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -39,10 +40,16 @@ class ProfileContainer extends React.Component {
     const {
       info,
       loadingError,
+      meta,
+      handleParam,
     } = this.props;
 
+    const isPublic = _.join(_.get(meta, 'groupIds', [])).length === 0;
     if (loadingError) {
-      return <Error404 />;
+      if (isPublic) {
+        return <Error404 />;
+      }
+      return <ProfilePagePrivate handle={handleParam} />;
     }
 
     if (info && info.tracks && info.tracks.length > 0) {

@@ -92,6 +92,7 @@ module.exports = {
       loaders: [
         {
           loader: 'file-loader',
+          thread: 4,
           options: {
             outputPath: '/images/',
             publicPath: `${publicPath}/images`,
