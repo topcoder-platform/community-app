@@ -189,7 +189,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
                 - notifications
       # Production builds are exectuted only on tagged commits to the
       # master branch.
