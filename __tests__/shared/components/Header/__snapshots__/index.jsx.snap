@@ -63,7 +63,7 @@ exports[`Default render 1`] = `
                 },
                 Object {
                   "href": "/community/taas",
-                  "title": "TaaS",
+                  "title": "Gig Work",
                 },
               ],
               "title": "Compete",
@@ -71,23 +71,23 @@ exports[`Default render 1`] = `
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "/community/competitive-programming",
+                  "href": "/thrive/tracks?track=Competitive%20Programming",
                   "title": "Competitive Programming",
                 },
                 Object {
-                  "href": "/community/data-science",
+                  "href": "/thrive/tracks?track=Data%20Science&tax=",
                   "title": "Data Science",
                 },
                 Object {
-                  "href": "/community/design",
+                  "href": "/thrive/tracks?track=Design&tax=",
                   "title": "Design",
                 },
                 Object {
-                  "href": "/community/development",
+                  "href": "/thrive/tracks?track=Development&tax=",
                   "title": "Development",
                 },
                 Object {
-                  "href": "/community/qa",
+                  "href": "/thrive/tracks?track=QA&tax=",
                   "title": "QA",
                 },
               ],
