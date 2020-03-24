@@ -43,7 +43,7 @@ export default function Footer2() {
           </a>
           &bull;
           <a
-            href="https://www.topcoder.com/community/how-it-works/privacy-policy/"
+            href="https://www.topcoder.com/privacy-policy/"
             rel="noopener noreferrer"
             target="_blank"
           >
