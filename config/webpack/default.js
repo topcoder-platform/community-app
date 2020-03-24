@@ -41,7 +41,7 @@ module.exports = {
      */
     rules: [
       {
-        test: /\.(png|jpe?g|svg)$/i,
+        test: /.svg$/,
         exclude: /node_modules/,
         use: ['happypack/loader'],
       },
