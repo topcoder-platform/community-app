@@ -189,7 +189,7 @@ workflows:
             branches:
               only:
                 - develop
-                - hot-fix-image-issue
+                - hot-fix-profile-page
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
