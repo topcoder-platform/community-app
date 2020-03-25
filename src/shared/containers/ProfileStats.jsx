@@ -78,7 +78,6 @@ class ProfileStatsContainer extends React.Component {
       loadingError,
       location,
       isLoading,
-      meta,
     } = this.props;
 
     const { track, subTrack, tab } = getQueryParamsQuery(location);
@@ -94,7 +93,6 @@ class ProfileStatsContainer extends React.Component {
           track={track}
           subTrack={subTrack}
           tab={tab}
-          meta={meta}
         />
       );
   }

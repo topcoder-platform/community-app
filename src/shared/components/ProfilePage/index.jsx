@@ -123,7 +123,6 @@ class ProfilePage extends React.Component {
       skills: propSkills,
       stats,
       lookupData,
-      meta,
     } = this.props;
 
     const {
@@ -263,7 +262,7 @@ class ProfilePage extends React.Component {
               {
                 stats && (
                   <div id="profile-activity">
-                    <StatsCategory handle={info.handle} stats={stats} meta={meta} />
+                    <StatsCategory handle={info.handle} stats={stats} />
                   </div>
                 )
               }
@@ -303,7 +302,6 @@ ProfilePage.defaultProps = {
   achievements: [],
   skills: null,
   stats: null,
-  meta: null,
 };
 
 ProfilePage.propTypes = {
@@ -315,7 +313,6 @@ ProfilePage.propTypes = {
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
-  meta: PT.shape(),
 };
 
 export default ProfilePage;
