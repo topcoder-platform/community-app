@@ -174,15 +174,13 @@ workflows:
           filters:
             branches:
               only:
-                - develop                
-                - hot-fix-no-result
+                - feature-devices-lookup
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:
                 - develop
-                - feature-devices-lookup
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -190,7 +188,6 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-member-profiles
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
