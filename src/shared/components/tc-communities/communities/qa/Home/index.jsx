@@ -45,7 +45,7 @@ export default function Home({
               Sign up. &laquo;Test&raquo; your skills. Get Rewarded.
               &zwnj;
               <span className={style.highlighted}>
-It&apos;s that simple!
+                It&apos;s that simple!
               </span>
             </span>
           )}

@@ -20,7 +20,7 @@ const TopBanner = ({
   >
     <div styleName="buttonContainer">
       <PrimaryButton to={`${baseUrl}/register`} onClick={evt => evt.preventDefault()}>
-Join Now
+        Join Now
       </PrimaryButton>
     </div>
   </Section>

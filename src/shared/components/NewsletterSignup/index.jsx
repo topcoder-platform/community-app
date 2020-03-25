@@ -165,7 +165,7 @@ class NewsletterSignup extends React.Component {
                 button: defaultStyle.returnToCommunityButton,
               }}
             >
- Ok
+              Ok
             </PrimaryButton>
           </Modal>
         )}

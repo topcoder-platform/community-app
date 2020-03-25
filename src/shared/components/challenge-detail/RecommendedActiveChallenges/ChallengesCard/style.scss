@@ -1,0 +1,135 @@
+@import '~styles/mixins';
+
+.container {
+  border: 1px solid $tc-gray-neutral-dark;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #262628;
+}
+
+.content {
+  padding: 17px 24px 31px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom {
+  @include roboto-bold;
+
+  display: flex;
+  padding: 17px 58px 19px;
+  border-top: 1px solid $tc-gray-neutral-dark;
+  background: $tc-gray-neutral-light;
+  font-size: 15px;
+}
+
+.challenge-track {
+  margin-right: 12px;
+}
+
+.content-bottom {
+  display: flex;
+  margin-top: 17px;
+  flex: 1;
+}
+
+.content-bottom-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.challenge-title {
+  @include roboto-bold;
+
+  line-height: 18px;
+  font-size: 15px;
+  margin-bottom: auto;
+}
+
+.endtime-prize-container {
+  display: flex;
+  align-items: center;
+  margin-top: 11px;
+  flex-wrap: wrap;
+
+  @include xs {
+    flex-direction: column;
+    align-self: flex-start;
+  }
+}
+
+.end-date {
+  @include roboto-bold;
+
+  color: #959595;
+  font-size: 13px;
+  line-height: 15px;
+  margin-right: 24px;
+
+  @include xs {
+    margin-left: -20px;
+    margin-bottom: 5px;
+  }
+}
+
+.prizes > div {
+  @include roboto-bold;
+
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.challenge-status-container > div {
+  padding-right: 0 !important;
+  margin-bottom: 0 !important;
+
+  & > div > div {
+    margin-top: 7px;
+  }
+}
+
+.prizes {
+  display: flex;
+
+  // prize
+  & > div > div:first-child {
+    font-size: 13px;
+  }
+
+  & > div > div:last-child {
+    font-size: 10px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 6px;
+  }
+}
+
+.challenge-status-container {
+  width: 100% !important;
+  margin-top: 22px;
+  margin-bottom: -5px;
+
+  & > div > div > div > div:last-child {
+    display: none !important;
+  }
+
+  // hide date to register
+  & > div > a {
+    display: none !important;
+  }
+}
+
+.tooltip-prizes {
+  margin-left: 35px;
+}
+
+.track-icon {
+  & > span {
+    margin-right: 0;
+  }
+}

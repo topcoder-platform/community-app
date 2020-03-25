@@ -92,7 +92,7 @@ export default function BucketSelector({
             <div>
               <div styleName="my-filters">
                 <h1>
-My filters
+                  My filters
                 </h1>
                 <a
                   onClick={() => setEditSavedFiltersMode(true)}
@@ -101,7 +101,7 @@ My filters
                   styleName="edit-link"
                   tabIndex={0}
                 >
-                edit
+                  edit
                 </a>
               </div>
               {savedFiltersRender}
@@ -111,7 +111,7 @@ My filters
       <hr />
       <div styleName="get-rss">
         <a href={RSS_LINK}>
-Get the RSS feed
+          Get the RSS feed
         </a>
       </div>
     </div>

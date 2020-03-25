@@ -12,6 +12,7 @@ import { config } from 'topcoder-react-utils';
 import { submission as submissionUtils } from 'topcoder-react-lib';
 import { isTokenExpired } from 'tc-accounts';
 import cn from 'classnames';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import sortList from 'utils/challenge-detail/sort';
 import challengeDetailsActions from 'actions/page/challenge-details';
@@ -21,7 +22,7 @@ import Lock from '../icons/lock.svg';
 import SubmissionRow from './SubmissionRow';
 import SubmissionInformationModal from './SubmissionInformationModal';
 import ArrowDown from '../../../../assets/images/arrow-down.svg';
-import './style.scss';
+import style from './style.scss';
 
 const { getProvisionalScore, getFinalScore } = submissionUtils;
 
@@ -265,9 +266,15 @@ class SubmissionsComponent extends React.Component {
       clearSubmissionTestcaseOpen,
       onGetFlagImageFail,
       onSortChange,
+      hasRegistered,
+      submissionEnded,
+      unregistering,
+      isLegacyMM,
+      challengesUrl,
     } = this.props;
     const {
       checkpoints,
+      id: challengeId,
     } = challenge;
 
     const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
@@ -343,7 +350,7 @@ class SubmissionsComponent extends React.Component {
       return challenge.submissionViewable === 'true' ? (
         <div styleName="container view">
           <div styleName="title">
-              ROUND 2 (FINAL) SUBMISSIONS
+            ROUND 2 (FINAL) SUBMISSIONS
           </div>
           <div styleName="content">
             {
@@ -721,6 +728,15 @@ class SubmissionsComponent extends React.Component {
             ))
           )
         }
+        {isMM && (
+          <PrimaryButton
+            disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
+            theme={{ button: style.challengeAction }}
+            to={`${challengesUrl}/${challengeId}/submit`}
+          >
+            Add Submission
+          </PrimaryButton>
+        )}
         {
           isMM && isShowInformation && (
             <SubmissionInformationModal
@@ -780,6 +796,11 @@ SubmissionsComponent.propTypes = {
   onSortChange: PT.func,
   notFoundCountryFlagUrl: PT.objectOf(PT.bool).isRequired,
   onGetFlagImageFail: PT.func,
+  hasRegistered: PT.bool.isRequired,
+  unregistering: PT.bool.isRequired,
+  submissionEnded: PT.bool.isRequired,
+  isLegacyMM: PT.bool.isRequired,
+  challengesUrl: PT.string.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

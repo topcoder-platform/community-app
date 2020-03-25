@@ -43,7 +43,11 @@ const isActiveSubtrack = (subtrack) => {
 
 class StatsCategory extends React.Component {
   getActiveTracks() {
-    const { stats } = this.props;
+    let { stats } = this.props;
+    if (_.isArray(stats)) {
+      // eslint-disable-next-line prefer-destructuring
+      stats = stats[0];
+    }
     const activeTracks = [];
 
     if (stats.COPILOT && stats.COPILOT.fulfillment) {
@@ -89,6 +93,7 @@ class StatsCategory extends React.Component {
       handle,
       className,
       inModal,
+      meta,
     } = this.props;
 
     const activeTracks = this.getActiveTracks();
@@ -113,7 +118,7 @@ class StatsCategory extends React.Component {
                   <Link
                     to={`/members/${handle}/details/?track=${track.name}&subTrack=${subtrack.name.replace(' ', '_')}`}
                     key={subtrack.name}
-                    styleName={`subtrack ${index === 0 ? 'first' : ''}`}
+                    styleName={`subtrack ${index === 0 ? 'first' : ''} ${meta ? 'disablelink' : ''}`}
                   >
                     <div
                       styleName="name"
@@ -132,7 +137,7 @@ class StatsCategory extends React.Component {
                           {subtrack.rank.rating}
                         </div>
                         <div styleName="tag">
-Rating
+                          Rating
                         </div>
                       </div>
                       )
@@ -146,7 +151,7 @@ Rating
                           {subtrack.wins ? subtrack.wins : 0}
                         </div>
                         <div styleName="tag">
-Wins
+                          Wins
                         </div>
                       </div>
                       )
@@ -159,7 +164,7 @@ Wins
                           {`${subtrack.fulfillment}%`}
                         </div>
                         <div styleName="tag">
-Fulfillment
+                          Fulfillment
                         </div>
                       </div>
                       )
@@ -179,13 +184,15 @@ Fulfillment
 StatsCategory.defaultProps = {
   className: '',
   inModal: false,
+  meta: null,
 };
 
 StatsCategory.propTypes = {
   handle: PT.string.isRequired,
-  stats: PT.shape().isRequired,
+  stats: PT.arrayOf(PT.shape()).isRequired,
   inModal: PT.bool,
   className: PT.string,
+  meta: PT.shape(),
 };
 
 export default StatsCategory;

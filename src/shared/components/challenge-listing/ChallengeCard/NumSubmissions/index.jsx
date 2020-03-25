@@ -17,11 +17,12 @@ import './style.scss';
 
 export default function NumSubmissions({
   challenge: {
-    id, numSubmissions, status, track,
+    id, numSubmissions, track,
   },
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
+  openChallengesInNewTabs,
 }) {
   let tip;
   switch (numSubmissions) {
@@ -29,8 +30,7 @@ export default function NumSubmissions({
     case 1: tip = '1 total submission'; break;
     default: tip = `${numSubmissions} total submissions`;
   }
-  const query = numSubmissions && status === 'COMPLETED'
-    ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
+  const query = numSubmissions ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
@@ -42,7 +42,7 @@ export default function NumSubmissions({
           <div styleName="tooltip">
             {tip}
           </div>
-)}
+        )}
       >
         <Link
           onClick={() => (
@@ -51,6 +51,7 @@ export default function NumSubmissions({
           )}
           styleName="link"
           to={link}
+          openNewTab={openChallengesInNewTabs}
         >
           <SubmissionsIcon />
           <span styleName="number">
@@ -61,6 +62,9 @@ export default function NumSubmissions({
     </div>
   );
 }
+NumSubmissions.defaultProps = {
+  openChallengesInNewTabs: false,
+};
 
 NumSubmissions.propTypes = {
   challenge: PT.shape({
@@ -72,4 +76,5 @@ NumSubmissions.propTypes = {
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
+  openChallengesInNewTabs: PT.bool,
 };

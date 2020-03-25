@@ -180,7 +180,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - nav-hot-fix
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

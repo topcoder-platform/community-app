@@ -13,9 +13,9 @@ export default function HeadBanner() {
         styleName="logo"
       />
       <h1 styleName="text">
-Goodbye IBM Bluemix,
+        Goodbye IBM Bluemix,
         <br />
-Hello IBM Cloud!
+        Hello IBM Cloud!
       </h1>
     </div>
   );
