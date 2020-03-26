@@ -187,7 +187,10 @@ StatsCategory.defaultProps = {
 
 StatsCategory.propTypes = {
   handle: PT.string.isRequired,
-  stats: PT.arrayOf(PT.shape()).isRequired,
+  stats: PT.oneOfType([
+    PT.arrayOf(PT.shape()),
+    PT.shape(),
+  ]).isRequired,
   inModal: PT.bool,
   className: PT.string,
 };

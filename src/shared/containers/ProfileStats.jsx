@@ -114,7 +114,7 @@ ProfileStatsContainer.propTypes = {
   loadStats: PT.func.isRequired,
   loadStatsHistoryAndDistribution: PT.func.isRequired,
   handleParam: PT.string.isRequired,
-  statsHistory: PT.shape(),
+  statsHistory: PT.arrayOf(PT.shape()),
   statsDistribution: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   info: PT.shape(),
