@@ -7,27 +7,8 @@ Chrome Browser
 
 #### Installation:
 
-- Install protractor
-  `npm install -g protractor`
-- Install Typescript
-  `npm install -g typescript`
-- Install webdriver
-  `npm install -g webdriver-manager`
-- Install dependencies
+- Installs
   `npm install`
-- In case the webdriver needs to be updated, run the below command
-  `webdriver-manager update`
-
----
-
-- To install lib locally
-  Place the library folder on the same level as your project folder  
-  `npm install ../topcoder-ui-testing-lib`
-
-- To install published lib from npm  
-  `npm install topcoder-ui-testing-lib`
-
----
 
 - To run tests
   `npm run test`
