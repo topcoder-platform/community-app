@@ -26,6 +26,7 @@ export class ToolsPageHelper {
    */
   public static async verifyEditSubscription(name, newname) {
     await this.toolsPageObject.editSubscription(name, newname);
+
     expect(
       await ElementHelper.getTagElementContainingText(
         "div",
