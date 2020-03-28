@@ -53,6 +53,8 @@ const Header = ({
   useEffect(() => {
     setPath(window.location.pathname);
 
+    if (auth.authenticating) return;
+
     // Check auth token, go to login page if expired
     if (auth.tokenV3 && isTokenExpired(auth.tokenV3)) {
       goToLogin('community-app-main');
