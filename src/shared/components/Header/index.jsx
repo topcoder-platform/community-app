@@ -2,6 +2,8 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
+import { isTokenExpired } from 'tc-accounts';
+import { goToLogin } from 'utils/tc';
 import Logo from 'assets/images/tc-logo.svg';
 
 let TopNavRef;
@@ -50,6 +52,13 @@ const Header = ({
 
   useEffect(() => {
     setPath(window.location.pathname);
+
+    // Check auth token, go to login page if expired
+    if (auth.tokenV3 && isTokenExpired(auth.tokenV3)) {
+      goToLogin('community-app-main');
+      return;
+    }
+
     loadNotifications(auth.tokenV3);
   }, []);
   if (TopNavRef) {
