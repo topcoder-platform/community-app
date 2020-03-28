@@ -48,7 +48,9 @@ function mapStateToProps(state) {
     notifications: (state.notifications
       && state.notifications.items
       && [...state.notifications.items]) || [],
-    auth: state.auth,
+    auth: {
+      ...state.auth,
+    },
   };
 }
 
