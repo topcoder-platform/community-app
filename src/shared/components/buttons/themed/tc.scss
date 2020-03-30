@@ -211,6 +211,7 @@
     &-md {
       @include primary-white;
       @include md;
+
       line-height: 38px !important;
 
       &:hover {
