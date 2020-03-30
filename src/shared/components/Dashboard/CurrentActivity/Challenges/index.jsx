@@ -93,7 +93,7 @@ export default function Challenges({
                         >
                           Competitive Programming
                         </Link>
-?
+                        ?
                         &zwnj;
                         <Link
                           openNewTab
@@ -101,7 +101,7 @@ export default function Challenges({
                         >
                           Data Science
                         </Link>
-?
+                        ?
                         &zwnj;
                         <Link
                           openNewTab
@@ -109,7 +109,7 @@ export default function Challenges({
                         >
                           Design
                         </Link>
-?
+                        ?
                         &zwnj;
                         <Link
                           openNewTab
@@ -117,7 +117,7 @@ export default function Challenges({
                         >
                           Software Development
                         </Link>
-?
+                        ?
                       </p>
                     </div>
                   )
@@ -145,7 +145,7 @@ export default function Challenges({
           href={`${config.URL.BASE}/my-challenges/?status=completed`}
           styleName="link"
         >
-Past Challenges
+          Past Challenges
         </a>
       </div>
     </div>

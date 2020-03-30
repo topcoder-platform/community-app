@@ -78,14 +78,14 @@ export default class ExistingLinks extends React.Component {
               <div styleName="deletion-confirmation-container">
                 <div styleName="deletion-confirmation">
                   <div styleName="deletion-confirmation-title">
-Heads Up!
+                    Heads Up!
                   </div>
                   <div styleName="deletion-confirmation-message">
-Are you sure you want to delete the external link
+                    Are you sure you want to delete the external link
                     <span styleName="deletion-confirmation-account-title">
-&quot;
+                      &quot;
                       {linkToConfirmDelete.providerType === 'weblink' ? linkToConfirmDelete.URL : linkToConfirmDelete.providerType}
-&quot;
+                      &quot;
                     </span>
                     ? This action can&apos;t be undone later.
                   </div>

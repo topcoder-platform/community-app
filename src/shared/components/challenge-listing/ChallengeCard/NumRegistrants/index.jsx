@@ -22,6 +22,7 @@ export default function NumRegistrants({
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
+  openChallengesInNewTabs,
 }) {
   let tip;
   switch (numRegistrants) {
@@ -41,7 +42,7 @@ export default function NumRegistrants({
           <div styleName="tooltip">
             {tip}
           </div>
-)}
+        )}
       >
         <Link
           disabled={!numRegistrants}
@@ -51,6 +52,7 @@ export default function NumRegistrants({
           )}
           styleName="link"
           to={link}
+          openNewTab={openChallengesInNewTabs}
           aria-label={`Number of registrants ${numRegistrants}`}
         >
           <RegistrantsIcon />
@@ -63,6 +65,10 @@ export default function NumRegistrants({
   );
 }
 
+NumRegistrants.defaultProps = {
+  openChallengesInNewTabs: false,
+};
+
 NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
@@ -72,4 +78,5 @@ NumRegistrants.propTypes = {
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
+  openChallengesInNewTabs: PT.bool,
 };

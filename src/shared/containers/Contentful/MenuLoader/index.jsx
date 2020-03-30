@@ -68,7 +68,7 @@ class MenuLoaderContainer extends React.Component {
 
   render() {
     const {
-      menu, auth, loading, menuLogo,
+      menu, auth, loading, menuLogo, fields,
     } = this.props;
     const { openMore, path, activeLevel1Id } = this.state;
     if (loading) {
@@ -78,8 +78,12 @@ class MenuLoaderContainer extends React.Component {
       // eslint-disable-next-line global-require
       const { TopNav, LoginNav } = require('navigation-component');
       const logoToUse = !_.isEmpty(menuLogo) ? <img src={menuLogo.fields.file.url} alt="menu logo" /> : <Logo />;
-      const comboMenu = _.clone(config.HEADER_MENU);
-      comboMenu[1].subMenu = _.clone(menu[0].subMenu);
+      const menuTheme = fields.theme.split('- ');
+      const comboMenu = _.flatten(_.map(menu, menuItem => menuItem.subMenu));
+      // This is a hack fix that should be removed when possible!
+      // Its orifing is in the https://github.com/topcoder-platform/navigation-component module
+      // which breaks if there is NOT an menu item with id = `community`
+      comboMenu[0].id = 'community';
       let normalizedProfile = auth.profile && _.clone(auth.profile);
       if (auth.profile) {
         normalizedProfile.photoURL = (_.has(auth.profile, 'photoURL') && auth.profile.photoURL !== null)
@@ -106,7 +110,7 @@ class MenuLoaderContainer extends React.Component {
               />
             )}
             logo={logoToUse}
-            theme={config.HEADER_MENU_THEME}
+            theme={menuTheme[1]}
             currentLevel1Id={activeLevel1Id}
             onChangeLevel1Id={this.handleChangeLevel1Id}
             path={path}

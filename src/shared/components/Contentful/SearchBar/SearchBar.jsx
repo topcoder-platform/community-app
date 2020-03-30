@@ -9,6 +9,7 @@ import { config } from 'topcoder-react-utils';
 import { getService } from 'services/contentful';
 import qs from 'qs';
 
+import IconFilterTitle from 'assets/images/tc-edu/icon-filter-title.svg';
 import IconFilterAll from 'assets/images/tc-edu/icon-filter-all.svg';
 import IconFilterAuthor from 'assets/images/tc-edu/icon-filter-author.svg';
 import IconFilterTags from 'assets/images/tc-edu/icon-filter-tags.svg';
@@ -21,6 +22,10 @@ import defaultTheme from './themes/default.scss';
 const RESULT_IMAGE_PLACEHOLDER = 'https://images.ctfassets.net/piwi0eufbb2g/838SkGfa1WgtwLY9NK03c/8501550a85be07f220b09ad903a5e575/image-placeholder.png';
 
 const filterOptions = [
+  {
+    name: 'Title',
+    icon: IconFilterTitle,
+  },
   {
     name: 'All',
     icon: IconFilterAll,
@@ -41,7 +46,7 @@ export class SearchBarInner extends Component {
 
     this.state = {
       isShowFilterPopup: false,
-      selectedFilter: filterOptions[0],
+      selectedFilter: filterOptions[props.inputSelectedFilter],
       isShowSuggestion: false,
       suggestionList: {},
       inputlVal: props.inputlVal,
@@ -136,6 +141,9 @@ export class SearchBarInner extends Component {
       if (selectedFilter.name === 'All') {
         searchQuery.phrase = this.searchFieldRef.value;
       }
+      if (selectedFilter.name === 'Title') {
+        searchQuery.title = this.searchFieldRef.value;
+      }
     }
 
     return (suggestionList && !_.isEmpty(suggestionList) && isShowSuggestion && (
@@ -153,7 +161,11 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <a className={theme.articleLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                    <a
+                      className={theme.articleLink}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                    >
                       {
                         item.featuredImage ? (
                           <img
@@ -189,7 +201,11 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <a className={theme.articleLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                    <a
+                      className={theme.articleLink}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                    >
                       {
                         item.featuredImage ? (
                           <div className={theme['cell-image']}>
@@ -227,7 +243,11 @@ export class SearchBarInner extends Component {
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
                   >
-                    <a className={theme.forumLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}>
+                    <a
+                      className={theme.forumLink}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                    >
                       <span className={theme['cell-text']}>
                         {item.title}
                       </span>
@@ -306,6 +326,9 @@ export class SearchBarInner extends Component {
       if (selectedFilter.name === 'All') {
         query.query = searchText;
       }
+      if (selectedFilter.name === 'Title') {
+        query['fields.title[match]'] = searchText;
+      }
       if (selectedFilter.name === 'Author') {
         // author queries for >= 2 symbols
         if (searchText.length <= 1) {
@@ -360,6 +383,8 @@ export class SearchBarInner extends Component {
           featuredImage: featuredImage.fields.file.url,
           tags: fields.tags,
           contentAuthor: contentAuthor.fields,
+          externalArticle: fields.externalArticle,
+          contentUrl: fields.contentUrl,
         };
       }),
       'type',
@@ -479,10 +504,12 @@ SearchBarInner.propTypes = {
     'group-authors': PT.string.isRequired,
   }).isRequired,
   inputlVal: PT.string,
+  inputSelectedFilter: PT.string,
 };
 
 SearchBarInner.defaultProps = {
   inputlVal: '',
+  inputSelectedFilter: '0',
 };
 
 export default themr('Contentful-Blog', defaultTheme)(SearchBarInner);

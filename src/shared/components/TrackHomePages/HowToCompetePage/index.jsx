@@ -89,7 +89,7 @@ const HowToCompetePage = ({ howToCompete, location }) => {
               </div>
               <div styleName="steps" id="steps">
                 <h1>
-Step by Step
+                  Step by Step
                 </h1>
                 <StepByStep data={steps} />
               </div>
@@ -104,10 +104,10 @@ Step by Step
               </div>
               <div styleName="faq">
                 <h1>
-FAQ
+                  FAQ
                 </h1>
                 <div styleName="text">
-Here are a few answers to our most common questions
+                  Here are a few answers to our most common questions
                 </div>
                 <FAQ
                   data={faq}

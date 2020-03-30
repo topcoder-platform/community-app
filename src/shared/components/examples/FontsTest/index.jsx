@@ -5,7 +5,7 @@ export default function FontsTest() {
   return (
     <div>
       <h1>
-Fonts Test
+        Fonts Test
       </h1>
       <p>
         This is a simple showcase of the fonts included into this repo,
@@ -13,7 +13,7 @@ Fonts Test
       </p>
       <div styleName="roboto-thin">
         <h3>
-Roboto Thin
+          Roboto Thin
         </h3>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
         semper consectetur dui, nec scelerisque lectus hendrerit a. Curabitur
@@ -31,7 +31,7 @@ Roboto Thin
       </div>
       <div styleName="roboto-thin-italic">
         <h3>
-Roboto Thin Italic
+          Roboto Thin Italic
         </h3>
         Praesent quam arcu, ultricies et dolor sed, interdum gravida nibh.
         Proin scelerisque porttitor nibh, nec finibus nibh interdum sit amet.
@@ -45,7 +45,7 @@ Roboto Thin Italic
       </div>
       <div styleName="roboto-light">
         <h3>
-Roboto Light
+          Roboto Light
         </h3>
         Sed nec dolor blandit, commodo arcu in, tincidunt nulla. In in odio id
         arcu luctus aliquet non in mi. Ut efficitur, lorem eget mollis tempus,
@@ -60,7 +60,7 @@ Roboto Light
       </div>
       <div styleName="roboto-light-italic">
         <h3>
-Roboto Light Italic
+          Roboto Light Italic
         </h3>
         Nulla suscipit dui et placerat vulputate. Nunc et tempus neque, eget
         elementum elit. Integer vitae dignissim tellus, et venenatis nulla.
@@ -76,7 +76,7 @@ Roboto Light Italic
       </div>
       <div styleName="roboto-regular">
         <h3>
-Roboto Regular
+          Roboto Regular
         </h3>
         Morbi a urna maximus, imperdiet ante id, rutrum sem. Nunc fermentum
         ante sodales convallis placerat. Donec eleifend, metus eget congue
@@ -89,7 +89,7 @@ Roboto Regular
       </div>
       <div styleName="roboto-regular-italic">
         <h3>
-Roboto Regular Italic
+          Roboto Regular Italic
         </h3>
         Nam vel ligula in ipsum condimentum sodales. Praesent id lorem tortor.
         In vel condimentum leo, nec rhoncus elit. Sed accumsan metus vitae diam
@@ -101,7 +101,7 @@ Roboto Regular Italic
       </div>
       <div styleName="roboto-medium">
         <h3>
-Roboto Medium
+          Roboto Medium
         </h3>
         Ut laoreet rhoncus vulputate. Quisque elementum quam justo, ac eleifend
         mauris viverra eget. Nunc sit amet commodo est. Nullam scelerisque elit
@@ -115,7 +115,7 @@ Roboto Medium
       </div>
       <div styleName="roboto-medium-italic">
         <h3>
-Roboto Medium Italic
+          Roboto Medium Italic
         </h3>
         Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
         inceptos himenaeos. Vestibulum eget eros malesuada lacus porta
@@ -127,7 +127,7 @@ Roboto Medium Italic
       </div>
       <div styleName="roboto-bold">
         <h3>
-Roboto Bold
+          Roboto Bold
         </h3>
         Nulla quis cursus orci. Mauris metus enim, volutpat id diam ac,
         fermentum dapibus augue. Donec mi elit, volutpat eget rutrum non,
@@ -139,7 +139,7 @@ Roboto Bold
       </div>
       <div styleName="roboto-bold-italic">
         <h3>
-Roboto Bold Italic
+          Roboto Bold Italic
         </h3>
         Donec luctus ligula id augue blandit porta. Orci varius natoque
         penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras
@@ -150,7 +150,7 @@ Roboto Bold Italic
       </div>
       <div styleName="roboto-black">
         <h3>
-Roboto Black
+          Roboto Black
         </h3>
         In varius nibh elit. Nam nec pretium erat. Duis euismod mi vel massa
         scelerisque, ut tincidunt urna viverra. Praesent vel libero eros. Etiam
@@ -163,7 +163,7 @@ Roboto Black
       </div>
       <div styleName="roboto-black-italic">
         <h3>
-Roboto Black Italic
+          Roboto Black Italic
         </h3>
         Proin felis velit, suscipit sit amet consequat id, consectetur et
         lectus. Donec porttitor sollicitudin lorem sed laoreet. Fusce rhoncus

@@ -37,7 +37,7 @@ export default function CommunityBlog({
           styleName="link"
           target="_blank"
         >
-Visit the Blog
+          Visit the Blog
         </a>
       </div>
     </div>

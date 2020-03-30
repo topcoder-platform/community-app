@@ -13,7 +13,12 @@ const VISIBLE_TECHNOLOGIES = 3;
  * Implements <Tags> component
  */
 export default function Tags({
-  expand, isExpanded, technologies, platforms, onTechTagClicked,
+  expand,
+  isExpanded,
+  technologies,
+  platforms,
+  onTechTagClicked,
+  challengesUrl,
 }) {
   const onClick = (item) => {
     // resolved conflict with c++ tag
@@ -42,6 +47,8 @@ export default function Tags({
           onClick={() => onClick(item.trim())}
           key={item}
           role="button"
+          to={(challengesUrl && item.indexOf('+') !== 0) ? `${challengesUrl}?filter[tags][0]=${
+            encodeURIComponent(item)}` : null}
         >
           {item}
         </Tag>
@@ -64,6 +71,7 @@ Tags.defaultProps = {
   platforms: [],
   isExpanded: false,
   expand: null,
+  challengesUrl: null,
 };
 
 // Prop validation
@@ -73,4 +81,5 @@ Tags.propTypes = {
   platforms: PT.arrayOf(PT.string),
   isExpanded: PT.bool,
   expand: PT.func,
+  challengesUrl: PT.string,
 };

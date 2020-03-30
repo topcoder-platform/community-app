@@ -722,7 +722,7 @@ export default class MyAccount extends ConsentComponent {
                         <div styleName="row">
                           <div styleName="field col-1">
                             <label htmlFor="current-password-input">
-                                Current Password
+                              Current Password
                               <input type="hidden" />
                             </label>
                           </div>
@@ -741,7 +741,7 @@ export default class MyAccount extends ConsentComponent {
                         <div styleName="row">
                           <div styleName="field col-1 password">
                             <label htmlFor="new-password-input">
-                                New password
+                              New password
                               <input type="hidden" />
                             </label>
                           </div>
@@ -777,7 +777,7 @@ export default class MyAccount extends ConsentComponent {
                         <div styleName="row">
                           <div styleName="field col-1 password">
                             <label htmlFor="re-new-password-input">
-                                Re-type new password
+                              Re-type new password
                               <input type="hidden" />
                             </label>
                           </div>
@@ -787,7 +787,7 @@ export default class MyAccount extends ConsentComponent {
                                 <input id="re-new-password-input" styleName="password-input" ref={this.reNewPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="re-password" type={passwordInputType['re-new-password-input']} placeholder="TYPE YOUR NEW PASSWORD" minLength="8" maxLength="64" required />
                                 <label htmlFor="reNewPasswordCheckbox" styleName="passwordCheckbox">
                                   <input type="checkbox" id="reNewPasswordCheckbox" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('re-new-password-input')} />
-                                    Show
+                                  Show
                                 </label>
                               </div>
                               <div id="password-tips" styleName="tips password-tips mobile" className={showRePasswordTips ? '' : 'hidden'}>
