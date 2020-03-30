@@ -27,6 +27,7 @@ import EDUTracks from 'containers/EDU/Tracks';
 import EDUSearch from 'containers/EDU/Search';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
+import Notifications from './Notifications';
 import Settings from '../Settings';
 import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
@@ -61,6 +62,7 @@ export default function Topcoder() {
                 path="/challenges/:challengeId(\d{8}|\d{5})"
               />
               <Route component={ChallengeListing} exact path="/challenges" />
+              <Route component={Notifications} exact path="/notifications" />
               <Route component={Dashboard} exact path="/my-dashboard" />
               <Route
                 component={ReviewOpportunityDetails}

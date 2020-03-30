@@ -175,13 +175,15 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-stats-history
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:
-                - nav-hot-fix
+                - develop
+                - notifications
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

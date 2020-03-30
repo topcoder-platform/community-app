@@ -1,20 +1,14 @@
 /**
- * Container for the standard Topcoder header.
+ * Container for the notifications page.
  */
-/* global location */
-/* eslint-disable no-restricted-globals */
 
-import _ from 'lodash';
-import headerActions from 'actions/topcoder_header';
 import { actions } from 'topcoder-react-lib';
 
-import TopcoderHeader from 'components/Header';
+import Notifications from 'components/Notifications';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...bindActionCreators(headerActions.topcoderHeader, dispatch),
     loadNotifications: (tokenV3) => {
       dispatch(actions.notifications.getNotificationsInit());
       dispatch(actions.notifications.getNotificationsDone(tokenV3));
@@ -40,21 +34,14 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    ...state.topcoderHeader,
-    profile: {
-      ...state.auth.profile,
-      ..._.pickBy({ roles: state.auth.user ? state.auth.user.roles : undefined }),
-    },
     notifications: (state.notifications
       && state.notifications.items
       && [...state.notifications.items]) || [],
-    auth: {
-      ...state.auth,
-    },
+    auth: state.auth,
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TopcoderHeader);
+)(Notifications);
