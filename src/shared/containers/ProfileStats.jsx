@@ -126,8 +126,6 @@ ProfileStatsContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const handleParam = ownProps.match.params.handle;
   const obj = _.get(state.members, handleParam, {});
-  console.log(obj);
-  console.log('----');
   return ({
     handleParam,
     loadingError: state.members.loadingError,
