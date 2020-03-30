@@ -101,7 +101,7 @@ export default function ChallengeDetailsView(props) {
 
   /* TODO: This render markup is monstrous - should be refactored. */
   return (
-    <div>
+    <div styleName="container">
       {
         isSaving ? (
           <SaveConfirmationModal
@@ -117,7 +117,7 @@ export default function ChallengeDetailsView(props) {
               onClick={() => setSpecsTabState(SPECS_TAB_STATES.EDIT)}
               theme={{ button: style.hiddenSaveButton }}
             >
-Don&apos;t press it!
+              Don&apos;t press it!
             </DangerButton>
           </Sticky>
         ) : null
@@ -373,7 +373,7 @@ Don&apos;t press it!
                     }
                     <article>
                       <h2 styleName="h2">
-Stock Photography
+                        Stock Photography
                       </h2>
                       <p styleName="p">
                         {stockArtText}
@@ -385,7 +385,7 @@ Stock Photography
                     </article>
                     <article>
                       <h2 styleName="h2">
-How To Submit
+                        How To Submit
                       </h2>
                       <ul styleName="ul">
                         <li>
@@ -408,7 +408,7 @@ How To Submit
                           <a href={config.URL.INFO.DESIGN_CHALLENGES}>
                             Final Fixes
                           </a>
-&rdquo;
+                          &rdquo;
                           (if applicable) must be completed before payment can be released.
                         </li>
                         <li>
@@ -425,7 +425,7 @@ How To Submit
 
                     <article>
                       <h2 styleName="h2">
-Winner Selection
+                        Winner Selection
                       </h2>
                       <p styleName="p">
                         Submissions are viewable to the client as they are entered
@@ -438,7 +438,7 @@ Winner Selection
             }
             <article>
               <h2 styleName="h2">
-Payments
+                Payments
               </h2>
               {
                 isWipro ? (
@@ -460,9 +460,9 @@ Payments
                         rel="noopener noreferrer"
                         target="_blank"
                       >
-https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
+                        https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
                       </a>
-&zwnj;
+                      &zwnj;
                       for details regarding the policy.
                     </p>
                   </div>
@@ -479,7 +479,7 @@ https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/Top
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
+                      https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
                     </a>
                   </p>
                 )
@@ -487,7 +487,7 @@ https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instr
             </article>
             <article>
               <h2 styleName="h2">
-Reliability Rating and Bonus
+                Reliability Rating and Bonus
               </h2>
               <p styleName="p">
                 For challenges that have a reliability bonus, the bonus depends

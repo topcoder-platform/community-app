@@ -21,10 +21,10 @@ const Header = ({
   <div styleName="header">
     <Link to={`${challengesUrl}/${challengeId}`}>
       <span>
-&#x2039;
+        &#x2039;
       </span>
       <p>
-Back to challenge
+        Back to challenge
       </p>
     </Link>
     <h1>

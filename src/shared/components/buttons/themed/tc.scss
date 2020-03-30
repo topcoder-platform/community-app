@@ -5,6 +5,7 @@
 
   font-weight: 700 !important;
   text-decoration: none !important;
+  text-transform: uppercase !important;
 }
 
 @mixin primary-green {
@@ -103,6 +104,7 @@
 
   font-weight: 700 !important;
   text-decoration: none !important;
+  text-transform: uppercase !important;
 }
 
 @mixin secondary-gray {
@@ -127,6 +129,7 @@
   @include roboto-bold;
 
   font-weight: 700 !important;
+  text-transform: uppercase !important;
 }
 
 @mixin warn-red {

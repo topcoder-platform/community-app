@@ -49,7 +49,7 @@ export default function FiltersEditor({
         }}
         theme={{ button: style.doneButton }}
       >
-Done
+        Done
       </PrimaryButton>
       { savedFilterItems }
       <div styleName="note">

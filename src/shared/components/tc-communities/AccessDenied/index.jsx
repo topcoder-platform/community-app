@@ -42,7 +42,7 @@ export default function AccessDenied(props) {
         <div styleName="access-denied">
           <TopcoderLogo />
           <div styleName="msg">
-You must be authenticated to access this page.
+            You must be authenticated to access this page.
           </div>
           <div styleName="msg">
             <a
@@ -54,7 +54,7 @@ You must be authenticated to access this page.
                 event.preventDefault();
               }}
             >
-Log In Here
+              Log In Here
             </a>
           </div>
         </div>
@@ -65,7 +65,7 @@ Log In Here
         <div styleName="access-denied">
           <TopcoderLogo />
           <div styleName="msg">
-You are not authorized to access this page.
+            You are not authorized to access this page.
           </div>
         </div>
       );
@@ -74,12 +74,12 @@ You are not authorized to access this page.
         <div styleName="access-denied">
           <TopcoderLogo />
           <div styleName="msg">
-You have not submitted to this challenge
+            You have not submitted to this challenge
           </div>
           <PrimaryButton
             to={redirectLink}
           >
-Back to the challenge
+            Back to the challenge
           </PrimaryButton>
         </div>
       );

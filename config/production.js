@@ -27,9 +27,10 @@ module.exports = {
 
     AUTH: 'https://accounts.topcoder.com',
     BASE: 'https://www.topcoder.com',
+    HOME: '/my-dashboard',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
-    HELP: 'https://help.topcoder.com',
+    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',
@@ -70,29 +71,33 @@ module.exports = {
     {
       id: 'community', // required for 'Switch to BUSINESS' to work
       title: 'COMMUNITY',
-      secondaryMenuForLoggedInUser: [
+      secondaryMenu: [
         {
           title: 'Dashboard',
           href: '/my-dashboard',
+          logged: true,
         },
         {
           id: 'myprofile',
           title: 'My Profile',
           href: '/members/willFilledByUserName',
+          logged: true,
         },
         {
           title: 'Payments',
           href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+          logged: true,
+          openNewTab: true,
         },
-      ],
-      secondaryMenuForGuest: [
         {
           title: 'Overview',
           href: '/community/learn',
+          logged: false,
         },
         {
           title: 'How It Works',
           href: '/thrive/tracks?track=Topcoder',
+          logged: false,
         },
       ],
       subMenu: [
@@ -106,6 +111,10 @@ module.exports = {
             {
               title: 'Competitive Programming',
               href: 'https://arena.topcoder.com',
+            },
+            {
+              title: 'TaaS',
+              href: '/community/taas',
             },
           ],
         },
@@ -148,14 +157,11 @@ module.exports = {
             {
               title: 'Forums',
               href: 'https://apps.topcoder.com/forums',
+              openNewTab: true,
             },
             {
               title: 'Statistics',
               href: '/community/statistics',
-            },
-            {
-              title: 'Events',
-              href: '/community/events',
             },
             {
               title: 'Blog',
@@ -183,7 +189,7 @@ module.exports = {
     { separator: true },
     {
       title: 'Help',
-      href: 'https://help.topcoder.com/',
+      href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
     },
     { separator: true },
     {

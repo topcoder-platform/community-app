@@ -8,7 +8,7 @@ export default function TracksTreeExample() {
   return (
     <div styleName="container">
       <h1>
-      Tracks Tree(accordion) Preview
+        Tracks Tree(accordion) Preview
       </h1>
       <TracksTree
         list={ListTree}

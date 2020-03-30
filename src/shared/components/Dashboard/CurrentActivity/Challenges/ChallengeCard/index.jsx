@@ -175,7 +175,7 @@ export default function ChallengeCard({
                   theme={{ button: style.tag }}
                   to="https://tco18.topcoder.com"
                 >
-TCO
+                  TCO
                 </EventTag>
               ) : null
             }
@@ -205,7 +205,7 @@ TCO
             styleName="forumLink"
             to={`${config.URL.FORUMS}${forumEndpoint}`}
           >
-Forum
+            Forum
           </Link>
         </div>
         <div styleName="statusPanel">
@@ -223,7 +223,7 @@ Forum
                 theme={{ button: style.button }}
                 to={`${config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
               >
-Direct
+                Direct
               </Button>
             ) : null
           }
@@ -235,7 +235,7 @@ Direct
                 theme={{ button: style.button }}
                 to={`${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
               >
-Online Review
+                Online Review
               </Button>
             ) : null
           }
@@ -246,7 +246,7 @@ Online Review
                 theme={{ button: style.button }}
                 to={`/challenges/${id}/submit`}
               >
-Submit
+                Submit
               </Button>
             ) : null
           }

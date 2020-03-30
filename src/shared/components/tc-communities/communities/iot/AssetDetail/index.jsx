@@ -35,7 +35,7 @@ export default function AssetDetail({
           <article>
             <div styleName="detail">
               <h2>
-Asset Details
+                Asset Details
               </h2>
               <div dangerouslySetInnerHTML={{ __html: asset.abstract }} />
               <p>
@@ -44,7 +44,7 @@ Asset Details
                 </a>
               </p>
               <h2>
-Winner&#39;s Asset Details & Description
+                Winner&#39;s Asset Details & Description
               </h2>
               <div dangerouslySetInnerHTML={{ __html: asset.content }} />
             </div>
@@ -56,7 +56,7 @@ Winner&#39;s Asset Details & Description
 
                 <div styleName="info">
                   <h4>
-Topcoder Winner
+                    Topcoder Winner
                   </h4>
 
                   <a href={asset.author.profileURL} target="_blank" rel="noreferrer noopener">
@@ -69,7 +69,7 @@ Topcoder Winner
               </div>
               <div styleName="technologies">
                 <h4>
-Technologies
+                  Technologies
                 </h4>
                 {
                 asset.technologies.map(t => (
@@ -89,7 +89,7 @@ Technologies
               </div>
               <div styleName="platforms">
                 <h4>
-platforms
+                  platforms
                 </h4>
                 {
                 asset.platforms.map(p => (
@@ -109,7 +109,7 @@ platforms
               </div>
               <div styleName="buttonContainer">
                 <PrimaryButton to={asset.githubUrl} onClick={evt => evt.preventDefault()}>
-Download
+                  Download
                 </PrimaryButton>
               </div>
 

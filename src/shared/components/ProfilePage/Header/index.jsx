@@ -5,11 +5,10 @@ import React from 'react';
 import PT from 'prop-types';
 import { noop, get } from 'lodash';
 import moment from 'moment';
+import ReactSVG from 'react-svg';
 
 import { getRatingColor } from 'utils/tc';
-import { config } from 'topcoder-react-utils';
-
-import DefaultPortrait from 'assets/images/ico-user-default.svg';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 import CopilotIcon from 'assets/images/profile/ico-track-copilot.svg';
 import DataScienceIcon from 'assets/images/profile/ico-track-data.svg';
@@ -17,6 +16,11 @@ import DesignIcon from 'assets/images/profile/ico-track-design.svg';
 import DevelopIcon from 'assets/images/profile/ico-track-develop.svg';
 
 import './styles.scss';
+
+let assets;
+if (isomorphy.isClientSide()) {
+  assets = require.context('assets/images', false, /svg/);
+}
 
 const TRACK_LABELS = {
   COPILOT: 'COPILOT',
@@ -56,7 +60,7 @@ class ProfileHeader extends React.Component {
     return (
       <div styleName="container">
         <div>
-          { imageUrl ? <img src={imageUrl} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
+          { imageUrl ? <img src={imageUrl} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <ReactSVG path={assets('./ico-user-default.svg')} /> }
         </div>
         <div styleName="info">
           <h1 style={{ color: getRatingColor(get(info, 'maxRating.rating', 0)) }} styleName="handle">
@@ -67,15 +71,15 @@ class ProfileHeader extends React.Component {
             {Boolean(wins) && (
             <span>
               {' '}
-    |
+              |
               {wins}
               {' '}
-    Wins
+              Wins
             </span>
             ) }
           </h3>
           <h3 styleName="tenure">
-    Member Since
+            Member Since
             {' '}
             {moment(info.createdAt).format('MMMM, YYYY')}
           </h3>
@@ -122,7 +126,7 @@ class ProfileHeader extends React.Component {
             ) : null
           }
           <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">
-    Forum Posts
+            Forum Posts
           </a>
         </div>
       </div>

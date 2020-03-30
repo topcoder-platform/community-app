@@ -19,7 +19,7 @@ export default class TracksFilterExample extends Component {
       <div styleName="container">
         <div styleName="header">
           <h1>
-          TracksFilter Preview
+            TracksFilter Preview
           </h1>
           <button
             styleName="show-hide-filter"

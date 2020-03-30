@@ -173,10 +173,10 @@ workflows:
           context : org-global
           filters:
             branches:
-              only: 
+              only:
                 - develop
                 - feature-stats-history
-# This is alternate dev env for parallel testing
+      # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
@@ -190,7 +190,8 @@ workflows:
           filters:
             branches:
               only:
-                - notifications
+                - develop
+                - hot-fix-image-issue
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":

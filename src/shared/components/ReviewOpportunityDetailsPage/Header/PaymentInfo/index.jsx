@@ -19,7 +19,7 @@ const PaymentInfo = ({ positions }) => (
               {position.role}
             </p>
             <h2>
-$
+              $
               {position.payment}
             </h2>
           </div>
@@ -27,7 +27,7 @@ $
       }
       <div styleName="positions">
         <p styleName="accent">
-OPEN POSITIONS:
+          OPEN POSITIONS:
         </p>
         <p>
           {

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /**
  * Challenge header component.
  * This component renders all other child components part of the header.
@@ -47,7 +48,11 @@ export default function ChallengeHeader(props) {
     selectedView,
     showDeadlineDetail,
     hasFirstPlacement,
+    hasThriveArticles,
+    hasRecommendedChallenges,
     isMenuOpened,
+    submissionEnded,
+    mySubmissions,
   } = props;
 
   const {
@@ -85,10 +90,6 @@ export default function ChallengeHeader(props) {
   if (status !== 'COMPLETED' && regPhase) {
     registrationEnded = regPhase.phaseStatus !== 'Open';
   }
-
-  const submissionEnded = status === 'COMPLETED'
-    || (_.get(phases, 'submission.phaseStatus') !== 'Open'
-      && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -246,21 +247,57 @@ export default function ChallengeHeader(props) {
             <h1 styleName="challenge-header">
               {name}
             </h1>
-            <ChallengeTags
-              subTrack={subTrack}
-              track={trackLower}
-              challengesUrl={challengesUrl}
-              challengeSubtracksMap={challengeSubtracksMap}
-              events={eventNames}
-              technPlatforms={miscTags}
-              setChallengeListingFilter={setChallengeListingFilter}
-            />
+            <div styleName="tag-container">
+              <ChallengeTags
+                subTrack={subTrack}
+                track={trackLower}
+                challengesUrl={challengesUrl}
+                challengeSubtracksMap={challengeSubtracksMap}
+                events={eventNames}
+                technPlatforms={miscTags}
+                setChallengeListingFilter={setChallengeListingFilter}
+              />
+              {(hasRecommendedChallenges || hasThriveArticles) && (
+                <div styleName="recommend-container">
+                  {hasRecommendedChallenges && (
+                    <div
+                      styleName="recommend-tag link"
+                      role="button"
+                      tabIndex={0}
+                      onClick={
+                        () => {
+                          document.getElementById('recommendedActiveChallenges').scrollIntoView();
+                        }}
+                    >
+                      Recommended Challenges
+                    </div>
+                  )}
+
+                  {hasRecommendedChallenges && hasThriveArticles && (
+                    <div styleName="recommend-tag separator" />
+                  )}
+
+                  {hasThriveArticles && (
+                    <div
+                      styleName="recommend-tag link"
+                      role="button"
+                      tabIndex={0}
+                      onClick={
+                        () => {
+                          document.getElementById('recommendedThriveArticles').scrollIntoView();
+                        }}
+                    >Recommended THRIVE Articles
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
             <h2 styleName="prizes-title">
-Key Information
+              Key Information
             </h2>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
@@ -271,27 +308,27 @@ Key Information
                       ? (
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          BONUS:
+                            BONUS:
                             {' '}
                             {numberOfCheckpointsPrizes}
                           </span>
-                        &zwnj;
-                        CHECKPOINTS AWARDED WORTH
-                        &zwnj;
+                          &zwnj;
+                          CHECKPOINTS AWARDED WORTH
+                          &zwnj;
                           <span
                             styleName={`bonus-highlight ${trackLower}-accent-color`}
                           >
-                          $
+                            $
                             {topCheckPointPrize}
                           </span>
-                        &zwnj;
-                        EACH
+                          &zwnj;
+                          EACH
                         </p>
                       )
                       : (
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          RELIABILITY BONUS: $
+                            RELIABILITY BONUS: $
                             {reliabilityBonus.toFixed()}
                           </span>
                         </p>
@@ -305,7 +342,7 @@ Key Information
                 <div styleName="bonus-div">
                   <p styleName="bonus-text">
                     <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-POINTS:
+                      POINTS:
                       {drPoints}
                     </span>
                   </p>
@@ -323,7 +360,7 @@ POINTS:
                   onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
                 >
-Unregister
+                  Unregister
                 </DangerButton>
               ) : (
                 <PrimaryButton
@@ -332,7 +369,7 @@ Unregister
                   onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
                 >
-Register
+                  Register
                 </PrimaryButton>
               )}
               <PrimaryButton
@@ -340,7 +377,7 @@ Register
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
-Submit
+                Submit
               </PrimaryButton>
               {
                 track === 'DESIGN' && hasRegistered && !unregistering
@@ -349,7 +386,7 @@ Submit
                     theme={{ button: style.challengeAction }}
                     to={`${challengesUrl}/${challengeId}/my-submissions`}
                   >
-View Submissions
+                    View Submissions
                   </PrimaryButton>
                 )
               }
@@ -368,7 +405,7 @@ View Submissions
                     {timeLeft}
                   </span>
                   {' '}
-until current deadline ends
+                  until current deadline ends
                 </div>
                 )
               }
@@ -383,13 +420,13 @@ until current deadline ends
               {showDeadlineDetail
                 ? (
                   <span styleName="collapse-text">
-Hide Deadlines
+                    Hide Deadlines
                     <ArrowDown />
                   </span>
                 )
                 : (
                   <span styleName="collapse-text">
-Show Deadlines
+                    Show Deadlines
                     <ArrowUp />
                   </span>
                 )
@@ -412,6 +449,7 @@ Show Deadlines
           numSubmissions={numSubmissions}
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
+          mySubmissions={mySubmissions}
         />
       </div>
     </div>
@@ -421,6 +459,8 @@ Show Deadlines
 ChallengeHeader.defaultProps = {
   checkpoints: {},
   isMenuOpened: false,
+  hasThriveArticles: false,
+  hasRecommendedChallenges: false,
 };
 
 ChallengeHeader.propTypes = {
@@ -450,6 +490,9 @@ ChallengeHeader.propTypes = {
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
+  hasThriveArticles: PT.bool,
+  hasRecommendedChallenges: PT.bool,
+  submissionEnded: PT.bool.isRequired,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,
@@ -463,4 +506,5 @@ ChallengeHeader.propTypes = {
   challengeSubtracksMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
+  mySubmissions: PT.arrayOf(PT.shape()).isRequired,
 };

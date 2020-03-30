@@ -32,7 +32,7 @@ export default function Buttons() {
   return (
     <div styleName="style.container">
       <h1 styleName="style.title">
-Buttons
+        Buttons
       </h1>
 
       <p styleName="style.text">
@@ -40,21 +40,21 @@ Buttons
         implemented in
         {' '}
         <code>
-/src/topcoder-react-ui-kit
+          /src/topcoder-react-ui-kit
         </code>
         {' '}
-and wrapped
+        and wrapped
         into different style themes with help
         of
         {' '}
         <code>
-react-css-super-themr
+          react-css-super-themr
         </code>
-.
+        .
       </p>
 
       <h2 styleName="style.subsection">
-Standard Buttons from TC UI Kit
+        Standard Buttons from TC UI Kit
       </h2>
 
       <Sample Button={Button} title="Default Button" />
@@ -64,7 +64,7 @@ Standard Buttons from TC UI Kit
       <Sample Button={GhostButton} title="Ghost Button" />
 
       <h2 styleName="style.subsection">
-Outline Buttons
+        Outline Buttons
       </h2>
 
       <p styleName="style.text">

@@ -95,11 +95,13 @@ export function menuItemBuilder(baseUrl, item) {
       return {
         title: item.fields.naviMenuLinkText || item.fields.name,
         href: target(baseUrl, item),
+        id: item.sys.id,
       };
     case 'navigationMenuItem':
       return {
         title: item.fields.linkText || item.fields.name,
         href: target(baseUrl, item),
+        id: item.sys.id,
       };
     default: return {};
   }
@@ -113,14 +115,17 @@ export function menuItemBuilder(baseUrl, item) {
 export function tracksTreeBuilder(EDUTaxonomy, query) {
   const tax = _.isArray(query.tax) ? query.tax : [query.tax];
   let id = 0;
-  return _.map(EDUTaxonomy, (categories, track) => ({
-    title: track,
-    id: id++,
-    items: _.map(categories, cat => ({
-      title: cat.name, id: id++, items: [], track, selected: _.indexOf(tax, cat.name) !== -1,
+  return _.sortBy(
+    _.map(EDUTaxonomy, (categories, track) => ({
+      title: track,
+      id: id++,
+      items: _.sortBy(_.map(categories, cat => ({
+        title: cat.name, id: id++, items: [], track, selected: _.indexOf(tax, cat.name) !== -1,
+      })), ['title']),
+      selected: query.track === track,
     })),
-    selected: query.track === track,
-  }));
+    ['title'],
+  );
 }
 
 export default undefined;
