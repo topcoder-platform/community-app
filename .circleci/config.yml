@@ -174,7 +174,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature-private-profile-navigation
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
