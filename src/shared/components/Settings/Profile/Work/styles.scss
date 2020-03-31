@@ -49,7 +49,7 @@ label {
   margin-bottom: 125px;
   position: absolute;
   display: inline-block;
-  bottom: 0;
+  bottom: auto;
 
   @include upto-sm {
     margin-bottom: 10px;

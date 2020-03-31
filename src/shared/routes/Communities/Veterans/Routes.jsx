@@ -19,6 +19,7 @@ import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
 import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
+import Settings from 'routes/Settings';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
 import { BUCKETS, registerBucket } from 'utils/challenge-listing/buckets';
@@ -113,6 +114,10 @@ export default function Veterans({ base, member, meta }) {
                 render={props => <ProfileStats {...props} meta={meta} />}
                 exact
                 path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+              />
+              <Route
+                component={() => <Settings base={`${base}/settings`} />}
+                path={`${base}/settings`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}
