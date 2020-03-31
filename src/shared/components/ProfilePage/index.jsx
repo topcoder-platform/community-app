@@ -85,10 +85,10 @@ class ProfilePage extends React.Component {
       const active = [];
       const subTracks = stats && stats[track] ? stats[track].subTracks || [] : [];
 
-      if (stats && stats[track].SRM) {
+      if (stats && stats[track] && stats[track].SRM) {
         subTracks.push({ ...stats[track].SRM, name: 'SRM' });
       }
-      if (stats && stats[track].MARATHON_MATCH) {
+      if (stats && stats[track] && stats[track].MARATHON_MATCH) {
         subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
       }
 
