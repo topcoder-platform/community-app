@@ -78,7 +78,6 @@ class ProfileStatsContainer extends React.Component {
       loadingError,
       location,
       isLoading,
-      meta,
     } = this.props;
 
     const { track, subTrack, tab } = getQueryParamsQuery(location);
@@ -94,7 +93,6 @@ class ProfileStatsContainer extends React.Component {
           track={track}
           subTrack={subTrack}
           tab={tab}
-          meta={meta}
         />
       );
   }
@@ -116,7 +114,7 @@ ProfileStatsContainer.propTypes = {
   loadStats: PT.func.isRequired,
   loadStatsHistoryAndDistribution: PT.func.isRequired,
   handleParam: PT.string.isRequired,
-  statsHistory: PT.shape(),
+  statsHistory: PT.arrayOf(PT.shape()),
   statsDistribution: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
   info: PT.shape(),
@@ -159,7 +157,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getActiveChallengesDone(handle));
     },
     loadStatsHistoryAndDistribution: (handle, groupIds, track, subTrack) => {
-      dispatch(a.getStatsHistoryInit(handle, groupIds));
+      dispatch(a.getStatsHistoryInit(handle));
       dispatch(a.getStatsHistoryDone(handle, groupIds));
       dispatch(a.getStatsDistributionInit(handle));
       dispatch(a.getStatsDistributionDone(handle, track, subTrack));
