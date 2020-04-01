@@ -1,6 +1,7 @@
 import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
-import { AppChunk } from 'topcoder-react-utils';
+import path from 'path';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function SubmissionsPageRoute(props) {
   return (
@@ -12,6 +13,11 @@ export default function SubmissionsPageRoute(props) {
         ))
       }
       renderPlaceholder={() => <LoadingIndicator />}
+      renderServer={() => {
+        const p = webpack.resolveWeak('containers/SubmissionPage');
+        const SubmissionsPageContainer = webpack.requireWeak(path.resolve(__dirname, p));
+        return <SubmissionsPageContainer {...props} />;
+      }}
     />
   );
 }
