@@ -66,7 +66,7 @@ const Header = ({
   /*
    * Init Google Analytics
   */
-  if (auth.user) {
+  if (auth && auth.user) {
     useEffect(() => {
       tracking.init(auth.user.handle);
     }, [auth.user.handle]);
