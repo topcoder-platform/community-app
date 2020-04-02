@@ -39,7 +39,7 @@ export default function Footer({
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a role="link" onKeyPress={() => goToLink(`${config.URL.BASE}/community/how-it-works/privacy-policy/`)} onClick={() => goToLink(`${config.URL.BASE}/community/how-it-works/privacy-policy/`)} aria-label="Privacy" tabIndex="0">
+              <a role="link" onKeyPress={() => goToLink(`${config.URL.BASE}/privacy-policy/`)} onClick={() => goToLink(`${config.URL.BASE}/privacy-policy/`)} aria-label="Privacy" tabIndex="0">
                 Privacy
               </a>
 &nbsp;•&nbsp;

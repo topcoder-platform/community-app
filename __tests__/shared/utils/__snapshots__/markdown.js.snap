@@ -796,9 +796,6 @@ Array [
       >
         &gt;
       </span>
-      <span
-        className="bash"
-      />
     </code>
      characters for blockquoting. If you’re
     <br />
@@ -813,9 +810,6 @@ Array [
       >
         &gt;
       </span>
-      <span
-        className="bash"
-      />
     </code>
      before every line:
   </p>,
@@ -841,9 +835,6 @@ Array [
       >
         &gt;
       </span>
-      <span
-        className="bash"
-      />
     </code>
      before the first
     <br />
@@ -875,9 +866,6 @@ Array [
       >
         &gt;
       </span>
-      <span
-        className="bash"
-      />
     </code>
     :
   </p>,
@@ -1182,9 +1170,6 @@ Array [
       >
         &gt;
       </span>
-      <span
-        className="bash"
-      />
     </code>
     <br />
     delimiters need to be indented:
@@ -1297,9 +1282,6 @@ end tell
       >
         &gt;
       </span>
-      <span
-        className="bash"
-      />
     </code>
     )
     <br />
@@ -1324,47 +1306,110 @@ end tell
     <br />
     it’s also easy to use Markdown to write about Markdown’s own syntax.
   </p>,
-  Array [
-    <pre
-      className="hljs"
-    >
-      <code>
-        <span
-          className="hljs-keyword"
-        >
-          tell
-        </span>
-         
-        <span
-          className="hljs-built_in"
-        >
-          application
-        </span>
-         
-        <span
-          className="hljs-string"
-        >
-          "Foo"
-        </span>
-        <span
-          className="hljs-built_in"
-        >
-          beep
-        </span>
-        <span
-          className="hljs-keyword"
-        >
-          end
-        </span>
-         
-        <span
-          className="hljs-keyword"
-        >
-          tell
-        </span>
-      </code>
-    </pre>,
-  ],
+  <SyntaxHighlighter
+    language=""
+    showLineNumbers={true}
+    style={
+      Object {
+        "hljs": Object {
+          "background": "white",
+          "color": "black",
+          "display": "block",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        },
+        "hljs-addition": Object {
+          "color": "#a31515",
+        },
+        "hljs-attr": Object {
+          "color": "#f00",
+        },
+        "hljs-attribute": Object {
+          "color": "#a31515",
+        },
+        "hljs-built_in": Object {
+          "color": "#00f",
+        },
+        "hljs-bullet": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-comment": Object {
+          "color": "#008000",
+        },
+        "hljs-deletion": Object {
+          "color": "#2b91af",
+        },
+        "hljs-doctag": Object {
+          "color": "#808080",
+        },
+        "hljs-emphasis": Object {
+          "fontStyle": "italic",
+        },
+        "hljs-keyword": Object {
+          "color": "#00f",
+        },
+        "hljs-link": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-literal": Object {
+          "color": "#a31515",
+        },
+        "hljs-meta": Object {
+          "color": "#2b91af",
+        },
+        "hljs-name": Object {
+          "color": "#00f",
+        },
+        "hljs-quote": Object {
+          "color": "#008000",
+        },
+        "hljs-section": Object {
+          "color": "#a31515",
+        },
+        "hljs-selector-attr": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-pseudo": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-string": Object {
+          "color": "#a31515",
+        },
+        "hljs-strong": Object {
+          "fontWeight": "bold",
+        },
+        "hljs-symbol": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-template-tag": Object {
+          "color": "#a31515",
+        },
+        "hljs-template-variable": Object {
+          "color": "#a31515",
+        },
+        "hljs-title": Object {
+          "color": "#a31515",
+        },
+        "hljs-type": Object {
+          "color": "#a31515",
+        },
+        "hljs-variable": Object {
+          "color": "#008000",
+        },
+      }
+    }
+  >
+    tell application "Foo"
+beep
+end tell
+
+  </SyntaxHighlighter>,
   <h2>
     Span Elements
   </h2>,
@@ -1429,7 +1474,7 @@ end tell
     ) and underscores (
     <code>
       <span
-        className="hljs-keyword"
+        className="hljs-literal"
       >
         _
       </span>
@@ -1447,7 +1492,7 @@ end tell
      or 
     <code>
       <span
-        className="hljs-keyword"
+        className="hljs-literal"
       >
         _
       </span>
@@ -1473,7 +1518,7 @@ end tell
     's or 
     <code>
       <span
-        className="hljs-keyword"
+        className="hljs-literal"
       >
         _
       </span>
@@ -2198,39 +2243,42 @@ Array [
     Ad amet irure est magna id mollit Lorem in do duis enim. Excepteur velit nisi magna ea pariatur pariatur ullamco fugiat deserunt sint non sint. Duis duis est 
     <code>
       <span
-        className="hljs-selector-tag"
+        className="hljs-built_in"
       >
         code
       </span>
-       
+       in 
       <span
-        className="hljs-keyword"
+        className="hljs-built_in"
       >
-        in
+        text
       </span>
-       text
     </code>
      velit velit aute culpa ex quis pariatur pariatur laborum aute pariatur duis tempor sunt ad. Irure magna voluptate dolore consectetur consectetur irure esse. Anim magna 
     <code>
-      &lt;
       <span
-        className="hljs-keyword"
+        className="hljs-tag"
       >
-        strong
+        &lt;
+        <span
+          className="hljs-name"
+        >
+          strong
+        </span>
+        &gt;
       </span>
-      &gt;
+      in culpa qui officia
       <span
-        className="hljs-keyword"
+        className="hljs-tag"
       >
-        in
+        &lt;/
+        <span
+          className="hljs-name"
+        >
+          strong
+        </span>
+        &gt;
       </span>
-       culpa qui officia&lt;/
-      <span
-        className="hljs-keyword"
-      >
-        strong
-      </span>
-      &gt;
     </code>
      dolor eiusmod esse amet aute cupidatat aliqua do id voluptate cupidatat reprehenderit amet labore deserunt.
   </p>,
@@ -2240,123 +2288,122 @@ Array [
   <p>
     Et fugiat ad nisi amet magna labore do cillum fugiat occaecat cillum Lorem proident. In sint dolor ullamco ad do adipisicing amet id excepteur Lorem aliquip sit irure veniam laborum duis cillum. Aliqua occaecat minim cillum deserunt magna sunt laboris do do irure ea nostrud consequat ut voluptate ex.
   </p>,
-  Array [
-    <pre
-      className="hljs"
-    >
-      <code>
-        <span
-          className="hljs-keyword"
-        >
-          package
-        </span>
-         main
+  <SyntaxHighlighter
+    language="go"
+    showLineNumbers={true}
+    style={
+      Object {
+        "hljs": Object {
+          "background": "white",
+          "color": "black",
+          "display": "block",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        },
+        "hljs-addition": Object {
+          "color": "#a31515",
+        },
+        "hljs-attr": Object {
+          "color": "#f00",
+        },
+        "hljs-attribute": Object {
+          "color": "#a31515",
+        },
+        "hljs-built_in": Object {
+          "color": "#00f",
+        },
+        "hljs-bullet": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-comment": Object {
+          "color": "#008000",
+        },
+        "hljs-deletion": Object {
+          "color": "#2b91af",
+        },
+        "hljs-doctag": Object {
+          "color": "#808080",
+        },
+        "hljs-emphasis": Object {
+          "fontStyle": "italic",
+        },
+        "hljs-keyword": Object {
+          "color": "#00f",
+        },
+        "hljs-link": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-literal": Object {
+          "color": "#a31515",
+        },
+        "hljs-meta": Object {
+          "color": "#2b91af",
+        },
+        "hljs-name": Object {
+          "color": "#00f",
+        },
+        "hljs-quote": Object {
+          "color": "#008000",
+        },
+        "hljs-section": Object {
+          "color": "#a31515",
+        },
+        "hljs-selector-attr": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-pseudo": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-string": Object {
+          "color": "#a31515",
+        },
+        "hljs-strong": Object {
+          "fontWeight": "bold",
+        },
+        "hljs-symbol": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-template-tag": Object {
+          "color": "#a31515",
+        },
+        "hljs-template-variable": Object {
+          "color": "#a31515",
+        },
+        "hljs-title": Object {
+          "color": "#a31515",
+        },
+        "hljs-type": Object {
+          "color": "#a31515",
+        },
+        "hljs-variable": Object {
+          "color": "#008000",
+        },
+      }
+    }
+  >
+    package main
 
-
-        <span
-          className="hljs-keyword"
-        >
-          import
-        </span>
-         (
-    
-        <span
-          className="hljs-string"
-        >
-          "fmt"
-        </span>
-        <span
-          className="hljs-string"
-        >
-          "net/http"
-        </span>
-        
+import(
+  "fmt"
+  "net/http"
 )
 
-
-        <span
-          className="hljs-function"
-        >
-          <span
-            className="hljs-keyword"
-          >
-            func
-          </span>
-           
-          <span
-            className="hljs-title"
-          >
-            handler
-          </span>
-          <span
-            className="hljs-params"
-          >
-            (w http.ResponseWriter, r *http.Request)
-          </span>
-        </span>
-         {
-    fmt.Fprintf(w, 
-        <span
-          className="hljs-string"
-        >
-          "Hi there, I love %s!"
-        </span>
-        , r.URL.Path[
-        <span
-          className="hljs-number"
-        >
-          1
-        </span>
-        :])
+func handler(w http.ResponseWriter, r * http.Request) {
+  fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1: ])
 }
 
-
-        <span
-          className="hljs-function"
-        >
-          <span
-            className="hljs-keyword"
-          >
-            func
-          </span>
-           
-          <span
-            className="hljs-title"
-          >
-            main
-          </span>
-          <span
-            className="hljs-params"
-          >
-            ()
-          </span>
-        </span>
-         {
-    http.HandleFunc(
-        <span
-          className="hljs-string"
-        >
-          "/"
-        </span>
-        , handler)
-    http.ListenAndServe(
-        <span
-          className="hljs-string"
-        >
-          ":8080"
-        </span>
-        , 
-        <span
-          className="hljs-literal"
-        >
-          nil
-        </span>
-        )
+func main() {
+  http.HandleFunc("/", handler)
+  http.ListenAndServe(":8080", nil)
 }
 
-      </code>
-    </pre>,
-  ],
+  </SyntaxHighlighter>,
   <p>
     Ex amet id ex aliquip id do laborum excepteur exercitation elit sint commodo occaecat nostrud est. Nostrud pariatur esse veniam laborum non sint magna sit laboris minim in id. Aliqua pariatur pariatur excepteur adipisicing irure culpa consequat commodo et ex id ad.
   </p>,
@@ -2474,101 +2521,116 @@ Array [
   <h3>
     Markdown fence (\`\`\`) codeblock
   </h3>,
-  Array [
-    <pre
-      className="hljs"
-    >
-      <code>
-        <span
-          className="hljs-keyword"
-        >
-          for
-        </span>
-         (let i = 
-        <span
-          className="hljs-number"
-        >
-          0
-        </span>
-        ; i &lt; 
-        <span
-          className="hljs-number"
-        >
-          10
-        </span>
-        ; i += 
-        <span
-          className="hljs-number"
-        >
-          1
-        </span>
-        ) {
+  <SyntaxHighlighter
+    language=""
+    showLineNumbers={true}
+    style={
+      Object {
+        "hljs": Object {
+          "background": "white",
+          "color": "black",
+          "display": "block",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        },
+        "hljs-addition": Object {
+          "color": "#a31515",
+        },
+        "hljs-attr": Object {
+          "color": "#f00",
+        },
+        "hljs-attribute": Object {
+          "color": "#a31515",
+        },
+        "hljs-built_in": Object {
+          "color": "#00f",
+        },
+        "hljs-bullet": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-comment": Object {
+          "color": "#008000",
+        },
+        "hljs-deletion": Object {
+          "color": "#2b91af",
+        },
+        "hljs-doctag": Object {
+          "color": "#808080",
+        },
+        "hljs-emphasis": Object {
+          "fontStyle": "italic",
+        },
+        "hljs-keyword": Object {
+          "color": "#00f",
+        },
+        "hljs-link": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-literal": Object {
+          "color": "#a31515",
+        },
+        "hljs-meta": Object {
+          "color": "#2b91af",
+        },
+        "hljs-name": Object {
+          "color": "#00f",
+        },
+        "hljs-quote": Object {
+          "color": "#008000",
+        },
+        "hljs-section": Object {
+          "color": "#a31515",
+        },
+        "hljs-selector-attr": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-pseudo": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-string": Object {
+          "color": "#a31515",
+        },
+        "hljs-strong": Object {
+          "fontWeight": "bold",
+        },
+        "hljs-symbol": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-template-tag": Object {
+          "color": "#a31515",
+        },
+        "hljs-template-variable": Object {
+          "color": "#a31515",
+        },
+        "hljs-title": Object {
+          "color": "#a31515",
+        },
+        "hljs-type": Object {
+          "color": "#a31515",
+        },
+        "hljs-variable": Object {
+          "color": "#008000",
+        },
+      }
+    }
+  >
+    for (let i = 0; i &lt; 10; i += 1) {
 
-  
-        <span
-          className="hljs-keyword"
-        >
-          for
-        </span>
-         (let j = 
-        <span
-          className="hljs-number"
-        >
-          0
-        </span>
-        ; j &lt; 
-        <span
-          className="hljs-number"
-        >
-          10
-        </span>
-        ; j += 
-        <span
-          className="hljs-number"
-        >
-          1
-        </span>
-        ) {
+  for (let j = 0; j &lt; 10; j += 1) {
 
-    
-        <span
-          className="hljs-keyword"
-        >
-          for
-        </span>
-         (let k = 
-        <span
-          className="hljs-number"
-        >
-          0
-        </span>
-        ; k &lt; 
-        <span
-          className="hljs-number"
-        >
-          10
-        </span>
-        ; k += 
-        <span
-          className="hljs-number"
-        >
-          1
-        </span>
-        ) {
-      console.log(
-        <span
-          className="hljs-string"
-        >
-          'Yo!'
-        </span>
-        );
+    for (let k = 0; k &lt; 10; k += 1) {
+      console.log('Yo!');
     }
   }
 }
 
-      </code>
-    </pre>,
-  ],
+  </SyntaxHighlighter>,
   <h3>
     Html code block
   </h3>,
