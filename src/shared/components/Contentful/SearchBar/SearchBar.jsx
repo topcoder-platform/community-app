@@ -158,13 +158,24 @@ export class SearchBarInner extends Component {
               {
                 _.map(suggestionList.Article, item => (
                   <div
+                    role="button"
+                    tabIndex="0"
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
                     className={theme['group-cell']}
+                    onClick={() => {
+                      window.location.href = (item.externalArticle && item.contentUrl)
+                        ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`;
+                    }}
+                    onKeyPress={_.noop}
                   >
                     <a
                       className={theme.articleLink}
                       href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                      onClick={(e) => {
+                        e.nativeEvent.stopImmediatePropagation();
+                        e.stopPropagation();
+                      }}
                     >
                       {
                         item.featuredImage ? (
@@ -199,12 +210,23 @@ export class SearchBarInner extends Component {
                 _.map(suggestionList.Video, item => (
                   <div
                     key={`${item.title}-${item.content}-${item.featuredImage}`}
+                    role="button"
+                    tabIndex="-11"
                     className={theme['group-cell']}
+                    onClick={() => {
+                      window.location.href = (item.externalArticle && item.contentUrl)
+                        ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`;
+                    }}
+                    onKeyPress={_.noop}
                   >
                     <a
                       className={theme.articleLink}
                       href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
+                      onClick={(e) => {
+                        e.nativeEvent.stopImmediatePropagation();
+                        e.stopPropagation();
+                      }}
                     >
                       {
                         item.featuredImage ? (
