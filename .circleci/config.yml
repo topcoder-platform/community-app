@@ -181,14 +181,14 @@ workflows:
           filters:
             branches:
               only:
-                - listing-fix
+                - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - develop
+                - listing-fix
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
