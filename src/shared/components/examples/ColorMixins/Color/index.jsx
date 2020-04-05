@@ -10,7 +10,7 @@ export default function Color({
     <div styleName="container">
       <div styleName={name} />
       <p styleName="name">
-$
+        $
         {name}
       </p>
     </div>

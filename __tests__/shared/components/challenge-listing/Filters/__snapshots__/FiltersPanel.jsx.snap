@@ -202,29 +202,6 @@ exports[`Matches shallow shapshot 1`] = `
     >
       Clear filters
     </ThemedButton>
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={true}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[MockFunction]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
-      theme={
-        Object {
-          "button": undefined,
-        }
-      }
-      themePriority="adhoc-context-default"
-      to={null}
-      type="button"
-    >
-      Save filter
-    </ThemedButton>
   </div>
 </div>
 `;
@@ -408,29 +385,6 @@ exports[`Matches shallow shapshot 2`] = `
       type="button"
     >
       Clear filters
-    </ThemedButton>
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={true}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[MockFunction]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
-      theme={
-        Object {
-          "button": undefined,
-        }
-      }
-      themePriority="adhoc-context-default"
-      to={null}
-      type="button"
-    >
-      Save filter
     </ThemedButton>
   </div>
 </div>

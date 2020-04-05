@@ -70,11 +70,12 @@ export class ListingContainer extends React.Component {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
 
-    this.loadChallenges();
+    if (BUCKETS.PAST !== activeBucket) this.loadChallenges();
   }
 
   componentDidUpdate(prevProps) {
     const {
+      activeBucket,
       auth,
       dropChallenges,
       getCommunitiesList,
@@ -99,7 +100,8 @@ export class ListingContainer extends React.Component {
       });
     }
 
-    if (!loadingActiveChallengesUUID && !_.isEmpty(meta) && !allActiveChallengesLoaded) {
+    if (!loadingActiveChallengesUUID && !_.isEmpty(meta) && !allActiveChallengesLoaded
+      && BUCKETS.PAST !== activeBucket) {
       getRestActiveChallenges(auth.tokenV3);
     }
   }

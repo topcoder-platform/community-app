@@ -21,29 +21,33 @@ exports[`Default render 1`] = `
         },
         Object {
           "id": "community",
-          "secondaryMenuForGuest": Array [
-            Object {
-              "href": "/community/learn",
-              "title": "Overview",
-            },
-            Object {
-              "href": "/thrive/tracks?track=Topcoder",
-              "title": "How It Works",
-            },
-          ],
-          "secondaryMenuForLoggedInUser": Array [
+          "secondaryMenu": Array [
             Object {
               "href": "/my-dashboard",
+              "logged": true,
               "title": "Dashboard",
             },
             Object {
               "href": "/members/willFilledByUserName",
               "id": "myprofile",
+              "logged": true,
               "title": "My Profile",
             },
             Object {
               "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+              "logged": true,
+              "openNewTab": true,
               "title": "Payments",
+            },
+            Object {
+              "href": "/community/learn",
+              "logged": false,
+              "title": "Overview",
+            },
+            Object {
+              "href": "/thrive/tracks?track=Topcoder",
+              "logged": false,
+              "title": "How It Works",
             },
           ],
           "subMenu": Array [
@@ -57,29 +61,33 @@ exports[`Default render 1`] = `
                   "href": "https://arena.topcoder-dev.com",
                   "title": "Competitive Programming",
                 },
+                Object {
+                  "href": "/community/taas",
+                  "title": "Gig Work",
+                },
               ],
               "title": "Compete",
             },
             Object {
               "subMenu": Array [
                 Object {
-                  "href": "/community/competitive-programming",
+                  "href": "/thrive/tracks?track=Competitive%20Programming",
                   "title": "Competitive Programming",
                 },
                 Object {
-                  "href": "/community/data-science",
+                  "href": "/thrive/tracks?track=Data%20Science&tax=",
                   "title": "Data Science",
                 },
                 Object {
-                  "href": "/community/design",
+                  "href": "/thrive/tracks?track=Design&tax=",
                   "title": "Design",
                 },
                 Object {
-                  "href": "/community/development",
+                  "href": "/thrive/tracks?track=Development&tax=",
                   "title": "Development",
                 },
                 Object {
-                  "href": "/community/qa",
+                  "href": "/thrive/tracks?track=QA&tax=",
                   "title": "QA",
                 },
               ],
@@ -97,15 +105,12 @@ exports[`Default render 1`] = `
                 },
                 Object {
                   "href": "https://apps.topcoder-dev.com/forums",
+                  "openNewTab": true,
                   "title": "Forums",
                 },
                 Object {
                   "href": "/community/statistics",
                   "title": "Statistics",
-                },
-                Object {
-                  "href": "/community/events",
-                  "title": "Events",
                 },
                 Object {
                   "href": "https://www.topcoder-dev.com/blog",
@@ -138,7 +143,7 @@ exports[`Default render 1`] = `
               "separator": true,
             },
             Object {
-              "href": "https://help.topcoder-dev.com/",
+              "href": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder",
               "title": "Help",
             },
             Object {
@@ -150,6 +155,7 @@ exports[`Default render 1`] = `
             },
           ]
         }
+        auth={null}
         authURLs={
           Object {
             "href": "https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
@@ -157,7 +163,7 @@ exports[`Default render 1`] = `
           }
         }
         loggedIn={true}
-        notificationButtonState="none"
+        notificationButtonState="new"
         notifications={Array []}
         onMenuOpen={[Function]}
         onSwitch={[Function]}
@@ -169,7 +175,7 @@ exports[`Default render 1`] = `
             "photoURL": "https://d1aahxkjiobka8.cloudfront.net/avatar/https%3A%2F%2Ftopcoder-dev-media.s3.amazonaws.com%2Fmember%2Fprofile%2Fhuanner-1552562543506.png?size=32",
           }
         }
-        showNotification={false}
+        showNotification={true}
         switchText={
           Object {
             "href": "https://connect.topcoder-dev.com",

@@ -91,6 +91,7 @@ $panel-radius-4: $corner-radius * 2;
     position: absolute;
     right: $panel-space-20;
     top: $panel-space-15;
+    bottom: $panel-space-15;
 
     @include xs-to-md {
       float: none;

@@ -27,7 +27,7 @@ import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
-import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
+import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
@@ -49,7 +49,7 @@ export default function FiltersPanel({
   auth,
   isReviewOpportunitiesBucket,
   onClose,
-  onSaveFilter,
+  // onSaveFilter,
   selectCommunity,
   selectedCommunityId,
   setFilterState,
@@ -85,7 +85,7 @@ export default function FiltersPanel({
     const registrationStatus = visitorRegisteredToCommunity
       ? (
         <div>
-Registered
+          Registered
         </div>
       )
       : (
@@ -93,10 +93,10 @@ Registered
           You are
           {' '}
           <span styleName="bold uppercase">
-not
+            not
           </span>
           {' '}
-registered.
+          registered.
           <Link
             onMouseDown={(e) => {
               const url = community.mainSubdomain ? (
@@ -155,20 +155,20 @@ registered.
           content={(
             <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
               <p>
-You are
+                You are
                 { !visitorRegisteredToCommunity && (
                 <span styleName="bold">
-NOT
+                  NOT
                 </span>
                 )}
                 {' '}
-registered for this sub community.
+                registered for this sub community.
               </p>
               <p>
-There are
+                There are
                 {challengesInCommunity}
                 {' '}
-challenges in this sub community
+                challenges in this sub community
               </p>
             </div>
 )}
@@ -198,7 +198,7 @@ challenges in this sub community
     <div styleName={className}>
       <div styleName="header">
         <span styleName="title">
-Filters
+          Filters
         </span>
         <span
           styleName="close-icon"
@@ -212,7 +212,7 @@ Filters
         <div styleName="filter-row">
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">
-Keywords
+              Keywords
               <input type="hidden" />
             </label>
             <Select
@@ -230,7 +230,7 @@ Keywords
           </div>
           <div styleName="filter community">
             <label htmlFor="community-select">
-Sub community
+              Sub community
               <input type="hidden" />
             </label>
             <Select
@@ -252,7 +252,7 @@ Sub community
         <div styleName="filter-row">
           <div styleName="filter track">
             <label htmlFor="track-select" styleName="left-label">
-Subtrack
+              Subtrack
               <input type="hidden" />
             </label>
             <Select
@@ -275,7 +275,7 @@ Subtrack
             ? (
               <div styleName="filter review-type">
                 <label htmlFor="review-type-select">
-Review Type
+                  Review Type
                   <input type="hidden" />
                 </label>
                 <Select
@@ -298,7 +298,7 @@ Review Type
           }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
-Date range
+              Date range
               <input type="hidden" />
             </label>
             <DateRangePicker
@@ -319,7 +319,7 @@ Date range
           </div>
           <div styleName="filter dates hideonemonthdatepicker">
             <label htmlFor="date-range-picker-two-months">
-Date range
+              Date range
               <input type="hidden" />
             </label>
             <DateRangePicker
@@ -353,16 +353,16 @@ Date range
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >
-Clear filters
+          Clear filters
         </Button>
-        <PrimaryButton
+        {/* <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
           theme={{ button: style.button }}
         >
-Save filter
-        </PrimaryButton>
+          Save filter
+        </PrimaryButton> */}
       </div>
     </div>
   );
@@ -374,7 +374,7 @@ FiltersPanel.defaultProps = {
   isAuth: false,
   isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
-  onSaveFilter: _.noop,
+  // onSaveFilter: _.noop,
   onClose: _.noop,
 };
 
@@ -391,7 +391,7 @@ FiltersPanel.propTypes = {
   auth: PT.shape().isRequired,
   isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
-  onSaveFilter: PT.func,
+  // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,

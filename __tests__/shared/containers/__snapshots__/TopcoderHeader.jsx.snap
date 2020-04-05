@@ -2,9 +2,20 @@
 
 exports[`Matches shallow snapshot 1`] = `
 <Header
+  auth={
+    Object {
+      "profile": Object {},
+    }
+  }
   closeMenu={[Function]}
   closeMobileMenu={[Function]}
   closeSearch={[Function]}
+  dismissChallengeNotifications={[Function]}
+  loadNotifications={[Function]}
+  markAllNotificationAsRead={[Function]}
+  markAllNotificationAsSeen={[Function]}
+  markNotificationAsRead={[Function]}
+  notifications={Array []}
   openMenu={[Function]}
   openMobileMenu={[Function]}
   openSearch={[Function]}

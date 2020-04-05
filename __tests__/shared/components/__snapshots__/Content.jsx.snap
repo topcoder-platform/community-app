@@ -325,6 +325,35 @@ exports[`Matches shallow shapshot 1`] = `
         Track Home Page - Development
       </Link>
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/search/members?q=upbeat"
+      >
+        Member Search 1
+      </Link>
+      , 
+      <Link
+        replace={false}
+        to="/search/members?q=github"
+      >
+        Member Search 2
+      </Link>
+      , 
+      <Link
+        replace={false}
+        to="/search/members?q=not-found"
+      >
+        Member Search 3
+      </Link>
+      , 
+      <Link
+        replace={false}
+        to="/search/members?q=Siebel"
+      >
+        Member Search 4
+      </Link>
+    </li>
   </ul>
   <h3>
     TCO Assets

@@ -61,7 +61,7 @@ function Footer({
             }}
             type="button"
           >
-Register
+            Register
           </button>
           <button
             className={theme.btnLogin}
@@ -71,7 +71,7 @@ Register
             }}
             type="button"
           >
-Login
+            Login
           </button>
         </div>
       )}

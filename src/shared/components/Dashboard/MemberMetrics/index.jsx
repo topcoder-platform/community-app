@@ -19,7 +19,7 @@ export default function Finances({
   return (
     <div styleName="container">
       <h1 styleName="title">
-My Earnings and Stats
+        My Earnings and Stats
       </h1>
       {
         financesLoading || statsLoading ? (

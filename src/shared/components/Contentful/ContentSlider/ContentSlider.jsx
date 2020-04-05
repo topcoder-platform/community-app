@@ -11,8 +11,10 @@ import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
 
-import ArrowNext from 'assets/images/new-arrow-right.svg';
-import ArrowPrev from 'assets/images/new-arrow-left.svg';
+import GrayArrowNext from 'assets/images/slider-arrow-right.svg';
+import GrayArrowPrev from 'assets/images/slider-arrow-left.svg';
+import WhiteArrowNext from 'assets/images/new-arrow-right.svg';
+import WhiteArrowPrev from 'assets/images/new-arrow-left.svg';
 import defaultTheme from './themes/default.scss';
 
 
@@ -34,7 +36,7 @@ class ContentSlider extends Component {
     const {
       children, theme, autoStart, duration, id, containerStyle,
       slidesToShow, framePadding, withoutControls, vertical, cellSpacing,
-      cellAlign, wrapAround,
+      cellAlign, wrapAround, heightMode, arrowTheme,
     } = this.props;
 
     return (
@@ -51,7 +53,7 @@ class ContentSlider extends Component {
           slidesToShow={slidesToShow}
           slidesToScroll="auto"
           cellAlign={cellAlign}
-          heightMode="current"
+          heightMode={heightMode}
           framePadding={framePadding}
           withoutControls={withoutControls}
           vertical={vertical}
@@ -63,9 +65,9 @@ class ContentSlider extends Component {
               onKeyPress={previousSlide}
               role="button"
               tabIndex={0}
-              className={theme.control}
+              className={theme.controlLeft}
             >
-              <ArrowPrev />
+              {arrowTheme === 'Gray' ? <GrayArrowPrev /> : <WhiteArrowPrev />}
             </a>
           )}
           renderCenterRightControls={({ nextSlide }) => (
@@ -74,9 +76,9 @@ class ContentSlider extends Component {
               onKeyPress={nextSlide}
               role="button"
               tabIndex={0}
-              className={theme.control}
+              className={theme.controlRight}
             >
-              <ArrowNext />
+              {arrowTheme === 'Gray' ? <GrayArrowNext /> : <WhiteArrowNext />}
             </a>
           )}
         >
@@ -99,6 +101,8 @@ ContentSlider.defaultProps = {
   cellSpacing: null,
   cellAlign: 'center',
   wrapAround: true,
+  heightMode: 'current',
+  arrowTheme: 'Gray',
 };
 
 ContentSlider.propTypes = {
@@ -109,7 +113,8 @@ ContentSlider.propTypes = {
   theme: PT.shape({
     container: PT.string,
     content: PT.string,
-    control: PT.string,
+    controlLeft: PT.string,
+    controlRight: PT.string,
     multiContent: PT.any,
     singleContent: PT.any,
   }),
@@ -121,6 +126,8 @@ ContentSlider.propTypes = {
   cellSpacing: PT.number,
   cellAlign: PT.string,
   wrapAround: PT.bool,
+  heightMode: PT.string,
+  arrowTheme: PT.string,
 };
 
 export default themr('Contentful-Slider', defaultTheme)(ContentSlider);

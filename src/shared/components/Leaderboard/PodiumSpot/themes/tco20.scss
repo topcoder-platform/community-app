@@ -3,16 +3,16 @@ $podium-border-color: #ededf2;
 
 .PodiumSpot {
   border-radius: 6px;
-  padding: 25px;
+  padding: 23px 15px;
   display: flex;
-  width: 324px;
+  width: auto;
 
   .leaderboard-avatar {
     display: inline-block;
-    overflow: hidden;
     position: relative;
     margin-bottom: 12px;
     margin-right: 20px;
+    overflow: visible;
   }
 
   .ranking {
@@ -23,7 +23,7 @@ $podium-border-color: #ededf2;
     display: inline-block;
     position: absolute;
     right: 0;
-    bottom: 10px;
+    bottom: -10px;
     font-size: 15px;
   }
 
@@ -35,15 +35,16 @@ $podium-border-color: #ededf2;
     color: #56565d;
     font-size: 18px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: column;
 
     .stats {
       color: #747480;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 400;
       line-height: 25px;
       display: flex;
+      margin-bottom: 4px;
 
       .value-title {
         color: #2a2a2a;
@@ -91,12 +92,12 @@ $podium-border-color: #ededf2;
   a.profile-link {
     color: #0d61bf;
     font-family: Barlow, sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 19px;
     text-align: left;
     text-decoration: underline;
-    margin-bottom: 15px;
+    margin-bottom: 13px;
 
     &:hover {
       text-decoration: none;
@@ -135,31 +136,23 @@ $podium-border-color: #ededf2;
   }
 }
 
+.PodiumSpot--fourth {
+  background-color: #8dccd4;
+
+  .ranking {
+    background-color: #2a2a2a;
+    color: #fff;
+  }
+}
+
 .PodiumSpot--first,
 .PodiumSpot--second,
-.PodiumSpot--third {
+.PodiumSpot--third,
+.PodiumSpot--fourth {
   margin-top: 0;
 
   .leaderboard-avatar {
-    height: 64px;
-    width: 64px;
-  }
-}
-
-@include md-to-lg {
-  .PodiumSpot--first .leaderboard-avatar,
-  .PodiumSpot--second .leaderboard-avatar,
-  .PodiumSpot--third .leaderboard-avatar {
-    height: 96px;
-    width: 96px;
-  }
-}
-
-@include xl {
-  .PodiumSpot--first .leaderboard-avatar,
-  .PodiumSpot--second .leaderboard-avatar,
-  .PodiumSpot--third .leaderboard-avatar {
-    height: 128px;
-    width: 128px;
+    height: 79px;
+    width: 79px;
   }
 }

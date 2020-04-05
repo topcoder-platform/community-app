@@ -173,19 +173,16 @@ workflows:
           context : org-global
           filters:
             branches:
-              only: 
+              only:
                 - develop
-                - hot-fix
-                - survey_tc
-                - fix-groups-updates
-                - sort_registrations_submissions
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:
-                - develop
+                - nav-hot-fix
+                - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

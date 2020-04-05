@@ -62,12 +62,12 @@ export default function ConfirmModal({
           <PrimaryButton
             onClick={() => join(token, joinGroupId || groupIds[0], userId)}
           >
-Join
+            Join
           </PrimaryButton>
           <SecondaryButton
             onClick={resetJoinButton}
           >
-Cancel
+            Cancel
           </SecondaryButton>
         </div>
       ) : (
@@ -78,7 +78,7 @@ Cancel
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
           >
-Login
+            Login
           </PrimaryButton>
           <PrimaryButton
             onClick={() => {
@@ -88,12 +88,12 @@ Login
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
           >
-Register
+            Register
           </PrimaryButton>
           <SecondaryButton
             onClick={resetJoinButton}
           >
-Cancel
+            Cancel
           </SecondaryButton>
         </div>
       )}
