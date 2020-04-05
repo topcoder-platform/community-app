@@ -42,7 +42,7 @@ const Item = ({
             markNotificationAsRead(item, auth.tokenV3);
             tracking.event('Click', 'Mark Notification As Read', 'Details Page');
           }
-          tracking.event('Click', 'Notification Event', item.sourceId);
+          tracking.event('Click', 'Notification Event', String(item.sourceId));
         }}
       >
         {children}
