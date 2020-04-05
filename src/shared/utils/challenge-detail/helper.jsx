@@ -25,7 +25,7 @@ export const PRIZE_MODE = {
  * @param {Object} challenge challenge info
  */
 export function getEndDate(challenge) {
-  let phases = challenge.allPhases || c.phases || [];
+  let phases = challenge.allPhases || challenge.phases || [];
   if (challenge.subTrack === 'FIRST_2_FINISH' && challenge.status === 'COMPLETED') {
     phases = challenge.allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
   }

@@ -91,10 +91,6 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isActive;
   }
 
-  const submissionEnded = status === 'Completed'
-    || (!_.get(phases, 'submission.isActive')
-      && !_.get(phases, 'checkpointSubmission.isActive'));
-
   let trackLower = track ? track.toLowerCase() : 'design';
   if (tags.includes('Data Science')) {
     trackLower = 'datasci';

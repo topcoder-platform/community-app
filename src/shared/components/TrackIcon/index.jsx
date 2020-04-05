@@ -52,7 +52,7 @@ TrackIcon.propTypes = {
   isDataScience: PT.bool,
   tcoEligible: PT.string,
   track: PT.string.isRequired,
-  subTrack: PT.string,
+  subTrack: PT.string.isRequired,
   MAIN_URL: PT.string,
   challengesUrl: PT.string,
 };

@@ -13,16 +13,7 @@ const VISIBLE_TECHNOLOGIES = 3;
  * Implements <Tags> component
  */
 export default function Tags({
-<<<<<<< HEAD
-  expand, isExpanded, tags, onTechTagClicked,
-=======
-  expand,
-  isExpanded,
-  technologies,
-  platforms,
-  onTechTagClicked,
-  challengesUrl,
->>>>>>> develop
+  expand, isExpanded, tags, onTechTagClicked, challengesUrl,
 }) {
   const onClick = (item) => {
     // resolved conflict with c++ tag

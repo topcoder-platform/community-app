@@ -355,8 +355,6 @@ class ChallengeDetailPageContainer extends React.Component {
       allPhases,
     } = challenge;
 
-    const isMM = challenge.subTrack && challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
     if (challenge.prizes && challenge.prizes.length) {
