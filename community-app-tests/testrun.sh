@@ -5,7 +5,7 @@ npm run test
 env=$(cat config.json | jq -r '.env')
 planName="Automate Execution-"$env
 sudo chmod 755 testquality-linux
-./testquality-linux login mailmemakar@gmail.com Testquality@100  --save 
+./testquality-linux login sathya.jayabal@gmail.com appirio123  --save 
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderLoginPageTests.xml --project_name='Community App' --plan_name="'$planName'"
 ./testquality-linux upload_test_run test-results/junitresults-TopcoderToolsPageTests.xml --project_name='Community App' --plan_name="'$planName'"
 
