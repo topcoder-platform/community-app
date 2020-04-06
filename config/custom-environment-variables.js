@@ -63,6 +63,13 @@ module.exports = {
           PREVIEW_API_KEY: 'CONTENTFUL_EDU_PREVIEW_API_KEY',
         },
       },
+      comcast: {
+        SPACE_ID: 'CONTENTFUL_COMCAST_SPACE_ID',
+        master: {
+          CDN_API_KEY: 'CONTENTFUL_COMCAST_CDN_API_KEY',
+          PREVIEW_API_KEY: 'CONTENTFUL_COMCAST_PREVIEW_API_KEY',
+        },
+      },
     },
 
     MAILCHIMP: {
