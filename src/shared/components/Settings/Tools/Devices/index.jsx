@@ -13,6 +13,7 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import ErrorMessage from 'components/Settings/ErrorMessage';
 import InputSelect from 'components/InputSelect';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { toastr } from 'react-redux-toastr';
 import ConfirmationModal from '../../CofirmationModal';
 import DeviceList from './List';
 
@@ -83,9 +84,42 @@ export default class Devices extends ConsentComponent {
    */
   onHandleAddDevice(e) {
     e.preventDefault();
-    const { newDevice } = this.state;
+    const { newDevice, deviceTrait } = this.state;
+    const { clearDeviceState } = this.props;
     this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newDevice)) {
+      return;
+    }
+    const deviceItems = deviceTrait.traits
+      ? deviceTrait.traits.data.slice() : [];
+    let exist = false;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of deviceItems) {
+      if (item.deviceType === newDevice.deviceType
+        && item.manufacturer === newDevice.manufacturer
+        && item.model === newDevice.model
+        && item.operatingSystem === newDevice.operatingSystem) {
+        exist = true;
+        break;
+      }
+    }
+    if (exist === true) {
+      const empty = {
+        deviceType: '',
+        manufacturer: '',
+        model: '',
+        operatingSystem: '',
+      };
+      this.setState({
+        newDevice: empty,
+        isEdit: false,
+        indexNo: null,
+        isSubmit: false,
+      });
+      clearDeviceState();
+      setImmediate(() => {
+        toastr.error('Looks like you\'ve already entered this device.');
+      });
       return;
     }
     this.showConsent(this.onAddDevice.bind(this));
