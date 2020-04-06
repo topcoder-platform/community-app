@@ -1,5 +1,6 @@
-import { browser } from "protractor";
-import { LoginPage, LoginPageHelper } from "topcoder-ui-testing-lib";
+import { BrowserHelper } from "topcoder-testing-lib";
+import { LoginPageHelper } from "../page-objects/pages/topcoder/login/login.helper";
+import { LoginPage } from "../page-objects/pages/topcoder/login/login.po";
 import { ToolsPageHelper } from "../page-objects/pages/topcoder/tools/tools.helper";
 import { ToolsPage } from "../page-objects/pages/topcoder/tools/tools.po";
 import * as testData from "../test-data/test-data.json";
@@ -10,19 +11,10 @@ describe("Topcoder Tools Page Tests: ", () => {
    * Sets up the browser and logs in
    */
   beforeAll(async () => {
-    await browser.restart();
-    await browser.driver
-      .manage()
-      .window()
-      .maximize();
+    await BrowserHelper.initialize();
     const loginpage = new LoginPage();
-    await loginpage.setUrls({
-      homePageUrl: ConfigHelper.getHomePageURL(),
-      loginUrl: ConfigHelper.getLoginURL(),
-      logoutUrl: ConfigHelper.getLogoutURL()
-    });
-    await loginpage.get();
     LoginPageHelper.setLoginPage(loginpage);
+    await LoginPageHelper.open();
     await LoginPageHelper.login(
       ConfigHelper.getUserName(),
       ConfigHelper.getPassword()
@@ -36,7 +28,7 @@ describe("Topcoder Tools Page Tests: ", () => {
     try {
       await LoginPageHelper.logout();
     } catch (e) {
-      await browser.restart();
+      await BrowserHelper.restart();
     }
   });
 
@@ -45,10 +37,10 @@ describe("Topcoder Tools Page Tests: ", () => {
    */
   it("should Verify User can Add/Update/Delete Subscriptions", async () => {
     const toolsPage = new ToolsPage();
-    await toolsPage.get();
-    await toolsPage.switchTab("subscriptions");
-    await toolsPage.deleteAll();
     ToolsPageHelper.setToolsPage(toolsPage);
+    await ToolsPageHelper.open();
+    await ToolsPageHelper.switchTab("subscriptions");
+    await ToolsPageHelper.deleteAll();
     await ToolsPageHelper.verifyAddSubscription(testData.tools.subscription);
     await ToolsPageHelper.verifyEditSubscription(
       testData.tools.subscription,

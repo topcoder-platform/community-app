@@ -11,27 +11,27 @@ export const ConfigHelper = {
   /**
    * Get login URL
    */
-  getLoginURL() {
+  getLoginUrl() {
     return this.getConfig().loginUrl;
   },
 
   /**
    * Get homepage URL
    */
-  getHomePageURL() {
+  getHomePageUrl() {
     return this.getConfig().homePageUrl;
   },
 
   /**
    * Get logout URL
    */
-  getLogoutURL() {
+  getLogoutUrl() {
     return this.getConfig().logoutUrl;
   },
   /**
    * Get logout URL
    */
-  getToolsURL() {
+  getToolsUrl() {
     return this.getConfig().toolsUrl;
   },
 

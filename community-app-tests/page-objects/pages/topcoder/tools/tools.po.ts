@@ -1,7 +1,11 @@
-import { browser, by, element, protractor } from "protractor";
-import { CommonHelper, ElementHelper } from "topcoder-ui-testing-lib";
+import {
+  BrowserHelper,
+  CommonHelper,
+  ElementHelper,
+} from "topcoder-testing-lib";
 import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
+import { ConfigHelper } from "../../../../utils/config-helper";
 import { ToolsPageConstants } from "./tools.constants";
 
 export class ToolsPage {
@@ -9,8 +13,8 @@ export class ToolsPage {
    * Gets the Tools page
    */
 
-  public async get() {
-    await browser.get(ToolsPageConstants.url);
+  public async open() {
+    await BrowserHelper.open(ConfigHelper.getToolsUrl());
     logger.info("User navigated to Tools Page");
   }
 
@@ -19,7 +23,7 @@ export class ToolsPage {
    */
 
   private get subscriptionName() {
-    return element(by.id("name"));
+    return ElementHelper.getElementById("name");
   }
 
   /**
@@ -44,34 +48,41 @@ export class ToolsPage {
    * Gets the delete icon
    */
   private get deleteIcon() {
-    return element(by.css('img[alt="delete-icon"]'));
+    return ElementHelper.getElementByCss('img[alt="delete-icon"]');
   }
 
   /**
    * Switches tab to given tab name
-   * @param {String} tagName
+   * @param {String} tabName
    */
   public async switchTab(tabName: string) {
     await CommonHelper.switchTabByClickingOnTagWithText("span", tabName);
+    logger.info("tab Switched to " + tabName);
   }
 
   /**
    * Deletes all records on the tools page
    */
   public async deleteAll() {
-    const until = protractor.ExpectedConditions;
-    await browser.wait(until.visibilityOf(this.subscriptionName));
+    await BrowserHelper.waitUntilVisibilityOf(
+      this.subscriptionName,
+      appconfig.Timeout.ElementVisibility,
+      appconfig.LoggerErrors.ElementVisibilty
+    );
     const delIcons = await this.getDeleteIcons();
     for (let {} of delIcons) {
       await this.deleteIcon.click();
       await this.deleteConfirmation.click();
-      const successEl = this.successMsg;
-      await browser.wait(
-        until.visibilityOf(successEl),
-        appconfig.Timeout.FieldVisibility,
-        "Success message did not display"
+      await BrowserHelper.waitUntilVisibilityOf(
+        this.successMsg,
+        appconfig.Timeout.ElementVisibility,
+        appconfig.LoggerErrors.ElementVisibilty
       );
-      await browser.wait(until.invisibilityOf(successEl));
+      await BrowserHelper.waitUntilInvisibilityOf(
+        this.successMsg,
+        appconfig.Timeout.ElementInvisibility,
+        appconfig.LoggerErrors.ElementInvisibilty
+      );
     }
   }
 
@@ -80,16 +91,18 @@ export class ToolsPage {
    * @param {String} name
    */
   public async addSubscription(name) {
-    const until = protractor.ExpectedConditions;
     await this.setSubsription(name);
     await this.getAddButton("subscription").click();
-    const successEl = this.successMsg;
-    await browser.wait(
-      until.visibilityOf(successEl),
-      appconfig.Timeout.FieldVisibility,
-      "Success message did not display"
+    await BrowserHelper.waitUntilVisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementVisibility,
+      appconfig.LoggerErrors.ElementVisibilty
     );
-    await browser.wait(until.invisibilityOf(successEl));
+    await BrowserHelper.waitUntilInvisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementInvisibility,
+      appconfig.LoggerErrors.ElementInvisibilty
+    );
   }
 
   /**
@@ -99,17 +112,19 @@ export class ToolsPage {
    * The edit functionality must be upadted to eidt by the provided name. At present it edits the first record
    */
   public async editSubscription(name, newname) {
-    const until = protractor.ExpectedConditions;
     await this.getEditIconbyName(name).click();
     await this.setSubsription(newname);
     await this.getEditButton("subscription").click();
-    const successEl = this.successMsg;
-    await browser.wait(
-      until.visibilityOf(successEl),
-      appconfig.Timeout.FieldVisibility,
-      "Success message did not display"
+    await BrowserHelper.waitUntilVisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementVisibility,
+      appconfig.LoggerErrors.ElementVisibilty
     );
-    await browser.wait(until.invisibilityOf(successEl));
+    await BrowserHelper.waitUntilInvisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementInvisibility,
+      appconfig.LoggerErrors.ElementInvisibilty
+    );
   }
 
   /**
@@ -118,16 +133,18 @@ export class ToolsPage {
    * The delete functionality must be upadted to delete by the provided name. At present it deletes the first record
    */
   public async deleteSubscription(name) {
-    const until = protractor.ExpectedConditions;
     await this.getDeleteIconbyName(name).click();
     await this.deleteConfirmation.click();
-    const successEl = this.successMsg;
-    await browser.wait(
-      until.visibilityOf(successEl),
-      appconfig.Timeout.FieldVisibility,
-      "Success message did not display"
+    await BrowserHelper.waitUntilVisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementVisibility,
+      appconfig.LoggerErrors.ElementVisibilty
     );
-    await browser.wait(until.invisibilityOf(successEl));
+    await BrowserHelper.waitUntilInvisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementInvisibility,
+      appconfig.LoggerErrors.ElementInvisibilty
+    );
   }
 
   /**
@@ -144,7 +161,7 @@ export class ToolsPage {
    * Gets all delete icons in the page
    */
   private getDeleteIcons() {
-    return element.all(by.css('img[alt="delete-icon"]'));
+    return ElementHelper.getAllElementsByCss('img[alt="delete-icon"]');
   }
 
   /**
@@ -176,8 +193,8 @@ export class ToolsPage {
    * @param {String} name
    */
   private getEditIconbyName(name: string) {
-    return element(
-      by.xpath(`//*[text()='${name}']//following::img[@alt='edit-icon']`)
+    return ElementHelper.getElementByXPath(
+      `//*[text()='${name}']//following::img[@alt='edit-icon']`
     );
   }
 
@@ -186,8 +203,8 @@ export class ToolsPage {
    * @param {String} name
    */
   private getDeleteIconbyName(name: string) {
-    return element(
-      by.xpath(`//*[text()='${name}']//following::img[@alt='delete-icon']`)
+    return ElementHelper.getElementByXPath(
+      `//*[text()='${name}']//following::img[@alt='delete-icon']`
     );
   }
 }

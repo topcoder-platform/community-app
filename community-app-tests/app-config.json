@@ -1,6 +1,20 @@
 {
   "Timeout": {
-    "FieldVisibility": 5000,
-    "SubmitForm": 9000
+    "FieldVisibility": 15000,
+    "ElementVisibility": 15000,
+    "ElementInvisibility": 15000,
+    "ElementPresence": 15000,
+    "ElementClickable": 15000,
+    "PageLoad": 30000,
+    "SubmitForm": 15000
+  },
+
+  "LoggerErrors": {
+    "FieldVisibility": "Element did not display within timeout",
+    "ElementVisibilty": "Element did not display within timeout",
+    "ElementInvisibilty": "Element did not become invisible within timeout",
+    "ElementPresence": "Element was not present within timeout",
+    "ElementClickable": "Element was not clickable within timeout",
+    "PageLoad": "Page did not load within timeout"
   }
 }

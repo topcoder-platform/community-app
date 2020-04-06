@@ -1,33 +1,25 @@
-import { browser } from "protractor";
-import { LoginPage, LoginPageHelper } from "topcoder-ui-testing-lib";
+import { BrowserHelper } from "topcoder-testing-lib";
+import { LoginPageHelper } from "../page-objects/pages/topcoder/login/login.helper";
+import { LoginPage } from "../page-objects/pages/topcoder/login/login.po";
 import * as testData from "../test-data/test-data.json";
-import { ConfigHelper } from "../utils/config-helper.js";
+import { ConfigHelper } from "../utils/config-helper";
 
 describe("Topcoder Login Page Tests: ", () => {
   /**
    * Sets up browser login page
    */
   beforeEach(async () => {
-    browser.driver
-      .manage()
-      .window()
-      .maximize();
-    browser.ignoreSynchronization = false;
+    await BrowserHelper.initialize();
     const loginpage = new LoginPage();
-    await loginpage.setUrls({
-      homePageUrl: ConfigHelper.getHomePageURL(),
-      loginUrl: ConfigHelper.getLoginURL(),
-      logoutUrl: ConfigHelper.getLogoutURL()
-    });
-    await loginpage.get();
     LoginPageHelper.setLoginPage(loginpage);
+    await LoginPageHelper.open();
   });
 
   /**
    * Restarts browser
    */
-  afterEach(() => {
-    browser.restart();
+  afterEach(async () => {
+    await BrowserHelper.restart();
   });
 
   /**

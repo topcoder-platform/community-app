@@ -22,9 +22,13 @@ exports.config = {
   capabilities: {
     browserName: "chrome",
     chromeOptions: {
-      args: ["--headless", "--disable-gpu","--no-sandbox", "--window-size=1325x744"]
-      // args: ["--disable-gpu", "--window-size=1325x744"]
-    }
+      args: [
+        "--headless",
+        "--disable-gpu",
+        "--no-sandbox",
+        "--window-size=1325x744",
+      ],
+    },
   },
 
   // Framework to use. Jasmine is recommended.
@@ -32,28 +36,22 @@ exports.config = {
 
   specs: [
     "../temp/test-suites/tc-login.spec.js",
-    "../temp/test-suites/tc-tools.spec.js"
+    "../temp/test-suites/tc-tools.spec.js",
   ],
 
   // Options to be passed to Jasmine.
   jasmineNodeOpts: {
     defaultTimeoutInterval: 90000,
     isVerbose: true,
-    showColors: true
+    showColors: true,
   },
 
   onPrepare: () => {
-    browser
-      .manage()
-      .window()
-      .maximize();
-    browser
-      .manage()
-      .timeouts()
-      .implicitlyWait(5000);
+    browser.manage().window().maximize();
+    browser.manage().timeouts().implicitlyWait(5000);
     const junitReporter = new reporters.JUnitXmlReporter({
       consolidateAll: false,
-      savePath: "test-results"
+      savePath: "test-results",
     });
     jasmine.getEnv().addReporter(junitReporter);
     jasmine.getEnv().addReporter(
@@ -66,8 +64,8 @@ exports.config = {
         preserveDirectory: false, // Preserve base directory
         screenshotsSubfolder: "screenshots",
         takeScreenShotsForSkippedSpecs: true, // Screenshots for skipped test cases
-        takeScreenShotsOnlyForFailedSpecs: false // Screenshots only for failed test cases
+        takeScreenShotsOnlyForFailedSpecs: false, // Screenshots only for failed test cases
       }).getJasmine2Reporter()
     );
-  }
+  },
 };
