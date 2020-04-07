@@ -174,9 +174,7 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix-submit-blank
                 - develop
-                - feature-devices-lookup
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -191,7 +189,7 @@ workflows:
           filters:
             branches:
               only:
-                - notifications-analytics
+                - comcast-community
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
