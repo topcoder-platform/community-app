@@ -13,7 +13,7 @@
     "papaparse": "^4.6.3",
     "protractor": "^5.4.2",
     "protractor-beautiful-reporter": "^1.2.8",
-    "topcoder-testing-lib": "git+https://github.com/topcoder-platform/topcoder-ui-testing-lib.git#develop",
+    "topcoder-testing-lib": "git+https://github.com/topcoder-platform/topcoder-testing-lib.git#develop",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3",
     "webdriver-manager": "^12.1.7",
