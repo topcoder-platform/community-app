@@ -18,9 +18,9 @@ APPCONFIGFILENAME=$1
 LOGICAL_PATH=$2
 
 cd community-app-tests
-#aws s3 cp s3://tc-platform-${LOGICAL_PATH}/securitymanager/${APPCONFIGFILENAME} .
+aws s3 cp s3://tc-platform-${LOGICAL_PATH}/securitymanager/${APPCONFIGFILENAME} .
 track_error $? "Environment setting"
-#cp ${APPCONFIGFILENAME} config.json
+cp ${APPCONFIGFILENAME} config_update.json
 
 docker build -t comm-smoke:latest .
 docker run --shm-size=2g comm-smoke:latest ./testrun.sh -d -p 4444:4444
