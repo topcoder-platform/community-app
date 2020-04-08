@@ -49,7 +49,7 @@ const Header = ({
   }
 
   useEffect(() => {
-    setPath(window.location.pathname);
+    setPath(window.location.pathname + window.location.search);
   }, []);
 
   /*
