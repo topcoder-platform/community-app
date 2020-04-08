@@ -1,0 +1,56 @@
+/**
+ * Default button style: white background, dark gray text, gray border,
+ * a bit rounded corners.
+ */
+
+@import "~styles/mixins";
+
+@mixin feedback {
+  &:active {
+    background: white;
+    border: 1px solid #00a2e0;
+  }
+
+  &:focus {
+    background: white;
+    border: 1px solid #00a2e0;
+  }
+
+  &:hover {
+    background: white;
+    border: 1px solid #00a2e0;
+  }
+}
+
+.button {
+  background: white;
+  border: 1px solid #00a2e0;
+  border-radius: 40px;
+  // display: inline-block;
+  font: 16px/36px "Akkurat regular", monospace !important;
+  // margin: $base-unit;
+  width: 250px;
+  text-align: center;
+  vertical-align: top;
+
+  a,
+  &,
+  &:visited {
+    color: #00a2e0 !important;
+    text-decoration: none !important;
+  }
+}
+
+.disabled {
+  background: white;
+  color: #00a2e0;
+  cursor: not-allowed;
+}
+
+.link {
+  @include feedback;
+}
+
+.regular {
+  @include feedback;
+}
