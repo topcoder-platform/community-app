@@ -181,8 +181,7 @@ workflows:
           filters:
             branches:
               only:
-                - nav-hot-fix
-                - feature-contentful
+                - nav-hotfix-thrive-link
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
