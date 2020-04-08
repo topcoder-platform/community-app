@@ -5,7 +5,7 @@
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
 import Error404 from 'components/Error404';
-import Footer from 'components/tc-communities/communities/cs/Footer';
+import Footer from 'components/TopcoderFooter';
 import Header from 'containers/tc-communities/Header';
 import PT from 'prop-types';
 import React from 'react';
@@ -15,7 +15,7 @@ import TermsDetail from 'routes/TermsDetail';
 import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
 import Settings from 'routes/Settings';
-import theme from 'components/tc-communities/communities/cs/theme';
+import theme from 'components/tc-communities/communities/comcast/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
 import ContentfulRoute from 'components/Contentful/Route';
