@@ -61,6 +61,7 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <Link
+          openNewTab={false}
           to="/members/undefined/"
         />
         <div
@@ -113,6 +114,7 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <Link
+          openNewTab={false}
           to="/members/undefined/"
         />
         <div
@@ -165,6 +167,7 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <Link
+          openNewTab={false}
           to="/members/undefined/"
         />
         <div
@@ -217,6 +220,7 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <Link
+          openNewTab={false}
           to="/members/undefined/"
         />
         <div

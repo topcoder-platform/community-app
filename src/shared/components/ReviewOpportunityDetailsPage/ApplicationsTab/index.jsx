@@ -4,6 +4,7 @@
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 
 import { Link } from 'topcoder-react-utils';
 
@@ -34,7 +35,7 @@ const ApplicationsTab = ({ applications }) => (
         && applications.filter(app => app.status !== 'Cancelled').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
-              <Link to={`/members/${app.handle}`}>
+              <Link to={`/members/${app.handle}`} openNewTab={_.includes(window.origin, 'www')}>
                 {app.handle}
               </Link>
             </div>

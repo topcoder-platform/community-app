@@ -1,6 +1,7 @@
 /**
  * Track Component.  Renders the track, champion and their number of wins.
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
@@ -21,7 +22,7 @@ const Track = ({
     {
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.champion}>
-          <Link to={`/members/${member.fields.handle}`}>
+          <Link to={`/members/${member.fields.handle}`} openNewTab={_.includes(window.origin, 'www')}>
             {member.fields.handle}
           </Link>
           <strong>

@@ -1,6 +1,7 @@
 /**
  * Role Component.  Renders the role and list of trip winner.
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
@@ -16,7 +17,7 @@ const Role = ({ data, theme }) => (
     {
       data.members.map(member => (
         <div key={member.fields.handle} className={theme.winner}>
-          <Link to={`/members/${member.fields.handle}`}>
+          <Link to={`/members/${member.fields.handle}`} openNewTab={_.includes(window.origin, 'www')}>
             {member.fields.handle}
           </Link>
         </div>

@@ -14,7 +14,7 @@
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "start": "cross-env BABEL_ENV=production NODE_ENV=production node ./bin/www",
-    "test": "npm run lint && npm run --runInBand jest",
+    "test": "npm run lint && npm run --runInBand jest -- -u",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"

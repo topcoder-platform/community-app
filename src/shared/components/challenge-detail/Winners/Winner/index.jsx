@@ -2,6 +2,7 @@ import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import React from 'react';
 import { config, Link } from 'topcoder-react-utils';
+import _ from 'lodash';
 
 import Lock from '../../icons/lock.svg';
 
@@ -74,6 +75,7 @@ export default function Winner({
             <Link
               to={`/members/${winner.handle}`}
               styleName="handle"
+              openNewTab={_.includes(window.origin, 'www')}
             >
               {winner.handle}
             </Link>

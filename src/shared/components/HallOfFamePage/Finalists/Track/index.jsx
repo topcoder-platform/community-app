@@ -2,6 +2,7 @@
  * Track Component.  Renders the track, winner and list of
  * finalists for the given track of an event.
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
@@ -19,7 +20,7 @@ const Track = ({
     <div className={theme.winner}>
       <img src={data.fields.champion.fields.image.fields.file.url} alt="Winner Portrait" />
       <div>
-        <Link to={`/members/${data.fields.champion.fields.handle}`}>
+        <Link to={`/members/${data.fields.champion.fields.handle}`} openNewTab={_.includes(window.origin, 'www')}>
           {data.fields.champion.fields.handle}
         </Link>
       </div>
@@ -30,7 +31,7 @@ const Track = ({
     {
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.finalist}>
-          <Link to={`/members/${member.fields.handle}`}>
+          <Link to={`/members/${member.fields.handle}`} openNewTab={_.includes(window.origin, 'www')}>
             {member.fields.handle}
           </Link>
         </div>

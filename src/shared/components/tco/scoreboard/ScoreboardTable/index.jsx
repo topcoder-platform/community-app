@@ -20,6 +20,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 
 import codeFields from 'shared/fields/submissionCodeFields.json';
 import designFields from 'shared/fields/submissionDesignFields.json';
@@ -53,7 +54,7 @@ export default function ScoreboardTable(props) {
             {index + 1}
           </td>
           <td styleName="styles.col-handle">
-            <Link to={`/members/${submission.handle}/`}>
+            <Link to={`/members/${submission.handle}/`} openNewTab={_.includes(window.origin, 'www')}>
               {submission.handle}
             </Link>
           </td>

@@ -24,6 +24,7 @@
  *   - isTopGear: Topgear leaderboards have special fileds
  */
 
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
@@ -129,7 +130,11 @@ export default function PodiumSpot(props) {
                   {competitor.handle}
                 </div>
               ) : (
-                <Link styleName={`${stylesName}.profile-link`} to={`/members/${competitor.handle}/`}>
+                <Link
+                  styleName={`${stylesName}.profile-link`}
+                  to={`/members/${competitor.handle}/`}
+                  openNewTab={_.includes(window.origin, 'www')}
+                >
                   {competitor.handle}
                 </Link>
               )
@@ -150,7 +155,11 @@ export default function PodiumSpot(props) {
                     {competitor.handle}
                   </div>
                 ) : (
-                  <Link styleName={`${stylesName}.profile-link`} to={`/members/${competitor.handle}/`}>
+                  <Link
+                    styleName={`${stylesName}.profile-link`}
+                    to={`/members/${competitor.handle}/`}
+                    openNewTab={_.includes(window.origin, 'www')}
+                  >
                     {competitor.handle}
                   </Link>
                 )
