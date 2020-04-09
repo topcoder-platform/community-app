@@ -17,7 +17,7 @@ const Role = ({ data, theme }) => (
     {
       data.members.map(member => (
         <div key={member.fields.handle} className={theme.winner}>
-          <Link to={`/members/${member.fields.handle}`} openNewTab={_.includes(window.origin, 'www')}>
+          <Link to={`/members/${member.fields.handle}`} openNewTab={!_.includes(window.origin, 'www')}>
             {member.fields.handle}
           </Link>
         </div>

@@ -409,7 +409,7 @@ export default class Registrants extends React.Component {
                   }
                   <div styleName="col-3">
                     <span role="cell">
-                      <Link to={`/members/${r.handle}`} style={colorStyle} openNewTab={_.includes(window.origin, 'www')}>
+                      <Link to={`/members/${r.handle}`} style={colorStyle} openNewTab={!_.includes(window.origin, 'www')}>
                         {r.handle}
                       </Link>
                     </span>

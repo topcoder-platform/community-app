@@ -88,7 +88,7 @@ export default function LeaderboardTable(props) {
               ) : (
                 <Link
                   to={`/members/${competitor.handle}/`}
-                  openNewTab={_.includes(window.origin, 'www')}
+                  openNewTab={!_.includes(window.origin, 'www')}
                 >
                   {competitor.handle}
                 </Link>

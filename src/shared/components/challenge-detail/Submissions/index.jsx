@@ -311,7 +311,7 @@ class SubmissionsComponent extends React.Component {
             </a>
             <Link
               to={`/members/${s.submitter}`}
-              openNewTab={_.includes(window.origin, 'www')}
+              openNewTab={!_.includes(window.origin, 'www')}
               styleName={_.get(s, 'colorStyle')}
             >
               {s.submitter}

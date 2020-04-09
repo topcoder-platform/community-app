@@ -22,7 +22,7 @@ const Track = ({
     {
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.champion}>
-          <Link to={`/members/${member.fields.handle}`} openNewTab={_.includes(window.origin, 'www')}>
+          <Link to={`/members/${member.fields.handle}`} openNewTab={!_.includes(window.origin, 'www')}>
             {member.fields.handle}
           </Link>
           <strong>

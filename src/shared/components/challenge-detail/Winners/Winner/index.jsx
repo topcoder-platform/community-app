@@ -75,7 +75,7 @@ export default function Winner({
             <Link
               to={`/members/${winner.handle}`}
               styleName="handle"
-              openNewTab={_.includes(window.origin, 'www')}
+              openNewTab={!_.includes(window.origin, 'www')}
             >
               {winner.handle}
             </Link>

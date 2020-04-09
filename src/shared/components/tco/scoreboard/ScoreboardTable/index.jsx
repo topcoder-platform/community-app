@@ -54,7 +54,7 @@ export default function ScoreboardTable(props) {
             {index + 1}
           </td>
           <td styleName="styles.col-handle">
-            <Link to={`/members/${submission.handle}/`} openNewTab={_.includes(window.origin, 'www')}>
+            <Link to={`/members/${submission.handle}/`} openNewTab={!_.includes(window.origin, 'www')}>
               {submission.handle}
             </Link>
           </td>
