@@ -20,7 +20,7 @@ const Track = ({
     <div className={theme.winner}>
       <img src={data.fields.champion.fields.image.fields.file.url} alt="Winner Portrait" />
       <div>
-        <Link to={`/members/${data.fields.champion.fields.handle}`} openNewTab={!_.includes(window.origin, 'www')}>
+        <Link to={`/members/${data.fields.champion.fields.handle}`} {...(_.includes(window.origin, 'www') ? { openNewTab: true } : '')}>
           {data.fields.champion.fields.handle}
         </Link>
       </div>
@@ -31,7 +31,7 @@ const Track = ({
     {
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.finalist}>
-          <Link to={`/members/${member.fields.handle}`} openNewTab={!_.includes(window.origin, 'www')}>
+          <Link to={`/members/${member.fields.handle}`} {...(_.includes(window.origin, 'www') ? { openNewTab: true } : '')}>
             {member.fields.handle}
           </Link>
         </div>

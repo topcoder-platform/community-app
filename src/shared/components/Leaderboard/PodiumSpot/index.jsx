@@ -133,7 +133,7 @@ export default function PodiumSpot(props) {
                 <Link
                   styleName={`${stylesName}.profile-link`}
                   to={`/members/${competitor.handle}/`}
-                  openNewTab={!_.includes(window.origin, 'www')}
+                  {...(_.includes(window.origin, 'www') ? { openNewTab: true } : '')}
                 >
                   {competitor.handle}
                 </Link>
@@ -158,7 +158,7 @@ export default function PodiumSpot(props) {
                   <Link
                     styleName={`${stylesName}.profile-link`}
                     to={`/members/${competitor.handle}/`}
-                    openNewTab={!_.includes(window.origin, 'www')}
+                    {...(_.includes(window.origin, 'www') ? { openNewTab: true } : '')}
                   >
                     {competitor.handle}
                   </Link>

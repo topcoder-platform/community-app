@@ -37,7 +37,7 @@ export default function Dial({
         `/members/${handle}/details/`
           + `?track=${track}&subTrack=${subTrack}`
       }
-      openNewTab={!_.includes(window.origin, 'www')}
+      {...(_.includes(window.origin, 'www') ? { openNewTab: true } : '')}
       styleName="container"
       key={track + subTrack}
     >

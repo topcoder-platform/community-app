@@ -27,7 +27,6 @@ exports[`Matches shallow shapshot 1`] = `
   <div>
     <Link
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
-      openNewTab={true}
       to="/members/undefined/"
     />
   </div>
@@ -92,7 +91,6 @@ exports[`Matches shallow shapshot 2`] = `
   <div>
     <Link
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
-      openNewTab={true}
       to="/members/undefined/"
     />
   </div>

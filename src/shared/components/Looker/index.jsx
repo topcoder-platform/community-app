@@ -169,7 +169,7 @@ export default class Looker extends Component {
                 }
                 return value ? (
                   <td key={record[prop]} style={fixStyle(styles)} title={value} styleName="body-row">
-                    {memberLinks ? (<Link styleName="handle-link" to={`/members/${value}`} openNewTab={!_.includes(window.origin, 'www')}>{value}</Link>) : value}
+                    {memberLinks ? (<Link styleName="handle-link" to={`/members/${value}`} {...(_.includes(window.origin, 'www') ? { openNewTab: true } : '')}>{value}</Link>) : value}
                   </td>
                 ) : null;
               })
