@@ -39,7 +39,10 @@ docker build -t $TAG \
   --build-arg TC_M2M_AUTH0_PROXY_SERVER_URL=$TC_M2M_AUTH0_PROXY_SERVER_URL \
   --build-arg TC_M2M_AUTH0_URL=$TC_M2M_AUTH0_URL \
   --build-arg AUTH_SECRET=$AUTH_SECRET \
-  --build-arg TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE .
+  --build-arg TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE \
+  --build-arg CONTENTFUL_COMCAST_SPACE_ID=$CONTENTFUL_COMCAST_SPACE_ID \
+  --build-arg CONTENTFUL_COMCAST_CDN_API_KEY=$CONTENTFUL_COMCAST_CDN_API_KEY \
+  --build-arg CONTENTFUL_COMCAST_PREVIEW_API_KEY=$CONTENTFUL_COMCAST_PREVIEW_API_KEY .
 
 # Copies "node_modules" from the created image, if necessary for caching.
 docker create --name app $TAG

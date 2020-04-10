@@ -1,0 +1,157 @@
+/*
+  Theme for Header component used in Comcast site
+*/
+@import '~styles/mixins';
+
+.container {
+  background-color: #2a2a2a;
+  box-shadow: none;
+  min-height: 80px;
+
+  @include lg-to-xl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.challengeDropdown {
+  @include roboto-regular;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 25px;
+  color: $tc-white;
+  text-transform: uppercase;
+
+  :global {
+    .Select-menu-outer {
+      padding-left: 0;
+      padding-right: 0;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+
+      .Select-option {
+        @include roboto-regular;
+
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 30px;
+        text-transform: uppercase;
+        color: #47474f;
+        padding-left: 10px;
+        padding-right: 20px;
+
+        &.is-selected,
+        &:hover {
+          background-color: #dcdce0;
+        }
+      }
+    }
+  }
+
+  @include lg-to-xl {
+    border-left: none;
+    padding-left: 90px;
+  }
+}
+
+.header {
+  .mobileToggle {
+    display: none;
+  }
+
+  .logosWrap {
+    margin-left: 21px;
+    display: flex;
+    align-items: center;
+
+    @include sm-to-md {
+      display: flex;
+      padding-top: 15px;
+      margin-left: 15px;
+    }
+  }
+}
+
+.menuWrap {
+  @include lg-to-xl {
+    max-width: $screen-lg;
+    margin-left: -255px;
+  }
+
+  .menu {
+    display: flex;
+
+    @include sm-to-md {
+      display: flex;
+      padding: 15px;
+      justify-content: flex-start;
+    }
+  }
+
+  .menuItem {
+    margin-right: 30px;
+
+    .menuLink {
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 30px;
+
+      &:hover {
+        color: #43d7b0;
+      }
+    }
+
+    .menuLinkActive {
+      color: #43d7b0;
+    }
+  }
+}
+
+.menuWrapOpen {
+  @include xs-to-md {
+    overflow: visible;
+  }
+}
+
+.userWrap {
+  @include lg-to-xl {
+    margin-right: 30px;
+  }
+
+  @include sm-to-md {
+    display: none;
+  }
+
+  .additionalLogos {
+    @include xs-to-sm {
+      margin: 0;
+    }
+  }
+
+  .userMenu {
+    @include lg-to-xl {
+      display: flex;
+      align-items: center;
+    }
+
+    .userMenuHandle {
+      color: white !important;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 30px;
+      text-decoration: underline;
+    }
+  }
+}
+
+.logo {
+  img {
+    max-height: 34px;
+    margin-right: 20px;
+  }
+}
