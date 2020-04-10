@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { get, _ } from 'lodash';
+import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 
@@ -32,7 +32,7 @@ export default function SubmissionRow({
   }
 
   const getInitialReviewResult = () => {
-    const s = isMM ? get(score, 'provisional', initialScore) : initialScore;
+    const s = isMM ? _.get(score, 'provisional', initialScore) : initialScore;
     if (s && s < 0) return <Failed />;
     switch (status) {
       case 'completed':
@@ -49,7 +49,7 @@ export default function SubmissionRow({
   };
 
   const getFinalReviewResult = () => {
-    const s = isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore;
+    const s = isMM && isReviewPhaseComplete ? _.get(score, 'final', finalScore) : finalScore;
     if (isReviewPhaseComplete) {
       if (s && s < 0) return 0;
       return s;
