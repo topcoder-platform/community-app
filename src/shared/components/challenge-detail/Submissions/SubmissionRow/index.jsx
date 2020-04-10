@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { get } from 'lodash';
+import { get, _ } from 'lodash';
 import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 
@@ -78,7 +78,13 @@ export default function SubmissionRow({
           <span styleName="col" style={colorStyle}>
             {rating || '-'}
           </span>
-          <a styleName="col" href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
+          <a
+            styleName="col"
+            href={`${config.URL.BASE}/member-profile/${member}/develop`}
+            target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+            rel="noopener noreferrer"
+            style={colorStyle}
+          >
             {member || '-'}
           </a>
         </div>

@@ -710,7 +710,13 @@ class SubmissionsComponent extends React.Component {
                   )
                 }
                 <div styleName="col-3">
-                  <a href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle" style={s.colorStyle}>
+                  <a
+                    href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`}
+                    target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                    rel="noopener noreferrer"
+                    styleName="handle"
+                    style={s.colorStyle}
+                  >
                     {s.submitter}
                   </a>
                 </div>
