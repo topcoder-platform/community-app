@@ -620,10 +620,10 @@ export default class Devices extends ConsentComponent {
           </div>
           <div styleName="help-text-container">
             <div styleName="help-text-label">
-                Don&#39;t see your device?
+              Don&#39;t see your device?
             </div>
             <div styleName="help-text-email">
-                Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+              Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
             </div>
           </div>
         </div>
@@ -745,10 +745,10 @@ export default class Devices extends ConsentComponent {
           </div>
           <div styleName="help-text-container">
             <div styleName="help-text-label">
-                Don&#39;t see your device?
+              Don&#39;t see your device?
             </div>
             <div styleName="help-text-email">
-                Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+              Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
             </div>
           </div>
         </div>
