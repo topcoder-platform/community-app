@@ -39,6 +39,7 @@ export default function Dial({
       }
       styleName="container"
       key={track + subTrack}
+      target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
     >
       <p styleName="title" title={title}>
         {_.startCase(title)}

@@ -311,7 +311,7 @@ class SubmissionsComponent extends React.Component {
             </a>
             <a
               href={`${config.URL.BASE}/members/${s.submitter}`}
-              target="_blank"
+              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
               style={_.get(s, 'colorStyle')}
             >

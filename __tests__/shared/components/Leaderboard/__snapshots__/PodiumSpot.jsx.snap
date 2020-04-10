@@ -28,6 +28,7 @@ exports[`Matches shallow shapshot 1`] = `
     <a
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
       href="https://www.topcoder-dev.com/members/undefined/"
+      target="_blank"
     />
   </div>
   <div
@@ -92,6 +93,7 @@ exports[`Matches shallow shapshot 2`] = `
     <a
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
       href="https://www.topcoder-dev.com/members/undefined/"
+      target="_blank"
     />
   </div>
   <div

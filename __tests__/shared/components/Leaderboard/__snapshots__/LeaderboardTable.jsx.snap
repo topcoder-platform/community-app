@@ -62,6 +62,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
@@ -114,6 +115,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
@@ -166,6 +168,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
@@ -218,6 +221,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <a
           href="https://www.topcoder-dev.com/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"

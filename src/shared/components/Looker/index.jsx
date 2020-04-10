@@ -169,7 +169,7 @@ export default class Looker extends Component {
                 }
                 return value ? (
                   <td key={record[prop]} style={fixStyle(styles)} title={value} styleName="body-row">
-                    {memberLinks ? (<a styleName="handle-link" href={`${config.URL.BASE}/members/${value}`}>{value}</a>) : value}
+                    {memberLinks ? (<a styleName="handle-link" href={`${config.URL.BASE}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>{value}</a>) : value}
                   </td>
                 ) : null;
               })

@@ -409,7 +409,11 @@ export default class Registrants extends React.Component {
                   }
                   <div styleName="col-3">
                     <span role="cell">
-                      <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
+                      <a
+                        href={`${config.URL.BASE}/members/${r.handle}`}
+                        style={colorStyle}
+                        target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                      >
                         {r.handle}
                       </a>
                     </span>
