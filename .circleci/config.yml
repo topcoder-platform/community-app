@@ -174,7 +174,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature-private-navigation
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -188,7 +188,6 @@ workflows:
           filters:
             branches:
               only:
-                - comcast-community
                 - hot-fix-accessing-comcast
       # Production builds are exectuted only on tagged commits to the
       # master branch.
