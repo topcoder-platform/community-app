@@ -452,7 +452,7 @@ export class SearchBarInner extends Component {
             value={inputlVal}
             ref={this.setSearchFieldRef}
             type="text"
-            placeholder="Search.."
+            placeholder="Search..."
             onBlur={() => {
               _.delay(() => {
                 this.setState({ isShowSuggestion: false });
