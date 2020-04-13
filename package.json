@@ -14,7 +14,7 @@
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "start": "cross-env BABEL_ENV=production NODE_ENV=production node ./bin/www",
-    "test": "npm run lint && npm run --runInBand jest",
+    "test": "npm run lint && npm run jest",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"
@@ -120,7 +120,7 @@
     "redux-promise": "^0.6.0",
     "request-ip": "^2.0.2",
     "require-context": "^1.1.0",
-    "serialize-javascript": "^1.5.0",
+    "serialize-javascript": "^2.1.1",
     "serve-favicon": "^2.5.0",
     "sharp": "^0.20.5",
     "shortid": "^2.2.8",
