@@ -174,21 +174,21 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - comcast-community
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:
-                - comcast-community
+                - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - develop
+                - comcast-community
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
