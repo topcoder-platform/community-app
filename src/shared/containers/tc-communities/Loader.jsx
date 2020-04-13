@@ -49,9 +49,13 @@ class Loader extends React.Component {
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) and Zurich community visitors. Should be re-factored, but not it is not
      * clear, what exactly do we need to support it in general. */
-    if (communityId === 'wipro' && !visitorGroups) {
+    if ((communityId === 'wipro' || communityId === 'comcast') && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
+      let subpath = 'member';
+      if (communityId === 'wipro') {
+        subpath = 'sso-login/';
+      }
+      window.location = `${config.URL.AUTH}/${subpath}?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
   }
 
@@ -88,7 +92,7 @@ class Loader extends React.Component {
        * while that redirection is handled we want to show page loading
        * placeholder rather than access denied message. In future a more
        * generic implementation of this should be put here. */
-      if (communityId === 'wipro') return <LoadingPagePlaceholder />;
+      if (communityId === 'wipro' || communityId === 'comcast') return <LoadingPagePlaceholder />;
       // Only fo Zurich community we implement special auth system described
       // here: https://github.com/topcoder-platform/community-app/issues/1878
       // at this check specially we allow not authenticated visitos
