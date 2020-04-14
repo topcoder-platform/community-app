@@ -16,10 +16,10 @@ export default function Settings({ base }) {
         .then(({ default: Router }) => <Router base={base} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
-      renderServer={() => {
-        const Router = webpack.requireWeak(path.resolve(__dirname, './Router'));
-        return <Router base={base} />;
-      }}
+      // renderServer={() => {
+      //  const Router = webpack.requireWeak(path.resolve(__dirname, './Router'));
+      //  return <Router base={base} />;
+      //}}
     />
   );
 }
