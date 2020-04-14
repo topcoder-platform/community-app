@@ -174,7 +174,7 @@ workflows:
           filters:
             branches:
               only:
-                - comcast-community
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -188,8 +188,13 @@ workflows:
           filters:
             branches:
               only:
-                - comcast-community
-      # Production builds are exectuted only on tagged commits to the
+                - develop
+      
+      # Production builds are exectuted 
+      # when PR is merged to the master
+      # Don't change anything in this configuration
+      # That might trigger wrong branch to be 
+      # deployed on the production
       # master branch.
       - "build-prod":
           context : org-global      
