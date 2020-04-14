@@ -310,7 +310,7 @@ class SubmissionsComponent extends React.Component {
               {`#${s.submissionId}`}
             </a>
             <a
-              href={`${config.URL.BASE}/members/${s.submitter}`}
+              href={`${window.origin}/members/${s.submitter}`}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
               style={_.get(s, 'colorStyle')}
@@ -711,7 +711,7 @@ class SubmissionsComponent extends React.Component {
                 }
                 <div styleName="col-3">
                   <a
-                    href={`${config.URL.BASE}/member-profile/${s.submitter}/develop`}
+                    href={`${window.origin}/member-profile/${s.submitter}/develop`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     rel="noopener noreferrer"
                     styleName="handle"

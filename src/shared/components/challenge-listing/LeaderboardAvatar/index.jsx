@@ -20,7 +20,7 @@ class LeaderboardAvatar extends Component {
       onClick, openNewTab, plusOne, url,
     } = this.props;
     const { member } = this.state;
-    const targetURL = url || `${config.URL.BASE}/members/${member.handle}`;
+    const targetURL = url || `${window.origin}/members/${member.handle}`;
     let { photoURL } = member;
     if (photoURL) {
       /* Note: 50px is larger than we really need here (the avatar size is

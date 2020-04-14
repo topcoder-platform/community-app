@@ -25,8 +25,6 @@ import _ from 'lodash';
 import codeFields from 'shared/fields/submissionCodeFields.json';
 import designFields from 'shared/fields/submissionDesignFields.json';
 
-import { config } from 'topcoder-react-utils';
-
 import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 
 export default function ScoreboardTable(props) {
@@ -55,7 +53,7 @@ export default function ScoreboardTable(props) {
           </td>
           <td styleName="styles.col-handle">
             <a
-              href={`${config.URL.BASE}/members/${submission.handle}/`}
+              href={`${window.origin}/members/${submission.handle}/`}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             >
               {submission.handle}

@@ -181,14 +181,14 @@ workflows:
           filters:
             branches:
               only:
-                - comcast-community
+                - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - this-is-before-comcast
+                - develop
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":

@@ -6,7 +6,6 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import { config } from 'topcoder-react-utils';
 import moment from 'moment';
 
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
@@ -80,7 +79,7 @@ export default function SubmissionRow({
           </span>
           <a
             styleName="col"
-            href={`${config.URL.BASE}/member-profile/${member}/develop`}
+            href={`${window.origin}/member-profile/${member}/develop`}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             rel="noopener noreferrer"
             style={colorStyle}

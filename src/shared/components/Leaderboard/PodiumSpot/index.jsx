@@ -132,7 +132,7 @@ export default function PodiumSpot(props) {
               ) : (
                 <a
                   styleName={`${stylesName}.profile-link`}
-                  href={`${config.URL.BASE}/members/${competitor.handle}/`}
+                  href={`${window.origin}/members/${competitor.handle}/`}
                   target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                 >
                   {competitor.handle}
@@ -157,7 +157,7 @@ export default function PodiumSpot(props) {
                 ) : (
                   <a
                     styleName={`${stylesName}.profile-link`}
-                    href={`${config.URL.BASE}/members/${competitor.handle}/`}
+                    href={`${window.origin}/members/${competitor.handle}/`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                   >
                     {competitor.handle}

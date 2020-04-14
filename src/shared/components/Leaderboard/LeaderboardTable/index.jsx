@@ -86,7 +86,7 @@ export default function LeaderboardTable(props) {
                   {competitor.handle}
                 </div>
               ) : (
-                <a href={`${config.URL.BASE}/members/${competitor.handle}/`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
+                <a href={`${window.origin}/members/${competitor.handle}/`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
                   {competitor.handle}
                 </a>
               )

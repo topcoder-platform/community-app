@@ -6,7 +6,6 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { themr } from 'react-css-super-themr';
-import { config } from 'topcoder-react-utils';
 
 import defaultStyles from './styles.scss';
 
@@ -21,7 +20,7 @@ const Track = ({
       <img src={data.fields.champion.fields.image.fields.file.url} alt="Winner Portrait" />
       <div>
         <a
-          to={`${config.URL.BASE}/members/${data.fields.champion.fields.handle}`}
+          to={`${window.origin}/members/${data.fields.champion.fields.handle}`}
           target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
         >
           {data.fields.champion.fields.handle}
@@ -35,7 +34,7 @@ const Track = ({
       data.fields.members.map(member => (
         <div key={member.fields.handle} className={theme.finalist}>
           <a
-            to={`${config.URL.BASE}/members/${member.fields.handle}`}
+            to={`${window.origin}/members/${member.fields.handle}`}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
           >
             {member.fields.handle}

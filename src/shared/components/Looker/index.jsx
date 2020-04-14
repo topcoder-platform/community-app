@@ -22,7 +22,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { fixStyle } from 'utils/contentful';
 import cn from 'classnames';
-import { config } from 'topcoder-react-utils';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import './style.scss';
@@ -169,7 +168,7 @@ export default class Looker extends Component {
                 }
                 return value ? (
                   <td key={record[prop]} style={fixStyle(styles)} title={value} styleName="body-row">
-                    {memberLinks ? (<a styleName="handle-link" href={`${config.URL.BASE}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>{value}</a>) : value}
+                    {memberLinks ? (<a styleName="handle-link" href={`${window.origin}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>{value}</a>) : value}
                   </td>
                 ) : null;
               })
