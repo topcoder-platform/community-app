@@ -118,7 +118,8 @@ module.exports = {
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
-
+    PAYMENTPOLICY: 'https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions',
+    RATINGSBONUSES: 'https://www.topcoder.com/thrive/articles/Development%20Reliability%20Ratings%20and%20Bonuses',
     THRIVE: 'https://www.topcoder.com/thrive',
 
     COMMUNITIES: {

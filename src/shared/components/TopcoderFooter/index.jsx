@@ -44,6 +44,12 @@ export default function TopcoderFooter() {
         <Link to={config.URL.HELP}>
           HELP CENTER
         </Link>
+        <Link to={config.URL.PAYMENTPOLICY}>
+          PAYMENT POLICY
+        </Link>
+        <Link to={config.URL.RATINGSBONUSES}>
+          RATINGS & BONUSES
+        </Link>
         <Link to={`${base}/privacy-policy/`}>
           PRIVACY POLICY
         </Link>

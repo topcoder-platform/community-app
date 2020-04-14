@@ -31,6 +31,8 @@ module.exports = {
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+    PAYMENTPOLICY: 'https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions',
+    RATINGSBONUSES: 'https://www.topcoder.com/thrive/articles/Development%20Reliability%20Ratings%20and%20Bonuses',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',
