@@ -8,10 +8,14 @@
   justify-content: space-between;
   height: 100%;
   width: 100%;
-  padding: 20px;
+  padding: 19px 20px 18px 45px;
   border: 1px solid $tc-gray-10;
   border-bottom: none;
   background-color: $tc-white;
+
+  &.isEditing {
+    border: 1px solid $tc-gray-75;
+  }
 }
 
 .device-info {
@@ -24,7 +28,10 @@
 .device-icon {
   height: 49px;
   width: 49px;
-  margin-right: 18px;
+  margin-right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .device-parameters {
@@ -33,8 +40,7 @@
   display: flex;
   flex-direction: column;
   justify-items: center;
-  justify-content: left;
-  font-size: 15px;
+  justify-content: center;
   line-height: 20px;
   padding-right: 20px;
   flex: 1;
@@ -43,21 +49,26 @@
     flex-direction: row;
     align-items: center;
   }
-}
 
-.parameter-first-line {
-  font-weight: 500;
-  color: $tc-black;
-  margin-bottom: 10px;
+  > div:first-child {
+    @include roboto-medium;
 
-  &.single-line {
-    margin-bottom: 0;
+    font-size: 15px !important;
+    letter-spacing: -0.16px !important;
+    color: $tc-black !important;
   }
 }
 
+.parameter-model {
+  margin-bottom: 8px;
+}
+
 .parameter-second-line {
-  color: $tc-gray-50;
-  font-weight: 400;
+  @include roboto-regular;
+
+  font-size: 13px;
+  letter-spacing: -0.14px;
+  color: #888894;
 }
 
 .operation-container {

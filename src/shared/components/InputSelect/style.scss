@@ -1,0 +1,71 @@
+@import '~styles/mixins';
+
+.container {
+  @include roboto-regular;
+
+  position: relative;
+}
+
+.input-container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  border: solid 1px #c3c3c8;
+  background-color: $tc-white;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.input-label {
+  @include roboto-regular;
+
+  flex: 1;
+  margin-left: 10px;
+  color: #262628;
+  font-size: 15px;
+  line-height: 1.33;
+}
+
+.input-placeholder {
+  color: $tc-gray-30;
+}
+
+.input-arrow {
+  width: 20px;
+  margin-top: -3px;
+}
+
+.modal {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 5px 35px 5px rgba(21, 21, 22, 0.1), 0 10px 14px -4px rgba(21, 21, 22, 0.3);
+  background-color: #fff;
+}
+
+.modal-input-container {
+  display: flex;
+  height: 63px;
+  padding: 14px 17px;
+  align-items: center;
+  border-bottom: 1px solid $tc-gray-neutral-dark;
+
+  input {
+    margin-bottom: 0 !important;
+    box-sizing: border-box;
+    border: 1px solid $tc-dark-blue-70 !important;
+  }
+}
+
+.modal-list-container {
+  padding-top: 10px;
+  padding-bottom: 6px;
+  overflow-y: scroll;
+  max-height: 216px;
+}
