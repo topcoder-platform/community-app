@@ -69,8 +69,8 @@ function mapAssetFileUrlToCdn(asset) {
  * Creates a promise that resolves two second after its creation.
  * @return {Promise}
  */
-function threeSecondDelay() {
-  return new Promise(resolve => setTimeout(resolve, 3000));
+function oneSecondDelay() {
+  return new Promise(resolve => setTimeout(resolve, 1000));
 }
 
 /**
@@ -94,6 +94,10 @@ class ApiService {
    * @return {Promise}
    */
   async fetch(endpoint, query) {
+    // Contentful API rate limits, which are 78 requests within 1 second
+    // we await 14ms before each request to make sure we don't break this limitation
+    await new Promise(resolve => setTimeout(resolve, 14));
+    // fire calls to Contentful API
     let url = `${this.private.baseUrl}${endpoint}`;
     if (query) url += `?${qs.stringify(query)}`;
     let res;
@@ -108,7 +112,7 @@ class ApiService {
       });
       /* 429 = "Too Many Requests" */
       if (res.status !== 429) break;
-      await threeSecondDelay();
+      await oneSecondDelay();
       /* eslint-enable no-await-in-loop */
     }
     if (!res.ok) throw new Error(res.statusText);
