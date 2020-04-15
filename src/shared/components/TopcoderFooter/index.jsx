@@ -97,7 +97,7 @@ export default function TopcoderFooter() {
             <div styleName="sep-line" />
             <div styleName="social-icons">
               <a href="https://www.facebook.com/topcoder/" target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
-              <a href="https://www.youtube.com/channel/UCFv29ANLT2FQmtvS9DRixNA" target="_blank" rel="noopener noreferrer"><YouTubeIcon /></a>
+              <a href="https://www.youtube.com/c/TopcoderOfficial" target="_blank" rel="noopener noreferrer"><YouTubeIcon /></a>
               <a href="https://www.linkedin.com/company/topcoder" target="_blank" rel="noopener noreferrer"><LinkedInIcon /></a>
               <a href="https://twitter.com/topcoder" target="_blank" rel="noopener noreferrer"><TwitterIcon /></a>
               <a href="https://www.instagram.com/topcoder" target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
@@ -120,7 +120,7 @@ export default function TopcoderFooter() {
         </div>
         <div styleName="mobile-only social-icons">
           <a href="https://www.facebook.com/topcoder/" target="_blank" rel="noopener noreferrer"><FacebookIcon /></a>
-          <a href="https://www.youtube.com/channel/UCFv29ANLT2FQmtvS9DRixNA" target="_blank" rel="noopener noreferrer"><YouTubeIcon /></a>
+          <a href="https://www.youtube.com/c/TopcoderOfficial" target="_blank" rel="noopener noreferrer"><YouTubeIcon /></a>
           <a href="https://www.linkedin.com/company/topcoder" target="_blank" rel="noopener noreferrer"><LinkedInIcon /></a>
           <a href="https://twitter.com/topcoder" target="_blank" rel="noopener noreferrer"><TwitterIcon /></a>
           <a href="https://www.instagram.com/topcoder" target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
