@@ -79,7 +79,7 @@ export default function SubmissionRow({
           </span>
           <a
             styleName="col"
-            href={`${window.origin}/member-profile/${member}/develop`}
+            href={`${window.origin}/members/${member}`}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             rel="noopener noreferrer"
             style={colorStyle}

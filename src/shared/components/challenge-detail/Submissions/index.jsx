@@ -711,7 +711,7 @@ class SubmissionsComponent extends React.Component {
                 }
                 <div styleName="col-3">
                   <a
-                    href={`${window.origin}/member-profile/${s.submitter}/develop`}
+                    href={`${window.origin}/members/${s.submitter}`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     rel="noopener noreferrer"
                     styleName="handle"
