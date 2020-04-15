@@ -29,7 +29,8 @@
       "url": "/work"
     }, {
       "title": "Learn",
-      "url": "https://www.topcoder.com/thrive"
+      "url": "https://www.topcoder.com/thrive",
+      "openNewTab": true
     }, {
       "title": "Give Back",
       "url": "/give-back"

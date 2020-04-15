@@ -183,6 +183,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -191,7 +192,11 @@ workflows:
               only:
                 - develop
                 - hot-fix-profile-issue
-      # Production builds are exectuted only on tagged commits to the
+      # Production builds are exectuted 
+      # when PR is merged to the master
+      # Don't change anything in this configuration
+      # That might trigger wrong branch to be 
+      # deployed on the production
       # master branch.
       - "build-prod":
           context : org-global      
