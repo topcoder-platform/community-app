@@ -57,11 +57,17 @@ export default function ChallengeFilters({
     setFilterState(filterObj);
   };
 
+  const clearSearch = () => {
+    setFilterState(Filter.setText(filterState, ''));
+    setSearchText('');
+  };
+
   return (
     <div styleName="challenge-filters">
       <div styleName="filter-header">
         <ChallengeSearchBar
           onSearch={text => setFilterState(Filter.setText(filterState, text))}
+          onClearSearch={() => clearSearch()}
           label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
           placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Type the challenge name here'}
           query={searchText}
