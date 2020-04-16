@@ -19,6 +19,7 @@ import ZoomIcon from './ui-zoom.svg';
 
 export default function ChallengeSearchBar({
   onSearch,
+  onClearSearch,
   placeholder,
   query,
   setQuery,
@@ -35,6 +36,13 @@ export default function ChallengeSearchBar({
           type="text"
           value={query}
         />
+        <span
+          styleName={`ClearButton ${query ? 'active' : ''}`}
+          onClick={() => onClearSearch()}
+          onKeyPress={() => onClearSearch()}
+        >
+          &#10799;
+        </span>
         <span
           styleName={`SearchButton ${query ? 'active' : ''}`}
           onClick={() => onSearch(query.trim())}
@@ -56,6 +64,7 @@ ChallengeSearchBar.defaultProps = {
 
 ChallengeSearchBar.propTypes = {
   onSearch: PT.func.isRequired,
+  onClearSearch: PT.func.isRequired,
   label: PT.string,
   placeholder: PT.string,
   query: PT.string.isRequired,
