@@ -67,6 +67,7 @@ export default function AccessDenied(props) {
           <div styleName="msg">
             You are not authorized to access this page.
           </div>
+          {props.children}
         </div>
       );
     case CAUSE.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE:
@@ -94,6 +95,7 @@ AccessDenied.defaultProps = {
   spaceName: null,
   environment: null,
   viewportId: null,
+  children: null,
 };
 
 AccessDenied.propTypes = {
@@ -103,4 +105,5 @@ AccessDenied.propTypes = {
   spaceName: PT.string,
   environment: PT.string,
   viewportId: PT.string,
+  children: PT.node,
 };
