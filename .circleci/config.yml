@@ -182,7 +182,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
                 - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
@@ -191,7 +190,7 @@ workflows:
             branches:
               only:
                 - develop
-                - hot-fix-profile-issue
+                - hotfix-legacy-mm
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

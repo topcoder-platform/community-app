@@ -45,7 +45,8 @@
 .tags {
   display: flex;
   flex-direction: row;
-  margin: 28px 0 15px;
+  margin: 23px 0 15px;
+  flex-wrap: wrap;
 
   @include xs-to-sm {
     margin: 17px 0 7px;
@@ -57,6 +58,7 @@
   border-radius: 5px;
   padding: 4px 6px;
   margin-right: 3px;
+  margin-top: 5px;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 400;
