@@ -183,7 +183,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-contentful
+                - hot-fix-x-button-to-clear-search
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
