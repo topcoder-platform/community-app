@@ -175,7 +175,7 @@ workflows:
             branches:
               only:
                 - develop
-                - hot-fix-profile-issue
+                - hot-fix-show-best-rating-color-in-profile
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -191,7 +191,6 @@ workflows:
             branches:
               only:
                 - develop
-                - hot-fix-profile-issue
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
