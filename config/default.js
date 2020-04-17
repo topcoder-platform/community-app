@@ -182,6 +182,8 @@ module.exports = {
    * parameters that should never be send to the client side. */
   SECRET: {
     CONTENTFUL: {
+      DEFAULT_SPACE_NAME: 'default',
+      DEFAULT_ENVIRONMENT: 'master',
       MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
       default: { // Human-readable name of space
         SPACE_ID: '',
