@@ -44,6 +44,7 @@ $search-input-width: '100% - 56px';
     margin-bottom: 0;
     margin-left: 10px;
     vertical-align: middle;
+    padding-right: 28px;
 
     @include placeholder {
       @include roboto-light;
@@ -83,11 +84,11 @@ $search-input-width: '100% - 56px';
     display: none;
     cursor: pointer;
     position: absolute;
-    right: $challenge-space-60 - 4;
+    right: $challenge-space-60 - 3;
     padding: $base-unit;
     border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
     vertical-align: middle;
-    height: 40px;
+    height: 38px;
     font-size: 25px;
 
     &.active {
