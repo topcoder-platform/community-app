@@ -28,7 +28,7 @@ exports[`Matches shallow shapshot 1`] = `
       className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
     >
       <a
-        href="https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles"
+        href="https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles"
       >
         HELP CENTER
       </a>
