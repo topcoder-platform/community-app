@@ -439,7 +439,7 @@ class ChallengeDetailPageContainer extends React.Component {
               challenge={challenge}
               challengeId={challengeId}
               challengesUrl={challengesUrl}
-              numWinners={!isLegacyMM && winners.length}
+              numWinners={isLegacyMM ? 0 : winners.length}
               showDeadlineDetail={showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={onSelectorClicked}

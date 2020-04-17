@@ -182,7 +182,7 @@ workflows:
             branches:
               only:
                 - develop
-                - hot-fix-show-best-rating-color-in-profile
+                - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
