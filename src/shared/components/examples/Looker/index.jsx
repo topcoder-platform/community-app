@@ -33,11 +33,13 @@ export default function Buttons() {
         lookerId="1146"
         limit="10"
         countRows="true"
+        headerIndexCol: "Rank",
         tableHeight="100px"
         tableWidth="800px"
         table={[
             {
               property: "copilot.handle",
+              memberLinks: "true",
            },
            {
               headerName: "Completed challenges",

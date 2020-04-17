@@ -17,7 +17,7 @@ import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch } from 'react-router-dom';
-import { config } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Article from 'components/Contentful/Article';
@@ -27,11 +27,13 @@ import EDUTracks from 'containers/EDU/Tracks';
 import EDUSearch from 'containers/EDU/Search';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
+import Notifications from './Notifications';
 import Settings from '../Settings';
 import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
 import ProfileStats from '../ProfileStats';
+import MemberSearch from '../../containers/MemberSearch';
 
 import './styles.scss';
 
@@ -60,6 +62,7 @@ export default function Topcoder() {
                 path="/challenges/:challengeId"
               />
               <Route component={ChallengeListing} exact path="/challenges" />
+              <Route component={Notifications} exact path="/notifications" />
               <Route component={Dashboard} exact path="/my-dashboard" />
               <Route
                 component={ReviewOpportunityDetails}
@@ -120,6 +123,11 @@ export default function Topcoder() {
                       render={(data) => {
                         if (_.isEmpty(data.entries.items)) return <Error404 />;
                         const id = data.entries.matches[0].items[0];
+                        const { externalArticle, contentUrl } = data.entries.items[id].fields;
+                        if (externalArticle && contentUrl && isomorphy.isClientSide()) {
+                          window.location.href = contentUrl;
+                          return null;
+                        }
                         return (
                           <Article
                             id={id}
@@ -133,6 +141,11 @@ export default function Topcoder() {
                 }}
                 exact
                 path={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/:articleTitle`}
+              />
+              <Route
+                component={MemberSearch}
+                exact
+                path="/search/members"
               />
               <Error404 />
             </Switch>

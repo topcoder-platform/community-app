@@ -26,13 +26,13 @@ class DataFetch extends React.Component {
     if (loading) {
       return (
         <div>
-Loading...
+          Loading...
         </div>
       );
     }
     return (
       <div>
-Initial State: no data, and not loading yet.
+        Initial State: no data, and not loading yet.
       </div>
     );
   }

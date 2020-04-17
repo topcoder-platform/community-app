@@ -112,9 +112,15 @@ $podium-border-color: #ededf2;
   color: #744117;
 }
 
+.PodiumSpot--fourth .ranking {
+  background-color: #8dccd4;
+  color: #744117;
+}
+
 .PodiumSpot--first,
 .PodiumSpot--second,
-.PodiumSpot--third {
+.PodiumSpot--third,
+.PodiumSpot--fourth {
   margin-top: 0;
 
   .leaderboard-avatar {
@@ -126,7 +132,8 @@ $podium-border-color: #ededf2;
 @include md-to-lg {
   .PodiumSpot--first .leaderboard-avatar,
   .PodiumSpot--second .leaderboard-avatar,
-  .PodiumSpot--third .leaderboard-avatar {
+  .PodiumSpot--third .leaderboard-avatar,
+  .PodiumSpot--fourth .leaderboard-avatar {
     height: 96px;
     width: 96px;
   }
@@ -135,7 +142,8 @@ $podium-border-color: #ededf2;
 @include xl {
   .PodiumSpot--first .leaderboard-avatar,
   .PodiumSpot--second .leaderboard-avatar,
-  .PodiumSpot--third .leaderboard-avatar {
+  .PodiumSpot--third .leaderboard-avatar,
+  .PodiumSpot--fourth .leaderboard-avatar {
     height: 128px;
     width: 128px;
   }

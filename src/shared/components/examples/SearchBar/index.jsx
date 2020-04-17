@@ -8,7 +8,7 @@ export default function SearchBarExample() {
   return (
     <div styleName="container">
       <h1>
-      SearchBar Preview
+        SearchBar Preview
       </h1>
       <SearchBar AutoSuggestList={AutoSuggestList} />
     </div>

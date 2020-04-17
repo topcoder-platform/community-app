@@ -12,18 +12,29 @@ export default function TrackIcon({
   tcoEligible,
   isDataScience,
   MAIN_URL,
-  challengeType,
+  challengesUrl,
 }) {
   const TCO_URL = `${MAIN_URL}/tco`;
   return (
     <span styleName="trackIcon">
-      <div styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}>
-        {subTrack ? Abbreviation[track][subTrack] : ''}
-        {challengeType ? challengeType.abbreviation : ''}
-      </div>
+      {challengesUrl ? (
+        <a
+          href={`${challengesUrl}?filter[subtracks][0]=${
+            encodeURIComponent(subTrack)}`}
+          styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}
+        >
+          {Abbreviation[track][subTrack]}
+        </a>
+      ) : (
+        <div
+          styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}
+        >
+          {Abbreviation[track][subTrack]}
+        </div>
+      )}
       <a href={`${TCO_URL}`}>
         <div styleName={tcoEligible ? `${(isDataScience ? 'data_science' : track.toLowerCase())} tco-icon` : 'hidden'}>
-TCO
+          TCO
         </div>
       </a>
     </span>
@@ -34,17 +45,14 @@ TrackIcon.defaultProps = {
   isDataScience: false,
   MAIN_URL: config.URL.BASE,
   tcoEligible: '',
-  subTrack: '',
-  challengeType: null,
+  challengesUrl: '',
 };
 
 TrackIcon.propTypes = {
   isDataScience: PT.bool,
   tcoEligible: PT.string,
   track: PT.string.isRequired,
-  subTrack: PT.string,
+  subTrack: PT.string.isRequired,
   MAIN_URL: PT.string,
-  challengeType: PT.shape({
-    abbreviation: PT.string,
-  }),
+  challengesUrl: PT.string,
 };

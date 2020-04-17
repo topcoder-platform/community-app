@@ -9,7 +9,7 @@ export default function LoadingIndicators() {
   return (
     <div styleName="style.page">
       <h1>
-Loading Indicators
+        Loading Indicators
       </h1>
       <p>
         Demo of loading indicators we have in the code base. At the moment we

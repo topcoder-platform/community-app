@@ -5,10 +5,10 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
+import ReactSVG from 'react-svg';
+import { Link, isomorphy } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
-import DefaultPortrait from 'assets/images/ico-user-default.svg';
 import LeftArrow from 'assets/images/arrow-prev.svg';
 import {
   shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails,
@@ -20,6 +20,10 @@ import StatsModal from './StatsModal';
 import SRMStats from './SRMStats';
 import SubTrackChallengeView from './SubTrackChallengeView';
 
+let assets;
+if (isomorphy.isClientSide()) {
+  assets = require.context('assets/images', false, /svg/);
+}
 
 class ProfileStats extends React.Component {
   constructor(props) {
@@ -45,9 +49,7 @@ class ProfileStats extends React.Component {
 
   render() {
     const {
-      stats,
       statsDistribution,
-      statsHistory,
       track,
       subTrack,
       tab: activeTab,
@@ -55,6 +57,15 @@ class ProfileStats extends React.Component {
       handleParam,
       activeChallengesCount,
     } = this.props;
+    let { stats, statsHistory } = this.props;
+    if (_.isArray(stats)) {
+      // eslint-disable-next-line prefer-destructuring
+      stats = stats[0];
+    }
+    if (_.isArray(statsHistory)) {
+      // eslint-disable-next-line prefer-destructuring
+      statsHistory = statsHistory[0];
+    }
 
     const { activeGraph, showModal } = this.state;
 
@@ -109,7 +120,7 @@ class ProfileStats extends React.Component {
                     {activeChallengesCount}
                   </div>
                   <div styleName="title">
-Active Challenges
+                    Active Challenges
                   </div>
                 </div>
                 {
@@ -144,16 +155,16 @@ Active Challenges
                 && (
                   <li key={info.handle}>
                     <div>
-                      { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
+                      { info.photoURL ? <img src={info.photoURL} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <ReactSVG path={assets('./ico-user-default.svg')} /> }
                     </div>
                     <div
                       styleName="valueHandle"
                       className={subTrackRating ? styles.rating : ''}
                       style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.toString().replace(/\D/g, ''), 10)) : undefined }}
                     >
-                      <Link to={`/members/${info.handle}`}>
+                      <a href={`/members/${info.handle}`} target="_blank" rel="noopener noreferrer">
                         {info.handle || '-'}
-                      </Link>
+                      </a>
                     </div>
                   </li>
                 )
@@ -239,7 +250,7 @@ Active Challenges
                     && (
                     <div styleName="details">
                       <h2>
-Details
+                        Details
                       </h2>
                       {
                         subTrack !== 'SRM'
@@ -291,19 +302,20 @@ ProfileStats.defaultProps = {
   statsDistribution: null,
   statsHistory: null,
   activeChallengesCount: null,
+  achievements: null,
 };
 
 ProfileStats.propTypes = {
-  stats: PT.shape().isRequired,
+  stats: PT.arrayOf(PT.shape()).isRequired,
   handleParam: PT.string.isRequired,
   track: PT.string.isRequired,
   subTrack: PT.string.isRequired,
   tab: PT.string,
   info: PT.shape().isRequired,
   statsDistribution: PT.shape(),
-  statsHistory: PT.shape(),
+  statsHistory: PT.arrayOf(PT.shape()),
   activeChallengesCount: PT.number,
-  achievements: PT.shape().isRequired,
+  achievements: PT.arrayOf(PT.shape()),
 };
 
 export default ProfileStats;

@@ -1,39 +1,22 @@
 import _ from 'lodash';
-import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
-import { convertNow as convertMoney } from 'services/money';
 import { config, Link } from 'topcoder-react-utils';
 import { isMM, isDevelopMM } from 'utils/challenge';
+import {
+  getEndDate,
+  PRIZE_MODE,
+  getPrizePurseUI,
+  getPrizePointsUI,
+} from 'utils/challenge-detail/helper';
 
 import Tags from '../Tags';
 
-import Prize from './Prize';
 import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
-
-export const PRIZE_MODE = {
-  HIDDEN: 'hidden',
-  MONEY_EUR: 'money-eur',
-  MONEY_INR: 'money-inr',
-  MONEY_USD: 'money-usd',
-};
-
-// Constants
-
-// Get the End date of a challenge
-const getEndDate = (c) => {
-  const allPhases = c.allPhases || c.phases || [];
-  let phases = allPhases;
-  if (c.subTrack === 'FIRST_2_FINISH' && c.status === 'COMPLETED') {
-    phases = allPhases.filter(p => p.name === 'Iterative Review' && !p.isActive);
-  }
-  const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
-  return moment(endPhaseDate).format('MMM DD');
-};
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
  * able to modify an argument: it aliases challenge prop, then mutates it in
@@ -52,6 +35,7 @@ function ChallengeCard({
   sampleWinnerProfile,
   selectChallengeDetailsTab,
   userHandle,
+  domRef,
 }) {
   const challenge = passedInChallenge;
   const {
@@ -74,44 +58,8 @@ function ChallengeCard({
   const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isActive : false;
 
-  /* Preparation of data to show in the prize component,
-   * depending on options. */
-  const bonuses = [];
-  if (challenge.reliabilityBonus) {
-    bonuses.push({
-      name: 'Reliability',
-      prize: challenge.reliabilityBonus,
-    });
-  }
-  let prizeUnitSymbol = '';
-  let { prizes } = challenge;
-  let totalPrize;
-  switch (prizeMode) {
-    case PRIZE_MODE.MONEY_EUR:
-      prizeUnitSymbol = '€';
-      bonuses.forEach((bonus) => {
-        bonus.prize = Math.round(convertMoney(bonus.prize, 'EUR')); // eslint-disable-line no-param-reassign
-      });
-      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'EUR'));
-      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'EUR')));
-      break;
-    case PRIZE_MODE.MONEY_INR:
-      prizeUnitSymbol = '₹';
-      bonuses.forEach((bonus) => {
-        bonus.prize = Math.round(convertMoney(bonus.prize, 'INR')); // eslint-disable-line no-param-reassign
-      });
-      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'INR'));
-      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'INR')));
-      break;
-    case PRIZE_MODE.MONEY_USD:
-      prizeUnitSymbol = '$';
-      ({ totalPrize } = challenge);
-      break;
-    default: throw new Error('Unknown prize mode!');
-  }
-
   return (
-    <div styleName="challengeCard">
+    <div ref={domRef} styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip track={challenge.track} challengeType={challenge.challengeType}>
@@ -150,29 +98,8 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {
-            totalPrize >= 1
-              && (
-              <Prize
-                bonuses={bonuses}
-                label="Purse"
-                prizes={prizes}
-                prizeUnitSymbol={prizeUnitSymbol}
-                totalPrize={totalPrize}
-              />
-              )
-          }
-          {
-            challenge.pointPrizes && challenge.pointPrizes.length > 0
-              && (
-              <Prize
-                label="Points"
-                prizes={challenge.pointPrizes}
-                prizeUnitSymbol=""
-                totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
-              />
-              )
-          }
+          {getPrizePurseUI(challenge, prizeMode)}
+          {getPrizePointsUI(challenge)}
         </div>
 
         <ChallengeStatus
@@ -200,6 +127,7 @@ ChallengeCard.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
+  domRef: null,
 };
 
 ChallengeCard.propTypes = {
@@ -214,6 +142,7 @@ ChallengeCard.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  domRef: PT.func,
 };
 
 export default ChallengeCard;

@@ -1,0 +1,180 @@
+@import '~styles/mixins';
+
+.wrapper {
+  @include roboto-medium;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 13px;
+  overflow: hidden;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+
+  button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    padding: 0;
+    background: transparent;
+  }
+}
+
+.table-header {
+  background: #fafafb;
+  justify-content: center;
+  position: relative;
+}
+
+.table-title {
+  display: flex;
+}
+
+.table-row {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  border: 1px solid #ededf2;
+  border-bottom: none;
+
+  &:last-child {
+    border-bottom: 1px solid #ededf2;
+  }
+}
+
+.btn-back {
+  position: absolute;
+  left: 22px;
+
+  * {
+    color: $tc-dark-blue;
+  }
+}
+
+.back-icon {
+  width: 12px;
+  margin-right: 1px;
+  margin-bottom: -1px;
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+
+  :global {
+    g {
+      fill: $tc-dark-blue;
+    }
+  }
+}
+
+.title-detail {
+  color: $tc-dark-blue;
+  margin-left: 2px;
+}
+
+.table-tabs {
+  background: rgba(26, 133, 255, 0.05);
+}
+
+.tab-item {
+  width: 141px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border-right: 1px solid #ededf2;
+
+  &.tab-item-selected {
+    background: $tc-white;
+  }
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.column-1 {
+  color: $tc-dark-blue;
+  padding-left: 22px;
+}
+
+.table-content-header {
+  color: $tc-black;
+
+  .column-1 {
+    color: $tc-black;
+  }
+}
+
+.table-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+
+  &.column-1 {
+    justify-content: flex-start;
+  }
+}
+
+.table-content-footer {
+  .column-1 {
+    color: $tc-black;
+  }
+}
+
+.col-arrow {
+  display: flex;
+  padding-left: 5px;
+  margin-right: -19px;
+
+  :global {
+    svg {
+      margin-bottom: 1px;
+      height: 8px;
+    }
+  }
+}
+
+.col-arrow-is-sorting {
+  :global {
+    g {
+      fill: $tc-dark-blue;
+    }
+  }
+}
+
+.col-arrow-sort-asc {
+  :global {
+    svg {
+      -moz-transform: scale(1, -1);
+      -o-transform: scale(1, -1);
+      -webkit-transform: scale(1, -1);
+      transform: scale(1, -1);
+    }
+  }
+}
+
+.header-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    color: $tc-dark-blue;
+
+    :global {
+      g {
+        fill: $tc-dark-blue;
+      }
+    }
+  }
+}
+
+button.is-highlight,
+.is-highlight {
+  background: rgba(26, 133, 255, 0.05);
+}

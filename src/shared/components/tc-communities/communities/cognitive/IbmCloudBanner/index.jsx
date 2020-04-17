@@ -26,7 +26,7 @@ export default function IbmCloudBanner({
         <h1
           styleName="text"
         >
-IBM Bluemix is Now IBM Cloud!
+          IBM Bluemix is Now IBM Cloud!
         </h1>
       </div>
       <PrimaryButton
@@ -36,7 +36,7 @@ IBM Bluemix is Now IBM Cloud!
         }}
         to={to}
       >
-Learn More
+        Learn More
       </PrimaryButton>
     </div>
   );

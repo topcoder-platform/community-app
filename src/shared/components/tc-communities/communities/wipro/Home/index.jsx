@@ -199,7 +199,7 @@ export default function Home(props) {
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
           >
-View All Public Challenges
+            View All Public Challenges
           </Link>
         </div>
       </Section>

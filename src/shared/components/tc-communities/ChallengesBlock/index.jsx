@@ -18,7 +18,7 @@ export default function ChallengesBlock({
   return (
     <div styleName="container">
       <h1 styleName="title">
-Active Challenges
+        Active Challenges
       </h1>
       <div styleName="list">
         {
@@ -34,7 +34,7 @@ Active Challenges
       <PrimaryButton
         to={`${baseUrl}/challenges`}
       >
-Browse all challenges
+        Browse all challenges
       </PrimaryButton>
     </div>
   );

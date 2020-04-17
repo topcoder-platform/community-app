@@ -68,7 +68,7 @@ class MenuLoaderContainer extends React.Component {
 
   render() {
     const {
-      menu, auth, loading, menuLogo,
+      menu, auth, loading, menuLogo, fields,
     } = this.props;
     const { openMore, path, activeLevel1Id } = this.state;
     if (loading) {
@@ -78,56 +78,46 @@ class MenuLoaderContainer extends React.Component {
       // eslint-disable-next-line global-require
       const { TopNav, LoginNav } = require('navigation-component');
       const logoToUse = !_.isEmpty(menuLogo) ? <img src={menuLogo.fields.file.url} alt="menu logo" /> : <Logo />;
+      const menuTheme = fields.theme.split('- ');
+      const comboMenu = _.flatten(_.map(menu, menuItem => menuItem.subMenu));
+      // This is a hack fix that should be removed when possible!
+      // Its orifing is in the https://github.com/topcoder-platform/navigation-component module
+      // which breaks if there is NOT an menu item with id = `community`
+      comboMenu[0].id = 'community';
+      let normalizedProfile = auth.profile && _.clone(auth.profile);
+      if (auth.profile) {
+        normalizedProfile.photoURL = (_.has(auth.profile, 'photoURL') && auth.profile.photoURL !== null)
+          ? `${config.CDN.PUBLIC}/avatar/${encodeURIComponent(auth.profile.photoURL)}?size=32` : '';
+      } else {
+        normalizedProfile = null;
+      }
       return (
         <div>
           <TopNav
-            menu={menu}
+            menu={comboMenu}
+            rightMenu={(
+              <LoginNav
+                loggedIn={!_.isEmpty(auth.profile)}
+                notificationButtonState="none"
+                notifications={[]}
+                accountMenu={config.ACCOUNT_MENU}
+                switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
+                onSwitch={this.handleSwitchMenu}
+                onMenuOpen={this.handleCloseOpenMore}
+                profile={normalizedProfile}
+                auth={auth}
+                authURLs={config.HEADER_AUTH_URLS}
+              />
+            )}
             logo={logoToUse}
+            theme={menuTheme[1]}
             currentLevel1Id={activeLevel1Id}
             onChangeLevel1Id={this.handleChangeLevel1Id}
             path={path}
             openMore={openMore}
             setOpenMore={this.handleChangeOpenMore}
             loggedIn={!_.isEmpty(auth.profile)}
-            // profileHandle={auth.profile ? auth.profile.handle : ''}
-            rightMenu={(
-              <LoginNav
-                loggedIn={!_.isEmpty(auth.profile)}
-                notificationButtonState="none"
-                notifications={[]}
-                accountMenu={[
-                  {
-                    title: 'Settings',
-                    href: '/settings/profile',
-                  },
-                  { separator: true },
-                  {
-                    title: 'Help',
-                    href: config.URL.HELP,
-                  },
-                  {
-                    title: 'About Topcoder',
-                    href: `${config.URL.BASE}/about/`,
-                  },
-                  {
-                    title: 'Log Out',
-                    href: `${config.URL.BASE}/logout`,
-                  },
-                ]}
-                switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
-                onSwitch={this.handleSwitchMenu}
-                onMenuOpen={this.handleCloseOpenMore}
-                showNotification={false}
-                profile={{
-                  ...auth.profile,
-                  roles: auth.user ? auth.user.roles : [],
-                }}
-                authURLs={{
-                  href: `${config.URL.AUTH}/member/registration?utm_source=community-app-main`,
-                  location: `${config.URL.AUTH}/member?retUrl=%S&utm_source=community-app-main`,
-                }}
-              />
-            )}
+            profileHandle={auth.profile ? auth.profile.handle : ''}
           />
         </div>
       );

@@ -39,7 +39,7 @@ function Checkpoints(props) {
       </div>
       <div styleName="challenge-checkpoint-detail">
         <h2>
-Checkpoint Winners & General Feedback
+          Checkpoint Winners & General Feedback
         </h2>
         <p
           dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
@@ -59,10 +59,10 @@ Checkpoint Winners & General Feedback
               >
                 <span>
                   <span styleName="feedback-text">
-Feedback
+                    Feedback
                     {' '}
                   </span>
-#
+                  #
                   {item.submissionId}
                 </span>
                 <span styleName="challenge-checkpoint-expander">

@@ -43,7 +43,11 @@ const isActiveSubtrack = (subtrack) => {
 
 class StatsCategory extends React.Component {
   getActiveTracks() {
-    const { stats } = this.props;
+    let { stats } = this.props;
+    if (_.isArray(stats)) {
+      // eslint-disable-next-line prefer-destructuring
+      stats = stats[0];
+    }
     const activeTracks = [];
 
     if (stats.COPILOT && stats.COPILOT.fulfillment) {
@@ -60,10 +64,10 @@ class StatsCategory extends React.Component {
       const active = [];
       const subTracks = stats[track] ? stats[track].subTracks || [] : [];
 
-      if (stats[track].SRM) {
+      if (stats[track] && stats[track].SRM) {
         subTracks.push({ ...stats[track].SRM, name: 'SRM' });
       }
-      if (stats[track].MARATHON_MATCH) {
+      if (stats[track] && stats[track].MARATHON_MATCH) {
         subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
       }
 
@@ -132,7 +136,7 @@ class StatsCategory extends React.Component {
                           {subtrack.rank.rating}
                         </div>
                         <div styleName="tag">
-Rating
+                          Rating
                         </div>
                       </div>
                       )
@@ -146,7 +150,7 @@ Rating
                           {subtrack.wins ? subtrack.wins : 0}
                         </div>
                         <div styleName="tag">
-Wins
+                          Wins
                         </div>
                       </div>
                       )
@@ -159,7 +163,7 @@ Wins
                           {`${subtrack.fulfillment}%`}
                         </div>
                         <div styleName="tag">
-Fulfillment
+                          Fulfillment
                         </div>
                       </div>
                       )
@@ -183,7 +187,10 @@ StatsCategory.defaultProps = {
 
 StatsCategory.propTypes = {
   handle: PT.string.isRequired,
-  stats: PT.shape().isRequired,
+  stats: PT.oneOfType([
+    PT.arrayOf(PT.shape()),
+    PT.shape(),
+  ]).isRequired,
   inModal: PT.bool,
   className: PT.string,
 };
