@@ -103,9 +103,9 @@ class ProfileStats extends React.Component {
           <div styleName="page-state-header">
             <header>
               <div styleName="page-info">
-                <Link to={`/members/${handleParam}`}>
+                <a to={`${window.origin}/members/${handleParam}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
                   <LeftArrow styleName="left-arrow" />
-                </Link>
+                </a>
                 &nbsp;
                 <h1>
                   {subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}

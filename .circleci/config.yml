@@ -174,7 +174,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
                 - feature-private-navigation
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -182,7 +181,7 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix-x-button-to-clear-search
+                - hot-fix-show-best-rating-color-in-profile
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
