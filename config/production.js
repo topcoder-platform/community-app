@@ -189,7 +189,7 @@ module.exports = {
     { separator: true },
     {
       title: 'Help',
-      href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+      href: '/thrive/tracks?track=Topcoder',
     },
     { separator: true },
     {
