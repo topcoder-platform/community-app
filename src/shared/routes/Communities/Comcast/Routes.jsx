@@ -33,7 +33,7 @@ export default function CS({ base, meta }) {
             <Switch>
               <Route
                 component={() => ChallengeListing({
-                  challengesUrl: `${base}/challenges`,
+                  challengesUrl: `${base}/work`,
                   listingOnly: true,
                   meta,
                   newChallengeDetails: true,
@@ -44,7 +44,7 @@ export default function CS({ base, meta }) {
               <Route
                 component={routeProps => ChallengeDetails({
                   ...routeProps,
-                  challengesUrl: `${base}/challenges`,
+                  challengesUrl: `${base}/work`,
                   communityId: meta.communityId,
                 })}
                 exact
@@ -53,7 +53,7 @@ export default function CS({ base, meta }) {
               <Route
                 component={routeProps => Submission({
                   ...routeProps,
-                  challengesUrl: `${base}/challenges`,
+                  challengesUrl: `${base}/work`,
                 })}
                 exact
                 path={`${base}/work/:challengeId(\\d{8}|\\d{5})/submit`}
@@ -61,7 +61,7 @@ export default function CS({ base, meta }) {
               <Route
                 component={routeProps => SubmissionManagement({
                   ...routeProps,
-                  challengesUrl: `${base}/challenges`,
+                  challengesUrl: `${base}/work`,
                 })}
                 exact
                 path={`${base}/work/:challengeId(\\d{8}|\\d{5})/my-submissions`}

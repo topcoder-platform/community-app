@@ -12,9 +12,7 @@ import Accordion from 'components/Settings/Accordion';
 import LoadingIndicator from 'components/LoadingIndicator';
 import EmailIcon from 'assets/images/preferences/email.svg';
 import Forum from 'assets/images/preferences/forum.svg';
-import Invletter from 'assets/images/preferences/invletter.svg';
 import Payment from 'assets/images/preferences/payment.svg';
-import Referral from 'assets/images/preferences/referral.svg';
 import SideBar from 'components/Settings/SideBar';
 import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import Email from './Email';
@@ -26,16 +24,12 @@ const tabs = {
   EMAIL: 'e-mail',
   FORUM: 'forum',
   PAYMENT: 'payment',
-  LETTER: 'invitation letter',
-  REFERRALS: 'referrals',
 };
 
 const icons = {
   'e-mail': <EmailIcon />,
   forum: <Forum />,
   payment: <Payment />,
-  'invitation letter': <Invletter />,
-  referrals: <Referral />,
 };
 
 export default class Preferences extends React.Component {
@@ -96,10 +90,6 @@ export default class Preferences extends React.Component {
         return (window.location.href = `${config.URL.FORUMS}/?module=Settings`) && <LoadingIndicator />;
       case 'payment':
         return (window.location.href = `${config.URL.COMMUNITY}/tc?module=EditPaymentPreferences`) && <LoadingIndicator />;
-      case 'invitation letter':
-        return (window.location.href = `${config.URL.COMMUNITY}/tc?module=VisaSelection`) && <LoadingIndicator />;
-      case 'referrals':
-        return (window.location.href = `${config.URL.COMMUNITY}/tc?module=ViewReferrals`) && <LoadingIndicator />;
       default:
         return null;
     }

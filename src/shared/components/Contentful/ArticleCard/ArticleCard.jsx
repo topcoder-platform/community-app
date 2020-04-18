@@ -128,14 +128,14 @@ class ArticleCard extends React.Component {
     const title = (
       themeName === 'Article small'
       && article.title.length > ART_SMALL_TITLE_MAX_LENGTH)
-      ? `${article.title.substring(0, ART_SMALL_TITLE_MAX_LENGTH)}..`
+      ? `${article.title.substring(0, ART_SMALL_TITLE_MAX_LENGTH)}...`
       : article.title;
 
     // truncate content for 'Article large' cards
     const content = (
       (themeName === 'Article large' || themeName === 'Recommended')
       && article.content.length > CONTENT_PREVIEW_LENGTH)
-      ? markdown(`${article.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`)
+      ? markdown(`${article.content.substring(0, CONTENT_PREVIEW_LENGTH)}...`)
       : undefined;
 
     // set the correct format to apply to the `article.creationDate`

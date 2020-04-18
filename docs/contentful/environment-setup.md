@@ -37,3 +37,5 @@ To run Community App locally against your Contentful account:
     $ source ./set-contentful-env.sh
     $ NODE_CONFIG_ENV=development npm run dev
     ```
+
+    We have prepared a demo env file you could use to start. You can find it [here](https://gist.github.com/kkartunov/594dc65f76bac6aa800b4764cae72d2e).
