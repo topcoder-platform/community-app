@@ -23,20 +23,8 @@ exports[`renders preferences setting page correctly 1`] = `
             width="30"
             xmlns="http://www.w3.org/2000/svg"
           />,
-          "invitation letter": <Invletter
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
-            xmlns="http://www.w3.org/2000/svg"
-          />,
           "payment": <Payment
             viewBox="0 0 34 30"
-            xmlns="http://www.w3.org/2000/svg"
-          />,
-          "referrals": <Referral
-            height="30"
-            viewBox="0 0 30 30"
-            width="30"
             xmlns="http://www.w3.org/2000/svg"
           />,
         }
@@ -46,8 +34,6 @@ exports[`renders preferences setting page correctly 1`] = `
           "e-mail",
           "forum",
           "payment",
-          "invitation letter",
-          "referrals",
         ]
       }
       toggle={[Function]}
