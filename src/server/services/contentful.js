@@ -66,7 +66,7 @@ class ApiService {
    */
   async getAsset(id) {
     const res = await this.client.getAsset(id);
-    return res;
+    return res.stringifySafe ? JSON.parse(res.stringifySafe()) : res;
   }
 
   /**
@@ -74,8 +74,9 @@ class ApiService {
    * @param {String} id Entry ID.
    * @return {Promise}
    */
-  getEntry(id) {
-    return this.client.getEntry(id);
+  async getEntry(id) {
+    const res = await this.client.getEntry(id);
+    return res.stringifySafe ? JSON.parse(res.stringifySafe()) : res;
   }
 
   /**
@@ -85,7 +86,7 @@ class ApiService {
    */
   async queryAssets(query) {
     const res = await this.client.getAssets(query);
-    return res;
+    return res.stringifySafe ? JSON.parse(res.stringifySafe()) : res;
   }
 
   /**
@@ -93,8 +94,9 @@ class ApiService {
    * @param {Object} query Optional. Query for filtering / sorting of entries.
    * @return {Promise}
    */
-  queryEntries(query) {
-    return this.client.getEntries(query);
+  async queryEntries(query) {
+    const res = await this.client.getEntries(query);
+    return res.stringifySafe ? JSON.parse(res.stringifySafe()) : res;
   }
 }
 
