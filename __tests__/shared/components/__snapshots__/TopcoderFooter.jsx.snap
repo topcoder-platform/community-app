@@ -5,53 +5,6 @@ exports[`Matches shallow shapshot 1`] = `
   className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
   role="contentinfo"
 >
-  <ol>
-    <li
-      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-    >
-      <a
-        href="https://www.topcoder-dev.com/community/learn"
-      >
-        ABOUT US
-      </a>
-    </li>
-    <li
-      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-    >
-      <a
-        href="https://www.topcoder-dev.com/community/contact"
-      >
-        CONTACT US
-      </a>
-    </li>
-    <li
-      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-    >
-      <a
-        href="https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles"
-      >
-        HELP CENTER
-      </a>
-    </li>
-    <li
-      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-    >
-      <a
-        href="https://www.topcoder-dev.com/privacy-policy/"
-      >
-        PRIVACY POLICY
-      </a>
-    </li>
-    <li
-      className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-    >
-      <a
-        href="https://www.topcoder-dev.com/community/how-it-works/terms/"
-      >
-        TERMS
-      </a>
-    </li>
-  </ol>
   <div
     className="src-shared-components-TopcoderFooter-___style__footer-wrap___39_Lp"
   >
