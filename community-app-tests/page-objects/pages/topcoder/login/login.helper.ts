@@ -91,11 +91,6 @@ export class LoginPageHelper {
    * @param {HomePage} homePage
    */
   public static async verifyHomePage(homePage: HomePage) {
-    await BrowserHelper.waitUntilVisibilityOf(
-      homePage.container,
-      appconfig.Timeout.PageLoad,
-      appconfig.LoggerErrors.PageLoad
-    );
     CommonHelper.verifyCurrentUrl(ConfigHelper.getHomePageUrl());
     logger.info("User redirected to home-page");
   }

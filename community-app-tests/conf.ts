@@ -1,7 +1,6 @@
-import { browser } from "protractor";
-
 import reporters = require("jasmine-reporters");
 import HtmlReporter = require("protractor-beautiful-reporter");
+import { BrowserHelper } from "topcoder-testing-lib";
 
 declare global {
   namespace NodeJS {
@@ -47,8 +46,8 @@ exports.config = {
   },
 
   onPrepare: () => {
-    browser.manage().window().maximize();
-    browser.manage().timeouts().implicitlyWait(5000);
+    BrowserHelper.maximize();
+    BrowserHelper.implicitlyWait(5000);
     const junitReporter = new reporters.JUnitXmlReporter({
       consolidateAll: false,
       savePath: "test-results",
