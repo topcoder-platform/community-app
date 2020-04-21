@@ -9,6 +9,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
   >
     <ChallengeSearchBar
       label="Search Challenges:"
+      onClearSearch={[Function]}
       onSearch={[Function]}
       placeholder="Type the challenge name here"
       query=""
@@ -100,6 +101,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
   >
     <ChallengeSearchBar
       label="Search Challenges:"
+      onClearSearch={[Function]}
       onSearch={[Function]}
       placeholder="Type the challenge name here"
       query=""

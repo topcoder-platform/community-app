@@ -18,6 +18,13 @@ exports[`Matches shallow shapshot 1`] = `
       value="query"
     />
     <span
+      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ClearButton___u_e0r src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__active___8LjMb"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+    >
+      ⨯
+    </span>
+    <span
       className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0 src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__active___8LjMb"
       onClick={[Function]}
       onKeyPress={[Function]}
@@ -53,6 +60,13 @@ exports[`Matches shallow shapshot 2`] = `
       type="text"
       value=""
     />
+    <span
+      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ClearButton___u_e0r"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+    >
+      ⨯
+    </span>
     <span
       className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0"
       onClick={[Function]}
