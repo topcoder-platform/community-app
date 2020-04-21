@@ -89,6 +89,7 @@ export default function TopcoderFooter() {
               <Link to={`${base}/community/contact`}>Contact Us</Link>
               <Link to="https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion">Join Community</Link>
               <Link to={`${base}/community/learn`}>About Community</Link>
+              <Link to={`${base}/community/changelog`}>Changelog</Link>
               <Link to={`${base}/contact-us/`}>Talk to Sales</Link>
             </ul>
           </div>
