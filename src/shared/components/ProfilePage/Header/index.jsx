@@ -7,7 +7,7 @@ import { noop, get } from 'lodash';
 import moment from 'moment';
 import ReactSVG from 'react-svg';
 
-import { getRatingColor } from 'utils/tc';
+import { getRatingLevel } from 'utils/tc';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import CopilotIcon from 'assets/images/profile/ico-track-copilot.svg';
@@ -63,7 +63,7 @@ class ProfileHeader extends React.Component {
           { imageUrl ? <img src={imageUrl} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <ReactSVG path={assets('./ico-user-default.svg')} /> }
         </div>
         <div styleName="info">
-          <h1 style={{ color: getRatingColor(get(info, 'maxRating.rating', 0)) }} styleName="handle">
+          <h1 styleName={`handle level-${getRatingLevel(get(info, 'maxRating.rating', 0))}`}>
             {info.handle}
           </h1>
           <h3 styleName="location-challenges">

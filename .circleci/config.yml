@@ -174,14 +174,14 @@ workflows:
           filters:
             branches:
               only:
-                - feature-private-navigation
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:
-                - feature-contentful
+                - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

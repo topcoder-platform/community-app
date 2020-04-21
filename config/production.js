@@ -30,7 +30,7 @@ module.exports = {
     HOME: '/my-dashboard',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
-    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',
@@ -189,7 +189,7 @@ module.exports = {
     { separator: true },
     {
       title: 'Help',
-      href: '/thrive/tracks?track=Topcoder',
+      href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     },
     { separator: true },
     {
