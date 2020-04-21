@@ -182,6 +182,7 @@ workflows:
           filters:
             branches:
               only:
+                - develop
                 - feature-contentful
                 - hot-fix-content-at-bottom-of-challenge-details
       # This is beta env for production soft releases
