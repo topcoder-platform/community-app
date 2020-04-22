@@ -30,7 +30,6 @@ exports[`Matches shallow shapshot 1`] = `
       }
     }
     onClick={null}
-    openNewTab={false}
     plusOne={false}
     url="url"
   />

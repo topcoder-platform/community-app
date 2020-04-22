@@ -4,6 +4,7 @@ import { Avatar } from 'topcoder-react-ui-kit';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { config, Link } from 'topcoder-react-utils';
+import _ from 'lodash';
 import './style.scss';
 
 /* TODO: Should be functional component! */
@@ -17,10 +18,10 @@ class LeaderboardAvatar extends Component {
 
   render() {
     const {
-      onClick, openNewTab, plusOne, url,
+      onClick, plusOne, url,
     } = this.props;
     const { member } = this.state;
-    const targetURL = url || `${config.URL.BASE}/members/${member.handle}`;
+    const targetURL = url || `${window.origin}/members/${member.handle}`;
     let { photoURL } = member;
     if (photoURL) {
       /* Note: 50px is larger than we really need here (the avatar size is
@@ -36,8 +37,8 @@ class LeaderboardAvatar extends Component {
         enforceA
         onClick={onClick}
         to={targetURL}
+        openNewTab={!_.includes(window.origin, 'www')}
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? '' : 'light-gray'}`}
-        target={openNewTab ? '_blank' : undefined}
       >
         { plusOne ? member.handle : <Avatar url={photoURL} />}
         <span styleName={member.position ? `placement placement-${member.position}` : 'hidden'}>
@@ -51,7 +52,6 @@ class LeaderboardAvatar extends Component {
 LeaderboardAvatar.defaultProps = {
   member: {},
   onClick: null,
-  openNewTab: false,
   plusOne: false,
   url: '',
 };
@@ -59,7 +59,6 @@ LeaderboardAvatar.defaultProps = {
 LeaderboardAvatar.propTypes = {
   member: PT.shape({}),
   onClick: PT.func,
-  openNewTab: PT.bool,
   plusOne: PT.bool,
   url: PT.string,
 };

@@ -1,6 +1,7 @@
 import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 
 import Lock from '../../icons/lock.svg';
@@ -72,8 +73,9 @@ export default function Winner({
           />
           <div>
             <a
-              href={`${config.URL.BASE}/members/${winner.handle}`}
+              href={`${window.origin}/members/${winner.handle}`}
               styleName="handle"
+              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             >
               {winner.handle}
             </a>
