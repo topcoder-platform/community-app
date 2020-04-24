@@ -119,7 +119,6 @@ ENV CONTENTFUL_EDU_PREVIEW_API_KEY=$CONTENTFUL_EDU_PREVIEW_API_KEY
 ################################################################################
 # Testing and build of the application inside the container.
 
-RUN npm config set unsafe-perm true
 RUN npm install
 RUN npm test
 RUN npm run build
