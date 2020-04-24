@@ -69,38 +69,44 @@ export const CommonHelper = {
    * Verify pop up window's title
    * @param {String} title
    */
-  /*async verifyPopupWindowWithTitle(title) {
+  async verifyPopupWindowWithTitle(title) {
     await this.verifyPopupWindow();
-    const windows = await browser.getAllWindowHandles();
-    const until = protractor.ExpectedConditions;
+    const windows = await BrowserHelper.getAllWindowHandles();
     const windowTitle = ElementHelper.getElementByXPath("//title");
-    browser.ignoreSynchronization = true;
-    await browser.switchTo().window(windows[1]);
-    await browser.wait(until.presenceOf(windowTitle));
-    const popupWindowTitle = await browser.getTitle();
+    BrowserHelper.setIgnoreSync(true);
+    await BrowserHelper.switchTo(windows[1]);
+    const condition = await ExpectedConditionsHelper.getUntilPresenceOfCondition(
+      windowTitle
+    );
+    await BrowserHelper.wait(
+      condition,
+      appconfig.Timeout.ElementPresence,
+      appconfig.LoggerErrors.ElementPresence
+    );
+    const popupWindowTitle = await BrowserHelper.getTitle();
     expect(popupWindowTitle).toEqual(
       title,
       `Provided title ${title} does not match page title ${popupWindowTitle}`
     );
-    await browser.close();
-    await browser.switchTo().window(windows[0]);
+    await BrowserHelper.close();
+    await BrowserHelper.switchTo(windows[0]);
   },
 
   /**
    * Verify pop up window's url
    * @param {String} expectedUrl
    */
-  /*async verifyPopupWindowWithUrl(expectedUrl) {
+  async verifyPopupWindowWithUrl(expectedUrl) {
     await this.verifyPopupWindow();
-    const windows = await browser.getAllWindowHandles();
-    await browser.switchTo().window(windows[1]);
-    const url = await browser.getCurrentUrl();
+    const windows = await BrowserHelper.getAllWindowHandles();
+    await BrowserHelper.switchTo(windows[1]);
+    const url = await BrowserHelper.getCurrentUrl();
     expect(url).toEqual(
       expectedUrl,
       `Provided url ${expectedUrl} does not match current url ${url}`
     );
-    await browser.close();
-    await browser.switchTo().window(windows[0]);
+    await BrowserHelper.close();
+    await BrowserHelper.switchTo(windows[0]);
   },
 
   /**
@@ -108,14 +114,14 @@ export const CommonHelper = {
    * @param {String} text
    * @param {String} href
    */
-  /*async verifyHrefInAnchorContainingText(text, href) {
+  async verifyHrefInAnchorContainingText(text, href) {
     const anchorElement = ElementHelper.getTagElementContainingText("a", text);
     const anchorElementHref = await anchorElement.getAttribute("href");
     expect(anchorElementHref).toEqual(
       href,
       `Provided href ${href} does not match anchor element href ${anchorElementHref}`
     );
-  },  */
+  },
 
   /**
    * Switch tab by opening tab and optionally verify header of new tab

@@ -10,6 +10,8 @@ describe("Topcoder Login Page Tests: ", () => {
    */
   beforeEach(async () => {
     await BrowserHelper.initialize();
+    // This line is to bypass https://github.com/topcoder-platform/community-app/issues/4287
+    await BrowserHelper.open(ConfigHelper.getHomePageUrl());
     const loginpage = new LoginPage();
     LoginPageHelper.setLoginPage(loginpage);
     await LoginPageHelper.open();

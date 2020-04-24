@@ -10,7 +10,6 @@
   },
 
   "LoggerErrors": {
-    "FieldVisibility": "Element did not display within timeout",
     "ElementVisibilty": "Element did not display within timeout",
     "ElementInvisibilty": "Element did not become invisible within timeout",
     "ElementPresence": "Element was not present within timeout",

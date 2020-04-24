@@ -1,4 +1,8 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
+import {
+  BrowserHelper,
+  ElementHelper,
+  ExpectedConditionsHelper,
+} from "topcoder-testing-lib";
 import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
 import { ConfigHelper } from "../../../../utils/config-helper";
@@ -61,10 +65,13 @@ export class LoginPage {
    * Wait for the login form to be displayed
    */
   public async waitForLoginForm() {
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.loginForm,
+    const condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+      this.loginForm
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.SubmitForm,
-      appconfig.LoggerErrors.PageLoad
+      appconfig.LoggerErrors.ElementVisibilty
     );
     await logger.info("Login Form Displayed");
   }
@@ -73,8 +80,11 @@ export class LoginPage {
    * Fill and submit the login form
    */
   public async fillLoginForm(username, password) {
-    await BrowserHelper.waitUntilPresenceOf(
-      this.userNameField,
+    let condition = await ExpectedConditionsHelper.getUntilPresenceOfCondition(
+      this.userNameField
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementPresence
     );
@@ -88,8 +98,11 @@ export class LoginPage {
         password
     );
     await BrowserHelper.setIgnoreSync(true);
-    await BrowserHelper.waitUntilElementToBeClickable(
-      this.loginButton,
+    condition = await ExpectedConditionsHelper.getUntilToBeClickableCondition(
+      this.loginButton
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementClickable,
       appconfig.LoggerErrors.ElementClickable
     );
@@ -102,8 +115,11 @@ export class LoginPage {
    */
   public async waitForHomePage() {
     const homepage = new HomePage();
-    await BrowserHelper.waitUntilVisibilityOf(
-      homepage.container,
+    const condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+      homepage.container
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.PageLoad,
       appconfig.LoggerErrors.PageLoad
     );
@@ -114,8 +130,11 @@ export class LoginPage {
    * Wait for error message to be displayed
    */
   public async waitForErrorMessage() {
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.errorMessage,
+    const condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+      this.errorMessage
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );

@@ -5,6 +5,6 @@ export class HomePage {
    * Gets the home page container element
    */
   public get container() {
-    return ElementHelper.getElementByClassName("home-top-wrapper");
+    return ElementHelper.getElementByClassName("home");
   }
 }

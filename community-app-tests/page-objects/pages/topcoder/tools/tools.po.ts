@@ -1,11 +1,12 @@
 import {
   BrowserHelper,
-  CommonHelper,
   ElementHelper,
+  ExpectedConditionsHelper,
 } from "topcoder-testing-lib";
 import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
 import { ConfigHelper } from "../../../../utils/config-helper";
+import { CommonHelper } from "../common-page/common.helper";
 import { ToolsPageConstants } from "./tools.constants";
 
 export class ToolsPage {
@@ -64,8 +65,11 @@ export class ToolsPage {
    * Deletes all records on the tools page
    */
   public async deleteAll() {
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.subscriptionName,
+    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+      this.subscriptionName
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
@@ -73,13 +77,19 @@ export class ToolsPage {
     for (let {} of delIcons) {
       await this.deleteIcon.click();
       await this.deleteConfirmation.click();
-      await BrowserHelper.waitUntilVisibilityOf(
-        this.successMsg,
+      condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+        this.successMsg
+      );
+      await BrowserHelper.wait(
+        condition,
         appconfig.Timeout.ElementVisibility,
         appconfig.LoggerErrors.ElementVisibilty
       );
-      await BrowserHelper.waitUntilInvisibilityOf(
-        this.successMsg,
+      condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
+        this.successMsg
+      );
+      await BrowserHelper.wait(
+        condition,
         appconfig.Timeout.ElementInvisibility,
         appconfig.LoggerErrors.ElementInvisibilty
       );
@@ -93,13 +103,19 @@ export class ToolsPage {
   public async addSubscription(name) {
     await this.setSubsription(name);
     await this.getAddButton("subscription").click();
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.successMsg,
+    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+      this.successMsg
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
-    await BrowserHelper.waitUntilInvisibilityOf(
-      this.successMsg,
+    condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
+      this.successMsg
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementInvisibility,
       appconfig.LoggerErrors.ElementInvisibilty
     );
@@ -115,13 +131,19 @@ export class ToolsPage {
     await this.getEditIconbyName(name).click();
     await this.setSubsription(newname);
     await this.getEditButton("subscription").click();
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.successMsg,
+    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+      this.successMsg
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
-    await BrowserHelper.waitUntilInvisibilityOf(
-      this.successMsg,
+    condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
+      this.successMsg
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementInvisibility,
       appconfig.LoggerErrors.ElementInvisibilty
     );
@@ -135,13 +157,19 @@ export class ToolsPage {
   public async deleteSubscription(name) {
     await this.getDeleteIconbyName(name).click();
     await this.deleteConfirmation.click();
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.successMsg,
+    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
+      this.successMsg
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
-    await BrowserHelper.waitUntilInvisibilityOf(
-      this.successMsg,
+    condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
+      this.successMsg
+    );
+    await BrowserHelper.wait(
+      condition,
       appconfig.Timeout.ElementInvisibility,
       appconfig.LoggerErrors.ElementInvisibilty
     );

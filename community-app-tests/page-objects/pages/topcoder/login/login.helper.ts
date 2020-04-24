@@ -1,11 +1,6 @@
-import {
-  AssertionsHelper,
-  BrowserHelper,
-  CommonHelper,
-} from "topcoder-testing-lib";
-import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
 import { ConfigHelper } from "../../../../utils/config-helper";
+import { CommonHelper } from "../common-page/common.helper";
 import { HomePage } from "../home-page/home.po";
 import { LoginPageConstants } from "./login.constants";
 import { LoginPage } from "./login.po";
@@ -51,8 +46,7 @@ export class LoginPageHelper {
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(invalidUsername, password);
     await this.loginPageObject.waitForErrorMessage();
-    AssertionsHelper.expectToBeEqual(
-      await this.loginPageObject.errorMessage.getText(),
+    expect(await this.loginPageObject.errorMessage.getText()).toEqual(
       LoginPageConstants.errors.MemberNotPresent
     );
     logger.info("Member not found error displayed");
@@ -70,8 +64,7 @@ export class LoginPageHelper {
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, invalidPassword);
     await this.loginPageObject.waitForErrorMessage();
-    AssertionsHelper.expectToBeEqual(
-      await this.loginPageObject.errorMessage.getText(),
+    expect(await this.loginPageObject.errorMessage.getText()).toEqual(
       LoginPageConstants.errors.InvalidPassword
     );
     logger.info("Invalid Password error message displayed");
@@ -95,5 +88,5 @@ export class LoginPageHelper {
     logger.info("User redirected to home-page");
   }
 
-  private static loginPageObject;
+  private static loginPageObject: LoginPage;
 }
