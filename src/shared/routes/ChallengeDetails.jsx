@@ -7,10 +7,9 @@
 
 import _ from 'lodash';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
-import path from 'path';
 import React from 'react';
 import qs from 'qs';
-import { AppChunk, webpack } from 'topcoder-react-utils';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function ChallengeDetailsRoute(props) {
   return (
@@ -31,11 +30,6 @@ export default function ChallengeDetailsRoute(props) {
         })
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
-      renderServer={() => {
-        const p = webpack.resolveWeak('containers/challenge-detail');
-        const ChallengeDetails = webpack.requireWeak(path.resolve(__dirname, p));
-        return <ChallengeDetails {...props} />;
-      }}
     />
   );
 }

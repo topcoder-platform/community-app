@@ -27,6 +27,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -85,7 +86,7 @@ export default function LeaderboardTable(props) {
                   {competitor.handle}
                 </div>
               ) : (
-                <a href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+                <a href={`${window.origin}/members/${competitor.handle}/`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
                   {competitor.handle}
                 </a>
               )
