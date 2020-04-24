@@ -60,9 +60,9 @@ export const CommonHelper = {
   async verifyPopupWindow() {
     const windows = await BrowserHelper.getAllWindowHandles();
     expect(windows.length).toBe(2, "Popup window did not open");
-    await BrowserHelper.switchTo(windows[1]);
+    await BrowserHelper.switchToWindow(windows[1]);
     await BrowserHelper.close();
-    await BrowserHelper.switchTo(windows[0]);
+    await BrowserHelper.switchToWindow(windows[0]);
   },
 
   /**
@@ -74,7 +74,7 @@ export const CommonHelper = {
     const windows = await BrowserHelper.getAllWindowHandles();
     const windowTitle = ElementHelper.getElementByXPath("//title");
     BrowserHelper.setIgnoreSync(true);
-    await BrowserHelper.switchTo(windows[1]);
+    await BrowserHelper.switchToWindow(windows[1]);
     const condition = await ExpectedConditionsHelper.getUntilPresenceOfCondition(
       windowTitle
     );
@@ -89,7 +89,7 @@ export const CommonHelper = {
       `Provided title ${title} does not match page title ${popupWindowTitle}`
     );
     await BrowserHelper.close();
-    await BrowserHelper.switchTo(windows[0]);
+    await BrowserHelper.switchToWindow(windows[0]);
   },
 
   /**
@@ -99,14 +99,14 @@ export const CommonHelper = {
   async verifyPopupWindowWithUrl(expectedUrl) {
     await this.verifyPopupWindow();
     const windows = await BrowserHelper.getAllWindowHandles();
-    await BrowserHelper.switchTo(windows[1]);
+    await BrowserHelper.switchToWindow(windows[1]);
     const url = await BrowserHelper.getCurrentUrl();
     expect(url).toEqual(
       expectedUrl,
       `Provided url ${expectedUrl} does not match current url ${url}`
     );
     await BrowserHelper.close();
-    await BrowserHelper.switchTo(windows[0]);
+    await BrowserHelper.switchToWindow(windows[0]);
   },
 
   /**
