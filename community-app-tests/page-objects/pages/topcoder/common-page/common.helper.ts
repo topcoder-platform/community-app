@@ -1,8 +1,4 @@
-import {
-  BrowserHelper,
-  ElementHelper,
-  ExpectedConditionsHelper,
-} from "topcoder-testing-lib";
+import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
 import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
 
@@ -75,11 +71,8 @@ export const CommonHelper = {
     const windowTitle = ElementHelper.getElementByXPath("//title");
     BrowserHelper.setIgnoreSync(true);
     await BrowserHelper.switchToWindow(windows[1]);
-    const condition = await ExpectedConditionsHelper.getUntilPresenceOfCondition(
-      windowTitle
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilPresenceOf(
+      windowTitle,
       appconfig.Timeout.ElementPresence,
       appconfig.LoggerErrors.ElementPresence
     );
@@ -146,11 +139,8 @@ export const CommonHelper = {
       newTabHeaderTag,
       newTabHeaderText
     );
-    const condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
-      headerElement
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilVisibilityOf(
+      headerElement,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );

@@ -1,8 +1,4 @@
-import {
-  BrowserHelper,
-  ElementHelper,
-  ExpectedConditionsHelper,
-} from "topcoder-testing-lib";
+import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
 import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
 import { ConfigHelper } from "../../../../utils/config-helper";
@@ -65,11 +61,8 @@ export class ToolsPage {
    * Deletes all records on the tools page
    */
   public async deleteAll() {
-    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
-      this.subscriptionName
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilVisibilityOf(
+      this.subscriptionName,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
@@ -77,19 +70,13 @@ export class ToolsPage {
     for (let {} of delIcons) {
       await this.deleteIcon.click();
       await this.deleteConfirmation.click();
-      condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
-        this.successMsg
-      );
-      await BrowserHelper.wait(
-        condition,
+      await BrowserHelper.waitUnitilVisibilityOf(
+        this.successMsg,
         appconfig.Timeout.ElementVisibility,
         appconfig.LoggerErrors.ElementVisibilty
       );
-      condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
-        this.successMsg
-      );
-      await BrowserHelper.wait(
-        condition,
+      await BrowserHelper.waitUnitilInVisibilityOf(
+        this.successMsg,
         appconfig.Timeout.ElementInvisibility,
         appconfig.LoggerErrors.ElementInvisibilty
       );
@@ -103,19 +90,13 @@ export class ToolsPage {
   public async addSubscription(name) {
     await this.setSubsription(name);
     await this.getAddButton("subscription").click();
-    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
-      this.successMsg
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilVisibilityOf(
+      this.successMsg,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
-    condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
-      this.successMsg
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilInVisibilityOf(
+      this.successMsg,
       appconfig.Timeout.ElementInvisibility,
       appconfig.LoggerErrors.ElementInvisibilty
     );
@@ -125,25 +106,18 @@ export class ToolsPage {
    * Edits the given subscription name with the new provided name
    * @param {String} name
    * @param {String} newname
-   * The edit functionality must be upadted to eidt by the provided name. At present it edits the first record
    */
   public async editSubscription(name, newname) {
     await this.getEditIconbyName(name).click();
     await this.setSubsription(newname);
     await this.getEditButton("subscription").click();
-    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
-      this.successMsg
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilVisibilityOf(
+      this.successMsg,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
-    condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
-      this.successMsg
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilInVisibilityOf(
+      this.successMsg,
       appconfig.Timeout.ElementInvisibility,
       appconfig.LoggerErrors.ElementInvisibilty
     );
@@ -152,24 +126,17 @@ export class ToolsPage {
   /**
    * Deletes the given subscription
    * @param {String} name
-   * The delete functionality must be upadted to delete by the provided name. At present it deletes the first record
    */
   public async deleteSubscription(name) {
     await this.getDeleteIconbyName(name).click();
     await this.deleteConfirmation.click();
-    let condition = await ExpectedConditionsHelper.getUntilVisibilityOfCondition(
-      this.successMsg
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilVisibilityOf(
+      this.successMsg,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
-    condition = await ExpectedConditionsHelper.getUntilInvisibilityOfCondition(
-      this.successMsg
-    );
-    await BrowserHelper.wait(
-      condition,
+    await BrowserHelper.waitUnitilInVisibilityOf(
+      this.successMsg,
       appconfig.Timeout.ElementInvisibility,
       appconfig.LoggerErrors.ElementInvisibilty
     );
@@ -178,7 +145,6 @@ export class ToolsPage {
   /**
    * Fills the subscription name textbox with given name
    * @param {String} name
-   * The delete functionality must be upadted to delete by the provided name. At present it deletes the first record
    */
   private async setSubsription(name: string) {
     await this.subscriptionName.clear();
@@ -195,7 +161,6 @@ export class ToolsPage {
   /**
    * Gets the add button for the given type
    * @param {String} type
-   * The delete functionality must be upadted to delete by the provided name. At present it deletes the first record
    */
   private getAddButton(type: string) {
     return ElementHelper.getTagElementContainingText(
@@ -207,7 +172,6 @@ export class ToolsPage {
   /**
    * Gets the edit button for the given type
    * @param {String} type
-   * The delete functionality must be upadted to delete by the provided name. At present it deletes the first record
    */
   private getEditButton(type: string) {
     return ElementHelper.getTagElementContainingText(
