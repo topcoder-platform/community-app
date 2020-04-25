@@ -52,7 +52,7 @@ describe("Topcoder Login Page Tests: ", () => {
   });
 
   /**
-   * Verifies User ccan logout
+   * Verifies User can logout
    */
   it("should Verify User can logout", async () => {
     await LoginPageHelper.logout();
