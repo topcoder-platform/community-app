@@ -7,6 +7,7 @@
     "@types/node": "^12.7.8",
     "exceljs": "^1.13.0",
     "jasmine": "^3.4.0",
+    "protractor": "^5.4.2",
     "jasmine-reporters": "^2.3.2",
     "jsdom": "^15.1.1",
     "mail-listener2": "^0.3.1",
