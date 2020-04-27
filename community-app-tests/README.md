@@ -21,6 +21,7 @@ Junit report - junitresults-TopcoderLoginPageTests.xml and junitresults-Topcoder
 
 - To view junit reports into html, install xunit-viewer
   `npm i -g xunit-viewer`
+
 - HTML report from Junit reports can be generated using this command
   `xunit-viewer --results=test-results/ --output=/home/Documents/`
 
