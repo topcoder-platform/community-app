@@ -13,6 +13,7 @@
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
+    "update-tests": "npm run jest -- -u",
     "start": "cross-env BABEL_ENV=production NODE_ENV=production node ./bin/www",
     "test": "npm run lint && npm run --runInBand jest",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
