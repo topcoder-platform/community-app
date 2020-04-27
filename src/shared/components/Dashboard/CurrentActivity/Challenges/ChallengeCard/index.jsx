@@ -112,7 +112,7 @@ export default function ChallengeCard({
   const now = moment();
   if (nextPhase) {
     statusMsg = nextPhase.name;
-    const deadlineEnd = moment(nextPhase.scheduledEndTime);
+    const deadlineEnd = moment(nextPhase.scheduledEndDate);
     deadlineMsg = deadlineEnd.diff(now);
     const late = deadlineMsg <= 0;
     deadlineMsg = Math.abs(deadlineMsg);

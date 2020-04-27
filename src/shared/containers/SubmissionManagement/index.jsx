@@ -216,7 +216,7 @@ function mapStateToProps(state, props) {
       state.challenge.loadingSubmissionsForChallengeId || '',
     mySubmissions,
 
-    submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
+    submissionPhaseStartDate: submissionPhase.actualStartDate || submissionPhase.scheduledStartDate || '',
 
     showDetails: state.page.submissionManagement.showDetails,
 

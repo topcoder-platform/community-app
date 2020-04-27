@@ -65,18 +65,18 @@ export default function ChallengeHeader(props) {
     pointPrizes,
     events,
     tags,
-    prizes,
+    prizeSets,
     numberOfCheckpointsPrizes,
     topCheckPointPrize,
     reliabilityBonus,
     userDetails,
-    currentPhases,
     numRegistrants,
     numSubmissions,
-    status,
     appealsEndDate,
   } = challenge;
-  const allPhases = challenge.allPhases || challenge.phases || [];
+  const allPhases = challenge.phases || [];
+  const { prizes } = prizeSets.length ? prizeSets[0] : [];
+  const status = allPhases[0].name;
 
   const phases = {};
   if (allPhases) {
@@ -88,7 +88,7 @@ export default function ChallengeHeader(props) {
   let registrationEnded = true;
   const regPhase = phases.registration;
   if (status !== 'Completed' && regPhase) {
-    registrationEnded = !regPhase.isActive;
+    registrationEnded = !regPhase.isOpen;
   }
 
   let trackLower = track ? track.toLowerCase() : 'design';
@@ -114,13 +114,13 @@ export default function ChallengeHeader(props) {
   */
   const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
 
-  let nextPhase = (currentPhases && currentPhases[0]) || {};
+  let nextPhase = (allPhases && allPhases[0]) || {};
   if (hasRegistered && nextPhase.name === 'Registration') {
-    nextPhase = currentPhases[1] || {};
+    nextPhase = allPhases[1] || {};
   }
   const nextDeadline = nextPhase.name;
 
-  const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndTime);
+  const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndDate);
   const currentTime = moment();
 
   let timeLeft = deadlineEnd.isAfter(currentTime)
@@ -138,7 +138,7 @@ export default function ChallengeHeader(props) {
   if (showDeadlineDetail) {
     relevantPhases = (allPhases || []).filter((phase) => {
       if (phase.name === 'Iterative Review') {
-        const end = phase.actualEndTime || phase.scheduledEndTime;
+        const end = phase.actualEndDate || phase.scheduledEndDate;
         return moment(end).isAfter(moment());
       }
       const phaseLowerCase = phase.name.toLowerCase();
@@ -159,30 +159,30 @@ export default function ChallengeHeader(props) {
       if (b.name.toLowerCase().includes('registration')) {
         return 1;
       }
-      return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime()
-        - (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
+      return (new Date(a.actualEndDate || a.scheduledEndDate)).getTime()
+        - (new Date(b.actualEndDate || b.scheduledEndDate)).getTime();
     });
     if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
-      const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isActive);
-      const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndTime)));
+      const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
+      const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndDate)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')
-        || new Date(p.scheduledEndTime).getTime() < endPhaseDate));
+        || new Date(p.scheduledEndDate).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
         phaseType: 'Winners',
-        scheduledEndTime: endPhaseDate,
+        scheduledEndDate: endPhaseDate,
       });
     } else if (relevantPhases.length > 1 && appealsEndDate) {
       const lastPhase = relevantPhases[relevantPhases.length - 1];
       const lastPhaseTime = (
-        new Date(lastPhase.actualEndTime || lastPhase.scheduledEndTime)
+        new Date(lastPhase.actualEndDate || lastPhase.scheduledEndDate)
       ).getTime();
       const appealsEnd = (new Date(appealsEndDate).getTime());
       if (lastPhaseTime < appealsEnd) {
         relevantPhases.push({
           id: -1,
           phaseType: 'Winners',
-          scheduledEndTime: appealsEndDate,
+          scheduledEndDate: appealsEndDate,
         });
       }
     }
@@ -229,8 +229,8 @@ export default function ChallengeHeader(props) {
   // This is used to disable registration/submission for legacy MMs.
   const isLegacyMM = isMM(challenge) && Boolean(challenge.roundId);
 
-  if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
-    _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
+  if (hasFirstPlacement && !_.isEmpty(allPhases)) {
+    _.some(allPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
   }
 
   return (
@@ -486,6 +486,7 @@ ChallengeHeader.propTypes = {
     phases: PT.any,
     track: PT.any,
     roundId: PT.any,
+    prizeSets: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,

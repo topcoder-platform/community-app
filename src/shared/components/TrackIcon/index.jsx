@@ -23,13 +23,13 @@ export default function TrackIcon({
             encodeURIComponent(subTrack)}`}
           styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}
         >
-          {Abbreviation[track][subTrack]}
+          {Abbreviation[track.toUpperCase()][subTrack]}
         </a>
       ) : (
         <div
           styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}
         >
-          {Abbreviation[track][subTrack]}
+          {Abbreviation[track.toUpperCase()][subTrack]}
         </div>
       )}
       <a href={`${TCO_URL}`}>
@@ -46,13 +46,15 @@ TrackIcon.defaultProps = {
   MAIN_URL: config.URL.BASE,
   tcoEligible: '',
   challengesUrl: '',
+  track: 'DEVELOP',
+  subTrack: 'DEVELOPMENT',
 };
 
 TrackIcon.propTypes = {
   isDataScience: PT.bool,
   tcoEligible: PT.string,
-  track: PT.string.isRequired,
-  subTrack: PT.string.isRequired,
+  track: PT.string,
+  subTrack: PT.string,
   MAIN_URL: PT.string,
   challengesUrl: PT.string,
 };

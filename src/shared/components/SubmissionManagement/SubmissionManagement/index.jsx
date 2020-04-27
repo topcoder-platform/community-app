@@ -45,7 +45,7 @@ export default function SubmissionManagement(props) {
   const currentPhase = _.last(challenge.currentPhases || []) || {};
 
   const now = moment();
-  const end = moment(currentPhase.scheduledEndTime);
+  const end = moment(currentPhase.scheduledEndDate);
   const diff = end.diff(now);
   const timeLeft = moment.duration(diff);
 

@@ -168,18 +168,18 @@ function onGetAllRecommendedChallengesDone(state, { error, payload }) {
   const {
     uuid,
     challenges,
-    technologies,
+    tags,
   } = payload;
   if (uuid !== state.loadingRecommendedChallengesUUID) return state;
   const { recommendedChallenges } = state;
-  recommendedChallenges[technologies] = {
+  recommendedChallenges[tags] = {
     challenges,
     lastUpdateOfActiveChallenges: Date.now(),
   };
   return {
     ...state,
     recommendedChallenges,
-    loadingRecommendedChallengesTechnologies: technologies,
+    loadingRecommendedChallengesTags: tags,
     loadingRecommendedChallengesUUID: '',
   };
 }

@@ -21,6 +21,7 @@ import styles from './style.scss';
 
 export default function ChallengesCard({
   challenge,
+  challengeTypes,
   className,
   challengesUrl,
   selectChallengeDetailsTab,
@@ -46,7 +47,7 @@ export default function ChallengesCard({
   const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
   const statusPhase = checkPhases
     .filter(p => p.phaseType !== 'Registration')
-    .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
   return (
     <div className={className} styleName="container">
@@ -87,7 +88,7 @@ export default function ChallengesCard({
             <div styleName="endtime-prize-container">
               <span styleName="end-date">
                 {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
-                {getEndDate(challenge)}
+                {getEndDate(challenge, challengeTypes)}
               </span>
               <div styleName="prizes">
                 {getPrizePurseUI(challenge, prizeMode, true, 'Prize Purse')}
@@ -121,10 +122,12 @@ ChallengesCard.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
+  challengeTypes: [],
 };
 
 ChallengesCard.propTypes = {
   challenge: PT.arrayOf(PT.object).isRequired,
+  challengeTypes: PT.arrayOf(PT.shape()),
   className: PT.string,
   challengesUrl: PT.string.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,

@@ -20,7 +20,6 @@ export const BUCKETS = {
 const BUCKET_DATA = {
   [BUCKETS.ALL]: {
     filter: {
-      started: true,
       status: ['Active'],
     },
     hideCount: false,
@@ -29,7 +28,6 @@ const BUCKET_DATA = {
   },
   [BUCKETS.MY]: {
     filter: {
-      started: true,
       status: ['Active'],
       // users: [userHandle],
     },
@@ -46,8 +44,7 @@ const BUCKET_DATA = {
   },
   [BUCKETS.OPEN_FOR_REGISTRATION]: {
     filter: {
-      registrationOpen: true,
-      started: true,
+      currentPhaseName: 'Registration',
       status: ['Active'],
     },
     hideCount: false,
@@ -65,7 +62,6 @@ const BUCKET_DATA = {
   [BUCKETS.ONGOING]: {
     filter: {
       registrationOpen: false,
-      started: true,
       status: ['Active'],
     },
     hideCount: false,

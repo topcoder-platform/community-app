@@ -84,7 +84,7 @@ function Tip({
 }
 
 Tip.defaultProps = {
-  subTrack: '',
+  subTrack: 'CODE',
   challengeType: null,
 };
 
@@ -124,7 +124,7 @@ function TrackAbbreviationTooltip({
 }
 
 TrackAbbreviationTooltip.defaultProps = {
-  subTrack: '',
+  subTrack: 'CODE',
   challengeType: null,
 };
 

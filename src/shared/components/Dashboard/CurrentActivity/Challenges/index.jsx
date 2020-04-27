@@ -51,7 +51,7 @@ export default function Challenges({
     const ch = filteredChallenges[i];
     const nextPhase = ch.currentPhases && _.last(ch.currentPhases);
     if (nextPhase) {
-      const deadlineEnd = moment(nextPhase.scheduledEndTime);
+      const deadlineEnd = moment(nextPhase.scheduledEndDate);
       ch.dashboardPriority = deadlineEnd.diff(now);
     } else if (moment(ch.registrationStartDate).isAfter(now)) {
       ch.dashboardPriority = moment(ch.registrationStartDate).diff(now);

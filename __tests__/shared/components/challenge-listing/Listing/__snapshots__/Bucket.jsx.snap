@@ -18,6 +18,7 @@ exports[`Matches shallow shapshot 1`] = `
         ],
       }
     }
+    challengeTypes={Array []}
     challenges={
       Array [
         Object {
@@ -109,6 +110,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
       }
     }
+    challengeTypes={Array []}
     challenges={
       Array [
         Object {
@@ -259,6 +261,7 @@ exports[`Matches shallow shapshot 3`] = `
         ],
       }
     }
+    challengeTypes={Array []}
     challenges={Array []}
     expand={[MockFunction]}
     expandTag={null}
