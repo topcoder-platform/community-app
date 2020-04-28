@@ -7,6 +7,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PT from 'prop-types';
 import { getRatingColor } from 'utils/tc';
+import { isValidTrack } from 'utils/memberStats';
 import ArrowNext from 'assets/images/arrow-next.svg';
 import CopilotIcon from 'assets/images/profile/ico-track-copilot.svg';
 import DataScienceIcon from 'assets/images/profile/ico-track-data.svg';
@@ -72,7 +73,7 @@ class StatsCategory extends React.Component {
       }
 
       subTracks.forEach((subtrack) => {
-        if (isActiveSubtrack(subtrack)) {
+        if (isActiveSubtrack(subtrack) && isValidTrack(track, subtrack.name)) {
           active.push({ ...subtrack, active: true });
         }
       });
