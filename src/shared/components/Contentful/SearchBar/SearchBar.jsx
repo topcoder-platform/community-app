@@ -55,6 +55,7 @@ export class SearchBarInner extends Component {
     this.getDropdownPopup = this.getDropdownPopup.bind(this);
     this.getSuggestionList = this.getSuggestionList.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
     // using debounce to avoid processing or requesting too much
     this.updateSuggestionListWithNewSearch = _.debounce(
       this.updateSuggestionListWithNewSearch.bind(this), 400,
@@ -64,6 +65,10 @@ export class SearchBarInner extends Component {
     this.updatePopupSearchResultSize = this.updatePopupSearchResultSize.bind(this);
     // create a service to work with Contentful
     this.apiService = getService({ spaceName: 'EDU' });
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   /**
@@ -317,6 +322,13 @@ export class SearchBarInner extends Component {
     ));
   }
 
+  handleClickOutside(e) {
+    if (this.popupSearchResultRef && !this.popupSearchResultRef.contains(e.target)) {
+      this.setState({ isShowSuggestion: false });
+      document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+  }
+
   /**
    * Update size of popup search result
    */
@@ -453,14 +465,10 @@ export class SearchBarInner extends Component {
             ref={this.setSearchFieldRef}
             type="text"
             placeholder="Search..."
-            onBlur={() => {
-              _.delay(() => {
-                this.setState({ isShowSuggestion: false });
-              }, 100);
-            }}
             onFocus={(e) => {
               this.updateSuggestionListWithNewSearch(e.target.value);
               this.setState({ isShowSuggestion: true, isShowFilterPopup: false });
+              document.addEventListener('mousedown', this.handleClickOutside);
             }}
             onChange={this.handleSearchChange}
           />
