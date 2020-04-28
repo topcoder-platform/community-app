@@ -422,7 +422,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
-    loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
+    loadingChallengeTypes: cl.loadingChallengeTypes,
     loadingChallengeTags: cl.loadingChallengeTags,
     newChallengeDetails: ownProps.newChallengeDetails,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
