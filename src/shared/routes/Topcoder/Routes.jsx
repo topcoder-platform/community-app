@@ -117,12 +117,21 @@ export default function Topcoder() {
                     <ContentfulLoader
                       entryQueries={{
                         content_type: 'article',
-                        'fields.title': articleTitle,
+                        'fields.title[match]': articleTitle,
                       }}
                       spaceName="EDU"
                       render={(data) => {
                         if (_.isEmpty(data.entries.items)) return <Error404 />;
-                        const id = data.entries.matches[0].items[0];
+                        let id = data.entries.matches[0].items[0];
+                        if (data.entries.matches[0].total !== 1) {
+                          // more than 1 match. we need to try find best
+                          const mId = _.findKey(
+                            data.entries.items,
+                            // eslint-disable-next-line max-len
+                            o => o.fields.title.toLocaleLowerCase() === articleTitle.toLocaleLowerCase(),
+                          );
+                          id = mId || id;
+                        }
                         const { externalArticle, contentUrl } = data.entries.items[id].fields;
                         if (externalArticle && contentUrl && isomorphy.isClientSide()) {
                           window.location.href = contentUrl;
