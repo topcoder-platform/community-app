@@ -47,10 +47,13 @@ export default function ChallengeDetailsView(props) {
     environment,
     codeRepo,
     userDetails,
+    metadata,
   } = challenge;
 
   const roles = (userDetails || {}).roles || [];
   const { track } = legacy;
+
+  const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
 
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
@@ -74,7 +77,9 @@ export default function ChallengeDetailsView(props) {
   const toolbarConnector = new ToolbarConnector();
   const isSaving = specsTabState === SPECS_TAB_STATES.SAVING;
 
-  const stockArtText = 'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
+  const stockArtText = allowStockArt
+    ? 'Stock photography is allowed in this challenge.'
+    : 'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
 
   /**
    * Saves updated challenge into API.
@@ -410,6 +415,7 @@ export default function ChallengeDetailsView(props) {
           shareable={_.isEmpty(groups)}
           environment={environment}
           codeRepo={codeRepo}
+          metadata={metadata}
         />
       </div>
     </div>
@@ -428,6 +434,7 @@ ChallengeDetailsView.defaultProps = {
     finalSubmissionGuidelines: '',
     environment: '',
     codeRepo: '',
+    metadata: {},
   },
 };
 
@@ -454,6 +461,7 @@ ChallengeDetailsView.propTypes = {
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
     }),
+    metadata: PT.shape(),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({

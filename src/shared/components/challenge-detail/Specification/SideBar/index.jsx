@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 
 import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
@@ -27,10 +28,22 @@ export default function SideBar({
   environment,
   codeRepo,
   isMM,
+  metadata,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
-  const submissionLimitDisplay = 'Unlimited';
+  let submissionLimitDisplay = 'Unlimited';
+  const submissionLimit = _.find(metadata, { type: 'submissionLimit' });
+  const screeningScorecardId = _.find(metadata, { type: 'screeningScorecardId' });
+  const fileTypes = _.find(metadata, { type: 'fileTypes' });
+
+  if (submissionLimit) {
+    if (submissionLimit.value === 1) {
+      submissionLimitDisplay = '1 submission';
+    } else if (submissionLimit > 1) {
+      submissionLimitDisplay = `${submissionLimit.value} submissions`;
+    }
+  }
 
   const reviewTypeTitle = reviewType === 'PEER' ? 'Peer Review' : 'Community Review Board';
   const reviewTypeDescription = (
@@ -159,14 +172,14 @@ export default function SideBar({
             }
             {
               <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}`}>
+                <a href={`${scorecardURL}${screeningScorecardId ? screeningScorecardId.value : ''}`}>
                   Screening Scorecard
                 </a>
               </p>
             }
             {
               <p styleName="link-like-paragraph tooltip-container">
-                <a href={`${scorecardURL}`}>
+                <a href={`${scorecardURL}${screeningScorecardId ? screeningScorecardId.value : ''}`}>
                   Review Scorecard
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
@@ -252,6 +265,22 @@ export default function SideBar({
             <h2>
               SOURCE FILES:
             </h2>
+            {
+              fileTypes
+              && (
+                <ul styleName="source-files-list">
+                  {
+                    fileTypes.value && fileTypes.value.length > 0
+                      ? fileTypes.value.map(fileT => (
+                        <li key={fileT}>
+                          {fileT}
+                        </li>
+                      ))
+                      : undefined
+                  }
+                </ul>
+              )
+            }
             <p styleName="link-like-paragraph">
               You must include all source files with your submission.
             </p>
@@ -259,9 +288,14 @@ export default function SideBar({
               SUBMISSION LIMIT:
             </h2>
             <p styleName="link-like-paragraph">
-              <strong>
-                {submissionLimitDisplay}
-              </strong>
+              {
+                submissionLimit
+                  ? submissionLimitDisplay : (
+                    <strong>
+                      {submissionLimitDisplay}
+                    </strong>
+                  )
+              }
             </p>
           </div>
           )
@@ -313,6 +347,7 @@ SideBar.defaultProps = {
   environment: '',
   codeRepo: '',
   isMM: false,
+  metadata: {},
 };
 
 SideBar.propTypes = {
@@ -332,4 +367,5 @@ SideBar.propTypes = {
   environment: PT.string,
   codeRepo: PT.string,
   isMM: PT.bool,
+  metadata: PT.shape(),
 };

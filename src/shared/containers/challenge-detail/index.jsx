@@ -161,12 +161,13 @@ class ChallengeDetailPageContainer extends React.Component {
       loadChallengeDetails,
       challengeId,
       challengeSubtracksMap,
-      getSubtracks,
+      getTypes,
       allCountries,
       reviewTypes,
       getAllCountries,
       getReviewTypes,
     } = this.props;
+
     if (
       (challenge.id !== challengeId)
 
@@ -200,7 +201,7 @@ class ChallengeDetailPageContainer extends React.Component {
     getCommunitiesList(auth);
 
     if (_.isEmpty(challengeSubtracksMap)) {
-      getSubtracks();
+      getTypes();
     }
 
     if (!reviewTypes.length) {
@@ -241,8 +242,10 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
+
     const { legacy } = nextProps.challenge;
-    const { track } = legacy;
+
+    const { track } = (_.isUndefined(legacy) && legacy) || {};
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
@@ -363,9 +366,12 @@ class ChallengeDetailPageContainer extends React.Component {
       legacyId,
       status,
       allPhases,
+      metadata,
     } = challenge;
 
-    const { track } = legacy;
+    const { track } = (_.isUndefined(legacy) && legacy) || {};
+
+    const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
@@ -578,6 +584,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 winners={winners}
                 pointPrizes={challenge.pointPrizes}
                 prizes={challenge.prizes}
+                viewable={submissionsViewable ? submissionsViewable.value === 'true' : false}
                 submissions={challenge.submissions}
                 isDesign={track.toLowerCase() === 'design'}
               />
@@ -660,7 +667,7 @@ ChallengeDetailPageContainer.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   getCommunitiesList: PT.func.isRequired,
-  getSubtracks: PT.func.isRequired,
+  getTypes: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
