@@ -117,7 +117,7 @@ export default function Topcoder() {
                     <ContentfulLoader
                       entryQueries={{
                         content_type: 'article',
-                        'fields.title[match]': articleTitle,
+                        'fields.title': articleTitle,
                       }}
                       spaceName="EDU"
                       render={(data) => {
