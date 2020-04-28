@@ -418,6 +418,7 @@ export function isValidTrack(track, subTrack) {
       return subTrack === 'COPILOT';
     case 'DEVELOP':
       switch (subTrack) {
+        case 'DEVELOP_MARATHON_MATCH':
         case 'UI_PROTOTYPE_COMPETITION':
         case 'ASSEMBLY_COMPETITION':
         case 'FIRST_2_FINISH':
