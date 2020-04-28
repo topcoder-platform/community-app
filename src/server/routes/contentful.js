@@ -2,7 +2,6 @@
  * The routes that expose assets and content from Contentful CMS to the CDN.
  */
 
-import config from 'config';
 import express from 'express';
 
 import {
@@ -13,16 +12,14 @@ import {
   articleVote,
 } from '../services/contentful';
 
+const cors = require('cors');
+
 const routes = express.Router();
 
-const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
-
-/* Sets Access-Control-Allow-Origin header to avoid CORS error.
- * TODO: Replace the wildcard value by an appropriate origin filtering. */
-routes.use((req, res, next) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  next();
-});
+// Enables CORS on those routes according config above
+// ToDo configure CORS for set of our trusted domains
+routes.use(cors());
+routes.options('*', cors());
 
 /* Gets non-image asset file. */
 routes.use(
@@ -60,7 +57,7 @@ routes.use(
 routes.use('/:spaceName/:environment/preview/assets/:id', (req, res, next) => {
   const { environment, id, spaceName } = req.params;
   getService(spaceName, environment, true)
-    .getAsset(id, !LOCAL_MODE)
+    .getAsset(id)
     .then(res.send.bind(res), next);
 });
 
@@ -68,7 +65,7 @@ routes.use('/:spaceName/:environment/preview/assets/:id', (req, res, next) => {
 routes.use('/:spaceName/:environment/preview/assets', (req, res, next) => {
   const { environment, spaceName } = req.params;
   getService(spaceName, environment, true)
-    .queryAssets(req.query, !LOCAL_MODE)
+    .queryAssets(req.query)
     .then(res.send.bind(res), next);
 });
 
@@ -94,7 +91,7 @@ routes.use(
   (req, res, next) => {
     const { environment, id, spaceName } = req.params;
     getService(spaceName, environment, false)
-      .getAsset(id, !LOCAL_MODE)
+      .getAsset(id)
       .then(res.send.bind(res), next);
   },
 );
@@ -103,7 +100,7 @@ routes.use(
 routes.use(':spaceName/:environment/published/assets', (req, res, next) => {
   const { environment, spaceName } = req.params;
   getService(spaceName, environment, false)
-    .queryAssets(req.query, !LOCAL_MODE)
+    .queryAssets(req.query)
     .then(res.send.bind(res), next);
 });
 
@@ -131,26 +128,5 @@ routes.use('/:spaceName/:environment/votes', (req, res, next) => {
   articleVote(req.body)
     .then(res.send.bind(res), next);
 });
-
-/* Returns index of assets and content. */
-/*
-routes.use('/index', async (req, res, next) => {
-  try {
-    res.set('Cache-Control', `max-age=${1000}`);
-    res.send(await getIndex());
-  } catch (err) { next(err); }
-});
-*/
-
-/* Returns URL for the next sync of assets and content index with Contentful
- * API. */
-/*
-routes.use('/next-sync-url', async (req, res, next) => {
-  try {
-    res.set('Cache-Control', `max-age=${1000}`);
-    res.send(await getNextSyncUrl());
-  } catch (err) { next(err); }
-});
-*/
 
 export default routes;
