@@ -153,7 +153,7 @@ TracksFilterInner.defaultProps = {
   onApply: () => {},
   selectedAuthor: DEF_SELECTED_AUTHOR,
   authorList: [DEF_SELECTED_AUTHOR],
-  startDate: moment().subtract(1, 'months'),
+  startDate: moment('2001-01-02'),
   endDate: moment(),
   tags: [],
 };

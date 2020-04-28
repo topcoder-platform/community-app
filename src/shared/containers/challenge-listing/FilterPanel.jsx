@@ -10,6 +10,7 @@ import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
+import localStorage from 'localStorage';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
@@ -63,6 +64,12 @@ export class Container extends React.Component {
     const query = qs.parse(window.location.search.slice(1));
     if (query.filter && !filterState.track) {
       setFilterState(query.filter);
+    } else {
+      const trackStatus = localStorage.getItem('trackStatus');
+      const filterObj = trackStatus ? JSON.parse(trackStatus) : null;
+      if (filterObj) {
+        setFilterState(filterObj);
+      }
     }
   }
 

@@ -4,8 +4,7 @@
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
-
-import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
 
 import './styles.scss';
 
@@ -15,17 +14,17 @@ import './styles.scss';
 const ApplicationsTab = ({ applications }) => (
   <div styleName="container">
     <h3>
-Review Applications
+      Review Applications
     </h3>
     <div styleName="head">
       <div styleName="col-1">
-Handle
+        Handle
       </div>
       <div styleName="col-2">
-Role
+        Role
       </div>
       <div styleName="col-3">
-Application Date
+        Application Date
       </div>
     </div>
     <div styleName="body">
@@ -34,19 +33,19 @@ Application Date
         && applications.filter(app => app.status !== 'Cancelled').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
-              <a href={`${config.URL.BASE}/members/${app.handle}`}>
+              <a href={`${window.origin}/members/${app.handle}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
                 {app.handle}
               </a>
             </div>
             <div styleName="col-2">
               <div styleName="sm-only title">
-Role
+                Role
               </div>
               {app.role}
             </div>
             <div styleName="col-3">
               <div styleName="sm-only title">
-Application Date
+                Application Date
               </div>
               <div>
                 <span>

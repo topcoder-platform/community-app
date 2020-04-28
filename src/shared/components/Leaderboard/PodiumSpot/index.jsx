@@ -28,6 +28,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -42,6 +43,7 @@ const PODIUM_ITEM_MODIFIER = {
   1: 'first',
   2: 'second',
   3: 'third',
+  4: 'fourth',
 };
 
 /**
@@ -53,11 +55,13 @@ const CUSTOM_STYLES = {
     1: avatarStyles.gold,
     2: avatarStyles.silver,
     3: avatarStyles.bronze,
+    4: avatarStyles.iron,
   },
   TCO20: {
     1: avatarStyles['tco20-1'],
     2: avatarStyles['tco20-2'],
     3: avatarStyles['tco20-3'],
+    4: avatarStyles['tco20-4'],
   },
 };
 
@@ -68,6 +72,7 @@ const DISPLAY_RANKING = {
   1: '1',
   2: '2',
   3: '3',
+  4: '4',
 };
 
 const THEME = {
@@ -125,7 +130,11 @@ export default function PodiumSpot(props) {
                   {competitor.handle}
                 </div>
               ) : (
-                <a styleName={`${stylesName}.profile-link`} href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+                <a
+                  styleName={`${stylesName}.profile-link`}
+                  href={`${window.origin}/members/${competitor.handle}/`}
+                  target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                >
                   {competitor.handle}
                 </a>
               )
@@ -146,7 +155,11 @@ export default function PodiumSpot(props) {
                     {competitor.handle}
                   </div>
                 ) : (
-                  <a styleName={`${stylesName}.profile-link`} href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+                  <a
+                    styleName={`${stylesName}.profile-link`}
+                    href={`${window.origin}/members/${competitor.handle}/`}
+                    target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                  >
                     {competitor.handle}
                   </a>
                 )
@@ -158,7 +171,7 @@ export default function PodiumSpot(props) {
           isCopilot ? (
             <div styleName={`${stylesName}.stats`}>
               <span styleName={`${stylesName}.value`}>{competitor.fulfillment}</span>
-              <span>fulfillment</span>
+              <span styleName={`${stylesName}.value-title`}>fulfillment</span>
             </div>
           ) : null
         }
@@ -216,7 +229,7 @@ PodiumSpot.propTypes = {
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
   isAlgo: PT.bool,
-  themeName: PT.string.isRequired,
+  themeName: PT.string,
 };
 
 PodiumSpot.defaultProps = {
@@ -224,4 +237,5 @@ PodiumSpot.defaultProps = {
   onUsernameClick: null,
   isTopGear: false,
   isAlgo: false,
+  themeName: 'Default',
 };

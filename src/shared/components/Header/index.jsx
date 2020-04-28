@@ -16,7 +16,10 @@ try {
   // window is undefined
 }
 
-const Header = ({ profile }) => {
+const Header = ({
+  profile, auth, notifications, loadNotifications, markNotificationAsRead,
+  markAllNotificationAsRead, markAllNotificationAsSeen, dismissChallengeNotifications,
+}) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
   const [openMore, setOpenMore] = useState(true);
@@ -46,8 +49,19 @@ const Header = ({ profile }) => {
   }
 
   useEffect(() => {
-    setPath(window.location.pathname);
+    setPath(window.location.pathname + window.location.search);
   }, []);
+
+  /*
+   * Reload notificaitons if token was changed
+   * This prevent to use expired token in API call
+   */
+  if (auth) {
+    useEffect(() => {
+      loadNotifications(auth.tokenV3);
+    }, [auth.tokenV3]);
+  }
+
   if (TopNavRef) {
     return (
       <div>
@@ -56,13 +70,19 @@ const Header = ({ profile }) => {
           rightMenu={(
             <LoginNavRef
               loggedIn={!_.isEmpty(profile)}
-              notificationButtonState="none"
-              notifications={[]}
+              notificationButtonState="new"
+              notifications={notifications || []}
+              loadNotifications={loadNotifications}
+              markNotificationAsRead={markNotificationAsRead}
+              markAllNotificationAsRead={markAllNotificationAsRead}
+              markAllNotificationAsSeen={markAllNotificationAsSeen}
+              dismissChallengeNotifications={dismissChallengeNotifications}
               accountMenu={config.ACCOUNT_MENU}
               switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
               onSwitch={handleSwitchMenu}
               onMenuOpen={handleCloseOpenMore}
-              showNotification={false}
+              showNotification
+              auth={auth}
               profile={normalizedProfile}
               authURLs={config.HEADER_AUTH_URLS}
             />
@@ -86,6 +106,7 @@ const Header = ({ profile }) => {
 
 Header.defaultProps = {
   profile: null,
+  auth: null,
 };
 
 Header.propTypes = {
@@ -93,6 +114,13 @@ Header.propTypes = {
     photoURL: PT.string,
     handle: PT.string,
   }),
+  auth: PT.shape(),
+  notifications: PT.arrayOf(PT.object).isRequired,
+  loadNotifications: PT.func.isRequired,
+  markNotificationAsRead: PT.func.isRequired,
+  markAllNotificationAsRead: PT.func.isRequired,
+  markAllNotificationAsSeen: PT.func.isRequired,
+  dismissChallengeNotifications: PT.func.isRequired,
 };
 
 export default Header;

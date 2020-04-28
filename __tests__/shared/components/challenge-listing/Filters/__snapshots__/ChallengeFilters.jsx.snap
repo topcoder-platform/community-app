@@ -7,12 +7,9 @@ exports[`Matches shallow shapshot shapshot 1`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
-    <FiltersCardsType
-      isCardTypeSet="type"
-      setCardType={[MockFunction]}
-    />
     <ChallengeSearchBar
       label="Search Challenges:"
+      onClearSearch={[Function]}
       onSearch={[Function]}
       placeholder="Type the challenge name here"
       query=""
@@ -36,11 +33,16 @@ exports[`Matches shallow shapshot shapshot 1`] = `
           viewBox="0 0 16 16"
           width="16"
         />
+        <span
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___35dFo"
+        >
+          1
+        </span>
       </span>
       <FiltersSwitch
         active={false}
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
-        filtersCount={0}
+        filtersCount={1}
         onSwitch={[MockFunction]}
       />
     </span>
@@ -97,12 +99,9 @@ exports[`Matches shallow shapshot shapshot 2`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
-    <FiltersCardsType
-      isCardTypeSet="Challenges"
-      setCardType={[MockFunction]}
-    />
     <ChallengeSearchBar
       label="Search Challenges:"
+      onClearSearch={[Function]}
       onSearch={[Function]}
       placeholder="Type the challenge name here"
       query=""
@@ -192,13 +191,13 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         <span
           className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___35dFo"
         >
-          3
+          4
         </span>
       </span>
       <FiltersSwitch
         active={false}
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
-        filtersCount={3}
+        filtersCount={4}
         onSwitch={[MockFunction]}
       />
     </span>

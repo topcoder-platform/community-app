@@ -1,6 +1,7 @@
 import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 
 import Lock from '../../icons/lock.svg';
@@ -58,7 +59,7 @@ export default function Winner({
               <div styleName="lock">
                 <Lock styleName="lock-icon" />
                 <div styleName="text">
-LOCKED
+                  LOCKED
                 </div>
               </div>
             )
@@ -72,13 +73,14 @@ LOCKED
           />
           <div>
             <a
-              href={`${config.URL.BASE}/members/${winner.handle}`}
+              href={`${window.origin}/members/${winner.handle}`}
               styleName="handle"
+              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             >
               {winner.handle}
             </a>
             <div styleName="prize">
-$
+              $
               {prize}
             </div>
           </div>
@@ -87,9 +89,9 @@ $
           submissionId
           && (
           <div styleName="id">
-ID:
+            ID:
             <span>
-#
+              #
               {getId(submissions, winner.placement)}
             </span>
           </div>
@@ -105,7 +107,7 @@ ID:
             challenge
             rel="noopener noreferrer"
           >
-Download
+            Download
           </a>
           )
         }

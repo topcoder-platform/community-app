@@ -4,15 +4,14 @@
   @include roboto-regular;
 
   align-items: center;
-  position: absolute;
   width: 100%;
-  height: calc(100vh);
   background-color: white;
-  top: -54px;
   left: 0;
   z-index: 100000;
   display: flex;
   justify-content: center;
+  position: relative;
+  padding: 30px;
 }
 
 .link,

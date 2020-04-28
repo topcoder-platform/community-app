@@ -2,12 +2,13 @@
 
 There are total 4 deployment environments
 
-| S | Environment  | Backend API |        Purpose        |                   URL                        |
-| - | ------------ | ----------- | --------------------- | -------------------------------------------- |
-| 1 | Development  | Development | feature/fixes testing | `https://community-app.topcoder-dev.com`     |
-| 2 | Test         | Development | feature/fixes testing | `https://test-community-app.topcoder-dev.com`|
-| 3 | Beta         | Production  | Smoke testing only    | `https://beta-community-app.topcoder.com`    |
-| 4 | Production   | Production  | Main production       | `https://www.topcoder.com`                   |
+| # | Environment  | Backend API |        Purpose           |                   URL                        |
+| - | ------------ | ----------- | ------------------------ | -------------------------------------------- |
+| 1 | Development  | Development | feature/fixes testing    | `https://community-app.topcoder-dev.com`     |
+| 2 | Test         | Development | feature/fixes testing    | `https://test-community-app.topcoder-dev.com`|
+| 3 | QA           | Development | Smoke/regression testing | `https://qa-community-app.topcoder-dev.com`  |
+| 4 | Beta         | Production  | Smoke testing only       | `https://beta-community-app.topcoder.com`    |
+| 5 | Production   | Production  | Main production          | `https://www.topcoder.com`                   |
 
 
 ## Deploy your branch on test environments
@@ -47,3 +48,4 @@ workflows:
                 - develop
 ```
 4. Commit the changes
+5. Status of the deployment environments can be checked here https://cci-reporter.herokuapp.com/

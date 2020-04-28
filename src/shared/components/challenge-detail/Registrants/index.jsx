@@ -8,7 +8,6 @@ import PT from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import cn from 'classnames';
-import { config } from 'topcoder-react-utils';
 
 import sortList from 'utils/challenge-detail/sort';
 import CheckMark from '../icons/check-mark.svg';
@@ -397,7 +396,7 @@ export default class Registrants extends React.Component {
                     !isDesign && !isF2F && !isBugHunt && (
                       <div styleName="col-2">
                         <div styleName="sm-only title">
-  Rating
+                          Rating
                         </div>
                         <div>
                           <span style={colorStyle} role="cell">
@@ -409,14 +408,18 @@ export default class Registrants extends React.Component {
                   }
                   <div styleName="col-3">
                     <span role="cell">
-                      <a href={`${config.URL.BASE}/members/${r.handle}`} style={colorStyle}>
+                      <a
+                        href={`${window.origin}/members/${r.handle}`}
+                        style={colorStyle}
+                        target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                      >
                         {r.handle}
                       </a>
                     </span>
                   </div>
                   <div styleName="col-4">
                     <div styleName="sm-only title">
-  Registration Date
+                      Registration Date
                     </div>
                     <span role="cell">{formatDate(r.registrationDate)}</span>
                   </div>
@@ -425,7 +428,7 @@ export default class Registrants extends React.Component {
                     && (
                     <div styleName="col-5">
                       <div styleName="sm-only title">
-  Round 1 Submitted Date
+                        Round 1 Submitted Date
                       </div>
                       <div>
                         <span role="cell">
@@ -442,7 +445,7 @@ export default class Registrants extends React.Component {
                   <div styleName="col-6">
                     <div styleName="sm-only title">
                       {twoRounds ? 'Round 2 ' : ''}
-  Submitted Date
+                      Submitted Date
                     </div>
                     <div>
                       <span role="cell">

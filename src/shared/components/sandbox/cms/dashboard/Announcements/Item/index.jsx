@@ -32,11 +32,11 @@ export default function Item({
         {title}
       </h1>
       <div>
-Start Date:
+        Start Date:
         {moment(startDate).toString()}
       </div>
       <div>
-End Date:
+        End Date:
         {moment(endDate).toString()}
       </div>
     </a>

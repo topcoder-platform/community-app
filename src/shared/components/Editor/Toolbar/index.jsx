@@ -141,7 +141,7 @@ export default class Toolbar extends React.Component {
             size="sm"
             theme={{ button: style.basic }}
           >
-Save
+            Save
           </Button>
           <div styleName="separator" />
 
@@ -164,7 +164,7 @@ Save
             size="sm"
             theme={{ button: style.basic }}
           >
-Color
+            Color
           </Button>
           <ColorPicker
             onChange={(color) => {
@@ -221,7 +221,7 @@ Color
             size="sm"
             theme={{ button: style.basic }}
           >
-Insert Link
+            Insert Link
           </Button>
 
           <Button
@@ -233,7 +233,7 @@ Insert Link
             size="sm"
             theme={{ button: style.basic }}
           >
-Insert Image
+            Insert Image
           </Button>
 
           <div styleName="select-wrapper">

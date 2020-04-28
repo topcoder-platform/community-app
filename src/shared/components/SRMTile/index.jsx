@@ -38,7 +38,7 @@ const SRMTile = ({ challenge, userId }) => {
                 {finalPoints}
               </span>
               <span>
-Points
+                Points
               </span>
             </p>
             <div styleName="ranks">
@@ -48,7 +48,7 @@ Points
                 </p>
                 <p styleName="last-child">
                   <span>
-Division
+                    Division
                     {division}
                   </span>
                 </p>
@@ -59,13 +59,13 @@ Division
                 </p>
                 <p styleName="last-child">
                   <span>
-Room
+                    Room
                   </span>
                 </p>
               </a>
             </div>
             <p styleName="placement">
-Placement
+              Placement
             </p>
           </div>
         </div>

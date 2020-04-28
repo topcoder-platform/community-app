@@ -84,7 +84,7 @@ export default class AddWebLink extends React.Component {
                 && (
                   <div styleName="form-input-error">
                     <p>
-Please enter a valid URL
+                      Please enter a valid URL
                     </p>
                   </div>
                 )

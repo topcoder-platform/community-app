@@ -69,7 +69,7 @@ export default function ScreeningDetails(props) {
       <div styleName="screening-warning" key={shortid.generate()}>
         <div styleName="warning-bold">
           <span>
-Warning
+            Warning
           </span>
           {' '}
           {`${1 + i} : ${warning.brief}`}
@@ -103,13 +103,13 @@ Warning
         {((hasStatusFailed) || (hasStatusPassed && hasWarnings))
           && (
           <p styleName="more-info">
-Need more info on how to pass screening?
-             Go to help to read Rules & Policies.
+            Need more info on how to pass screening?
+            Go to help to read Rules & Policies.
           </p>
           )}
         <div styleName="help-btn">
           <a href={helpPageUrl} styleName="help-link" className="tc-btn-default">
-Help
+            Help
           </a>
         </div>
       </div>

@@ -250,7 +250,7 @@ class SubTrackChallengeView extends React.Component {
           <section>
             <div styleName="challenges">
               <div styleName="no-challenges">
-Sorry, no successful challenges found.
+                Sorry, no successful challenges found.
               </div>
             </div>
           </section>
