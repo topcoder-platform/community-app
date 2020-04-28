@@ -40,15 +40,9 @@ export default function ChallengeDetailsView(props) {
     groups,
     description,
     privateDescription,
-    track,
-    screeningScorecardId,
-    reviewScorecardId,
-    submissionLimit,
-    mainEvent,
+    legacy,
     documents,
     tags,
-    fileTypes,
-    allowStockArt,
     finalSubmissionGuidelines,
     environment,
     codeRepo,
@@ -56,6 +50,7 @@ export default function ChallengeDetailsView(props) {
   } = challenge;
 
   const roles = (userDetails || {}).roles || [];
+  const { track } = legacy;
 
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
@@ -79,9 +74,7 @@ export default function ChallengeDetailsView(props) {
   const toolbarConnector = new ToolbarConnector();
   const isSaving = specsTabState === SPECS_TAB_STATES.SAVING;
 
-  const stockArtText = allowStockArt
-    ? 'Stock photography is allowed in this challenge.'
-    : 'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
+  const stockArtText = 'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
 
   /**
    * Saves updated challenge into API.
@@ -407,14 +400,9 @@ export default function ChallengeDetailsView(props) {
         </div>
         <SideBar
           challengesUrl={challengesUrl}
-          screeningScorecardId={screeningScorecardId}
-          reviewScorecardId={reviewScorecardId}
           forumLink={forumLink}
-          submissionLimit={submissionLimit}
-          eventDetail={_.isEmpty(mainEvent) ? null : mainEvent}
           documents={documents}
           hasRegistered={hasRegistered}
-          fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
           isMM={isMM(challenge)}
@@ -434,15 +422,9 @@ ChallengeDetailsView.defaultProps = {
     description: undefined,
     privateDescription: undefined,
     track: 'design',
-    screeningScorecardId: undefined,
-    reviewScorecardId: undefined,
-    submissionLimit: 0,
-    mainEvent: undefined,
     reviewType: undefined,
     tags: [],
-    fileTypes: [],
     numberOfCheckpointsPrizes: 0,
-    allowStockArt: false,
     finalSubmissionGuidelines: '',
     environment: '',
     codeRepo: '',
@@ -458,18 +440,14 @@ ChallengeDetailsView.propTypes = {
     id: PT.any,
     subTrack: PT.any,
     privateDescription: PT.string,
-    track: PT.string.isRequired,
+    legacy: PT.shape({
+      track: PT.string.isRequired,
+    }),
     groups: PT.any,
-    screeningScorecardId: PT.number,
-    reviewScorecardId: PT.number,
     forumId: PT.number.isRequired,
-    submissionLimit: PT.number,
-    mainEvent: PT.shape(),
     reviewType: PT.string,
     tags: PT.arrayOf(PT.string),
-    fileTypes: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
-    allowStockArt: PT.bool,
     finalSubmissionGuidelines: PT.string,
     environment: PT.string,
     codeRepo: PT.string,

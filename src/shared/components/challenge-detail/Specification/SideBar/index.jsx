@@ -17,13 +17,9 @@ export default function SideBar({
   challengesUrl,
   documents,
   eventDetail,
-  reviewScorecardId,
-  screeningScorecardId,
   shareable,
   forumLink,
-  submissionLimit,
   hasRegistered,
-  fileTypes,
   reviewType,
   isDesign,
   terms,
@@ -34,12 +30,7 @@ export default function SideBar({
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
-  let submissionLimitDisplay = 'Unlimited';
-  if (submissionLimit === 1) {
-    submissionLimitDisplay = '1 submission';
-  } else if (submissionLimit > 1) {
-    submissionLimitDisplay = `${submissionLimit} submissions`;
-  }
+  const submissionLimitDisplay = 'Unlimited';
 
   const reviewTypeTitle = reviewType === 'PEER' ? 'Peer Review' : 'Community Review Board';
   const reviewTypeDescription = (
@@ -167,20 +158,15 @@ export default function SideBar({
               )
             }
             {
-              screeningScorecardId > 0
-              && (
               <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}${screeningScorecardId}`}>
+                <a href={`${scorecardURL}`}>
                   Screening Scorecard
                 </a>
               </p>
-              )
             }
             {
-              reviewScorecardId > 0 && !isDesign
-              && (
               <p styleName="link-like-paragraph tooltip-container">
-                <a href={`${scorecardURL}${reviewScorecardId}`}>
+                <a href={`${scorecardURL}`}>
                   Review Scorecard
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
@@ -189,7 +175,6 @@ export default function SideBar({
                   </div>
                 </Tooltip>
               </p>
-              )
             }
           </div>
           )
@@ -267,17 +252,6 @@ export default function SideBar({
             <h2>
               SOURCE FILES:
             </h2>
-            <ul styleName="source-files-list">
-              {
-                fileTypes && fileTypes.length > 0
-                  ? fileTypes.map(fileT => (
-                    <li key={fileT}>
-                      {fileT}
-                    </li>
-                  ))
-                  : undefined
-              }
-            </ul>
             <p styleName="link-like-paragraph">
               You must include all source files with your submission.
             </p>
@@ -285,14 +259,9 @@ export default function SideBar({
               SUBMISSION LIMIT:
             </h2>
             <p styleName="link-like-paragraph">
-              {
-                submissionLimit
-                  ? submissionLimitDisplay : (
-                    <strong>
-                      {submissionLimitDisplay}
-                    </strong>
-                  )
-              }
+              <strong>
+                {submissionLimitDisplay}
+              </strong>
             </p>
           </div>
           )
@@ -336,10 +305,6 @@ export default function SideBar({
 SideBar.defaultProps = {
   eventDetail: null,
   documents: undefined,
-  screeningScorecardId: 0,
-  reviewScorecardId: 0,
-  submissionLimit: 0,
-  fileTypes: [],
   hasRegistered: false,
   reviewType: 'COMMUNITY',
   isDesign: false,
@@ -357,12 +322,8 @@ SideBar.propTypes = {
     description: PT.string.isRequired,
   }),
   documents: PT.arrayOf(PT.shape()),
-  screeningScorecardId: PT.number,
   shareable: PT.bool.isRequired,
-  reviewScorecardId: PT.number,
   forumLink: PT.string.isRequired,
-  submissionLimit: PT.number,
-  fileTypes: PT.arrayOf(PT.string),
   hasRegistered: PT.bool,
   reviewType: PT.string,
   isDesign: PT.bool,

@@ -241,11 +241,13 @@ export default class Registrants extends React.Component {
     } = this.props;
     const {
       prizes,
+      legacy,
     } = challenge;
+    const { track } = legacy;
     const { sortedRegistrants } = this.state;
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
-    const isDesign = challenge.track.toLowerCase() === 'design';
+    const isDesign = track.toLowerCase() === 'design';
     const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
     const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
 
@@ -482,7 +484,9 @@ Registrants.propTypes = {
     })).isRequired,
     allPhases: PT.arrayOf(PT.shape()),
     checkpoints: PT.arrayOf(PT.shape()),
-    track: PT.any,
+    legacy: PT.shape({
+      track: PT.any,
+    }),
     subTrack: PT.any,
     prizes: PT.arrayOf(PT.number).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,

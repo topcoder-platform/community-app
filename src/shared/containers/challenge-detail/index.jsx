@@ -80,6 +80,8 @@ const DAY = 24 * 60 * MIN;
  * @return {String}
  */
 function getOgImage(challenge, challengeTypes) {
+  const { legacy } = challenge;
+  const { track } = legacy;
   if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
   if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
   if (challenge.prizes) {
@@ -87,7 +89,7 @@ function getOgImage(challenge, challengeTypes) {
     if (totalPrize > 2500) return ogBigPrizesChallenge;
   }
 
-  const subTrack = getChallengeSubTrack(challenge.track, challengeTypes);
+  const subTrack = getChallengeSubTrack(track, challengeTypes);
 
   switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
@@ -103,7 +105,7 @@ function getOgImage(challenge, challengeTypes) {
     case SUBTRACKS.WIREFRAMES: return ogWireframe;
     default:
   }
-  switch (challenge.track) {
+  switch (track) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
     case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
     default: return ogImage;
@@ -239,11 +241,13 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
+    const { legacy } = nextProps.challenge;
+    const { track } = legacy;
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
     }
-    if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
+    if (track && track.toLowerCase() !== 'design'
       && thriveArticles.length === 0) {
       const { tags } = nextProps.challenge;
       if (tags.length > 0 && !(tags.length === 1 && tags[0] === 'Other')) {
@@ -355,10 +359,13 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.state;
 
     const {
+      legacy,
       legacyId,
       status,
       allPhases,
     } = challenge;
+
+    const { track } = legacy;
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
@@ -572,8 +579,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 pointPrizes={challenge.pointPrizes}
                 prizes={challenge.prizes}
                 submissions={challenge.submissions}
-                viewable={challenge.submissionsViewable === 'true'}
-                isDesign={challenge.track.toLowerCase() === 'design'}
+                isDesign={track.toLowerCase() === 'design'}
               />
             )
           }
@@ -905,10 +911,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
-    getSubtracks: () => {
+    getTypes: () => {
       const cl = challengeListingActions.challengeListing;
-      dispatch(cl.getChallengeSubtracksInit());
-      dispatch(cl.getChallengeSubtracksDone());
+      dispatch(cl.getChallengeTypesInit());
+      dispatch(cl.getChallengeTypesDone());
     },
     openTermsModal: (term) => {
       dispatch(termsActions.terms.openTermsModal('ANY', term));

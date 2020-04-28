@@ -14,7 +14,9 @@
 	"updatedBy": "22841596",
 	"technologies": "",
 	"status": "COMPLETED",
-	"track": "DESIGN",
+	"legacy": {
+		"track": "DESIGN"
+	},
 	"subTrack": "LOGO_DESIGN",
 	"name": "Sunshot - MapMySolar - SunGiver  - Brand Concept Logo Design Challenge",
 	"reviewType": "INTERNAL",
@@ -317,7 +319,9 @@
 	"updatedBy": "22841596",
 	"technologies": "",
 	"status": "COMPLETED",
-	"track": "DESIGN",
+	"legacy": {
+		"track": "DESIGN"
+	},
 	"subTrack": "LOGO_DESIGN",
 	"name": "2016 Topcoder Open Logo Design Challenge",
 	"reviewType": "INTERNAL",
@@ -527,7 +531,9 @@
 	"updatedBy": "22841596",
 	"technologies": "",
 	"status": "COMPLETED",
-	"track": "DESIGN",
+	"legacy": {
+		"track": "DESIGN"
+	},
 	"subTrack": "LOGO_DESIGN",
 	"name": "ACME Logos Design Challenge",
 	"reviewType": "INTERNAL",

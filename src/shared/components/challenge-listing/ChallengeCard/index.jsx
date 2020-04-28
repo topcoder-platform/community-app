@@ -42,10 +42,11 @@ function ChallengeCard({
   const challenge = passedInChallenge;
   const {
     id,
-    track,
     status,
+    legacy,
   } = challenge;
 
+  const { track } = legacy;
   challenge.isDataScience = false;
   if ((challenge.tags && challenge.tags.includes('Data Science')) || isDevelopMM(challenge)) {
     challenge.isDataScience = true;
@@ -66,10 +67,13 @@ function ChallengeCard({
     <div ref={domRef} styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} challengeType={challenge.challengeType}>
+          <TrackAbbreviationTooltip
+            legacy={challenge.legacy}
+            challengeType={challenge.challengeType}
+          >
             <span>
               <TrackIcon
-                track={challenge.track}
+                track={track}
                 subTrack={subTrack}
                 challengeType={challenge.challengeType}
                 tcoEligible={challenge.events ? challenge.events[0].eventName : ''}

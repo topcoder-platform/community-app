@@ -33,14 +33,16 @@ export default function ChallengesCard({
   const {
     id,
     subTrack,
-    track,
+    legacy,
     status,
     allPhases,
     currentPhases,
   } = challenge;
 
+  const { track } = legacy;
+
   let challengeDetailLink = `${challengesUrl}/${id}`;
-  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
+  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'Active') {
     challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
   }
 
@@ -53,8 +55,7 @@ export default function ChallengesCard({
     <div className={className} styleName="container">
       <div styleName="content">
         <Tags
-          technologies={challenge.technologies}
-          platforms={challenge.platforms}
+          tags={challenge.tags}
           isExpanded={expandedTags.includes(challenge.id)}
           expand={() => expandTag(challenge.id)}
           challengesUrl={challengesUrl}
@@ -62,12 +63,12 @@ export default function ChallengesCard({
         <div styleName="content-bottom">
           <div styleName="challenge-track">
             <TrackAbbreviationTooltip
-              track={challenge.track}
+              legacy={challenge.legacy}
               subTrack={challenge.subTrack}
             >
               <span styleName="track-icon">
                 <TrackIcon
-                  track={challenge.track}
+                  track={track}
                   subTrack={challenge.subTrack}
                   tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                   isDataScience={challenge.isDataScience}
@@ -87,7 +88,7 @@ export default function ChallengesCard({
             </Link>
             <div styleName="endtime-prize-container">
               <span styleName="end-date">
-                {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
+                {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
                 {getEndDate(challenge, challengeTypes)}
               </span>
               <div styleName="prizes">

@@ -107,9 +107,10 @@ function placeArrow(TooltipNode) {
 function TrackAbbreviationTooltip({
   children,
   subTrack,
-  track,
+  legacy,
   challengeType,
 }) {
+  const { track } = legacy;
   const tip = <Tip track={track} subTrack={subTrack} challengeType={challengeType} />;
   return (
     <Tooltip
@@ -134,7 +135,9 @@ TrackAbbreviationTooltip.propTypes = {
   challengeType: PT.shape({
     abbreviation: PT.string,
   }),
-  track: PT.string.isRequired,
+  legacy: PT.shape({
+    track: PT.string.isRequired,
+  }).isRequired,
 };
 
 export default TrackAbbreviationTooltip;

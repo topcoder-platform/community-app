@@ -168,9 +168,9 @@ function mapDispatchToProps(dispatch) {
   const sa = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
-    getSubtracks: () => {
-      dispatch(cla.getChallengeSubtracksInit());
-      dispatch(cla.getChallengeSubtracksDone());
+    getTypes: () => {
+      dispatch(cla.getChallengeTypesInit());
+      dispatch(cla.getChallengeTypesDone());
     },
     getCommunityList: (auth) => {
       const uuid = shortId();

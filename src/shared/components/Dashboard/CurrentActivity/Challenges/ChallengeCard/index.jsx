@@ -144,7 +144,7 @@ export default function ChallengeCard({
     deadlineMsg = late ? `Late by ${deadlineMsg}` : `Starts in ${deadlineMsg}`;
 
     statusMsg = 'Scheduled';
-  } else if (status === 'COMPLETED') {
+  } else if (status === 'Completed') {
     statusMsg = 'Completed';
   } else {
     msgStyleModifier = ' alert';

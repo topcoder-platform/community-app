@@ -53,9 +53,9 @@ function getAll(getter, page = 0, prev) {
  * Gets possible challenge subtracks.
  * @return {Promise}
  */
-function getChallengeSubtracksDone() {
+function getChallengeTypesDone() {
   return getService()
-    .getChallengeSubtracks()
+    .getChallengeTypes()
     .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
@@ -355,8 +355,8 @@ export default createActions({
     GET_REST_ACTIVE_CHALLENGES_INIT: getRestActiveChallengesInit,
     GET_REST_ACTIVE_CHALLENGES_DONE: getRestActiveChallengesDone,
 
-    GET_CHALLENGE_SUBTRACKS_INIT: _.noop,
-    GET_CHALLENGE_SUBTRACKS_DONE: getChallengeSubtracksDone,
+    GET_CHALLENGE_TYPES_INIT: _.noop,
+    GET_CHALLENGE_TYPES_DONE: getChallengeTypesDone,
 
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,

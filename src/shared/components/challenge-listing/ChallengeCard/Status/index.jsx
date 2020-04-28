@@ -229,7 +229,7 @@ export default function ChallengeStatus(props) {
 
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.name;
-    else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
+    else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
     const showRegisterInfo = isRegistrationOpen && !challenge.users[userHandle];
 
@@ -290,7 +290,7 @@ export default function ChallengeStatus(props) {
   }
 
   const { challenge, className } = props;
-  const completed = challenge.status === 'COMPLETED';
+  const completed = challenge.status === 'Completed';
   const status = completed ? 'completed' : '';
   return (
     <div className={className} styleName={`challenge-status ${status}`}>

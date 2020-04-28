@@ -17,7 +17,7 @@ import './style.scss';
 
 export default function NumSubmissions({
   challenge: {
-    id, numOfSubmissions, track,
+    id, numOfSubmissions, legacy,
   },
   challengesUrl,
   newChallengeDetails,
@@ -31,6 +31,7 @@ export default function NumSubmissions({
     default: tip = `${numOfSubmissions} total submissions`;
   }
   const query = numOfSubmissions ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
+  const { track } = legacy;
   let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
@@ -71,7 +72,9 @@ NumSubmissions.propTypes = {
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numOfSubmissions: PT.number,
     status: PT.string.isRequired,
-    track: PT.string.isRequired,
+    legacy: PT.shape({
+      track: PT.string.isRequired,
+    }),
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,

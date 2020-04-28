@@ -55,7 +55,7 @@ export default function Challenges({
       ch.dashboardPriority = deadlineEnd.diff(now);
     } else if (moment(ch.registrationStartDate).isAfter(now)) {
       ch.dashboardPriority = moment(ch.registrationStartDate).diff(now);
-    } else if (ch.status === 'COMPLETED') {
+    } else if (ch.status === 'Completed') {
       ch.dashboardPriority = Number.MAX_VALUE;
     } else ch.dashboardPriority = -Number.MAX_VALUE;
   }

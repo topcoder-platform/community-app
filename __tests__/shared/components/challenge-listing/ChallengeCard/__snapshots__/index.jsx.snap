@@ -19,6 +19,9 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         },
       ],
       "isDataScience": true,
+      "legacy": Object {
+        "track": "DEVELOP",
+      },
       "prize": Array [
         1200,
         600,
@@ -36,7 +39,6 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         "Data Science",
       ],
       "totalPrize": 1800,
-      "track": "DEVELOP",
       "users": Object {},
     }
   }
@@ -66,6 +68,9 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
         "Registration",
       ],
       "id": "1",
+      "legacy": Object {
+        "track": "DATA_SCIENCE",
+      },
       "prizes": Array [
         1200,
         600,
@@ -78,7 +83,6 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
         "Go",
       ],
       "totalPrize": 1800,
-      "track": "DATA_SCIENCE",
       "users": Object {},
     }
   }
@@ -108,6 +112,9 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
         "Registration",
       ],
       "id": "long id",
+      "legacy": Object {
+        "track": "DATA_SCIENCE",
+      },
       "prizes": Array [
         1200,
         600,
@@ -116,7 +123,6 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       "tags": Array [],
       "technologies": Array [],
       "totalPrize": 1800,
-      "track": "DATA_SCIENCE",
       "users": Object {},
     }
   }

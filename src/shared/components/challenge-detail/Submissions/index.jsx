@@ -274,8 +274,10 @@ class SubmissionsComponent extends React.Component {
     const {
       checkpoints,
       id: challengeId,
+      legacy,
     } = challenge;
 
+    const { track } = legacy;
     const isMM = checkIsMM(challenge);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
@@ -345,7 +347,7 @@ class SubmissionsComponent extends React.Component {
       }
     });
 
-    if (challenge.track.toLowerCase() === 'design') {
+    if (track.toLowerCase() === 'design') {
       return challenge.submissionViewable === 'true' ? (
         <div styleName="container view">
           <div styleName="title">
@@ -771,7 +773,9 @@ SubmissionsComponent.propTypes = {
     checkpoints: PT.arrayOf(PT.object),
     submissions: PT.arrayOf(PT.object),
     submissionViewable: PT.string,
-    track: PT.string.isRequired,
+    legacy: PT.shape({
+      track: PT.string.isRequired,
+    }),
     registrants: PT.any,
     allPhases: PT.any,
     phases: PT.any,

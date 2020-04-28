@@ -219,15 +219,15 @@ describe('full render connnected component and dispatch actions', () => {
     filterPanel = instance.find(FilterPanel);
   });
 
-  test('getSubtracks', () => {
+  test('getTypes', () => {
     global.fetch = () => Promise.resolve({
       ok: true,
       json: () => ([]),
     });
-    filterPanel.prop('getSubtracks')();
+    filterPanel.prop('getTypes')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeSubtracksInit.toString());
-    expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeSubtracksDone.toString());
+    expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeTypesInit.toString());
+    expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeTypesDone.toString());
   });
 
   test('getKeywords', () => {

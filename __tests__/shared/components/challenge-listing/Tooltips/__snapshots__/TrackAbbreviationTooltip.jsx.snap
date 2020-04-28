@@ -7,7 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   content={
     <Tip
       challengeType={null}
-      subTrack="F2F"
+      subTrack="CODE"
       track="DEVELOP"
     />
   }

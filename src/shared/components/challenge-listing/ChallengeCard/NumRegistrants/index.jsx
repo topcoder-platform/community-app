@@ -17,7 +17,7 @@ import './style.scss';
 
 export default function NumRegistrants({
   challenge: {
-    id, numOfRegistrants, track,
+    id, numOfRegistrants, legacy,
   },
   challengesUrl,
   newChallengeDetails,
@@ -30,6 +30,7 @@ export default function NumRegistrants({
     case 1: tip = '1 total registrant'; break;
     default: tip = `${numOfRegistrants} total registrants`;
   }
+  const { track } = legacy;
   const query = numOfRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
@@ -73,7 +74,9 @@ NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numOfRegistrants: PT.number,
-    track: PT.string.isRequired,
+    legacy: PT.shape({
+      track: PT.string.isRequired,
+    }),
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,
