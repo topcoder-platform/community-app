@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { tracking } from 'topcoder-react-lib';
 import styles from './style.scss';
 
 
@@ -33,12 +34,14 @@ export default class TabsPanel extends React.Component {
               () => {
                 this.setState({ tab: TABS.ACTIVE });
                 changeTab(TABS.ACTIVE);
+                tracking.event('Click', 'Change Tab', 'Active Challenges');
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.ACTIVE });
                 changeTab(TABS.ACTIVE);
+                tracking.event('Click', 'Change Tab', 'Active Challenges');
               }
             }
           >CHALLENGES
@@ -51,12 +54,14 @@ export default class TabsPanel extends React.Component {
               () => {
                 this.setState({ tab: TABS.BROADCAST });
                 changeTab(TABS.BROADCAST);
+                tracking.event('Click', 'Change Tab', 'Notifications');
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.BROADCAST });
                 changeTab(TABS.BROADCAST);
+                tracking.event('Click', 'Change Tab', 'Notifications');
               }
             }
           >NOTIFICATIONS
@@ -72,12 +77,14 @@ export default class TabsPanel extends React.Component {
               () => {
                 this.setState({ tab: TABS.COMPLETED });
                 changeTab(TABS.COMPLETED);
+                tracking.event('Click', 'Change Tab', 'Completed Challenges');
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.COMPLETED });
                 changeTab(TABS.COMPLETED);
+                tracking.event('Click', 'Change Tab', 'Completed Challenges');
               }
             }
           >COMPLETED CHALLENGES
