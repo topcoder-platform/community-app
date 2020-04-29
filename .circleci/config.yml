@@ -174,8 +174,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - notifications-analytics
+                - hot-fix-hall-of-fame
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -189,8 +188,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - notifications-analytics
+                - hot-fix-hall-of-fame
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
