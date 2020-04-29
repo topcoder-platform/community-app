@@ -43,7 +43,9 @@ const mockDatas = [{
         phaseStatus: 'Open',
       }],
       currentPhases: ['Registration'],
-      track: 'DEVELOP',
+      legacy: {
+        track: 'DEVELOP',
+      },
       subTrack: 'CODE',
       events: [{ eventName: 'Submit' }],
       prizes: [1200, 600],

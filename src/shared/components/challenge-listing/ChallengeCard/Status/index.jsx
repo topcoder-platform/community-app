@@ -30,8 +30,8 @@ const DRAFT_MSG = 'In Draft';
  * @return {Number}
  */
 function getPhaseProgress(phase) {
-  const end = moment(phase.scheduledEndTime);
-  const start = moment(phase.actualStartTime);
+  const end = moment(phase.scheduledEndDate);
+  const start = moment(phase.actualStartDate);
   return 100 * (moment().diff(start) / end.diff(start));
 }
 
@@ -203,21 +203,19 @@ export default function ChallengeStatus(props) {
   function activeChallenge() {
     const { challenge } = props;
     const {
-      currentPhases,
       forumId,
       myChallenge,
       status,
       subTrack,
     } = challenge;
-    const allPhases = challenge.allPhases || challenge.phases || [];
+    const allPhases = challenge.phases || [];
 
-    const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
-    let statusPhase = checkPhases
+    let statusPhase = allPhases
       .filter(p => p.name !== 'Registration')
-      .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
+      .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && checkPhases.length) {
-      statusPhase = _.clone(checkPhases[0]);
+    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && allPhases.length) {
+      statusPhase = _.clone(allPhases[0]);
       statusPhase.name = 'Submission';
     }
 
@@ -225,12 +223,13 @@ export default function ChallengeStatus(props) {
       .find(p => p.name === 'Registration');
     const isRegistrationOpen = registrationPhase
       && (
-        registrationPhase.isActive
-        || moment(registrationPhase.scheduledEndTime).diff(new Date()) > 0);
+        registrationPhase.isOpen
+        || moment(registrationPhase.scheduledEndDate).diff(new Date()) > 0);
+
 
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.name;
-    else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
+    else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
     const showRegisterInfo = isRegistrationOpen && !challenge.users[userHandle];
 
@@ -276,7 +275,7 @@ export default function ChallengeStatus(props) {
                 <ChallengeProgressBar
                   color="green"
                   value={getPhaseProgress(statusPhase)}
-                  isLate={moment().isAfter(statusPhase.scheduledEndTime)}
+                  isLate={moment().isAfter(statusPhase.scheduledEndDate)}
                 />
                 <div styleName="time-left">
                   {getTimeLeft(statusPhase, 'to register').text}
@@ -291,7 +290,7 @@ export default function ChallengeStatus(props) {
   }
 
   const { challenge, className } = props;
-  const completed = challenge.status === 'COMPLETED';
+  const completed = challenge.status === 'Completed';
   const status = completed ? 'completed' : '';
   return (
     <div className={className} styleName={`challenge-status ${status}`}>

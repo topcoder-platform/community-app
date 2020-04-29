@@ -17,7 +17,7 @@ import './style.scss';
 
 export default function NumRegistrants({
   challenge: {
-    id, numRegistrants, track,
+    id, numOfRegistrants, legacy,
   },
   challengesUrl,
   newChallengeDetails,
@@ -25,12 +25,13 @@ export default function NumRegistrants({
   openChallengesInNewTabs,
 }) {
   let tip;
-  switch (numRegistrants) {
+  switch (numOfRegistrants) {
     case 0: tip = 'No registrants'; break;
     case 1: tip = '1 total registrant'; break;
-    default: tip = `${numRegistrants} total registrants`;
+    default: tip = `${numOfRegistrants} total registrants`;
   }
-  const query = numRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
+  const { track } = legacy;
+  const query = numOfRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
@@ -45,19 +46,19 @@ export default function NumRegistrants({
         )}
       >
         <Link
-          disabled={!numRegistrants}
+          disabled={!numOfRegistrants}
           onClick={() => (
-            selectChallengeDetailsTab(numRegistrants
+            selectChallengeDetailsTab(numOfRegistrants
               ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
           openNewTab={openChallengesInNewTabs}
-          aria-label={`Number of registrants ${numRegistrants}`}
+          aria-label={`Number of registrants ${numOfRegistrants}`}
         >
           <RegistrantsIcon />
           <span styleName="number">
-            {numRegistrants}
+            {numOfRegistrants}
           </span>
         </Link>
       </Tooltip>
@@ -72,8 +73,10 @@ NumRegistrants.defaultProps = {
 NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
-    numRegistrants: PT.number,
-    track: PT.string.isRequired,
+    numOfRegistrants: PT.number,
+    legacy: PT.shape({
+      track: PT.string.isRequired,
+    }),
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,

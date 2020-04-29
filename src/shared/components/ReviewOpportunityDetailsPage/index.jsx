@@ -49,7 +49,7 @@ const ReviewOpportunityDetailsPage = ({
             Review Opportunities
           </div>
           <div styleName="subtrack-tag">
-            {details.challenge.subTrack}
+            {details.challenge.type}
           </div>
         </div>
 

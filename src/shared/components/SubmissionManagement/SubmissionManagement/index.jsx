@@ -38,14 +38,17 @@ export default function SubmissionManagement(props) {
     submissionPhaseStartDate,
   } = props;
 
-  const challengeType = challenge.track.toLowerCase();
+  const { legacy } = challenge;
+  const { track } = legacy;
+
+  const challengeType = track.toLowerCase();
 
   const isDesign = challengeType === 'design';
   const isDevelop = challengeType === 'develop';
   const currentPhase = _.last(challenge.currentPhases || []) || {};
 
   const now = moment();
-  const end = moment(currentPhase.scheduledEndTime);
+  const end = moment(currentPhase.scheduledEndDate);
   const diff = end.diff(now);
   const timeLeft = moment.duration(diff);
 
@@ -147,7 +150,7 @@ export default function SubmissionManagement(props) {
           <SubmissionsTable
             submissionObjects={submissions}
             showDetails={showDetails}
-            type={challenge.track}
+            type={track}
             status={challenge.status}
             submissionPhaseStartDate={submissionPhaseStartDate}
             {...componentConfig}

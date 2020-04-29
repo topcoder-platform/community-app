@@ -10,6 +10,7 @@ import {
   PRIZE_MODE,
   getPrizePurseUI,
   getPrizePointsUI,
+  getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
 
 import Tags from '../Tags';
@@ -25,6 +26,7 @@ import './style.scss';
 
 function ChallengeCard({
   challenge: passedInChallenge,
+  challengeTypes,
   challengesUrl,
   expandedTags,
   expandTag,
@@ -40,10 +42,11 @@ function ChallengeCard({
   const challenge = passedInChallenge;
   const {
     id,
-    track,
     status,
+    legacy,
   } = challenge;
 
+  const { track } = legacy;
   challenge.isDataScience = false;
   if ((challenge.tags && challenge.tags.includes('Data Science')) || isDevelopMM(challenge)) {
     challenge.isDataScience = true;
@@ -58,14 +61,20 @@ function ChallengeCard({
   const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isActive : false;
 
+  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
+
   return (
     <div ref={domRef} styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} challengeType={challenge.challengeType}>
+          <TrackAbbreviationTooltip
+            legacy={challenge.legacy}
+            challengeType={challenge.challengeType}
+          >
             <span>
               <TrackIcon
-                track={challenge.track}
+                track={track}
+                subTrack={subTrack}
                 challengeType={challenge.challengeType}
                 tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
@@ -85,7 +94,7 @@ function ChallengeCard({
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
-              {getEndDate(challenge)}
+              {getEndDate(challenge, challengeTypes)}
             </span>
             <Tags
               tags={challenge.tags}
@@ -119,6 +128,7 @@ function ChallengeCard({
 
 ChallengeCard.defaultProps = {
   challenge: {},
+  challengeTypes: [],
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
@@ -132,6 +142,7 @@ ChallengeCard.defaultProps = {
 
 ChallengeCard.propTypes = {
   challenge: PT.shape(),
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,

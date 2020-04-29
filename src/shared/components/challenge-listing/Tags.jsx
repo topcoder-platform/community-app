@@ -1,13 +1,13 @@
 /**
- * Renders the Technology/Platform Tags for ChallengeCard and ReviewOpportunityCard
+ * Renders the Tags for ChallengeCard and ReviewOpportunityCard
  */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Tag } from 'topcoder-react-ui-kit';
 
-// The number of technologies to be shown without requiring expanding
-const VISIBLE_TECHNOLOGIES = 3;
+// The number of tags to be shown without requiring expanding
+const VISIBLE_TAGS = 3;
 
 /**
  * Implements <Tags> component
@@ -24,15 +24,15 @@ export default function Tags({
     }
   };
 
-  const renderTechnologies = () => {
+  const renderTags = () => {
     if (tags.length) {
       let display = tags;
-      // If the number of tags to display is larger than VISIBLE_TECHNOLOGIES
+      // If the number of tags to display is larger than VISIBLE_TAGS
       // the last tag shown will be +num and when clicked
       // will expand the Tags component to show all of the tags
-      if (tags.length > VISIBLE_TECHNOLOGIES && !isExpanded) {
-        const expandItem = `+${display.length - VISIBLE_TECHNOLOGIES}`;
-        display = tags.slice(0, VISIBLE_TECHNOLOGIES);
+      if (tags.length > VISIBLE_TAGS && !isExpanded) {
+        const expandItem = `+${display.length - VISIBLE_TAGS}`;
+        display = tags.slice(0, VISIBLE_TAGS);
         display.push(expandItem);
       }
       return display.map(item => (
@@ -52,7 +52,7 @@ export default function Tags({
 
   return (
     <span>
-      { renderTechnologies() }
+      { renderTags() }
     </span>
   );
 }

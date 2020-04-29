@@ -21,7 +21,7 @@ export default function Prizes({ pointPrizes, prizes }) {
         _.range(prizeLength).map((index) => {
           const rank = index + 1;
           const pair = [];
-          if (!_.isUndefined(prizes[index])) pair.push(prizes[index].toLocaleString());
+          if (!_.isUndefined(prizes[index])) pair.push(prizes[index].value.toLocaleString());
           if (!_.isUndefined(pointPrizes[index])) pair.push(`${pointPrizes[index]}pts`);
           return (
             <div
@@ -62,5 +62,5 @@ Prizes.defaultProps = {
 
 Prizes.propTypes = {
   pointPrizes: PT.arrayOf(PT.number),
-  prizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.shape()),
 };

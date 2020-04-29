@@ -26,6 +26,7 @@ export default function Bucket({
   bucket,
   bucketId,
   challenges,
+  challengeTypes,
   challengesUrl,
   expanded,
   expand,
@@ -100,6 +101,7 @@ export default function Bucket({
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
       challenge={item}
+      challengeTypes={challengeTypes}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
@@ -178,6 +180,7 @@ export default function Bucket({
 Bucket.defaultProps = {
   expanded: false,
   expand: _.noop,
+  challengeTypes: [],
   keepPlaceholders: false,
   loading: false,
   loadMore: null,
@@ -197,6 +200,7 @@ Bucket.propTypes = {
   expanded: PT.bool,
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   keepPlaceholders: PT.bool,

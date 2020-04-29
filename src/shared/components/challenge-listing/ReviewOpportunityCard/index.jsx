@@ -47,23 +47,20 @@ function ReviewOpportunityCard({
   opportunity,
 }) {
   const { challenge } = opportunity;
-  const tags = _.union(
-    challenge.technologies || [],
-    challenge.platforms || [],
-    challenge.tags || [],
-  );
+  const { tags, legacy } = challenge;
+  const { track } = legacy;
   const start = moment(opportunity.startDate);
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
-            track={challenge.track}
+            legacy={challenge.legacy}
             challengeType={challenge.challengeType}
           >
             <span>
               <TrackIcon
-                track={challenge.track}
+                track={track}
                 challengeType={challenge.challengeType}
                 isDataScience={tags.includes('Data Science')}
               />

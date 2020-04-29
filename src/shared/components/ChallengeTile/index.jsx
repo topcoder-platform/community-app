@@ -73,21 +73,23 @@ class ChallengeTile extends React.Component {
       challenge,
     } = this.props;
 
-    const outStyleName = `challenge tile-view ${challenge.track}`;
+    const { track } = challenge.legacy;
+
+    const outStyleName = `challenge tile-view ${track}`;
     const extraStyle = {
       width: '285px',
       padding: '15px',
       margin: '10px 5px',
     };
 
-    const roundId = challenge.track === 'DATA_SCIENCE' ? _.get(challenge, 'rounds.0.id') : 0;
+    const roundId = track === 'DATA_SCIENCE' ? _.get(challenge, 'rounds.0.id') : 0;
 
     return (
       <div styleName="challenge tile" style={extraStyle}>
         <div styleName={outStyleName}>
           <div styleName="completed-challenge">
             <header>
-              { challenge.track !== 'DATA_SCIENCE' && (!challenge.isPrivate
+              { track !== 'DATA_SCIENCE' && (!challenge.isPrivate
                 ? (
                   <Link to={`/challenges/${challenge.id}`} styleName="name">
                     <span>
@@ -100,7 +102,7 @@ class ChallengeTile extends React.Component {
                   </span>
                 )) }
 
-              { challenge.track === 'DATA_SCIENCE'
+              { track === 'DATA_SCIENCE'
                 && (
                 <a styleName="name" href={`https://community.topcoder.com/longcontest/stats/?module=ViewOverview&rd=${roundId}`}>
                   { challenge.name }
@@ -123,7 +125,7 @@ class ChallengeTile extends React.Component {
             </header>
             <div styleName="challenge-card__bottom">
               <div styleName="challenge-details DATA_SCIENCE">
-                { challenge.track === 'DATA_SCIENCE' && challenge.subTrack
+                { track === 'DATA_SCIENCE' && challenge.subTrack
                   && (
                   <div styleName="marathon-score">
                     <p styleName="score">
@@ -134,7 +136,7 @@ class ChallengeTile extends React.Component {
                     </p>
                   </div>
                   ) }
-                { challenge.track === 'DEVELOP'
+                { track === 'DEVELOP'
                   && (
                   <div styleName="dev-challenge-user-place">
                     <div styleName="tile-view">
@@ -191,7 +193,7 @@ class ChallengeTile extends React.Component {
                   )
                 }
                 {
-                  challenge.track === 'DESIGN' && !challenge.isPrivate
+                  track === 'DESIGN' && !challenge.isPrivate
                     && (
                     <div styleName="design-challenge-user-place">
                       <div styleName="tile-view">
@@ -311,7 +313,7 @@ class ChallengeTile extends React.Component {
               </div>
 
               <p styleName="roles">
-                { challenge.track !== 'DATA_SCIENCE'
+                { track !== 'DATA_SCIENCE'
                   && (
                   <span>
                     <span>

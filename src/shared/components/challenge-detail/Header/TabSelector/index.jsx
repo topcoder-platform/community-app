@@ -31,7 +31,8 @@ export default function ChallengeViewSelector(props) {
     mySubmissions,
   } = props;
 
-  const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+  const challengeSubTrack = challenge.subTrack;
+  const isMM = challengeSubTrack && challengeSubTrack.indexOf('MARATHON_MATCH') > -1;
   const forumId = _.get(challenge, 'forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
 

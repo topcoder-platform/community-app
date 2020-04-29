@@ -112,7 +112,7 @@ export default function ChallengeCard({
   const now = moment();
   if (nextPhase) {
     statusMsg = nextPhase.name;
-    const deadlineEnd = moment(nextPhase.scheduledEndTime);
+    const deadlineEnd = moment(nextPhase.scheduledEndDate);
     deadlineMsg = deadlineEnd.diff(now);
     const late = deadlineMsg <= 0;
     deadlineMsg = Math.abs(deadlineMsg);
@@ -144,7 +144,7 @@ export default function ChallengeCard({
     deadlineMsg = late ? `Late by ${deadlineMsg}` : `Starts in ${deadlineMsg}`;
 
     statusMsg = 'Scheduled';
-  } else if (status === 'COMPLETED') {
+  } else if (status === 'Completed') {
     statusMsg = 'Completed';
   } else {
     msgStyleModifier = ' alert';

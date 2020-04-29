@@ -168,18 +168,18 @@ function onGetAllRecommendedChallengesDone(state, { error, payload }) {
   const {
     uuid,
     challenges,
-    technologies,
+    tags,
   } = payload;
   if (uuid !== state.loadingRecommendedChallengesUUID) return state;
   const { recommendedChallenges } = state;
-  recommendedChallenges[technologies] = {
+  recommendedChallenges[tags] = {
     challenges,
     lastUpdateOfActiveChallenges: Date.now(),
   };
   return {
     ...state,
     recommendedChallenges,
-    loadingRecommendedChallengesTechnologies: technologies,
+    loadingRecommendedChallengesTags: tags,
     loadingRecommendedChallengesUUID: '',
   };
 }
@@ -244,13 +244,13 @@ function onUnregisterDone(state, { error, payload }) {
  * @param {Object} action
  * @return {Object}
  */
-function onGetChallengeSubtracksDone(state, action) {
+function onGetChallengeTypesDone(state, action) {
   if (action.error) logger.error(action.payload);
   return {
     ...state,
     challengeSubtracks: action.error ? [] : action.payload,
     challengeSubtracksMap: action.error ? {} : _.keyBy(action.payload, 'id'),
-    loadingChallengeSubtracks: false,
+    loadingChallengeTypes: false,
   };
 }
 
@@ -518,11 +518,11 @@ function create(initialState) {
     [a.getRestActiveChallengesInit]: onGetRestActiveChallengesInit,
     [a.getRestActiveChallengesDone]: onGetRestActiveChallengesDone,
 
-    [a.getChallengeSubtracksInit]: state => ({
+    [a.getChallengeTypesInit]: state => ({
       ...state,
-      loadingChallengeSubtracks: true,
+      loadingChallengetypes: true,
     }),
-    [a.getChallengeSubtracksDone]: onGetChallengeSubtracksDone,
+    [a.getChallengeTypesDone]: onGetChallengeTypesDone,
 
     [a.getChallengeTagsInit]: state => ({
       ...state,
@@ -578,7 +578,7 @@ function create(initialState) {
     loadingPastChallengesUUID: '',
     loadingReviewOpportunitiesUUID: '',
 
-    loadingChallengeSubtracks: false,
+    loadingChallengeTypes: false,
     loadingChallengeTags: false,
 
     reviewOpportunities: [],

@@ -8,6 +8,7 @@ import { decodeToken } from 'tc-accounts';
 import 'isomorphic-fetch';
 import { processSRM } from 'utils/tc';
 import { errors, services } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
 
 const { fireErrorMessage } = errors;
 const { getService } = services.challenge;
@@ -52,9 +53,9 @@ function getAll(getter, page = 0, prev) {
  * Gets possible challenge subtracks.
  * @return {Promise}
  */
-function getChallengeSubtracksDone() {
+function getChallengeTypesDone() {
   return getService()
-    .getChallengeSubtracks()
+    .getChallengeTypes()
     .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
@@ -95,9 +96,16 @@ function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
   let user;
   if (tokenV3) {
     user = decodeToken(tokenV3).handle;
+
+    const newFilter = _.mapKeys(filter, (value, key) => {
+      if (key === 'tag') return 'technologies';
+
+      return key;
+    });
+
     // Handle any errors on this endpoint so that the non-user specific challenges
     // will still be loaded.
-    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
+    calls.push(getAll(params => service.getUserChallenges(user, newFilter, params)
       .catch(() => ({ challenges: [] }))), page);
   }
   return Promise.all(calls).then(([ch, uch]) => {
@@ -131,7 +139,7 @@ function getAllActiveChallengesInit(uuid) {
   return uuid;
 }
 function getAllActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+  const filter = { status: 'Active' };
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
@@ -215,7 +223,7 @@ function getRestActiveChallengesInit(uuid) {
  * @param {String} tokenV3 token v3
  */
 function getRestActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+  const filter = { status: 'Active' };
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, 1);
 }
 
@@ -230,12 +238,12 @@ function getAllRecommendedChallengesInit(uuid) {
  * Get all recommended challenges
  * @param {String} uuid progress id
  * @param {String} tokenV3 token v3
- * @param {*} recommendedTechnology recommended technoloty
+ * @param {*} recommendedTags recommended tags
  */
-function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTechnology) {
+function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTags) {
   const filter = {
-    status: 'ACTIVE',
-    technologies: recommendedTechnology,
+    status: 'Active',
+    tag: recommendedTags,
   };
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
@@ -306,7 +314,11 @@ function getSrmsInit(uuid) {
  */
 function getSrmsDone(uuid, handle, params, tokenV3) {
   const service = getService(tokenV3);
-  const promises = [service.getSrms(params)];
+  const newParams = {
+    ...params,
+    typeId: config.SRM_TYPE_ID,
+  };
+  const promises = [service.getSrms(newParams)];
   if (handle) {
     promises.push(service.getUserSrms(handle, params));
   }
@@ -343,8 +355,8 @@ export default createActions({
     GET_REST_ACTIVE_CHALLENGES_INIT: getRestActiveChallengesInit,
     GET_REST_ACTIVE_CHALLENGES_DONE: getRestActiveChallengesDone,
 
-    GET_CHALLENGE_SUBTRACKS_INIT: _.noop,
-    GET_CHALLENGE_SUBTRACKS_DONE: getChallengeSubtracksDone,
+    GET_CHALLENGE_TYPES_INIT: _.noop,
+    GET_CHALLENGE_TYPES_DONE: getChallengeTypesDone,
 
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,

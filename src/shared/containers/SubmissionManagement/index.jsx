@@ -201,7 +201,7 @@ function mapStateToProps(state, props) {
     ? mySubmissions.v2 : null;
 
   const allPhases = state.challenge.details.allPhases || state.challenge.details.phases || [];
-  const submissionPhase = allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.name) && phase.isActive) || {};
+  const submissionPhase = allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.name) && phase.isOpen) || {};
 
   return {
     challengeId: Number(challengeId),
@@ -216,7 +216,7 @@ function mapStateToProps(state, props) {
       state.challenge.loadingSubmissionsForChallengeId || '',
     mySubmissions,
 
-    submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
+    submissionPhaseStartDate: submissionPhase.actualStartDate || submissionPhase.scheduledStartDate || '',
 
     showDetails: state.page.submissionManagement.showDetails,
 
