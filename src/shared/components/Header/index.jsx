@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
+import { tracking } from 'topcoder-react-lib';
 import Logo from 'assets/images/tc-logo.svg';
 
 let TopNavRef;
@@ -60,6 +61,15 @@ const Header = ({
     useEffect(() => {
       loadNotifications(auth.tokenV3);
     }, [auth.tokenV3]);
+  }
+
+  /*
+   * Init Google Analytics
+  */
+  if (auth && auth.user) {
+    useEffect(() => {
+      tracking.init(auth.user.handle);
+    }, [auth.user.handle]);
   }
 
   if (TopNavRef) {

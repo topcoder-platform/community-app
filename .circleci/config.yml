@@ -175,6 +175,8 @@ workflows:
             branches:
               only:
                 - develop
+                - notifications-analytics
+                - fix_groups_payload-sync-with-develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -190,8 +192,8 @@ workflows:
             branches:
               only:
                 - develop
-                - fix_groups_payload
-      # Production builds are exectuted only on tagged commits to the
+                - fix_groups_payload       
+                - fix_groups_payload-sync-with-develop
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
