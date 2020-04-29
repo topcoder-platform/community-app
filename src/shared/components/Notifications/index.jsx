@@ -4,6 +4,7 @@ import cn from 'classnames';
 import _ from 'lodash';
 import moment from 'moment';
 import { Link } from 'topcoder-react-utils';
+import { tracking } from 'topcoder-react-lib';
 import IconArrow from 'assets/images/notifications/arrow.svg';
 import styles from './style.scss';
 import TabsPanel from './TabsPanel';
@@ -36,7 +37,13 @@ const Item = ({
       <Link
         to={`/challenges/${item.sourceId}`}
         className={styles['noti-item']}
-        onClick={() => !item.isRead && markNotificationAsRead(item, auth.tokenV3)}
+        onClick={() => {
+          if (!item.isRead) {
+            markNotificationAsRead(item, auth.tokenV3);
+            tracking.event('Click', 'Mark Notification As Read', 'Details Page');
+          }
+          tracking.event('Click', 'Notification Event', String(item.sourceId));
+        }}
       >
         {children}
       </Link>
@@ -70,9 +77,11 @@ const Item = ({
                 e.stopPropagation();
                 e.nativeEvent.stopImmediatePropagation();
                 markNotificationAsRead(item, auth.tokenV3);
+                tracking.event('Click', 'Mark Notification As Read', 'Details Page');
               }}
               onKeyPress={() => {
                 markNotificationAsRead(item, auth.tokenV3);
+                tracking.event('Press Key', 'Mark Notification As Read', 'Details Page');
               }}
               tabIndex="0"
             />
@@ -110,6 +119,11 @@ export default class NotificationList extends React.Component {
     };
   }
 
+  componentDidMount() {
+    // Report page view
+    tracking.pageView();
+  }
+
   componentWillUnmount() {
     // mark all notifications as seen when go to another page
     const {
@@ -119,6 +133,7 @@ export default class NotificationList extends React.Component {
     const result = _.map(notificationsList, 'id').join('-');
     if (result) {
       markAllNotificationAsSeen(result, auth.tokenV3);
+      tracking.event('Auto Action', 'Mark All Notifications As Seen', 'Details Page');
     }
   }
 
@@ -152,6 +167,7 @@ export default class NotificationList extends React.Component {
     } = this.props;
     const { collapsedChallenges, activeTab } = this.state;
     let challengesList = [];
+
     if (activeTab === 'active') {
       challengesList = _.filter((notifications || []),
         t => eventTypes.PROJECT.ACTIVE.includes(t.eventType));
@@ -190,11 +206,13 @@ export default class NotificationList extends React.Component {
                             onClick={() => {
                               if (challegeId) {
                                 dismissChallengeNotifications(challegeId, auth.tokenV3);
+                                tracking.event('Click', 'Dismiss Challenge', 'Details Page');
                               }
                             }}
                             onKeyPress={() => {
                               if (challegeId) {
                                 dismissChallengeNotifications(challegeId, auth.tokenV3);
+                                tracking.event('Click', 'Dismiss Challenge', 'Details Page');
                               }
                             }}
                           >&times;
