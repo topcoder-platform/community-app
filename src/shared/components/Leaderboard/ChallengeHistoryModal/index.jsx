@@ -82,7 +82,7 @@ class ChallengeHistoryModal extends Component {
               }
               <th>
                 <div styleName="header-table-content">
-                  <span>TCO Points</span>
+                  <span>Points</span>
                   <button
                     styleName="sort-container"
                     onClick={() => {
