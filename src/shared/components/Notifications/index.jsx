@@ -4,8 +4,8 @@ import cn from 'classnames';
 import _ from 'lodash';
 import moment from 'moment';
 import { Link } from 'topcoder-react-utils';
-import { tracking } from 'topcoder-react-lib';
 import IconArrow from 'assets/images/notifications/arrow.svg';
+import { tracking } from '../../actions';
 import styles from './style.scss';
 import TabsPanel from './TabsPanel';
 

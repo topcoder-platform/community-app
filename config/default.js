@@ -96,6 +96,9 @@ module.exports = {
 
   SWIFT_PROGRAM_ID: 3445,
 
+  /* Google Analytics tracking ID */
+  GOOGLE_ANALYTICS_ID: 'UA-161803421-1',
+
   /* Various URLs. Most of them lead to different segments of Topcoder
    * platform. */
   URL: {

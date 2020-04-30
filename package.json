@@ -18,7 +18,7 @@
     "test": "npm run lint && npm run --runInBand jest",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/navigation-component/node_modules/topcoder-react-lib && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"
+    "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"
   },
   "repository": {
     "type": "git",
@@ -62,6 +62,7 @@
     "filestack-react": "^2.0.0",
     "flag-icon-css": "^3.3.0",
     "focus-trap-react": "^6.0.0",
+    "react-ga": "^2.7.0",
     "helmet": "^3.12.1",
     "highlight.js": "^9.18.1",
     "html-to-text": "^5.1.1",
@@ -81,7 +82,7 @@
     "moment-timezone": "^0.5.21",
     "money": "^0.2.0",
     "morgan": "^1.9.0",
-    "navigation-component": "topcoder-platform/navigation-component#develop",
+    "navigation-component": "topcoder-platform/navigation-component#ga-hotfix",
     "node-forge": "^0.7.5",
     "nuka-carousel": "^4.5.3",
     "postcss": "^6.0.23",

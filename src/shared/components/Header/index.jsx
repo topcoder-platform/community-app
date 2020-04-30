@@ -2,8 +2,8 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
-import { tracking } from 'topcoder-react-lib';
 import Logo from 'assets/images/tc-logo.svg';
+import { tracking } from '../../actions';
 
 let TopNavRef;
 let LoginNavRef;
@@ -95,6 +95,7 @@ const Header = ({
               auth={auth}
               profile={normalizedProfile}
               authURLs={config.HEADER_AUTH_URLS}
+              tracking={tracking}
             />
           )}
           logo={<Logo />}
@@ -106,6 +107,7 @@ const Header = ({
           setOpenMore={handleChangeOpenMore}
           loggedIn={!_.isEmpty(profile)}
           profileHandle={profile ? profile.handle : ''}
+          tracking={tracking}
         />
       </div>
     );
