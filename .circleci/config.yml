@@ -221,11 +221,11 @@ workflows:
                 - notifications-analytics
       # This is beta env for production soft releases
       - "build-prod-staging":
-        context : org-global
-        filters:
-          branches:
-            only:
-              - staging-env-setup
+          context : org-global
+          filters:
+            branches:
+              only:
+                - staging-env-setup
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
