@@ -15,7 +15,7 @@
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "update-tests": "npm run jest -- -u",
     "start": "cross-env BABEL_ENV=production NODE_ENV=production node ./bin/www",
-    "test": "npm run lint && npm run --runInBand jest",
+    "test": "npm run lint && npm run jest",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/navigation-component/node_modules/topcoder-react-lib && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"
@@ -133,7 +133,7 @@
     "tc-accounts": "git+https://github.com/appirio-tech/accounts-app.git#dev",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3",
     "tc-ui": "^1.0.12",
-    "topcoder-react-lib": "v0.17.0",
+    "topcoder-react-lib": "1000.15.1",
     "topcoder-react-ui-kit": "^1.0.11",
     "topcoder-react-utils": "0.7.8",
     "turndown": "^4.0.2",

@@ -67,7 +67,7 @@ export default function Mobile({ base, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+                path={`${base}/challenges/:challengeId`}
               />
               <Route
                 component={routeProps => Submission({
@@ -75,7 +75,7 @@ export default function Mobile({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+                path={`${base}/challenges/:challengeId/submit`}
               />
               <Route
                 component={routeProps => SubmissionManagement({
@@ -83,7 +83,7 @@ export default function Mobile({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+                path={`${base}/challenges/:challengeId/my-submissions`}
               />
               <Route
                 component={TermsDetail}

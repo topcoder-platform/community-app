@@ -167,7 +167,6 @@ export default class NotificationList extends React.Component {
     } = this.props;
     const { collapsedChallenges, activeTab } = this.state;
     let challengesList = [];
-
     if (activeTab === 'active') {
       challengesList = _.filter((notifications || []),
         t => eventTypes.PROJECT.ACTIVE.includes(t.eventType));

@@ -6,7 +6,8 @@ exports[`Matches shallow shapshot 1`] = `
   className="track-abbreviation-tooltip"
   content={
     <Tip
-      subTrack="F2F"
+      challengeType={null}
+      subTrack="CODE"
       track="DEVELOP"
     />
   }
@@ -36,6 +37,7 @@ exports[`Matches shallow shapshot 2`] = `
   className="track-abbreviation-tooltip"
   content={
     <Tip
+      challengeType={null}
       subTrack="CODE"
       track="DEVELOP"
     />

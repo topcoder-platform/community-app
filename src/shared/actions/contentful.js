@@ -275,7 +275,7 @@ async function getChallengesBlockDone(blockProps) {
   const challengesService = services.challenge.getService();
   const filter = {};
   if (!block.fields.completedChallenges) {
-    filter.status = 'ACTIVE';
+    filter.status = 'Active';
   }
   if (block.fields.challengeTitleContains) {
     filter.name = block.fields.challengeTitleContains;

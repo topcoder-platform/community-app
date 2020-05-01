@@ -20,8 +20,7 @@ export const BUCKETS = {
 const BUCKET_DATA = {
   [BUCKETS.ALL]: {
     filter: {
-      started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
     },
     hideCount: false,
     name: 'All Challenges',
@@ -29,8 +28,7 @@ const BUCKET_DATA = {
   },
   [BUCKETS.MY]: {
     filter: {
-      started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
       // users: [userHandle],
     },
     hideCount: false,
@@ -46,9 +44,8 @@ const BUCKET_DATA = {
   },
   [BUCKETS.OPEN_FOR_REGISTRATION]: {
     filter: {
-      registrationOpen: true,
-      started: true,
-      status: ['ACTIVE'],
+      currentPhaseName: 'Registration',
+      status: ['Active'],
     },
     hideCount: false,
     name: 'Open for registration',
@@ -65,8 +62,7 @@ const BUCKET_DATA = {
   [BUCKETS.ONGOING]: {
     filter: {
       registrationOpen: false,
-      started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
     },
     hideCount: false,
     name: 'Ongoing challenges',

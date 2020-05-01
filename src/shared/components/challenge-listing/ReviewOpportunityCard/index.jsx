@@ -47,21 +47,22 @@ function ReviewOpportunityCard({
   opportunity,
 }) {
   const { challenge } = opportunity;
+  const { tags, legacy } = challenge;
+  const { track } = legacy;
   const start = moment(opportunity.startDate);
-
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
-            track={challenge.track}
-            subTrack={challenge.subTrack || 'REVIEW_OPPORTUNITY'}
+            legacy={challenge.legacy}
+            challengeType={challenge.challengeType}
           >
             <span>
               <TrackIcon
-                track={challenge.track}
-                subTrack={challenge.subTrack || 'REVIEW_OPPORTUNITY'}
-                isDataScience={challenge.technologies.includes('Data Science')}
+                track={track}
+                challengeType={challenge.challengeType}
+                isDataScience={tags.includes('Data Science')}
               />
             </span>
           </TrackAbbreviationTooltip>
@@ -79,8 +80,7 @@ function ReviewOpportunityCard({
               {start.format('MMM DD')}
             </span>
             <Tags
-              technologies={challenge.technologies.join(',')}
-              platforms={challenge.platforms.join(',')}
+              tags={tags}
               isExpanded={expandedTags.includes(challenge.id)}
               expand={() => expandTag(challenge.id)}
               onTechTagClicked={onTechTagClicked}
@@ -143,7 +143,7 @@ function ReviewOpportunityCard({
           </Tooltip>
         </div>
         <Link
-          to={`/challenges/${challenge.id}/review-opportunities`}
+          to={`/challenges/${challenge.legacyId}/review-opportunities`}
           styleName="register-button"
         >
           <span>

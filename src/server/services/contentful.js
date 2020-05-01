@@ -33,6 +33,14 @@ function logHandler(level, data) {
 }
 
 /**
+ * Creates a promise that resolves two second after its creation.
+ * @return {Promise}
+ */
+// function threeSecondDelay() {
+//   return new Promise(resolve => setTimeout(resolve, 3000));
+// }
+
+/**
  * Auxiliary class that handles communication with Contentful CDN and preview
  * APIs in the same uniform manner.
  */
