@@ -25,12 +25,13 @@ export default function NumSubmissions({
   openChallengesInNewTabs,
 }) {
   let tip;
-  switch (numOfSubmissions) {
+  const numOfSub = numOfSubmissions || 0;
+  switch (numOfSub) {
     case 0: tip = 'No submissions'; break;
     case 1: tip = '1 total submission'; break;
-    default: tip = `${numOfSubmissions} total submissions`;
+    default: tip = `${numOfSub} total submissions`;
   }
-  const query = numOfSubmissions ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
+  const query = numOfSub ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
   const { track } = legacy;
   let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
@@ -47,7 +48,7 @@ export default function NumSubmissions({
       >
         <Link
           onClick={() => (
-            selectChallengeDetailsTab(numOfSubmissions
+            selectChallengeDetailsTab(numOfSub
               ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
@@ -56,7 +57,7 @@ export default function NumSubmissions({
         >
           <SubmissionsIcon />
           <span styleName="number">
-            {numOfSubmissions}
+            {numOfSub}
           </span>
         </Link>
       </Tooltip>

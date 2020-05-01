@@ -25,13 +25,14 @@ export default function NumRegistrants({
   openChallengesInNewTabs,
 }) {
   let tip;
-  switch (numOfRegistrants) {
+  const numOfReg = numOfRegistrants || 0;
+  switch (numOfReg) {
     case 0: tip = 'No registrants'; break;
     case 1: tip = '1 total registrant'; break;
-    default: tip = `${numOfRegistrants} total registrants`;
+    default: tip = `${numOfReg} total registrants`;
   }
   const { track } = legacy;
-  const query = numOfRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
+  const query = numOfReg ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
@@ -46,19 +47,19 @@ export default function NumRegistrants({
         )}
       >
         <Link
-          disabled={!numOfRegistrants}
+          disabled={!numOfReg}
           onClick={() => (
-            selectChallengeDetailsTab(numOfRegistrants
+            selectChallengeDetailsTab(numOfReg
               ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
           openNewTab={openChallengesInNewTabs}
-          aria-label={`Number of registrants ${numOfRegistrants}`}
+          aria-label={`Number of registrants ${numOfReg}`}
         >
           <RegistrantsIcon />
           <span styleName="number">
-            {numOfRegistrants}
+            {numOfReg}
           </span>
         </Link>
       </Tooltip>
