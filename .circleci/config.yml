@@ -182,7 +182,6 @@ workflows:
             branches:
               only:
                 - develop
-                - fix-develop-mm-not-found
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -190,6 +189,7 @@ workflows:
             branches:
               only:
                 - develop
+                - fix-develop-mm-not-found
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
