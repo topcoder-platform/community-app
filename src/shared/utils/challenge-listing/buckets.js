@@ -132,7 +132,8 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
  */
 export function getBuckets(userHandle) {
   const res = _.cloneDeep(BUCKET_DATA);
-  res[BUCKETS.MY].filter.users = [userHandle];
+  // TODO: Find equivalent of users
+  // res[BUCKETS.MY].filter.users = [userHandle];
   return res;
 }
 
