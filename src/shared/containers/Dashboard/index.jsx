@@ -203,7 +203,8 @@ export class DashboardPageContainer extends React.Component {
         achievementsLoading={achievementsLoading}
         announcementPreviewId={announcementPreviewId}
         challengeFilter={challengeFilter}
-        challenges={activeChallenges.filter(x => x.users[handle])}
+        // challenges={activeChallenges.filter(x => x.users[handle])}
+        challenges={activeChallenges}
         challengesLoading={activeChallengesLoading}
         communities={communities}
         communitiesLoading={communitiesLoading}
