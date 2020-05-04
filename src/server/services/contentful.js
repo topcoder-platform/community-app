@@ -69,8 +69,8 @@ function mapAssetFileUrlToCdn(asset) {
  * Creates a promise that resolves two second after its creation.
  * @return {Promise}
  */
-function twoSecondDelay() {
-  return new Promise(resolve => setTimeout(resolve, 2000));
+function threeSecondDelay() {
+  return new Promise(resolve => setTimeout(resolve, 3000));
 }
 
 /**
@@ -108,7 +108,7 @@ class ApiService {
       });
       /* 429 = "Too Many Requests" */
       if (res.status !== 429) break;
-      await twoSecondDelay();
+      await threeSecondDelay();
       /* eslint-enable no-await-in-loop */
     }
     if (!res.ok) throw new Error(res.statusText);

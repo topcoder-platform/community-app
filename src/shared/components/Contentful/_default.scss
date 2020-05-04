@@ -64,9 +64,9 @@
     margin-bottom: 20px;
 
     @include xs-to-sm {
-      font-size: 42px;
-      font-weight: 600;
-      line-height: 38px;
+      font-size: 42px !important;
+      font-weight: 600 !important;
+      line-height: 38px !important;
       margin-top: 42px;
       margin-bottom: 10px;
     }
@@ -82,10 +82,11 @@
     margin-bottom: 20px;
 
     @include xs-to-sm {
-      font-size: 36px;
-      font-weight: 500;
+      font-size: 36px !important;
+      font-weight: 500 !important;
       margin-top: 36px;
       margin-bottom: 10px;
+      line-height: 36px !important;
     }
   }
 
@@ -99,9 +100,9 @@
     margin-bottom: 20px;
 
     @include xs-to-sm {
-      font-size: 31px;
-      font-weight: 500;
-      line-height: 33px;
+      font-size: 31px !important;
+      font-weight: 500 !important;
+      line-height: 33px !important;
       margin-top: 31px;
       margin-bottom: 10px;
     }
@@ -117,9 +118,9 @@
     margin-bottom: 10px;
 
     @include xs-to-sm {
-      font-size: 25px;
-      font-weight: 500;
-      line-height: 27px;
+      font-size: 25px !important;
+      font-weight: 500 !important;
+      line-height: 27px !important;
       margin-top: 25px;
     }
   }
@@ -129,15 +130,15 @@
 
     font-size: 24px;
     line-height: 26px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     margin-top: 20px;
     margin-bottom: 10px;
 
     @include xs-to-sm {
-      font-size: 21px;
-      font-weight: 500;
-      line-height: 25px;
+      font-size: 21px !important;
+      font-weight: 600 !important;
+      line-height: 25px !important;
       margin-top: 21px;
     }
   }
@@ -147,15 +148,15 @@
 
     font-size: 20px;
     line-height: 24px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     margin-top: 20px;
     margin-bottom: 10px;
 
     @include xs-to-sm {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 22px;
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      line-height: 22px !important;
       margin-top: 18px;
     }
   }

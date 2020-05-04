@@ -50,7 +50,6 @@ class ProfileStats extends React.Component {
   render() {
     const {
       statsDistribution,
-      statsHistory,
       track,
       subTrack,
       tab: activeTab,
@@ -58,10 +57,14 @@ class ProfileStats extends React.Component {
       handleParam,
       activeChallengesCount,
     } = this.props;
-    let { stats } = this.props;
+    let { stats, statsHistory } = this.props;
     if (_.isArray(stats)) {
       // eslint-disable-next-line prefer-destructuring
       stats = stats[0];
+    }
+    if (_.isArray(statsHistory)) {
+      // eslint-disable-next-line prefer-destructuring
+      statsHistory = statsHistory[0];
     }
 
     const { activeGraph, showModal } = this.state;
@@ -310,7 +313,7 @@ ProfileStats.propTypes = {
   tab: PT.string,
   info: PT.shape().isRequired,
   statsDistribution: PT.shape(),
-  statsHistory: PT.shape(),
+  statsHistory: PT.arrayOf(PT.shape()),
   activeChallengesCount: PT.number,
   achievements: PT.arrayOf(PT.shape()),
 };

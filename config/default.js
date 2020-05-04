@@ -213,6 +213,13 @@ module.exports = {
           PREVIEW_API_KEY: '',
         },
       },
+      comcast: {
+        SPACE_ID: '',
+        master: {
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
     },
 
     MAILCHIMP: {
@@ -299,7 +306,7 @@ module.exports = {
               href: 'https://arena.topcoder-dev.com',
             },
             {
-              title: 'TaaS',
+              title: 'Gig Work',
               href: '/community/taas',
             },
           ],
@@ -309,23 +316,23 @@ module.exports = {
           subMenu: [
             {
               title: 'Competitive Programming',
-              href: '/community/competitive-programming',
+              href: '/thrive/tracks?track=Competitive%20Programming',
             },
             {
               title: 'Data Science',
-              href: '/community/data-science',
+              href: '/thrive/tracks?track=Data%20Science&tax=',
             },
             {
               title: 'Design',
-              href: '/community/design',
+              href: '/thrive/tracks?track=Design&tax=',
             },
             {
               title: 'Development',
-              href: '/community/development',
+              href: '/thrive/tracks?track=Development&tax=',
             },
             {
               title: 'QA',
-              href: '/community/qa',
+              href: '/thrive/tracks?track=QA&tax=',
             },
           ],
         },

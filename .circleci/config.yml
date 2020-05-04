@@ -1,40 +1,40 @@
 version: 2
 
 defaults: &defaults
-    docker:
-      - image: docker:17.11.0-ce-git
-        environment:
-          ENV: $BASH_ENV
+  docker:
+    - image: docker:17.11.0-ce-git
+      environment:
+        ENV: $BASH_ENV
 
 install_dependency: &install_dependency
-          name: Installation of build and deployment dependencies.
-          command: |
-            apk update
-            apk add --no-cache bash openssl curl
-            apk upgrade
-            apk add --no-cache jq py-pip sudo
-            sudo pip install awscli --upgrade
-            
+  name: Installation of build and deployment dependencies.
+  command: |
+    apk update
+    apk add --no-cache bash openssl curl
+    apk upgrade
+    apk add --no-cache jq py-pip sudo
+    sudo pip install awscli --upgrade
+
 install_deploysuite: &install_deploysuite
-          name: Installation of install_deploysuite.
-          command: |
-            git clone --branch dev_comm https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
+  name: Installation of install_deploysuite.
+  command: |
+    git clone --branch dev_comm https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+    cp ./../buildscript/master_deploy.sh .
+    cp ./../buildscript/buildenv.sh .
+    cp ./../buildscript/awsconfiguration.sh .
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
-save_cache_settings: &save_cache_settings    
-  key: docker-node-modules-v3-{{ checksum "package-lock.json" }}  
+save_cache_settings: &save_cache_settings
+  key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
   paths:
-    - node_modules      
+    - node_modules
 
 build_docker_image: &build_docker_image
-          name: Build of Docker image
-          command: |
-            source buildenvvar
-            ./build.sh
+  name: Build of Docker image
+  command: |
+    source buildenvvar
+    ./build.sh
 jobs:
   # Build & Deploy against development backend
   "build-dev":
@@ -48,11 +48,11 @@ jobs:
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
       # Build of Docker image.
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar      
+            ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar
       - run: *build_docker_image
       # Caching node modules.
       - save_cache: *save_cache_settings
@@ -90,7 +90,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
-            ./community-app-tests/smoketest.sh qa_community-app-qavar.json dev          
+            ./community-app-tests/smoketest.sh qa_community-app-qavar.json dev
   # Build & Deploy against testing backend
   "build-test":
     <<: *defaults
@@ -102,11 +102,11 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh DEV
-            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar            
+            ./buildenv.sh -e DEV -b test_communityapp_buildvar,test_communityapp_deployvar
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
@@ -118,7 +118,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-            
+
   # Build & Deploy against prod api backend
   "build-prod-beta":
     <<: *defaults
@@ -130,7 +130,7 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
@@ -146,7 +146,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
-            
+
   # Build & Deploy against production backend
   "build-prod":
     <<: *defaults
@@ -158,7 +158,7 @@ jobs:
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
       - restore_cache: *restore_cache_settings_for_build
-      - run: 
+      - run:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
@@ -166,7 +166,7 @@ jobs:
       # Build of Docker image.
       - run: *build_docker_image
       # Caching node modules.
-      - save_cache: *save_cache_settings   
+      - save_cache: *save_cache_settings
       # Deployment.
       - deploy:
           name: Running MasterScript
@@ -197,40 +197,38 @@ workflows:
     jobs:
       # Development builds are executed on "new-develop" branch only.
       - "build-dev":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only:
                 - build-tune
       # This is QA automation env
       - "build-qa":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only:
-                - community-app-tests-poc          
+                - community-app-tests-poc
       # This is alternate dev env for parallel testing
       - "build-test":
-          context : org-global      
+          context: org-global
           filters:
             branches:
               only:
-                - develop
-                - feature-nav-taas
                 - nav-hot-fix
-                - hot-fixes-leaderboard
+                - feature-contentful
       # This is beta env for production soft releases
       - "build-prod-beta":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only:
                 - develop
-                - feature-contentful
+                - comcast-community
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
-          context : org-global      
+          context: org-global
           filters:
             branches:
               only:

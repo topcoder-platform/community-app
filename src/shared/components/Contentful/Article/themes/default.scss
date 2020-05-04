@@ -185,7 +185,7 @@
 
         line-height: 20px;
         text-align: left;
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: 20px;
       }
 
@@ -199,6 +199,8 @@
     }
 
     table {
+      margin-bottom: 20px;
+
       th {
         @include roboto-regular;
 
@@ -238,6 +240,10 @@
         &:last-child {
           padding-right: 10px;
         }
+
+        strong {
+          font-weight: 600;
+        }
       }
     }
 
@@ -246,6 +252,7 @@
       @include tc-body-md;
 
       padding-left: 20px;
+      margin-bottom: 20px;
 
       @include roboto-regular;
 
@@ -276,7 +283,7 @@
     code {
       @include roboto-mono-regular;
 
-      color: rgb(120, 125, 129);
+      color: #2a2a2a;
       line-height: 1.5;
       white-space: pre;
     }
@@ -341,8 +348,9 @@
         font-weight: 500;
         line-height: 58px;
         text-align: left;
-        margin-bottom: 68px;
+        margin-bottom: 28px;
         text-transform: uppercase;
+        margin-top: 8px;
       }
     }
   }

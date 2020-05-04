@@ -41,6 +41,8 @@ import tco09 from 'components/buttons/outline/tco/tco09.scss';
 import tco07 from 'components/buttons/outline/tco/tco07.scss';
 import tc from 'components/buttons/themed/tc.scss';
 
+import Highlighter from './highlighter';
+
 /**
  * Themes of legacy TCO buttons
  * those overwrite PrimaryButton style to match legacy TCO styles
@@ -180,15 +182,12 @@ function renderToken(tokens, index, md) {
     case 'text':
       return token.content;
     case 'fence':
-      if (token.info && hljs.getLanguage(token.info)) {
-        try {
-          return ReactHtmlParser(`<pre class="hljs"><code>${hljs.highlight(token.info, token.content, true).value}</code></pre>`);
-        } catch (__) { return _.noop(); }
-      } else {
-        try {
-          return ReactHtmlParser(`<pre class="hljs"><code>${hljs.highlightAuto(token.content).value}</code></pre>`);
-        } catch (__) { return _.noop(); }
-      }
+      return Highlighter({
+        codeString: token.content,
+        language: token.info,
+        showLineNumbers: true,
+        key: index,
+      });
     case 'code_inline':
       if (token.info && hljs.getLanguage(token.info)) {
         try {

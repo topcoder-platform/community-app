@@ -216,7 +216,7 @@ export default function ChallengeStatus(props) {
       .filter(p => p.phaseType !== 'Registration')
       .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
 
-    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && checkPhases.length) {
+    if (!statusPhase && (subTrack === 'FIRST_2_FINISH' || subTrack === 'CODE') && checkPhases.length) {
       statusPhase = _.clone(checkPhases[0]);
       statusPhase.phaseType = 'Submission';
     }
