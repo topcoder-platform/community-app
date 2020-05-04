@@ -1,6 +1,5 @@
 import { BrowserHelper } from "topcoder-testing-lib";
 import { LoginPageHelper } from "../page-objects/pages/topcoder/login/login.helper";
-import { LoginPage } from "../page-objects/pages/topcoder/login/login.po";
 import * as testData from "../test-data/test-data.json";
 import { ConfigHelper } from "../utils/config-helper";
 
@@ -12,8 +11,6 @@ describe("Topcoder Login Page Tests: ", () => {
     await BrowserHelper.initialize();
     // This line is to bypass https://github.com/topcoder-platform/community-app/issues/4287
     await BrowserHelper.open(ConfigHelper.getHomePageUrl());
-    const loginpage = new LoginPage();
-    LoginPageHelper.setLoginPage(loginpage);
     await LoginPageHelper.open();
   });
 
@@ -30,7 +27,7 @@ describe("Topcoder Login Page Tests: ", () => {
   it("should Verify User can login using valid credentials", async () => {
     const username = ConfigHelper.getUserName();
     const password = ConfigHelper.getPassword();
-    await LoginPageHelper.login(username, password);
+    await LoginPageHelper.verifyLogin(username, password);
   });
 
   /**
@@ -39,7 +36,10 @@ describe("Topcoder Login Page Tests: ", () => {
   it("should Verify User cannot login using invalid username", async () => {
     const invalidUsername = testData.login.invalidUsername;
     const password = ConfigHelper.getPassword();
-    await LoginPageHelper.loginWithInvalidUserName(invalidUsername, password);
+    await LoginPageHelper.verifyLoginWithInvalidUserName(
+      invalidUsername,
+      password
+    );
   });
 
   /**
@@ -48,13 +48,16 @@ describe("Topcoder Login Page Tests: ", () => {
   it("should Verify User cannot login using invalid password", async () => {
     const username = ConfigHelper.getUserName();
     const inavlidPassword = testData.login.invalidPassword;
-    await LoginPageHelper.loginWithInvalidPassword(username, inavlidPassword);
+    await LoginPageHelper.verifyLoginWithInvalidPassword(
+      username,
+      inavlidPassword
+    );
   });
 
   /**
    * Verifies User can logout
    */
   it("should Verify User can logout", async () => {
-    await LoginPageHelper.logout();
+    await LoginPageHelper.verifyLogout();
   });
 });

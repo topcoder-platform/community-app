@@ -18,6 +18,7 @@ export class LoginPageHelper {
    * Open page
    */
   public static open() {
+    this.loginPageObject = new LoginPage();
     this.loginPageObject.open();
   }
 
@@ -27,6 +28,25 @@ export class LoginPageHelper {
    * @param {String} password
    */
   public static async login(username: string, password: string) {
+    await this.loginPageObject.waitForLoginForm();
+    await this.loginPageObject.fillLoginForm(username, password);
+    await this.loginPageObject.waitForHomePage();
+  }
+
+  /**
+   * Logout
+   */
+  public static async logout() {
+    this.loginPageObject.logout();
+    await this.loginPageObject.waitForHomePage();
+  }
+
+  /**
+   * Verify Login
+   * @param {String} username
+   * @param {String} password
+   */
+  public static async verifyLogin(username: string, password: string) {
     await CommonHelper.verifyCurrentUrl(ConfigHelper.getLoginUrl());
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
@@ -35,11 +55,11 @@ export class LoginPageHelper {
   }
 
   /**
-   * Login with invalid username
+   * Verify Login with invalid username
    * @param {String} invalidUsername
    * @param {String} password
    */
-  public static async loginWithInvalidUserName(
+  public static async verifyLoginWithInvalidUserName(
     invalidUsername: string,
     password: string
   ) {
@@ -53,11 +73,11 @@ export class LoginPageHelper {
   }
 
   /**
-   * Login with invalid password
+   * Verify Login with invalid password
    * @param {String} username
    * @param {String} invalidPassword
    */
-  public static async loginWithInvalidPassword(
+  public static async verifyLoginWithInvalidPassword(
     username: string,
     invalidPassword: string
   ) {
@@ -71,9 +91,9 @@ export class LoginPageHelper {
   }
 
   /**
-   * Logout
+   * Verify Logout
    */
-  public static async logout() {
+  public static async verifyLogout() {
     this.loginPageObject.logout();
     const homePage = await this.loginPageObject.waitForHomePage();
     await this.verifyHomePage(homePage);
