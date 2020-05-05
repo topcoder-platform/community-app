@@ -203,6 +203,7 @@ workflows:
             branches:
               only:
                 - master
+                - what-was-prod-0.32.0
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
