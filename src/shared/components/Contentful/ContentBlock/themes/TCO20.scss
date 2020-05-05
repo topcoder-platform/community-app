@@ -27,6 +27,10 @@
   }
 }
 
+strong a {
+  font-weight: 600 !important;
+}
+
 .content {
   flex: 1;
   padding: 0;
@@ -47,6 +51,24 @@
   }
 
   @include gui-kit-headers;
+
+  a {
+    @include roboto-regular;
+
+    font-size: 16px;
+    line-height: 24px;
+    color: #0d61bf;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+      color: #0d61bf;
+    }
+
+    &:visited {
+      color: #8231a9;
+    }
+  }
 
   p {
     @include tc-body-md;
@@ -162,24 +184,6 @@
 
   sub {
     bottom: -0.25em;
-  }
-
-  a {
-    @include roboto-regular;
-
-    font-size: 16px;
-    line-height: 24px;
-    color: #0d61bf;
-    text-decoration: underline;
-
-    &:hover {
-      text-decoration: none;
-      color: #0d61bf;
-    }
-
-    &:visited {
-      color: #8231a9;
-    }
   }
 }
 
