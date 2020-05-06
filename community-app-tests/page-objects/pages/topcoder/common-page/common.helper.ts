@@ -71,7 +71,7 @@ export const CommonHelper = {
     const windowTitle = ElementHelper.getElementByXPath("//title");
     BrowserHelper.setIgnoreSync(true);
     await BrowserHelper.switchToWindow(windows[1]);
-    await BrowserHelper.waitUnitilPresenceOf(
+    await BrowserHelper.waitUntilPresenceOf(
       windowTitle,
       appconfig.Timeout.ElementPresence,
       appconfig.LoggerErrors.ElementPresence
@@ -139,7 +139,7 @@ export const CommonHelper = {
       newTabHeaderTag,
       newTabHeaderText
     );
-    await BrowserHelper.waitUnitilVisibilityOf(
+    await BrowserHelper.waitUntilVisibilityOf(
       headerElement,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty

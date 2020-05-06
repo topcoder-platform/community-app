@@ -52,7 +52,7 @@ export class SettingsPage {
    * Deletes all records on the tools page
    */
   public async deleteAll() {
-    await BrowserHelper.waitUnitilVisibilityOf(
+    await BrowserHelper.waitUntilVisibilityOf(
       this.heading,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
@@ -61,16 +61,7 @@ export class SettingsPage {
     for (let {} of delIcons) {
       await this.deleteIcon.click();
       await this.deleteConfirmation.click();
-      await BrowserHelper.waitUnitilVisibilityOf(
-        this.successMsg,
-        appconfig.Timeout.ElementVisibility,
-        appconfig.LoggerErrors.ElementVisibilty
-      );
-      await BrowserHelper.waitUnitilInVisibilityOf(
-        this.successMsg,
-        appconfig.Timeout.ElementInvisibility,
-        appconfig.LoggerErrors.ElementInvisibilty
-      );
+      await this.waitForSuccessMsg();
     }
   }
 
@@ -120,6 +111,22 @@ export class SettingsPage {
   protected getDeleteIconbyName(name: string) {
     return ElementHelper.getElementByXPath(
       `//*[text()='${name}']//following::img[@alt='delete-icon']`
+    );
+  }
+
+  /**
+   * Waits for visibility and invisibility of success message
+   */
+  public async waitForSuccessMsg() {
+    await BrowserHelper.waitUntilVisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementVisibility,
+      appconfig.LoggerErrors.ElementVisibilty
+    );
+    await BrowserHelper.waitUntilInVisibilityOf(
+      this.successMsg,
+      appconfig.Timeout.ElementInvisibility,
+      appconfig.LoggerErrors.ElementInvisibilty
     );
   }
 }

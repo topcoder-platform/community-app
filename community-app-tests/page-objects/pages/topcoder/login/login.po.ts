@@ -61,7 +61,7 @@ export class LoginPage {
    * Wait for the login form to be displayed
    */
   public async waitForLoginForm() {
-    BrowserHelper.waitUnitilVisibilityOf(
+    BrowserHelper.waitUntilVisibilityOf(
       this.loginForm,
       appconfig.Timeout.SubmitForm,
       appconfig.LoggerErrors.ElementVisibilty
@@ -73,7 +73,7 @@ export class LoginPage {
    * Fill and submit the login form
    */
   public async fillLoginForm(username, password) {
-    await BrowserHelper.waitUnitilPresenceOf(
+    await BrowserHelper.waitUntilPresenceOf(
       this.userNameField,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementPresence
@@ -87,7 +87,7 @@ export class LoginPage {
         password
     );
     await BrowserHelper.setIgnoreSync(true);
-    await BrowserHelper.waitUnitilClickableOf(
+    await BrowserHelper.waitUntilClickableOf(
       this.loginButton,
       appconfig.Timeout.ElementClickable,
       appconfig.LoggerErrors.ElementClickable
@@ -101,7 +101,7 @@ export class LoginPage {
    */
   public async waitForHomePage() {
     const homepage = new HomePage();
-    await BrowserHelper.waitUnitilVisibilityOf(
+    await BrowserHelper.waitUntilVisibilityOf(
       homepage.container,
       appconfig.Timeout.PageLoad,
       appconfig.LoggerErrors.PageLoad
@@ -113,7 +113,7 @@ export class LoginPage {
    * Wait for error message to be displayed
    */
   public async waitForErrorMessage() {
-    await BrowserHelper.waitUnitilVisibilityOf(
+    await BrowserHelper.waitUntilVisibilityOf(
       this.errorMessage,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty

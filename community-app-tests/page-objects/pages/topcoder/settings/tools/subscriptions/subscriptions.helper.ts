@@ -31,16 +31,7 @@ export class SubscriptionsPageHelper {
    */
   public static async verifyAddSubscription(name) {
     await this.subscriptionsPageObject.addSubscription(name);
-    await BrowserHelper.waitUnitilVisibilityOf(
-      this.subscriptionsPageObject.successMsg,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
-    );
-    await BrowserHelper.waitUnitilInVisibilityOf(
-      this.subscriptionsPageObject.successMsg,
-      appconfig.Timeout.ElementInvisibility,
-      appconfig.LoggerErrors.ElementInvisibilty
-    );
+    await this.subscriptionsPageObject.waitForSuccessMsg();
     const el = await ElementHelper.getTagElementContainingText("div", name);
     const isDisplayed = await el.isPresent();
     expect(isDisplayed).toBe(true);
@@ -52,16 +43,7 @@ export class SubscriptionsPageHelper {
    */
   public static async verifyEditSubscription(name, newName) {
     await this.subscriptionsPageObject.editSubscription(name, newName);
-    await BrowserHelper.waitUnitilVisibilityOf(
-      this.subscriptionsPageObject.successMsg,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
-    );
-    await BrowserHelper.waitUnitilInVisibilityOf(
-      this.subscriptionsPageObject.successMsg,
-      appconfig.Timeout.ElementInvisibility,
-      appconfig.LoggerErrors.ElementInvisibilty
-    );
+    await this.subscriptionsPageObject.waitForSuccessMsg();
     const el = await ElementHelper.getTagElementContainingText("div", newName);
     const isDisplayed = await el.isPresent();
     expect(isDisplayed).toBe(true);
@@ -73,16 +55,7 @@ export class SubscriptionsPageHelper {
    */
   public static async verifyDeleteSubscription(name) {
     await this.subscriptionsPageObject.deleteSubscription(name);
-    await BrowserHelper.waitUnitilVisibilityOf(
-      this.subscriptionsPageObject.successMsg,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
-    );
-    await BrowserHelper.waitUnitilInVisibilityOf(
-      this.subscriptionsPageObject.successMsg,
-      appconfig.Timeout.ElementInvisibility,
-      appconfig.LoggerErrors.ElementInvisibilty
-    );
+    await this.subscriptionsPageObject.waitForSuccessMsg();
     const el = await ElementHelper.getTagElementContainingText("div", name);
     const isDisplayed = await el.isPresent();
     expect(isDisplayed).toBe(false);
