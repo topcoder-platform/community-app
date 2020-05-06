@@ -123,6 +123,7 @@ export class SettingsPage {
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
+
     await BrowserHelper.waitUntilInVisibilityOf(
       this.successMsg,
       appconfig.Timeout.ElementInvisibility,
