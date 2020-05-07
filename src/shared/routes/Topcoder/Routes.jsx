@@ -117,21 +117,53 @@ export default function Topcoder() {
                     <ContentfulLoader
                       entryQueries={{
                         content_type: 'article',
-                        'fields.title[match]': articleTitle,
+                        'fields.slug': articleTitle,
                       }}
                       spaceName="EDU"
                       render={(data) => {
-                        if (_.isEmpty(data.entries.items)) return <Error404 />;
-                        let id = data.entries.matches[0].items[0];
-                        if (data.entries.matches[0].total !== 1) {
-                          // more than 1 match. we need to try find best
-                          const mId = _.findKey(
-                            data.entries.items,
-                            // eslint-disable-next-line max-len
-                            o => o.fields.title.toLocaleLowerCase() === articleTitle.toLocaleLowerCase(),
+                        if (_.isEmpty(data.entries.items)) {
+                          // try search by title match
+                          // this legacy support should be deprecated when all
+                          // Thrive links switched to hypens, someday
+                          return (
+                            <ContentfulLoader
+                              entryQueries={{
+                                content_type: 'article',
+                                'fields.title[match]': articleTitle,
+                              }}
+                              spaceName="EDU"
+                              render={(dataTitle) => {
+                                if (_.isEmpty(dataTitle.entries.items)) return <Error404 />;
+                                let id = dataTitle.entries.matches[0].items[0];
+                                if (dataTitle.entries.matches[0].total !== 1) {
+                                  // more than 1 match. we need to try find best
+                                  const mId = _.findKey(
+                                    dataTitle.entries.items,
+                                    // eslint-disable-next-line max-len
+                                    o => o.fields.title.toLocaleLowerCase() === articleTitle.toLocaleLowerCase(),
+                                  );
+                                  id = mId || id;
+                                }
+                                const {
+                                  externalArticle,
+                                  contentUrl,
+                                } = dataTitle.entries.items[id].fields;
+                                if (externalArticle && contentUrl && isomorphy.isClientSide()) {
+                                  window.location.href = contentUrl;
+                                  return null;
+                                }
+                                return (
+                                  <Article
+                                    id={id}
+                                    spaceName="EDU"
+                                  />
+                                );
+                              }}
+                              renderPlaceholder={LoadingIndicator}
+                            />
                           );
-                          id = mId || id;
                         }
+                        const id = data.entries.matches[0].items[0];
                         const { externalArticle, contentUrl } = data.entries.items[id].fields;
                         if (externalArticle && contentUrl && isomorphy.isClientSide()) {
                           window.location.href = contentUrl;

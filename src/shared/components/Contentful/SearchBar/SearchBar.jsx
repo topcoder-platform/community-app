@@ -169,13 +169,13 @@ export class SearchBarInner extends Component {
                     className={theme['group-cell']}
                     onClick={() => {
                       window.location.href = (item.externalArticle && item.contentUrl)
-                        ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`;
+                        ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`;
                     }}
                     onKeyPress={_.noop}
                   >
                     <a
                       className={theme.articleLink}
-                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
                       onClick={(e) => {
                         e.nativeEvent.stopImmediatePropagation();
@@ -220,13 +220,13 @@ export class SearchBarInner extends Component {
                     className={theme['group-cell']}
                     onClick={() => {
                       window.location.href = (item.externalArticle && item.contentUrl)
-                        ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`;
+                        ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`;
                     }}
                     onKeyPress={_.noop}
                   >
                     <a
                       className={theme.articleLink}
-                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
                       onClick={(e) => {
                         e.nativeEvent.stopImmediatePropagation();
@@ -272,7 +272,7 @@ export class SearchBarInner extends Component {
                   >
                     <a
                       className={theme.forumLink}
-                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.title}`}
+                      href={(item.externalArticle && item.contentUrl) ? item.contentUrl : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${item.slug || item.title}`}
                       target={(item.externalArticle && item.contentUrl) ? '_blank' : '_self'}
                     >
                       <span className={theme['cell-text']}>
