@@ -54,23 +54,18 @@ const Header = ({
   }, []);
 
   /*
-   * Reload notificaitons if token was changed
-   * This prevent to use expired token in API call
-   */
-  if (auth) {
-    useEffect(() => {
-      loadNotifications(auth.tokenV3);
-    }, [auth.tokenV3]);
-  }
-
-  /*
-   * Init Google Analytics
+  * Load Notifications and Init Google Analytics
   */
-  if (auth && auth.user) {
-    useEffect(() => {
-      tracking.init(auth.user.handle);
-    }, [auth.user.handle]);
-  }
+  useEffect(() => {
+    if (auth) {
+      if (auth.tokenV3) {
+        loadNotifications(auth.tokenV3);
+      }
+      if (auth.user) {
+        tracking.init(auth.user.handle);
+      }
+    }
+  }, []);
 
   if (TopNavRef) {
     return (
