@@ -15,6 +15,7 @@ Chrome Browser
 - Test results are generated in test-results/ folder
 
 ```
+
 HTML report - TestResult.html
 Junit report - junitresults-TopcoderLoginPageTests.xml and junitresults-TopcoderRegistrationPageTests.xml
 ```
