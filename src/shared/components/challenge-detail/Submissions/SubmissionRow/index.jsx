@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { get } from 'lodash';
-import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
 import moment from 'moment';
 
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
@@ -32,7 +31,7 @@ export default function SubmissionRow({
   }
 
   const getInitialReviewResult = () => {
-    const s = isMM ? get(score, 'provisional', initialScore) : initialScore;
+    const s = isMM ? _.get(score, 'provisional', initialScore) : initialScore;
     if (s && s < 0) return <Failed />;
     switch (status) {
       case 'completed':
@@ -49,7 +48,7 @@ export default function SubmissionRow({
   };
 
   const getFinalReviewResult = () => {
-    const s = isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore;
+    const s = isMM && isReviewPhaseComplete ? _.get(score, 'final', finalScore) : finalScore;
     if (isReviewPhaseComplete) {
       if (s && s < 0) return 0;
       return s;
@@ -78,7 +77,13 @@ export default function SubmissionRow({
           <span styleName="col" style={colorStyle}>
             {rating || '-'}
           </span>
-          <a styleName="col" href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
+          <a
+            styleName="col"
+            href={`${window.origin}/members/${member}`}
+            target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+            rel="noopener noreferrer"
+            style={colorStyle}
+          >
             {member || '-'}
           </a>
         </div>

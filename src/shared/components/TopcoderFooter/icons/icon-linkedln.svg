@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 62 (101010) - https://sketch.com -->
+    <desc>Created with sketchtool.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-linkedln" fill="#AAAAAA">
+            <path d="M12,2 C17.514,2 22,6.486 22,12 C22,17.514 17.514,22 12,22 C6.486,22 2,17.514 2,12 C2,6.486 6.486,2 12,2 Z M12,0 C5.373,0 0,5.373 0,12 C0,18.627 5.373,24 12,24 C18.627,24 24,18.627 24,12 C24,5.373 18.627,0 12,0 Z M10,8 C10,8.557 9.553,9.008 9,9.008 C8.447,9.008 8,8.558 8,8 C8,7.443 8.447,6.992 9,6.992 C9.553,6.992 10,7.444 10,8 L10,8 Z M10,10 L8,10 L8,16 L10,16 L10,10 Z M13,10 L11,10 L11,16 L13,16 L13,13.139 C13,11.417 15.002,11.258 15.002,13.139 L15.002,16 L17,16 L17,12.641 C17,9.357 13.872,9.477 13,11.093 L13,10 Z"></path>
+        </g>
+    </g>
+</svg>
