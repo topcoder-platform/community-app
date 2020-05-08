@@ -8,6 +8,8 @@ import PT from 'prop-types';
 import { fixStyle } from 'utils/contentful';
 import { getService } from 'services/contentful';
 import MarkdownRenderer from 'components/MarkdownRenderer';
+import ReactDOMServer from 'react-dom/server';
+import markdown from 'utils/markdown';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import YouTubeVideo from 'components/YouTubeVideo';
@@ -20,6 +22,8 @@ import GestureIcon from 'assets/images/icon-gesture.svg';
 import UserDefault from 'assets/images/ico-user-default.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
 import qs from 'qs';
+
+const htmlToText = require('html-to-text');
 
 // character length for the content preview
 const CONTENT_PREVIEW_LENGTH = 110;
@@ -254,7 +258,17 @@ export default class Article extends React.Component {
                       </h3>
                       <div className={theme.recommendedCardContent}>
                         {
-                          `${subData.entries.items[rec.sys.id].fields.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`
+                          `${htmlToText.fromString(
+                            ReactDOMServer.renderToString(markdown(
+                              subData.entries.items[rec.sys.id].fields.content,
+                            )),
+                            {
+                              ignoreHref: true,
+                              ignoreImage: true,
+                              singleNewLineParagraphs: true,
+                              uppercaseHeadings: false,
+                            },
+                          ).substring(0, CONTENT_PREVIEW_LENGTH)}...`
                         }
                       </div>
                       {

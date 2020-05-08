@@ -12,6 +12,7 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 import { config } from 'topcoder-react-utils';
 import markdown from 'utils/markdown';
+import ReactDOMServer from 'react-dom/server';
 // SVG assets
 import ThumbUpIcon from 'assets/images/ico-thumb-up.svg';
 import CommentIcon from 'assets/images/ico-comment.svg';
@@ -21,17 +22,18 @@ import PlayIcon from 'assets/images/ico-play.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
 import qs from 'qs';
 
+const htmlToText = require('html-to-text');
+
 // date/time format to use for the creation date
 const FORMAT = 'MMM DD, YYYY';
 // date/time format for 'Forum post' cards is different from others
 const FORUM_POST_FORMAT = 'MMM DD, YYYY [at] h:mm A';
 // max length for the title of the 'Article small' cards
 const ART_SMALL_TITLE_MAX_LENGTH = 29;
-// character length for the content preview
-const CONTENT_PREVIEW_LENGTH = 110;
 // Article large card 'breakpoint'
 const ARTICLE_LARGE_BREAKPOINT = 473;
-
+// character length for the content preview
+const CONTENT_PREVIEW_LENGTH = 110;
 
 class ArticleCard extends React.Component {
   constructor(props) {
@@ -128,14 +130,20 @@ class ArticleCard extends React.Component {
     const title = (
       themeName === 'Article small'
       && article.title.length > ART_SMALL_TITLE_MAX_LENGTH)
-      ? `${article.title.substring(0, ART_SMALL_TITLE_MAX_LENGTH)}..`
+      ? `${article.title.substring(0, ART_SMALL_TITLE_MAX_LENGTH)}...`
       : article.title;
 
     // truncate content for 'Article large' cards
-    const content = (
-      (themeName === 'Article large' || themeName === 'Recommended')
-      && article.content.length > CONTENT_PREVIEW_LENGTH)
-      ? markdown(`${article.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`)
+    const content = themeName === 'Article large' || themeName === 'Recommended'
+      ? `${htmlToText.fromString(
+        ReactDOMServer.renderToString(markdown(article.content)),
+        {
+          ignoreHref: true,
+          ignoreImage: true,
+          singleNewLineParagraphs: true,
+          uppercaseHeadings: false,
+        },
+      ).substring(0, CONTENT_PREVIEW_LENGTH)}...`
       : undefined;
 
     // set the correct format to apply to the `article.creationDate`

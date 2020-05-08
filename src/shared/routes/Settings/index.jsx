@@ -4,8 +4,8 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import path from 'path';
-import { AppChunk, webpack } from 'topcoder-react-utils';
+// import path from 'path';
+import { AppChunk } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 export default function Settings({ base }) {
@@ -16,10 +16,10 @@ export default function Settings({ base }) {
         .then(({ default: Router }) => <Router base={base} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
-      renderServer={() => {
-        const Router = webpack.requireWeak(path.resolve(__dirname, './Router'));
-        return <Router base={base} />;
-      }}
+      // renderServer={() => {
+      //  const Router = webpack.requireWeak(path.resolve(__dirname, './Router'));
+      //  return <Router base={base} />;
+      // }}
     />
   );
 }

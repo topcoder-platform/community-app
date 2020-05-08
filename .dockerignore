@@ -1,2 +1,3 @@
 __coverage__/
 .git/
+node_modules/

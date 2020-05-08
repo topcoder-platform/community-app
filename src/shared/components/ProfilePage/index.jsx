@@ -119,7 +119,6 @@ class ProfilePage extends React.Component {
       copilot,
       externalAccounts,
       externalLinks,
-      info,
       skills: propSkills,
       stats,
       lookupData,
@@ -130,6 +129,12 @@ class ProfilePage extends React.Component {
       isMobile,
       skillsExpanded,
     } = this.state;
+
+    let { info } = this.props;
+
+    if (_.isNull(_.get(info, 'maxRating.rating', 0)) && !_.isEmpty(stats)) {
+      info = _.assign(info, { maxRating: stats[0].maxRating });
+    }
 
     // get country
     let country = '';
