@@ -184,6 +184,7 @@ export default class NotificationList extends React.Component {
         <div className={styles['notifications-panel']}>
           <TabsPanel
             changeTab={tab => this.setState({ activeTab: tab })}
+            tracking={tracking}
           />
           <div className={styles['noti-body']}>
             <Fragment key="nonComplete">
