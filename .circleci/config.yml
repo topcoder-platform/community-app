@@ -188,8 +188,8 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix-hall-of-fame
                 - develop
+                - config-hotfix
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
