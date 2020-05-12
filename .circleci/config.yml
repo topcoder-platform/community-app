@@ -202,8 +202,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - notifications-analytics
+                - hot-fix-hall-of-fame
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -218,8 +217,7 @@ workflows:
             branches:
               only:
                 - develop
-                - notifications-analytics
-      # This is beta env for production soft releases
+      # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
           filters:
