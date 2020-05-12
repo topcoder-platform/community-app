@@ -6,6 +6,9 @@
 
 import { actions } from 'topcoder-react-lib';
 import pageActions from './page';
+import * as tracking from './tracking';
+
+export { tracking };
 
 export default {
   ...pageActions,

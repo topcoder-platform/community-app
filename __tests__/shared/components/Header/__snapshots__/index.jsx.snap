@@ -182,10 +182,26 @@ exports[`Default render 1`] = `
             "title": "Switch to BUSINESS",
           }
         }
+        tracking={
+          Object {
+            "default": undefined,
+            "event": [Function],
+            "init": [Function],
+            "pageView": [Function],
+          }
+        }
       />
     }
     setOpenMore={[Function]}
     theme="light"
+    tracking={
+      Object {
+        "default": undefined,
+        "event": [Function],
+        "init": [Function],
+        "pageView": [Function],
+      }
+    }
   />
 </div>
 `;
