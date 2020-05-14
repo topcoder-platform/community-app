@@ -59,7 +59,6 @@ export default function ChallengeStatus(props) {
     challengesUrl,
     newChallengeDetails,
     selectChallengeDetailsTab,
-    userHandle,
     openChallengesInNewTabs,
   } = props;
 
@@ -304,7 +303,7 @@ ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
   openChallengesInNewTabs: false,
-  userHandle: '',
+  // userHandle: '',
   className: '',
 };
 
@@ -315,6 +314,6 @@ ChallengeStatus.propTypes = {
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
-  userHandle: PT.string,
+  // userHandle: PT.string,
   className: PT.string,
 };

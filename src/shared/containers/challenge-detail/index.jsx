@@ -207,6 +207,10 @@ class ChallengeDetailPageContainer extends React.Component {
     if (!reviewTypes.length) {
       getReviewTypes(auth.tokenV3);
     }
+
+    if (!reviewTypes.length) {
+      getReviewTypes(auth.tokenV3);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -456,7 +460,7 @@ class ChallengeDetailPageContainer extends React.Component {
               challenge={challenge}
               challengeId={challengeId}
               challengesUrl={challengesUrl}
-              numWinners={!isLegacyMM && winners.length}
+              numWinners={isLegacyMM ? 0 : winners.length}
               showDeadlineDetail={showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={onSelectorClicked}

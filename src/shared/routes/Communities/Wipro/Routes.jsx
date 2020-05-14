@@ -87,6 +87,20 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/settings`}
               />
               <Route
+                render={props => <Profile {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                render={props => <ProfileStats {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+              />
+              <Route
+                component={() => <Settings base={`${base}/settings`} />}
+                path={`${base}/settings`}
+              />
+              <Route
                 component={TermsDetail}
                 exact
                 path={`${base}/challenges/terms/detail/:termId`}

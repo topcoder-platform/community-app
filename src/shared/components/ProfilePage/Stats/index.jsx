@@ -162,7 +162,7 @@ class ProfileStats extends React.Component {
                       className={subTrackRating ? styles.rating : ''}
                       style={{ color: subTrackRating ? getRatingColor(parseInt(subTrackRating.toString().replace(/\D/g, ''), 10)) : undefined }}
                     >
-                      <a href={`/members/${info.handle}`} target="_blank" rel="noopener noreferrer">
+                      <a href={`${window.origin}/members/${info.handle}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`} rel="noopener noreferrer">
                         {info.handle || '-'}
                       </a>
                     </div>

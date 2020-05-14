@@ -96,6 +96,9 @@ module.exports = {
 
   SWIFT_PROGRAM_ID: 3445,
 
+  /* Google Analytics tracking ID */
+  GOOGLE_ANALYTICS_ID: 'UA-161803421-1',
+
   /* Various URLs. Most of them lead to different segments of Topcoder
    * platform. */
   URL: {
@@ -117,7 +120,7 @@ module.exports = {
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
-    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
 
     THRIVE: 'https://www.topcoder.com/thrive',
 
@@ -134,7 +137,7 @@ module.exports = {
       DESIGN_CHALLENGE_CHECKPOINTS: 'https://help.topcoder.com/hc/en-us/articles/219240807-Multi-Round-Checkpoint-Design-Challenges',
       DESIGN_CHALLENGE_SUBMISSION: 'http://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges',
       DESIGN_CHALLENGE_TYPES: 'http://help.topcoder.com/hc/en-us/articles/217481388-Choosing-a-Design-Challenge',
-      RELIABILITY_RATINGS_AND_BONUSES: 'https://help.topcoder.com/hc/en-us/articles/219240797-Development-Reliability-Ratings-and-Bonuses',
+      RELIABILITY_RATINGS_AND_BONUSES: 'https://www.topcoder.com/thrive/articles/Development%20Reliability%20Ratings%20and%20Bonuses',
       STOCK_ART_POLICY: 'http://help.topcoder.com/hc/en-us/articles/217481408-Policy-for-Stock-Artwork-in-Design-Submissions',
       STUDIO_FONTS_POLICY:
         'http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges',
@@ -182,6 +185,8 @@ module.exports = {
    * parameters that should never be send to the client side. */
   SECRET: {
     CONTENTFUL: {
+      DEFAULT_SPACE_NAME: 'default',
+      DEFAULT_ENVIRONMENT: 'master',
       MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
       default: { // Human-readable name of space
         SPACE_ID: '',
@@ -207,6 +212,13 @@ module.exports = {
         },
       },
       EDU: {
+        SPACE_ID: '',
+        master: {
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
+      comcast: {
         SPACE_ID: '',
         master: {
           CDN_API_KEY: '',
@@ -375,7 +387,7 @@ module.exports = {
     { separator: true },
     {
       title: 'Help',
-      href: 'https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder',
+      href: 'https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     },
     { separator: true },
     {

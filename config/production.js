@@ -9,7 +9,7 @@ module.exports = {
     DOMAIN: 'topcoder.auth0.com',
   },
   CDN: {
-    PUBLIC: 'https://d2nl5eqipnb33q.cloudfront.net',
+    PUBLIC: 'https://dlxczxztayxv6.cloudfront.net',
   },
   COOKIES: {
     MAXAGE: 7,
@@ -17,6 +17,7 @@ module.exports = {
   },
   LOG_ENTRIES_TOKEN: '',
   SERVER_API_KEY: 'aa9ccf36-3936-450c-9983-097ddba51bef',
+  GOOGLE_ANALYTICS_ID: 'UA-6340959-1',
   URL: {
     ARENA: 'https://arena.topcoder.com',
     APP: 'https://community-app.topcoder.com',
@@ -30,7 +31,7 @@ module.exports = {
     HOME: '/my-dashboard',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
-    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+    HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',
@@ -189,7 +190,7 @@ module.exports = {
     { separator: true },
     {
       title: 'Help',
-      href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
+      href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     },
     { separator: true },
     {

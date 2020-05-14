@@ -164,7 +164,7 @@ export class DashboardPageContainer extends React.Component {
       communityStats,
       finances,
       financesLoading,
-      handle,
+      // handle,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
       showChallengeFilter,
@@ -241,7 +241,7 @@ DashboardPageContainer.defaultProps = {
   achievementsTimestamp: 0,
   finances: [],
   financesTimestamp: 0,
-  handle: '',
+  // handle: '',
   profile: null,
   showEarnings:
     isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
@@ -278,7 +278,7 @@ DashboardPageContainer.propTypes = {
   getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getSrms: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getTopcoderBlogFeed: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  handle: PT.string,
+  // handle: PT.string,
   profile: PT.shape(), // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,

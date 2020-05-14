@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 import { themr } from 'react-css-super-themr';
-import { config, Link } from 'topcoder-react-utils';
 
 import defaultStyles from './styles.scss';
 
@@ -16,9 +16,12 @@ const Role = ({ data, theme }) => (
     {
       data.members.map(member => (
         <div key={member.fields.handle} className={theme.winner}>
-          <Link to={`${config.URL.BASE}/members/${member.fields.handle}`}>
+          <a
+            to={`${window.origin}/members/${member.fields.handle}`}
+            target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+          >
             {member.fields.handle}
-          </Link>
+          </a>
         </div>
       ))
     }

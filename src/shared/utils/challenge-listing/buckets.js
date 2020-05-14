@@ -125,6 +125,7 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
   [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
 };
 
+/* eslint-disable no-unused-vars */
 /**
  * Returns configuration of all possible challenge buckets.
  * @param {String} userHandle Handle of the authenticated
@@ -132,10 +133,12 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
  */
 export function getBuckets(userHandle) {
   const res = _.cloneDeep(BUCKET_DATA);
+  // This is not implimented
   // TODO: Find equivalent of users
   // res[BUCKETS.MY].filter.users = [userHandle];
   return res;
 }
+/* eslint-enable no-unused-vars */
 
 /**
  * Tests if a given bucket is of any of the Review Opportunities types

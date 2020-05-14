@@ -101,6 +101,16 @@ export default function IoT({ base, meta }) {
                 path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
               />
               <Route
+                render={props => <Profile {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                render={props => <ProfileStats {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+              />
+              <Route
                 component={() => <Home baseUrl={base} />}
                 exact
                 path={`${base}/home`}

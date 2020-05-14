@@ -143,7 +143,7 @@ exports[`Default render 1`] = `
               "separator": true,
             },
             Object {
-              "href": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder",
+              "href": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
               "title": "Help",
             },
             Object {
@@ -182,10 +182,26 @@ exports[`Default render 1`] = `
             "title": "Switch to BUSINESS",
           }
         }
+        tracking={
+          Object {
+            "default": undefined,
+            "event": [Function],
+            "init": [Function],
+            "pageView": [Function],
+          }
+        }
       />
     }
     setOpenMore={[Function]}
     theme="light"
+    tracking={
+      Object {
+        "default": undefined,
+        "event": [Function],
+        "init": [Function],
+        "pageView": [Function],
+      }
+    }
   />
 </div>
 `;

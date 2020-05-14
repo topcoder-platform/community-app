@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
 import Logo from 'assets/images/tc-logo.svg';
+import { tracking } from '../../actions';
 
 let TopNavRef;
 let LoginNavRef;
@@ -49,18 +50,22 @@ const Header = ({
   }
 
   useEffect(() => {
-    setPath(window.location.pathname);
+    setPath(window.location.pathname + window.location.search);
   }, []);
 
   /*
-   * Reload notificaitons if token was changed
-   * This prevent to use expired token in API call
-   */
-  if (auth) {
-    useEffect(() => {
-      loadNotifications(auth.tokenV3);
-    }, [auth.tokenV3]);
-  }
+  * Load Notifications and Init Google Analytics
+  */
+  useEffect(() => {
+    if (auth) {
+      if (auth.tokenV3) {
+        loadNotifications(auth.tokenV3);
+      }
+      if (auth.user) {
+        tracking.init(auth.user.handle);
+      }
+    }
+  }, []); //  }, [auth.tokenV3]);
 
   if (TopNavRef) {
     return (
@@ -85,6 +90,7 @@ const Header = ({
               auth={auth}
               profile={normalizedProfile}
               authURLs={config.HEADER_AUTH_URLS}
+              tracking={tracking}
             />
           )}
           logo={<Logo />}
@@ -96,6 +102,7 @@ const Header = ({
           setOpenMore={handleChangeOpenMore}
           loggedIn={!_.isEmpty(profile)}
           profileHandle={profile ? profile.handle : ''}
+          tracking={tracking}
         />
       </div>
     );

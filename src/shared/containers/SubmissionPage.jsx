@@ -9,6 +9,7 @@
 import actions from 'actions/page/submission';
 import { isMM } from 'utils/challenge';
 import communityActions from 'actions/tc-communities';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import shortId from 'shortid';
 import React from 'react';
 import PT from 'prop-types';
@@ -51,9 +52,17 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
-    const { registrants, handle } = this.props;
+    const { registrants, handle, challengeId } = this.props;
     const isRegistered = registrants.find(r => _.toString(r.handle) === _.toString(handle));
-    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
+    if (!isRegistered) {
+      return (
+        <React.Fragment>
+          <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED}>
+            <PrimaryButton to={`/challenges/${challengeId}`}>Go to Challenge Details</PrimaryButton>
+          </AccessDenied>
+        </React.Fragment>
+      );
+    }
     return (
       <SubmissionsPage
         {...this.props}
@@ -147,7 +156,7 @@ const mapStateToProps = (state, ownProps) => {
     allPhases,
     communitiesList: state.tcCommunities.list,
     /* Older stuff below. */
-    userId: state.auth.user.userId,
+    userId: state.auth.user ? state.auth.user.userId : '',
     challengeId: state.challenge.details.id,
     challengeName: state.challenge.details.name,
     challengesUrl: ownProps.challengesUrl,

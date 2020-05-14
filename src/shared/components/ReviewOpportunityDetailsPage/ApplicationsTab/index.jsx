@@ -4,8 +4,7 @@
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
-
-import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
 
 import './styles.scss';
 
@@ -34,7 +33,7 @@ const ApplicationsTab = ({ applications }) => (
         && applications.filter(app => app.status !== 'Cancelled').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
-              <a href={`${config.URL.BASE}/members/${app.handle}`}>
+              <a href={`${window.origin}/members/${app.handle}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
                 {app.handle}
               </a>
             </div>

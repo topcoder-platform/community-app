@@ -373,7 +373,7 @@ export default function ChallengeDetailsView(props) {
                     please refer to
                     &zwnj;
                     <a
-                      href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
+                      href="https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions"
                       rel="noopener noreferrer"
                       target="_blank"
                     >

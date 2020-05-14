@@ -12,6 +12,7 @@ import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 
 const Filter = challengeUtils.filter;
 
+
 // Constants
 export const PRIZE_MODE = {
   HIDDEN: 'hidden',

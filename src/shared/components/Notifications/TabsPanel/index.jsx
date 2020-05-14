@@ -20,7 +20,7 @@ export default class TabsPanel extends React.Component {
 
 
   render() {
-    const { changeTab } = this.props;
+    const { changeTab, tracking } = this.props;
     const { tab } = this.state;
     return (
       <div className={styles.container}>
@@ -33,12 +33,14 @@ export default class TabsPanel extends React.Component {
               () => {
                 this.setState({ tab: TABS.ACTIVE });
                 changeTab(TABS.ACTIVE);
+                tracking.event('Click', 'Change Tab', 'Active Challenges');
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.ACTIVE });
                 changeTab(TABS.ACTIVE);
+                tracking.event('Click', 'Change Tab', 'Active Challenges');
               }
             }
           >CHALLENGES
@@ -51,12 +53,14 @@ export default class TabsPanel extends React.Component {
               () => {
                 this.setState({ tab: TABS.BROADCAST });
                 changeTab(TABS.BROADCAST);
+                tracking.event('Click', 'Change Tab', 'Notifications');
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.BROADCAST });
                 changeTab(TABS.BROADCAST);
+                tracking.event('Click', 'Change Tab', 'Notifications');
               }
             }
           >NOTIFICATIONS
@@ -72,12 +76,14 @@ export default class TabsPanel extends React.Component {
               () => {
                 this.setState({ tab: TABS.COMPLETED });
                 changeTab(TABS.COMPLETED);
+                tracking.event('Click', 'Change Tab', 'Completed Challenges');
               }
             }
             onKeyPress={
               () => {
                 this.setState({ tab: TABS.COMPLETED });
                 changeTab(TABS.COMPLETED);
+                tracking.event('Click', 'Change Tab', 'Completed Challenges');
               }
             }
           >COMPLETED CHALLENGES
@@ -99,4 +105,5 @@ export default class TabsPanel extends React.Component {
 
 TabsPanel.propTypes = {
   changeTab: PropTypes.func.isRequired,
+  tracking: PropTypes.shape().isRequired,
 };
