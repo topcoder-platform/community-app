@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/topcoder-platform/community-app#readme",
   "engines": {
-    "node": "10.20.1",
-    "npm": "6.14.4"
+    "node": "^8.11.2",
+    "npm": "^5.6.0"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",
@@ -134,7 +134,7 @@
     "tc-accounts": "git+https://github.com/appirio-tech/accounts-app.git#dev",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3",
     "tc-ui": "^1.0.12",
-    "topcoder-react-lib": "topcoder-platform/topcoder-react-lib#feature-challenge-v5-sushil",
+    "topcoder-react-lib": "1000.18.0",
     "topcoder-react-ui-kit": "^1.0.11",
     "topcoder-react-utils": "0.7.8",
     "turndown": "^4.0.2",
