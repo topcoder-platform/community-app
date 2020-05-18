@@ -20,7 +20,8 @@
     "noImplicitAny": false,
     "outDir": "temp",
     "types": ["jasmine", "node"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"]
 }

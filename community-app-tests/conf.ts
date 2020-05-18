@@ -36,6 +36,11 @@ exports.config = {
   specs: [
     "../temp/test-suites/tc-login.spec.js",
     "../temp/test-suites/tc-tools.spec.js",
+    "../temp/test-suites/tc-account.spec.js",
+    "../temp/test-suites/tc-profile.spec.js",
+    "../temp/test-suites/tc-header.spec.js",
+    "../temp/test-suites/tc-footer.spec.js",
+    "../temp/test-suites/tc-preferences.spec.js",
   ],
 
   // Options to be passed to Jasmine.
