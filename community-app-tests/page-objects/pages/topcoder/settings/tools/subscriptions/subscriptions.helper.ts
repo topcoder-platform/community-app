@@ -1,5 +1,4 @@
-import { ElementHelper, BrowserHelper } from "topcoder-testing-lib";
-import * as appconfig from "../../../../../../app-config.json";
+import { ElementHelper } from "topcoder-testing-lib";
 import { logger } from "../../../../../../logger/logger";
 import { SubscriptionsPage } from "./subscriptions.po";
 
@@ -27,7 +26,7 @@ export class SubscriptionsPageHelper {
   }
 
   /**
-   * verifyies that user can add subscription
+   * verifies that user can add subscription
    */
   public static async verifyAddSubscription(name) {
     await this.subscriptionsPageObject.addSubscription(name);
@@ -35,11 +34,11 @@ export class SubscriptionsPageHelper {
     const el = await ElementHelper.getTagElementContainingText("div", name);
     const isDisplayed = await el.isPresent();
     expect(isDisplayed).toBe(true);
-    logger.info("subcription added: " + name);
+    logger.info("subscription added: " + name);
   }
 
   /**
-   * verifyies that user can edit subscription
+   * verifies that user can edit subscription
    */
   public static async verifyEditSubscription(name, newName) {
     await this.subscriptionsPageObject.editSubscription(name, newName);
@@ -47,11 +46,11 @@ export class SubscriptionsPageHelper {
     const el = await ElementHelper.getTagElementContainingText("div", newName);
     const isDisplayed = await el.isPresent();
     expect(isDisplayed).toBe(true);
-    logger.info("subcription edited from: " + name + " to " + newName);
+    logger.info("subscription edited from: " + name + " to " + newName);
   }
 
   /**
-   * verifyies that user can delete subscription
+   * verifies that user can delete subscription
    */
   public static async verifyDeleteSubscription(name) {
     await this.subscriptionsPageObject.deleteSubscription(name);
@@ -59,7 +58,7 @@ export class SubscriptionsPageHelper {
     const el = await ElementHelper.getTagElementContainingText("div", name);
     const isDisplayed = await el.isPresent();
     expect(isDisplayed).toBe(false);
-    logger.info("deleted subcription: " + name);
+    logger.info("deleted subscription: " + name);
   }
 
   private static subscriptionsPageObject: SubscriptionsPage;

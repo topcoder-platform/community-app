@@ -51,6 +51,19 @@ export const CommonHelper = {
   },
 
   /**
+   * Verify page url to contain the given url
+   * @param {String} url
+   */
+  async verifyCurrentUrlToContain(url) {
+    const currentUrl = await BrowserHelper.getCurrentUrl();
+    logger.info(`Current page url is ${currentUrl}`);
+    expect(currentUrl).toContain(
+      url,
+      `Provided Url ${url} is not present in page URL ${currentUrl}`
+    );
+  },
+
+  /**
    * Verify pop window exists
    */
   async verifyPopupWindow() {
@@ -66,11 +79,11 @@ export const CommonHelper = {
    * @param {String} title
    */
   async verifyPopupWindowWithTitle(title) {
-    await this.verifyPopupWindow();
     const windows = await BrowserHelper.getAllWindowHandles();
+    expect(windows.length).toBe(2, "Popup window did not open");
+    await BrowserHelper.switchToWindow(windows[1]);
     const windowTitle = ElementHelper.getElementByXPath("//title");
     BrowserHelper.setIgnoreSync(true);
-    await BrowserHelper.switchToWindow(windows[1]);
     await BrowserHelper.waitUntilPresenceOf(
       windowTitle,
       appconfig.Timeout.ElementPresence,
@@ -90,8 +103,8 @@ export const CommonHelper = {
    * @param {String} expectedUrl
    */
   async verifyPopupWindowWithUrl(expectedUrl) {
-    await this.verifyPopupWindow();
     const windows = await BrowserHelper.getAllWindowHandles();
+    expect(windows.length).toBe(2, "Popup window did not open");
     await BrowserHelper.switchToWindow(windows[1]);
     const url = await BrowserHelper.getCurrentUrl();
     expect(url).toEqual(

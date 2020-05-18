@@ -1,7 +1,6 @@
 import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
 import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
-import { ConfigHelper } from "../../../../utils/config-helper";
 import { CommonHelper } from "../common-page/common.helper";
 import { SettingsPageConstants } from "./settings.constants";
 
@@ -112,6 +111,23 @@ export class SettingsPage {
     return ElementHelper.getElementByXPath(
       `//*[text()='${name}']//following::img[@alt='delete-icon']`
     );
+  }
+
+  protected async performSelection(element, value) {
+    await BrowserHelper.sleep(1000);
+    await element.sendKeys(value);
+    await BrowserHelper.waitUntilVisibilityOf(this.selectOption);
+    const selectOptions = await this.selectOptions();
+    await selectOptions[0].click();
+    await BrowserHelper.sleep(1000);
+  }
+
+  protected get selectOption() {
+    return ElementHelper.getElementByClassName('Select-option');
+  }
+
+  protected async selectOptions() {
+    return ElementHelper.getAllElementsByClassName('Select-option');
   }
 
   /**

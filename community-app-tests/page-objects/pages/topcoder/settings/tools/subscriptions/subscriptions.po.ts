@@ -25,7 +25,8 @@ export class SubscriptionsPage extends SettingsPage {
    * @param {String} name
    */
   public async addSubscription(name) {
-    await this.setSubsription(name);
+    await BrowserHelper.sleep(1000);
+    await this.setSubscription(name);
     await this.getAddButton("subscription").click();
   }
 
@@ -36,7 +37,8 @@ export class SubscriptionsPage extends SettingsPage {
    */
   public async editSubscription(name, newname) {
     await this.getEditIconbyName(name).click();
-    await this.setSubsription(newname);
+    await BrowserHelper.sleep(1000);
+    await this.setSubscription(newname);
     await this.getEditButton("subscription").click();
   }
 
@@ -53,7 +55,8 @@ export class SubscriptionsPage extends SettingsPage {
    * Fills the subscription name textbox with given name
    * @param {String} name
    */
-  private async setSubsription(name: string) {
+  private async setSubscription(name: string) {
+    await BrowserHelper.waitUntilClickableOf(this.subscriptionName);
     await this.subscriptionName.clear();
     await this.subscriptionName.sendKeys(name);
   }
