@@ -8,6 +8,7 @@ import { decodeToken } from 'tc-accounts';
 import 'isomorphic-fetch';
 import { processSRM } from 'utils/tc';
 import { errors, services } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
 
 const { fireErrorMessage } = errors;
 const { getService } = services.challenge;
@@ -40,8 +41,8 @@ function getAll(getter, page = 0, prev) {
    * explicitely required. */
 
   return getter({
-    limit: PAGE_SIZE,
-    offset: page * PAGE_SIZE,
+    perPage: PAGE_SIZE,
+    page: page + 1,
   }).then(({ challenges: chunk }) => {
     if (!chunk.length) return prev || [];
     return getAll(getter, 1 + page, prev ? prev.concat(chunk) : chunk);
@@ -52,9 +53,9 @@ function getAll(getter, page = 0, prev) {
  * Gets possible challenge subtracks.
  * @return {Promise}
  */
-function getChallengeSubtracksDone() {
+function getChallengeTypesDone() {
   return getService()
-    .getChallengeSubtracks()
+    .getChallengeTypes()
     .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
@@ -94,10 +95,17 @@ function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
   ];
   let user;
   if (tokenV3) {
-    user = decodeToken(tokenV3).handle;
+    user = decodeToken(tokenV3).userId;
+
+    const newFilter = _.mapKeys(filter, (value, key) => {
+      if (key === 'tag') return 'technologies';
+
+      return key;
+    });
+
     // Handle any errors on this endpoint so that the non-user specific challenges
     // will still be loaded.
-    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
+    calls.push(getAll(params => service.getUserChallenges(user, newFilter, params)
       .catch(() => ({ challenges: [] }))), page);
   }
   return Promise.all(calls).then(([ch, uch]) => {
@@ -131,7 +139,7 @@ function getAllActiveChallengesInit(uuid) {
   return uuid;
 }
 function getAllActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+  const filter = { status: 'Active' };
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
@@ -153,52 +161,30 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
 function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const filter = {
     ...backendFilter,
-    status: 'ACTIVE',
+    status: 'Active',
   };
   const service = getService(tokenV3);
   const calls = [
     service.getChallenges(filter, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
+      perPage: PAGE_SIZE,
+      page: page + 1,
     }),
   ];
   let user;
   if (tokenV3) {
-    user = decodeToken(tokenV3).handle;
+    user = decodeToken(tokenV3).userId;
+
     // Handle any errors on this endpoint so that the non-user specific challenges
     // will still be loaded.
-    calls.push(service.getUserChallenges(user, filter, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }).catch(() => ({ challenges: [] })));
+    calls.push(service.getUserChallenges(user, filter, {})
+      .catch(() => ({ challenges: [] })));
   }
-  return Promise.all(calls).then(([ch, uch]) => {
-    /* uch array contains challenges where the user is participating in
-     * some role. The same challenge are already listed in res array, but they
-     * are not attributed to the user there. This block of code marks user
-     * challenges in an efficient way. */
-    if (uch) {
-      const map = {};
-      uch.challenges.forEach((item) => { map[item.id] = item; });
-      ch.challenges.forEach((item) => {
-        if (map[item.id]) {
-          /* It is fine to reassing, as the array we modifying is created just
-           * above within the same function. */
-          /* eslint-disable no-param-reassign */
-          item.users[user] = true;
-          item.userDetails = map[item.id].userDetails;
-          /* eslint-enable no-param-reassign */
-        }
-      });
-    }
-
-    return {
-      uuid,
-      challenges: ch.challenges,
-      meta: ch.meta,
-      frontFilter,
-    };
-  });
+  return Promise.all(calls).then(([ch]) => ({
+    uuid,
+    challenges: ch.challenges,
+    meta: ch.meta,
+    frontFilter,
+  }));
 }
 
 /**
@@ -215,7 +201,7 @@ function getRestActiveChallengesInit(uuid) {
  * @param {String} tokenV3 token v3
  */
 function getRestActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+  const filter = { status: 'Active' };
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, 1);
 }
 
@@ -230,12 +216,12 @@ function getAllRecommendedChallengesInit(uuid) {
  * Get all recommended challenges
  * @param {String} uuid progress id
  * @param {String} tokenV3 token v3
- * @param {*} recommendedTechnology recommended technoloty
+ * @param {*} recommendedTags recommended tags
  */
-function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTechnology) {
+function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTags) {
   const filter = {
-    status: 'ACTIVE',
-    technologies: recommendedTechnology,
+    status: 'Active',
+    tag: recommendedTags,
   };
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
@@ -264,10 +250,10 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
   const service = getService(tokenV3);
   return service.getChallenges({
     ...filter,
-    status: 'COMPLETED',
+    status: 'Completed',
   }, {
-    limit: PAGE_SIZE,
-    offset: page * PAGE_SIZE,
+    perPage: PAGE_SIZE,
+    page: page + 1,
   }).then(({ challenges }) => ({ uuid, challenges, frontFilter }));
 }
 
@@ -306,7 +292,11 @@ function getSrmsInit(uuid) {
  */
 function getSrmsDone(uuid, handle, params, tokenV3) {
   const service = getService(tokenV3);
-  const promises = [service.getSrms(params)];
+  const newParams = {
+    ...params,
+    typeId: config.SRM_TYPE_ID,
+  };
+  const promises = [service.getSrms(newParams)];
   if (handle) {
     promises.push(service.getUserSrms(handle, params));
   }
@@ -343,8 +333,8 @@ export default createActions({
     GET_REST_ACTIVE_CHALLENGES_INIT: getRestActiveChallengesInit,
     GET_REST_ACTIVE_CHALLENGES_DONE: getRestActiveChallengesDone,
 
-    GET_CHALLENGE_SUBTRACKS_INIT: _.noop,
-    GET_CHALLENGE_SUBTRACKS_DONE: getChallengeSubtracksDone,
+    GET_CHALLENGE_TYPES_INIT: _.noop,
+    GET_CHALLENGE_TYPES_DONE: getChallengeTypesDone,
 
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,

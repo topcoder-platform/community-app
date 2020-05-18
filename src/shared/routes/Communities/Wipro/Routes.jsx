@@ -54,7 +54,7 @@ export default function Wipro({ base, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+                path={`${base}/challenges/:challengeId`}
               />
               <Route
                 component={routeProps => Submission({
@@ -62,7 +62,7 @@ export default function Wipro({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+                path={`${base}/challenges/:challengeId/submit`}
               />
               <Route
                 component={routeProps => SubmissionManagement({
@@ -70,7 +70,21 @@ export default function Wipro({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+                path={`${base}/challenges/:challengeId/my-submissions`}
+              />
+              <Route
+                render={props => <Profile {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                render={props => <ProfileStats {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+              />
+              <Route
+                component={() => <Settings base={`${base}/settings`} />}
+                path={`${base}/settings`}
               />
               <Route
                 render={props => <Profile {...props} meta={meta} />}

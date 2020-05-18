@@ -26,6 +26,7 @@ import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { MetaTags } from 'topcoder-react-utils';
 import { USER_GROUP_MAXAGE } from 'config';
+import { updateChallengeType } from 'utils/challenge';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
@@ -160,6 +161,7 @@ export class ListingContainer extends React.Component {
       activeBucket,
       ChallengeListingBanner,
       challenges,
+      challengeTypes,
       challengesUrl,
       challengeSubtracks,
       challengeTags,
@@ -255,6 +257,7 @@ export class ListingContainer extends React.Component {
         <ChallengeListing
           activeBucket={activeBucket}
           challenges={challenges}
+          challengeTypes={challengeTypes}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
           challengesUrl={challengesUrl}
@@ -303,6 +306,7 @@ export class ListingContainer extends React.Component {
 
 ListingContainer.defaultProps = {
   ChallengeListingBanner: null,
+  challengeTypes: [],
   defaultCommunityId: '',
   extraBucket: null,
   hideSrm: false,
@@ -332,6 +336,7 @@ ListingContainer.propTypes = {
   allReviewOpportunitiesLoaded: PT.bool.isRequired,
   ChallengeListingBanner: PT.node,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string,
   challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
@@ -391,6 +396,9 @@ ListingContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const cl = state.challengeListing;
   const tc = state.tcCommunities;
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+  );
   return {
     auth: state.auth,
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
@@ -398,6 +406,7 @@ const mapStateToProps = (state, ownProps) => {
     allReviewOpportunitiesLoaded: cl.allReviewOpportunitiesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
+    challengeTypes: cl.challengeSubtracks,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
     communitiesList: tc.list,
@@ -413,7 +422,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
-    loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
+    loadingChallengeTypes: cl.loadingChallengeTypes,
     loadingChallengeTags: cl.loadingChallengeTags,
     newChallengeDetails: ownProps.newChallengeDetails,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,

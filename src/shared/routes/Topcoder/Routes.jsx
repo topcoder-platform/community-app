@@ -59,7 +59,7 @@ export default function Topcoder() {
               <Route
                 component={ChallengeDetails}
                 exact
-                path="/challenges/:challengeId(\d{8}|\d{5})"
+                path="/challenges/:challengeId"
               />
               <Route component={ChallengeListing} exact path="/challenges" />
               <Route component={Notifications} exact path="/notifications" />
@@ -73,7 +73,7 @@ export default function Topcoder() {
               <Route
                 component={SubmissionManagement}
                 exact
-                path="/challenges/:challengeId(\d{8}|\d{5})/my-submissions"
+                path="/challenges/:challengeId/my-submissions"
               />
               <Route
                 component={Submission}

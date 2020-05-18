@@ -23,9 +23,7 @@ import React, { Component } from 'react';
 import { fixStyle } from 'utils/contentful';
 import cn from 'classnames';
 import { Scrollbars } from 'react-custom-scrollbars';
-
 import './style.scss';
-
 
 export default class Looker extends Component {
   constructor(props) {

@@ -12,7 +12,7 @@ import './style.scss';
 export default function DeadlinesPanel({ deadlines }) {
   /* Calculates challenge start time. */
   let start = deadlines[0] || {};
-  start = start.actualStartTime || start.scheduledStartTime;
+  start = start.actualStartDate || start.scheduledStartDate;
   const started = moment(start).isBefore(moment());
 
   return (
@@ -28,9 +28,9 @@ export default function DeadlinesPanel({ deadlines }) {
       />
       { deadlines.map((d, index) => (
         <Card
-          key={d.phaseType}
-          time={d.actualEndTime || d.scheduledEndTime}
-          title={index === deadlines.length - 1 ? 'Winners' : d.phaseType}
+          key={d.name}
+          time={d.actualEndDate || d.scheduledEndDate}
+          title={index === deadlines.length - 1 ? 'Winners' : d.name}
         />
       ))}
     </div>
@@ -39,10 +39,9 @@ export default function DeadlinesPanel({ deadlines }) {
 
 DeadlinesPanel.propTypes = {
   deadlines: PT.arrayOf(PT.shape({
-    actualEndTime: PT.string,
-    actualStartTime: PT.string,
-    phaseType: PT.string.isRequired,
-    scheduledEndTime: PT.string.isRequired,
-    scheduledStartTime: PT.string.isRequired,
+    actualEndDate: PT.string,
+    actualStartDate: PT.string,
+    scheduledEndDate: PT.string,
+    scheduledStartDate: PT.string,
   })).isRequired,
 };

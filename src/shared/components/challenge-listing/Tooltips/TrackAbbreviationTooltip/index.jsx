@@ -24,7 +24,8 @@ const DESCRIPTION = {
   DESIGN_FIRST_2_FINISH: 'Be the first to deliver the design solution',
   FIRST_2_FINISH: 'Be the first to deliver the development solution',
   LOGO_DESIGN: 'Logo Design',
-  MARATHON_MATCH: 'Write algorythms to solve complex problems, often for real world issues',
+  MARATHON_MATCH: 'Write algorithms to solve complex problems, often for real world issues',
+  DEVELOP_MARATHON_MATCH: 'Write algorithms to solve complex problems, often for real world issues',
   PRINT_OR_PRESENTATION: 'Design print and presentation assets',
   SRM: 'Single Round Match - quickly write code to solve algorythm problems head to head against other competitors',
   STUDIO_OTHER: 'Studio other',
@@ -46,7 +47,8 @@ const HEADER = {
   DESIGN_FIRST_2_FINISH: 'Design First2Finish(DF2F)',
   FIRST_2_FINISH: 'First2Finish (F2F)',
   LOGO_DESIGN: 'Logo Design (Lg)',
-  MARATHON_MATCH: 'Marathon Match',
+  MARATHON_MATCH: 'Marathon Match (MM)',
+  DEVELOP_MARATHON_MATCH: 'Marathon Match (MM)',
   PRINT_OR_PRESENTATION: 'Print/Presentation (PP)',
   SRM: 'Single Round Match (SRM)',
   UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
@@ -75,15 +77,20 @@ function Tip({
         {HEADER[subTrack]}
       </div>
       <div styleName="body">
-        {DESCRIPTION[subTrack]}
+        {subTrack ? DESCRIPTION[subTrack] : ''}
       </div>
     </div>
   );
 }
 
+Tip.defaultProps = {
+  subTrack: 'CODE',
+  track: 'DEVELOP',
+};
+
 Tip.propTypes = {
-  subTrack: PT.string.isRequired,
-  track: PT.string.isRequired,
+  subTrack: PT.string,
+  track: PT.string,
 };
 
 function placeArrow(TooltipNode) {
@@ -112,10 +119,15 @@ function TrackAbbreviationTooltip({
   );
 }
 
+TrackAbbreviationTooltip.defaultProps = {
+  subTrack: 'CODE',
+  track: 'DEVELOP',
+};
+
 TrackAbbreviationTooltip.propTypes = {
   children: PT.node.isRequired,
-  subTrack: PT.string.isRequired,
-  track: PT.string.isRequired,
+  subTrack: PT.string,
+  track: PT.string,
 };
 
 export default TrackAbbreviationTooltip;

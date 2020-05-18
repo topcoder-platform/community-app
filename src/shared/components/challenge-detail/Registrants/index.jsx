@@ -78,9 +78,9 @@ export default class Registrants extends React.Component {
     const {
       challenge,
     } = this.props;
-    const checkpointPhase = challenge.allPhases.find(x => x.phaseType === 'Checkpoint Submission');
+    const checkpointPhase = (challenge.allPhases || challenge.phases || []).find(x => x.name === 'Checkpoint Submission');
     return moment(checkpointPhase
-      ? checkpointPhase.actualEndTime || checkpointPhase.scheduledEndTime : 0);
+      ? checkpointPhase.actualEndDate || checkpointPhase.scheduledEndDate : 0);
   }
 
   /**
@@ -240,11 +240,13 @@ export default class Registrants extends React.Component {
     } = this.props;
     const {
       prizes,
+      legacy,
     } = challenge;
+    const { track } = legacy;
     const { sortedRegistrants } = this.state;
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
-    const isDesign = challenge.track.toLowerCase() === 'design';
+    const isDesign = track.toLowerCase() === 'design';
     const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
     const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
 
@@ -478,13 +480,16 @@ Registrants.defaultProps = {
 
 Registrants.propTypes = {
   challenge: PT.shape({
-    allPhases: PT.arrayOf(PT.shape({
-      actualEndTime: PT.string,
+    phases: PT.arrayOf(PT.shape({
+      actualEndDate: PT.string,
       phaseType: PT.string.isRequired,
-      scheduledEndTime: PT.string,
+      scheduledEndDate: PT.string,
     })).isRequired,
+    allPhases: PT.arrayOf(PT.shape()),
     checkpoints: PT.arrayOf(PT.shape()),
-    track: PT.any,
+    legacy: PT.shape({
+      track: PT.any,
+    }),
     subTrack: PT.any,
     prizes: PT.arrayOf(PT.number).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,

@@ -101,7 +101,6 @@ SideBarFilters.propTypes = {
   activeSavedFilter: PT.number.isRequired,
   buckets: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape({
-    registrationOpen: PT.string.isRequired,
   })).isRequired,
   changeFilterName: PT.func.isRequired,
   communityFilter: PT.shape(),

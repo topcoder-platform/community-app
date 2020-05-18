@@ -21,7 +21,7 @@ const BUCKET_DATA = {
   [BUCKETS.ALL]: {
     filter: {
       started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
     },
     hideCount: false,
     name: 'All Challenges',
@@ -30,7 +30,7 @@ const BUCKET_DATA = {
   [BUCKETS.MY]: {
     filter: {
       started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
       // users: [userHandle],
     },
     hideCount: false,
@@ -48,7 +48,8 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: true,
       started: true,
-      status: ['ACTIVE'],
+      currentPhaseName: 'Registration',
+      status: ['Active'],
     },
     hideCount: false,
     name: 'Open for registration',
@@ -66,7 +67,7 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: false,
       started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
     },
     hideCount: false,
     name: 'Ongoing challenges',
@@ -90,7 +91,7 @@ const BUCKET_DATA = {
     ],
   },
   [BUCKETS.PAST]: {
-    filter: { status: ['COMPLETED', 'PAST'] },
+    filter: { status: ['Completed', 'PAST'] },
     hideCount: true,
     name: 'Past challenges',
     sorts: [
@@ -136,6 +137,7 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
  */
 export function getBuckets(userHandle) {
   const res = _.cloneDeep(BUCKET_DATA);
+  // TODO: Find equivalent of users
   res[BUCKETS.MY].filter.users = [userHandle];
   return res;
 }

@@ -21,13 +21,16 @@ afterAll(() => {
 const mockData1 = {
   challenge: {
     technologies: ['Data Science'],
+    tags: ['Data Science'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Open',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DEVELOP',
+    legacy: {
+      track: 'DEVELOP',
+    },
     totalPrize: 1800,
     subTrack: 'CODE',
     events: [{ eventName: 'Submit' }],
@@ -39,13 +42,16 @@ const mockData1 = {
 const mockData2 = {
   challenge: {
     technologies: ['Go'],
+    tags: ['Go'],
     allPhases: [{
       phaseType: 'Submit',
       phaseStatus: 'Open',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
+    legacy: {
+      track: 'DATA_SCIENCE',
+    },
     subTrack: 'CODE',
     id: '1',
     totalPrize: 1800,
@@ -56,13 +62,16 @@ const mockData2 = {
 const mockData3 = {
   challenge: {
     technologies: [],
+    tags: [],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
+    legacy: {
+      track: 'DATA_SCIENCE',
+    },
     subTrack: 'CODE',
     id: 'long id',
     totalPrize: 1800,
@@ -73,13 +82,16 @@ const mockData3 = {
 const mockData4 = {
   challenge: {
     technologies: ['more', 'technology', 'to', 'show'],
+    tags: ['more', 'technology', 'to', 'show'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
+    legacy: {
+      track: 'DATA_SCIENCE',
+    },
     subTrack: 'CODE',
     id: 'long id',
     totalPrize: 1800,
@@ -90,13 +102,16 @@ const mockData4 = {
 const mockData5 = {
   challenge: {
     technologies: ['+tag', 'more', 'technology', 'to', 'show'],
+    tags: ['+tag', 'more', 'technology', 'to', 'show'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
+    legacy: {
+      track: 'DATA_SCIENCE',
+    },
     subTrack: 'CODE',
     id: 'long id',
     totalPrize: 1800,

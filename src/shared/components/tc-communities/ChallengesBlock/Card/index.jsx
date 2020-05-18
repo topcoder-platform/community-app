@@ -24,10 +24,13 @@ export default function Card({
 }) {
   const {
     subTrack,
+    legacy,
   } = challenge;
 
+  const { track } = legacy;
+
   let TrackTag;
-  switch (challenge.track.toLowerCase()) {
+  switch (track.toLowerCase()) {
     case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       TrackTag = DataScienceTrackTag;
@@ -98,7 +101,9 @@ Card.propTypes = {
     technologies: PT.string.isRequired,
     registrationStartDate: PT.string.isRequired,
     submissionEndDate: PT.string.isRequired,
-    track: PT.string.isRequired,
+    legacy: PT.shape({
+      track: PT.string.isRequired,
+    }),
     subTrack: PT.string.isRequired,
   }).isRequired,
   setChallengeListingFilter: PT.func.isRequired,

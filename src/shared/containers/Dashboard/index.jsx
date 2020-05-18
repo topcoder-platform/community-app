@@ -20,6 +20,7 @@ import shortId from 'shortid';
 
 import { connect } from 'react-redux';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { updateChallengeType } from 'utils/challenge';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
@@ -163,7 +164,6 @@ export class DashboardPageContainer extends React.Component {
       communityStats,
       finances,
       financesLoading,
-      handle,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
       showChallengeFilter,
@@ -202,7 +202,7 @@ export class DashboardPageContainer extends React.Component {
         achievementsLoading={achievementsLoading}
         announcementPreviewId={announcementPreviewId}
         challengeFilter={challengeFilter}
-        challenges={activeChallenges.filter(x => x.users[handle])}
+        challenges={activeChallenges}
         challengesLoading={activeChallengesLoading}
         communities={communities}
         communitiesLoading={communitiesLoading}
@@ -239,7 +239,6 @@ DashboardPageContainer.defaultProps = {
   achievementsTimestamp: 0,
   finances: [],
   financesTimestamp: 0,
-  handle: '',
   profile: null,
   showEarnings:
     isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
@@ -276,7 +275,6 @@ DashboardPageContainer.propTypes = {
   getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getSrms: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getTopcoderBlogFeed: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  handle: PT.string,
   profile: PT.shape(), // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
@@ -318,6 +316,9 @@ function mapStateToProps(state, props) {
   const dash = state.page.dashboard;
 
   const tcBlog = state.rss ? (state.rss[TOPCODER_BLOG_ID] || {}) : {};
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+  );
   return {
     achievements: achievements.data,
     achievementsLoading: Boolean(achievements.loadingUuid),
@@ -336,7 +337,6 @@ function mapStateToProps(state, props) {
     finances: finances.data,
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
-    handle: userHandle,
     profile: state.auth.profile,
     showChallengeFilter: dash.showChallengeFilter,
     showEarnings: dash.showEarnings,

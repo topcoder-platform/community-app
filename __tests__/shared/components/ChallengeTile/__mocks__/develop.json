@@ -21,7 +21,9 @@
 	"updatedBy": "22841596",
 	"technologies": "CSS, HTML, JavaScript",
 	"status": "COMPLETED",
-	"track": "DEVELOP",
+	"legacy": {
+		"track": "DEVELOP"
+	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "$100 Eaton PX 2.0 Petting Zoo - MDC Web Enhancement F2F Challenge",
 	"reviewType": "INTERNAL",
@@ -162,7 +164,9 @@
 	"updatedBy": "22841596",
 	"technologies": "ReactJS",
 	"status": "COMPLETED",
-	"track": "DEVELOP",
+	"legacy": {
+		"track": "DEVELOP"
+	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "$100 Eaton PX 2.0 Petting Zoo - ReactJS Enhancement F2F Challenge",
 	"reviewType": "INTERNAL",
@@ -318,7 +322,9 @@
 	"updatedBy": "22841596",
 	"technologies": "Angular 2+, Express, JSON, Node.js",
 	"status": "COMPLETED",
-	"track": "DEVELOP",
+	"legacy": {
+		"track": "DEVELOP"
+	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "$500 BG800 Online Course Mock Rest API F2F Challenge",
 	"reviewType": "INTERNAL",
@@ -624,7 +630,9 @@
 	"updatedBy": "22841596",
 	"technologies": "JavaScript, ReactJS",
 	"status": "COMPLETED",
-	"track": "DEVELOP",
+	"legacy": {
+		"track": "DEVELOP"
+	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "John Hancock - Giving Tuesday - General image handling",
 	"reviewType": "INTERNAL",

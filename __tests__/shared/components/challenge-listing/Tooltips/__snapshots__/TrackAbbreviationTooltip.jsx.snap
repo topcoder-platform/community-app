@@ -6,7 +6,7 @@ exports[`Matches shallow shapshot 1`] = `
   className="track-abbreviation-tooltip"
   content={
     <Tip
-      subTrack="F2F"
+      subTrack="CODE"
       track="DEVELOP"
     />
   }
