@@ -18,7 +18,7 @@
     "test": "npm run lint && npm run --runInBand jest",
     "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/navigation-component/node_modules/topcoder-react-lib && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"
+    "postinstall": "rimraf node_modules/navigation-component/node_modules/topcoder-react-utils && rimraf node_modules/topcoder-react-ui-kit/node_modules/topcoder-react-utils"
   },
   "repository": {
     "type": "git",
@@ -62,6 +62,7 @@
     "filestack-react": "^2.0.0",
     "flag-icon-css": "^3.3.0",
     "focus-trap-react": "^6.0.0",
+    "react-ga": "^2.7.0",
     "helmet": "^3.12.1",
     "highlight.js": "^9.18.1",
     "html-to-text": "^5.1.1",
@@ -133,7 +134,7 @@
     "tc-accounts": "git+https://github.com/appirio-tech/accounts-app.git#dev",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3",
     "tc-ui": "^1.0.12",
-    "topcoder-react-lib": "v0.17.0",
+    "topcoder-react-lib": "0.17.2",    
     "topcoder-react-ui-kit": "^1.0.11",
     "topcoder-react-utils": "0.7.8",
     "turndown": "^4.0.2",
