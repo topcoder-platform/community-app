@@ -1,15 +1,23 @@
 /**
  * Email Preferences component.
  */
-import { debounce, isEqual } from 'lodash';
+import { debounce, isEqual, map } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
 import ConsentComponent from 'components/Settings/ConsentComponent';
+import ToggleableItem from 'components/Settings/ToggleableItem';
 
 import './styles.scss';
 
 const SAVE_DELAY = 1000;
+const newsletters = [
+  {
+    id: 'TOPCODER_NL_GEN',
+    name: 'General Newsletter',
+    desc: 'News summary from Topcoder',
+  },
+];
 
 export default class EmailPreferences extends ConsentComponent {
   saveEmailPreferences = debounce(() => {
@@ -77,11 +85,33 @@ export default class EmailPreferences extends ConsentComponent {
   }
 
   render() {
+    const { profileState: { emailPreferences } } = this.props;
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
           E-Mail Preferences
         </h1>
+        <div styleName="preferences-container">
+          {
+            this.shouldRenderConsent() && this.renderConsent()
+          }
+          {
+            map(newsletters, (newsletter) => {
+              const checked = emailPreferences ? emailPreferences[newsletter.id] : false;
+              return (
+                <ToggleableItem
+                  key={newsletter.id}
+                  id={newsletter.id}
+                  value={newsletter.id}
+                  checked={checked}
+                  primaryText={newsletter.name}
+                  secondaryText={newsletter.desc}
+                  onToggle={e => this.onHandleChange(newsletter.id, e.target.checked)}
+                />
+              );
+            })
+          }
+        </div>
       </div>
     );
   }
