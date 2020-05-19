@@ -13,6 +13,7 @@ import Sidebar from 'components/challenge-listing/Sidebar';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import { updateChallengeType } from 'utils/challenge';
 
 export const SidebarPureComponent = Sidebar;
 
@@ -151,6 +152,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state, ownProps) {
   const { activeBucket } = state.challengeListing.sidebar;
   const pending = _.keys(state.challengeListing.pendingRequests);
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+  );
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,

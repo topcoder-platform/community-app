@@ -8,12 +8,14 @@ import './IosCard.scss';
 
 const IosCard = (props) => {
   const { challenge } = props;
+  const { legacy } = challenge;
+  const { track } = legacy;
   return (
-    <div styleName={`challenge tile-view ${challenge.track}`}>
+    <div styleName={`challenge tile-view ${track}`}>
       <div styleName="challenge-track" />
       <header>
         <div>
-          <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}`} styleName="name">
+          <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${track}`} styleName="name">
             <span>
               {challenge.name}
             </span>
@@ -24,13 +26,13 @@ const IosCard = (props) => {
         </div>
         <div styleName="challenge-links">
           <div styleName="stats">
-            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#viewRegistrant`} styleName="registrants">
+            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${track}#viewRegistrant`} styleName="registrants">
               <div styleName="registrants-icon" />
               <p>
                 {challenge.numRegistrants}
               </p>
             </a>
-            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#submissions`} styleName="submissions">
+            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${track}#submissions`} styleName="submissions">
               <div styleName="submissions-icon" />
               <p>
                 {challenge.numSubmissions}
@@ -90,7 +92,7 @@ const IosCard = (props) => {
           )
         }
         <p styleName="technologies">
-          {challenge.technologies}
+          {challenge.tags}
         </p>
       </div>
     </div>

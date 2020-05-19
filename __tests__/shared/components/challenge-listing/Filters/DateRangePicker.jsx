@@ -4,6 +4,8 @@ import DateRangePicker from 'components/challenge-listing/Filters/DateRangePicke
 
 const onDatesChange = jest.fn();
 
+jest.mock('shortid', () => jest.fn());
+
 test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
   renderer.render((

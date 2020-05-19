@@ -93,32 +93,33 @@ function Tip(props) {
   const { challenge: c } = props;
   const { isLoaded } = props;
   if (!c || _.isEmpty(c)) return <div />;
-  // TC API v2 does not provide detailed information on challenge phases,
-  // it just includes some deadlines into the challenge details. The code below,
-  // sorts these deadlines by their dates, and then generates the challenge timeline.
-  // The result should be fine for simple dev challenges, but will be strange for
-  // such as Assembly, etc.
-  // Component is updated with TC API v3
-  const endPhaseDate = Math.max(...c.allPhases.map(d => new Date(d.scheduledEndTime)));
-  steps.push({
-    date: new Date(c.registrationStartDate),
-    name: 'Start',
-  });
+
+  const allPhases = c.allPhases || c.phases || [];
+  const endPhaseDate = Math.max(...allPhases.map(d => new Date(d.scheduledEndDate)));
+  const registrationPhase = allPhases.find(phase => phase.name === 'Registration');
+  const submissionPhase = allPhases.find(phase => phase.name === 'Submission');
+
+  if (registrationPhase) {
+    steps.push({
+      date: new Date(registrationPhase.scheduledStartDate),
+      name: 'Start',
+    });
+  }
   if (c.checkpointSubmissionEndDate) {
     steps.push({
       date: new Date(c.checkpointSubmissionEndDate),
       name: 'Checkpoint',
     });
   }
-  const iterativeReviewPhase = c.currentPhases.find(phase => phase.phaseStatus === 'Open' && phase.phaseType === 'Iterative Review');
+  const iterativeReviewPhase = allPhases.find(phase => phase.isActive && phase.name === 'Iterative Review');
   if (iterativeReviewPhase) {
     steps.push({
-      date: new Date(iterativeReviewPhase.scheduledEndTime),
+      date: new Date(iterativeReviewPhase.scheduledEndDate),
       name: 'Iterative Review',
     });
-  } else {
+  } else if (submissionPhase) {
     steps.push({
-      date: new Date(c.submissionEndDate),
+      date: new Date(submissionPhase.scheduledEndDate),
       name: 'Submission',
     });
   }

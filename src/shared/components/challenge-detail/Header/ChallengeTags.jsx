@@ -43,6 +43,8 @@ export default function ChallengeTags(props) {
       .replace(/\w\S*/g, txt => _.capitalize(txt));
   };
 
+  const subTrackId = _.findKey(challengeSubtracksMap, { abbreviation: subTrack }) || subTrack;
+
   let EventTag;
   let TrackTag;
   switch (track) {
@@ -69,10 +71,9 @@ export default function ChallengeTags(props) {
         subTrack
         && (
         <TrackTag
-          onClick={() => setImmediate(() => setChallengeListingFilter({ subtracks: [subTrack] }))
+          onClick={() => setImmediate(() => setChallengeListingFilter({ subtracks: [subTrackId] }))
           }
-          to={`${challengesUrl}?filter[subtracks][0]=${
-            encodeURIComponent(subTrack)}`}
+          to={`${challengesUrl}?filter[subtracks][0]=${encodeURIComponent(subTrackId)}`}
         >
           {stylizedSubTrack(subTrack)}
         </TrackTag>

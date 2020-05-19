@@ -21,7 +21,7 @@ describe('shallow render connnected component', () => {
       communityFilters: [],
       filter: {},
       loadingChallengeTags: false,
-      loadingChallengeSubtracks: false,
+      loadingChallengeTypes: false,
       challengeTags: [],
       challengeSubtracks: [],
       selectedCommunityId: '1',
@@ -73,7 +73,7 @@ describe('full render pure component', () => {
     validSubtracks: [],
     selectedCommunityId: '1',
     tokenV2: 'tokenV2',
-    getSubtracks: jest.fn(),
+    getTypes: jest.fn(),
     getKeywords: jest.fn(),
     saveFilter: jest.fn(),
     selectBucket: jest.fn(),
@@ -109,7 +109,7 @@ describe('full render pure component', () => {
 
   test('load data if not loading', () => {
     instance = mount(<FilterPanel {...initialProps} challengeGroupId="1" />);
-    expect(initialProps.getSubtracks).toHaveBeenCalledTimes(1);
+    expect(initialProps.getTypes).toHaveBeenCalledTimes(1);
     expect(initialProps.getKeywords).toHaveBeenCalledTimes(1);
   });
 
@@ -121,7 +121,7 @@ describe('full render pure component', () => {
       loadingKeywords
     />);
 
-    expect(initialProps.getSubtracks).toHaveBeenCalledTimes(0);
+    expect(initialProps.getTypes).toHaveBeenCalledTimes(0);
     expect(initialProps.getKeywords).toHaveBeenCalledTimes(0);
   });
 
@@ -181,7 +181,7 @@ describe('full render connnected component and dispatch actions', () => {
       communityFilters: [],
       filter: {},
       loadingChallengeTags: true,
-      loadingChallengeSubtracks: true,
+      loadingChallengeTypes: true,
       challengeTags: [],
       challengeSubtracks: [],
       selectedCommunityId: '1',
@@ -219,15 +219,15 @@ describe('full render connnected component and dispatch actions', () => {
     filterPanel = instance.find(FilterPanel);
   });
 
-  test('getSubtracks', () => {
+  test('getTypes', () => {
     global.fetch = () => Promise.resolve({
       ok: true,
       json: () => ([]),
     });
-    filterPanel.prop('getSubtracks')();
+    filterPanel.prop('getTypes')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeSubtracksInit.toString());
-    expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeSubtracksDone.toString());
+    expect(actions[0].type).toEqual(cActions.challengeListing.getChallengeTypesInit.toString());
+    expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeTypesDone.toString());
   });
 
   test('getKeywords', () => {

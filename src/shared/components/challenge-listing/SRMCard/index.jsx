@@ -59,11 +59,15 @@ const renderLeaderboard = MOCK_REGISTRANTS.map((winner, index) => (
 ));
 
 // Happening now
+const legacy = {
+  track: 'DATA_SCIENCE',
+};
+
 const HappeningNow = () => (
   <div className="SRMCard now">
     <div className="left-panel">
       <div className="SRM-track">
-        <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
+        <TrackAbbreviationTooltip legacy={legacy} subTrack="SRM">
           <TrackIcon track="DATA_SCIENCE" subTrack="SRM" tcoEligible="TCO" />
         </TrackAbbreviationTooltip>
       </div>
@@ -99,7 +103,7 @@ const UpcomingSRMs = ({ srmChallenge }) => (
   <div className="SRMCard upcoming">
     <div className="left-panel upcoming">
       <div className="SRM-track">
-        <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
+        <TrackAbbreviationTooltip legacy={legacy} subTrack="SRM">
           <TrackIcon track="DATA_SCIENCE" subTrack="SRM" />
         </TrackAbbreviationTooltip>
       </div>

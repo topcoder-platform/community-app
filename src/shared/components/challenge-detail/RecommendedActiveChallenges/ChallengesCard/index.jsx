@@ -21,6 +21,7 @@ import styles from './style.scss';
 
 export default function ChallengesCard({
   challenge,
+  challengeTypes,
   className,
   challengesUrl,
   selectChallengeDetailsTab,
@@ -32,28 +33,29 @@ export default function ChallengesCard({
   const {
     id,
     subTrack,
-    track,
+    legacy,
     status,
     allPhases,
     currentPhases,
   } = challenge;
 
+  const { track } = legacy;
+
   let challengeDetailLink = `${challengesUrl}/${id}`;
-  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
+  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'Active') {
     challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
   }
 
   const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
   const statusPhase = checkPhases
     .filter(p => p.phaseType !== 'Registration')
-    .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
   return (
     <div className={className} styleName="container">
       <div styleName="content">
         <Tags
-          technologies={challenge.technologies}
-          platforms={challenge.platforms}
+          tags={challenge.tags}
           isExpanded={expandedTags.includes(challenge.id)}
           expand={() => expandTag(challenge.id)}
           challengesUrl={challengesUrl}
@@ -61,12 +63,12 @@ export default function ChallengesCard({
         <div styleName="content-bottom">
           <div styleName="challenge-track">
             <TrackAbbreviationTooltip
-              track={challenge.track}
+              legacy={challenge.legacy}
               subTrack={challenge.subTrack}
             >
               <span styleName="track-icon">
                 <TrackIcon
-                  track={challenge.track}
+                  track={track}
                   subTrack={challenge.subTrack}
                   tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                   isDataScience={challenge.isDataScience}
@@ -86,8 +88,8 @@ export default function ChallengesCard({
             </Link>
             <div styleName="endtime-prize-container">
               <span styleName="end-date">
-                {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
-                {getEndDate(challenge)}
+                {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
+                {getEndDate(challenge, challengeTypes)}
               </span>
               <div styleName="prizes">
                 {getPrizePurseUI(challenge, prizeMode, true, 'Prize Purse')}
@@ -121,10 +123,12 @@ ChallengesCard.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
+  challengeTypes: [],
 };
 
 ChallengesCard.propTypes = {
   challenge: PT.arrayOf(PT.object).isRequired,
+  challengeTypes: PT.arrayOf(PT.shape()),
   className: PT.string,
   challengesUrl: PT.string.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,

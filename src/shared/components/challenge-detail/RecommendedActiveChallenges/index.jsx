@@ -7,6 +7,7 @@ import styles from './style.scss';
 
 export default function RecommendedActiveChallenges({
   challenges,
+  challengeTypes,
   challengesUrl,
   selectChallengeDetailsTab,
   prizeMode,
@@ -23,6 +24,7 @@ export default function RecommendedActiveChallenges({
       prizeMode={prizeMode}
       userHandle={_.get(auth, 'user.handle')}
       challenge={c}
+      challengeTypes={challengeTypes}
       expandedTags={expandedTags}
       expandTag={expandTag}
     />
@@ -50,10 +52,12 @@ RecommendedActiveChallenges.defaultProps = {
   prizeMode: 'money-usd',
   expandedTags: [],
   expandTag: null,
+  challengeTypes: [],
 };
 
 RecommendedActiveChallenges.propTypes = {
   challenges: PT.arrayOf(PT.object),
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   prizeMode: PT.string,

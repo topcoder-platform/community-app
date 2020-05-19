@@ -20,6 +20,7 @@ function Listing({
   activeBucket,
   auth,
   challenges,
+  challengeTypes,
   challengesUrl,
   communityName,
   extraBucket,
@@ -96,6 +97,7 @@ function Listing({
             bucket={buckets[bucket]}
             bucketId={bucket}
             challenges={challenges}
+            challengeTypes={challengeTypes}
             challengesUrl={challengesUrl}
             communityName={communityName}
             expand={() => selectBucket(bucket)}
@@ -158,6 +160,7 @@ function Listing({
 
 Listing.defaultProps = {
   challenges: [],
+  challengeTypes: [],
   communityName: null,
   // currentFilterName: '',
   // expanded: false,
@@ -183,6 +186,7 @@ Listing.propTypes = {
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
@@ -213,6 +217,7 @@ const mapStateToProps = (state) => {
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     pastSearchTimestamp: cl.pastSearchTimestamp,
+    challengeTypes: cl.challengeSubtracks,
   };
 };
 
