@@ -29,8 +29,7 @@ As of now, the tests are running in headless mode. To view the actual chrom brow
 
 #### Implementation Details:
 
-- Login Specs (4)
-- Tools Spec (1)
+- TBD
 
 #### Configuration details:
 
