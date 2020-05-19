@@ -1,9 +1,10 @@
 {
   "env": "dev",
-  "logoRedirectionUrl": "https://www.topcoder-dev.com/",
+  "logoRedirectionUrl": "https://www.topcoder.com/splash/",
   "businessUrl": "https://www.topcoder.com/splash/",
   "loginUrl": "https://accounts.topcoder-dev.com/member",
   "homePageUrl": "https://www.topcoder-dev.com/",
+  "splashPageUrl": "https://www.topcoder.com/splash/",
   "logoutUrl": "https://www.topcoder-dev.com/logout",
   "toolsUrl": "https://qa-community-app.topcoder-dev.com/settings/tools",
   "accountUrl": "https://qa-community-app.topcoder-dev.com/settings/account",

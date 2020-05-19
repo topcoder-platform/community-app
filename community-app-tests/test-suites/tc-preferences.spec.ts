@@ -10,8 +10,6 @@ describe("Topcoder Preferences Page Tests: ", () => {
    */
   beforeAll(async () => {
     await BrowserHelper.initialize();
-    // This line is to bypass https://github.com/topcoder-platform/community-app/issues/4287
-    await BrowserHelper.open(ConfigHelper.getHomePageUrl());
     await LoginPageHelper.open();
     await LoginPageHelper.login(
       ConfigHelper.getUserName(),
@@ -33,7 +31,7 @@ describe("Topcoder Preferences Page Tests: ", () => {
   /**
    * Verifies that user is redirected to the forum settings page on switching to the Forum tab
    */
-  it("should verify User can redirect to forums's setting page", async() => {
+  it("should verify User can redirect to forums's setting page", async () => {
     await ForumPageHelper.open();
     await ForumPageHelper.verifyForumSetting();
   });
@@ -41,7 +39,7 @@ describe("Topcoder Preferences Page Tests: ", () => {
   /**
    * Verifies that user is redirected to the payment settings page on switching to the Payment tab
    */
-  it("should verify User can redirect to payment setting page", async() => {
+  it("should verify User can redirect to payment setting page", async () => {
     await PaymentPageHelper.open();
     await PaymentPageHelper.verifyPaymentSetting();
   });

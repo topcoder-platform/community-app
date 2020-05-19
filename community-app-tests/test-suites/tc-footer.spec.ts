@@ -84,8 +84,6 @@ describe("Topcoder Footer Tests: ", () => {
      */
     beforeAll(async () => {
       await BrowserHelper.initialize();
-      // This line is to bypass https://github.com/topcoder-platform/community-app/issues/4287
-      await BrowserHelper.open(ConfigHelper.getHomePageUrl());
       await LoginPageHelper.open();
       await LoginPageHelper.login(
         ConfigHelper.getUserName(),

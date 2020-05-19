@@ -3,6 +3,7 @@ import * as appconfig from "../../../../app-config.json";
 import { logger } from "../../../../logger/logger";
 import { ConfigHelper } from "../../../../utils/config-helper";
 import { HomePage } from "../home-page/home.po.js";
+import { SplashPage } from "../splash/splash.po";
 
 export class LoginPage {
   /**
@@ -107,6 +108,19 @@ export class LoginPage {
       appconfig.LoggerErrors.PageLoad
     );
     return homepage;
+  }
+
+  /**
+   * Wait for home page to be displayed
+   */
+  public async waitForSplashPage() {
+    const splashpage = new SplashPage();
+    await BrowserHelper.waitUntilVisibilityOf(
+      splashpage.container,
+      appconfig.Timeout.PageLoad,
+      appconfig.LoggerErrors.PageLoad
+    );
+    return splashpage;
   }
 
   /**

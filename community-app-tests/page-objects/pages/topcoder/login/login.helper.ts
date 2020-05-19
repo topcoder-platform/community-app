@@ -4,6 +4,7 @@ import { CommonHelper } from "../common-page/common.helper";
 import { HomePage } from "../home-page/home.po";
 import { LoginPageConstants } from "./login.constants";
 import { LoginPage } from "./login.po";
+import { SplashPage } from "../splash/splash.po";
 
 export class LoginPageHelper {
   /**
@@ -30,7 +31,7 @@ export class LoginPageHelper {
   public static async login(username: string, password: string) {
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
-    await this.loginPageObject.waitForHomePage();
+    await this.loginPageObject.waitForSplashPage();
   }
 
   /**
@@ -38,7 +39,7 @@ export class LoginPageHelper {
    */
   public static async logout() {
     this.loginPageObject.logout();
-    await this.loginPageObject.waitForHomePage();
+    await this.loginPageObject.waitForSplashPage();
   }
 
   /**
@@ -50,8 +51,8 @@ export class LoginPageHelper {
     await CommonHelper.verifyCurrentUrl(ConfigHelper.getLoginUrl());
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
-    const homePage = await this.loginPageObject.waitForHomePage();
-    await this.verifyHomePage(homePage);
+    const homePage = await this.loginPageObject.waitForSplashPage();
+    await this.verifySplashPage(homePage);
   }
 
   /**
@@ -95,8 +96,8 @@ export class LoginPageHelper {
    */
   public static async verifyLogout() {
     this.loginPageObject.logout();
-    const homePage = await this.loginPageObject.waitForHomePage();
-    await this.verifyHomePage(homePage);
+    const splashPage = await this.loginPageObject.waitForSplashPage();
+    await this.verifySplashPage(splashPage);
   }
 
   /**
@@ -106,6 +107,15 @@ export class LoginPageHelper {
   public static async verifyHomePage(homePage: HomePage) {
     CommonHelper.verifyCurrentUrl(ConfigHelper.getHomePageUrl());
     logger.info("User redirected to home-page");
+  }
+
+  /**
+   * Verify the current page is the splash page
+   * @param {SplashPage} splashPage
+   */
+  public static async verifySplashPage(splashPage: SplashPage) {
+    CommonHelper.verifyCurrentUrl(ConfigHelper.getSplashPageUrl());
+    logger.info("User redirected to splash-page");
   }
 
   private static loginPageObject: LoginPage;

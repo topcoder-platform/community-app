@@ -79,6 +79,13 @@ export const ConfigHelper = {
   },
 
   /**
+   * Get splash listing URL
+   */
+  getSplashPageUrl() {
+    return this.getConfig().splashPageUrl;
+  },
+
+  /**
    * Get Username
    */
   getUserName() {
