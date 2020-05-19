@@ -210,6 +210,7 @@ workflows:
             branches:
               only:
                 - hot-fix
+                - integration-v5-challenge-api
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -223,7 +224,7 @@ workflows:
           filters:
             branches:
               only:
-                - staging-env-setup
+                - integration-v5-challenge-api
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
