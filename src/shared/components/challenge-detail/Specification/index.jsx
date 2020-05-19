@@ -15,6 +15,7 @@ import { isMM } from 'utils/challenge';
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
+import SpecificationComponent from './SpecificationComponent';
 // import { editorStateToHTML } from 'utils/editor';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
@@ -40,6 +41,7 @@ export default function ChallengeDetailsView(props) {
     groups,
     description,
     privateDescription,
+    descriptionFormat,
     legacy,
     documents,
     finalSubmissionGuidelines,
@@ -156,13 +158,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(description)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: description,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={description}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -218,13 +216,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(privateDescription)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: privateDescription,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={privateDescription}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -256,13 +250,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(privateDescription)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: privateDescription,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={privateDescription}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -433,6 +423,7 @@ ChallengeDetailsView.defaultProps = {
     numberOfCheckpointsPrizes: 0,
     finalSubmissionGuidelines: '',
     environment: '',
+    descriptionFormat: 'HTML',
     codeRepo: '',
     metadata: [],
   },
@@ -443,6 +434,7 @@ ChallengeDetailsView.propTypes = {
   hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     description: PT.string,
+    descriptionFormat: PT.string,
     documents: PT.any,
     id: PT.any,
     subTrack: PT.any,
