@@ -1,6 +1,6 @@
 {
   "env": "prod",
-  "logoRedirectionUrl": "https://www.topcoder.com/splash/",
+  "logoRedirectionUrl": "https://www.topcoder.com/",
   "businessUrl": "https://www.topcoder.com/",
   "loginUrl": "https://accounts.topcoder.com/member",
   "homePageUrl": "https://www.topcoder.com/",

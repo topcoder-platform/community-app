@@ -31,7 +31,7 @@ export class LoginPageHelper {
   public static async login(username: string, password: string) {
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
-    await this.loginPageObject.waitForSplashPage();
+    await this.loginPageObject.waitForHomePage();
   }
 
   /**
@@ -39,7 +39,7 @@ export class LoginPageHelper {
    */
   public static async logout() {
     this.loginPageObject.logout();
-    await this.loginPageObject.waitForSplashPage();
+    await this.loginPageObject.waitForHomePage();
   }
 
   /**
@@ -51,8 +51,8 @@ export class LoginPageHelper {
     await CommonHelper.verifyCurrentUrl(ConfigHelper.getLoginUrl());
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
-    const homePage = await this.loginPageObject.waitForSplashPage();
-    await this.verifySplashPage(homePage);
+    const homePage = await this.loginPageObject.waitForHomePage();
+    await this.verifyHomePage(homePage);
   }
 
   /**
@@ -96,8 +96,8 @@ export class LoginPageHelper {
    */
   public static async verifyLogout() {
     this.loginPageObject.logout();
-    const splashPage = await this.loginPageObject.waitForSplashPage();
-    await this.verifySplashPage(splashPage);
+    const homePage = await this.loginPageObject.waitForHomePage();
+    await this.verifyHomePage(homePage);
   }
 
   /**

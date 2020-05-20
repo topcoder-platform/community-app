@@ -58,7 +58,7 @@ export class HeaderHelper {
    */
   public static async verifyBusinessLink() {
     await this.headerPageObject.clickOnBusinessLink();
-    await this.loginPageObject.waitForSplashPage();
+    await this.loginPageObject.waitForHomePage();
   }
 
   /**
@@ -158,7 +158,7 @@ export class HeaderHelper {
   public static async verifyUserMenuLogoutLink() {
     await this.headerPageObject.openUserMenu();
     await this.headerPageObject.clickOnLogoutLink();
-    await this.loginPageObject.waitForSplashPage();
+    await this.loginPageObject.waitForHomePage();
   }
 
   /**
