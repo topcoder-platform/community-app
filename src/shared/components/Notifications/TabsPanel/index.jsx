@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { tracking } from 'topcoder-react-lib';
 import styles from './style.scss';
 
 
@@ -21,7 +20,7 @@ export default class TabsPanel extends React.Component {
 
 
   render() {
-    const { changeTab } = this.props;
+    const { changeTab, tracking } = this.props;
     const { tab } = this.state;
     return (
       <div className={styles.container}>
@@ -106,4 +105,5 @@ export default class TabsPanel extends React.Component {
 
 TabsPanel.propTypes = {
   changeTab: PropTypes.func.isRequired,
+  tracking: PropTypes.shape().isRequired,
 };
