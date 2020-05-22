@@ -3,8 +3,8 @@ import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
-import { config, Link } from 'topcoder-react-utils';
-import { isMM, isDevelopMM } from 'utils/challenge';
+import { Link } from 'topcoder-react-utils';
+import { isDevelopMM } from 'utils/challenge';
 import {
   getEndDate,
   PRIZE_MODE,
@@ -42,7 +42,6 @@ function ChallengeCard({
   const challenge = passedInChallenge;
   const {
     id,
-    status,
     legacy,
   } = challenge;
 
@@ -53,10 +52,7 @@ function ChallengeCard({
   }
   challenge.prize = challenge.prizes || [];
 
-  let challengeDetailLink = `${challengesUrl}/${id}`;
-  if (track === 'DATA_SCIENCE' && isMM(challenge) && status === 'Active') {
-    challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
-  }
+  const challengeDetailLink = `${challengesUrl}/${id}`;
 
   const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
   if (subTrack === 'DEVELOP_MARATHON_MATCH') {
