@@ -241,10 +241,10 @@ workflows:
                 - feature-contentful
       # This is alternate dev env for parallel testing
       - "build-qa":
-        context : org-global      
-        filters:
-          branches:
-            only:
+          context : org-global      
+          filters:
+            branches:
+              only:
                 - develop-on-qa-env
       # This is beta env for production soft releases
       - "build-prod-beta":
