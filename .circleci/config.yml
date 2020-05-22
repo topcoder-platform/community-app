@@ -117,7 +117,7 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp   
+            ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
   # Build & Deploy against prod api backend
   "build-prod-beta":
     <<: *defaults
