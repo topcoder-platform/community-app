@@ -237,13 +237,6 @@ workflows:
               only:
                 - develop
                 - feature-contentful
-      # This is QA automation env
-      - "build-qa":
-        context: org-global
-        filters:
-          branches:
-            only:
-                - develop-on-qa-env
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
