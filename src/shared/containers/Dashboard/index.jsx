@@ -111,6 +111,7 @@ export class DashboardPageContainer extends React.Component {
     getSrms,
     // getTopcoderBlogFeed,
     handle,
+    memberId,
     profile,
     srmsLoading,
     srmsTimestamp,
@@ -137,7 +138,7 @@ export class DashboardPageContainer extends React.Component {
     && !financesLoading) getMemberFinances(handle, tokenV3);
 
     if (now - srmsTimestamp > CACHE_MAX_AGE
-    && !srmsLoading) getSrms(handle, tokenV3);
+    && !srmsLoading) getSrms(memberId, tokenV3);
 
     if (now - statsTimestamp > CACHE_MAX_AGE
     && !statsLoading) getMemberStats(handle, tokenV3);
@@ -337,6 +338,7 @@ function mapStateToProps(state, props) {
     finances: finances.data,
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
+    memberId: state.auth.user.userId,
     profile: state.auth.profile,
     showChallengeFilter: dash.showChallengeFilter,
     showEarnings: dash.showEarnings,
@@ -394,14 +396,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(members.getStatsInit(handle, uuid));
       dispatch(members.getStatsDone(handle, uuid, tokenV3));
     },
-    getSrms: (handle, tokenV3) => {
+    getSrms: (memberId, tokenV3) => {
       const uuid = shortId();
       const a = challengeListingActions.challengeListing;
       dispatch(a.getSrmsInit(uuid));
-      dispatch(a.getSrmsDone(uuid, handle, {
-        filter: 'status=future',
-        orderBy: 'registrationStartAt',
-        limit: 3,
+      dispatch(a.getSrmsDone(uuid, memberId, {
       }, tokenV3));
     },
     getTopcoderBlogFeed: () => {
