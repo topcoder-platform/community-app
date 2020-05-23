@@ -217,7 +217,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - integration-v5-challenge-api
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
