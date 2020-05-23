@@ -338,6 +338,7 @@ function mapStateToProps(state, props) {
     finances: finances.data,
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
+    handle: state.auth.profile.handle,
     memberId: state.auth.user.userId,
     profile: state.auth.profile,
     showChallengeFilter: dash.showChallengeFilter,
@@ -401,6 +402,10 @@ function mapDispatchToProps(dispatch) {
       const a = challengeListingActions.challengeListing;
       dispatch(a.getSrmsInit(uuid));
       dispatch(a.getSrmsDone(uuid, memberId, {
+        status: 'Draft',
+        sortBy: 'startDate',
+        page: 1,
+        perPage: 3,
       }, tokenV3));
     },
     getTopcoderBlogFeed: () => {
