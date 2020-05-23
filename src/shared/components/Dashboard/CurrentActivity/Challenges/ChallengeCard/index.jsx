@@ -46,18 +46,17 @@ export default function ChallengeCard({
 }) {
   const {
     currentPhases,
-    forumId,
+    legacy,
     id,
     registrationStartDate,
     status,
     subTrack,
-    track,
     userDetails,
   } = challenge;
 
   let EventTag;
   // let TrackTag;
-  switch (track) {
+  switch (legacy.track) {
     case 'DATA_SCIENCE':
       EventTag = DataScienceTrackEventTag;
       // TrackTag = DataScienceTrackTag;
@@ -73,9 +72,9 @@ export default function ChallengeCard({
     default:
   }
 
-  const forumEndpoint = _.toLower(track) === 'design'
-    ? `/?module=ThreadList&forumID=${forumId}`
-    : `/?module=Category&categoryID=${forumId}`;
+  const forumEndpoint = _.toLower(legacy.track) === 'design'
+    ? `/?module=ThreadList&forumID=${legacy.forumId}`
+    : `/?module=Category&categoryID=${legacy.forumId}`;
 
   const isTco = challenge.events
   && challenge.events.find(x => x.eventName.match(/tco\d{2}/));
@@ -275,10 +274,12 @@ export default function ChallengeCard({
 
 ChallengeCard.propTypes = {
   challenge: PT.shape({
-    forumId: PT.number.isRequired,
+    legacy: PT.shape({
+      track: PT.oneOf(['DATA_SCIENCE', 'DESIGN', 'DEVELOP']).isRequired,
+      forumId: PT.number.isRequired,
+    }).isRequired,
     id: PT.number.isRequired,
     name: PT.string.isRequired,
-    track: PT.oneOf(['DATA_SCIENCE', 'DESIGN', 'DEVELOP']).isRequired,
     currentPhases: PT.any,
     registrationStartDate: PT.any,
     status: PT.any,
