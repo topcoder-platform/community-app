@@ -1,0 +1,40 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm test && export FOO=TESTSUCCCES && echo "::set-env name=FOO::$FOO"
+    - name: PR failed
+      uses: sushilshinde/comment-on-pr@master
+      if: failure()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          #msg: ${{toJson(job)}} your PR is failing the test 
+          msg: ${{'@'}}${{github.actor}} your PR is failing the test/build, please fix
+          check_for_duplicate_msg: false  # OPTIONAL 
+    - name: PR Passed
+      uses: sushilshinde/comment-on-pr@master
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        #msg: ${{toJson(job)}} your PR is failing the test 
+          msg: Thanks ${{'@'}}${{github.actor}}
+          check_for_duplicate_msg: false  # OPTIONAL 
+          
+
+
