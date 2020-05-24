@@ -15,8 +15,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm test && export FOO=TESTSUCCCES && echo "::set-env name=FOO::$FOO"
+    - run: npm i
+    - run: npm run test && export FOO=TESTSUCCCES && echo "::set-env name=FOO::$FOO"
     - name: PR failed
       uses: sushilshinde/comment-on-pr@master
       if: failure()
