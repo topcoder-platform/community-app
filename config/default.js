@@ -401,6 +401,4 @@ module.exports = {
   TC_EDU_ARTICLES_PATH: '/articles',
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
-  // SRM ChallengeType ID
-  SRM_TYPE_ID: '7494c009-b425-45c5-923a-fd3a6ace3196',
 };

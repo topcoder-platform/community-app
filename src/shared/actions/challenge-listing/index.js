@@ -8,7 +8,6 @@ import { decodeToken } from 'tc-accounts';
 import 'isomorphic-fetch';
 import { processSRM } from 'utils/tc';
 import { errors, services } from 'topcoder-react-lib';
-import { config } from 'topcoder-react-utils';
 
 const { fireErrorMessage } = errors;
 const { getService } = services.challenge;
@@ -292,11 +291,7 @@ function getSrmsInit(uuid) {
  */
 function getSrmsDone(uuid, memberId, params, tokenV3) {
   const service = getService(tokenV3);
-  const newParams = {
-    ...params,
-    typeId: config.SRM_TYPE_ID,
-  };
-  const promises = [service.getSrms(newParams)];
+  const promises = [service.getSrms(params)];
   if (memberId) {
     promises.push(service.getUserSrms(memberId, params));
   }
