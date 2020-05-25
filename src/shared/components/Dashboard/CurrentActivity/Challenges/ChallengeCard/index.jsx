@@ -276,9 +276,9 @@ ChallengeCard.propTypes = {
   challenge: PT.shape({
     legacy: PT.shape({
       track: PT.oneOf(['DATA_SCIENCE', 'DESIGN', 'DEVELOP']).isRequired,
-      forumId: PT.number.isRequired,
+      forumId: PT.oneOfType([PT.number, PT.string]),
     }).isRequired,
-    id: PT.number.isRequired,
+    id: PT.oneOfType([PT.number, PT.string]).isRequired,
     name: PT.string.isRequired,
     currentPhases: PT.any,
     registrationStartDate: PT.any,
