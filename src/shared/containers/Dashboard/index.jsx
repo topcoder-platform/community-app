@@ -309,6 +309,7 @@ function mapStateToProps(state, props) {
   const communities = state.tcCommunities.list;
 
   const userHandle = _.get(state.auth, 'user.handle');
+  const userId = _.get(state.auth, 'user.userId');
   const member = state.members[userHandle] || {};
   const achievements = member.achievements || {};
   const finances = member.finances || {};
@@ -338,8 +339,8 @@ function mapStateToProps(state, props) {
     finances: finances.data,
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
-    handle: state.auth.profile.handle,
-    memberId: state.auth.user.userId,
+    handle: userHandle,
+    memberId: userId,
     profile: state.auth.profile,
     showChallengeFilter: dash.showChallengeFilter,
     showEarnings: dash.showEarnings,
