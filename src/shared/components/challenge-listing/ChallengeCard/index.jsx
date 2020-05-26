@@ -7,8 +7,6 @@ import { Link } from 'topcoder-react-utils';
 import { isDevelopMM } from 'utils/challenge';
 import {
   getEndDate,
-  PRIZE_MODE,
-  getPrizePurseUI,
   getPrizePointsUI,
   getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
@@ -33,7 +31,6 @@ function ChallengeCard({
   newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
-  prizeMode,
   sampleWinnerProfile,
   selectChallengeDetailsTab,
   userHandle,
@@ -105,7 +102,6 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {getPrizePurseUI(challenge, prizeMode)}
           {getPrizePointsUI(challenge)}
         </div>
 
@@ -130,7 +126,6 @@ ChallengeCard.defaultProps = {
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
-  prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
   userHandle: '',
   expandedTags: [],
@@ -145,7 +140,6 @@ ChallengeCard.propTypes = {
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,
   openChallengesInNewTabs: PT.bool,
-  prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
   userHandle: PT.string,
