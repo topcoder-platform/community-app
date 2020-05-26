@@ -221,6 +221,7 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.props;
 
     const recommendedTechnology = getRecommendedTags(challenge);
+    console.log('recommendedTechnology : ' + JSON.stringify(recommendedTechnology));
     if (
       challenge
       && challenge.id === challengeId
@@ -249,12 +250,12 @@ class ChallengeDetailPageContainer extends React.Component {
     }
     if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
       && thriveArticles.length === 0) {
-      const { technologies } = nextProps.challenge;
-      if (technologies.length > 0 && !(technologies.length === 1 && technologies[0] === 'Other')) {
-        // for technologies = ['Other', ...], if 'Other' is first, use second value
+      const { tags } = nextProps.challenge;
+      if (tags.length > 0 && !(tags.length === 1 && tags[0] === 'Other')) {
+        // for tags = ['Other', ...], if 'Other' is first, use second value
         this.apiService.getEDUContent({
           limit: 3,
-          phrase: technologies[0] === 'Other' ? technologies[1] : technologies[0],
+          phrase: tags[0] === 'Other' ? tags[1] : tags[0],
           types: ['Article'],
         }).then((content) => {
         // format image file data
