@@ -252,7 +252,7 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix-disable-sw
+                - develop
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
