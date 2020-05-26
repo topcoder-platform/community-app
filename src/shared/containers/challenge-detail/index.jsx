@@ -221,7 +221,6 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.props;
 
     const recommendedTechnology = getRecommendedTags(challenge);
-    console.log('recommendedTechnology : ' + JSON.stringify(recommendedTechnology));
     if (
       challenge
       && challenge.id === challengeId
@@ -237,10 +236,7 @@ class ChallengeDetailPageContainer extends React.Component {
       getAllRecommendedChallenges(auth.tokenV3, recommendedTechnology);
     }
 
-
-    const {
-      thriveArticles,
-    } = this.state;
+    const { thriveArticles } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
 
@@ -248,8 +244,10 @@ class ChallengeDetailPageContainer extends React.Component {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
     }
-    if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
-      && thriveArticles.length === 0) {
+
+    const { legacy } = nextProps.challenge;
+    const track = legacy ? legacy.track : nextProps.challenge.track;
+    if (track && track.toLowerCase() !== 'design' && thriveArticles.length === 0) {
       const { tags } = nextProps.challenge;
       if (tags.length > 0 && !(tags.length === 1 && tags[0] === 'Other')) {
         // for tags = ['Other', ...], if 'Other' is first, use second value
