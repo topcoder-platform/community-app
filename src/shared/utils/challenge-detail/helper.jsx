@@ -153,7 +153,7 @@ export function getPrizePointsUI(challenge) {
     const { prizes } = challenge.prizeSets[0];
     return (
       <Prize
-        label="Points"
+        label="Purse"
         prizes={prizes}
         prizeUnitSymbol="$"
         totalPrize={prizes.reduce((acc, prize) => acc + prize.value, 0)}
