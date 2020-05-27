@@ -51,7 +51,7 @@ export default function ChallengeDetailsView(props) {
 
   const tags = challenge.tags || [];
   const roles = (userDetails || {}).roles || [];
-  const { track } = legacy;
+  const { track, reviewScorecardId, screeningScorecardId } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
 
@@ -416,6 +416,8 @@ export default function ChallengeDetailsView(props) {
           environment={environment}
           codeRepo={codeRepo}
           metadata={metadata}
+          reviewScorecardId={reviewScorecardId}
+          screeningScorecardId={screeningScorecardId}
         />
       </div>
     </div>
@@ -435,6 +437,8 @@ ChallengeDetailsView.defaultProps = {
     environment: '',
     codeRepo: '',
     metadata: [],
+    reviewScorecardId: '',
+    screeningScorecardId: '',
   },
 };
 
@@ -449,6 +453,8 @@ ChallengeDetailsView.propTypes = {
     privateDescription: PT.string,
     legacy: PT.shape({
       track: PT.string.isRequired,
+      reviewScorecardId: PT.string,
+      screeningScorecardId: PT.string,
     }),
     groups: PT.any,
     forumId: PT.number,
