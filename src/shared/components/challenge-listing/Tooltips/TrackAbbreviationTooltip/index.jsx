@@ -21,6 +21,7 @@ const DESCRIPTION = {
   BUG_HUNT: 'Quickly find Bugs in apps, websites',
   CODE: 'Develop code for apps, services, etc. Final fixes are not included',
   DEVELOPMENT: 'Develop code for apps, services, etc. Final fixes are not included',
+  TEST_SUITES: 'Develop test cases to be used to validate apps, website, etc.',
   CONCEPTUALIZATION: 'Discover and define user stories and requirements',
   DESIGN_FIRST_2_FINISH: 'Be the first to deliver the design solution',
   FIRST_2_FINISH: 'Be the first to deliver the development solution',
