@@ -165,21 +165,17 @@ function onGetAllRecommendedChallengesDone(state, { error, payload }) {
     logger.error(payload);
     return state;
   }
-  const {
-    uuid,
-    challenges,
-    technologies,
-  } = payload;
+  const { uuid, challenges, tag } = payload;
   if (uuid !== state.loadingRecommendedChallengesUUID) return state;
   const { recommendedChallenges } = state;
-  recommendedChallenges[technologies] = {
+  recommendedChallenges[tag] = {
     challenges,
     lastUpdateOfActiveChallenges: Date.now(),
   };
   return {
     ...state,
     recommendedChallenges,
-    loadingRecommendedChallengesTechnologies: technologies,
+    loadingRecommendedChallengesTechnologies: tag,
     loadingRecommendedChallengesUUID: '',
   };
 }
