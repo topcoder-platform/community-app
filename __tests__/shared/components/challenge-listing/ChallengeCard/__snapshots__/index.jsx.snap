@@ -49,7 +49,6 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
-  prizeMode="money-usd"
   userHandle=""
 />
 `;
@@ -93,7 +92,6 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
-  prizeMode="money-usd"
   userHandle=""
 />
 `;
@@ -133,7 +131,6 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
-  prizeMode="money-usd"
   userHandle=""
 />
 `;
