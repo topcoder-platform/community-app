@@ -209,7 +209,6 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
                 - integration-v5-challenge-api
       # This is beta env for production soft releases
       - "build-prod-beta":
@@ -217,7 +216,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - integration-v5-challenge-api
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
