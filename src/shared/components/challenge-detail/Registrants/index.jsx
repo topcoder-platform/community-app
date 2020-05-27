@@ -239,7 +239,7 @@ export default class Registrants extends React.Component {
       onSortChange,
     } = this.props;
     const {
-      prizes,
+      prizeSets,
       legacy,
     } = challenge;
     const { track } = legacy;
@@ -247,14 +247,14 @@ export default class Registrants extends React.Component {
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
-    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
+    const isF2F = challenge.type.toLowerCase().indexOf('first2finish') > -1;
+    const isBugHunt = challenge.type.toLowerCase() === 'bug hunt';
 
     const checkpoints = challenge.checkpoints || [];
 
     const twoRounds = challenge.round1Introduction
       && challenge.round2Introduction;
-    const places = prizes.length;
+    const places = prizeSets.find(ps => ps.type === 'Challenge Prize').prizes.lenght;
     return (
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
@@ -482,16 +482,16 @@ Registrants.propTypes = {
   challenge: PT.shape({
     phases: PT.arrayOf(PT.shape({
       actualEndDate: PT.string,
-      phaseType: PT.string.isRequired,
+      name: PT.string.isRequired,
       scheduledEndDate: PT.string,
     })).isRequired,
     allPhases: PT.arrayOf(PT.shape()),
     checkpoints: PT.arrayOf(PT.shape()),
     legacy: PT.shape({
-      track: PT.any,
+      track: PT.string,
     }),
-    subTrack: PT.any,
-    prizes: PT.arrayOf(PT.number).isRequired,
+    type: PT.string,
+    prizeSets: PT.arrayOf(PT.shape()).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
     round2Introduction: PT.string,
