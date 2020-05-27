@@ -90,6 +90,7 @@ function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
+            challengeTypes={challengeTypes}
           />
         )
         : (

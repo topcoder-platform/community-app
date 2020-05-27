@@ -34,16 +34,16 @@ export default function ChallengesCard({
     id,
     legacy,
     allPhases,
-    currentPhases,
+    phases,
   } = challenge;
 
   const { track } = legacy;
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
 
-  const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
+  const checkPhases = (phases && phases.length > 0 ? phases : allPhases);
   const statusPhase = checkPhases
-    .filter(p => p.phaseType !== 'Registration')
+    .filter(p => p.name !== 'Registration')
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
   return (
@@ -122,7 +122,7 @@ ChallengesCard.defaultProps = {
 };
 
 ChallengesCard.propTypes = {
-  challenge: PT.arrayOf(PT.object).isRequired,
+  challenge: PT.shape().isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   className: PT.string,
   challengesUrl: PT.string.isRequired,
