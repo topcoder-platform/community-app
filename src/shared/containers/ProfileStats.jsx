@@ -24,10 +24,11 @@ class ProfileStatsContainer extends React.Component {
       loadStats,
       loadStatsHistoryAndDistribution,
       meta,
+      userId,
     } = this.props;
 
     const trackAndSubTrack = getQueryParamsQuery(location);
-    loadStats(handleParam, _.join(_.get(meta, 'groupIds', [])));
+    loadStats(handleParam, _.join(_.get(meta, 'groupIds', [])), userId);
     if (shouldShowGraph(trackAndSubTrack)) {
       loadStatsHistoryAndDistribution(
         handleParam,
@@ -49,13 +50,14 @@ class ProfileStatsContainer extends React.Component {
     const {
       handleParam,
       location,
+      userId,
     } = this.props;
 
     const nextQueryParams = getQueryParamsQuery(nextLocation);
     const trackAndSubTrack = getQueryParamsQuery(location);
 
     if (nextHandleParam !== handleParam) {
-      loadStats(nextHandleParam, _.join(_.get(meta, 'groupIds', [])));
+      loadStats(nextHandleParam, _.join(_.get(meta, 'groupIds', [])), userId);
       if (
         nextQueryParams.track !== trackAndSubTrack.track
         || nextQueryParams.subTrack !== trackAndSubTrack.subTrack
@@ -114,6 +116,7 @@ ProfileStatsContainer.propTypes = {
   loadStats: PT.func.isRequired,
   loadStatsHistoryAndDistribution: PT.func.isRequired,
   handleParam: PT.string.isRequired,
+  userId: PT.number.isRequired,
   statsHistory: PT.arrayOf(PT.shape()),
   statsDistribution: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
@@ -126,6 +129,7 @@ ProfileStatsContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const handleParam = ownProps.match.params.handle;
   const obj = _.get(state.members, handleParam, {});
+  const userId = _.get(state.profile.info, 'userId');
   return ({
     handleParam,
     loadingError: state.members.loadingError,
@@ -140,6 +144,7 @@ const mapStateToProps = (state, ownProps) => {
     info: state.profile.info,
     meta: ownProps.meta,
     achievements: state.profile.achievements,
+    userId,
   });
 };
 
@@ -148,13 +153,13 @@ function mapDispatchToProps(dispatch) {
   const pa = actions.profile;
 
   return {
-    loadStats: (handle, groupIds) => {
+    loadStats: (handle, groupIds, userId) => {
       dispatch(a.getStatsInit(handle));
       dispatch(a.getStatsDone(handle, groupIds));
       dispatch(pa.getInfoInit(handle));
       dispatch(pa.getInfoDone(handle));
-      dispatch(a.getActiveChallengesInit(handle));
-      dispatch(a.getActiveChallengesDone(handle));
+      dispatch(a.getActiveChallengesInit(userId));
+      dispatch(a.getActiveChallengesDone(userId));
     },
     loadStatsHistoryAndDistribution: (handle, groupIds, track, subTrack) => {
       dispatch(a.getStatsHistoryInit(handle));
