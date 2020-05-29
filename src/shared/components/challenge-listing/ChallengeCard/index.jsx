@@ -91,12 +91,15 @@ function ChallengeCard({
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge, challengeTypes)}
             </span>
-            <Tags
-              tags={challenge.tags}
-              onTechTagClicked={onTechTagClicked}
-              isExpanded={expandedTags.includes(challenge.id)}
-              expand={() => expandTag(challenge.id)}
-            />
+            { challenge.tags.length > 0
+              && (
+              <Tags
+                tags={challenge.tags}
+                onTechTagClicked={onTechTagClicked}
+                isExpanded={expandedTags.includes(challenge.id)}
+                expand={() => expandTag(challenge.id)}
+              />
+              ) }
           </div>
         </div>
       </div>
