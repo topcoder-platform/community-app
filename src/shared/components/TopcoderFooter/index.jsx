@@ -63,11 +63,12 @@ export default function TopcoderFooter() {
             <h4 styleName="navi-col-title">COMMUNITY</h4>
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
-              <Link to={`${base}/community/member-programs/topcoder-open`}>TCO</Link>
-              <Link to={`${base}/community/member-programs`}>Programs</Link>
-              <Link to="https://apps.topcoder.com/forums">Forums</Link>
-              <Link to={`${base}/community/statistics`}>Statistics</Link>
               <Link to={`${base}/blog`}>Blog</Link>
+              <Link to={`${base}/community/events`}>Events Calendar</Link>
+              <Link to="https://apps.topcoder.com/forums">Forums</Link>
+              <Link to={`${base}/community/member-programs`}>Programs</Link>
+              <Link to={`${base}/community/statistics`}>Statistics</Link>
+              <Link to={`${base}/community/member-programs/topcoder-open`}>TCO</Link>
               <Link to={`${base}/thrive`}>Thrive</Link>
             </ul>
           </div>
