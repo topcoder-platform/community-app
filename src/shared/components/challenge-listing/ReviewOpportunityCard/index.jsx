@@ -48,7 +48,8 @@ function ReviewOpportunityCard({
 }) {
   const { challenge } = opportunity;
   const { subTrack, legacy } = challenge;
-  const tags = challenge.tags || challenge.technologies;
+  let tags = challenge.tags || challenge.technologies;
+  tags = tags.filter(tag => tag.trim().length);
   const track = legacy ? legacy.track : challenge.track;
   const start = moment(opportunity.startDate);
   return (
@@ -80,12 +81,15 @@ function ReviewOpportunityCard({
               {' '}
               {start.format('MMM DD')}
             </span>
-            <Tags
-              tags={tags}
-              isExpanded={(expandedTags || []).includes(challenge.id)}
-              expand={() => expandTag(challenge.id)}
-              onTechTagClicked={onTechTagClicked}
-            />
+            { tags.length > 0
+              && (
+              <Tags
+                tags={tags}
+                isExpanded={(expandedTags || []).includes(challenge.id)}
+                expand={() => expandTag(challenge.id)}
+                onTechTagClicked={onTechTagClicked}
+              />
+              ) }
           </div>
         </div>
       </div>
