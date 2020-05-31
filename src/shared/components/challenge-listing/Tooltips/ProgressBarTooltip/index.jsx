@@ -111,7 +111,7 @@ function Tip(props) {
       name: 'Checkpoint',
     });
   }
-  const iterativeReviewPhase = allPhases.find(phase => phase.isActive && phase.name === 'Iterative Review');
+  const iterativeReviewPhase = allPhases.find(phase => phase.isOpen && phase.name === 'Iterative Review');
   if (iterativeReviewPhase) {
     steps.push({
       date: new Date(iterativeReviewPhase.scheduledEndDate),
