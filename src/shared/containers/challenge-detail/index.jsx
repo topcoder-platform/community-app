@@ -191,7 +191,7 @@ class ChallengeDetailPageContainer extends React.Component {
       && !challenge.fetchedWithAuth)
 
     ) {
-      loadChallengeDetails(auth, challengeId);
+      loadChallengeDetails(auth, challengeId, this.props.history);
     }
 
     if (!allCountries.length) {
@@ -841,12 +841,19 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(lookupActions.getReviewTypesInit());
       dispatch(lookupActions.getReviewTypesDone(tokenV3));
     },
-    loadChallengeDetails: (tokens, challengeId) => {
+    loadChallengeDetails: (tokens, challengeId, history) => {
       const a = actions.challenge;
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
+          console.log(`found challenge details: ${JSON.stringify(ch)}`);
+          if (ch.isLegacyChallenge) {
+            console.log(`redirecting to /challenges/${ch.id}`);
+            console.log(`history ${JSON.stringify(history)}`);
+            // history.push(`/challenges/${ch.id}`);
+            // history.pushState({}, null, `/challenges/${ch.id}`);
+          }
           if (ch.track === 'DESIGN') {
             const p = ch.allPhases || ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');

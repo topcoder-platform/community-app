@@ -436,7 +436,7 @@ ChallengeDetailsView.defaultProps = {
     finalSubmissionGuidelines: '',
     environment: '',
     codeRepo: '',
-    metadata: [],
+    metadata: {},
     reviewScorecardId: '',
     screeningScorecardId: '',
   },
@@ -467,7 +467,7 @@ ChallengeDetailsView.propTypes = {
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
     }),
-    metadata: PT.arrayOf(PT.shape()),
+    metadata: PT.shape(),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({

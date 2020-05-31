@@ -348,7 +348,7 @@ SideBar.defaultProps = {
   environment: '',
   codeRepo: '',
   isMM: false,
-  metadata: [],
+  metadata: {},
   reviewScorecardId: '',
   screeningScorecardId: '',
 };
@@ -370,7 +370,7 @@ SideBar.propTypes = {
   environment: PT.string,
   codeRepo: PT.string,
   isMM: PT.bool,
-  metadata: PT.arrayOf(PT.shape()),
+  metadata: PT.shape(),
   reviewScorecardId: PT.string,
   screeningScorecardId: PT.string,
 };
