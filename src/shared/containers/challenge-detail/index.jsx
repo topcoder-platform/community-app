@@ -166,6 +166,7 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       getAllCountries,
       getReviewTypes,
+      history,
     } = this.props;
 
     if (
@@ -191,7 +192,7 @@ class ChallengeDetailPageContainer extends React.Component {
       && !challenge.fetchedWithAuth)
 
     ) {
-      loadChallengeDetails(auth, challengeId, this.props.history);
+      loadChallengeDetails(auth, challengeId, history);
     }
 
     if (!allCountries.length) {
@@ -706,6 +707,7 @@ ChallengeDetailPageContainer.propTypes = {
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
   loadingRecommendedChallengesUUID: PT.string.isRequired,
+  history: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -847,12 +849,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          console.log(`found challenge details: ${JSON.stringify(ch)}`);
           if (ch.isLegacyChallenge) {
-            console.log(`redirecting to /challenges/${ch.id}`);
-            console.log(`history ${JSON.stringify(history)}`);
-            // history.push(`/challenges/${ch.id}`);
-            // history.pushState({}, null, `/challenges/${ch.id}`);
+            history.location.pathname = `/challenges/${ch.id}`; // eslint-disable-line no-param-reassign
           }
           if (ch.track === 'DESIGN') {
             const p = ch.allPhases || ch.phases || []
