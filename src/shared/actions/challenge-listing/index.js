@@ -221,7 +221,7 @@ function getAllRecommendedChallengesInit(uuid) {
 function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTags) {
   const filter = {
     status: 'Active',
-    tag: recommendedTags,
+    ...(!_.isEmpty(recommendedTags) && { tag: recommendedTags }),
   };
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
