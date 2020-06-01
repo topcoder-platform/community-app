@@ -36,7 +36,8 @@ export default function ChallengeTags(props) {
   /* TODO: Probably, we don't need this anymore, if we use correct data from
    * APIs (they should contain human-readable names, I believe). */
   const stylizedSubTrack = (t) => {
-    const filteredSubtrack = Object.values(challengeSubtracksMap).filter(subtrack => subtrack.abbreviation == t)[0];
+    const filteredSubtrack = Object.values(challengeSubtracksMap)
+      .filter(subtrack => subtrack.abbreviation === t)[0];
     if (filteredSubtrack) {
       return filteredSubtrack.name;
     }
