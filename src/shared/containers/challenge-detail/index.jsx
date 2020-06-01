@@ -248,12 +248,12 @@ class ChallengeDetailPageContainer extends React.Component {
     const { legacy } = nextProps.challenge;
     const track = legacy ? legacy.track : nextProps.challenge.track;
     if (track && track.toLowerCase() !== 'design' && thriveArticles.length === 0) {
-      const { tags } = nextProps.challenge;
-      if (tags.length > 0 && !(tags.length === 1 && tags[0] === 'Other')) {
-        // for tags = ['Other', ...], if 'Other' is first, use second value
+      // filter all tags with value 'Other'
+      const tags = _.filter(nextProps.challenge.tags, tag => tag !== 'Other');
+      if (tags.length > 0) {
         this.apiService.getEDUContent({
           limit: 3,
-          phrase: tags[0] === 'Other' ? tags[1] : tags[0],
+          phrase: tags[0],
           types: ['Article'],
         }).then((content) => {
         // format image file data
