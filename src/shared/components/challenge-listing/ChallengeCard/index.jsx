@@ -57,7 +57,7 @@ function ChallengeCard({
   }
 
   const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
-  const isRegistrationOpen = registrationPhase ? registrationPhase.isActive : false;
+  const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
 
   return (
     <div ref={domRef} styleName="challengeCard">
