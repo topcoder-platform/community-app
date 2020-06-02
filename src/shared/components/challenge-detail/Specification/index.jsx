@@ -49,11 +49,12 @@ export default function ChallengeDetailsView(props) {
     codeRepo,
     userDetails,
     metadata,
+    events,
   } = challenge;
 
   const tags = challenge.tags || [];
   const roles = (userDetails || {}).roles || [];
-  const { track } = legacy;
+  const { track, reviewScorecardId, screeningScorecardId } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
 
@@ -400,12 +401,15 @@ export default function ChallengeDetailsView(props) {
           hasRegistered={hasRegistered}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
+          eventDetail={_.isEmpty(events) ? null : events[0]}
           isMM={isMM(challenge)}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}
           codeRepo={codeRepo}
           metadata={metadata}
+          reviewScorecardId={reviewScorecardId}
+          screeningScorecardId={screeningScorecardId}
         />
       </div>
     </div>
@@ -425,7 +429,10 @@ ChallengeDetailsView.defaultProps = {
     environment: '',
     descriptionFormat: 'HTML',
     codeRepo: '',
-    metadata: [],
+    metadata: {},
+    events: [],
+    reviewScorecardId: '',
+    screeningScorecardId: '',
   },
 };
 
@@ -441,6 +448,8 @@ ChallengeDetailsView.propTypes = {
     privateDescription: PT.string,
     legacy: PT.shape({
       track: PT.string.isRequired,
+      reviewScorecardId: PT.string,
+      screeningScorecardId: PT.string,
     }),
     groups: PT.any,
     forumId: PT.number,
@@ -453,7 +462,8 @@ ChallengeDetailsView.propTypes = {
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
     }),
-    metadata: PT.arrayOf(PT.shape()),
+    metadata: PT.shape(),
+    events: PT.arrayOf(PT.string),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({

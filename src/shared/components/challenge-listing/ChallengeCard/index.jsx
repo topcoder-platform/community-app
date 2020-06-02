@@ -3,12 +3,10 @@ import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
-import { config, Link } from 'topcoder-react-utils';
-import { isMM, isDevelopMM } from 'utils/challenge';
+import { Link } from 'topcoder-react-utils';
+import { isDevelopMM } from 'utils/challenge';
 import {
   getEndDate,
-  PRIZE_MODE,
-  getPrizePurseUI,
   getPrizePointsUI,
   getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
@@ -33,7 +31,6 @@ function ChallengeCard({
   newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
-  prizeMode,
   sampleWinnerProfile,
   selectChallengeDetailsTab,
   userHandle,
@@ -42,7 +39,6 @@ function ChallengeCard({
   const challenge = passedInChallenge;
   const {
     id,
-    status,
     legacy,
   } = challenge;
 
@@ -53,10 +49,7 @@ function ChallengeCard({
   }
   challenge.prize = challenge.prizes || [];
 
-  let challengeDetailLink = `${challengesUrl}/${id}`;
-  if (track === 'DATA_SCIENCE' && isMM(challenge) && status === 'Active') {
-    challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
-  }
+  const challengeDetailLink = `${challengesUrl}/${id}`;
 
   const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
   if (subTrack === 'DEVELOP_MARATHON_MATCH') {
@@ -64,7 +57,7 @@ function ChallengeCard({
   }
 
   const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
-  const isRegistrationOpen = registrationPhase ? registrationPhase.isActive : false;
+  const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
 
   return (
     <div ref={domRef} styleName="challengeCard">
@@ -98,18 +91,20 @@ function ChallengeCard({
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge, challengeTypes)}
             </span>
-            <Tags
-              tags={challenge.tags}
-              onTechTagClicked={onTechTagClicked}
-              isExpanded={expandedTags.includes(challenge.id)}
-              expand={() => expandTag(challenge.id)}
-            />
+            { challenge.tags.length > 0
+              && (
+              <Tags
+                tags={challenge.tags}
+                onTechTagClicked={onTechTagClicked}
+                isExpanded={expandedTags.includes(challenge.id)}
+                expand={() => expandTag(challenge.id)}
+              />
+              ) }
           </div>
         </div>
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {getPrizePurseUI(challenge, prizeMode)}
           {getPrizePointsUI(challenge)}
         </div>
 
@@ -134,7 +129,6 @@ ChallengeCard.defaultProps = {
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
-  prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
   userHandle: '',
   expandedTags: [],
@@ -149,7 +143,6 @@ ChallengeCard.propTypes = {
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,
   openChallengesInNewTabs: PT.bool,
-  prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
   userHandle: PT.string,

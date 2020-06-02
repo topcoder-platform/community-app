@@ -211,7 +211,7 @@ export default class HistoryGraph extends React.Component {
       }
       if (track === 'DATA_SCIENCE') {
         if (subTrack === 'MARATHON_MATCH') {
-          return `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${challengeId}`;
+          return `/challenges/${challengeId}`;
         }
         if (subTrack === 'SRM') {
           return `${config.URL.COMMUNITY}/stat?c=round_overview&rd=${challengeId}`;

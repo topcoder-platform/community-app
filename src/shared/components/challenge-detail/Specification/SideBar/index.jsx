@@ -29,12 +29,13 @@ export default function SideBar({
   codeRepo,
   isMM,
   metadata,
+  reviewScorecardId,
+  screeningScorecardId,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
   const submissionLimit = _.find(metadata, { type: 'submissionLimit' });
-  const screeningScorecardId = _.find(metadata, { type: 'screeningScorecardId' });
   const fileTypes = _.find(metadata, { type: 'fileTypes' });
 
   if (submissionLimit) {
@@ -172,14 +173,14 @@ export default function SideBar({
             }
             {
               <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}${screeningScorecardId ? screeningScorecardId.value : ''}`}>
+                <a href={`${scorecardURL}${screeningScorecardId}`}>
                   Screening Scorecard
                 </a>
               </p>
             }
             {
               <span styleName="link-like-paragraph tooltip-container">
-                <a href={`${scorecardURL}${screeningScorecardId ? screeningScorecardId.value : ''}`}>
+                <a href={`${scorecardURL}${reviewScorecardId}`}>
                   Review Scorecard
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
@@ -347,7 +348,9 @@ SideBar.defaultProps = {
   environment: '',
   codeRepo: '',
   isMM: false,
-  metadata: [],
+  metadata: {},
+  reviewScorecardId: '',
+  screeningScorecardId: '',
 };
 
 SideBar.propTypes = {
@@ -367,5 +370,7 @@ SideBar.propTypes = {
   environment: PT.string,
   codeRepo: PT.string,
   isMM: PT.bool,
-  metadata: PT.arrayOf(PT.shape()),
+  metadata: PT.shape(),
+  reviewScorecardId: PT.string,
+  screeningScorecardId: PT.string,
 };
