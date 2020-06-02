@@ -23,7 +23,7 @@ const DESCRIPTION = {
   DEVELOPMENT: 'Develop code for apps, services, etc. Final fixes are not included',
   TEST_SCENARIOS: 'Provide simple, easy information about what to test',
   CONTENT_CREATION: 'Generate topic ideas as a blog, video, infographic, or other format',
-  IDEA_GENERATION: 'Generate ideas as a blog, video, infographic, or other format',
+  IDEA_GENERATION: 'Generate feasible concepts for products, apps, features, etc',
   SPECIFICATION: 'Document requirements to be satisfied for design, product, or service',
   TASK: 'An assigned piece of work',
   AUTOMATED_TESTING: 'Challenges were submissions are auto-scored against a set of automated test cases',
