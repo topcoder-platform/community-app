@@ -15,9 +15,9 @@ import { reducers } from 'topcoder-react-lib';
  */
 export function factory(req) {
   const options = {};
-  if (req && req.url.match(/^\/challenges\/\d{8}\/review-opportunities/)) {
+  if (req && req.url.match(/^\/challenges\/([\w]{4,12}-?){5}\/review-opportunities/)) {
     options.auth = getAuthTokens(req);
-    const challengeId = req.url.match(/\d+/)[0];
+    const challengeId = req.url.match(/([\w]{4,12}-?){5}/)[0];
     _.set(options, 'reviewOpportunity.challenge.id', challengeId);
   }
 
