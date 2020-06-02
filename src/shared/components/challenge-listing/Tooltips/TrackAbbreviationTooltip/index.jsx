@@ -33,7 +33,7 @@ const DESCRIPTION = {
   DESIGN: 'Prepare the visual sketch or the plans for a website, feature, app, etc',
   TEST_SUITES: 'Develop test cases to be used to validate apps, website, etc.',
   CONCEPTUALIZATION: 'Discover and define user stories and requirements',
-  DESIGN_FIRST2FINISH: : 'Be the first to deliver the design solution',
+  DESIGN_FIRST2FINISH: 'Be the first to deliver the design solution',
   DESIGN_FIRST_2_FINISH: 'Be the first to deliver the design solution',
   FIRST_2_FINISH: 'Be the first to deliver the development solution',
   FIRST2FINISH: 'Be the first to deliver the development solution',
