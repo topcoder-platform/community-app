@@ -245,7 +245,7 @@ export default function ChallengeDetailsView(props) {
                       )
                     }
                     {
-                      privateDescription
+                      description
                       && (
                       <article>
                         <h2 styleName="h2">
@@ -261,7 +261,7 @@ export default function ChallengeDetailsView(props) {
                             />
                           ) : (
                             <SpecificationComponent
-                              bodyText={privateDescription}
+                              bodyText={description}
                               format={descriptionFormat}
                             />
                           )
