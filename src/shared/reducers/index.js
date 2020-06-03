@@ -45,12 +45,12 @@ function generateSsrOptions(req) {
   const res = {
     auth: getAuthTokens(req),
   };
-  if (req.url.match(/^\/challenges\/([\w]{4,12}-?){5}\/my-submissions/)) {
-    const challengeId = req.url.match(/([\w]{4,12}-?){5}/)[0];
+  if (req.url.match(/^\/challenges\/(([\w]{4,12}-?){5}|\d+)\/my-submissions/)) {
+    const challengeId = req.url.match(/(([\w]{4,12}-?){5}|\d+)/)[0];
     _.set(res, 'challenge.challengeDetails.id', challengeId);
     _.set(res, 'challenge.challengeDetails.mySubmission', true);
-  } else if (req.url.match(/\/challenges\/([\w]{4,12}-?){5}([?/].*)?$/)) {
-    const challengeId = req.url.match(/([\w]{4,12}-?){5}/)[0];
+  } else if (req.url.match(/\/challenges\/(([\w]{4,12}-?){5}|\d+)\/?(\?.*)?$/)) {
+    const challengeId = req.url.match(/(([\w]{4,12}-?){5}|\d+)/)[0];
     _.set(res, 'challenge.challengeDetails.id', challengeId);
   }
 
@@ -62,8 +62,8 @@ function generateSsrOptions(req) {
     let entity;
 
     // if it's challenge details page
-    if (req.url.match(/^\/challenges\/([\w]{4,12}-?){5}/)) {
-      const challengeId = req.url.match(/([\w]{4,12}-?){5}/)[0];
+    if (req.url.match(/^\/challenges\/(([\w]{4,12}-?){5}|\d+)/)) {
+      const challengeId = req.url.match(/(([\w]{4,12}-?){5}|\d+)/)[0];
       entity = { type: 'challenge', id: challengeId };
     }
 

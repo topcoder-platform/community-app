@@ -322,8 +322,8 @@ export function factory(req) {
     let entity;
 
     // if it's challenge details page
-    if (req.url.match(/^\/challenges\/([\w]{4,12}-?){5}/)) {
-      const challengeId = req.url.match(/([\w]{4,12}-?){5}/)[0];
+    if (req.url.match(/^\/challenges\/(([\w]{4,12}-?){5}|\d+)/)) {
+      const challengeId = req.url.match(/(([\w]{4,12}-?){5}|\d+)/)[0];
       entity = { type: 'challenge', id: challengeId };
     }
 
