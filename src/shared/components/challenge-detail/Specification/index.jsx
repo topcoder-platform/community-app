@@ -43,8 +43,6 @@ export default function ChallengeDetailsView(props) {
     legacy,
     documents,
     finalSubmissionGuidelines,
-    environment,
-    codeRepo,
     userDetails,
     metadata,
     events,
@@ -55,6 +53,17 @@ export default function ChallengeDetailsView(props) {
   const { track, reviewScorecardId, screeningScorecardId } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
+  let environment = '';
+  const environmentData = _.find(metadata, { type: 'environment' });
+  if (environmentData) {
+    environment = environmentData.value;
+  }
+
+  let codeRepo = '';
+  const codeRepoData = _.find(metadata, { type: 'codeRepo' });
+  if (codeRepoData) {
+    codeRepo = codeRepoData.value;
+  }
 
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
