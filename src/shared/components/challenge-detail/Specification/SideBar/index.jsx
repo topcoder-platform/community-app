@@ -172,7 +172,7 @@ export default function SideBar({
               )
             }
             {
-              screeningScorecardId && screeningScorecardId.length > 0
+              screeningScorecardId > 0
               && (
               <p styleName="link-like-paragraph">
                 <a href={`${scorecardURL}${screeningScorecardId}`}>
@@ -182,6 +182,8 @@ export default function SideBar({
               )
             }
             {
+              reviewScorecardId > 0 && !isDesign
+              && (
               <span styleName="link-like-paragraph tooltip-container">
                 <a href={`${scorecardURL}${reviewScorecardId}`}>
                   Review Scorecard
@@ -192,6 +194,7 @@ export default function SideBar({
                   </div>
                 </Tooltip>
               </span>
+              )
             }
           </div>
           )
