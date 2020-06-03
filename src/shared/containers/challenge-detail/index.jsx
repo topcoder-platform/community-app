@@ -166,6 +166,7 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       getAllCountries,
       getReviewTypes,
+      history,
     } = this.props;
 
     if (
@@ -191,7 +192,7 @@ class ChallengeDetailPageContainer extends React.Component {
       && !challenge.fetchedWithAuth)
 
     ) {
-      loadChallengeDetails(auth, challengeId);
+      loadChallengeDetails(auth, challengeId, history);
     }
 
     if (!allCountries.length) {
@@ -706,6 +707,7 @@ ChallengeDetailPageContainer.propTypes = {
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
   loadingRecommendedChallengesUUID: PT.string.isRequired,
+  history: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -841,12 +843,15 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(lookupActions.getReviewTypesInit());
       dispatch(lookupActions.getReviewTypesDone(tokenV3));
     },
-    loadChallengeDetails: (tokens, challengeId) => {
+    loadChallengeDetails: (tokens, challengeId, history) => {
       const a = actions.challenge;
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
+          if (ch.isLegacyChallenge) {
+            history.location.pathname = `/challenges/${ch.id}`; // eslint-disable-line no-param-reassign
+          }
           if (ch.track === 'DESIGN') {
             const p = ch.allPhases || ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');

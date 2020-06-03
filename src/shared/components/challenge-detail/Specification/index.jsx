@@ -15,6 +15,7 @@ import { isMM } from 'utils/challenge';
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
+import SpecificationComponent from './SpecificationComponent';
 // import { editorStateToHTML } from 'utils/editor';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
@@ -40,11 +41,10 @@ export default function ChallengeDetailsView(props) {
     groups,
     description,
     privateDescription,
+    descriptionFormat,
     legacy,
     documents,
     finalSubmissionGuidelines,
-    environment,
-    codeRepo,
     userDetails,
     metadata,
     events,
@@ -55,6 +55,17 @@ export default function ChallengeDetailsView(props) {
   const { track, reviewScorecardId, screeningScorecardId } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
+  let environment = '';
+  const environmentData = _.find(metadata, { type: 'environment' });
+  if (environmentData) {
+    environment = environmentData.value;
+  }
+
+  let codeRepo = '';
+  const codeRepoData = _.find(metadata, { type: 'codeRepo' });
+  if (codeRepoData) {
+    codeRepo = codeRepoData.value;
+  }
 
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
@@ -157,13 +168,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(description)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: description,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={description}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -219,13 +226,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(privateDescription)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: privateDescription,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={privateDescription}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -257,13 +260,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(privateDescription)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: privateDescription,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={privateDescription}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -437,6 +436,7 @@ ChallengeDetailsView.defaultProps = {
     numberOfCheckpointsPrizes: 0,
     finalSubmissionGuidelines: '',
     environment: '',
+    descriptionFormat: 'HTML',
     codeRepo: '',
     metadata: {},
     events: [],
@@ -450,6 +450,7 @@ ChallengeDetailsView.propTypes = {
   hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     description: PT.string,
+    descriptionFormat: PT.string,
     documents: PT.any,
     id: PT.any,
     subTrack: PT.any,

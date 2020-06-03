@@ -172,11 +172,14 @@ export default function SideBar({
               )
             }
             {
+              screeningScorecardId && screeningScorecardId.length > 0
+              && (
               <p styleName="link-like-paragraph">
                 <a href={`${scorecardURL}${screeningScorecardId}`}>
                   Screening Scorecard
                 </a>
               </p>
+              )
             }
             {
               <span styleName="link-like-paragraph tooltip-container">
