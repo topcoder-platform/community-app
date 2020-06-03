@@ -16,7 +16,7 @@ export default function SpecificationComponent({
         __html: bodyText,
       }}
     /* eslint-enable react/no-danger */
-      styleName="rawHtml"
+      /* styleName="rawHtml" */
     />
   );
 }
