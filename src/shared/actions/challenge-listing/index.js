@@ -285,15 +285,15 @@ function getSrmsInit(uuid) {
 /**
  * Payload creator for the action that loads SRMs.
  * @param {String} uuid
- * @param {Number} memberId
+ * @param {String} handle
  * @param {Object} params
  * @param {String} tokenV3
  */
-function getSrmsDone(uuid, memberId, params, tokenV3) {
+function getSrmsDone(uuid, handle, params, tokenV3) {
   const service = getService(tokenV3);
   const promises = [service.getSrms(params)];
-  if (memberId) {
-    promises.push(service.getUserSrms(memberId, params));
+  if (handle) {
+    promises.push(service.getUserSrms(handle, params));
   }
   return Promise.all(promises).then((data) => {
     let srms = data[0];
