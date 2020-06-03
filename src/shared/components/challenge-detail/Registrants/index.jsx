@@ -254,7 +254,7 @@ export default class Registrants extends React.Component {
 
     const twoRounds = challenge.round1Introduction
       && challenge.round2Introduction;
-    const places = prizeSets.find(ps => ps.type === 'Challenge Prize').prizes.lenght;
+    const places = prizeSets.find(ps => ps.type === 'placement').prizes.lenght;
     return (
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
