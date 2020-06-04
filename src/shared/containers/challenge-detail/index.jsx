@@ -225,6 +225,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge
       && challenge.id === challengeId
       && !loadingRecommendedChallengesUUID
+      && recommendedTechnology
       && (
         !recommendedChallenges[recommendedTechnology]
         || (
