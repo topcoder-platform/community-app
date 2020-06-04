@@ -19,20 +19,20 @@ function formatDate(date) {
   return moment(date).format('MMM DD, YYYY HH:mm');
 }
 
-function getDate(arr, memberHandle) {
-  const results = arr.filter(a => _.toString(a.submitter || a.memberHandle) === _.toString(memberHandle))
+function getDate(arr, handle) {
+  const results = arr.filter(a => _.toString(a.submitter || a.memberHandle) === _.toString(handle))
     .sort((a, b) => new Date(b.submissionTime || b.submissionDate).getTime()
       - new Date(a.submissionTime || a.submissionDate).getTime());
   return results[0] ? (results[0].submissionTime || results[0].submissionDate) : '';
 }
 
-function passedCheckpoint(checkpoints, memberHandle, results) {
-  const mine = checkpoints.filter(c => _.toString(c.submitter) === _.toString(memberHandle));
+function passedCheckpoint(checkpoints, handle, results) {
+  const mine = checkpoints.filter(c => _.toString(c.submitter) === _.toString(handle));
   return _.some(mine, m => _.find(results, r => r.submissionId === m.submissionId));
 }
 
-function getPlace(results, memberHandle, places) {
-  const found = _.find(results, w => _.toString(w.memberHandle) === _.toString(memberHandle)
+function getPlace(results, handle, places) {
+  const found = _.find(results, w => _.toString(w.memberHandle) === _.toString(handle)
     && w.placement <= places && w.submissionStatus !== 'Failed Review');
 
   if (found) {
