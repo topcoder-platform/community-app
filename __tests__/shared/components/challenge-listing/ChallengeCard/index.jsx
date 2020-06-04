@@ -36,7 +36,6 @@ const mockData1 = {
     events: [{ eventName: 'Submit' }],
     status: 'ACTIVE',
     users: {},
-    events: [],
   },
 };
 
