@@ -65,7 +65,7 @@ export default function ChallengesCard({
                 <TrackIcon
                   track={track}
                   subTrack={challenge.subTrack}
-                  tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
+                  tcoEligible={challenge.events.length > 0 ? challenge.events[0].eventName : ''}
                   isDataScience={challenge.isDataScience}
                   challengesUrl={challengesUrl}
                 />
