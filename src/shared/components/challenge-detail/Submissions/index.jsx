@@ -327,8 +327,8 @@ class SubmissionsComponent extends React.Component {
       </div>
     );
 
-    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
+    const isF2F = challenge.type.toLowerCase().indexOf('first2finish') > -1;
+    const isBugHunt = challenge.type.toLowerCase() === 'bug hunt';
 
     // copy colorStyle from registrants to submissions
     _.forEach(sortedSubmissions, (s) => {
@@ -785,7 +785,7 @@ SubmissionsComponent.propTypes = {
     registrants: PT.any,
     allPhases: PT.any,
     phases: PT.any,
-    subTrack: PT.any,
+    type: PT.any,
   }).isRequired,
   toggleSubmissionHistory: PT.func.isRequired,
   submissionHistoryOpen: PT.shape({}).isRequired,
