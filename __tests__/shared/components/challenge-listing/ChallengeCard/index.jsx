@@ -56,6 +56,7 @@ const mockData2 = {
     id: '1',
     totalPrize: 1800,
     users: {},
+    events: [],
   },
 };
 
@@ -76,6 +77,7 @@ const mockData3 = {
     id: 'long id',
     totalPrize: 1800,
     users: {},
+    events: [],
   },
 };
 
@@ -96,6 +98,7 @@ const mockData4 = {
     id: 'long id',
     totalPrize: 1800,
     users: {},
+    events: [],
   },
 };
 
@@ -116,6 +119,7 @@ const mockData5 = {
     id: 'long id',
     totalPrize: 1800,
     users: {},
+    events: [],
   },
 };
 
