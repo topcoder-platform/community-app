@@ -71,6 +71,7 @@ module.exports = {
 
   /* Holds params to signup for different newsletters. */
   NEWSLETTER_SIGNUP: {
+    DEFAUL_LIST_ID: '28bfd3c062',
     COGNITIVE: {
       APIKEY: '',
       URL: '',

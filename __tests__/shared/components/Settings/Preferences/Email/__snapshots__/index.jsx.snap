@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders email preferences setting page correctly 1`] = `
+<div
+  className="src-shared-components-Settings-Preferences-Email-___styles__EmailPreferences___2FUGT"
+>
+  <h1
+    className="src-shared-components-Settings-Preferences-Email-___styles__title___1q6eb"
+  >
+    E-Mail Preferences
+  </h1>
+  <div
+    className="src-shared-components-Settings-Preferences-Email-___styles__sub-title___2Fh1W"
+  >
+    Your preferences
+  </div>
+  <div
+    className="src-shared-components-Settings-Preferences-Email-___styles__preferences-container___38AVF"
+  >
+    <ToggleableItem
+      checked={false}
+      id="Pipeline"
+      onToggle={[Function]}
+      primaryText="Challenge Pipeline"
+      secondaryText="Subscribe to this newsletter if you want to get updates on the types of challenges coming up in the future. To view these challenges at your leisure you can always visit the <a href=\\"https://www.topcoder.com/community/pipeline\\" style=\\"color:#0d61bf;text-decoration:underline\\">Challenge Pipeline</a> page."
+      value="Pipeline"
+    />
+    <ToggleableItem
+      checked={false}
+      id="TaaS"
+      onToggle={[Function]}
+      primaryText="Gig Work"
+      secondaryText="This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href=\\"https://www.topcoder.com/community/taas\\" style=\\"color:#0d61bf;text-decoration:underline\\">Gig Work</a> page."
+      value="TaaS"
+    />
+    <ToggleableItem
+      checked={false}
+      id="Monthly Newsletter"
+      onToggle={[Function]}
+      primaryText="Monthly Newsletter"
+      secondaryText="This newsletter gets sent out at the end of every month and contains a variety of important information across all of our tracks."
+      value="Monthly Newsletter"
+    />
+    <ToggleableItem
+      checked={false}
+      id="Marathon Match Reminders"
+      onToggle={[Function]}
+      primaryText="Marathon Match Reminders"
+      secondaryText="Receive updates whenever a new marathon match is scheduled."
+      value="Marathon Match Reminders"
+    />
+    <ToggleableItem
+      checked={false}
+      id="Single Round Match Reminders"
+      onToggle={[Function]}
+      primaryText="Single Round Match (SRM) Reminders"
+      secondaryText="Attention Competitive Programmers! If there is any newsletter you are subscribing too, it better be this one. Receive updates when a new SRM event is scheduled."
+      value="Single Round Match Reminders"
+    />
+    <ToggleableItem
+      checked={false}
+      id="TCO Tuesdays"
+      onToggle={[Function]}
+      primaryText="TCO Newsletter"
+      secondaryText="For all the latest updates surrounding the <a href=\\"https://www.topcoder.com/community/member-programs/topcoder-open\\" style=\\"color:#0d61bf;text-decoration:underline\\">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!"
+      value="TCO Tuesdays"
+    />
+  </div>
+</div>
+`;
