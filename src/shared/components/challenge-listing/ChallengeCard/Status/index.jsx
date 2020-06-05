@@ -210,7 +210,7 @@ export default function ChallengeStatus(props) {
     const allPhases = challenge.phases || [];
 
     let statusPhase = allPhases
-      .filter(p => p.name !== 'Registration')
+      .filter(p => p.name !== 'Registration' && p.isOpen)
       .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
     if (!statusPhase && subTrack === 'FIRST_2_FINISH' && allPhases.length) {
