@@ -238,6 +238,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature-contentful
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
