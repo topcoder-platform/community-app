@@ -66,6 +66,7 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       "currentPhases": Array [
         "Registration",
       ],
+      "events": Array [],
       "id": "1",
       "legacy": Object {
         "track": "DATA_SCIENCE",
@@ -109,6 +110,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       "currentPhases": Array [
         "Registration",
       ],
+      "events": Array [],
       "id": "long id",
       "legacy": Object {
         "track": "DATA_SCIENCE",
