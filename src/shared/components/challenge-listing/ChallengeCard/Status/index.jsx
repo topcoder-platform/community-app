@@ -150,7 +150,7 @@ export default function ChallengeStatus(props) {
           {timeNote}
         </span>
         <span styleName="to-register">
-          to go
+          to register
         </span>
       </a>
     );
