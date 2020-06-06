@@ -337,6 +337,7 @@ function mapStateToProps(state, props) {
     finances: finances.data,
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
+    handle: userHandle,
     profile: state.auth.profile,
     showChallengeFilter: dash.showChallengeFilter,
     showEarnings: dash.showEarnings,
