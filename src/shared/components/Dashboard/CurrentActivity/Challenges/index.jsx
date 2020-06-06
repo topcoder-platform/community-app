@@ -140,14 +140,6 @@ export default function Challenges({
           />
         </Sticky>
       </div>
-      <div styleName="linksContainer">
-        <a
-          href={`${config.URL.BASE}/my-challenges/?status=completed`}
-          styleName="link"
-        >
-          Past Challenges
-        </a>
-      </div>
     </div>
   );
 }
