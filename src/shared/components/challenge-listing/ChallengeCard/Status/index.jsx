@@ -130,7 +130,7 @@ export default function ChallengeStatus(props) {
       challenge,
       detailLink,
     } = props;
-    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.name === 'Registration'), 'to register');
+    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
@@ -150,7 +150,7 @@ export default function ChallengeStatus(props) {
           {timeNote}
         </span>
         <span styleName="to-register">
-          to register
+          to go
         </span>
       </a>
     );
@@ -278,7 +278,7 @@ export default function ChallengeStatus(props) {
                   isLate={moment().isAfter(statusPhase.scheduledEndDate)}
                 />
                 <div styleName="time-left">
-                  {getTimeLeft(statusPhase, 'to register').text}
+                  {getTimeLeft(statusPhase, 'to go').text}
                 </div>
               </div>
             ) : <ChallengeProgressBar color="gray" value="100" />

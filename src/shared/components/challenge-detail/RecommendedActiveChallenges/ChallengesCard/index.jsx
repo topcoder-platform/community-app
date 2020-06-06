@@ -106,7 +106,7 @@ export default function ChallengesCard({
       </div>
 
       <div styleName="bottom">
-        <span>{getTimeLeft(statusPhase, 'to register').text}</span>
+        <span>{getTimeLeft(statusPhase, 'to go').text}</span>
       </div>
     </div>
   );
