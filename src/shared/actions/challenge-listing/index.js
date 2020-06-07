@@ -111,7 +111,6 @@ function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
     /* uch array contains challenges where the user is participating in
 @@ -111,8 +124,8 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
      * challenges in an efficient way. */
-
     if (uch) {
       const map = {};
       uch.forEach((item) => { map[item.id] = item; });
