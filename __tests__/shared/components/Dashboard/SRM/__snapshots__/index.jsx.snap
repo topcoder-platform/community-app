@@ -61,11 +61,6 @@ exports[`Matches shallow shapshot 1`] = `
     className="src-shared-components-Dashboard-SRM-___styles__srms-links___JFdeQ"
   >
     <a
-      href="https://www.topcoder-dev.com/my-srms/"
-    >
-      View Past SRMS
-    </a>
-    <a
       href="https://arena.topcoder-dev.com"
     >
       Launch Arena

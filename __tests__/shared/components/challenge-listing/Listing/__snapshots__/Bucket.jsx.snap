@@ -89,7 +89,7 @@ exports[`Matches shallow shapshot 1`] = `
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
     sort=""
-    userHandle=""
+    userId=""
   />
 </StaticRouter>
 `;
@@ -240,7 +240,7 @@ exports[`Matches shallow shapshot 2`] = `
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
     sort=""
-    userHandle=""
+    userId=""
   />
 </StaticRouter>
 `;
@@ -278,7 +278,7 @@ exports[`Matches shallow shapshot 3`] = `
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
     sort=""
-    userHandle=""
+    userId=""
   />
 </StaticRouter>
 `;
