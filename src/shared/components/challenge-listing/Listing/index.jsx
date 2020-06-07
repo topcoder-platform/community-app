@@ -117,7 +117,7 @@ function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
-            userHandle={_.get(auth, 'user.handle')}
+            userId={_.get(auth, 'user.userId')}
             activeBucket={activeBucket}
             searchTimestamp={searchTimestamp}
           />
@@ -183,7 +183,7 @@ Listing.propTypes = {
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
-      handle: PT.string,
+      userId: PT.string,
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),

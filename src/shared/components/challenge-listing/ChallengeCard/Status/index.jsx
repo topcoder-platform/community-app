@@ -60,6 +60,7 @@ export default function ChallengeStatus(props) {
     newChallengeDetails,
     selectChallengeDetailsTab,
     openChallengesInNewTabs,
+    userId,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -218,20 +219,11 @@ export default function ChallengeStatus(props) {
       statusPhase.name = 'Submission';
     }
 
-    const registrationPhase = allPhases
-      .find(p => p.name === 'Registration');
-    const isRegistrationOpen = registrationPhase
-      && (
-        registrationPhase.isOpen
-        || moment(registrationPhase.scheduledEndDate).diff(new Date()) > 0);
-
-
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.name;
     else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
-    // TODO: Find equivalent of !challenge.users[userHandle]
-    const showRegisterInfo = isRegistrationOpen;
+    const showRegisterInfo = challenge.registrationOpen === 'Yes' && !challenge.users[userId];
 
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
@@ -304,6 +296,7 @@ ChallengeStatus.defaultProps = {
   detailLink: '',
   openChallengesInNewTabs: false,
   className: '',
+  userId: '',
 };
 
 ChallengeStatus.propTypes = {
@@ -314,4 +307,5 @@ ChallengeStatus.propTypes = {
   openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   className: PT.string,
+  userId: PT.string,
 };
