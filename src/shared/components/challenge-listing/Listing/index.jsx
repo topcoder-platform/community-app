@@ -45,7 +45,7 @@ function Listing({
   expandTag,
   pastSearchTimestamp,
 }) {
-  const buckets = getBuckets(_.get(auth.user, 'handle'));
+  const buckets = getBuckets(_.get(auth.user, 'userId'));
   const isChallengesAvailable = (bucket) => {
     const filter = Filter.getFilterFunction(buckets[bucket].filter);
     const clonedChallenges = _.clone(challenges);
