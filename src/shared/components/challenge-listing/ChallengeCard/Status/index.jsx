@@ -223,7 +223,7 @@ export default function ChallengeStatus(props) {
     if (statusPhase) phaseMessage = statusPhase.name;
     else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
-    const showRegisterInfo = challenge.registrationOpen == 'Yes' && !challenge.users[userId];
+    const showRegisterInfo = challenge.registrationOpen === 'Yes' && !challenge.users[userId];
 
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
