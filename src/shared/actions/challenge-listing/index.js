@@ -95,9 +95,16 @@ function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
   let user;
   if (tokenV3) {
     user = decodeToken(tokenV3).userId;
+
+    const newFilter = _.mapKeys(filter, (value, key) => {
+      if (key === 'tag') return 'technologies';
+
+      return key;
+    });
+
     // Handle any errors on this endpoint so that the non-user specific challenges
     // will still be loaded.
-    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
+    calls.push(getAll(params => service.getUserChallenges(user, newFilter, params)
       .catch(() => ({ challenges: [] }))), page);
   }
   return Promise.all(calls).then(([ch, uch]) => {
