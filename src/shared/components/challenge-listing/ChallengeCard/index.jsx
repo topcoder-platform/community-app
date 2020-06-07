@@ -33,7 +33,7 @@ function ChallengeCard({
   openChallengesInNewTabs,
   sampleWinnerProfile,
   selectChallengeDetailsTab,
-  userHandle,
+  userId,
   domRef,
 }) {
   const challenge = passedInChallenge;
@@ -116,7 +116,7 @@ function ChallengeCard({
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
-          userHandle={userHandle}
+          userId={userId}
         />
       </div>
     </div>
@@ -130,7 +130,7 @@ ChallengeCard.defaultProps = {
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
   sampleWinnerProfile: undefined,
-  userHandle: '',
+  userId: '',
   expandedTags: [],
   expandTag: null,
   domRef: null,
@@ -145,7 +145,7 @@ ChallengeCard.propTypes = {
   openChallengesInNewTabs: PT.bool,
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
-  userHandle: PT.string,
+  userId: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,
