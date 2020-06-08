@@ -38,16 +38,19 @@ class MenuLoaderContainer extends React.Component {
       spaceName,
       environment,
       baseUrl,
+      menu,
     } = this.props;
-    // initiate loading the menu data
-    loadMenuData({
-      id,
-      fields,
-      preview,
-      spaceName,
-      environment,
-      baseUrl,
-    });
+    if (!menu.length) {
+      // initiate loading the menu data
+      loadMenuData({
+        id,
+        fields,
+        preview,
+        spaceName,
+        environment,
+        baseUrl,
+      });
+    }
   }
 
   handleChangeLevel1Id(menuId) {
