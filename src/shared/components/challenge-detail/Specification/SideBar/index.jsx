@@ -36,7 +36,7 @@ export default function SideBar({
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
   const submissionLimit = _.find(metadata, { type: 'submissionLimit' });
-  const fileTypes = _.find(metadata, { type: 'fileTypes' });
+  const fileTypes = _.find(metadata, { name: 'fileTypes' });
 
   if (submissionLimit) {
     if (submissionLimit.value === 1) {
