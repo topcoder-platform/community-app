@@ -89,6 +89,7 @@ class MenuLoaderContainer extends React.Component {
       } else {
         normalizedProfile = null;
       }
+      console.log('menu is', menu); // eslint-disable-line no-console
       return (
         <div>
           <TopNav
