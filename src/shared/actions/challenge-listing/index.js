@@ -14,12 +14,9 @@ const { getService } = services.challenge;
 const { getReviewOpportunitiesService } = services.reviewOpportunities;
 
 /**
- * The maximum number of challenges to fetch in a single API call. Currently,
- * the backend never returns more than 50 challenges, even when a higher limit
- * was specified in the request. Thus, this constant should not be larger than
- * 50 (otherwise the frontend code will miss to load some challenges).
+ * The maximum number of challenges to fetch in a single API call.
  */
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 99;
 
 /**
  * The maximum number of review opportunities to fetch in a single API call.
