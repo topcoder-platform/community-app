@@ -277,7 +277,7 @@ export default function SideBar({
               && (
                 <ul styleName="source-files-list">
                   {
-                    fileTypes && fileTypes.value.length > 0
+                    fileTypes.value && fileTypes.value.length > 0
                       ? JSON.parse(fileTypes.value).map(fileT => (
                         <li key={fileT}>
                           {fileT}
