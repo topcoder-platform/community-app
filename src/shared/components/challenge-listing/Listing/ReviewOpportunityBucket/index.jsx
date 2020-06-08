@@ -30,6 +30,7 @@ export default function ReviewOpportunityBucket({
   opportunities,
   setFilterState,
   setSort,
+  challengeTypes,
   sort,
 }) {
   if (!opportunities.length && !loadMore) return null;
@@ -47,7 +48,7 @@ export default function ReviewOpportunityBucket({
     Filter.getReviewOpportunitiesFilterFunction({
       ...bucket.filter, // Default bucket filters from utils/buckets.js
       ...filterState, // User selected filters
-    }),
+    }, challengeTypes),
   );
 
   const cards = filteredOpportunities.map(item => (
@@ -126,4 +127,5 @@ ReviewOpportunityBucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
+  challengeTypes: PT.arrayOf(PT.shape()).isRequired,
 };

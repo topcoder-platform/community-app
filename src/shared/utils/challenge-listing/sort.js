@@ -29,11 +29,11 @@ export default {
     name: 'Most recent',
   },
   [SORTS.NUM_REGISTRANTS]: {
-    func: (a, b) => b.numRegistrants - a.numRegistrants,
+    func: (a, b) => b.numOfRegistrants - a.numOfRegistrants,
     name: '# of registrants',
   },
   [SORTS.NUM_SUBMISSIONS]: {
-    func: (a, b) => b.numSubmissions - a.numSubmissions,
+    func: (a, b) => b.numOfSubmissions - a.numOfSubmissions,
     name: '# of submissions',
   },
   [SORTS.PRIZE_HIGH_TO_LOW]: {

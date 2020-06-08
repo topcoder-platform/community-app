@@ -62,7 +62,7 @@ export class SidebarContainer extends React.Component {
       user,
     } = this.props;
 
-    const buckets = getBuckets(user && user.handle);
+    const buckets = getBuckets(user && user.userId);
 
     if (extraBucket) {
       buckets[extraBucket.name] = extraBucket;

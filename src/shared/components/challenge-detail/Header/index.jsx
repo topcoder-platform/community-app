@@ -66,8 +66,6 @@ export default function ChallengeHeader(props) {
     events,
     legacy,
     prizeSets,
-    numberOfCheckpointsPrizes,
-    topCheckPointPrize,
     reliabilityBonus,
     userDetails,
     numOfRegistrants,
@@ -82,6 +80,14 @@ export default function ChallengeHeader(props) {
   const allPhases = challenge.phases || [];
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
   const status = allPhases.length ? allPhases[0].name : '';
+
+  const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
+  let numberOfCheckpointsPrizes = 0;
+  let topCheckPointPrize = 0;
+  if (!_.isEmpty(checkpointPrizes)) {
+    numberOfCheckpointsPrizes = checkpointPrizes.prizes.length;
+    topCheckPointPrize = checkpointPrizes.prizes[0].value;
+  }
 
   const phases = {};
   if (allPhases) {
@@ -483,8 +489,6 @@ ChallengeHeader.propTypes = {
     legacy: PT.shape({
       track: PT.any,
     }),
-    numberOfCheckpointsPrizes: PT.any,
-    topCheckPointPrize: PT.any,
     reliabilityBonus: PT.any,
     userDetails: PT.any,
     currentPhases: PT.any,

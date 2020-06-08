@@ -77,7 +77,7 @@ export default function ChallengeCard({
     : `/?module=Category&categoryID=${legacy.forumId}`;
 
   const isTco = challenge.events
-  && challenge.events.find(x => x.eventName.match(/tco\d{2}/));
+  && challenge.events.find(x => x.eventName && x.eventName.match(/tco\d{2}/));
 
   const roles = _.get(userDetails, 'roles') || [];
 

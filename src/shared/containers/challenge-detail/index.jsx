@@ -218,7 +218,13 @@ class ChallengeDetailPageContainer extends React.Component {
       auth,
       challenge,
       loadingRecommendedChallengesUUID,
+      history,
     } = this.props;
+
+    if (challenge.isLegacyChallenge && !history.location.pathname.includes(challenge.id)) {
+      history.location.pathname = `/challenges/${challenge.id}`; // eslint-disable-line no-param-reassign
+      history.push(history.location.pathname, history.state);
+    }
 
     const recommendedTechnology = getRecommendedTags(challenge);
     if (
@@ -237,10 +243,7 @@ class ChallengeDetailPageContainer extends React.Component {
       getAllRecommendedChallenges(auth.tokenV3, recommendedTechnology);
     }
 
-
-    const {
-      thriveArticles,
-    } = this.state;
+    const { thriveArticles } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
 
@@ -248,14 +251,16 @@ class ChallengeDetailPageContainer extends React.Component {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
     }
-    if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
-      && thriveArticles.length === 0) {
-      const { technologies } = nextProps.challenge;
-      if (technologies.length > 0 && !(technologies.length === 1 && technologies[0] === 'Other')) {
-        // for technologies = ['Other', ...], if 'Other' is first, use second value
+
+    const { legacy } = nextProps.challenge;
+    const track = legacy ? legacy.track : nextProps.challenge.track;
+    if (track && track.toLowerCase() !== 'design' && thriveArticles.length === 0) {
+      // filter all tags with value 'Other'
+      const tags = _.filter(nextProps.challenge.tags, tag => tag !== 'Other');
+      if (tags.length > 0) {
         this.apiService.getEDUContent({
           limit: 3,
-          phrase: technologies[0] === 'Other' ? technologies[1] : technologies[0],
+          phrase: tags[0],
           types: ['Article'],
         }).then((content) => {
         // format image file data
@@ -708,6 +713,7 @@ ChallengeDetailPageContainer.propTypes = {
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
   loadingRecommendedChallengesUUID: PT.string.isRequired,
+  history: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, props) {

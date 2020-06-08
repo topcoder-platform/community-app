@@ -15,6 +15,7 @@ import { isMM } from 'utils/challenge';
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
+import SpecificationComponent from './SpecificationComponent';
 // import { editorStateToHTML } from 'utils/editor';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
@@ -40,20 +41,31 @@ export default function ChallengeDetailsView(props) {
     groups,
     description,
     privateDescription,
+    descriptionFormat,
     legacy,
     documents,
     finalSubmissionGuidelines,
-    environment,
-    codeRepo,
     userDetails,
     metadata,
+    events,
   } = challenge;
 
   const tags = challenge.tags || [];
   const roles = (userDetails || {}).roles || [];
-  const { track } = legacy;
+  const { track, reviewScorecardId, screeningScorecardId } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
+  let environment = '';
+  const environmentData = _.find(metadata, { name: 'environment' });
+  if (environmentData) {
+    environment = environmentData.value;
+  }
+
+  let codeRepo = '';
+  const codeRepoData = _.find(metadata, { name: 'codeRepo' });
+  if (codeRepoData) {
+    codeRepo = codeRepoData.value;
+  }
 
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
@@ -156,13 +168,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(description)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: description,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={description}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -203,12 +211,9 @@ export default function ChallengeDetailsView(props) {
                 : (
                   <div>
                     {
-                      privateDescription
+                      description
                       && (
                       <article>
-                        <h2 styleName="h2">
-                          Challenge Details
-                        </h2>
                         {
                           editMode ? (
                             <Editor
@@ -218,51 +223,9 @@ export default function ChallengeDetailsView(props) {
                               ref={n => n && n.setHtml(privateDescription)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: privateDescription,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
-                            />
-                          )
-                        }
-                        <p styleName="p" />
-                        <p styleName="p note">
-                          Please read the challenge specification carefully and
-                          watch the forums for any questions or feedback
-                          concerning this challenge. It is important that you
-                          monitor any updates provided by the client or Studio
-                          Admins in the forums. Please post any questions you
-                          might have for the client in the forums.
-                        </p>
-                      </article>
-                      )
-                    }
-                    {
-                      privateDescription
-                      && (
-                      <article>
-                        <h2 styleName="h2">
-                          Full Description & Project Guide
-                        </h2>
-                        {
-                          editMode ? (
-                            <Editor
-                              connector={toolbarConnector}
-                              id="privateDescription"
-                              initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(privateDescription)}
-                            />
-                          ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: privateDescription,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={description}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -410,12 +373,15 @@ export default function ChallengeDetailsView(props) {
           hasRegistered={hasRegistered}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
+          eventDetail={_.isEmpty(events) ? null : events[0]}
           isMM={isMM(challenge)}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}
           codeRepo={codeRepo}
           metadata={metadata}
+          reviewScorecardId={reviewScorecardId}
+          screeningScorecardId={screeningScorecardId}
         />
       </div>
     </div>
@@ -433,8 +399,12 @@ ChallengeDetailsView.defaultProps = {
     numberOfCheckpointsPrizes: 0,
     finalSubmissionGuidelines: '',
     environment: '',
+    descriptionFormat: 'HTML',
     codeRepo: '',
-    metadata: [],
+    metadata: {},
+    events: [],
+    reviewScorecardId: '',
+    screeningScorecardId: '',
   },
 };
 
@@ -443,12 +413,15 @@ ChallengeDetailsView.propTypes = {
   hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     description: PT.string,
+    descriptionFormat: PT.string,
     documents: PT.any,
     id: PT.any,
     subTrack: PT.any,
     privateDescription: PT.string,
     legacy: PT.shape({
       track: PT.string.isRequired,
+      reviewScorecardId: PT.string,
+      screeningScorecardId: PT.string,
     }),
     groups: PT.any,
     forumId: PT.number,
@@ -461,7 +434,8 @@ ChallengeDetailsView.propTypes = {
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
     }),
-    metadata: PT.arrayOf(PT.shape()),
+    metadata: PT.shape(),
+    events: PT.arrayOf(PT.string),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({

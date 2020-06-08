@@ -45,7 +45,7 @@ function Listing({
   expandTag,
   pastSearchTimestamp,
 }) {
-  const buckets = getBuckets(_.get(auth.user, 'handle'));
+  const buckets = getBuckets(_.get(auth.user, 'userId'));
   const isChallengesAvailable = (bucket) => {
     const filter = Filter.getFilterFunction(buckets[bucket].filter);
     const clonedChallenges = _.clone(challenges);
@@ -90,6 +90,7 @@ function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
+            challengeTypes={challengeTypes}
           />
         )
         : (
@@ -116,7 +117,7 @@ function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
-            userHandle={_.get(auth, 'user.handle')}
+            userId={_.get(auth, 'user.userId')}
             activeBucket={activeBucket}
             searchTimestamp={searchTimestamp}
           />
@@ -182,7 +183,7 @@ Listing.propTypes = {
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
-      handle: PT.string,
+      userId: PT.string,
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),

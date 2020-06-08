@@ -7,8 +7,6 @@ import { Link } from 'topcoder-react-utils';
 import { isDevelopMM } from 'utils/challenge';
 import {
   getEndDate,
-  PRIZE_MODE,
-  getPrizePurseUI,
   getPrizePointsUI,
   getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
@@ -33,10 +31,9 @@ function ChallengeCard({
   newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
-  prizeMode,
   sampleWinnerProfile,
   selectChallengeDetailsTab,
-  userHandle,
+  userId,
   domRef,
 }) {
   const challenge = passedInChallenge;
@@ -60,7 +57,7 @@ function ChallengeCard({
   }
 
   const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
-  const isRegistrationOpen = registrationPhase ? registrationPhase.isActive : false;
+  const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
 
   return (
     <div ref={domRef} styleName="challengeCard">
@@ -94,18 +91,20 @@ function ChallengeCard({
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge, challengeTypes)}
             </span>
-            <Tags
-              tags={challenge.tags}
-              onTechTagClicked={onTechTagClicked}
-              isExpanded={expandedTags.includes(challenge.id)}
-              expand={() => expandTag(challenge.id)}
-            />
+            { challenge.tags.length > 0
+              && (
+              <Tags
+                tags={challenge.tags}
+                onTechTagClicked={onTechTagClicked}
+                isExpanded={expandedTags.includes(challenge.id)}
+                expand={() => expandTag(challenge.id)}
+              />
+              ) }
           </div>
         </div>
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {getPrizePurseUI(challenge, prizeMode)}
           {getPrizePointsUI(challenge)}
         </div>
 
@@ -117,7 +116,7 @@ function ChallengeCard({
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
-          userHandle={userHandle}
+          userId={userId}
         />
       </div>
     </div>
@@ -130,9 +129,8 @@ ChallengeCard.defaultProps = {
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
-  prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
-  userHandle: '',
+  userId: '',
   expandedTags: [],
   expandTag: null,
   domRef: null,
@@ -145,10 +143,9 @@ ChallengeCard.propTypes = {
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,
   openChallengesInNewTabs: PT.bool,
-  prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
-  userHandle: PT.string,
+  userId: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,

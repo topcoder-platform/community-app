@@ -245,7 +245,7 @@ class SubmissionsComponent extends React.Component {
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
-      if (phase.name === 'Review' && !phase.isActive) {
+      if (phase.name === 'Review' && !phase.isOpen) {
         isReviewPhaseComplete = true;
       }
     });

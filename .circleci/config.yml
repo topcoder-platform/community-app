@@ -209,7 +209,6 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
                 - integration-v5-challenge-api
       # This is beta env for production soft releases
       - "build-prod-beta":
@@ -224,7 +223,7 @@ workflows:
           filters:
             branches:
               only:
-                - integration-v5-challenge-api
+                - develop
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

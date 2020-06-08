@@ -64,6 +64,8 @@ const Abbreviation = {
     SRM: 'SRM',
     MARATHON_MATCH: 'MM',
     DEVELOP_MARATHON_MATCH: 'MM',
+    FIRST2FINISH: 'F2F',
+    FIRST_2_FINISH: 'F2F',
   },
   DATA: {
     SRM: 'SRM',
