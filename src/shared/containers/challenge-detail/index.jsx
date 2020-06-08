@@ -116,7 +116,7 @@ function isRegistered(details, registrants, handle) {
   if (details && details.roles && details.roles.includes('Submitter')) {
     return true;
   }
-  if (_.find(registrants, r => _.toString(r.handle) === _.toString(handle))) {
+  if (_.find(registrants, r => _.toString(r.memberHandle) === _.toString(handle))) {
     return true;
   }
   return false;
@@ -726,7 +726,7 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { handle: submission.submitter }),
+        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
       }));
     }
 
@@ -734,7 +734,7 @@ function mapStateToProps(state, props) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
         let { member } = submission;
-        if (auth.user.handle === submission.member) {
+        if (auth.user.handle === submission.memberHandle) {
           mySubmissions = submission.submissions || [];
           mySubmissions = mySubmissions.map((mySubmission, index) => {
             // eslint-disable-next-line no-param-reassign
