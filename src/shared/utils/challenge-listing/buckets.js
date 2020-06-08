@@ -48,7 +48,6 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: true,
       started: true,
-      currentPhaseName: 'Registration',
       status: ['Active'],
     },
     hideCount: false,
