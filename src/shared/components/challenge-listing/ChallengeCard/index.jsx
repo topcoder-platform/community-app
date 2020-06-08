@@ -74,7 +74,7 @@ function ChallengeCard({
               <TrackIcon
                 track={track}
                 subTrack={subTrack}
-                tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
+                tcoEligible={!_.isEmpty(challenge.events) ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />
             </span>
