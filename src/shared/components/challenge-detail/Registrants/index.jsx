@@ -380,7 +380,13 @@ export default class Registrants extends React.Component {
           {
             sortedRegistrants.map((r) => {
               const placement = getPlace(results, r.memberHandle, places);
-              const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+              /*
+               * TODO: Need check as get this back, currenlty V5 API missing this data
+               * = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+               */
+              const colorStyle = {
+                color: '#000000',
+              };
               let checkpoint = this.getCheckPoint(r);
               if (checkpoint) {
                 checkpoint = formatDate(checkpoint);
