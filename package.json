@@ -114,7 +114,7 @@
     "react-router-dom": "^4.3.1",
     "react-select": "^1.2.0",
     "react-slick": "^0.15.4",
-    "react-stickynode": "^1https://github.com/topcoder-platform/community-app/blob/integration-v5-challenge-api/package.json.4.1",
+    "react-stickynode": "^1.4.1",
     "react-svg": "^4.1.1",
     "react-syntax-highlighter": "^12.2.1",
     "react-tabs": "^2.2.2",
