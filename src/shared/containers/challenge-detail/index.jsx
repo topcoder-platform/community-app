@@ -116,7 +116,7 @@ function isRegistered(details, registrants, handle) {
   if (details && details.roles && details.roles.includes('Submitter')) {
     return true;
   }
-  if (_.find(registrants, r => _.toString(r.handle) === _.toString(handle))) {
+  if (_.find(registrants, r => _.toString(r.memberHandle) === _.toString(handle))) {
     return true;
   }
   return false;
@@ -166,7 +166,6 @@ class ChallengeDetailPageContainer extends React.Component {
       reviewTypes,
       getAllCountries,
       getReviewTypes,
-      history,
     } = this.props;
 
     if (
@@ -192,7 +191,7 @@ class ChallengeDetailPageContainer extends React.Component {
       && !challenge.fetchedWithAuth)
 
     ) {
-      loadChallengeDetails(auth, challengeId, history);
+      loadChallengeDetails(auth, challengeId);
     }
 
     if (!allCountries.length) {
@@ -219,13 +218,20 @@ class ChallengeDetailPageContainer extends React.Component {
       auth,
       challenge,
       loadingRecommendedChallengesUUID,
+      history,
     } = this.props;
+
+    if (challenge.isLegacyChallenge && !history.location.pathname.includes(challenge.id)) {
+      history.location.pathname = `/challenges/${challenge.id}`; // eslint-disable-line no-param-reassign
+      history.push(history.location.pathname, history.state);
+    }
 
     const recommendedTechnology = getRecommendedTags(challenge);
     if (
       challenge
       && challenge.id === challengeId
       && !loadingRecommendedChallengesUUID
+      && recommendedTechnology
       && (
         !recommendedChallenges[recommendedTechnology]
         || (
@@ -726,7 +732,7 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { handle: submission.submitter }),
+        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
       }));
     }
 
@@ -734,7 +740,7 @@ function mapStateToProps(state, props) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
         let { member } = submission;
-        if (auth.user.handle === submission.member) {
+        if (auth.user.handle === submission.memberHandle) {
           mySubmissions = submission.submissions || [];
           mySubmissions = mySubmissions.map((mySubmission, index) => {
             // eslint-disable-next-line no-param-reassign
@@ -843,15 +849,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(lookupActions.getReviewTypesInit());
       dispatch(lookupActions.getReviewTypesDone(tokenV3));
     },
-    loadChallengeDetails: (tokens, challengeId, history) => {
+    loadChallengeDetails: (tokens, challengeId) => {
       const a = actions.challenge;
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.isLegacyChallenge) {
-            history.location.pathname = `/challenges/${ch.id}`; // eslint-disable-line no-param-reassign
-          }
           if (ch.track === 'DESIGN') {
             const p = ch.allPhases || ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');

@@ -42,7 +42,7 @@ export default function Bucket({
   setFilterState,
   setSort,
   sort,
-  userHandle,
+  userId,
   expandedTags,
   expandTag,
   activeBucket,
@@ -109,7 +109,7 @@ export default function Bucket({
       prizeMode={prizeMode}
       key={item.id}
       selectChallengeDetailsTab={selectChallengeDetailsTab}
-      userHandle={userHandle}
+      userId={userId}
       expandedTags={expandedTags}
       expandTag={expandTag}
       domRef={addToRefs}
@@ -187,7 +187,7 @@ Bucket.defaultProps = {
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
   sort: null,
-  userHandle: '',
+  userId: '',
   expandedTags: [],
   expandTag: null,
   activeBucket: '',
@@ -214,7 +214,7 @@ Bucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
-  userHandle: PT.string,
+  userId: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   activeBucket: PT.string,

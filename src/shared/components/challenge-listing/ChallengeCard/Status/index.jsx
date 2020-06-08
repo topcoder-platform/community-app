@@ -60,6 +60,7 @@ export default function ChallengeStatus(props) {
     newChallengeDetails,
     selectChallengeDetailsTab,
     openChallengesInNewTabs,
+    userId,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -130,7 +131,7 @@ export default function ChallengeStatus(props) {
       challenge,
       detailLink,
     } = props;
-    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.name === 'Registration'), 'to register');
+    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
@@ -210,7 +211,7 @@ export default function ChallengeStatus(props) {
     const allPhases = challenge.phases || [];
 
     let statusPhase = allPhases
-      .filter(p => p.name !== 'Registration')
+      .filter(p => p.name !== 'Registration' && p.isOpen)
       .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
     if (!statusPhase && subTrack === 'FIRST_2_FINISH' && allPhases.length) {
@@ -218,20 +219,11 @@ export default function ChallengeStatus(props) {
       statusPhase.name = 'Submission';
     }
 
-    const registrationPhase = allPhases
-      .find(p => p.name === 'Registration');
-    const isRegistrationOpen = registrationPhase
-      && (
-        registrationPhase.isOpen
-        || moment(registrationPhase.scheduledEndDate).diff(new Date()) > 0);
-
-
     let phaseMessage = STALLED_MSG;
     if (statusPhase) phaseMessage = statusPhase.name;
     else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
-    // TODO: Find equivalent of !challenge.users[userHandle]
-    const showRegisterInfo = isRegistrationOpen;
+    const showRegisterInfo = challenge.registrationOpen === 'Yes' && !challenge.users[userId];
 
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
@@ -278,7 +270,7 @@ export default function ChallengeStatus(props) {
                   isLate={moment().isAfter(statusPhase.scheduledEndDate)}
                 />
                 <div styleName="time-left">
-                  {getTimeLeft(statusPhase, 'to register').text}
+                  {getTimeLeft(statusPhase, 'to go').text}
                 </div>
               </div>
             ) : <ChallengeProgressBar color="gray" value="100" />
@@ -304,6 +296,7 @@ ChallengeStatus.defaultProps = {
   detailLink: '',
   openChallengesInNewTabs: false,
   className: '',
+  userId: '',
 };
 
 ChallengeStatus.propTypes = {
@@ -314,4 +307,5 @@ ChallengeStatus.propTypes = {
   openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   className: PT.string,
+  userId: PT.string,
 };

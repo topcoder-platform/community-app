@@ -9,7 +9,7 @@ import Application from 'shared';
 import config from 'config';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
-import { logger } from 'topcoder-react-lib';
+import { logger, services } from 'topcoder-react-lib';
 import fs from 'fs';
 import moment from 'moment';
 import path from 'path';
@@ -160,11 +160,14 @@ async function onExpressJsSetup(server) {
 
   /* Proxy endpoint for GET requests (to fetch data from resources prohibiting
    * cross-origin requests). */
-  /*  server.use(
+  server.use(
     '/community-app-assets/api/proxy-get',
     checkAuthorizationHeader, async (req, res, next) => {
+      const tokenM2M = await services.api.getTcM2mToken();
       try {
-        let data = await fetch(req.query.url);
+        let data = await fetch(req.query.url, {
+          headers: { Authorization: `Bearer ${tokenM2M}` },
+        });
         data = await data.text();
         res.send(data);
       } catch (err) {
@@ -172,7 +175,6 @@ async function onExpressJsSetup(server) {
       }
     },
   );
-  */
 
   /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
    * cross-origin requests). */

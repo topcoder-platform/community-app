@@ -20,7 +20,7 @@ function formatDate(date) {
 }
 
 function getDate(arr, handle) {
-  const results = arr.filter(a => _.toString(a.submitter || a.handle) === _.toString(handle))
+  const results = arr.filter(a => _.toString(a.submitter || a.memberHandle) === _.toString(handle))
     .sort((a, b) => new Date(b.submissionTime || b.submissionDate).getTime()
       - new Date(a.submissionTime || a.submissionDate).getTime());
   return results[0] ? (results[0].submissionTime || results[0].submissionDate) : '';
@@ -32,7 +32,7 @@ function passedCheckpoint(checkpoints, handle, results) {
 }
 
 function getPlace(results, handle, places) {
-  const found = _.find(results, w => _.toString(w.handle) === _.toString(handle)
+  const found = _.find(results, w => _.toString(w.memberHandle) === _.toString(handle)
     && w.placement <= places && w.submissionStatus !== 'Failed Review');
 
   if (found) {
@@ -99,7 +99,7 @@ export default class Registrants extends React.Component {
 
     let checkpoint;
     if (twoRounds) {
-      checkpoint = getDate(checkpoints, registrant.handle);
+      checkpoint = getDate(checkpoints, registrant.memberHandle);
       if (!checkpoint
       && moment(registrant.submissionDate).isBefore(checkpointDate)) {
         checkpoint = registrant.submissionDate;
@@ -188,8 +188,8 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Username': {
-          valueA = `${a.handle}`.toLowerCase();
-          valueB = `${b.handle}`.toLowerCase();
+          valueA = `${a.memberHandle}`.toLowerCase();
+          valueB = `${b.memberHandle}`.toLowerCase();
           valueIsString = true;
           break;
         }
@@ -239,7 +239,7 @@ export default class Registrants extends React.Component {
       onSortChange,
     } = this.props;
     const {
-      prizes,
+      prizeSets,
       legacy,
     } = challenge;
     const { track } = legacy;
@@ -247,14 +247,14 @@ export default class Registrants extends React.Component {
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
-    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
+    const isF2F = challenge.type.toLowerCase().indexOf('first2finish') > -1;
+    const isBugHunt = challenge.type.toLowerCase() === 'bug hunt';
 
     const checkpoints = challenge.checkpoints || [];
 
     const twoRounds = challenge.round1Introduction
       && challenge.round2Introduction;
-    const places = prizes.length;
+    const places = prizeSets.find(ps => ps.type === 'placement').prizes.lenght;
     return (
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
@@ -379,8 +379,14 @@ export default class Registrants extends React.Component {
         <div styleName="body" role="rowgroup">
           {
             sortedRegistrants.map((r) => {
-              const placement = getPlace(results, r.handle, places);
-              const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+              const placement = getPlace(results, r.memberHandle, places);
+              /*
+               * TODO: Need check as get this back, currenlty V5 API missing this data
+               * = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+               */
+              const colorStyle = {
+                color: '#000000',
+              };
               let checkpoint = this.getCheckPoint(r);
               if (checkpoint) {
                 checkpoint = formatDate(checkpoint);
@@ -393,7 +399,7 @@ export default class Registrants extends React.Component {
               }
 
               return (
-                <div styleName="row" key={r.handle} role="row">
+                <div styleName="row" key={r.memberHandle} role="row">
                   {
                     !isDesign && !isF2F && !isBugHunt && (
                       <div styleName="col-2">
@@ -411,11 +417,11 @@ export default class Registrants extends React.Component {
                   <div styleName="col-3">
                     <span role="cell">
                       <a
-                        href={`${window.origin}/members/${r.handle}`}
+                        href={`${window.origin}/members/${r.memberHandle}`}
                         style={colorStyle}
                         target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                       >
-                        {r.handle}
+                        {r.memberHandle}
                       </a>
                     </span>
                   </div>
@@ -423,7 +429,7 @@ export default class Registrants extends React.Component {
                     <div styleName="sm-only title">
                       Registration Date
                     </div>
-                    <span role="cell">{formatDate(r.registrationDate)}</span>
+                    <span role="cell">{formatDate(r.created)}</span>
                   </div>
                   {
                     twoRounds
@@ -437,7 +443,7 @@ export default class Registrants extends React.Component {
                           {checkpoint}
                         </span>
                         {
-                          passedCheckpoint(checkpoints, r.handle, checkpointResults)
+                          passedCheckpoint(checkpoints, r.memberHandle, checkpointResults)
                           && <CheckMark styleName="passed" />
                         }
                       </div>
@@ -482,16 +488,16 @@ Registrants.propTypes = {
   challenge: PT.shape({
     phases: PT.arrayOf(PT.shape({
       actualEndDate: PT.string,
-      phaseType: PT.string.isRequired,
+      name: PT.string.isRequired,
       scheduledEndDate: PT.string,
     })).isRequired,
     allPhases: PT.arrayOf(PT.shape()),
     checkpoints: PT.arrayOf(PT.shape()),
     legacy: PT.shape({
-      track: PT.any,
+      track: PT.string,
     }),
-    subTrack: PT.any,
-    prizes: PT.arrayOf(PT.number).isRequired,
+    type: PT.string,
+    prizeSets: PT.arrayOf(PT.shape()).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
     round2Introduction: PT.string,
