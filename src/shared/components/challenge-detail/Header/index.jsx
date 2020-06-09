@@ -126,7 +126,7 @@ export default function ChallengeHeader(props) {
   const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
 
   let nextPhase = allPhases.filter(p => p.name !== 'Registration' && p.isOpen).sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
-  if (hasRegistered && allPhases && allPhases.name === 'Registration') {
+  if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
     nextPhase = allPhases[1] || {};
   }
   const nextDeadline = nextPhase && nextPhase.name;
