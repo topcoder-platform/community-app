@@ -193,7 +193,7 @@ export default function FiltersPanel({
   );
 
   const mapOps = item => ({ label: item, value: item });
-  const mapSubtracks = item => ({ label: item, value: item });
+  const mapSubtracks = item => ({ label: item.description, value: item.id });
   return (
     <div styleName={className}>
       <div styleName="header">
