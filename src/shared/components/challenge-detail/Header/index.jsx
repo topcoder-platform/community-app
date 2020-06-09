@@ -66,12 +66,12 @@ export default function ChallengeHeader(props) {
     events,
     legacy,
     prizeSets,
-    currentPhases,
     reliabilityBonus,
     userDetails,
     numRegistrants,
     numSubmissions,
     appealsEndDate,
+    status,
   } = challenge;
 
   const { track } = legacy;
@@ -80,7 +80,6 @@ export default function ChallengeHeader(props) {
 
   const allPhases = challenge.phases || [];
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
-  const status = allPhases.length ? allPhases[0].name : '';
 
   const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
   let numberOfCheckpointsPrizes = 0;
@@ -126,8 +125,8 @@ export default function ChallengeHeader(props) {
   */
   const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
 
-  let nextPhase = (currentPhases && currentPhases[0]) || {};
-  if (hasRegistered && nextPhase && nextPhase.name === 'Registration') {
+  let nextPhase = allPhases.filter(p => p.name !== 'Registration' && p.isOpen).sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  if (hasRegistered && allPhases && allPhases.name === 'Registration') {
     nextPhase = allPhases[1] || {};
   }
   const nextDeadline = nextPhase && nextPhase.name;
