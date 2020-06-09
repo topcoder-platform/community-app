@@ -66,6 +66,7 @@ export default function ChallengeHeader(props) {
     events,
     legacy,
     prizeSets,
+    currentPhases,
     reliabilityBonus,
     userDetails,
     numRegistrants,
@@ -125,7 +126,7 @@ export default function ChallengeHeader(props) {
   */
   const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
 
-  let nextPhase = (allPhases && allPhases[0]) || {};
+  let nextPhase = (currentPhases && currentPhases[0]) || {};
   if (hasRegistered && nextPhase && nextPhase.name === 'Registration') {
     nextPhase = allPhases[1] || {};
   }
