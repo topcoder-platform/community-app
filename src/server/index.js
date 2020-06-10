@@ -9,7 +9,7 @@ import Application from 'shared';
 import config from 'config';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
-import { logger } from 'topcoder-react-lib';
+import { logger, services } from 'topcoder-react-lib';
 import fs from 'fs';
 import moment from 'moment';
 import path from 'path';
@@ -143,6 +143,28 @@ async function onExpressJsSetup(server) {
       next();
     },
     tcCommunitiesDemoApi,
+  );
+
+  // Get registrants from challenge
+  server.use(
+    '/community-app-assets/api/registrants/:challengeId',
+    async (req, res, next) => {
+      const tokenM2M = await services.api.getTcM2mToken();
+      const params = {
+        challengeId: req.params.challengeId,
+        roleId: req.query.roleId,
+      };
+      const url = `${config.API.V5}/resources?${qs.stringify(params)}`;
+      try {
+        let data = await fetch(url, {
+          headers: { Authorization: `Bearer ${tokenM2M}` },
+        });
+        data = await data.text();
+        res.send(data);
+      } catch (err) {
+        next(err);
+      }
+    },
   );
 
   server.use(
