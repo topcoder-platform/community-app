@@ -112,11 +112,8 @@ function getOgImage(challenge, challengeTypes) {
   }
 }
 
-function isRegistered(details, registrants, handle) {
-  if (details && details.roles && details.roles.includes('Submitter')) {
-    return true;
-  }
-  if (_.find(registrants, r => _.toString(r.handle) === _.toString(handle))) {
+function isRegistered(registrants, handle) {
+  if (_.find(registrants, r => _.toString(r.memberHandle) === _.toString(handle))) {
     return true;
   }
   return false;
@@ -398,7 +395,6 @@ class ChallengeDetailPageContainer extends React.Component {
     const isLegacyMM = isMM(challenge) && Boolean(challenge.roundId);
 
     const hasRegistered = isRegistered(
-      challenge.userDetails,
       challenge.registrants,
       (auth.user || {}).handle,
     );
