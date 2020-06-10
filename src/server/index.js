@@ -145,14 +145,55 @@ async function onExpressJsSetup(server) {
     tcCommunitiesDemoApi,
   );
 
+  // Get roleId by name
+  server.use(
+    '/community-app-assets/api/challenges/roleId',
+    async (req, res, next) => {
+      let tokenM2M = '';
+      try {
+        tokenM2M = await services.api.getTcM2mToken();
+      } catch (err) {
+        logger.error('proxyApi-roleId-getTcM2mToken : ', err);
+      }
+
+      const params = {
+        name: req.query.name,
+        isActive: true,
+      };
+      const url = `${config.API.V5}/resource-roles?${qs.stringify(params)}`;
+      try {
+        let data = await fetch(url, {
+          headers: { Authorization: `Bearer ${tokenM2M}` },
+        });
+        data = await data.text();
+        res.send(data);
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
   // Get registrants from challenge
   server.use(
-    '/community-app-assets/api/registrants/:challengeId',
+    '/community-app-assets/api/challenges/:challengeId/registrants',
     async (req, res, next) => {
-      const tokenM2M = await services.api.getTcM2mToken();
+      let tokenM2M = '';
+      let roleId = '';
+      try {
+        tokenM2M = await services.api.getTcM2mToken();
+      } catch (err) {
+        logger.error('proxyApi-registrants-getTcM2mToken : ', err);
+      }
+
+      try {
+        roleId = await services.challenge.getService().getRoleId('Submitter');
+      } catch (err) {
+        logger.error('proxyApi-registrants-getRoleId : ', err);
+      }
+
       const params = {
         challengeId: req.params.challengeId,
-        roleId: req.query.roleId,
+        roleId,
       };
       const url = `${config.API.V5}/resources?${qs.stringify(params)}`;
       try {
