@@ -21,8 +21,8 @@ export default function ChallengeViewSelector(props) {
   const {
     challenge,
     checkpointCount,
-    numRegistrants,
-    numSubmissions,
+    numOfRegistrants,
+    numOfSubmissions,
     numWinners,
     onSelectorClicked,
     selectedView,
@@ -86,7 +86,7 @@ export default function ChallengeViewSelector(props) {
           DETAILS
         </a>
         {
-          numRegistrants ? (
+          numOfRegistrants ? (
             <a
               tabIndex="0"
               role="tab"
@@ -100,7 +100,7 @@ export default function ChallengeViewSelector(props) {
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
             >
               REGISTRANTS (
-              {numRegistrants}
+              {numOfRegistrants}
               )
             </a>
           ) : null
@@ -123,7 +123,7 @@ export default function ChallengeViewSelector(props) {
           )
         }
         {
-          numSubmissions ? (
+          numOfSubmissions ? (
             <a
               tabIndex="0"
               role="tab"
@@ -133,7 +133,7 @@ export default function ChallengeViewSelector(props) {
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >
               SUBMISSIONS (
-              {numSubmissions}
+              {numOfSubmissions}
               )
             </a>
           ) : null
@@ -188,8 +188,8 @@ export default function ChallengeViewSelector(props) {
 ChallengeViewSelector.defaultProps = {
   challenge: {},
   checkpointCount: 0,
-  numRegistrants: 0,
-  numSubmissions: 0,
+  numOfRegistrants: 0,
+  numOfSubmissions: 0,
   // hasRegistered: false,
 };
 
@@ -204,8 +204,8 @@ ChallengeViewSelector.propTypes = {
     }),
   }),
   checkpointCount: PT.number,
-  numRegistrants: PT.number,
-  numSubmissions: PT.number,
+  numOfRegistrants: PT.number,
+  numOfSubmissions: PT.number,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   selectedView: PT.string.isRequired,

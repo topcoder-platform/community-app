@@ -48,7 +48,6 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: true,
       started: true,
-      currentPhaseName: 'Registration',
       status: ['Active'],
     },
     hideCount: false,
@@ -132,13 +131,12 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
 
 /**
  * Returns configuration of all possible challenge buckets.
- * @param {String} userHandle Handle of the authenticated
+ * @param {String} userId id of the authenticated
  * user to filter out My Challenges.
  */
-export function getBuckets(userHandle) {
+export function getBuckets(userId) {
   const res = _.cloneDeep(BUCKET_DATA);
-  // TODO: Find equivalent of users
-  res[BUCKETS.MY].filter.users = [userHandle];
+  res[BUCKETS.MY].filter.users = [userId];
   return res;
 }
 

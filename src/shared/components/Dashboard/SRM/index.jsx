@@ -43,9 +43,6 @@ const SRM = (props) => {
         </div>
       </section>
       <div styleName="srms-links">
-        <a href={`${config.URL.BASE}/my-srms/`}>
-          View Past SRMS
-        </a>
         <a href={config.URL.ARENA}>
           Launch Arena
         </a>

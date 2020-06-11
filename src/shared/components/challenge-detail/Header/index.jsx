@@ -68,9 +68,10 @@ export default function ChallengeHeader(props) {
     prizeSets,
     reliabilityBonus,
     userDetails,
-    numRegistrants,
-    numSubmissions,
+    numOfRegistrants,
+    numOfSubmissions,
     appealsEndDate,
+    status,
   } = challenge;
 
   const { track } = legacy;
@@ -79,7 +80,6 @@ export default function ChallengeHeader(props) {
 
   const allPhases = challenge.phases || [];
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
-  const status = allPhases.length ? allPhases[0].name : '';
 
   const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
   let numberOfCheckpointsPrizes = 0;
@@ -125,8 +125,8 @@ export default function ChallengeHeader(props) {
   */
   const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
 
-  let nextPhase = (allPhases && allPhases[0]) || {};
-  if (hasRegistered && nextPhase && nextPhase.name === 'Registration') {
+  let nextPhase = allPhases.filter(p => p.name !== 'Registration' && p.isOpen).sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
     nextPhase = allPhases[1] || {};
   }
   const nextDeadline = nextPhase && nextPhase.name;
@@ -451,10 +451,10 @@ export default function ChallengeHeader(props) {
           onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
           selectedView={selectedView}
-          numRegistrants={numRegistrants}
+          numOfRegistrants={numOfRegistrants}
           numWinners={numWinners}
           hasCheckpoints={checkpoints && checkpoints.length > 0}
-          numSubmissions={numSubmissions}
+          numOfSubmissions={numOfSubmissions}
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
@@ -492,8 +492,8 @@ ChallengeHeader.propTypes = {
     reliabilityBonus: PT.any,
     userDetails: PT.any,
     currentPhases: PT.any,
-    numRegistrants: PT.any,
-    numSubmissions: PT.any,
+    numOfRegistrants: PT.any,
+    numOfSubmissions: PT.any,
     status: PT.any,
     appealsEndDate: PT.any,
     allPhases: PT.any,

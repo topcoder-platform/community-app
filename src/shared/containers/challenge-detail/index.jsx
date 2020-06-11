@@ -371,7 +371,7 @@ class ChallengeDetailPageContainer extends React.Component {
       metadata,
     } = challenge;
 
-    const { track } = (_.isUndefined(legacy) && legacy) || {};
+    const { track } = legacy || {};
 
     const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
 
