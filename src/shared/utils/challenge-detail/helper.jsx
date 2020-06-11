@@ -202,14 +202,13 @@ export function getDisplayRecommendedChallenges(
   const displayRecommendedChallenges = recommendedChallenges[recommendedTag]
     ? recommendedChallenges[recommendedTag].challenges : [];
   const filterParams = getBuckets(null)[BUCKETS.OPEN_FOR_REGISTRATION].filter;
-  const userHandle = _.get(auth.user, 'handle');
+  const userId = _.get(auth.user, 'userId');
   const filter = Filter.getFilterFunction(filterParams);
 
   let results = _.filter(displayRecommendedChallenges, (c) => {
     let isValid = filter(c);
-    if (isValid && userHandle) {
-      // TODO: Find equivalent of !c.users[userHandle]
-      isValid = c.id !== challenge.id;
+    if (isValid && userId) {
+      isValid = !c.users[userId] && c.id !== challenge.id;
     }
     return isValid;
   });

@@ -53,7 +53,7 @@ class SubmissionsPageContainer extends React.Component {
 
   render() {
     const { registrants, handle, challengeId } = this.props;
-    const isRegistered = registrants.find(r => _.toString(r.handle) === _.toString(handle));
+    const isRegistered = registrants.find(r => _.toString(r.memberHandle) === _.toString(handle));
     if (!isRegistered) {
       return (
         <React.Fragment>

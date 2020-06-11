@@ -214,6 +214,9 @@ export default function ChallengeDetailsView(props) {
                       description
                       && (
                       <article>
+                        <h2 styleName="h2">
+                          Challenge Summary
+                        </h2>
                         {
                           editMode ? (
                             <Editor
@@ -229,6 +232,15 @@ export default function ChallengeDetailsView(props) {
                             />
                           )
                         }
+                        <p styleName="p" />
+                        <p styleName="p note">
+                          Please read the challenge specification carefully and
+                          watch the forums for any questions or feedback
+                          concerning this challenge. It is important that you
+                          monitor any updates provided by the client or Studio
+                          Admins in the forums. Please post any questions you
+                          might have for the client in the forums.
+                        </p>
                       </article>
                       )
                     }

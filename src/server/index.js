@@ -9,7 +9,7 @@ import Application from 'shared';
 import config from 'config';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
-import { logger } from 'topcoder-react-lib';
+import { logger, services } from 'topcoder-react-lib';
 import fs from 'fs';
 import moment from 'moment';
 import path from 'path';
@@ -143,6 +143,69 @@ async function onExpressJsSetup(server) {
       next();
     },
     tcCommunitiesDemoApi,
+  );
+
+  // Get roleId by name
+  server.use(
+    '/community-app-assets/api/challenges/roleId',
+    async (req, res, next) => {
+      let tokenM2M = '';
+      try {
+        tokenM2M = await services.api.getTcM2mToken();
+      } catch (err) {
+        logger.error('proxyApi-roleId-getTcM2mToken : ', err);
+      }
+
+      const params = {
+        name: req.query.name,
+        isActive: true,
+      };
+      const url = `${config.API.V5}/resource-roles?${qs.stringify(params)}`;
+      try {
+        let data = await fetch(url, {
+          headers: { Authorization: `Bearer ${tokenM2M}` },
+        });
+        data = await data.text();
+        res.send(data);
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
+  // Get registrants from challenge
+  server.use(
+    '/community-app-assets/api/challenges/:challengeId/registrants',
+    async (req, res, next) => {
+      let tokenM2M = '';
+      let roleId = '';
+      try {
+        tokenM2M = await services.api.getTcM2mToken();
+      } catch (err) {
+        logger.error('proxyApi-registrants-getTcM2mToken : ', err);
+      }
+
+      try {
+        roleId = await services.challenge.getService().getRoleId('Submitter');
+      } catch (err) {
+        logger.error('proxyApi-registrants-getRoleId : ', err);
+      }
+
+      const params = {
+        challengeId: req.params.challengeId,
+        roleId,
+      };
+      const url = `${config.API.V5}/resources?${qs.stringify(params)}`;
+      try {
+        let data = await fetch(url, {
+          headers: { Authorization: `Bearer ${tokenM2M}` },
+        });
+        data = await data.text();
+        res.send(data);
+      } catch (err) {
+        next(err);
+      }
+    },
   );
 
   server.use(
