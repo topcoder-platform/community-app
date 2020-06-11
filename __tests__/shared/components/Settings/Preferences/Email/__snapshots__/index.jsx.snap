@@ -27,11 +27,11 @@ exports[`renders email preferences setting page correctly 1`] = `
     />
     <ToggleableItem
       checked={false}
-      id="TaaS"
+      id="Gig Work"
       onToggle={[Function]}
       primaryText="Gig Work"
       secondaryText="This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href=\\"https://www.topcoder.com/community/taas\\" style=\\"color:#0d61bf;text-decoration:underline\\">Gig Work</a> page."
-      value="TaaS"
+      value="Gig Work"
     />
     <ToggleableItem
       checked={false}
