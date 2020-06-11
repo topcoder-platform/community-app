@@ -72,6 +72,7 @@ import './styles.scss';
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
 const DAY = 24 * 60 * MIN;
+const OBSERVER_ID = '2a4dc376-a31c-4d00-b173-13934d89e286';
 
 /**
  * Given challenge details object, it returns the URL of the image to be used in
@@ -346,6 +347,7 @@ class ChallengeDetailPageContainer extends React.Component {
       expandTag,
       mySubmissions,
       reviewTypes,
+      resources,
     } = this.props;
 
     const displayRecommendedChallenges = getDisplayRecommendedChallenges(
@@ -382,6 +384,11 @@ class ChallengeDetailPageContainer extends React.Component {
       prizesStr = `[${prizesStr}] - `;
     }
     const title = challenge.name;
+
+    const registrants = _.filter(resources, { roleId: OBSERVER_ID });
+
+    console.log('res', resources);
+    console.log('reg', registrants);
 
     let description = challenge.description || challenge.detailedRequirements;
     description = description ? description.slice(0, 256) : '';
@@ -505,7 +512,7 @@ class ChallengeDetailPageContainer extends React.Component {
             && (
               <Registrants
                 challenge={challenge}
-                registrants={challenge.registrants}
+                registrants={registrants}
                 checkpointResults={
                   _.merge(
                     checkpointResults,
@@ -650,6 +657,7 @@ ChallengeDetailPageContainer.defaultProps = {
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
   prizeMode: 'money-usd',
+  resources: [],
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -713,6 +721,7 @@ ChallengeDetailPageContainer.propTypes = {
   expandTag: PT.func.isRequired,
   loadingRecommendedChallengesUUID: PT.string.isRequired,
   history: PT.shape().isRequired,
+  resources: PT.arrayOf(PT.shape()),
 };
 
 function mapStateToProps(state, props) {
@@ -818,6 +827,7 @@ function mapStateToProps(state, props) {
     allCountries: state.lookup.allCountries,
     mySubmissions,
     reviewTypes,
+    resources: state.challenge.resources,
   };
 }
 
@@ -850,6 +860,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadChallengeDetails: (tokens, challengeId) => {
       const a = actions.challenge;
+      console.log('token', tokens);
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
@@ -868,6 +879,8 @@ const mapDispatchToProps = (dispatch) => {
           } else dispatch(a.dropResults());
           return res;
         });
+      dispatch(a.getChallengeResourcesInit());
+      dispatch(a.getChallengeResourcesDone(tokens.tokenV3, challengeId));
     },
     registerForChallenge: (auth, challengeId) => {
       const a = actions.challenge;
