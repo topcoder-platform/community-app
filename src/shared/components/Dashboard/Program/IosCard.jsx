@@ -29,13 +29,13 @@ const IosCard = (props) => {
             <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${track}#viewRegistrant`} styleName="registrants">
               <div styleName="registrants-icon" />
               <p>
-                {challenge.numRegistrants}
+                {challenge.numOfRegistrants}
               </p>
             </a>
             <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${track}#submissions`} styleName="submissions">
               <div styleName="submissions-icon" />
               <p>
-                {challenge.numSubmissions}
+                {challenge.numOfSubmissions}
               </p>
             </a>
           </div>

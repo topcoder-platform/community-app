@@ -68,8 +68,8 @@ export default function ChallengeHeader(props) {
     prizeSets,
     reliabilityBonus,
     userDetails,
-    numRegistrants,
-    numSubmissions,
+    numOfRegistrants,
+    numOfSubmissions,
     appealsEndDate,
     status,
   } = challenge;
@@ -451,10 +451,10 @@ export default function ChallengeHeader(props) {
           onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
           selectedView={selectedView}
-          numRegistrants={numRegistrants}
+          numOfRegistrants={numOfRegistrants}
           numWinners={numWinners}
           hasCheckpoints={checkpoints && checkpoints.length > 0}
-          numSubmissions={numSubmissions}
+          numOfSubmissions={numOfSubmissions}
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
@@ -492,8 +492,8 @@ ChallengeHeader.propTypes = {
     reliabilityBonus: PT.any,
     userDetails: PT.any,
     currentPhases: PT.any,
-    numRegistrants: PT.any,
-    numSubmissions: PT.any,
+    numOfRegistrants: PT.any,
+    numOfSubmissions: PT.any,
     status: PT.any,
     appealsEndDate: PT.any,
     allPhases: PT.any,
