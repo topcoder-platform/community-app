@@ -137,11 +137,20 @@ class SubTrackChallengeView extends React.Component {
       loadSRM,
       loadingMarathonUUID,
       loadMarathon,
+      userId,
     } = this.props;
 
     if (track === 'DEVELOP' || track === 'DESIGN') {
       if (!loadingSubTrackChallengesUUID) {
-        loadSubtrackChallenges(handle, auth.tokenV3, track, subTrack, 0, CHALLENGE_PER_PAGE, true);
+        loadSubtrackChallenges(
+          handle,
+          auth.tokenV3,
+          track, subTrack,
+          0,
+          CHALLENGE_PER_PAGE,
+          true,
+          userId,
+        );
       }
     } else if (track === 'DATA_SCIENCE') {
       if (subTrack === 'SRM') {
@@ -168,6 +177,7 @@ class SubTrackChallengeView extends React.Component {
       loadSRM,
       loadingMarathonUUID,
       loadMarathon,
+      userId,
     } = this.props;
 
     const {
@@ -184,6 +194,7 @@ class SubTrackChallengeView extends React.Component {
           pageNum + 1,
           CHALLENGE_PER_PAGE,
           false,
+          userId,
         );
         this.setState({ pageNum: pageNum + 1 });
       }
@@ -400,7 +411,16 @@ function mapDispatchToProps(dispatch) {
   const action = actions.members;
 
   return {
-    loadSubtrackChallenges: (handle, tokenV3, track, subTrack, pageNum, pageSize, refresh) => {
+    loadSubtrackChallenges: (
+      handle,
+      tokenV3,
+      track,
+      subTrack,
+      pageNum,
+      pageSize,
+      refresh,
+      userId,
+    ) => {
       const uuid = shortId();
       dispatch(action.getSubtrackChallengesInit(handle, uuid));
       dispatch(action.getSubtrackChallengesDone(
@@ -412,6 +432,7 @@ function mapDispatchToProps(dispatch) {
         pageNum,
         pageSize,
         refresh,
+        userId,
       ));
     },
     loadSRM: (handle, tokenV3, pageNum, pageSize, refresh) => {
