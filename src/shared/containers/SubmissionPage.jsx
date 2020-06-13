@@ -13,7 +13,6 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import shortId from 'shortid';
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
@@ -52,9 +51,8 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
-    const { registrants, handle, challengeId } = this.props;
-    const isRegistered = registrants.find(r => _.toString(r.memberHandle) === _.toString(handle));
-    if (!isRegistered) {
+    const { challenge, challengeId } = this.props;
+    if (!challenge.isRegistered) {
       return (
         <React.Fragment>
           <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED}>
@@ -134,9 +132,7 @@ SubmissionsPageContainer.propTypes = {
   updateNotesLength: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
-  registrants: PT.arrayOf(PT.object).isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
-  handle: PT.string.isRequired,
 };
 
 /**
@@ -174,9 +170,7 @@ const mapStateToProps = (state, ownProps) => {
     filePickers: submission.filePickers,
     notesLength: submission.notesLength,
     submissionFilestackData: submission.submissionFilestackData,
-    registrants: state.challenge.details.registrants,
     winners: state.challenge.details.winners,
-    handle: state.auth.user ? state.auth.user.handle : '',
   };
 };
 
