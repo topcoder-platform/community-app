@@ -8,7 +8,6 @@ import {
   getEndDate,
   PRIZE_MODE,
   getPrizePurseUI,
-  getPrizePointsUI,
   getTimeLeft,
 } from 'utils/challenge-detail/helper';
 
@@ -88,7 +87,6 @@ export default function ChallengesCard({
               </span>
               <div styleName="prizes">
                 {getPrizePurseUI(challenge, prizeMode, true, 'Prize Purse')}
-                {getPrizePointsUI(challenge)}
               </div>
             </div>
             <ChallengeStatus
