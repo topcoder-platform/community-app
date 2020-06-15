@@ -295,6 +295,32 @@ async function getChallengesBlockDone(blockProps) {
   };
 }
 
+/**
+ * Policy pages fetch init
+ */
+function getPolicyPagesInit() {
+  return {};
+}
+
+/**
+ * Policy pages fetch done
+ */
+async function getPolicyPagesDone() {
+  const service = getService({
+    preview: false,
+    spaceName: 'default',
+    environment: 'master',
+  });
+
+  const res = await service.queryEntries({
+    content_type: 'policyPage',
+  });
+
+  return {
+    data: [...res.items],
+  };
+}
+
 export default redux.createActions({
   CONTENTFUL: {
     BOOK_CONTENT: bookContent,
@@ -310,5 +336,7 @@ export default redux.createActions({
     GET_MENU_DONE: getMenuDone,
     GET_CHALLENGES_BLOCK_INIT: getChallengesBlockInit,
     GET_CHALLENGES_BLOCK_DONE: getChallengesBlockDone,
+    GET_POLICY_PAGES_INIT: getPolicyPagesInit,
+    GET_POLICY_PAGES_DONE: getPolicyPagesDone,
   },
 });

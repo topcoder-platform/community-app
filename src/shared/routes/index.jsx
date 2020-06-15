@@ -9,7 +9,7 @@ import React from 'react';
 import {
   Switch, Route, withRouter, Redirect,
 } from 'react-router-dom';
-import { MetaTags } from 'topcoder-react-utils';
+import { MetaTags, config } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
 
@@ -22,6 +22,7 @@ import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
 import TrackHomePages from './TrackHomePages';
+import PolicyPages from './PolicyPages';
 
 function Routes({ communityId }) {
   const metaTags = (
@@ -54,7 +55,7 @@ function Routes({ communityId }) {
       {metaTags}
       <Switch>
         <Route exact path="/" component={Content} />
-        { Examples() }
+        {Examples()}
         <Route
           render={({ match }) => (
             <CommunityLoader
@@ -90,6 +91,11 @@ function Routes({ communityId }) {
         <Route
           component={() => <TrackHomePages base="/community" />}
           path="/community/(competitive-programming|data-science|design|development|qa)/how-to-compete"
+        />
+        <Route
+          component={PolicyPages}
+          exact
+          path={`${config.POLICY_PAGES_PATH}/:slug?`}
         />
         <Topcoder />
       </Switch>

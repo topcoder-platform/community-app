@@ -1,0 +1,82 @@
+@import '~styles/mixins';
+
+.policy-pages-container {
+  position: relative;
+  max-width: $screen-lg;
+  margin: 130px auto 0 auto;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+
+  @include xs-to-md {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  .navi {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-right: 85px;
+    padding-left: 15px;
+    padding-top: 15px;
+
+    @include xs-to-md {
+      width: 100%;
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .navi-section-title,
+    .navi-section-title2 {
+      text-transform: uppercase;
+      color: #2a2a2a;
+      font-family: Barlow, sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 24px;
+      margin-bottom: 15px;
+
+      @include xs-to-md {
+        margin-bottom: 5px;
+      }
+    }
+
+    .navi-section-title2 {
+      margin-top: 42px;
+
+      @include xs-to-md {
+        margin-top: 12px;
+      }
+    }
+
+    .navi-section {
+      list-style: none;
+
+      li {
+        a {
+          color: #2a2a2a;
+          font-family: Roboto, sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 38px;
+
+          &:hover {
+            font-weight: 700;
+          }
+        }
+
+        &.active {
+          a {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+
+  .page-content {
+    min-height: 100vh;
+    flex: 1;
+  }
+}
