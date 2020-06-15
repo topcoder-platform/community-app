@@ -39,6 +39,7 @@ export default function ChallengeListing(props) {
     keepPastPlaceholders,
     loadingChallenges,
     preListingMsg,
+    isBucketSwitching,
   } = props;
 
   let { challenges } = props;
@@ -70,8 +71,11 @@ export default function ChallengeListing(props) {
   }
 
   let challengeCardContainer;
-  if (!expanded && loadingChallenges && !suppressPlaceholders
-    && !isReviewOpportunitiesBucket(activeBucket)) { // Skip, Review Opps are not auto-refreshed
+  if ((!expanded
+        && loadingChallenges
+        && !suppressPlaceholders
+        && !isReviewOpportunitiesBucket(activeBucket))
+      || isBucketSwitching) { // Skip, Review Opps are not auto-refreshed
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
     challengeCardContainer = (
@@ -195,6 +199,7 @@ ChallengeListing.defaultProps = {
   expandedTags: [],
   expandTag: null,
   loadMoreActive: null,
+  isBucketSwitching: false,
 };
 
 ChallengeListing.propTypes = {
@@ -230,4 +235,5 @@ ChallengeListing.propTypes = {
   sorts: PT.shape().isRequired,
   auth: PT.shape(),
   loadMoreActive: PT.func,
+  isBucketSwitching: PT.bool,
 };
