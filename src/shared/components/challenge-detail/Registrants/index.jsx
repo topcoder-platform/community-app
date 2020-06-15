@@ -239,7 +239,7 @@ export default class Registrants extends React.Component {
       onSortChange,
     } = this.props;
     const {
-      prizes,
+      prizeSets,
       legacy,
     } = challenge;
     const { track } = legacy;
@@ -247,8 +247,10 @@ export default class Registrants extends React.Component {
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
-    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
+    const isF2F = track.indexOf('FIRST_2_FINISH') > -1;
+    const isBugHunt = track.indexOf('BUG_HUNT') > -1;
+    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    const { prizes } = placementPrizes || [];
 
     const checkpoints = challenge.checkpoints || [];
 
@@ -491,7 +493,7 @@ Registrants.propTypes = {
       track: PT.any,
     }),
     subTrack: PT.any,
-    prizes: PT.arrayOf(PT.number).isRequired,
+    prizeSets: PT.arrayOf(PT.shape()).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
     round2Introduction: PT.string,
