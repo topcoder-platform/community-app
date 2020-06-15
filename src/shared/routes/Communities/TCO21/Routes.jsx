@@ -10,7 +10,6 @@ import ContentfulRoute from 'components/Contentful/Route';
 import ContentfulMenu from 'components/Contentful/Menu';
 import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
-import Footer from 'components/TopcoderFooter';
 
 export default function TCO21({ base, meta }) {
   return (
@@ -42,7 +41,6 @@ export default function TCO21({ base, meta }) {
           id="6wUJl6RRF6MxI3kR6DFq5t"
         />
       </Switch>
-      <Footer />
     </div>
   );
 }
