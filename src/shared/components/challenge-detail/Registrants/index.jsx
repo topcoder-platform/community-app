@@ -20,7 +20,7 @@ function formatDate(date) {
 }
 
 function getDate(arr, handle) {
-  const results = arr.filter(a => _.toString(a.submitter || a.handle) === _.toString(handle))
+  const results = arr.filter(a => _.toString(a.submitter || a.memberHandle) === _.toString(handle))
     .sort((a, b) => new Date(b.submissionTime || b.submissionDate).getTime()
       - new Date(a.submissionTime || a.submissionDate).getTime());
   return results[0] ? (results[0].submissionTime || results[0].submissionDate) : '';
@@ -32,7 +32,7 @@ function passedCheckpoint(checkpoints, handle, results) {
 }
 
 function getPlace(results, handle, places) {
-  const found = _.find(results, w => _.toString(w.handle) === _.toString(handle)
+  const found = _.find(results, w => _.toString(w.memberHandle) === _.toString(handle)
     && w.placement <= places && w.submissionStatus !== 'Failed Review');
 
   if (found) {
@@ -99,7 +99,7 @@ export default class Registrants extends React.Component {
 
     let checkpoint;
     if (twoRounds) {
-      checkpoint = getDate(checkpoints, registrant.handle);
+      checkpoint = getDate(checkpoints, registrant.memberHandle);
       if (!checkpoint
       && moment(registrant.submissionDate).isBefore(checkpointDate)) {
         checkpoint = registrant.submissionDate;
@@ -188,8 +188,8 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Username': {
-          valueA = `${a.handle}`.toLowerCase();
-          valueB = `${b.handle}`.toLowerCase();
+          valueA = `${a.memberHandle}`.toLowerCase();
+          valueB = `${b.memberHandle}`.toLowerCase();
           valueIsString = true;
           break;
         }
@@ -381,7 +381,7 @@ export default class Registrants extends React.Component {
         <div styleName="body" role="rowgroup">
           {
             sortedRegistrants.map((r) => {
-              const placement = getPlace(results, r.handle, places);
+              const placement = getPlace(results, r.memberHandle, places);
               const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
               let checkpoint = this.getCheckPoint(r);
               if (checkpoint) {
@@ -395,7 +395,7 @@ export default class Registrants extends React.Component {
               }
 
               return (
-                <div styleName="row" key={r.handle} role="row">
+                <div styleName="row" key={r.memberHandle} role="row">
                   {
                     !isDesign && !isF2F && !isBugHunt && (
                       <div styleName="col-2">
@@ -413,11 +413,11 @@ export default class Registrants extends React.Component {
                   <div styleName="col-3">
                     <span role="cell">
                       <a
-                        href={`${window.origin}/members/${r.handle}`}
+                        href={`${window.origin}/members/${r.memberHandle}`}
                         style={colorStyle}
                         target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                       >
-                        {r.handle}
+                        {r.memberHandle}
                       </a>
                     </span>
                   </div>
@@ -425,7 +425,7 @@ export default class Registrants extends React.Component {
                     <div styleName="sm-only title">
                       Registration Date
                     </div>
-                    <span role="cell">{formatDate(r.registrationDate)}</span>
+                    <span role="cell">{formatDate(r.created)}</span>
                   </div>
                   {
                     twoRounds
@@ -439,7 +439,7 @@ export default class Registrants extends React.Component {
                           {checkpoint}
                         </span>
                         {
-                          passedCheckpoint(checkpoints, r.handle, checkpointResults)
+                          passedCheckpoint(checkpoints, r.memberHandle, checkpointResults)
                           && <CheckMark styleName="passed" />
                         }
                       </div>
@@ -484,7 +484,7 @@ Registrants.propTypes = {
   challenge: PT.shape({
     phases: PT.arrayOf(PT.shape({
       actualEndDate: PT.string,
-      phaseType: PT.string.isRequired,
+      name: PT.string.isRequired,
       scheduledEndDate: PT.string,
     })).isRequired,
     allPhases: PT.arrayOf(PT.shape()),
