@@ -8,8 +8,8 @@ import {
   getEndDate,
   PRIZE_MODE,
   getPrizePurseUI,
-  getPrizePointsUI,
   getTimeLeft,
+  getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
 
 import TrackIcon from 'components/TrackIcon';
@@ -37,7 +37,11 @@ export default function ChallengesCard({
     phases,
   } = challenge;
 
-  const { track } = legacy;
+  let { track } = legacy;
+  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
+  if (subTrack === 'DEVELOP_MARATHON_MATCH') {
+    track = 'DATA_SCIENCE';
+  }
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
 
@@ -59,12 +63,12 @@ export default function ChallengesCard({
           <div styleName="challenge-track">
             <TrackAbbreviationTooltip
               legacy={challenge.legacy}
-              subTrack={challenge.subTrack}
+              subTrack={subTrack}
             >
               <span styleName="track-icon">
                 <TrackIcon
                   track={track}
-                  subTrack={challenge.subTrack}
+                  subTrack={subTrack}
                   tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].eventName : ''}
                   isDataScience={challenge.isDataScience}
                   challengesUrl={challengesUrl}
@@ -88,7 +92,6 @@ export default function ChallengesCard({
               </span>
               <div styleName="prizes">
                 {getPrizePurseUI(challenge, prizeMode, true, 'Prize Purse')}
-                {getPrizePointsUI(challenge)}
               </div>
             </div>
             <ChallengeStatus

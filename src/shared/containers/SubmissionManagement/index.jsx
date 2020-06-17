@@ -52,7 +52,6 @@ class SubmissionManagementPageContainer extends React.Component {
       deleting,
       loadingSubmissionsForChallengeId,
       submissionPhaseStartDate,
-      handle,
       isLoadingChallenge,
       mySubmissions,
       onCancelSubmissionDelete,
@@ -60,13 +59,11 @@ class SubmissionManagementPageContainer extends React.Component {
       onShowDetails,
       onSubmissionDelete,
       onSubmissionDeleteConfirmed,
-      registrants,
       showDetails,
       showModal,
       toBeDeletedId,
     } = this.props;
-    const isRegistered = registrants.find(r => _.toString(r.memberHandle) === _.toString(handle));
-    if (!isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
+    if (!challenge.isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
     const isEmpty = _.isEmpty(challenge);
     const smConfig = {
@@ -189,8 +186,6 @@ SubmissionManagementPageContainer.propTypes = {
   toBeDeletedId: PT.number,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
-  registrants: PT.arrayOf(PT.object).isRequired,
-  handle: PT.string.isRequired,
 };
 
 function mapStateToProps(state, props) {

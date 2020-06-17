@@ -112,13 +112,6 @@ function getOgImage(challenge, challengeTypes) {
   }
 }
 
-function isRegistered(registrants, handle) {
-  if (_.find(registrants, r => _.toString(r.memberHandle) === _.toString(handle))) {
-    return true;
-  }
-  return false;
-}
-
 // The container component
 class ChallengeDetailPageContainer extends React.Component {
   constructor(props, context) {
@@ -394,11 +387,6 @@ class ChallengeDetailPageContainer extends React.Component {
     const isEmpty = _.isEmpty(challenge);
     const isLegacyMM = isMM(challenge) && Boolean(challenge.roundId);
 
-    const hasRegistered = isRegistered(
-      challenge.registrants,
-      (auth.user || {}).handle,
-    );
-
     if (isLoadingChallenge || isLoadingTerms) {
       return <LoadingPagePlaceholder />;
     }
@@ -475,12 +463,12 @@ class ChallengeDetailPageContainer extends React.Component {
               }
               unregistering={unregistering}
               checkpoints={checkpoints}
-              hasRegistered={hasRegistered}
+              hasRegistered={challenge.isRegistered}
               hasFirstPlacement={hasFirstPlacement}
               challengeSubtracksMap={challengeSubtracksMap}
               isMenuOpened={isMenuOpened}
               submissionEnded={submissionEnded}
-              mySubmissions={hasRegistered ? mySubmissions : []}
+              mySubmissions={challenge.isRegistered ? mySubmissions : []}
             />
             )
           }
@@ -494,7 +482,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 description={challenge.name}
                 detailedRequirements={challenge.description}
                 terms={terms}
-                hasRegistered={hasRegistered}
+                hasRegistered={challenge.isRegistered}
                 savingChallenge={savingChallenge}
                 setSpecsTabState={setSpecsTabState}
                 specsTabState={specsTabState}
@@ -554,7 +542,7 @@ class ChallengeDetailPageContainer extends React.Component {
                   this.setState({ notFoundCountryFlagUrl });
                 }}
                 onSortChange={sort => this.setState({ submissionsSort: sort })}
-                hasRegistered={hasRegistered}
+                hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 isLegacyMM={isLegacyMM}
                 submissionEnded={submissionEnded}
@@ -568,14 +556,14 @@ class ChallengeDetailPageContainer extends React.Component {
               <MySubmissions
                 challengesUrl={challengesUrl}
                 challenge={challenge}
-                hasRegistered={hasRegistered}
+                hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 submissionEnded={submissionEnded}
                 isLegacyMM={isLegacyMM}
                 loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                 auth={auth}
                 loadMMSubmissions={loadMMSubmissions}
-                mySubmissions={hasRegistered ? mySubmissions : []}
+                mySubmissions={challenge.isRegistered ? mySubmissions : []}
                 reviewTypes={reviewTypes}
                 submissionsSort={mySubmissionsSort}
                 onSortChange={sort => this.setState({ mySubmissionsSort: sort })}
@@ -732,7 +720,7 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { handle: submission.submitter }),
+        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
       }));
     }
 
@@ -748,14 +736,14 @@ function mapStateToProps(state, props) {
             return mySubmission;
           });
         }
-        let submissionDetail = _.find(challenge.submissions, { submitter: submission.member });
+        let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
         if (!submissionDetail) {
           // get submission detail from submissions challenge detail
-          submissionDetail = _.find(challenge.submissions, s => (`${s.submitterId}` === `${submission.member}`));
+          submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
         }
 
         if (submissionDetail) {
-          member = submissionDetail.submitter;
+          member = submissionDetail.createdBy;
           ({ registrant } = submissionDetail);
         }
 

@@ -83,6 +83,7 @@ export class ListingContainer extends React.Component {
       getRestActiveChallenges,
       meta,
       loadingActiveChallengesUUID,
+      selectBucketDone,
     } = this.props;
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
@@ -104,6 +105,10 @@ export class ListingContainer extends React.Component {
       && BUCKETS.PAST !== activeBucket) {
       getRestActiveChallenges(auth.tokenV3);
     }
+
+    setTimeout(() => {
+      selectBucketDone();
+    }, 10);
   }
 
   componentWillUnmount() {
@@ -198,6 +203,7 @@ export class ListingContainer extends React.Component {
       setSort,
       sorts,
       hideTcLinksInSidebarFooter,
+      isBucketSwitching,
     } = this.props;
 
     const { tokenV3 } = auth;
@@ -298,6 +304,7 @@ export class ListingContainer extends React.Component {
           sorts={sorts}
           groupIds={groupIds}
           auth={auth}
+          isBucketSwitching={isBucketSwitching}
         />
       </div>
     );
@@ -323,6 +330,7 @@ ListingContainer.defaultProps = {
   prizeMode: 'money-usd',
   queryBucket: BUCKETS.ALL,
   meta: {},
+  isBucketSwitching: false,
 };
 
 ListingContainer.propTypes = {
@@ -391,6 +399,8 @@ ListingContainer.propTypes = {
   expandTag: PT.func.isRequired,
   queryBucket: PT.string,
   meta: PT.shape(),
+  isBucketSwitching: PT.bool,
+  selectBucketDone: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -432,6 +442,7 @@ const mapStateToProps = (state, ownProps) => {
     selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,
+    isBucketSwitching: cl.sidebar.isBucketSwitching,
     expandedTags: cl.expandedTags,
     meta: cl.meta,
   };
@@ -471,6 +482,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getReviewOpportunitiesDone(uuid, page, token));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    selectBucketDone: () => dispatch(sa.selectBucketDone()),
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),
