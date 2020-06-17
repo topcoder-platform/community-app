@@ -139,6 +139,16 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
+function getAllUserChallengesInit(uuid) {
+  return uuid;
+}
+
+function getAllUserChallengesDone(uuid, tokenV3) {
+  const memberId = decodeToken(tokenV3).userId;
+  const filter = { status: 'Active', memberId };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
+}
+
 /**
  * Gets 1 page of active challenges (including marathon matches) from the backend.
  * Once this action is completed any active challenges saved to the state before
@@ -315,6 +325,9 @@ export default createActions({
 
     GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
+
+    GET_ALL_USER_CHALLENGES_INIT: getAllUserChallengesInit,
+    GET_ALL_USER_CHALLENGES_DONE: getAllUserChallengesDone,
 
     GET_ALL_RECOMMENDED_CHALLENGES_INIT: getAllRecommendedChallengesInit,
     GET_ALL_RECOMMENDED_CHALLENGES_DONE: getAllRecommendedChallengesDone,
