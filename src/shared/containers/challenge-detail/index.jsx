@@ -720,7 +720,7 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { handle: submission.submitter }),
+        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
       }));
     }
 
@@ -736,14 +736,14 @@ function mapStateToProps(state, props) {
             return mySubmission;
           });
         }
-        let submissionDetail = _.find(challenge.submissions, { submitter: submission.member });
+        let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
         if (!submissionDetail) {
           // get submission detail from submissions challenge detail
-          submissionDetail = _.find(challenge.submissions, s => (`${s.submitterId}` === `${submission.member}`));
+          submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
         }
 
         if (submissionDetail) {
-          member = submissionDetail.submitter;
+          member = submissionDetail.createdBy;
           ({ registrant } = submissionDetail);
         }
 

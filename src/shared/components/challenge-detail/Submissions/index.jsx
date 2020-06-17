@@ -150,7 +150,9 @@ class SubmissionsComponent extends React.Component {
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
     if (field === 'Initial / Final Score') {
-      isHaveFinalScore = _.some(submissions, s => !_.isNil(s.submissions[0].finalScore));
+      isHaveFinalScore = _.some(submissions, s => !_.isNil(
+        s.reviewSummation && s.reviewSummation[0].aggregateScore,
+      ));
     }
     return sortList(submissions, field, sort, (a, b) => {
       let valueA = 0;
@@ -173,16 +175,16 @@ class SubmissionsComponent extends React.Component {
             valueA = `${a.member || ''}`.toLowerCase();
             valueB = `${b.member || ''}`.toLowerCase();
           } else {
-            valueA = `${a.submitter}`.toLowerCase();
-            valueB = `${b.submitter}`.toLowerCase();
+            valueA = `${a.createdBy}`.toLowerCase();
+            valueB = `${b.createdBy}`.toLowerCase();
           }
           valueIsString = true;
           break;
         }
         case 'Time':
         case 'Submission Date': {
-          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
-          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
+          valueA = new Date(a.created);
+          valueB = new Date(b.created);
           break;
         }
         case 'Initial / Final Score': {
@@ -190,8 +192,8 @@ class SubmissionsComponent extends React.Component {
             valueA = getFinalScore(a);
             valueB = getFinalScore(b);
           } else {
-            valueA = a.submissions[0].initialScore;
-            valueB = b.submissions[0].initialScore;
+            valueA = !_.isEmpty(a.review) && a.review[0].score;
+            valueB = !_.isEmpty(b.review) && b.review[0].score;
           }
           break;
         }
@@ -311,12 +313,12 @@ class SubmissionsComponent extends React.Component {
               {`#${s.submissionId}`}
             </a>
             <a
-              href={`${window.origin}/members/${s.submitter}`}
+              href={`${window.origin}/members/${s.createdBy}`}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
               style={_.get(s, 'colorStyle')}
             >
-              {s.submitter}
+              {s.createdBy}
             </a>
           </div>
           <div>
@@ -702,7 +704,7 @@ class SubmissionsComponent extends React.Component {
         {
           !isMM && (
             sortedSubmissions.map(s => (
-              <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
+              <div key={s.createdBy + s.created} styleName="row">
                 {
                   !isF2F && !isBugHunt && (
                     <div styleName="col-2" style={s.colorStyle}>
@@ -712,24 +714,32 @@ class SubmissionsComponent extends React.Component {
                 }
                 <div styleName="col-3">
                   <a
-                    href={`${window.origin}/members/${s.submitter}`}
+                    href={`${window.origin}/members/${s.createdBy}`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     rel="noopener noreferrer"
                     styleName="handle"
                     style={s.colorStyle}
                   >
-                    {s.submitter}
+                    {s.createdBy}
                   </a>
                 </div>
                 <div styleName="col-4">
-                  {moment(s.submissions[0].submissionTime).format('MMM DD, YYYY HH:mm')}
+                  {moment(s.created).format('MMM DD, YYYY HH:mm')}
                 </div>
                 <div styleName="col-5">
-                  {s.submissions[0].initialScore ? s.submissions[0].initialScore.toFixed(2) : 'N/A'}
+                  {
+                    (!_.isEmpty(s.review) && s.review[0].score)
+                      ? s.review[0].score.toFixed(2)
+                      : 'N/A'
+                  }
                   &zwnj;
                   &zwnj;/
                   &zwnj;
-                  {s.submissions[0].finalScore ? s.submissions[0].finalScore.toFixed(2) : 'N/A'}
+                  {
+                    (s.reviewSummation && s.reviewSummation[0].aggregateScore)
+                      ? s.reviewSummation[0].aggregateScore.toFixed(2)
+                      : 'N/A'
+                  }
                 </div>
               </div>
             ))
