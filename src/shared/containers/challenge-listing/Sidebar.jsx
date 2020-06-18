@@ -59,10 +59,10 @@ export class SidebarContainer extends React.Component {
       tokenV2,
       updateAllSavedFilters,
       updateSavedFilter,
-      user,
+      userChallenges,
     } = this.props;
 
-    const buckets = getBuckets(user && user.userId);
+    const buckets = getBuckets(userChallenges);
 
     if (extraBucket) {
       buckets[extraBucket.name] = extraBucket;
@@ -115,6 +115,7 @@ SidebarContainer.defaultProps = {
   selectedCommunityId: '',
   tokenV2: null,
   user: null,
+  userChallenges: [],
 };
 
 SidebarContainer.propTypes = {
@@ -135,6 +136,7 @@ SidebarContainer.propTypes = {
   updateAllSavedFilters: PT.func.isRequired,
   updateSavedFilter: PT.func.isRequired,
   user: PT.shape(),
+  userChallenges: PT.arrayOf(PT.string),
 };
 
 function mapDispatchToProps(dispatch) {
@@ -167,6 +169,7 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,
+    userChallenges: state.challengeListing.userChallenges,
   };
 }
 

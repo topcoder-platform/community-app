@@ -115,6 +115,7 @@ export default function ChallengeListing(props) {
         sorts={props.sorts}
         loadMoreActive={props.loadMoreActive}
         loadingActiveChallenges={props.loadingChallenges}
+        userChallenges={props.userChallenges}
       />
     );
   }
@@ -200,6 +201,7 @@ ChallengeListing.defaultProps = {
   expandTag: null,
   loadMoreActive: null,
   isBucketSwitching: false,
+  userChallenges: [],
 };
 
 ChallengeListing.propTypes = {
@@ -236,4 +238,5 @@ ChallengeListing.propTypes = {
   auth: PT.shape(),
   loadMoreActive: PT.func,
   isBucketSwitching: PT.bool,
+  userChallenges: PT.arrayOf(PT.string),
 };
