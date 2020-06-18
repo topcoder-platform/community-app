@@ -366,8 +366,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesInit(uuid));
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
+      dispatch(challengeListingActions.challengeListing.getAllUserChallengesInit(uuid));
+      dispatch(challengeListingActions.challengeListing.getAllUserChallengesDone(uuid, tokenV3));
     },
     getCommunityList: (auth) => {
       const uuid = shortId();

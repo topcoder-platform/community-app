@@ -130,9 +130,13 @@ export default class MyChallenges extends React.Component {
   }
 }
 
+MyChallenges.defaultProps = {
+  challenges: [],
+};
+
 MyChallenges.propTypes = {
   challengeFilter: PT.string.isRequired,
-  challenges: PT.arrayOf(PT.object).isRequired,
+  challenges: PT.arrayOf(PT.object),
   challengesLoading: PT.bool.isRequired,
   communities: PT.arrayOf(PT.object).isRequired,
   communitiesLoading: PT.bool.isRequired,
