@@ -92,7 +92,7 @@ const filestackDataProp = PT.shape({
  */
 SubmissionsPageContainer.propTypes = {
   auth: PT.shape().isRequired,
-  currentPhases: PT.arrayOf(PT.object).isRequired,
+  phases: PT.arrayOf(PT.object).isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
     loadingUuid: PT.string.isRequired,
@@ -144,12 +144,9 @@ SubmissionsPageContainer.propTypes = {
  */
 const mapStateToProps = (state, ownProps) => {
   const { submission } = state.page;
-  const allPhases = state.challenge.details.allPhases || state.challenge.details.phases || [];
-  const currentPhases = state.challenge.details.currentPhases || [];
   return {
     auth: state.auth,
-    currentPhases,
-    allPhases,
+    phases: state.challenge.details.phases || [],
     communitiesList: state.tcCommunities.list,
     /* Older stuff below. */
     userId: state.auth.user ? state.auth.user.userId : '',

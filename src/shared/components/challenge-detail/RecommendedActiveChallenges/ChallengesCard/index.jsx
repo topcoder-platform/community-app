@@ -33,7 +33,6 @@ export default function ChallengesCard({
   const {
     id,
     legacy,
-    allPhases,
     phases,
   } = challenge;
 
@@ -45,8 +44,7 @@ export default function ChallengesCard({
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
 
-  const checkPhases = (phases && phases.length > 0 ? phases : allPhases);
-  const statusPhase = checkPhases
+  const statusPhase = phases
     .filter(p => p.name !== 'Registration')
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 

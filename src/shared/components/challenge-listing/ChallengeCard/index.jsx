@@ -56,7 +56,7 @@ function ChallengeCard({
     track = 'DATA_SCIENCE';
   }
 
-  const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
+  const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
 
   return (

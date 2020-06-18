@@ -107,7 +107,6 @@ MySubmissionsView.propTypes = {
     submissionViewable: PT.string,
     track: PT.string.isRequired,
     registrants: PT.any,
-    allPhases: PT.any,
     subTrack: PT.any,
   }).isRequired,
   hasRegistered: PT.bool.isRequired,

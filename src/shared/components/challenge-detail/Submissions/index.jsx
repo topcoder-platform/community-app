@@ -241,7 +241,7 @@ class SubmissionsComponent extends React.Component {
       challenge,
     } = this.props;
 
-    const allPhases = challenge.allPhases || challenge.phases || [];
+    const allPhases = challenge.phases || [];
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
@@ -783,7 +783,6 @@ SubmissionsComponent.propTypes = {
       track: PT.string.isRequired,
     }),
     registrants: PT.any,
-    allPhases: PT.any,
     phases: PT.any,
     subTrack: PT.any,
   }).isRequired,

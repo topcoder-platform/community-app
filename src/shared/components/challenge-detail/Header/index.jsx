@@ -496,7 +496,6 @@ ChallengeHeader.propTypes = {
     numOfSubmissions: PT.any,
     status: PT.any,
     appealsEndDate: PT.any,
-    allPhases: PT.any,
     phases: PT.any,
     roundId: PT.any,
     prizeSets: PT.any,

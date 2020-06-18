@@ -45,7 +45,7 @@ export default function SubmissionManagement(props) {
 
   const isDesign = challengeType === 'design';
   const isDevelop = challengeType === 'develop';
-  const currentPhase = _.last(challenge.currentPhases || []) || {};
+  const currentPhase = _.find(challenge.phases || [], { isOpen: true });
 
   const now = moment();
   const end = moment(currentPhase.scheduledEndDate);

@@ -94,7 +94,7 @@ function getOgImage(challenge, challengeTypes) {
   switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
-      const submission = (challenge.allPhases || challenge.phases || [])
+      const submission = (challenge.phases || [])
         .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
       if (submission) {
         if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
@@ -357,7 +357,7 @@ class ChallengeDetailPageContainer extends React.Component {
       legacy,
       legacyId,
       status,
-      allPhases,
+      phases,
       metadata,
     } = challenge;
 
@@ -401,15 +401,9 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
 
-    const phases = {};
-    if (allPhases) {
-      allPhases.forEach((phase) => {
-        phases[_.camelCase(phase.phaseType)] = phase;
-      });
-    }
     const submissionEnded = status === 'COMPLETED'
-      || (_.get(phases, 'submission.phaseStatus') !== 'Open'
-        && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
+    || (!_.some(phases, { name: 'Submission', isOpen: true })
+      && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
     const { prizeSets } = challenge;
     let challengePrizes = [];
@@ -844,7 +838,7 @@ const mapDispatchToProps = (dispatch) => {
         .then((res) => {
           const ch = res.payload;
           if (ch.track === 'DESIGN') {
-            const p = ch.allPhases || ch.phases || []
+            const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
               dispatch(a.fetchCheckpointsInit());
@@ -868,7 +862,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
           if (challengeDetails.track === 'DESIGN') {
-            const p = challengeDetails.allPhases || challengeDetails.phases || []
+            const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
