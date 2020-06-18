@@ -240,9 +240,10 @@ async function getMenuDone(menuProps) {
   } else {
     menu = menuData;
   }
-  // add the preconfigured secondary menus
-  menu[0].secondaryMenuForLoggedInUser = config.SECONDARY_MENU_FOR_LOGGED_USER;
-  menu[0].secondaryMenuForGuest = config.SECONDARY_MENU_FOR_GUEST;
+  // add the preconfigured secondary menus?
+  if (fields.showSecondaryNaviMenu) {
+    menu[0].secondaryMenu = config.HEADER_MENU[1].secondaryMenu;
+  }
 
   return {
     id: menuProps.id,
