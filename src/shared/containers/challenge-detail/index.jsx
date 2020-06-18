@@ -365,6 +365,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
 
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
+
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
     if (challenge.prizes && challenge.prizes.length) {
@@ -445,6 +447,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty
             && (
             <ChallengeHeader
+              isLoggedIn={isLoggedIn}
               challenge={challenge}
               challengeId={challengeId}
               challengeTypes={challengeTypes}
@@ -523,7 +526,7 @@ class ChallengeDetailPageContainer extends React.Component {
             )
           }
           {
-            !isEmpty && selectedTab === DETAIL_TABS.SUBMISSIONS
+            !isEmpty && isLoggedIn && selectedTab === DETAIL_TABS.SUBMISSIONS
             && (
               <Submissions
                 challenge={challenge}
