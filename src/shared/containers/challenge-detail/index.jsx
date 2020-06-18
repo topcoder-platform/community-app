@@ -843,12 +843,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.track === 'DESIGN') {
+          if (ch.legacy.track === 'DESIGN') {
             const p = ch.allPhases || ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
               dispatch(a.fetchCheckpointsInit());
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, ch.legacyId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
           if (ch.status === 'COMPLETED') {
@@ -867,11 +867,11 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.track === 'DESIGN') {
+          if (challengeDetails.legacy.track === 'DESIGN') {
             const p = challengeDetails.allPhases || challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeDetails.legacyId));
             }
           }
           return challengeDetails;
