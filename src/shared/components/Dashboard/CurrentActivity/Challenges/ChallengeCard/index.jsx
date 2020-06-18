@@ -45,18 +45,19 @@ export default function ChallengeCard({
   // unregisterFromChallenge,
 }) {
   const {
-    currentPhases,
+    phases,
     legacy,
     id,
     registrationStartDate,
     status,
-    subTrack,
     userDetails,
   } = challenge;
 
+  const { track } = legacy;
+
   let EventTag;
   // let TrackTag;
-  switch (legacy.track) {
+  switch (track) {
     case 'DATA_SCIENCE':
       EventTag = DataScienceTrackEventTag;
       // TrackTag = DataScienceTrackTag;
@@ -70,6 +71,7 @@ export default function ChallengeCard({
       // TrackTag = DevelopmentTrackTag;
       break;
     default:
+      EventTag = DevelopmentTrackEventTag;
   }
 
   const forumEndpoint = _.toLower(legacy.track) === 'design'
@@ -94,7 +96,7 @@ export default function ChallengeCard({
 
   const submitter = roles.includes('Submitter');
   const submitted = _.get(userDetails, 'hasUserSubmittedForReview');
-  const nextPhase = currentPhases && _.last(currentPhases);
+  const nextPhase = phases && _.last(phases);
 
   const nextPhaseType = _.get(nextPhase, 'phaseType');
 
@@ -158,14 +160,14 @@ export default function ChallengeCard({
             <EventTag
               onClick={
                 () => setImmediate(
-                  () => setChallengeListingFilter({ subtracks: [subTrack] }),
+                  () => setChallengeListingFilter({ subtracks: [track] }),
                 )
               }
               theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
-                encodeURIComponent(subTrack)}`}
+                encodeURIComponent(track)}`}
             >
-              {normalizeSubTrackTagForRendering(challenge.subTrack)}
+              {normalizeSubTrackTagForRendering(track)}
             </EventTag>
             {
               isTco ? (
@@ -280,12 +282,11 @@ ChallengeCard.propTypes = {
     }).isRequired,
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     name: PT.string.isRequired,
-    currentPhases: PT.any,
+    phases: PT.any,
     registrationStartDate: PT.any,
     status: PT.any,
     userDetails: PT.any,
     events: PT.any,
-    subTrack: PT.string.isRequired,
   }).isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
