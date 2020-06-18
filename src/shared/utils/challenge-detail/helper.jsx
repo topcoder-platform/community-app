@@ -208,7 +208,7 @@ export function getDisplayRecommendedChallenges(
   let results = _.filter(displayRecommendedChallenges, (c) => {
     let isValid = filter(c);
     if (isValid && userId) {
-      isValid = !c.users[userId] && c.id !== challenge.id;
+      isValid = c.id !== challenge.id && !c.users[userId];
     }
     return isValid;
   });

@@ -19,6 +19,7 @@ function getSelectorStyle(selectedView, currentView) {
 
 export default function ChallengeViewSelector(props) {
   const {
+    isLoggedIn,
     challenge,
     checkpointCount,
     numOfRegistrants,
@@ -123,7 +124,7 @@ export default function ChallengeViewSelector(props) {
           )
         }
         {
-          numOfSubmissions ? (
+          (numOfSubmissions && isLoggedIn) ? (
             <a
               tabIndex="0"
               role="tab"
@@ -186,6 +187,7 @@ export default function ChallengeViewSelector(props) {
 }
 
 ChallengeViewSelector.defaultProps = {
+  isLoggedIn: false,
   challenge: {},
   checkpointCount: 0,
   numOfRegistrants: 0,
@@ -194,6 +196,7 @@ ChallengeViewSelector.defaultProps = {
 };
 
 ChallengeViewSelector.propTypes = {
+  isLoggedIn: PT.bool,
   challenge: PT.shape({
     subTrack: PT.any,
     details: PT.shape({

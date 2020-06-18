@@ -365,6 +365,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
 
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
+
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
     if (challenge.prizes && challenge.prizes.length) {
@@ -439,6 +441,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty
             && (
             <ChallengeHeader
+              isLoggedIn={isLoggedIn}
               challenge={challenge}
               challengeId={challengeId}
               challengeTypes={challengeTypes}
@@ -517,7 +520,7 @@ class ChallengeDetailPageContainer extends React.Component {
             )
           }
           {
-            !isEmpty && selectedTab === DETAIL_TABS.SUBMISSIONS
+            !isEmpty && isLoggedIn && selectedTab === DETAIL_TABS.SUBMISSIONS
             && (
               <Submissions
                 challenge={challenge}
@@ -714,7 +717,7 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { handle: submission.submitter }),
+        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
       }));
     }
 
@@ -730,14 +733,14 @@ function mapStateToProps(state, props) {
             return mySubmission;
           });
         }
-        let submissionDetail = _.find(challenge.submissions, { submitter: submission.member });
+        let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
         if (!submissionDetail) {
           // get submission detail from submissions challenge detail
-          submissionDetail = _.find(challenge.submissions, s => (`${s.submitterId}` === `${submission.member}`));
+          submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
         }
 
         if (submissionDetail) {
-          member = submissionDetail.submitter;
+          member = submissionDetail.createdBy;
           ({ registrant } = submissionDetail);
         }
 
@@ -837,12 +840,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.track === 'DESIGN') {
+          if (ch.legacy.track === 'DESIGN') {
             const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
               dispatch(a.fetchCheckpointsInit());
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, ch.legacyId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
           if (ch.status === 'COMPLETED') {
@@ -861,11 +864,11 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.track === 'DESIGN') {
+          if (challengeDetails.legacy.track === 'DESIGN') {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeDetails.legacyId));
             }
           }
           return challengeDetails;

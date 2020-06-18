@@ -34,6 +34,7 @@ const DAY_MS = 24 * HOUR_MS;
 
 export default function ChallengeHeader(props) {
   const {
+    isLoggedIn,
     challenge,
     challengesUrl,
     challengeTypes,
@@ -447,6 +448,7 @@ export default function ChallengeHeader(props) {
           }
         </div>
         <TabSelector
+          isLoggedIn={isLoggedIn}
           challenge={challenge}
           onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
@@ -465,6 +467,7 @@ export default function ChallengeHeader(props) {
 }
 
 ChallengeHeader.defaultProps = {
+  isLoggedIn: false,
   checkpoints: {},
   isMenuOpened: false,
   hasThriveArticles: false,
@@ -473,6 +476,7 @@ ChallengeHeader.defaultProps = {
 };
 
 ChallengeHeader.propTypes = {
+  isLoggedIn: PT.bool,
   checkpoints: PT.shape(),
   challenge: PT.shape({
     id: PT.string.isRequired,

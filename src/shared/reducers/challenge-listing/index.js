@@ -52,6 +52,24 @@ function onGetAllActiveChallengesDone(state, { error, payload }) {
   };
 }
 
+function onGetAllUserChallengesInit(state, { payload }) {
+  return { ...state, loadingActiveChallengesUUID: payload };
+}
+function onGetAllUserChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { challenges } = payload || [];
+
+  return {
+    ...state,
+    challenges,
+    lastUpdateOfActiveChallenges: Date.now(),
+    loadingActiveChallengesUUID: '',
+  };
+}
+
 /**
  * Called when 1st page of ative challenges is loaded from `/challenges` api
  * @param {*} state
@@ -501,6 +519,9 @@ function create(initialState) {
 
     [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
     [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
+
+    [a.getAllUserChallengesInit]: onGetAllUserChallengesInit,
+    [a.getAllUserChallengesDone]: onGetAllUserChallengesDone,
 
     [a.getAllRecommendedChallengesInit]: onGetAllRecommendedChallengesInit,
     [a.getAllRecommendedChallengesDone]: onGetAllRecommendedChallengesDone,
