@@ -69,6 +69,7 @@ export default class MyChallenges extends React.Component {
       tab,
       unregisterFromChallenge,
       userGroups,
+      userResources,
     } = this.props;
 
     const myCommunities = communities.filter(x => _.intersection(userGroups, x.groupIds).length)
@@ -105,6 +106,7 @@ export default class MyChallenges extends React.Component {
               switchChallengeFilter={switchChallengeFilter}
               switchShowChallengeFilter={switchShowChallengeFilter}
               unregisterFromChallenge={unregisterFromChallenge}
+              userResources={userResources}
             />
           ) : null
         }
@@ -132,6 +134,7 @@ export default class MyChallenges extends React.Component {
 
 MyChallenges.defaultProps = {
   challenges: [],
+  userResources: [],
 };
 
 MyChallenges.propTypes = {
@@ -152,4 +155,5 @@ MyChallenges.propTypes = {
   tab: PT.oneOf(_.values(TABS)).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   userGroups: PT.arrayOf(PT.string).isRequired,
+  userResources: PT.arrayOf(PT.shape()),
 };

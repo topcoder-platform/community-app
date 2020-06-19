@@ -25,7 +25,7 @@ import { updateChallengeType } from 'utils/challenge';
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 
-import { isTokenExpired } from 'tc-accounts';
+import { isTokenExpired, decodeToken } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
@@ -62,11 +62,16 @@ export class DashboardPageContainer extends React.Component {
     const {
       challengeFilter,
       switchChallengeFilter,
+      getMemberResources,
+      tokenV3,
     } = this.props;
 
     this.updateData(this.props);
 
     if (challengeFilter) switchChallengeFilter('');
+
+    const user = decodeToken(tokenV3);
+    getMemberResources(user.userId, tokenV3);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -187,7 +192,10 @@ export class DashboardPageContainer extends React.Component {
       userGroups,
       xlBadge,
       errorLoadingRss,
+      userResources,
     } = this.props;
+
+    // console.log('r', userResources);
 
     if (authenticating) return <LoadingIndicator />;
 
@@ -229,6 +237,7 @@ export class DashboardPageContainer extends React.Component {
         userGroups={userGroups.map(x => x.id)}
         xlBadge={xlBadge}
         errorLoadingRss={errorLoadingRss}
+        userResources={userResources ? userResources.resources : []}
       />
     );
   }
@@ -249,6 +258,7 @@ DashboardPageContainer.defaultProps = {
   tokenV2: null,
   tokenV3: null,
   errorLoadingRss: false,
+  userResources: {},
 };
 
 DashboardPageContainer.propTypes = {
@@ -302,6 +312,8 @@ DashboardPageContainer.propTypes = {
   userGroups: PT.arrayOf(PT.object).isRequired,
   xlBadge: PT.string.isRequired,
   errorLoadingRss: PT.bool,
+  getMemberResources: PT.func.isRequired,
+  userResources: PT.shape(),
 };
 
 function mapStateToProps(state, props) {
@@ -357,6 +369,7 @@ function mapStateToProps(state, props) {
     userGroups: _.get(state.auth.profile, 'groups', []),
     xlBadge: dash.xlBadge,
     errorLoadingRss: state.rss.errorLoadingRss,
+    userResources: state.members.userResources,
   };
 }
 
@@ -394,6 +407,11 @@ function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(members.getStatsInit(handle, uuid));
       dispatch(members.getStatsDone(handle, uuid, tokenV3));
+    },
+    getMemberResources: (memberId, tokenV3) => {
+      const uuid = shortId();
+      dispatch(members.getUserResourcesInit(memberId, uuid));
+      dispatch(members.getUserResourcesDone(memberId, tokenV3, uuid));
     },
     getSrms: (handle, tokenV3) => {
       const uuid = shortId();

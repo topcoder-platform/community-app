@@ -7,6 +7,9 @@ import NumSubmissions from
   'components/challenge-listing/ChallengeCard/NumSubmissions';
 import PT from 'prop-types';
 import React from 'react';
+import {
+  getTimeLeft,
+} from 'utils/challenge-detail/helper';
 
 import { config, Link } from 'topcoder-react-utils';
 
@@ -23,12 +26,6 @@ import {
 
 import style from './style.scss';
 
-/* Holds day and hour range in ms. */
-const HOUR_MS = 60 * 60 * 1000;
-const DAY_MS = 24 * HOUR_MS;
-
-const ALERT_TIME = 24 * HOUR_MS;
-
 function normalizeSubTrackTagForRendering(subTrack) {
   let x;
   switch (subTrack) {
@@ -43,14 +40,15 @@ export default function ChallengeCard({
   selectChallengeDetailsTab,
   setChallengeListingFilter,
   // unregisterFromChallenge,
+  userResources,
 }) {
   const {
     phases,
     legacy,
     id,
-    registrationStartDate,
     status,
     userDetails,
+    type,
   } = challenge;
 
   const { track } = legacy;
@@ -74,6 +72,9 @@ export default function ChallengeCard({
       EventTag = DevelopmentTrackEventTag;
   }
 
+  const STALLED_MSG = 'Stalled';
+  const DRAFT_MSG = 'In Draft';
+
   const forumEndpoint = _.toLower(legacy.track) === 'design'
     ? `/?module=ThreadList&forumID=${legacy.forumId}`
     : `/?module=Category&categoryID=${legacy.forumId}`;
@@ -82,6 +83,7 @@ export default function ChallengeCard({
   && challenge.events.find(x => x.eventName && x.eventName.match(/tco\d{2}/));
 
   const roles = _.get(userDetails, 'roles') || [];
+  const role = _.find(userResources, { id }) || {};
 
   const showDirectLink = _.intersection(roles, [
     'Approver',
@@ -94,10 +96,11 @@ export default function ChallengeCard({
     'Reviewer',
   ]).length;
 
-  const submitter = roles.includes('Submitter');
+  const submitter = role.name === 'Submitter';
   const submitted = _.get(userDetails, 'hasUserSubmittedForReview');
   const nextPhase = phases && _.last(phases);
 
+  const submissionPhase = _.find(phases, { name: 'Submission' });
   const nextPhaseType = _.get(nextPhase, 'phaseType');
 
   if (submitted && _.intersection(nextPhaseType, [
@@ -105,52 +108,30 @@ export default function ChallengeCard({
     'Appeal Response',
   ]).length) showOrLink = true;
 
-  const submissionOpen = nextPhaseType === 'Submission';
+  const submissionOpen = moment(submissionPhase.scheduledEndDate).isSameOrAfter(new Date());
 
-  let statusMsg;
-  let deadlineMsg;
+  const allPhases = phases || [];
+  let statusPhase = allPhases
+    .filter(p => p.name !== 'Registration' && p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+
+  if (!statusPhase && type === 'FIRST_2_FINISH' && allPhases.length) {
+    statusPhase = _.clone(allPhases[0]);
+    statusPhase.name = 'Submission';
+  }
+
+  let phaseMessage = STALLED_MSG;
+  if (statusPhase) phaseMessage = statusPhase.name;
+  else if (status === 'Draft') phaseMessage = DRAFT_MSG;
+
   let msgStyleModifier = '';
   const now = moment();
-  if (nextPhase) {
-    statusMsg = nextPhase.name;
-    const deadlineEnd = moment(nextPhase.scheduledEndDate);
-    deadlineMsg = deadlineEnd.diff(now);
-    const late = deadlineMsg <= 0;
-    deadlineMsg = Math.abs(deadlineMsg);
+  const deadlineEnd = moment(nextPhase.scheduledEndDate);
+  const late = deadlineEnd.diff(now) <= 0;
+  const statusMsg = phaseMessage;
+  const deadlineMsg = getTimeLeft(statusPhase, 'to go').text;
 
-    if (late) msgStyleModifier = ' alert';
-    else if (deadlineMsg < ALERT_TIME) msgStyleModifier = ' warning';
-
-    let format;
-    if (deadlineMsg > DAY_MS) format = 'D[d] H[h]';
-    else if (deadlineMsg > HOUR_MS) format = 'H[h] m[min]';
-    else format = 'm[min] s[s]';
-
-    deadlineMsg = moment.duration(deadlineMsg).format(format);
-    deadlineMsg = late ? `Late for ${deadlineMsg}` : `Ends in ${deadlineMsg}`;
-  } else if (moment(registrationStartDate).isAfter(now)) {
-    deadlineMsg = moment(registrationStartDate).diff(now);
-    const late = deadlineMsg <= 0;
-    deadlineMsg = Math.abs(deadlineMsg);
-
-    if (late) msgStyleModifier = ' alert';
-    else if (deadlineMsg < ALERT_TIME) msgStyleModifier = ' warning';
-
-    let format;
-    if (deadlineMsg > DAY_MS) format = 'D[d] H[h]';
-    else if (deadlineMsg > HOUR_MS) format = 'H[h] m[min]';
-    else format = 'm[min] s[s]';
-
-    deadlineMsg = moment.duration(deadlineMsg).format(format);
-    deadlineMsg = late ? `Late by ${deadlineMsg}` : `Starts in ${deadlineMsg}`;
-
-    statusMsg = 'Scheduled';
-  } else if (status === 'Completed') {
-    statusMsg = 'Completed';
-  } else {
-    msgStyleModifier = ' alert';
-    statusMsg = 'Stalled';
-  }
+  if (late || phaseMessage === STALLED_MSG) msgStyleModifier = ' alert';
 
   return (
     <div styleName="container">
@@ -160,14 +141,14 @@ export default function ChallengeCard({
             <EventTag
               onClick={
                 () => setImmediate(
-                  () => setChallengeListingFilter({ subtracks: [track] }),
+                  () => setChallengeListingFilter({ subtracks: [type] }),
                 )
               }
               theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
-                encodeURIComponent(track)}`}
+                encodeURIComponent(type)}`}
             >
-              {normalizeSubTrackTagForRendering(track)}
+              {normalizeSubTrackTagForRendering(type)}
             </EventTag>
             {
               isTco ? (
@@ -267,12 +248,16 @@ export default function ChallengeCard({
       </div>
       <div>
         <div styleName="roles">
-          {roles.join(', ')}
+          { role.name }
         </div>
       </div>
     </div>
   );
 }
+
+ChallengeCard.defaultProps = {
+  userResources: [],
+};
 
 ChallengeCard.propTypes = {
   challenge: PT.shape({
@@ -287,8 +272,10 @@ ChallengeCard.propTypes = {
     status: PT.any,
     userDetails: PT.any,
     events: PT.any,
+    type: PT.string,
   }).isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   // unregisterFromChallenge: PT.func.isRequired,
+  userResources: PT.arrayOf(PT.shape()),
 };
