@@ -20,20 +20,20 @@ function SubmissionsPage(props) {
     challengeName,
     challengesUrl,
     status,
-    currentPhases,
+    phases,
     winners,
     handle,
   } = props;
 
   const submissionEnded = status === 'COMPLETED'
-    || (!_.some(currentPhases, { phaseType: 'Submission', phaseStatus: 'Open' })
-      && !_.some(currentPhases, { phaseType: 'Checkpoint Submission', phaseStatus: 'Open' }));
+    || (!_.some(phases, { name: 'Submission', isOpen: true })
+      && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
   const hasFirstPlacement = !_.isEmpty(winners) && _.some(winners, { placement: 1, handle });
 
   let canSubmitFinalFixes = false;
-  if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
-    canSubmitFinalFixes = _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
+  if (hasFirstPlacement && !_.isEmpty(phases)) {
+    canSubmitFinalFixes = _.some(phases, { phaseType: 'Final Fix', isOpen: true });
   }
 
   const submissionPermitted = !submissionEnded || canSubmitFinalFixes;
@@ -108,8 +108,7 @@ SubmissionsPage.propTypes = {
   submissionFilestackData: filestackDataProp.isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
-  currentPhases: PT.arrayOf(PT.object).isRequired,
-  allPhases: PT.arrayOf(PT.object).isRequired,
+  phases: PT.arrayOf(PT.object).isRequired,
 };
 
 export default SubmissionsPage;

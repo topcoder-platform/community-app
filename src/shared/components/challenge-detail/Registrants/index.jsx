@@ -78,7 +78,7 @@ export default class Registrants extends React.Component {
     const {
       challenge,
     } = this.props;
-    const checkpointPhase = (challenge.allPhases || challenge.phases || []).find(x => x.name === 'Checkpoint Submission');
+    const checkpointPhase = (challenge.phases || []).find(x => x.name === 'Checkpoint Submission');
     return moment(checkpointPhase
       ? checkpointPhase.actualEndDate || checkpointPhase.scheduledEndDate : 0);
   }
@@ -487,7 +487,6 @@ Registrants.propTypes = {
       name: PT.string.isRequired,
       scheduledEndDate: PT.string,
     })).isRequired,
-    allPhases: PT.arrayOf(PT.shape()),
     checkpoints: PT.arrayOf(PT.shape()),
     legacy: PT.shape({
       track: PT.any,

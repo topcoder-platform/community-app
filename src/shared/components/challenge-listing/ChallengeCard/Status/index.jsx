@@ -131,7 +131,7 @@ export default function ChallengeStatus(props) {
       challenge,
       detailLink,
     } = props;
-    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
+    const timeDiff = getTimeLeft((challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
