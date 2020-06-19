@@ -319,6 +319,31 @@ function getSrmsDone(uuid, handle, params, tokenV3) {
   });
 }
 
+/**
+ * Payload creator for the action that initialize user registered challenges.
+ * @param {String} uuid
+ * @return {String}
+ */
+function getUserChallengesInit(uuid) {
+  return { uuid };
+}
+
+/**
+ * Payload creator for the action that loads user registered challenges.
+ * @param {String} userId
+ * @return {String}
+ */
+function getUserChallengesDone(userId, tokenV3) {
+  const service = getService(tokenV3);
+
+  return service.getUserResources(userId)
+    .then(item => item)
+    .catch((error) => {
+      fireErrorMessage('Error Getting User Challenges', error.content || error);
+      return Promise.reject(error);
+    });
+}
+
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
@@ -352,6 +377,9 @@ export default createActions({
 
     GET_SRMS_INIT: getSrmsInit,
     GET_SRMS_DONE: getSrmsDone,
+
+    GET_USER_CHALLENGES_INIT: getUserChallengesInit,
+    GET_USER_CHALLENGES_DONE: getUserChallengesDone,
 
     EXPAND_TAG: id => id,
 

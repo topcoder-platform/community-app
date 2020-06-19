@@ -480,6 +480,31 @@ function onGetSrmsDone(state, { error, payload }) {
 }
 
 /**
+ * Handles CHALLENGE_LISTING/GET_USER_CHALLENGES_INIT action
+ * @param {Object} state
+ * @return {Object} New state.
+ */
+function onGetUserChallengesInit(state) {
+  return {
+    ...state,
+    userChallenges: [],
+  };
+}
+
+/**
+ * Handles CHALLENGE_LISTING/GET_USER_CHALLENGES_DONE action
+ * @param {Object} state
+ * @param {Object} payload
+ * @return {Object} New state.
+ */
+function onGetUserChallengesDone(state, { payload }) {
+  return {
+    ...state,
+    userChallenges: payload,
+  };
+}
+
+/**
  * Creates a new Challenge Listing reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
  * @return Challenge Listing reducer.
@@ -555,6 +580,9 @@ function create(initialState) {
 
     [a.getSrmsInit]: onGetSrmsInit,
     [a.getSrmsDone]: onGetSrmsDone,
+
+    [a.getUserChallengesInit]: onGetUserChallengesInit,
+    [a.getUserChallengesDone]: onGetUserChallengesDone,
 
     [a.selectCommunity]: onSelectCommunity,
 
