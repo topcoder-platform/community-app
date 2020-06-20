@@ -214,6 +214,8 @@ export class ListingContainer extends React.Component {
 
     const { tokenV3 } = auth;
 
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
+
     let loadMorePast;
     if (!allPastChallengesLoaded) {
       loadMorePast = () => {
@@ -312,6 +314,7 @@ export class ListingContainer extends React.Component {
           auth={auth}
           isBucketSwitching={isBucketSwitching}
           userChallenges={userChallenges}
+          isLoggedIn={isLoggedIn}
         />
       </div>
     );

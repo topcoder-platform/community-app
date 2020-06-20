@@ -23,6 +23,7 @@ export default function NumSubmissions({
   newChallengeDetails,
   selectChallengeDetailsTab,
   openChallengesInNewTabs,
+  isLoggedIn,
 }) {
   let tip;
   const numOfSub = numOfSubmissions || 0;
@@ -31,7 +32,8 @@ export default function NumSubmissions({
     case 1: tip = '1 total submission'; break;
     default: tip = `${numOfSub} total submissions`;
   }
-  const query = numOfSub ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
+
+  const query = (numOfSub && isLoggedIn) ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
   const { track } = legacy;
   let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
@@ -81,4 +83,5 @@ NumSubmissions.propTypes = {
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   openChallengesInNewTabs: PT.bool,
+  isLoggedIn: PT.bool.isRequired,
 };

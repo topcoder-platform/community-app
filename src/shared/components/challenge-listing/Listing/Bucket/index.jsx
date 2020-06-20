@@ -47,6 +47,7 @@ export default function Bucket({
   expandTag,
   activeBucket,
   searchTimestamp,
+  isLoggedIn,
 }) {
   const refs = useRef([]);
   refs.current = [];
@@ -113,6 +114,7 @@ export default function Bucket({
       expandedTags={expandedTags}
       expandTag={expandTag}
       domRef={addToRefs}
+      isLoggedIn={isLoggedIn}
     />
   ));
 
@@ -219,4 +221,5 @@ Bucket.propTypes = {
   expandTag: PT.func,
   activeBucket: PT.string,
   searchTimestamp: PT.number,
+  isLoggedIn: PT.bool.isRequired,
 };

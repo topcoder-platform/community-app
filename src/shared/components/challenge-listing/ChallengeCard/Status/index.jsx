@@ -61,6 +61,7 @@ export default function ChallengeStatus(props) {
     selectChallengeDetailsTab,
     openChallengesInNewTabs,
     userId,
+    isLoggedIn,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -183,6 +184,7 @@ export default function ChallengeStatus(props) {
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
@@ -247,6 +249,7 @@ export default function ChallengeStatus(props) {
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
@@ -308,4 +311,5 @@ ChallengeStatus.propTypes = {
   selectChallengeDetailsTab: PT.func.isRequired,
   className: PT.string,
   userId: PT.string,
+  isLoggedIn: PT.bool.isRequired,
 };
