@@ -15,9 +15,12 @@ import CheckMark from '../icons/check-mark.svg';
 import ArrowDown from '../../../../assets/images/arrow-down.svg';
 import './style.scss';
 
+const BUG_HUNT = 'Bug Hunt';
+const F2F = 'First2Finish';
+
 function formatDate(date) {
   if (!date) return '-';
-  return moment(date).format('MMM DD, YYYY HH:mm');
+  return moment(date).add(4, 'hours').format('MMM DD, YYYY HH:mm');
 }
 
 function getDate(arr, handle) {
@@ -252,7 +255,10 @@ export default class Registrants extends React.Component {
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
     const isF2F = track.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = track.indexOf('BUG_HUNT') > -1 || type.toLowerCase === 'bug hunt';
+
+    const isBugHunt = track.indexOf('BUG_HUNT') > -1
+      || type === BUG_HUNT
+      || type === F2F;
     const placementPrizes = _.find(prizeSets, { type: 'placement' });
     const { prizes } = placementPrizes || [];
 
@@ -390,12 +396,7 @@ export default class Registrants extends React.Component {
               if (checkpoint) {
                 checkpoint = formatDate(checkpoint);
               }
-              let final = this.getFinal(r);
-              if (final) {
-                final = formatDate(final);
-              } else {
-                final = '-';
-              }
+              const final = this.getFinal(r);
 
               return (
                 <div styleName="row" key={r.memberHandle} role="row">
@@ -459,7 +460,7 @@ export default class Registrants extends React.Component {
                     </div>
                     <div>
                       <span role="cell">
-                        {final}
+                        {formatDate(final)}
                       </span>
                       {placement > 0 && (
                       <span role="cell" styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>
