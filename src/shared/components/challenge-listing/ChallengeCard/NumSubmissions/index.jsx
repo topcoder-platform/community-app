@@ -50,7 +50,7 @@ export default function NumSubmissions({
       >
         <Link
           onClick={() => (
-            selectChallengeDetailsTab(numOfSub
+            selectChallengeDetailsTab((numOfSub && isLoggedIn)
               ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
