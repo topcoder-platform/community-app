@@ -20,7 +20,7 @@ const F2F = 'First2Finish';
 
 function formatDate(date) {
   if (!date) return '-';
-  return moment(date).add(4, 'hours').format('MMM DD, YYYY HH:mm');
+  return moment(date).local().format('MMM DD, YYYY HH:mm');
 }
 
 function getDate(arr, handle) {
