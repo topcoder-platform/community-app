@@ -9,7 +9,7 @@ module.exports = {
     DOMAIN: 'topcoder.auth0.com',
   },
   CDN: {
-    PUBLIC: 'https://dlxczxztayxv6.cloudfront.net',
+    PUBLIC: 'https://community-app-cdn.topcoder.com',
   },
   COOKIES: {
     MAXAGE: 7,
