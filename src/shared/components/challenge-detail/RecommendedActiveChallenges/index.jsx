@@ -14,6 +14,7 @@ export default function RecommendedActiveChallenges({
   auth,
   expandedTags,
   expandTag,
+  isLoggedIn,
 }) {
   const items = _.map(challenges, (c, idx) => (
     <ChallengesCard
@@ -27,6 +28,7 @@ export default function RecommendedActiveChallenges({
       challengeTypes={challengeTypes}
       expandedTags={expandedTags}
       expandTag={expandTag}
+      isLoggedIn={isLoggedIn}
     />
   ));
 
@@ -69,4 +71,5 @@ RecommendedActiveChallenges.propTypes = {
   }).isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };

@@ -35,6 +35,7 @@ function ChallengeCard({
   selectChallengeDetailsTab,
   userId,
   domRef,
+  isLoggedIn,
 }) {
   const challenge = passedInChallenge;
   const {
@@ -117,6 +118,7 @@ function ChallengeCard({
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           userId={userId}
+          isLoggedIn={isLoggedIn}
         />
       </div>
     </div>
@@ -149,6 +151,7 @@ ChallengeCard.propTypes = {
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };
 
 export default ChallengeCard;

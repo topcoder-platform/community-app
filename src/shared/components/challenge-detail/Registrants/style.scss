@@ -163,8 +163,6 @@
   a,
   a:hover,
   a:visited {
-    color: $tc-dark-blue-110;
-
     &:hover {
       text-decoration: underline;
     }
@@ -280,4 +278,24 @@
   font-size: 14px;
   margin: 10px 10px 0 10px;
   padding-top: 5px;
+}
+
+.level-1 {
+  color: $tc-level-1 !important;
+}
+
+.level-2 {
+  color: $tc-level-2 !important;
+}
+
+.level-3 {
+  color: $tc-level-3 !important;
+}
+
+.level-4 {
+  color: $tc-level-4 !important;
+}
+
+.level-5 {
+  color: $tc-level-5 !important;
 }

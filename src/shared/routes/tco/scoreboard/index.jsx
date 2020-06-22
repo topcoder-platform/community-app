@@ -7,7 +7,7 @@ export default function ScoreboardRoute(props) {
     <AppChunk
       chunkName="scoreboard/chunk"
       exact
-      path="/scoreboard/:challengeId"
+      path="/scoreboard/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})"
       renderClientAsync={() => import(/* webpackChunkName: "scoreboard/chunk" */ 'containers/tco/scoreboard')
         .then(({ default: Scoreboard }) => (
           <Scoreboard {...props} />
