@@ -40,6 +40,7 @@ export default function ChallengeListing(props) {
     loadingChallenges,
     preListingMsg,
     isBucketSwitching,
+    isLoggedIn,
   } = props;
 
   let { challenges } = props;
@@ -116,6 +117,7 @@ export default function ChallengeListing(props) {
         loadMoreActive={props.loadMoreActive}
         loadingActiveChallenges={props.loadingChallenges}
         userChallenges={props.userChallenges}
+        isLoggedIn={isLoggedIn}
       />
     );
   }
@@ -239,4 +241,5 @@ ChallengeListing.propTypes = {
   loadMoreActive: PT.func,
   isBucketSwitching: PT.bool,
   userChallenges: PT.arrayOf(PT.string),
+  isLoggedIn: PT.bool.isRequired,
 };

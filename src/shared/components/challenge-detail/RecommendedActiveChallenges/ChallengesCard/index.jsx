@@ -29,6 +29,7 @@ export default function ChallengesCard({
   userHandle,
   expandedTags,
   expandTag,
+  isLoggedIn,
 }) {
   const {
     id,
@@ -101,6 +102,7 @@ export default function ChallengesCard({
               selectChallengeDetailsTab={_.noop}
               userHandle={userHandle}
               className={styles['challenge-status-container']}
+              isLoggedIn={isLoggedIn}
             />
           </div>
         </div>
@@ -132,4 +134,5 @@ ChallengesCard.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };

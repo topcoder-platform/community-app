@@ -602,6 +602,7 @@ class ChallengeDetailPageContainer extends React.Component {
             auth={auth}
             expandedTags={expandedTags}
             expandTag={expandTag}
+            isLoggedIn={isLoggedIn}
           />
         ) : null
         }
