@@ -51,8 +51,12 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
-    const { challenge, challengeId } = this.props;
-    if (!challenge.isRegistered) {
+    const {
+      isRegistered,
+      challengeId,
+    } = this.props;
+
+    if (!isRegistered) {
       return (
         <React.Fragment>
           <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED}>
@@ -61,6 +65,7 @@ class SubmissionsPageContainer extends React.Component {
         </React.Fragment>
       );
     }
+
     return (
       <SubmissionsPage
         {...this.props}
@@ -107,8 +112,9 @@ SubmissionsPageContainer.propTypes = {
   submit: PT.func.isRequired,
   challengeId: PT.number.isRequired,
   track: PT.string.isRequired,
-  challenge: PT.shap({}).isRequired,
+  challenge: PT.shape().isRequired,
   status: PT.string.isRequired,
+  isRegistered: PT.bool.isRequired,
   groups: PT.shape({}).isRequired,
   errorMsg: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
@@ -155,9 +161,10 @@ const mapStateToProps = (state, ownProps) => {
     challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
-    track: state.challenge.details.track,
+    track: state.challenge.details.legacy.track,
     challenge: state.challenge,
     status: state.challenge.details.status,
+    isRegistered: state.challenge.details.isRegistered,
     groups: state.challenge.details.groups,
     isSubmitting: submission.isSubmitting,
     submitDone: submission.submitDone,
