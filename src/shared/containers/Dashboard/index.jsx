@@ -193,6 +193,8 @@ export class DashboardPageContainer extends React.Component {
       xlBadge,
       errorLoadingRss,
       userResources,
+      challengeSubtracksMap,
+      getTypes,
     } = this.props;
 
     // console.log('r', userResources);
@@ -202,6 +204,10 @@ export class DashboardPageContainer extends React.Component {
     let announcementPreviewId;
     if (urlQuery) {
       ({ announcementPreviewId } = qs.parse(urlQuery));
+    }
+
+    if (_.isEmpty(challengeSubtracksMap)) {
+      getTypes();
     }
 
     return (
@@ -238,6 +244,7 @@ export class DashboardPageContainer extends React.Component {
         xlBadge={xlBadge}
         errorLoadingRss={errorLoadingRss}
         userResources={userResources ? userResources.resources : []}
+        challengeSubtracksMap={challengeSubtracksMap}
       />
     );
   }
@@ -314,6 +321,8 @@ DashboardPageContainer.propTypes = {
   errorLoadingRss: PT.bool,
   getMemberResources: PT.func.isRequired,
   userResources: PT.shape(),
+  challengeSubtracksMap: PT.shape().isRequired,
+  getTypes: PT.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -370,6 +379,7 @@ function mapStateToProps(state, props) {
     xlBadge: dash.xlBadge,
     errorLoadingRss: state.rss.errorLoadingRss,
     userResources: state.members.userResources,
+    challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
   };
 }
 
@@ -447,6 +457,11 @@ function mapDispatchToProps(dispatch) {
       const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
+    },
+    getTypes: () => {
+      const cl = challengeListingActions.challengeListing;
+      dispatch(cl.getChallengeTypesInit());
+      dispatch(cl.getChallengeTypesDone());
     },
   };
 }
