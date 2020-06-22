@@ -134,8 +134,8 @@ export class ListingContainer extends React.Component {
     );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
-    if (communityId && groupIds.length > 0) {
-      filter.groupIds = groupIds;
+    if (communityId && !_.isEmpty(groupIds)) {
+      filter.groups = groupIds;
     }
     return {
       back: mapToBackend(filter),
