@@ -48,7 +48,7 @@ export default function CS({ base, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/work/:challengeId(\\d{8}|\\d{5})`}
+                path={`${base}/work/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})`}
               />
               <Route
                 component={routeProps => Submission({
@@ -56,7 +56,7 @@ export default function CS({ base, meta }) {
                   challengesUrl: `${base}/work`,
                 })}
                 exact
-                path={`${base}/work/:challengeId(\\d{8}|\\d{5})/submit`}
+                path={`${base}/work/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/submit`}
               />
               <Route
                 component={routeProps => SubmissionManagement({
@@ -64,7 +64,7 @@ export default function CS({ base, meta }) {
                   challengesUrl: `${base}/work`,
                 })}
                 exact
-                path={`${base}/work/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+                path={`${base}/work/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
               />
               <Route
                 component={TermsDetail}
