@@ -15,9 +15,6 @@ import CheckMark from '../icons/check-mark.svg';
 import ArrowDown from '../../../../assets/images/arrow-down.svg';
 import './style.scss';
 
-const BUG_HUNT = 'Bug Hunt';
-const F2F = 'First2Finish';
-
 function formatDate(date) {
   if (!date) return '-';
   return moment(date).local().format('MMM DD, YYYY HH:mm');
@@ -245,7 +242,6 @@ export default class Registrants extends React.Component {
     const {
       prizeSets,
       legacy,
-      type,
     } = challenge;
 
     const { track } = legacy;
@@ -254,11 +250,7 @@ export default class Registrants extends React.Component {
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
-    const isF2F = track.indexOf('FIRST_2_FINISH') > -1;
 
-    const isBugHunt = track.indexOf('BUG_HUNT') > -1
-      || type === BUG_HUNT
-      || type === F2F;
     const placementPrizes = _.find(prizeSets, { type: 'placement' });
     const { prizes } = placementPrizes || [];
 
@@ -271,7 +263,7 @@ export default class Registrants extends React.Component {
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
           {
-            !isDesign && !isF2F && !isBugHunt && (
+            !isDesign && (
               <button
                 type="button"
                 onClick={() => {
@@ -401,7 +393,7 @@ export default class Registrants extends React.Component {
               return (
                 <div styleName="row" key={r.memberHandle} role="row">
                   {
-                    !isDesign && !isF2F && !isBugHunt && (
+                    !isDesign && (
                       <div styleName="col-2">
                         <div styleName="sm-only title">
                           Rating
@@ -421,7 +413,7 @@ export default class Registrants extends React.Component {
                     <span role="cell">
                       <a
                         href={`${window.origin}/members/${r.memberHandle}`}
-                        styleName={`level-${getRatingLevel(_.get(r, 'rating', 0))}`}
+                        styleName={isDesign ? '' : `level-${getRatingLevel(_.get(r, 'rating', 0))}`}
                         target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                       >
                         {r.memberHandle}
