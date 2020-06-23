@@ -211,15 +211,15 @@ function mapDispatchToProps(dispatch) {
     },
     loadTermDetails: (tokens, termId) => {
       dispatch(actions.terms.getTermDetailsInit(termId));
-      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV3));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
       dispatch(actions.terms.getDocuSignUrlInit(templateId));
-      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV3));
     },
     agreeTerm: (tokens, termId) => {
       dispatch(actions.terms.agreeTermInit(termId));
-      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV3));
     },
     signDocu: (id) => {
       dispatch(termsActions.terms.signDocu(id));

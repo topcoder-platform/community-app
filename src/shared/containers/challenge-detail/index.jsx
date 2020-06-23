@@ -583,7 +583,7 @@ class ChallengeDetailPageContainer extends React.Component {
         {legacyId && (
           <Terms
             defaultTitle="Challenge Prerequisites"
-            entity={{ type: 'challenge', id: legacyId.toString() }}
+            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
             instanceId={this.instanceId}
             description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
             register={() => {

@@ -28,8 +28,8 @@ const Sidebar = ({ terms }) => (
     </h4>
     {
       terms.map(term => (
-        <p key={term.termsOfUseId}>
-          <a href={`https://www.topcoder.com/challenges/terms/detail/${term.termsOfUseId}`} target="_blank" rel="noopener noreferrer">
+        <p key={term.id}>
+          <a href={`https://www.topcoder.com/challenges/terms/detail/${term.id}`} target="_blank" rel="noopener noreferrer">
             {term.title}
           </a>
         </p>
