@@ -231,13 +231,13 @@ workflows:
             branches:
               only:
                 - develop
+                - tco21
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
-              only:
-                - develop
+              only:                
                 - feature-contentful
       # This is alternate dev env for parallel testing
       - "build-qa":
@@ -245,7 +245,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop-on-qa-env
+                - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
