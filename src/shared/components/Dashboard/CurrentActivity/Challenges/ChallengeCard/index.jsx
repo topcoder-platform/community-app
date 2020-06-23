@@ -35,12 +35,18 @@ function normalizeSubTrackTagForRendering(subTrack) {
   return _.startCase(_.toLower(x));
 }
 
+function normalizeSubTrack(subTrack) {
+  const type = _.upperCase(subTrack);
+  return type.replace(/ /g, '_');
+}
+
 export default function ChallengeCard({
   challenge,
   selectChallengeDetailsTab,
   setChallengeListingFilter,
   // unregisterFromChallenge,
   userResources,
+  challengeSubtracksMap,
 }) {
   const {
     phases,
@@ -50,6 +56,8 @@ export default function ChallengeCard({
     userDetails,
     type,
   } = challenge;
+
+  const subTrackId = _.findKey(challengeSubtracksMap, { abbreviation: normalizeSubTrack(type) });
 
   const { track } = legacy;
 
@@ -100,7 +108,6 @@ export default function ChallengeCard({
   const submitted = _.get(userDetails, 'hasUserSubmittedForReview');
   const nextPhase = phases && _.last(phases);
 
-  const submissionPhase = _.find(phases, { name: 'Submission' });
   const nextPhaseType = _.get(nextPhase, 'phaseType');
 
   if (submitted && _.intersection(nextPhaseType, [
@@ -108,7 +115,7 @@ export default function ChallengeCard({
     'Appeal Response',
   ]).length) showOrLink = true;
 
-  const submissionOpen = moment(submissionPhase.scheduledEndDate).isSameOrAfter(new Date());
+  const isChallengeOpen = status === 'Active';
 
   const allPhases = phases || [];
   let statusPhase = allPhases
@@ -141,12 +148,12 @@ export default function ChallengeCard({
             <EventTag
               onClick={
                 () => setImmediate(
-                  () => setChallengeListingFilter({ subtracks: [type] }),
+                  () => setChallengeListingFilter({ subtracks: [subTrackId] }),
                 )
               }
               theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
-                encodeURIComponent(type)}`}
+                encodeURIComponent(subTrackId)}`}
             >
               {normalizeSubTrackTagForRendering(type)}
             </EventTag>
@@ -222,7 +229,7 @@ export default function ChallengeCard({
             ) : null
           }
           {
-            submitter && submissionOpen ? (
+            submitter && isChallengeOpen ? (
               <Button
                 size="sm"
                 theme={{ button: style.button }}
@@ -278,4 +285,5 @@ ChallengeCard.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   // unregisterFromChallenge: PT.func.isRequired,
   userResources: PT.arrayOf(PT.shape()),
+  challengeSubtracksMap: PT.shape().isRequired,
 };

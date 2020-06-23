@@ -28,6 +28,7 @@ export default function Challenges({
   switchShowChallengeFilter,
   unregisterFromChallenge,
   userResources,
+  challengeSubtracksMap,
 }) {
   if (challengesLoading) {
     return (
@@ -76,6 +77,7 @@ export default function Challenges({
                   setChallengeListingFilter={setChallengeListingFilter}
                   unregisterFromChallenge={unregisterFromChallenge}
                   userResources={userResources}
+                  challengeSubtracksMap={challengeSubtracksMap}
                 />
               ))
             ) : (
@@ -163,4 +165,5 @@ Challenges.propTypes = {
   switchShowChallengeFilter: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   userResources: PT.arrayOf(PT.shape()),
+  challengeSubtracksMap: PT.shape().isRequired,
 };
