@@ -216,7 +216,7 @@ Listing.propTypes = {
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
   pastSearchTimestamp: PT.number,
-  userChallenges: PT.arrayOf(PT.shape()),
+  userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
 };
 

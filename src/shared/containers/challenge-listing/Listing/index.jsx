@@ -103,7 +103,8 @@ export class ListingContainer extends React.Component {
 
     if (!loadingActiveChallengesUUID && !_.isEmpty(meta) && !allActiveChallengesLoaded
       && BUCKETS.PAST !== activeBucket) {
-      getRestActiveChallenges(auth.tokenV3);
+      const f = this.getBackendFilter();
+      getRestActiveChallenges(auth.tokenV3, f.back);
     }
 
     setTimeout(() => {
@@ -134,8 +135,8 @@ export class ListingContainer extends React.Component {
     );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
-    if (communityId && groupIds.length > 0) {
-      filter.groupIds = groupIds;
+    if (communityId && !_.isEmpty(groupIds)) {
+      filter.groups = groupIds;
     }
     return {
       back: mapToBackend(filter),
@@ -475,10 +476,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getActiveChallengesInit(uuid, page, frontFilter));
       dispatch(a.getActiveChallengesDone(uuid, page, filter, token, frontFilter));
     },
-    getRestActiveChallenges: (token) => {
+    getRestActiveChallenges: (token, filter) => {
       const uuid = shortId();
       dispatch(a.getRestActiveChallengesInit(uuid));
-      dispatch(a.getRestActiveChallengesDone(uuid, token));
+      dispatch(a.getRestActiveChallengesDone(uuid, token, filter));
     },
     getCommunitiesList: (auth) => {
       const uuid = shortId();

@@ -206,9 +206,12 @@ function getRestActiveChallengesInit(uuid) {
  * @param {String} uuid progress id
  * @param {String} tokenV3 token v3
  */
-function getRestActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'Active' };
-  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, 1);
+function getRestActiveChallengesDone(uuid, tokenV3, filter) {
+  const mergedFilter = {
+    ...filter,
+    status: 'Active',
+  };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, mergedFilter, 1);
 }
 
 /**
