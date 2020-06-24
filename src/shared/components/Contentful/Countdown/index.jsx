@@ -25,6 +25,7 @@ export default function CountdownLoader(props) {
           title={data.entries.items[id].fields.title}
           end={new Date(data.entries.items[id].fields.endDate)}
           extraStylesForContainer={data.entries.items[id].fields.extraStylesForContainer}
+          themeName={data.entries.items[id].fields.theme}
         />
       )}
       renderPlaceholder={LoadingIndicator}
