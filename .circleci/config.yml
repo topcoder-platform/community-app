@@ -238,14 +238,13 @@ workflows:
           filters:
             branches:
               only:                
-                - feature-contentful
+                - integration-v5-challenge-api
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - integration-v5-challenge-api
                 - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
