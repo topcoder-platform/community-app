@@ -91,7 +91,35 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-            
+  
+  # Build & Deploy against testing backend
+  "build-qa":
+    <<: *defaults
+    steps:
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+      - run: *install_dependency
+      - run: *install_deploysuite
+      # Restoration of node_modules from cache.
+      - restore_cache: *restore_cache_settings_for_build
+      - run: 
+          name: "configuring environment"
+          command: |
+            ./awsconfiguration.sh DEV
+            ./buildenv.sh -e DEV -b qa_communityapp_buildvar,qa_communityapp_deployvar            
+      # Build of Docker image.
+      - run: *build_docker_image
+      # Caching node modules.
+      - save_cache: *save_cache_settings
+      # Deployment.
+      - deploy:
+          name: Running MasterScript
+          command: |
+            source awsenvconf
+            source buildenvvar
+            ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
+
   # Build & Deploy against prod api backend
   "build-prod-beta":
     <<: *defaults
@@ -203,13 +231,22 @@ workflows:
             branches:
               only:
                 - develop
+                - tco21
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
+              only:                
+                - feature-contentful
+      # This is alternate dev env for parallel testing
+      - "build-qa":
+          context : org-global      
+          filters:
+            branches:
               only:
                 - integration-v5-challenge-api
+                - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
