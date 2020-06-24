@@ -255,7 +255,7 @@ const mapDispatchToProps = dispatch => ({
   loadMySubmissions: (tokens, challengeId) => {
     const a = actions.challenge;
     dispatch(a.getSubmissionsInit(challengeId));
-    dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV2));
+    dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV3));
   },
 });
 
