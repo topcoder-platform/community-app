@@ -199,7 +199,7 @@ function mapStateToProps(state, props) {
   const submissionPhase = allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.name) && phase.isOpen) || {};
 
   return {
-    challengeId: Number(challengeId),
+    challengeId: String(challengeId),
     challenge: state.challenge.details,
     challengesUrl: props.challengesUrl,
 
