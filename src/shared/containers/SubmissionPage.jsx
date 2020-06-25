@@ -34,13 +34,9 @@ class SubmissionsPageContainer extends React.Component {
       getCommunitiesList,
       challengeId,
       loadChallengeDetails,
-      challengeName,
     } = this.props;
 
-    if (!challengeName) {
-      loadChallengeDetails(auth, challengeId);
-    }
-
+    loadChallengeDetails(auth, challengeId);
     getCommunitiesList(auth);
   }
 
