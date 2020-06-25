@@ -34,7 +34,7 @@ function getTermsDone(entity, tokens, mockAgreed) {
 
   switch (entity.type) {
     case 'challenge': {
-      termsPromise = service.getChallengeTerms(entity.id, mockAgreedArray);
+      termsPromise = service.getChallengeTerms(entity.terms, mockAgreedArray);
       break;
     }
     case 'community': {
@@ -49,7 +49,7 @@ function getTermsDone(entity, tokens, mockAgreed) {
       throw new Error(`Entity type '${entity.type}' is not supported by getTermsDone.`);
   }
 
-  return termsPromise.then(res => ({ entity, terms: res.terms }));
+  return termsPromise.then(res => ({ entity, terms: res }));
 }
 
 /**
