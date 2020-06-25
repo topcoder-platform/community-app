@@ -35,11 +35,6 @@ function normalizeSubTrackTagForRendering(subTrack) {
   return _.startCase(_.toLower(x));
 }
 
-function normalizeSubTrack(subTrack) {
-  const type = _.upperCase(subTrack);
-  return type.replace(/ /g, '_');
-}
-
 export default function ChallengeCard({
   challenge,
   selectChallengeDetailsTab,
@@ -57,7 +52,11 @@ export default function ChallengeCard({
     type,
   } = challenge;
 
-  const subTrackId = _.findKey(challengeSubtracksMap, { abbreviation: normalizeSubTrack(type) });
+  let subTrackId = _.findKey(challengeSubtracksMap, { description: type });
+
+  if (!subTrackId) {
+    subTrackId = _.findKey(challengeSubtracksMap, { description: 'Code' });
+  }
 
   const { track } = legacy;
 
@@ -229,7 +228,7 @@ export default function ChallengeCard({
             ) : null
           }
           {
-            submitter && isChallengeOpen ? (
+            submitter && isChallengeOpen && phaseMessage !== STALLED_MSG ? (
               <Button
                 size="sm"
                 theme={{ button: style.button }}
