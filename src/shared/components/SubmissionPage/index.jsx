@@ -75,7 +75,7 @@ const filestackDataProp = PT.shape({
 SubmissionsPage.propTypes = {
   userId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.shape({
@@ -85,7 +85,7 @@ SubmissionsPage.propTypes = {
     loadingUuid: PT.string.isRequired,
     timestamp: PT.number.isRequired,
   }).isRequired,
-  groups: PT.shape({}).isRequired,
+  groups: PT.arrayOf(PT.shape()).isRequired,
   track: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,

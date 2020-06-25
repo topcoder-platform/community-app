@@ -185,6 +185,7 @@ SubmissionManagement.defaultProps = {
   helpPageUrl: '',
   loadingSubmissions: false,
   challengeUrl: '',
+  submissions: [],
 };
 
 SubmissionManagement.propTypes = {
@@ -195,7 +196,7 @@ SubmissionManagement.propTypes = {
   onDownload: PT.func,
   onShowDetails: PT.func,
   challenge: PT.shape().isRequired,
-  submissions: PT.arrayOf(PT.shape()).isRequired,
+  submissions: PT.arrayOf(PT.shape()),
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,
   submissionPhaseStartDate: PT.string.isRequired,

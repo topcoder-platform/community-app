@@ -356,7 +356,7 @@ const filestackDataProp = PT.shape({
   size: PT.number.isRequired,
   key: PT.string.isRequired,
   container: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   fileUrl: PT.string.isRequired,
 });
 
@@ -366,7 +366,7 @@ const filestackDataProp = PT.shape({
 Submit.propTypes = {
   phases: PT.arrayOf(PT.object).isRequired,
   userId: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.shape({
@@ -377,7 +377,7 @@ Submit.propTypes = {
     loadingUuid: PT.string.isRequired,
     timestamp: PT.number.isRequired,
   }).isRequired,
-  groups: PT.shape({}).isRequired,
+  groups: PT.arrayOf(PT.shape()).isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string,
