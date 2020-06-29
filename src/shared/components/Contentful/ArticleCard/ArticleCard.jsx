@@ -67,7 +67,7 @@ class ArticleCard extends React.Component {
     // determine if article cards will redirect to external link or article details page
     const articlePageUrl = article.externalArticle && article.contentUrl
       ? article.contentUrl
-      : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.title}`;
+      : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.slug || article.title}`;
     const articlePageTarget = article.externalArticle && article.contentUrl
       ? '_blank'
       : '_self';

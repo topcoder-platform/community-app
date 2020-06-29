@@ -1,0 +1,78 @@
+@import "~styles/mixins";
+
+$text-color-gray: #37373b;
+$container-background-yello: #fce217;
+
+.container {
+  @include roboto-regular;
+
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  -webkit-flex-direction: row; /* Safari */
+  flex-direction: row;
+  -webkit-justify-content: center; /* Safari */
+  justify-content: center;
+  padding: 40px;
+  background: $container-background-yello;
+
+  @media only screen and (max-width: 767px) {
+    -webkit-flex-direction: column; /* Safari */
+    flex-direction: column;
+  }
+
+  .title {
+    @include barlow-condensed-medium;
+
+    color: $tco-black;
+    font-size: 34px;
+    line-height: 38px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-transform: uppercase;
+
+    @media only screen and (max-width: 767px) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .time-container {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    -webkit-flex-direction: row; /* Safari */
+    flex-direction: row;
+    -webkit-justify-content: center; /* Safari */
+    justify-content: center;
+  }
+
+  .time-value {
+    @include barlow-condensed-bold;
+
+    color: $tco-black;
+    font-size: 42px;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  .time-label {
+    @include barlow-condensed-medium;
+
+    color: $text-color-gray;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    width: 100px;
+    text-transform: uppercase;
+
+    @media only screen and (max-width: 767px) {
+      width: auto;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+  }
+
+  .time-second {
+    display: block;
+  }
+}

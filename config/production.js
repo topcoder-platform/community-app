@@ -9,7 +9,7 @@ module.exports = {
     DOMAIN: 'topcoder.auth0.com',
   },
   CDN: {
-    PUBLIC: 'https://dlxczxztayxv6.cloudfront.net',
+    PUBLIC: 'https://community-app-cdn.topcoder.com',
   },
   COOKIES: {
     MAXAGE: 7,
@@ -17,6 +17,7 @@ module.exports = {
   },
   LOG_ENTRIES_TOKEN: '',
   SERVER_API_KEY: 'aa9ccf36-3936-450c-9983-097ddba51bef',
+  GOOGLE_ANALYTICS_ID: 'UA-6340959-1',
   URL: {
     ARENA: 'https://arena.topcoder.com',
     APP: 'https://community-app.topcoder.com',
