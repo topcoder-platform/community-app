@@ -7,7 +7,7 @@ export class HeaderPage {
    * Gets the Challenge Listing page
    */
   public async open() {
-    await BrowserHelper.open(ConfigHelper.getChallengeListingUrl());
+    await BrowserHelper.open(ConfigHelper.getOverviewUrl());
   }
 
   /**
@@ -30,6 +30,18 @@ export class HeaderPage {
       "Switch to BUSINESS"
     );
     return spans[1];
+  }
+
+  /**
+   * Gets the 'Menu' link
+   * @param menu
+   */
+  private async getMenuLink(menu) {
+    const spans = await ElementHelper.getElementByCssContainingText(
+      "span",
+      menu
+    );
+    return spans;
   }
 
   /**
@@ -176,10 +188,8 @@ export class HeaderPage {
    * @param menu
    */
   public async clickOnMenu(menu) {
-    await BrowserHelper.waitUntilVisibilityOf(
-      ElementHelper.getElementByLinkText(menu)
-    );
-    await ElementHelper.getElementByLinkText(menu).click();
+    const menuLink = await this.getMenuLink(menu);
+    await menuLink.click();
     logger.info("Clicked on menu " + menu);
   }
 

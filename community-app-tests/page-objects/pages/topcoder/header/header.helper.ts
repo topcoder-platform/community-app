@@ -38,7 +38,6 @@ export class HeaderHelper {
       ? ConfigHelper.getSubMenuUrl("dashboard", true)
       : ConfigHelper.getLogoRedirectionUrl();
     await this.headerPageObject.clickOnLogoLink();
-    // await BrowserHelper.waitUntilUrlIs(expectedUrl);
     const currentUrl = await BrowserHelper.getCurrentUrl();
     expect(currentUrl).toEqual(expectedUrl);
   }
@@ -49,7 +48,6 @@ export class HeaderHelper {
   public static async verifyLoginLink() {
     const expectedUrl = ConfigHelper.getLoginUrl();
     await this.headerPageObject.clickOnLoginLink();
-    //await BrowserHelper.waitUntilUrlIs(expectedUrl);
     await CommonHelper.verifyCurrentUrlToContain(expectedUrl);
   }
 
@@ -70,8 +68,10 @@ export class HeaderHelper {
    */
   public static async verifyMenu(menu, isLoggedIn?: boolean) {
     const menuItem = HeaderConstants.getMenu(isLoggedIn)[menu];
-    await this.headerPageObject.clickOnMenu(menuItem.text);
-
+    // By default community menu is open
+    if (menu != "Community") {
+      await this.headerPageObject.clickOnMenu(menuItem.text);
+    }
     const submenuNames = await this.headerPageObject.getSubMenuNames();
     const expectedSubmenuNames = menuItem.submenus.map((s) => s.text);
     expect(submenuNames).toEqual(expectedSubmenuNames);
@@ -92,15 +92,16 @@ export class HeaderHelper {
       if (text === "Payments" || text === "Forums") {
         await CommonHelper.verifyPopupWindowWithUrl(url);
       } else if (text === "Competitive Programming" && !isLoggedIn) {
-        //await BrowserHelper.waitUntilUrlContains(url);
         await CommonHelper.verifyCurrentUrlToContain(url);
       } else {
-        //await BrowserHelper.waitUntilUrlIs(url);
         await CommonHelper.verifyCurrentUrl(url);
       }
 
       await this.headerPageObject.open();
-      await this.headerPageObject.clickOnMenu(menuItem.text);
+      // By default community menu is open
+      if (menu != "Community") {
+        await this.headerPageObject.clickOnMenu(menuItem.text);
+      }
     }
   }
 
@@ -112,7 +113,6 @@ export class HeaderHelper {
     await this.headerPageObject.openUserMenu();
     await this.headerPageObject.clickOnUserInfoSection();
     await BrowserHelper.sleep(1000);
-    // await BrowserHelper.waitUntilUrlIs(expectedUrl);
     await CommonHelper.verifyCurrentUrl(expectedUrl);
   }
 
@@ -124,7 +124,6 @@ export class HeaderHelper {
     await this.headerPageObject.clickOnSwitchToBusinessLink();
     const expectedUrl = ConfigHelper.getBusinessUrl();
     await BrowserHelper.sleep(1000);
-    //  await BrowserHelper.waitUntilUrlIs(expectedUrl);
     await CommonHelper.verifyCurrentUrl(expectedUrl);
   }
 
@@ -136,7 +135,6 @@ export class HeaderHelper {
     await this.headerPageObject.clickOnSettingsLink();
     const expectedUrl = ConfigHelper.getProfileUrl();
     await BrowserHelper.sleep(1000);
-    //  await BrowserHelper.waitUntilUrlIs(expectedUrl);
     await CommonHelper.verifyCurrentUrl(expectedUrl);
   }
 
@@ -148,7 +146,6 @@ export class HeaderHelper {
     await this.headerPageObject.clickOnHelpLink();
     const expectedUrl = ConfigHelper.getHelpUrl();
     await BrowserHelper.sleep(1000);
-    // await BrowserHelper.waitUntilUrlIs(expectedUrl);
     await CommonHelper.verifyCurrentUrl(expectedUrl);
   }
 
@@ -175,11 +172,11 @@ export class HeaderHelper {
    * Verifies the 'View all notifications' link if present
    */
   public static async verifyAllNotificationsLink() {
+    await BrowserHelper.sleep(1000);
     await this.headerPageObject.openNotificationsPopup();
     if (this.headerPageObject.isViewAllNotificationsPresent) {
       await this.headerPageObject.clickOnViewAllNotificationsLink();
       const expectedUrl = ConfigHelper.getAllNotificationsUrl();
-      // await BrowserHelper.waitUntilUrlIs(expectedUrl);
       await CommonHelper.verifyCurrentUrl(expectedUrl);
     }
   }

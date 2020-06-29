@@ -60,7 +60,7 @@
     "joinCommunity": "https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion",
     "aboutCommunity": "https://www.topcoder.com/community/learn",
     "changeLog": "https://www.topcoder.com/community/changelog",
-    "talkToSales": "https://www.topcoder.com/contact-us/"
+    "talkToSales": "https://go.topcoder.com/contact/"
   },
   "footerLinksAfterLogin": {
     "competitiveProgramming": "https://arena.topcoder.com/",

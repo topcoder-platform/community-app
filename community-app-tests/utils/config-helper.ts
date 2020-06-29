@@ -155,6 +155,13 @@ export const ConfigHelper = {
   },
 
   /**
+   * Gets the help page url
+   */
+  getOverviewUrl() {
+    return this.getConfig().subMenuUrls["overview"];
+  },
+
+  /**
    * Gets the search page url
    */
   getSearchUrl() {
