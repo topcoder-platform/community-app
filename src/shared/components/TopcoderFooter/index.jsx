@@ -91,6 +91,7 @@ export default function TopcoderFooter() {
               <Link to={`${base}/community/learn`}>About Community</Link>
               <Link to={`${base}/community/changelog`}>Changelog</Link>
               <Link to={`${base}/contact-us/`}>Talk to Sales</Link>
+              <Link to={`${base}/community/terms`}>Terms</Link>
             </ul>
           </div>
           <div styleName="navi-col">

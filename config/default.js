@@ -57,7 +57,7 @@ module.exports = {
   /**
    * Disable PWA service worker.
    */
-  DISABLE_SERVICE_WORKER: false,
+  DISABLE_SERVICE_WORKER: true,
 
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
@@ -95,6 +95,9 @@ module.exports = {
   SERVER_API_KEY: '',
 
   SWIFT_PROGRAM_ID: 3445,
+
+  /* Google Analytics tracking ID */
+  GOOGLE_ANALYTICS_ID: 'UA-161803421-1',
 
   /* Various URLs. Most of them lead to different segments of Topcoder
    * platform. */

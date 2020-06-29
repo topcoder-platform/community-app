@@ -38,16 +38,19 @@ class MenuLoaderContainer extends React.Component {
       spaceName,
       environment,
       baseUrl,
+      menu,
     } = this.props;
-    // initiate loading the menu data
-    loadMenuData({
-      id,
-      fields,
-      preview,
-      spaceName,
-      environment,
-      baseUrl,
-    });
+    if (!menu.length) {
+      // initiate loading the menu data
+      loadMenuData({
+        id,
+        fields,
+        preview,
+        spaceName,
+        environment,
+        baseUrl,
+      });
+    }
   }
 
   handleChangeLevel1Id(menuId) {
@@ -79,11 +82,6 @@ class MenuLoaderContainer extends React.Component {
       const { TopNav, LoginNav } = require('navigation-component');
       const logoToUse = !_.isEmpty(menuLogo) ? <img src={menuLogo.fields.file.url} alt="menu logo" /> : <Logo />;
       const menuTheme = fields.theme.split('- ');
-      const comboMenu = _.flatten(_.map(menu, menuItem => menuItem.subMenu));
-      // This is a hack fix that should be removed when possible!
-      // Its orifing is in the https://github.com/topcoder-platform/navigation-component module
-      // which breaks if there is NOT an menu item with id = `community`
-      comboMenu[0].id = 'community';
       let normalizedProfile = auth.profile && _.clone(auth.profile);
       if (auth.profile) {
         normalizedProfile.photoURL = (_.has(auth.profile, 'photoURL') && auth.profile.photoURL !== null)
@@ -94,7 +92,7 @@ class MenuLoaderContainer extends React.Component {
       return (
         <div>
           <TopNav
-            menu={comboMenu}
+            menu={menu}
             rightMenu={(
               <LoginNav
                 loggedIn={!_.isEmpty(auth.profile)}
