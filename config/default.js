@@ -382,7 +382,7 @@ module.exports = {
   ACCOUNT_MENU: [
     {
       title: 'Settings',
-      href: 'https://community-app.topcoder-dev.com/settings/profile',
+      href: '/settings/profile',
     },
     { separator: true },
     {
