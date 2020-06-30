@@ -10,6 +10,7 @@ import ContentfulRoute from 'components/Contentful/Route';
 import ContentfulMenu from 'components/Contentful/Menu';
 import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
+import Settings from 'routes/Settings';
 
 export default function TCO21({ base, meta }) {
   return (
@@ -34,6 +35,10 @@ export default function TCO21({ base, meta }) {
           render={props => <ProfileStats {...props} meta={meta} />}
           exact
           path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+        />
+        <Route
+          component={() => <Settings base={`${base}/settings`} />}
+          path={`${base}/settings`}
         />
         <ContentfulRoute
           baseUrl={base}
