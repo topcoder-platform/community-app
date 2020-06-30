@@ -36,7 +36,7 @@ exports[`Matches shallow shapshot 1`] = `
         showScreeningDetails={true}
         submissionObject={
           Object {
-            "submissionId": 12345,
+            "id": "12345",
           }
         }
         type="DESIGN"
@@ -52,7 +52,7 @@ exports[`Matches shallow shapshot 1`] = `
             helpPageUrl=""
             onlineReviewUrl=""
             screeningObject={Object {}}
-            submissionId={12345}
+            submissionId="12345"
           />
         </td>
       </tr>
