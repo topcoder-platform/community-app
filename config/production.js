@@ -185,7 +185,7 @@ module.exports = {
   ACCOUNT_MENU: [
     {
       title: 'Settings',
-      href: '/settings/profile',
+      href: 'https://topcoder.com/settings/profile',
     },
     { separator: true },
     {
