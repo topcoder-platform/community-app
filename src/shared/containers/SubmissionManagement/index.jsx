@@ -162,7 +162,7 @@ SubmissionManagementPageContainer.defaultProps = {
   mySubmissions: [],
   // isLoadingSubmissions: false,
   showModal: false,
-  toBeDeletedId: 0,
+  toBeDeletedId: '',
   challenge: null,
 };
 
@@ -183,7 +183,7 @@ SubmissionManagementPageContainer.propTypes = {
   showDetails: PT.shape().isRequired,
   showModal: PT.bool,
   onCancelSubmissionDelete: PT.func.isRequired,
-  toBeDeletedId: PT.number,
+  toBeDeletedId: PT.string,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
 };
