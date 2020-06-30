@@ -116,6 +116,7 @@ class MenuLoaderContainer extends React.Component {
             setOpenMore={this.handleChangeOpenMore}
             loggedIn={!_.isEmpty(auth.profile)}
             profileHandle={auth.profile ? auth.profile.handle : ''}
+            logoLink={fields.logoLink}
           />
         </div>
       );
