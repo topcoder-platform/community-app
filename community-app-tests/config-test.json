@@ -17,6 +17,7 @@
     "allChallenges": "http://test-community-app.topcoder-dev.com/challenges",
     "competitiveProgramming": "https://accounts.topcoder-dev.com/",
     "taas": "https://test-community-app.topcoder-dev.com/community/taas",
+    "practice": "https://test-community-app.topcoder-dev.com/community/practice",
     "competitiveProgrammingThrive": "https://test-community-app.topcoder-dev.com/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "https://test-community-app.topcoder-dev.com/thrive/tracks?track=Data%20Science&tax=",
     "designThrive": "https://test-community-app.topcoder-dev.com/thrive/tracks?track=Design&tax=",
