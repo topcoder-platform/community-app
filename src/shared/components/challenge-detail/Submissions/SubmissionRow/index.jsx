@@ -177,16 +177,31 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
-    provisionalScore: PT.number,
-    finalScore: PT.number,
-    initialScore: PT.number,
+    provisionalScore: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
+    finalScore: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
+    initialScore: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
     status: PT.string.isRequired,
     submissionId: PT.string.isRequired,
     submissionTime: PT.string.isRequired,
   })).isRequired,
   score: PT.shape({
-    final: PT.number,
-    provisional: PT.number,
+    final: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
+    provisional: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
   }),
   rating: PT.number,
   toggleHistory: PT.func,

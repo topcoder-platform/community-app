@@ -465,9 +465,10 @@ SubmissionsListView.propTypes = {
     checkpoints: PT.arrayOf(PT.object),
     submissions: PT.arrayOf(PT.object),
     submissionViewable: PT.string,
-    track: PT.string.isRequired,
+    legacy: {
+      track: PT.string.isRequired,
+    }.isRequired,
     registrants: PT.any,
-    subTrack: PT.any,
   }).isRequired,
   hasRegistered: PT.bool.isRequired,
   unregistering: PT.bool.isRequired,
