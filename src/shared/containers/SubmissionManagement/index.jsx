@@ -27,7 +27,6 @@ class SubmissionManagementPageContainer extends React.Component {
       authTokens,
       challenge,
       challengeId,
-      mySubmissions,
       loadChallengeDetails,
       loadingSubmissionsForChallengeId,
       loadMySubmissions,
@@ -38,7 +37,7 @@ class SubmissionManagementPageContainer extends React.Component {
       loadChallengeDetails(authTokens, challengeId);
     }
 
-    if (!mySubmissions && challengeId !== loadingSubmissionsForChallengeId) {
+    if (challengeId !== loadingSubmissionsForChallengeId) {
       loadMySubmissions(authTokens, challengeId);
     }
   }
