@@ -292,25 +292,25 @@ class SubmissionsComponent extends React.Component {
       item => item.member === memberOfModal);
 
     const renderSubmission = s => (
-      <div styleName="submission" key={s.submissionId}>
+      <div styleName="submission" key={s.id}>
         <a
-          href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}
+          href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
             alt=""
-            src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.submissionId}&sbt=small&sfi=1`}
+            src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.id}&sbt=small&sfi=1`}
           />
         </a>
         <div styleName="bottom-info">
           <div styleName="links">
             <a
-              href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}
+              href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.id}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {`#${s.submissionId}`}
+              {`#${s.id}`}
             </a>
             <a
               href={`${window.origin}/members/${s.createdBy}`}

@@ -196,7 +196,7 @@ const Uploading = ({
  * Prop Validation
  */
 Uploading.propTypes = {
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,

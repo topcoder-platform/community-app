@@ -125,7 +125,7 @@ SubmissionsPageContainer.propTypes = {
   challenge: PT.shape().isRequired,
   status: PT.string.isRequired,
   isRegistered: PT.bool.isRequired,
-  groups: PT.shape({}).isRequired,
+  groups: PT.arrayOf(PT.shape()).isRequired,
   errorMsg: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
@@ -168,6 +168,7 @@ const mapStateToProps = (state, ownProps) => {
     communitiesList: state.tcCommunities.list,
     /* Older stuff below. */
     userId: state.auth.user ? state.auth.user.userId : '',
+    handle: state.auth.user ? state.auth.user.handle : '',
     challengeId: String(ownProps.match.params.challengeId),
     challengeName: details.name,
     challengesUrl: ownProps.challengesUrl,

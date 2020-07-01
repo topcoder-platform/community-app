@@ -46,14 +46,13 @@ class Submit extends React.Component {
       userId,
     } = this.props;
 
-    const { subType, subPhaseId } = this.getSubDetails();
+    const subType = this.getSubDetails();
 
     const formData = new FormData();
     formData.append('url', sub.fileUrl);
     formData.append('type', subType);
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
-    formData.append('submissionPhaseId', subPhaseId);
     if (sub.fileType) {
       formData.append('fileType', sub.fileType);
     }
@@ -75,24 +74,19 @@ class Submit extends React.Component {
       name: 'Final Fix',
     });
     let subType;
-    let subPhaseId;
 
     // Submission type logic
     if (checkpoint && checkpoint.isOpen) {
       subType = 'Checkpoint Submission';
-      subPhaseId = checkpoint.id;
     } else if (checkpoint && !checkpoint.isOpen && submission && submission.isOpen) {
       subType = 'Contest Submission';
-      subPhaseId = submission.id;
     } else if (finalFix && finalFix.isOpen) {
       subType = 'Studio Final Fix Submission';
-      subPhaseId = finalFix.id;
     } else {
       subType = 'Contest Submission';
-      subPhaseId = submission.id;
     }
 
-    return { subType, subPhaseId };
+    return subType;
   }
 
   reset() {
@@ -356,7 +350,7 @@ const filestackDataProp = PT.shape({
   size: PT.number.isRequired,
   key: PT.string.isRequired,
   container: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   fileUrl: PT.string.isRequired,
 });
 
@@ -366,7 +360,7 @@ const filestackDataProp = PT.shape({
 Submit.propTypes = {
   phases: PT.arrayOf(PT.object).isRequired,
   userId: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.shape({
@@ -377,7 +371,7 @@ Submit.propTypes = {
     loadingUuid: PT.string.isRequired,
     timestamp: PT.number.isRequired,
   }).isRequired,
-  groups: PT.shape({}).isRequired,
+  groups: PT.arrayOf(PT.shape()).isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string,
