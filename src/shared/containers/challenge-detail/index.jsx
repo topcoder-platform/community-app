@@ -724,7 +724,7 @@ function mapStateToProps(state, props) {
       }));
     }
 
-    if (mmSubmissions) {
+    if (!_.isEmpty(mmSubmissions)) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
         let { member } = submission;
