@@ -27,8 +27,12 @@ class MySubmissionsView extends React.Component {
   }
 
   componentDidMount() {
-    const { challenge, loadMMSubmissions, auth } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const {
+      challenge,
+      isMM,
+      loadMMSubmissions,
+      auth,
+    } = this.props;
 
     // Check auth token, go to login page if invalid
     if (isMM && (_.isEmpty(auth) || _.isEmpty(auth.tokenV3) || isTokenExpired(auth.tokenV3))) {
@@ -45,6 +49,7 @@ class MySubmissionsView extends React.Component {
     const {
       challengesUrl,
       challenge,
+      isMM,
       hasRegistered,
       unregistering,
       submissionEnded,
@@ -81,6 +86,7 @@ class MySubmissionsView extends React.Component {
               hasRegistered={hasRegistered}
               unregistering={unregistering}
               submissionEnded={submissionEnded}
+              isMM={isMM}
               isLegacyMM={isLegacyMM}
               mySubmissions={mySubmissions}
               auth={auth}
@@ -112,6 +118,7 @@ MySubmissionsView.propTypes = {
   hasRegistered: PT.bool.isRequired,
   unregistering: PT.bool.isRequired,
   submissionEnded: PT.bool.isRequired,
+  isMM: PT.bool.isRequired,
   isLegacyMM: PT.bool.isRequired,
   loadingMMSubmissionsForChallengeId: PT.string.isRequired,
   auth: PT.shape().isRequired,

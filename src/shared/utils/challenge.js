@@ -8,7 +8,7 @@ import _ from 'lodash';
  * @param {Object} challenge challenge object
  */
 export function isMM(challenge) {
-  return challenge.challengeType && challenge.challengeType.name === 'Marathon Match';
+  return challenge.type === 'Marathon Match';
 }
 
 /**
@@ -16,7 +16,7 @@ export function isMM(challenge) {
  * @param {Object} challenge challenge object
  */
 export function isDevelopMM(challenge) {
-  return challenge.challengeType && challenge.challengeType.name === 'Develop Marathon Match';
+  return challenge.type === 'Develop Marathon Match';
 }
 
 /**
