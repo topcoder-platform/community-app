@@ -730,10 +730,8 @@ function mapStateToProps(state, props) {
         let { member } = submission;
         if (auth.user.handle === submission.member) {
           mySubmissions = submission.submissions || [];
-          mySubmissions = mySubmissions.map((mySubmission, index) => {
-            // eslint-disable-next-line no-param-reassign
-            mySubmission.id = mySubmissions.length - index;
-            return mySubmission;
+          mySubmissions.forEach((mySubmission, index) => {
+            mySubmissions[index].id = mySubmissions.length - index;
           });
         }
         let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
@@ -762,6 +760,8 @@ function mapStateToProps(state, props) {
           member,
         });
       });
+    } else {
+      mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
     }
   }
   return {
