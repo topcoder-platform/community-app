@@ -21,6 +21,7 @@ export default function ChallengeViewSelector(props) {
   const {
     isLoggedIn,
     challenge,
+    isMM,
     checkpointCount,
     numOfRegistrants,
     numOfSubmissions,
@@ -32,8 +33,6 @@ export default function ChallengeViewSelector(props) {
     mySubmissions,
   } = props;
 
-  const challengeSubTrack = challenge.subTrack;
-  const isMM = challengeSubTrack && challengeSubTrack.indexOf('MARATHON_MATCH') > -1;
   const forumId = _.get(challenge, 'forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
 
@@ -189,6 +188,7 @@ export default function ChallengeViewSelector(props) {
 ChallengeViewSelector.defaultProps = {
   isLoggedIn: false,
   challenge: {},
+  isMM: false,
   checkpointCount: 0,
   numOfRegistrants: 0,
   numOfSubmissions: 0,
@@ -206,6 +206,7 @@ ChallengeViewSelector.propTypes = {
       roles: PT.arrayOf(PT.string),
     }),
   }),
+  isMM: PT.bool,
   checkpointCount: PT.number,
   numOfRegistrants: PT.number,
   numOfSubmissions: PT.number,

@@ -450,6 +450,7 @@ export default function ChallengeHeader(props) {
         <TabSelector
           isLoggedIn={isLoggedIn}
           challenge={challenge}
+          isMM={isMM(challenge)}
           onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
           selectedView={selectedView}
