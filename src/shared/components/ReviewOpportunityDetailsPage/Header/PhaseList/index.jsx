@@ -31,7 +31,7 @@ const renderPhase = phase => (
         {moment(phase.scheduledStartDate).format('MMM DD')}
       </strong>
       ,
-      {moment(phase.scheduledStartTime).format('hh:mma')}
+      {moment(phase.scheduledStartDate).format('hh:mma')}
     </div>
     <div styleName="duration">
       {formatDuration(moment(phase.scheduledEndDate) - moment(phase.scheduledStartDate))}
