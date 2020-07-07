@@ -68,7 +68,6 @@ export default function ChallengeHeader(props) {
     legacy,
     prizeSets,
     reliabilityBonus,
-    userDetails,
     numOfRegistrants,
     numOfSubmissions,
     appealsEndDate,
@@ -124,7 +123,7 @@ export default function ChallengeHeader(props) {
    * iterate through all their submissions and ensure that all of them
    * are Deleted
   */
-  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
+  const hasSubmissions = !_.isEmpty(mySubmissions);
 
   let nextPhase = allPhases.filter(p => p.name !== 'Registration' && p.isOpen).sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
   if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
