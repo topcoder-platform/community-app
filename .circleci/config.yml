@@ -231,14 +231,14 @@ workflows:
             branches:
               only:
                 - develop
-                - tco21
+                - feature-policy-pages
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
-                - feature-contentful
+                - integration-v5-challenge-api
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
