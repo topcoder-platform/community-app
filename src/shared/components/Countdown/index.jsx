@@ -8,7 +8,13 @@ import PT from 'prop-types';
 import React from 'react';
 import { fixStyle } from 'utils/contentful';
 
-import './style.scss';
+import defaultTheme from './themes/style.scss';
+import TCO21 from './themes/TCO21.scss';
+
+const THEMES = {
+  Default: defaultTheme,
+  TCO21,
+};
 
 /* We have to use state component, as we need to manipulate with DOM nodes to
  * access nuka-carousel state. */
@@ -34,6 +40,8 @@ export default class Countdown extends React.Component {
   }
 
   render() {
+    const { themeName } = this.props;
+    const theme = THEMES[themeName];
     let { elapsed } = this.state;
     const oneDay = 24 * 60 * 60;
     const oneHour = 60 * 60;
@@ -54,27 +62,26 @@ export default class Countdown extends React.Component {
     );
     return (
       <div
-        styleName="container"
+        className={theme.container}
         style={styles}
       >
-        <div styleName="title"> {title} </div>
-        <div styleName="title colon"> : </div>
-        <div styleName="time-container">
+        <div className={theme.title}> {title} </div>
+        <div className={theme['time-container']}>
           <div>
-            <div styleName="time-value"> {day} </div>
-            <div styleName="time-label"> days </div>
+            <div className={theme['time-value']}> {day} </div>
+            <div className={theme['time-label']}> days </div>
           </div>
           <div>
-            <div styleName="time-value"> {hour} </div>
-            <div styleName="time-label"> hours </div>
+            <div className={theme['time-value']}> {hour} </div>
+            <div className={theme['time-label']}> hours </div>
           </div>
           <div>
-            <div styleName="time-value"> {minute} </div>
-            <div styleName="time-label"> minutes </div>
+            <div className={theme['time-value']}> {minute} </div>
+            <div className={theme['time-label']}> minutes </div>
           </div>
-          <div styleName="time-second">
-            <div styleName="time-value"> {second} </div>
-            <div styleName="time-label"> seconds </div>
+          <div className={theme['time-second']}>
+            <div className={theme['time-value']}> {second} </div>
+            <div className={theme['time-label']}> seconds </div>
           </div>
         </div>
       </div>
@@ -85,10 +92,12 @@ export default class Countdown extends React.Component {
 Countdown.defaultProps = {
   title: 'Countdown to TCO19 Final',
   extraStylesForContainer: {},
+  themeName: 'Default',
 };
 
 Countdown.propTypes = {
   title: PT.string,
   end: PT.instanceOf(Date).isRequired,
   extraStylesForContainer: PT.shape(),
+  themeName: PT.string,
 };
