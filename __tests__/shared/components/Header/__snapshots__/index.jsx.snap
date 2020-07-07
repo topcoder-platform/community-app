@@ -65,6 +65,10 @@ exports[`Default render 1`] = `
                   "href": "/community/taas",
                   "title": "Gig Work",
                 },
+                Object {
+                  "href": "/community/practice",
+                  "title": "Practice",
+                },
               ],
               "title": "Compete",
             },
