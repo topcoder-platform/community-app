@@ -45,11 +45,13 @@ export default function SubmissionManagement(props) {
 
   const isDesign = challengeType === 'design';
   const isDevelop = challengeType === 'develop';
-  const currentPhase = _.find(challenge.phases || [], { isOpen: true });
+  const currentPhase = challenge.phases
+    .filter(p => p.name !== 'Registration' && p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
   const now = moment();
   const end = moment(currentPhase.scheduledEndDate);
-  const diff = end.diff(now);
+  const diff = end.isAfter(now) ? end.diff(now) : 0;
   const timeLeft = moment.duration(diff);
 
   const [days, hours, minutes] = [
