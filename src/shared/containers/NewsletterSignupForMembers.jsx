@@ -185,6 +185,9 @@ NewsletterSignupForMembersContainer.defaultProps = {
   label: 'Subscribe for Newsletter',
   tags: '',
   user: null,
+  buttonTheme: 'primary-green-md',
+  title: 'Sign up for the Topcoder Newsletter',
+  desc: 'Do you want to subscribe to this newsletter?',
 };
 
 NewsletterSignupForMembersContainer.propTypes = {
@@ -194,6 +197,9 @@ NewsletterSignupForMembersContainer.propTypes = {
   tags: PT.string,
   listId: PT.string.isRequired,
   user: PT.shape(),
+  buttonTheme: PT.string,
+  title: PT.string,
+  desc: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
