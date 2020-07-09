@@ -89,8 +89,10 @@ export class HeaderHelper {
 
       await this.headerPageObject.clickOnMenu(text);
       await BrowserHelper.sleep(1000);
-      if (text === "Payments" || text === "Forums") {
+      if (text === "Payments") {
         await CommonHelper.verifyPopupWindowWithUrl(url);
+      } else if (text === "Forums") {
+        await CommonHelper.verifyPopupWindow();
       } else if (text === "Competitive Programming" && !isLoggedIn) {
         await CommonHelper.verifyCurrentUrlToContain(url);
       } else {

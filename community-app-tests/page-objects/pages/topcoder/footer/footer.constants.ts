@@ -58,24 +58,28 @@ export class FooterConstants {
       Community: {
         submenus: [
           {
-            text: "TCO",
-            url: ConfigHelper.getFooterLink("tco", isLoggedIn),
+            text: "Blog",
+            url: ConfigHelper.getFooterLink("blog", isLoggedIn),
           },
           {
-            text: "Programs",
-            url: ConfigHelper.getFooterLink("programs", isLoggedIn),
+            text: "Events Calendar",
+            url: ConfigHelper.getFooterLink("events", isLoggedIn),
           },
           {
             text: "Forums",
             url: ConfigHelper.getFooterLink("forums", isLoggedIn),
           },
           {
+            text: "Programs",
+            url: ConfigHelper.getFooterLink("programs", isLoggedIn),
+          },
+          {
             text: "Statistics",
             url: ConfigHelper.getFooterLink("statistics", isLoggedIn),
           },
           {
-            text: "Blog",
-            url: ConfigHelper.getFooterLink("blog", isLoggedIn),
+            text: "TCO",
+            url: ConfigHelper.getFooterLink("tco", isLoggedIn),
           },
           {
             text: "Thrive",
@@ -130,6 +134,10 @@ export class FooterConstants {
           {
             text: "Talk to Sales",
             url: ConfigHelper.getFooterLink("talkToSales", isLoggedIn),
+          },
+          {
+            text: "Terms",
+            url: ConfigHelper.getFooterLink("terms", isLoggedIn),
           },
         ],
         text: "ABOUT",

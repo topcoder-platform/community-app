@@ -3,6 +3,8 @@ import { LoginPageHelper } from "../page-objects/pages/topcoder/login/login.help
 import { ConfigHelper } from "../utils/config-helper";
 import { ForumPageHelper } from "../page-objects/pages/topcoder/settings/preferences/forum/forum.helper";
 import { PaymentPageHelper } from "../page-objects/pages/topcoder/settings/preferences/payment/payment.helper";
+import { EmailPreferencesPageHelper } from "../page-objects/pages/topcoder/settings/preferences/email/email.helper";
+import * as testData from "../test-data/test-data.json";
 
 describe("Topcoder Preferences Page Tests: ", () => {
   /**
@@ -26,6 +28,17 @@ describe("Topcoder Preferences Page Tests: ", () => {
     } catch (e) {
       await BrowserHelper.restart();
     }
+  });
+
+  /**
+   * Verifies that user is able to update their email preferences
+   */
+  it("should verify User can update their email preferences", async () => {
+    await EmailPreferencesPageHelper.open();
+    await BrowserHelper.sleep(1000);
+    await EmailPreferencesPageHelper.verifyUpdatePreferences(
+      testData.preferences.email
+    );
   });
 
   /**

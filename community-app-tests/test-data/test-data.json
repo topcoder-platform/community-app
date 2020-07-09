@@ -110,6 +110,9 @@
       "cognitive": false
     }
   },
+  "preferences": {
+    "email": [false, true, true, true, false, true]
+  },
   "search": {
     "username": "tester1234",
     "skill": "Java"

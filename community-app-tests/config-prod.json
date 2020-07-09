@@ -48,7 +48,7 @@
     "qaThrive": "https://www.topcoder.com/thrive/tracks?track=QA",
     "tco": "https://www.topcoder.com/community/member-programs/topcoder-open",
     "programs": "https://www.topcoder.com/community/member-programs",
-    "forums": "https://accounts.topcoder.com/member",
+    "forums": "https://apps.topcoder.com/forums",
     "statistics": "https://www.topcoder.com/community/statistics",
     "blog": "https://www.topcoder.com/blog/",
     "thrive": "https://www.topcoder.com/thrive",
@@ -61,11 +61,12 @@
     "joinCommunity": "https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion",
     "aboutCommunity": "https://www.topcoder.com/community/learn",
     "changeLog": "https://www.topcoder.com/community/changelog",
-    "talkToSales": "https://go.topcoder.com/contact/"
+    "talkToSales": "https://go.topcoder.com/contact/",
+    "events": "https://www.topcoder.com/community/events",
+    "terms": "https://www.topcoder.com/community/terms"
   },
   "footerLinksAfterLogin": {
-    "competitiveProgramming": "https://arena.topcoder.com/",
-    "forums": "https://apps.topcoder.com/forums/"
+    "competitiveProgramming": "https://arena.topcoder.com/"
   },
   "socialLinks": {
     "facebook": "https://www.facebook.com/topcoder/",

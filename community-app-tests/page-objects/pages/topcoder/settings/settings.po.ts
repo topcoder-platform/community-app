@@ -123,25 +123,25 @@ export class SettingsPage {
   }
 
   protected get selectOption() {
-    return ElementHelper.getElementByClassName('Select-option');
+    return ElementHelper.getElementByClassName("Select-option");
   }
 
   protected async selectOptions() {
-    return ElementHelper.getAllElementsByClassName('Select-option');
+    return ElementHelper.getAllElementsByClassName("Select-option");
   }
 
   /**
    * Waits for visibility and invisibility of success message
    */
-  public async waitForSuccessMsg() {
+  public async waitForSuccessMsg(message = this.successMsg) {
     await BrowserHelper.waitUntilVisibilityOf(
-      this.successMsg,
+      message,
       appconfig.Timeout.ElementVisibility,
       appconfig.LoggerErrors.ElementVisibilty
     );
 
     await BrowserHelper.waitUntilInVisibilityOf(
-      this.successMsg,
+      message,
       appconfig.Timeout.ElementInvisibility,
       appconfig.LoggerErrors.ElementInvisibilty
     );

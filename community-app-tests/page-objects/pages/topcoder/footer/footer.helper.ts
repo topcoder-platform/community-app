@@ -53,6 +53,11 @@ export class FooterHelper {
       footerLinkTexts.push(text);
       logger.info(footerLink.getText());
       expect(text).toEqual(submenus[i]["text"]);
+      if (text === "Forums") {
+        const href = await footerLink.getAttribute("href");
+        expect(href).toEqual(submenus[i]["url"]);
+        continue;
+      }
       await footerLink.click();
       await BrowserHelper.sleep(1000);
       logger.info("Clicked on link " + text);
