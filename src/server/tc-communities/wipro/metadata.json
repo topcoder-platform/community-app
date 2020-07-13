@@ -42,7 +42,7 @@
       "url": "/leaderboard"
     }, {
       "title": "FAQ",
-      "url": "/faq"
+      "url": "https://topgear-app.wipro.com/faq-categories"
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
