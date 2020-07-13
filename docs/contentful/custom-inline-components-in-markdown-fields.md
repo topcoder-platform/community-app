@@ -80,8 +80,10 @@ other types too.
   | ---       | ---                      | ---                                                                               |
   | label     | Subscribe for Newsletter | Optional. Custom label to show on the button.                                     |
   | listId    |                          | ID of MailChimp list to subscribe.                                                |
-  | interests | empty string             | Optional. commas separated string of group ids to which user should be subscribed |
-
+  | tags      |                          | ID of MailChimp tags to subscribe.                                                |
+  | buttonTheme | primary-green-md | Theme key(`tc-` is omitted) for the button. See https://community-app.topcoder.com/examples/contentful/contentblock/3k7k1JpnSvIRrJYWs4izYi |
+  | title | Sign up for the Topcoder Newsletter | Modal title |
+  | desc | Do you want to subscribe to this newsletter? | Modal description |
 
 - #### VideoModalButton
   *Example:* `<VideoModalButton videoTitle="Video Title" videoUrl="Video URL" />`

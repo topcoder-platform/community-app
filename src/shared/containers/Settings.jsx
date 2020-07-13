@@ -103,7 +103,6 @@ SettingsContainer.propTypes = {
   deleteWebLink: PT.func.isRequired,
   linkExternalAccount: PT.func.isRequired,
   unlinkExternalAccount: PT.func.isRequired,
-  saveEmailPreferences: PT.func.isRequired,
   updatePassword: PT.func.isRequired,
   settingsTab: PT.string,
   authenticating: PT.bool.isRequired,
@@ -155,7 +154,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(lookupActions.getCountriesInit());
       dispatch(lookupActions.getCountriesDone());
     } else if (settingsTab === TABS.PREFERENCES) {
-      dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
+      // Deprecated. Leaving it here as reminder to update topcoder-react-lib as well
+      // dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalLinksDone(handle));
@@ -231,9 +231,6 @@ function mapDispatchToProps(dispatch) {
     unlinkExternalAccount: (profile, tokenV3, providerType) => {
       dispatch(profileActions.unlinkExternalAccountInit({ providerType }));
       dispatch(profileActions.unlinkExternalAccountDone(profile, tokenV3, providerType));
-    },
-    saveEmailPreferences: (profile, tokenV3, preferences) => {
-      dispatch(profileActions.saveEmailPreferencesDone(profile, tokenV3, preferences));
     },
     updatePassword: (profile, tokenV3, newPassword, oldPassword) => {
       dispatch(profileActions.updatePasswordInit());

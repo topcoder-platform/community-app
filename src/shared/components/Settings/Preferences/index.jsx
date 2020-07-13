@@ -15,7 +15,7 @@ import Forum from 'assets/images/preferences/forum.svg';
 import Payment from 'assets/images/preferences/payment.svg';
 import SideBar from 'components/Settings/SideBar';
 import ErrorWrapper from 'components/Settings/ErrorWrapper';
-import Email from './Email';
+import NewsletterPreferencesContainer from 'containers/NewsletterPreferences';
 import { SCREEN_SIZE } from '../constants';
 
 import './styles.scss';
@@ -83,9 +83,10 @@ export default class Preferences extends React.Component {
   }
 
   renderTabContent(tab) {
+    const { profile: { email } } = this.props;
     switch (tab) {
       case 'e-mail':
-        return <Email {...this.props} />;
+        return <NewsletterPreferencesContainer email={email} />;
       case 'forum':
         return (window.location.href = `${config.URL.FORUMS}/?module=Settings`) && <LoadingIndicator />;
       case 'payment':
@@ -140,4 +141,5 @@ export default class Preferences extends React.Component {
 
 Preferences.propTypes = {
   clearToastrNotification: PT.func.isRequired,
+  profile: PT.shape().isRequired,
 };
