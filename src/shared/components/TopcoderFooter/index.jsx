@@ -44,8 +44,9 @@ export default function TopcoderFooter() {
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
               <Link to={`${base}/challenges`}>All Challenges</Link>
-              <Link to="https://arena.topcoder.com/">Competitive Programming</Link>
+              <Link to={`${base}/community/arena`}>Competitive Programming</Link>
               <Link to={`${base}/community/taas`}>Gig Work</Link>
+              <Link to={`${base}/community/practice`}>Practice</Link>
             </ul>
           </div>
           <div styleName="navi-col">
@@ -64,6 +65,7 @@ export default function TopcoderFooter() {
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
               <Link to={`${base}/blog`}>Blog</Link>
+              <Link to={`${base}/community/pipeline`}>Challenge Pipeline</Link>
               <Link to={`${base}/community/events`}>Events Calendar</Link>
               <Link to="https://apps.topcoder.com/forums">Forums</Link>
               <Link to={`${base}/community/member-programs`}>Programs</Link>

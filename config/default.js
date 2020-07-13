@@ -309,7 +309,7 @@ module.exports = {
             },
             {
               title: 'Competitive Programming',
-              href: 'https://arena.topcoder-dev.com',
+              href: '/community/arena',
             },
             {
               title: 'Gig Work',
