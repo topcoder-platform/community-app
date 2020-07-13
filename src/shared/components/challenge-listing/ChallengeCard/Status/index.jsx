@@ -164,6 +164,7 @@ export default function ChallengeStatus(props) {
    * the common code being used in both places. */
   function completedChallenge() {
     const { challenge } = props;
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
     return (
       <div>
         {renderLeaderboard()}
@@ -191,7 +192,7 @@ export default function ChallengeStatus(props) {
             challenge.myChallenge
             && (
               <div styleName="spacing">
-                <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}>
+                <a styleName="link-forum past" href={`${FORUM_URL}${forumId}`}>
                   <ForumIcon />
                 </a>
               </div>
@@ -205,12 +206,12 @@ export default function ChallengeStatus(props) {
   function activeChallenge() {
     const { challenge } = props;
     const {
-      forumId,
       myChallenge,
       status,
       subTrack,
     } = challenge;
     const allPhases = challenge.phases || [];
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
 
     let statusPhase = allPhases
       .filter(p => p.name !== 'Registration' && p.isOpen)

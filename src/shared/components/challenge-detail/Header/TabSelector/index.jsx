@@ -33,7 +33,7 @@ export default function ChallengeViewSelector(props) {
     mySubmissions,
   } = props;
 
-  const forumId = _.get(challenge, 'forumId') || 0;
+  const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
 
   const forumEndpoint = trackLower === 'design'
@@ -199,8 +199,8 @@ ChallengeViewSelector.propTypes = {
   isLoggedIn: PT.bool,
   challenge: PT.shape({
     subTrack: PT.any,
-    details: PT.shape({
-      forumId: PT.number.isRequired,
+    legacy: PT.shape({
+      forumId: PT.number,
     }),
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string),

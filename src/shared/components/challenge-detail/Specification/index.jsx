@@ -38,7 +38,6 @@ export default function ChallengeDetailsView(props) {
   } = props;
 
   const {
-    forumId,
     groups,
     description,
     privateDescription,
@@ -53,7 +52,12 @@ export default function ChallengeDetailsView(props) {
 
   const tags = challenge.tags || [];
   const roles = (userDetails || {}).roles || [];
-  const { track, reviewScorecardId, screeningScorecardId } = legacy;
+  const {
+    track,
+    reviewScorecardId,
+    screeningScorecardId,
+    forumId,
+  } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
   let environment = '';
@@ -415,9 +419,9 @@ ChallengeDetailsView.propTypes = {
       track: PT.string.isRequired,
       reviewScorecardId: PT.string,
       screeningScorecardId: PT.string,
+      forumId: PT.number,
     }),
     groups: PT.any,
-    forumId: PT.number,
     reviewType: PT.string,
     tags: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
