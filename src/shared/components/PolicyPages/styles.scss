@@ -75,6 +75,70 @@
     }
   }
 
+  .mobile-navi {
+    margin-bottom: 30px;
+
+    .mobile-navi-section-title {
+      color: #2a2a2a;
+      font-family: Barlow, sans-serif;
+      font-size: 18px;
+      line-height: 24px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 15px;
+      border-bottom: 1px solid #e0e0e0;
+
+      &::before {
+        display: inline-block;
+        content: '';
+        height: 13px;
+        width: 13px;
+        margin-right: 11px;
+        border-bottom: 3px solid #aaa;
+        border-right: 3px solid #aaa;
+        transform: rotate(-45deg);
+      }
+
+      &.active {
+        &::before {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    .mobile-navi-section {
+      list-style: none;
+      display: none;
+      padding-top: 17px;
+
+      &.active {
+        display: block;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      li {
+        padding-left: 40px;
+        font-family: Roboto, sans-serif;
+        margin-bottom: 24px;
+
+        &:last-child {
+          margin-bottom: 15px;
+        }
+
+        &.active {
+          border-left: 3px solid #43d7b0;
+          border-radius: 1.5px;
+          padding-left: 37px;
+
+          a {
+            font-weight: 700;
+            line-height: 26px;
+          }
+        }
+      }
+    }
+  }
+
   .page-content {
     min-height: 100vh;
     flex: 1;
