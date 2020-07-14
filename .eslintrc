@@ -2,7 +2,8 @@
   "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
   "rules": {
     "jsx-a11y/anchor-is-valid": false,
-    "import/no-cycle": [2, { "maxDepth": 1 }]
+    "import/no-cycle": [2, { "maxDepth": 1 }],
+    "react/forbid-prop-types": false
   },
   "env": {
     "browser": true
