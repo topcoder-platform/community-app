@@ -2,10 +2,10 @@
  * PolicyPages component.
  */
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import Sticky from 'react-stickynode';
-import { config, Link } from 'topcoder-react-utils';
+import { config, Link, isomorphy } from 'topcoder-react-utils';
 import cn from 'classnames';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import Error404 from 'components/Error404';
@@ -29,6 +29,18 @@ function PolicyPages({
       policies: this === 'policies', legal: this === 'legal',
     });
   }
+  // auto scroll to anchors
+  useEffect(() => {
+    if (isomorphy.isClientSide()) {
+      const { hash } = window.location;
+      setTimeout(() => {
+        const anchor = document.getElementById(hash ? hash.slice(1) : null);
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+        }
+      }, 5000);
+    }
+  });
 
   let { slug } = match.params;
   const pages = policyData.Policies.concat(policyData.Legal);
@@ -93,10 +105,6 @@ function PolicyPages({
     </div>
   );
 }
-
-PolicyPages.defaultProps = {
-
-};
 
 PolicyPages.propTypes = {
   match: PT.shape().isRequired,
