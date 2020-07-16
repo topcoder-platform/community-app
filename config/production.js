@@ -111,11 +111,15 @@ module.exports = {
             },
             {
               title: 'Competitive Programming',
-              href: 'https://arena.topcoder.com',
+              href: '/community/arena',
             },
             {
               title: 'Gig Work',
               href: '/community/taas',
+            },
+            {
+              title: 'Practice',
+              href: '/community/practice',
             },
           ],
         },

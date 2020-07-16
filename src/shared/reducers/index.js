@@ -34,6 +34,7 @@ import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
+import newsletterPreferences from './newsletterPreferences';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -136,6 +137,7 @@ export function factory(req) {
     newsletterArchive,
     menuNavigation,
     challengesBlock,
+    newsletterPreferences,
   }));
 }
 
