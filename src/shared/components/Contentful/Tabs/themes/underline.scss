@@ -48,7 +48,8 @@ $text-color-pannel: #4a4a4a;
 
   &:hover,
   &.selected {
-    border-bottom: 5px solid #229174;
+    border-bottom: 5px solid #43d7b0;
+    border-radius: 3px;
   }
 
   p {

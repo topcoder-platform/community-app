@@ -149,15 +149,23 @@ export default function Home(props) {
       >
         <div>
           <ImageText
-            title="Improve Your Skills"
-            text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. To keep abreast of emerging new technologies and succeed in this rapidly changing technology landscape. Click below to visit TopGear."
-            link={{
+            title="Leverage The Crowd"
+            text="Access your on-demand community of designers and technology experts."
+            link={[{
               newTab: true,
-              title: 'Start Learning',
-              url: 'https://topgear-app.wipro.com/',
-            }}
+              title: 'Initiate Project',
+              url: `${config.URL.TOPGEAR}/topcoder_projects/initiate_project?user_id=${userId}`,
+            }, {
+              newTab: true,
+              title: 'Add me to account groups',
+              url: 'https://topgear-app.wipro.com/topgear_groups/confirm_group_membership',
+            }, {
+              newTab: true,
+              title: 'Reusable Components',
+              url: 'https://wipro365.sharepoint.com/sites/ipgateway/SiteContent/Components.aspx',
+            }]}
             theme={ImageTextStyles}
-            imageSrc="/community-app-assets/themes/wipro/home/image-text-learn.png"
+            imageSrc="/community-app-assets/themes/wipro/home/image-text-leverage.png"
           />
           <ImageText
             title="Get Involved"
@@ -170,19 +178,15 @@ export default function Home(props) {
             imageSrc="/community-app-assets/themes/wipro/home/image-text-do.png"
           />
           <ImageText
-            title="Leverage The Crowd"
-            text="Access your on-demand community of designers and technology experts."
-            link={[{
+            title="Improve Your Skills"
+            text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. To keep abreast of emerging new technologies and succeed in this rapidly changing technology landscape. Click below to visit TopGear."
+            link={{
               newTab: true,
-              title: 'Initiate Project',
-              url: `${config.URL.TOPGEAR}/topcoder_projects/initiate_project?user_id=${userId}`,
-            }, {
-              newTab: true,
-              title: 'Request Group',
-              url: 'https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747',
-            }]}
+              title: 'Start Learning',
+              url: 'https://topgear-app.wipro.com/',
+            }}
             theme={ImageTextStyles}
-            imageSrc="/community-app-assets/themes/wipro/home/image-text-leverage.png"
+            imageSrc="/community-app-assets/themes/wipro/home/image-text-learn.png"
           />
         </div>
       </Section>
