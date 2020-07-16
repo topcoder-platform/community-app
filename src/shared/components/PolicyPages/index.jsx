@@ -38,7 +38,7 @@ function PolicyPages({
         if (anchor) {
           anchor.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
         }
-      }, 5000);
+      }, 2000);
     }
   });
 
