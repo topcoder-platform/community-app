@@ -133,7 +133,7 @@ export default function TopcoderFooter() {
         <div styleName="bottom">
           <span styleName="copyright-notice">
             {`© ${currentYear} Topcoder`}
-            <a href="https://www.topcoder.com/privacy-policy/" styleName="link">Policies</a>
+            <a href={`${base}/policy`} styleName="link">Policies</a>
           </span>
         </div>
       </div>
