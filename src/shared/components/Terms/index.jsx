@@ -112,7 +112,7 @@ export default class Terms extends React.Component {
   messageHandler(event) {
     const { onCancel, selectedTerm, signDocu } = this.props;
     if (event.data.type === 'DocuSign') {
-      if (event.data.event === 'signing_complete') {
+      if (event.data.event === 'signing_complete' || event.data.event === 'viewing_complete') {
         signDocu(selectedTerm.id);
       } else {
         onCancel();
