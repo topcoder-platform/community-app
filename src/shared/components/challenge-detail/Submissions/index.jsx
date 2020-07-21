@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import { isMM as checkIsMM } from 'utils/challenge';
+import { getRatingLevel } from 'utils/tc';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -316,7 +317,7 @@ class SubmissionsComponent extends React.Component {
               href={`${window.origin}/members/${s.createdBy}`}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
-              style={_.get(s, 'colorStyle')}
+              styleName={`level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
             >
               {s.createdBy}
             </a>
@@ -707,7 +708,7 @@ class SubmissionsComponent extends React.Component {
               <div key={s.createdBy + s.created} styleName="row">
                 {
                   !isF2F && !isBugHunt && (
-                    <div styleName="col-2" style={s.colorStyle}>
+                    <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}  >
                       { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
                     </div>
                   )
@@ -717,8 +718,7 @@ class SubmissionsComponent extends React.Component {
                     href={`${window.origin}/members/${s.createdBy}`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     rel="noopener noreferrer"
-                    styleName="handle"
-                    style={s.colorStyle}
+                    styleName={`handle level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
                   >
                     {s.createdBy}
                   </a>
