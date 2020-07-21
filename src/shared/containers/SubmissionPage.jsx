@@ -7,6 +7,7 @@
  *   Passes the relevent state and setters as properties to the UI components.
  */
 import actions from 'actions/page/submission';
+import { actions as api } from 'topcoder-react-lib';
 import { isMM } from 'utils/challenge';
 import communityActions from 'actions/tc-communities';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
@@ -16,6 +17,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 /**
  * SubmissionsPage Container
@@ -30,8 +32,11 @@ class SubmissionsPageContainer extends React.Component {
     const {
       auth,
       getCommunitiesList,
+      challengeId,
+      loadChallengeDetails,
     } = this.props;
 
+    loadChallengeDetails(auth, challengeId);
     getCommunitiesList(auth);
   }
 
@@ -51,8 +56,17 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
-    const { challenge, challengeId } = this.props;
-    if (!challenge.isRegistered) {
+    const {
+      isRegistered,
+      challengeId,
+      challengeName,
+    } = this.props;
+
+    if (!challengeName) {
+      return <LoadingIndicator />;
+    }
+
+    if (!isRegistered && challengeName) {
       return (
         <React.Fragment>
           <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED}>
@@ -61,6 +75,7 @@ class SubmissionsPageContainer extends React.Component {
         </React.Fragment>
       );
     }
+
     return (
       <SubmissionsPage
         {...this.props}
@@ -92,7 +107,7 @@ const filestackDataProp = PT.shape({
  */
 SubmissionsPageContainer.propTypes = {
   auth: PT.shape().isRequired,
-  currentPhases: PT.arrayOf(PT.object).isRequired,
+  phases: PT.arrayOf(PT.object).isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
     loadingUuid: PT.string.isRequired,
@@ -105,11 +120,12 @@ SubmissionsPageContainer.propTypes = {
   tokenV2: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   submit: PT.func.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   track: PT.string.isRequired,
-  challenge: PT.shap({}).isRequired,
+  challenge: PT.shape().isRequired,
   status: PT.string.isRequired,
-  groups: PT.shape({}).isRequired,
+  isRegistered: PT.bool.isRequired,
+  groups: PT.arrayOf(PT.shape()).isRequired,
   errorMsg: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
@@ -133,6 +149,7 @@ SubmissionsPageContainer.propTypes = {
   setSubmissionFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
+  loadChallengeDetails: PT.func.isRequired,
 };
 
 /**
@@ -144,24 +161,24 @@ SubmissionsPageContainer.propTypes = {
  */
 const mapStateToProps = (state, ownProps) => {
   const { submission } = state.page;
-  const allPhases = state.challenge.details.allPhases || state.challenge.details.phases || [];
-  const currentPhases = state.challenge.details.currentPhases || [];
+  const details = state.challenge.details || {};
   return {
     auth: state.auth,
-    currentPhases,
-    allPhases,
+    phases: details.phases || [],
     communitiesList: state.tcCommunities.list,
     /* Older stuff below. */
     userId: state.auth.user ? state.auth.user.userId : '',
-    challengeId: state.challenge.details.id,
-    challengeName: state.challenge.details.name,
+    handle: state.auth.user ? state.auth.user.handle : '',
+    challengeId: String(ownProps.match.params.challengeId),
+    challengeName: details.name,
     challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
-    track: state.challenge.details.track,
+    track: details.legacy ? details.legacy.track : '',
     challenge: state.challenge,
-    status: state.challenge.details.status,
-    groups: state.challenge.details.groups,
+    status: details.status,
+    isRegistered: details.isRegistered,
+    groups: details.groups,
     isSubmitting: submission.isSubmitting,
     submitDone: submission.submitDone,
     errorMsg: submission.submitErrorMsg,
@@ -170,7 +187,7 @@ const mapStateToProps = (state, ownProps) => {
     filePickers: submission.filePickers,
     notesLength: submission.notesLength,
     submissionFilestackData: submission.submissionFilestackData,
-    winners: state.challenge.details.winners,
+    winners: details.winners,
   };
 };
 
@@ -205,6 +222,11 @@ function mapDispatchToProps(dispatch) {
     setFilePickerUploadProgress: (id, p) => dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
     setSubmissionFilestackData: (id, data) => dispatch(a.setSubmissionFilestackData(id, data)),
+    loadChallengeDetails: (tokens, challengeId) => {
+      const challengeAction = api.challenge;
+      dispatch(challengeAction.getDetailsInit(challengeId));
+      dispatch(challengeAction.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
+    },
   };
 }
 

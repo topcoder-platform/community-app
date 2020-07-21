@@ -243,7 +243,7 @@ class SubmissionsComponent extends React.Component {
       challenge,
     } = this.props;
 
-    const allPhases = challenge.allPhases || challenge.phases || [];
+    const allPhases = challenge.phases || [];
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
@@ -292,25 +292,25 @@ class SubmissionsComponent extends React.Component {
       item => item.member === memberOfModal);
 
     const renderSubmission = s => (
-      <div styleName="submission" key={s.submissionId}>
+      <div styleName="submission" key={s.id}>
         <a
-          href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}
+          href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
             alt=""
-            src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.submissionId}&sbt=small&sfi=1`}
+            src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.id}&sbt=small&sfi=1`}
           />
         </a>
         <div styleName="bottom-info">
           <div styleName="links">
             <a
-              href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}
+              href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.id}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {`#${s.submissionId}`}
+              {`#${s.id}`}
             </a>
             <a
               href={`${window.origin}/members/${s.createdBy}`}
@@ -793,7 +793,6 @@ SubmissionsComponent.propTypes = {
       track: PT.string.isRequired,
     }),
     registrants: PT.any,
-    allPhases: PT.any,
     phases: PT.any,
     subTrack: PT.any,
   }).isRequired,

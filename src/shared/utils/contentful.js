@@ -94,13 +94,13 @@ export function menuItemBuilder(baseUrl, item) {
     case 'route':
       return {
         title: item.fields.naviMenuLinkText || item.fields.name,
-        href: target(baseUrl, item),
+        href: item.fields.viewport ? target(baseUrl, item) : null,
         id: item.sys.id,
       };
     case 'navigationMenuItem':
       return {
         title: item.fields.linkText || item.fields.name,
-        href: target(baseUrl, item),
+        href: item.fields.viewport ? target(baseUrl, item) : null,
         id: item.sys.id,
       };
     default: return {};

@@ -9,7 +9,7 @@ import './IosCard.scss';
 const IosCard = (props) => {
   const { challenge } = props;
   const { legacy } = challenge;
-  const { track } = legacy;
+  const { track, forumId } = legacy;
   return (
     <div styleName={`challenge tile-view ${track}`}>
       <div styleName="challenge-track" />
@@ -39,7 +39,7 @@ const IosCard = (props) => {
               </p>
             </a>
           </div>
-          <a href={`${config.URL.FORUMS}/?module=Category&categoryID=${challenge.forumId}`} styleName="forum">
+          <a href={`${config.URL.FORUMS}/?module=Category&categoryID=${forumId}`} styleName="forum">
             <div styleName="forum-icon" />
             <p>
               Posts

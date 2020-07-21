@@ -317,9 +317,9 @@ export default function SideBar({
             <div styleName="link-like-paragraph">
               {
                 terms.map(t => (
-                  <div styleName="term" key={t.termsOfUseId}>
+                  <div styleName="term" key={t.id}>
                     <Link
-                      to={`${challengesUrl}/terms/detail/${t.termsOfUseId}`}
+                      to={`${challengesUrl}/terms/detail/${t.id}`}
                     >
                       {t.title}
                     </Link>

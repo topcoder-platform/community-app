@@ -29,11 +29,11 @@ export default function ChallengesCard({
   userHandle,
   expandedTags,
   expandTag,
+  isLoggedIn,
 }) {
   const {
     id,
     legacy,
-    allPhases,
     phases,
   } = challenge;
 
@@ -45,8 +45,7 @@ export default function ChallengesCard({
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
 
-  const checkPhases = (phases && phases.length > 0 ? phases : allPhases);
-  const statusPhase = checkPhases
+  const statusPhase = phases
     .filter(p => p.name !== 'Registration')
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
@@ -103,6 +102,7 @@ export default function ChallengesCard({
               selectChallengeDetailsTab={_.noop}
               userHandle={userHandle}
               className={styles['challenge-status-container']}
+              isLoggedIn={isLoggedIn}
             />
           </div>
         </div>
@@ -134,4 +134,5 @@ ChallengesCard.propTypes = {
   userHandle: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };

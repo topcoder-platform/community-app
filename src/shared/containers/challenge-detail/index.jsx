@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
-import { isMM } from 'utils/challenge';
+import { isMM as checkIsMM } from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -94,7 +94,7 @@ function getOgImage(challenge, challengeTypes) {
   switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
-      const submission = (challenge.allPhases || challenge.phases || [])
+      const submission = (challenge.phases || [])
         .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
       if (submission) {
         if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
@@ -357,13 +357,15 @@ class ChallengeDetailPageContainer extends React.Component {
       legacy,
       legacyId,
       status,
-      allPhases,
+      phases,
       metadata,
     } = challenge;
 
     const { track } = legacy || {};
 
     const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
+
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
@@ -385,7 +387,8 @@ class ChallengeDetailPageContainer extends React.Component {
       ? results : null;
 
     const isEmpty = _.isEmpty(challenge);
-    const isLegacyMM = isMM(challenge) && Boolean(challenge.roundId);
+    const isMM = checkIsMM(challenge);
+    const isLegacyMM = isMM && Boolean(challenge.roundId);
 
     if (isLoadingChallenge || isLoadingTerms) {
       return <LoadingPagePlaceholder />;
@@ -401,15 +404,9 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
 
-    const phases = {};
-    if (allPhases) {
-      allPhases.forEach((phase) => {
-        phases[_.camelCase(phase.phaseType)] = phase;
-      });
-    }
     const submissionEnded = status === 'COMPLETED'
-      || (_.get(phases, 'submission.phaseStatus') !== 'Open'
-        && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
+    || (!_.some(phases, { name: 'Submission', isOpen: true })
+      && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
     const { prizeSets } = challenge;
     let challengePrizes = [];
@@ -445,6 +442,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty
             && (
             <ChallengeHeader
+              isLoggedIn={isLoggedIn}
               challenge={challenge}
               challengeId={challengeId}
               challengeTypes={challengeTypes}
@@ -523,7 +521,7 @@ class ChallengeDetailPageContainer extends React.Component {
             )
           }
           {
-            !isEmpty && selectedTab === DETAIL_TABS.SUBMISSIONS
+            !isEmpty && isLoggedIn && selectedTab === DETAIL_TABS.SUBMISSIONS
             && (
               <Submissions
                 challenge={challenge}
@@ -559,7 +557,8 @@ class ChallengeDetailPageContainer extends React.Component {
                 hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 submissionEnded={submissionEnded}
-                isLegacyMM={isLegacyMM}
+                isMM
+                isLegacyMM
                 loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                 auth={auth}
                 loadMMSubmissions={loadMMSubmissions}
@@ -586,7 +585,7 @@ class ChallengeDetailPageContainer extends React.Component {
         {legacyId && (
           <Terms
             defaultTitle="Challenge Prerequisites"
-            entity={{ type: 'challenge', id: legacyId.toString() }}
+            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
             instanceId={this.instanceId}
             description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
             register={() => {
@@ -605,6 +604,7 @@ class ChallengeDetailPageContainer extends React.Component {
             auth={auth}
             expandedTags={expandedTags}
             expandTag={expandTag}
+            isLoggedIn={isLoggedIn}
           />
         ) : null
         }
@@ -724,16 +724,14 @@ function mapStateToProps(state, props) {
       }));
     }
 
-    if (mmSubmissions) {
+    if (!_.isEmpty(mmSubmissions)) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
         let { member } = submission;
         if (auth.user.handle === submission.member) {
           mySubmissions = submission.submissions || [];
-          mySubmissions = mySubmissions.map((mySubmission, index) => {
-            // eslint-disable-next-line no-param-reassign
-            mySubmission.id = mySubmissions.length - index;
-            return mySubmission;
+          mySubmissions.forEach((mySubmission, index) => {
+            mySubmissions[index].id = mySubmissions.length - index;
           });
         }
         let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
@@ -762,6 +760,8 @@ function mapStateToProps(state, props) {
           member,
         });
       });
+    } else {
+      mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
     }
   }
   return {
@@ -843,12 +843,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.track === 'DESIGN') {
-            const p = ch.allPhases || ch.phases || []
+          if (ch.legacy.track === 'DESIGN') {
+            const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
               dispatch(a.fetchCheckpointsInit());
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, ch.legacyId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
           if (ch.status === 'COMPLETED') {
@@ -867,11 +867,11 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.track === 'DESIGN') {
-            const p = challengeDetails.allPhases || challengeDetails.phases || []
+          if (challengeDetails.legacy.track === 'DESIGN') {
+            const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeDetails.legacyId));
             }
           }
           return challengeDetails;

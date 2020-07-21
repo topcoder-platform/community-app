@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
   Component renders challenge details and specifications
 */
@@ -37,7 +38,6 @@ export default function ChallengeDetailsView(props) {
   } = props;
 
   const {
-    forumId,
     groups,
     description,
     privateDescription,
@@ -52,7 +52,12 @@ export default function ChallengeDetailsView(props) {
 
   const tags = challenge.tags || [];
   const roles = (userDetails || {}).roles || [];
-  const { track, reviewScorecardId, screeningScorecardId } = legacy;
+  const {
+    track,
+    reviewScorecardId,
+    screeningScorecardId,
+    forumId,
+  } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
   let environment = '';
@@ -341,40 +346,20 @@ export default function ChallengeDetailsView(props) {
                   </div>
                 ) : (
                   <p styleName="p">
-                    Topcoder will compensate members in accordance with our
-                    standard payment policies, unless otherwise specified in this
-                    challenge. For information on payment policies, setting up your
-                    profile to receive payments, and general payment questions,
-                    please refer to
+                    Topcoder will compensate members in accordance with our standard payment policies, unless
+                    otherwise specified in this challenge. For information on payment policies, setting up your profile to
+                    receive payments, and general payment questions, please refer to
                     &zwnj;
                     <a
                       href="https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions
-                    </a>
+                      Payment Policies and Instructions
+                    </a>.
                   </p>
                 )
               }
-            </article>
-            <article>
-              <h2 styleName="h2">
-                Reliability Rating and Bonus
-              </h2>
-              <p styleName="p">
-                For challenges that have a reliability bonus, the bonus depends
-                on the reliability rating at the moment of registration for that
-                project. A participant with no previous projects is considered to
-                have no reliability rating, and therefore gets no bonus.
-                Reliability bonus does not apply to Digital Run winnings. Since
-                reliability rating is based on the past 15 projects, it can only
-                have 15 discrete values.
-                <br />
-                <a href={config.URL.INFO.RELIABILITY_RATINGS_AND_BONUSES}>
-                  Read more.
-                </a>
-              </p>
             </article>
           </div>
         </div>
@@ -434,9 +419,9 @@ ChallengeDetailsView.propTypes = {
       track: PT.string.isRequired,
       reviewScorecardId: PT.string,
       screeningScorecardId: PT.string,
+      forumId: PT.number,
     }),
     groups: PT.any,
-    forumId: PT.number,
     reviewType: PT.string,
     tags: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,

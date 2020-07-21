@@ -22,13 +22,13 @@
 	"technologies": "CSS, HTML, JavaScript",
 	"status": "COMPLETED",
 	"legacy": {
-		"track": "DEVELOP"
+		"track": "DEVELOP",
+		"forumId": 39153
 	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "$100 Eaton PX 2.0 Petting Zoo - MDC Web Enhancement F2F Challenge",
 	"reviewType": "INTERNAL",
 	"id": 30060905,
-	"forumId": 39153,
 	"numOfSubmissions": 3,
 	"numOfRegistrants": 8,
 	"registrationStartDate": "2017-12-02T09:01:23.251Z",
@@ -165,13 +165,13 @@
 	"technologies": "ReactJS",
 	"status": "COMPLETED",
 	"legacy": {
-		"track": "DEVELOP"
+		"track": "DEVELOP",
+		"forumId": 39151
 	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "$100 Eaton PX 2.0 Petting Zoo - ReactJS Enhancement F2F Challenge",
 	"reviewType": "INTERNAL",
 	"id": 30060903,
-	"forumId": 39151,
 	"numOfSubmissions": 2,
 	"numOfRegistrants": 6,
 	"registrationStartDate": "2017-12-02T09:01:21.329Z",
@@ -323,13 +323,13 @@
 	"technologies": "Angular 2+, Express, JSON, Node.js",
 	"status": "COMPLETED",
 	"legacy": {
-		"track": "DEVELOP"
+		"track": "DEVELOP",
+		"forumId": 38951
 	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "$500 BG800 Online Course Mock Rest API F2F Challenge",
 	"reviewType": "INTERNAL",
 	"id": 30060687,
-	"forumId": 38951,
 	"numOfSubmissions": 14,
 	"numOfRegistrants": 18,
 	"registrationStartDate": "2017-11-24T13:27:44.751Z",
@@ -631,13 +631,13 @@
 	"technologies": "JavaScript, ReactJS",
 	"status": "COMPLETED",
 	"legacy": {
-		"track": "DEVELOP"
+		"track": "DEVELOP",
+		"forumId": 38702
 	},
 	"subTrack": "FIRST_2_FINISH",
 	"name": "John Hancock - Giving Tuesday - General image handling",
 	"reviewType": "INTERNAL",
 	"id": 30060425,
-	"forumId": 38702,
 	"numOfSubmissions": 3,
 	"numOfRegistrants": 17,
 	"registrationStartDate": "2017-11-11T02:02:21.127Z",

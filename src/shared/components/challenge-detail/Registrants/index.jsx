@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import cn from 'classnames';
+import { getRatingLevel } from 'utils/tc';
 
 import sortList from 'utils/challenge-detail/sort';
 import CheckMark from '../icons/check-mark.svg';
@@ -16,7 +17,7 @@ import './style.scss';
 
 function formatDate(date) {
   if (!date) return '-';
-  return moment(date).format('MMM DD, YYYY HH:mm');
+  return moment(date).local().format('MMM DD, YYYY HH:mm');
 }
 
 function getDate(arr, handle) {
@@ -78,7 +79,7 @@ export default class Registrants extends React.Component {
     const {
       challenge,
     } = this.props;
-    const checkpointPhase = (challenge.allPhases || challenge.phases || []).find(x => x.name === 'Checkpoint Submission');
+    const checkpointPhase = (challenge.phases || []).find(x => x.name === 'Checkpoint Submission');
     return moment(checkpointPhase
       ? checkpointPhase.actualEndDate || checkpointPhase.scheduledEndDate : 0);
   }
@@ -194,8 +195,8 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Registration Date': {
-          valueA = new Date(a.registrationDate);
-          valueB = new Date(b.registrationDate);
+          valueA = new Date(a.created);
+          valueB = new Date(b.created);
           break;
         }
         case 'Round 1 Submitted Date': {
@@ -242,13 +243,14 @@ export default class Registrants extends React.Component {
       prizeSets,
       legacy,
     } = challenge;
+
     const { track } = legacy;
+
     const { sortedRegistrants } = this.state;
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
     const isDesign = track.toLowerCase() === 'design';
-    const isF2F = track.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = track.indexOf('BUG_HUNT') > -1;
+
     const placementPrizes = _.find(prizeSets, { type: 'placement' });
     const { prizes } = placementPrizes || [];
 
@@ -261,7 +263,7 @@ export default class Registrants extends React.Component {
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
           {
-            !isDesign && !isF2F && !isBugHunt && (
+            !isDesign && (
               <button
                 type="button"
                 onClick={() => {
@@ -382,29 +384,26 @@ export default class Registrants extends React.Component {
           {
             sortedRegistrants.map((r) => {
               const placement = getPlace(results, r.memberHandle, places);
-              const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
               let checkpoint = this.getCheckPoint(r);
               if (checkpoint) {
                 checkpoint = formatDate(checkpoint);
               }
-              let final = this.getFinal(r);
-              if (final) {
-                final = formatDate(final);
-              } else {
-                final = '-';
-              }
+              const final = this.getFinal(r);
 
               return (
                 <div styleName="row" key={r.memberHandle} role="row">
                   {
-                    !isDesign && !isF2F && !isBugHunt && (
+                    !isDesign && (
                       <div styleName="col-2">
                         <div styleName="sm-only title">
                           Rating
                         </div>
                         <div>
-                          <span style={colorStyle} role="cell">
-                            { !_.isNil(r.rating) ? r.rating : '-'}
+                          <span
+                            styleName={`level-${getRatingLevel(_.get(r, 'rating', 0))}`}
+                            role="cell"
+                          >
+                            { (!_.isNil(r.rating) && r.rating !== 0) ? r.rating : '-'}
                           </span>
                         </div>
                       </div>
@@ -414,7 +413,7 @@ export default class Registrants extends React.Component {
                     <span role="cell">
                       <a
                         href={`${window.origin}/members/${r.memberHandle}`}
-                        style={colorStyle}
+                        styleName={isDesign ? '' : `level-${getRatingLevel(_.get(r, 'rating', 0))}`}
                         target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                       >
                         {r.memberHandle}
@@ -453,7 +452,7 @@ export default class Registrants extends React.Component {
                     </div>
                     <div>
                       <span role="cell">
-                        {final}
+                        {formatDate(final)}
                       </span>
                       {placement > 0 && (
                       <span role="cell" styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>
@@ -487,7 +486,6 @@ Registrants.propTypes = {
       name: PT.string.isRequired,
       scheduledEndDate: PT.string,
     })).isRequired,
-    allPhases: PT.arrayOf(PT.shape()),
     checkpoints: PT.arrayOf(PT.shape()),
     legacy: PT.shape({
       track: PT.any,
@@ -497,6 +495,7 @@ Registrants.propTypes = {
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
     round2Introduction: PT.string,
+    type: PT.string,
   }).isRequired,
   results: PT.arrayOf(PT.shape()),
   checkpointResults: PT.shape(),

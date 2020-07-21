@@ -56,7 +56,7 @@ export default function SubmissionsTable(props) {
       const submission = (
         <Submission
           submissionObject={subObject}
-          showScreeningDetails={showDetails[subObject.submissionId]}
+          showScreeningDetails={showDetails[subObject.id]}
           type={type}
           onShowDetails={onShowDetails}
           onDelete={onDelete}
@@ -69,15 +69,15 @@ export default function SubmissionsTable(props) {
       submissionsWithDetails.push(submission);
 
       const submissionDetail = (
-        <tr key={subObject.submissionId} styleName="submission-row">
-          {showDetails[subObject.submissionId]
+        <tr key={subObject.id} styleName="submission-row">
+          {showDetails[subObject.id]
             && (
             <td colSpan="6" styleName="dev-details">
               <ScreeningDetails
                 screeningObject={subObject.screening}
                 helpPageUrl={helpPageUrl}
                 onlineReviewUrl={onlineReviewUrl}
-                submissionId={subObject.submissionId}
+                submissionId={subObject.id}
               />
             </td>
             )}

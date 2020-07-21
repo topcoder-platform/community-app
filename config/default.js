@@ -57,7 +57,7 @@ module.exports = {
   /**
    * Disable PWA service worker.
    */
-  DISABLE_SERVICE_WORKER: false,
+  DISABLE_SERVICE_WORKER: true,
 
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
@@ -71,6 +71,7 @@ module.exports = {
 
   /* Holds params to signup for different newsletters. */
   NEWSLETTER_SIGNUP: {
+    DEFAUL_LIST_ID: '28bfd3c062',
     COGNITIVE: {
       APIKEY: '',
       URL: '',
@@ -308,11 +309,15 @@ module.exports = {
             },
             {
               title: 'Competitive Programming',
-              href: 'https://arena.topcoder-dev.com',
+              href: '/community/arena',
             },
             {
               title: 'Gig Work',
               href: '/community/taas',
+            },
+            {
+              title: 'Practice',
+              href: '/community/practice',
             },
           ],
         },

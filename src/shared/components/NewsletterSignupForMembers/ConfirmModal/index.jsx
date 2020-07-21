@@ -34,13 +34,15 @@ function ConfirmModal({
   skipConfirmSignup,
   token,
   theme,
+  title,
+  desc,
 }) {
   let text;
   if (token) {
     text = (
       <div className={modalStyle.modalMsg}>
-        <h4>Sign up for the Topcoder Newsletter</h4>
-        <p style={{ 'font-size': '24px' }}>Do you want to subscribe to this newsletter?</p>
+        <h4>{title}</h4>
+        <p style={{ fontSize: '24px' }}>{desc}</p>
       </div>
     );
     if (skipConfirmSignup) {
@@ -49,7 +51,7 @@ function ConfirmModal({
   } else {
     text = customTcAuthModalText || (
       <div className={modalStyle.modalMsg}>
-        <h4>Sign up for the Topcoder Newsletter</h4>
+        <h4>{title}</h4>
         <p>
           You must be a Topcoder member before you can signup for Newsletter.
           To signup, login if you are already a member. If not, register first.
@@ -84,7 +86,7 @@ function ConfirmModal({
               button: buttonThemes.tc['primary-green-md'],
             }}
           >
-            SIGNUP
+            Ok
           </PrimaryButton>
         </div>
       ) : (
@@ -130,6 +132,8 @@ ConfirmModal.propTypes = {
   skipConfirmSignup: PT.bool.isRequired,
   theme: PT.shape().isRequired,
   token: PT.string,
+  title: PT.string.isRequired,
+  desc: PT.string.isRequired,
 };
 
 export default themr('NewsletterSignupForMembers-Modal', defaultStyle)(ConfirmModal);

@@ -34,6 +34,7 @@ const DAY_MS = 24 * HOUR_MS;
 
 export default function ChallengeHeader(props) {
   const {
+    isLoggedIn,
     challenge,
     challengesUrl,
     challengeTypes,
@@ -67,7 +68,6 @@ export default function ChallengeHeader(props) {
     legacy,
     prizeSets,
     reliabilityBonus,
-    userDetails,
     numOfRegistrants,
     numOfSubmissions,
     appealsEndDate,
@@ -123,7 +123,7 @@ export default function ChallengeHeader(props) {
    * iterate through all their submissions and ensure that all of them
    * are Deleted
   */
-  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
+  const hasSubmissions = !_.isEmpty(mySubmissions);
 
   let nextPhase = allPhases.filter(p => p.name !== 'Registration' && p.isOpen).sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
   if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
@@ -447,7 +447,9 @@ export default function ChallengeHeader(props) {
           }
         </div>
         <TabSelector
+          isLoggedIn={isLoggedIn}
           challenge={challenge}
+          isMM={isMM(challenge)}
           onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
           selectedView={selectedView}
@@ -465,6 +467,7 @@ export default function ChallengeHeader(props) {
 }
 
 ChallengeHeader.defaultProps = {
+  isLoggedIn: false,
   checkpoints: {},
   isMenuOpened: false,
   hasThriveArticles: false,
@@ -473,6 +476,7 @@ ChallengeHeader.defaultProps = {
 };
 
 ChallengeHeader.propTypes = {
+  isLoggedIn: PT.bool,
   checkpoints: PT.shape(),
   challenge: PT.shape({
     id: PT.string.isRequired,
@@ -496,7 +500,6 @@ ChallengeHeader.propTypes = {
     numOfSubmissions: PT.any,
     status: PT.any,
     appealsEndDate: PT.any,
-    allPhases: PT.any,
     phases: PT.any,
     roundId: PT.any,
     prizeSets: PT.any,

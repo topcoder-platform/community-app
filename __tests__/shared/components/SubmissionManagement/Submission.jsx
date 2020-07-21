@@ -23,7 +23,7 @@ test('Snapshot match', () => {
       onDelete={mockOnDelete}
       onShowDetails={mockOnShowDetails}
       submissionObject={{
-        submissionId: 12345,
+        id: '12345',
         screening: {},
       }}
       type="design"
@@ -51,7 +51,7 @@ const page = TU.renderIntoDocument((
     onDelete={mockOnDelete}
     onShowDetails={mockOnShowDetails}
     submissionObject={{
-      submissionId: 12345,
+      id: '12345',
       screening: {},
     }}
     type="design"

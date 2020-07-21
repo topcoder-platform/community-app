@@ -28,20 +28,20 @@ function create(initialState = {}) {
     [a.cancelDelete]: state => ({
       ...state,
       showModal: false,
-      toBeDeletedId: 0,
+      toBeDeletedId: '',
     }),
 
     'SMP/DELETE_SUBMISSION_DONE': state => ({
       ...state,
       deletingSubmission: false,
       showModal: false,
-      toBeDeletedId: 0,
+      toBeDeletedId: '',
     }),
 
   }, _.defaults(initialState, {
     showDetails: {},
     showModal: false,
-    toBeDeletedId: 0,
+    toBeDeletedId: '',
   }));
 }
 

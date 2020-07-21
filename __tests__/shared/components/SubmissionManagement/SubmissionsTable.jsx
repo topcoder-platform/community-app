@@ -8,7 +8,7 @@ test('Matches shallow shapshot', () => {
     <SubmissionsTable
       showDetails={{ 12345: true }}
       submissionObjects={[{
-        submissionId: 12345,
+        id: '12345',
       }]}
       type="DESIGN"
     />

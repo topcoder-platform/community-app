@@ -35,7 +35,9 @@
     "name": "$100 Eaton PX 2.0 Petting Zoo - MDC Web Enhancement F2F Challenge",
     "reviewType": "INTERNAL",
     "id": 30060905,
-    "forumId": 39153,
+    "legacy": {
+        "forumId": 39153
+    },
     "numOfSubmissions": 3,
     "numOfRegistrants": 8,
     "registrationStartDate": "2017-12-02T09:01:23.251Z",
@@ -189,7 +191,9 @@
     "name": "$100 Eaton PX 2.0 Petting Zoo - ReactJS Enhancement F2F Challenge",
     "reviewType": "INTERNAL",
     "id": 30060903,
-    "forumId": 39151,
+    "legacy": {
+        "forumId": 38951
+    },
     "numOfSubmissions": 2,
     "numOfRegistrants": 6,
     "registrationStartDate": "2017-12-02T09:01:21.329Z",
@@ -385,7 +389,9 @@
     "name": "$500 BG800 Online Course Mock Rest API F2F Challenge",
     "reviewType": "INTERNAL",
     "id": 30060687,
-    "forumId": 38951,
+    "legacy": {
+        "forumId": 38951
+    },
     "numOfSubmissions": 14,
     "numOfRegistrants": 18,
     "registrationStartDate": "2017-11-24T13:27:44.751Z",
@@ -713,7 +719,9 @@
     "name": "John Hancock - Giving Tuesday - General image handling",
     "reviewType": "INTERNAL",
     "id": 30060425,
-    "forumId": 38702,
+    "legacy": {
+        "forumId": 38702
+    },
     "numOfSubmissions": 3,
     "numOfRegistrants": 17,
     "registrationStartDate": "2017-11-11T02:02:21.127Z",

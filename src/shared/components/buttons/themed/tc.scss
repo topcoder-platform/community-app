@@ -6,6 +6,7 @@
   font-weight: 700 !important;
   text-decoration: none !important;
   text-transform: uppercase !important;
+  margin: 0 !important;
 }
 
 @mixin primary-green {
@@ -43,7 +44,7 @@
 
   &:active,
   &:visited {
-    border: 1px solid #0ab88a !important;
+    border: 1px solid #137d60 !important;
     box-shadow: none !important;
   }
 }
@@ -105,6 +106,7 @@
   font-weight: 700 !important;
   text-decoration: none !important;
   text-transform: uppercase !important;
+  margin: 0 !important;
 }
 
 @mixin secondary-gray {
@@ -130,6 +132,7 @@
 
   font-weight: 700 !important;
   text-transform: uppercase !important;
+  margin: 0 !important;
 }
 
 @mixin warn-red {

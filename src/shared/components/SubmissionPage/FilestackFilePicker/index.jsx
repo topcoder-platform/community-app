@@ -334,7 +334,7 @@ FilestackFilePicker.defaultProps = {
 FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,

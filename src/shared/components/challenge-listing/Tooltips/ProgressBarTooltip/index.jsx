@@ -94,7 +94,7 @@ function Tip(props) {
   const { isLoaded } = props;
   if (!c || _.isEmpty(c)) return <div />;
 
-  const allPhases = c.allPhases || c.phases || [];
+  const allPhases = c.phases || [];
   const endPhaseDate = Math.max(...allPhases.map(d => new Date(d.scheduledEndDate)));
   const registrationPhase = allPhases.find(phase => phase.name === 'Registration');
   const submissionPhase = allPhases.find(phase => phase.name === 'Submission');

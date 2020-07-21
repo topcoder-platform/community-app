@@ -179,7 +179,7 @@ function create(initialState) {
     uploadProgress: 0,
     filePickers: [],
     submissionFilestackData: {
-      challengeId: 0,
+      challengeId: '',
       fileUrl: '',
       filename: '',
       mimetype: '',

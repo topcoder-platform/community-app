@@ -58,12 +58,16 @@ exports[`Default render 1`] = `
                   "title": "All Challenges",
                 },
                 Object {
-                  "href": "https://arena.topcoder-dev.com",
+                  "href": "/community/arena",
                   "title": "Competitive Programming",
                 },
                 Object {
                   "href": "/community/taas",
                   "title": "Gig Work",
+                },
+                Object {
+                  "href": "/community/practice",
+                  "title": "Practice",
                 },
               ],
               "title": "Compete",

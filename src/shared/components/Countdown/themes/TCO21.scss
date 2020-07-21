@@ -23,24 +23,15 @@ $container-background-yello: #fce217;
   .title {
     @include barlow-condensed-medium;
 
-    color: $tco-black;
-    font-size: 34px;
-    line-height: 38px;
+    color: #2a2a2a;
+    font-size: 48px;
+    line-height: 50px;
     text-align: center;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 41px auto 0;
     text-transform: uppercase;
-
-    &.colon {
-      margin-right: 30px;
-    }
 
     @media only screen and (max-width: 767px) {
       margin-bottom: 20px;
-
-      &.colon {
-        display: none;
-      }
     }
   }
 
@@ -54,23 +45,24 @@ $container-background-yello: #fce217;
   }
 
   .time-value {
-    @include barlow-condensed-bold;
+    @include barlow-condensed;
 
-    color: $tco-black;
-    font-size: 42px;
-    line-height: 50px;
+    color: #9d41c9;
+    font-size: 80px;
+    line-height: 74px;
     text-align: center;
   }
 
   .time-label {
-    @include barlow-condensed-medium;
-
-    color: $text-color-gray;
-    font-size: 18px;
-    line-height: 30px;
+    color: #2a2a2a;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 18px;
     text-align: center;
     width: 100px;
     text-transform: uppercase;
+    margin-top: 4px;
 
     @media only screen and (max-width: 767px) {
       width: auto;

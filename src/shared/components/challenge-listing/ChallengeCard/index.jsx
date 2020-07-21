@@ -35,6 +35,7 @@ function ChallengeCard({
   selectChallengeDetailsTab,
   userId,
   domRef,
+  isLoggedIn,
 }) {
   const challenge = passedInChallenge;
   const {
@@ -56,7 +57,7 @@ function ChallengeCard({
     track = 'DATA_SCIENCE';
   }
 
-  const registrationPhase = (challenge.allPhases || challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
+  const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
 
   return (
@@ -117,6 +118,7 @@ function ChallengeCard({
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           userId={userId}
+          isLoggedIn={isLoggedIn}
         />
       </div>
     </div>
@@ -149,6 +151,7 @@ ChallengeCard.propTypes = {
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };
 
 export default ChallengeCard;

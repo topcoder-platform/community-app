@@ -19,7 +19,9 @@ function getSelectorStyle(selectedView, currentView) {
 
 export default function ChallengeViewSelector(props) {
   const {
+    isLoggedIn,
     challenge,
+    isMM,
     checkpointCount,
     numOfRegistrants,
     numOfSubmissions,
@@ -31,9 +33,7 @@ export default function ChallengeViewSelector(props) {
     mySubmissions,
   } = props;
 
-  const challengeSubTrack = challenge.subTrack;
-  const isMM = challengeSubTrack && challengeSubTrack.indexOf('MARATHON_MATCH') > -1;
-  const forumId = _.get(challenge, 'forumId') || 0;
+  const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
 
   const forumEndpoint = trackLower === 'design'
@@ -123,7 +123,7 @@ export default function ChallengeViewSelector(props) {
           )
         }
         {
-          numOfSubmissions ? (
+          (numOfSubmissions && isLoggedIn) ? (
             <a
               tabIndex="0"
               role="tab"
@@ -186,7 +186,9 @@ export default function ChallengeViewSelector(props) {
 }
 
 ChallengeViewSelector.defaultProps = {
+  isLoggedIn: false,
   challenge: {},
+  isMM: false,
   checkpointCount: 0,
   numOfRegistrants: 0,
   numOfSubmissions: 0,
@@ -194,15 +196,17 @@ ChallengeViewSelector.defaultProps = {
 };
 
 ChallengeViewSelector.propTypes = {
+  isLoggedIn: PT.bool,
   challenge: PT.shape({
     subTrack: PT.any,
-    details: PT.shape({
-      forumId: PT.number.isRequired,
+    legacy: PT.shape({
+      forumId: PT.number,
     }),
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string),
     }),
   }),
+  isMM: PT.bool,
   checkpointCount: PT.number,
   numOfRegistrants: PT.number,
   numOfSubmissions: PT.number,

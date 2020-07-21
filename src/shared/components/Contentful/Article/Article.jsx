@@ -250,7 +250,7 @@ export default class Article extends React.Component {
                                 {subData.entries.items[rec.sys.id].fields.title}
                               </a>
                             ) : (
-                              <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`}>
+                              <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.slug || subData.entries.items[rec.sys.id].fields.title}`}>
                                 {subData.entries.items[rec.sys.id].fields.title}
                               </a>
                             )
@@ -278,7 +278,7 @@ export default class Article extends React.Component {
                               Read More <ReadMoreArrow />
                             </a>
                           ) : (
-                            <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`} className={theme.readMore}>
+                            <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.slug || subData.entries.items[rec.sys.id].fields.title}`} className={theme.readMore}>
                               Read More <ReadMoreArrow />
                             </a>
                           )

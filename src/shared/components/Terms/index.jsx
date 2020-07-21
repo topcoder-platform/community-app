@@ -62,7 +62,7 @@ export default class Terms extends React.Component {
   componentDidMount() {
     const { loadDetails, selectedTerm } = this.props;
     if (selectedTerm) {
-      loadDetails(selectedTerm.termsOfUseId);
+      loadDetails(selectedTerm.id);
     }
     window.addEventListener('message', this.messageHandler, false);
     window.addEventListener('resize', this.resizeHandler, false);
@@ -75,8 +75,8 @@ export default class Terms extends React.Component {
       checkStatus, canRegister, onCancel, register,
     } = this.props;
     if (nextProps.selectedTerm && !_.isEqual(selectedTerm, nextProps.selectedTerm)
-      && nextProps.loadingTermId !== _.toString(nextProps.selectedTerm.termsOfUseId)) {
-      loadDetails(nextProps.selectedTerm.termsOfUseId);
+      && nextProps.loadingTermId !== _.toString(nextProps.selectedTerm.id)) {
+      loadDetails(nextProps.selectedTerm.id);
     }
     if (!_.every(terms, 'agreed') && _.every(nextProps.terms, 'agreed') && !nextProps.checkingStatus) {
       checkStatus();
@@ -112,8 +112,8 @@ export default class Terms extends React.Component {
   messageHandler(event) {
     const { onCancel, selectedTerm, signDocu } = this.props;
     if (event.data.type === 'DocuSign') {
-      if (event.data.event === 'signing_complete') {
-        signDocu(selectedTerm.termsOfUseId);
+      if (event.data.event === 'signing_complete' || event.data.event === 'viewing_complete') {
+        signDocu(selectedTerm.id);
       } else {
         onCancel();
       }
@@ -159,7 +159,7 @@ export default class Terms extends React.Component {
     };
 
     return (
-      <div key={(selectedTerm || {}).termsOfUseId}>
+      <div key={(selectedTerm || {}).id}>
         <FocusTrap>
           <Modal
             onCancel={onCancel}
@@ -199,7 +199,7 @@ export default class Terms extends React.Component {
                           {
                             terms.map((t, index) => (
                               <div
-                                key={t.termsOfUseId}
+                                key={t.id}
                                 /* TODO: No need to use so much style names and
                                  * related logic here. It can be simplified:
                                  * "view-only" style should move to the root
@@ -259,11 +259,11 @@ export default class Terms extends React.Component {
                         )
                       }
                       {
-                        loadingTermId === _.toString(selectedTerm.termsOfUseId)
+                        loadingTermId === _.toString(selectedTerm.id)
                         && <LoadingIndicator />
                       }
                       {
-                        loadingTermId !== _.toString(selectedTerm.termsOfUseId) && details
+                        loadingTermId !== _.toString(selectedTerm.id) && details
                         && (
                         <TermDetails
                           details={details}
@@ -282,7 +282,7 @@ export default class Terms extends React.Component {
                 {
                   !isLoadingTerms && !checkingStatus && selectedTerm && details
                     && !viewOnly
-                    && loadingTermId !== _.toString(selectedTerm.termsOfUseId)
+                    && loadingTermId !== _.toString(selectedTerm.id)
                     && details.agreeabilityType === 'Electronically-agreeable' ? (
                       <div styleName="buttons">
                         {
@@ -303,9 +303,9 @@ export default class Terms extends React.Component {
                             : (
                               <div>
                                 <PrimaryButton
-                                  disabled={agreeingTerm === details.termsOfUseId}
+                                  disabled={agreeingTerm === details.id}
                                   onClick={() => {
-                                    agreeTerm(details.termsOfUseId);
+                                    agreeTerm(details.id);
                                     if (this.vScrollArea) {
                                       this.vScrollArea.scrollTop = 0;
                                     }
