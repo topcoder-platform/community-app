@@ -63,6 +63,9 @@ export default function LeaderboardTable(props) {
         photoUrl = `${config.CDN.PUBLIC}/avatar/${
           encodeURIComponent(photoUrl)}?size=40`;
       }
+      if (competitor['member_profile_basic.photo_url']) {
+        photoUrl = competitor['member_profile_basic.photo_url'];
+      }
       return (
         <tr key={competitor.rank}>
           <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
@@ -83,18 +86,18 @@ export default function LeaderboardTable(props) {
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
                 >
-                  {competitor.handle}
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
-                <a href={`${window.origin}/members/${competitor.handle}/`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
-                  {competitor.handle}
+                <a href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )
             }
             <div styleName={`${stylesName}.winnings-info`}>
               {competitor.fulfillment && (<span>{competitor.fulfillment} fulfillment</span>)}
-              <span>{competitor.points} points</span>
-              <span>{competitor.challengecount} challenges</span>
+              <span>{competitor['tco_leaderboard.tco_points'] || competitor.points} points</span>
+              <span>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount} challenges</span>
             </div>
           </td>
           {
@@ -102,8 +105,8 @@ export default function LeaderboardTable(props) {
               <td styleName={`${stylesName}.col-fulfillment`}>{competitor.fulfillment}</td>
             ) : null
           }
-          <td styleName={`${stylesName}.col-challenges`}>{competitor.challengecount}</td>
-          <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor.points)}</td>
+          <td styleName={`${stylesName}.col-challenges`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</td>
+          <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</td>
           {
             isTopGear ? (
               <td styleName={`${stylesName}.col-points`}>{competitor.wins}</td>

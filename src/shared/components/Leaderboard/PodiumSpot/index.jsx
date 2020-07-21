@@ -104,6 +104,9 @@ export default function PodiumSpot(props) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
   }
+  if (competitor['member_profile_basic.photo_url']) {
+    photoUrl = competitor['member_profile_basic.photo_url'];
+  }
   let rootStyle = `${stylesName}.PodiumSpot`;
   if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` ${stylesName}.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
 
@@ -127,15 +130,15 @@ export default function PodiumSpot(props) {
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
                 >
-                  {competitor.handle}
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
                 <a
                   styleName={`${stylesName}.profile-link`}
-                  href={`${window.origin}/members/${competitor.handle}/`}
+                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
                   target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                 >
-                  {competitor.handle}
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )
             }
@@ -152,15 +155,15 @@ export default function PodiumSpot(props) {
                     styleName={`${stylesName}.handle-link`}
                     onClick={() => onUsernameClick(competitor)}
                   >
-                    {competitor.handle}
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
                   </div>
                 ) : (
                   <a
                     styleName={`${stylesName}.profile-link`}
-                    href={`${window.origin}/members/${competitor.handle}/`}
+                    href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                   >
-                    {competitor.handle}
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
                   </a>
                 )
               }
@@ -176,11 +179,11 @@ export default function PodiumSpot(props) {
           ) : null
         }
         <div styleName={`${stylesName}.stats`}>
-          <span styleName={`${stylesName}.value`}>{competitor.challengecount}</span>
+          <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
           <span styleName={`${stylesName}.value-title`}>challenges</span>
         </div>
         <div styleName={`${stylesName}.stats`}>
-          <span styleName={`${stylesName}.value`}>{formatPoints(competitor.points)}</span>
+          <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
           <span styleName={`${stylesName}.value-title`}>points</span>
         </div>
         {
