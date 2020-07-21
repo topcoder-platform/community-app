@@ -16,6 +16,7 @@ import styles from './styles.scss';
 
 export default function SideBar({
   challengesUrl,
+  legacyId,
   documents,
   eventDetail,
   shareable,
@@ -338,6 +339,11 @@ export default function SideBar({
             <ShareSocial />
           </div>
         )}
+        { legacyId && (
+          <div styleName="legacy-challenge-id">
+            <h3>ID: {legacyId}</h3>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -357,10 +363,12 @@ SideBar.defaultProps = {
   metadata: {},
   reviewScorecardId: '',
   screeningScorecardId: '',
+  legacyId: '',
 };
 
 SideBar.propTypes = {
   challengesUrl: PT.string.isRequired,
+  legacyId: PT.string,
   eventDetail: PT.shape({
     eventName: PT.string.isRequired,
     description: PT.string.isRequired,

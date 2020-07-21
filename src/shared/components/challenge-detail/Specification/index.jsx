@@ -43,6 +43,7 @@ export default function ChallengeDetailsView(props) {
     privateDescription,
     descriptionFormat,
     legacy,
+    legacyId,
     documents,
     finalSubmissionGuidelines,
     userDetails,
@@ -365,6 +366,7 @@ export default function ChallengeDetailsView(props) {
         </div>
         <SideBar
           challengesUrl={challengesUrl}
+          legacyId={legacyId}
           forumLink={forumLink}
           documents={documents}
           hasRegistered={hasRegistered}
@@ -421,6 +423,7 @@ ChallengeDetailsView.propTypes = {
       screeningScorecardId: PT.string,
       forumId: PT.number,
     }),
+    legacyId: PT.string,
     groups: PT.any,
     reviewType: PT.string,
     tags: PT.arrayOf(PT.string),
