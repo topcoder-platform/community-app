@@ -38,7 +38,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     ...state.topcoderHeader,
     profile: {
@@ -51,7 +51,6 @@ function mapStateToProps(state, ownProps) {
     auth: {
       ...state.auth,
     },
-    headerMenu: ownProps.headerMenu,
   };
 }
 

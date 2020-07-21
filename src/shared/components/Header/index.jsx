@@ -19,7 +19,7 @@ try {
 
 const Header = ({
   profile, auth, notifications, loadNotifications, markNotificationAsRead,
-  markAllNotificationAsRead, markAllNotificationAsSeen, dismissChallengeNotifications, headerMenu,
+  markAllNotificationAsRead, markAllNotificationAsSeen, dismissChallengeNotifications,
 }) => {
   const [activeLevel1Id, setActiveLevel1Id] = useState();
   const [path, setPath] = useState();
@@ -71,7 +71,7 @@ const Header = ({
     return (
       <div>
         <TopNavRef
-          menu={headerMenu || config.HEADER_MENU}
+          menu={config.HEADER_MENU}
           rightMenu={(
             <LoginNavRef
               loggedIn={!_.isEmpty(profile)}
@@ -114,7 +114,6 @@ const Header = ({
 Header.defaultProps = {
   profile: null,
   auth: null,
-  headerMenu: null,
 };
 
 Header.propTypes = {
@@ -129,7 +128,6 @@ Header.propTypes = {
   markAllNotificationAsRead: PT.func.isRequired,
   markAllNotificationAsSeen: PT.func.isRequired,
   dismissChallengeNotifications: PT.func.isRequired,
-  headerMenu: PT.arrayOf(PT.object),
 };
 
 export default Header;

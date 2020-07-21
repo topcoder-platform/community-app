@@ -348,6 +348,15 @@ exports[`Matches shallow shapshot 1`] = `
               Talk to Sales
             </a>
           </li>
+          <li
+            className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+          >
+            <a
+              href="https://www.topcoder-dev.com/community/terms"
+            >
+              Terms
+            </a>
+          </li>
         </ul>
       </div>
       <div
@@ -604,7 +613,7 @@ exports[`Matches shallow shapshot 1`] = `
         © 2020 Topcoder
         <a
           className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-          href="https://www.topcoder-dev.com/policy"
+          href="https://www.topcoder.com/privacy-policy/"
         >
           Policies
         </a>

@@ -160,6 +160,7 @@ module.exports = {
     COMMUNITY_API: 'http://localhost:8000',
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
     EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
+    THRIVE_POLL_FEED: 'https://www.topcoder.com/feed',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -405,5 +406,4 @@ module.exports = {
   TC_EDU_ARTICLES_PATH: '/articles',
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
-  POLICY_PAGES_PATH: '/policy',
 };

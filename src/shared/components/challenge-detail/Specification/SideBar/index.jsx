@@ -121,7 +121,7 @@ export default function SideBar({
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="review-tip">
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="review-tip">
                   ?
                 </div>
               </Tooltip>
@@ -132,7 +132,7 @@ export default function SideBar({
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip id="approval-tip" content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="approval-tip">
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="approval-tip">
                   ?
                 </div>
               </Tooltip>
@@ -184,7 +184,7 @@ export default function SideBar({
                   Review Scorecard
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="reviewscorecard-tip">
+                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="reviewscorecard-tip">
                     ?
                   </div>
                 </Tooltip>

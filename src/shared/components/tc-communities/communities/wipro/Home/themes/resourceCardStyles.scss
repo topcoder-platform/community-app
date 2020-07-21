@@ -1,0 +1,84 @@
+@import '~styles/mixins';
+
+.container {
+  text-align: left;
+  width: 280px;
+
+  @include md {
+    width: 200px;
+  }
+
+  @include xs-to-sm {
+    padding: 0 15px;
+    width: auto;
+
+    & + & {
+      padding-top: 50px;
+    }
+  }
+}
+
+.icon {
+  display: none;
+}
+
+.title {
+  font-family: 'Akkurat mono', sans-serif;
+  font-size: 16px;
+  color: #00a2e0;
+  margin-top: 0;
+  position: relative;
+  text-decoration: underline;
+
+  &::before {
+    content: '';
+    background-color: #00a2e0;
+    position: absolute;
+    width: 2px;
+    height: 70px;
+    left: -10px;
+    top: 0;
+  }
+
+  @include xs-to-sm {
+    font-size: 16px;
+  }
+}
+
+.text {
+  color: #333;
+  font-family: 'Akkurat regular', sans-serif;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.linkWrap {
+  margin-top: 30px;
+}
+
+.link {
+  color: #00a2e0;
+  display: inline-block;
+  border: 1px solid #00a2e0;
+  border-radius: 40px;
+  font-family: 'Akkurat regular', sans-serif;
+  font-size: 16px;
+  height: 40px;
+  text-align: center;
+  text-transform: none;
+  min-width: 220px;
+  padding: 0 24px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #00a2e0;
+    outline: none;
+    text-decoration: none;
+  }
+
+  @include md {
+    width: 200px;
+  }
+}

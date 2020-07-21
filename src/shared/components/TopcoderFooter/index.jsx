@@ -94,6 +94,7 @@ export default function TopcoderFooter() {
               <Link to={`${base}/community/learn`}>About Community</Link>
               <Link to={`${base}/community/changelog`}>Changelog</Link>
               <Link to={`${base}/contact-us/`}>Talk to Sales</Link>
+              <Link to={`${base}/community/terms`}>Terms</Link>
             </ul>
           </div>
           <div styleName="navi-col">
@@ -132,7 +133,7 @@ export default function TopcoderFooter() {
         <div styleName="bottom">
           <span styleName="copyright-notice">
             {`© ${currentYear} Topcoder`}
-            <a href={`${base}/policy`} styleName="link">Policies</a>
+            <a href="https://www.topcoder.com/privacy-policy/" styleName="link">Policies</a>
           </span>
         </div>
       </div>

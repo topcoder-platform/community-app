@@ -10,6 +10,7 @@ import actions from 'actions/leaderboard';
 import LeaderboardTable from 'components/Leaderboard/LeaderboardTable';
 import Podium from 'components/Leaderboard/Podium';
 import Banner from 'components/tc-communities/Banner';
+import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 
 import style from './styles.scss';
 
@@ -58,6 +59,11 @@ class LeaderboardPageContainer extends React.Component {
           <Podium competitors={ld.slice(0, 3)} isTopGear={isTopGear} />
           <LeaderboardTable competitors={ld.slice(3)} isTopGear={isTopGear} />
         </div>
+        <NewsletterSignup
+          title="Sign up for our newsletter"
+          text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+          imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
+        />
       </div>
     );
   }
