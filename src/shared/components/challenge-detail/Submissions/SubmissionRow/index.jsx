@@ -79,11 +79,10 @@ export default function SubmissionRow({
             {rating || '-'}
           </span>
           <a
-            styleName="col"
             href={`${window.origin}/members/${member}`}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             rel="noopener noreferrer"
-            styleName={`level-${getRatingLevel(rating)}`}
+            styleName={`col level-${getRatingLevel(rating)}`}
           >
             {member || '-'}
           </a>

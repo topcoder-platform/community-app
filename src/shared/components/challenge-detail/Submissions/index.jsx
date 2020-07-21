@@ -7,7 +7,6 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import { isMM as checkIsMM } from 'utils/challenge';
-import { getRatingLevel } from 'utils/tc';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -19,7 +18,7 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import sortList from 'utils/challenge-detail/sort';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { goToLogin } from 'utils/tc';
+import { goToLogin, getRatingLevel } from 'utils/tc';
 import Lock from '../icons/lock.svg';
 import SubmissionRow from './SubmissionRow';
 import SubmissionInformationModal from './SubmissionInformationModal';
@@ -708,7 +707,7 @@ class SubmissionsComponent extends React.Component {
               <div key={s.createdBy + s.created} styleName="row">
                 {
                   !isF2F && !isBugHunt && (
-                    <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}  >
+                    <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}>
                       { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
                     </div>
                   )
