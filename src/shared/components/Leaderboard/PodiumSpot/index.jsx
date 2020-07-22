@@ -99,13 +99,10 @@ export default function PodiumSpot(props) {
   } = props;
 
   const stylesName = THEME[themeName];
-  let photoUrl = competitor.avatar;
+  let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
   if (photoUrl) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
-  }
-  if (competitor['member_profile_basic.photo_url']) {
-    photoUrl = competitor['member_profile_basic.photo_url'];
   }
   let rootStyle = `${stylesName}.PodiumSpot`;
   if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` ${stylesName}.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
