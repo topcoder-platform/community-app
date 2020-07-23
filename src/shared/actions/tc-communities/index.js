@@ -38,7 +38,7 @@ function getListInit(uuid) {
  * @return {Promise}
  */
 function getListDone(uuid, auth) {
-  const groups = _.get(auth, 'profile.groups', []).map(g => g.id);
+  const groups = _.get(auth, 'profile.groups', []).map(g => g.oldId);
   return getCommunitiesService(auth.tokenV3)
     .getList(groups).then(list => ({ list, uuid }));
 }
