@@ -29,6 +29,7 @@ import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
+import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -110,12 +111,16 @@ export default function PodiumSpot(props) {
   return (
     <div styleName={rootStyle}>
       <span styleName={`${stylesName}.leaderboard-avatar`}>
-        <Avatar
-          theme={{
-            avatar: CUSTOM_STYLES[themeName][competitor.rank],
-          }}
-          url={photoUrl}
-        />
+        {
+          photoUrl ? (
+            <Avatar
+              theme={{
+                avatar: CUSTOM_STYLES[themeName][competitor.rank],
+              }}
+              url={photoUrl}
+            />
+          ) : <DefaultAvatar />
+        }
         <div styleName={`${stylesName}.ranking`}>{DISPLAY_RANKING[competitor.rank]}</div>
       </span>
       {

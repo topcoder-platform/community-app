@@ -28,6 +28,8 @@ import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
+import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
+
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -68,12 +70,16 @@ export default function LeaderboardTable(props) {
           <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
           <td styleName={`${stylesName}.col-avatar`}>
             <span styleName={`${stylesName}.leaderboard-avatar`}>
-              <Avatar
-                theme={{
-                  avatar: avatarStyles.default,
-                }}
-                url={photoUrl}
-              />
+              {
+                photoUrl ? (
+                  <Avatar
+                    theme={{
+                      avatar: avatarStyles.default,
+                    }}
+                    url={photoUrl}
+                  />
+                ) : <DefaultAvatar />
+              }
             </span>
           </td>
           <td styleName={`${stylesName}.col-handle`}>
