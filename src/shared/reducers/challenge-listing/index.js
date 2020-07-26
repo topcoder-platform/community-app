@@ -71,6 +71,35 @@ function onGetAllUserChallengesDone(state, { error, payload }) {
 }
 
 /**
+ * Called when loading of 1st page of active challenges is started
+ * @param {*} state
+ * @param {*} param1
+ */
+function onGetActiveChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingActiveChallengesUUID: payload.uuid,
+    lastRequestedPageOfActiveChallenges: payload.page,
+  };
+}
+
+function onGetOpenForRegistrationChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingOpenForRegistrationChallengesUUID: payload.uuid,
+    lastRequestedPageOfOpenForRegistrationChallenges: payload.page,
+  };
+}
+
+function onGetMyChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingMyChallengesUUID: payload.uuid,
+    lastRequestedPageOfMyChallenges: payload.page,
+  };
+}
+
+/**
  * Called when 1st page of ative challenges is loaded from `/challenges` api
  * @param {*} state
  * @param {*} param1
@@ -108,18 +137,44 @@ function onGetActiveChallengesDone(state, { error, payload }) {
   };
 }
 
-/**
- * Called when loading of 1st page of active challenges is started
- * @param {*} state
- * @param {*} param1
- */
-function onGetActiveChallengesInit(state, { payload }) {
+function onGetOpenForRegistrationChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, openForRegistrationChallenges: loaded } = payload;
+  if (uuid !== state.loadingOpenForRegistrationChallengesUUID) return state;
+  const challenges = state.openForRegistrationChallenges.concat(loaded);
   return {
     ...state,
-    loadingActiveChallengesUUID: payload.uuid,
-    lastRequestedPageOfActiveChallenges: payload.page,
+    openForRegistrationChallenges: challenges,
+    loadingOpenForRegistrationChallengesUUID: '',
+    meta: {
+      ...state.meta,
+      openChallengesCount: payload.meta.allChallengesCount,
+    },
   };
 }
+
+function onGetMyChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, myChallenges: loaded } = payload;
+  if (uuid !== state.loadingMyChallengesUUID) return state;
+  const challenges = state.myChallenges.concat(loaded);
+  return {
+    ...state,
+    myChallenges: challenges,
+    loadingMyChallengesUUID: '',
+    meta: {
+      ...state.meta,
+      myChallengesCount: payload.meta.allChallengesCount,
+    },
+  };
+}
+
 function onGetRestActiveChallengesInit(state, { payload }) {
   return {
     ...state,
@@ -519,11 +574,17 @@ function create(initialState) {
       allPastChallengesLoaded: false,
       allReviewOpportunitiesLoaded: false,
       challenges: [],
+      myChallenges: [],
+      openForRegistrationChallenges: [],
       lastRequestedPageOfActiveChallenges: -1,
+      lastRequestedPageOfOpenForRegistrationChallenges: -1,
+      lastRequestedPageOfMyChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
       lastRequestedPageOfReviewOpportunities: -1,
       lastUpdateOfActiveChallenges: 0,
       loadingActiveChallengesUUID: '',
+      loadingOpenForRegistrationChallengesUUID: '',
+      loadingMyChallengesUUID: '',
       loadingRestActiveChallengesUUID: '',
       loadingPastChallengesUUID: '',
       loadingReviewOpportunitiesUUID: '',
@@ -556,6 +617,12 @@ function create(initialState) {
 
     [a.getActiveChallengesInit]: onGetActiveChallengesInit,
     [a.getActiveChallengesDone]: onGetActiveChallengesDone,
+
+    [a.getOpenForRegistrationChallengesInit]: onGetOpenForRegistrationChallengesInit,
+    [a.getOpenForRegistrationChallengesDone]: onGetOpenForRegistrationChallengesDone,
+
+    [a.getMyChallengesInit]: onGetMyChallengesInit,
+    [a.getMyChallengesDone]: onGetMyChallengesDone,
 
     [a.getRestActiveChallengesInit]: onGetRestActiveChallengesInit,
     [a.getRestActiveChallengesDone]: onGetRestActiveChallengesDone,
@@ -600,6 +667,8 @@ function create(initialState) {
     allReviewOpportunitiesLoaded: false,
 
     challenges: [],
+    openForRegistrationChallenges: [],
+    myChallenges: [],
     recommendedChallenges: {},
     challengeSubtracks: [],
     challengeSubtracksMap: {},
@@ -612,11 +681,15 @@ function create(initialState) {
     keepPastPlaceholders: false,
 
     lastRequestedPageOfActiveChallenges: -1,
+    lastRequestedPageOfOpenForRegistrationChallenges: -1,
+    lastRequestedPageOfMyChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
     lastUpdateOfActiveChallenges: 0,
 
     loadingActiveChallengesUUID: '',
+    loadingOpenForRegistrationChallengesUUID: '',
+    loadingMyChallengesUUID: '',
     loadingRecommendedChallengesUUID: '',
     loadingRestActiveChallengesUUID: '',
     loadingRecommendedChallengesTechnologies: '',

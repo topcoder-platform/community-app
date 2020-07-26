@@ -29,6 +29,8 @@ export default function ChallengeListing(props) {
     activeBucket,
     auth,
     challenges: propChallenges,
+    openForRegistrationChallenges,
+    myChallenges,
     communityFilter,
     communityName,
     defaultCommunityId,
@@ -92,6 +94,8 @@ export default function ChallengeListing(props) {
         activeBucket={activeBucket}
         auth={props.auth}
         challenges={challenges}
+        openForRegistrationChallenges={openForRegistrationChallenges}
+        myChallenges={myChallenges}
         challengesUrl={props.challengesUrl}
         communityName={props.communityName}
         expandedTags={props.expandedTags}
@@ -101,6 +105,9 @@ export default function ChallengeListing(props) {
         keepPastPlaceholders={keepPastPlaceholders}
         loadingPastChallenges={props.loadingPastChallenges}
         loadingReviewOpportunities={props.loadingReviewOpportunities}
+        loadMoreMy={props.loadMoreMy}
+        loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
+        loadMoreOnGoing={props.loadMoreOnGoing}
         loadMorePast={props.loadMorePast}
         loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
@@ -116,7 +123,7 @@ export default function ChallengeListing(props) {
         sorts={props.sorts}
         loadMoreActive={props.loadMoreActive}
         loadingActiveChallenges={props.loadingChallenges}
-        userChallenges={props.userChallenges}
+        // userChallenges={props.userChallenges}
         isLoggedIn={isLoggedIn}
       />
     );
@@ -192,6 +199,9 @@ ChallengeListing.defaultProps = {
   communityName: null,
   extraBucket: null,
   hideTcLinksInFooter: false,
+  loadMoreMy: null,
+  loadMoreOpenForRegistration: null,
+  loadMoreOnGoing: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
@@ -203,12 +213,14 @@ ChallengeListing.defaultProps = {
   expandTag: null,
   loadMoreActive: null,
   isBucketSwitching: false,
-  userChallenges: [],
+  // userChallenges: [],
 };
 
 ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  openForRegistrationChallenges: PT.arrayOf(PT.shape()).isRequired,
+  myChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
   challengesUrl: PT.string.isRequired,
   communityFilter: PT.shape(),
   communityName: PT.string,
@@ -224,6 +236,9 @@ ChallengeListing.propTypes = {
   loadingChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
+  loadMoreMy: PT.func,
+  loadMoreOpenForRegistration: PT.func,
+  loadMoreOnGoing: PT.func,
   loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
@@ -240,6 +255,6 @@ ChallengeListing.propTypes = {
   auth: PT.shape(),
   loadMoreActive: PT.func,
   isBucketSwitching: PT.bool,
-  userChallenges: PT.arrayOf(PT.string),
+  // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
 };

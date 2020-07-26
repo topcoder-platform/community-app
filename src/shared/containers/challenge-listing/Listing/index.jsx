@@ -80,7 +80,7 @@ export class ListingContainer extends React.Component {
       dropChallenges,
       getCommunitiesList,
       allActiveChallengesLoaded,
-      getRestActiveChallenges,
+      // getRestActiveChallenges,
       meta,
       loadingActiveChallengesUUID,
       selectBucketDone,
@@ -103,8 +103,8 @@ export class ListingContainer extends React.Component {
 
     if (!loadingActiveChallengesUUID && !_.isEmpty(meta) && !allActiveChallengesLoaded
       && BUCKETS.PAST !== activeBucket) {
-      const f = this.getBackendFilter();
-      getRestActiveChallenges(auth.tokenV3, f.back);
+      // const f = this.getBackendFilter();
+      // getRestActiveChallenges(auth.tokenV3, f.back);
     }
 
     setTimeout(() => {
@@ -148,8 +148,12 @@ export class ListingContainer extends React.Component {
     const {
       auth,
       getActiveChallenges,
+      getOpenForRegistrationChallenges,
+      getMyChallenges,
       lastRequestedPageOfActiveChallenges,
-      getUserChallenges,
+      lastRequestedPageOfOpenForRegistrationChallenges,
+      lastRequestedPageOfMyChallenges,
+      // getUserChallenges,
     } = this.props;
     const f = this.getBackendFilter();
     getActiveChallenges(
@@ -158,10 +162,22 @@ export class ListingContainer extends React.Component {
       auth.tokenV3,
       f.front,
     );
-    if (auth) {
-      const userId = _.get(auth.user, 'userId');
-      getUserChallenges(userId, auth.tokenV3);
-    }
+    getOpenForRegistrationChallenges(
+      1 + lastRequestedPageOfOpenForRegistrationChallenges,
+      f.back,
+      auth.tokenV3,
+      f.front,
+    );
+    getMyChallenges(
+      1 + lastRequestedPageOfMyChallenges,
+      f.back,
+      auth.tokenV3,
+      f.front,
+    );
+    // if (auth) {
+    //   const userId = _.get(auth.user, 'userId');
+    //   getUserChallenges(userId, auth.tokenV3);
+    // }
   }
 
   render() {
@@ -172,6 +188,8 @@ export class ListingContainer extends React.Component {
       activeBucket,
       ChallengeListingBanner,
       challenges,
+      openForRegistrationChallenges,
+      myChallenges,
       challengeTypes,
       challengesUrl,
       challengeSubtracks,
@@ -185,10 +203,16 @@ export class ListingContainer extends React.Component {
       extraBucket,
       filter,
       groupIds,
+      getActiveChallenges,
+      getMyChallenges,
+      getOpenForRegistrationChallenges,
       getPastChallenges,
       getReviewOpportunities,
       hideSrm,
       keepPastPlaceholders,
+      lastRequestedPageOfMyChallenges,
+      lastRequestedPageOfActiveChallenges,
+      lastRequestedPageOfOpenForRegistrationChallenges,
       lastRequestedPageOfPastChallenges,
       lastRequestedPageOfReviewOpportunities,
       lastUpdateOfActiveChallenges,
@@ -210,7 +234,7 @@ export class ListingContainer extends React.Component {
       sorts,
       hideTcLinksInSidebarFooter,
       isBucketSwitching,
-      userChallenges,
+      // userChallenges,
     } = this.props;
 
     const { tokenV3 } = auth;
@@ -229,6 +253,36 @@ export class ListingContainer extends React.Component {
         );
       };
     }
+
+    const loadMoreMy = () => {
+      const f = this.getBackendFilter();
+      getMyChallenges(
+        1 + lastRequestedPageOfMyChallenges,
+        f.back,
+        tokenV3,
+        f.front,
+      );
+    };
+
+    const loadMoreOpenForRegistration = () => {
+      const f = this.getBackendFilter();
+      getOpenForRegistrationChallenges(
+        1 + lastRequestedPageOfOpenForRegistrationChallenges,
+        f.back,
+        tokenV3,
+        f.front,
+      );
+    };
+
+    const loadMoreOnGoing = () => {
+      const f = this.getBackendFilter();
+      getActiveChallenges(
+        1 + lastRequestedPageOfActiveChallenges,
+        f.back,
+        tokenV3,
+        f.front,
+      );
+    };
 
     let loadMoreReviewOpportunities;
     if (!allReviewOpportunitiesLoaded) {
@@ -272,6 +326,8 @@ export class ListingContainer extends React.Component {
         <ChallengeListing
           activeBucket={activeBucket}
           challenges={challenges}
+          openForRegistrationChallenges={openForRegistrationChallenges}
+          myChallenges={myChallenges}
           challengeTypes={challengeTypes}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
@@ -299,6 +355,9 @@ export class ListingContainer extends React.Component {
           selectedCommunityId={selectedCommunityId}
           loadMorePast={loadMorePast}
           loadMoreReviewOpportunities={loadMoreReviewOpportunities}
+          loadMoreMy={loadMoreMy}
+          loadMoreOpenForRegistration={loadMoreOpenForRegistration}
+          loadMoreOnGoing={loadMoreOnGoing}
           reviewOpportunities={reviewOpportunities}
           setFilterState={(state) => {
             setFilter(state);
@@ -314,7 +373,7 @@ export class ListingContainer extends React.Component {
           groupIds={groupIds}
           auth={auth}
           isBucketSwitching={isBucketSwitching}
-          userChallenges={userChallenges}
+          // userChallenges={userChallenges}
           isLoggedIn={isLoggedIn}
         />
       </div>
@@ -342,7 +401,7 @@ ListingContainer.defaultProps = {
   queryBucket: BUCKETS.ALL,
   meta: {},
   isBucketSwitching: false,
-  userChallenges: [],
+  // userChallenges: [],
 };
 
 ListingContainer.propTypes = {
@@ -356,6 +415,8 @@ ListingContainer.propTypes = {
   allReviewOpportunitiesLoaded: PT.bool.isRequired,
   ChallengeListingBanner: PT.node,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
+  openForRegistrationChallenges: PT.arrayOf(PT.shape({})).isRequired,
+  myChallenges: PT.arrayOf(PT.shape({})).isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string,
   challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
@@ -378,12 +439,16 @@ ListingContainer.propTypes = {
   communityFilters: PT.arrayOf(PT.object).isRequired,
   extraBucket: PT.string,
   getActiveChallenges: PT.func.isRequired,
-  getRestActiveChallenges: PT.func.isRequired,
+  getOpenForRegistrationChallenges: PT.func.isRequired,
+  getMyChallenges: PT.func.isRequired,
+  // getRestActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
   getReviewOpportunities: PT.func.isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   lastRequestedPageOfActiveChallenges: PT.number.isRequired,
+  lastRequestedPageOfOpenForRegistrationChallenges: PT.number.isRequired,
+  lastRequestedPageOfMyChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
   lastRequestedPageOfReviewOpportunities: PT.number.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
@@ -413,8 +478,8 @@ ListingContainer.propTypes = {
   meta: PT.shape(),
   isBucketSwitching: PT.bool,
   selectBucketDone: PT.func.isRequired,
-  userChallenges: PT.arrayOf(PT.string),
-  getUserChallenges: PT.func.isRequired,
+  // userChallenges: PT.arrayOf(PT.string),
+  // getUserChallenges: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -430,6 +495,8 @@ const mapStateToProps = (state, ownProps) => {
     allReviewOpportunitiesLoaded: cl.allReviewOpportunitiesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
+    openForRegistrationChallenges: cl.openForRegistrationChallenges,
+    myChallenges: cl.myChallenges,
     challengeTypes: cl.challengeSubtracks,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
@@ -440,6 +507,9 @@ const mapStateToProps = (state, ownProps) => {
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
     lastRequestedPageOfActiveChallenges: cl.lastRequestedPageOfActiveChallenges,
+    // eslint-disable-next-line max-len
+    lastRequestedPageOfOpenForRegistrationChallenges: cl.lastRequestedPageOfOpenForRegistrationChallenges,
+    lastRequestedPageOfMyChallenges: cl.lastRequestedPageOfMyChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastRequestedPageOfReviewOpportunities: cl.lastRequestedPageOfReviewOpportunities,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
@@ -459,7 +529,7 @@ const mapStateToProps = (state, ownProps) => {
     isBucketSwitching: cl.sidebar.isBucketSwitching,
     expandedTags: cl.expandedTags,
     meta: cl.meta,
-    userChallenges: cl.userChallenges,
+    // userChallenges: cl.userChallenges,
   };
 };
 
@@ -476,11 +546,21 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getActiveChallengesInit(uuid, page, frontFilter));
       dispatch(a.getActiveChallengesDone(uuid, page, filter, token, frontFilter));
     },
-    getRestActiveChallenges: (token, filter) => {
+    getOpenForRegistrationChallenges: (page, filter, token, frontFilter) => {
       const uuid = shortId();
-      dispatch(a.getRestActiveChallengesInit(uuid));
-      dispatch(a.getRestActiveChallengesDone(uuid, token, filter));
+      dispatch(a.getOpenForRegistrationChallengesInit(uuid, page, frontFilter));
+      dispatch(a.getOpenForRegistrationChallengesDone(uuid, page, filter, token, frontFilter));
     },
+    getMyChallenges: (page, filter, token, frontFilter) => {
+      const uuid = shortId();
+      dispatch(a.getMyChallengesInit(uuid, page, frontFilter));
+      dispatch(a.getMyChallengesDone(uuid, page, filter, token, frontFilter));
+    },
+    // getRestActiveChallenges: (token, filter) => {
+    //   const uuid = shortId();
+    //   dispatch(a.getRestActiveChallengesInit(uuid));
+    //   dispatch(a.getRestActiveChallengesDone(uuid, token, filter));
+    // },
     getCommunitiesList: (auth) => {
       const uuid = shortId();
       dispatch(ca.getListInit(uuid));
@@ -506,11 +586,11 @@ function mapDispatchToProps(dispatch) {
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () => dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
     expandTag: id => dispatch(a.expandTag(id)),
-    getUserChallenges: (userId, tokenV3) => {
-      const uuid = shortId();
-      dispatch(a.getUserChallengesInit(uuid));
-      dispatch(a.getUserChallengesDone(userId, tokenV3));
-    },
+    // getUserChallenges: (userId, tokenV3) => {
+    //   const uuid = shortId();
+    //   dispatch(a.getUserChallengesInit(uuid));
+    //   dispatch(a.getUserChallengesDone(userId, tokenV3));
+    // },
   };
 }
 

@@ -79,6 +79,9 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       extraBucket={null}
       filterState={Object {}}
       loadMoreActive={null}
+      loadMoreMy={null}
+      loadMoreOnGoing={null}
+      loadMoreOpenForRegistration={null}
       loadMorePast={null}
       loadMoreReviewOpportunities={null}
       loadingActiveChallenges={false}
@@ -92,7 +95,6 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       setFilterState={[MockFunction]}
       setSort={[MockFunction]}
       sorts={Object {}}
-      userChallenges={Array []}
     />
     <div
       className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"

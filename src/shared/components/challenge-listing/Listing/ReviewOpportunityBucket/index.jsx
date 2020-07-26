@@ -4,7 +4,7 @@
 import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
-import Sort from 'utils/challenge-listing/sort';
+// import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -19,7 +19,7 @@ const NO_RESULTS_MESSAGE = 'There are no review opportunities available';
 
 // Functional implementation of ReviewOpportunityBucket component
 export default function ReviewOpportunityBucket({
-  bucket,
+  // bucket,
   challengesUrl,
   expandedTags,
   expandTag,
@@ -31,14 +31,14 @@ export default function ReviewOpportunityBucket({
   setFilterState,
   setSort,
   challengeTypes,
-  sort,
+  // sort,
 }) {
   if (!opportunities.length && !loadMore) return null;
 
-  const activeSort = sort || bucket.sorts[0];
+  // const activeSort = sort || bucket.sorts[0];
 
   const sortedOpportunities = _.clone(opportunities);
-  sortedOpportunities.sort(Sort[activeSort].func);
+  // sortedOpportunities.sort(Sort[activeSort].func);
 
   /* Filtering for Review Opportunities will be done entirely in the front-end
    * which means it can be done at render, rather than in the reducer,
@@ -46,7 +46,7 @@ export default function ReviewOpportunityBucket({
    * a filter is changed.  */
   const filteredOpportunities = sortedOpportunities.filter(
     Filter.getReviewOpportunitiesFilterFunction({
-      ...bucket.filter, // Default bucket filters from utils/buckets.js
+      // ...bucket.filter, // Default bucket filters from utils/buckets.js
       ...filterState, // User selected filters
     }, challengeTypes),
   );
@@ -74,16 +74,16 @@ export default function ReviewOpportunityBucket({
       <SortingSelectBar
         title="Open for review"
         onSelect={setSort}
-        options={
-          bucket.sorts.map(item => ({
-            label: Sort[item].name,
-            value: item,
-          }))
-        }
-        value={{
-          label: Sort[activeSort].name,
-          value: activeSort,
-        }}
+        // options={
+        //   bucket.sorts.map(item => ({
+        //     label: Sort[item].name,
+        //     value: item,
+        //   }))
+        // }
+        // value={{
+        //   label: Sort[activeSort].name,
+        //   value: activeSort,
+        // }}
       />
       {cards}
       {
@@ -110,12 +110,12 @@ ReviewOpportunityBucket.defaultProps = {
   keepPlaceholders: false,
   loading: false,
   loadMore: null,
-  sort: null,
+  // sort: null,
 };
 
 // Prop Validation
 ReviewOpportunityBucket.propTypes = {
-  bucket: PT.shape().isRequired,
+  // bucket: PT.shape().isRequired,
   challengesUrl: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
@@ -126,6 +126,6 @@ ReviewOpportunityBucket.propTypes = {
   loadMore: PT.func,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
-  sort: PT.string,
+  // sort: PT.string,
   challengeTypes: PT.arrayOf(PT.shape()).isRequired,
 };

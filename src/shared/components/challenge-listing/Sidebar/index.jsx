@@ -19,39 +19,39 @@ import React from 'react';
 import PT from 'prop-types';
 
 import BucketSelector from './BucketSelector';
-import FiltersEditor from './FiltersEditor';
+// import FiltersEditor from './FiltersEditor';
 import Footer from './Footer';
 import './style.scss';
 
 export default function SideBarFilters({
   activeBucket,
-  activeSavedFilter,
-  buckets,
-  challenges,
-  changeFilterName,
-  communityFilter,
-  deleteSavedFilter,
-  disabled,
-  dragSavedFilterMove,
-  dragSavedFilterStart,
-  dragState,
-  editSavedFiltersMode,
-  extraBucket,
-  filterState,
+  // activeSavedFilter,
+  // buckets,
+  // challenges,
+  // changeFilterName,
+  // communityFilter,
+  // deleteSavedFilter,
+  // disabled,
+  // dragSavedFilterMove,
+  // dragSavedFilterStart,
+  // dragState,
+  // editSavedFiltersMode,
+  // extraBucket,
+  // filterState,
   hideTcLinksInFooter,
   isAuth,
-  resetFilterName,
-  savedFilters,
+  // resetFilterName,
+  // savedFilters,
   selectBucket,
-  selectSavedFilter,
-  setEditSavedFiltersMode,
-  updateAllSavedFilters,
-  updateSavedFilter,
+  // selectSavedFilter,
+  // setEditSavedFiltersMode,
+  // updateAllSavedFilters,
+  // updateSavedFilter,
 }) {
   return (
     <div styleName="SideBarFilters">
       <div styleName="FilterBox">
-        { editSavedFiltersMode ? (
+        {/* { editSavedFiltersMode ? (
           <FiltersEditor
             changeFilterName={changeFilterName}
             deleteSavedFilter={deleteSavedFilter}
@@ -64,23 +64,23 @@ export default function SideBarFilters({
             updateAllSavedFilters={updateAllSavedFilters}
             updateSavedFilter={updateSavedFilter}
           />
-        ) : (
-          <BucketSelector
-            activeBucket={activeBucket}
-            activeSavedFilter={activeSavedFilter}
-            buckets={buckets}
-            challenges={challenges}
-            communityFilter={communityFilter}
-            disabled={disabled}
-            extraBucket={extraBucket}
-            filterState={filterState}
-            isAuth={isAuth}
-            savedFilters={savedFilters}
-            selectBucket={selectBucket}
-            selectSavedFilter={selectSavedFilter}
-            setEditSavedFiltersMode={setEditSavedFiltersMode}
-          />
-        )}
+        ) : ( */}
+        <BucketSelector
+          activeBucket={activeBucket}
+          // activeSavedFilter={activeSavedFilter}
+          // buckets={buckets}
+          // challenges={challenges}
+          // communityFilter={communityFilter}
+          // disabled={disabled}
+          // extraBucket={extraBucket}
+          // filterState={filterState}
+          isAuth={isAuth}
+          // savedFilters={savedFilters}
+          selectBucket={selectBucket}
+          // selectSavedFilter={selectSavedFilter}
+          // setEditSavedFiltersMode={setEditSavedFiltersMode}
+        />
+        {/* )} */}
       </div>
       <Footer hideTcLinksInFooter={hideTcLinksInFooter} />
     </div>
@@ -88,37 +88,37 @@ export default function SideBarFilters({
 }
 
 SideBarFilters.defaultProps = {
-  communityFilter: null,
-  disabled: false,
-  dragState: {},
-  extraBucket: null,
+  // communityFilter: null,
+  // disabled: false,
+  // dragState: {},
+  // extraBucket: null,
   hideTcLinksInFooter: false,
   isAuth: false,
 };
 
 SideBarFilters.propTypes = {
   activeBucket: PT.string.isRequired,
-  activeSavedFilter: PT.number.isRequired,
-  buckets: PT.shape().isRequired,
-  challenges: PT.arrayOf(PT.shape({
-  })).isRequired,
-  changeFilterName: PT.func.isRequired,
-  communityFilter: PT.shape(),
-  deleteSavedFilter: PT.func.isRequired,
-  disabled: PT.bool,
-  dragState: PT.shape(),
-  dragSavedFilterMove: PT.func.isRequired,
-  dragSavedFilterStart: PT.func.isRequired,
-  editSavedFiltersMode: PT.bool.isRequired,
-  extraBucket: PT.string,
-  filterState: PT.shape().isRequired,
+  // activeSavedFilter: PT.number.isRequired,
+  // buckets: PT.shape().isRequired,
+  // challenges: PT.arrayOf(PT.shape({
+  // })).isRequired,
+  // changeFilterName: PT.func.isRequired,
+  // communityFilter: PT.shape(),
+  // deleteSavedFilter: PT.func.isRequired,
+  // disabled: PT.bool,
+  // dragState: PT.shape(),
+  // dragSavedFilterMove: PT.func.isRequired,
+  // dragSavedFilterStart: PT.func.isRequired,
+  // editSavedFiltersMode: PT.bool.isRequired,
+  // extraBucket: PT.string,
+  // filterState: PT.shape().isRequired,
   hideTcLinksInFooter: PT.bool,
   isAuth: PT.bool,
-  resetFilterName: PT.func.isRequired,
-  savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  // resetFilterName: PT.func.isRequired,
+  // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
-  selectSavedFilter: PT.func.isRequired,
-  setEditSavedFiltersMode: PT.func.isRequired,
-  updateAllSavedFilters: PT.func.isRequired,
-  updateSavedFilter: PT.func.isRequired,
+  // selectSavedFilter: PT.func.isRequired,
+  // setEditSavedFiltersMode: PT.func.isRequired,
+  // updateAllSavedFilters: PT.func.isRequired,
+  // updateSavedFilter: PT.func.isRequired,
 };

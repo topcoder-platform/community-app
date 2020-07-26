@@ -17,6 +17,16 @@ export const BUCKETS = {
   SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
 };
 
+export const BUCKET_NAME = {
+  all: 'All Challenges',
+  my: 'My Challenges',
+  openForRegistration: 'Open for registration',
+  ongoing: 'Ongoing challenges',
+  past: 'Past challenges',
+  upcoming: 'Upcoming challenges',
+  reviewOpportunities: 'Open for review',
+};
+
 const BUCKET_DATA = {
   [BUCKETS.ALL]: {
     filter: {
