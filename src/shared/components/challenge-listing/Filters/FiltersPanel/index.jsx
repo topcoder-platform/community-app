@@ -56,7 +56,7 @@ export default function FiltersPanel({
   setSearchText,
   validKeywords,
   validSubtracks,
-  isSavingFilter,
+  // isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -187,10 +187,11 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  const disableClearSaveFilterButtons = isSavingFilter || (
-    selectedCommunityId === defaultCommunityId
-    && _.isEmpty(filterState)
-  );
+  const disableClearSaveFilterButtons = false;
+  // const disableClearSaveFilterButtons = isSavingFilter || (
+  //   selectedCommunityId === defaultCommunityId
+  //   && _.isEmpty(filterState)
+  // );
 
   const mapOps = item => ({ label: item, value: item });
   const mapSubtracks = item => ({ label: item.name, value: item.id });
@@ -372,7 +373,7 @@ FiltersPanel.defaultProps = {
   challenges: [],
   hidden: false,
   isAuth: false,
-  isSavingFilter: false,
+  // isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
   // onSaveFilter: _.noop,
   onClose: _.noop,
@@ -389,7 +390,7 @@ FiltersPanel.propTypes = {
   hidden: PT.bool,
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
-  isSavingFilter: PT.bool,
+  // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
   // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,

@@ -132,11 +132,11 @@ export default function ChallengeListing(props) {
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       <ChallengeFilters
-        challenges={propChallenges}
+        challenges={[propChallenges]}
         communityName={communityName}
         defaultCommunityId={defaultCommunityId}
         hideSrm={hideSrm}
-        setCardType={_.noop/* cardType => this.setCardType(cardType) */}
+        setCardType={_.noop}
         isCardTypeSet="Challenges"
         isAuth={Boolean(auth.user)}
       />

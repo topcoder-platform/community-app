@@ -4,10 +4,10 @@
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+// import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
-import localStorage from 'localStorage';
+// import localStorage from 'localStorage';
 import ChallengeSearchBar from './ChallengeSearchBar';
 import EditTrackPanel from './EditTrackPanel';
 import FiltersIcon from './FiltersSwitch/filters-icon.svg';
@@ -16,7 +16,7 @@ import FiltersSwitch from './FiltersSwitch';
 
 import './ChallengeFilters.scss';
 
-const Filter = challengeUtils.filter;
+// const Filter = challengeUtils.filter;
 
 export default function ChallengeFilters({
   communityFilters,
@@ -29,7 +29,7 @@ export default function ChallengeFilters({
   auth,
   isCardTypeSet,
   isReviewOpportunitiesBucket,
-  saveFilter,
+  // saveFilter,
   searchText,
   selectCommunity,
   selectedCommunityId,
@@ -40,7 +40,7 @@ export default function ChallengeFilters({
   trackModalShown,
   validKeywords,
   validSubtracks,
-  isSavingFilter,
+  // isSavingFilter,
 }) {
   let filterRulesCount = 0;
   if (filterState.tags) filterRulesCount += 1;
@@ -50,15 +50,16 @@ export default function ChallengeFilters({
   if (selectedCommunityId !== '') filterRulesCount += 1;
   const isTrackOn = track => !filterState.tracks || Boolean(filterState.tracks[track]);
 
-  const switchTrack = (track, on) => {
-    const act = on ? Filter.addTrack : Filter.removeTrack;
-    const filterObj = act(filterState, track);
-    localStorage.setItem('trackStatus', JSON.stringify(filterObj));
-    setFilterState(filterObj);
-  };
+  const switchTrack = f => f;
+  // const switchTrack = (track, on) => {
+  //   const act = on ? Filter.addTrack : Filter.removeTrack;
+  //   const filterObj = act(filterState, track);
+  //   localStorage.setItem('trackStatus', JSON.stringify(filterObj));
+  //   setFilterState(filterObj);
+  // };
 
   const clearSearch = () => {
-    setFilterState(Filter.setText(filterState, ''));
+    // setFilterState(Filter.setText(filterState, ''));
     setSearchText('');
   };
 
@@ -66,7 +67,7 @@ export default function ChallengeFilters({
     <div styleName="challenge-filters">
       <div styleName="filter-header">
         <ChallengeSearchBar
-          onSearch={text => setFilterState(Filter.setText(filterState, text))}
+          // onSearch={text => setFilterState(Filter.setText(filterState, text))}
           onClearSearch={() => clearSearch()}
           label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
           placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Type the challenge name here'}
@@ -157,14 +158,14 @@ export default function ChallengeFilters({
         isReviewOpportunitiesBucket={isReviewOpportunitiesBucket}
         filterState={filterState}
         onClose={() => setExpanded(false)}
-        onSaveFilter={saveFilter}
+        // onSaveFilter={saveFilter}
         selectCommunity={selectCommunity}
         selectedCommunityId={selectedCommunityId}
         setFilterState={setFilterState}
         setSearchText={setSearchText}
         validKeywords={validKeywords}
         validSubtracks={validSubtracks}
-        isSavingFilter={isSavingFilter}
+        // isSavingFilter={isSavingFilter}
       />
 
       <EditTrackPanel
@@ -186,7 +187,7 @@ ChallengeFilters.defaultProps = {
   isAuth: false,
   isCardTypeSet: '',
   isReviewOpportunitiesBucket: false,
-  isSavingFilter: false,
+  // isSavingFilter: false,
   challenges: [],
 };
 
@@ -200,9 +201,9 @@ ChallengeFilters.propTypes = {
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
   isCardTypeSet: PT.string,
-  isSavingFilter: PT.bool,
+  // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
-  saveFilter: PT.func.isRequired,
+  // saveFilter: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
   setExpanded: PT.func.isRequired,

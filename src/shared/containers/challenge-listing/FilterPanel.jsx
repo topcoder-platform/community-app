@@ -20,7 +20,7 @@ import qs from 'qs';
 /* The default name for user-saved challenge filters. An integer
  * number will be appended to it, when necessary, to keep filter
  * names unique. */
-const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
+// const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
 const MIN = 60 * 1000;
 
 /**
@@ -28,16 +28,16 @@ const MIN = 60 * 1000;
  * @param {Object} state Redux state.
  * @return {String}
  */
-function getAvailableFilterName(savedFilters) {
-  let res = DEFAULT_SAVED_FILTER_NAME;
-  let id = 0;
-  savedFilters.forEach((f) => {
-    while (res === f.name) {
-      res = `${DEFAULT_SAVED_FILTER_NAME} ${id += 1}`;
-    }
-  });
-  return res;
-}
+// function getAvailableFilterName(savedFilters) {
+//   let res = DEFAULT_SAVED_FILTER_NAME;
+//   let id = 0;
+//   savedFilters.forEach((f) => {
+//     while (res === f.name) {
+//       res = `${DEFAULT_SAVED_FILTER_NAME} ${id += 1}`;
+//     }
+//   });
+//   return res;
+// }
 
 export class Container extends React.Component {
   componentDidMount() {
@@ -77,14 +77,14 @@ export class Container extends React.Component {
     const {
       activeBucket,
       communityFilters,
-      filterState,
-      isSavingFilter,
-      saveFilter,
-      savedFilters,
+      // filterState,
+      // isSavingFilter,
+      // saveFilter,
+      // savedFilters,
       selectBucket,
-      selectedCommunityId,
+      // selectedCommunityId,
       setFilterState,
-      tokenV2,
+      // tokenV2,
     } = this.props;
     const communityFilters2 = [
       {
@@ -101,17 +101,17 @@ export class Container extends React.Component {
       <FilterPanel
         {...this.props}
         communityFilters={communityFilters2}
-        saveFilter={() => {
-          const name = getAvailableFilterName(savedFilters);
-          const filter = {
-            ...filterState,
-            communityId: selectedCommunityId,
-          };
+        // saveFilter={() => {
+        //   const name = getAvailableFilterName(savedFilters);
+        //   const filter = {
+        //     ...filterState,
+        //     communityId: selectedCommunityId,
+        //   };
 
-          if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
+        //   if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
 
-          saveFilter(name, filter, tokenV2);
-        }}
+        //   saveFilter(name, filter, tokenV2);
+        // }}
         setFilterState={(state) => {
           setFilterState(state);
           if (activeBucket === BUCKETS.SAVED_FILTER) {
@@ -120,7 +120,7 @@ export class Container extends React.Component {
             selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
           }
         }}
-        isSavingFilter={isSavingFilter}
+        // isSavingFilter={isSavingFilter}
         isReviewOpportunitiesBucket={isForReviewOpportunities}
       />
     );
@@ -128,7 +128,7 @@ export class Container extends React.Component {
 }
 
 Container.defaultProps = {
-  isSavingFilter: false,
+  // isSavingFilter: false,
   tokenV2: '',
   challenges: [],
 };
@@ -151,11 +151,11 @@ Container.propTypes = {
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getTypes: PT.func.isRequired,
-  isSavingFilter: PT.bool,
-  savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  // isSavingFilter: PT.bool,
+  // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,
   loadingSubtracks: PT.bool.isRequired,
-  saveFilter: PT.func.isRequired,
+  // saveFilter: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   auth: PT.shape().isRequired,
@@ -181,10 +181,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(cla.getChallengeTagsInit());
       dispatch(cla.getChallengeTagsDone());
     },
-    saveFilter: (...rest) => {
-      dispatch(sa.saveFilterInit());
-      dispatch(sa.saveFilterDone(...rest));
-    },
+    // saveFilter: (...rest) => {
+    //   dispatch(sa.saveFilterInit());
+    //   dispatch(sa.saveFilterDone(...rest));
+    // },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
@@ -209,8 +209,8 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,
-    isSavingFilter: cl.sidebar.isSavingFilter,
-    savedFilters: cl.sidebar.savedFilters,
+    // isSavingFilter: cl.sidebar.isSavingFilter,
+    // savedFilters: cl.sidebar.savedFilters,
   };
 }
 
