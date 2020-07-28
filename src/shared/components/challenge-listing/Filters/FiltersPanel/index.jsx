@@ -222,7 +222,7 @@ export default function FiltersPanel({
               multi
               onChange={(value) => {
                 const tags = value ? value.split(',') : undefined;
-                setFilterState(Filter.setTags(filterState, tags));
+                setFilterState({ ..._.clone(filterState), tags });
               }}
               options={validKeywords.map(mapOps)}
               simpleValue
@@ -262,7 +262,7 @@ export default function FiltersPanel({
               multi
               onChange={(value) => {
                 const subtracks = value ? value.split(',') : undefined;
-                setFilterState(Filter.setSubtracks(filterState, subtracks));
+                setFilterState({ ..._.clone(filterState), subtracks });
               }}
               options={validSubtracks.map(mapSubtracks)}
               simpleValue

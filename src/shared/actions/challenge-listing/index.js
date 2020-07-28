@@ -176,7 +176,7 @@ function getAllUserChallengesDone(uuid, tokenV3) {
 function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const filter = {
     ...backendFilter,
-    ...frontFilter,
+    frontFilter,
     status: 'Active',
     currentPhaseName: 'Submission',
   };
@@ -217,7 +217,7 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
   tokenV3, frontFilter = {}) {
   const filter = {
     ...backendFilter,
-    ...frontFilter,
+    frontFilter,
     status: 'Active',
     currentPhaseName: 'Registration',
   };
@@ -237,7 +237,7 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
   const userId = decodeToken(tokenV3).userId.toString();
   const filter = {
     ...backendFilter,
-    ...frontFilter,
+    frontFilter,
     status: 'Active',
     memberId: userId,
   };

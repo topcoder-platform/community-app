@@ -49,21 +49,12 @@ export default function ChallengeFilters({
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
   if (selectedCommunityId !== '') filterRulesCount += 1;
-  const isTrackOn = track => !filterState.tracks || Boolean(filterState.tracks[track]);
+  const isTrackOn = track => filterState.tracks[track];
 
   // const switchTrack = f => f;
   const switchTrack = (track, on) => {
     const filterObj = _.clone(filterState);
-    if (on) {
-      if (_.indexOf(filterObj.tracks, track) < 0) {
-        filterObj.push(filterState.tracks[track]);
-      }
-    } else {
-      const trackIndex = _.indexOf(filterObj.tracks, track);
-      if (trackIndex >= 0) {
-        filterObj.splice(trackIndex, 1);
-      }
-    }
+    filterObj.tracks[track] = on;
     // const act = on ? Filter.addTrack : Filter.removeTrack;
     // const filterObj = act(filterState, track);
     // localStorage.setItem('trackStatus', JSON.stringify(filterObj));
@@ -79,7 +70,7 @@ export default function ChallengeFilters({
     <div styleName="challenge-filters">
       <div styleName="filter-header">
         <ChallengeSearchBar
-          onSearch={text => setFilterState({ text })}
+          onSearch={text => setFilterState({ ..._.clone(filterState), text })}
           onClearSearch={() => clearSearch()}
           label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
           placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Type the challenge name here'}

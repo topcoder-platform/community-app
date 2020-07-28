@@ -438,11 +438,26 @@ function onSetFilter(state, { payload }) {
   // }
 
   /* Update of URL and generation of the state. */
-  updateQuery({ payload });
+  // updateQuery({ payload });
+  let filter = payload;
+  if (Object.keys(payload).length === 0) {
+    filter = {
+      tracks: {
+        design: true,
+        develop: true,
+        data_science: true,
+      },
+      text: '',
+      tags: [],
+      subtracks: [],
+      communityId: 'All',
+      startDate: '',
+      endDate: '',
+    };
+  }
   return {
     ...state,
-    payload,
-
+    filter,
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
     // allPastChallengesLoaded: false,
@@ -594,13 +609,17 @@ function create(initialState) {
       loadingReviewOpportunitiesUUID: '',
       reviewOpportunities: [],
       filter: {
-        track: ['design', 'develop', 'data_science'],
-        searchText: '',
-        keywords: [],
-        subTrack: [],
-        subCommunity: 'All',
-        dateStart: '',
-        dateEnd: '',
+        tracks: {
+          design: true,
+          develop: true,
+          data_science: true,
+        },
+        text: '',
+        tags: [],
+        subtracks: [],
+        communityId: 'All',
+        startDate: '',
+        endDate: '',
       },
       meta: {
         allChallengesCount: 0,
@@ -690,7 +709,11 @@ function create(initialState) {
     expandedTags: [],
 
     filter: {
-      tracks: ['design', 'develop', 'data_science'],
+      tracks: {
+        design: true,
+        develop: true,
+        data_science: true,
+      },
       text: '',
       tags: [],
       subtracks: [],
