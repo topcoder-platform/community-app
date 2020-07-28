@@ -8,7 +8,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import Sticky from 'react-stickynode';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+// import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { config } from 'topcoder-react-utils';
@@ -19,7 +19,7 @@ import SRMCard from './SRMCard';
 
 import './style.scss';
 
-const Filter = challengeUtils.filter;
+// const Filter = challengeUtils.filter;
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
@@ -28,14 +28,14 @@ export default function ChallengeListing(props) {
   const {
     activeBucket,
     auth,
-    challenges: propChallenges,
+    challenges,
     openForRegistrationChallenges,
     myChallenges,
-    communityFilter,
+    // communityFilter,
     communityName,
     defaultCommunityId,
     extraBucket,
-    filterState,
+    // filterState,
     hideSrm,
     hideTcLinksInFooter,
     keepPastPlaceholders,
@@ -45,13 +45,13 @@ export default function ChallengeListing(props) {
     isLoggedIn,
   } = props;
 
-  let { challenges } = props;
+  // let { challenges } = props;
 
-  if (communityFilter) {
-    challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
-  }
+  // if (communityFilter) {
+  //   challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
+  // }
 
-  challenges = challenges.filter(Filter.getFilterFunction(filterState));
+  // challenges = challenges.filter(Filter.getFilterFunction(filterState));
 
   const expanded = false;
 
@@ -132,7 +132,7 @@ export default function ChallengeListing(props) {
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       <ChallengeFilters
-        challenges={[propChallenges]}
+        // challenges={[propChallenges]}
         communityName={communityName}
         defaultCommunityId={defaultCommunityId}
         hideSrm={hideSrm}
@@ -195,7 +195,7 @@ export default function ChallengeListing(props) {
 
 ChallengeListing.defaultProps = {
   auth: null,
-  communityFilter: null,
+  // communityFilter: null,
   communityName: null,
   extraBucket: null,
   hideTcLinksInFooter: false,
@@ -222,7 +222,7 @@ ChallengeListing.propTypes = {
   openForRegistrationChallenges: PT.arrayOf(PT.shape()).isRequired,
   myChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
   challengesUrl: PT.string.isRequired,
-  communityFilter: PT.shape(),
+  // communityFilter: PT.shape(),
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),

@@ -3,13 +3,14 @@
  */
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
 // import localStorage from 'localStorage';
 import ChallengeSearchBar from './ChallengeSearchBar';
-import EditTrackPanel from './EditTrackPanel';
+// import EditTrackPanel from './EditTrackPanel';
 import FiltersIcon from './FiltersSwitch/filters-icon.svg';
 import FiltersPanel from './FiltersPanel';
 import FiltersSwitch from './FiltersSwitch';
@@ -27,7 +28,7 @@ export default function ChallengeFilters({
   filterState,
   isAuth,
   auth,
-  isCardTypeSet,
+  // isCardTypeSet,
   isReviewOpportunitiesBucket,
   // saveFilter,
   searchText,
@@ -36,8 +37,8 @@ export default function ChallengeFilters({
   setExpanded,
   setFilterState,
   setSearchText,
-  showTrackModal,
-  trackModalShown,
+  // showTrackModal,
+  // trackModalShown,
   validKeywords,
   validSubtracks,
   // isSavingFilter,
@@ -50,13 +51,24 @@ export default function ChallengeFilters({
   if (selectedCommunityId !== '') filterRulesCount += 1;
   const isTrackOn = track => !filterState.tracks || Boolean(filterState.tracks[track]);
 
-  const switchTrack = f => f;
-  // const switchTrack = (track, on) => {
-  //   const act = on ? Filter.addTrack : Filter.removeTrack;
-  //   const filterObj = act(filterState, track);
-  //   localStorage.setItem('trackStatus', JSON.stringify(filterObj));
-  //   setFilterState(filterObj);
-  // };
+  // const switchTrack = f => f;
+  const switchTrack = (track, on) => {
+    const filterObj = _.clone(filterState);
+    if (on) {
+      if (_.indexOf(filterObj.tracks, track) < 0) {
+        filterObj.push(filterState.tracks[track]);
+      }
+    } else {
+      const trackIndex = _.indexOf(filterObj.tracks, track);
+      if (trackIndex >= 0) {
+        filterObj.splice(trackIndex, 1);
+      }
+    }
+    // const act = on ? Filter.addTrack : Filter.removeTrack;
+    // const filterObj = act(filterState, track);
+    // localStorage.setItem('trackStatus', JSON.stringify(filterObj));
+    setFilterState(filterObj);
+  };
 
   const clearSearch = () => {
     // setFilterState(Filter.setText(filterState, ''));
@@ -67,32 +79,38 @@ export default function ChallengeFilters({
     <div styleName="challenge-filters">
       <div styleName="filter-header">
         <ChallengeSearchBar
-          // onSearch={text => setFilterState(Filter.setText(filterState, text))}
+          onSearch={text => setFilterState({ text })}
           onClearSearch={() => clearSearch()}
           label={isReviewOpportunitiesBucket ? 'Search Review Opportunities:' : 'Search Challenges:'}
           placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Type the challenge name here'}
           query={searchText}
           setQuery={setSearchText}
         />
-        {
+        {/* {
           isCardTypeSet === 'Challenges'
             ? (
               <span>
-                <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn(TRACKS.DESIGN) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DESIGN)}>
+                <span styleName="filter-switch-with-label"
+                  aria-label={`Design toggle button pressed ${isTrackOn(TRACKS.DESIGN)
+                  ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DESIGN)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DESIGN)}
                     labelBefore="Design"
                     onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn(TRACKS.DEVELOP) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DEVELOP)}>
+                <span styleName="filter-switch-with-label"
+                  aria-label={`Development toggle button pressed ${isTrackOn(TRACKS.DEVELOP)
+                  ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DEVELOP)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DEVELOP)}
                     labelBefore="Development"
                     onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
                   />
                 </span>
-                <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn(TRACKS.DATA_SCIENCE) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DATA_SCIENCE)}>
+                <span styleName="filter-switch-with-label"
+                  aria-label={`Data Science toggle button pressed ${isTrackOn(TRACKS.DATA_SCIENCE)
+                  ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DATA_SCIENCE)}>
                   <SwitchWithLabel
                     enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
                     labelBefore="Data Science"
@@ -101,9 +119,32 @@ export default function ChallengeFilters({
                 </span>
               </span>
             ) : ''
-        }
+        } */}
+        <span>
+          <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn(TRACKS.DESIGN) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DESIGN)}>
+            <SwitchWithLabel
+              enabled={isTrackOn(TRACKS.DESIGN)}
+              labelBefore="Design"
+              onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
+            />
+          </span>
+          <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn(TRACKS.DEVELOP) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DEVELOP)}>
+            <SwitchWithLabel
+              enabled={isTrackOn(TRACKS.DEVELOP)}
+              labelBefore="Development"
+              onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
+            />
+          </span>
+          <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn(TRACKS.DATA_SCIENCE) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.DATA_SCIENCE)}>
+            <SwitchWithLabel
+              enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
+              labelBefore="Data Science"
+              onSwitch={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
+            />
+          </span>
+        </span>
         <span styleName="pulled-right">
-          {
+          {/* {
             isCardTypeSet === 'Challenges'
               ? (
                 <span
@@ -117,7 +158,7 @@ export default function ChallengeFilters({
                   <span styleName="down-arrow" />
                 </span>
               ) : ''
-          }
+          } */}
           {/* TODO: Two components below are filter switch buttons for
             * mobile and desktop views. Should be refactored to use the
             * same component, which automatically changes its style depending
@@ -168,7 +209,7 @@ export default function ChallengeFilters({
         // isSavingFilter={isSavingFilter}
       />
 
-      <EditTrackPanel
+      {/* <EditTrackPanel
         opened={trackModalShown}
         onClose={() => showTrackModal(false)}
         designEnabled={isTrackOn(TRACKS.DESIGN)}
@@ -177,7 +218,7 @@ export default function ChallengeFilters({
         switchDev={on => switchTrack(TRACKS.DEVELOP, on)}
         dataScienceEnabled={isTrackOn(TRACKS.DATA_SCIENCE)}
         switchDataScience={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
-      />
+      /> */}
     </div>
   );
 }
@@ -185,7 +226,7 @@ export default function ChallengeFilters({
 ChallengeFilters.defaultProps = {
   communityName: null,
   isAuth: false,
-  isCardTypeSet: '',
+  // isCardTypeSet: '',
   isReviewOpportunitiesBucket: false,
   // isSavingFilter: false,
   challenges: [],
@@ -200,7 +241,7 @@ ChallengeFilters.propTypes = {
   filterState: PT.shape().isRequired,
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
-  isCardTypeSet: PT.string,
+  // isCardTypeSet: PT.string,
   // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
   // saveFilter: PT.func.isRequired,
@@ -210,8 +251,8 @@ ChallengeFilters.propTypes = {
   setFilterState: PT.func.isRequired,
   searchText: PT.string.isRequired,
   setSearchText: PT.func.isRequired,
-  showTrackModal: PT.func.isRequired,
-  trackModalShown: PT.bool.isRequired,
+  // showTrackModal: PT.func.isRequired,
+  // trackModalShown: PT.bool.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.object).isRequired,
 };

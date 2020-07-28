@@ -11,8 +11,8 @@ import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
 import localStorage from 'localStorage';
-import sidebarActions from 'actions/challenge-listing/sidebar';
-import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+// import sidebarActions from 'actions/challenge-listing/sidebar';
+// import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import qs from 'qs';
@@ -75,13 +75,13 @@ export class Container extends React.Component {
 
   render() {
     const {
-      activeBucket,
+      // activeBucket,
       communityFilters,
       // filterState,
       // isSavingFilter,
       // saveFilter,
       // savedFilters,
-      selectBucket,
+      // selectBucket,
       // selectedCommunityId,
       setFilterState,
       // tokenV2,
@@ -95,7 +95,7 @@ export class Container extends React.Component {
       ...communityFilters,
     ];
 
-    const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
+    // const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
 
     return (
       <FilterPanel
@@ -114,14 +114,14 @@ export class Container extends React.Component {
         // }}
         setFilterState={(state) => {
           setFilterState(state);
-          if (activeBucket === BUCKETS.SAVED_FILTER) {
-            selectBucket(BUCKETS.ALL);
-          } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
-            selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
-          }
+          // if (activeBucket === BUCKETS.SAVED_FILTER) {
+          //   selectBucket(BUCKETS.ALL);
+          // } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+          //   selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
+          // }
         }}
         // isSavingFilter={isSavingFilter}
-        isReviewOpportunitiesBucket={isForReviewOpportunities}
+        // isReviewOpportunitiesBucket={isForReviewOpportunities}
       />
     );
   }
@@ -130,7 +130,7 @@ export class Container extends React.Component {
 Container.defaultProps = {
   // isSavingFilter: false,
   tokenV2: '',
-  challenges: [],
+  // challenges: [],
 };
 
 Container.propTypes = {
@@ -147,7 +147,7 @@ Container.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   filterState: PT.shape().isRequired,
-  challenges: PT.arrayOf(PT.shape()),
+  // challenges: PT.arrayOf(PT.shape()),
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getTypes: PT.func.isRequired,
@@ -156,7 +156,7 @@ Container.propTypes = {
   loadingKeywords: PT.bool.isRequired,
   loadingSubtracks: PT.bool.isRequired,
   // saveFilter: PT.func.isRequired,
-  selectBucket: PT.func.isRequired,
+  // selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   auth: PT.shape().isRequired,
   tokenV2: PT.string,
@@ -165,7 +165,7 @@ Container.propTypes = {
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing.filterPanel;
   const cla = challengeListingActions.challengeListing;
-  const sa = sidebarActions.challengeListing.sidebar;
+  // const sa = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
     getTypes: () => {
@@ -185,7 +185,7 @@ function mapDispatchToProps(dispatch) {
     //   dispatch(sa.saveFilterInit());
     //   dispatch(sa.saveFilterDone(...rest));
     // },
-    selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    // selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
   };

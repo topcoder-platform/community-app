@@ -18,13 +18,13 @@ export const BUCKETS = {
 };
 
 export const BUCKET_NAME = {
-  all: 'All Challenges',
-  my: 'My Challenges',
-  openForRegistration: 'Open for registration',
-  ongoing: 'Ongoing challenges',
-  past: 'Past challenges',
-  upcoming: 'Upcoming challenges',
-  reviewOpportunities: 'Open for review',
+  [BUCKETS.ALL]: 'All Challenges',
+  [BUCKETS.MY]: 'My Challenges',
+  [BUCKETS.OPEN_FOR_REGISTRATION]: 'Open for registration',
+  [BUCKETS.ONGOING]: 'Ongoing challenges',
+  [BUCKETS.PAST]: 'Past challenges',
+  [BUCKETS.UPCOMING]: 'Upcoming challenges',
+  [BUCKETS.REVIEW_OPPORTUNITIES]: 'Open for review',
 };
 
 const BUCKET_DATA = {

@@ -60,10 +60,12 @@ export default function ChallengeSearchBar({
 ChallengeSearchBar.defaultProps = {
   placeholder: '',
   label: 'Search: ',
+  onSearch: null,
 };
 
 ChallengeSearchBar.propTypes = {
-  onSearch: PT.func.isRequired,
+  // onSearch: PT.func.isRequired,
+  onSearch: PT.func,
   onClearSearch: PT.func.isRequired,
   label: PT.string,
   placeholder: PT.string,

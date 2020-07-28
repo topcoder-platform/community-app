@@ -7,7 +7,7 @@ import actions from 'actions/challenge-listing';
 import { handleActions } from 'redux-actions';
 import { redux } from 'topcoder-react-utils';
 import { updateQuery } from 'utils/url';
-import moment from 'moment';
+// import moment from 'moment';
 import {
   logger,
   errors,
@@ -111,29 +111,33 @@ function onGetActiveChallengesDone(state, { error, payload }) {
   }
   const { uuid, challenges: loaded } = payload;
   if (uuid !== state.loadingActiveChallengesUUID) return state;
+  const challenges = state.challenges.concat(loaded);
 
   /* Once all active challenges are fetched from the API, we remove from the
    * store any active challenges stored there previously, and also any
    * challenges with IDs matching any challenges loaded now as active. */
-  const ids = new Set();
-  loaded.forEach(item => ids.add(item.id));
+  // const ids = new Set();
+  // loaded.forEach(item => ids.add(item.id));
 
   /* Fetching 0 page of active challenges also drops any active challenges
    * loaded to the state before. */
-  const filter = state.lastRequestedPageOfActiveChallenges
-    ? item => !ids.has(item.id)
-    : item => !ids.has(item.id) && item.status !== 'Active';
+  // const filter = state.lastRequestedPageOfActiveChallenges
+  // ? item => !ids.has(item.id)
+  // : item => !ids.has(item.id) && item.status !== 'Active';
 
-  const challenges = state.challenges
-    .filter(filter)
-    .concat(loaded);
+  // const challenges = state.challenges
+  //   .filter(filter)
+  //   .concat(loaded);
 
   return {
     ...state,
     challenges,
     lastUpdateOfActiveChallenges: Date.now(),
     loadingActiveChallengesUUID: '',
-    meta: payload.meta,
+    meta: {
+      ...state.meta,
+      myChallengesCount: payload.meta.allChallengesCount,
+    },
   };
 }
 
@@ -419,31 +423,31 @@ function onSetFilter(state, { payload }) {
   /* Validation of filter parameters: they may come from URL query, thus
    * validation is not a bad idea. As you may note, at the moment we do not
    * do it very carefuly (many params are not validated). */
-  const filter = _.clone(payload);
-  if (_.isPlainObject(filter.tags)) {
-    filter.tags = _.values(filter.tags);
-  }
-  if (_.isPlainObject(filter.subtracks)) {
-    filter.subtracks = _.values(filter.subtracks);
-  }
-  if (filter.startDate && !moment(filter.startDate).isValid()) {
-    delete filter.startDate;
-  }
-  if (filter.endDate && !moment(filter.endDate).isValid()) {
-    delete filter.endDate;
-  }
+  // const filter = _.clone(payload);
+  // if (_.isPlainObject(filter.tags)) {
+  //   filter.tags = _.values(filter.tags);
+  // }
+  // if (_.isPlainObject(filter.subtracks)) {
+  //   filter.subtracks = _.values(filter.subtracks);
+  // }
+  // if (filter.startDate && !moment(filter.startDate).isValid()) {
+  //   delete filter.startDate;
+  // }
+  // if (filter.endDate && !moment(filter.endDate).isValid()) {
+  //   delete filter.endDate;
+  // }
 
   /* Update of URL and generation of the state. */
-  updateQuery({ filter });
+  updateQuery({ payload });
   return {
     ...state,
-    filter,
+    payload,
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
-    allPastChallengesLoaded: false,
-    lastRequestedPageOfPastChallenges: -1,
-    pastSearchTimestamp: -1,
+    // allPastChallengesLoaded: false,
+    // lastRequestedPageOfPastChallenges: -1,
+    // pastSearchTimestamp: -1,
   };
 }
 
@@ -589,6 +593,15 @@ function create(initialState) {
       loadingPastChallengesUUID: '',
       loadingReviewOpportunitiesUUID: '',
       reviewOpportunities: [],
+      filter: {
+        track: ['design', 'develop', 'data_science'],
+        searchText: '',
+        keywords: [],
+        subTrack: [],
+        subCommunity: 'All',
+        dateStart: '',
+        dateEnd: '',
+      },
       meta: {
         allChallengesCount: 0,
         myChallengesCount: 0,
@@ -676,7 +689,15 @@ function create(initialState) {
 
     expandedTags: [],
 
-    filter: {},
+    filter: {
+      tracks: ['design', 'develop', 'data_science'],
+      text: '',
+      tags: [],
+      subtracks: [],
+      communityId: 'All',
+      startDate: '',
+      endDate: '',
+    },
 
     keepPastPlaceholders: false,
 

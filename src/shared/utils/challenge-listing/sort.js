@@ -19,6 +19,42 @@ export const SORTS = {
   REVIEW_OPPORTUNITIES_START_DATE: 'review-opportunities-start-date',
 };
 
+export const SORT_OPTIONS_PER_BUCKET = {
+  my: [
+    SORTS.MOST_RECENT,
+    SORTS.TIME_TO_SUBMIT,
+    SORTS.NUM_REGISTRANTS,
+    SORTS.NUM_SUBMISSIONS,
+    SORTS.PRIZE_HIGH_TO_LOW,
+    SORTS.TITLE_A_TO_Z,
+  ],
+  openForRegistration: [
+    SORTS.MOST_RECENT,
+    SORTS.TIME_TO_REGISTER,
+    SORTS.TIME_TO_SUBMIT,
+    SORTS.NUM_REGISTRANTS,
+    SORTS.NUM_SUBMISSIONS,
+    SORTS.PRIZE_HIGH_TO_LOW,
+    SORTS.TITLE_A_TO_Z,
+  ],
+  ongoing: [
+    SORTS.MOST_RECENT,
+    SORTS.CURRENT_PHASE,
+    SORTS.TITLE_A_TO_Z,
+    SORTS.PRIZE_HIGH_TO_LOW,
+  ],
+  past: [
+    SORTS.MOST_RECENT,
+    SORTS.PRIZE_HIGH_TO_LOW,
+    SORTS.TITLE_A_TO_Z,
+  ],
+  reviewOpportunities: [
+    SORTS.REVIEW_OPPORTUNITIES_START_DATE,
+    SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
+    SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
+  ],
+};
+
 export default {
   [SORTS.CURRENT_PHASE]: {
     func: (a, b) => a.status.localeCompare(b.status),

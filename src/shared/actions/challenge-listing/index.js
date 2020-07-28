@@ -18,7 +18,6 @@ const { getReviewOpportunitiesService } = services.reviewOpportunities;
  */
 const PAGE_SIZE = 10;
 
-const REGISTRATION_PHASE_ID = 'aa5a3f78-79e0-4bf7-93ff-b11e8f5b398b';
 
 /**
  * The maximum number of review opportunities to fetch in a single API call.
@@ -177,7 +176,9 @@ function getAllUserChallengesDone(uuid, tokenV3) {
 function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
   const filter = {
     ...backendFilter,
+    ...frontFilter,
     status: 'Active',
+    currentPhaseName: 'Submission',
   };
   const service = getService(tokenV3);
   return service.getChallenges(filter, {
@@ -216,8 +217,9 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
   tokenV3, frontFilter = {}) {
   const filter = {
     ...backendFilter,
+    ...frontFilter,
     status: 'Active',
-    currentPhaseId: REGISTRATION_PHASE_ID,
+    currentPhaseName: 'Registration',
   };
   const service = getService(tokenV3);
   return service.getChallenges(filter, {
@@ -235,6 +237,7 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
   const userId = decodeToken(tokenV3).userId.toString();
   const filter = {
     ...backendFilter,
+    ...frontFilter,
     status: 'Active',
     memberId: userId,
   };
