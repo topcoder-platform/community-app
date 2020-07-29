@@ -221,7 +221,7 @@ export default function FiltersPanel({
               id="keyword-select"
               multi
               onChange={(value) => {
-                const tags = value ? value.split(',') : undefined;
+                const tags = value ? value.split(',') : [];
                 setFilterState({ ..._.clone(filterState), tags });
               }}
               options={validKeywords.map(mapOps)}
@@ -261,7 +261,7 @@ export default function FiltersPanel({
               id="track-select"
               multi
               onChange={(value) => {
-                const subtracks = value ? value.split(',') : undefined;
+                const subtracks = value ? value.split(',') : [];
                 setFilterState({ ..._.clone(filterState), subtracks });
               }}
               options={validSubtracks.map(mapSubtracks)}
