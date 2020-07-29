@@ -6,6 +6,7 @@ import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
+import _ from 'lodash';
 
 import localStorage from 'localStorage';
 import ChallengeSearchBar from './ChallengeSearchBar';
@@ -53,7 +54,8 @@ export default function ChallengeFilters({
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
     const filterObj = act(filterState, track);
-    localStorage.setItem('trackStatus', JSON.stringify(filterObj));
+    const newFilterObj = _.omit(filterObj, 'text');
+    localStorage.setItem('trackStatus', JSON.stringify(newFilterObj));
     setFilterState(filterObj);
   };
 
