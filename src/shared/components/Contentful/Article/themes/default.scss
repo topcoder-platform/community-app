@@ -1,6 +1,18 @@
 @import "~styles/mixins";
 @import "~components/Contentful/default";
 
+.shareButtons {
+  margin-top: 10px;
+
+  a {
+    margin-right: 5px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
 .contentContainer,
 .contentContainerWithBanner {
   max-width: $screen-lg;

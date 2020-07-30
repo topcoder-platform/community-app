@@ -15,12 +15,14 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import YouTubeVideo from 'components/YouTubeVideo';
 import moment from 'moment';
 import localStorage from 'localStorage';
-import { config, Link } from 'topcoder-react-utils';
-import ShareSocial from 'components/challenge-detail/Specification/SideBar/ShareSocial';
+import { config, Link, isomorphy } from 'topcoder-react-utils';
+import qs from 'qs';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
-import qs from 'qs';
+import IconFacebook from 'assets/images/icon-facebook.svg';
+import IconTwitter from 'assets/images/icon-twitter.svg';
+import IconLinkedIn from 'assets/images/icon-linkedIn.svg';
 
 const htmlToText = require('html-to-text');
 
@@ -104,6 +106,10 @@ export default class Article extends React.Component {
       spaceName, environment, preview,
     };
     const { upvotes, downvotes } = this.state || {};
+    let shareUrl;
+    if (isomorphy.isClientSide()) {
+      shareUrl = encodeURIComponent(window.location.href);
+    }
 
     return (
       <React.Fragment>
@@ -180,7 +186,17 @@ export default class Article extends React.Component {
             </div>
             <div className={theme.separator} />
             <h3 className={theme.label}>share</h3>
-            <ShareSocial />
+            <div className={theme.shareButtons}>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                <IconLinkedIn />
+              </a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
+                <IconFacebook />
+              </a>
+              <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                <IconTwitter />
+              </a>
+            </div>
             <div className={theme.mobileSeparator} />
           </div>
           {/* Content */}
