@@ -65,6 +65,7 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: false,
       started: true,
+      ongoing: true,
       status: ['Active'],
     },
     hideCount: false,
