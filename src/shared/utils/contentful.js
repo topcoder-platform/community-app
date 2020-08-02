@@ -9,7 +9,13 @@ import { removeTrailingSlash } from 'utils/url';
  * @return {Object}
  */
 export function fixStyle(style) {
-  return style ? _.mapKeys(style, (value, key) => _.camelCase(key)) : undefined;
+  const props = _.omitBy(style, !_.isObject);
+  const mediaQueries = _.pickBy(
+    style,
+    (propVal, mQuery) => _.isObject(propVal) && window.matchMedia(mQuery).matches,
+  );
+  const merged = _.merge(props, ..._.values(mediaQueries));
+  return merged ? _.mapKeys(merged, (value, key) => _.camelCase(key)) : undefined;
 }
 
 // Concatenates a base and segment and handles optional trailing slashes
