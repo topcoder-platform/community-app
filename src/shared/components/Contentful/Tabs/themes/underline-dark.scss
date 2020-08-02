@@ -22,7 +22,7 @@ $text-color-pannel: #4a4a4a;
   -webkit-justify-content: center; /* Safari */
   justify-content: center;
   list-style-type: none;
-  border-bottom: 5px solid #fff;
+  border-bottom: 5px solid #013b4d;
 
   @include xs-to-sm {
     overflow-x: auto;
@@ -51,7 +51,7 @@ $text-color-pannel: #4a4a4a;
   @include xs-to-sm {
     margin: 0;
     padding-right: 36px;
-    border-bottom: 5px solid #fff;
+    border-bottom: 5px solid #013b4d;
   }
 
   &:hover,
