@@ -34,6 +34,7 @@ function ContentfulTabs(props) {
             environment={environment}
             selected={fields.selected}
             theme={TAB_THEMES[fields.theme || 'Default']}
+            tabId={fields.urlQueryName || id}
           />
         );
       }}
