@@ -22,6 +22,7 @@ import zurichTheme from './themes/zurich.scss';
 import tabsGroup from './themes/tabsGroup.scss';
 import tabsGroupChildren from './themes/tabsGroupChildren.scss';
 import underlineTheme from './themes/underline.scss';
+import underlineDarkTheme from './themes/underline-dark.scss';
 import verticalTheme from './themes/vertical.scss';
 import pillsTheme from './themes/pills.scss';
 
@@ -31,6 +32,7 @@ export const TAB_THEMES = {
   'Tabs Group': tabsGroup,
   'Tabs Group Children': tabsGroupChildren,
   Underline: underlineTheme,
+  'Underline dark': underlineDarkTheme,
   Vertical: verticalTheme,
   Pills: pillsTheme,
 };
