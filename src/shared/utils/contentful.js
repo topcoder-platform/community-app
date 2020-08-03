@@ -12,7 +12,8 @@ export function fixStyle(style) {
   const props = _.omitBy(style, !_.isObject);
   const mediaQueries = _.pickBy(
     style,
-    (propVal, mQuery) => _.isObject(propVal) && window.matchMedia(mQuery).matches,
+    (propVal, mQuery) => _.isObject(propVal)
+    && isomorphy.isClientSide() && window.matchMedia(mQuery).matches,
   );
   const merged = _.merge(props, ..._.values(mediaQueries));
   return merged ? _.mapKeys(merged, (value, key) => _.camelCase(key)) : undefined;
