@@ -4,10 +4,10 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className="undefined "
 >
-  <a
-    href="/thrive"
+  <Link
+    to="/thrive"
   >
     THRIVE
-  </a>
+  </Link>
 </div>
 `;
