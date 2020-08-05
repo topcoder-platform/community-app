@@ -73,7 +73,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
         "",
       ]
     }
-    validSubtracks={
+    validTypes={
       Array [
         "",
       ]
@@ -235,14 +235,14 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       Object {
         "endDate": "2019-12-31T23:00:00.000Z",
         "startDate": "2019-12-31T23:00:00.000Z",
-        "subtracks": Array [
-          "CODE",
-        ],
         "tags": Array [
           "abc",
         ],
         "tracks": Array [
           "tracks",
+        ],
+        "types": Array [
+          "927abff4-7af9-4145-8ba1-577c16e64e2e",
         ],
       }
     }
@@ -261,7 +261,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         "",
       ]
     }
-    validSubtracks={
+    validTypes={
       Array [
         "",
       ]

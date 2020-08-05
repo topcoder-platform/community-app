@@ -155,7 +155,7 @@ function mapStateToProps(state, ownProps) {
   const { activeBucket } = state.challengeListing.sidebar;
   const pending = _.keys(state.challengeListing.pendingRequests);
   updateChallengeType(
-    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
   );
   return {
     ...state.challengeListing.sidebar,

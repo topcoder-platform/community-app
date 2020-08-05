@@ -7,6 +7,7 @@ import {
   DataScienceTrackTag,
   DesignTrackTag,
   DevelopmentTrackTag,
+  QATrackTag,
 } from 'topcoder-react-ui-kit';
 
 import { Link } from 'topcoder-react-utils';
@@ -40,6 +41,9 @@ export default function Card({
     case COMPETITION_TRACKS.DEVELOP:
       TrackTag = DevelopmentTrackTag;
       break;
+    case COMPETITION_TRACKS.QA:
+      TrackTag = QATrackTag;
+      break;
     default:
       throw new Error('Wrong competition track value');
   }
@@ -57,7 +61,7 @@ export default function Card({
   return (
     <div styleName="container">
       <TrackTag
-        to={`${baseUrl}/challenges?filter[subtracks][0]=${
+        to={`${baseUrl}/challenges?filter[types][0]=${
           encodeURIComponent(subTrack)}`}
       >
         {_.capitalize(subTrack).replace(/_/g, ' ')}

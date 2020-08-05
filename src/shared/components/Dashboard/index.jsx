@@ -42,7 +42,7 @@ export default function Dashboard({
   xlBadge,
   // errorLoadingRss,
   userResources,
-  challengeSubtracksMap,
+  challengeTypesMap,
 }) {
   return (
     <div styleName="container">
@@ -84,7 +84,7 @@ export default function Dashboard({
           unregisterFromChallenge={unregisterFromChallenge}
           userGroups={userGroups}
           userResources={userResources}
-          challengeSubtracksMap={challengeSubtracksMap}
+          challengeTypesMap={challengeTypesMap}
         />
         {/* {!errorLoadingRss && (
             <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />
@@ -132,5 +132,5 @@ Dashboard.propTypes = {
   xlBadge: PT.string.isRequired,
   // errorLoadingRss: PT.bool.isRequired,
   userResources: PT.arrayOf(PT.shape()),
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
 };

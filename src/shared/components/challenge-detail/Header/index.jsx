@@ -46,7 +46,7 @@ export default function ChallengeHeader(props) {
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
-    challengeSubtracksMap,
+    challengeTypesMap,
     selectedView,
     showDeadlineDetail,
     hasFirstPlacement,
@@ -70,6 +70,7 @@ export default function ChallengeHeader(props) {
     numOfSubmissions,
     appealsEndDate,
     status,
+    type,
   } = challenge;
 
   const { track, subTrack } = legacy;
@@ -256,8 +257,9 @@ export default function ChallengeHeader(props) {
               <ChallengeTags
                 subTrack={subTrack}
                 track={trackLower}
+                type={type}
                 challengesUrl={challengesUrl}
-                challengeSubtracksMap={challengeSubtracksMap}
+                challengeTypesMap={challengeTypesMap}
                 events={eventNames}
                 technPlatforms={miscTags}
                 setChallengeListingFilter={setChallengeListingFilter}
@@ -516,7 +518,7 @@ ChallengeHeader.propTypes = {
   showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,

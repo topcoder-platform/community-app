@@ -193,7 +193,7 @@ export class DashboardPageContainer extends React.Component {
       xlBadge,
       errorLoadingRss,
       userResources,
-      challengeSubtracksMap,
+      challengeTypesMap,
       getTypes,
     } = this.props;
 
@@ -206,7 +206,7 @@ export class DashboardPageContainer extends React.Component {
       ({ announcementPreviewId } = qs.parse(urlQuery));
     }
 
-    if (_.isEmpty(challengeSubtracksMap)) {
+    if (_.isEmpty(challengeTypesMap)) {
       getTypes();
     }
 
@@ -244,7 +244,7 @@ export class DashboardPageContainer extends React.Component {
         xlBadge={xlBadge}
         errorLoadingRss={errorLoadingRss}
         userResources={userResources ? userResources.resources : []}
-        challengeSubtracksMap={challengeSubtracksMap}
+        challengeTypesMap={challengeTypesMap}
       />
     );
   }
@@ -321,7 +321,7 @@ DashboardPageContainer.propTypes = {
   errorLoadingRss: PT.bool,
   getMemberResources: PT.func.isRequired,
   userResources: PT.shape(),
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
   getTypes: PT.func.isRequired,
 };
 
@@ -338,7 +338,7 @@ function mapStateToProps(state, props) {
 
   const tcBlog = state.rss ? (state.rss[TOPCODER_BLOG_ID] || {}) : {};
   updateChallengeType(
-    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
   );
   return {
     achievements: achievements.data,
@@ -379,7 +379,7 @@ function mapStateToProps(state, props) {
     xlBadge: dash.xlBadge,
     errorLoadingRss: state.rss.errorLoadingRss,
     userResources: state.members.userResources,
-    challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
+    challengeTypesMap: state.challengeListing.challengeTypesMap,
   };
 }
 

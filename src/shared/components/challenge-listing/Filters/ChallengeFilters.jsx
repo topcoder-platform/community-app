@@ -40,12 +40,12 @@ export default function ChallengeFilters({
   showTrackModal,
   trackModalShown,
   validKeywords,
-  validSubtracks,
+  validTypes,
   isSavingFilter,
 }) {
   let filterRulesCount = 0;
   if (filterState.tags) filterRulesCount += 1;
-  if (filterState.subtracks) filterRulesCount += 1;
+  if (filterState.types) filterRulesCount += 1;
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
   if (selectedCommunityId !== '') filterRulesCount += 1;
@@ -172,7 +172,7 @@ export default function ChallengeFilters({
         setFilterState={setFilterState}
         setSearchText={setSearchText}
         validKeywords={validKeywords}
-        validSubtracks={validSubtracks}
+        validTypes={validTypes}
         isSavingFilter={isSavingFilter}
       />
 
@@ -223,5 +223,5 @@ ChallengeFilters.propTypes = {
   showTrackModal: PT.func.isRequired,
   trackModalShown: PT.bool.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.object).isRequired,
+  validTypes: PT.arrayOf(PT.object).isRequired,
 };

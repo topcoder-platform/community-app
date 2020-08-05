@@ -147,7 +147,7 @@ class ChallengeDetailPageContainer extends React.Component {
       getCommunitiesList,
       loadChallengeDetails,
       challengeId,
-      challengeSubtracksMap,
+      challengeTypesMap,
       getTypes,
       allCountries,
       reviewTypes,
@@ -187,7 +187,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     getCommunitiesList(auth);
 
-    if (_.isEmpty(challengeSubtracksMap)) {
+    if (_.isEmpty(challengeTypesMap)) {
       getTypes();
     }
 
@@ -296,7 +296,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       challengeTypes,
       challengeId,
-      challengeSubtracksMap,
+      challengeTypesMap,
       challengesUrl,
       checkpointResults,
       checkpointResultsUi,
@@ -460,7 +460,7 @@ class ChallengeDetailPageContainer extends React.Component {
               checkpoints={checkpoints}
               hasRegistered={challenge.isRegistered}
               hasFirstPlacement={hasFirstPlacement}
-              challengeSubtracksMap={challengeSubtracksMap}
+              challengeTypesMap={challengeTypesMap}
               isMenuOpened={isMenuOpened}
               submissionEnded={submissionEnded}
               mySubmissions={challenge.isRegistered ? mySubmissions : []}
@@ -643,7 +643,7 @@ ChallengeDetailPageContainer.propTypes = {
   challenge: PT.shape().isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengeId: PT.string.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpointResultsUi: PT.shape().isRequired,
@@ -764,13 +764,13 @@ function mapStateToProps(state, props) {
   return {
     auth: state.auth,
     challenge,
-    challengeTypes: cl.challengeSubtracks,
+    challengeTypes: cl.challengeTypes,
     recommendedChallenges: cl.recommendedChallenges,
     loadingRecommendedChallengesUUID: cl.loadingRecommendedChallengesUUID,
     expandedTags: cl.expandedTags,
     challengeId: String(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
-    challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
+    challengeTypesMap: state.challengeListing.challengeTypesMap,
     checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
     checkpointResultsUi: state.page.challengeDetails.checkpoints,
     checkpoints: state.challenge.checkpoints || {},
