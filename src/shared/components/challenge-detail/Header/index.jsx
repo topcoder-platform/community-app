@@ -9,7 +9,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import 'moment-duration-format';
 import { isMM } from 'utils/challenge';
-import { getChallengeSubTrack } from 'utils/challenge-detail/helper';
 
 import PT from 'prop-types';
 import React from 'react';
@@ -37,7 +36,6 @@ export default function ChallengeHeader(props) {
     isLoggedIn,
     challenge,
     challengesUrl,
-    challengeTypes,
     checkpoints,
     hasRegistered,
     numWinners,
@@ -74,9 +72,8 @@ export default function ChallengeHeader(props) {
     status,
   } = challenge;
 
-  const { track } = legacy;
+  const { track, subTrack } = legacy;
   const tags = challenge.tags || [];
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
 
   const allPhases = challenge.phases || [];
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
@@ -472,7 +469,6 @@ ChallengeHeader.defaultProps = {
   isMenuOpened: false,
   hasThriveArticles: false,
   hasRecommendedChallenges: false,
-  challengeTypes: [],
 };
 
 ChallengeHeader.propTypes = {
@@ -492,6 +488,7 @@ ChallengeHeader.propTypes = {
     prizes: PT.any,
     legacy: PT.shape({
       track: PT.any,
+      subTrack: PT.string,
     }),
     reliabilityBonus: PT.any,
     userDetails: PT.any,
@@ -505,7 +502,6 @@ ChallengeHeader.propTypes = {
     prizeSets: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  challengeTypes: PT.arrayOf(PT.shape()),
   hasRegistered: PT.bool.isRequired,
   hasThriveArticles: PT.bool,
   hasRecommendedChallenges: PT.bool,

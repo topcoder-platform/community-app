@@ -8,7 +8,7 @@ import { isDevelopMM } from 'utils/challenge';
 import {
   getEndDate,
   getPrizePointsUI,
-  getChallengeSubTrack,
+  getChallengeTypeAbbr,
 } from 'utils/challenge-detail/helper';
 
 import Tags from '../Tags';
@@ -44,6 +44,7 @@ function ChallengeCard({
   } = challenge;
 
   let { track } = legacy;
+  const { subTrack } = legacy;
   challenge.isDataScience = false;
   if ((challenge.tags && challenge.tags.includes('Data Science')) || isDevelopMM(challenge)) {
     challenge.isDataScience = true;
@@ -51,8 +52,7 @@ function ChallengeCard({
   challenge.prize = challenge.prizes || [];
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
-
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
+  const type = getChallengeTypeAbbr(challenge.type, challengeTypes);
   if (subTrack === 'DEVELOP_MARATHON_MATCH') {
     track = 'DATA_SCIENCE';
   }
@@ -72,6 +72,7 @@ function ChallengeCard({
               <TrackIcon
                 track={track}
                 subTrack={subTrack}
+                type={type}
                 tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />
@@ -90,7 +91,7 @@ function ChallengeCard({
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
-              {getEndDate(challenge, challengeTypes)}
+              {getEndDate(challenge)}
             </span>
             { challenge.tags.length > 0
               && (

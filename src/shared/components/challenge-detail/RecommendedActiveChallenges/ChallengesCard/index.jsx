@@ -9,7 +9,6 @@ import {
   PRIZE_MODE,
   getPrizePurseUI,
   getTimeLeft,
-  getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
 
 import TrackIcon from 'components/TrackIcon';
@@ -21,7 +20,6 @@ import styles from './style.scss';
 
 export default function ChallengesCard({
   challenge,
-  challengeTypes,
   className,
   challengesUrl,
   selectChallengeDetailsTab,
@@ -38,7 +36,7 @@ export default function ChallengesCard({
   } = challenge;
 
   let { track } = legacy;
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
+  const { subTrack } = legacy;
   if (subTrack === 'DEVELOP_MARATHON_MATCH') {
     track = 'DATA_SCIENCE';
   }
@@ -87,7 +85,7 @@ export default function ChallengesCard({
             <div styleName="endtime-prize-container">
               <span styleName="end-date">
                 {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
-                {getEndDate(challenge, challengeTypes)}
+                {getEndDate(challenge)}
               </span>
               <div styleName="prizes">
                 {getPrizePurseUI(challenge, prizeMode, true, 'Prize Purse')}
@@ -121,12 +119,10 @@ ChallengesCard.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
-  challengeTypes: [],
 };
 
 ChallengesCard.propTypes = {
   challenge: PT.shape().isRequired,
-  challengeTypes: PT.arrayOf(PT.shape()),
   className: PT.string,
   challengesUrl: PT.string.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,

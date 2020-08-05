@@ -38,7 +38,6 @@ import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 import {
   getDisplayRecommendedChallenges,
-  getChallengeSubTrack,
   getRecommendedTags,
 } from 'utils/challenge-detail/helper';
 
@@ -79,17 +78,15 @@ const DAY = 24 * 60 * MIN;
  * @param {Object} challenge
  * @return {String}
  */
-function getOgImage(challenge, challengeTypes) {
+function getOgImage(challenge) {
   const { legacy } = challenge;
-  const { track } = legacy;
+  const { track, subTrack } = legacy;
   if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
   if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
   if (challenge.prizes) {
     const totalPrize = challenge.prizes.reduce((p, sum) => p + sum, 0);
     if (totalPrize > 2500) return ogBigPrizesChallenge;
   }
-
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
 
   switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
@@ -430,7 +427,7 @@ class ChallengeDetailPageContainer extends React.Component {
             && (
               <MetaTags
                 description={description.slice(0, 155)}
-                image={getOgImage(challenge, challengeTypes)}
+                image={getOgImage(challenge)}
                 siteName="Topcoder"
                 socialDescription={description.slice(0, 200)}
                 socialTitle={`${prizesStr}${title}`}

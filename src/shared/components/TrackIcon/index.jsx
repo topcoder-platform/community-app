@@ -3,12 +3,12 @@ import PT from 'prop-types';
 
 import { config } from 'topcoder-react-utils';
 
-import Abbreviation from './Abbreviation';
 import './style.scss';
 
 export default function TrackIcon({
   track,
   subTrack,
+  type,
   tcoEligible,
   isDataScience,
   MAIN_URL,
@@ -23,13 +23,13 @@ export default function TrackIcon({
             encodeURIComponent(subTrack)}`}
           styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}
         >
-          {Abbreviation[track.toUpperCase()][subTrack]}
+          {type}
         </a>
       ) : (
         <div
           styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}
         >
-          {Abbreviation[track.toUpperCase()][subTrack]}
+          {type}
         </div>
       )}
       <a href={`${TCO_URL}`}>
@@ -48,6 +48,7 @@ TrackIcon.defaultProps = {
   challengesUrl: '',
   track: 'DEVELOP',
   subTrack: 'DEVELOPMENT',
+  type: 'CH',
 };
 
 TrackIcon.propTypes = {
@@ -55,6 +56,7 @@ TrackIcon.propTypes = {
   tcoEligible: PT.string,
   track: PT.string,
   subTrack: PT.string,
+  type: PT.string,
   MAIN_URL: PT.string,
   challengesUrl: PT.string,
 };
