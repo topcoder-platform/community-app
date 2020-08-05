@@ -48,6 +48,10 @@ function ChallengeCard({
   challenge.isDataScience = false;
   if ((challenge.tags && challenge.tags.includes('Data Science')) || isDevelopMM(challenge)) {
     challenge.isDataScience = true;
+    track = 'DATA_SCIENCE';
+  }
+  if (challenge.tags && challenge.tags.includes('QA')) {
+    track = 'QA';
   }
   challenge.prize = challenge.prizes || [];
 

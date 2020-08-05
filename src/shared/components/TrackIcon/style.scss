@@ -34,9 +34,12 @@ $track-radius-4: $corner-radius * 2;
       background: $tc-light-blue-110;
     }
 
-    &.develop,
-    &.qa {
+    &.develop {
       background: $tc-green-110;
+    }
+
+    &.qa {
+      background: $tc-purple-110;
     }
 
     &.data_science,

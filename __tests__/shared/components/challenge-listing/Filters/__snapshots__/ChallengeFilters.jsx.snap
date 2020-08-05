@@ -85,9 +85,11 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     devEnabled={true}
     onClose={[Function]}
     opened={true}
+    qaEnabled={true}
     switchDataScience={[Function]}
     switchDesign={[Function]}
     switchDev={[Function]}
+    switchQA={[Function]}
   />
 </div>
 `;
@@ -154,6 +156,23 @@ exports[`Matches shallow shapshot shapshot 2`] = `
           enabled={false}
           labelAfter=""
           labelBefore="Data Science"
+          mapThemrProps={[Function]}
+          onSwitch={[Function]}
+          themePriority="adhoc-context-default"
+        />
+      </span>
+      <span
+        aria-checked={false}
+        aria-label="QA toggle button pressed Off"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
+      >
+        <ThemedSwitchWithLabel
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
+          enabled={false}
+          labelAfter=""
+          labelBefore="QA"
           mapThemrProps={[Function]}
           onSwitch={[Function]}
           themePriority="adhoc-context-default"
@@ -254,9 +273,11 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     devEnabled={false}
     onClose={[Function]}
     opened={true}
+    qaEnabled={false}
     switchDataScience={[Function]}
     switchDesign={[Function]}
     switchDev={[Function]}
+    switchQA={[Function]}
   />
 </div>
 `;

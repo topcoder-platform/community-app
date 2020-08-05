@@ -100,6 +100,13 @@ export default function ChallengeFilters({
                     onSwitch={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
                   />
                 </span>
+                <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn(TRACKS.QA) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.QA)}>
+                  <SwitchWithLabel
+                    enabled={isTrackOn(TRACKS.QA)}
+                    labelBefore="QA"
+                    onSwitch={on => switchTrack(TRACKS.QA, on)}
+                  />
+                </span>
               </span>
             ) : ''
         }
@@ -178,6 +185,8 @@ export default function ChallengeFilters({
         switchDev={on => switchTrack(TRACKS.DEVELOP, on)}
         dataScienceEnabled={isTrackOn(TRACKS.DATA_SCIENCE)}
         switchDataScience={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
+        qaEnabled={isTrackOn(TRACKS.QA)}
+        switchQA={on => switchTrack(TRACKS.QA, on)}
       />
     </div>
   );
