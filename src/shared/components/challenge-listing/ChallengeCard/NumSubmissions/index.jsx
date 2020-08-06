@@ -17,7 +17,10 @@ import './style.scss';
 
 export default function NumSubmissions({
   challenge: {
-    id, numOfSubmissions, legacy,
+    id,
+    numOfSubmissions,
+    numOfCheckpointSubmissions,
+    legacy,
   },
   challengesUrl,
   newChallengeDetails,
@@ -26,7 +29,7 @@ export default function NumSubmissions({
   isLoggedIn,
 }) {
   let tip;
-  const numOfSub = numOfSubmissions || 0;
+  const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
   switch (numOfSub) {
     case 0: tip = 'No submissions'; break;
     case 1: tip = '1 total submission'; break;
@@ -74,6 +77,7 @@ NumSubmissions.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numOfSubmissions: PT.number,
+    numOfCheckpointSubmissions: PT.number,
     status: PT.string.isRequired,
     legacy: PT.shape({
       track: PT.string.isRequired,
