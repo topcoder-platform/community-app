@@ -47,7 +47,6 @@ exports[`Matches shallow shapshot 1`] = `
             },
           ],
           "id": "2",
-          "isDataScience": false,
           "legacy": Object {
             "track": "DEVELOP",
           },

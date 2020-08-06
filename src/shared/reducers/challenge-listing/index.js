@@ -262,8 +262,8 @@ function onGetChallengeTypesDone(state, action) {
   if (action.error) logger.error(action.payload);
   return {
     ...state,
-    challengeSubtracks: action.error ? [] : action.payload,
-    challengeSubtracksMap: action.error ? {} : _.keyBy(action.payload, 'id'),
+    challengeTypes: action.error ? [] : action.payload,
+    challengeTypesMap: action.error ? {} : _.keyBy(action.payload, 'id'),
     loadingChallengeTypes: false,
   };
 }
@@ -601,8 +601,8 @@ function create(initialState) {
 
     challenges: [],
     recommendedChallenges: {},
-    challengeSubtracks: [],
-    challengeSubtracksMap: {},
+    challengeTypes: [],
+    challengeTypesMap: {},
     challengeTags: [],
 
     expandedTags: [],

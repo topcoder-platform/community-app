@@ -92,6 +92,7 @@ const TRACK_COLOR_CLASS = {
   DESIGN: 'blue',
   DEVELOP: 'green',
   DATA_SCIENCE: 'orange',
+  QA: 'purple',
 };
 
 /**

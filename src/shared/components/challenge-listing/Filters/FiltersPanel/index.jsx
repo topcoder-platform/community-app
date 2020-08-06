@@ -55,7 +55,7 @@ export default function FiltersPanel({
   setFilterState,
   setSearchText,
   validKeywords,
-  validSubtracks,
+  validTypes,
   isSavingFilter,
 }) {
   let className = 'FiltersPanel';
@@ -193,7 +193,7 @@ export default function FiltersPanel({
   );
 
   const mapOps = item => ({ label: item, value: item });
-  const mapSubtracks = item => ({ label: item.name, value: item.id });
+  const mapTypes = item => ({ label: item.name, value: item.id });
   return (
     <div styleName={className}>
       <div styleName="header">
@@ -251,22 +251,22 @@ export default function FiltersPanel({
         </div>
         <div styleName="filter-row">
           <div styleName="filter track">
-            <label htmlFor="track-select" styleName="left-label">
-              Subtrack
+            <label htmlFor="type-select" styleName="left-label">
+              Type
               <input type="hidden" />
             </label>
             <Select
-              placeholder="Select Subtrack"
-              id="track-select"
+              placeholder="Select Type"
+              id="type-select"
               multi
               onChange={(value) => {
-                const subtracks = value ? value.split(',') : undefined;
-                setFilterState(Filter.setSubtracks(filterState, subtracks));
+                const types = value ? value.split(',') : undefined;
+                setFilterState(Filter.setTypes(filterState, types));
               }}
-              options={validSubtracks.map(mapSubtracks)}
+              options={validTypes.map(mapTypes)}
               simpleValue
               value={
-                filterState.subtracks ? filterState.subtracks.join(',') : null
+                filterState.types ? filterState.types.join(',') : null
               }
             />
           </div>
@@ -398,6 +398,6 @@ FiltersPanel.propTypes = {
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.shape()).isRequired,
+  validTypes: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
 };

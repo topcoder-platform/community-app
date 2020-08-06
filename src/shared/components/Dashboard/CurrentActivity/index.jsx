@@ -70,7 +70,7 @@ export default class MyChallenges extends React.Component {
       unregisterFromChallenge,
       userGroups,
       userResources,
-      challengeSubtracksMap,
+      challengeTypesMap,
     } = this.props;
 
     const myCommunities = communities.filter(x => _.intersection(userGroups, x.groupIds).length)
@@ -108,7 +108,7 @@ export default class MyChallenges extends React.Component {
               switchShowChallengeFilter={switchShowChallengeFilter}
               unregisterFromChallenge={unregisterFromChallenge}
               userResources={userResources}
-              challengeSubtracksMap={challengeSubtracksMap}
+              challengeTypesMap={challengeTypesMap}
             />
           ) : null
         }
@@ -158,5 +158,5 @@ MyChallenges.propTypes = {
   unregisterFromChallenge: PT.func.isRequired,
   userGroups: PT.arrayOf(PT.string).isRequired,
   userResources: PT.arrayOf(PT.shape()),
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
 };

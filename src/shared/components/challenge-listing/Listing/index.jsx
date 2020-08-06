@@ -225,7 +225,7 @@ const mapStateToProps = (state) => {
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     pastSearchTimestamp: cl.pastSearchTimestamp,
-    challengeTypes: cl.challengeSubtracks,
+    challengeTypes: cl.challengeTypes,
   };
 };
 

@@ -21,10 +21,10 @@ export const PRIZE_MODE = {
 };
 
 /**
- * Get challenge subTrack from type id
+ * Get challenge type abbreviation
  * @param {Object} challenge challenge info
  */
-export function getChallengeSubTrack(track, challengeTypes) {
+export function getChallengeTypeAbbr(track, challengeTypes) {
   const subTrack = _.find(challengeTypes, { name: track });
   if (subTrack) {
     return subTrack.abbreviation;
@@ -36,8 +36,8 @@ export function getChallengeSubTrack(track, challengeTypes) {
  * Get end date
  * @param {Object} challenge challenge info
  */
-export function getEndDate(challenge, challengeTypes) {
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
+export function getEndDate(challenge) {
+  const { subTrack } = challenge.legacy;
   let phases = challenge.phases || [];
   if (subTrack === 'FIRST_2_FINISH' && challenge.status === 'COMPLETED') {
     phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');

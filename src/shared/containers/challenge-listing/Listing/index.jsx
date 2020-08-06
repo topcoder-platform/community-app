@@ -174,7 +174,6 @@ export class ListingContainer extends React.Component {
       challenges,
       challengeTypes,
       challengesUrl,
-      challengeSubtracks,
       challengeTags,
       communityFilters,
       communityId,
@@ -273,7 +272,6 @@ export class ListingContainer extends React.Component {
           activeBucket={activeBucket}
           challenges={challenges}
           challengeTypes={challengeTypes}
-          challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
           challengesUrl={challengesUrl}
           communityFilter={communityFilter}
@@ -358,7 +356,6 @@ ListingContainer.propTypes = {
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string,
-  challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.shape({
@@ -421,7 +418,7 @@ const mapStateToProps = (state, ownProps) => {
   const cl = state.challengeListing;
   const tc = state.tcCommunities;
   updateChallengeType(
-    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
   );
   return {
     auth: state.auth,
@@ -430,8 +427,7 @@ const mapStateToProps = (state, ownProps) => {
     allReviewOpportunitiesLoaded: cl.allReviewOpportunitiesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
-    challengeTypes: cl.challengeSubtracks,
-    challengeSubtracks: cl.challengeSubtracks,
+    challengeTypes: cl.challengeTypes,
     challengeTags: cl.challengeTags,
     communitiesList: tc.list,
     communityFilters: tc.list.data,

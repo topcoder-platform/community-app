@@ -18,7 +18,6 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
           "eventName": "Submit",
         },
       ],
-      "isDataScience": true,
       "legacy": Object {
         "track": "DEVELOP",
       },

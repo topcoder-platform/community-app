@@ -46,7 +46,7 @@ function getAll(getter, page = 0, prev) {
 }
 
 /**
- * Gets possible challenge subtracks.
+ * Gets possible challenge types.
  * @return {Promise}
  */
 function getChallengeTypesDone() {

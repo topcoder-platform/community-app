@@ -23,7 +23,7 @@ describe('shallow render connnected component', () => {
       loadingChallengeTags: false,
       loadingChallengeTypes: false,
       challengeTags: [],
-      challengeSubtracks: [],
+      challengeTypes: [],
       selectedCommunityId: '1',
     },
     auth: {
@@ -68,9 +68,9 @@ describe('full render pure component', () => {
     filterState: {},
     getAvailableFilterName: jest.fn(),
     loadingKeywords: false,
-    loadingSubtracks: false,
+    loadingTypes: false,
     validKeywords: [],
-    validSubtracks: [],
+    validTypes: [],
     selectedCommunityId: '1',
     tokenV2: 'tokenV2',
     getTypes: jest.fn(),
@@ -117,7 +117,7 @@ describe('full render pure component', () => {
     instance = mount(<FilterPanel
       {...initialProps}
       challengeGroupId="1"
-      loadingSubtracks
+      loadingTypes
       loadingKeywords
     />);
 
@@ -183,7 +183,7 @@ describe('full render connnected component and dispatch actions', () => {
       loadingChallengeTags: true,
       loadingChallengeTypes: true,
       challengeTags: [],
-      challengeSubtracks: [],
+      challengeTypes: [],
       selectedCommunityId: '1',
     },
     auth: {

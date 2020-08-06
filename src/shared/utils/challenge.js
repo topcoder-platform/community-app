@@ -22,13 +22,13 @@ export function isDevelopMM(challenge) {
 /**
  * Set challenge type to challenge
  * @param {Object} challenges challenge object
- * @param {Object} challengeSubtracksMap all challenge type object
+ * @param {Object} challengeTypeMap all challenge type object
  */
-export function updateChallengeType(challenges, challengeSubtracksMap) {
-  if (challengeSubtracksMap) {
+export function updateChallengeType(challenges, challengeTypeMap) {
+  if (challengeTypeMap) {
     _.each(challenges, (challenge) => {
       // eslint-disable-next-line no-param-reassign
-      challenge.challengeType = challengeSubtracksMap[challenge.typeId] || {};
+      challenge.challengeType = challengeTypeMap[challenge.typeId] || {};
     });
   }
 }

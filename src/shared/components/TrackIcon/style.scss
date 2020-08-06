@@ -35,8 +35,13 @@ $track-radius-4: $corner-radius * 2;
     }
 
     &.develop,
-    &.qa {
+    &.development {
       background: $tc-green-110;
+    }
+
+    &.qa,
+    &.quality-assurance {
+      background: $tc-purple-110;
     }
 
     &.data_science,
@@ -64,9 +69,15 @@ $track-radius-4: $corner-radius * 2;
     }
 
     &.develop,
-    &.qa {
+    &.development {
       color: $tc-green-110;
       background: $tc-green-10;
+    }
+
+    &.qa,
+    &.quality-assurance {
+      color: $tc-purple-110;
+      background: $tc-purple-10;
     }
 
     &.data_science,

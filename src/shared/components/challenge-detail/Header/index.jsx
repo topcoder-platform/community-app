@@ -9,7 +9,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import 'moment-duration-format';
 import { isMM } from 'utils/challenge';
-import { getChallengeSubTrack } from 'utils/challenge-detail/helper';
 
 import PT from 'prop-types';
 import React from 'react';
@@ -37,7 +36,6 @@ export default function ChallengeHeader(props) {
     isLoggedIn,
     challenge,
     challengesUrl,
-    challengeTypes,
     checkpoints,
     hasRegistered,
     numWinners,
@@ -48,7 +46,7 @@ export default function ChallengeHeader(props) {
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
-    challengeSubtracksMap,
+    challengeTypesMap,
     selectedView,
     showDeadlineDetail,
     hasFirstPlacement,
@@ -72,11 +70,12 @@ export default function ChallengeHeader(props) {
     numOfSubmissions,
     appealsEndDate,
     status,
+    type,
+    track,
   } = challenge;
 
-  const { track } = legacy;
+  const { subTrack } = legacy;
   const tags = challenge.tags || [];
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
 
   const allPhases = challenge.phases || [];
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
@@ -102,10 +101,7 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isOpen;
   }
 
-  let trackLower = track ? track.toLowerCase() : 'design';
-  if (tags.includes('Data Science')) {
-    trackLower = 'datasci';
-  }
+  const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
 
@@ -258,9 +254,10 @@ export default function ChallengeHeader(props) {
             <div styleName="tag-container">
               <ChallengeTags
                 subTrack={subTrack}
-                track={trackLower}
+                track={track}
+                type={type}
                 challengesUrl={challengesUrl}
-                challengeSubtracksMap={challengeSubtracksMap}
+                challengeTypesMap={challengeTypesMap}
                 events={eventNames}
                 technPlatforms={miscTags}
                 setChallengeListingFilter={setChallengeListingFilter}
@@ -472,7 +469,6 @@ ChallengeHeader.defaultProps = {
   isMenuOpened: false,
   hasThriveArticles: false,
   hasRecommendedChallenges: false,
-  challengeTypes: [],
 };
 
 ChallengeHeader.propTypes = {
@@ -481,6 +477,7 @@ ChallengeHeader.propTypes = {
   challenge: PT.shape({
     id: PT.string.isRequired,
     type: PT.any,
+    track: PT.string,
     drPoints: PT.any,
     name: PT.any,
     subTrack: PT.any,
@@ -491,7 +488,7 @@ ChallengeHeader.propTypes = {
     tags: PT.any,
     prizes: PT.any,
     legacy: PT.shape({
-      track: PT.any,
+      subTrack: PT.string,
     }),
     reliabilityBonus: PT.any,
     userDetails: PT.any,
@@ -505,7 +502,6 @@ ChallengeHeader.propTypes = {
     prizeSets: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  challengeTypes: PT.arrayOf(PT.shape()),
   hasRegistered: PT.bool.isRequired,
   hasThriveArticles: PT.bool,
   hasRecommendedChallenges: PT.bool,
@@ -520,7 +516,7 @@ ChallengeHeader.propTypes = {
   showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,

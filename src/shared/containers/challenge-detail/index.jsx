@@ -38,7 +38,6 @@ import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 import {
   getDisplayRecommendedChallenges,
-  getChallengeSubTrack,
   getRecommendedTags,
 } from 'utils/challenge-detail/helper';
 
@@ -79,17 +78,15 @@ const DAY = 24 * 60 * MIN;
  * @param {Object} challenge
  * @return {String}
  */
-function getOgImage(challenge, challengeTypes) {
+function getOgImage(challenge) {
   const { legacy } = challenge;
-  const { track } = legacy;
+  const { track, subTrack } = legacy;
   if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
   if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
   if (challenge.prizes) {
     const totalPrize = challenge.prizes.reduce((p, sum) => p + sum, 0);
     if (totalPrize > 2500) return ogBigPrizesChallenge;
   }
-
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
 
   switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
@@ -150,7 +147,7 @@ class ChallengeDetailPageContainer extends React.Component {
       getCommunitiesList,
       loadChallengeDetails,
       challengeId,
-      challengeSubtracksMap,
+      challengeTypesMap,
       getTypes,
       allCountries,
       reviewTypes,
@@ -190,7 +187,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     getCommunitiesList(auth);
 
-    if (_.isEmpty(challengeSubtracksMap)) {
+    if (_.isEmpty(challengeTypesMap)) {
       getTypes();
     }
 
@@ -299,7 +296,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       challengeTypes,
       challengeId,
-      challengeSubtracksMap,
+      challengeTypesMap,
       challengesUrl,
       checkpointResults,
       checkpointResultsUi,
@@ -430,7 +427,7 @@ class ChallengeDetailPageContainer extends React.Component {
             && (
               <MetaTags
                 description={description.slice(0, 155)}
-                image={getOgImage(challenge, challengeTypes)}
+                image={getOgImage(challenge)}
                 siteName="Topcoder"
                 socialDescription={description.slice(0, 200)}
                 socialTitle={`${prizesStr}${title}`}
@@ -463,7 +460,7 @@ class ChallengeDetailPageContainer extends React.Component {
               checkpoints={checkpoints}
               hasRegistered={challenge.isRegistered}
               hasFirstPlacement={hasFirstPlacement}
-              challengeSubtracksMap={challengeSubtracksMap}
+              challengeTypesMap={challengeTypesMap}
               isMenuOpened={isMenuOpened}
               submissionEnded={submissionEnded}
               mySubmissions={challenge.isRegistered ? mySubmissions : []}
@@ -646,7 +643,7 @@ ChallengeDetailPageContainer.propTypes = {
   challenge: PT.shape().isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengeId: PT.string.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpointResultsUi: PT.shape().isRequired,
@@ -767,13 +764,13 @@ function mapStateToProps(state, props) {
   return {
     auth: state.auth,
     challenge,
-    challengeTypes: cl.challengeSubtracks,
+    challengeTypes: cl.challengeTypes,
     recommendedChallenges: cl.recommendedChallenges,
     loadingRecommendedChallengesUUID: cl.loadingRecommendedChallengesUUID,
     expandedTags: cl.expandedTags,
     challengeId: String(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
-    challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
+    challengeTypesMap: state.challengeListing.challengeTypesMap,
     checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
     checkpointResultsUi: state.page.challengeDetails.checkpoints,
     checkpoints: state.challenge.checkpoints || {},

@@ -25,6 +25,10 @@ $track-radius-4: $corner-radius * 2;
     &.orange {
       border-left: $track-radius-4 solid $tc-orange;
     }
+
+    &.purple {
+      border-left: $track-radius-4 solid $tc-purple;
+    }
   }
 
   .body {

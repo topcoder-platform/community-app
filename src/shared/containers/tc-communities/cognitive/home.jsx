@@ -98,7 +98,7 @@ HomeContainer.propTypes = {
 
 function mapStateToProps(state) {
   updateChallengeType(
-    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
   );
   return {
     auth: state.auth,
