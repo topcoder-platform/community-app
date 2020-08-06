@@ -26,7 +26,7 @@ exports[`Matches shallow shapshot 2`] = `
   className="src-shared-components-TrackIcon-___style__trackIcon___3gJ9l"
 >
   <div
-    className="src-shared-components-TrackIcon-___style__data_science___3YlDf src-shared-components-TrackIcon-___style__main-icon___1q-1_"
+    className="src-shared-components-TrackIcon-___style__develop___3v4fM src-shared-components-TrackIcon-___style__main-icon___1q-1_"
   >
     CH
   </div>
@@ -34,7 +34,7 @@ exports[`Matches shallow shapshot 2`] = `
     href="https://www.topcoder-dev.com/tco"
   >
     <div
-      className="src-shared-components-TrackIcon-___style__data_science___3YlDf src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
+      className="src-shared-components-TrackIcon-___style__develop___3v4fM src-shared-components-TrackIcon-___style__tco-icon___18ZV7"
     >
       TCO
     </div>

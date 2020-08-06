@@ -13,6 +13,8 @@ import {
 
 import { config, Link } from 'topcoder-react-utils';
 
+import { COMPETITION_TRACKS } from 'utils/tc';
+
 import {
   Button,
   DataScienceTrackEventTag,
@@ -38,39 +40,33 @@ export default function ChallengeCard({
     status,
     userDetails,
     type,
+    track,
   } = challenge;
 
   const typeId = _.findKey(challengeTypesMap, { name: type });
 
-  const { track } = legacy;
-
   let EventTag;
-  // let TrackTag;
   switch (track) {
-    case 'DATA_SCIENCE':
+    case COMPETITION_TRACKS.DATA_SCIENCE:
       EventTag = DataScienceTrackEventTag;
-      // TrackTag = DataScienceTrackTag;
       break;
-    case 'DESIGN':
+    case COMPETITION_TRACKS.DESIGN:
       EventTag = DesignTrackEventTag;
-      // TrackTag = DesignTrackTag;
       break;
-    case 'DEVELOP':
+    case COMPETITION_TRACKS.DEVELOP:
       EventTag = DevelopmentTrackEventTag;
-      // TrackTag = DevelopmentTrackTag;
       break;
-    case 'QA':
+    case COMPETITION_TRACKS.QA:
       EventTag = QATrackEventTag;
-      // TrackTag = QATrackTag;
       break;
     default:
-      EventTag = DevelopmentTrackEventTag;
+      throw new Error('Wrong competition track value');
   }
 
   const STALLED_MSG = 'Stalled';
   const DRAFT_MSG = 'In Draft';
 
-  const forumEndpoint = _.toLower(legacy.track) === 'design'
+  const forumEndpoint = track === COMPETITION_TRACKS.DESIGN
     ? `/?module=ThreadList&forumID=${legacy.forumId}`
     : `/?module=Category&categoryID=${legacy.forumId}`;
 
@@ -256,7 +252,6 @@ ChallengeCard.defaultProps = {
 ChallengeCard.propTypes = {
   challenge: PT.shape({
     legacy: PT.shape({
-      track: PT.oneOf(['DATA_SCIENCE', 'DESIGN', 'DEVELOP', 'QA']).isRequired,
       forumId: PT.oneOfType([PT.number, PT.string]),
     }).isRequired,
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
@@ -267,6 +262,7 @@ ChallengeCard.propTypes = {
     userDetails: PT.any,
     events: PT.any,
     type: PT.string,
+    track: PT.string.isRequired,
   }).isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,

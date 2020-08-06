@@ -71,9 +71,10 @@ export default function ChallengeHeader(props) {
     appealsEndDate,
     status,
     type,
+    track,
   } = challenge;
 
-  const { track, subTrack } = legacy;
+  const { subTrack } = legacy;
   const tags = challenge.tags || [];
 
   const allPhases = challenge.phases || [];
@@ -100,10 +101,7 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isOpen;
   }
 
-  let trackLower = track ? track.toLowerCase() : 'design';
-  if (tags.includes('Data Science')) {
-    trackLower = 'datasci';
-  }
+  const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
 
@@ -256,7 +254,7 @@ export default function ChallengeHeader(props) {
             <div styleName="tag-container">
               <ChallengeTags
                 subTrack={subTrack}
-                track={trackLower}
+                track={track}
                 type={type}
                 challengesUrl={challengesUrl}
                 challengeTypesMap={challengeTypesMap}
@@ -479,6 +477,7 @@ ChallengeHeader.propTypes = {
   challenge: PT.shape({
     id: PT.string.isRequired,
     type: PT.any,
+    track: PT.string,
     drPoints: PT.any,
     name: PT.any,
     subTrack: PT.any,
@@ -489,7 +488,6 @@ ChallengeHeader.propTypes = {
     tags: PT.any,
     prizes: PT.any,
     legacy: PT.shape({
-      track: PT.any,
       subTrack: PT.string,
     }),
     reliabilityBonus: PT.any,

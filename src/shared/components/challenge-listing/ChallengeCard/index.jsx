@@ -4,7 +4,6 @@ import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { Link } from 'topcoder-react-utils';
-import { isDevelopMM } from 'utils/challenge';
 import {
   getEndDate,
   getPrizePointsUI,
@@ -41,25 +40,16 @@ function ChallengeCard({
   const {
     id,
     legacy,
+    track,
+    type,
   } = challenge;
 
-  let { track } = legacy;
   const { subTrack } = legacy;
-  challenge.isDataScience = false;
-  if ((challenge.tags && challenge.tags.includes('Data Science')) || isDevelopMM(challenge)) {
-    challenge.isDataScience = true;
-    track = 'DATA_SCIENCE';
-  }
-  if (challenge.tags && challenge.tags.includes('QA')) {
-    track = 'QA';
-  }
+
   challenge.prize = challenge.prizes || [];
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
-  const type = getChallengeTypeAbbr(challenge.type, challengeTypes);
-  if (subTrack === 'DEVELOP_MARATHON_MATCH') {
-    track = 'DATA_SCIENCE';
-  }
+  const typeAbbr = getChallengeTypeAbbr(type, challengeTypes);
 
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
@@ -76,9 +66,8 @@ function ChallengeCard({
               <TrackIcon
                 track={track}
                 subTrack={subTrack}
-                type={type}
+                type={typeAbbr}
                 tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].eventName : ''}
-                isDataScience={challenge.isDataScience}
               />
             </span>
           </TrackAbbreviationTooltip>
