@@ -7,7 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   content={
     <Tip
       subTrack="CODE"
-      track="DEVELOP"
+      track="development"
     />
   }
   defaultVisible={false}
@@ -37,7 +37,7 @@ exports[`Matches shallow shapshot 2`] = `
   content={
     <Tip
       subTrack="CODE"
-      track="DEVELOP"
+      track="development"
     />
   }
   defaultVisible={false}

@@ -88,13 +88,6 @@ const HEADER = {
   WIREFRAMES: 'Wireframe (Wf)',
 };
 
-const TRACK_COLOR_CLASS = {
-  DESIGN: 'blue',
-  DEVELOP: 'green',
-  DATA_SCIENCE: 'orange',
-  QA: 'purple',
-};
-
 /**
  * Renders the tooltip's content.
  */
@@ -102,9 +95,10 @@ function Tip({
   subTrack,
   track,
 }) {
+  const trackStyle = track.replace(' ', '-').toLowerCase();
   return (
     <div styleName="track-abbreviation-tooltip">
-      <div styleName={`header ${TRACK_COLOR_CLASS[track]}`}>
+      <div styleName={`header ${trackStyle}`}>
         {HEADER[subTrack]}
       </div>
       <div styleName="body">
@@ -116,7 +110,7 @@ function Tip({
 
 Tip.defaultProps = {
   subTrack: 'CODE',
-  track: 'DEVELOP',
+  track: 'development',
 };
 
 Tip.propTypes = {
@@ -152,7 +146,7 @@ function TrackAbbreviationTooltip({
 
 TrackAbbreviationTooltip.defaultProps = {
   subTrack: 'CODE',
-  track: 'DEVELOP',
+  track: 'development',
 };
 
 TrackAbbreviationTooltip.propTypes = {
