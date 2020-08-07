@@ -8,15 +8,8 @@ import _ from 'lodash';
  * @param {Object} challenge challenge object
  */
 export function isMM(challenge) {
-  return challenge.type === 'Marathon Match';
-}
-
-/**
- * check if is develop marathon match challenge
- * @param {Object} challenge challenge object
- */
-export function isDevelopMM(challenge) {
-  return challenge.type === 'Develop Marathon Match';
+  const tags = _.get(challenge, 'challenge.tags') || [];
+  return tags.includes('Marathon Match');
 }
 
 /**
@@ -35,6 +28,5 @@ export function updateChallengeType(challenges, challengeTypeMap) {
 
 export default {
   isMM,
-  isDevelopMM,
   updateChallengeType,
 };
