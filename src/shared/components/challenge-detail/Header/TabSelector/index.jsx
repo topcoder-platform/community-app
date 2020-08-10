@@ -24,6 +24,7 @@ export default function ChallengeViewSelector(props) {
     isMM,
     checkpointCount,
     numOfRegistrants,
+    numOfCheckpointSubmissions,
     numOfSubmissions,
     numWinners,
     onSelectorClicked,
@@ -134,7 +135,7 @@ export default function ChallengeViewSelector(props) {
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >
               SUBMISSIONS (
-              {numOfSubmissions}
+              {numOfSubmissions + (numOfCheckpointSubmissions || 0)}
               )
             </a>
           ) : null
@@ -192,6 +193,7 @@ ChallengeViewSelector.defaultProps = {
   isMM: false,
   checkpointCount: 0,
   numOfRegistrants: 0,
+  numOfCheckpointSubmissions: 0,
   numOfSubmissions: 0,
 };
 
@@ -208,6 +210,7 @@ ChallengeViewSelector.propTypes = {
   isMM: PT.bool,
   checkpointCount: PT.number,
   numOfRegistrants: PT.number,
+  numOfCheckpointSubmissions: PT.number,
   numOfSubmissions: PT.number,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
