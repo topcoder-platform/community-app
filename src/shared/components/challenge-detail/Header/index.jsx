@@ -67,13 +67,14 @@ export default function ChallengeHeader(props) {
     reliabilityBonus,
     numOfRegistrants,
     numOfSubmissions,
-    appealsEndDate,
+    endDate,
     status,
     type,
     track,
   } = challenge;
 
   const tags = challenge.tags || [];
+  const appealsEndDate = endDate;
 
   const allPhases = challenge.phases || [];
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
@@ -119,7 +120,8 @@ export default function ChallengeHeader(props) {
   */
   const hasSubmissions = !_.isEmpty(mySubmissions);
 
-  let nextPhase = allPhases.filter(p => p.name !== 'Registration' && p.isOpen).sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  let nextPhase = allPhases.filter(p => p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
   if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
     nextPhase = allPhases[1] || {};
   }
@@ -164,8 +166,8 @@ export default function ChallengeHeader(props) {
       if (b.name.toLowerCase().includes('registration')) {
         return 1;
       }
-      return (new Date(a.actualEndDate || a.scheduledEndDate)).getTime()
-        - (new Date(b.actualEndDate || b.scheduledEndDate)).getTime();
+      return (new Date(a.scheduledEndDate || a.actualEndDate)).getTime()
+        - (new Date(b.scheduledEndDate || b.actualEndDate)).getTime();
     });
     if (type === 'First2Finish' && status === 'Completed') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
@@ -174,19 +176,20 @@ export default function ChallengeHeader(props) {
         || new Date(p.scheduledEndDate).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
-        phaseType: 'Winners',
+        name: 'Winners',
         scheduledEndDate: endPhaseDate,
       });
-    } else if (relevantPhases.length > 1 && appealsEndDate) {
+    } else if (relevantPhases.length > 1) {
       const lastPhase = relevantPhases[relevantPhases.length - 1];
       const lastPhaseTime = (
         new Date(lastPhase.actualEndDate || lastPhase.scheduledEndDate)
       ).getTime();
+
       const appealsEnd = (new Date(appealsEndDate).getTime());
       if (lastPhaseTime < appealsEnd) {
         relevantPhases.push({
           id: -1,
-          phaseType: 'Winners',
+          name: 'Winners',
           scheduledEndDate: appealsEndDate,
         });
       }
@@ -488,7 +491,7 @@ ChallengeHeader.propTypes = {
     numOfRegistrants: PT.any,
     numOfSubmissions: PT.any,
     status: PT.any,
-    appealsEndDate: PT.any,
+    endDate: PT.any,
     phases: PT.any,
     roundId: PT.any,
     prizeSets: PT.any,
