@@ -6,8 +6,13 @@ exports[`Matches shallow shapshot 1`] = `
   className="track-abbreviation-tooltip"
   content={
     <Tip
-      subTrack="CODE"
-      track="development"
+      track="Development"
+      type={
+        Object {
+          "abbreviation": "F2F",
+          "name": "First2Finish",
+        }
+      }
     />
   }
   defaultVisible={false}
@@ -36,8 +41,13 @@ exports[`Matches shallow shapshot 2`] = `
   className="track-abbreviation-tooltip"
   content={
     <Tip
-      subTrack="CODE"
-      track="development"
+      track="Design"
+      type={
+        Object {
+          "abbreviation": "CH",
+          "name": "Challenge",
+        }
+      }
     />
   }
   defaultVisible={false}

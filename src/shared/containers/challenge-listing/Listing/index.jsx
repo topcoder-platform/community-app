@@ -158,7 +158,7 @@ export class ListingContainer extends React.Component {
       auth.tokenV3,
       f.front,
     );
-    if (auth) {
+    if (auth.tokenV3) {
       const userId = _.get(auth.user, 'userId');
       getUserChallenges(userId, auth.tokenV3);
     }

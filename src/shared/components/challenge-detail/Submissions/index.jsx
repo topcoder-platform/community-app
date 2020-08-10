@@ -276,10 +276,11 @@ class SubmissionsComponent extends React.Component {
     const {
       checkpoints,
       id: challengeId,
-      legacy,
+      track,
+      type,
+      tags,
     } = challenge;
 
-    const { track } = legacy;
     const isMM = checkIsMM(challenge);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
@@ -329,8 +330,8 @@ class SubmissionsComponent extends React.Component {
       </div>
     );
 
-    const isF2F = track.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = track.indexOf('BUG_HUNT') > -1;
+    const isF2F = type === 'First2Finish';
+    const isBugHunt = _.includes(tags, 'Bug Hunt');
 
     // copy colorStyle from registrants to submissions
     _.forEach(sortedSubmissions, (s) => {
@@ -788,12 +789,11 @@ SubmissionsComponent.propTypes = {
     checkpoints: PT.arrayOf(PT.object),
     submissions: PT.arrayOf(PT.object),
     submissionViewable: PT.string,
-    legacy: PT.shape({
-      track: PT.string.isRequired,
-    }),
+    track: PT.string.isRequired,
+    type: PT.string.isRequired,
+    tags: PT.arrayOf(PT.string),
     registrants: PT.any,
     phases: PT.any,
-    subTrack: PT.any,
   }).isRequired,
   toggleSubmissionHistory: PT.func.isRequired,
   submissionHistoryOpen: PT.shape({}).isRequired,

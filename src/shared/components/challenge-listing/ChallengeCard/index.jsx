@@ -7,7 +7,6 @@ import { Link } from 'topcoder-react-utils';
 import {
   getEndDate,
   getPrizePointsUI,
-  getChallengeTypeAbbr,
 } from 'utils/challenge-detail/helper';
 
 import Tags from '../Tags';
@@ -23,7 +22,7 @@ import './style.scss';
 
 function ChallengeCard({
   challenge: passedInChallenge,
-  challengeTypes,
+  challengeType,
   challengesUrl,
   expandedTags,
   expandTag,
@@ -39,17 +38,12 @@ function ChallengeCard({
   const challenge = passedInChallenge;
   const {
     id,
-    legacy,
     track,
-    type,
   } = challenge;
-
-  const { subTrack } = legacy;
 
   challenge.prize = challenge.prizes || [];
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
-  const typeAbbr = getChallengeTypeAbbr(type, challengeTypes);
 
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
@@ -60,13 +54,12 @@ function ChallengeCard({
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
             track={track}
-            subTrack={subTrack}
+            type={challengeType}
           >
             <span>
               <TrackIcon
                 track={track}
-                subTrack={subTrack}
-                type={typeAbbr}
+                type={challengeType}
                 tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].key : ''}
               />
             </span>
@@ -121,7 +114,6 @@ function ChallengeCard({
 
 ChallengeCard.defaultProps = {
   challenge: {},
-  challengeTypes: [],
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
@@ -134,7 +126,7 @@ ChallengeCard.defaultProps = {
 
 ChallengeCard.propTypes = {
   challenge: PT.shape(),
-  challengeTypes: PT.arrayOf(PT.shape()),
+  challengeType: PT.shape().isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,

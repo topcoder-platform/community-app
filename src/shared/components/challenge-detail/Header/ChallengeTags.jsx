@@ -27,7 +27,6 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 export default function ChallengeTags(props) {
   const {
     challengesUrl,
-    subTrack,
     track,
     type,
     events,
@@ -64,7 +63,7 @@ export default function ChallengeTags(props) {
   return (
     <div>
       {
-        subTrack
+        type
         && (
         <TrackTag
           onClick={() => setImmediate(() => setChallengeListingFilter({ types: [typeId] }))
@@ -106,14 +105,12 @@ export default function ChallengeTags(props) {
 }
 
 ChallengeTags.defaultProps = {
-  subTrack: undefined,
   events: [],
   technPlatforms: [],
 };
 
 ChallengeTags.propTypes = {
   challengesUrl: PT.string.isRequired,
-  subTrack: PT.string,
   track: PT.string.isRequired,
   type: PT.string.isRequired,
   events: PT.arrayOf(PT.string),

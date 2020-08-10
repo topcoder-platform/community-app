@@ -63,7 +63,6 @@ export default function ChallengeHeader(props) {
     name,
     pointPrizes,
     events,
-    legacy,
     prizeSets,
     reliabilityBonus,
     numOfRegistrants,
@@ -74,7 +73,6 @@ export default function ChallengeHeader(props) {
     track,
   } = challenge;
 
-  const { subTrack } = legacy;
   const tags = challenge.tags || [];
 
   const allPhases = challenge.phases || [];
@@ -169,7 +167,7 @@ export default function ChallengeHeader(props) {
       return (new Date(a.actualEndDate || a.scheduledEndDate)).getTime()
         - (new Date(b.actualEndDate || b.scheduledEndDate)).getTime();
     });
-    if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
+    if (type === 'First2Finish' && status === 'Completed') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
       const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndDate)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')
@@ -253,7 +251,6 @@ export default function ChallengeHeader(props) {
             </h1>
             <div styleName="tag-container">
               <ChallengeTags
-                subTrack={subTrack}
                 track={track}
                 type={type}
                 challengesUrl={challengesUrl}
@@ -480,16 +477,12 @@ ChallengeHeader.propTypes = {
     track: PT.string,
     drPoints: PT.any,
     name: PT.any,
-    subTrack: PT.any,
     pointPrizes: PT.any,
     events: PT.any,
     technologies: PT.any,
     platforms: PT.any,
     tags: PT.any,
     prizes: PT.any,
-    legacy: PT.shape({
-      subTrack: PT.string,
-    }),
     reliabilityBonus: PT.any,
     userDetails: PT.any,
     currentPhases: PT.any,

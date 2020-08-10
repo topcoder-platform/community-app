@@ -25,7 +25,7 @@ export default function RecommendedActiveChallenges({
       prizeMode={prizeMode}
       userHandle={_.get(auth, 'user.handle')}
       challenge={c}
-      challengeTypes={challengeTypes}
+      challengeType={_.find(challengeTypes, { name: c.type })}
       expandedTags={expandedTags}
       expandTag={expandTag}
       isLoggedIn={isLoggedIn}
