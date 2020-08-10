@@ -28,14 +28,11 @@ export default function ChallengeTags(props) {
   const {
     challengesUrl,
     track,
-    type,
+    challengeType,
     events,
     technPlatforms,
     setChallengeListingFilter,
-    challengeTypesMap,
   } = props;
-
-  const typeId = _.findKey(challengeTypesMap, { name: type }) || type;
 
   let EventTag;
   let TrackTag;
@@ -66,11 +63,11 @@ export default function ChallengeTags(props) {
         type
         && (
         <TrackTag
-          onClick={() => setImmediate(() => setChallengeListingFilter({ types: [typeId] }))
+        onClick={() => setImmediate(() => setChallengeListingFilter(challengeType.id))
           }
-          to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(typeId)}`}
+        to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(challengeType.id)}`}
         >
-          {type}
+        {challengeType.name}
         </TrackTag>
         )
       }

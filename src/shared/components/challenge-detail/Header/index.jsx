@@ -252,9 +252,8 @@ export default function ChallengeHeader(props) {
             <div styleName="tag-container">
               <ChallengeTags
                 track={track}
-                type={type}
+                challengeType={_.find(challengeTypesMap, { name: type }) || []}
                 challengesUrl={challengesUrl}
-                challengeTypesMap={challengeTypesMap}
                 events={eventNames}
                 technPlatforms={miscTags}
                 setChallengeListingFilter={setChallengeListingFilter}
