@@ -41,26 +41,35 @@ export default {
     name: 'Prize high to low',
   },
   [SORTS.TIME_TO_REGISTER]: {
-    func: (a, b) => moment(a.registrationEndDate || a.submissionEndDate)
-      .diff(b.registrationEndDate || b.submissionEndDate),
+    func: (a, b) => {
+      const aDate = moment(a.registrationEndDate || a.submissionEndTimestamp);
+      const bDate = moment(b.registrationEndDate || b.submissionEndTimestamp);
+
+      if (aDate.isBefore() && bDate.isAfter()) return 1;
+      if (aDate.isAfter() && bDate.isBefore()) return -1;
+      if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
+
+      return aDate.diff(bDate);
+    },
     name: 'Time to register',
   },
   [SORTS.TIME_TO_SUBMIT]: {
     func: (a, b) => {
       function nextSubEndDate(o) {
         if (o.checkpointSubmissionEndDate && moment(o.checkpointSubmissionEndDate).isAfter()) {
-          return o.checkpointSubmissionEndDate;
+          return moment(o.checkpointSubmissionEndDate);
         }
-        return o.submissionEndDate;
+        return moment(o.submissionEndTimestamp);
       }
 
       const aDate = nextSubEndDate(a);
       const bDate = nextSubEndDate(b);
 
-      if (moment(aDate).isBefore()) return 1;
-      if (moment(bDate).isBefore()) return -1;
+      if (aDate.isBefore() && bDate.isAfter()) return 1;
+      if (aDate.isAfter() && bDate.isBefore()) return -1;
+      if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
 
-      return moment(aDate).diff(bDate);
+      return aDate.diff(bDate);
     },
     name: 'Time to submit',
   },
