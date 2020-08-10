@@ -32,6 +32,7 @@ const mockDatas = [{
       prizes: [1200, 600],
       totalPrize: 1800,
       users: {},
+      type: 'Challenge',
     },
     {
       id: '2',
@@ -43,15 +44,25 @@ const mockDatas = [{
         phaseStatus: 'Open',
       }],
       currentPhases: ['Registration'],
-      legacy: {
-        track: 'DEVELOP',
-      },
-      subTrack: 'CODE',
+      track: 'Development',
+      type: 'Challenge',
       events: [{ eventName: 'Submit' }],
       prizes: [1200, 600],
       totalPrize: 1800,
       users: {},
     }],
+  challengeTypes: [
+    {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    }, {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    }, {
+      name: 'Task',
+      abbreviation: 'TSK',
+    },
+  ],
   loading: false,
   loadMore,
   setFilterState,
@@ -145,6 +156,18 @@ const mockDatas = [{
       users: {},
     },
   ],
+  challengeTypes: [
+    {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    }, {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    }, {
+      name: 'Task',
+      abbreviation: 'TSK',
+    },
+  ],
   loading: true,
   loadMore,
   setFilterState,
@@ -160,6 +183,18 @@ const mockDatas = [{
   expanded: false,
   expand,
   challenges: [
+  ],
+  challengeTypes: [
+    {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    }, {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    }, {
+      name: 'Task',
+      abbreviation: 'TSK',
+    },
   ],
   loading: true,
   setFilterState,

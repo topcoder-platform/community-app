@@ -99,16 +99,16 @@ export default function Bucket({
     );
   }
 
-  const cards = filteredChallenges.map(item => (
+  const cards = filteredChallenges.map(challenge => (
     <ChallengeCard
-      challenge={item}
-      challengeTypes={challengeTypes}
+      challenge={challenge}
+      challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
-      key={item.id}
+      key={challenge.id}
       selectChallengeDetailsTab={selectChallengeDetailsTab}
       userId={userId}
       expandedTags={expandedTags}

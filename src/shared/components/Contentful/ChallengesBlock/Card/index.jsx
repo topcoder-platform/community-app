@@ -23,15 +23,13 @@ export default function Card({
   challenge,
 }) {
   const {
-    subTrack,
-    legacy,
+    type,
+    typeId,
+    track,
   } = challenge;
-
-  const { track } = legacy;
 
   let TrackTag;
   switch (track.toLowerCase()) {
-    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       TrackTag = DataScienceTrackTag;
       break;
@@ -62,9 +60,9 @@ export default function Card({
     <div styleName="container">
       <TrackTag
         to={`${baseUrl}/challenges?filter[types][0]=${
-          encodeURIComponent(subTrack)}`}
+          encodeURIComponent(typeId)}`}
       >
-        {_.capitalize(subTrack).replace(/_/g, ' ')}
+        {_.capitalize(type).replace(/_/g, ' ')}
       </TrackTag>
       <h1 styleName="title">
         <Link
@@ -103,9 +101,8 @@ Card.propTypes = {
     technologies: PT.string.isRequired,
     registrationStartDate: PT.string.isRequired,
     submissionEndDate: PT.string.isRequired,
-    legacy: PT.shape({
-      track: PT.string.isRequired,
-    }),
-    subTrack: PT.string.isRequired,
+    track: PT.string.isRequired,
+    type: PT.string.isRequired,
+    typeId: PT.string.isRequired,
   }).isRequired,
 };

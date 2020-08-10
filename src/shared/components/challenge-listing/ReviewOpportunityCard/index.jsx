@@ -45,12 +45,12 @@ function ReviewOpportunityCard({
   expandTag,
   onTechTagClicked,
   opportunity,
+  challengeType,
 }) {
   const { challenge } = opportunity;
-  const { subTrack, legacy } = challenge;
   let tags = challenge.tags || challenge.technologies;
   tags = tags.filter(tag => tag.trim().length);
-  const track = legacy ? legacy.track : challenge.track;
+  const { track } = challenge.track;
   const start = moment(opportunity.startDate);
   return (
     <div styleName="reviewOpportunityCard">
@@ -58,12 +58,12 @@ function ReviewOpportunityCard({
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
             track={track}
-            subTrack={subTrack}
+            type={challengeType}
           >
             <span>
               <TrackIcon
                 track={track}
-                subTrack={subTrack}
+                type={challengeType}
                 isDataScience={tags.includes('Data Science')}
               />
             </span>
@@ -177,6 +177,7 @@ ReviewOpportunityCard.propTypes = {
   challengesUrl: PT.string.isRequired,
   onTechTagClicked: PT.func,
   opportunity: PT.shape().isRequired,
+  challengeType: PT.shape().isRequired,
 };
 
 export default ReviewOpportunityCard;

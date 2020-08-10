@@ -38,13 +38,12 @@ export default function SubmissionManagement(props) {
     submissionPhaseStartDate,
   } = props;
 
-  const { legacy } = challenge;
-  const { track } = legacy;
+  const { track } = challenge;
 
   const challengeType = track.toLowerCase();
 
   const isDesign = challengeType === 'design';
-  const isDevelop = challengeType === 'develop';
+  const isDevelop = challengeType === 'development';
   const currentPhase = challenge.phases
     .filter(p => p.name !== 'Registration' && p.isOpen)
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
@@ -152,7 +151,7 @@ export default function SubmissionManagement(props) {
           <SubmissionsTable
             submissionObjects={submissions}
             showDetails={showDetails}
-            type={track}
+            track={track}
             status={challenge.status}
             submissionPhaseStartDate={submissionPhaseStartDate}
             {...componentConfig}

@@ -25,9 +25,9 @@ export const PRIZE_MODE = {
  * @param {Object} challenge challenge info
  */
 export function getChallengeTypeAbbr(track, challengeTypes) {
-  const subTrack = _.find(challengeTypes, { name: track });
-  if (subTrack) {
-    return subTrack.abbreviation;
+  const type = _.find(challengeTypes, { name: track });
+  if (type) {
+    return type.abbreviation;
   }
   return null;
 }
@@ -37,9 +37,9 @@ export function getChallengeTypeAbbr(track, challengeTypes) {
  * @param {Object} challenge challenge info
  */
 export function getEndDate(challenge) {
-  const { subTrack } = challenge.legacy;
+  const { type } = challenge;
   let phases = challenge.phases || [];
-  if (subTrack === 'FIRST_2_FINISH' && challenge.status === 'COMPLETED') {
+  if (type === 'First2Finish' && challenge.status === 'Completed') {
     phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
   }
   const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndDate)));

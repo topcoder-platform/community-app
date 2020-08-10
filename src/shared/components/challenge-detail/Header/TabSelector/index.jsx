@@ -35,8 +35,9 @@ export default function ChallengeViewSelector(props) {
 
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
+  const isDesign = trackLower === 'design';
 
-  const forumEndpoint = trackLower === 'design'
+  const forumEndpoint = isDesign
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
 
@@ -106,7 +107,7 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         {
-          trackLower === 'design' && checkpointCount > 0
+          isDesign && checkpointCount > 0
           && (
           <a
             tabIndex="0"
@@ -192,13 +193,11 @@ ChallengeViewSelector.defaultProps = {
   checkpointCount: 0,
   numOfRegistrants: 0,
   numOfSubmissions: 0,
-  // hasRegistered: false,
 };
 
 ChallengeViewSelector.propTypes = {
   isLoggedIn: PT.bool,
   challenge: PT.shape({
-    subTrack: PT.any,
     legacy: PT.shape({
       forumId: PT.number,
     }),

@@ -20,7 +20,7 @@ export default function NumSubmissions({
     id,
     numOfSubmissions,
     numOfCheckpointSubmissions,
-    legacy,
+    track,
   },
   challengesUrl,
   newChallengeDetails,
@@ -37,9 +37,8 @@ export default function NumSubmissions({
   }
 
   const query = (numOfSub && isLoggedIn) ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-  const { track } = legacy;
   let link = `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
+  if (!newChallengeDetails && track !== 'Data Science') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (
@@ -79,9 +78,7 @@ NumSubmissions.propTypes = {
     numOfSubmissions: PT.number,
     numOfCheckpointSubmissions: PT.number,
     status: PT.string.isRequired,
-    legacy: PT.shape({
-      track: PT.string.isRequired,
-    }),
+    track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,

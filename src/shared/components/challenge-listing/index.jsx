@@ -15,7 +15,6 @@ import { config } from 'topcoder-react-utils';
 
 import Listing from './Listing';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
-import SRMCard from './SRMCard';
 
 import './style.scss';
 
@@ -133,40 +132,8 @@ export default function ChallengeListing(props) {
         isCardTypeSet="Challenges"
         isAuth={Boolean(auth.user)}
       />
-      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
-        <div styleName="sidebar-container-mobile">
-          {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
-        </div>
 
-        <div styleName="challenges-container SRMs-container">
-          {/* happening now */}
-          <div>
-            <SRMCard category="now" />
-          </div>
-          {/* upcoming SRMs */}
-          <div>
-            <div styleName="title">
-              Upcoming SRMs
-            </div>
-            { /* UpcomingSrm */ }
-          </div>
-          {/* past SRMs */}
-          <div>
-            <div styleName="title">
-              Past SRMs
-            </div>
-            <SRMCard category="past" />
-          </div>
-        </div>
-
-        <div styleName="sidebar-container-desktop">
-          <Sticky top={20}>
-            {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
-          </Sticky>
-        </div>
-      </div>
-
-      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
+      <div styleName="tc-content-wrapper">
         <div styleName="sidebar-container-mobile">
           <Sidebar />
         </div>

@@ -8,7 +8,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
 
 import {
   Tag,
@@ -27,21 +26,16 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 export default function ChallengeTags(props) {
   const {
     challengesUrl,
-    subTrack,
     track,
-    type,
+    challengeType,
     events,
     technPlatforms,
     setChallengeListingFilter,
-    challengeTypesMap,
   } = props;
-
-  const typeId = _.findKey(challengeTypesMap, { name: type }) || type;
 
   let EventTag;
   let TrackTag;
   switch (track) {
-    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       EventTag = DataScienceTrackEventTag;
       TrackTag = DataScienceTrackTag;
@@ -52,7 +46,7 @@ export default function ChallengeTags(props) {
       break;
     case COMPETITION_TRACKS.DEVELOP:
       EventTag = DevelopmentTrackEventTag;
-      TrackTag = subTrack === 'DEVELOP_MARATHON_MATCH' ? DataScienceTrackTag : DevelopmentTrackTag;
+      TrackTag = DevelopmentTrackTag;
       break;
     case COMPETITION_TRACKS.QA:
       EventTag = QATrackEventTag;
@@ -65,15 +59,15 @@ export default function ChallengeTags(props) {
   return (
     <div>
       {
-        subTrack
+        challengeType
         && (
-        <TrackTag
-          onClick={() => setImmediate(() => setChallengeListingFilter({ types: [typeId] }))
-          }
-          to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(typeId)}`}
-        >
-          {type}
-        </TrackTag>
+          <TrackTag
+            onClick={() => setImmediate(() => setChallengeListingFilter(challengeType.id))
+            }
+            to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(challengeType.id)}`}
+          >
+            {challengeType.name}
+          </TrackTag>
         )
       }
       {
@@ -107,18 +101,15 @@ export default function ChallengeTags(props) {
 }
 
 ChallengeTags.defaultProps = {
-  subTrack: undefined,
   events: [],
   technPlatforms: [],
 };
 
 ChallengeTags.propTypes = {
   challengesUrl: PT.string.isRequired,
-  subTrack: PT.string,
   track: PT.string.isRequired,
-  type: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
   setChallengeListingFilter: PT.func.isRequired,
-  challengeTypesMap: PT.shape().isRequired,
+  challengeType: PT.shape().isRequired,
 };

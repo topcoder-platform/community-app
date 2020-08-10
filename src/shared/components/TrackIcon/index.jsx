@@ -7,7 +7,6 @@ import './style.scss';
 
 export default function TrackIcon({
   track,
-  subTrack,
   type,
   tcoEligible,
   MAIN_URL,
@@ -19,17 +18,17 @@ export default function TrackIcon({
     <span styleName="trackIcon">
       {challengesUrl ? (
         <a
-          href={`${challengesUrl}?filter[subtracks][0]=${
-            encodeURIComponent(subTrack)}`}
+          href={`${challengesUrl}?filter[types][0]=${
+            encodeURIComponent(type.id)}`}
           styleName={`${trackStyle} main-icon`}
         >
-          {type}
+          {type.abbreviation}
         </a>
       ) : (
         <div
           styleName={`${trackStyle} main-icon`}
         >
-          {type}
+          {type.abbreviation}
         </div>
       )}
       <a href={`${TCO_URL}`}>
@@ -45,16 +44,13 @@ TrackIcon.defaultProps = {
   MAIN_URL: config.URL.BASE,
   tcoEligible: '',
   challengesUrl: '',
-  track: 'DEVELOP',
-  subTrack: 'DEVELOPMENT',
-  type: 'CH',
+  track: 'Development',
 };
 
 TrackIcon.propTypes = {
   tcoEligible: PT.string,
   track: PT.string,
-  subTrack: PT.string,
-  type: PT.string,
+  type: PT.shape().isRequired,
   MAIN_URL: PT.string,
   challengesUrl: PT.string,
 };

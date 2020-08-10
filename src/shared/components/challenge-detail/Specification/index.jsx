@@ -49,12 +49,11 @@ export default function ChallengeDetailsView(props) {
     userDetails,
     metadata,
     events,
+    track,
   } = challenge;
 
-  const tags = challenge.tags || [];
   const roles = (userDetails || {}).roles || [];
   const {
-    track,
     reviewScorecardId,
     screeningScorecardId,
     forumId,
@@ -84,10 +83,19 @@ export default function ChallengeDetailsView(props) {
     isWipro = wiproCommunity.groupIds.some(id => groups[id]);
   }
 
-  const isDataScience = tags.includes('Data Science');
-  let accentedStyle = 'challenge-specs-design';
-  if (track.toLowerCase() === 'develop') {
-    accentedStyle = isDataScience ? 'challenge-specs-datasci' : 'challenge-specs-develop';
+  let accentedStyle = '';
+  switch (track.toLowerCase()) {
+    case 'design':
+      accentedStyle = 'challenge-specs-design';
+      break;
+
+    case 'data science':
+      accentedStyle = 'challenge-specs-datasci';
+      break;
+
+    default:
+      accentedStyle = 'challenge-specs-develop';
+      break;
   }
 
   const canEdit = roles.some(x => x === 'Copilot' || x === 'Manager');
@@ -371,7 +379,7 @@ export default function ChallengeDetailsView(props) {
           documents={documents}
           hasRegistered={hasRegistered}
           isDesign={track.toLowerCase() === 'design'}
-          isDevelop={track.toLowerCase() === 'develop'}
+          isDevelop={track.toLowerCase() === 'development'}
           eventDetail={_.isEmpty(events) ? null : events[0]}
           isMM={isMM(challenge)}
           terms={terms}
@@ -394,7 +402,6 @@ ChallengeDetailsView.defaultProps = {
     privateDescription: undefined,
     track: 'design',
     reviewType: undefined,
-    tags: [],
     numberOfCheckpointsPrizes: 0,
     finalSubmissionGuidelines: '',
     environment: '',
@@ -415,18 +422,16 @@ ChallengeDetailsView.propTypes = {
     descriptionFormat: PT.string,
     documents: PT.any,
     id: PT.any,
-    subTrack: PT.any,
     privateDescription: PT.string,
     legacy: PT.shape({
-      track: PT.string.isRequired,
       reviewScorecardId: PT.string,
       screeningScorecardId: PT.string,
       forumId: PT.number,
     }),
+    track: PT.string.isRequired,
     legacyId: PT.string,
     groups: PT.any,
     reviewType: PT.string,
-    tags: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
     finalSubmissionGuidelines: PT.string,
     environment: PT.string,

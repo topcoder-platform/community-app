@@ -29,7 +29,7 @@ export default function Submission(props) {
   const {
     submissionObject,
     showScreeningDetails,
-    type,
+    track,
     onDelete,
     onShowDetails,
     status,
@@ -49,7 +49,7 @@ export default function Submission(props) {
         {formatDate(submissionObject.created)}
       </td>
       {
-        type === 'DESIGN' && (
+        track === 'Design' && (
           <td styleName="status-col">
             {submissionObject.screening
               && (
@@ -66,7 +66,7 @@ export default function Submission(props) {
         <div>
           <a
             href={
-              type === 'DESIGN'
+              track === 'Design'
                 ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.id}`
                 : submissionObject.download
             }
@@ -127,7 +127,7 @@ Submission.propTypes = {
     download: PT.any,
   }),
   showScreeningDetails: PT.bool,
-  type: PT.string.isRequired,
+  track: PT.string.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
   status: PT.string.isRequired,

@@ -81,10 +81,12 @@
 .tc-green-30 { @include color($tc-green-30); }
 .tc-green-10 { @include color($tc-green-10); }
 
+.tc-purple-120 { @include color($tc-purple-110); }
 .tc-purple-110 { @include color($tc-purple-110); }
 .tc-purple-100 { @include color($tc-purple-100); }
 .tc-purple-70 { @include color($tc-purple-70); }
 .tc-purple-30 { @include color($tc-purple-30); }
+.tc-purple-20 { @include color($tc-purple-20); }
 .tc-purple-10 { @include color($tc-purple-10); }
 
 .tc-gold { @include color($tc-gold); }
