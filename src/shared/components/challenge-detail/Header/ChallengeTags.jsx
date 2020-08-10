@@ -8,7 +8,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
 
 import {
   Tag,
@@ -60,15 +59,15 @@ export default function ChallengeTags(props) {
   return (
     <div>
       {
-        type
+        challengeType
         && (
-        <TrackTag
-        onClick={() => setImmediate(() => setChallengeListingFilter(challengeType.id))
-          }
-        to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(challengeType.id)}`}
-        >
-        {challengeType.name}
-        </TrackTag>
+          <TrackTag
+            onClick={() => setImmediate(() => setChallengeListingFilter(challengeType.id))
+            }
+            to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(challengeType.id)}`}
+          >
+            {challengeType.name}
+          </TrackTag>
         )
       }
       {
@@ -109,9 +108,8 @@ ChallengeTags.defaultProps = {
 ChallengeTags.propTypes = {
   challengesUrl: PT.string.isRequired,
   track: PT.string.isRequired,
-  type: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
   setChallengeListingFilter: PT.func.isRequired,
-  challengeTypesMap: PT.shape().isRequired,
+  challengeType: PT.shape().isRequired,
 };
