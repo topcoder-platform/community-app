@@ -8,7 +8,7 @@ import _ from 'lodash';
  * @param {Object} challenge challenge object
  */
 export function isMM(challenge) {
-  const tags = _.get(challenge, 'challenge.tags') || [];
+  const tags = _.get(challenge, 'tags') || [];
   return tags.includes('Marathon Match');
 }
 
