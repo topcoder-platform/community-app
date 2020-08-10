@@ -29,7 +29,7 @@ export default function DeadlinesPanel({ deadlines }) {
       { deadlines.map((d, index) => (
         <Card
           key={d.name}
-          time={d.actualEndDate || d.scheduledEndDate}
+          time={d.scheduledEndDate || d.actualEndDate}
           title={index === deadlines.length - 1 ? 'Winners' : d.name}
         />
       ))}
