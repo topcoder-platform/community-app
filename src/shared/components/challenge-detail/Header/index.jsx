@@ -66,6 +66,7 @@ export default function ChallengeHeader(props) {
     prizeSets,
     reliabilityBonus,
     numOfRegistrants,
+    numOfCheckpointSubmissions,
     numOfSubmissions,
     endDate,
     status,
@@ -453,6 +454,7 @@ export default function ChallengeHeader(props) {
           numWinners={numWinners}
           hasCheckpoints={checkpoints && checkpoints.length > 0}
           numOfSubmissions={numOfSubmissions}
+          numOfCheckpointSubmissions={numOfCheckpointSubmissions}
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
@@ -489,6 +491,7 @@ ChallengeHeader.propTypes = {
     userDetails: PT.any,
     currentPhases: PT.any,
     numOfRegistrants: PT.any,
+    numOfCheckpointSubmissions: PT.any,
     numOfSubmissions: PT.any,
     status: PT.any,
     endDate: PT.any,
