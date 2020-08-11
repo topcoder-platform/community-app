@@ -54,7 +54,7 @@ export default function ReviewOpportunityBucket({
   const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
       challengesUrl={challengesUrl}
-      challengeType={_.find(challengeTypes, { name: item.type })}
+      challengeType={_.find(challengeTypes, { name: item.challenge.type }) || []}
       expandedTags={expandedTags}
       expandTag={expandTag}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
