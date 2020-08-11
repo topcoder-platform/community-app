@@ -182,12 +182,14 @@ export default function ChallengeHeader(props) {
       });
     } else if (relevantPhases.length > 1) {
       const lastPhase = relevantPhases[relevantPhases.length - 1];
+      const lastName = allPhases[allPhases.length - 1].name.toLowerCase();
+      const isAppealResponseLast = lastName.includes('appeal');
       const lastPhaseTime = (
-        new Date(lastPhase.actualEndDate || lastPhase.scheduledEndDate)
+        new Date(lastPhase.scheduledEndDate || lastPhase.actualEndDate)
       ).getTime();
 
       const appealsEnd = (new Date(appealsEndDate).getTime());
-      if (lastPhaseTime < appealsEnd && lastPhase.name !== 'Review') {
+      if (lastPhaseTime < appealsEnd && isAppealResponseLast) {
         relevantPhases.push({
           id: -1,
           name: 'Winners',
