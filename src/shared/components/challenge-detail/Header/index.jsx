@@ -187,7 +187,7 @@ export default function ChallengeHeader(props) {
       ).getTime();
 
       const appealsEnd = (new Date(appealsEndDate).getTime());
-      if (lastPhaseTime < appealsEnd) {
+      if (lastPhaseTime < appealsEnd && lastPhase.name !== 'Review') {
         relevantPhases.push({
           id: -1,
           name: 'Winners',
