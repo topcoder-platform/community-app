@@ -268,6 +268,7 @@ export default function FiltersPanel({
               value={
                 filterState.types ? filterState.types.join(',') : null
               }
+              disabled={isReviewOpportunitiesBucket}
             />
           </div>
           {/* Only shown when the Review Opportunity bucket is selected */}
