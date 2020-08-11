@@ -1,9 +1,9 @@
-import { ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { LanguagePage } from "./language.po";
+import { ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../../../logger/logger';
+import { LanguagePage } from './language.po';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class LanguagePageHelper {
-
   /**
    * sets the Language page object
    */
@@ -23,17 +23,17 @@ export class LanguagePageHelper {
    * deletes all entries in the current tab
    */
   public static async deleteAll() {
-    await this.languagePageObject.deleteAll();
+    await this.languagePageObject.deleteAllLanguage();
   }
 
   public static async verifyAddLanguage(language) {
     const name = this.getName(language);
     await this.languagePageObject.addLanguage(language);
-    await this.languagePageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", name);
-    const isDisplayed = await el.isPresent();
+    await this.languagePageObject.waitForDefaultSuccessMessage();
+    const el = CommonHelper.findElementByText('div', name);
+    const isDisplayed = await CommonHelper.isPresent(el);
     expect(isDisplayed).toBe(true);
-    logger.info("language added: " + name);
+    logger.info('language added: ' + name);
   }
 
   public static async verifyEditLanguage(oldLanguage, newLanguage) {
@@ -41,29 +41,33 @@ export class LanguagePageHelper {
     const newName = this.getName(newLanguage);
 
     await this.languagePageObject.editLanguage(oldLanguage, newLanguage);
-    await this.languagePageObject.waitForSuccessMsg();
+    await this.languagePageObject.waitForDefaultSuccessMessage();
 
-    let el = await ElementHelper.getTagElementContainingText("div", newName);
-    let isDisplayed = await el.isPresent();
+    let el = CommonHelper.findElementByText('div', newName);
+    let isDisplayed = await CommonHelper.isPresent(el);
     expect(isDisplayed).toBe(true);
 
-    el = ElementHelper.getTagElementMatchingText('div', `Spoken: ${newLanguage.spokenLevel.toUpperCase()} | Written: ${newLanguage.writtenLevel.toUpperCase()}`);
-    isDisplayed = await el.element.isDisplayed();
+    el = ElementHelper.getTagElementMatchingText(
+      'div',
+      `Spoken: ${newLanguage.spokenLevel.toUpperCase()} | Written: ${newLanguage.writtenLevel.toUpperCase()}`
+    );
+    isDisplayed = await CommonHelper.isPresent(el);
     expect(isDisplayed).toBe(true);
 
     const text = await ElementHelper.getElementByXPath('..', el).getText();
     expect(text.includes(newLanguage.name)).toBe(true);
 
-    logger.info("language edited from: " + name + " to " + newName);
+    logger.info('language edited from: ' + name + ' to ' + newName);
   }
 
   public static async verifyDeleteLanguage(language) {
     await this.languagePageObject.deleteLanguage(language);
-    await this.languagePageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", language.name);
-    const isDisplayed = await el.isPresent();
+    await this.languagePageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', language.name)
+    );
     expect(isDisplayed).toBe(false);
-    logger.info("deleted language: " + language.name);
+    logger.info('deleted language: ' + language.name);
   }
 
   /**

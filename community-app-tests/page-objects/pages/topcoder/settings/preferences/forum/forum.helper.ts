@@ -1,10 +1,9 @@
-import { BrowserHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { ForumPage } from "./forum.po";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
+import { BrowserHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../../../logger/logger';
+import { ForumPage } from './forum.po';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
 
 export class ForumPageHelper {
-
   /**
    * sets the Forum page object
    */
@@ -19,14 +18,14 @@ export class ForumPageHelper {
     this.forumPageObject = new ForumPage();
     await this.forumPageObject.open();
   }
-  
+
   /**
    * Verify forum setting page
    */
   public static async verifyForumSetting() {
     await BrowserHelper.waitUntilUrlIs(ConfigHelper.getForumSettingUrl());
-    logger.info("redirected to forum settings page");
+    logger.info('redirected to forum settings page');
   }
-  
+
   private static forumPageObject: ForumPage;
 }

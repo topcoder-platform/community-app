@@ -1,6 +1,6 @@
-import { logger } from "../../../../../../logger/logger";
-import { EmailPreferencesPage } from "./email.po";
-import { SettingsPageConstants } from "../../settings.constants";
+import { logger } from '../../../../../../logger/logger';
+import { EmailPreferencesPage } from './email.po';
+import { SettingsPageConstants } from '../../settings.constants';
 
 export class EmailPreferencesPageHelper {
   /**
@@ -36,7 +36,7 @@ export class EmailPreferencesPageHelper {
         prefs[i]
       );
       expect(isPrefEnabled).toBe(prefInput);
-      logger.info(prefs[i] + " is " + isPrefEnabled);
+      logger.info(prefs[i] + ' is ' + isPrefEnabled);
     }
   }
 

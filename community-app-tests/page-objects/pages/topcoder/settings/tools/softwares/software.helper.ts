@@ -1,6 +1,6 @@
-import { ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { SoftwarePage } from "./software.po";
+import { logger } from '../../../../../../logger/logger';
+import { SoftwarePage } from './software.po';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class SoftwarePageHelper {
   /**
@@ -22,7 +22,7 @@ export class SoftwarePageHelper {
    * deletes all entries in the current tab
    */
   public static async deleteAll() {
-    await this.softwarePageObject.deleteAll();
+    await this.softwarePageObject.deleteAllSoftware();
   }
 
   /**
@@ -30,11 +30,12 @@ export class SoftwarePageHelper {
    */
   public static async verifyAddSoftware(software) {
     await this.softwarePageObject.addSoftware(software);
-    await this.softwarePageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", software.name);
-    const isDisplayed = await el.isPresent();
+    await this.softwarePageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', software.name)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("software added: " + software.name);
+    logger.info('software added: ' + software.name);
   }
 
   /**
@@ -42,11 +43,14 @@ export class SoftwarePageHelper {
    */
   public static async verifyEditSoftware(software, newSoftware) {
     await this.softwarePageObject.editSoftware(software, newSoftware);
-    await this.softwarePageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", newSoftware.name);
-    const isDisplayed = await el.isPresent();
+    await this.softwarePageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', newSoftware.name)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("software edited from: " + software.name + " to " + newSoftware.name);
+    logger.info(
+      'software edited from: ' + software.name + ' to ' + newSoftware.name
+    );
   }
 
   /**
@@ -54,11 +58,12 @@ export class SoftwarePageHelper {
    */
   public static async verifyDeleteSoftware(software) {
     await this.softwarePageObject.deleteSoftware(software);
-    await this.softwarePageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", software.name);
-    const isDisplayed = await el.isPresent();
+    await this.softwarePageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', software.name)
+    );
     expect(isDisplayed).toBe(false);
-    logger.info("deleted software: " + software.name);
+    logger.info('deleted software: ' + software.name);
   }
 
   private static softwarePageObject: SoftwarePage;

@@ -1,13 +1,14 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import * as appconfig from "../../../../app-config.json";
-import { logger } from "../../../../logger/logger";
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import * as appconfig from '../../../../app-config.json';
+import { logger } from '../../../../logger/logger';
+import TcElement from 'topcoder-testing-lib/dist/src/tc-element';
 
 export const CommonHelper = {
   /**
    * Click on an element containing text
    * @param {String} text
    */
-  async clickOnElementContainingText(text) {
+  async clickOnElementContainingText(text: string) {
     const element = ElementHelper.getElementContainingText(text);
     await element.click();
     logger.info(`Clicked on element containing text ${text}`);
@@ -18,8 +19,8 @@ export const CommonHelper = {
    * @param {String} tag
    * @param {String} text
    */
-  async clickOnTagElementContainingText(tag, text) {
-    const element = ElementHelper.getTagElementContainingText(tag, text);
+  async clickOnTagElementContainingText(tag: string, text: string) {
+    const element = CommonHelper.findElementByText(tag, text);
     await element.click();
     logger.info(`Clicked on ${tag} element containing text ${text}`);
   },
@@ -28,7 +29,7 @@ export const CommonHelper = {
    * Verify page title
    * @param {String} title
    */
-  async verifyPageTitle(title) {
+  async verifyPageTitle(title: string) {
     const pageTitle = await BrowserHelper.getTitle();
     logger.info(`Current page title is ${pageTitle}`);
     expect(pageTitle).toEqual(
@@ -41,7 +42,7 @@ export const CommonHelper = {
    * Verify page url
    * @param {String} url
    */
-  async verifyCurrentUrl(url) {
+  async verifyCurrentUrl(url: string) {
     const currentUrl = await BrowserHelper.getCurrentUrl();
     logger.info(`Current page url is ${currentUrl}`);
     expect(url).toEqual(
@@ -54,7 +55,7 @@ export const CommonHelper = {
    * Verify page url to contain the given url
    * @param {String} url
    */
-  async verifyCurrentUrlToContain(url) {
+  async verifyCurrentUrlToContain(url: string) {
     const currentUrl = await BrowserHelper.getCurrentUrl();
     logger.info(`Current page url is ${currentUrl}`);
     expect(currentUrl).toContain(
@@ -68,7 +69,7 @@ export const CommonHelper = {
    */
   async verifyPopupWindow() {
     const windows = await BrowserHelper.getAllWindowHandles();
-    expect(windows.length).toBe(2, "Popup window did not open");
+    expect(windows.length).toBe(2, 'Popup window did not open');
     await BrowserHelper.switchToWindow(windows[1]);
     await BrowserHelper.close();
     await BrowserHelper.switchToWindow(windows[0]);
@@ -78,16 +79,15 @@ export const CommonHelper = {
    * Verify pop up window's title
    * @param {String} title
    */
-  async verifyPopupWindowWithTitle(title) {
+  async verifyPopupWindowWithTitle(title: string) {
     const windows = await BrowserHelper.getAllWindowHandles();
-    expect(windows.length).toBe(2, "Popup window did not open");
+    expect(windows.length).toBe(2, 'Popup window did not open');
     await BrowserHelper.switchToWindow(windows[1]);
-    const windowTitle = ElementHelper.getElementByXPath("//title");
     BrowserHelper.setIgnoreSync(true);
-    await BrowserHelper.waitUntilPresenceOf(
-      windowTitle,
-      appconfig.Timeout.ElementPresence,
-      appconfig.LoggerErrors.ElementPresence
+    await CommonHelper.waitUntilPresenceOf(
+      () => ElementHelper.getElementByXPath('//title'),
+      'wait for popup window with title',
+      false
     );
     const popupWindowTitle = await BrowserHelper.getTitle();
     expect(popupWindowTitle).toEqual(
@@ -101,15 +101,21 @@ export const CommonHelper = {
   /**
    * Verify pop up window's url
    * @param {String} expectedUrl
+   * @param {String} customeErrorMessage
    */
-  async verifyPopupWindowWithUrl(expectedUrl) {
+  async verifyPopupWindowWithUrl(
+    expectedUrl: string,
+    customeErrorMessage: string = ''
+  ) {
     const windows = await BrowserHelper.getAllWindowHandles();
-    expect(windows.length).toBe(2, "Popup window did not open");
+    expect(windows.length).toBe(2, 'Popup window did not open');
     await BrowserHelper.switchToWindow(windows[1]);
     const url = await BrowserHelper.getCurrentUrl();
-    expect(url).toEqual(
+    expect(url).toBe(
       expectedUrl,
-      `Provided url ${expectedUrl} does not match current url ${url}`
+      customeErrorMessage
+        ? customeErrorMessage
+        : `Provided url ${expectedUrl} does not match current url ${url}`
     );
     await BrowserHelper.close();
     await BrowserHelper.switchToWindow(windows[0]);
@@ -120,9 +126,9 @@ export const CommonHelper = {
    * @param {String} text
    * @param {String} href
    */
-  async verifyHrefInAnchorContainingText(text, href) {
-    const anchorElement = ElementHelper.getTagElementContainingText("a", text);
-    const anchorElementHref = await anchorElement.getAttribute("href");
+  async verifyHrefInAnchorContainingText(text: string, href: string) {
+    const anchorElement = CommonHelper.findElementByText('a', text);
+    const anchorElementHref = await anchorElement.getAttribute('href');
     expect(anchorElementHref).toEqual(
       href,
       `Provided href ${href} does not match anchor element href ${anchorElementHref}`
@@ -133,29 +139,200 @@ export const CommonHelper = {
    * Switch tab by opening tab and optionally verify header of new tab
    * @param {String} tag
    * @param {String} text
-   * @param {String|Null} newTabHeaderTag
-   * @param {String|Null} newTabHeaderText
    */
-  async switchTabByClickingOnTagWithText(
-    tag,
-    text,
-    newTabHeaderTag = null,
-    newTabHeaderText = null
-  ) {
-    await ElementHelper.getTagElementContainingText(tag, text).click();
+  async switchTabByClickingOnTagWithText(tag: string, text: string) {
+    await CommonHelper.waitUntilVisibilityOf(
+      () => CommonHelper.findElementByText(tag, text),
+      'new tag header show',
+      false
+    );
+    await CommonHelper.findElementByText(tag, text).click();
+  },
 
-    if (!newTabHeaderTag || !newTabHeaderText) {
-      // Don't verify header if not given
-      return;
+  /**
+   * Wait until the element becomes visible
+   * @param {TcElementImpl} tcElement element
+   * @param {TcElementImpl} extraMesage extra message
+   * @param {Boolean} isPageLoad is loading page
+   */
+  async waitUntilVisibilityOf(
+    func: () => TcElement,
+    extraMesage: string,
+    isPageLoad: boolean
+  ) {
+    await BrowserHelper.waitUntil(
+      () => async () => {
+        try {
+          return await func().isDisplayed();
+        } catch {
+          // element is not attached to the DOM of a page.
+          return false;
+        }
+      },
+      isPageLoad
+        ? appconfig.Timeout.PageLoad
+        : appconfig.Timeout.ElementVisibility,
+      (isPageLoad
+        ? appconfig.LoggerErrors.PageLoad
+        : appconfig.LoggerErrors.ElementVisibilty) +
+        '.' +
+        extraMesage
+    );
+  },
+
+  /**
+   * Wait until the element becomes invisible
+   * @param {TcElementImpl} tcElement element
+   * @param {TcElementImpl} extraMesage extra message
+   * @param {Boolean} isPageLoad is loading page
+   */
+  async waitUntilInVisibilityOf(
+    func: () => TcElement,
+    extraMesage: string,
+    isPageLoad: boolean
+  ) {
+    await BrowserHelper.waitUntil(
+      () => async () => {
+        try {
+          return !(await func().isDisplayed());
+        } catch {
+          // element is not attached to the DOM of a page.
+          return true;
+        }
+      },
+      isPageLoad
+        ? appconfig.Timeout.PageLoad
+        : appconfig.Timeout.ElementInvisibility,
+      (isPageLoad
+        ? appconfig.LoggerErrors.PageLoad
+        : appconfig.LoggerErrors.ElementInvisibilty) +
+        '.' +
+        extraMesage
+    );
+  },
+
+  /**
+   * Check if element is displayed
+   * @param {TcElementImpl} element element
+   */
+  async isDisplayed(element: TcElement) {
+    try {
+      return await element.isDisplayed();
+    } catch {
+      // element is not attached to the DOM of a page.
+      return false;
     }
-    const headerElement = ElementHelper.getTagElementContainingText(
-      newTabHeaderTag,
-      newTabHeaderText
+  },
+
+  /**
+   * Check if element is present
+   * @param {TcElementImpl} element element
+   */
+  async isPresent(element: TcElement) {
+    try {
+      return await element.isPresent();
+    } catch {
+      // element is not attached to the DOM of a page.
+      return false;
+    }
+  },
+
+  /**
+   * Wait until the element is present
+   * @param {TcElementImpl} tcElement element
+   * @param {TcElementImpl} extraMesage extra message
+   * @param {Boolean} isPageLoad is loading page
+   */
+  async waitUntilPresenceOf(
+    func: () => TcElement,
+    extraMesage: string,
+    isPageLoad: boolean
+  ) {
+    await BrowserHelper.waitUntil(
+      () => async () => {
+        try {
+          return await func().isPresent();
+        } catch {
+          // element is not attached to the DOM of a page.
+          return false;
+        }
+      },
+      isPageLoad
+        ? appconfig.Timeout.PageLoad
+        : appconfig.Timeout.ElementPresence,
+      (isPageLoad
+        ? appconfig.LoggerErrors.PageLoad
+        : appconfig.LoggerErrors.ElementPresence) +
+        '.' +
+        extraMesage
     );
-    await BrowserHelper.waitUntilVisibilityOf(
-      headerElement,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
+  },
+
+  /**
+   * Wait until the condition is true
+   * @param {function} func
+   * @param {TcElementImpl} extraMesage extra message
+   * @param {Boolean} isPageLoad is loading page
+   */
+  async waitUntil(func: () => any, extraMesage: string, isPageLoad: boolean) {
+    await BrowserHelper.waitUntil(
+      func,
+      isPageLoad
+        ? appconfig.Timeout.PageLoad
+        : appconfig.Timeout.ElementVisibility,
+      (isPageLoad
+        ? appconfig.LoggerErrors.PageLoad
+        : appconfig.LoggerErrors.ElementVisibilty) +
+        '.' +
+        extraMesage
     );
+  },
+
+  /**
+   * Get link by arial label
+   * @param label arial lable
+   */
+  getLinkByAriaLabel(label: string) {
+    return ElementHelper.getElementByCss('[aria-label="' + label + '"]');
+  },
+
+  /**
+   * Get all links by arial label
+   * @param label arial lable
+   */
+  getAllLinksByAriaLabel(label: string) {
+    return ElementHelper.getAllElementsByCss('[aria-label="' + label + '"]');
+  },
+
+  /**
+   * Get element that contain text
+   * @param tag tag
+   * @param text text contain
+   */
+  findElementByText(tag: string, text: string) {
+    return ElementHelper.getElementByXPath(
+      '//' + tag + '[contains(text(), "' + text + '")]'
+    );
+  },
+
+  /**
+   * Get all h2 fields
+   */
+  get h2Fields() {
+    return ElementHelper.getAllElementsByTag('h2');
+  },
+
+  /**
+   * get select option element
+   */
+  get selectOptionElement() {
+    return ElementHelper.getElementByClassName('Select-option');
+  },
+
+  /**
+   * get all select options element
+   */
+  get selectAllOptionsElement() {
+    return ElementHelper.getAllElementsByClassName('Select-option');
   },
 };

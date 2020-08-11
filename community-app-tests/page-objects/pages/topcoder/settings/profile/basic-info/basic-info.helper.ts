@@ -1,5 +1,5 @@
-import { logger } from "../../../../../../logger/logger";
-import { BasicInfoPage } from "./basic-info.po";
+import { logger } from '../../../../../../logger/logger';
+import { BasicInfoPage } from './basic-info.po';
 
 export class BasicInfoPageHelper {
   /**
@@ -25,11 +25,11 @@ export class BasicInfoPageHelper {
     await this.basicInfoPageObject.fillPersonalDetails(
       basicInfo.personalDetails
     );
-    logger.info("Filled Personal Details section");
+    logger.info('Filled Personal Details section');
     await this.basicInfoPageObject.fillAboutYou(basicInfo.aboutYou);
-    logger.info("Filled about you section");
+    logger.info('Filled about you section');
     await this.basicInfoPageObject.fillTrackDetails(basicInfo.tracks);
-    logger.info("Filled Track Details section");
+    logger.info('Filled Track Details section');
     await this.basicInfoPageObject.saveChanges();
     await this.open();
     await this.verifyPersonalDetails(basicInfo.personalDetails);
@@ -45,42 +45,42 @@ export class BasicInfoPageHelper {
     await this.basicInfoPageObject.fillPersonalDetails(personalDetails);
 
     const firstName = await this.basicInfoPageObject.firstName.element.getAttribute(
-      "value"
+      'value'
     );
     expect(firstName).toEqual(personalDetails.firstName);
 
     const lastName = await this.basicInfoPageObject.lastName.element.getAttribute(
-      "value"
+      'value'
     );
     expect(lastName).toEqual(personalDetails.lastName);
 
     const dob = await this.basicInfoPageObject.dob.element.getAttribute(
-      "value"
+      'value'
     );
     expect(dob).toEqual(BasicInfoPage.selectedDate);
 
     const address1 = await this.basicInfoPageObject.address1.element.getAttribute(
-      "value"
+      'value'
     );
     expect(address1).toEqual(personalDetails.address1);
 
     const address2 = await this.basicInfoPageObject.address2.element.getAttribute(
-      "value"
+      'value'
     );
     expect(address2).toEqual(personalDetails.address2);
 
     const city = await this.basicInfoPageObject.city.element.getAttribute(
-      "value"
+      'value'
     );
     expect(city).toEqual(personalDetails.city);
 
     const state = await this.basicInfoPageObject.state.element.getAttribute(
-      "value"
+      'value'
     );
     expect(state).toEqual(personalDetails.state);
 
     const zip = await this.basicInfoPageObject.zip.element.getAttribute(
-      "value"
+      'value'
     );
     expect(zip).toEqual(personalDetails.zip);
   }
@@ -91,27 +91,27 @@ export class BasicInfoPageHelper {
    */
   public static async verifyAboutYou(aboutYou) {
     const gender = await this.basicInfoPageObject.genderHidden.element.getAttribute(
-      "value"
+      'value'
     );
     expect(gender).toEqual(aboutYou.gender);
 
     const tshirtSize = await this.basicInfoPageObject.tshirtSizeHidden.element.getAttribute(
-      "value"
+      'value'
     );
     expect(tshirtSize).toEqual(aboutYou.tshirtSize);
 
     const currentLocation = await this.basicInfoPageObject.currentLocation.element.getAttribute(
-      "value"
+      'value'
     );
     expect(currentLocation).toEqual(aboutYou.currentLocation);
 
     const primaryInterestInTopcoder = await this.basicInfoPageObject.primaryInterestInTopcoder.element.getAttribute(
-      "value"
+      'value'
     );
     expect(primaryInterestInTopcoder).toEqual(aboutYou.primaryInterest);
 
     const description = await this.basicInfoPageObject.description.element.getAttribute(
-      "value"
+      'value'
     );
     expect(description).toEqual(aboutYou.description);
   }
@@ -123,19 +123,19 @@ export class BasicInfoPageHelper {
   public static async verifyTrackDetails(tracks) {
     const disabledTracks = await this.basicInfoPageObject.getTrackSwitchesDisabled();
     if (!tracks.design) {
-      expect(disabledTracks.includes("design")).toBe(true);
+      expect(disabledTracks.includes('design')).toBe(true);
     } else {
-      expect(disabledTracks.includes("design")).toBe(false);
+      expect(disabledTracks.includes('design')).toBe(false);
     }
     if (!tracks.develop) {
-      expect(disabledTracks.includes("develop")).toBe(true);
+      expect(disabledTracks.includes('develop')).toBe(true);
     } else {
-      expect(disabledTracks.includes("develop")).toBe(false);
+      expect(disabledTracks.includes('develop')).toBe(false);
     }
     if (!tracks.dataScience) {
-      expect(disabledTracks.includes("data_science")).toBe(true);
+      expect(disabledTracks.includes('data_science')).toBe(true);
     } else {
-      expect(disabledTracks.includes("data_science")).toBe(false);
+      expect(disabledTracks.includes('data_science')).toBe(false);
     }
   }
 

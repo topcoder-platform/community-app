@@ -1,8 +1,8 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import * as appconfig from "../../../../app-config.json";
-import { logger } from "../../../../logger/logger";
-import { CommonHelper } from "../common-page/common.helper";
-import { SettingsPageConstants } from "./settings.constants";
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../logger/logger';
+import { CommonHelper } from '../common-page/common.helper';
+import { SettingsPageConstants } from './settings.constants';
+import TcElement from 'topcoder-testing-lib/dist/src/tc-element';
 
 export class SettingsPage {
   /**
@@ -10,7 +10,7 @@ export class SettingsPage {
    */
 
   public get heading() {
-    return ElementHelper.getTagElementContainingText("h1", "Settings");
+    return CommonHelper.findElementByText('h1', 'Settings');
   }
 
   /**
@@ -18,8 +18,8 @@ export class SettingsPage {
    */
 
   public get successMsg() {
-    return ElementHelper.getTagElementContainingText(
-      "div",
+    return CommonHelper.findElementByText(
+      'div',
       SettingsPageConstants.Messages.SuccessMessage
     );
   }
@@ -28,7 +28,7 @@ export class SettingsPage {
    * Gets the delete confirmation button
    */
   public get deleteConfirmation() {
-    return ElementHelper.getTagElementContainingText("button", "Yes, Delete");
+    return CommonHelper.findElementByText('button', 'Yes, Delete');
   }
 
   /**
@@ -43,24 +43,38 @@ export class SettingsPage {
    * @param {String} tabName
    */
   public async switchTab(tabName: string) {
-    await CommonHelper.switchTabByClickingOnTagWithText("span", tabName);
-    logger.info("tab Switched to " + tabName);
+    // wait for showing page + tab name
+    await CommonHelper.waitUntilVisibilityOf(
+      () => CommonHelper.findElementByText('span', tabName),
+      'Wait for tab ' + tabName,
+      true
+    );
+
+    await CommonHelper.switchTabByClickingOnTagWithText('span', tabName);
+    await BrowserHelper.sleep(3000); // wait 3 second to show the tab
+    logger.info('tab Switched to ' + tabName);
   }
 
   /**
    * Deletes all records on the tools page
+   * @param {String} yourItemName
    */
-  public async deleteAll() {
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.heading,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
+  public async deleteAll(yourItemName: string) {
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.heading,
+      'Wait for heading',
+      false
+    );
+    await CommonHelper.waitUntilPresenceOf(
+      () => CommonHelper.findElementByText('div', yourItemName),
+      'wait for ' + yourItemName,
+      false
     );
     const delIcons = await this.getDeleteIcons();
     for (let {} of delIcons) {
       await this.deleteIcon.click();
       await this.deleteConfirmation.click();
-      await this.waitForSuccessMsg();
+      await this.waitForDefaultSuccessMessage();
     }
   }
 
@@ -76,9 +90,9 @@ export class SettingsPage {
    * @param {String} type
    */
   protected getAddButton(type: string) {
-    return ElementHelper.getTagElementContainingText(
-      "button",
-      "Add " + type + " to your list"
+    return CommonHelper.findElementByText(
+      'button',
+      'Add ' + type + ' to your list'
     );
   }
 
@@ -87,9 +101,9 @@ export class SettingsPage {
    * @param {String} type
    */
   protected getEditButton(type: string) {
-    return ElementHelper.getTagElementContainingText(
-      "button",
-      "Edit " + type + " to your list"
+    return CommonHelper.findElementByText(
+      'button',
+      'Edit ' + type + ' to your list'
     );
   }
 
@@ -113,37 +127,52 @@ export class SettingsPage {
     );
   }
 
-  protected async performSelection(element, value) {
-    await BrowserHelper.sleep(1000);
-    await element.sendKeys(value);
-    await BrowserHelper.waitUntilVisibilityOf(this.selectOption);
-    const selectOptions = await this.selectOptions();
-    await selectOptions[0].click();
-    await BrowserHelper.sleep(1000);
+  /**
+   * Perform select suggestion dropdown
+   * @param element element field
+   * @param getElement get element function, use if have problem with element
+   * @param value value to select
+   */
+  protected async performSelection(
+    element: TcElement,
+    getElement: () => any,
+    value: any
+  ) {
+    let queryElement = getElement ? await getElement() : element;
+    await CommonHelper.waitUntilVisibilityOf(
+      () => queryElement,
+      'Wait for query element selection',
+      false
+    );
+    queryElement = getElement ? await getElement() : element;
+    await queryElement.sendKeys(value);
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.selectOption,
+      'Wait for select option',
+      false
+    );
+    await this.selectOption.click();
   }
 
   protected get selectOption() {
-    return ElementHelper.getElementByClassName("Select-option");
-  }
-
-  protected async selectOptions() {
-    return ElementHelper.getAllElementsByClassName("Select-option");
+    // first option
+    return ElementHelper.getElementByClassName('Select-option');
   }
 
   /**
    * Waits for visibility and invisibility of success message
    */
-  public async waitForSuccessMsg(message = this.successMsg) {
-    await BrowserHelper.waitUntilVisibilityOf(
-      message,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
+  public async waitForDefaultSuccessMessage() {
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.successMsg,
+      'Wait for success message',
+      false
     );
 
-    await BrowserHelper.waitUntilInVisibilityOf(
-      message,
-      appconfig.Timeout.ElementInvisibility,
-      appconfig.LoggerErrors.ElementInvisibilty
+    await CommonHelper.waitUntilInVisibilityOf(
+      () => this.successMsg,
+      'wait for success message',
+      false
     );
   }
 }

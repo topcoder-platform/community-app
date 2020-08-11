@@ -1,6 +1,5 @@
-import { logger } from "../../../../../../logger/logger";
-import { CommunityPage } from "./community.po";
-import { SettingsPageConstants } from "../../settings.constants";
+import { CommunityPage } from './community.po';
+import { SettingsPageConstants } from '../../settings.constants';
 
 export class CommunityPageHelper {
   /**
@@ -40,7 +39,7 @@ export class CommunityPageHelper {
       await this.communityPageObject.updateCommunity(
         SettingsPageConstants.Communities.Blockchain
       );
-      await this.communityPageObject.waitForSuccessMsg();
+      await this.communityPageObject.waitForDefaultSuccessMessage();
     }
     const isCognitiveEnabled = await this.communityPageObject.isCommunityEnabled(
       SettingsPageConstants.Communities.Cognitive
@@ -52,7 +51,7 @@ export class CommunityPageHelper {
       await this.communityPageObject.updateCommunity(
         SettingsPageConstants.Communities.Cognitive
       );
-      await this.communityPageObject.waitForSuccessMsg();
+      await this.communityPageObject.waitForDefaultSuccessMessage();
     }
 
     let isEnabled = await this.communityPageObject.isCommunityEnabled(

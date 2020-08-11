@@ -15,7 +15,7 @@
     "overview": "https://www.topcoder.com/community/learn",
     "howItWorks": "https://www.topcoder.com/thrive/tracks?track=Topcoder",
     "allChallenges": "https://www.topcoder.com/challenges",
-    "competitiveProgramming": "https://accounts.topcoder.com/",
+    "competitiveProgramming": "https://www.topcoder.com/community/arena",
     "taas": "https://www.topcoder.com/community/taas",
     "practice": "https://www.topcoder.com/community/practice",
     "competitiveProgrammingThrive": "https://www.topcoder.com/thrive/tracks?track=Competitive%20Programming",
@@ -34,12 +34,11 @@
     "dashboard": "https://www.topcoder.com/my-dashboard",
     "myProfile": "https://www.topcoder.com/members/CustomerUser",
     "payments": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-    "competitiveProgramming": "https://arena.topcoder.com/#/loggingin",
     "forums": "https://apps.topcoder.com/forums/"
   },
   "footerLinks": {
     "allChallenges": "https://www.topcoder.com/challenges",
-    "competitiveProgramming": "https://accounts.topcoder.com/",
+    "competitiveProgramming": "https://www.topcoder.com/community/arena",
     "taas": "https://www.topcoder.com/community/taas",
     "competitiveProgrammingThrive": "https://www.topcoder.com/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "https://www.topcoder.com/thrive/tracks?track=Data%20Science",
@@ -63,10 +62,8 @@
     "changeLog": "https://www.topcoder.com/community/changelog",
     "talkToSales": "https://go.topcoder.com/contact/",
     "events": "https://www.topcoder.com/community/events",
-    "terms": "https://www.topcoder.com/community/terms"
-  },
-  "footerLinksAfterLogin": {
-    "competitiveProgramming": "https://arena.topcoder.com/"
+    "terms": "https://www.topcoder.com/community/terms",
+    "challengePipeline": "https://www.topcoder.com/community/pipeline"
   },
   "socialLinks": {
     "facebook": "https://www.facebook.com/topcoder/",
@@ -80,8 +77,26 @@
   "helpUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
   "searchUrl": "https://www.topcoder.com/search/members",
   "allNotificationsUrl": "https://www.topcoder.com/notifications",
-  "policiesUrl": "https://www.topcoder.com/privacy-policy/",
+  "policiesUrl": "https://www.topcoder.com/policy",
   "username": "CustomerUser",
   "password": "appirio123",
-  "email": "topcoderconnect@gmail.com"
+  "email": "sathya.jayabal+topgeartest@gmail.com",
+  "challangesLinks": {
+    "rssFeedUrl": "http://feeds.topcoder.com/challenges/feed",
+    "aboutUrl": "https://www.topcoder.com/about-the-2018-topcoder-open/",
+    "contactUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles/hc/en-us/articles/219069687-Contact-Support",
+    "privacyUrl": "https://www.topcoder.com/privacy-policy/",
+    "helpUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+    "termsUrl": "https://www.topcoder.com/community/how-it-works/terms/"
+  },
+  "challengeDetail": {
+    "url": "https://www.topcoder.com/challenges/30106190",
+    "termsLinkText": "Standard Terms for Topcoder Competitions v2.2",
+    "challengeName": "[Do not register] Sample challenge for Automation.",
+    "challengeTag": "QA",
+    "termUrl": "https://www.topcoder.com/challenges/terms/detail/21303",
+    "forumUrl": "https://apps.topcoder.com/forums/?module=Category&categoryID=82117",
+    "submissionUrl": "https://www.topcoder.com/challenges/30106190/submit",
+    "scorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133"
+  }
 }

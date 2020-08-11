@@ -1,6 +1,7 @@
-import { logger } from "../../../../../../logger/logger";
-import { MyAccountPage } from "./my-account.po";
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
+import { logger } from '../../../../../../logger/logger';
+import { MyAccountPage } from './my-account.po';
+import { ElementHelper } from 'topcoder-testing-lib';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class MyAccountPageHelper {
   /**
@@ -18,26 +19,27 @@ export class MyAccountPageHelper {
    * In case of any alert, it dismisses the error message
    */
   public static async verifyUserConsent() {
-    await BrowserHelper.waitUntilPresenceOf(
-      this.myAccountPageObject.consentLabel
+    await CommonHelper.waitUntilPresenceOf(
+      () => this.myAccountPageObject.consentLabel,
+      'wait for consent label',
+      true
     );
     await this.myAccountPageObject.consentLabel.click();
-    await this.myAccountPageObject.waitForSuccessMsg();
+    await this.myAccountPageObject.waitForDefaultSuccessMessage();
     try {
-      const errorPopup = ElementHelper.getTagElementContainingText(
-        "p",
-        "Failed to add user trait"
+      const errorPopup = CommonHelper.findElementByText(
+        'p',
+        'Failed to add user trait'
       );
-      const isDisplayed = await errorPopup.isDisplayed();
+      const isDisplayed = await CommonHelper.isPresent(errorPopup);
       if (isDisplayed) {
-        logger.info("Error popup was shown, dismissing it");
-        const okButton = await ElementHelper.getElementByButtonText("OK");
-        await okButton.click();
+        logger.info('Error popup was shown, dismissing it');
+        await ElementHelper.getElementByButtonText('OK').click();
       }
     } catch (ex) {}
     const consentStatus = await this.myAccountPageObject.isConsentGiven();
     await this.myAccountPageObject.toggleConsent();
-    await this.myAccountPageObject.waitForSuccessMsg();
+    await this.myAccountPageObject.waitForDefaultSuccessMessage();
     const expectedConsentStatus = !consentStatus;
     const actualConsentStatus = await this.myAccountPageObject.isConsentGiven();
     expect(actualConsentStatus).toBe(expectedConsentStatus);

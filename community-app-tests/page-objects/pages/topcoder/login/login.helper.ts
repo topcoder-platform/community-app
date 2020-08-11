@@ -1,10 +1,9 @@
-import { logger } from "../../../../logger/logger";
-import { ConfigHelper } from "../../../../utils/config-helper";
-import { CommonHelper } from "../common-page/common.helper";
-import { HomePage } from "../home-page/home.po";
-import { LoginPageConstants } from "./login.constants";
-import { LoginPage } from "./login.po";
-import { SplashPage } from "../splash/splash.po";
+import { logger } from '../../../../logger/logger';
+import { ConfigHelper } from '../../../../utils/config-helper';
+import { CommonHelper } from '../common-page/common.helper';
+import { LoginPageConstants } from './login.constants';
+import { LoginPage } from './login.po';
+import { SplashPage } from '../splash/splash.po';
 
 export class LoginPageHelper {
   /**
@@ -18,9 +17,9 @@ export class LoginPageHelper {
   /**
    * Open page
    */
-  public static open() {
+  public static async open() {
     this.loginPageObject = new LoginPage();
-    this.loginPageObject.open();
+    await this.loginPageObject.open();
   }
 
   /**
@@ -38,7 +37,7 @@ export class LoginPageHelper {
    * Logout
    */
   public static async logout() {
-    this.loginPageObject.logout();
+    await this.loginPageObject.logout();
     await this.loginPageObject.waitForHomePage();
   }
 
@@ -52,7 +51,7 @@ export class LoginPageHelper {
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
     const homePage = await this.loginPageObject.waitForHomePage();
-    await this.verifyHomePage(homePage);
+    await this.verifyHomePage();
   }
 
   /**
@@ -70,7 +69,7 @@ export class LoginPageHelper {
     expect(await this.loginPageObject.errorMessage.getText()).toEqual(
       LoginPageConstants.errors.MemberNotPresent
     );
-    logger.info("Member not found error displayed");
+    logger.info('Member not found error displayed');
   }
 
   /**
@@ -88,7 +87,7 @@ export class LoginPageHelper {
     expect(await this.loginPageObject.errorMessage.getText()).toEqual(
       LoginPageConstants.errors.InvalidPassword
     );
-    logger.info("Invalid Password error message displayed");
+    logger.info('Invalid Password error message displayed');
   }
 
   /**
@@ -97,16 +96,16 @@ export class LoginPageHelper {
   public static async verifyLogout() {
     this.loginPageObject.logout();
     const homePage = await this.loginPageObject.waitForHomePage();
-    await this.verifyHomePage(homePage);
+    await this.verifyHomePage();
   }
 
   /**
    * Verify the current page is the home page
    * @param {HomePage} homePage
    */
-  public static async verifyHomePage(homePage: HomePage) {
+  public static async verifyHomePage() {
     CommonHelper.verifyCurrentUrl(ConfigHelper.getHomePageUrl());
-    logger.info("User redirected to home-page");
+    logger.info('User redirected to home-page');
   }
 
   /**
@@ -115,7 +114,7 @@ export class LoginPageHelper {
    */
   public static async verifySplashPage(splashPage: SplashPage) {
     CommonHelper.verifyCurrentUrl(ConfigHelper.getSplashPageUrl());
-    logger.info("User redirected to splash-page");
+    logger.info('User redirected to splash-page');
   }
 
   private static loginPageObject: LoginPage;

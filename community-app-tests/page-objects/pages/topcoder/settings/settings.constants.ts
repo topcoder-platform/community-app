@@ -4,11 +4,11 @@ export class SettingsPageConstants {
    */
   public static get Messages() {
     return {
-      SuccessMessage: "Your information has been updated",
-      SkillSuccessMessage: "Success",
+      SuccessMessage: 'Your information has been updated',
+      SkillSuccessMessage: 'Success',
       LinkSuccessMessage:
-        "Your link has been added. Data from your link will be visible on your profile shortly.",
-      EmailPrefSuccessMessage: "Your email preferences were updated.",
+        'Your link has been added. Data from your link will be visible on your profile shortly.',
+      EmailPrefSuccessMessage: 'Your email preferences were updated.',
     };
   }
 
@@ -17,7 +17,7 @@ export class SettingsPageConstants {
    */
   public static get Colors() {
     return {
-      GreyColor: "rgba(192, 192, 192, 1)",
+      GreyColor: 'rgba(192, 192, 192, 1)',
     };
   }
 
@@ -26,8 +26,8 @@ export class SettingsPageConstants {
    */
   public static get Communities() {
     return {
-      Blockchain: "blockchain",
-      Cognitive: "cognitive",
+      Blockchain: 'blockchain',
+      Cognitive: 'cognitive',
     };
   }
 
@@ -36,12 +36,12 @@ export class SettingsPageConstants {
    */
   public static getEmailPreferences() {
     return [
-      "Pipeline",
-      "Gig Work",
-      "Monthly Newsletter",
-      "Marathon Match Reminders",
-      "Single Round Match Reminders",
-      "TCO Tuesdays",
+      'Pipeline',
+      'Gig Work',
+      'Monthly Newsletter',
+      'Marathon Match Reminders',
+      'Single Round Match Reminders',
+      'TCO Tuesdays',
     ];
   }
 }

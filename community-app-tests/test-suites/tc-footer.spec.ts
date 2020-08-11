@@ -1,76 +1,72 @@
-import { BrowserHelper } from "topcoder-testing-lib";
-import { ConfigHelper } from "../utils/config-helper";
-import { LoginPageHelper } from "../page-objects/pages/topcoder/login/login.helper";
-import { FooterHelper } from "../page-objects/pages/topcoder/footer/footer.helper";
+import { BrowserHelper } from 'topcoder-testing-lib';
+import { ConfigHelper } from '../utils/config-helper';
+import { LoginPageHelper } from '../page-objects/pages/topcoder/login/login.helper';
+import { FooterHelper } from '../page-objects/pages/topcoder/footer/footer.helper';
 
-describe("Topcoder Footer Tests: ", () => {
+describe('Topcoder Footer Tests: ', () => {
+  /**
+   * Sets up the browser
+   */
   beforeAll(async () => {
-    await BrowserHelper.restart();
+    await BrowserHelper.initialize();
     await BrowserHelper.maximize();
   });
 
   /**
    * Verifies all tests without login functionality
    */
-  describe("Without Login tests", () => {
-    beforeEach(() => {
+  describe('Without Login tests', () => {
+    beforeEach(async () => {
       FooterHelper.initialize();
-      BrowserHelper.setIgnoreSync(true);
+      await FooterHelper.open();
     });
 
     /**
      * Verifies the links under 'COMPETE' section in footer are working correctly
      */
-    it("should verify that the links under Compete are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("Compete", false);
+    it('should verify that the links under Compete are working from the Footer', async () => {
+      await FooterHelper.verifyFooterSection('Compete', false);
     });
 
     /**
      * Verifies the links under 'TRACKS' section in footer are working correctly
      */
-    it("should verify that the links under Tracks are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("Tracks", false);
+    it('should verify that the links under Tracks are working from the Footer', async () => {
+      await FooterHelper.verifyFooterSection('Tracks', false);
     });
 
     /**
      * Verifies the links under 'COMMUNITY' section in footer are working correctly
      */
-    it("should verify that the links under Community are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("Community", false);
+    it('should verify that the links under Community are working from the Footer', async () => {
+      await FooterHelper.verifyFooterSection('Community', false);
     });
 
     /**
      * Verifies the links under 'HELP CENTER' section in footer are working correctly
      */
-    it("should verify that the links under Help Center are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("HelpCenter", false);
+    it('should verify that the links under Help Center are working from the Footer', async () => {
+      await FooterHelper.verifyFooterSection('HelpCenter', false);
     });
 
     /**
      * Verifies the links under 'ABOUT' section in footer are working correctly
      */
-    it("should verify that the links under About are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("About", false);
+    it('should verify that the links under About are working from the Footer', async () => {
+      await FooterHelper.verifyFooterSection('About', false);
     });
 
     /**
      * Verifies the links under 'FOLLOW US' section in footer are working correctly
      */
-    it("should verify Footer social icons functionality", async () => {
-      await FooterHelper.open();
+    it('should verify Footer social icons functionality', async () => {
       await FooterHelper.verifySocialIcons();
     });
 
     /**
      * Verifies the Policies link
      */
-    it("should verify Policies link", async () => {
-      await FooterHelper.open();
+    it('should verify Policies link', async () => {
       await FooterHelper.verifyPoliciesLink();
     });
   });
@@ -78,12 +74,11 @@ describe("Topcoder Footer Tests: ", () => {
   /**
    * Verifies all tests with login as pre-requisite
    */
-  describe("With Login tests", () => {
+  describe('With Login tests', () => {
     /**
-     * Sets up the browser and logs in
+     * logs in
      */
     beforeAll(async () => {
-      await BrowserHelper.initialize();
       await LoginPageHelper.open();
       await LoginPageHelper.login(
         ConfigHelper.getUserName(),
@@ -105,50 +100,24 @@ describe("Topcoder Footer Tests: ", () => {
     /**
      * Initialize the ChallengeListingPage and turn off angular synchronization
      */
-    beforeEach(() => {
+    beforeEach(async () => {
       FooterHelper.initialize();
-      BrowserHelper.setIgnoreSync(true);
+      await FooterHelper.open();
     });
 
     // At present only the  Compete and  Community section links behave differently for logged in users
     /**
      * Verifies the links under 'COMPETE' section in footer are working correctly
      */
-    it("should verify that the links under Compete are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("Compete", true);
-    });
-
-    /**
-     * Verifies the links under 'TRACKS' section in footer are working correctly
-     */
-    /*it("should verify that the links under Tracks are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("Tracks", true);
+    it('should verify that the links under Compete are working from the Footer', async () => {
+      await FooterHelper.verifyFooterSection('Compete', true);
     });
 
     /**
      * Verifies the links under 'COMMUNITY' section in footer are working correctly
      */
-    it("should verify that the links under Community are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("Community", true);
+    it('should verify that the links under Community are working from the Footer', async () => {
+      await FooterHelper.verifyFooterSection('Community', true);
     });
-
-    /**
-     * Verifies the links under 'HELP CENTER' section in footer are working correctly
-     */
-    /*it("should verify that the links under Help Center are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("HelpCenter", true);
-    });
-
-    /**
-     * Verifies the links under 'ABOUT' section in footer are working correctly
-     */
-    /*it("should verify that the links under About are working from the Footer", async () => {
-      await FooterHelper.open();
-      await FooterHelper.verifyFooterSection("About", true);
-    });*/
   });
 });

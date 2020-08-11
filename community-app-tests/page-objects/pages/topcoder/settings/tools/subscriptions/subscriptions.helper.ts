@@ -1,6 +1,6 @@
-import { ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { SubscriptionsPage } from "./subscriptions.po";
+import { logger } from '../../../../../../logger/logger';
+import { SubscriptionsPage } from './subscriptions.po';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class SubscriptionsPageHelper {
   /**
@@ -22,7 +22,7 @@ export class SubscriptionsPageHelper {
    * deletes all entries in the current tab
    */
   public static async deleteAll() {
-    await this.subscriptionsPageObject.deleteAll();
+    await this.subscriptionsPageObject.deleteAllSubscriptions();
   }
 
   /**
@@ -30,11 +30,12 @@ export class SubscriptionsPageHelper {
    */
   public static async verifyAddSubscription(name) {
     await this.subscriptionsPageObject.addSubscription(name);
-    await this.subscriptionsPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", name);
-    const isDisplayed = await el.isPresent();
+    await this.subscriptionsPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', name)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("subscription added: " + name);
+    logger.info('subscription added: ' + name);
   }
 
   /**
@@ -42,11 +43,12 @@ export class SubscriptionsPageHelper {
    */
   public static async verifyEditSubscription(name, newName) {
     await this.subscriptionsPageObject.editSubscription(name, newName);
-    await this.subscriptionsPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", newName);
-    const isDisplayed = await el.isPresent();
+    await this.subscriptionsPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', newName)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("subscription edited from: " + name + " to " + newName);
+    logger.info('subscription edited from: ' + name + ' to ' + newName);
   }
 
   /**
@@ -54,11 +56,12 @@ export class SubscriptionsPageHelper {
    */
   public static async verifyDeleteSubscription(name) {
     await this.subscriptionsPageObject.deleteSubscription(name);
-    await this.subscriptionsPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", name);
-    const isDisplayed = await el.isPresent();
+    await this.subscriptionsPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', name)
+    );
     expect(isDisplayed).toBe(false);
-    logger.info("deleted subscription: " + name);
+    logger.info('deleted subscription: ' + name);
   }
 
   private static subscriptionsPageObject: SubscriptionsPage;

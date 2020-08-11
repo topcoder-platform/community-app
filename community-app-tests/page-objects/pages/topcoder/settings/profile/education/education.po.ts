@@ -1,18 +1,24 @@
-import { logger } from "../../../../../../logger/logger";
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { SettingsPage } from "../../settings.po";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { TcElementImpl } from "topcoder-testing-lib/dist/src/tc-element-impl";
+import { logger } from '../../../../../../logger/logger';
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { SettingsPage } from '../../settings.po';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
 
 export class EducationPage extends SettingsPage {
-
   /**
    * Gets the Education page
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getProfileUrl());
-    this.switchTab("education");
-    logger.info("User navigated to Education Page");
+    await this.switchTab('education');
+    logger.info('User navigated to Education Page');
+  }
+
+  /**
+   * Delete all education
+   */
+  public async deleteAllEducation() {
+    await this.deleteAll('Your education');
   }
 
   /**
@@ -79,16 +85,16 @@ export class EducationPage extends SettingsPage {
 
   /**
    * Deletes educaction
-   * @param education 
+   * @param education
    */
   public async deleteEducation(education) {
     await this.getDeleteIconbyName(education.collegeName).click();
-    await this.deleteConfirmation.click();    
+    await this.deleteConfirmation.click();
   }
 
   /**
    * Sets the college field
-   * @param collegeName 
+   * @param collegeName
    */
   private async setCollegeName(collegeName) {
     await BrowserHelper.waitUntilClickableOf(this.schoolCollegeName);
@@ -98,7 +104,7 @@ export class EducationPage extends SettingsPage {
 
   /**
    * Sets the major field
-   * @param major 
+   * @param major
    */
   private async setMajor(major) {
     await this.major.clear();
@@ -111,7 +117,10 @@ export class EducationPage extends SettingsPage {
    * @param value - value of the startDate or endDate
    */
   private async setCollegeDate(el: TcElementImpl, value: string) {
-    await BrowserHelper.executeScript('arguments[0].removeAttribute("readonly");', el);
+    await BrowserHelper.executeScript(
+      'arguments[0].removeAttribute("readonly");',
+      el
+    );
     await BrowserHelper.sleep(1000);
     await this.startDate.sendKeys(value);
     await BrowserHelper.sleep(1000);

@@ -1,7 +1,8 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { SettingsPage } from "../../settings.po";
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../../../logger/logger';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { SettingsPage } from '../../settings.po';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class DevicePage extends SettingsPage {
   /**
@@ -9,8 +10,15 @@ export class DevicePage extends SettingsPage {
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getToolsUrl());
-    this.switchTab("devices");
-    logger.info("User navigated to Device Page");
+    await this.switchTab('devices');
+    logger.info('User navigated to Device Page');
+  }
+
+  /**
+   * Delete all service providers
+   */
+  public async deleteAllDevices() {
+    await this.deleteAll('Your devices');
   }
 
   /**
@@ -23,7 +31,7 @@ export class DevicePage extends SettingsPage {
   /**
    * Gets the device type input field
    * @param type - if type isn't specified it would default to the placeholder
-   * @param parentEl 
+   * @param parentEl
    */
   private getDeviceType(type?: string, parentEl?) {
     const value = type || 'Select device Type';
@@ -36,7 +44,7 @@ export class DevicePage extends SettingsPage {
    */
   private getDeviceManufacturer(manufacturer?: string) {
     const value = manufacturer || 'Select device Manufacturer';
-    return ElementHelper.getTagElementContainingText('div', value);
+    return CommonHelper.findElementByText('div', value);
   }
 
   /**
@@ -45,7 +53,7 @@ export class DevicePage extends SettingsPage {
    */
   private getDeviceModel(model?: string) {
     const value = model || 'Select device Model';
-    return ElementHelper.getTagElementContainingText('div', value);
+    return CommonHelper.findElementByText('div', value);
   }
 
   /**
@@ -54,7 +62,7 @@ export class DevicePage extends SettingsPage {
    */
   private getDeviceOS(os?: string) {
     const value = os || 'Select device Operating System';
-    return ElementHelper.getTagElementContainingText('div', value);
+    return CommonHelper.findElementByText('div', value);
   }
 
   /**
@@ -62,7 +70,7 @@ export class DevicePage extends SettingsPage {
    * @param option - value basis which the element would be queried
    */
   private getDeviceInputWithOption(option) {
-    return ElementHelper.getTagElementContainingText('div', option);
+    return CommonHelper.findElementByText('div', option);
   }
 
   /**
@@ -74,7 +82,7 @@ export class DevicePage extends SettingsPage {
     await this.setDeviceManufacturer(device.manufacturer);
     await this.setDeviceModel(device.model);
     await this.setDeviceOS(device.os);
-    await this.getAddButton("device").click();
+    await this.getAddButton('device').click();
   }
 
   /**
@@ -89,7 +97,7 @@ export class DevicePage extends SettingsPage {
     await this.setDeviceManufacturer(newDevice.manufacturer);
     await this.setDeviceModel(newDevice.model);
     await this.setDeviceOS(newDevice.os);
-    await this.getEditButton("device").click();
+    await this.getEditButton('device').click();
   }
 
   /**
@@ -104,7 +112,7 @@ export class DevicePage extends SettingsPage {
 
   /**
    * Sets the device type
-   * @param type 
+   * @param type
    */
   private async setDeviceType(type: string) {
     await this.setDeviceOption(this.getDeviceType(), type);
@@ -112,16 +120,19 @@ export class DevicePage extends SettingsPage {
 
   /**
    * Updates the device type
-   * @param oldType 
-   * @param newType 
+   * @param oldType
+   * @param newType
    */
   private async editDeviceType(oldType: string, newType: string) {
-    await this.setDeviceOption(this.getDeviceType(oldType, this.deviceForm), newType);
+    await this.setDeviceOption(
+      this.getDeviceType(oldType, this.deviceForm),
+      newType
+    );
   }
 
   /**
    * Sets the device manufacturer
-   * @param manufacturer 
+   * @param manufacturer
    */
   private async setDeviceManufacturer(manufacturer: string) {
     await this.setDeviceOption(this.getDeviceManufacturer(), manufacturer);
@@ -129,16 +140,22 @@ export class DevicePage extends SettingsPage {
 
   /**
    * Updates the device manufacturer
-   * @param oldManufacturer 
-   * @param newManufacturer 
+   * @param oldManufacturer
+   * @param newManufacturer
    */
-  private async editDeviceManufacturer(oldManufacturer: string, newManufacturer: string) {
-    await this.setDeviceOption(this.getDeviceManufacturer(oldManufacturer), newManufacturer);
+  private async editDeviceManufacturer(
+    oldManufacturer: string,
+    newManufacturer: string
+  ) {
+    await this.setDeviceOption(
+      this.getDeviceManufacturer(oldManufacturer),
+      newManufacturer
+    );
   }
 
   /**
    * Sets the device model
-   * @param model 
+   * @param model
    */
   private async setDeviceModel(model: string) {
     await this.setDeviceOption(this.getDeviceModel(), model);
@@ -146,8 +163,8 @@ export class DevicePage extends SettingsPage {
 
   /**
    * Updates the device model
-   * @param oldModel 
-   * @param newModel 
+   * @param oldModel
+   * @param newModel
    */
   private async editDeviceModel(oldModel: string, newModel: string) {
     await this.setDeviceOption(this.getDeviceModel(oldModel), newModel);
@@ -155,7 +172,7 @@ export class DevicePage extends SettingsPage {
 
   /**
    * Sets the device OS
-   * @param os 
+   * @param os
    */
   private async setDeviceOS(os: string) {
     await this.setDeviceOption(this.getDeviceOS(), os);
@@ -163,8 +180,8 @@ export class DevicePage extends SettingsPage {
 
   /**
    * Updates the device OS
-   * @param oldOS 
-   * @param newOS 
+   * @param oldOS
+   * @param newOS
    */
   private async editDeviceOS(oldOS: string, newOS: string) {
     await this.setDeviceOption(this.getDeviceOS(oldOS), newOS);
@@ -178,7 +195,11 @@ export class DevicePage extends SettingsPage {
   private async setDeviceOption(element, value: string) {
     await BrowserHelper.waitUntilClickableOf(element);
     await element.click();
-    await BrowserHelper.waitUntilVisibilityOf(this.getDeviceInputWithOption(value));
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.getDeviceInputWithOption(value),
+      'Wait for device input with option',
+      false
+    );
     const optionEl = this.getDeviceInputWithOption(value);
     await optionEl.click();
   }

@@ -1,4 +1,4 @@
-import { ConfigHelper } from "../../../../utils/config-helper";
+import { ConfigHelper } from '../../../../utils/config-helper';
 
 export class HeaderConstants {
   /**
@@ -9,116 +9,116 @@ export class HeaderConstants {
       Community: {
         submenus: [
           {
-            text: "Overview",
-            url: ConfigHelper.getSubMenuUrl("overview", isLoggedIn),
+            text: 'Overview',
+            url: ConfigHelper.getSubMenuUrl('overview', isLoggedIn),
           },
           {
-            text: "How It Works",
-            url: ConfigHelper.getSubMenuUrl("howItWorks", isLoggedIn),
+            text: 'How It Works',
+            url: ConfigHelper.getSubMenuUrl('howItWorks', isLoggedIn),
           },
         ],
-        text: "COMMUNITY",
+        text: 'COMMUNITY',
       },
       Compete: {
         submenus: [
           {
-            text: "All Challenges",
-            url: ConfigHelper.getSubMenuUrl("allChallenges", isLoggedIn),
+            text: 'All Challenges',
+            url: ConfigHelper.getSubMenuUrl('allChallenges', isLoggedIn),
           },
           {
-            text: "Competitive Programming",
+            text: 'Competitive Programming',
             url: ConfigHelper.getSubMenuUrl(
-              "competitiveProgramming",
+              'competitiveProgramming',
               isLoggedIn
             ),
           },
           {
-            text: "Gig Work",
-            url: ConfigHelper.getSubMenuUrl("taas", isLoggedIn),
+            text: 'Gig Work',
+            url: ConfigHelper.getSubMenuUrl('taas', isLoggedIn),
           },
           {
-            text: "Practice",
-            url: ConfigHelper.getSubMenuUrl("practice", isLoggedIn),
+            text: 'Practice',
+            url: ConfigHelper.getSubMenuUrl('practice', isLoggedIn),
           },
         ],
-        text: "Compete",
+        text: 'Compete',
       },
       Tracks: {
         submenus: [
           {
-            text: "Competitive Programming",
+            text: 'Competitive Programming',
             url: ConfigHelper.getSubMenuUrl(
-              "competitiveProgrammingThrive",
+              'competitiveProgrammingThrive',
               isLoggedIn
             ),
           },
           {
-            text: "Data Science",
-            url: ConfigHelper.getSubMenuUrl("dataScienceThrive", isLoggedIn),
+            text: 'Data Science',
+            url: ConfigHelper.getSubMenuUrl('dataScienceThrive', isLoggedIn),
           },
           {
-            text: "Design",
-            url: ConfigHelper.getSubMenuUrl("designThrive", isLoggedIn),
+            text: 'Design',
+            url: ConfigHelper.getSubMenuUrl('designThrive', isLoggedIn),
           },
           {
-            text: "Development",
-            url: ConfigHelper.getSubMenuUrl("developmentThrive", isLoggedIn),
+            text: 'Development',
+            url: ConfigHelper.getSubMenuUrl('developmentThrive', isLoggedIn),
           },
           {
-            text: "QA",
-            url: ConfigHelper.getSubMenuUrl("qaThrive", isLoggedIn),
+            text: 'QA',
+            url: ConfigHelper.getSubMenuUrl('qaThrive', isLoggedIn),
           },
         ],
-        text: "Tracks",
+        text: 'Tracks',
       },
       Explore: {
         submenus: [
           {
-            text: "TCO",
-            url: ConfigHelper.getSubMenuUrl("tco", isLoggedIn),
+            text: 'TCO',
+            url: ConfigHelper.getSubMenuUrl('tco', isLoggedIn),
           },
           {
-            text: "Programs",
-            url: ConfigHelper.getSubMenuUrl("programs", isLoggedIn),
+            text: 'Programs',
+            url: ConfigHelper.getSubMenuUrl('programs', isLoggedIn),
           },
           {
-            text: "Forums",
-            url: ConfigHelper.getSubMenuUrl("forums", isLoggedIn),
+            text: 'Forums',
+            url: ConfigHelper.getSubMenuUrl('forums', isLoggedIn),
           },
           {
-            text: "Statistics",
-            url: ConfigHelper.getSubMenuUrl("statistics", isLoggedIn),
+            text: 'Statistics',
+            url: ConfigHelper.getSubMenuUrl('statistics', isLoggedIn),
           },
           {
-            text: "Blog",
-            url: ConfigHelper.getSubMenuUrl("blog", isLoggedIn),
+            text: 'Blog',
+            url: ConfigHelper.getSubMenuUrl('blog', isLoggedIn),
           },
           {
-            text: "Thrive",
-            url: ConfigHelper.getSubMenuUrl("thrive", isLoggedIn),
+            text: 'Thrive',
+            url: ConfigHelper.getSubMenuUrl('thrive', isLoggedIn),
           },
         ],
-        text: "Explore",
+        text: 'Explore',
       },
     };
 
     if (isLoggedIn) {
-      menuConfiguration["Community"] = {
+      menuConfiguration['Community'] = {
         submenus: [
           {
-            text: "Dashboard",
-            url: ConfigHelper.getSubMenuUrl("dashboard", isLoggedIn),
+            text: 'Dashboard',
+            url: ConfigHelper.getSubMenuUrl('dashboard', isLoggedIn),
           },
           {
-            text: "My Profile",
-            url: ConfigHelper.getSubMenuUrl("myProfile", isLoggedIn),
+            text: 'My Profile',
+            url: ConfigHelper.getSubMenuUrl('myProfile', isLoggedIn),
           },
           {
-            text: "Payments",
-            url: ConfigHelper.getSubMenuUrl("payments", isLoggedIn),
+            text: 'Payments',
+            url: ConfigHelper.getSubMenuUrl('payments', isLoggedIn),
           },
         ],
-        text: "COMMUNITY",
+        text: 'COMMUNITY',
       };
     }
 

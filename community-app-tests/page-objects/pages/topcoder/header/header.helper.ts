@@ -1,10 +1,10 @@
-import { ElementHelper, BrowserHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../logger/logger";
-import { HeaderPage } from "./header.po";
-import { HeaderConstants } from "./header.constants";
-import { ConfigHelper } from "../../../../utils/config-helper";
-import { CommonHelper } from "../common-page/common.helper";
-import { LoginPage } from "../login/login.po";
+import { BrowserHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../logger/logger';
+import { HeaderPage } from './header.po';
+import { HeaderConstants } from './header.constants';
+import { ConfigHelper } from '../../../../utils/config-helper';
+import { CommonHelper } from '../common-page/common.helper';
+import { LoginPage } from '../login/login.po';
 
 export class HeaderHelper {
   /**
@@ -24,9 +24,10 @@ export class HeaderHelper {
 
   /**
    * Opens the Challenge Listing page
+   * @param isLoggedIn
    */
-  public static async open() {
-    await this.headerPageObject.open();
+  public static async open(isLoggedIn) {
+    await this.headerPageObject.open(isLoggedIn);
   }
 
   /**
@@ -35,7 +36,7 @@ export class HeaderHelper {
    */
   public static async verifyLogoLink(isLoggedIn) {
     const expectedUrl = isLoggedIn
-      ? ConfigHelper.getSubMenuUrl("dashboard", true)
+      ? ConfigHelper.getSubMenuUrl('dashboard', true)
       : ConfigHelper.getLogoRedirectionUrl();
     await this.headerPageObject.clickOnLogoLink();
     const currentUrl = await BrowserHelper.getCurrentUrl();
@@ -69,7 +70,7 @@ export class HeaderHelper {
   public static async verifyMenu(menu, isLoggedIn?: boolean) {
     const menuItem = HeaderConstants.getMenu(isLoggedIn)[menu];
     // By default community menu is open
-    if (menu != "Community") {
+    if (menu != 'Community') {
       await this.headerPageObject.clickOnMenu(menuItem.text);
     }
     const submenuNames = await this.headerPageObject.getSubMenuNames();
@@ -80,28 +81,28 @@ export class HeaderHelper {
 
     for (let i = 0; i < submenus.length; i++) {
       const subMenu = submenus[i];
-      const text = subMenu["text"];
-      const url = subMenu["url"];
+      const text = subMenu['text'];
+      const url = subMenu['url'];
 
-      if (text === "All Challenges") {
+      if (text === 'All Challenges') {
         continue;
       }
 
       await this.headerPageObject.clickOnMenu(text);
       await BrowserHelper.sleep(1000);
-      if (text === "Payments") {
+      if (text === 'Payments') {
         await CommonHelper.verifyPopupWindowWithUrl(url);
-      } else if (text === "Forums") {
+      } else if (text === 'Forums') {
         await CommonHelper.verifyPopupWindow();
-      } else if (text === "Competitive Programming" && !isLoggedIn) {
+      } else if (text === 'Statistics') {
         await CommonHelper.verifyCurrentUrlToContain(url);
       } else {
         await CommonHelper.verifyCurrentUrl(url);
       }
 
-      await this.headerPageObject.open();
+      await this.headerPageObject.open(isLoggedIn);
       // By default community menu is open
-      if (menu != "Community") {
+      if (menu != 'Community') {
         await this.headerPageObject.clickOnMenu(menuItem.text);
       }
     }
@@ -111,7 +112,7 @@ export class HeaderHelper {
    * Verifies the user section in the user avatar menu
    */
   public static async verifyUserMenuProfileLink() {
-    const expectedUrl = ConfigHelper.getSubMenuUrl("myProfile", true);
+    const expectedUrl = ConfigHelper.getSubMenuUrl('myProfile', true);
     await this.headerPageObject.openUserMenu();
     await this.headerPageObject.clickOnUserInfoSection();
     await BrowserHelper.sleep(1000);
@@ -189,13 +190,18 @@ export class HeaderHelper {
    */
   public static async verifySearchByUsername(username) {
     await this.headerPageObject.search(username);
-    const expectedUrl = ConfigHelper.getSearchUrl() + "?q=" + username;
+    const expectedUrl = ConfigHelper.getSearchUrl() + '?q=' + username;
     await BrowserHelper.waitUntilUrlIs(expectedUrl);
-    logger.info("Search with username: " + username);
+    logger.info('Search with username: ' + username);
 
-    const usernameEl = ElementHelper.getTagElementMatchingText("h1", username);
-    await BrowserHelper.waitUntilVisibilityOf(usernameEl);
-    expect(await usernameEl.getText()).toEqual(username);
+    await CommonHelper.waitUntilVisibilityOf(
+      () => CommonHelper.findElementByText('h1', username),
+      'Wait for username element',
+      false
+    );
+    expect(
+      await CommonHelper.findElementByText('h1', username).getText()
+    ).toEqual(username);
   }
 
   /**
@@ -204,14 +210,17 @@ export class HeaderHelper {
    */
   public static async verifySearchBySkill(skill) {
     await this.headerPageObject.search(skill);
-    const expectedUrl = ConfigHelper.getSearchUrl() + "?q=" + skill;
+    const expectedUrl = ConfigHelper.getSearchUrl() + '?q=' + skill;
     await BrowserHelper.waitUntilUrlIs(expectedUrl);
-    logger.info("Search with skill: " + skill);
+    logger.info('Search with skill: ' + skill);
 
-    const skillsEl = ElementHelper.getTagElementContainingText("span", skill);
-    await BrowserHelper.waitUntilVisibilityOf(skillsEl);
-    const skillsText = await skillsEl.getText();
-    logger.info("Skills found: " + skillsText);
+    await CommonHelper.waitUntilVisibilityOf(
+      () => CommonHelper.findElementByText('span', skill),
+      'Wait for skills element',
+      false
+    );
+    const skillsText = await CommonHelper.findElementByText('span', skill).getText();
+    logger.info('Skills found: ' + skillsText);
     expect(skillsText.includes(skill)).toBe(true);
   }
 

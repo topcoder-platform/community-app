@@ -1,4 +1,25 @@
-import * as config from "../config.json";
+import * as config from '../config.json';
+
+export interface ChallengeLinks {
+  rssFeedUrl: string;
+  aboutUrl: string;
+  contactUrl: string;
+  helpUrl: string;
+  privacyUrl: string;
+  termsUrl: string;
+}
+
+export interface ChallengeDetail {
+  rssFeedUrl: string;
+  url: string;
+  termsLinkText: string;
+  challengeName: string;
+  challengeTag: string;
+  termUrl: string;
+  forumUrl: string;
+  submissionUrl: string;
+  scorecardUrl: string;
+}
 
 export const ConfigHelper = {
   /**
@@ -108,13 +129,9 @@ export const ConfigHelper = {
   /**
    * Gets the footer url given the footer link name
    * @param name
-   * @param isLoggedIn
    */
-  getFooterLink(name, isLoggedIn) {
+  getFooterLink(name) {
     let link = null;
-    if (isLoggedIn) {
-      link = this.getConfig().footerLinksAfterLogin[name];
-    }
     return link || this.getConfig().footerLinks[name];
   },
 
@@ -158,7 +175,7 @@ export const ConfigHelper = {
    * Gets the help page url
    */
   getOverviewUrl() {
-    return this.getConfig().subMenuUrls["overview"];
+    return this.getConfig().subMenuUrls['overview'];
   },
 
   /**
@@ -187,5 +204,19 @@ export const ConfigHelper = {
    */
   getEmail() {
     return this.getConfig().email;
+  },
+
+  /**
+   * Gets challenges link
+   */
+  getChallangesLinks(): ChallengeLinks {
+    return this.getConfig().challangesLinks;
+  },
+
+  /**
+   * Gets challenge detail
+   */
+  getChallengeDetail(): ChallengeDetail {
+    return this.getConfig().challengeDetail;
   },
 };

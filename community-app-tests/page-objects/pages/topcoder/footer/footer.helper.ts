@@ -1,30 +1,24 @@
-import { BrowserHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../logger/logger";
-import { FooterPage } from "./footer.po";
-import { ConfigHelper } from "../../../../utils/config-helper";
-import { CommonHelper } from "../common-page/common.helper";
-import { FooterConstants } from "./footer.constants";
+import { BrowserHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../logger/logger';
+import { FooterPage } from './footer.po';
+import { ConfigHelper } from '../../../../utils/config-helper';
+import { CommonHelper } from '../common-page/common.helper';
+import { FooterConstants } from './footer.constants';
+import { ChallengeListingPageObject } from '../challenge-listing/challenge-listing.po';
 
 export class FooterHelper {
   /**
-   * Initialize the challenge listing Page Object
+   * Initialize the footer page object
    */
   public static initialize() {
     this.footerPageObject = new FooterPage();
   }
 
   /**
-   * sets the Challenge Listing page object
-   */
-  public static setChallengeListingPage(challengeListingPage) {
-    this.footerPageObject = challengeListingPage;
-  }
-
-  /**
    * Opens the Challenge Listing page
    */
   public static async open() {
-    await this.footerPageObject.open();
+    await ChallengeListingPageObject.open();
   }
 
   /**
@@ -52,28 +46,32 @@ export class FooterHelper {
 
       footerLinkTexts.push(text);
       logger.info(footerLink.getText());
-      expect(text).toEqual(submenus[i]["text"]);
-      if (text === "Forums") {
-        const href = await footerLink.getAttribute("href");
-        expect(href).toEqual(submenus[i]["url"]);
+      const expectedUrl = submenus[i]['url'];
+      expect(text).toEqual(submenus[i]['text']);
+      if (text === 'Forums') {
+        const href = await footerLink.getAttribute('href');
+        expect(href).toEqual(expectedUrl);
         continue;
       }
       await footerLink.click();
       await BrowserHelper.sleep(1000);
-      logger.info("Clicked on link " + text);
-      if (text === "Competitive Programming") {
-        await CommonHelper.verifyCurrentUrlToContain(submenus[i]["url"]);
-      } else if (text === "Website Help") {
-        const href = await footerLink.getAttribute("href");
-        expect(href).toEqual(submenus[i]["url"]);
+      logger.info('Clicked on link ' + text);
+      if (text === 'Website Help') {
+        const href = await footerLink.getAttribute('href');
+        expect(href).toEqual(expectedUrl);
+      } else if (
+        text === 'Statistics' ||
+        text === 'Changelog'
+      ) {
+        await CommonHelper.verifyCurrentUrlToContain(expectedUrl);
       } else {
-        await CommonHelper.verifyCurrentUrl(submenus[i]["url"]);
+        await CommonHelper.verifyCurrentUrl(expectedUrl);
       }
 
-      await this.footerPageObject.open();
+      await ChallengeListingPageObject.open();
     }
 
-    expect(footerLinkTexts).toEqual(submenus.map((s) => s["text"]));
+    expect(footerLinkTexts).toEqual(submenus.map((s) => s['text']));
   }
 
   /**

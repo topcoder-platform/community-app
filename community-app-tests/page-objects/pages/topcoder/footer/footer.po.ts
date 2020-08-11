@@ -1,20 +1,11 @@
-import { BrowserHelper, ElementHelper, Keys } from "topcoder-testing-lib";
-import { logger } from "../../../../logger/logger";
-import { ConfigHelper } from "../../../../utils/config-helper";
+import { ElementHelper } from 'topcoder-testing-lib';
 
 export class FooterPage {
-  /**
-   * Gets the Challenge Listing page
-   */
-  public async open() {
-    await BrowserHelper.open(ConfigHelper.getChallengeListingUrl());
-  }
-
   /**
    * Gets the policies link
    */
   private get policiesLink() {
-    return ElementHelper.getElementByLinkText("Policies");
+    return ElementHelper.getElementByLinkText('Policies');
   }
 
   /**
@@ -36,6 +27,7 @@ export class FooterPage {
     );
     return socialLinks;
   }
+
   /**
    * Clicks on the policies link
    */

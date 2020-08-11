@@ -1,6 +1,6 @@
-import { ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { ServiceProviderPage } from "./service-provider.po";
+import { logger } from '../../../../../../logger/logger';
+import { ServiceProviderPage } from './service-provider.po';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class ServiceProviderPageHelper {
   /**
@@ -22,7 +22,7 @@ export class ServiceProviderPageHelper {
    * deletes all entries in the current tab
    */
   public static async deleteAll() {
-    await this.serviceProviderPageObject.deleteAll();
+    await this.serviceProviderPageObject.deleteAllServiceProviders();
   }
 
   /**
@@ -30,23 +30,36 @@ export class ServiceProviderPageHelper {
    */
   public static async verifyAddServiceProvider(serviceProvider) {
     await this.serviceProviderPageObject.addServiceProvider(serviceProvider);
-    await this.serviceProviderPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", serviceProvider.name);
-    const isDisplayed = await el.isPresent();
+    await this.serviceProviderPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', serviceProvider.name)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("serviceProvider added: " + serviceProvider.name);
+    logger.info('serviceProvider added: ' + serviceProvider.name);
   }
 
   /**
    * verifyies that user can edit service provider
    */
-  public static async verifyEditServiceProvider(serviceProvider, newServiceProvider) {
-    await this.serviceProviderPageObject.editServiceProvider(serviceProvider, newServiceProvider);
-    await this.serviceProviderPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", newServiceProvider.name);
-    const isDisplayed = await el.isPresent();
+  public static async verifyEditServiceProvider(
+    serviceProvider,
+    newServiceProvider
+  ) {
+    await this.serviceProviderPageObject.editServiceProvider(
+      serviceProvider,
+      newServiceProvider
+    );
+    await this.serviceProviderPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', newServiceProvider.name)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("serviceProvider edited from: " + serviceProvider.name + " to " + newServiceProvider.name);
+    logger.info(
+      'serviceProvider edited from: ' +
+        serviceProvider.name +
+        ' to ' +
+        newServiceProvider.name
+    );
   }
 
   /**
@@ -54,11 +67,12 @@ export class ServiceProviderPageHelper {
    */
   public static async verifyDeleteServiceProvider(serviceProvider) {
     await this.serviceProviderPageObject.deleteServiceProvider(serviceProvider);
-    await this.serviceProviderPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", serviceProvider.name);
-    const isDisplayed = await el.isPresent();
+    await this.serviceProviderPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', serviceProvider.name)
+    );
     expect(isDisplayed).toBe(false);
-    logger.info("deleted serviceProvider: " + serviceProvider.name);
+    logger.info('deleted serviceProvider: ' + serviceProvider.name);
   }
 
   private static serviceProviderPageObject: ServiceProviderPage;

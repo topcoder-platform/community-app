@@ -1,7 +1,7 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { SettingsPage } from "../../settings.po";
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../../../logger/logger';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { SettingsPage } from '../../settings.po';
 
 export class SoftwarePage extends SettingsPage {
   /**
@@ -9,8 +9,15 @@ export class SoftwarePage extends SettingsPage {
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getToolsUrl());
-    this.switchTab("software");
-    logger.info("User navigated to Software Page");
+    await this.switchTab('software');
+    logger.info('User navigated to Software Page');
+  }
+
+  /**
+   * Delete all sortware
+   */
+  public async deleteAllSoftware() {
+    await this.deleteAll('Your software');
   }
 
   /**
@@ -24,7 +31,7 @@ export class SoftwarePage extends SettingsPage {
    * Gets the software name textbox
    */
   private get softwareName() {
-    return ElementHelper.getElementById("name");
+    return ElementHelper.getElementById('name');
   }
 
   /**
@@ -32,9 +39,9 @@ export class SoftwarePage extends SettingsPage {
    * @param {String} name
    */
   public async addSoftware(software) {
-    await this.setSoftwareType(software.type)
+    await this.setSoftwareType(software.type);
     await this.setSoftwareName(software.name);
-    await this.getAddButton("software").click();
+    await this.getAddButton('software').click();
   }
 
   /**
@@ -47,7 +54,7 @@ export class SoftwarePage extends SettingsPage {
     await this.getEditIconbyName(name).click();
     await this.setSoftwareType(newSoftware.type);
     await this.setSoftwareName(newSoftware.name);
-    await this.getEditButton("software").click();
+    await this.getEditButton('software').click();
   }
 
   /**
@@ -61,10 +68,10 @@ export class SoftwarePage extends SettingsPage {
 
   /**
    * Fills the software type input by selecting from the provided options
-   * @param {string} type - to which software type is set 
+   * @param {string} type - to which software type is set
    */
   private async setSoftwareType(type) {
-    await this.performSelection(this.softwareType, type);
+    await this.performSelection(this.softwareType, null, type);
   }
 
   /**

@@ -1,9 +1,8 @@
-import { ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { EducationPage } from "./education.po";
+import { logger } from '../../../../../../logger/logger';
+import { EducationPage } from './education.po';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class EducationPageHelper {
-
   /**
    * sets the Education page object
    */
@@ -23,9 +22,9 @@ export class EducationPageHelper {
    * Deletes all the educations already added till now
    */
   public static async deleteAll() {
-    await this.educationPageObject.deleteAll();
+    await this.educationPageObject.deleteAllEducation();
   }
-  
+
   /**
    * Verifies that user can add education
    * @param education - education object to be used to fill data
@@ -33,11 +32,12 @@ export class EducationPageHelper {
   public static async verifyAddEducation(education) {
     const name = this.getName(education);
     await this.educationPageObject.addEducation(education);
-    await this.educationPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", name);
-    const isDisplayed = await el.isPresent();
+    await this.educationPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', name)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("education added: " + name);
+    logger.info('education added: ' + name);
   }
 
   /**
@@ -50,12 +50,12 @@ export class EducationPageHelper {
     const newName = this.getName(newEducation);
 
     await this.educationPageObject.editEducation(education, newEducation);
-    await this.educationPageObject.waitForSuccessMsg();
-    
-    const el = await ElementHelper.getTagElementContainingText("div", newName);
-    const isDisplayed = await el.isPresent();
+    await this.educationPageObject.waitForDefaultSuccessMessage();
+
+    const el = CommonHelper.findElementByText('div', newName);
+    const isDisplayed = await CommonHelper.isPresent(el);
     expect(isDisplayed).toBe(true);
-    logger.info("education edited from: " + name + " to " + newName);
+    logger.info('education edited from: ' + name + ' to ' + newName);
   }
 
   /**
@@ -65,11 +65,11 @@ export class EducationPageHelper {
   public static async verifyDeleteEducation(education) {
     const name = this.getName(education);
     await this.educationPageObject.deleteEducation(education);
-    await this.educationPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", name);
-    const isDisplayed = await el.isPresent();
+    await this.educationPageObject.waitForDefaultSuccessMessage();
+    const el = CommonHelper.findElementByText('div', name);
+    const isDisplayed = await CommonHelper.isPresent(el);
     expect(isDisplayed).toBe(false);
-    logger.info("deleted education: " + name);
+    logger.info('deleted education: ' + name);
   }
 
   /**

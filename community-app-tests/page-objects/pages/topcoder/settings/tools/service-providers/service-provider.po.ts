@@ -1,7 +1,7 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { SettingsPage } from "../../settings.po";
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../../../logger/logger';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { SettingsPage } from '../../settings.po';
 
 export class ServiceProviderPage extends SettingsPage {
   /**
@@ -9,8 +9,15 @@ export class ServiceProviderPage extends SettingsPage {
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getToolsUrl());
-    this.switchTab("service providers");
-    logger.info("User navigated to ServiceProvider Page");
+    await this.switchTab('service providers');
+    logger.info('User navigated to ServiceProvider Page');
+  }
+
+  /**
+   * Delete all service providers
+   */
+  public async deleteAllServiceProviders() {
+    await this.deleteAll('Your service providers');
   }
 
   /**
@@ -24,7 +31,7 @@ export class ServiceProviderPage extends SettingsPage {
    * Gets the service provider Name textbox
    */
   private get serviceProviderName() {
-    return ElementHelper.getElementById("name");
+    return ElementHelper.getElementById('name');
   }
 
   /**
@@ -34,7 +41,7 @@ export class ServiceProviderPage extends SettingsPage {
   public async addServiceProvider(serviceProvider) {
     await this.setServiceProviderType(serviceProvider.type);
     await this.setServiceProviderName(serviceProvider.name);
-    await this.getAddButton("service provider").click();
+    await this.getAddButton('service provider').click();
   }
 
   /**
@@ -46,7 +53,7 @@ export class ServiceProviderPage extends SettingsPage {
     await this.getEditIconbyName(serviceProvider.name).click();
     await this.setServiceProviderType(newServiceProvider.type);
     await this.setServiceProviderName(newServiceProvider.name);
-    await this.getEditButton("service provider").click();
+    await this.getEditButton('service provider').click();
   }
 
   /**
@@ -60,10 +67,10 @@ export class ServiceProviderPage extends SettingsPage {
 
   /**
    * Fills the software provider type input by selecting from the given options
-   * @param {string} type - software provider type 
+   * @param {string} type - software provider type
    */
   private async setServiceProviderType(type) {
-    await this.performSelection(this.serviceProviderType, type);
+    await this.performSelection(this.serviceProviderType, null, type);
   }
 
   /**

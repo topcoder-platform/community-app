@@ -1,9 +1,9 @@
-import { logger } from "../../../../../../logger/logger";
-import * as appconfig from "../../../../../../app-config.json";
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { SettingsPage } from "../../settings.po";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { SettingsPageConstants } from "../../settings.constants";
+import { logger } from '../../../../../../logger/logger';
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { SettingsPage } from '../../settings.po';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { SettingsPageConstants } from '../../settings.constants';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class EmailPreferencesPage extends SettingsPage {
   /**
@@ -11,18 +11,18 @@ export class EmailPreferencesPage extends SettingsPage {
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getPreferencesUrl());
-    logger.info("User navigated to Preferences Page");
+    await this.switchTab('e-mail');
+    logger.info('User navigated to Preferences Page');
   }
 
   /**
    * Gets the prefernce  label
    * @param pref
    */
-  private async getPrefLabel(pref: String) {
-    const el = await ElementHelper.getElementByXPath(
+  private getPrefLabel(pref: String) {
+    return ElementHelper.getElementByXPath(
       `//label[@for='pre-onoffswitch-${pref}']`
     );
-    return el;
   }
 
   /**
@@ -40,8 +40,8 @@ export class EmailPreferencesPage extends SettingsPage {
    * @param pref
    */
   public async isPrefEnabled(pref): Promise<boolean> {
-    const prefLabel = await this.getPrefLabel(pref);
-    const bgColor = await prefLabel.getCssValue("background-color");
+    const prefLabel = this.getPrefLabel(pref);
+    const bgColor = await prefLabel.getCssValue('background-color');
     return bgColor === SettingsPageConstants.Colors.GreyColor ? false : true;
   }
 
@@ -52,14 +52,24 @@ export class EmailPreferencesPage extends SettingsPage {
   public async updatePref(pref: string) {
     const prefSwitch = await this.getPrefSwitch(pref);
     await prefSwitch.click();
-    await this.waitForSuccessMsg(this.successMsg);
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.successMsg,
+      'Wait for success message',
+      false
+    );
+
+    await CommonHelper.waitUntilInVisibilityOf(
+      () => this.successMsg,
+      'wait for success message',
+      false
+    );
   }
   /**
    * Gets the pref success message
    */
   public get successMsg() {
-    return ElementHelper.getTagElementContainingText(
-      "div",
+    return CommonHelper.findElementByText(
+      'div',
       SettingsPageConstants.Messages.EmailPrefSuccessMessage
     );
   }

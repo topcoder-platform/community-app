@@ -1,7 +1,7 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { SettingsPage } from "../../settings.po";
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../../../logger/logger';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { SettingsPage } from '../../settings.po';
 
 export class SubscriptionsPage extends SettingsPage {
   /**
@@ -9,15 +9,22 @@ export class SubscriptionsPage extends SettingsPage {
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getToolsUrl());
-    this.switchTab("subscriptions");
-    logger.info("User navigated to Subscriptions Page");
+    await this.switchTab('subscriptions');
+    logger.info('User navigated to Subscriptions Page');
+  }
+
+  /**
+   * Delete all subscriptions
+   */
+  public async deleteAllSubscriptions() {
+    await this.deleteAll('Your subscriptions');
   }
 
   /**
    * Gets the subscription Name textbox
    */
   private get subscriptionName() {
-    return ElementHelper.getElementById("name");
+    return ElementHelper.getElementById('name');
   }
 
   /**
@@ -27,7 +34,7 @@ export class SubscriptionsPage extends SettingsPage {
   public async addSubscription(name) {
     await BrowserHelper.sleep(1000);
     await this.setSubscription(name);
-    await this.getAddButton("subscription").click();
+    await this.getAddButton('subscription').click();
   }
 
   /**
@@ -39,7 +46,7 @@ export class SubscriptionsPage extends SettingsPage {
     await this.getEditIconbyName(name).click();
     await BrowserHelper.sleep(1000);
     await this.setSubscription(newname);
-    await this.getEditButton("subscription").click();
+    await this.getEditButton('subscription').click();
   }
 
   /**

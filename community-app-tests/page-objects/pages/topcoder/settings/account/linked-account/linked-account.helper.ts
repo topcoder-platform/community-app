@@ -1,6 +1,7 @@
-import { logger } from "../../../../../../logger/logger";
-import { LinkedAccountPage } from "./linked-account.po";
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
+import { logger } from '../../../../../../logger/logger';
+import { LinkedAccountPage } from './linked-account.po';
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class LinkedAccountPageHelper {
   /**
@@ -21,21 +22,23 @@ export class LinkedAccountPageHelper {
 
   /**
    * Add linked account
-   * @param linkedAccount 
+   * @param linkedAccount
    */
   public static async verifyAddLink(linkedAccount) {
     await this.linkedAccountPageObject.addLinkedAccount(linkedAccount);
-    await this.linkedAccountPageObject.waitForSuccessMsg();
-    
+    await this.linkedAccountPageObject.waitForDefaultSuccessMessage();
+
     const text = ('http://' + linkedAccount).toUpperCase();
-    const isDisplayed = await ElementHelper.getElementByLinkText(text).isDisplayed();
+    const isDisplayed = await CommonHelper.isDisplayed(
+      ElementHelper.getElementByLinkText(text)
+    );
     expect(isDisplayed).toBe(true);
     logger.info(`Linked account ${linkedAccount} added`);
   }
 
   /**
-   * Verify deletion of linked account 
-   * @param linkedAccount 
+   * Verify deletion of linked account
+   * @param linkedAccount
    */
   public static async verifyDeleteLink(linkedAccount) {
     await this.linkedAccountPageObject.delete();
@@ -46,5 +49,4 @@ export class LinkedAccountPageHelper {
   }
 
   private static linkedAccountPageObject: LinkedAccountPage;
-
 }

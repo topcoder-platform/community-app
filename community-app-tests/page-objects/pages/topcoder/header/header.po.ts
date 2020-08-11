@@ -1,13 +1,23 @@
-import { BrowserHelper, ElementHelper, Keys } from "topcoder-testing-lib";
-import { logger } from "../../../../logger/logger";
-import { ConfigHelper } from "../../../../utils/config-helper";
+import { BrowserHelper, ElementHelper, Keys } from 'topcoder-testing-lib';
+import { logger } from '../../../../logger/logger';
+import { ConfigHelper } from '../../../../utils/config-helper';
+import { CommonHelper } from '../common-page/common.helper';
 
 export class HeaderPage {
   /**
    * Gets the Challenge Listing page
+   * @param isLoggedIn
    */
-  public async open() {
+  public async open(isLoggedIn: boolean) {
     await BrowserHelper.open(ConfigHelper.getOverviewUrl());
+    const tabName = isLoggedIn ? 'Dashboard' : 'Overview';
+    // wait for showing page + tab name
+    await CommonHelper.waitUntilVisibilityOf(
+      () => CommonHelper.findElementByText('span', tabName),
+      'Wait for tab ' + tabName,
+      true
+    );
+    logger.info('header is loaded');
   }
 
   /**
@@ -15,7 +25,7 @@ export class HeaderPage {
    */
   private async getUserHandleMenu() {
     const spans = await ElementHelper.getAllElementsByCssContainingText(
-      "span",
+      'span',
       ConfigHelper.getUserName()
     );
     return spans[3];
@@ -26,8 +36,8 @@ export class HeaderPage {
    */
   private async getSwitchToBusinessLink() {
     const spans = await ElementHelper.getAllElementsByCssContainingText(
-      "span",
-      "Switch to BUSINESS"
+      'span',
+      'Switch to BUSINESS'
     );
     return spans[1];
   }
@@ -36,11 +46,8 @@ export class HeaderPage {
    * Gets the 'Menu' link
    * @param menu
    */
-  private async getMenuLink(menu) {
-    const spans = await ElementHelper.getElementByCssContainingText(
-      "span",
-      menu
-    );
+  private getMenuLink(menu) {
+    const spans = ElementHelper.getElementByCssContainingText('span', menu);
     return spans;
   }
 
@@ -50,7 +57,7 @@ export class HeaderPage {
    */
   private async getUserInfoSection() {
     const spans = await ElementHelper.getAllElementsByCssContainingText(
-      "span",
+      'span',
       ConfigHelper.getEmail()
     );
     return spans[1];
@@ -79,8 +86,8 @@ export class HeaderPage {
    */
   private async getHelpLink() {
     const links = await ElementHelper.getAllElementsByCssContainingText(
-      "a",
-      "Help"
+      'a',
+      'Help'
     );
     return links[1];
   }
@@ -90,8 +97,8 @@ export class HeaderPage {
    */
   private async getLogoutLink() {
     const links = await ElementHelper.getAllElementsByCssContainingText(
-      "a",
-      "Log Out"
+      'a',
+      'Log Out'
     );
     return links[1];
   }
@@ -100,14 +107,14 @@ export class HeaderPage {
    * Gets the login link
    */
   private get loginLink() {
-    return ElementHelper.getElementByLinkText("LOGIN");
+    return ElementHelper.getElementByLinkText('LOGIN');
   }
 
   /**
    * Gets the 'BUSINESS' header link
    */
   private get businessLink() {
-    return ElementHelper.getElementByLinkText("BUSINESS");
+    return ElementHelper.getElementByLinkText('BUSINESS');
   }
 
   /**
@@ -137,8 +144,8 @@ export class HeaderPage {
    */
   private async getAllNotificationsLink() {
     const els = await ElementHelper.getAllElementsByCssContainingText(
-      "a",
-      "View all Notifications"
+      'a',
+      'View all Notifications'
     );
     return els[1];
   }
@@ -148,8 +155,8 @@ export class HeaderPage {
    */
   private async getNotificationsLabel() {
     const els = await ElementHelper.getAllElementsByCssContainingText(
-      "span",
-      "Notifications"
+      'span',
+      'Notifications'
     );
     return els[3];
   }
@@ -160,27 +167,33 @@ export class HeaderPage {
   public async clickOnLogoLink() {
     const logoLink = await this.getLogoLink();
     await logoLink.click();
-    logger.info("Clicked on logo");
+    logger.info('Clicked on logo');
   }
 
   /**
    * Clicks on the Business link
    */
   public async clickOnBusinessLink() {
-    const businessLink = this.businessLink;
-    await BrowserHelper.waitUntilVisibilityOf(businessLink);
-    await businessLink.click();
-    logger.info("Clicked on BUSINESS link");
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.businessLink,
+      'Wait for business link',
+      false
+    );
+    await this.businessLink.click();
+    logger.info('Clicked on BUSINESS link');
   }
 
   /**
    * Clicks on Login link
    */
   public async clickOnLoginLink() {
-    const loginLink = this.loginLink;
-    await BrowserHelper.waitUntilVisibilityOf(loginLink);
-    await loginLink.click();
-    logger.info("Clicked on LOGIN link");
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.loginLink,
+      'Wait for login link',
+      false
+    );
+    await this.loginLink.click();
+    logger.info('Clicked on LOGIN link');
   }
 
   /**
@@ -188,9 +201,8 @@ export class HeaderPage {
    * @param menu
    */
   public async clickOnMenu(menu) {
-    const menuLink = await this.getMenuLink(menu);
-    await menuLink.click();
-    logger.info("Clicked on menu " + menu);
+    await this.getMenuLink(menu).click();
+    logger.info('Clicked on menu ' + menu);
   }
 
   /**
@@ -199,7 +211,21 @@ export class HeaderPage {
   public async openUserMenu() {
     const userProfileLink = await this.getUserHandleMenu();
     await userProfileLink.click();
-    // await BrowserHelper.waitUntilVisibilityOf(await this.getUserInfoSection());
+    const settingsLink = await this.getSettingsLink();
+    expect(await CommonHelper.isDisplayed(settingsLink)).toBe(
+      true,
+      'Setting link is not displayed'
+    );
+    const userInfo = await this.getUserInfoSection();
+    expect(await CommonHelper.isDisplayed(userInfo)).toBe(
+      true,
+      'My profile link is not displayed'
+    );
+    const logoutLink = await this.getLogoutLink();
+    expect(await CommonHelper.isDisplayed(logoutLink)).toBe(
+      true,
+      'Logout link is not displayed'
+    );
   }
 
   /**
@@ -255,14 +281,14 @@ export class HeaderPage {
    */
   public async isNotificationsPopupVisible() {
     const notificationsLabel = await this.getNotificationsLabel();
-    return await notificationsLabel.isDisplayed();
+    return await CommonHelper.isPresent(notificationsLabel);
   }
 
   /**
    * Checks if the notifications popup is open
    */
   public async isViewAllNotificationsPresent() {
-    return await (await this.getAllNotificationsLink()).isPresent();
+    return await CommonHelper.isPresent(await this.getAllNotificationsLink());
   }
 
   /**

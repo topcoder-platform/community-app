@@ -1,4 +1,4 @@
-import { ConfigHelper } from "../../../../utils/config-helper";
+import { ConfigHelper } from '../../../../utils/config-helper';
 
 export class FooterConstants {
   /**
@@ -10,137 +10,139 @@ export class FooterConstants {
       Compete: {
         submenus: [
           {
-            text: "All Challenges",
-            url: ConfigHelper.getFooterLink("allChallenges", isLoggedIn),
+            text: 'All Challenges',
+            url: ConfigHelper.getFooterLink('allChallenges'),
           },
           {
-            text: "Competitive Programming",
+            text: 'Competitive Programming',
             url: ConfigHelper.getFooterLink(
-              "competitiveProgramming",
-              isLoggedIn
+              'competitiveProgramming'
             ),
           },
           {
-            text: "Gig Work",
-            url: ConfigHelper.getFooterLink("taas", isLoggedIn),
+            text: 'Gig Work',
+            url: ConfigHelper.getFooterLink('taas'),
+          },
+          {
+            text: 'Practice',
+            url: ConfigHelper.getSubMenuUrl('practice', isLoggedIn),
           },
         ],
-        text: "COMPETE",
+        text: 'COMPETE',
       },
       Tracks: {
         submenus: [
           {
-            text: "Competitive Programming",
+            text: 'Competitive Programming',
             url: ConfigHelper.getFooterLink(
-              "competitiveProgrammingThrive",
-              isLoggedIn
+              'competitiveProgrammingThrive'
             ),
           },
           {
-            text: "Data Science",
-            url: ConfigHelper.getFooterLink("dataScienceThrive", isLoggedIn),
+            text: 'Data Science',
+            url: ConfigHelper.getFooterLink('dataScienceThrive'),
           },
           {
-            text: "Design",
-            url: ConfigHelper.getFooterLink("designThrive", isLoggedIn),
+            text: 'Design',
+            url: ConfigHelper.getFooterLink('designThrive'),
           },
           {
-            text: "Development",
-            url: ConfigHelper.getFooterLink("developmentThrive", isLoggedIn),
+            text: 'Development',
+            url: ConfigHelper.getFooterLink('developmentThrive'),
           },
           {
-            text: "QA",
-            url: ConfigHelper.getFooterLink("qaThrive", isLoggedIn),
+            text: 'QA',
+            url: ConfigHelper.getFooterLink('qaThrive'),
           },
         ],
-        text: "TRACKS",
+        text: 'TRACKS',
       },
       Community: {
         submenus: [
           {
-            text: "Blog",
-            url: ConfigHelper.getFooterLink("blog", isLoggedIn),
+            text: 'Blog',
+            url: ConfigHelper.getFooterLink('blog'),
           },
           {
-            text: "Events Calendar",
-            url: ConfigHelper.getFooterLink("events", isLoggedIn),
+            text: 'Challenge Pipeline',
+            url: ConfigHelper.getFooterLink('challengePipeline'),
           },
           {
-            text: "Forums",
-            url: ConfigHelper.getFooterLink("forums", isLoggedIn),
+            text: 'Events Calendar',
+            url: ConfigHelper.getFooterLink('events'),
           },
           {
-            text: "Programs",
-            url: ConfigHelper.getFooterLink("programs", isLoggedIn),
+            text: 'Forums',
+            url: ConfigHelper.getFooterLink('forums'),
           },
           {
-            text: "Statistics",
-            url: ConfigHelper.getFooterLink("statistics", isLoggedIn),
+            text: 'Programs',
+            url: ConfigHelper.getFooterLink('programs'),
           },
           {
-            text: "TCO",
-            url: ConfigHelper.getFooterLink("tco", isLoggedIn),
+            text: 'Statistics',
+            url: ConfigHelper.getFooterLink('statistics'),
           },
           {
-            text: "Thrive",
-            url: ConfigHelper.getFooterLink("thrive", isLoggedIn),
+            text: 'TCO',
+            url: ConfigHelper.getFooterLink('tco'),
+          },
+          {
+            text: 'Thrive',
+            url: ConfigHelper.getFooterLink('thrive'),
           },
         ],
-        text: "COMMUNITY",
+        text: 'COMMUNITY',
       },
       HelpCenter: {
         submenus: [
           {
-            text: "Getting Paid",
-            url: ConfigHelper.getFooterLink("gettingPaid", isLoggedIn),
+            text: 'Getting Paid',
+            url: ConfigHelper.getFooterLink('gettingPaid'),
           },
           {
-            text: "FAQ",
-            url: ConfigHelper.getFooterLink("faq", isLoggedIn),
+            text: 'FAQ',
+            url: ConfigHelper.getFooterLink('faq'),
           },
           {
-            text: "General Info",
-            url: ConfigHelper.getFooterLink("generalInfo", isLoggedIn),
+            text: 'General Info',
+            url: ConfigHelper.getFooterLink('generalInfo'),
           },
           {
-            text: "Website Help",
-            url: ConfigHelper.getFooterLink("websiteHelp", isLoggedIn),
+            text: 'Website Help',
+            url: ConfigHelper.getFooterLink('websiteHelp'),
           },
         ],
-        text: "HELP CENTER",
+        text: 'HELP CENTER',
       },
       About: {
         submenus: [
           {
-            text: "Admins",
-            url: ConfigHelper.getFooterLink("admins", isLoggedIn),
+            text: 'Admins',
+            url: ConfigHelper.getFooterLink('admins'),
           },
           {
-            text: "Contact Us",
-            url: ConfigHelper.getFooterLink("contactUs", isLoggedIn),
+            text: 'Contact Us',
+            url: ConfigHelper.getFooterLink('contactUs'),
           },
           {
-            text: "Join Community",
-            url: ConfigHelper.getFooterLink("joinCommunity", isLoggedIn),
+            text: 'Join Community',
+            url: ConfigHelper.getFooterLink('joinCommunity'),
           },
           {
-            text: "About Community",
-            url: ConfigHelper.getFooterLink("aboutCommunity", isLoggedIn),
+            text: 'About Community',
+            url: ConfigHelper.getFooterLink('aboutCommunity'),
           },
           {
-            text: "Changelog",
-            url: ConfigHelper.getFooterLink("changeLog", isLoggedIn),
+            text: 'Changelog',
+            url: ConfigHelper.getFooterLink('changeLog'),
           },
           {
-            text: "Talk to Sales",
-            url: ConfigHelper.getFooterLink("talkToSales", isLoggedIn),
-          },
-          {
-            text: "Terms",
-            url: ConfigHelper.getFooterLink("terms", isLoggedIn),
+            text: 'Talk to Sales',
+            url: ConfigHelper.getFooterLink('talkToSales'),
           },
         ],
-        text: "ABOUT",
+        text: 'ABOUT',
       },
     };
 
@@ -152,11 +154,11 @@ export class FooterConstants {
    */
   public static getSocialLinks() {
     return [
-      ConfigHelper.getSocialLink("facebook"),
-      ConfigHelper.getSocialLink("youtube"),
-      ConfigHelper.getSocialLink("linkedin"),
-      ConfigHelper.getSocialLink("twitter"),
-      ConfigHelper.getSocialLink("instagram"),
+      ConfigHelper.getSocialLink('facebook'),
+      ConfigHelper.getSocialLink('youtube'),
+      ConfigHelper.getSocialLink('linkedin'),
+      ConfigHelper.getSocialLink('twitter'),
+      ConfigHelper.getSocialLink('instagram'),
     ];
   }
 }

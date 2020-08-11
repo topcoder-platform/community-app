@@ -1,7 +1,7 @@
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { SettingsPage } from "../../settings.po";
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../../../logger/logger';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { SettingsPage } from '../../settings.po';
 
 export class MyAccountPage extends SettingsPage {
   /**
@@ -9,22 +9,26 @@ export class MyAccountPage extends SettingsPage {
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getAccountUrl());
-    await BrowserHelper.sleep(1000);
-    logger.info("User navigated to My Account Page");
+    await this.switchTab('my account');
+    logger.info('User navigated to My Account Page');
   }
 
   /**
    * Get the consent label element
    */
   public get consentLabel() {
-    return ElementHelper.getElementByCss('label[for="pre-onoffswitch-user-consent"]');
+    return ElementHelper.getElementByCss(
+      'label[for="pre-onoffswitch-user-consent"]'
+    );
   }
 
   /**
    * Helper method which tells if the consent is already checked
    */
   public async isConsentGiven() {
-    const backgroundColor = await this.consentLabel.getCssValue('background-color');
+    const backgroundColor = await this.consentLabel.getCssValue(
+      'background-color'
+    );
     return this.getStatus(backgroundColor);
   }
 
@@ -37,7 +41,7 @@ export class MyAccountPage extends SettingsPage {
 
   /**
    * Helper method to get status basis the background color
-   * @param color 
+   * @param color
    */
   private getStatus(color: string) {
     return color == 'rgba(192, 192, 192, 1)' ? false : true;

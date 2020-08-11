@@ -5,8 +5,7 @@
     "ElementInvisibility": 15000,
     "ElementPresence": 15000,
     "ElementClickable": 15000,
-    "PageLoad": 30000,
-    "SubmitForm": 15000
+    "PageLoad": 300000
   },
 
   "LoggerErrors": {

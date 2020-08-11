@@ -1,9 +1,8 @@
-import { ElementHelper } from "topcoder-testing-lib";
-import { logger } from "../../../../../../logger/logger";
-import { HobbyPage } from "./hobby.po";
+import { logger } from '../../../../../../logger/logger';
+import { HobbyPage } from './hobby.po';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class HobbyPageHelper {
-
   /**
    * sets the Hobby page object
    */
@@ -23,9 +22,9 @@ export class HobbyPageHelper {
    * Deletes all the hobbies
    */
   public static async deleteAll() {
-    await this.hobbyPageObject.deleteAll();
+    await this.hobbyPageObject.deleteAllHobbies();
   }
-  
+
   /**
    * Adds the hobby and verifies it
    * @param hobby - object representation of hobby to be added
@@ -33,11 +32,12 @@ export class HobbyPageHelper {
   public static async verifyAddHobby(hobby) {
     const name = this.getName(hobby);
     await this.hobbyPageObject.addHobby(hobby);
-    await this.hobbyPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", name);
-    const isDisplayed = await el.isPresent();
+    await this.hobbyPageObject.waitForDefaultSuccessMessage();
+    const isDisplayed = await CommonHelper.isPresent(
+      CommonHelper.findElementByText('div', name)
+    );
     expect(isDisplayed).toBe(true);
-    logger.info("hobby added: " + name);
+    logger.info('hobby added: ' + name);
   }
 
   /**
@@ -50,12 +50,12 @@ export class HobbyPageHelper {
     const newName = this.getName(newHobby);
 
     await this.hobbyPageObject.editHobby(hobby, newHobby);
-    await this.hobbyPageObject.waitForSuccessMsg();
-    
-    const el = await ElementHelper.getTagElementContainingText("div", newName);
-    const isDisplayed = await el.isPresent();
+    await this.hobbyPageObject.waitForDefaultSuccessMessage();
+
+    const el = CommonHelper.findElementByText('div', newName);
+    const isDisplayed = await CommonHelper.isPresent(el);
     expect(isDisplayed).toBe(true);
-    logger.info("hobby edited from: " + name + " to " + newName);
+    logger.info('hobby edited from: ' + name + ' to ' + newName);
   }
 
   /**
@@ -65,11 +65,11 @@ export class HobbyPageHelper {
   public static async verifyDeleteHobby(hobby) {
     const name = this.getName(hobby);
     await this.hobbyPageObject.deleteHobby(hobby);
-    await this.hobbyPageObject.waitForSuccessMsg();
-    const el = await ElementHelper.getTagElementContainingText("div", name);
-    const isDisplayed = await el.isPresent();
+    await this.hobbyPageObject.waitForDefaultSuccessMessage();
+    const el = CommonHelper.findElementByText('div', name);
+    const isDisplayed = await CommonHelper.isPresent(el);
     expect(isDisplayed).toBe(false);
-    logger.info("deleted hobby: " + name);
+    logger.info('deleted hobby: ' + name);
   }
 
   /**

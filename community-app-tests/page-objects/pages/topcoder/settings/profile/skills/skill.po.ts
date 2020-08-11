@@ -1,26 +1,27 @@
-import { logger } from "../../../../../../logger/logger";
-import * as appconfig from "../../../../../../app-config.json";
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { SettingsPage } from "../../settings.po";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
-import { SettingsPageConstants } from "../../settings.constants";
+import { logger } from '../../../../../../logger/logger';
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { SettingsPage } from '../../settings.po';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
+import { SettingsPageConstants } from '../../settings.constants';
+import { CommonHelper } from '../../../common-page/common.helper';
 
 export class SkillPage extends SettingsPage {
-
   /**
    * Gets the Skill page
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getProfileUrl());
-    this.switchTab("skills");
-    logger.info("User navigated to Skills Page");
+    await this.switchTab('skills');
+    logger.info('User navigated to Skills Page');
   }
 
   /**
    * Gets the skill input field
    */
   private get skillInput() {
-    return ElementHelper.getElementByCss('[aria-activedescendant="react-select-10--value"]');
+    return ElementHelper.getElementByCss(
+      '[aria-activedescendant="react-select-10--value"]'
+    );
   }
 
   /**
@@ -34,8 +35,8 @@ export class SkillPage extends SettingsPage {
    * Gets the delete success message
    */
   public get successMsg() {
-    return ElementHelper.getTagElementContainingText(
-      "div",
+    return CommonHelper.findElementByText(
+      'div',
       SettingsPageConstants.Messages.SkillSuccessMessage
     );
   }
@@ -44,48 +45,49 @@ export class SkillPage extends SettingsPage {
    * Deletes all skills
    */
   public async deleteAll() {
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.heading,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.heading,
+      'Wait for skill heading',
+      false
     );
-    const delIcons = await ElementHelper.getAllElementsByXPath('//a[contains(@id,"skill-a-")]');
+    const delIcons = await ElementHelper.getAllElementsByXPath(
+      '//a[contains(@id,"skill-a-")]'
+    );
     for (let icon of delIcons) {
       await icon.click();
       await this.deleteConfirmation.click();
-      await this.waitForSuccessMsg();
+      await this.waitForDefaultSuccessMessage();
     }
   }
 
   /**
    * Waits for visibility and invisibility of success message
    */
-  public async waitForSuccessMsg() {
-    await BrowserHelper.waitUntilVisibilityOf(
-      this.successMsg,
-      appconfig.Timeout.ElementVisibility,
-      appconfig.LoggerErrors.ElementVisibilty
+  public async waitForDefaultSuccessMessage() {
+    await CommonHelper.waitUntilVisibilityOf(
+      () => this.successMsg,
+      'Wait for success message',
+      false
     );
-
-    await BrowserHelper.waitUntilInVisibilityOf(
-      this.successMsg,
-      appconfig.Timeout.ElementInvisibility,
-      appconfig.LoggerErrors.ElementInvisibilty
+    await CommonHelper.waitUntilInVisibilityOf(
+      () => this.successMsg,
+      'Wait for success message',
+      false
     );
   }
 
   /**
    * Adds the given skill
-   * @param skill 
+   * @param skill
    */
   public async addSkill(skill) {
-    await this.performSelection(this.skillInput, skill.name);
+    await this.performSelection(this.skillInput, null, skill.name);
     await this.getAddButton('skill').click();
   }
 
   /**
    * Deletes the given skill
-   * @param skill 
+   * @param skill
    */
   public async deleteSkill(skill) {
     await this.deleteIcon.click();

@@ -1,21 +1,27 @@
-import { logger } from "../../../../../../logger/logger";
-import { BrowserHelper, ElementHelper } from "topcoder-testing-lib";
-import { SettingsPage } from "../../settings.po";
-import { ConfigHelper } from "../../../../../../utils/config-helper";
+import { logger } from '../../../../../../logger/logger';
+import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { SettingsPage } from '../../settings.po';
+import { ConfigHelper } from '../../../../../../utils/config-helper';
 
 export class HobbyPage extends SettingsPage {
-
   /**
    * Gets the Hobby page
    */
   public async open() {
     await BrowserHelper.open(ConfigHelper.getProfileUrl());
-    this.switchTab("hobbies");
-    logger.info("User navigated to Hobbies Page");
+    await this.switchTab('hobbies');
+    logger.info('User navigated to Hobbies Page');
   }
 
   /**
-   * Gets the hobby name field 
+   * Delete all hobbies
+   */
+  public async deleteAllHobbies() {
+    await this.deleteAll('Your hobbies');
+  }
+
+  /**
+   * Gets the hobby name field
    */
   private get name() {
     return ElementHelper.getElementById('hobby');
@@ -52,15 +58,15 @@ export class HobbyPage extends SettingsPage {
 
   /**
    * Deletes the hobby
-   * @param hobby 
+   * @param hobby
    */
   public async deleteHobby(hobby) {
     await this.getDeleteIconbyName(hobby.name).click();
-    await this.deleteConfirmation.click();    
+    await this.deleteConfirmation.click();
   }
 
   /**
-   * Sets the name field 
+   * Sets the name field
    * @param name - name of the hobby to input
    */
   private async setName(name) {
