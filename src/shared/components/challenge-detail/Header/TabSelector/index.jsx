@@ -19,10 +19,13 @@ function getSelectorStyle(selectedView, currentView) {
 
 export default function ChallengeViewSelector(props) {
   const {
+    isLoggedIn,
     challenge,
+    isMM,
     checkpointCount,
-    numRegistrants,
-    numSubmissions,
+    numOfRegistrants,
+    numOfCheckpointSubmissions,
+    numOfSubmissions,
     numWinners,
     onSelectorClicked,
     selectedView,
@@ -31,11 +34,11 @@ export default function ChallengeViewSelector(props) {
     mySubmissions,
   } = props;
 
-  const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
-  const forumId = _.get(challenge, 'forumId') || 0;
+  const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
+  const isDesign = trackLower === 'design';
 
-  const forumEndpoint = trackLower === 'design'
+  const forumEndpoint = isDesign
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
 
@@ -85,7 +88,7 @@ export default function ChallengeViewSelector(props) {
           DETAILS
         </a>
         {
-          numRegistrants ? (
+          numOfRegistrants ? (
             <a
               tabIndex="0"
               role="tab"
@@ -99,13 +102,13 @@ export default function ChallengeViewSelector(props) {
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
             >
               REGISTRANTS (
-              {numRegistrants}
+              {numOfRegistrants}
               )
             </a>
           ) : null
         }
         {
-          trackLower === 'design' && checkpointCount > 0
+          isDesign && checkpointCount > 0
           && (
           <a
             tabIndex="0"
@@ -122,7 +125,7 @@ export default function ChallengeViewSelector(props) {
           )
         }
         {
-          numSubmissions ? (
+          (numOfSubmissions && isLoggedIn) ? (
             <a
               tabIndex="0"
               role="tab"
@@ -132,7 +135,7 @@ export default function ChallengeViewSelector(props) {
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >
               SUBMISSIONS (
-              {numSubmissions}
+              {numOfSubmissions + (numOfCheckpointSubmissions || 0)}
               )
             </a>
           ) : null
@@ -185,26 +188,30 @@ export default function ChallengeViewSelector(props) {
 }
 
 ChallengeViewSelector.defaultProps = {
+  isLoggedIn: false,
   challenge: {},
+  isMM: false,
   checkpointCount: 0,
-  numRegistrants: 0,
-  numSubmissions: 0,
-  // hasRegistered: false,
+  numOfRegistrants: 0,
+  numOfCheckpointSubmissions: 0,
+  numOfSubmissions: 0,
 };
 
 ChallengeViewSelector.propTypes = {
+  isLoggedIn: PT.bool,
   challenge: PT.shape({
-    subTrack: PT.any,
-    details: PT.shape({
-      forumId: PT.number.isRequired,
+    legacy: PT.shape({
+      forumId: PT.number,
     }),
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string),
     }),
   }),
+  isMM: PT.bool,
   checkpointCount: PT.number,
-  numRegistrants: PT.number,
-  numSubmissions: PT.number,
+  numOfRegistrants: PT.number,
+  numOfCheckpointSubmissions: PT.number,
+  numOfSubmissions: PT.number,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   selectedView: PT.string.isRequired,

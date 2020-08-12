@@ -30,8 +30,8 @@ const DRAFT_MSG = 'In Draft';
  * @return {Number}
  */
 function getPhaseProgress(phase) {
-  const end = moment(phase.scheduledEndTime);
-  const start = moment(phase.actualStartTime);
+  const end = moment(phase.scheduledEndDate);
+  const start = moment(phase.actualStartDate);
   return 100 * (moment().diff(start) / end.diff(start));
 }
 
@@ -59,8 +59,9 @@ export default function ChallengeStatus(props) {
     challengesUrl,
     newChallengeDetails,
     selectChallengeDetailsTab,
-    userHandle,
     openChallengesInNewTabs,
+    userId,
+    isLoggedIn,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -131,7 +132,7 @@ export default function ChallengeStatus(props) {
       challenge,
       detailLink,
     } = props;
-    const timeDiff = getTimeLeft(challenge.allPhases.find(p => p.phaseType === 'Registration'));
+    const timeDiff = getTimeLeft((challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
@@ -163,6 +164,7 @@ export default function ChallengeStatus(props) {
    * the common code being used in both places. */
   function completedChallenge() {
     const { challenge } = props;
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
     return (
       <div>
         {renderLeaderboard()}
@@ -183,13 +185,14 @@ export default function ChallengeStatus(props) {
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
             challenge.myChallenge
             && (
               <div styleName="spacing">
-                <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}>
+                <a styleName="link-forum past" href={`${FORUM_URL}${forumId}`}>
                   <ForumIcon />
                 </a>
               </div>
@@ -203,34 +206,27 @@ export default function ChallengeStatus(props) {
   function activeChallenge() {
     const { challenge } = props;
     const {
-      allPhases,
-      currentPhases,
-      forumId,
       myChallenge,
       status,
       subTrack,
     } = challenge;
+    const allPhases = challenge.phases || [];
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
 
-    const checkPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
-    let statusPhase = checkPhases
-      .filter(p => p.phaseType !== 'Registration')
-      .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
+    let statusPhase = allPhases
+      .filter(p => p.name !== 'Registration' && p.isOpen)
+      .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-    if (!statusPhase && (subTrack === 'FIRST_2_FINISH' || subTrack === 'CODE') && checkPhases.length) {
-      statusPhase = _.clone(checkPhases[0]);
-      statusPhase.phaseType = 'Submission';
+    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && allPhases.length) {
+      statusPhase = _.clone(allPhases[0]);
+      statusPhase.name = 'Submission';
     }
 
-    const registrationPhase = allPhases
-      .find(p => p.phaseType === 'Registration');
-    const isRegistrationOpen = registrationPhase
-      && (registrationPhase.phaseStatus === 'Open' || moment(registrationPhase.scheduledEndTime).diff(new Date()) > 0);
-
     let phaseMessage = STALLED_MSG;
-    if (statusPhase) phaseMessage = statusPhase.phaseType;
-    else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
+    if (statusPhase) phaseMessage = statusPhase.name;
+    else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
-    const showRegisterInfo = isRegistrationOpen && !challenge.users[userHandle];
+    const showRegisterInfo = challenge.registrationOpen === 'Yes' && !challenge.users[userId];
 
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
@@ -254,6 +250,7 @@ export default function ChallengeStatus(props) {
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
@@ -269,15 +266,15 @@ export default function ChallengeStatus(props) {
         </span>
         <ProgressBarTooltip challenge={challenge}>
           {
-            status === 'ACTIVE' && statusPhase ? (
+            status === 'Active' && statusPhase ? (
               <div>
                 <ChallengeProgressBar
                   color="green"
                   value={getPhaseProgress(statusPhase)}
-                  isLate={moment().isAfter(statusPhase.scheduledEndTime)}
+                  isLate={moment().isAfter(statusPhase.scheduledEndDate)}
                 />
                 <div styleName="time-left">
-                  {getTimeLeft(statusPhase).text}
+                  {getTimeLeft(statusPhase, 'to go').text}
                 </div>
               </div>
             ) : <ChallengeProgressBar color="gray" value="100" />
@@ -289,7 +286,7 @@ export default function ChallengeStatus(props) {
   }
 
   const { challenge, className } = props;
-  const completed = challenge.status === 'COMPLETED';
+  const completed = challenge.status === 'Completed';
   const status = completed ? 'completed' : '';
   return (
     <div className={className} styleName={`challenge-status ${status}`}>
@@ -302,8 +299,8 @@ ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
   openChallengesInNewTabs: false,
-  userHandle: '',
   className: '',
+  userId: '',
 };
 
 ChallengeStatus.propTypes = {
@@ -313,6 +310,7 @@ ChallengeStatus.propTypes = {
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
-  userHandle: PT.string,
   className: PT.string,
+  userId: PT.string,
+  isLoggedIn: PT.bool.isRequired,
 };

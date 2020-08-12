@@ -27,7 +27,7 @@ export default function SubmissionsTable(props) {
   const {
     submissionObjects,
     showDetails,
-    type,
+    track,
     onDelete,
     onlineReviewUrl,
     helpPageUrl,
@@ -56,8 +56,8 @@ export default function SubmissionsTable(props) {
       const submission = (
         <Submission
           submissionObject={subObject}
-          showScreeningDetails={showDetails[subObject.submissionId]}
-          type={type}
+          showScreeningDetails={showDetails[subObject.id]}
+          track={track}
           onShowDetails={onShowDetails}
           onDelete={onDelete}
           onDownload={onDownload}
@@ -69,15 +69,15 @@ export default function SubmissionsTable(props) {
       submissionsWithDetails.push(submission);
 
       const submissionDetail = (
-        <tr key={subObject.submissionId} styleName="submission-row">
-          {showDetails[subObject.submissionId]
+        <tr key={subObject.id} styleName="submission-row">
+          {showDetails[subObject.id]
             && (
             <td colSpan="6" styleName="dev-details">
               <ScreeningDetails
                 screeningObject={subObject.screening}
                 helpPageUrl={helpPageUrl}
                 onlineReviewUrl={onlineReviewUrl}
-                submissionId={subObject.submissionId}
+                submissionId={subObject.id}
               />
             </td>
             )}
@@ -101,7 +101,7 @@ export default function SubmissionsTable(props) {
             <th>
               Submission Date
             </th>
-            {type === 'DESIGN' && (
+            {track === 'Design' && (
             <th styleName="status">
               Screening Status
             </th>
@@ -126,7 +126,7 @@ const SubShape = PT.shape({
     status: PT.string,
   }),
   submitted: PT.string,
-  type: PT.string,
+  track: PT.string,
 });
 
 SubmissionsTable.defaultProps = {
@@ -141,7 +141,7 @@ SubmissionsTable.defaultProps = {
 SubmissionsTable.propTypes = {
   submissionObjects: PT.arrayOf(SubShape),
   showDetails: PT.shape().isRequired,
-  type: PT.string.isRequired,
+  track: PT.string.isRequired,
   onDelete: PT.func,
   onlineReviewUrl: PT.string,
   helpPageUrl: PT.string,

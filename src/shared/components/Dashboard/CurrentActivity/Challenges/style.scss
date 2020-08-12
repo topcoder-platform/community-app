@@ -21,26 +21,6 @@
   }
 }
 
-.link {
-  @include tc-body-md;
-
-  &,
-  &:active,
-  &:focus,
-  &:visited {
-    color: $tc-dark-blue-110;
-  }
-
-  &:hover {
-    color: $tc-dark-blue-70;
-  }
-}
-
-.linksContainer {
-  padding: 30px 20px 0;
-  text-align: center;
-}
-
 .loading {
   margin: 40px 20px 30px;
 }

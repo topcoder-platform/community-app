@@ -7,12 +7,14 @@ import styles from './style.scss';
 
 export default function RecommendedActiveChallenges({
   challenges,
+  challengeTypes,
   challengesUrl,
   selectChallengeDetailsTab,
   prizeMode,
   auth,
   expandedTags,
   expandTag,
+  isLoggedIn,
 }) {
   const items = _.map(challenges, (c, idx) => (
     <ChallengesCard
@@ -23,8 +25,10 @@ export default function RecommendedActiveChallenges({
       prizeMode={prizeMode}
       userHandle={_.get(auth, 'user.handle')}
       challenge={c}
+      challengeType={_.find(challengeTypes, { name: c.type })}
       expandedTags={expandedTags}
       expandTag={expandTag}
+      isLoggedIn={isLoggedIn}
     />
   ));
 
@@ -50,10 +54,12 @@ RecommendedActiveChallenges.defaultProps = {
   prizeMode: 'money-usd',
   expandedTags: [],
   expandTag: null,
+  challengeTypes: [],
 };
 
 RecommendedActiveChallenges.propTypes = {
   challenges: PT.arrayOf(PT.object),
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   prizeMode: PT.string,
@@ -65,4 +71,5 @@ RecommendedActiveChallenges.propTypes = {
   }).isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };

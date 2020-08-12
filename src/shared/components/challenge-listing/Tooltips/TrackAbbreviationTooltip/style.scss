@@ -14,16 +14,20 @@ $track-radius-4: $corner-radius * 2;
     font-weight: 700;
     padding-left: $base-unit * 2;
 
-    &.blue {
+    &.design {
       border-left: $track-radius-4 solid $tc-light-blue;
     }
 
-    &.green {
+    &.development {
       border-left: $track-radius-4 solid $tc-green;
     }
 
-    &.orange {
+    &.data-science {
       border-left: $track-radius-4 solid $tc-orange;
+    }
+
+    &.quality-assurance {
+      border-left: $track-radius-4 solid $tc-purple-120;
     }
   }
 

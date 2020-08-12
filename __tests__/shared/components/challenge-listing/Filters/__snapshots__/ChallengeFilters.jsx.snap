@@ -73,7 +73,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
         "",
       ]
     }
-    validSubtracks={
+    validTypes={
       Array [
         "",
       ]
@@ -85,9 +85,11 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     devEnabled={true}
     onClose={[Function]}
     opened={true}
+    qaEnabled={true}
     switchDataScience={[Function]}
     switchDesign={[Function]}
     switchDev={[Function]}
+    switchQA={[Function]}
   />
 </div>
 `;
@@ -159,6 +161,23 @@ exports[`Matches shallow shapshot shapshot 2`] = `
           themePriority="adhoc-context-default"
         />
       </span>
+      <span
+        aria-checked={false}
+        aria-label="QA toggle button pressed Off"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
+      >
+        <ThemedSwitchWithLabel
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
+          enabled={false}
+          labelAfter=""
+          labelBefore="QA"
+          mapThemrProps={[Function]}
+          onSwitch={[Function]}
+          themePriority="adhoc-context-default"
+        />
+      </span>
     </span>
     <span
       className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__pulled-right___bfsMZ"
@@ -216,14 +235,14 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       Object {
         "endDate": "2019-12-31T23:00:00.000Z",
         "startDate": "2019-12-31T23:00:00.000Z",
-        "subtracks": Array [
-          "CODE",
-        ],
         "tags": Array [
           "abc",
         ],
         "tracks": Array [
           "tracks",
+        ],
+        "types": Array [
+          "927abff4-7af9-4145-8ba1-577c16e64e2e",
         ],
       }
     }
@@ -242,7 +261,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         "",
       ]
     }
-    validSubtracks={
+    validTypes={
       Array [
         "",
       ]
@@ -254,9 +273,11 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     devEnabled={false}
     onClose={[Function]}
     opened={true}
+    qaEnabled={false}
     switchDataScience={[Function]}
     switchDesign={[Function]}
     switchDev={[Function]}
+    switchQA={[Function]}
   />
 </div>
 `;

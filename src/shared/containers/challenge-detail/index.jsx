@@ -8,6 +8,7 @@
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
+import { isMM as checkIsMM } from 'utils/challenge';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
@@ -37,7 +38,7 @@ import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 import {
   getDisplayRecommendedChallenges,
-  getRecommendedTechnology,
+  getRecommendedTags,
 } from 'utils/challenge-detail/helper';
 
 import ogWireframe from
@@ -78,17 +79,20 @@ const DAY = 24 * 60 * MIN;
  * @return {String}
  */
 function getOgImage(challenge) {
+  const { legacy } = challenge;
+  const { track, subTrack } = legacy;
   if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
   if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
   if (challenge.prizes) {
     const totalPrize = challenge.prizes.reduce((p, sum) => p + sum, 0);
     if (totalPrize > 2500) return ogBigPrizesChallenge;
   }
-  switch (challenge.subTrack) {
+
+  switch (subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
     case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
-      const submission = challenge.allPhases
-        .find(p => p.phaseType === CHALLENGE_PHASE_TYPES.SUBMISSION);
+      const submission = (challenge.phases || [])
+        .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
       if (submission) {
         if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
         if (submission.duration < 2.1 * DAY) return og48hUiPrototype;
@@ -98,21 +102,11 @@ function getOgImage(challenge) {
     case SUBTRACKS.WIREFRAMES: return ogWireframe;
     default:
   }
-  switch (challenge.track) {
+  switch (track) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
     case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
     default: return ogImage;
   }
-}
-
-function isRegistered(details, registrants, handle) {
-  if (details && details.roles && details.roles.includes('Submitter')) {
-    return true;
-  }
-  if (_.find(registrants, r => _.toString(r.handle) === _.toString(handle))) {
-    return true;
-  }
-  return false;
 }
 
 // The container component
@@ -153,8 +147,8 @@ class ChallengeDetailPageContainer extends React.Component {
       getCommunitiesList,
       loadChallengeDetails,
       challengeId,
-      challengeSubtracksMap,
-      getSubtracks,
+      challengeTypesMap,
+      getTypes,
       allCountries,
       reviewTypes,
       getAllCountries,
@@ -193,8 +187,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
     getCommunitiesList(auth);
 
-    if (_.isEmpty(challengeSubtracksMap)) {
-      getSubtracks();
+    if (_.isEmpty(challengeTypesMap)) {
+      getTypes();
     }
 
     if (!reviewTypes.length) {
@@ -211,9 +205,15 @@ class ChallengeDetailPageContainer extends React.Component {
       auth,
       challenge,
       loadingRecommendedChallengesUUID,
+      history,
     } = this.props;
 
-    const recommendedTechnology = getRecommendedTechnology(challenge);
+    if (challenge.isLegacyChallenge && !history.location.pathname.includes(challenge.id)) {
+      history.location.pathname = `/challenges/${challenge.id}`; // eslint-disable-line no-param-reassign
+      history.push(history.location.pathname, history.state);
+    }
+
+    const recommendedTechnology = getRecommendedTags(challenge);
     if (
       challenge
       && challenge.id === challengeId
@@ -229,24 +229,24 @@ class ChallengeDetailPageContainer extends React.Component {
       getAllRecommendedChallenges(auth.tokenV3, recommendedTechnology);
     }
 
-
-    const {
-      thriveArticles,
-    } = this.state;
+    const { thriveArticles } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
+
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.auth);
       reloadChallengeDetails(nextProps.auth, challengeId);
     }
-    if (nextProps.challenge.track && nextProps.challenge.track.toLowerCase() !== 'design'
-      && thriveArticles.length === 0) {
-      const { technologies } = nextProps.challenge;
-      if (technologies.length > 0 && !(technologies.length === 1 && technologies[0] === 'Other')) {
-        // for technologies = ['Other', ...], if 'Other' is first, use second value
+
+    const { legacy } = nextProps.challenge;
+    const track = legacy ? legacy.track : nextProps.challenge.track;
+    if (track && track.toLowerCase() !== 'design' && thriveArticles.length === 0) {
+      // filter all tags with value 'Other'
+      const tags = _.filter(nextProps.challenge.tags, tag => tag !== 'Other');
+      if (tags.length > 0) {
         this.apiService.getEDUContent({
           limit: 3,
-          phrase: technologies[0] === 'Other' ? technologies[1] : technologies[0],
+          phrase: tags[0],
           types: ['Article'],
         }).then((content) => {
         // format image file data
@@ -294,8 +294,9 @@ class ChallengeDetailPageContainer extends React.Component {
     const {
       auth,
       challenge,
+      challengeTypes,
       challengeId,
-      challengeSubtracksMap,
+      challengeTypesMap,
       challengesUrl,
       checkpointResults,
       checkpointResultsUi,
@@ -350,11 +351,18 @@ class ChallengeDetailPageContainer extends React.Component {
     } = this.state;
 
     const {
+      legacy,
+      legacyId,
       status,
-      allPhases,
+      phases,
+      metadata,
     } = challenge;
 
-    const isMM = challenge.subTrack && challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const { track } = legacy || {};
+
+    const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
+
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
@@ -364,7 +372,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
     const title = challenge.name;
 
-    let description = challenge.introduction || challenge.detailedRequirements;
+    let description = challenge.description || challenge.detailedRequirements;
     description = description ? description.slice(0, 256) : '';
     description = htmlToText.fromString(description, {
       singleNewLineParagraphs: true,
@@ -376,13 +384,8 @@ class ChallengeDetailPageContainer extends React.Component {
       ? results : null;
 
     const isEmpty = _.isEmpty(challenge);
-    const isLegacyMM = challenge.subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
-
-    const hasRegistered = isRegistered(
-      challenge.userDetails,
-      challenge.registrants,
-      (auth.user || {}).handle,
-    );
+    const isMM = checkIsMM(challenge);
+    const isLegacyMM = isMM && Boolean(challenge.roundId);
 
     if (isLoadingChallenge || isLoadingTerms) {
       return <LoadingPagePlaceholder />;
@@ -398,15 +401,15 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
 
-    const phases = {};
-    if (allPhases) {
-      allPhases.forEach((phase) => {
-        phases[_.camelCase(phase.phaseType)] = phase;
-      });
-    }
     const submissionEnded = status === 'COMPLETED'
-      || (_.get(phases, 'submission.phaseStatus') !== 'Open'
-        && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
+    || (!_.some(phases, { name: 'Submission', isOpen: true })
+      && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
+
+    const { prizeSets } = challenge;
+    let challengePrizes = [];
+    if (prizeSets && prizeSets[0] && prizeSets[0].type === 'placement') {
+      challengePrizes = prizeSets[0].prizes;
+    }
 
     return (
       <div styleName="outer-container">
@@ -436,8 +439,10 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty
             && (
             <ChallengeHeader
+              isLoggedIn={isLoggedIn}
               challenge={challenge}
               challengeId={challengeId}
+              challengeTypes={challengeTypes}
               challengesUrl={challengesUrl}
               numWinners={isLegacyMM ? 0 : winners.length}
               showDeadlineDetail={showDeadlineDetail}
@@ -453,12 +458,12 @@ class ChallengeDetailPageContainer extends React.Component {
               }
               unregistering={unregistering}
               checkpoints={checkpoints}
-              hasRegistered={hasRegistered}
+              hasRegistered={challenge.isRegistered}
               hasFirstPlacement={hasFirstPlacement}
-              challengeSubtracksMap={challengeSubtracksMap}
+              challengeTypesMap={challengeTypesMap}
               isMenuOpened={isMenuOpened}
               submissionEnded={submissionEnded}
-              mySubmissions={hasRegistered ? mySubmissions : []}
+              mySubmissions={challenge.isRegistered ? mySubmissions : []}
             />
             )
           }
@@ -469,10 +474,10 @@ class ChallengeDetailPageContainer extends React.Component {
                 challenge={challenge}
                 challengesUrl={challengesUrl}
                 communitiesList={communitiesList.data}
-                introduction={challenge.introduction}
-                detailedRequirements={challenge.detailedRequirements}
+                description={challenge.name}
+                detailedRequirements={challenge.description}
                 terms={terms}
-                hasRegistered={hasRegistered}
+                hasRegistered={challenge.isRegistered}
                 savingChallenge={savingChallenge}
                 setSpecsTabState={setSpecsTabState}
                 specsTabState={specsTabState}
@@ -513,7 +518,7 @@ class ChallengeDetailPageContainer extends React.Component {
             )
           }
           {
-            !isEmpty && selectedTab === DETAIL_TABS.SUBMISSIONS
+            !isEmpty && isLoggedIn && selectedTab === DETAIL_TABS.SUBMISSIONS
             && (
               <Submissions
                 challenge={challenge}
@@ -532,7 +537,7 @@ class ChallengeDetailPageContainer extends React.Component {
                   this.setState({ notFoundCountryFlagUrl });
                 }}
                 onSortChange={sort => this.setState({ submissionsSort: sort })}
-                hasRegistered={hasRegistered}
+                hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 isLegacyMM={isLegacyMM}
                 submissionEnded={submissionEnded}
@@ -546,14 +551,15 @@ class ChallengeDetailPageContainer extends React.Component {
               <MySubmissions
                 challengesUrl={challengesUrl}
                 challenge={challenge}
-                hasRegistered={hasRegistered}
+                hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 submissionEnded={submissionEnded}
-                isLegacyMM={isLegacyMM}
+                isMM
+                isLegacyMM
                 loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                 auth={auth}
                 loadMMSubmissions={loadMMSubmissions}
-                mySubmissions={hasRegistered ? mySubmissions : []}
+                mySubmissions={challenge.isRegistered ? mySubmissions : []}
                 reviewTypes={reviewTypes}
                 submissionsSort={mySubmissionsSort}
                 onSortChange={sort => this.setState({ mySubmissionsSort: sort })}
@@ -565,34 +571,37 @@ class ChallengeDetailPageContainer extends React.Component {
             && (
               <Winners
                 winners={winners}
-                pointPrizes={challenge.pointPrizes}
-                prizes={challenge.prizes}
+                prizes={challengePrizes}
+                viewable={submissionsViewable ? submissionsViewable.value === 'true' : false}
                 submissions={challenge.submissions}
-                viewable={challenge.submissionsViewable === 'true'}
-                isDesign={challenge.track.toLowerCase() === 'design'}
+                isDesign={track.toLowerCase() === 'design'}
               />
             )
           }
         </div>
-        <Terms
-          defaultTitle="Challenge Prerequisites"
-          entity={{ type: 'challenge', id: challengeId.toString() }}
-          instanceId={this.instanceId}
-          description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
-          register={() => {
-            registerForChallenge(auth, challengeId);
-          }}
-        />
+        {legacyId && (
+          <Terms
+            defaultTitle="Challenge Prerequisites"
+            entity={{ type: 'challenge', id: challengeId.toString(), terms: challenge.terms }}
+            instanceId={this.instanceId}
+            description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
+            register={() => {
+              registerForChallenge(auth, challengeId);
+            }}
+          />
+        )}
         {
         !isEmpty && displayRecommendedChallenges.length ? (
           <RecommendedActiveChallenges
             challenges={displayRecommendedChallenges}
+            challengeTypes={challengeTypes}
             prizeMode={prizeMode}
             challengesUrl={challengesUrl}
             selectChallengeDetailsTab={selectChallengeDetailsTab}
             auth={auth}
             expandedTags={expandedTags}
             expandTag={expandTag}
+            isLoggedIn={isLoggedIn}
           />
         ) : null
         }
@@ -609,6 +618,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
 ChallengeDetailPageContainer.defaultProps = {
   challengesUrl: '/challenges',
+  challengeTypes: [],
   checkpointResults: null,
   checkpoints: {},
   communityId: null,
@@ -631,8 +641,9 @@ ChallengeDetailPageContainer.defaultProps = {
 ChallengeDetailPageContainer.propTypes = {
   auth: PT.shape().isRequired,
   challenge: PT.shape().isRequired,
-  challengeId: PT.number.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypes: PT.arrayOf(PT.shape()),
+  challengeId: PT.string.isRequired,
+  challengeTypesMap: PT.shape().isRequired,
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpointResultsUi: PT.shape().isRequired,
@@ -645,7 +656,7 @@ ChallengeDetailPageContainer.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   getCommunitiesList: PT.func.isRequired,
-  getSubtracks: PT.func.isRequired,
+  getTypes: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
@@ -687,6 +698,7 @@ ChallengeDetailPageContainer.propTypes = {
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
   loadingRecommendedChallengesUUID: PT.string.isRequired,
+  history: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -705,30 +717,28 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { handle: submission.submitter }),
+        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
       }));
     }
 
-    if (mmSubmissions) {
+    if (!_.isEmpty(mmSubmissions)) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
         let { member } = submission;
         if (auth.user.handle === submission.member) {
           mySubmissions = submission.submissions || [];
-          mySubmissions = mySubmissions.map((mySubmission, index) => {
-            // eslint-disable-next-line no-param-reassign
-            mySubmission.id = mySubmissions.length - index;
-            return mySubmission;
+          mySubmissions.forEach((mySubmission, index) => {
+            mySubmissions[index].id = mySubmissions.length - index;
           });
         }
-        let submissionDetail = _.find(challenge.submissions, { submitter: submission.member });
+        let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
         if (!submissionDetail) {
           // get submission detail from submissions challenge detail
-          submissionDetail = _.find(challenge.submissions, s => (`${s.submitterId}` === `${submission.member}`));
+          submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
         }
 
         if (submissionDetail) {
-          member = submissionDetail.submitter;
+          member = submissionDetail.createdBy;
           ({ registrant } = submissionDetail);
         }
 
@@ -747,18 +757,20 @@ function mapStateToProps(state, props) {
           member,
         });
       });
+    } else {
+      mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
     }
   }
-
   return {
     auth: state.auth,
     challenge,
+    challengeTypes: cl.challengeTypes,
     recommendedChallenges: cl.recommendedChallenges,
     loadingRecommendedChallengesUUID: cl.loadingRecommendedChallengesUUID,
     expandedTags: cl.expandedTags,
-    challengeId: Number(props.match.params.challengeId),
+    challengeId: String(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
-    challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
+    challengeTypesMap: state.challengeListing.challengeTypesMap,
     checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
     checkpointResultsUi: state.page.challengeDetails.checkpoints,
     checkpoints: state.challenge.checkpoints || {},
@@ -828,12 +840,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.track === 'DESIGN') {
-            const p = ch.allPhases
-              .filter(x => x.phaseType === 'Checkpoint Review');
-            if (p.length && p[0].phaseStatus === 'Closed') {
+          if (ch.legacy.track === 'DESIGN') {
+            const p = ch.phases || []
+              .filter(x => x.name === 'Checkpoint Review');
+            if (p.length && !p[0].isOpen) {
               dispatch(a.fetchCheckpointsInit());
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, ch.legacyId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
           if (ch.status === 'COMPLETED') {
@@ -852,11 +864,11 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.track === 'DESIGN') {
-            const p = challengeDetails.allPhases
-              .filter(x => x.phaseType === 'Checkpoint Review');
-            if (p.length && p[0].phaseStatus === 'Closed') {
-              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          if (challengeDetails.legacy.track === 'DESIGN') {
+            const p = challengeDetails.phases || []
+              .filter(x => x.name === 'Checkpoint Review');
+            if (p.length && !p[0].isOpen) {
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeDetails.legacyId));
             }
           }
           return challengeDetails;
@@ -896,10 +908,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
-    getSubtracks: () => {
+    getTypes: () => {
       const cl = challengeListingActions.challengeListing;
-      dispatch(cl.getChallengeSubtracksInit());
-      dispatch(cl.getChallengeSubtracksDone());
+      dispatch(cl.getChallengeTypesInit());
+      dispatch(cl.getChallengeTypesDone());
     },
     openTermsModal: (term) => {
       dispatch(termsActions.terms.openTermsModal('ANY', term));

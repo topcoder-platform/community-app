@@ -3,11 +3,9 @@ import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
-import { config, Link } from 'topcoder-react-utils';
+import { Link } from 'topcoder-react-utils';
 import {
   getEndDate,
-  PRIZE_MODE,
-  getPrizePurseUI,
   getPrizePointsUI,
 } from 'utils/challenge-detail/helper';
 
@@ -17,7 +15,6 @@ import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
 
-
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
  * able to modify an argument: it aliases challenge prop, then mutates it in
  * the way it wants. Not good at all! If necessary, modification of challenge
@@ -25,51 +22,45 @@ import './style.scss';
 
 function ChallengeCard({
   challenge: passedInChallenge,
+  challengeType,
   challengesUrl,
   expandedTags,
   expandTag,
   newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
-  prizeMode,
   sampleWinnerProfile,
   selectChallengeDetailsTab,
-  userHandle,
+  userId,
   domRef,
+  isLoggedIn,
 }) {
   const challenge = passedInChallenge;
   const {
     id,
-    subTrack,
     track,
-    status,
   } = challenge;
 
-  challenge.isDataScience = false;
-  if (challenge.technologies.includes('Data Science') || subTrack === 'DEVELOP_MARATHON_MATCH') {
-    challenge.isDataScience = true;
-  }
   challenge.prize = challenge.prizes || [];
 
-  let challengeDetailLink = `${challengesUrl}/${id}`;
-  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
-    challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
-  }
+  const challengeDetailLink = `${challengesUrl}/${id}`;
 
-  const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
-  const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
+  const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
+  const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
 
   return (
     <div ref={domRef} styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
+          <TrackAbbreviationTooltip
+            track={track}
+            type={challengeType}
+          >
             <span>
               <TrackIcon
-                track={challenge.track}
-                subTrack={challenge.subTrack}
-                tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
-                isDataScience={challenge.isDataScience}
+                track={track}
+                type={challengeType}
+                tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].key : ''}
               />
             </span>
           </TrackAbbreviationTooltip>
@@ -85,22 +76,23 @@ function ChallengeCard({
           </Link>
           <div styleName="details-footer">
             <span styleName="date">
-              {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
+              {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge)}
             </span>
-            <Tags
-              technologies={challenge.technologies}
-              platforms={challenge.platforms}
-              onTechTagClicked={onTechTagClicked}
-              isExpanded={expandedTags.includes(challenge.id)}
-              expand={() => expandTag(challenge.id)}
-            />
+            { challenge.tags.length > 0
+              && (
+              <Tags
+                tags={challenge.tags}
+                onTechTagClicked={onTechTagClicked}
+                isExpanded={expandedTags.includes(challenge.id)}
+                expand={() => expandTag(challenge.id)}
+              />
+              ) }
           </div>
         </div>
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {getPrizePurseUI(challenge, prizeMode)}
           {getPrizePointsUI(challenge)}
         </div>
 
@@ -112,7 +104,8 @@ function ChallengeCard({
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
-          userHandle={userHandle}
+          userId={userId}
+          isLoggedIn={isLoggedIn}
         />
       </div>
     </div>
@@ -124,9 +117,8 @@ ChallengeCard.defaultProps = {
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
-  prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
-  userHandle: '',
+  userId: '',
   expandedTags: [],
   expandTag: null,
   domRef: null,
@@ -134,17 +126,18 @@ ChallengeCard.defaultProps = {
 
 ChallengeCard.propTypes = {
   challenge: PT.shape(),
+  challengeType: PT.shape().isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,
   openChallengesInNewTabs: PT.bool,
-  prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
-  userHandle: PT.string,
+  userId: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };
 
 export default ChallengeCard;

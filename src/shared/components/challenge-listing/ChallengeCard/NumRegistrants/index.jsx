@@ -17,7 +17,7 @@ import './style.scss';
 
 export default function NumRegistrants({
   challenge: {
-    id, numRegistrants, track,
+    id, numOfRegistrants, track,
   },
   challengesUrl,
   newChallengeDetails,
@@ -25,14 +25,15 @@ export default function NumRegistrants({
   openChallengesInNewTabs,
 }) {
   let tip;
-  switch (numRegistrants) {
+  const numOfReg = numOfRegistrants || 0;
+  switch (numOfReg) {
     case 0: tip = 'No registrants'; break;
     case 1: tip = '1 total registrant'; break;
-    default: tip = `${numRegistrants} total registrants`;
+    default: tip = `${numOfReg} total registrants`;
   }
-  const query = numRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
+  const query = numOfReg ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
+  if (!newChallengeDetails && track !== 'Data Science') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (
@@ -45,19 +46,19 @@ export default function NumRegistrants({
         )}
       >
         <Link
-          disabled={!numRegistrants}
+          disabled={!numOfReg}
           onClick={() => (
-            selectChallengeDetailsTab(numRegistrants
+            selectChallengeDetailsTab(numOfReg
               ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
           openNewTab={openChallengesInNewTabs}
-          aria-label={`Number of registrants ${numRegistrants}`}
+          aria-label={`Number of registrants ${numOfReg}`}
         >
           <RegistrantsIcon />
           <span styleName="number">
-            {numRegistrants}
+            {numOfReg}
           </span>
         </Link>
       </Tooltip>
@@ -72,7 +73,7 @@ NumRegistrants.defaultProps = {
 NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
-    numRegistrants: PT.number.isRequired,
+    numOfRegistrants: PT.number,
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
