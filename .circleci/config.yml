@@ -253,6 +253,8 @@ workflows:
             branches:
               only:
                 - integration-v5-challenge-api
+                - develop
+                - feature-contentful
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global

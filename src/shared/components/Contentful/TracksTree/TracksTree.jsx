@@ -6,7 +6,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import IconArrowUpBig from 'assets/images/tc-edu/icon-arrow-up-big.svg';
 import defaultTheme from './themes/default.scss';
@@ -57,7 +57,7 @@ export class TracksTreeInner extends Component {
     const selectedTrack = _.find(list, { id: expandedTrack });
     return (
       <div className={`${theme.container} ${isShowFullList ? theme['show-full-mobile'] : ''}`}>
-        <a href={`${config.TC_EDU_BASE_PATH}`} className={theme.homeLink}>THRIVE</a>
+        <Link to={`${config.TC_EDU_BASE_PATH}`} className={theme.homeLink}>THRIVE</Link>
         {!isShowFullList && selectedTrack && (
           <button
             className={`${theme['is-mobile']} ${theme['mobile-header']}`}
