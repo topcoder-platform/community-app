@@ -55,6 +55,9 @@ function ReviewOpportunityCard({
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
+        { /* START - DISABLED UNTIL REVIEW OPPORTUNITY RECEIVE UPDATE TO API V5 */
+        false
+        && (
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
             track={track}
@@ -69,6 +72,7 @@ function ReviewOpportunityCard({
             </span>
           </TrackAbbreviationTooltip>
         </div>
+        ) /* END - DISABLED UNTIL REVIEW OPPORTUNITY RECEIVE UPDATE TO API V5 */ }
         <div styleName="challenge-details">
           <Link
             to={`${challengesUrl}/${challenge.id}`}

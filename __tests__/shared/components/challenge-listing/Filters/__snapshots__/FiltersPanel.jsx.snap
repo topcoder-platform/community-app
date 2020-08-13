@@ -117,6 +117,7 @@ exports[`Matches shallow shapshot 1`] = `
           />
         </label>
         <Select
+          disabled={false}
           id="type-select"
           multi={true}
           onChange={[Function]}
@@ -312,6 +313,7 @@ exports[`Matches shallow shapshot 2`] = `
           />
         </label>
         <Select
+          disabled={false}
           id="type-select"
           multi={true}
           onChange={[Function]}

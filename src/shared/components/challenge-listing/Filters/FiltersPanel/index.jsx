@@ -266,8 +266,9 @@ export default function FiltersPanel({
               options={validTypes.map(mapTypes)}
               simpleValue
               value={
-                filterState.types ? filterState.types.join(',') : null
+                (filterState.types && !isReviewOpportunitiesBucket) ? filterState.types.join(',') : null
               }
+              disabled={isReviewOpportunitiesBucket}
             />
           </div>
           {/* Only shown when the Review Opportunity bucket is selected */}
