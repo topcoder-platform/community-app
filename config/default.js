@@ -247,6 +247,8 @@ module.exports = {
       AUTH0_URL: '',
       TOKEN_CACHE_TIME: '',
     },
+
+    RECRUITCRM_API_KEY: '',
   },
 
   AUTH_CONFIG: {
