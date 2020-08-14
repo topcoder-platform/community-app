@@ -14,6 +14,7 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 import FilestackFilePicker from '../FilestackFilePicker';
 
@@ -192,14 +193,14 @@ class Submit extends React.Component {
               </div>
               <div styleName="right">
                 <div styleName="submission-hints">
-                  { track === 'DEVELOP' ? (
+                  { track === COMPETITION_TRACKS.DEVELOP ? (
                     <div>
                       {isChallengeBelongToTopgearGroup
                         ? (<p>Enter the URL to your submission.</p>)
                         : (<p>Upload your entire submission as a single zip file.</p>)}
                     </div>
                   ) : null }
-                  { track === 'DESIGN' ? (
+                  { track === COMPETITION_TRACKS.DESIGN ? (
                     <div>
                       <ol>
                         <li>Place your submission files into a &quot;Submission.zip&quot; file.</li>

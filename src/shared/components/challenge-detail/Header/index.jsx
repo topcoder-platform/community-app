@@ -14,6 +14,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
 
@@ -385,7 +386,7 @@ export default function ChallengeHeader(props) {
                 Submit
               </PrimaryButton>
               {
-                track === 'DESIGN' && hasRegistered && !unregistering
+                track === COMPETITION_TRACKS.DESIGN && hasRegistered && !unregistering
                 && hasSubmissions && (
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}
