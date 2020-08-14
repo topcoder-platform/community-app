@@ -32,7 +32,12 @@ import { connect } from 'react-redux';
 import challengeDetailsActions, { TABS as DETAIL_TABS }
   from 'actions/page/challenge-details';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
+import {
+  CHALLENGE_PHASE_TYPES,
+  COMPETITION_TRACKS,
+  COMPETITION_TRACKS_V3,
+  SUBTRACKS,
+} from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
@@ -840,7 +845,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.legacy.track === 'DESIGN') {
+          if (ch.legacy.track === COMPETITION_TRACKS.DESIGN) {
             const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -864,7 +869,7 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.legacy.track === 'DESIGN') {
+          if (challengeDetails.legacy.track === COMPETITION_TRACKS.DESIGN) {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
