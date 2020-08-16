@@ -243,9 +243,8 @@ class ChallengeDetailPageContainer extends React.Component {
       reloadChallengeDetails(nextProps.auth, challengeId);
     }
 
-    const { legacy } = nextProps.challenge;
-    const track = legacy ? legacy.track : nextProps.challenge.track;
-    if (track && track.toLowerCase() !== 'design' && thriveArticles.length === 0) {
+    const { track } = nextProps.challenge;
+    if (track === COMPETITION_TRACKS.DESIGN && thriveArticles.length === 0) {
       // filter all tags with value 'Other'
       const tags = _.filter(nextProps.challenge.tags, tag => tag !== 'Other');
       if (tags.length > 0) {
@@ -845,7 +844,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.legacy.track === COMPETITION_TRACKS.DESIGN) {
+          if (ch.track === COMPETITION_TRACKS.DESIGN) {
             const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -869,7 +868,7 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.legacy.track === COMPETITION_TRACKS.DESIGN) {
+          if (challengeDetails.track === COMPETITION_TRACKS.DESIGN) {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {

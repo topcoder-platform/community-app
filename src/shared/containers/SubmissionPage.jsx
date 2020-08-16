@@ -174,7 +174,7 @@ const mapStateToProps = (state, ownProps) => {
     challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
-    track: details.legacy ? details.legacy.track : '',
+    track: details.track,
     challenge: state.challenge,
     status: details.status,
     isRegistered: details.isRegistered,
