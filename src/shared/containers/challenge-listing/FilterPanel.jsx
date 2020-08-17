@@ -45,7 +45,7 @@ export class Container extends React.Component {
       getKeywords,
       getTypes,
       loadingKeywords,
-      loadingSubtracks,
+      loadingTypes,
       setFilterState,
       filterState,
       communityList,
@@ -57,7 +57,7 @@ export class Container extends React.Component {
     && (Date.now() - communityList.timestamp > 5 * MIN)) {
       getCommunityList(auth);
     }
-    if (!loadingSubtracks) getTypes();
+    if (!loadingTypes) getTypes();
     if (!loadingKeywords) getKeywords();
 
 
@@ -154,7 +154,7 @@ Container.propTypes = {
   isSavingFilter: PT.bool,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,
-  loadingSubtracks: PT.bool.isRequired,
+  loadingTypes: PT.bool.isRequired,
   saveFilter: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
@@ -203,9 +203,9 @@ function mapStateToProps(state, ownProps) {
     defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,
-    loadingSubtracks: cl.loadingChallengeTypes,
+    loadingTypes: cl.loadingChallengeTypes,
     validKeywords: cl.challengeTags,
-    validSubtracks: cl.challengeSubtracks,
+    validTypes: cl.challengeTypes,
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,

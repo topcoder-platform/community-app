@@ -47,6 +47,7 @@ export default function Bucket({
   expandTag,
   activeBucket,
   searchTimestamp,
+  isLoggedIn,
 }) {
   const refs = useRef([]);
   refs.current = [];
@@ -98,21 +99,22 @@ export default function Bucket({
     );
   }
 
-  const cards = filteredChallenges.map(item => (
+  const cards = filteredChallenges.map(challenge => (
     <ChallengeCard
-      challenge={item}
-      challengeTypes={challengeTypes}
+      challenge={challenge}
+      challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
-      key={item.id}
+      key={challenge.id}
       selectChallengeDetailsTab={selectChallengeDetailsTab}
       userId={userId}
       expandedTags={expandedTags}
       expandTag={expandTag}
       domRef={addToRefs}
+      isLoggedIn={isLoggedIn}
     />
   ));
 
@@ -219,4 +221,5 @@ Bucket.propTypes = {
   expandTag: PT.func,
   activeBucket: PT.string,
   searchTimestamp: PT.number,
+  isLoggedIn: PT.bool.isRequired,
 };

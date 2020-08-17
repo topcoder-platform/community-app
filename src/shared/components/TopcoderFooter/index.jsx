@@ -44,8 +44,9 @@ export default function TopcoderFooter() {
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
               <Link to={`${base}/challenges`}>All Challenges</Link>
-              <Link to="https://arena.topcoder.com/">Competitive Programming</Link>
+              <Link to={`${base}/community/arena`}>Competitive Programming</Link>
               <Link to={`${base}/community/taas`}>Gig Work</Link>
+              <Link to={`${base}/community/practice`}>Practice</Link>
             </ul>
           </div>
           <div styleName="navi-col">
@@ -63,11 +64,13 @@ export default function TopcoderFooter() {
             <h4 styleName="navi-col-title">COMMUNITY</h4>
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
-              <Link to={`${base}/community/member-programs/topcoder-open`}>TCO</Link>
-              <Link to={`${base}/community/member-programs`}>Programs</Link>
-              <Link to="https://apps.topcoder.com/forums">Forums</Link>
-              <Link to={`${base}/community/statistics`}>Statistics</Link>
               <Link to={`${base}/blog`}>Blog</Link>
+              <Link to={`${base}/community/pipeline`}>Challenge Pipeline</Link>
+              <Link to={`${base}/community/events`}>Events Calendar</Link>
+              <Link to="https://apps.topcoder.com/forums">Forums</Link>
+              <Link to={`${base}/community/member-programs`}>Programs</Link>
+              <Link to={`${base}/community/statistics`}>Statistics</Link>
+              <Link to={`${base}/community/member-programs/topcoder-open`}>TCO</Link>
               <Link to={`${base}/thrive`}>Thrive</Link>
             </ul>
           </div>
@@ -129,7 +132,7 @@ export default function TopcoderFooter() {
         <div styleName="bottom">
           <span styleName="copyright-notice">
             {`© ${currentYear} Topcoder`}
-            <a href="https://www.topcoder.com/privacy-policy/" styleName="link">Policies</a>
+            <a href={`${base}/policy`} styleName="link">Policies</a>
           </span>
         </div>
       </div>

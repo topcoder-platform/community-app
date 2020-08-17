@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
   Component renders challenge details and specifications
 */
@@ -37,22 +38,26 @@ export default function ChallengeDetailsView(props) {
   } = props;
 
   const {
-    forumId,
     groups,
     description,
     privateDescription,
     descriptionFormat,
     legacy,
+    legacyId,
     documents,
     finalSubmissionGuidelines,
     userDetails,
     metadata,
     events,
+    track,
   } = challenge;
 
-  const tags = challenge.tags || [];
   const roles = (userDetails || {}).roles || [];
-  const { track, reviewScorecardId, screeningScorecardId } = legacy;
+  const {
+    reviewScorecardId,
+    screeningScorecardId,
+    forumId,
+  } = legacy;
 
   const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
   let environment = '';
@@ -78,10 +83,19 @@ export default function ChallengeDetailsView(props) {
     isWipro = wiproCommunity.groupIds.some(id => groups[id]);
   }
 
-  const isDataScience = tags.includes('Data Science');
-  let accentedStyle = 'challenge-specs-design';
-  if (track.toLowerCase() === 'develop') {
-    accentedStyle = isDataScience ? 'challenge-specs-datasci' : 'challenge-specs-develop';
+  let accentedStyle = '';
+  switch (track.toLowerCase()) {
+    case 'design':
+      accentedStyle = 'challenge-specs-design';
+      break;
+
+    case 'data science':
+      accentedStyle = 'challenge-specs-datasci';
+      break;
+
+    default:
+      accentedStyle = 'challenge-specs-develop';
+      break;
   }
 
   const canEdit = roles.some(x => x === 'Copilot' || x === 'Manager');
@@ -214,6 +228,9 @@ export default function ChallengeDetailsView(props) {
                       description
                       && (
                       <article>
+                        <h2 styleName="h2">
+                          Challenge Summary
+                        </h2>
                         {
                           editMode ? (
                             <Editor
@@ -229,6 +246,15 @@ export default function ChallengeDetailsView(props) {
                             />
                           )
                         }
+                        <p styleName="p" />
+                        <p styleName="p note">
+                          Please read the challenge specification carefully and
+                          watch the forums for any questions or feedback
+                          concerning this challenge. It is important that you
+                          monitor any updates provided by the client or Studio
+                          Admins in the forums. Please post any questions you
+                          might have for the client in the forums.
+                        </p>
                       </article>
                       )
                     }
@@ -329,50 +355,31 @@ export default function ChallengeDetailsView(props) {
                   </div>
                 ) : (
                   <p styleName="p">
-                    Topcoder will compensate members in accordance with our
-                    standard payment policies, unless otherwise specified in this
-                    challenge. For information on payment policies, setting up your
-                    profile to receive payments, and general payment questions,
-                    please refer to
+                    Topcoder will compensate members in accordance with our standard payment policies, unless
+                    otherwise specified in this challenge. For information on payment policies, setting up your profile to
+                    receive payments, and general payment questions, please refer to
                     &zwnj;
                     <a
                       href="https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions
-                    </a>
+                      Payment Policies and Instructions
+                    </a>.
                   </p>
                 )
               }
-            </article>
-            <article>
-              <h2 styleName="h2">
-                Reliability Rating and Bonus
-              </h2>
-              <p styleName="p">
-                For challenges that have a reliability bonus, the bonus depends
-                on the reliability rating at the moment of registration for that
-                project. A participant with no previous projects is considered to
-                have no reliability rating, and therefore gets no bonus.
-                Reliability bonus does not apply to Digital Run winnings. Since
-                reliability rating is based on the past 15 projects, it can only
-                have 15 discrete values.
-                <br />
-                <a href={config.URL.INFO.RELIABILITY_RATINGS_AND_BONUSES}>
-                  Read more.
-                </a>
-              </p>
             </article>
           </div>
         </div>
         <SideBar
           challengesUrl={challengesUrl}
+          legacyId={legacyId}
           forumLink={forumLink}
           documents={documents}
           hasRegistered={hasRegistered}
           isDesign={track.toLowerCase() === 'design'}
-          isDevelop={track.toLowerCase() === 'develop'}
+          isDevelop={track.toLowerCase() === 'development'}
           eventDetail={_.isEmpty(events) ? null : events[0]}
           isMM={isMM(challenge)}
           terms={terms}
@@ -395,7 +402,6 @@ ChallengeDetailsView.defaultProps = {
     privateDescription: undefined,
     track: 'design',
     reviewType: undefined,
-    tags: [],
     numberOfCheckpointsPrizes: 0,
     finalSubmissionGuidelines: '',
     environment: '',
@@ -416,17 +422,16 @@ ChallengeDetailsView.propTypes = {
     descriptionFormat: PT.string,
     documents: PT.any,
     id: PT.any,
-    subTrack: PT.any,
     privateDescription: PT.string,
     legacy: PT.shape({
-      track: PT.string.isRequired,
       reviewScorecardId: PT.string,
       screeningScorecardId: PT.string,
+      forumId: PT.number,
     }),
+    track: PT.string.isRequired,
+    legacyId: PT.string,
     groups: PT.any,
-    forumId: PT.number,
     reviewType: PT.string,
-    tags: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
     finalSubmissionGuidelines: PT.string,
     environment: PT.string,

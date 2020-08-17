@@ -7,8 +7,8 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import FAQ from 'components/TrackHomePages/HowToCompetePage/FAQ';
 import { fixStyle } from 'utils/contentful';
+import DropdownItem from './DropdownItem';
 
 import defaultTheme from './default.scss';
 
@@ -27,7 +27,15 @@ function DropdownItemsLoader(props) {
       spaceName={spaceName}
       environment={environment}
       render={data => (
-        <FAQ data={{ AQs: _.map(data.entries.items, item => item) }} hashLink="" />
+        _.map(data.entries.items, item => (
+          <DropdownItem
+            data={item}
+            preview={preview}
+            spaceName={spaceName}
+            environment={environment}
+            key={item.sys.id}
+          />
+        ))
       )}
       renderPlaceholder={LoadingIndicator}
     />

@@ -16,6 +16,7 @@ import styles from './styles.scss';
 
 export default function SideBar({
   challengesUrl,
+  legacyId,
   documents,
   eventDetail,
   shareable,
@@ -36,7 +37,7 @@ export default function SideBar({
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
   const submissionLimit = _.find(metadata, { type: 'submissionLimit' });
-  const fileTypes = _.find(metadata, { type: 'fileTypes' });
+  const fileTypes = _.find(metadata, { name: 'fileTypes' });
 
   if (submissionLimit) {
     if (submissionLimit.value === 1) {
@@ -278,7 +279,7 @@ export default function SideBar({
                 <ul styleName="source-files-list">
                   {
                     fileTypes.value && fileTypes.value.length > 0
-                      ? fileTypes.value.map(fileT => (
+                      ? JSON.parse(fileTypes.value).map(fileT => (
                         <li key={fileT}>
                           {fileT}
                         </li>
@@ -317,9 +318,9 @@ export default function SideBar({
             <div styleName="link-like-paragraph">
               {
                 terms.map(t => (
-                  <div styleName="term" key={t.termsOfUseId}>
+                  <div styleName="term" key={t.id}>
                     <Link
-                      to={`${challengesUrl}/terms/detail/${t.termsOfUseId}`}
+                      to={`${challengesUrl}/terms/detail/${t.id}`}
                     >
                       {t.title}
                     </Link>
@@ -336,6 +337,11 @@ export default function SideBar({
               SHARE:
             </h2>
             <ShareSocial />
+          </div>
+        )}
+        { legacyId && (
+          <div styleName="legacy-challenge-id">
+            <h3>ID: {legacyId}</h3>
           </div>
         )}
       </div>
@@ -357,10 +363,12 @@ SideBar.defaultProps = {
   metadata: {},
   reviewScorecardId: '',
   screeningScorecardId: '',
+  legacyId: '',
 };
 
 SideBar.propTypes = {
   challengesUrl: PT.string.isRequired,
+  legacyId: PT.string,
   eventDetail: PT.shape({
     eventName: PT.string.isRequired,
     description: PT.string.isRequired,

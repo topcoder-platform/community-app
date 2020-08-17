@@ -18,10 +18,6 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
           "eventName": "Submit",
         },
       ],
-      "isDataScience": true,
-      "legacy": Object {
-        "track": "DEVELOP",
-      },
       "prize": Array [
         1200,
         600,
@@ -31,7 +27,6 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         600,
       ],
       "status": "ACTIVE",
-      "subTrack": "CODE",
       "tags": Array [
         "Data Science",
       ],
@@ -39,10 +34,17 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         "Data Science",
       ],
       "totalPrize": 1800,
+      "track": "Data Science",
+      "type": "Challenge",
       "users": Object {},
     }
   }
-  challengeTypes={Array []}
+  challengeType={
+    Object {
+      "abbreviation": "CH",
+      "name": "Challenge",
+    }
+  }
   domRef={null}
   expandTag={null}
   expandedTags={Array []}
@@ -68,14 +70,10 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       ],
       "events": Array [],
       "id": "1",
-      "legacy": Object {
-        "track": "DATA_SCIENCE",
-      },
       "prizes": Array [
         1200,
         600,
       ],
-      "subTrack": "CODE",
       "tags": Array [
         "Go",
       ],
@@ -83,10 +81,17 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
         "Go",
       ],
       "totalPrize": 1800,
+      "track": "Data Science",
+      "type": "Challenge",
       "users": Object {},
     }
   }
-  challengeTypes={Array []}
+  challengeType={
+    Object {
+      "abbreviation": "CH",
+      "name": "Challenge",
+    }
+  }
   domRef={null}
   expandTag={null}
   expandedTags={Array []}
@@ -112,21 +117,24 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       ],
       "events": Array [],
       "id": "long id",
-      "legacy": Object {
-        "track": "DATA_SCIENCE",
-      },
       "prizes": Array [
         1200,
         600,
       ],
-      "subTrack": "CODE",
       "tags": Array [],
       "technologies": Array [],
       "totalPrize": 1800,
+      "track": "Data Science",
+      "type": "Challenge",
       "users": Object {},
     }
   }
-  challengeTypes={Array []}
+  challengeType={
+    Object {
+      "abbreviation": "CH",
+      "name": "Challenge",
+    }
+  }
   domRef={null}
   expandTag={null}
   expandedTags={Array []}

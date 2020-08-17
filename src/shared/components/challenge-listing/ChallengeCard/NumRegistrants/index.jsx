@@ -8,6 +8,7 @@ import React from 'react';
 import Tooltip from 'components/Tooltip';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config, Link } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 /* TODO: The icon should be converted back to SVG and imported using the
  * the standard approach for our code! */
@@ -17,7 +18,7 @@ import './style.scss';
 
 export default function NumRegistrants({
   challenge: {
-    id, numOfRegistrants, legacy,
+    id, numOfRegistrants, track,
   },
   challengesUrl,
   newChallengeDetails,
@@ -31,10 +32,9 @@ export default function NumRegistrants({
     case 1: tip = '1 total registrant'; break;
     default: tip = `${numOfReg} total registrants`;
   }
-  const { track } = legacy;
   const query = numOfReg ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
+  if (!newChallengeDetails && track !== COMPETITION_TRACKS.DATA_SCIENCE) {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (
@@ -75,9 +75,7 @@ NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numOfRegistrants: PT.number,
-    legacy: PT.shape({
-      track: PT.string.isRequired,
-    }),
+    track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,

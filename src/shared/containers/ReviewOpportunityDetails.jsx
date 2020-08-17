@@ -139,7 +139,7 @@ ReviewOpportunityDetailsContainer.propTypes = {
   applyModalOpened: PT.bool,
   authError: PT.bool,
   cancelApplications: PT.func.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   details: PT.shape(),
   handle: PT.string.isRequired,
   isLoadingDetails: PT.bool,
@@ -173,7 +173,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     authError: api.authError,
     applyModalOpened: page.applyModalOpened,
-    challengeId: Number(ownProps.match.params.challengeId),
+    challengeId: String(ownProps.match.params.challengeId),
     details: api.details,
     handle: state.auth.user ? state.auth.user.handle : '',
     isLoadingDetails: api.isLoadingDetails,

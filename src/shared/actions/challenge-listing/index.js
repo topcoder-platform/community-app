@@ -46,7 +46,7 @@ function getAll(getter, page = 0, prev) {
 }
 
 /**
- * Gets possible challenge subtracks.
+ * Gets possible challenge types.
  * @return {Promise}
  */
 function getChallengeTypesDone() {
@@ -139,6 +139,16 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
+function getAllUserChallengesInit(uuid) {
+  return uuid;
+}
+
+function getAllUserChallengesDone(uuid, tokenV3) {
+  const memberId = decodeToken(tokenV3).userId;
+  const filter = { status: 'Active', memberId };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
+}
+
 /**
  * Gets 1 page of active challenges (including marathon matches) from the backend.
  * Once this action is completed any active challenges saved to the state before
@@ -196,9 +206,12 @@ function getRestActiveChallengesInit(uuid) {
  * @param {String} uuid progress id
  * @param {String} tokenV3 token v3
  */
-function getRestActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'Active' };
-  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, 1);
+function getRestActiveChallengesDone(uuid, tokenV3, filter) {
+  const mergedFilter = {
+    ...filter,
+    status: 'Active',
+  };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, mergedFilter, 1);
 }
 
 /**
@@ -309,12 +322,40 @@ function getSrmsDone(uuid, handle, params, tokenV3) {
   });
 }
 
+/**
+ * Payload creator for the action that initialize user registered challenges.
+ * @param {String} uuid
+ * @return {String}
+ */
+function getUserChallengesInit(uuid) {
+  return { uuid };
+}
+
+/**
+ * Payload creator for the action that loads user registered challenges.
+ * @param {String} userId
+ * @return {String}
+ */
+function getUserChallengesDone(userId, tokenV3) {
+  const service = getService(tokenV3);
+
+  return service.getUserResources(userId)
+    .then(item => item)
+    .catch((error) => {
+      fireErrorMessage('Error Getting User Challenges', error.content || error);
+      return Promise.reject(error);
+    });
+}
+
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
 
     GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
+
+    GET_ALL_USER_CHALLENGES_INIT: getAllUserChallengesInit,
+    GET_ALL_USER_CHALLENGES_DONE: getAllUserChallengesDone,
 
     GET_ALL_RECOMMENDED_CHALLENGES_INIT: getAllRecommendedChallengesInit,
     GET_ALL_RECOMMENDED_CHALLENGES_DONE: getAllRecommendedChallengesDone,
@@ -339,6 +380,9 @@ export default createActions({
 
     GET_SRMS_INIT: getSrmsInit,
     GET_SRMS_DONE: getSrmsDone,
+
+    GET_USER_CHALLENGES_INIT: getUserChallengesInit,
+    GET_USER_CHALLENGES_DONE: getUserChallengesDone,
 
     EXPAND_TAG: id => id,
 

@@ -29,6 +29,7 @@ import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
+import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -99,7 +100,7 @@ export default function PodiumSpot(props) {
   } = props;
 
   const stylesName = THEME[themeName];
-  let photoUrl = competitor.avatar;
+  let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
   if (photoUrl) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
@@ -110,12 +111,16 @@ export default function PodiumSpot(props) {
   return (
     <div styleName={rootStyle}>
       <span styleName={`${stylesName}.leaderboard-avatar`}>
-        <Avatar
-          theme={{
-            avatar: CUSTOM_STYLES[themeName][competitor.rank],
-          }}
-          url={photoUrl}
-        />
+        {
+          photoUrl ? (
+            <Avatar
+              theme={{
+                avatar: CUSTOM_STYLES[themeName][competitor.rank],
+              }}
+              url={photoUrl}
+            />
+          ) : <DefaultAvatar />
+        }
         <div styleName={`${stylesName}.ranking`}>{DISPLAY_RANKING[competitor.rank]}</div>
       </span>
       {
@@ -127,15 +132,15 @@ export default function PodiumSpot(props) {
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
                 >
-                  {competitor.handle}
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
                 <a
                   styleName={`${stylesName}.profile-link`}
-                  href={`${window.origin}/members/${competitor.handle}/`}
+                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
                   target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                 >
-                  {competitor.handle}
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )
             }
@@ -152,15 +157,15 @@ export default function PodiumSpot(props) {
                     styleName={`${stylesName}.handle-link`}
                     onClick={() => onUsernameClick(competitor)}
                   >
-                    {competitor.handle}
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
                   </div>
                 ) : (
                   <a
                     styleName={`${stylesName}.profile-link`}
-                    href={`${window.origin}/members/${competitor.handle}/`}
+                    href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                   >
-                    {competitor.handle}
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
                   </a>
                 )
               }
@@ -176,11 +181,11 @@ export default function PodiumSpot(props) {
           ) : null
         }
         <div styleName={`${stylesName}.stats`}>
-          <span styleName={`${stylesName}.value`}>{competitor.challengecount}</span>
+          <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
           <span styleName={`${stylesName}.value-title`}>challenges</span>
         </div>
         <div styleName={`${stylesName}.stats`}>
-          <span styleName={`${stylesName}.value`}>{formatPoints(competitor.points)}</span>
+          <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
           <span styleName={`${stylesName}.value-title`}>points</span>
         </div>
         {

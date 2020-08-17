@@ -25,7 +25,7 @@ import { updateChallengeType } from 'utils/challenge';
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 
-import { isTokenExpired } from 'tc-accounts';
+import { isTokenExpired, decodeToken } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
@@ -62,11 +62,16 @@ export class DashboardPageContainer extends React.Component {
     const {
       challengeFilter,
       switchChallengeFilter,
+      getMemberResources,
+      tokenV3,
     } = this.props;
 
     this.updateData(this.props);
 
     if (challengeFilter) switchChallengeFilter('');
+
+    const user = decodeToken(tokenV3);
+    getMemberResources(user.userId, tokenV3);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -187,13 +192,22 @@ export class DashboardPageContainer extends React.Component {
       userGroups,
       xlBadge,
       errorLoadingRss,
+      userResources,
+      challengeTypesMap,
+      getTypes,
     } = this.props;
+
+    // console.log('r', userResources);
 
     if (authenticating) return <LoadingIndicator />;
 
     let announcementPreviewId;
     if (urlQuery) {
       ({ announcementPreviewId } = qs.parse(urlQuery));
+    }
+
+    if (_.isEmpty(challengeTypesMap)) {
+      getTypes();
     }
 
     return (
@@ -229,6 +243,8 @@ export class DashboardPageContainer extends React.Component {
         userGroups={userGroups.map(x => x.id)}
         xlBadge={xlBadge}
         errorLoadingRss={errorLoadingRss}
+        userResources={userResources ? userResources.resources : []}
+        challengeTypesMap={challengeTypesMap}
       />
     );
   }
@@ -249,6 +265,7 @@ DashboardPageContainer.defaultProps = {
   tokenV2: null,
   tokenV3: null,
   errorLoadingRss: false,
+  userResources: {},
 };
 
 DashboardPageContainer.propTypes = {
@@ -302,6 +319,10 @@ DashboardPageContainer.propTypes = {
   userGroups: PT.arrayOf(PT.object).isRequired,
   xlBadge: PT.string.isRequired,
   errorLoadingRss: PT.bool,
+  getMemberResources: PT.func.isRequired,
+  userResources: PT.shape(),
+  challengeTypesMap: PT.shape().isRequired,
+  getTypes: PT.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -317,7 +338,7 @@ function mapStateToProps(state, props) {
 
   const tcBlog = state.rss ? (state.rss[TOPCODER_BLOG_ID] || {}) : {};
   updateChallengeType(
-    state.challengeListing.challenges, state.challengeListing.challengeSubtracksMap,
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
   );
   return {
     achievements: achievements.data,
@@ -357,6 +378,8 @@ function mapStateToProps(state, props) {
     userGroups: _.get(state.auth.profile, 'groups', []),
     xlBadge: dash.xlBadge,
     errorLoadingRss: state.rss.errorLoadingRss,
+    userResources: state.members.userResources,
+    challengeTypesMap: state.challengeListing.challengeTypesMap,
   };
 }
 
@@ -366,8 +389,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesInit(uuid));
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
+      dispatch(challengeListingActions.challengeListing.getAllUserChallengesInit(uuid));
+      dispatch(challengeListingActions.challengeListing.getAllUserChallengesDone(uuid, tokenV3));
     },
     getCommunityList: (auth) => {
       const uuid = shortId();
@@ -394,6 +417,11 @@ function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(members.getStatsInit(handle, uuid));
       dispatch(members.getStatsDone(handle, uuid, tokenV3));
+    },
+    getMemberResources: (memberId, tokenV3) => {
+      const uuid = shortId();
+      dispatch(members.getUserResourcesInit(memberId, uuid));
+      dispatch(members.getUserResourcesDone(memberId, tokenV3, uuid));
     },
     getSrms: (handle, tokenV3) => {
       const uuid = shortId();
@@ -429,6 +457,11 @@ function mapDispatchToProps(dispatch) {
       const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
+    },
+    getTypes: () => {
+      const cl = challengeListingActions.challengeListing;
+      dispatch(cl.getChallengeTypesInit());
+      dispatch(cl.getChallengeTypesDone());
     },
   };
 }

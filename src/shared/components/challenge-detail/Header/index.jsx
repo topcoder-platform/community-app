@@ -9,12 +9,12 @@ import _ from 'lodash';
 import moment from 'moment';
 import 'moment-duration-format';
 import { isMM } from 'utils/challenge';
-import { getChallengeSubTrack } from 'utils/challenge-detail/helper';
 
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
 
@@ -34,9 +34,9 @@ const DAY_MS = 24 * HOUR_MS;
 
 export default function ChallengeHeader(props) {
   const {
+    isLoggedIn,
     challenge,
     challengesUrl,
-    challengeTypes,
     checkpoints,
     hasRegistered,
     numWinners,
@@ -47,7 +47,7 @@ export default function ChallengeHeader(props) {
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
-    challengeSubtracksMap,
+    challengeTypesMap,
     selectedView,
     showDeadlineDetail,
     hasFirstPlacement,
@@ -64,22 +64,22 @@ export default function ChallengeHeader(props) {
     name,
     pointPrizes,
     events,
-    legacy,
     prizeSets,
     reliabilityBonus,
-    userDetails,
-    numRegistrants,
-    numSubmissions,
-    appealsEndDate,
+    numOfRegistrants,
+    numOfCheckpointSubmissions,
+    numOfSubmissions,
+    endDate,
+    status,
+    type,
+    track,
   } = challenge;
 
-  const { track } = legacy;
   const tags = challenge.tags || [];
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
+  const appealsEndDate = endDate;
 
   const allPhases = challenge.phases || [];
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
-  const status = allPhases.length ? allPhases[0].name : '';
 
   const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
   let numberOfCheckpointsPrizes = 0;
@@ -102,10 +102,7 @@ export default function ChallengeHeader(props) {
     registrationEnded = !regPhase.isOpen;
   }
 
-  let trackLower = track ? track.toLowerCase() : 'design';
-  if (tags.includes('Data Science')) {
-    trackLower = 'datasci';
-  }
+  const trackLower = track ? track.replace(' ', '-').toLowerCase() : 'design';
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
 
@@ -123,10 +120,11 @@ export default function ChallengeHeader(props) {
    * iterate through all their submissions and ensure that all of them
    * are Deleted
   */
-  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
+  const hasSubmissions = !_.isEmpty(mySubmissions);
 
-  let nextPhase = (allPhases && allPhases[0]) || {};
-  if (hasRegistered && nextPhase && nextPhase.name === 'Registration') {
+  let nextPhase = allPhases.filter(p => p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
     nextPhase = allPhases[1] || {};
   }
   const nextDeadline = nextPhase && nextPhase.name;
@@ -170,29 +168,30 @@ export default function ChallengeHeader(props) {
       if (b.name.toLowerCase().includes('registration')) {
         return 1;
       }
-      return (new Date(a.actualEndDate || a.scheduledEndDate)).getTime()
-        - (new Date(b.actualEndDate || b.scheduledEndDate)).getTime();
+      return (new Date(a.scheduledEndDate || a.actualEndDate)).getTime()
+        - (new Date(b.scheduledEndDate || b.actualEndDate)).getTime();
     });
-    if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
+    if (type === 'First2Finish' && status === 'Completed') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
       const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndDate)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')
         || new Date(p.scheduledEndDate).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
-        phaseType: 'Winners',
+        name: 'Winners',
         scheduledEndDate: endPhaseDate,
       });
-    } else if (relevantPhases.length > 1 && appealsEndDate) {
+    } else if (relevantPhases.length > 1) {
       const lastPhase = relevantPhases[relevantPhases.length - 1];
       const lastPhaseTime = (
         new Date(lastPhase.actualEndDate || lastPhase.scheduledEndDate)
       ).getTime();
+
       const appealsEnd = (new Date(appealsEndDate).getTime());
-      if (lastPhaseTime < appealsEnd) {
+      if (lastPhaseTime < appealsEnd && lastPhase.name !== 'Review') {
         relevantPhases.push({
           id: -1,
-          phaseType: 'Winners',
+          name: 'Winners',
           scheduledEndDate: appealsEndDate,
         });
       }
@@ -257,10 +256,9 @@ export default function ChallengeHeader(props) {
             </h1>
             <div styleName="tag-container">
               <ChallengeTags
-                subTrack={subTrack}
-                track={trackLower}
+                track={track}
+                challengeType={_.find(challengeTypesMap, { name: type }) || []}
                 challengesUrl={challengesUrl}
-                challengeSubtracksMap={challengeSubtracksMap}
                 events={eventNames}
                 technPlatforms={miscTags}
                 setChallengeListingFilter={setChallengeListingFilter}
@@ -388,7 +386,7 @@ export default function ChallengeHeader(props) {
                 Submit
               </PrimaryButton>
               {
-                track === 'DESIGN' && hasRegistered && !unregistering
+                track === COMPETITION_TRACKS.DESIGN && hasRegistered && !unregistering
                 && hasSubmissions && (
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}
@@ -447,14 +445,17 @@ export default function ChallengeHeader(props) {
           }
         </div>
         <TabSelector
+          isLoggedIn={isLoggedIn}
           challenge={challenge}
+          isMM={isMM(challenge)}
           onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
           selectedView={selectedView}
-          numRegistrants={numRegistrants}
+          numOfRegistrants={numOfRegistrants}
           numWinners={numWinners}
           hasCheckpoints={checkpoints && checkpoints.length > 0}
-          numSubmissions={numSubmissions}
+          numOfSubmissions={numOfSubmissions}
+          numOfCheckpointSubmissions={numOfCheckpointSubmissions}
           hasRegistered={hasRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
@@ -465,44 +466,41 @@ export default function ChallengeHeader(props) {
 }
 
 ChallengeHeader.defaultProps = {
+  isLoggedIn: false,
   checkpoints: {},
   isMenuOpened: false,
   hasThriveArticles: false,
   hasRecommendedChallenges: false,
-  challengeTypes: [],
 };
 
 ChallengeHeader.propTypes = {
+  isLoggedIn: PT.bool,
   checkpoints: PT.shape(),
   challenge: PT.shape({
     id: PT.string.isRequired,
     type: PT.any,
+    track: PT.string,
     drPoints: PT.any,
     name: PT.any,
-    subTrack: PT.any,
     pointPrizes: PT.any,
     events: PT.any,
     technologies: PT.any,
     platforms: PT.any,
     tags: PT.any,
     prizes: PT.any,
-    legacy: PT.shape({
-      track: PT.any,
-    }),
     reliabilityBonus: PT.any,
     userDetails: PT.any,
     currentPhases: PT.any,
-    numRegistrants: PT.any,
-    numSubmissions: PT.any,
+    numOfRegistrants: PT.any,
+    numOfCheckpointSubmissions: PT.any,
+    numOfSubmissions: PT.any,
     status: PT.any,
-    appealsEndDate: PT.any,
-    allPhases: PT.any,
+    endDate: PT.any,
     phases: PT.any,
     roundId: PT.any,
     prizeSets: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  challengeTypes: PT.arrayOf(PT.shape()),
   hasRegistered: PT.bool.isRequired,
   hasThriveArticles: PT.bool,
   hasRecommendedChallenges: PT.bool,
@@ -517,7 +515,7 @@ ChallengeHeader.propTypes = {
   showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,

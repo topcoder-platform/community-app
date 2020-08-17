@@ -61,6 +61,7 @@ export default function ChallengeStatus(props) {
     selectChallengeDetailsTab,
     openChallengesInNewTabs,
     userId,
+    isLoggedIn,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -131,7 +132,7 @@ export default function ChallengeStatus(props) {
       challenge,
       detailLink,
     } = props;
-    const timeDiff = getTimeLeft((challenge.allPhases || challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
+    const timeDiff = getTimeLeft((challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
@@ -163,6 +164,7 @@ export default function ChallengeStatus(props) {
    * the common code being used in both places. */
   function completedChallenge() {
     const { challenge } = props;
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
     return (
       <div>
         {renderLeaderboard()}
@@ -183,13 +185,14 @@ export default function ChallengeStatus(props) {
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
             challenge.myChallenge
             && (
               <div styleName="spacing">
-                <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}>
+                <a styleName="link-forum past" href={`${FORUM_URL}${forumId}`}>
                   <ForumIcon />
                 </a>
               </div>
@@ -203,18 +206,18 @@ export default function ChallengeStatus(props) {
   function activeChallenge() {
     const { challenge } = props;
     const {
-      forumId,
       myChallenge,
       status,
-      subTrack,
+      type,
     } = challenge;
     const allPhases = challenge.phases || [];
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
 
     let statusPhase = allPhases
       .filter(p => p.name !== 'Registration' && p.isOpen)
       .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && allPhases.length) {
+    if (!statusPhase && type === 'First2Finish' && allPhases.length) {
       statusPhase = _.clone(allPhases[0]);
       statusPhase.name = 'Submission';
     }
@@ -247,6 +250,7 @@ export default function ChallengeStatus(props) {
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
@@ -308,4 +312,5 @@ ChallengeStatus.propTypes = {
   selectChallengeDetailsTab: PT.func.isRequired,
   className: PT.string,
   userId: PT.string,
+  isLoggedIn: PT.bool.isRequired,
 };

@@ -29,7 +29,6 @@ const BUCKET_DATA = {
   },
   [BUCKETS.MY]: {
     filter: {
-      started: true,
       status: ['Active'],
       // users: [userHandle],
     },
@@ -51,7 +50,7 @@ const BUCKET_DATA = {
       status: ['Active'],
     },
     hideCount: false,
-    name: 'Open for registration',
+    name: 'Open for registration - this is for test - delete me',
     sorts: [
       SORTS.MOST_RECENT,
       SORTS.TIME_TO_REGISTER,
@@ -66,6 +65,7 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: false,
       started: true,
+      ongoing: true,
       status: ['Active'],
     },
     hideCount: false,
@@ -134,9 +134,9 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
  * @param {String} userId id of the authenticated
  * user to filter out My Challenges.
  */
-export function getBuckets(userId) {
+export function getBuckets(userChallenges) {
   const res = _.cloneDeep(BUCKET_DATA);
-  res[BUCKETS.MY].filter.users = [userId];
+  res[BUCKETS.MY].filter.userChallenges = userChallenges;
   return res;
 }
 

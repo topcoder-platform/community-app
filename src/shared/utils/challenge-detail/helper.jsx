@@ -21,13 +21,13 @@ export const PRIZE_MODE = {
 };
 
 /**
- * Get challenge subTrack from type id
+ * Get challenge type abbreviation
  * @param {Object} challenge challenge info
  */
-export function getChallengeSubTrack(track, challengeTypes) {
-  const subTrack = _.find(challengeTypes, { name: track });
-  if (subTrack) {
-    return subTrack.abbreviation;
+export function getChallengeTypeAbbr(track, challengeTypes) {
+  const type = _.find(challengeTypes, { name: track });
+  if (type) {
+    return type.abbreviation;
   }
   return null;
 }
@@ -36,10 +36,10 @@ export function getChallengeSubTrack(track, challengeTypes) {
  * Get end date
  * @param {Object} challenge challenge info
  */
-export function getEndDate(challenge, challengeTypes) {
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
+export function getEndDate(challenge) {
+  const { type } = challenge;
   let phases = challenge.phases || [];
-  if (subTrack === 'FIRST_2_FINISH' && challenge.status === 'COMPLETED') {
+  if (type === 'First2Finish' && challenge.status === 'Completed') {
     phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
   }
   const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndDate)));
@@ -202,14 +202,13 @@ export function getDisplayRecommendedChallenges(
   const displayRecommendedChallenges = recommendedChallenges[recommendedTag]
     ? recommendedChallenges[recommendedTag].challenges : [];
   const filterParams = getBuckets(null)[BUCKETS.OPEN_FOR_REGISTRATION].filter;
-  const userHandle = _.get(auth.user, 'handle');
+  const userId = _.get(auth.user, 'userId');
   const filter = Filter.getFilterFunction(filterParams);
 
   let results = _.filter(displayRecommendedChallenges, (c) => {
     let isValid = filter(c);
-    if (isValid && userHandle) {
-      // TODO: Find equivalent of !c.users[userHandle]
-      isValid = c.id !== challenge.id;
+    if (isValid && userId) {
+      isValid = c.id !== challenge.id && !c.users[userId];
     }
     return isValid;
   });

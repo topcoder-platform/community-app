@@ -46,37 +46,44 @@ export default function NewsletterSignupForMembers({
   state,
   theme,
   token,
+  buttonTheme,
+  title,
+  desc,
 }) {
   return (
     <div
       className={theme.container}
     >
-      <PrimaryButton
-        disabled={state === STATE.HIDDEN}
-        onClick={() => {
-          switch (state) {
-            case STATE.SIGNEDUP:
-            case STATE.SIGNING:
-              return;
-            default:
-          }
-          showSignupConfirmModal();
-        }}
-        className={state === STATE.SIGNING ? style.signing : ''}
-        theme={{
-          button: buttonThemes.tc['primary-green-md'],
-          disabled: buttonThemes.tc.themedButtonDisabled,
-        }}
-      >
-        {state === STATE.SIGNING ? (
-          <div className={style.signingContainer}>
-            <span>
-              Signing...
-            </span>
-            <LoadingIndicator theme={{ container: style.loadingIndicator }} />
-          </div>
-        ) : label}
-      </PrimaryButton>
+      {
+        state !== STATE.HIDDEN ? (
+          <PrimaryButton
+            disabled={state === STATE.HIDDEN}
+            onClick={() => {
+              switch (state) {
+                case STATE.SIGNEDUP:
+                case STATE.SIGNING:
+                  return;
+                default:
+              }
+              showSignupConfirmModal();
+            }}
+            className={state === STATE.SIGNING ? style.signing : ''}
+            theme={{
+              button: buttonThemes.tc[buttonTheme],
+              disabled: buttonThemes.tc.themedButtonDisabled,
+            }}
+          >
+            {state === STATE.SIGNING ? (
+              <div className={style.signingContainer}>
+                <span>
+                  Signing...
+                </span>
+                <LoadingIndicator theme={{ container: style.loadingIndicator }} />
+              </div>
+            ) : label}
+          </PrimaryButton>
+        ) : null
+      }
       {state === STATE.SIGNEDUP ? (
         <Modal
           onCancel={hideSignupButton}
@@ -84,10 +91,10 @@ export default function NewsletterSignupForMembers({
         >
           <div className={modalStyle.modalMsg}>
             <h4>Congratulations!</h4>
-            <p style={{ 'font-size': '24px' }}>
+            <p style={{ fontSize: '24px' }}>
               {
                 customSignupConfirmationText
-                || 'You are subscribed to the newsletter.'
+                || 'You are now subscribed.'
               }
             </p>
           </div>
@@ -110,6 +117,8 @@ export default function NewsletterSignupForMembers({
           resetSignupButton={resetSignupButton}
           skipConfirmSignup={skipConfirmSignup}
           token={token}
+          title={title}
+          desc={desc}
         />
       ) : null}
       {state === STATE.ERROR ? (
@@ -164,4 +173,7 @@ NewsletterSignupForMembers.propTypes = {
   state: PT.oneOf(_.values(STATE)).isRequired,
   theme: PT.shape(),
   token: PT.string,
+  buttonTheme: PT.string.isRequired,
+  title: PT.string.isRequired,
+  desc: PT.string.isRequired,
 };

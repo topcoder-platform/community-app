@@ -9,7 +9,7 @@ module.exports = {
     DOMAIN: 'topcoder.auth0.com',
   },
   CDN: {
-    PUBLIC: 'https://dlxczxztayxv6.cloudfront.net',
+    PUBLIC: 'https://community-app-cdn.topcoder.com',
   },
   COOKIES: {
     MAXAGE: 7,
@@ -111,11 +111,15 @@ module.exports = {
             },
             {
               title: 'Competitive Programming',
-              href: 'https://arena.topcoder.com',
+              href: '/community/arena',
             },
             {
               title: 'Gig Work',
               href: '/community/taas',
+            },
+            {
+              title: 'Practice',
+              href: '/community/practice',
             },
           ],
         },

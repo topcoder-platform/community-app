@@ -6,12 +6,8 @@ import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
 import ChallengeListingBanner from 'components/tc-communities/communities/wipro/ChallengeListingBanner';
 import ContentfulRoute from 'components/Contentful/Route';
-import FAQ from 'components/tc-communities/communities/wipro/FAQ';
-import Footer from 'components/tc-communities/communities/wipro/Footer';
 import Header from 'containers/tc-communities/Header';
-import Home from 'containers/tc-communities/wipro/Home';
 import LeaderboardBanner from 'components/tc-communities/communities/wipro/LeaderboardBanner';
-import Learn from 'components/tc-communities/communities/wipro/Learn';
 import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
@@ -20,6 +16,7 @@ import TermsDetail from 'routes/TermsDetail';
 import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
 import Settings from 'routes/Settings';
+import Viewport from 'components/Contentful/Viewport';
 import theme from 'components/tc-communities/communities/wipro/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
@@ -54,7 +51,7 @@ export default function Wipro({ base, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})`}
               />
               <Route
                 component={routeProps => Submission({
@@ -62,7 +59,7 @@ export default function Wipro({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId/submit`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/submit`}
               />
               <Route
                 component={routeProps => SubmissionManagement({
@@ -70,7 +67,7 @@ export default function Wipro({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId/my-submissions`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
               />
               <Route
                 render={props => <Profile {...props} meta={meta} />}
@@ -106,11 +103,6 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/challenges/terms/detail/:termId`}
               />
               <Route
-                component={FAQ}
-                exact
-                path={`${base}/faq`}
-              />
-              <Route
                 component={() => (
                   <Leaderboard
                     HeadBanner={LeaderboardBanner}
@@ -121,28 +113,17 @@ export default function Wipro({ base, meta }) {
                 exact
                 path={`${base}/leaderboard`}
               />
-              <Route
-                component={Learn}
-                exact
-                path={`${base}/learn`}
-              />
-              <Route
-                component={Home}
-                exact
-                path={`${base}/home`}
-              />
-              <Route
-                component={Home}
-                exact
-                path={`${base || '/'}`}
-              />
               <ContentfulRoute
                 baseUrl={base}
                 id="1VXRAIxJdi6eCeeyKCmicK"
                 spaceName="topgear"
               />
             </Switch>
-            <Footer />
+            <Viewport
+              id="2rJCDsGCHTDygyx4dqxlNq"
+              baseUrl={base}
+              spaceName="topgear"
+            />
           </div>
         </ThemeProvider>
       )}
