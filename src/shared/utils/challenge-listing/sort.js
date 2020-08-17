@@ -3,7 +3,7 @@
  */
 
 import moment from 'moment';
-import { sumBy } from 'lodash';
+import { find, sumBy } from 'lodash';
 
 export const SORTS = {
   CURRENT_PHASE: 'current-phase',
@@ -25,7 +25,15 @@ export default {
     name: 'Current phase',
   },
   [SORTS.MOST_RECENT]: {
-    func: (a, b) => moment(b.registrationStartDate).diff(a.registrationStartDate),
+    func: (a, b) => {
+      const getRegistrationStartDate = (challenge) => {
+        const registrationPhase = find(challenge.phases, p => p.name === 'Registration');
+        return registrationPhase.actualStartDate || registrationPhase.scheduledStartDate;
+      };
+      const aRegistrationStartDate = getRegistrationStartDate(a);
+      const bRegistrationStartDate = getRegistrationStartDate(b);
+      return moment(bRegistrationStartDate).diff(aRegistrationStartDate);
+    },
     name: 'Most recent',
   },
   [SORTS.NUM_REGISTRANTS]: {
@@ -41,26 +49,40 @@ export default {
     name: 'Prize high to low',
   },
   [SORTS.TIME_TO_REGISTER]: {
-    func: (a, b) => moment(a.registrationEndDate || a.submissionEndDate)
-      .diff(b.registrationEndDate || b.submissionEndDate),
+    func: (a, b) => {
+      const getRegistrationEndDate = (challenge) => {
+        const registrationPhase = find(challenge.phases, p => p.name === 'Registration');
+        return registrationPhase.actualEndDate || registrationPhase.scheduledEndDate;
+      };
+
+      const aDate = moment(getRegistrationEndDate(a) || a.submissionEndTimestamp);
+      const bDate = moment(getRegistrationEndDate(b) || b.submissionEndTimestamp);
+
+      if (aDate.isBefore() && bDate.isAfter()) return 1;
+      if (aDate.isAfter() && bDate.isBefore()) return -1;
+      if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
+
+      return aDate.diff(bDate);
+    },
     name: 'Time to register',
   },
   [SORTS.TIME_TO_SUBMIT]: {
     func: (a, b) => {
       function nextSubEndDate(o) {
         if (o.checkpointSubmissionEndDate && moment(o.checkpointSubmissionEndDate).isAfter()) {
-          return o.checkpointSubmissionEndDate;
+          return moment(o.checkpointSubmissionEndDate);
         }
-        return o.submissionEndDate;
+        return moment(o.submissionEndTimestamp);
       }
 
       const aDate = nextSubEndDate(a);
       const bDate = nextSubEndDate(b);
 
-      if (moment(aDate).isBefore()) return 1;
-      if (moment(bDate).isBefore()) return -1;
+      if (aDate.isBefore() && bDate.isAfter()) return 1;
+      if (aDate.isAfter() && bDate.isBefore()) return -1;
+      if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
 
-      return moment(aDate).diff(bDate);
+      return aDate.diff(bDate);
     },
     name: 'Time to submit',
   },

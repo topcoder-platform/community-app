@@ -39,7 +39,7 @@ exports[`Matches shallow shapshot 1`] = `
             "id": "12345",
           }
         }
-        type="DESIGN"
+        track="Design"
       />
       <tr
         className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"

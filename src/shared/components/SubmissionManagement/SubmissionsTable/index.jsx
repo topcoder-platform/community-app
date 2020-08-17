@@ -19,6 +19,7 @@ import React from 'react';
 import PT from 'prop-types';
 import shortid from 'shortid';
 import moment from 'moment';
+import { COMPETITION_TRACKS } from 'utils/tc';
 import Submission from '../Submission';
 import ScreeningDetails from '../ScreeningDetails';
 import './styles.scss';
@@ -27,7 +28,7 @@ export default function SubmissionsTable(props) {
   const {
     submissionObjects,
     showDetails,
-    type,
+    track,
     onDelete,
     onlineReviewUrl,
     helpPageUrl,
@@ -57,7 +58,7 @@ export default function SubmissionsTable(props) {
         <Submission
           submissionObject={subObject}
           showScreeningDetails={showDetails[subObject.id]}
-          type={type}
+          track={track}
           onShowDetails={onShowDetails}
           onDelete={onDelete}
           onDownload={onDownload}
@@ -101,7 +102,7 @@ export default function SubmissionsTable(props) {
             <th>
               Submission Date
             </th>
-            {type === 'DESIGN' && (
+            {track === COMPETITION_TRACKS.DESIGN && (
             <th styleName="status">
               Screening Status
             </th>
@@ -126,7 +127,7 @@ const SubShape = PT.shape({
     status: PT.string,
   }),
   submitted: PT.string,
-  type: PT.string,
+  track: PT.string,
 });
 
 SubmissionsTable.defaultProps = {
@@ -141,7 +142,7 @@ SubmissionsTable.defaultProps = {
 SubmissionsTable.propTypes = {
   submissionObjects: PT.arrayOf(SubShape),
   showDetails: PT.shape().isRequired,
-  type: PT.string.isRequired,
+  track: PT.string.isRequired,
   onDelete: PT.func,
   onlineReviewUrl: PT.string,
   helpPageUrl: PT.string,

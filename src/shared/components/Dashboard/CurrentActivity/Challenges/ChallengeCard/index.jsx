@@ -13,27 +13,17 @@ import {
 
 import { config, Link } from 'topcoder-react-utils';
 
+import { COMPETITION_TRACKS } from 'utils/tc';
+
 import {
   Button,
-  // DangerButton,
-  // DataScienceTrackTag,
   DataScienceTrackEventTag,
-  // DesignTrackTag,
   DesignTrackEventTag,
-  // DevelopmentTrackTag,
   DevelopmentTrackEventTag,
+  QATrackEventTag,
 } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
-
-function normalizeSubTrackTagForRendering(subTrack) {
-  let x;
-  switch (subTrack) {
-    case 'WEB_DESIGNS': x = 'Web Design'; break;
-    default: x = subTrack;
-  }
-  return _.startCase(_.toLower(x));
-}
 
 export default function ChallengeCard({
   challenge,
@@ -41,7 +31,7 @@ export default function ChallengeCard({
   setChallengeListingFilter,
   // unregisterFromChallenge,
   userResources,
-  challengeSubtracksMap,
+  challengeTypesMap,
 }) {
   const {
     phases,
@@ -50,44 +40,38 @@ export default function ChallengeCard({
     status,
     userDetails,
     type,
+    track,
   } = challenge;
 
-  let subTrackId = _.findKey(challengeSubtracksMap, { description: type });
-
-  if (!subTrackId) {
-    subTrackId = _.findKey(challengeSubtracksMap, { description: 'Code' });
-  }
-
-  const { track } = legacy;
+  const typeId = _.findKey(challengeTypesMap, { name: type });
 
   let EventTag;
-  // let TrackTag;
   switch (track) {
-    case 'DATA_SCIENCE':
+    case COMPETITION_TRACKS.DATA_SCIENCE:
       EventTag = DataScienceTrackEventTag;
-      // TrackTag = DataScienceTrackTag;
       break;
-    case 'DESIGN':
+    case COMPETITION_TRACKS.DESIGN:
       EventTag = DesignTrackEventTag;
-      // TrackTag = DesignTrackTag;
       break;
-    case 'DEVELOP':
+    case COMPETITION_TRACKS.DEVELOP:
       EventTag = DevelopmentTrackEventTag;
-      // TrackTag = DevelopmentTrackTag;
+      break;
+    case COMPETITION_TRACKS.QA:
+      EventTag = QATrackEventTag;
       break;
     default:
-      EventTag = DevelopmentTrackEventTag;
+      throw new Error('Wrong competition track value');
   }
 
   const STALLED_MSG = 'Stalled';
   const DRAFT_MSG = 'In Draft';
 
-  const forumEndpoint = _.toLower(legacy.track) === 'design'
+  const forumEndpoint = track === COMPETITION_TRACKS.DESIGN
     ? `/?module=ThreadList&forumID=${legacy.forumId}`
     : `/?module=Category&categoryID=${legacy.forumId}`;
 
   const isTco = challenge.events
-  && challenge.events.find(x => x.eventName && x.eventName.match(/tco\d{2}/));
+  && challenge.events.find(x => x.key && x.key.match(/tco\d{2}/));
 
   const roles = _.get(userDetails, 'roles') || [];
   const role = _.find(userResources, { id }) || {};
@@ -121,7 +105,7 @@ export default function ChallengeCard({
     .filter(p => p.name !== 'Registration' && p.isOpen)
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-  if (!statusPhase && type === 'FIRST_2_FINISH' && allPhases.length) {
+  if (!statusPhase && type === 'First2Finish' && allPhases.length) {
     statusPhase = _.clone(allPhases[0]);
     statusPhase.name = 'Submission';
   }
@@ -147,14 +131,14 @@ export default function ChallengeCard({
             <EventTag
               onClick={
                 () => setImmediate(
-                  () => setChallengeListingFilter({ subtracks: [subTrackId] }),
+                  () => setChallengeListingFilter({ types: [typeId] }),
                 )
               }
               theme={{ button: style.tag }}
-              to={`/challenges?filter[subtracks][0]=${
-                encodeURIComponent(subTrackId)}`}
+              to={`/challenges?filter[types][0]=${
+                encodeURIComponent(typeId)}`}
             >
-              {normalizeSubTrackTagForRendering(type)}
+              {type}
             </EventTag>
             {
               isTco ? (
@@ -268,7 +252,6 @@ ChallengeCard.defaultProps = {
 ChallengeCard.propTypes = {
   challenge: PT.shape({
     legacy: PT.shape({
-      track: PT.oneOf(['DATA_SCIENCE', 'DESIGN', 'DEVELOP']).isRequired,
       forumId: PT.oneOfType([PT.number, PT.string]),
     }).isRequired,
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
@@ -279,10 +262,11 @@ ChallengeCard.propTypes = {
     userDetails: PT.any,
     events: PT.any,
     type: PT.string,
+    track: PT.string.isRequired,
   }).isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   // unregisterFromChallenge: PT.func.isRequired,
   userResources: PT.arrayOf(PT.shape()),
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeTypesMap: PT.shape().isRequired,
 };

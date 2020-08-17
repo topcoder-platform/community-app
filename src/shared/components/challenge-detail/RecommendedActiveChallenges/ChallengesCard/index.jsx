@@ -9,7 +9,6 @@ import {
   PRIZE_MODE,
   getPrizePurseUI,
   getTimeLeft,
-  getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
 
 import TrackIcon from 'components/TrackIcon';
@@ -21,7 +20,7 @@ import styles from './style.scss';
 
 export default function ChallengesCard({
   challenge,
-  challengeTypes,
+  challengeType,
   className,
   challengesUrl,
   selectChallengeDetailsTab,
@@ -33,15 +32,9 @@ export default function ChallengesCard({
 }) {
   const {
     id,
-    legacy,
     phases,
+    track,
   } = challenge;
-
-  let { track } = legacy;
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
-  if (subTrack === 'DEVELOP_MARATHON_MATCH') {
-    track = 'DATA_SCIENCE';
-  }
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
 
@@ -61,14 +54,14 @@ export default function ChallengesCard({
         <div styleName="content-bottom">
           <div styleName="challenge-track">
             <TrackAbbreviationTooltip
-              legacy={challenge.legacy}
-              subTrack={subTrack}
+              track={track}
+              type={challengeType}
             >
               <span styleName="track-icon">
                 <TrackIcon
                   track={track}
-                  subTrack={subTrack}
-                  tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].eventName : ''}
+                  type={challengeType}
+                  tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].key : ''}
                   isDataScience={challenge.isDataScience}
                   challengesUrl={challengesUrl}
                 />
@@ -87,7 +80,7 @@ export default function ChallengesCard({
             <div styleName="endtime-prize-container">
               <span styleName="end-date">
                 {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
-                {getEndDate(challenge, challengeTypes)}
+                {getEndDate(challenge)}
               </span>
               <div styleName="prizes">
                 {getPrizePurseUI(challenge, prizeMode, true, 'Prize Purse')}
@@ -121,12 +114,11 @@ ChallengesCard.defaultProps = {
   userHandle: '',
   expandedTags: [],
   expandTag: null,
-  challengeTypes: [],
 };
 
 ChallengesCard.propTypes = {
   challenge: PT.shape().isRequired,
-  challengeTypes: PT.arrayOf(PT.shape()),
+  challengeType: PT.shape().isRequired,
   className: PT.string,
   challengesUrl: PT.string.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,

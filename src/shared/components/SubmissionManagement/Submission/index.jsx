@@ -15,6 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { config } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 import PT from 'prop-types';
 
@@ -29,7 +30,7 @@ export default function Submission(props) {
   const {
     submissionObject,
     showScreeningDetails,
-    type,
+    track,
     onDelete,
     onShowDetails,
     status,
@@ -49,7 +50,7 @@ export default function Submission(props) {
         {formatDate(submissionObject.created)}
       </td>
       {
-        type === 'DESIGN' && (
+        track === COMPETITION_TRACKS.DESIGN && (
           <td styleName="status-col">
             {submissionObject.screening
               && (
@@ -66,7 +67,7 @@ export default function Submission(props) {
         <div>
           <a
             href={
-              type === 'DESIGN'
+              track === COMPETITION_TRACKS.DESIGN
                 ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.id}`
                 : submissionObject.download
             }
@@ -127,7 +128,7 @@ Submission.propTypes = {
     download: PT.any,
   }),
   showScreeningDetails: PT.bool,
-  type: PT.string.isRequired,
+  track: PT.string.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
   status: PT.string.isRequired,

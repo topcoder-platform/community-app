@@ -6,6 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
+import { getRatingLevel } from 'utils/tc';
 import moment from 'moment';
 
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
@@ -17,7 +18,7 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
+  isMM, openHistory, member, submissions, score, toggleHistory,
   isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating,
 }) {
   const {
@@ -74,15 +75,14 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          <span styleName="col" style={colorStyle}>
+          <span styleName={`col level-${getRatingLevel(rating)}`}>
             {rating || '-'}
           </span>
           <a
-            styleName="col"
             href={`${window.origin}/members/${member}`}
             target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             rel="noopener noreferrer"
-            style={colorStyle}
+            styleName={`col level-${getRatingLevel(rating)}`}
           >
             {member || '-'}
           </a>
@@ -164,7 +164,6 @@ export default function SubmissionRow({
 
 SubmissionRow.defaultProps = {
   toggleHistory: () => {},
-  colorStyle: {},
   score: {},
   isReviewPhaseComplete: false,
   finalRank: null,
@@ -205,7 +204,6 @@ SubmissionRow.propTypes = {
   }),
   rating: PT.number,
   toggleHistory: PT.func,
-  colorStyle: PT.shape(),
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,

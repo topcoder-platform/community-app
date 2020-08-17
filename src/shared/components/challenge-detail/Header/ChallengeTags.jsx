@@ -8,7 +8,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
 
 import {
   Tag,
@@ -18,6 +17,8 @@ import {
   DesignTrackEventTag,
   DevelopmentTrackTag,
   DevelopmentTrackEventTag,
+  QATrackTag,
+  QATrackEventTag,
 } from 'topcoder-react-ui-kit';
 
 import { COMPETITION_TRACKS } from 'utils/tc';
@@ -25,32 +26,16 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 export default function ChallengeTags(props) {
   const {
     challengesUrl,
-    subTrack,
     track,
+    challengeType,
     events,
     technPlatforms,
     setChallengeListingFilter,
-    challengeSubtracksMap,
   } = props;
-
-  /* TODO: Probably, we don't need this anymore, if we use correct data from
-   * APIs (they should contain human-readable names, I believe). */
-  const stylizedSubTrack = (t) => {
-    const filteredSubtrack = Object.values(challengeSubtracksMap)
-      .filter(subtrack => subtrack.abbreviation === t)[0];
-    if (filteredSubtrack) {
-      return filteredSubtrack.name;
-    }
-    return (t || '').replace(/_/g, ' ')
-      .replace(/\w\S*/g, txt => _.capitalize(txt));
-  };
-
-  const subTrackId = _.findKey(challengeSubtracksMap, { abbreviation: subTrack }) || subTrack;
 
   let EventTag;
   let TrackTag;
   switch (track) {
-    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       EventTag = DataScienceTrackEventTag;
       TrackTag = DataScienceTrackTag;
@@ -61,7 +46,11 @@ export default function ChallengeTags(props) {
       break;
     case COMPETITION_TRACKS.DEVELOP:
       EventTag = DevelopmentTrackEventTag;
-      TrackTag = subTrack === 'DEVELOP_MARATHON_MATCH' ? DataScienceTrackTag : DevelopmentTrackTag;
+      TrackTag = DevelopmentTrackTag;
+      break;
+    case COMPETITION_TRACKS.QA:
+      EventTag = QATrackEventTag;
+      TrackTag = QATrackTag;
       break;
     default:
       throw new Error('Wrong competition track value');
@@ -70,15 +59,15 @@ export default function ChallengeTags(props) {
   return (
     <div>
       {
-        subTrack
+        challengeType
         && (
-        <TrackTag
-          onClick={() => setImmediate(() => setChallengeListingFilter({ subtracks: [subTrackId] }))
-          }
-          to={`${challengesUrl}?filter[subtracks][0]=${encodeURIComponent(subTrackId)}`}
-        >
-          {stylizedSubTrack(subTrack)}
-        </TrackTag>
+          <TrackTag
+            onClick={() => setImmediate(() => setChallengeListingFilter(challengeType.id))
+            }
+            to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(challengeType.id)}`}
+          >
+            {challengeType.name}
+          </TrackTag>
         )
       }
       {
@@ -112,17 +101,15 @@ export default function ChallengeTags(props) {
 }
 
 ChallengeTags.defaultProps = {
-  subTrack: undefined,
   events: [],
   technPlatforms: [],
 };
 
 ChallengeTags.propTypes = {
   challengesUrl: PT.string.isRequired,
-  subTrack: PT.string,
   track: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
   setChallengeListingFilter: PT.func.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeType: PT.shape().isRequired,
 };

@@ -1,0 +1,59 @@
+@import "~styles/mixins";
+@import "~components/Contentful/default";
+
+.container {
+  width: 100%;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 82px;
+  outline: none;
+  cursor: pointer;
+  border-bottom: 1px solid #d4d4d4;
+
+  &.active {
+    border-bottom: none;
+  }
+}
+
+.answer {
+  @include gui-kit-content;
+  @include gui-kit-headers;
+
+  display: none;
+  padding: 5px 70px 24px 0;
+  color: #2a2a2a;
+
+  &.active {
+    display: block;
+    border-bottom: 1px solid #d4d4d4;
+  }
+}
+
+.text {
+  color: #2a2a2a;
+  font-family: BarlowCondensed, sans-serif;
+  font-size: 31px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  font-weight: 500;
+
+  @include xs-to-sm {
+    max-width: 350px;
+  }
+}
+
+.toggle-arrow {
+  background-image: url(assets/images/minimal-down.svg);
+  background-repeat: no-repeat;
+  align-self: right;
+  width: 24px;
+  height: 13px;
+
+  &.active {
+    transform: scale(1, -1);
+  }
+}

@@ -16,6 +16,8 @@
  *       switchDev={enable => this.setTracks(DEVELOP_TRACK, enable)}
  *       dataScienceEnabled={this.state.filter.tracks.has(DATA_SCIENCE_TRACK)}
  *       switchDataScience={enable => this.setTracks(DATA_SCIENCE_TRACK, enable)}
+ *       qaEnabled={this.state.filter.tracks.has(QA_TRACK)}
+ *       switchQA={enable => this.setTracks(QA_TRACK, enable)}
  *    />
  */
 import React from 'react';
@@ -28,11 +30,13 @@ function EditTrackPanel({
   dataScienceEnabled,
   designEnabled,
   devEnabled,
+  qaEnabled,
   onClose,
   opened,
   switchDataScience,
   switchDesign,
   switchDev,
+  switchQA,
 }) {
   return (
     <div styleName={`EditTrackPanel ${opened === true ? 'opened' : 'closed'}`}>
@@ -75,6 +79,15 @@ function EditTrackPanel({
           onSwitch={switchDataScience}
         />
       </div>
+      <div styleName="row">
+        <span>
+          QA
+        </span>
+        <Switch
+          enabled={qaEnabled}
+          onSwitch={switchQA}
+        />
+      </div>
     </div>
   );
 }
@@ -92,6 +105,8 @@ EditTrackPanel.propTypes = {
   switchDev: PT.func.isRequired,
   dataScienceEnabled: PT.bool.isRequired,
   switchDataScience: PT.func.isRequired,
+  qaEnabled: PT.bool.isRequired,
+  switchQA: PT.func.isRequired,
 };
 
 export default EditTrackPanel;

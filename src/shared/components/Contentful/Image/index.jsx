@@ -7,6 +7,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
+import { useMediaQuery } from 'react-responsive';
 
 import Image from './Image';
 import defaultTheme from './themes/default.scss';
@@ -17,6 +18,7 @@ export default function ImageLoader(props) {
   const {
     id, preview, spaceName, environment,
   } = props;
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
   return (
     <ContentfulLoader
       entryIds={id}
@@ -25,7 +27,7 @@ export default function ImageLoader(props) {
       environment={environment}
       render={(data) => {
         const { fields } = data.entries.items[id];
-        const imgId = _.get(fields, 'source.sys.id');
+        const imgId = _.get(fields, isTabletOrMobile && fields.sourceMobile ? 'sourceMobile.sys.id' : 'source.sys.id');
         const clipSvgId = _.get(fields, 'clipSvg.sys.id');
         const assetIds = _.compact([imgId, clipSvgId]);
         const animationId = _.get(fields, 'animationOnScroll.sys.id');

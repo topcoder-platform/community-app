@@ -4,11 +4,9 @@ import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { Link } from 'topcoder-react-utils';
-import { isDevelopMM } from 'utils/challenge';
 import {
   getEndDate,
   getPrizePointsUI,
-  getChallengeSubTrack,
 } from 'utils/challenge-detail/helper';
 
 import Tags from '../Tags';
@@ -24,7 +22,7 @@ import './style.scss';
 
 function ChallengeCard({
   challenge: passedInChallenge,
-  challengeTypes,
+  challengeType,
   challengesUrl,
   expandedTags,
   expandTag,
@@ -40,22 +38,12 @@ function ChallengeCard({
   const challenge = passedInChallenge;
   const {
     id,
-    legacy,
+    track,
   } = challenge;
 
-  let { track } = legacy;
-  challenge.isDataScience = false;
-  if ((challenge.tags && challenge.tags.includes('Data Science')) || isDevelopMM(challenge)) {
-    challenge.isDataScience = true;
-  }
   challenge.prize = challenge.prizes || [];
 
   const challengeDetailLink = `${challengesUrl}/${id}`;
-
-  const subTrack = getChallengeSubTrack(challenge.type, challengeTypes);
-  if (subTrack === 'DEVELOP_MARATHON_MATCH') {
-    track = 'DATA_SCIENCE';
-  }
 
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
@@ -66,14 +54,13 @@ function ChallengeCard({
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
             track={track}
-            subTrack={subTrack}
+            type={challengeType}
           >
             <span>
               <TrackIcon
                 track={track}
-                subTrack={subTrack}
-                tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].eventName : ''}
-                isDataScience={challenge.isDataScience}
+                type={challengeType}
+                tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].key : ''}
               />
             </span>
           </TrackAbbreviationTooltip>
@@ -90,7 +77,7 @@ function ChallengeCard({
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
-              {getEndDate(challenge, challengeTypes)}
+              {getEndDate(challenge)}
             </span>
             { challenge.tags.length > 0
               && (
@@ -127,7 +114,6 @@ function ChallengeCard({
 
 ChallengeCard.defaultProps = {
   challenge: {},
-  challengeTypes: [],
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
@@ -140,7 +126,7 @@ ChallengeCard.defaultProps = {
 
 ChallengeCard.propTypes = {
   challenge: PT.shape(),
-  challengeTypes: PT.arrayOf(PT.shape()),
+  challengeType: PT.shape().isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,

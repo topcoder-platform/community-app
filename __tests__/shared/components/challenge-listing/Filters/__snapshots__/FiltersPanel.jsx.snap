@@ -109,15 +109,16 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <label
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="track-select"
+          htmlFor="type-select"
         >
-          Subtrack
+          Type
           <input
             type="hidden"
           />
         </label>
         <Select
-          id="track-select"
+          disabled={false}
+          id="type-select"
           multi={true}
           onChange={[Function]}
           options={
@@ -132,7 +133,7 @@ exports[`Matches shallow shapshot 1`] = `
               },
             ]
           }
-          placeholder="Select Subtrack"
+          placeholder="Select Type"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
@@ -304,19 +305,20 @@ exports[`Matches shallow shapshot 2`] = `
       >
         <label
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="track-select"
+          htmlFor="type-select"
         >
-          Subtrack
+          Type
           <input
             type="hidden"
           />
         </label>
         <Select
-          id="track-select"
+          disabled={false}
+          id="type-select"
           multi={true}
           onChange={[Function]}
           options={Array []}
-          placeholder="Select Subtrack"
+          placeholder="Select Type"
           selectRef={[Function]}
           simpleValue={true}
           value={null}

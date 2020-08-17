@@ -7,6 +7,7 @@ import {
   DataScienceTrackTag,
   DesignTrackTag,
   DevelopmentTrackTag,
+  QATrackTag,
 } from 'topcoder-react-ui-kit';
 
 import { Link } from 'topcoder-react-utils';
@@ -22,15 +23,13 @@ export default function Card({
   challenge,
 }) {
   const {
-    subTrack,
-    legacy,
+    type,
+    typeId,
+    track,
   } = challenge;
-
-  const { track } = legacy;
 
   let TrackTag;
   switch (track.toLowerCase()) {
-    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       TrackTag = DataScienceTrackTag;
       break;
@@ -39,6 +38,9 @@ export default function Card({
       break;
     case COMPETITION_TRACKS.DEVELOP:
       TrackTag = DevelopmentTrackTag;
+      break;
+    case COMPETITION_TRACKS.QA:
+      TrackTag = QATrackTag;
       break;
     default:
       throw new Error('Wrong competition track value');
@@ -57,10 +59,10 @@ export default function Card({
   return (
     <div styleName="container">
       <TrackTag
-        to={`${baseUrl}/challenges?filter[subtracks][0]=${
-          encodeURIComponent(subTrack)}`}
+        to={`${baseUrl}/challenges?filter[types][0]=${
+          encodeURIComponent(typeId)}`}
       >
-        {_.capitalize(subTrack).replace(/_/g, ' ')}
+        {_.capitalize(type).replace(/_/g, ' ')}
       </TrackTag>
       <h1 styleName="title">
         <Link
@@ -99,9 +101,8 @@ Card.propTypes = {
     technologies: PT.string.isRequired,
     registrationStartDate: PT.string.isRequired,
     submissionEndDate: PT.string.isRequired,
-    legacy: PT.shape({
-      track: PT.string.isRequired,
-    }),
-    subTrack: PT.string.isRequired,
+    track: PT.string.isRequired,
+    type: PT.string.isRequired,
+    typeId: PT.string.isRequired,
   }).isRequired,
 };
