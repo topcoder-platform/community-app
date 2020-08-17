@@ -7,16 +7,10 @@ exports[`Matches shallow shapshot 1`] = `
   <span
     className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__leaderboard-avatar___JjdZ_"
   >
-    <ThemedAvatar
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      mapThemrProps={[Function]}
-      theme={
-        Object {
-          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___1KUGNq",
-        }
-      }
-      themePriority="adhoc-context-default"
+    <DefaultAvatar
+      data-name="Layer 1"
+      viewBox="0 0 33 33.00137"
+      xmlns="http://www.w3.org/2000/svg"
     />
     <div
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__ranking___3eGBy"
@@ -72,16 +66,10 @@ exports[`Matches shallow shapshot 2`] = `
   <span
     className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__leaderboard-avatar___JjdZ_"
   >
-    <ThemedAvatar
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      mapThemrProps={[Function]}
-      theme={
-        Object {
-          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___1KUGNq",
-        }
-      }
-      themePriority="adhoc-context-default"
+    <DefaultAvatar
+      data-name="Layer 1"
+      viewBox="0 0 33 33.00137"
+      xmlns="http://www.w3.org/2000/svg"
     />
     <div
       className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__ranking___3eGBy"
