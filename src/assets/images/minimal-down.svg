@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="13px" viewBox="0 0 22 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 62 (101010) - https://sketch.com -->
+    <title>C1A13778-3A8D-495F-8743-807086A83EFB</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M20.3618536,13.3118536 L12,4.95 L12,4.95 L3.63814636,13.3118536 C3.05754552,13.8924545 2.11620557,13.8924545 1.53560473,13.3118536 C1.52352564,13.2997746 1.51165564,13.2874882 1.5,13.275 C0.914338011,12.647505 0.931207349,11.6687927 1.53814636,11.0618536 L11.2928932,1.30710678 C11.6834175,0.916582489 12.3165825,0.916582489 12.7071068,1.30710678 L22.4618536,11.0618536 C23.0687927,11.6687927 23.085662,12.647505 22.5,13.275 C21.9397529,13.8752648 20.9989721,13.9077055 20.3987073,13.3474584 C20.3862191,13.3358027 20.3739327,13.3239327 20.3618536,13.3118536 Z" id="path-1"></path>
+    </defs>
+    <g id="TaaS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-TaaS-Prospect-" transform="translate(-1209.000000, -3125.000000)">
+            <g id="FAQ-1024" transform="translate(208.000000, 3088.000000)">
+                <g id="icons/arrow/minimal-down" transform="translate(1000.000000, 36.000000)">
+                    <g transform="translate(12.000000, 7.500000) scale(1, -1) translate(-12.000000, -7.500000) ">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="icon-color" fill="#137D60" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

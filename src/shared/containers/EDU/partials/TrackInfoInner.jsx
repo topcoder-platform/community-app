@@ -1,22 +1,22 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import qs from 'qs';
 
 export default function TrackInfoInner(props) {
   const { track, taxonomy, theme } = props;
   return (
     <div className={theme.trackInfosInner}>
-      <a className={theme.trackTitle} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track })}`}>
+      <Link className={theme.trackTitle} to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track })}`}>
         {track}
-      </a>
+      </Link>
       {
         taxonomy[track] ? (
           <div className={theme.trackSubs}>
             {
               _.map(
-                _.sortBy(taxonomy[track], ['name']), tax => <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track, tax: tax.name })}`} key={`${track}:${tax.name}`}>{tax.name}</a>,
+                _.sortBy(taxonomy[track], ['name']), tax => <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track, tax: tax.name })}`} key={`${track}:${tax.name}`}>{tax.name}</Link>,
               )
             }
           </div>

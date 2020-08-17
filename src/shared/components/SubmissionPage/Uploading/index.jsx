@@ -14,6 +14,8 @@ import RobotSad from 'assets/images/robot-embarassed.svg';
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import './styles.scss';
 
+import { COMPETITION_TRACKS } from 'utils/tc';
+
 const Uploading = ({
   challengeId,
   challengeName,
@@ -156,7 +158,7 @@ const Uploading = ({
         submitDone && !error
           && (
           <div styleName="button-container">
-            { track === 'DESIGN' ? (
+            { track === COMPETITION_TRACKS.DESIGN ? (
               <span>
                 <Button
                   onClick={() => reset()}

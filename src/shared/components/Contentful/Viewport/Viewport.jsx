@@ -4,6 +4,8 @@
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
+import { getHash } from 'utils/url';
+
 
 /* Loads viewport content assets. */
 const Viewport = ({
@@ -13,6 +15,15 @@ const Viewport = ({
   viewportId,
   animation,
 }) => {
+  const hash = getHash();
+  if (hash && hash.vid && hash.vid === viewportId) {
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        const section = document.getElementById(viewportId);
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
   // Animated on scroll viewport?
   if (animation.animateOnScroll) {
     return (

@@ -6,7 +6,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
-import { formatDate } from 'utils/tc';
+import { formatDate, COMPETITION_TRACKS } from 'utils/tc';
+import { isMM } from 'utils/challenge';
 import ReactImageFallback from 'react-image-fallback';
 import InviteOnly from 'assets/images/ico-invite-only-prj.svg';
 import WinnerRibbon from 'assets/images/ico-winner-ribbon.svg';
@@ -73,23 +74,27 @@ class ChallengeTile extends React.Component {
       challenge,
     } = this.props;
 
-    const { track } = challenge.legacy;
+    const { track, type } = challenge;
 
-    const outStyleName = `challenge tile-view ${track}`;
+    const outStyleName = `challenge tile-view ${track.replace(' ', '-').toLowerCase()}`;
     const extraStyle = {
       width: '285px',
       padding: '15px',
       margin: '10px 5px',
     };
 
-    const roundId = track === 'DATA_SCIENCE' ? _.get(challenge, 'rounds.0.id') : 0;
+    const isDataScience = track === COMPETITION_TRACKS.DATA_SCIENCE;
+    const isDevelopment = track === COMPETITION_TRACKS.DEVELOP;
+    const isDesign = track === COMPETITION_TRACKS.DESIGN;
+
+    const roundId = isDataScience ? _.get(challenge, 'rounds.0.id') : 0;
 
     return (
       <div styleName="challenge tile" style={extraStyle}>
         <div styleName={outStyleName}>
           <div styleName="completed-challenge">
             <header>
-              { track !== 'DATA_SCIENCE' && (!challenge.isPrivate
+              { !isDataScience && (!challenge.isPrivate
                 ? (
                   <Link to={`/challenges/${challenge.id}`} styleName="name">
                     <span>
@@ -102,7 +107,7 @@ class ChallengeTile extends React.Component {
                   </span>
                 )) }
 
-              { track === 'DATA_SCIENCE'
+              { isDataScience
                 && (
                 <a styleName="name" href={`https://community.topcoder.com/longcontest/stats/?module=ViewOverview&rd=${roundId}`}>
                   { challenge.name }
@@ -110,7 +115,7 @@ class ChallengeTile extends React.Component {
                 ) }
 
               <p styleName="subtrack-color">
-                {underscoreReplace(challenge.subTrack)}
+                {underscoreReplace(type)}
               </p>
               <p styleName="date-completed">
                 {formatDate(challenge.submissionEndDate)}
@@ -124,8 +129,8 @@ class ChallengeTile extends React.Component {
                     }
             </header>
             <div styleName="challenge-card__bottom">
-              <div styleName="challenge-details DATA_SCIENCE">
-                { track === 'DATA_SCIENCE' && challenge.subTrack
+              <div styleName="challenge-details data-science">
+                { isMM(challenge)
                   && (
                   <div styleName="marathon-score">
                     <p styleName="score">
@@ -136,7 +141,7 @@ class ChallengeTile extends React.Component {
                     </p>
                   </div>
                   ) }
-                { track === 'DEVELOP'
+                { isDevelopment
                   && (
                   <div styleName="dev-challenge-user-place">
                     <div styleName="tile-view">
@@ -193,7 +198,7 @@ class ChallengeTile extends React.Component {
                   )
                 }
                 {
-                  track === 'DESIGN' && !challenge.isPrivate
+                  isDesign && !challenge.isPrivate
                     && (
                     <div styleName="design-challenge-user-place">
                       <div styleName="tile-view">
@@ -313,7 +318,7 @@ class ChallengeTile extends React.Component {
               </div>
 
               <p styleName="roles">
-                { track !== 'DATA_SCIENCE'
+                { track !== COMPETITION_TRACKS.DATA_SCIENCE
                   && (
                   <span>
                     <span>

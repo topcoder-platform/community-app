@@ -231,6 +231,7 @@ workflows:
             branches:
               only:
                 - hot-fix
+                - integration-v5-develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -252,6 +253,7 @@ workflows:
             branches:
               only:
                 - hot-fix
+                - integration-v5-develop
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global

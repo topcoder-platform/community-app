@@ -8,6 +8,7 @@ import React from 'react';
 import Tooltip from 'components/Tooltip';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config, Link } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 /* TODO: The icon should be converted back to SVG and imported using the
  * the standard approach for our code! */
@@ -33,7 +34,7 @@ export default function NumRegistrants({
   }
   const query = numOfReg ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== 'Data Science') {
+  if (!newChallengeDetails && track !== COMPETITION_TRACKS.DATA_SCIENCE) {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (
