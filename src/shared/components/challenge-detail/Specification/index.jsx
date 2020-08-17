@@ -59,7 +59,7 @@ export default function ChallengeDetailsView(props) {
     forumId,
   } = legacy;
 
-  const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
+  const allowStockArt = _.find(metadata, { name: 'allowStockArt' }).value;
   let environment = '';
   const environmentData = _.find(metadata, { name: 'environment' });
   if (environmentData) {
