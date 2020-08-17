@@ -34,6 +34,7 @@ export default function ChallengeViewSelector(props) {
     mySubmissions,
   } = props;
 
+  const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
   const isDesign = trackLower === 'design';
@@ -125,7 +126,7 @@ export default function ChallengeViewSelector(props) {
           )
         }
         {
-          (numOfSubmissions && isLoggedIn) ? (
+          (numOfSub && isLoggedIn) ? (
             <a
               tabIndex="0"
               role="tab"
@@ -135,7 +136,7 @@ export default function ChallengeViewSelector(props) {
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >
               SUBMISSIONS (
-              {numOfSubmissions + (numOfCheckpointSubmissions || 0)}
+              {numOfSub}
               )
             </a>
           ) : null

@@ -50,7 +50,7 @@ const BUCKET_DATA = {
       status: ['Active'],
     },
     hideCount: false,
-    name: 'Open for registration - test me',
+    name: 'Open for registration',
     sorts: [
       SORTS.MOST_RECENT,
       SORTS.TIME_TO_REGISTER,
