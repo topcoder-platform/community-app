@@ -8,6 +8,7 @@ import config from 'config';
 import { createClient } from 'contentful';
 import { logger } from 'topcoder-react-lib';
 import { isomorphy } from 'topcoder-react-utils';
+import { qs } from 'qs';
 
 const contentful = require('contentful-management');
 
@@ -20,6 +21,8 @@ const PREVIEW_URL = 'https://preview.contentful.com/spaces';
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
 
+const MAX_FETCH_RETRIES = 5;
+
 /**
  * Generic logger for errors and warnings
  * from Contentful API calls
@@ -30,6 +33,14 @@ function logHandler(level, data) {
   if (isomorphy.isDev) {
     logger.log('Contentful logHandler', level, data);
   }
+}
+
+/**
+ * Creates a promise that resolves two second after its creation.
+ * @return {Promise}
+ */
+function threeSecondDelay() {
+  return new Promise(resolve => setTimeout(resolve, 3000));
 }
 
 /**
@@ -57,6 +68,34 @@ class ApiService {
     if (preview) clientConf.host = 'preview.contentful.com';
     // create the client to work with
     this.client = createClient(clientConf);
+  }
+
+  /**
+   * Gets data from the specified endpoing.
+   * @param {String} endpoint
+   * @param {Object} query Optional. URL query to append to the request.
+   * @return {Promise}
+   */
+  async fetch(endpoint, query) {
+    let url = `${this.private.baseUrl}${endpoint}`;
+    if (query) url += `?${qs.stringify(query)}`;
+    let res;
+    for (let i = 0; i < MAX_FETCH_RETRIES; i += 1) {
+      /* The loop is here to retry async operation multiple times in case of
+       * failures due to violation of Contentful API rate limits, which are
+       * 78 requests within 1 second. Thus, it is a valid use of await inside
+       * loop. */
+      /* eslint-disable no-await-in-loop */
+      res = await fetch(url, {
+        headers: { Authorization: `Bearer ${this.private.key}` },
+      });
+      /* 429 = "Too Many Requests" */
+      if (res.status !== 429) break;
+      await threeSecondDelay();
+      /* eslint-enable no-await-in-loop */
+    }
+    if (!res.ok) throw new Error(res.statusText);
+    return res.json();
   }
 
   /**

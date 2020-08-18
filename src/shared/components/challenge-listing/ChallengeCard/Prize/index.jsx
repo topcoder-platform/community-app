@@ -72,7 +72,7 @@ Prize.defaultProps = {
 Prize.propTypes = {
   bonuses: PT.arrayOf(PT.object),
   label: PT.string.isRequired,
-  prizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.shape()),
   prizeUnitSymbol: PT.string.isRequired,
   totalPrize: PT.number.isRequired,
   withoutTooltip: PT.bool,

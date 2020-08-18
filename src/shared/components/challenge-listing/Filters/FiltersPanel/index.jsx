@@ -55,7 +55,7 @@ export default function FiltersPanel({
   setFilterState,
   setSearchText,
   validKeywords,
-  validSubtracks,
+  validTypes,
   isSavingFilter,
 }) {
   let className = 'FiltersPanel';
@@ -75,7 +75,8 @@ export default function FiltersPanel({
       );
     }
 
-    const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
+    // eslint-disable-next-line max-len
+    const visitorGroupIds = (auth.profile && auth.profile.groups) ? auth.profile.groups.map(g => g.id) : [];
     const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,
@@ -192,7 +193,7 @@ export default function FiltersPanel({
   );
 
   const mapOps = item => ({ label: item, value: item });
-  const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
+  const mapTypes = item => ({ label: item.name, value: item.id });
   return (
     <div styleName={className}>
       <div styleName="header">
@@ -250,23 +251,24 @@ export default function FiltersPanel({
         </div>
         <div styleName="filter-row">
           <div styleName="filter track">
-            <label htmlFor="track-select" styleName="left-label">
-              Subtrack
+            <label htmlFor="type-select" styleName="left-label">
+              Type
               <input type="hidden" />
             </label>
             <Select
-              placeholder="Select Subtrack"
-              id="track-select"
+              placeholder="Select Type"
+              id="type-select"
               multi
               onChange={(value) => {
-                const subtracks = value ? value.split(',') : undefined;
-                setFilterState(Filter.setSubtracks(filterState, subtracks));
+                const types = value ? value.split(',') : undefined;
+                setFilterState(Filter.setTypes(filterState, types));
               }}
-              options={validSubtracks.map(mapSubtracks)}
+              options={validTypes.map(mapTypes)}
               simpleValue
               value={
-                filterState.subtracks ? filterState.subtracks.join(',') : null
+                (filterState.types && !isReviewOpportunitiesBucket) ? filterState.types.join(',') : null
               }
+              disabled={isReviewOpportunitiesBucket}
             />
           </div>
           {/* Only shown when the Review Opportunity bucket is selected */}
@@ -347,6 +349,7 @@ export default function FiltersPanel({
             setFilterState({});
             selectCommunity(defaultCommunityId);
             setSearchText('');
+            localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
           theme={{ button: style.button }}
@@ -396,6 +399,6 @@ FiltersPanel.propTypes = {
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.shape()).isRequired,
+  validTypes: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
 };

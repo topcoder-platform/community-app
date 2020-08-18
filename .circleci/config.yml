@@ -230,6 +230,7 @@ workflows:
           filters:
             branches:
               only:
+                - integration-v5-develop
                 - hot-fix
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -251,6 +252,7 @@ workflows:
           filters:
             branches:
               only:
+                - integration-v5-develop
                 - hot-fix
       # This is stage env for production QA releases
       - "build-prod-staging":

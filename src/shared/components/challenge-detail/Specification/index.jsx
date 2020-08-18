@@ -11,10 +11,12 @@ import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
 import { config } from 'topcoder-react-utils';
+import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
+import SpecificationComponent from './SpecificationComponent';
 // import { editorStateToHTML } from 'utils/editor';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
@@ -36,28 +38,39 @@ export default function ChallengeDetailsView(props) {
   } = props;
 
   const {
-    forumId,
     groups,
-    introduction,
-    detailedRequirements,
-    track,
-    screeningScorecardId,
-    reviewScorecardId,
-    submissionLimit,
-    mainEvent,
+    description,
+    privateDescription,
+    descriptionFormat,
+    legacy,
+    legacyId,
     documents,
-    technologies,
-    fileTypes,
-    round1Introduction,
-    round2Introduction,
-    allowStockArt,
     finalSubmissionGuidelines,
-    environment,
-    codeRepo,
     userDetails,
+    metadata,
+    events,
+    track,
   } = challenge;
 
   const roles = (userDetails || {}).roles || [];
+  const {
+    reviewScorecardId,
+    screeningScorecardId,
+    forumId,
+  } = legacy;
+
+  const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
+  let environment = '';
+  const environmentData = _.find(metadata, { name: 'environment' });
+  if (environmentData) {
+    environment = environmentData.value;
+  }
+
+  let codeRepo = '';
+  const codeRepoData = _.find(metadata, { name: 'codeRepo' });
+  if (codeRepoData) {
+    codeRepo = codeRepoData.value;
+  }
 
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
@@ -70,10 +83,19 @@ export default function ChallengeDetailsView(props) {
     isWipro = wiproCommunity.groupIds.some(id => groups[id]);
   }
 
-  const isDataScience = technologies.includes('Data Science');
-  let accentedStyle = 'challenge-specs-design';
-  if (track.toLowerCase() === 'develop') {
-    accentedStyle = isDataScience ? 'challenge-specs-datasci' : 'challenge-specs-develop';
+  let accentedStyle = '';
+  switch (track.toLowerCase()) {
+    case 'design':
+      accentedStyle = 'challenge-specs-design';
+      break;
+
+    case 'data science':
+      accentedStyle = 'challenge-specs-datasci';
+      break;
+
+    default:
+      accentedStyle = 'challenge-specs-develop';
+      break;
   }
 
   const canEdit = roles.some(x => x === 'Copilot' || x === 'Manager');
@@ -145,7 +167,7 @@ export default function ChallengeDetailsView(props) {
                 ? (
                   <div>
                     {
-                      detailedRequirements
+                      description
                       && (
                       <article>
                         <h2 styleName="h2">
@@ -155,18 +177,14 @@ export default function ChallengeDetailsView(props) {
                           editMode ? (
                             <Editor
                               connector={toolbarConnector}
-                              id="detailedRequirements"
+                              id="description"
                               initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(detailedRequirements)}
+                              ref={n => n && n.setHtml(description)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: detailedRequirements,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={description}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -207,7 +225,7 @@ export default function ChallengeDetailsView(props) {
                 : (
                   <div>
                     {
-                      introduction
+                      description
                       && (
                       <article>
                         <h2 styleName="h2">
@@ -217,18 +235,14 @@ export default function ChallengeDetailsView(props) {
                           editMode ? (
                             <Editor
                               connector={toolbarConnector}
-                              id="introduction"
+                              id="privateDescription"
                               initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(introduction)}
+                              ref={n => n && n.setHtml(privateDescription)}
                             />
                           ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: introduction,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
+                            <SpecificationComponent
+                              bodyText={description}
+                              format={descriptionFormat}
                             />
                           )
                         }
@@ -241,134 +255,6 @@ export default function ChallengeDetailsView(props) {
                           Admins in the forums. Please post any questions you
                           might have for the client in the forums.
                         </p>
-                      </article>
-                      )
-                    }
-                    {
-                      round1Introduction || round2Introduction ? (
-                        <article>
-                          <h2 styleName="h2">
-                            Challenge Format
-                          </h2>
-                          <p styleName="p">
-                            This competition will be run as a two-round challenge.
-                          </p>
-                          {
-                            round1Introduction ? (
-                              <div>
-                                <h3 styleName="h3">
-                                  Round 1
-                                </h3>
-                                {
-                                  editMode ? (
-                                    <Editor
-                                      connector={toolbarConnector}
-                                      id="round1Introduction"
-                                      initialMode={EDITOR_MODES.WYSIWYG}
-                                      ref={n => n.setHtml(round1Introduction)}
-                                    />
-                                  ) : (
-                                    <div
-                                      /* eslint-disable react/no-danger */
-                                      dangerouslySetInnerHTML={{
-                                        __html: round1Introduction,
-                                      }}
-                                      /* eslint-enable react/no-danger */
-                                      styleName="rawHtml"
-                                    />
-                                  )
-                                }
-                              </div>
-                            ) : null
-                          }
-                          {
-                            round2Introduction ? (
-                              <div>
-                                <h3 styleName="h3">
-                                  Round 2
-                                </h3>
-                                {
-                                  editMode ? (
-                                    <Editor
-                                      connector={toolbarConnector}
-                                      id="round2Introduction"
-                                      initialMode={EDITOR_MODES.WYSIWYG}
-                                      ref={n => n.setHtml(round2Introduction)}
-                                    />
-                                  ) : (
-                                    <div
-                                      /* eslint-disable react/no-danger */
-                                      dangerouslySetInnerHTML={{
-                                        __html: round2Introduction,
-                                      }}
-                                      /* eslint-enable react/no-danger */
-                                      styleName="rawHtml"
-                                    />
-                                  )
-                                }
-                              </div>
-                            ) : null
-                          }
-                          <div styleName="note">
-                            <p styleName="p">
-                              Regarding the Rounds:
-                            </p>
-                            <ul styleName="ul">
-                              <li>
-                                To be eligible for Round 1 prizes and design feedback,
-                                you must submit before the Checkpoint deadline.
-                              </li>
-                              <li>
-                                A day or two after the Checkpoint deadline, the challenge holder
-                                will announce Round 1 winners and provide design feedback to those
-                                winners in the &ldquo;Checkpoints&rdquo; tab above.
-                              </li>
-                              <li>
-                                You must submit to Round 1 to be eligible to compete in Round 2.
-                                If your submission fails screening for a small mistake in Round 1,
-                                you may still be eligible to submit to Round 2.
-                              </li>
-                              <li>
-                                Every competitor with a passing Round 1 submission can submit to
-                                Round 2, even if they didn&apos;t win a Checkpoint prize.
-                              </li>
-                              <li>
-                                <a href={config.URL.INFO.DESIGN_CHALLENGE_CHECKPOINTS}>
-                                  Learn more here
-                                </a>
-                                .
-                              </li>
-                            </ul>
-                          </div>
-                        </article>
-                      ) : null
-                    }
-                    {
-                      detailedRequirements
-                      && (
-                      <article>
-                        <h2 styleName="h2">
-                          Full Description & Project Guide
-                        </h2>
-                        {
-                          editMode ? (
-                            <Editor
-                              connector={toolbarConnector}
-                              id="detailedRequirements"
-                              initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(detailedRequirements)}
-                            />
-                          ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: detailedRequirements,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
-                            />
-                          )
-                        }
                       </article>
                       )
                     }
@@ -488,21 +374,21 @@ export default function ChallengeDetailsView(props) {
         </div>
         <SideBar
           challengesUrl={challengesUrl}
-          screeningScorecardId={screeningScorecardId}
-          reviewScorecardId={reviewScorecardId}
+          legacyId={legacyId}
           forumLink={forumLink}
-          submissionLimit={submissionLimit}
-          eventDetail={_.isEmpty(mainEvent) ? null : mainEvent}
           documents={documents}
           hasRegistered={hasRegistered}
-          fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
-          isDevelop={track.toLowerCase() === 'develop'}
-          isMM={challenge.subTrack.toUpperCase().indexOf('MARATHON_MATCH') > -1}
+          isDevelop={track.toLowerCase() === 'development'}
+          eventDetail={_.isEmpty(events) ? null : events[0]}
+          isMM={isMM(challenge)}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}
           codeRepo={codeRepo}
+          metadata={metadata}
+          reviewScorecardId={reviewScorecardId}
+          screeningScorecardId={screeningScorecardId}
         />
       </div>
     </div>
@@ -512,23 +398,19 @@ export default function ChallengeDetailsView(props) {
 ChallengeDetailsView.defaultProps = {
   terms: [],
   challenge: {
-    introduction: undefined,
-    detailedRequirements: undefined,
+    description: undefined,
+    privateDescription: undefined,
     track: 'design',
-    screeningScorecardId: undefined,
-    reviewScorecardId: undefined,
-    submissionLimit: 0,
-    mainEvent: undefined,
     reviewType: undefined,
-    technologies: '',
-    fileTypes: [],
     numberOfCheckpointsPrizes: 0,
-    round1Introduction: '',
-    round2Introduction: '',
-    allowStockArt: false,
     finalSubmissionGuidelines: '',
     environment: '',
+    descriptionFormat: 'HTML',
     codeRepo: '',
+    metadata: {},
+    events: [],
+    reviewScorecardId: '',
+    screeningScorecardId: '',
   },
 };
 
@@ -536,31 +418,29 @@ ChallengeDetailsView.propTypes = {
   terms: PT.arrayOf(PT.shape()),
   hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
-    introduction: PT.string,
+    description: PT.string,
+    descriptionFormat: PT.string,
     documents: PT.any,
     id: PT.any,
-    subTrack: PT.any,
-    detailedRequirements: PT.string,
+    privateDescription: PT.string,
+    legacy: PT.shape({
+      reviewScorecardId: PT.string,
+      screeningScorecardId: PT.string,
+      forumId: PT.number,
+    }),
     track: PT.string.isRequired,
-    groups: PT.shape().isRequired,
-    screeningScorecardId: PT.number,
-    reviewScorecardId: PT.number,
-    forumId: PT.number.isRequired,
-    submissionLimit: PT.number,
-    mainEvent: PT.shape(),
+    legacyId: PT.string,
+    groups: PT.any,
     reviewType: PT.string,
-    technologies: PT.arrayOf(PT.string),
-    fileTypes: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
-    round1Introduction: PT.string,
-    round2Introduction: PT.string,
-    allowStockArt: PT.bool,
     finalSubmissionGuidelines: PT.string,
     environment: PT.string,
     codeRepo: PT.string,
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
     }),
+    metadata: PT.shape(),
+    events: PT.arrayOf(PT.string),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({

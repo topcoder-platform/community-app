@@ -59,7 +59,7 @@ export default function Topcoder() {
               <Route
                 component={ChallengeDetails}
                 exact
-                path="/challenges/:challengeId(\d{8}|\d{5})"
+                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})"
               />
               <Route component={ChallengeListing} exact path="/challenges" />
               <Route component={Notifications} exact path="/notifications" />
@@ -67,18 +67,18 @@ export default function Topcoder() {
               <Route
                 component={ReviewOpportunityDetails}
                 exact
-                path="/challenges/:challengeId(\d{8}|\d{5})/review-opportunities"
+                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/review-opportunities"
               />
-              <Route component={Scoreboard} exact path="/scoreboard/:challengeId(\d+)" />
+              <Route component={Scoreboard} exact path="/scoreboard/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})" />
               <Route
                 component={SubmissionManagement}
                 exact
-                path="/challenges/:challengeId(\d{8}|\d{5})/my-submissions"
+                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/my-submissions"
               />
               <Route
                 component={Submission}
                 exact
-                path="/challenges/:challengeId(\d{8}|\d{5})/submit"
+                path="/challenges/:challengeId([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/submit"
               />
               <Route
                 component={Profile}

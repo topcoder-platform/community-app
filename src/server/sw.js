@@ -87,7 +87,7 @@ workbox.routing.registerRoute(/\/challenges(\/)?(\?.*)?$/, async ({ event, url }
 }, 'GET');
 
 // Serve challenge details pages like: /challenges/12345678
-workbox.routing.registerRoute(/\/challenges\/\d+(\/)?(.*)/, async ({ event, url }) => {
+workbox.routing.registerRoute(/\/challenges\/((([\w]{4,12}-?){5}|\d{5,8}))(\/)?(.*)/, async ({ event, url }) => {
   if (url.pathname.endsWith('/')) {
     // Remove ending '/' char
     url.pathname = url.pathname.substring(0, url.pathname.length - 1);

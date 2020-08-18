@@ -130,7 +130,6 @@ BucketSelector.propTypes = {
   activeSavedFilter: PT.number.isRequired,
   buckets: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape({
-    registrationOpen: PT.string.isRequired,
   })).isRequired,
   communityFilter: PT.shape(),
   disabled: PT.bool,

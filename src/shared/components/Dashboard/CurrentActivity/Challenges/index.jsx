@@ -27,6 +27,8 @@ export default function Challenges({
   switchChallengeFilter,
   switchShowChallengeFilter,
   unregisterFromChallenge,
+  userResources,
+  challengeTypesMap,
 }) {
   if (challengesLoading) {
     return (
@@ -51,11 +53,11 @@ export default function Challenges({
     const ch = filteredChallenges[i];
     const nextPhase = ch.currentPhases && _.last(ch.currentPhases);
     if (nextPhase) {
-      const deadlineEnd = moment(nextPhase.scheduledEndTime);
+      const deadlineEnd = moment(nextPhase.scheduledEndDate);
       ch.dashboardPriority = deadlineEnd.diff(now);
     } else if (moment(ch.registrationStartDate).isAfter(now)) {
       ch.dashboardPriority = moment(ch.registrationStartDate).diff(now);
-    } else if (ch.status === 'COMPLETED') {
+    } else if (ch.status === 'Completed') {
       ch.dashboardPriority = Number.MAX_VALUE;
     } else ch.dashboardPriority = -Number.MAX_VALUE;
   }
@@ -74,6 +76,8 @@ export default function Challenges({
                   selectChallengeDetailsTab={selectChallengeDetailsTab}
                   setChallengeListingFilter={setChallengeListingFilter}
                   unregisterFromChallenge={unregisterFromChallenge}
+                  userResources={userResources}
+                  challengeTypesMap={challengeTypesMap}
                 />
               ))
             ) : (
@@ -140,17 +144,13 @@ export default function Challenges({
           />
         </Sticky>
       </div>
-      <div styleName="linksContainer">
-        <a
-          href={`${config.URL.BASE}/my-challenges/?status=completed`}
-          styleName="link"
-        >
-          Past Challenges
-        </a>
-      </div>
     </div>
   );
 }
+
+Challenges.defaultProps = {
+  userResources: [],
+};
 
 Challenges.propTypes = {
   challengeFilter: PT.string.isRequired,
@@ -164,4 +164,6 @@ Challenges.propTypes = {
   switchChallengeFilter: PT.func.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
+  userResources: PT.arrayOf(PT.shape()),
+  challengeTypesMap: PT.shape().isRequired,
 };

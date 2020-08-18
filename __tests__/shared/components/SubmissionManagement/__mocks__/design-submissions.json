@@ -11,9 +11,11 @@
     "name": "Test Design Challenge for Submission Management Page",
     "reviewType": "INTERNAL",
     "id": 30050696,
-    "forumId": 595805,
-    "numSubmissions": 0,
-    "numRegistrants": 4,
+    "legacy": {
+      "forumId": 595805
+    },
+    "numOfSubmissions": 0,
+    "numOfRegistrants": 4,
     "registrationStartDate": "2017-03-27T20:38:52.000Z",
     "registrationEndDate": "2017-04-02T19:59:00.000Z",
     "checkpointSubmissionEndDate": "2017-03-30T20:34:48.085Z",
