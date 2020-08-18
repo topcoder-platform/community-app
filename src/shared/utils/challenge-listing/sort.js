@@ -21,7 +21,33 @@ export const SORTS = {
 
 export default {
   [SORTS.CURRENT_PHASE]: {
-    func: (a, b) => a.status.localeCompare(b.status),
+    func: (a, b) => {
+      const aPhases = a.phases || [];
+      const bPhases = b.phases || [];
+      const aPhase = aPhases
+        .filter(p => p.name !== 'Registration' && p.isOpen)
+        .sort((p1, p2) => moment(p1.scheduledEndDate).diff(p2.scheduledEndDate))[0];
+      const bPhase = bPhases
+        .filter(p => p.name !== 'Registration' && p.isOpen)
+        .sort((p1, p2) => moment(p1.scheduledEndDate).diff(p2.scheduledEndDate))[0];
+
+      let aPhaseName = 'Stalled';
+      let bPhaseName = 'Stalled';
+      if (!aPhase && a.type === 'First2Finish' && aPhases.length) {
+        aPhaseName = 'Submission';
+      }
+      if (!bPhase && b.type === 'First2Finish' && bPhases.length) {
+        bPhaseName = 'Submission';
+      }
+
+      if (aPhase) aPhaseName = aPhase.name;
+      else if (a.status === 'Draft') aPhaseName = 'Draft';
+
+      if (bPhase) bPhaseName = bPhase.name;
+      else if (b.status === 'Draft') bPhaseName = 'Draft';
+
+      return aPhaseName.localeCompare(bPhaseName);
+    },
     name: 'Current phase',
   },
   [SORTS.MOST_RECENT]: {
