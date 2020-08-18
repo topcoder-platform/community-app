@@ -38,7 +38,7 @@ export default function ChallengeHeader(props) {
     challenge,
     challengesUrl,
     checkpoints,
-    hasRegistered,
+    isRegistered,
     numWinners,
     onSelectorClicked,
     onToggleDeadlines,
@@ -122,13 +122,15 @@ export default function ChallengeHeader(props) {
   */
   const hasSubmissions = !_.isEmpty(mySubmissions);
 
-  let nextPhase = allPhases.filter(p => p.isOpen)
-    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
-  if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
+  const nextPhaseArray = allPhases.filter(p => p.isOpen)
+    .sort((a, b) => moment(b.scheduledEndDate).diff(a.scheduledEndDate));
+  let nextPhase = nextPhaseArray[0];
+  if (isRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
     nextPhase = allPhases[1] || {};
   }
-  const nextDeadline = nextPhase && nextPhase.name;
-
+  if (!isRegistered && nextPhase.name === 'Submission' && type === 'First2Finish') {
+    nextPhase = nextPhaseArray[1] || {};
+  }
   const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndDate);
   const currentTime = moment();
 
@@ -182,16 +184,17 @@ export default function ChallengeHeader(props) {
         scheduledEndDate: endPhaseDate,
       });
     } else if (relevantPhases.length > 1) {
-      const lastPhase = relevantPhases[relevantPhases.length - 1];
+      const lastPhase = allPhases[allPhases.length - 1];
       const lastPhaseTime = (
         new Date(lastPhase.actualEndDate || lastPhase.scheduledEndDate)
       ).getTime();
+      const challengeName = lastPhase.name === 'Iterative Review' ? lastPhase.name : 'Winners';
 
       const appealsEnd = (new Date(appealsEndDate).getTime());
-      if (lastPhaseTime < appealsEnd && lastPhase.name !== 'Review') {
+      if (lastPhaseTime < appealsEnd && lastPhase.name !== 'Review' && lastPhase.name !== 'Approval') {
         relevantPhases.push({
           id: -1,
-          name: 'Winners',
+          name: challengeName,
           scheduledEndDate: appealsEndDate,
         });
       }
@@ -199,6 +202,7 @@ export default function ChallengeHeader(props) {
   }
 
   const checkpointCount = checkpoints && checkpoints.numberOfUniqueSubmitters;
+  const nextDeadline = nextPhase && nextPhase.name;
 
   let nextDeadlineMsg;
   switch ((status || '').toLowerCase()) {
@@ -358,7 +362,7 @@ export default function ChallengeHeader(props) {
           </div>
           <div styleName="challenge-ops-wrapper">
             <div styleName="challenge-ops-container">
-              {hasRegistered ? (
+              {isRegistered ? (
                 <DangerButton
                   disabled={unregistering || registrationEnded
                   || hasSubmissions || isLegacyMM}
@@ -379,14 +383,14 @@ export default function ChallengeHeader(props) {
                 </PrimaryButton>
               )}
               <PrimaryButton
-                disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
+                disabled={!isRegistered || unregistering || submissionEnded || isLegacyMM}
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
                 Submit
               </PrimaryButton>
               {
-                track === COMPETITION_TRACKS.DESIGN && hasRegistered && !unregistering
+                track === COMPETITION_TRACKS.DESIGN && isRegistered && !unregistering
                 && hasSubmissions && (
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}
@@ -456,7 +460,7 @@ export default function ChallengeHeader(props) {
           hasCheckpoints={checkpoints && checkpoints.length > 0}
           numOfSubmissions={numOfSubmissions}
           numOfCheckpointSubmissions={numOfCheckpointSubmissions}
-          hasRegistered={hasRegistered}
+          hasRegistered={isRegistered}
           checkpointCount={checkpointCount}
           mySubmissions={mySubmissions}
         />
@@ -501,7 +505,7 @@ ChallengeHeader.propTypes = {
     prizeSets: PT.any,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  hasRegistered: PT.bool.isRequired,
+  isRegistered: PT.bool.isRequired,
   hasThriveArticles: PT.bool,
   hasRecommendedChallenges: PT.bool,
   submissionEnded: PT.bool.isRequired,
