@@ -18,6 +18,7 @@ import React from 'react';
 import PT from 'prop-types';
 import Tooltip from 'components/Tooltip';
 import LoaderIcon from '../../../Loader/Loader';
+import { phaseStartDate, phaseEndDate } from '../../../../utils/challenge-detail/helper';
 import './style.scss';
 
 const getDate = date => moment(date).format('MMM DD');
@@ -95,31 +96,32 @@ function Tip(props) {
   if (!c || _.isEmpty(c)) return <div />;
 
   const allPhases = c.phases || [];
-  const endPhaseDate = Math.max(...allPhases.map(d => new Date(d.scheduledEndDate)));
+  const endPhaseDate = Math.max(...allPhases.map(d => phaseEndDate(d)));
   const registrationPhase = allPhases.find(phase => phase.name === 'Registration');
   const submissionPhase = allPhases.find(phase => phase.name === 'Submission');
+  const checkpointPhase = allPhases.find(phase => phase.name === 'Checkpoint Submission');
 
   if (registrationPhase) {
     steps.push({
-      date: new Date(registrationPhase.scheduledStartDate),
+      date: phaseStartDate(registrationPhase),
       name: 'Start',
     });
   }
-  if (c.checkpointSubmissionEndDate) {
+  if (checkpointPhase) {
     steps.push({
-      date: new Date(c.checkpointSubmissionEndDate),
+      date: phaseEndDate(checkpointPhase),
       name: 'Checkpoint',
     });
   }
   const iterativeReviewPhase = allPhases.find(phase => phase.isOpen && phase.name === 'Iterative Review');
   if (iterativeReviewPhase) {
     steps.push({
-      date: new Date(iterativeReviewPhase.scheduledEndDate),
+      date: phaseEndDate(iterativeReviewPhase),
       name: 'Iterative Review',
     });
   } else if (submissionPhase) {
     steps.push({
-      date: new Date(submissionPhase.scheduledEndDate),
+      date: phaseEndDate(submissionPhase),
       name: 'Submission',
     });
   }

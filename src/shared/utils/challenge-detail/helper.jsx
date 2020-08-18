@@ -33,6 +33,36 @@ export function getChallengeTypeAbbr(track, challengeTypes) {
 }
 
 /**
+  * Returns phase's end date.
+  * @param {Object} phase
+  * @return {Date}
+  */
+export function phaseEndDate(phase) {
+  // Case 1: phase is still open. take the `scheduledEndDate`
+  // Case 2: phase is not open but `scheduledStartDate` is a future date.
+  // This means phase is not yet started. So take the `scheduledEndDate`
+  if (phase.isOpen || moment(phase.scheduledStartDate).isAfter()) {
+    return new Date(phase.scheduledEndDate);
+  }
+  // for other cases, take the `actualEndDate` as phase is already closed
+  return new Date(phase.actualEndDate);
+}
+
+/**
+  * Returns phase's start date.
+  * @param {Object} phase
+  * @return {Date}
+  */
+export function phaseStartDate(phase) {
+  // Case 1: Phase is not yet started. take the `scheduledStartDate`
+  if (phase.isOpen !== true && moment(phase.scheduledStartDate).isAfter()) {
+    return new Date(phase.scheduledStartDate);
+  }
+  // For all other cases, take the `actualStartDate` as phase is already started
+  return new Date(phase.actualStartDate);
+}
+
+/**
  * Get end date
  * @param {Object} challenge challenge info
  */
@@ -42,7 +72,7 @@ export function getEndDate(challenge) {
   if (type === 'First2Finish' && challenge.status === 'Completed') {
     phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
   }
-  const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndDate)));
+  const endPhaseDate = Math.max(...phases.map(d => phaseEndDate(d)));
   return moment(endPhaseDate).format('MMM DD');
 }
 
@@ -65,7 +95,7 @@ export function getTimeLeft(
     return { late: false, text: FF_TIME_LEFT_MSG };
   }
 
-  let time = moment(phase.scheduledEndDate).diff();
+  let time = moment(phaseEndDate(phase)).diff();
   const late = time < 0;
   if (late) time = -time;
 

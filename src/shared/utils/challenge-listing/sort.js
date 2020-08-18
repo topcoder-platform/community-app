@@ -4,6 +4,7 @@
 
 import moment from 'moment';
 import { find, sumBy } from 'lodash';
+import { phaseStartDate, phaseEndDate } from '../challenge-detail/helper';
 
 export const SORTS = {
   CURRENT_PHASE: 'current-phase',
@@ -27,12 +28,14 @@ export default {
   [SORTS.MOST_RECENT]: {
     func: (a, b) => {
       const getRegistrationStartDate = (challenge) => {
+        // extract the registration phase from `challenge.phases`,
+        // as `challenge.registrationStartDate` returned from API is not reliable
         const registrationPhase = find(challenge.phases, p => p.name === 'Registration');
-        return registrationPhase.actualStartDate || registrationPhase.scheduledStartDate;
+        return moment(phaseStartDate(registrationPhase));
       };
       const aRegistrationStartDate = getRegistrationStartDate(a);
       const bRegistrationStartDate = getRegistrationStartDate(b);
-      return moment(bRegistrationStartDate).diff(aRegistrationStartDate);
+      return bRegistrationStartDate.diff(aRegistrationStartDate);
     },
     name: 'Most recent',
   },
@@ -51,12 +54,20 @@ export default {
   [SORTS.TIME_TO_REGISTER]: {
     func: (a, b) => {
       const getRegistrationEndDate = (challenge) => {
+        // extract the registration phase from `challenge.phases`,
+        // as `challenge.registrationEndDate` returned from API is not reliable
         const registrationPhase = find(challenge.phases, p => p.name === 'Registration');
-        return registrationPhase.actualEndDate || registrationPhase.scheduledEndDate;
+        const submissionPhase = find(challenge.phases, p => p.name === 'Submission');
+        // case 1: registration phase exists
+        if (registrationPhase) {
+          return moment(phaseEndDate(registrationPhase));
+        }
+        // case 2: registration phase doesn't exist. Take submission phase instead.
+        return moment(phaseEndDate(submissionPhase));
       };
 
-      const aDate = moment(getRegistrationEndDate(a) || a.submissionEndTimestamp);
-      const bDate = moment(getRegistrationEndDate(b) || b.submissionEndTimestamp);
+      const aDate = getRegistrationEndDate(a);
+      const bDate = getRegistrationEndDate(b);
 
       if (aDate.isBefore() && bDate.isAfter()) return 1;
       if (aDate.isAfter() && bDate.isBefore()) return -1;
@@ -68,11 +79,23 @@ export default {
   },
   [SORTS.TIME_TO_SUBMIT]: {
     func: (a, b) => {
-      function nextSubEndDate(o) {
-        if (o.checkpointSubmissionEndDate && moment(o.checkpointSubmissionEndDate).isAfter()) {
-          return moment(o.checkpointSubmissionEndDate);
+      function nextSubEndDate(challenge) {
+        // extract the submission and checkpoint (if any) phases from `challenge.phases`,
+        // as `challenge.submissionEndDate` returned from API is not reliable
+        const checkpointPhase = find(challenge.phases, p => p.name === 'Checkpoint Submission');
+        const submissionPhase = find(challenge.phases, p => p.name === 'Submission');
+        // Case 1: challenge has checkpoint submission phase
+        if (!!checkpointPhase === true) {
+          // Case 1.1: checkpoint submission phase is still open.
+          // then take the `scheduledEndDate` of this phase.
+          // Case 1.2: checkpoint submission phase is closed
+          // but its `scheduledStartDate` is a future date.
+          // This means this phase is not yet started. Take the `scheduledEndDate` of this phase.
+          if (checkpointPhase.isOpen || moment(checkpointPhase.scheduledStartDate).isAfter()) {
+            return moment(checkpointPhase.scheduledEndDate);
+          }
         }
-        return moment(o.submissionEndTimestamp);
+        return moment(phaseEndDate(submissionPhase));
       }
 
       const aDate = nextSubEndDate(a);

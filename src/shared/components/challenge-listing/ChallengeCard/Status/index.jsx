@@ -7,7 +7,7 @@ import { config, Link } from 'topcoder-react-utils';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import 'moment-duration-format';
 import {
-  getTimeLeft,
+  getTimeLeft, phaseEndDate,
 } from 'utils/challenge-detail/helper';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';
@@ -271,7 +271,7 @@ export default function ChallengeStatus(props) {
                 <ChallengeProgressBar
                   color="green"
                   value={getPhaseProgress(statusPhase)}
-                  isLate={moment().isAfter(statusPhase.scheduledEndDate)}
+                  isLate={moment().isAfter(phaseEndDate(statusPhase))}
                 />
                 <div styleName="time-left">
                   {getTimeLeft(statusPhase, 'to go').text}
