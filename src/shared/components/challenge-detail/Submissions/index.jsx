@@ -175,8 +175,8 @@ class SubmissionsComponent extends React.Component {
             valueA = `${a.member || ''}`.toLowerCase();
             valueB = `${b.member || ''}`.toLowerCase();
           } else {
-            valueA = `${a.createdBy}`.toLowerCase();
-            valueB = `${b.createdBy}`.toLowerCase();
+            valueA = _.get(a.registrant, 'memberHandle', '');
+            valueB = _.get(b.registrant, 'memberHandle', '');
           }
           valueIsString = true;
           break;
@@ -314,12 +314,12 @@ class SubmissionsComponent extends React.Component {
               {`#${s.id}`}
             </a>
             <a
-              href={`${window.origin}/members/${s.createdBy}`}
+              href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
               styleName={`level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
             >
-              {s.createdBy}
+              {_.get(s.registrant, 'memberHandle', '')}
             </a>
           </div>
           <div>
@@ -705,7 +705,7 @@ class SubmissionsComponent extends React.Component {
         {
           !isMM && (
             sortedSubmissions.map(s => (
-              <div key={s.createdBy + s.created} styleName="row">
+              <div key={_.get(s.registrant, 'memberHandle', '') + s.created} styleName="row">
                 {
                   !isF2F && !isBugHunt && (
                     <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}>
@@ -715,12 +715,12 @@ class SubmissionsComponent extends React.Component {
                 }
                 <div styleName="col-3">
                   <a
-                    href={`${window.origin}/members/${s.createdBy}`}
+                    href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     rel="noopener noreferrer"
                     styleName={`handle level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
                   >
-                    {s.createdBy}
+                    {_.get(s.registrant, 'memberHandle', '')}
                   </a>
                 </div>
                 <div styleName="col-4">

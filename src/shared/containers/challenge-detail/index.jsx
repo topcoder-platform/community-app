@@ -721,7 +721,7 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
+        registrant: _.find(challenge.registrants, r => (`${r.memberId}` === `${submission.memberId}`)),
       }));
     }
 
