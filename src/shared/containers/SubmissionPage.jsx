@@ -40,6 +40,19 @@ class SubmissionsPageContainer extends React.Component {
     getCommunitiesList(auth);
   }
 
+  componentWillReceiveProps() {
+    const {
+      challenge,
+      history,
+    } = this.props;
+
+    const { details } = challenge;
+
+    if (details && details.isLegacyChallenge && !history.location.pathname.includes(details.id)) {
+      history.push(`/challenges/${details.id}/submit`, history.state);
+    }
+  }
+
   /* A child component has called their submitForm() prop, prepare the passed
      form data for submission and create a submit action */
   handleSubmit(body) {
@@ -150,6 +163,7 @@ SubmissionsPageContainer.propTypes = {
   submissionFilestackData: filestackDataProp.isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
   loadChallengeDetails: PT.func.isRequired,
+  history: PT.shape().isRequired,
 };
 
 /**
