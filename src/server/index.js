@@ -9,7 +9,7 @@ import Application from 'shared';
 import config from 'config';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
-import { logger } from 'topcoder-react-lib';
+import { logger, services } from 'topcoder-react-lib';
 import fs from 'fs';
 import moment from 'moment';
 import path from 'path';

@@ -6,11 +6,17 @@ import TrackAbbreviationTooltip from 'components/challenge-listing/Tooltips/Trac
 
 const mockDatas = [
   {
-    subTrack: 'F2F',
-    track: 'DEVELOP',
+    track: 'Development',
+    type: {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    },
   }, {
-    subTrack: 'CODE',
-    track: 'DEVELOP',
+    track: 'Design',
+    type: {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    },
   },
 ];
 
