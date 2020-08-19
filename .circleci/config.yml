@@ -253,7 +253,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature-contentful
+                - v4-master
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
