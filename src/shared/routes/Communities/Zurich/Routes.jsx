@@ -95,7 +95,7 @@ function Zurich({ base, meta, userGroups }) {
                     communityId: meta.communityId,
                   })}
                   exact
-                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+                  path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})`}
                 />
                 <Route
                   component={routeProps => Submission({
@@ -103,7 +103,7 @@ function Zurich({ base, meta, userGroups }) {
                     challengesUrl: `${base}/challenges`,
                   })}
                   exact
-                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+                  path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/submit`}
                 />
                 <Route
                   component={routeProps => SubmissionManagement({
@@ -111,7 +111,17 @@ function Zurich({ base, meta, userGroups }) {
                     challengesUrl: `${base}/challenges`,
                   })}
                   exact
-                  path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+                  path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
+                />
+                <Route
+                  render={props => <Profile {...props} meta={meta} />}
+                  exact
+                  path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+                />
+                <Route
+                  render={props => <ProfileStats {...props} meta={meta} />}
+                  exact
+                  path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
                 />
                 <Route
                   render={props => <Profile {...props} meta={meta} />}

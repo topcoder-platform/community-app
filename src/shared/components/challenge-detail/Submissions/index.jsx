@@ -6,6 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import { isMM as checkIsMM } from 'utils/challenge';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
@@ -17,7 +18,7 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import sortList from 'utils/challenge-detail/sort';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { goToLogin } from 'utils/tc';
+import { goToLogin, getRatingLevel } from 'utils/tc';
 import Lock from '../icons/lock.svg';
 import SubmissionRow from './SubmissionRow';
 import SubmissionInformationModal from './SubmissionInformationModal';
@@ -44,7 +45,7 @@ class SubmissionsComponent extends React.Component {
 
   componentDidMount() {
     const { challenge, loadMMSubmissions, auth } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
 
     // Check auth token, go to login page if invalid
     if (isMM && (_.isEmpty(auth) || _.isEmpty(auth.tokenV3) || isTokenExpired(auth.tokenV3))) {
@@ -60,7 +61,7 @@ class SubmissionsComponent extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
 
     const { submissions, mmSubmissions, submissionsSort } = this.props;
     if (
@@ -131,7 +132,7 @@ class SubmissionsComponent extends React.Component {
    */
   updateSortedSubmissions() {
     const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
     const { submissions, mmSubmissions } = this.props;
     const sortedSubmissions = _.cloneDeep(isMM ? mmSubmissions : submissions);
     this.sortSubmissions(sortedSubmissions);
@@ -144,12 +145,14 @@ class SubmissionsComponent extends React.Component {
    */
   sortSubmissions(submissions) {
     const { challenge } = this.props;
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
     let isHaveFinalScore = false;
     if (field === 'Initial / Final Score') {
-      isHaveFinalScore = _.some(submissions, s => !_.isNil(s.submissions[0].finalScore));
+      isHaveFinalScore = _.some(submissions, s => !_.isNil(
+        s.reviewSummation && s.reviewSummation[0].aggregateScore,
+      ));
     }
     return sortList(submissions, field, sort, (a, b) => {
       let valueA = 0;
@@ -172,16 +175,16 @@ class SubmissionsComponent extends React.Component {
             valueA = `${a.member || ''}`.toLowerCase();
             valueB = `${b.member || ''}`.toLowerCase();
           } else {
-            valueA = `${a.submitter}`.toLowerCase();
-            valueB = `${b.submitter}`.toLowerCase();
+            valueA = `${a.createdBy}`.toLowerCase();
+            valueB = `${b.createdBy}`.toLowerCase();
           }
           valueIsString = true;
           break;
         }
         case 'Time':
         case 'Submission Date': {
-          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
-          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
+          valueA = new Date(a.created);
+          valueB = new Date(b.created);
           break;
         }
         case 'Initial / Final Score': {
@@ -189,8 +192,8 @@ class SubmissionsComponent extends React.Component {
             valueA = getFinalScore(a);
             valueB = getFinalScore(b);
           } else {
-            valueA = a.submissions[0].initialScore;
-            valueB = b.submissions[0].initialScore;
+            valueA = !_.isEmpty(a.review) && a.review[0].score;
+            valueB = !_.isEmpty(b.review) && b.review[0].score;
           }
           break;
         }
@@ -240,13 +243,11 @@ class SubmissionsComponent extends React.Component {
       challenge,
     } = this.props;
 
-    const {
-      allPhases,
-    } = challenge;
+    const allPhases = challenge.phases || [];
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
-      if (phase.phaseType === 'Review' && phase.phaseStatus === 'Closed') {
+      if (phase.name === 'Review' && !phase.isOpen) {
         isReviewPhaseComplete = true;
       }
     });
@@ -275,9 +276,12 @@ class SubmissionsComponent extends React.Component {
     const {
       checkpoints,
       id: challengeId,
+      track,
+      type,
+      tags,
     } = challenge;
 
-    const isMM = challenge.subTrack.indexOf('MARATHON_MATCH') > -1;
+    const isMM = checkIsMM(challenge);
     const isReviewPhaseComplete = this.checkIsReviewPhaseComplete();
 
     const { field, sort } = this.getSubmissionsSortParam(isMM, isReviewPhaseComplete);
@@ -289,33 +293,33 @@ class SubmissionsComponent extends React.Component {
       item => item.member === memberOfModal);
 
     const renderSubmission = s => (
-      <div styleName="submission" key={s.submissionId}>
+      <div styleName="submission" key={s.id}>
         <a
-          href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}
+          href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
             alt=""
-            src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.submissionId}&sbt=small&sfi=1`}
+            src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.id}&sbt=small&sfi=1`}
           />
         </a>
         <div styleName="bottom-info">
           <div styleName="links">
             <a
-              href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}
+              href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.id}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {`#${s.submissionId}`}
+              {`#${s.id}`}
             </a>
             <a
-              href={`${window.origin}/members/${s.submitter}`}
+              href={`${window.origin}/members/${s.createdBy}`}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
-              style={_.get(s, 'colorStyle')}
+              styleName={`level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
             >
-              {s.submitter}
+              {s.createdBy}
             </a>
           </div>
           <div>
@@ -326,8 +330,8 @@ class SubmissionsComponent extends React.Component {
       </div>
     );
 
-    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
+    const isF2F = type === 'First2Finish';
+    const isBugHunt = _.includes(tags, 'Bug Hunt');
 
     // copy colorStyle from registrants to submissions
     _.forEach(sortedSubmissions, (s) => {
@@ -346,7 +350,7 @@ class SubmissionsComponent extends React.Component {
       }
     });
 
-    if (challenge.track.toLowerCase() === 'design') {
+    if (track.toLowerCase() === 'design') {
       return challenge.submissionViewable === 'true' ? (
         <div styleName="container view">
           <div styleName="title">
@@ -701,34 +705,41 @@ class SubmissionsComponent extends React.Component {
         {
           !isMM && (
             sortedSubmissions.map(s => (
-              <div key={s.submitter + s.submissions[0].submissionTime} styleName="row">
+              <div key={s.createdBy + s.created} styleName="row">
                 {
                   !isF2F && !isBugHunt && (
-                    <div styleName="col-2" style={s.colorStyle}>
+                    <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}>
                       { (s.registrant && !_.isNil(s.registrant.rating)) ? s.registrant.rating : '-'}
                     </div>
                   )
                 }
                 <div styleName="col-3">
                   <a
-                    href={`${window.origin}/members/${s.submitter}`}
+                    href={`${window.origin}/members/${s.createdBy}`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     rel="noopener noreferrer"
-                    styleName="handle"
-                    style={s.colorStyle}
+                    styleName={`handle level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
                   >
-                    {s.submitter}
+                    {s.createdBy}
                   </a>
                 </div>
                 <div styleName="col-4">
-                  {moment(s.submissions[0].submissionTime).format('MMM DD, YYYY HH:mm')}
+                  {moment(s.created).format('MMM DD, YYYY HH:mm')}
                 </div>
                 <div styleName="col-5">
-                  {s.submissions[0].initialScore ? s.submissions[0].initialScore.toFixed(2) : 'N/A'}
+                  {
+                    (!_.isEmpty(s.review) && s.review[0].score)
+                      ? s.review[0].score.toFixed(2)
+                      : 'N/A'
+                  }
                   &zwnj;
                   &zwnj;/
                   &zwnj;
-                  {s.submissions[0].finalScore ? s.submissions[0].finalScore.toFixed(2) : 'N/A'}
+                  {
+                    (s.reviewSummation && s.reviewSummation[0].aggregateScore)
+                      ? s.reviewSummation[0].aggregateScore.toFixed(2)
+                      : 'N/A'
+                  }
                 </div>
               </div>
             ))
@@ -779,9 +790,10 @@ SubmissionsComponent.propTypes = {
     submissions: PT.arrayOf(PT.object),
     submissionViewable: PT.string,
     track: PT.string.isRequired,
+    type: PT.string.isRequired,
+    tags: PT.arrayOf(PT.string),
     registrants: PT.any,
-    allPhases: PT.any,
-    subTrack: PT.any,
+    phases: PT.any,
   }).isRequired,
   toggleSubmissionHistory: PT.func.isRequired,
   submissionHistoryOpen: PT.shape({}).isRequired,

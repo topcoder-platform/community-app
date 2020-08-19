@@ -37,7 +37,7 @@ const Header = ({
  * Prop Validation
  */
 Header.propTypes = {
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   title: PT.string.isRequired,
 };

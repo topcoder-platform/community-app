@@ -41,6 +41,8 @@ export default function Dashboard({
   userGroups,
   xlBadge,
   // errorLoadingRss,
+  userResources,
+  challengeTypesMap,
 }) {
   return (
     <div styleName="container">
@@ -81,6 +83,8 @@ export default function Dashboard({
           tab={tab}
           unregisterFromChallenge={unregisterFromChallenge}
           userGroups={userGroups}
+          userResources={userResources}
+          challengeTypesMap={challengeTypesMap}
         />
         {/* {!errorLoadingRss && (
             <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />
@@ -92,6 +96,7 @@ export default function Dashboard({
 
 Dashboard.defaultProps = {
   announcementPreviewId: '',
+  userResources: [],
 };
 
 Dashboard.propTypes = {
@@ -126,4 +131,6 @@ Dashboard.propTypes = {
   userGroups: PT.arrayOf(PT.string).isRequired,
   xlBadge: PT.string.isRequired,
   // errorLoadingRss: PT.bool.isRequired,
+  userResources: PT.arrayOf(PT.shape()),
+  challengeTypesMap: PT.shape().isRequired,
 };

@@ -43,9 +43,9 @@ export class Container extends React.Component {
   componentDidMount() {
     const {
       getKeywords,
-      getSubtracks,
+      getTypes,
       loadingKeywords,
-      loadingSubtracks,
+      loadingTypes,
       setFilterState,
       filterState,
       communityList,
@@ -57,7 +57,7 @@ export class Container extends React.Component {
     && (Date.now() - communityList.timestamp > 5 * MIN)) {
       getCommunityList(auth);
     }
-    if (!loadingSubtracks) getSubtracks();
+    if (!loadingTypes) getTypes();
     if (!loadingKeywords) getKeywords();
 
 
@@ -150,11 +150,11 @@ Container.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
-  getSubtracks: PT.func.isRequired,
+  getTypes: PT.func.isRequired,
   isSavingFilter: PT.bool,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,
-  loadingSubtracks: PT.bool.isRequired,
+  loadingTypes: PT.bool.isRequired,
   saveFilter: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
@@ -168,9 +168,9 @@ function mapDispatchToProps(dispatch) {
   const sa = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
-    getSubtracks: () => {
-      dispatch(cla.getChallengeSubtracksInit());
-      dispatch(cla.getChallengeSubtracksDone());
+    getTypes: () => {
+      dispatch(cla.getChallengeTypesInit());
+      dispatch(cla.getChallengeTypesDone());
     },
     getCommunityList: (auth) => {
       const uuid = shortId();
@@ -203,9 +203,9 @@ function mapStateToProps(state, ownProps) {
     defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,
-    loadingSubtracks: cl.loadingChallengeSubtracks,
+    loadingTypes: cl.loadingChallengeTypes,
     validKeywords: cl.challengeTags,
-    validSubtracks: cl.challengeSubtracks,
+    validTypes: cl.challengeTypes,
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,

@@ -14,6 +14,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import 'react-dates/initialize';
+import shortId from 'shortid';
 import { DateRangePicker as WrappedDateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
@@ -53,7 +54,9 @@ class DateRangePicker extends React.Component {
           this.setState({ focusedInput: newFocusedInput });
         }}
         startDate={startDate}
+        startDateId={shortId()}
         endDate={endDate}
+        endDateId={shortId()}
         anchorDirection="right"
         displayFormat="MMM DD, YYYY"
         readOnly={readOnly}

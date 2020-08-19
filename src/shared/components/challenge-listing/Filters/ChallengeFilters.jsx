@@ -6,6 +6,7 @@ import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
+import _ from 'lodash';
 
 import localStorage from 'localStorage';
 import ChallengeSearchBar from './ChallengeSearchBar';
@@ -39,12 +40,12 @@ export default function ChallengeFilters({
   showTrackModal,
   trackModalShown,
   validKeywords,
-  validSubtracks,
+  validTypes,
   isSavingFilter,
 }) {
   let filterRulesCount = 0;
   if (filterState.tags) filterRulesCount += 1;
-  if (filterState.subtracks) filterRulesCount += 1;
+  if (filterState.types) filterRulesCount += 1;
   if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
   if (selectedCommunityId !== '') filterRulesCount += 1;
@@ -53,7 +54,8 @@ export default function ChallengeFilters({
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
     const filterObj = act(filterState, track);
-    localStorage.setItem('trackStatus', JSON.stringify(filterObj));
+    const newFilterObj = _.pick(filterObj, 'tracks');
+    localStorage.setItem('trackStatus', JSON.stringify(newFilterObj));
     setFilterState(filterObj);
   };
 
@@ -96,6 +98,13 @@ export default function ChallengeFilters({
                     enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
                     labelBefore="Data Science"
                     onSwitch={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
+                  />
+                </span>
+                <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn(TRACKS.QA) ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn(TRACKS.QA)}>
+                  <SwitchWithLabel
+                    enabled={isTrackOn(TRACKS.QA)}
+                    labelBefore="QA"
+                    onSwitch={on => switchTrack(TRACKS.QA, on)}
                   />
                 </span>
               </span>
@@ -163,7 +172,7 @@ export default function ChallengeFilters({
         setFilterState={setFilterState}
         setSearchText={setSearchText}
         validKeywords={validKeywords}
-        validSubtracks={validSubtracks}
+        validTypes={validTypes}
         isSavingFilter={isSavingFilter}
       />
 
@@ -176,6 +185,8 @@ export default function ChallengeFilters({
         switchDev={on => switchTrack(TRACKS.DEVELOP, on)}
         dataScienceEnabled={isTrackOn(TRACKS.DATA_SCIENCE)}
         switchDataScience={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
+        qaEnabled={isTrackOn(TRACKS.QA)}
+        switchQA={on => switchTrack(TRACKS.QA, on)}
       />
     </div>
   );
@@ -212,5 +223,5 @@ ChallengeFilters.propTypes = {
   showTrackModal: PT.func.isRequired,
   trackModalShown: PT.bool.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.object).isRequired,
+  validTypes: PT.arrayOf(PT.object).isRequired,
 };
