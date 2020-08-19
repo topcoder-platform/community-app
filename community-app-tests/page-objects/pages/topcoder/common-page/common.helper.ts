@@ -2,6 +2,31 @@ import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
 import * as appconfig from '../../../../app-config.json';
 import { logger } from '../../../../logger/logger';
 import TcElement from 'topcoder-testing-lib/dist/src/tc-element';
+import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
+
+/**
+ * Wait until condition return true
+ * @param func function for checking condition
+ * @param extraMesage extra error message when timeout
+ * @param isPageLoad wait for loading page
+ */
+const waitUntil = async (
+  func: () => any,
+  extraMesage: string,
+  isPageLoad: boolean
+) => {
+  await BrowserHelper.waitUntil(
+    func,
+    isPageLoad
+      ? appconfig.Timeout.PageLoad
+      : appconfig.Timeout.ElementVisibility,
+    (isPageLoad
+      ? appconfig.LoggerErrors.PageLoad
+      : appconfig.LoggerErrors.ElementVisibilty) +
+      '.' +
+      extraMesage
+  );
+};
 
 export const CommonHelper = {
   /**
@@ -160,7 +185,7 @@ export const CommonHelper = {
     extraMesage: string,
     isPageLoad: boolean
   ) {
-    await BrowserHelper.waitUntil(
+    await waitUntil(
       () => async () => {
         try {
           return await func().isDisplayed();
@@ -169,14 +194,8 @@ export const CommonHelper = {
           return false;
         }
       },
+      extraMesage,
       isPageLoad
-        ? appconfig.Timeout.PageLoad
-        : appconfig.Timeout.ElementVisibility,
-      (isPageLoad
-        ? appconfig.LoggerErrors.PageLoad
-        : appconfig.LoggerErrors.ElementVisibilty) +
-        '.' +
-        extraMesage
     );
   },
 
@@ -191,7 +210,7 @@ export const CommonHelper = {
     extraMesage: string,
     isPageLoad: boolean
   ) {
-    await BrowserHelper.waitUntil(
+    await waitUntil(
       () => async () => {
         try {
           return !(await func().isDisplayed());
@@ -200,14 +219,8 @@ export const CommonHelper = {
           return true;
         }
       },
+      extraMesage,
       isPageLoad
-        ? appconfig.Timeout.PageLoad
-        : appconfig.Timeout.ElementInvisibility,
-      (isPageLoad
-        ? appconfig.LoggerErrors.PageLoad
-        : appconfig.LoggerErrors.ElementInvisibilty) +
-        '.' +
-        extraMesage
     );
   },
 
@@ -215,7 +228,7 @@ export const CommonHelper = {
    * Check if element is displayed
    * @param {TcElementImpl} element element
    */
-  async isDisplayed(element: TcElement) {
+  async isDisplayed(element: TcElement): Promise<boolean> {
     try {
       return await element.isDisplayed();
     } catch {
@@ -228,7 +241,7 @@ export const CommonHelper = {
    * Check if element is present
    * @param {TcElementImpl} element element
    */
-  async isPresent(element: TcElement) {
+  async isPresent(element: TcElement): Promise<boolean> {
     try {
       return await element.isPresent();
     } catch {
@@ -275,17 +288,7 @@ export const CommonHelper = {
    * @param {Boolean} isPageLoad is loading page
    */
   async waitUntil(func: () => any, extraMesage: string, isPageLoad: boolean) {
-    await BrowserHelper.waitUntil(
-      func,
-      isPageLoad
-        ? appconfig.Timeout.PageLoad
-        : appconfig.Timeout.ElementVisibility,
-      (isPageLoad
-        ? appconfig.LoggerErrors.PageLoad
-        : appconfig.LoggerErrors.ElementVisibilty) +
-        '.' +
-        extraMesage
-    );
+    await waitUntil(func, extraMesage, isPageLoad);
   },
 
   /**
@@ -308,10 +311,35 @@ export const CommonHelper = {
    * Get element that contain text
    * @param tag tag
    * @param text text contain
+   * @param parent parent element
    */
-  findElementByText(tag: string, text: string) {
+  findElementByText(
+    tag: string,
+    text: string,
+    parent: TcElementImpl = undefined
+  ) {
     return ElementHelper.getElementByXPath(
-      '//' + tag + '[contains(text(), "' + text + '")]'
+      '//' + tag + '[contains(text(), "' + text + '")]',
+      parent
+    );
+  },
+
+  /**
+   * Get element by attribute value
+   * @param tag tag
+   * @param attribute attribute
+   * @param value attribute value
+   * @param parent parent element
+   */
+  findElementByAttribute(
+    tag: string,
+    attribute: string,
+    value: string,
+    parent: TcElementImpl = undefined
+  ) {
+    return ElementHelper.getElementByCss(
+      `${tag}[${attribute}="${value}"]`,
+      parent
     );
   },
 

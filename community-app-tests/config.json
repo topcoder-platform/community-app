@@ -98,5 +98,79 @@
     "forumUrl": "https://apps.topcoder.com/forums/?module=Category&categoryID=82117",
     "submissionUrl": "https://www.topcoder.com/challenges/30106190/submit",
     "scorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133"
+  },
+  "myDashboard": {
+    "url": "https://www.topcoder.com/my-dashboard",
+    "challenge": {
+      "name": "QA Practice Challenge - Find Bugs on Topcoder",
+      "currentPhase": "Screening",
+      "linkToSubmit": "https://www.topcoder.com/challenges/30136818/submit",
+      "userRole": "Submitter"
+    },
+    "community": {
+      "name": "Blockchain Community",
+      "learnMoreUrl": "https://blockchain.topcoder.com/"
+    }
+  },
+  "memberProfile": {
+    "url": "https://www.topcoder.com/members",
+    "profileInfo": {
+      "handle": "iamtong",
+      "numberOfCollapsedSkills": 10,
+      "verifiedSkill": "HTML5",
+      "noneVerifiedSkill": "Marvel - Design",
+      "country": "THAILAND",
+      "memberSince": "MEMBER SINCE MAY, 2009",
+      "tracks": ["COPILOT", "DEVELOP", "DESIGN"],
+      "quote": "I'm a designer focusing on designing mobile/ web applications and user experience.",
+      "forumLink": "https://apps.topcoder.com/forums/?module=History&userID=22781893"
+    },
+    "memberHaveWebSectionInfo": {
+      "handle": "oton",
+      "webLink": "HTTPS://ARIFWIDIANTO.COM"
+    },
+    "copilotProfile": {
+      "handle": "iamtong",
+      "trackName": "COPILOT",
+      "fullfillmentInfo": {
+        "name": "COPILOT",
+        "info": "100%",
+        "infoTitle": "FULFILLMENT",
+        "link": "https://www.topcoder.com/members/iamtong/details/?track=COPILOT&subTrack=COPILOT"
+      }
+    },
+    "designProfile": {
+      "handle": "iamtong",
+      "trackName": "DESIGN",
+      "numberOfSubtracks": 11,
+      "winInfo": {
+        "name": "WEB DESIGNS",
+        "info": "258",
+        "infoTitle": "WINS",
+        "link": "https://www.topcoder.com/members/iamtong/details/?track=DESIGN&subTrack=WEB_DESIGNS"
+      }
+    },
+    "developmentProfile": {
+      "handle": "iamtong",
+      "trackName": "DEVELOP",
+      "numberOfSubtracks": 8,
+      "winInfo": {
+        "name": "FIRST2FINISH",
+        "info": "55",
+        "infoTitle": "WINS",
+        "link": "https://www.topcoder.com/members/iamtong/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
+      }
+    },
+    "dataScienceProfile": {
+      "handle": "FireIce",
+      "trackName": "DATA_SCIENCE",
+      "numberOfSubtracks": 2,
+      "ratingInfo": {
+        "name": "MARATHON MATCH",
+        "info": "999",
+        "infoTitle": "RATING",
+        "link": "https://www.topcoder.com/members/FireIce/details/?track=DATA_SCIENCE&subTrack=MARATHON_MATCH"
+      }
+    }
   }
 }

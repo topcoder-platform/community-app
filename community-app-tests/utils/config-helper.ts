@@ -1,4 +1,5 @@
 import * as config from '../config.json';
+import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
 
 export interface ChallengeLinks {
   rssFeedUrl: string;
@@ -19,6 +20,68 @@ export interface ChallengeDetail {
   forumUrl: string;
   submissionUrl: string;
   scorecardUrl: string;
+}
+
+export interface CommunityCardInfo {
+  name: string;
+  learnMoreUrl: string;
+}
+
+export interface ChallengeCardInfo {
+  name: string;
+  currentPhase: string;
+  linkToSubmit: string;
+  userRole: string;
+}
+
+export interface MyDashboardConfig {
+  url: string;
+  challenge: ChallengeCardInfo;
+  community: CommunityCardInfo;
+}
+
+export interface MemberHaveWebSectionInfoConfig {
+  handle: string;
+  webLink: string;
+}
+
+export interface MemberProfileInfoConfig {
+  handle: string;
+  numberOfCollapsedSkills: number;
+  verifiedSkill?: string;
+  noneVerifiedSkill?: string;
+  country: string;
+  memberSince: string;
+  tracks: string[];
+  quote: string;
+  forumLink: string;
+}
+
+export interface MemberProfileSubtrackConfig {
+  name: string;
+  link?: string;
+  info?: string;
+  infoTitle?: string;
+  card?: TcElementImpl;
+}
+
+export interface MemberProfileTrackConfig {
+  handle: string;
+  trackName: string;
+  numberOfSubtracks: number;
+  winInfo?: MemberProfileSubtrackConfig;
+  fullfillmentInfo?: MemberProfileSubtrackConfig;
+  ratingInfo?: MemberProfileSubtrackConfig;
+}
+
+export interface MemberProfileConfig {
+  url: string;
+  profileInfo: MemberProfileInfoConfig;
+  copilotProfile: MemberProfileTrackConfig;
+  designProfile: MemberProfileTrackConfig;
+  developmentProfile: MemberProfileTrackConfig;
+  dataScienceProfile: MemberProfileTrackConfig;
+  memberHaveWebSectionInfo: MemberHaveWebSectionInfoConfig;
 }
 
 export const ConfigHelper = {
@@ -60,7 +123,7 @@ export const ConfigHelper = {
   /**
    * Get homepage URL
    */
-  getHomePageUrl() {
+  getHomePageUrl(): string {
     return this.getConfig().homePageUrl;
   },
 
@@ -218,5 +281,19 @@ export const ConfigHelper = {
    */
   getChallengeDetail(): ChallengeDetail {
     return this.getConfig().challengeDetail;
+  },
+
+  /**
+   * Get my dashboard config
+   */
+  getMyDashboardConfig(): MyDashboardConfig {
+    return this.getConfig().myDashboard;
+  },
+
+  /**
+   * Get member profile config
+   */
+  getMemberProfileConfig(): MemberProfileConfig {
+    return this.getConfig().memberProfile;
   },
 };

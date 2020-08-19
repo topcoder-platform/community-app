@@ -43,6 +43,8 @@ exports.config = {
     '../temp/test-suites/tc-preferences.spec.js',
     '../temp/test-suites/tc-challenge-listing.spec.js',
     '../temp/test-suites/tc-challenge-detail.spec.js',
+    '../temp/test-suites/tc-my-dashboard.spec.js',
+    '../temp/test-suites/tc-member-profile.spec.js',
   ],
 
   // Options to be passed to Jasmine.
