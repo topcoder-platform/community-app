@@ -231,7 +231,7 @@ workflows:
             branches:
               only:
                 - hot-fix
-                - integration-v5-develop
+                - integration-v5-challenge-api
                 - develop
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -239,7 +239,7 @@ workflows:
           filters:
             branches:
               only:                
-                - integration-v5-challenge-api
+                - hot-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
