@@ -170,7 +170,7 @@ export default function ChallengeDetailsView(props) {
                       description
                       && (
                       <article>
-                        <h2 styleName="h2">
+                        <h2>
                           Challenge Overview
                         </h2>
                         {
@@ -195,7 +195,7 @@ export default function ChallengeDetailsView(props) {
                       finalSubmissionGuidelines
                       && (
                       <article>
-                        <h2 styleName="h2">
+                        <h2>
                           Final Submission Guidelines
                         </h2>
                         {
@@ -228,7 +228,7 @@ export default function ChallengeDetailsView(props) {
                       description
                       && (
                       <article>
-                        <h2 styleName="h2">
+                        <h2>
                           Challenge Summary
                         </h2>
                         {
@@ -246,8 +246,8 @@ export default function ChallengeDetailsView(props) {
                             />
                           )
                         }
-                        <p styleName="p" />
-                        <p styleName="p note">
+                        <p />
+                        <p styleName="note">
                           Please read the challenge specification carefully and
                           watch the forums for any questions or feedback
                           concerning this challenge. It is important that you
@@ -259,10 +259,10 @@ export default function ChallengeDetailsView(props) {
                       )
                     }
                     <article>
-                      <h2 styleName="h2">
+                      <h2>
                         Stock Photography
                       </h2>
-                      <p styleName="p">
+                      <p>
                         {stockArtText}
 &nbsp;
                         <a href={config.URL.INFO.STOCK_ART_POLICY}>
@@ -271,10 +271,10 @@ export default function ChallengeDetailsView(props) {
                       </p>
                     </article>
                     <article>
-                      <h2 styleName="h2">
+                      <h2>
                         How To Submit
                       </h2>
-                      <ul styleName="ul">
+                      <ul>
                         <li>
                           New to Studio?
                           &zwnj;
@@ -311,10 +311,10 @@ export default function ChallengeDetailsView(props) {
                     </article>
 
                     <article>
-                      <h2 styleName="h2">
+                      <h2>
                         Winner Selection
                       </h2>
-                      <p styleName="p">
+                      <p>
                         Submissions are viewable to the client as they are entered
                         into the challenge. Winners are selected by the client and
                         are chosen solely at the client&apos;s discretion.
@@ -324,13 +324,13 @@ export default function ChallengeDetailsView(props) {
                 )
             }
             <article>
-              <h2 styleName="h2">
+              <h2>
                 Payments
               </h2>
               {
                 isWipro ? (
                   <div>
-                    <p styleName="p">
+                    <p>
                       For employees of Wipro Technologies, following are the
                       payment terms. Winner/s would be awarded the prize money on
                       successful completion and acceptance of the submission by
@@ -354,7 +354,7 @@ export default function ChallengeDetailsView(props) {
                     </p>
                   </div>
                 ) : (
-                  <p styleName="p">
+                  <p>
                     Topcoder will compensate members in accordance with our standard payment policies, unless
                     otherwise specified in this challenge. For information on payment policies, setting up your profile to
                     receive payments, and general payment questions, please refer to
