@@ -4,7 +4,7 @@
 
 import moment from 'moment';
 import { find, sumBy } from 'lodash';
-import { phaseStartDate, phaseEndDate } from '../challenge-detail/helper';
+import { phaseStartDate, phaseEndDate } from './helper';
 
 export const SORTS = {
   CURRENT_PHASE: 'current-phase',
@@ -27,15 +27,21 @@ export default {
   },
   [SORTS.MOST_RECENT]: {
     func: (a, b) => {
-      const getRegistrationStartDate = (challenge) => {
-        // extract the registration phase from `challenge.phases`,
+      const getChallengeStartDate = (challenge) => {
+        // extract the phases from `challenge.phases`,
         // as `challenge.registrationStartDate` returned from API is not reliable
         const registrationPhase = find(challenge.phases, p => p.name === 'Registration');
-        return moment(phaseStartDate(registrationPhase));
+        const submissionPhase = find(challenge.phases, p => p.name === 'Submission');
+        // registration phase exists
+        if (registrationPhase) {
+          return moment(phaseStartDate(registrationPhase));
+        }
+        // registration phase doesnt exist, This is possibly a F2F or TSK. Take submission phase
+        return moment(phaseStartDate(submissionPhase));
       };
-      const aRegistrationStartDate = getRegistrationStartDate(a);
-      const bRegistrationStartDate = getRegistrationStartDate(b);
-      return bRegistrationStartDate.diff(aRegistrationStartDate);
+      const aChallengeStartDate = getChallengeStartDate(a);
+      const bChallengeStartDate = getChallengeStartDate(b);
+      return bChallengeStartDate.diff(aChallengeStartDate);
     },
     name: 'Most recent',
   },

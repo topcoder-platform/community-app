@@ -6,8 +6,9 @@ import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 import { config, Link } from 'topcoder-react-utils';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import 'moment-duration-format';
+import { phaseEndDate } from 'utils/challenge-listing/helper';
 import {
-  getTimeLeft, phaseEndDate,
+  getTimeLeft,
 } from 'utils/challenge-detail/helper';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';

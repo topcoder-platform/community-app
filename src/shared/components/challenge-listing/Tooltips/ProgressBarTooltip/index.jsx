@@ -17,8 +17,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import Tooltip from 'components/Tooltip';
+import { phaseStartDate, phaseEndDate } from 'utils/challenge-listing/helper';
 import LoaderIcon from '../../../Loader/Loader';
-import { phaseStartDate, phaseEndDate } from '../../../../utils/challenge-detail/helper';
 import './style.scss';
 
 const getDate = date => moment(date).format('MMM DD');
