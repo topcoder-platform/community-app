@@ -43,8 +43,8 @@ async function getTcoHistoryChallengesDone(url, competitor) {
     .then(response => response.json())
     .then(jsonResponse => ({
       challenges: _.filter(jsonResponse, challenge => (
-        challenge['tco_leaderboard.user_id']
-          ? (challenge['tco_leaderboard.user_id'] === competitor['tco_leaderboard.user_id'])
+        challenge['member_profile_basic.user_id']
+          ? (challenge['member_profile_basic.user_id'] === competitor['member_profile_basic.user_id'])
           : (challenge.userid === competitor.userid)
       )),
     }));
