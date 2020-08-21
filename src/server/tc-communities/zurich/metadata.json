@@ -12,7 +12,7 @@
   "communityId": "zurich",
   "communityName": "Zurich Community",
   "groupIds": ["20000145"],
-  "authorizedGroupIdsCatalog": ["c40767a9-e02e-4872-87eb-d50dcb946055", "a1bcb865-7235-481f-ae62-b82dd958fc4c"],
+  "authorizedGroupIdsCatalog": ["20000160", "20000161"],
   "competitorsGroupIds": ["20000226"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",
