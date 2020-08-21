@@ -31,7 +31,7 @@ function Zurich({ base, meta, userGroups }) {
   // Only members of `Requestor`|`Approver` gropus
   // should can see catalog with links to connect
   const isRequestorOrApprover = userGroups ? _.intersection(
-    _.map(userGroups, 'id'),
+    _.map(userGroups, 'oldId'),
     meta.authorizedGroupIdsCatalog,
   ) : [];
   // Visitors not in any zurich group see the custom error page
