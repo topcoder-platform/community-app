@@ -59,7 +59,12 @@ export default function ChallengeDetailsView(props) {
     forumId,
   } = legacy;
 
-  const allowStockArt = _.find(metadata, { name: 'allowStockArt' }).value;
+  let stockArtValue = '';
+  const allowStockArt = _.find(metadata, { name: 'allowStockArt' });
+  if (allowStockArt) {
+    stockArtValue = allowStockArt.value;
+  }
+
   let environment = '';
   const environmentData = _.find(metadata, { name: 'environment' });
   if (environmentData) {
@@ -103,7 +108,7 @@ export default function ChallengeDetailsView(props) {
   const toolbarConnector = new ToolbarConnector();
   const isSaving = specsTabState === SPECS_TAB_STATES.SAVING;
 
-  const stockArtText = allowStockArt
+  const stockArtText = stockArtValue
     ? 'Stock photography is allowed in this challenge.'
     : 'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
 
