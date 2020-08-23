@@ -7,6 +7,7 @@ import { createActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 import 'isomorphic-fetch';
 import { processSRM } from 'utils/tc';
+import { mapUserWithChallenges } from 'utils/challenge-listing/helper';
 import { errors, services } from 'topcoder-react-lib';
 
 const { fireErrorMessage } = errors;
@@ -104,27 +105,12 @@ function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
     calls.push(getAll(params => service.getUserChallenges(user, newFilter, params)
       .catch(() => ({ challenges: [] }))), page);
   }
-  return Promise.all(calls).then(([ch, uch]) => {
-    /* uch array contains challenges where the user is participating in
-@@ -111,8 +124,8 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
-     * challenges in an efficient way. */
-    if (uch) {
-      const map = {};
-      uch.forEach((item) => { map[item.id] = item; });
-      ch.forEach((item) => {
-        if (map[item.id]) {
-          /* It is fine to reassing, as the array we modifying is created just
-           * above within the same function. */
-          /* eslint-disable no-param-reassign */
-          item.users[user] = true;
-          item.userDetails = map[item.id].userDetails;
-          /* eslint-enable no-param-reassign */
-        }
-      });
-    }
-
-    return { uuid, challenges: ch, ...filter };
-  });
+  // uch array contains challenges where the user is participating in
+  return Promise.all(calls).then(([ch, uch]) => ({
+    uuid,
+    challenges: mapUserWithChallenges(user, ch, uch),
+    ...filter,
+  }));
 }
 
 /** TODO: Inspect if the 2 actions bellow can be removed?
@@ -182,12 +168,12 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
 
     // Handle any errors on this endpoint so that the non-user specific challenges
     // will still be loaded.
-    calls.push(service.getUserChallenges(user, filter, {})
-      .catch(() => ({ challenges: [] })));
+    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
+      .catch(() => ({ challenges: [] }))));
   }
-  return Promise.all(calls).then(([ch]) => ({
+  return Promise.all(calls).then(([ch, uch]) => ({
     uuid,
-    challenges: ch.challenges,
+    challenges: mapUserWithChallenges(user, ch.challenges, uch),
     meta: ch.meta,
     frontFilter,
   }));
