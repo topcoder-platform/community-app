@@ -9,6 +9,7 @@ import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
 import Prize from 'components/challenge-listing/ChallengeCard/Prize';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import { phaseEndDate } from 'utils/challenge-listing/helper';
 
 const Filter = challengeUtils.filter;
 
@@ -42,7 +43,7 @@ export function getEndDate(challenge) {
   if (type === 'First2Finish' && challenge.status === 'Completed') {
     phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
   }
-  const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndDate)));
+  const endPhaseDate = Math.max(...phases.map(d => phaseEndDate(d)));
   return moment(endPhaseDate).format('MMM DD');
 }
 
@@ -65,7 +66,7 @@ export function getTimeLeft(
     return { late: false, text: FF_TIME_LEFT_MSG };
   }
 
-  let time = moment(phase.scheduledEndDate).diff();
+  let time = moment(phaseEndDate(phase)).diff();
   const late = time < 0;
   if (late) time = -time;
 
