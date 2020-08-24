@@ -230,9 +230,7 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
-                - integration-v5-challenge-api
-                - develop
+                - i-v5-develop-24Aug
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -253,8 +251,6 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
-                - integration-v5-develop
                 - develop
       # This is stage env for production QA releases
       - "build-prod-staging":
@@ -262,8 +258,7 @@ workflows:
           filters:
             branches:
               only:
-                - integration-v5-challenge-api
-                - hot-fix
+                - i-v5-develop-24Aug
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
