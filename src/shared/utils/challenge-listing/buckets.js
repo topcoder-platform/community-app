@@ -17,91 +17,91 @@ export const BUCKETS = {
   SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
 };
 
-const BUCKET_DATA = {
+export const BUCKET_DATA = {
   [BUCKETS.ALL]: {
-    filter: {
-      started: true,
-      status: ['Active'],
-    },
-    hideCount: false,
+    // filter: {
+    //   started: true,
+    //   status: ['Active'],
+    // },
+    // hideCount: false,
     name: 'All Challenges',
     sorts: [],
   },
   [BUCKETS.MY]: {
-    filter: {
-      status: ['Active'],
-      // users: [userHandle],
-    },
-    hideCount: false,
+    // filter: {
+    //   status: ['Active'],
+    //   // users: [userHandle],
+    // },
+    // hideCount: false,
     name: 'My Challenges',
     sorts: [
       SORTS.MOST_RECENT,
-      SORTS.TIME_TO_SUBMIT,
-      SORTS.NUM_REGISTRANTS,
-      SORTS.NUM_SUBMISSIONS,
-      SORTS.PRIZE_HIGH_TO_LOW,
+      // SORTS.TIME_TO_SUBMIT,
+      // SORTS.NUM_REGISTRANTS,
+      // SORTS.NUM_SUBMISSIONS,
+      // SORTS.PRIZE_HIGH_TO_LOW,
       SORTS.TITLE_A_TO_Z,
     ],
   },
   [BUCKETS.OPEN_FOR_REGISTRATION]: {
-    filter: {
-      registrationOpen: true,
-      started: true,
-      status: ['Active'],
-    },
-    hideCount: false,
+    // filter: {
+    //   registrationOpen: true,
+    //   started: true,
+    //   status: ['Active'],
+    // },
+    // hideCount: false,
     name: 'Open for registration',
     sorts: [
       SORTS.MOST_RECENT,
-      SORTS.TIME_TO_REGISTER,
-      SORTS.TIME_TO_SUBMIT,
-      SORTS.NUM_REGISTRANTS,
-      SORTS.NUM_SUBMISSIONS,
-      SORTS.PRIZE_HIGH_TO_LOW,
+      // SORTS.TIME_TO_REGISTER,
+      // SORTS.TIME_TO_SUBMIT,
+      // SORTS.NUM_REGISTRANTS,
+      // SORTS.NUM_SUBMISSIONS,
+      // SORTS.PRIZE_HIGH_TO_LOW,
       SORTS.TITLE_A_TO_Z,
     ],
   },
   [BUCKETS.ONGOING]: {
-    filter: {
-      registrationOpen: false,
-      started: true,
-      ongoing: true,
-      status: ['Active'],
-    },
-    hideCount: false,
+    // filter: {
+    //   registrationOpen: false,
+    //   started: true,
+    //   ongoing: true,
+    //   status: ['Active'],
+    // },
+    // hideCount: false,
     name: 'Ongoing challenges',
     sorts: [
       SORTS.MOST_RECENT,
-      SORTS.CURRENT_PHASE,
+      // SORTS.CURRENT_PHASE,
       SORTS.TITLE_A_TO_Z,
-      SORTS.PRIZE_HIGH_TO_LOW,
+      // SORTS.PRIZE_HIGH_TO_LOW,
     ],
   },
   [BUCKETS.UPCOMING]: {
-    filter: {
-      upcoming: true,
-    },
-    hideCount: true,
+    // filter: {
+    //   upcoming: true,
+    // },
+    // hideCount: true,
     name: 'Upcoming challenges',
     sorts: [
       SORTS.MOST_RECENT,
-      SORTS.PRIZE_HIGH_TO_LOW,
+      // SORTS.PRIZE_HIGH_TO_LOW,
       SORTS.TITLE_A_TO_Z,
     ],
   },
   [BUCKETS.PAST]: {
-    filter: { status: ['Completed', 'PAST'] },
-    hideCount: true,
+    // filter: { status: ['Completed', 'PAST'] },
+    // hideCount: true,
     name: 'Past challenges',
     sorts: [
       SORTS.MOST_RECENT,
-      SORTS.PRIZE_HIGH_TO_LOW,
+      // SORTS.PRIZE_HIGH_TO_LOW,
       SORTS.TITLE_A_TO_Z,
     ],
   },
   [BUCKETS.REVIEW_OPPORTUNITIES]: {
     filter: {},
-    hideCount: true,
+    // hideCount: true,
     name: 'Open for review',
     sorts: [
       SORTS.REVIEW_OPPORTUNITIES_START_DATE,
@@ -110,11 +110,11 @@ const BUCKET_DATA = {
     ],
   },
   [BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER]: {
-    filter: {},
+    // filter: {},
     sorts: [
-      SORTS.REVIEW_OPPORTUNITIES_START_DATE,
-      SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
-      SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
+      // SORTS.REVIEW_OPPORTUNITIES_START_DATE,
+      // SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
+      // SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
     ],
   },
 };
@@ -159,6 +159,32 @@ export function registerBucket(id, bucket) {
   }
   BUCKETS[id] = id;
   BUCKET_DATA[id] = bucket;
+}
+
+
+export function filterChanged(filter, prevFilter) {
+  if (!filter || !prevFilter) {
+    return true;
+  }
+  return (filter.tracks.Dev !== prevFilter.tracks.Dev)
+  || (filter.tracks.Des !== prevFilter.tracks.Des)
+  || (filter.tracks.DS !== prevFilter.tracks.DS)
+  || (filter.tracks.QA !== prevFilter.tracks.QA)
+  || (filter.name !== prevFilter.name)
+  || (filter.startDateStart !== prevFilter.startDateStart)
+  || (filter.endDateEnd !== prevFilter.endDateEnd)
+  || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
+  || _.filter(prevFilter.tags, val => _.indexOf(filter.tags, val) < 0).length > 0
+  || _.filter(filter.types, val => _.indexOf(prevFilter.types, val) < 0).length > 0
+  || _.filter(prevFilter.types, val => _.indexOf(filter.types, val) < 0).length > 0;
+}
+
+export function sortChangedBucket(sorts, prevSorts) {
+  if (sorts.ongoing !== prevSorts.ongoing) return 'ongoing';
+  if (sorts.my !== prevSorts.my) return 'my';
+  if (sorts.openForRegistration !== prevSorts.openForRegistration) return 'openForRegistration';
+  if (sorts.past !== prevSorts.past) return 'past';
+  return '';
 }
 
 export default undefined;

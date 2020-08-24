@@ -37,17 +37,29 @@ export function getQuery() {
 export function updateQuery(update) {
   if (isomorphy.isServerSide()) return;
 
-  let query = qs.parse(window.location.search.slice(1));
+  // let query = qs.parse(window.location.search.slice(1));
+  let query = '?';
   const { hash } = window.location;
+  const filterArray = [];
 
   /* _.merge won't work here, because it just ignores the fields explicitely
    * set as undefined in the objects to be merged, rather than deleting such
    * fields in the target object. */
   _.forIn(update, (value, key) => {
-    if (_.isUndefined(value)) delete query[key];
-    else query[key] = value;
+    if (_.isArray(value)) filterArray.push(value.map(item => `${key}[]=${item}`).join('&'));
+    // else if (_.isUndefined(value)) delete query[key];
+    else query += `${key}=${value}`;
   });
-  query = `?${qs.stringify(query, { encodeValuesOnly: true })}`;
+  if (query === '?') {
+    if (filterArray.length > 0) {
+      query += `${filterArray.join('&')}`;
+    }
+  } else {
+    // eslint-disable-next-line no-lonely-if
+    if (filterArray.length > 0) {
+      query += `&${filterArray.join('&')}`;
+    }
+  }
   if (hash) {
     query += hash;
   }

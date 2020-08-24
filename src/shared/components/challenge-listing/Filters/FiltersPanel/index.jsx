@@ -22,7 +22,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+// import { challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
@@ -31,19 +31,19 @@ import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
-import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+// import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
-const Filter = challengeUtils.filter;
+// const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
   communityFilters,
   defaultCommunityId,
   filterState,
-  challenges,
+  // challenges,
   hidden,
   isAuth,
   auth,
@@ -56,7 +56,7 @@ export default function FiltersPanel({
   setSearchText,
   validKeywords,
   validTypes,
-  isSavingFilter,
+  // isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -115,8 +115,8 @@ export default function FiltersPanel({
         </div>
       );
 
-    const filterFunction = Filter.getFilterFunction(community.challengeFilter);
-    const challengesInCommunity = challenges.filter(filterFunction).length;
+    // const filterFunction = Filter.getFilterFunction(community.challengeFilter);
+    // const challengesInCommunity = challenges.filter(filterFunction).length;
 
     const selectItem = (
       <div styleName="community-select-item">
@@ -138,7 +138,7 @@ export default function FiltersPanel({
           </div>
         </div>
         <div>
-          {challengesInCommunity}
+          {/* {challengesInCommunity} */}
         </div>
       </div>
     );
@@ -166,7 +166,7 @@ export default function FiltersPanel({
               </p>
               <p>
                 There are
-                {challengesInCommunity}
+                {/* {challengesInCommunity} */}
                 {' '}
                 challenges in this sub community
               </p>
@@ -187,13 +187,14 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  const disableClearSaveFilterButtons = isSavingFilter || (
-    selectedCommunityId === defaultCommunityId
-    && _.isEmpty(filterState)
-  );
+  const disableClearSaveFilterButtons = false;
+  // const disableClearSaveFilterButtons = isSavingFilter || (
+  //   selectedCommunityId === defaultCommunityId
+  //   && _.isEmpty(filterState)
+  // );
 
   const mapOps = item => ({ label: item, value: item });
-  const mapTypes = item => ({ label: item.name, value: item.id });
+  const mapTypes = item => ({ label: item.name, value: item.abbreviation });
   return (
     <div styleName={className}>
       <div styleName="header">
@@ -221,7 +222,7 @@ export default function FiltersPanel({
               multi
               onChange={(value) => {
                 const tags = value ? value.split(',') : undefined;
-                setFilterState(Filter.setTags(filterState, tags));
+                setFilterState({ ..._.clone(filterState), tags });
               }}
               options={validKeywords.map(mapOps)}
               simpleValue
@@ -261,7 +262,7 @@ export default function FiltersPanel({
               multi
               onChange={(value) => {
                 const types = value ? value.split(',') : undefined;
-                setFilterState(Filter.setTypes(filterState, types));
+                setFilterState({ ..._.clone(filterState), types });
               }}
               options={validTypes.map(mapTypes)}
               simpleValue
@@ -272,7 +273,7 @@ export default function FiltersPanel({
             />
           </div>
           {/* Only shown when the Review Opportunity bucket is selected */}
-          { isReviewOpportunitiesBucket
+          {/* { isReviewOpportunitiesBucket
             ? (
               <div styleName="filter review-type">
                 <label htmlFor="review-type-select">
@@ -296,7 +297,7 @@ export default function FiltersPanel({
                 />
               </div>
             ) : null
-          }
+          } */}
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
               Date range
@@ -304,18 +305,14 @@ export default function FiltersPanel({
             </label>
             <DateRangePicker
               numberOfMonths={1}
-              endDate={filterState.endDate && moment(filterState.endDate)}
+              endDate={filterState.endDateEnd && moment(filterState.endDateEnd)}
               id="date-range-picker-one-month"
               onDatesChange={(dates) => {
-                let d = dates.endDate ? dates.endDate.toISOString() : null;
-                let state = Filter.setEndDate(filterState, d);
-                d = dates.startDate ? dates.startDate.toISOString() : null;
-                state = Filter.setStartDate(state, d);
-                setFilterState(state);
+                const d = dates.endDate ? dates.endDate.toISOString() : null;
+                const s = dates.startDate ? dates.startDate.toISOString() : null;
+                setFilterState({ ..._.clone(filterState), startDateStart: s, endDateEnd: d });
               }}
-              startDate={
-                filterState.startDate && moment(filterState.startDate)
-              }
+              startDate={filterState.startDateStart && moment(filterState.startDateStart)}
             />
           </div>
           <div styleName="filter dates hideonemonthdatepicker">
@@ -325,17 +322,15 @@ export default function FiltersPanel({
             </label>
             <DateRangePicker
               numberOfMonths={2}
-              endDate={filterState.endDate && moment(filterState.endDate)}
+              endDate={filterState.endDateEnd && moment(filterState.endDateEnd)}
               id="date-range-picker-two-months"
               onDatesChange={(dates) => {
-                let d = dates.endDate ? dates.endDate.toISOString() : null;
-                let state = Filter.setEndDate(filterState, d);
-                d = dates.startDate ? dates.startDate.toISOString() : null;
-                state = Filter.setStartDate(state, d);
-                setFilterState(state);
+                const d = dates.endDate ? dates.endDate.toISOString() : null;
+                const s = dates.startDate ? dates.startDate.toISOString() : null;
+                setFilterState({ ..._.clone(filterState), startDateStart: s, endDateEnd: d });
               }}
               startDate={
-                filterState.startDate && moment(filterState.startDate)
+                filterState.startDateStart && moment(filterState.startDateStart)
               }
             />
           </div>
@@ -346,10 +341,23 @@ export default function FiltersPanel({
           composeContextTheme={COMPOSE.SOFT}
           disabled={disableClearSaveFilterButtons}
           onClick={() => {
-            setFilterState({});
+            setFilterState({
+              tracks: {
+                Dev: true,
+                Des: true,
+                DS: true,
+                QA: true,
+              },
+              name: '',
+              tags: [],
+              types: [],
+              communityId: 'All',
+              startDateStart: null,
+              endDateEnd: null,
+            });
             selectCommunity(defaultCommunityId);
             setSearchText('');
-            localStorage.setItem('trackStatus', JSON.stringify({}));
+            // localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
           theme={{ button: style.button }}
@@ -371,10 +379,10 @@ export default function FiltersPanel({
 }
 
 FiltersPanel.defaultProps = {
-  challenges: [],
+  // challenges: [],
   hidden: false,
   isAuth: false,
-  isSavingFilter: false,
+  // isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
   // onSaveFilter: _.noop,
   onClose: _.noop,
@@ -387,11 +395,11 @@ FiltersPanel.propTypes = {
   })).isRequired,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
-  challenges: PT.arrayOf(PT.shape()),
+  // challenges: PT.arrayOf(PT.shape()),
   hidden: PT.bool,
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
-  isSavingFilter: PT.bool,
+  // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
   // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,

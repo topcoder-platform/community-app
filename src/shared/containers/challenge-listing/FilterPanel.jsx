@@ -10,17 +10,17 @@ import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
-import localStorage from 'localStorage';
-import sidebarActions from 'actions/challenge-listing/sidebar';
-import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+// import localStorage from 'localStorage';
+// import sidebarActions from 'actions/challenge-listing/sidebar';
+// import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import qs from 'qs';
+// import qs from 'qs';
 
 /* The default name for user-saved challenge filters. An integer
  * number will be appended to it, when necessary, to keep filter
  * names unique. */
-const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
+// const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
 const MIN = 60 * 1000;
 
 /**
@@ -28,16 +28,16 @@ const MIN = 60 * 1000;
  * @param {Object} state Redux state.
  * @return {String}
  */
-function getAvailableFilterName(savedFilters) {
-  let res = DEFAULT_SAVED_FILTER_NAME;
-  let id = 0;
-  savedFilters.forEach((f) => {
-    while (res === f.name) {
-      res = `${DEFAULT_SAVED_FILTER_NAME} ${id += 1}`;
-    }
-  });
-  return res;
-}
+// function getAvailableFilterName(savedFilters) {
+//   let res = DEFAULT_SAVED_FILTER_NAME;
+//   let id = 0;
+//   savedFilters.forEach((f) => {
+//     while (res === f.name) {
+//       res = `${DEFAULT_SAVED_FILTER_NAME} ${id += 1}`;
+//     }
+//   });
+//   return res;
+// }
 
 export class Container extends React.Component {
   componentDidMount() {
@@ -46,8 +46,8 @@ export class Container extends React.Component {
       getTypes,
       loadingKeywords,
       loadingTypes,
-      setFilterState,
-      filterState,
+      // setFilterState,
+      // filterState,
       communityList,
       getCommunityList,
       auth,
@@ -61,30 +61,30 @@ export class Container extends React.Component {
     if (!loadingKeywords) getKeywords();
 
 
-    const query = qs.parse(window.location.search.slice(1));
-    if (query.filter && !filterState.track) {
-      setFilterState(query.filter);
-    } else {
-      const trackStatus = localStorage.getItem('trackStatus');
-      const filterObj = trackStatus ? JSON.parse(trackStatus) : null;
-      if (filterObj) {
-        setFilterState(filterObj);
-      }
-    }
+    // const query = qs.parse(window.location.search.slice(1));
+    // if (query.filter && !filterState.track) {
+    //   setFilterState(query.filter);
+    // } else {
+    //   const trackStatus = localStorage.getItem('trackStatus');
+    //   const filterObj = trackStatus ? JSON.parse(trackStatus) : null;
+    //   if (filterObj) {
+    //     setFilterState(filterObj);
+    //   }
+    // }
   }
 
   render() {
     const {
-      activeBucket,
+      // activeBucket,
       communityFilters,
-      filterState,
-      isSavingFilter,
-      saveFilter,
-      savedFilters,
-      selectBucket,
-      selectedCommunityId,
+      // filterState,
+      // isSavingFilter,
+      // saveFilter,
+      // savedFilters,
+      // selectBucket,
+      // selectedCommunityId,
       setFilterState,
-      tokenV2,
+      // tokenV2,
     } = this.props;
     const communityFilters2 = [
       {
@@ -95,42 +95,42 @@ export class Container extends React.Component {
       ...communityFilters,
     ];
 
-    const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
+    // const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
 
     return (
       <FilterPanel
         {...this.props}
         communityFilters={communityFilters2}
-        saveFilter={() => {
-          const name = getAvailableFilterName(savedFilters);
-          const filter = {
-            ...filterState,
-            communityId: selectedCommunityId,
-          };
+        // saveFilter={() => {
+        //   const name = getAvailableFilterName(savedFilters);
+        //   const filter = {
+        //     ...filterState,
+        //     communityId: selectedCommunityId,
+        //   };
 
-          if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
+        //   if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
 
-          saveFilter(name, filter, tokenV2);
-        }}
+        //   saveFilter(name, filter, tokenV2);
+        // }}
         setFilterState={(state) => {
           setFilterState(state);
-          if (activeBucket === BUCKETS.SAVED_FILTER) {
-            selectBucket(BUCKETS.ALL);
-          } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
-            selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
-          }
+          // if (activeBucket === BUCKETS.SAVED_FILTER) {
+          //   selectBucket(BUCKETS.ALL);
+          // } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+          //   selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
+          // }
         }}
-        isSavingFilter={isSavingFilter}
-        isReviewOpportunitiesBucket={isForReviewOpportunities}
+        // isSavingFilter={isSavingFilter}
+        // isReviewOpportunitiesBucket={isForReviewOpportunities}
       />
     );
   }
 }
 
 Container.defaultProps = {
-  isSavingFilter: false,
+  // isSavingFilter: false,
   tokenV2: '',
-  challenges: [],
+  // challenges: [],
 };
 
 Container.propTypes = {
@@ -147,16 +147,16 @@ Container.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   filterState: PT.shape().isRequired,
-  challenges: PT.arrayOf(PT.shape()),
+  // challenges: PT.arrayOf(PT.shape()),
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getTypes: PT.func.isRequired,
-  isSavingFilter: PT.bool,
-  savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  // isSavingFilter: PT.bool,
+  // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,
   loadingTypes: PT.bool.isRequired,
-  saveFilter: PT.func.isRequired,
-  selectBucket: PT.func.isRequired,
+  // saveFilter: PT.func.isRequired,
+  // selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   auth: PT.shape().isRequired,
   tokenV2: PT.string,
@@ -165,7 +165,7 @@ Container.propTypes = {
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing.filterPanel;
   const cla = challengeListingActions.challengeListing;
-  const sa = sidebarActions.challengeListing.sidebar;
+  // const sa = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
     getTypes: () => {
@@ -181,13 +181,13 @@ function mapDispatchToProps(dispatch) {
       dispatch(cla.getChallengeTagsInit());
       dispatch(cla.getChallengeTagsDone());
     },
-    saveFilter: (...rest) => {
-      dispatch(sa.saveFilterInit());
-      dispatch(sa.saveFilterDone(...rest));
-    },
-    selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    // saveFilter: (...rest) => {
+    //   dispatch(sa.saveFilterInit());
+    //   dispatch(sa.saveFilterDone(...rest));
+    // },
+    // selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
-    setFilterState: s => dispatch(cla.setFilter(s)),
+    // setFilterState: s => dispatch(cla.setFilter(s)),
   };
 }
 
@@ -209,8 +209,8 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,
-    isSavingFilter: cl.sidebar.isSavingFilter,
-    savedFilters: cl.sidebar.savedFilters,
+    // isSavingFilter: cl.sidebar.isSavingFilter,
+    // savedFilters: cl.sidebar.savedFilters,
   };
 }
 
