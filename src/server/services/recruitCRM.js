@@ -44,6 +44,7 @@ export default class RecruitCRMService {
         return res.send({
           error: true,
           status: response.status,
+          response,
         });
       }
       const data = await response.json();
@@ -75,6 +76,7 @@ export default class RecruitCRMService {
         return res.send({
           error: true,
           status: response.status,
+          response,
         });
       }
       const data = await response.json();
@@ -106,6 +108,7 @@ export default class RecruitCRMService {
         return res.send({
           error: true,
           status: response.status,
+          response,
         });
       }
       const data = await response.json();
