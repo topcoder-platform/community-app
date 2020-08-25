@@ -1,11 +1,8 @@
-import { config } from 'topcoder-react-utils';
 import fetch from 'isomorphic-fetch';
 import { logger } from 'topcoder-react-lib';
 import qs from 'qs';
 
-const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
-
-const PROXY_ENDPOINT = `${LOCAL_MODE ? '' : config.URL.APP}/api/recruit`;
+const PROXY_ENDPOINT = '/api/recruit';
 
 export default class Service {
   baseUrl = PROXY_ENDPOINT;
