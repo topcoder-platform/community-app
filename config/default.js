@@ -314,7 +314,7 @@ module.exports = {
             },
             {
               title: 'Gig Work',
-              href: '/community/taas',
+              href: '/gigs',
             },
             {
               title: 'Practice',
@@ -408,4 +408,5 @@ module.exports = {
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/policy',
+  GIGS_PAGES_PATH: '/gigs',
 };

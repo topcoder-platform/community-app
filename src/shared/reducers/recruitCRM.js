@@ -1,7 +1,7 @@
 /**
  * Reducer for state.recruit
  */
-
+import _ from 'lodash';
 import actions from 'actions/recruitCRM';
 import { handleActions } from 'redux-actions';
 
@@ -26,7 +26,35 @@ function onDone(state, { payload }) {
   return {
     ...state,
     loading: false,
-    jobs: payload.data,
+    jobs: _.filter(payload.data, job => job.enable_job_application_form === 1),
+  };
+}
+
+/**
+ * Handles recruit.getJobInit action.
+ * @param {Object} state Previous state.
+ */
+function onJobInit(state, { payload }) {
+  return {
+    ...state,
+    [payload.id]: {
+      loading: true,
+    },
+  };
+}
+
+/**
+ * Handles recruit.getJobDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action The action.
+ */
+function onJobDone(state, { payload }) {
+  return {
+    ...state,
+    [payload.id]: {
+      loading: false,
+      job: payload.data,
+    },
   };
 }
 
@@ -40,6 +68,8 @@ function create(state = {}) {
   return handleActions({
     [actions.recruit.getJobsInit]: onInit,
     [actions.recruit.getJobsDone]: onDone,
+    [actions.recruit.getJobInit]: onJobInit,
+    [actions.recruit.getJobDone]: onJobDone,
   }, state);
 }
 

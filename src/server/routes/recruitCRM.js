@@ -14,6 +14,8 @@ const routes = express.Router();
 routes.use(cors());
 routes.options('*', cors());
 
+routes.get('/jobs', (req, res, next) => new RecruitCRMService().getAllJobs(req, res, next));
+
 routes.get('/jobs/search', (req, res, next) => new RecruitCRMService().getJobs(req, res, next));
 
 routes.get('/jobs/:id', (req, res, next) => new RecruitCRMService().getJob(req, res, next));

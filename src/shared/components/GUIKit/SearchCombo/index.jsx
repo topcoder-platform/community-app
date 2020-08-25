@@ -1,0 +1,49 @@
+/**
+ * SearchCombo component.
+ */
+import React, { useState } from 'react';
+import PT from 'prop-types';
+import './style.scss';
+import IconClearSearch from 'assets/images/icon-clear-search.svg';
+
+function SearchCombo({
+  term,
+  placeholder,
+  btnText,
+  onSearch,
+}) {
+  const [inputVal, setVal] = useState(term);
+  const clearSearch = () => {
+    setVal('');
+    onSearch('');
+  };
+
+  return (
+    <div styleName="container">
+      <div styleName="input-wrap">
+        <input type="text" placeholder={placeholder} styleName="input" value={inputVal} onChange={event => setVal(event.target.value)} />
+        {
+          inputVal ? <IconClearSearch onClick={clearSearch} styleName="clear-search" /> : null
+        }
+      </div>
+      <button type="button" styleName="primary-green-md" onClick={() => onSearch(inputVal)} disabled={!inputVal}>
+        {btnText}
+      </button>
+    </div>
+  );
+}
+
+SearchCombo.defaultProps = {
+  term: '',
+  placeholder: '',
+  btnText: 'SEARCH',
+};
+
+SearchCombo.propTypes = {
+  term: PT.string,
+  placeholder: PT.string,
+  btnText: PT.string,
+  onSearch: PT.func.isRequired,
+};
+
+export default SearchCombo;

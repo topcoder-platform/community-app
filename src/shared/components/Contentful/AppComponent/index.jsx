@@ -9,7 +9,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { errors } from 'topcoder-react-lib';
 import Leaderboard from 'containers/tco/Leaderboard';
-import RecruitCRMJobs from 'containers/Contentful/RecruitCRMJobs';
+import RecruitCRMJobs from 'containers/Gigs/RecruitCRMJobs';
 
 const { fireErrorMessage } = errors;
 

@@ -35,4 +35,17 @@ export default class Service {
     }
     return res.json();
   }
+
+  /**
+ * Get all jobs
+ * @param {*} query The request query
+ */
+  async getAllJobs(query) {
+    const res = await fetch(`${this.baseUrl}/jobs?${qs.stringify(query)}`);
+    if (!res.ok) {
+      const error = new Error('Failed to get jobs');
+      logger.error(error, res);
+    }
+    return res.json();
+  }
 }
