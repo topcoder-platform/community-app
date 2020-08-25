@@ -45,6 +45,7 @@ export default class RecruitCRMService {
           error: true,
           status: response.status,
           response,
+          url: `${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}`,
         });
       }
       const data = await response.json();
@@ -77,6 +78,7 @@ export default class RecruitCRMService {
           error: true,
           status: response.status,
           response,
+          url: `${this.private.baseUrl}/v1/jobs/${req.params.id}`,
         });
       }
       const data = await response.json();
@@ -109,6 +111,7 @@ export default class RecruitCRMService {
           error: true,
           status: response.status,
           response,
+          url: `${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}`,
         });
       }
       const data = await response.json();
