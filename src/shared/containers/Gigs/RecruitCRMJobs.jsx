@@ -114,11 +114,11 @@ class RecruitCRMJobsContainer extends React.Component {
     return (
       <div styleName="container">
         <div styleName="filters">
-          <SearchCombo placeholder="Search Gig Listings by Name, Skills or Location" onSearch={this.onSearch} term={term} />
+          <SearchCombo placeholder="Search Gig Listings by Name, Skills, or Location" onSearch={this.onSearch} term={term} />
         </div>
         <div styleName="jobs-list-container">
           {
-            jobsToDisplay.map(job => <JobListCard job={job} />)
+            jobsToDisplay.map(job => <JobListCard job={job} key={job.slug} />)
           }
         </div>
         <Paginate onChange={this.onPaginate} pages={pages} page={page} />

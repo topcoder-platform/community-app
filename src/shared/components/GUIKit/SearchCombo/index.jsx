@@ -21,7 +21,10 @@ function SearchCombo({
   return (
     <div styleName="container">
       <div styleName="input-wrap">
-        <input type="text" placeholder={placeholder} styleName="input" value={inputVal} onChange={event => setVal(event.target.value)} />
+        {
+          !inputVal ? <span styleName="search-placeholder">{placeholder}</span> : null
+        }
+        <input type="text" styleName="input" value={inputVal} onChange={event => setVal(event.target.value)} />
         {
           inputVal ? <IconClearSearch onClick={clearSearch} styleName="clear-search" /> : null
         }

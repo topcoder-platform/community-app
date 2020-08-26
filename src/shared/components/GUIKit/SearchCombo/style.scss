@@ -9,26 +9,33 @@
     width: 100%;
     position: relative;
     margin-right: 10px;
+    z-index: 1;
 
     input.input {
-      background-color: #fff;
+      background: transparent;
       border: 1px solid #aaa;
       border-radius: 6px;
       height: 39px;
       margin: 0;
+    }
 
-      &::placeholder {
-        color: #aaa;
-        font-size: 14px;
-        line-height: 22px;
-        text-transform: none;
-      }
+    .search-placeholder {
+      color: #aaa;
+      font-size: 14px;
+      font-family: Roboto, sans-serif;
+      line-height: 22px;
+      text-transform: none;
+      position: absolute;
+      z-index: 0;
+      top: 8px;
+      left: 15px;
     }
 
     .clear-search {
       position: absolute;
       top: calc(50% - 5px);
       right: 15px;
+      cursor: pointer;
     }
   }
 

@@ -134,6 +134,10 @@
             }
           }
         }
+
+        .gig-skills {
+          display: flex;
+        }
       }
 
       .left {
@@ -146,8 +150,15 @@
           line-height: 30px;
           display: inline-block;
         }
-
         /* stylelint-enable */
+
+        h4 {
+          margin-top: 35px;
+
+          &:first-child {
+            margin-top: 0;
+          }
+        }
       }
     }
   }

@@ -35,6 +35,8 @@ export default function GigDetails(props) {
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
   }
+  let skills = getCustomField(job.custom_fields, 'Technologies Required');
+  if (skills !== 'n/a') skills = skills.split(',').join(', ');
 
   return (
     <div styleName="container">
@@ -88,6 +90,8 @@ export default function GigDetails(props) {
             </div>
             <div styleName="content">
               <div styleName="left">
+                <h4>Required Tech Skills</h4>
+                <p>{skills}</p>
                 <h4>Description</h4>
                 <p>{ReactHtmlParser(job.job_description_text, ReactHtmlParserOptions)}
                 </p>
