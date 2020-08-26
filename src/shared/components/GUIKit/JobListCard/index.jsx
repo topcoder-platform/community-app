@@ -28,7 +28,7 @@ export default function JobListCard({
   const hoursPerWeek = getCustomField(job.custom_fields, 'Hours per week');
   return (
     <div styleName="container">
-      <h6>{job.name}</h6>
+      <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="gig-name">{job.name}</Link>
       <div styleName="job-infos">
         <div styleName="icon-val">
           <IconBlackSkills /> {skills}

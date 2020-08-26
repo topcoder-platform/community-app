@@ -22,7 +22,7 @@ class RecruitCRMJobsContainer extends React.Component {
     this.state = {
       term: '',
       page: 0,
-      sortBy: 'created_on',
+      sortBy: 'updated_on',
     };
 
     this.onSearch = this.onSearch.bind(this);
@@ -88,9 +88,17 @@ class RecruitCRMJobsContainer extends React.Component {
     // Filter by term
     if (term) {
       jobsToDisplay = _.filter(jobs, (job) => {
-        if (job.name.toLowerCase().includes(term.toLowerCase())) return true;
+        // eslint-disable-next-line no-underscore-dangle
+        const _term = term.toLowerCase();
+        // name search
+        if (job.name.toLowerCase().includes(_term)) return true;
+        // skills search
+        const skills = _.find(job.custom_fields, ['field_name', 'Technologies Required']);
+        if (skills && skills.value && skills.value.toLowerCase().includes(_term)) return true;
+        // location
+        if (job.country.toLowerCase().includes(_term)) return true;
+        // no match
         return false;
-        // add skills here
       });
     }
     // Sort controlled by sortBy state
@@ -106,7 +114,7 @@ class RecruitCRMJobsContainer extends React.Component {
     return (
       <div styleName="container">
         <div styleName="filters">
-          <SearchCombo placeholder="Search Job Listings by Name or Skills" onSearch={this.onSearch} term={term} />
+          <SearchCombo placeholder="Search Gig Listings by Name, Skills or Location" onSearch={this.onSearch} term={term} />
         </div>
         <div styleName="jobs-list-container">
           {
