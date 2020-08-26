@@ -15,6 +15,17 @@ export default function DeadlinesPanel({ deadlines }) {
   start = start.actualStartDate || start.scheduledStartDate;
   const started = moment(start).isBefore(moment());
 
+  deadlines.sort((a, b) => {
+    if (a.name.toLowerCase().includes('registration')) {
+      return -1;
+    }
+    if (b.name.toLowerCase().includes('registration')) {
+      return 1;
+    }
+    return (new Date(a.scheduledEndDate || a.actualEndDate)).getTime()
+      - (new Date(b.scheduledEndDate || b.actualEndDate)).getTime();
+  });
+
   return (
     <div styleName="panel" tabIndex="0" role="tabpanel">
       <p styleName="timezone">
