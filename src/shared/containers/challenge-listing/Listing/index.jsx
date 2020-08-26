@@ -149,7 +149,6 @@ export class ListingContainer extends React.Component {
       auth,
       getActiveChallenges,
       lastRequestedPageOfActiveChallenges,
-      getUserChallenges,
     } = this.props;
     const f = this.getBackendFilter();
     getActiveChallenges(
@@ -158,10 +157,6 @@ export class ListingContainer extends React.Component {
       auth.tokenV3,
       f.front,
     );
-    if (auth.tokenV3) {
-      const userId = _.get(auth.user, 'userId');
-      getUserChallenges(userId, auth.tokenV3);
-    }
   }
 
   render() {
@@ -209,7 +204,6 @@ export class ListingContainer extends React.Component {
       sorts,
       hideTcLinksInSidebarFooter,
       isBucketSwitching,
-      userChallenges,
     } = this.props;
 
     const { tokenV3 } = auth;
@@ -312,7 +306,6 @@ export class ListingContainer extends React.Component {
           groupIds={groupIds}
           auth={auth}
           isBucketSwitching={isBucketSwitching}
-          userChallenges={userChallenges}
           isLoggedIn={isLoggedIn}
         />
       </div>
@@ -340,7 +333,6 @@ ListingContainer.defaultProps = {
   queryBucket: BUCKETS.ALL,
   meta: {},
   isBucketSwitching: false,
-  userChallenges: [],
 };
 
 ListingContainer.propTypes = {
@@ -410,8 +402,6 @@ ListingContainer.propTypes = {
   meta: PT.shape(),
   isBucketSwitching: PT.bool,
   selectBucketDone: PT.func.isRequired,
-  userChallenges: PT.arrayOf(PT.string),
-  getUserChallenges: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -455,7 +445,6 @@ const mapStateToProps = (state, ownProps) => {
     isBucketSwitching: cl.sidebar.isBucketSwitching,
     expandedTags: cl.expandedTags,
     meta: cl.meta,
-    userChallenges: cl.userChallenges,
   };
 };
 
@@ -502,11 +491,6 @@ function mapDispatchToProps(dispatch) {
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () => dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
     expandTag: id => dispatch(a.expandTag(id)),
-    getUserChallenges: (userId, tokenV3) => {
-      const uuid = shortId();
-      dispatch(a.getUserChallengesInit(uuid));
-      dispatch(a.getUserChallengesDone(userId, tokenV3));
-    },
   };
 }
 
