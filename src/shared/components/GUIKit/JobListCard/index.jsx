@@ -7,7 +7,6 @@ import PT from 'prop-types';
 import { config, Link } from 'topcoder-react-utils';
 import { getSalaryType, getCustomField } from 'utils/gigs';
 import './style.scss';
-import IconBlackCalendar from 'assets/images/icon-black-calendar.svg';
 import IconBlackDuration from 'assets/images/icon-black-duration.svg';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import IconBlackPayment from 'assets/images/icon-black-payment.svg';
@@ -25,7 +24,7 @@ export default function JobListCard({
       skills = skills.join(', ');
     }
   }
-  const hoursPerWeek = getCustomField(job.custom_fields, 'Hours per week');
+
   return (
     <div styleName="container">
       <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="gig-name">{job.name}</Link>
@@ -41,9 +40,6 @@ export default function JobListCard({
         </div>
         <div styleName="icon-val">
           <IconBlackDuration /> {getCustomField(job.custom_fields, 'Duration')}
-        </div>
-        <div styleName="icon-val">
-          <IconBlackCalendar /> {`${hoursPerWeek !== 'n/a' ? `${hoursPerWeek} hours / week` : 'n/a'}`}
         </div>
         <div styleName="row-btn">
           <Link styleName="primary-green-md" to={`${config.GIGS_PAGES_PATH}/${job.slug}`}>VIEW DETAILS</Link>
