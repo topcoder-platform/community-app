@@ -21,6 +21,7 @@ function Listing({
   auth,
   challenges,
   challengeTypes,
+  userChallenges,
   challengesUrl,
   communityName,
   extraBucket,
@@ -46,7 +47,7 @@ function Listing({
   pastSearchTimestamp,
   isLoggedIn,
 }) {
-  const buckets = getBuckets(_.get(auth, 'user.userId'));
+  const buckets = getBuckets(userChallenges);
   const isChallengesAvailable = (bucket) => {
     const filter = Filter.getFilterFunction(buckets[bucket].filter);
     const clonedChallenges = _.clone(challenges);
@@ -179,6 +180,7 @@ Listing.defaultProps = {
   // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
   pastSearchTimestamp: 0,
+  userChallenges: [],
 };
 
 Listing.propTypes = {
@@ -214,6 +216,7 @@ Listing.propTypes = {
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
   pastSearchTimestamp: PT.number,
+  userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
 };
 
