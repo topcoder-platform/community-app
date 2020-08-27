@@ -29,24 +29,6 @@ const ChallengeSpecTab = ({ challenge }) => (
       </article>
       )
     }
-    {
-      challenge.finalSubmissionGuidelines
-      && (
-      <article>
-        <h2 styleName="h2">
-          Final Submission Guidelines
-        </h2>
-        <div
-          /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{
-            __html: challenge.finalSubmissionGuidelines,
-          }}
-          /* eslint-enable react/no-danger */
-          styleName="rawHtml"
-        />
-      </article>
-      )
-    }
   </div>
 );
 
