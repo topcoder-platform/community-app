@@ -36,6 +36,7 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
 import newsletterPreferences from './newsletterPreferences';
+import recruitCRM from './recruitCRM';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -140,6 +141,7 @@ export function factory(req) {
     challengesBlock,
     policyPages,
     newsletterPreferences,
+    recruitCRM,
   }));
 }
 

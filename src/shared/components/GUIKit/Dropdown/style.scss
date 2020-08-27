@@ -1,0 +1,27 @@
+.container {
+  :global {
+    @import '~react-select/dist/react-select';
+
+    width: 100%;
+
+    input.Select-input,
+    input.Select-input:focus {
+      background-color: transparent !important;
+      margin-left: 0 !important;
+      padding-right: 6px !important;
+      color: red;
+    }
+
+    .Select-multi-value-wrapper {
+      width: 100% !important;
+    }
+  }
+
+  .label {
+    position: relative;
+  }
+
+  .active-option {
+    color: red;
+  }
+}

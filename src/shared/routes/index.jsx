@@ -23,6 +23,7 @@ import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
 import TrackHomePages from './TrackHomePages';
 import PolicyPages from './PolicyPages';
+import GigsPages from './GigsPages';
 
 function Routes({ communityId }) {
   const metaTags = (
@@ -96,6 +97,11 @@ function Routes({ communityId }) {
           component={PolicyPages}
           exact
           path={`${config.POLICY_PAGES_PATH}/:slug?`}
+        />
+        <Route
+          component={GigsPages}
+          exact
+          path={`${config.GIGS_PAGES_PATH}/:id?`}
         />
         <Topcoder />
       </Switch>

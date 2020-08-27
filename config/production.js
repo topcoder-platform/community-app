@@ -115,7 +115,7 @@ module.exports = {
             },
             {
               title: 'Gig Work',
-              href: '/community/taas',
+              href: '/gigs',
             },
             {
               title: 'Practice',
