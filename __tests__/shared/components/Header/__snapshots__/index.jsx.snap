@@ -62,7 +62,7 @@ exports[`Default render 1`] = `
                   "title": "Competitive Programming",
                 },
                 Object {
-                  "href": "/community/taas",
+                  "href": "/gigs",
                   "title": "Gig Work",
                 },
                 Object {
