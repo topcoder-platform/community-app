@@ -339,7 +339,7 @@ function getUserChallengesInit(uuid) {
 function getUserChallengesDone(userId, tokenV3) {
   const service = getService(tokenV3);
 
-  return service.getUserResources(userId)
+  return service.getUserResources(userId, 1, 10000)
     .then(item => item)
     .catch((error) => {
       fireErrorMessage('Error Getting User Challenges', error.content || error);
