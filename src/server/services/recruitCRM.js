@@ -114,20 +114,27 @@ export default class RecruitCRMService {
       const data = await response.json();
       if (data.current_page < data.last_page) {
         const pages = _.range(2, data.last_page + 1);
-        // eslint-disable-next-line no-restricted-syntax
-        for (const page of pages) {
-          // eslint-disable-next-line no-await-in-loop
-          const pageDataRsp = await fetch(`${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}&page=${page}`, {
+        return Promise.all(
+          pages.map(page => fetch(`${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}&page=${page}`, {
             method: 'GET',
             headers: {
               'Content-Type': req.headers['content-type'],
               Authorization: this.private.authorization,
             },
-          });
-          // eslint-disable-next-line no-await-in-loop
-          const pageData = await pageDataRsp.json();
-          data.data = _.flatten(data.data.concat(pageData.data));
-        }
+          })),
+        )
+          .then(async (allPages) => {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const pageDataRsp of allPages) {
+              // eslint-disable-next-line no-await-in-loop
+              const pageData = await pageDataRsp.json();
+              data.data = _.flatten(data.data.concat(pageData.data));
+            }
+            return res.send(data.data);
+          })
+          .catch(e => res.send({
+            error: e,
+          }));
       }
       return res.send(data.data);
     } catch (err) {

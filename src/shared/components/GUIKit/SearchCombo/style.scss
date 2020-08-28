@@ -9,7 +9,6 @@
     width: 100%;
     position: relative;
     margin-right: 10px;
-    z-index: 1;
 
     input.input {
       background: transparent;
@@ -17,6 +16,8 @@
       border-radius: 6px;
       height: 39px;
       margin: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .search-placeholder {
@@ -29,6 +30,12 @@
       z-index: 0;
       top: 8px;
       left: 15px;
+
+      @include xs-to-sm {
+        max-width: 250px;
+        overflow: hidden;
+        white-space: nowrap;
+      }
     }
 
     .clear-search {
@@ -36,6 +43,7 @@
       top: calc(50% - 5px);
       right: 15px;
       cursor: pointer;
+      z-index: 2;
     }
   }
 

@@ -10,7 +10,7 @@ import './style.scss';
 import IconBlackDuration from 'assets/images/icon-black-duration.svg';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import IconBlackPayment from 'assets/images/icon-black-payment.svg';
-import IconBlackSkills from 'assets/images/icon-skills.svg';
+import iconBlackSkills from 'assets/images/icon-skills.png';
 
 export default function JobListCard({
   job,
@@ -30,7 +30,7 @@ export default function JobListCard({
       <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="gig-name">{job.name}</Link>
       <div styleName="job-infos">
         <div styleName="icon-val">
-          <IconBlackSkills /> {skills}
+          <img src={iconBlackSkills} alt="skills-icon" /> {skills}
         </div>
         <div styleName="icon-val">
           <IconBlackLocation /> {job.country}
