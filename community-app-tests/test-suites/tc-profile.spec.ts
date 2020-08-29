@@ -37,7 +37,7 @@ describe('Topcoder Profile Settings Page Tests: ', () => {
   /**
    * Verifies that user can update his basic information
    */
-  it('should verify whether the current user can update basic information', async () => {
+  it('[TC_001] should verify whether the current user can update basic information', async () => {
     await BasicInfoPageHelper.open();
     await BasicInfoPageHelper.verifyBasicInfoUpdate(testData.profile);
   });
@@ -45,7 +45,7 @@ describe('Topcoder Profile Settings Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete language functionality
    */
-  it('should verify User can Add/Update/Delete language', async () => {
+  it('[TC_002] should verify User can Add/Update/Delete language', async () => {
     await LanguagePageHelper.open();
     await LanguagePageHelper.deleteAll();
     await LanguagePageHelper.verifyAddLanguage(testData.profile.language);
@@ -60,7 +60,7 @@ describe('Topcoder Profile Settings Page Tests: ', () => {
    * Verifies Add/Update/Delete education functionality
    */
 
-  it('should verify User can Add/Update/Delete Education', async () => {
+  it('[TC_003] should verify User can Add/Update/Delete Education', async () => {
     await EducationPageHelper.open();
     await EducationPageHelper.deleteAll();
     await EducationPageHelper.verifyAddEducation(testData.profile.education);
@@ -76,7 +76,7 @@ describe('Topcoder Profile Settings Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete work functionality
    */
-  it('should verify User can Add/Update/Delete work ', async () => {
+  it('[TC_004] should verify User can Add/Update/Delete work ', async () => {
     await WorkPageHelper.open();
     await WorkPageHelper.deleteAll();
     await WorkPageHelper.verifyAddWork(testData.profile.work);
@@ -90,7 +90,7 @@ describe('Topcoder Profile Settings Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete skill functionality
    */
-  it('should verify User can Add/Delete skill.', async () => {
+  it('[TC_005] should verify User can Add/Delete skill.', async () => {
     await SkillPageHelper.open();
     await SkillPageHelper.deleteAll();
     await SkillPageHelper.verifyAddSkill(testData.profile.skill);
@@ -100,7 +100,7 @@ describe('Topcoder Profile Settings Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete hobby functionality
    */
-  it('should verify User can Add/Update/Delete hobbies ', async () => {
+  it('[TC_006] should verify User can Add/Update/Delete hobbies ', async () => {
     await HobbyPageHelper.open();
     await HobbyPageHelper.deleteAll();
     await HobbyPageHelper.verifyAddHobby(testData.profile.hobby);
@@ -114,7 +114,7 @@ describe('Topcoder Profile Settings Page Tests: ', () => {
   /**
    * Verifies user can update blockchain/cognitive community
    */
-  it('should verify User can update the community.', async () => {
+  it('[TC_007] should verify User can update the community.', async () => {
     await CommunityPageHelper.open();
     await CommunityPageHelper.disableAll();
     await CommunityPageHelper.verifyUpdateCommunity(testData.profile.community);

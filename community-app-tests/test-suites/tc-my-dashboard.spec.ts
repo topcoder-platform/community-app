@@ -35,18 +35,18 @@ describe('Topcoder My Dashboard Page Tests:', () => {
     await MyDashboardPageHelper.open();
   });
 
-  it('should check my active challenges tab [TC_002]', async () => {
+  it('[TC_002] should check my active challenges tab', async () => {
     await MyDashboardPageHelper.checkIfTabIsActive('My Active Challenge');
     await MyDashboardPageHelper.checkChallengeCardIsDisplayed();
   });
 
-  it('should check my communities tab [TC_003]', async () => {
+  it('[TC_003] should check my communities tab', async () => {
     await MyDashboardPageHelper.selectTab('My Communities');
     await MyDashboardPageHelper.verifyUserCommunitiesAreDisplayed();
     await MyDashboardPageHelper.verifyLearnMoreLink();
   });
 
-  it('should check my SRMs tab [TC_003]', async () => {
+  it('[TC_003] should check my SRMs tab', async () => {
     await MyDashboardPageHelper.selectTab('SRMs');
     await MyDashboardPageHelper.verifySRMTabIsDisplayed();
   });

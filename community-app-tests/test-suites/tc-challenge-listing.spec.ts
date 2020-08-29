@@ -28,111 +28,111 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.open();
     });
 
-    it('should verify whether the current page is redirected to Registration page on clicking the Log in button [TC_002]', async () => {
+    it('[TC_002] should verify whether the current page is redirected to Registration page on clicking the Log in button', async () => {
       await ChallengeListingPageHelper.verifyLoginLink();
     });
 
-    it('should verify whether the user is able to search the member by their username/skill using the search icon. [TC_003]', async () => {
+    it('[TC_003] should verify whether the user is able to search the member by their username/skill using the search icon', async () => {
       await HeaderHelper.verifySearchByUsername(testData.search.username);
       await ChallengeListingPageHelper.open();
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
     });
 
-    it('should verify whether all the open for registration and Ongoing challenges are listed on clicking the Challenge tab. [TC_004]', async () => {
+    it('[TC_004] should verify whether all the open for registration and Ongoing challenges are listed on clicking the Challenge tab', async () => {
       await ChallengeListingPageHelper.verifyOpenForRegistrationChallenges();
       await ChallengeListingPageHelper.verifyOngoingChallenges();
     });
 
-    it('should verify whether the user is able to search for a challenge by using the Search challenges textbox. [TC_006]', async () => {
+    it('[TC_006] should verify whether the user is able to search for a challenge by using the Search challenges textbox', async () => {
       await ChallengeListingPageHelper.fillAndVerifySearchResults();
     });
 
-    it('should verify that the "Filter" button is working correctly [TC-007]', async () => {
+    it('[TC-007] should verify that the "Filter" button is working correctly', async () => {
       await ChallengeListingPageHelper.verifyFilterToggle();
     });
 
-    it('should verify that the "Filter" option "keywords" is working correctly [TC-008]', async () => {
+    it('[TC-008] should verify that the "Filter" option "keywords" is working correctly', async () => {
       await ChallengeListingPageHelper.verifyFilterByKeywords();
     });
 
-    it('should verify that the "Filter" option "Subtrack" is working correctly [TC-009]', async () => {
-      await ChallengeListingPageHelper.verifyFilterBySubtrack();
+    it('[TC-009] should verify that the "Filter" option "Type" is working correctly', async () => {
+      await ChallengeListingPageHelper.verifyFilterByType();
     });
 
-    it('should verify that the "Filter" option "Sub Community" is working correctly [TC-010]', async () => {
+    it('[TC-010] should verify that the "Filter" option "Sub Community" is working correctly', async () => {
       await ChallengeListingPageHelper.verifyFilterBySubCommunity();
     });
 
-    it('should verify that the "Filter" option for "Date range" is working correctly [TC-011]', async () => {
+    it('[TC-011] should verify that the "Filter" option for "Date range" is working correctly', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectDateRange();
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(1);
     });
 
-    it('should verify whether the challenges are filtered according to the keyword/Subtrack/Sub community/Date range fields selected under the Filter function. [TC_012]', async () => {
+    it('[TC_012] should verify whether the challenges are filtered according to the keyword/Type/Sub community/Date range fields selected under the Filter function', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.verifyFilterByKeywordsAndSubTrack();
+      await ChallengeListingPageHelper.verifyFilterByKeywordsAndType();
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(2);
     });
 
-    it('should verify whether the user is able to select more than one keyword/Subtrack under the filter function. [TC_013]', async () => {
+    it('[TC_013] should verify whether the user is able to select more than one keyword/Type under the filter function', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
-      await ChallengeListingPageHelper.verifyFilterByMultipleSubtracks();
+      await ChallengeListingPageHelper.verifyFilterByMultipleTypes();
     });
 
-    it('should verify whether the cross symbol inside the textbox keyword/Subtrack filters removes the selected keyword/Subtrack. [TC_014]', async () => {
+    it('[TC_014] should verify whether the cross symbol inside the textbox keyword/Type filters removes the selected keyword/Type', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
-      await ChallengeListingPageHelper.verifyFilterByMultipleSubtracks();
+      await ChallengeListingPageHelper.verifyFilterByMultipleTypes();
       await ChallengeListingPageHelper.verifyRemovalOfKeyword();
-      await ChallengeListingPageHelper.verifyRemovalOfSubtrack();
+      await ChallengeListingPageHelper.verifyRemovalOfType();
     });
 
-    it('should verify whether the number of filters applied are shown into Filter button according to the keyword/Subtrack/Sub community/Date range fields selected. [TC_015]', async () => {
+    it('[TC_015] should verify whether the number of filters applied are shown into Filter button according to the keyword/Type/Sub community/Date range fields selected', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectSubtrack('Code');
+      await ChallengeListingPageHelper.selectType('Code');
       await ChallengeListingPageHelper.selectSubCommunity(1);
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(3);
     });
 
-    it('should verify whether the clear filter button clears all the filters selected and all the challenges are displayed. [TC_016]', async () => {
+    it('[TC_016] should verify whether the clear filter button clears all the filters selected and all the challenges are displayed', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectSubtrack('Code');
+      await ChallengeListingPageHelper.selectType('Code');
       await ChallengeListingPageHelper.selectSubCommunity(1);
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(3);
       await ChallengeListingPageHelper.clearFilters();
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(0);
     });
 
-    it('should verify whether the Clear filter button is deactivated into filter function. [TC_017]', async () => {
+    it('[TC_017] should verify whether the Clear filter button is deactivated into filter function', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.dropdownForKeywordIsDisplayed();
-      await ChallengeListingPageHelper.dropdownForSubtrackIsDisplayed();
+      await ChallengeListingPageHelper.dropdownForTypeIsDisplayed();
       await ChallengeListingPageHelper.dropdownForSubCommunityIsDisplayed();
       await ChallengeListingPageHelper.dropdownForDateRangeIsDisplayed();
       await ChallengeListingPageHelper.verifyClearFilterState(false);
     });
 
-    it('should verify whether the Sort by select option under the Open for registration/Ongoing Challenges list sorts the challenges according to the selected option. [TC_018]', async () => {
+    it('[TC_018] should verify whether the Sort by select option under the Open for registration/Ongoing Challenges list sorts the challenges according to the selected option', async () => {
       await ChallengeListingPageHelper.verifySortingFunctionality();
     });
 
-    it('should verify whether the View more challenges link under the Open for registration/Ongoing Challenges list displays all the Open for registration/Ongoing challenges. [TC_019]', async () => {
+    it('[TC_019] should verify whether the View more challenges link under the Open for registration/Ongoing Challenges list displays all the Open for registration/Ongoing challenges', async () => {
       await ChallengeListingPageHelper.verifyViewMoreChallenges();
     });
 
-    it('should verify that when user selects a challenge "tag", only challenges under the selected tag are shown. [TC-020]', async () => {
+    it('[TC-020] should verify that when user selects a challenge "tag", only challenges under the selected tag are shown', async () => {
       await ChallengeListingPageHelper.verifyChallengesByChallengeTag();
     });
 
-    it('should verify that the challenge count matches the number of challenges displayed [TC-021]', async () => {
+    it('[TC-021] should verify that the challenge count matches the number of challenges displayed', async () => {
       await ChallengeListingPageHelper.verifyChallengeCountByTogglingDevelopment();
     });
 
-    it('should verify that the challenge count remains the same when switching to the challenge details and then back to the challenge listings page [TC-022]', async () => {
+    it('[TC-022] should verify that the challenge count remains the same when switching to the challenge details and then back to the challenge listings page', async () => {
       const beforeOngoingChallengesCount = await ChallengeListingPageHelper.getOngoingChallengesCount();
       const beforeAllChallengesCount = await ChallengeListingPageHelper.getAllChallengesCount();
       const beforeOpenForRegistrationChallengesCount = await ChallengeListingPageHelper.getOpenForRegistrationChallengesCount();
@@ -155,7 +155,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       );
     });
 
-    it('should verify All Challenges link functionality with the design, development, and data science toggle switches on [TC-023]', async () => {
+    it('[TC-023] should verify All Challenges link functionality with the design, development, and data science toggle switches on', async () => {
       await ChallengeListingPageHelper.verifyAllChallenges();
       await ChallengeListingPageHelper.verifyOpenForRegistrationChallengesOnly();
       await ChallengeListingPageHelper.verifyOngoingChallengesOnly();
@@ -163,16 +163,16 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyPastChallengesOnly();
     });
 
-    it('should verify All Challenges link functionality with the design, development, and data science toggle switches Off [TC-024]', async () => {
+    it('[TC-024] should verify All Challenges link functionality with the design, development, and data science toggle switches Off', async () => {
       await ChallengeListingPageHelper.verifyWithAllSwitchesTurnedOff();
     });
 
-    it('should verify whether the page is redirected to the RSS Feed page on clicking the RSS feed link. [TC_025]', async () => {
+    it('[TC_025] should verify whether the page is redirected to the RSS Feed page on clicking the RSS feed link', async () => {
       await ChallengeListingPageHelper.clickOnRssLink();
       await ChallengeListingPageHelper.verifyRssPage();
     });
 
-    it('should verify whether the page is redirected to the respective page on clicking the link(About, Contact, Help, Privacy, Terms). [TC_026]', async () => {
+    it('[TC_026] should verify whether the page is redirected to the respective page on clicking the link(About, Contact, Help, Privacy, Terms)', async () => {
       await ChallengeListingPageHelper.verifyLinksUnderRss();
     });
   });
@@ -212,25 +212,25 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.open();
     });
 
-    it('should verify whether the current page is redirected to my profile page on clicking the my profile under the Username menu. [TC_028]', async () => {
+    it('[TC_028] should verify whether the current page is redirected to my profile page on clicking the my profile under the Username menu.', async () => {
       await HeaderHelper.verifyUserMenuProfileLink();
     });
 
-    it('should verify whether the current page is redirected to the settings page on clicking the settings under the Username menu. [TC_030]', async () => {
+    it('[TC_030] should verify whether the current page is redirected to the settings page on clicking the settings under the Username menu', async () => {
       await HeaderHelper.verifyUserMenuSettingsLink();
     });
 
-    it('should verify whether the logout happens on clicking the logout under the Username menu. [TC_031]', async () => {
+    it('[TC_031] should verify whether the logout happens on clicking the logout under the Username menu', async () => {
       await HeaderHelper.verifyUserMenuLogoutLink();
     });
 
-    it('should verify whether the user is able to search the member by their username/skill using the search icon. [TC_032]', async () => {
+    it('[TC_032] should verify whether the user is able to search the member by their username/skill using the search icon', async () => {
       await HeaderHelper.verifySearchByUsername(testData.search.username);
       await ChallengeListingPageHelper.open();
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
     });
 
-    it('should verify whether all the my challenges, open for registration and Ongoing challenges are listed on clicking the Challenge tab. [TC_033]', async () => {
+    it('[TC_033] should verify whether all the my challenges, open for registration and Ongoing challenges are listed on clicking the Challenge tab', async () => {
       await ChallengeListingPageHelper.verifyChallengesAfterLogin();
     });
   });

@@ -114,10 +114,10 @@ export class ChallengeListingPageHelper {
   }
 
   /**
-   * check if dropdown for sub tracks is displayted
+   * check if dropdown for type is displayted
    */
-  static async dropdownForSubtrackIsDisplayed() {
-    const isDisplayed = await CommonHelper.isDisplayed(ChallengeListingPageObject.subtrackInput);
+  static async dropdownForTypeIsDisplayed() {
+    const isDisplayed = await CommonHelper.isDisplayed(ChallengeListingPageObject.typeInput);
     expect(isDisplayed).toEqual(true);
   }
 
@@ -204,8 +204,8 @@ export class ChallengeListingPageHelper {
     await this.verifyChallengesMatchingKeyword(['Java']);
   }
 
-  static async selectSubtrack(track: string) {
-    await ChallengeListingPageObject.subtrackInput.sendKeys(track);
+  static async selectType(type: string) {
+    await ChallengeListingPageObject.typeInput.sendKeys(type);
     await CommonHelper.waitUntilVisibilityOf(
       () => CommonHelper.selectOptionElement,
       'Wait for select option',
@@ -214,7 +214,7 @@ export class ChallengeListingPageHelper {
     await CommonHelper.selectOptionElement.click();
   }
 
-  private static async verifyChallengesMatchingSubtrack(
+  private static async verifyChallengesMatchingType(
     expectedChallengesLength: number,
     filters: string | any[]
   ) {
@@ -232,23 +232,23 @@ export class ChallengeListingPageHelper {
     expect(totalChallenges).toEqual(expectedChallengesLength);
   }
 
-  static async verifyFilterBySubtrack() {
+  static async verifyFilterByType() {
     await this.openFiltersPanel();
     await CommonHelper.waitUntilVisibilityOf(
-      () => ChallengeListingPageObject.subtrackLabel,
-      'Wait for subtrack label',
+      () => ChallengeListingPageObject.typeLabel,
+      'Wait for type label',
       false
     );
-    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subtrackLabel);
+    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.typeLabel);
     expect(filtersVisibility).toBe(true);
-    await this.selectSubtrack('Web Design');
+    await this.selectType('First2Finish');
 
     await this.viewMoreChallenges();
 
-    // need to sleep to wait for ajax calls to be completed to filter using the above subtrack
+    // need to sleep to wait for ajax calls to be completed to filter using the above type
     await this.waitForLoadingNewChallengeList();
-    const count = await this.getAllChallengesCount();
-    await this.verifyChallengesMatchingSubtrack(count, [{ name: 'Wb' }]);
+    const count = await this.getOpenForRegistrationChallengesCount();
+    await this.verifyChallengesMatchingType(count, [{ name: 'F2F' }]);
   }
 
   static async selectSubCommunity(index: number) {
@@ -260,7 +260,7 @@ export class ChallengeListingPageHelper {
     );
     const allOptions = await CommonHelper.selectAllOptionsElement;
     await allOptions[index].click();
-    // need to sleep to wait for ajax calls to be completed to filter using the above subtrack
+    // need to sleep to wait for ajax calls to be completed to filter using the above type
     await BrowserHelper.sleep(5000);
   }
 
@@ -391,12 +391,12 @@ export class ChallengeListingPageHelper {
     }
   }
 
-  static async verifyFilterByKeywordsAndSubTrack() {
+  static async verifyFilterByKeywordsAndType() {
     await this.selectKeyword('Java');
-    await this.selectSubtrack('Code');
+    await this.selectType('Challenge');
     await this.verifyChallengesMatchingKeyword(['Java']);
     const count = await this.getAllChallengesCount();
-    await this.verifyChallengesMatchingSubtrack(count, [{ name: 'Cd' }]);
+    await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
   }
 
   /**
@@ -414,25 +414,27 @@ export class ChallengeListingPageHelper {
   static async viewMoreChallenges() {
     const viewMoreChallenges = await ChallengeListingPageObject.viewMoreChallenges;
     viewMoreChallenges.map(async (c) => {
-      if (await CommonHelper.isDisplayed(c)) {
+      await BrowserHelper.waitUntilClickableOf(c);
+      await BrowserHelper.sleep(3000);
+      if (await CommonHelper.isPresent(c)) {
         await c.click();
       }
     });
   }
 
   /**
-   * verify filter by multiple subtracks
+   * verify filter by multiple types
    */
-  static async verifyFilterByMultipleSubtracks() {
-    await this.selectSubtrack('Assembly Competition');
-    await this.selectSubtrack('Code');
+  static async verifyFilterByMultipleTypes() {
+    await this.selectType('First2Finish');
+    await this.selectType('Code');
 
     await this.viewMoreChallenges();
 
     const count = await this.getAllChallengesCount();
 
-    await this.verifyChallengesMatchingSubtrack(count, [
-      { name: 'As' },
+    await this.verifyChallengesMatchingType(count, [
+      { name: 'F2F' },
       { name: 'Cd' },
     ]);
   }
@@ -448,13 +450,13 @@ export class ChallengeListingPageHelper {
   }
 
   /**
-   * verify removal of subtrack
+   * verify removal of type
    */
-  static async verifyRemovalOfSubtrack() {
+  static async verifyRemovalOfType() {
     const removeTags = await ChallengeListingPageObject.allRemoveTags();
     await removeTags[1].click();
     const count = await this.getAllChallengesCount();
-    await this.verifyChallengesMatchingSubtrack(count, [{ name: 'Cd' }]);
+    await this.verifyChallengesMatchingType(count, [{ name: 'Cd' }]);
   }
 
   /**
@@ -570,7 +572,7 @@ export class ChallengeListingPageHelper {
     );
     await ChallengeListingPageObject.getChallengeTag(tagText).click();
     // waiting for re-render to happen
-    await BrowserHelper.sleep(2000);
+    await BrowserHelper.sleep(15000);
 
     const checkTagMatchWithChallenge = async (challenges) => {
       for (let i = 0; i < challenges.length; i++) {
@@ -800,7 +802,7 @@ export class ChallengeListingPageHelper {
     await ongoingChallengesLink.click();
 
     const headers = await CommonHelper.h2Fields;
-    expect(headers.length).toBe(0);
+    expect(headers.length).toBe(1);
 
     await CommonHelper.waitUntil(
       () => async () => {

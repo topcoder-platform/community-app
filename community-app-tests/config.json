@@ -12,11 +12,11 @@
   "preferencesUrl": "https://www.topcoder.com/settings/preferences",
   "challengeListingUrl": "https://www.topcoder.com/challenges",
   "subMenuUrls": {
-    "overview": "https://www.topcoder.com/community/learn",
+    "overview": "https://www.topcoder.com/blog",
     "howItWorks": "https://www.topcoder.com/thrive/tracks?track=Topcoder",
     "allChallenges": "https://www.topcoder.com/challenges",
     "competitiveProgramming": "https://www.topcoder.com/community/arena",
-    "taas": "https://www.topcoder.com/community/taas",
+    "taas": "https://www.topcoder.com/gigs",
     "practice": "https://www.topcoder.com/community/practice",
     "competitiveProgrammingThrive": "https://www.topcoder.com/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "https://www.topcoder.com/thrive/tracks?track=Data%20Science&tax=",
@@ -39,7 +39,7 @@
   "footerLinks": {
     "allChallenges": "https://www.topcoder.com/challenges",
     "competitiveProgramming": "https://www.topcoder.com/community/arena",
-    "taas": "https://www.topcoder.com/community/taas",
+    "taas": "https://www.topcoder.com/gigs",
     "competitiveProgrammingThrive": "https://www.topcoder.com/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "https://www.topcoder.com/thrive/tracks?track=Data%20Science",
     "designThrive": "https://www.topcoder.com/thrive/tracks?track=Design",
@@ -90,22 +90,22 @@
     "termsUrl": "https://www.topcoder.com/community/how-it-works/terms/"
   },
   "challengeDetail": {
-    "url": "https://www.topcoder.com/challenges/30106190",
+    "url": "https://www.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023",
     "termsLinkText": "Standard Terms for Topcoder Competitions v2.2",
     "challengeName": "[Do not register] Sample challenge for Automation.",
     "challengeTag": "QA",
-    "termUrl": "https://www.topcoder.com/challenges/terms/detail/21303",
+    "termUrl": "https://www.topcoder.com/challenges/terms/detail/9ef9dec4-dddb-48c9-9cce-659db68bc5ac",
     "forumUrl": "https://apps.topcoder.com/forums/?module=Category&categoryID=82117",
-    "submissionUrl": "https://www.topcoder.com/challenges/30106190/submit",
+    "submissionUrl": "https://www.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023/submit",
     "scorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133"
   },
   "myDashboard": {
     "url": "https://www.topcoder.com/my-dashboard",
     "challenge": {
-      "name": "QA Practice Challenge - Find Bugs on Topcoder",
-      "currentPhase": "Screening",
-      "linkToSubmit": "https://www.topcoder.com/challenges/30136818/submit",
-      "userRole": "Submitter"
+      "name": "Test challenge- Spec Preview",
+      "currentPhase": "Submission",
+      "linkToSubmit": "",
+      "userRole": ""
     },
     "community": {
       "name": "Blockchain Community",
@@ -156,7 +156,7 @@
       "numberOfSubtracks": 8,
       "winInfo": {
         "name": "FIRST2FINISH",
-        "info": "55",
+        "info": "56",
         "infoTitle": "WINS",
         "link": "https://www.topcoder.com/members/iamtong/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
       }

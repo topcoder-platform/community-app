@@ -22,7 +22,7 @@ describe('Topcoder Login Page Tests: ', () => {
   /**
    * Verifies User can login using valid credentials
    */
-  it('should Verify User can login using valid credentials', async () => {
+  it('[TC_001] should Verify User can login using valid credentials', async () => {
     const username = ConfigHelper.getUserName();
     const password = ConfigHelper.getPassword();
     await LoginPageHelper.verifyLogin(username, password);
@@ -31,7 +31,7 @@ describe('Topcoder Login Page Tests: ', () => {
   /**
    * Verifies User cannot login using invalid username
    */
-  it('should Verify User cannot login using invalid username', async () => {
+  it('[TC_002] should Verify User cannot login using invalid username', async () => {
     const invalidUsername = testData.login.invalidUsername;
     const password = ConfigHelper.getPassword();
     await LoginPageHelper.verifyLoginWithInvalidUserName(
@@ -43,7 +43,7 @@ describe('Topcoder Login Page Tests: ', () => {
   /**
    * Verifies User cannot login using invalid password
    */
-  it('should Verify User cannot login using invalid password', async () => {
+  it('[TC_003] should Verify User cannot login using invalid password', async () => {
     const username = ConfigHelper.getUserName();
     const inavlidPassword = testData.login.invalidPassword;
     await LoginPageHelper.verifyLoginWithInvalidPassword(
@@ -55,7 +55,7 @@ describe('Topcoder Login Page Tests: ', () => {
   /**
    * Verifies User can logout
    */
-  it('should Verify User can logout', async () => {
+  it('[TC_004] should Verify User can logout', async () => {
     await LoginPageHelper.verifyLogout();
   });
 });
