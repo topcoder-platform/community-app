@@ -736,7 +736,7 @@ function mapStateToProps(state, props) {
             mySubmissions[index].id = mySubmissions.length - index;
           });
         }
-        let submissionDetail = _.find(challenge.submissions,  s => (`${s.memberId}` === `${submission.memberId}`));
+        const submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
 
         if (submissionDetail) {
           member = submissionDetail.createdBy;
