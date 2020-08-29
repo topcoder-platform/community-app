@@ -250,7 +250,7 @@ class SubmissionsComponent extends React.Component {
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
-      if (phase.name === 'Review' && !phase.isOpen) {
+      if (phase.name === 'Review' && !phase.isOpen && moment(phase.scheduledStartDate).isBefore() ) {
         isReviewPhaseComplete = true;
       }
     });
