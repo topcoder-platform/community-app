@@ -175,13 +175,16 @@ class SubmissionsComponent extends React.Component {
             valueA = `${a.member || ''}`.toLowerCase();
             valueB = `${b.member || ''}`.toLowerCase();
           } else {
-            valueA = _.get(a.registrant, 'memberHandle', '');
-            valueB = _.get(b.registrant, 'memberHandle', '');
+            valueA = _.get(a.registrant, 'memberHandle', '').toLowerCase();
+            valueB = _.get(b.registrant, 'memberHandle', '').toLowerCase();
           }
           valueIsString = true;
           break;
         }
         case 'Time':
+          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
+          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
+          break;
         case 'Submission Date': {
           valueA = new Date(a.created);
           valueB = new Date(b.created);
