@@ -395,7 +395,7 @@ export class ChallengeListingPageHelper {
     await this.selectKeyword('Java');
     await this.selectType('Challenge');
     await this.verifyChallengesMatchingKeyword(['Java']);
-    const count = await this.getAllChallengesCount();
+    const count = await this.getOpenForRegistrationChallengesCount() + await this.getOngoingChallengesCount();
     await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
   }
 
@@ -796,13 +796,21 @@ export class ChallengeListingPageHelper {
       false
     );
 
+    el = await ChallengeListingPageObject.qaSwitch();
+    await el.click();
+    await CommonHelper.waitUntilPresenceOf(
+      () => ChallengeListingPageObject.qaSwitchTurnedOff,
+      'wait for qa switch turn off',
+      false
+    );
+
     const ongoingChallengesLink = await ChallengeListingPageObject.filterChallengesBy(
       'Ongoing challenges'
     );
     await ongoingChallengesLink.click();
 
     const headers = await CommonHelper.h2Fields;
-    expect(headers.length).toBe(1);
+    expect(headers.length).toBe(0);
 
     await CommonHelper.waitUntil(
       () => async () => {

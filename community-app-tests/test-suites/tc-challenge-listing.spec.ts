@@ -155,7 +155,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       );
     });
 
-    it('[TC-023] should verify All Challenges link functionality with the design, development, and data science toggle switches on', async () => {
+    it('[TC-023] should verify All Challenges link functionality with the design, development, data science and QA toggle switches on', async () => {
       await ChallengeListingPageHelper.verifyAllChallenges();
       await ChallengeListingPageHelper.verifyOpenForRegistrationChallengesOnly();
       await ChallengeListingPageHelper.verifyOngoingChallengesOnly();
@@ -163,7 +163,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyPastChallengesOnly();
     });
 
-    it('[TC-024] should verify All Challenges link functionality with the design, development, and data science toggle switches Off', async () => {
+    it('[TC-024] should verify All Challenges link functionality with the design, development, data science and QA toggle switches Off', async () => {
       await ChallengeListingPageHelper.verifyWithAllSwitchesTurnedOff();
     });
 
