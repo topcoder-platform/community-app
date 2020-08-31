@@ -13,12 +13,6 @@ describe('Topcoder Challenge Detail Page Tests: ', () => {
     await BrowserHelper.maximize();
   });
 
-  it('[TC_003] should verify whether the  error message is displayed on clicking the Challenge Terms link', async () => {
-    await ChallengeDetailPageHelper.open();
-    await ChallengeDetailPageHelper.clickOnTermsLink();
-    await ChallengeDetailPageHelper.verifyTermsAuthenticationError();
-  });
-
   /**
    * Verifies all tests with login functionality
    */
