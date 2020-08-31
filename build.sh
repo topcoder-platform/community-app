@@ -42,7 +42,8 @@ docker build -t $TAG \
   --build-arg TC_M2M_GRANT_TYPE=$TC_M2M_GRANT_TYPE \
   --build-arg CONTENTFUL_COMCAST_SPACE_ID=$CONTENTFUL_COMCAST_SPACE_ID \
   --build-arg CONTENTFUL_COMCAST_CDN_API_KEY=$CONTENTFUL_COMCAST_CDN_API_KEY \
-  --build-arg CONTENTFUL_COMCAST_PREVIEW_API_KEY=$CONTENTFUL_COMCAST_PREVIEW_API_KEY .
+  --build-arg CONTENTFUL_COMCAST_PREVIEW_API_KEY=$CONTENTFUL_COMCAST_PREVIEW_API_KEY \
+  --build-arg COMMUNITY_APP=$COMMUNITY_APP .
 
 # Copies "node_modules" from the created image, if necessary for caching.
 docker create --name app $TAG

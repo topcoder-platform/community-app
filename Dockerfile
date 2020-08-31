@@ -63,6 +63,8 @@ ARG TC_M2M_AUTH0_PROXY_SERVER_URL
 ARG TC_M2M_AUTH0_URL
 ARG AUTH_SECRET
 
+ARG COMMUNITY_APP
+
 ################################################################################
 # Setting of environment variables in the Docker image.
 
@@ -115,6 +117,7 @@ ENV CONTENTFUL_MANAGEMENT_TOKEN=$CONTENTFUL_MANAGEMENT_TOKEN
 ENV CONTENTFUL_EDU_SPACE_ID=$CONTENTFUL_EDU_SPACE_ID
 ENV CONTENTFUL_EDU_CDN_API_KEY=$CONTENTFUL_EDU_CDN_API_KEY
 ENV CONTENTFUL_EDU_PREVIEW_API_KEY=$CONTENTFUL_EDU_PREVIEW_API_KEY
+ENV COMMUNITY_APP=$COMMUNITY_APP
 
 ################################################################################
 # Testing and build of the application inside the container.
