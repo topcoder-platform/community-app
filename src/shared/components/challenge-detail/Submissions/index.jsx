@@ -54,7 +54,7 @@ class SubmissionsComponent extends React.Component {
     }
 
     if (isMM) {
-      loadMMSubmissions(challenge.id, challenge.registrants, auth.tokenV3);
+      loadMMSubmissions(challenge.id, auth.tokenV3);
     }
     this.updateSortedSubmissions();
   }
@@ -175,13 +175,16 @@ class SubmissionsComponent extends React.Component {
             valueA = `${a.member || ''}`.toLowerCase();
             valueB = `${b.member || ''}`.toLowerCase();
           } else {
-            valueA = _.get(a.registrant, 'memberHandle', '');
-            valueB = _.get(b.registrant, 'memberHandle', '');
+            valueA = _.get(a.registrant, 'memberHandle', '').toLowerCase();
+            valueB = _.get(b.registrant, 'memberHandle', '').toLowerCase();
           }
           valueIsString = true;
           break;
         }
         case 'Time':
+          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
+          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
+          break;
         case 'Submission Date': {
           valueA = new Date(a.created);
           valueB = new Date(b.created);
@@ -247,7 +250,7 @@ class SubmissionsComponent extends React.Component {
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
-      if (phase.name === 'Review' && !phase.isOpen) {
+      if (phase.name === 'Review' && !phase.isOpen && moment(phase.scheduledStartDate).isBefore()) {
         isReviewPhaseComplete = true;
       }
     });
