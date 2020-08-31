@@ -16,7 +16,7 @@
     "howItWorks": "https://beta-community-app.topcoder.com/thrive/tracks?track=Topcoder",
     "allChallenges": "http://beta-community-app.topcoder.com/challenges",
     "competitiveProgramming": "https://accounts.topcoder.com/",
-    "taas": "https://beta-community-app.topcoder.com/community/taas",
+    "taas": "https://beta-community-app.topcoder.com/gigs",
     "practice": "https://beta-community-app.topcoder.com/community/practice",
     "competitiveProgrammingThrive": "https://beta-community-app.topcoder.com/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "https://beta-community-app.topcoder.com/thrive/tracks?track=Data%20Science&tax=",
@@ -40,7 +40,7 @@
   "footerLinks": {
     "allChallenges": "https://www.topcoder.com/challenges",
     "competitiveProgramming": "https://accounts.topcoder.com/",
-    "taas": "https://www.topcoder.com/community/taas",
+    "taas": "https://www.topcoder.com/gigs",
     "competitiveProgrammingThrive": "https://www.topcoder.com/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "https://www.topcoder.com/thrive/tracks?track=Data%20Science",
     "designThrive": "https://www.topcoder.com/thrive/tracks?track=Design",

@@ -13,12 +13,6 @@ describe('Topcoder Challenge Detail Page Tests: ', () => {
     await BrowserHelper.maximize();
   });
 
-  it('should verify whether the  error message is displayed on clicking the Challenge Terms link. [TC_003]', async () => {
-    await ChallengeDetailPageHelper.open();
-    await ChallengeDetailPageHelper.clickOnTermsLink();
-    await ChallengeDetailPageHelper.verifyTermsAuthenticationError();
-  });
-
   /**
    * Verifies all tests with login functionality
    */
@@ -60,7 +54,7 @@ describe('Topcoder Challenge Detail Page Tests: ', () => {
       await ChallengeDetailPageHelper.unregisterIfAlreadyRegistered();
     });
 
-    it('should verify that back button redirects user to challenge [TC-001]', async () => {
+    it('[TC-001] should verify that back button redirects user to challenge', async () => {
       await ChallengeListingPageHelper.open();
       await ChallengeListingPageHelper.navigateToFirstChallenge();
       await ChallengeDetailPageHelper.clickOnBackButton();
@@ -68,53 +62,53 @@ describe('Topcoder Challenge Detail Page Tests: ', () => {
       expect(url).toEqual(ConfigHelper.getChallengeListingUrl());
     });
 
-    it('should verify that a user is able to successfully enter a submission to a code challenge [TC-002]', async () => {
+    it('[TC-002] should verify that a user is able to successfully enter a submission to a code challenge', async () => {
       await ChallengeDetailPageHelper.open();
       await ChallengeDetailPageHelper.registerIfNotAlreadyRegistered();
       await ChallengeDetailPageHelper.uploadSubmission();
     });
 
-    it('should verify whether the user is registered to the particular challenge on clicking the Register button. [TC_004]', async () => {
+    it('[TC_004] should verify whether the user is registered to the particular challenge on clicking the Register button', async () => {
       await ChallengeDetailPageHelper.register();
       await ChallengeDetailPageHelper.verifyChallengeForumLink();
     });
 
-    it('should verify whether the user is unregistered into particular challenge on clicking the UnRegister button. [TC_005]', async () => {
+    it('[TC_005] should verify whether the user is unregistered into particular challenge on clicking the UnRegister button', async () => {
       await ChallengeDetailPageHelper.register();
       await ChallengeDetailPageHelper.unregister();
     });
 
-    it('should verify whether the user is redirected to the Submission page on clicking the Submit button. [TC_006]', async () => {
+    it('[TC_006] should verify whether the user is redirected to the Submission page on clicking the Submit button', async () => {
       await ChallengeDetailPageHelper.register();
       await ChallengeDetailPageHelper.clickOnSubmitButton();
       await ChallengeDetailPageHelper.verifySubmissionPage();
     });
 
-    it('should verify whether the deadlines(time zone) for the particular challenge on clicking the show Deadlines. [TC_007]', async () => {
+    it('[TC_007] should verify whether the deadlines(time zone) for the particular challenge on clicking the show Deadlines', async () => {
       await ChallengeDetailPageHelper.verifyDeadlines();
     });
 
-    it('should verify whether the details of the challenges are displayed on clicking the Details tab. [TC_008]', async () => {
+    it('[TC_008] should verify whether the details of the challenges are displayed on clicking the Details tab', async () => {
       await ChallengeDetailPageHelper.switchToDetailsTab();
       await ChallengeDetailPageHelper.verifyDetailsTab();
     });
 
-    it('should verify whether the registered members of the challenges are displayed on clicking the Registrants tab. [TC_009]', async () => {
+    it('[TC_009] should verify whether the registered members of the challenges are displayed on clicking the Registrants tab', async () => {
       await ChallengeDetailPageHelper.switchToRegistrantsTab();
       await ChallengeDetailPageHelper.verifyRegistrantsTab();
     });
 
-    it('should verify whether the  Solution submitted members  are displayed on clicking the Submissions tab. [TC_010]', async () => {
+    it('[TC_010] should verify whether the  Solution submitted members  are displayed on clicking the Submissions tab', async () => {
       await ChallengeDetailPageHelper.switchToSubmissionsTab();
       await ChallengeDetailPageHelper.verifySubmissionsTab();
     });
 
-    it('should verify whether the  user is redirected to the Review Scorecard page on clicking the Review Scorecard link. [TC_011]', async () => {
+    it('[TC_011] should verify whether the  user is redirected to the Review Scorecard page on clicking the Review Scorecard link', async () => {
       await ChallengeDetailPageHelper.clickOnReviewScorecardLink();
       await ChallengeDetailPageHelper.verifyScorecardPage();
     });
 
-    it('should verify whether the  user is redirected to the Challenge Terms page on clicking the Challenge Terms link. [TC_012]', async () => {
+    it('[TC_012] should verify whether the  user is redirected to the Challenge Terms page on clicking the Challenge Terms link', async () => {
       await ChallengeDetailPageHelper.clickOnTermsLink();
       await ChallengeDetailPageHelper.verifyTermsPage();
     });

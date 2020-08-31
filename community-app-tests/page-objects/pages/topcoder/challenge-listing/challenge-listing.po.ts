@@ -52,10 +52,10 @@ export class ChallengeListingPageObject {
   }
 
   /**
-   * Get filter subtrack label field
+   * Get filter type label field
    */
-  static get subtrackLabel() {
-    return ElementHelper.getElementByCss('label[for=track-select]');
+  static get typeLabel() {
+    return ElementHelper.getElementByCss('label[for=type-select]');
   }
 
   /**
@@ -87,10 +87,10 @@ export class ChallengeListingPageObject {
   }
 
   /**
-   * Get filter substrack field
+   * Get filter type field
    */
-  static get subtrackInput() {
-    return ElementHelper.getElementById('track-select');
+  static get typeInput() {
+    return ElementHelper.getElementById('type-select');
   }
 
   /**
@@ -302,6 +302,14 @@ export class ChallengeListingPageObject {
   }
 
   /**
+   * get QA switch button
+   */
+  static async qaSwitch() {
+    const els = await ElementHelper.getAllElementsByCss('div[role="switch"]');
+    return ElementHelper.getElementByTag('div', els[3]);
+  }
+
+  /**
    * get design switch turned off
    */
   static get designSwitchTurnedOff() {
@@ -314,6 +322,15 @@ export class ChallengeListingPageObject {
   static get dataScienceSwitchTurnedOff() {
     return CommonHelper.getLinkByAriaLabel(
       'Data Science toggle button pressed Off'
+    );
+  }
+
+  /**
+   * get QA switch turned off button
+   */
+  static get qaSwitchTurnedOff() {
+    return CommonHelper.getLinkByAriaLabel(
+      'QA toggle button pressed Off'
     );
   }
 

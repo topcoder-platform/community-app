@@ -33,7 +33,7 @@ describe('Topcoder Preferences Page Tests: ', () => {
   /**
    * Verifies that user is able to update their email preferences
    */
-  it('should verify User can update their email preferences', async () => {
+  it('[TC_001] should verify User can update their email preferences', async () => {
     await EmailPreferencesPageHelper.open();
     await EmailPreferencesPageHelper.verifyUpdatePreferences(
       testData.preferences.email
@@ -43,7 +43,7 @@ describe('Topcoder Preferences Page Tests: ', () => {
   /**
    * Verifies that user is redirected to the forum settings page on switching to the Forum tab
    */
-  it("should verify User can redirect to forums's setting page", async () => {
+  it("[TC_002] should verify User can redirect to forums's setting page", async () => {
     await ForumPageHelper.open();
     await ForumPageHelper.verifyForumSetting();
   });
@@ -51,7 +51,7 @@ describe('Topcoder Preferences Page Tests: ', () => {
   /**
    * Verifies that user is redirected to the payment settings page on switching to the Payment tab
    */
-  it('should verify User can redirect to payment setting page', async () => {
+  it('[TC_003] should verify User can redirect to payment setting page', async () => {
     await PaymentPageHelper.open();
     await PaymentPageHelper.verifyPaymentSetting();
   });

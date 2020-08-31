@@ -10,41 +10,41 @@ describe('Topcoder Member Profile Page Tests:', () => {
     await BrowserHelper.maximize();
   });
 
-  it('should check that member profile card display [TC_001]', async () => {
+  it('[TC_001] should check that member profile card display', async () => {
     await MemberProfilePageHelper.openMemberPage();
     await MemberProfilePageHelper.verifyMemberDetailsAreCorrect();
   });
 
-  it('should check that skills display [TC_002]', async () => {
+  it('[TC_002] should check that skills display', async () => {
     await MemberProfilePageHelper.openMemberPage();
     await MemberProfilePageHelper.verifySkillsAreCorrect();
   });
 
-  it('should check the copilot activity section [TC_003]', async () => {
+  it('[TC_003] should check the copilot activity section', async () => {
     await MemberProfilePageHelper.openCopilotMemberPage();
     await MemberProfilePageHelper.verifyCopilotFullfillmentIsCorrect();
     await MemberProfilePageHelper.verifyClickingOnCopilotSubtrackCard();
   });
 
-  it('should check the development activity section [TC_004]', async () => {
+  it('[TC_004] should check the development activity section', async () => {
     await MemberProfilePageHelper.openDevelopmentMemberPage();
     await MemberProfilePageHelper.verifyDevelopmentSubtrackIsCorrect();
     await MemberProfilePageHelper.verifyClickingOnDevelopmentSubtrackCard();
   });
 
-  it('should check the design activity section [TC_005]', async () => {
+  it('[TC_005] should check the design activity section', async () => {
     await MemberProfilePageHelper.openDesignMemberPage();
     await MemberProfilePageHelper.verifyDesignSubtrackIsCorrect();
     await MemberProfilePageHelper.verifyClickingOnDesignSubtrackCard();
   });
 
-  it('should check the data science activity section [TC_006]', async () => {
+  it('[TC_006] should check the data science activity section', async () => {
     await MemberProfilePageHelper.openDataScienceMemberPage();
     await MemberProfilePageHelper.verifyDataScienceSubtrackIsCorrect();
     await MemberProfilePageHelper.verifyClickingOnDataScienceSubtrackCard();
   });
 
-  it('should check the on the web section [TC_007]', async () => {
+  it('[TC_007] should check the on the web section', async () => {
     await MemberProfilePageHelper.openMemberHaveWebSectionProfilePage();
     await MemberProfilePageHelper.verifyWebSectionShowCorrectWeblink();
   });

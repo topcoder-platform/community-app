@@ -32,7 +32,7 @@ describe('Topcoder Account Page Tests: ', () => {
   /**
    * Verifies User can update his/her User Consent.
    */
-  it('should Verify User can update his/her User Consent', async () => {
+  it('[TC_001] should Verify User can update his/her User Consent', async () => {
     await MyAccountPageHelper.open();
     await MyAccountPageHelper.verifyUserConsent();
   });
@@ -40,7 +40,7 @@ describe('Topcoder Account Page Tests: ', () => {
   /**
    * Verifies if User can add/delete external link
    */
-  it('should Verify User can Add/Delete External Link.', async () => {
+  it('[TC_002] should Verify User can Add/Delete External Link.', async () => {
     await LinkedAccountPageHelper.open();
     await LinkedAccountPageHelper.deleteAll();
     await LinkedAccountPageHelper.verifyAddLink(testData.linkedAccount);

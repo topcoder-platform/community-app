@@ -24,49 +24,49 @@ describe('Topcoder Footer Tests: ', () => {
     /**
      * Verifies the links under 'COMPETE' section in footer are working correctly
      */
-    it('should verify that the links under Compete are working from the Footer', async () => {
+    it('[TC_002] should verify that the links under Compete are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('Compete', false);
     });
 
     /**
      * Verifies the links under 'TRACKS' section in footer are working correctly
      */
-    it('should verify that the links under Tracks are working from the Footer', async () => {
+    it('[TC_003] should verify that the links under Tracks are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('Tracks', false);
     });
 
     /**
      * Verifies the links under 'COMMUNITY' section in footer are working correctly
      */
-    it('should verify that the links under Community are working from the Footer', async () => {
+    it('[TC_004] should verify that the links under Community are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('Community', false);
     });
 
     /**
      * Verifies the links under 'HELP CENTER' section in footer are working correctly
      */
-    it('should verify that the links under Help Center are working from the Footer', async () => {
+    it('[TC_005] should verify that the links under Help Center are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('HelpCenter', false);
     });
 
     /**
      * Verifies the links under 'ABOUT' section in footer are working correctly
      */
-    it('should verify that the links under About are working from the Footer', async () => {
+    it('[TC_006] should verify that the links under About are working from the Footer', async () => {
       await FooterHelper.verifyFooterSection('About', false);
     });
 
     /**
      * Verifies the links under 'FOLLOW US' section in footer are working correctly
      */
-    it('should verify Footer social icons functionality', async () => {
+    it('[TC_007] should verify Footer social icons functionality', async () => {
       await FooterHelper.verifySocialIcons();
     });
 
     /**
      * Verifies the Policies link
      */
-    it('should verify Policies link', async () => {
+    it('[TC_008] should verify Policies link', async () => {
       await FooterHelper.verifyPoliciesLink();
     });
   });

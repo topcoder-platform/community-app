@@ -35,7 +35,7 @@ describe('Topcoder Tools Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete Device functionality
    */
-  it('should Verify User can Add/Update/Delete Device', async () => {
+  it('[TC_001] should Verify User can Add/Update/Delete Device', async () => {
     await DevicePageHelper.open();
     await DevicePageHelper.deleteAll();
     await DevicePageHelper.verifyAddDevice(testData.tools.device);
@@ -49,7 +49,7 @@ describe('Topcoder Tools Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete Software functionality
    */
-  it('should Verify User can Add/Update/Delete Software', async () => {
+  it('[TC_002] should Verify User can Add/Update/Delete Software', async () => {
     await SoftwarePageHelper.open();
     await SoftwarePageHelper.deleteAll();
     await SoftwarePageHelper.verifyAddSoftware(testData.tools.software);
@@ -63,7 +63,7 @@ describe('Topcoder Tools Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete Service Provider functionality
    */
-  it('should Verify User can Add/Update/Delete Service Provider', async () => {
+  it('[TC_003] should Verify User can Add/Update/Delete Service Provider', async () => {
     await ServiceProviderPageHelper.open();
     await ServiceProviderPageHelper.deleteAll();
     await ServiceProviderPageHelper.verifyAddServiceProvider(
@@ -81,7 +81,7 @@ describe('Topcoder Tools Page Tests: ', () => {
   /**
    * Verifies Add/Update/Delete Subscriptions functionalty
    */
-  it('should Verify User can Add/Update/Delete Subscriptions', async () => {
+  it('[TC_004] should Verify User can Add/Update/Delete Subscriptions', async () => {
     await SubscriptionsPageHelper.open();
     await SubscriptionsPageHelper.deleteAll();
     await SubscriptionsPageHelper.verifyAddSubscription(
