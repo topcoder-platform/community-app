@@ -43,7 +43,7 @@ docker build -t $TAG \
   --build-arg CONTENTFUL_COMCAST_SPACE_ID=$CONTENTFUL_COMCAST_SPACE_ID \
   --build-arg CONTENTFUL_COMCAST_CDN_API_KEY=$CONTENTFUL_COMCAST_CDN_API_KEY \
   --build-arg CONTENTFUL_COMCAST_PREVIEW_API_KEY=$CONTENTFUL_COMCAST_PREVIEW_API_KEY \
-  --build-arg COMMUNITY_APP=$COMMUNITY_APP .
+  --build-arg COMMUNITY_APP_URL=$COMMUNITY_APP_URL .
 
 # Copies "node_modules" from the created image, if necessary for caching.
 docker create --name app $TAG
