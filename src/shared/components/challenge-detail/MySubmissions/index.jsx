@@ -41,7 +41,7 @@ class MySubmissionsView extends React.Component {
     }
 
     if (isMM) {
-      loadMMSubmissions(challenge.id, challenge.registrants, auth.tokenV3);
+      loadMMSubmissions(challenge.id, auth.tokenV3);
     }
   }
 
