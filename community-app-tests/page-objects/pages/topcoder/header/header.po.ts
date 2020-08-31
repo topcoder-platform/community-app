@@ -10,7 +10,7 @@ export class HeaderPage {
    */
   public async open(isLoggedIn: boolean) {
     await BrowserHelper.open(ConfigHelper.getOverviewUrl());
-    const tabName = isLoggedIn ? 'Dashboard' : 'Overview';
+    const tabName = isLoggedIn ? 'Dashboard' : 'How It Works';
     // wait for showing page + tab name
     await CommonHelper.waitUntilVisibilityOf(
       () => CommonHelper.findElementByText('span', tabName),

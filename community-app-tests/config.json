@@ -12,7 +12,7 @@
   "preferencesUrl": "https://www.topcoder.com/settings/preferences",
   "challengeListingUrl": "https://www.topcoder.com/challenges",
   "subMenuUrls": {
-    "overview": "https://www.topcoder.com/blog",
+    "overview": "https://www.topcoder.com/community/learn",
     "howItWorks": "https://www.topcoder.com/thrive/tracks?track=Topcoder",
     "allChallenges": "https://www.topcoder.com/challenges",
     "competitiveProgramming": "https://www.topcoder.com/community/arena",

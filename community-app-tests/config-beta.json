@@ -12,7 +12,7 @@
   "preferencesUrl": "https://beta-community-app.topcoder.com/settings/preferences",
   "challengeListingUrl": "https://beta-community-app.topcoder.com/challenges",
   "subMenuUrls": {
-    "overview": "https://beta-community-app.topcoder.com/blog",
+    "overview": "https://beta-community-app.topcoder.com/community/learn",
     "howItWorks": "https://beta-community-app.topcoder.com/thrive/tracks?track=Topcoder",
     "allChallenges": "http://beta-community-app.topcoder.com/challenges",
     "competitiveProgramming": "https://accounts.topcoder.com/",
