@@ -29,26 +29,3 @@ export function phaseStartDate(phase) {
   // For all other cases, take the `actualStartDate` as phase is already started
   return new Date(phase.actualStartDate);
 }
-
-/**
- * Map user details with challenges
- *
- * @param {String} userId user id
- * @param {Array} challenges all challenges
- * @param {Array} userChallenges challenges user is participating in
- */
-export function mapUserWithChallenges(userId, challenges, userChallenges) {
-  if (userChallenges) {
-    const map = {};
-    userChallenges.forEach((item) => { map[item.id] = item; });
-    challenges.forEach((item) => {
-      if (map[item.id]) {
-        /* eslint-disable no-param-reassign */
-        item.users[userId] = true;
-        item.userDetails = map[item.id].userDetails;
-        /* eslint-enable no-param-reassign */
-      }
-    });
-  }
-  return challenges;
-}

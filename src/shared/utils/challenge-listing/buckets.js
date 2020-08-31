@@ -134,9 +134,9 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
  * @param {String} userId id of the authenticated
  * user to filter out My Challenges.
  */
-export function getBuckets(userId) {
+export function getBuckets(userChallenges) {
   const res = _.cloneDeep(BUCKET_DATA);
-  res[BUCKETS.MY].filter.userId = userId;
+  res[BUCKETS.MY].filter.userChallenges = userChallenges;
   return res;
 }
 
