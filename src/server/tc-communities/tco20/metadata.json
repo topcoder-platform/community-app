@@ -1,6 +1,6 @@
 {
   "challengeFilter": {
-    "tags": ["TCO", "TCO20"]
+    "events": ["tco20"]
   },
   "communityId": "tco20",
   "communityName": "TCO20",
