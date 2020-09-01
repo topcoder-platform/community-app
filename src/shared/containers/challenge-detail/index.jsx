@@ -728,18 +728,15 @@ function mapStateToProps(state, props) {
     if (!_.isEmpty(mmSubmissions)) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
-        let { member } = submission;
-        if (auth.user.handle === submission.member) {
+        const { memberId } = submission;
+        let member = memberId;
+        if (`${auth.user.userId}` === `${memberId}`) {
           mySubmissions = submission.submissions || [];
           mySubmissions.forEach((mySubmission, index) => {
             mySubmissions[index].id = mySubmissions.length - index;
           });
         }
-        let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
-        if (!submissionDetail) {
-          // get submission detail from submissions challenge detail
-          submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
-        }
+        const submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
 
         if (submissionDetail) {
           member = submissionDetail.createdBy;
@@ -747,12 +744,11 @@ function mapStateToProps(state, props) {
         }
 
         if (!registrant) {
-          registrant = _.find(challenge.registrants, { handle: submission.member });
+          registrant = _.find(challenge.registrants, r => `${r.memberId}` === `${memberId}`);
         }
 
-        if (!submissionDetail && registrant) {
-          // sometime member is member id, do this to make sure it's alway member handle
-          member = registrant.handle;
+        if (registrant) {
+          member = registrant.memberHandle;
         }
 
         return ({
@@ -926,10 +922,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.updateChallengeInit(uuid));
       dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },
-    loadMMSubmissions: (challengeId, registrants, tokenV3) => {
+    loadMMSubmissions: (challengeId, tokenV3) => {
       const a = actions.challenge;
       dispatch(a.getMmSubmissionsInit(challengeId));
-      dispatch(a.getMmSubmissionsDone(challengeId, registrants, tokenV3));
+      dispatch(a.getMmSubmissionsDone(challengeId, tokenV3));
     },
     loadSubmissionInformation: (challengeId, submissionId, tokenV3) => {
       const a = actions.challenge;
