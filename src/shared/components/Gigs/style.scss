@@ -23,6 +23,11 @@
     height: 80vh;
   }
 
+  .wrap .content .right .support a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
   .wrap {
     h2 {
       color: #26b3c5;
@@ -118,15 +123,26 @@
           li {
             font-size: 14px;
             line-height: 26px;
-          }
 
+            strong {
+              font-weight: bold;
+            }
+          }
           /* stylelint-enable */
 
           ul {
             margin-bottom: 0;
+            list-style: none;
+            padding: 0;
 
             li {
               margin-bottom: 15px;
+              display: flex;
+              align-items: flex-start;
+
+              img {
+                margin-right: 16px;
+              }
 
               &:last-child {
                 margin-bottom: 0;
@@ -137,6 +153,16 @@
 
         .gig-skills {
           display: flex;
+        }
+
+        .support {
+          background-color: #eaf6fd;
+          border-radius: 10px;
+          padding: 20px;
+          text-transform: uppercase;
+          font-weight: 600;
+          font-family: Barlow, sans-serif;
+          margin-top: 20px;
         }
       }
 
@@ -158,6 +184,16 @@
           &:first-child {
             margin-top: 0;
           }
+        }
+
+        .skills {
+          display: flex;
+          align-items: center;
+          /* stylelint-disable */
+          img {
+            margin-right: 8px;
+          }
+          /* stylelint-enable */
         }
       }
     }

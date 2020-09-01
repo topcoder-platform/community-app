@@ -17,6 +17,11 @@ function SearchCombo({
     setVal('');
     onSearch('');
   };
+  const onKeyDown = (e) => {
+    if (e.which === 13) {
+      onSearch(inputVal);
+    }
+  };
 
   return (
     <div styleName="container">
@@ -24,7 +29,7 @@ function SearchCombo({
         {
           !inputVal ? <span styleName="search-placeholder">{placeholder}</span> : null
         }
-        <input type="text" styleName="input" value={inputVal} onChange={event => setVal(event.target.value)} />
+        <input type="text" styleName="input" value={inputVal} onChange={event => setVal(event.target.value)} onKeyDown={onKeyDown} />
         {
           inputVal ? <IconClearSearch onClick={clearSearch} styleName="clear-search" /> : null
         }

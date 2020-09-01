@@ -6,7 +6,7 @@ import PT from 'prop-types';
 import Header from 'containers/TopcoderHeader';
 import Footer from 'components/TopcoderFooter';
 import Viewport from 'components/Contentful/Viewport';
-import { config } from 'topcoder-react-utils';
+import { config, MetaTags } from 'topcoder-react-utils';
 import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 
 
@@ -15,6 +15,7 @@ export default function GigsPagesContainer(props) {
   const { id } = match.params;
   return (
     <div>
+      <MetaTags title="Topcoder - Gig Work Opportunities" />
       <Header />
       {
         id ? (

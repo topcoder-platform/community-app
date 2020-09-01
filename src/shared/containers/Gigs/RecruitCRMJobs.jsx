@@ -118,10 +118,15 @@ class RecruitCRMJobsContainer extends React.Component {
         </div>
         <div styleName="jobs-list-container">
           {
-            jobsToDisplay.map(job => <JobListCard job={job} key={job.slug} />)
+            jobsToDisplay.length
+              ? jobsToDisplay.map(job => <JobListCard job={job} key={job.slug} />)
+              : <span styleName="no-results">No Results</span>
           }
         </div>
-        <Paginate onChange={this.onPaginate} pages={pages} page={page} />
+        {
+          jobsToDisplay.length
+            ? <Paginate onChange={this.onPaginate} pages={pages} page={page} /> : null
+        }
       </div>
     );
   }
