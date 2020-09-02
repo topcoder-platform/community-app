@@ -22,7 +22,7 @@ function Bucket({
   meta,
 }) {
   // let countEl;
-  // if (!disabled) { // !bucket.hideCount && 
+  // if (!disabled) { // !bucket.hideCount &&
   // const filter = Filter.getFilterFunction(bucket.filter);
   // const clonedChallenges = _.clone(challenges);
   // const filteredChallenges = [];

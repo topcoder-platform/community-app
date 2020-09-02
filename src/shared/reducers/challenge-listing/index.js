@@ -355,7 +355,7 @@ function onGetPastChallengesDone(state, { error, payload }) {
   // // let keepPastPlaceholders = false;
   // // if (loaded.length) {
   // // const ff = Filter.getFilterFunction(frontFilter);
-  // // keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
+  // keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
   // // }
 
   // // const pastSearchTimestamp = state.pastSearchTimestamp && state.pastSearchTimestamp > 0
@@ -393,8 +393,8 @@ function onSelectCommunity(state, { payload }) {
  * @return {Object}
  */
 function onSetFilter(state, { payload }) {
-  console.log(`bbbbbb`);
-  console.log(payload);
+  // console.log(`bbbbbb`);
+  // console.log(payload);
   /* Validation of filter parameters: they may come from URL query, thus
    * validation is not a bad idea. As you may note, at the moment we do not
    * do it very carefuly (many params are not validated). */
@@ -414,8 +414,8 @@ function onSetFilter(state, { payload }) {
   if (filter.endDateEnd && !moment(filter.endDateEnd).isValid()) {
     delete filter.endDateEnd;
   }
-  console.log(`aaaaa`);
-  console.log(filter);
+  // console.log(`aaaaa`);
+  // console.log(filter);
   /* Update of URL and generation of the state. */
   updateQuery(filter);
   // console.log(payload);

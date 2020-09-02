@@ -10,7 +10,8 @@ import PT from 'prop-types';
 import React, { useRef } from 'react';
 // import { config } from 'topcoder-react-utils';
 import Sort from 'utils/challenge-listing/sort';
-// import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA } from 'utils/challenge-listing/buckets';
+// import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA }
+// from 'utils/challenge-listing/buckets';
 import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
@@ -71,21 +72,21 @@ export default function Bucket({
   const expandable = activeBucket === 'all';
   // const filteredChallenges = [];
   // for (let i = 0; i < sortedChallenges.length; i += 1) {
-    // if (filter(sortedChallenges[i])) {
-      // filteredChallenges.push(sortedChallenges[i]);
-    // }
-    // if (!expanded && filteredChallenges.length >= COLLAPSED_SIZE) {
-      // expandable = true;
-      // break;
-    // }
+  // if (filter(sortedChallenges[i])) {
+  // filteredChallenges.push(sortedChallenges[i]);
+  // }
+  // if (!expanded && filteredChallenges.length >= COLLAPSED_SIZE) {
+  // expandable = true;
+  // break;
+  // }
   // }
 
   // let noPastResult = false;
   // check if no past challenge is found after configurable amount of time has passed
   // if (activeBucket === BUCKETS.PAST && searchTimestamp > 0) {
-    // && !filteredChallenges.length && !refs.current.length)
-    // const elapsedTime = Date.now() - searchTimestamp;
-    // noPastResult = elapsedTime > config.SEARCH_TIMEOUT;
+  // && !filteredChallenges.length && !refs.current.length)
+  // const elapsedTime = Date.now() - searchTimestamp;
+  // noPastResult = elapsedTime > config.SEARCH_TIMEOUT;
   // }
 
   // if (noPastResult
@@ -212,7 +213,7 @@ Bucket.propTypes = {
   challenges: PT.arrayOf(PT.shape()).isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
-  filterState: PT.shape().isRequired,
+  // filterState: PT.shape().isRequired,
   // keepPlaceholders: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,

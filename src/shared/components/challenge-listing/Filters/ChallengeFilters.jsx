@@ -68,8 +68,8 @@ export default function ChallengeFilters({
       <div styleName="filter-header">
         <ChallengeSearchBar
           onSearch={(text) => {
-            console.log('search text');
-            console.log(text);
+            // console.log('search text');
+            // console.log(text);
             setFilterState({ ..._.clone(filterState), name: text });
           }}
           // onSearch={text => setFilterState(Filter.setText(filterState, text))}

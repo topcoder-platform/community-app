@@ -32,7 +32,8 @@ import { updateChallengeType } from 'utils/challenge';
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
 
-const { combine, mapToBackend } = challengeUtils.filter;
+// const { combine, mapToBackend } = challengeUtils.filter;
+const { mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
 
