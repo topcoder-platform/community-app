@@ -106,6 +106,19 @@ export class ChallengeListingPageHelper {
   }
 
   /**
+   * select keyword
+   */
+  static async selectType(type: string) {
+    await ChallengeListingPageObject.typeInput.sendKeys(type);
+      await CommonHelper.waitUntilVisibilityOf(
+      () => CommonHelper.selectOptionElement,
+      'Wait for select option',
+      false
+    );
+    await CommonHelper.selectOptionElement.click();
+  }
+
+  /**
    * check if dropdown for keyword is displayted
    */
   static async dropdownForKeywordIsDisplayed() {
@@ -202,16 +215,6 @@ export class ChallengeListingPageHelper {
 
     await this.selectKeyword('Java');
     await this.verifyChallengesMatchingKeyword(['Java']);
-  }
-
-  static async selectType(type: string) {
-    await ChallengeListingPageObject.typeInput.sendKeys(type);
-    await CommonHelper.waitUntilVisibilityOf(
-      () => CommonHelper.selectOptionElement,
-      'Wait for select option',
-      false
-    );
-    await CommonHelper.selectOptionElement.click();
   }
 
   private static async verifyChallengesMatchingType(
@@ -395,7 +398,7 @@ export class ChallengeListingPageHelper {
     await this.selectKeyword('Java');
     await this.selectType('Challenge');
     await this.verifyChallengesMatchingKeyword(['Java']);
-    const count = await this.getOpenForRegistrationChallengesCount() + await this.getOngoingChallengesCount();
+    const count = await this.getAllChallengesCount();
     await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
   }
 
@@ -427,7 +430,7 @@ export class ChallengeListingPageHelper {
    */
   static async verifyFilterByMultipleTypes() {
     await this.selectType('First2Finish');
-    await this.selectType('Code');
+    await this.selectType('Challenge');
 
     await this.viewMoreChallenges();
 
@@ -435,7 +438,7 @@ export class ChallengeListingPageHelper {
 
     await this.verifyChallengesMatchingType(count, [
       { name: 'F2F' },
-      { name: 'Cd' },
+      { name: 'CH' },
     ]);
   }
 

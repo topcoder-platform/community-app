@@ -208,7 +208,7 @@ export class ChallengeListingPageObject {
    * @param challengeTag challenge tag
    */
   static getChallengeTag(challengeTag: string) {
-    return CommonHelper.findElementByText('button', challengeTag);
+    return ElementHelper.getElementByButtonText(challengeTag);
   }
 
   /**
