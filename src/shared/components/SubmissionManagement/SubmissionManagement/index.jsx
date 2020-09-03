@@ -19,6 +19,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { phaseEndDate } from 'utils/challenge-listing/helper';
 import SubmissionsTable from '../SubmissionsTable';
 
 import style from './styles.scss';
@@ -47,6 +48,8 @@ export default function SubmissionManagement(props) {
   const currentPhase = challenge.phases
     .filter(p => p.name !== 'Registration' && p.isOpen)
     .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
+  const submissionPhase = challenge.phases.filter(p => p.name === 'Submission')[0];
+  const submissionEndDate = submissionPhase && phaseEndDate(submissionPhase);
 
   const now = moment();
   const end = moment(currentPhase.scheduledEndDate);
@@ -159,7 +162,7 @@ export default function SubmissionManagement(props) {
           )
         }
       </div>
-      {now.isBefore(challenge.submissionEndDate) && (
+      {now.isBefore(submissionEndDate) && (
         <div styleName="btn-wrap">
           <PrimaryButton
             theme={{
