@@ -558,8 +558,8 @@ class ChallengeDetailPageContainer extends React.Component {
                 hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 submissionEnded={submissionEnded}
-                isMM
-                isLegacyMM
+                isMM={isMM}
+                isLegacyMM={isLegacyMM}
                 loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                 auth={auth}
                 loadMMSubmissions={loadMMSubmissions}
