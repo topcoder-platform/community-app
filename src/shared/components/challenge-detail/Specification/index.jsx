@@ -24,6 +24,21 @@ import SideBar from './SideBar';
 
 import style from './styles.scss';
 
+/*
+ * Generate document inks from the challenge detail
+ * @param {String} content
+ * @return {Array}
+ */
+function getAllDocumentLinks(content) {
+  const regEx = /documentId=(.\d*).*?>(.*?)<\/a>/g;
+  const matchedStrings = Array.from(content.matchAll(regEx) || []);
+
+  return matchedStrings.map(matchedString => ({
+    documentId: Number.parseInt(matchedString[1], 10),
+    documentName: matchedString[2].replace(/(<([^>]+)>)/ig, ''),
+  }));
+}
+
 export default function ChallengeDetailsView(props) {
   const {
     communitiesList,
@@ -44,12 +59,13 @@ export default function ChallengeDetailsView(props) {
     descriptionFormat,
     legacy,
     legacyId,
-    documents,
     userDetails,
     metadata,
     events,
     track,
   } = challenge;
+
+  const documents = getAllDocumentLinks(description);
 
   const roles = (userDetails || {}).roles || [];
   const {
@@ -394,7 +410,6 @@ ChallengeDetailsView.propTypes = {
   challenge: PT.shape({
     description: PT.string,
     descriptionFormat: PT.string,
-    documents: PT.any,
     id: PT.any,
     privateDescription: PT.string,
     legacy: PT.shape({
