@@ -383,7 +383,7 @@ module.exports = {
   HEADER_MENU_THEME: 'light',
   HEADER_AUTH_URLS: {
     href: 'https://accounts-auth0.topcoder-dev.com?utm_source=community-app-main',
-    location: 'https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main',
+    location: 'https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main&member?',
   },
   ACCOUNT_MENU: [
     {
