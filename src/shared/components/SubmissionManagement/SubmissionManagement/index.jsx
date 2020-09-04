@@ -86,7 +86,7 @@ export default function SubmissionManagement(props) {
             )
           }
           {
-            challenge.status !== 'COMPLETED' ? (
+            challenge.status !== 'Completed' ? (
               <div>
                 <p styleName="time-left">
                   {days > 0 && (`${days}D`)}
