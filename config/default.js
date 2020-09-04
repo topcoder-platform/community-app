@@ -382,8 +382,8 @@ module.exports = {
   ],
   HEADER_MENU_THEME: 'light',
   HEADER_AUTH_URLS: {
-    href: 'https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main',
-    location: 'https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main',
+    href: 'https://accounts-auth0.topcoder-dev.com?utm_source=community-app-main',
+    location: 'https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main',
   },
   ACCOUNT_MENU: [
     {
