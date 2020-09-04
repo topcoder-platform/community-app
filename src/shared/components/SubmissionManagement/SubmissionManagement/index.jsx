@@ -52,7 +52,7 @@ export default function SubmissionManagement(props) {
   const submissionEndDate = submissionPhase && phaseEndDate(submissionPhase);
 
   const now = moment();
-  const end = moment(currentPhase.scheduledEndDate);
+  const end = moment(currentPhase && currentPhase.scheduledEndDate);
   const diff = end.isAfter(now) ? end.diff(now) : 0;
   const timeLeft = moment.duration(diff);
 
@@ -81,11 +81,15 @@ export default function SubmissionManagement(props) {
           </a>
         </div>
         <div styleName="right-col">
-          <p styleName="round">
-            {currentPhase.name}
-          </p>
           {
-            challenge.status !== 'COMPLETED' ? (
+            currentPhase && (
+            <p styleName="round">
+              {currentPhase.name}
+            </p>
+            )
+          }
+          {
+            challenge.status !== 'Completed' ? (
               <div>
                 <p styleName="time-left">
                   {days > 0 && (`${days}D`)}
@@ -114,7 +118,7 @@ export default function SubmissionManagement(props) {
             Manage your submissions
           </p>
           {
-            isDesign && (
+            isDesign && currentPhase && (
               <p styleName="round-ends">
                 <span styleName="ends-label">
                   {currentPhase.name}
