@@ -137,7 +137,7 @@ export default function GigDetails(props) {
                     </li>
                     <li>
                       <img src={iconLabel2} alt="label 2" />
-                      <div><strong>Subscribe to our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/community/taas">Gig notifications email.</a>.</strong> We’ll send you a weekly update on gigs available so you don’t miss a beat.</div>
+                      <div><strong>Subscribe to our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/community/taas">Gig notifications email</a>.</strong> We’ll send you a weekly update on gigs available so you don’t miss a beat.</div>
                     </li>
                     <li>
                       <img src={iconLabel3} alt="label 3" />
