@@ -150,8 +150,8 @@ class Submit extends React.Component {
         const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
         if (topGearCommunity) {
           // check the group info match with group list
-          _.forOwn(groups, (value, key) => {
-            if (value && _.includes(topGearCommunity.groupIds, key)) {
+          _.forOwn(groups, (value) => {
+            if (value && _.includes(topGearCommunity.groupIds, value)) {
               isChallengeBelongToTopgearGroup = true;
               return false;
             }
