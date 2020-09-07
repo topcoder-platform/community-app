@@ -77,7 +77,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
 
     it('[TC_013] should verify whether the user is able to select more than one keyword/Type under the filter function', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
+      // await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
       await ChallengeListingPageHelper.verifyFilterByMultipleTypes();
     });
 
@@ -92,7 +92,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     it('[TC_015] should verify whether the number of filters applied are shown into Filter button according to the keyword/Type/Sub community/Date range fields selected', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectType('Code');
+      await ChallengeListingPageHelper.selectType('Challenge');
       await ChallengeListingPageHelper.selectSubCommunity(1);
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(3);
     });
@@ -100,7 +100,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     it('[TC_016] should verify whether the clear filter button clears all the filters selected and all the challenges are displayed', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectType('Code');
+      await ChallengeListingPageHelper.selectType('Challenge');
       await ChallengeListingPageHelper.selectSubCommunity(1);
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(3);
       await ChallengeListingPageHelper.clearFilters();

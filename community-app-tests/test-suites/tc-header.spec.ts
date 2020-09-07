@@ -208,7 +208,6 @@ describe('Topcoder Header Tests: ', () => {
      */
     it('[TC_057] should verify whether the user is able to search the member by their username/skill using the search icon.', async () => {
       await HeaderHelper.verifySearchByUsername(testData.search.username);
-      await HeaderHelper.open(true);
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
     });
   });

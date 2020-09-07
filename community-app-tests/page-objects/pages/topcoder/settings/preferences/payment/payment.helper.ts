@@ -23,6 +23,7 @@ export class PaymentPageHelper {
    * Verifies the payment setting page
    */
   public static async verifyPaymentSetting() {
+    await BrowserHelper.sleep(5000);
     await BrowserHelper.waitUntilUrlIs(ConfigHelper.getPaymentSettingUrl());
     logger.info('redirected to payment settings page');
   }
