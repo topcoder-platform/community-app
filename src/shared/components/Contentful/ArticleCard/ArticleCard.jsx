@@ -10,8 +10,9 @@ import { logger } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
-import { config } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import markdown from 'utils/markdown';
+import ReactDOMServer from 'react-dom/server';
 // SVG assets
 import ThumbUpIcon from 'assets/images/ico-thumb-up.svg';
 import CommentIcon from 'assets/images/ico-comment.svg';
@@ -21,17 +22,18 @@ import PlayIcon from 'assets/images/ico-play.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
 import qs from 'qs';
 
+const htmlToText = require('html-to-text');
+
 // date/time format to use for the creation date
 const FORMAT = 'MMM DD, YYYY';
 // date/time format for 'Forum post' cards is different from others
 const FORUM_POST_FORMAT = 'MMM DD, YYYY [at] h:mm A';
 // max length for the title of the 'Article small' cards
-const ART_SMALL_TITLE_MAX_LENGTH = 29;
-// character length for the content preview
-const CONTENT_PREVIEW_LENGTH = 110;
+const ART_SMALL_TITLE_MAX_LENGTH = 60;
 // Article large card 'breakpoint'
 const ARTICLE_LARGE_BREAKPOINT = 473;
-
+// character length for the content preview
+const CONTENT_PREVIEW_LENGTH = 110;
 
 class ArticleCard extends React.Component {
   constructor(props) {
@@ -65,7 +67,7 @@ class ArticleCard extends React.Component {
     // determine if article cards will redirect to external link or article details page
     const articlePageUrl = article.externalArticle && article.contentUrl
       ? article.contentUrl
-      : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.title}`;
+      : `${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${article.slug || article.title}`;
     const articlePageTarget = article.externalArticle && article.contentUrl
       ? '_blank'
       : '_self';
@@ -128,14 +130,20 @@ class ArticleCard extends React.Component {
     const title = (
       themeName === 'Article small'
       && article.title.length > ART_SMALL_TITLE_MAX_LENGTH)
-      ? `${article.title.substring(0, ART_SMALL_TITLE_MAX_LENGTH)}..`
+      ? `${article.title.substring(0, ART_SMALL_TITLE_MAX_LENGTH)}...`
       : article.title;
 
     // truncate content for 'Article large' cards
-    const content = (
-      (themeName === 'Article large' || themeName === 'Recommended')
-      && article.content.length > CONTENT_PREVIEW_LENGTH)
-      ? markdown(`${article.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`)
+    const content = themeName === 'Article large' || themeName === 'Recommended'
+      ? `${htmlToText.fromString(
+        ReactDOMServer.renderToString(markdown(article.content)),
+        {
+          ignoreHref: true,
+          ignoreImage: true,
+          singleNewLineParagraphs: true,
+          uppercaseHeadings: false,
+        },
+      ).substring(0, CONTENT_PREVIEW_LENGTH)}...`
       : undefined;
 
     // set the correct format to apply to the `article.creationDate`
@@ -177,7 +185,7 @@ class ArticleCard extends React.Component {
                       className={theme.tag}
                       title={`Search for articles labelled as ${tag}`}
                     >
-                      <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</a>
+                      <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</Link>
                     </span>
                   ))
                   /* eslint-enable react/no-array-index-key */
@@ -187,13 +195,13 @@ class ArticleCard extends React.Component {
                 <p>{article.readTime}</p>
               </div>
               <h3 className={theme.title}>
-                <a
-                  href={articlePageUrl}
-                  target={articlePageTarget}
+                <Link
+                  to={articlePageUrl}
+                  openNewTab={articlePageTarget === '_blank'}
                   title={article.title}
                 >
                   {title}
-                </a>
+                </Link>
               </h3>
               <div className={theme.contentPreview}>
                 <p>{content}</p>
@@ -218,14 +226,14 @@ class ArticleCard extends React.Component {
                                     </div>
                                   )
                                 }
-                                <a
-                                  href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: author.name })}`}
+                                <Link
+                                  to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: author.name })}`}
                                   key={`${author.name}`}
                                   title={`Search for articles from ${author.name}`}
                                   className={theme.authorLink}
                                 >
                                   {author.tcHandle}
-                                </a>
+                                </Link>
                               </div>
                             ))
                           ) : null
@@ -245,13 +253,13 @@ class ArticleCard extends React.Component {
                             {themeName === 'Article large' ? <span>&nbsp;.&nbsp;</span> : null}
                             {
                               contentAuthor && contentAuthor.length > 0 ? (
-                                <a
-                                  href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: contentAuthor[0].name })}`}
+                                <Link
+                                  to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ author: contentAuthor[0].name })}`}
                                   key={`${contentAuthor[0].name}`}
                                   title={`Search for articles from ${contentAuthor[0].name}`}
                                 >
                                   {contentAuthor[0].name}
-                                </a>
+                                </Link>
                               ) : null
                             }
                           </p>
@@ -282,13 +290,13 @@ class ArticleCard extends React.Component {
                     }
                   </div>
                 ) : (
-                  <a
-                    href={articlePageUrl}
+                  <Link
+                    to={articlePageUrl}
                     className={theme.readMore}
-                    target={articlePageTarget}
+                    openNewTab={articlePageTarget === '_blank'}
                   >
-                      Read More <ReadMoreArrow />
-                  </a>
+                    Read More <ReadMoreArrow />
+                  </Link>
                 )
               }
             </div>

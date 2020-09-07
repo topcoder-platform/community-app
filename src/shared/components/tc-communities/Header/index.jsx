@@ -55,7 +55,7 @@ function Header(props) {
   const AUTH_URL = config.URL.AUTH;
   const normalizedProfile = profile && _.clone(profile);
   const isZurichCompetitor = (profile && profile.groups) ? _.intersection(
-    _.map(profile.groups, 'id'),
+    _.map(profile.groups, 'oldId'),
     meta.competitorsGroupIds,
   ) : [];
 
@@ -66,7 +66,7 @@ function Header(props) {
       items: [{
         enforceA: true,
         icon: <IconNavProfile />,
-        link: `${BASE_URL}/members/${normalizedProfile.handle}`,
+        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/members/${normalizedProfile.handle}`,
         title: 'My Profile',
       }, {
         openNewTab: true,
@@ -75,7 +75,7 @@ function Header(props) {
         title: 'Payments',
       }, {
         icon: <IconNavSettings />,
-        link: `${BASE_URL}/settings/profile`,
+        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/settings/profile`,
         title: 'Settings',
       }, {
         icon: <IconNavExit />,
@@ -156,7 +156,7 @@ function Header(props) {
             size="sm"
             title="Lorem Ipsum"
           >
-    Log In
+            Log In
             <div className={theme.loginHint}>Lorem ipsum bla bla</div>
           </PrimaryButton>
         ) : (
@@ -167,7 +167,7 @@ function Header(props) {
             }}
             size="sm"
           >
-    Log In
+            Log In
           </Button>
         )
       }
@@ -181,7 +181,7 @@ function Header(props) {
           }}
           size="sm"
         >
-Join Topcoder
+          Join Topcoder
         </PrimaryButton>
       )}
     </div>
@@ -222,7 +222,7 @@ Join Topcoder
             type="button"
           >
             <span>
-Toggle navigation
+              Toggle navigation
             </span>
             <i />
             <i />
@@ -271,7 +271,7 @@ Toggle navigation
                         to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
                         className={theme.menuLink}
                       >
-                      My Projects
+                        My Projects
                       </NavLink>
                     </li>
                   ) : null
@@ -288,7 +288,7 @@ Toggle navigation
                 to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
                 className={theme.extraUserLink}
               >
-              My Projects
+                My Projects
               </NavLink>
             ) : null
           }

@@ -1,0 +1,25 @@
+@import "~styles/mixins";
+
+.container {
+  max-width: $screen-lg;
+  margin: auto;
+
+  @include xs-to-sm {
+    padding: 0 15px;
+  }
+
+  .filters {
+    display: flex;
+  }
+
+  .jobs-list-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 50px 0;
+
+    .no-results {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

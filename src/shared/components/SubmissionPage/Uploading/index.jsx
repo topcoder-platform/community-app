@@ -14,6 +14,8 @@ import RobotSad from 'assets/images/robot-embarassed.svg';
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import './styles.scss';
 
+import { COMPETITION_TRACKS } from 'utils/tc';
+
 const Uploading = ({
   challengeId,
   challengeName,
@@ -33,7 +35,7 @@ const Uploading = ({
         isSubmitting
           && (
           <h3>
-UPLOADING SUBMISSION FOR
+            UPLOADING SUBMISSION FOR
           </h3>
           )
       }
@@ -41,7 +43,7 @@ UPLOADING SUBMISSION FOR
         submitDone
         && (
         <h3>
-SUBMISSION COMPLETED FOR
+          SUBMISSION COMPLETED FOR
         </h3>
         )
       }
@@ -49,7 +51,7 @@ SUBMISSION COMPLETED FOR
         error
           && (
           <h3>
-ERROR SUBMITTING FOR
+            ERROR SUBMITTING FOR
           </h3>
           )
       }
@@ -57,9 +59,9 @@ ERROR SUBMITTING FOR
         isSubmitting
           && (
           <h3>
-&ldquo;
+            &ldquo;
             {challengeName }
-&rdquo;
+            &rdquo;
           </h3>
           )
       }
@@ -86,7 +88,7 @@ ERROR SUBMITTING FOR
         isSubmitting
           && (
           <p>
-Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
+            Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
             working, you&#39;ll lose all files!
           </p>
           )
@@ -103,9 +105,9 @@ Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
         isSubmitting && !submitDone
           && (
           <p styleName="submitting">
-Uploaded:
+            Uploaded:
             {(100 * uploadProgress).toFixed()}
-%
+            %
           </p>
           )
       }
@@ -113,8 +115,8 @@ Uploaded:
         error
           && (
           <p>
-Oh, that’s embarrassing! The file couldn’t be
-             uploaded, I’m so sorry.
+            Oh, that’s embarrassing! The file couldn’t be
+            uploaded, I’m so sorry.
           </p>
           )
       }
@@ -133,12 +135,12 @@ Oh, that’s embarrassing! The file couldn’t be
             <Button
               onClick={() => reset()}
             >
-Cancel
+              Cancel
             </Button>
             <PrimaryButton
               onClick={() => retry()}
             >
-Try Again
+              Try Again
             </PrimaryButton>
           </div>
           )
@@ -147,7 +149,7 @@ Try Again
         submitDone && !error
           && (
           <p>
-Thanks for participating! We’ve received your submission and will
+            Thanks for participating! We’ve received your submission and will
             send you an email shortly to confirm and explain what happens next.
           </p>
           )
@@ -156,18 +158,18 @@ Thanks for participating! We’ve received your submission and will
         submitDone && !error
           && (
           <div styleName="button-container">
-            { track === 'DESIGN' ? (
+            { track === COMPETITION_TRACKS.DESIGN ? (
               <span>
                 <Button
                   onClick={() => reset()}
                 >
-Add Another Submission
+                  Add Another Submission
                 </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}/my-submissions`}
                   onClick={() => back()}
                 >
-View My Submissions
+                  View My Submissions
                 </PrimaryButton>
               </span>
             ) : (
@@ -175,13 +177,13 @@ View My Submissions
                 <Button
                   onClick={() => reset()}
                 >
-Submit Again
+                  Submit Again
                 </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}`}
                   onClick={() => back()}
                 >
-Back to Challenge
+                  Back to Challenge
                 </PrimaryButton>
               </span>
             )}
@@ -196,7 +198,7 @@ Back to Challenge
  * Prop Validation
  */
 Uploading.propTypes = {
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,

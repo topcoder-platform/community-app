@@ -44,16 +44,10 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__leaderboard-avatar___21pJ3"
         >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            theme={
-              Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
-              }
-            }
-            themePriority="adhoc-context-default"
+          <DefaultAvatar
+            data-name="Layer 1"
+            viewBox="0 0 33 33.00137"
+            xmlns="http://www.w3.org/2000/svg"
           />
         </span>
       </td>
@@ -61,7 +55,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
+          href="undefined/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
@@ -96,16 +91,10 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__leaderboard-avatar___21pJ3"
         >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            theme={
-              Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
-              }
-            }
-            themePriority="adhoc-context-default"
+          <DefaultAvatar
+            data-name="Layer 1"
+            viewBox="0 0 33 33.00137"
+            xmlns="http://www.w3.org/2000/svg"
           />
         </span>
       </td>
@@ -113,7 +102,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
+          href="undefined/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
@@ -148,16 +138,10 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__leaderboard-avatar___21pJ3"
         >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            theme={
-              Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
-              }
-            }
-            themePriority="adhoc-context-default"
+          <DefaultAvatar
+            data-name="Layer 1"
+            viewBox="0 0 33 33.00137"
+            xmlns="http://www.w3.org/2000/svg"
           />
         </span>
       </td>
@@ -165,7 +149,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
+          href="undefined/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"
@@ -200,16 +185,10 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__leaderboard-avatar___21pJ3"
         >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            theme={
-              Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
-              }
-            }
-            themePriority="adhoc-context-default"
+          <DefaultAvatar
+            data-name="Layer 1"
+            viewBox="0 0 33 33.00137"
+            xmlns="http://www.w3.org/2000/svg"
           />
         </span>
       </td>
@@ -217,7 +196,8 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__col-handle___1wDhG"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
+          href="undefined/members/undefined/"
+          target="_blank"
         />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-themes-___styles__winnings-info___PBqQk"

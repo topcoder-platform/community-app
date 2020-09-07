@@ -1,6 +1,7 @@
 import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 
 import Lock from '../../icons/lock.svg';
@@ -14,7 +15,6 @@ function getId(submissions, placement) {
 export default function Winner({
   isDesign,
   last,
-  pointPrizes,
   prizes,
   submissions,
   viewable,
@@ -31,12 +31,9 @@ export default function Winner({
       encodeURIComponent(avatarUrl)}?size=65`;
   }
 
-  const pair = [];
-  const prizeIndex = winner.placement - 1;
-  if (prizes[prizeIndex]) pair.push(prizes[prizeIndex].toLocaleString());
-  if (pointPrizes[prizeIndex]) pair.push(`${pointPrizes[prizeIndex]}pts`);
-
-  const prize = pair.join(' + ') || 'N/A';
+  let prize = 'N/A';
+  const prizeIndex = parseInt(winner.placement, 10) - 1;
+  if (prizes[prizeIndex]) prize = prizes[prizeIndex].value;
 
   return (
     <div styleName={`winner ${placeStyle}`}>
@@ -58,7 +55,7 @@ export default function Winner({
               <div styleName="lock">
                 <Lock styleName="lock-icon" />
                 <div styleName="text">
-LOCKED
+                  LOCKED
                 </div>
               </div>
             )
@@ -72,13 +69,14 @@ LOCKED
           />
           <div>
             <a
-              href={`${config.URL.BASE}/members/${winner.handle}`}
+              href={`${window.origin}/members/${winner.handle}`}
               styleName="handle"
+              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
             >
               {winner.handle}
             </a>
             <div styleName="prize">
-$
+              $
               {prize}
             </div>
           </div>
@@ -87,9 +85,9 @@ $
           submissionId
           && (
           <div styleName="id">
-ID:
+            ID:
             <span>
-#
+              #
               {getId(submissions, winner.placement)}
             </span>
           </div>
@@ -105,7 +103,7 @@ ID:
             challenge
             rel="noopener noreferrer"
           >
-Download
+            Download
           </a>
           )
         }
@@ -123,14 +121,12 @@ Download
 }
 
 Winner.defaultProps = {
-  pointPrizes: [],
   prizes: [],
 };
 
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
   last: PT.bool.isRequired,
-  pointPrizes: PT.arrayOf(PT.number),
   prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,

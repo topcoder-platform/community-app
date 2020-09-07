@@ -83,9 +83,11 @@
 	"name": "2016 Topcoder Open Logo Design Challenge",
 	"reviewType": "INTERNAL",
 	"id": 30051059,
-	"forumId": 598066,
-	"numSubmissions": 57,
-	"numRegistrants": 111,
+	"legacy": {
+		"forumId": 598066
+	},
+	"numOfSubmissions": 57,
+	"numOfRegistrants": 111,
 	"registrationStartDate": "2015-08-10T13:00:01.576Z",
 	"registrationEndDate": "2015-08-24T13:17:15.335Z",
 	"checkpointSubmissionEndDate": "2015-08-17T13:10:56.385Z",

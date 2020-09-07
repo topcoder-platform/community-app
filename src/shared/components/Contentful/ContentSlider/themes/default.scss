@@ -18,9 +18,18 @@
   width: 100%;
 }
 
-.control {
+.controlLeft,
+.controlRight {
   border: 0;
   color: white;
   cursor: pointer;
   display: flex;
+}
+
+.controlLeft {
+  margin-left: 25px;
+}
+
+.controlRight {
+  margin-right: 25px;
 }

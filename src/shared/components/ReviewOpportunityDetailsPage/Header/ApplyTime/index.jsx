@@ -22,8 +22,8 @@ const ApplyTime = ({
     return (
       <div styleName="container">
         <div styleName="completed-message">
-The review phase for this challenge is completed
-or reviewers have already been assigned.
+          The review phase for this challenge is completed
+          or reviewers have already been assigned.
         </div>
       </div>
     );
@@ -38,7 +38,7 @@ or reviewers have already been assigned.
         && (
         <div>
           <p>
-TIME LEFT TO APPLY
+            TIME LEFT TO APPLY
           </p>
           <h2>
             {timeLeft}

@@ -8,18 +8,23 @@ import PT from 'prop-types';
 import { fixStyle } from 'utils/contentful';
 import { getService } from 'services/contentful';
 import MarkdownRenderer from 'components/MarkdownRenderer';
+import ReactDOMServer from 'react-dom/server';
+import markdown from 'utils/markdown';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import YouTubeVideo from 'components/YouTubeVideo';
 import moment from 'moment';
 import localStorage from 'localStorage';
-import { config } from 'topcoder-react-utils';
-import ShareSocial from 'components/challenge-detail/Specification/SideBar/ShareSocial';
+import { config, Link, isomorphy } from 'topcoder-react-utils';
+import qs from 'qs';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
-import UserDefault from 'assets/images/ico-user-default.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
-import qs from 'qs';
+import IconFacebook from 'assets/images/icon-facebook.svg';
+import IconTwitter from 'assets/images/icon-twitter.svg';
+import IconLinkedIn from 'assets/images/icon-linkedIn.svg';
+
+const htmlToText = require('html-to-text');
 
 // character length for the content preview
 const CONTENT_PREVIEW_LENGTH = 110;
@@ -101,20 +106,31 @@ export default class Article extends React.Component {
       spaceName, environment, preview,
     };
     const { upvotes, downvotes } = this.state || {};
+    let shareUrl;
+    if (isomorphy.isClientSide()) {
+      shareUrl = encodeURIComponent(window.location.href);
+    }
 
     return (
       <React.Fragment>
         {/* Banner */}
-        <div className={theme.bannerContainer}>
-          {
-            fields.featuredImage ? (
-              <div className={theme.featuredImage} style={{ backgroundImage: `url(${subData.assets.items[fields.featuredImage.sys.id].fields.file.url})` }} />
-            ) : null
-          }
-        </div>
-        <div className={theme.bannerBottomShape} />
+        {
+          fields.featuredImage ? (
+            <div className={theme.bannerContainer}>
+              <svg viewBox="0 25 1050 600" version="1.1" preserveAspectRatio="none" className={theme['site-header-background']}>
+                <defs>
+                  <clipPath id="user-space" clipPathUnits="userSpaceOnUse">
+                    <path id="jagged-top" d="M955.643,455.426c113.929-152.899,130.923-281.812-19.966-387.73 C883.769,31.258,814.91-10.997,685,3c-87.558,9.434-218,32-332,9c-48.207-9.726-146.137-5.765-167.796,6.768 C45.296,99.719-82.626,352.551,69.262,473.459c151.887,120.908,379.734,0.979,533.623,75.92 C756.773,624.319,841.715,608.326,955.643,455.426" />
+                  </clipPath>
+                </defs>
+                <image width="100%" height="100%" preserveAspectRatio="none" href={subData.assets.items[fields.featuredImage.sys.id].fields.file.url} clipPath="url(#user-space)" />
+              </svg>
+            </div>
+          ) : null
+        }
         <div
-          className={theme.contentContainer}
+          className={fields.featuredImage
+            ? theme.contentContainerWithBanner : theme.contentContainer}
           style={fixStyle(fields.extraStylesForContainer)}
         >
           <div className={theme.contentLeftBar}>
@@ -135,9 +151,7 @@ export default class Article extends React.Component {
                           )}
                           renderPlaceholder={LoadingIndicator}
                         />
-                      ) : (
-                        <UserDefault alt="article author avatar" className={theme.avatar} />
-                      )
+                      ) : null
                     }
                     <div className={theme.authorInfos}>
                       <span className={theme.name}>
@@ -165,14 +179,24 @@ export default class Article extends React.Component {
               {
                 _.map(fields.tags, tag => (
                   <div className={theme.tagItem} key={tag} title={`Search for articles labelled as ${tag}`}>
-                    <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</a>
+                    <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</Link>
                   </div>
                 ))
               }
             </div>
             <div className={theme.separator} />
             <h3 className={theme.label}>share</h3>
-            <ShareSocial />
+            <div className={theme.shareButtons}>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                <IconLinkedIn />
+              </a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
+                <IconFacebook />
+              </a>
+              <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                <IconTwitter />
+              </a>
+            </div>
             <div className={theme.mobileSeparator} />
           </div>
           {/* Content */}
@@ -246,15 +270,25 @@ export default class Article extends React.Component {
                                 {subData.entries.items[rec.sys.id].fields.title}
                               </a>
                             ) : (
-                              <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`}>
+                              <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.slug || subData.entries.items[rec.sys.id].fields.title}`}>
                                 {subData.entries.items[rec.sys.id].fields.title}
-                              </a>
+                              </Link>
                             )
                         }
                       </h3>
                       <div className={theme.recommendedCardContent}>
                         {
-                          `${subData.entries.items[rec.sys.id].fields.content.substring(0, CONTENT_PREVIEW_LENGTH)}..`
+                          `${htmlToText.fromString(
+                            ReactDOMServer.renderToString(markdown(
+                              subData.entries.items[rec.sys.id].fields.content,
+                            )),
+                            {
+                              ignoreHref: true,
+                              ignoreImage: true,
+                              singleNewLineParagraphs: true,
+                              uppercaseHeadings: false,
+                            },
+                          ).substring(0, CONTENT_PREVIEW_LENGTH)}...`
                         }
                       </div>
                       {
@@ -264,9 +298,9 @@ export default class Article extends React.Component {
                               Read More <ReadMoreArrow />
                             </a>
                           ) : (
-                            <a href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.title}`} className={theme.readMore}>
+                            <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_ARTICLES_PATH}/${subData.entries.items[rec.sys.id].fields.slug || subData.entries.items[rec.sys.id].fields.title}`} className={theme.readMore}>
                               Read More <ReadMoreArrow />
-                            </a>
+                            </Link>
                           )
                       }
                     </div>

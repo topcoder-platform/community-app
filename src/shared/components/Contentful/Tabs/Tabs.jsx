@@ -17,11 +17,15 @@ import {
   TabPanel,
 } from 'react-tabs';
 import { fixStyle } from 'utils/contentful';
+import { getQuery, updateQuery } from 'utils/url';
 import defaultTheme from './themes/style.scss';
 import zurichTheme from './themes/zurich.scss';
 import tabsGroup from './themes/tabsGroup.scss';
 import tabsGroupChildren from './themes/tabsGroupChildren.scss';
 import underlineTheme from './themes/underline.scss';
+import underlineDarkTheme from './themes/underline-dark.scss';
+import verticalTheme from './themes/vertical.scss';
+import pillsTheme from './themes/pills.scss';
 
 export const TAB_THEMES = {
   Default: defaultTheme,
@@ -29,12 +33,46 @@ export const TAB_THEMES = {
   'Tabs Group': tabsGroup,
   'Tabs Group Children': tabsGroupChildren,
   Underline: underlineTheme,
+  'Underline dark': underlineDarkTheme,
+  Vertical: verticalTheme,
+  Pills: pillsTheme,
 };
 
 export default class TabsItemsLoader extends Component {
   constructor(props) {
     super(props);
-    this.state = { tabIndex: props.selected };
+    this.state = {
+      tabIndex: props.selected || 0,
+    };
+
+    this.updatePageUrl.bind(this);
+  }
+
+  componentDidMount() {
+    const q = getQuery();
+    const { tabId } = this.props;
+    const { tabIndex } = this.state;
+    if (q.tabs && q.tabs[tabId] && Number(q.tabs[tabId]) !== tabIndex) {
+      this.setState({ tabIndex: Number(q.tabs[tabId]) });
+    } else {
+      this.updatePageUrl();
+    }
+  }
+
+  componentDidUpdate() {
+    this.updatePageUrl();
+  }
+
+  updatePageUrl() {
+    const q = getQuery();
+    const { tabId } = this.props;
+    const { tabIndex } = this.state;
+    updateQuery({
+      tabs: {
+        ...q.tabs,
+        [tabId]: tabIndex || 0,
+      },
+    });
   }
 
   render() {
@@ -44,6 +82,7 @@ export default class TabsItemsLoader extends Component {
       spaceName,
       environment,
       theme,
+      tabId,
     } = this.props;
     const { tabIndex } = this.state;
 
@@ -123,6 +162,7 @@ export default class TabsItemsLoader extends Component {
                                 environment={environment}
                                 selected={fields.selected}
                                 theme={TAB_THEMES[fields.theme || 'Default']}
+                                tabId={tabId}
                               />
                             );
                           }
@@ -167,4 +207,5 @@ TabsItemsLoader.propTypes = {
   environment: PT.string,
   selected: PT.number,
   theme: PT.shape().isRequired,
+  tabId: PT.string.isRequired,
 };

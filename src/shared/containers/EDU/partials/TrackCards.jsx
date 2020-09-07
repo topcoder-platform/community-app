@@ -13,7 +13,7 @@ export default function TrackCards(props) {
         content_type: 'article',
         'fields.trackCategory': track,
         limit: 3,
-        order: 'sys.createdAt',
+        order: '-sys.createdAt',
       }}
       spaceName="EDU"
       render={(data) => {

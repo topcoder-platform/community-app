@@ -23,6 +23,13 @@ function Bucket({
   let countEl;
   if (!bucket.hideCount && !disabled) {
     const filter = Filter.getFilterFunction(bucket.filter);
+    const clonedChallenges = _.clone(challenges);
+    const filteredChallenges = [];
+    for (let i = 0; i < clonedChallenges.length; i += 1) {
+      if (filter(clonedChallenges[i])) {
+        filteredChallenges.push(clonedChallenges[i]);
+      }
+    }
     let count;
     if (allActiveChallengesLoaded) {
       count = challenges.filter(filter).length;
@@ -32,7 +39,7 @@ function Bucket({
           count = meta.allChallengesCount;
           break;
         case 'My Challenges':
-          count = meta.myChallengesCount;
+          count = filteredChallenges.length;
           break;
         case 'Open for registration':
           count = meta.openChallengesCount;

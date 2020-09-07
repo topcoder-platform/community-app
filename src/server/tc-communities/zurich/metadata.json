@@ -12,7 +12,7 @@
   "communityId": "zurich",
   "communityName": "Zurich Community",
   "groupIds": ["20000145"],
-  "authorizedGroupIdsCatalog": ["20000160", "20000161"],
+  "authorizedGroupIdsCatalog": ["c40767a9-e02e-4872-87eb-d50dcb946055", "a1bcb865-7235-481f-ae62-b82dd958fc4c"],
   "competitorsGroupIds": ["20000226"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",
@@ -38,6 +38,10 @@
     }, {
       "title": "Challenges",
       "url": "/challenges?communityId=zurich"
+    }, {
+      "title": "THRIVE/LEARN",
+      "url": "https://topcoder.com/thrive",
+      "openNewTab": true
     }
   ],
   "hideSearch": true,

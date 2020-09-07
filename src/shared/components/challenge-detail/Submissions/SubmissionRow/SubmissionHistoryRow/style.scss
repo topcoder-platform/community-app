@@ -28,7 +28,7 @@
     }
 
     &.col-1 {
-      flex: 20;
+      flex: 22;
       display: flex;
 
       @include xs-to-sm {
@@ -45,7 +45,7 @@
     }
 
     &.col-2 {
-      flex: 15;
+      flex: 40;
       text-align: left;
       color: $tc-gray-50;
 

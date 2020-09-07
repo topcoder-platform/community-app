@@ -1,23 +1,22 @@
 @import "~styles/mixins";
-@import "../../ContentBlock/themes/TCO19_thypo";
+@import "~components/Contentful/default";
 
-.bannerBottomShape {
-  background-image: url(assets/images/wave.svg);
-  height: 120px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: -120px;
-  position: relative;
+.shareButtons {
+  margin-top: 10px;
 
-  @include xs-to-sm {
-    height: 60px;
-    margin-top: -60px;
+  a {
+    margin-right: 5px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 
-.contentContainer {
+.contentContainer,
+.contentContainerWithBanner {
   max-width: $screen-lg;
-  margin: 90px auto;
+  margin: 70px auto 90px auto;
   width: 100%;
   display: flex;
 
@@ -67,13 +66,18 @@
         }
 
         .name {
-          @include roboto-regular;
+          @include roboto-bold;
 
           margin-right: 6px;
+          color: #2a2a2a;
+          font-size: 14px;
         }
 
         .handle {
-          @include roboto-bold;
+          @include roboto-regular;
+
+          color: #2a2a2a;
+          font-size: 14px;
         }
       }
     }
@@ -170,7 +174,7 @@
       text-transform: uppercase;
     }
 
-    @include TCO19-default-headers;
+    @include gui-kit-headers;
 
     p {
       @include tc-body-md;
@@ -178,18 +182,29 @@
       color: $tco-black;
       font-size: 16px;
       line-height: 26px;
+      margin-bottom: 20px;
 
       strong {
         @include roboto-medium;
 
         line-height: 20px;
         text-align: left;
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: 20px;
+      }
+
+      em {
+        font-style: italic;
       }
     }
 
+    blockquote {
+      text-transform: uppercase;
+    }
+
     table {
+      margin-bottom: 20px;
+
       th {
         @include roboto-regular;
 
@@ -229,6 +244,10 @@
         &:last-child {
           padding-right: 10px;
         }
+
+        strong {
+          font-weight: 600;
+        }
       }
     }
 
@@ -237,10 +256,15 @@
       @include tc-body-md;
 
       padding-left: 20px;
+      margin-bottom: 20px;
 
       @include roboto-regular;
 
       color: $tc-black;
+
+      li p {
+        margin-bottom: 0;
+      }
     }
 
     ul {
@@ -252,16 +276,24 @@
     }
 
     img {
-      max-width: 100%;
+      max-width: 70%;
       border-radius: 6px;
+
+      @include xs-to-sm {
+        max-width: 100%;
+      }
     }
 
     code {
       @include roboto-mono-regular;
 
-      color: rgb(120, 125, 129);
+      color: #2a2a2a;
       line-height: 1.5;
       white-space: pre;
+    }
+
+    pre {
+      margin-bottom: 20px;
     }
 
     sub,
@@ -320,8 +352,9 @@
         font-weight: 500;
         line-height: 58px;
         text-align: left;
-        margin-bottom: 68px;
+        margin-bottom: 28px;
         text-transform: uppercase;
+        margin-top: 8px;
       }
     }
   }
@@ -382,17 +415,21 @@
   }
 }
 
-.bannerContainer {
-  background-image: linear-gradient(0deg, #06d6a0 0%, #63f963 100%);
-  position: relative;
-  min-height: 600px;
+.contentContainerWithBanner {
+  margin-top: 0;
+}
 
-  .featuredImage {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+.bannerContainer {
+  margin: auto;
+  max-width: 1024px;
+  width: 100%;
+
+  @include xs-to-md {
+    padding: 0 15px;
+  }
+
+  .site-header-background {
     width: 100%;
-    min-height: 600px;
   }
 }
 

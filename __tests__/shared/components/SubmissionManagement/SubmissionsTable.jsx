@@ -8,9 +8,9 @@ test('Matches shallow shapshot', () => {
     <SubmissionsTable
       showDetails={{ 12345: true }}
       submissionObjects={[{
-        submissionId: 12345,
+        id: '12345',
       }]}
-      type="DESIGN"
+      track="Design"
     />
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
@@ -18,7 +18,7 @@ test('Matches shallow shapshot', () => {
   renderer.render((
     <SubmissionsTable
       showDetails={{ 12345: true }}
-      type="DESIGN"
+      track="Design"
     />
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();

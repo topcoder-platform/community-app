@@ -5,9 +5,10 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { get } from 'lodash';
-import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
+import { getRatingLevel } from 'utils/tc';
 import moment from 'moment';
+
 import ArrowNext from '../../../../../assets/images/arrow-next.svg';
 import Failed from '../../icons/failed.svg';
 import InReview from '../../icons/in-review.svg';
@@ -17,8 +18,8 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
-  isMM, openHistory, member, submissions, score, toggleHistory, colorStyle,
-  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup,
+  isMM, openHistory, member, submissions, score, toggleHistory,
+  isReviewPhaseComplete, finalRank, provisionalRank, onShowPopup, rating,
 }) {
   const {
     submissionTime, provisionalScore, status,
@@ -26,12 +27,12 @@ export default function SubmissionRow({
   let { finalScore } = submissions[0];
   finalScore = (!finalScore && finalScore < 0) || !isReviewPhaseComplete ? '-' : finalScore;
   let initialScore;
-  if (provisionalScore && (provisionalScore >= 0 || provisionalScore === -1)) {
+  if (provisionalScore >= 0 || provisionalScore === -1) {
     initialScore = provisionalScore;
   }
 
   const getInitialReviewResult = () => {
-    const s = isMM ? get(score, 'provisional', initialScore) : initialScore;
+    const s = isMM ? _.get(score, 'provisional', initialScore) : initialScore;
     if (s && s < 0) return <Failed />;
     switch (status) {
       case 'completed':
@@ -45,6 +46,15 @@ export default function SubmissionRow({
       default:
         return s;
     }
+  };
+
+  const getFinalReviewResult = () => {
+    const s = isMM && isReviewPhaseComplete ? _.get(score, 'final', finalScore) : finalScore;
+    if (isReviewPhaseComplete) {
+      if (s && s < 0) return 0;
+      return s;
+    }
+    return '-';
   };
 
   return (
@@ -65,13 +75,21 @@ export default function SubmissionRow({
           ) : null
         }
         <div styleName="col-2 col">
-          <a href={`${config.URL.BASE}/member-profile/${member}/develop`} target="_blank" rel="noopener noreferrer" style={colorStyle}>
-            {member}
+          <span styleName={`col level-${getRatingLevel(rating)}`}>
+            {rating || '-'}
+          </span>
+          <a
+            href={`${window.origin}/members/${member}`}
+            target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+            rel="noopener noreferrer"
+            styleName={`col level-${getRatingLevel(rating)}`}
+          >
+            {member || '-'}
           </a>
         </div>
         <div styleName="col-3 col">
           <div styleName="col col-left">
-            { isMM && isReviewPhaseComplete ? get(score, 'final', finalScore) : finalScore }
+            {getFinalReviewResult()}
           </div>
           <div styleName="col">
             {getInitialReviewResult()}
@@ -146,11 +164,11 @@ export default function SubmissionRow({
 
 SubmissionRow.defaultProps = {
   toggleHistory: () => {},
-  colorStyle: {},
   score: {},
   isReviewPhaseComplete: false,
   finalRank: null,
   provisionalRank: null,
+  rating: null,
 };
 
 SubmissionRow.propTypes = {
@@ -158,19 +176,34 @@ SubmissionRow.propTypes = {
   openHistory: PT.bool.isRequired,
   member: PT.string.isRequired,
   submissions: PT.arrayOf(PT.shape({
-    provisionalScore: PT.number,
-    finalScore: PT.number,
-    initialScore: PT.number,
+    provisionalScore: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
+    finalScore: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
+    initialScore: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
     status: PT.string.isRequired,
     submissionId: PT.string.isRequired,
     submissionTime: PT.string.isRequired,
   })).isRequired,
   score: PT.shape({
-    final: PT.number,
-    provisional: PT.number,
+    final: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
+    provisional: PT.oneOfType([
+      PT.number,
+      PT.string,
+    ]),
   }),
+  rating: PT.number,
   toggleHistory: PT.func,
-  colorStyle: PT.shape(),
   isReviewPhaseComplete: PT.bool,
   finalRank: PT.number,
   provisionalRank: PT.number,

@@ -16,7 +16,6 @@ afterAll(() => {
 
 const saveFilter = jest.fn();
 const selectCommunity = jest.fn();
-const setCardType = jest.fn();
 const setExpanded = jest.fn();
 const setFilterState = jest.fn();
 const setSearchText = jest.fn();
@@ -33,7 +32,6 @@ const mockDatas = [{
   saveFilter,
   selectCommunity,
   selectedCommunityId: '3',
-  setCardType,
   setExpanded,
   setFilterState,
   searchText: '',
@@ -41,20 +39,19 @@ const mockDatas = [{
   showTrackModal,
   trackModalShown: true,
   validKeywords: [''],
-  validSubtracks: [''],
+  validTypes: [''],
 }, {
   challengeGroupId: '1',
   communityFilters: [{ filter: {} }],
   communityName: 'name',
   expanded: false,
   filterState: {
-    tags: ['abc'], subtracks: ['CODE'], endDate: moment('2019-12-31T23:00:00.000Z'), startDate: moment('2019-12-31T23:00:00.000Z'), tracks: ['tracks'],
+    tags: ['abc'], types: ['927abff4-7af9-4145-8ba1-577c16e64e2e'], endDate: moment('2019-12-31T23:00:00.000Z'), startDate: moment('2019-12-31T23:00:00.000Z'), tracks: ['tracks'],
   },
   isCardTypeSet: 'Challenges',
   saveFilter,
   selectCommunity,
   selectedCommunityId: '3',
-  setCardType,
   setExpanded,
   setFilterState,
   searchText: '',
@@ -62,7 +59,7 @@ const mockDatas = [{
   showTrackModal,
   trackModalShown: true,
   validKeywords: [''],
-  validSubtracks: [''],
+  validTypes: [''],
 }];
 
 describe('Matches shallow shapshot', () => {

@@ -1,19 +1,19 @@
 /**
- * Renders the Technology/Platform Tags for ChallengeCard and ReviewOpportunityCard
+ * Renders the Tags for ChallengeCard and ReviewOpportunityCard
  */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Tag } from 'topcoder-react-ui-kit';
 
-// The number of technologies to be shown without requiring expanding
-const VISIBLE_TECHNOLOGIES = 3;
+// The number of tags to be shown without requiring expanding
+const VISIBLE_TAGS = 3;
 
 /**
  * Implements <Tags> component
  */
 export default function Tags({
-  expand, isExpanded, technologies, platforms, onTechTagClicked,
+  expand, isExpanded, tags, onTechTagClicked, challengesUrl,
 }) {
   const onClick = (item) => {
     // resolved conflict with c++ tag
@@ -24,17 +24,15 @@ export default function Tags({
     }
   };
 
-  const renderTechnologies = () => {
-    const combined = _.union(technologies, platforms);
-
-    if (combined.length) {
-      let display = combined;
-      // If the number of tags to display is larger than VISIBLE_TECHNOLOGIES
+  const renderTags = () => {
+    if (tags.length) {
+      let display = [...new Set(tags)];
+      // If the number of tags to display is larger than VISIBLE_TAGS
       // the last tag shown will be +num and when clicked
       // will expand the Tags component to show all of the tags
-      if (combined.length > VISIBLE_TECHNOLOGIES && !isExpanded) {
-        const expandItem = `+${display.length - VISIBLE_TECHNOLOGIES}`;
-        display = combined.slice(0, VISIBLE_TECHNOLOGIES);
+      if (tags.length > VISIBLE_TAGS && !isExpanded) {
+        const expandItem = `+${display.length - VISIBLE_TAGS}`;
+        display = tags.slice(0, VISIBLE_TAGS);
         display.push(expandItem);
       }
       return display.map(item => (
@@ -42,6 +40,8 @@ export default function Tags({
           onClick={() => onClick(item.trim())}
           key={item}
           role="button"
+          to={(challengesUrl && item.indexOf('+') !== 0) ? `${challengesUrl}?filter[tags][0]=${
+            encodeURIComponent(item)}` : null}
         >
           {item}
         </Tag>
@@ -52,7 +52,7 @@ export default function Tags({
 
   return (
     <span>
-      { renderTechnologies() }
+      { renderTags() }
     </span>
   );
 }
@@ -60,17 +60,17 @@ export default function Tags({
 // Default Props
 Tags.defaultProps = {
   onTechTagClicked: _.noop,
-  technologies: [],
-  platforms: [],
+  tags: [],
   isExpanded: false,
   expand: null,
+  challengesUrl: null,
 };
 
 // Prop validation
 Tags.propTypes = {
   onTechTagClicked: PT.func,
-  technologies: PT.arrayOf(PT.string),
-  platforms: PT.arrayOf(PT.string),
+  tags: PT.arrayOf(PT.string),
   isExpanded: PT.bool,
   expand: PT.func,
+  challengesUrl: PT.string,
 };

@@ -83,10 +83,11 @@
     }
 
     &.col-2 {
-      flex: 15;
+      flex: 35;
       text-align: left;
       padding-left: 10px;
       color: $tc-gray-50;
+      display: flex;
 
       @include xs-to-sm {
         flex: 33;
@@ -94,6 +95,10 @@
 
       a {
         color: black;
+      }
+
+      .col {
+        flex: 1;
       }
     }
 
@@ -181,4 +186,30 @@
   .handle {
     color: $tc-dark-blue;
   }
+}
+
+.tooltip {
+  font-size: 14px;
+  margin: 10px 10px 0 10px;
+  padding-top: 5px;
+}
+
+.level-1 {
+  color: $member-gray !important;
+}
+
+.level-2 {
+  color: $member-green !important;
+}
+
+.level-3 {
+  color: $member-blue !important;
+}
+
+.level-4 {
+  color: $member-yellow !important;
+}
+
+.level-5 {
+  color: $member-red !important;
 }

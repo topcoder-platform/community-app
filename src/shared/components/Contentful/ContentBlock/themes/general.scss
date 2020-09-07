@@ -26,6 +26,10 @@
   }
 }
 
+strong a {
+  font-weight: 600 !important;
+}
+
 .content {
   flex: 1;
   padding: 0;
@@ -104,20 +108,27 @@
 
     font-size: 15px;
     line-height: 25px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    margin-top: 0;
+
+    strong {
+      font-weight: 600;
+    }
   }
 
   table {
+    margin-bottom: 20px;
+
     th {
       @include roboto-regular;
 
-      color: #808080;
+      color: #2a2a2a;
       font-size: 15px;
       font-weight: bold;
-      line-height: 25px;
+      line-height: 18px;
       text-align: left;
       text-transform: uppercase;
-      padding: 7px 10px 7px 0;
+      padding: 18px 10px 14px 0;
 
       @include md-to-xl {
         white-space: nowrap;
@@ -135,8 +146,8 @@
       line-height: 25px;
       text-align: left;
       color: $tc-gray-80;
-      border-top: 1px solid #ededf2;
-      border-bottom: 1px solid #ededf2;
+      border-top: 1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
       padding: 20px 50px 20px 0;
       min-height: 51px;
 
@@ -155,10 +166,15 @@
     @include tc-body-md;
 
     padding-left: 20px;
+    margin-bottom: 20px;
 
     @include roboto-regular;
 
     color: $tc-black;
+
+    li p {
+      margin-bottom: 0;
+    }
   }
 
   ul {
@@ -177,7 +193,7 @@
   code {
     @include roboto-mono-regular;
 
-    color: rgb(120, 125, 129);
+    color: #2a2a2a;
     line-height: 1.5;
     white-space: pre;
   }

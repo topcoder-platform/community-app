@@ -27,7 +27,7 @@ export default function Header({
       >
         <span aria-label="Topcoder Homepage" role="banner"><LogoTopcoder styleName="logo" /></span>
         <div styleName="menu">
-Menu
+          Menu
         </div>
         {profile ? (
           <div styleName="avatar">

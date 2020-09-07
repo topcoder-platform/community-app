@@ -6,7 +6,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
-import { formatDate } from 'utils/tc';
+import { formatDate, COMPETITION_TRACKS } from 'utils/tc';
+import { isMM } from 'utils/challenge';
 import ReactImageFallback from 'react-image-fallback';
 import InviteOnly from 'assets/images/ico-invite-only-prj.svg';
 import WinnerRibbon from 'assets/images/ico-winner-ribbon.svg';
@@ -73,21 +74,27 @@ class ChallengeTile extends React.Component {
       challenge,
     } = this.props;
 
-    const outStyleName = `challenge tile-view ${challenge.track}`;
+    const { track, type } = challenge;
+
+    const outStyleName = `challenge tile-view ${track.replace(' ', '-').toLowerCase()}`;
     const extraStyle = {
       width: '285px',
       padding: '15px',
       margin: '10px 5px',
     };
 
-    const roundId = challenge.track === 'DATA_SCIENCE' ? _.get(challenge, 'rounds.0.id') : 0;
+    const isDataScience = track === COMPETITION_TRACKS.DATA_SCIENCE;
+    const isDevelopment = track === COMPETITION_TRACKS.DEVELOP;
+    const isDesign = track === COMPETITION_TRACKS.DESIGN;
+
+    const roundId = isDataScience ? _.get(challenge, 'rounds.0.id') : 0;
 
     return (
       <div styleName="challenge tile" style={extraStyle}>
         <div styleName={outStyleName}>
           <div styleName="completed-challenge">
             <header>
-              { challenge.track !== 'DATA_SCIENCE' && (!challenge.isPrivate
+              { !isDataScience && (!challenge.isPrivate
                 ? (
                   <Link to={`/challenges/${challenge.id}`} styleName="name">
                     <span>
@@ -100,7 +107,7 @@ class ChallengeTile extends React.Component {
                   </span>
                 )) }
 
-              { challenge.track === 'DATA_SCIENCE'
+              { isDataScience
                 && (
                 <a styleName="name" href={`https://community.topcoder.com/longcontest/stats/?module=ViewOverview&rd=${roundId}`}>
                   { challenge.name }
@@ -108,7 +115,7 @@ class ChallengeTile extends React.Component {
                 ) }
 
               <p styleName="subtrack-color">
-                {underscoreReplace(challenge.subTrack)}
+                {underscoreReplace(type)}
               </p>
               <p styleName="date-completed">
                 {formatDate(challenge.submissionEndDate)}
@@ -122,19 +129,19 @@ class ChallengeTile extends React.Component {
                     }
             </header>
             <div styleName="challenge-card__bottom">
-              <div styleName="challenge-details DATA_SCIENCE">
-                { challenge.track === 'DATA_SCIENCE' && challenge.subTrack
+              <div styleName="challenge-details data-science">
+                { isMM(challenge)
                   && (
                   <div styleName="marathon-score">
                     <p styleName="score">
                       { challenge.pointTotal || 0 }
                     </p>
                     <p>
-Total Points
+                      Total Points
                     </p>
                   </div>
                   ) }
-                { challenge.track === 'DEVELOP'
+                { isDevelopment
                   && (
                   <div styleName="dev-challenge-user-place">
                     <div styleName="tile-view">
@@ -146,32 +153,32 @@ Total Points
                             { getPlacementPostfix(challenge.highestPlacement) }
                           </span>
                           {' '}
-Place
+                          Place
                         </p>
                         )
                       }
                       { challenge.userStatus === 'NOT_FINISHED'
                         && (
                         <p styleName="place">
-Didn&apos;t Finish
+                          Didn&apos;t Finish
                         </p>
                         ) }
                       { challenge.userStatus === 'PASSED_SCREENING'
                         && (
                         <p styleName="place">
-Passed Screening
+                          Passed Screening
                         </p>
                         ) }
                       { !challenge.highestPlacement && challenge.userStatus === 'PASSED_REVIEW'
                         && (
                         <p styleName="place">
-Passed Review
+                          Passed Review
                         </p>
                         ) }
                       { challenge.userStatus === 'COMPLETED'
                         && (
                         <p styleName="place">
-COMPLETED
+                          COMPLETED
                         </p>
                         ) }
                       { challenge.userStatus === 'PASSED_REVIEW'
@@ -181,7 +188,7 @@ COMPLETED
                             { percentage(challenge.userDetails.submissionReviewScore / 100) }
                           </p>
                           <p styleName="last-child">
-Review Score
+                            Review Score
                           </p>
                         </div>
                       ) }
@@ -191,7 +198,7 @@ Review Score
                   )
                 }
                 {
-                  challenge.track === 'DESIGN' && !challenge.isPrivate
+                  isDesign && !challenge.isPrivate
                     && (
                     <div styleName="design-challenge-user-place">
                       <div styleName="tile-view">
@@ -203,32 +210,32 @@ Review Score
                             { getPlacementPostfix(challenge.highestPlacement) }
                           </span>
                           {' '}
-Place
+                          Place
                         </p>
                         )
                         }
                         { challenge.userStatus === 'NOT_FINISHED'
                           && (
                           <p styleName="place">
-Didn&apos;t Finish
+                            Didn&apos;t Finish
                           </p>
                           ) }
                         { challenge.userStatus === 'PASSED_SCREENING'
                           && (
                           <p styleName="place">
-Passed Screening
+                            Passed Screening
                           </p>
                           ) }
                         { !challenge.highestPlacement && challenge.userStatus === 'PASSED_REVIEW'
                           && (
                           <p styleName="place">
-Passed Review
+                            Passed Review
                           </p>
                           ) }
                         { challenge.userStatus === 'COMPLETED'
                           && (
                           <p styleName="place">
-COMPLETED
+                            COMPLETED
                           </p>
                           ) }
                         {
@@ -254,7 +261,7 @@ COMPLETED
                                 <div styleName="private-challenge-banner" title="Submissions for this challenge are confidential">
                                   <Private />
                                   <span>
-PRIVATE CHALLENGE
+                                    PRIVATE CHALLENGE
                                   </span>
                                 </div>
                                 )
@@ -271,14 +278,14 @@ PRIVATE CHALLENGE
                                       <span>
                                         {challenge.numImages}
                                         {' '}
-IMAGES
+                                        IMAGES
                                       </span>
                                       )
                                     }
                                     {!challenge.submissionViewable
                                       && (
                                       <span>
-No image is visible
+                                        No image is visible
                                       </span>
                                       )
                                     }
@@ -298,24 +305,24 @@ No image is visible
                 && (
                 <div styleName="invite-only-banner">
                   <div styleName="title">
-INVITE-ONLY CHALLENGE
+                    INVITE-ONLY CHALLENGE
                   </div>
                   <InviteOnly />
                   <span>
-CHALLENGE INFORMATION IS CONFIDENTIAL
+                    CHALLENGE INFORMATION IS CONFIDENTIAL
                     <br />
-                  RESULTS ARE NOT INCLUDED IN STATISTICS
+                    RESULTS ARE NOT INCLUDED IN STATISTICS
                   </span>
                 </div>
                 ) }
               </div>
 
               <p styleName="roles">
-                { challenge.track !== 'DATA_SCIENCE'
+                { track !== COMPETITION_TRACKS.DATA_SCIENCE
                   && (
                   <span>
                     <span>
-Role: &nbsp;
+                      Role: &nbsp;
                     </span>
                     <span>
                       { listRoles(challenge.userDetails.roles) }

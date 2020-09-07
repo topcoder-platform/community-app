@@ -38,15 +38,19 @@ export default function SubmissionManagement(props) {
     submissionPhaseStartDate,
   } = props;
 
-  const challengeType = challenge.track.toLowerCase();
+  const { track } = challenge;
+
+  const challengeType = track.toLowerCase();
 
   const isDesign = challengeType === 'design';
-  const isDevelop = challengeType === 'develop';
-  const currentPhase = _.last(challenge.currentPhases || []) || {};
+  const isDevelop = challengeType === 'development';
+  const currentPhase = challenge.phases
+    .filter(p => p.name !== 'Registration' && p.isOpen)
+    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
   const now = moment();
-  const end = moment(currentPhase.scheduledEndTime);
-  const diff = end.diff(now);
+  const end = moment(currentPhase.scheduledEndDate);
+  const diff = end.isAfter(now) ? end.diff(now) : 0;
   const timeLeft = moment.duration(diff);
 
   const [days, hours, minutes] = [
@@ -75,7 +79,7 @@ export default function SubmissionManagement(props) {
         </div>
         <div styleName="right-col">
           <p styleName="round">
-            {currentPhase.phaseType}
+            {currentPhase.name}
           </p>
           {
             challenge.status !== 'COMPLETED' ? (
@@ -84,18 +88,18 @@ export default function SubmissionManagement(props) {
                   {days > 0 && (`${days}D`)}
                   {' '}
                   {hours}
-H
+                  H
                   {' '}
                   {minutes}
-M
+                  M
                 </p>
                 <p styleName="left-label">
-left
+                  left
                 </p>
               </div>
             ) : (
               <p styleName="time-left">
-The challenge has ended
+                The challenge has ended
               </p>
             )
           }
@@ -104,15 +108,15 @@ The challenge has ended
       <div styleName="submission-management-content">
         <div styleName="content-head">
           <p styleName="title">
-Manage your submissions
+            Manage your submissions
           </p>
           {
             isDesign && (
               <p styleName="round-ends">
                 <span styleName="ends-label">
-                  {currentPhase.phaseType}
+                  {currentPhase.name}
                   {' '}
-Ends:
+                  Ends:
                 </span>
                 {' '}
                 {end.format('dddd MM/DD/YY hh:mm A')}
@@ -137,7 +141,7 @@ Ends:
               the correct zip file.
               If you don’t want to see the submission, simply delete.
               If you have a new submission, use the Upload Submission button to
-                overwrite the current one.
+              overwrite the current one.
             </p>
           )
         }
@@ -147,7 +151,7 @@ Ends:
           <SubmissionsTable
             submissionObjects={submissions}
             showDetails={showDetails}
-            type={challenge.track}
+            track={track}
             status={challenge.status}
             submissionPhaseStartDate={submissionPhaseStartDate}
             {...componentConfig}
@@ -182,6 +186,7 @@ SubmissionManagement.defaultProps = {
   helpPageUrl: '',
   loadingSubmissions: false,
   challengeUrl: '',
+  submissions: [],
 };
 
 SubmissionManagement.propTypes = {
@@ -192,7 +197,7 @@ SubmissionManagement.propTypes = {
   onDownload: PT.func,
   onShowDetails: PT.func,
   challenge: PT.shape().isRequired,
-  submissions: PT.arrayOf(PT.shape()).isRequired,
+  submissions: PT.arrayOf(PT.shape()),
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,
   submissionPhaseStartDate: PT.string.isRequired,

@@ -42,7 +42,11 @@ async function getTcoHistoryChallengesDone(url, competitor) {
   const res = await fetch(url)
     .then(response => response.json())
     .then(jsonResponse => ({
-      challenges: _.filter(jsonResponse, challenge => challenge.userid === competitor.userid),
+      challenges: _.filter(jsonResponse, challenge => (
+        challenge['member_profile_basic.user_id']
+          ? (challenge['member_profile_basic.user_id'] === competitor['member_profile_basic.user_id'])
+          : (challenge.userid === competitor.userid)
+      )),
     }));
   return res;
 }

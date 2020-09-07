@@ -58,25 +58,30 @@ const renderLeaderboard = MOCK_REGISTRANTS.map((winner, index) => (
   </div>
 ));
 
-// Happening now
+const track = 'Data Science';
+const type = {
+  name: 'Single Round Match',
+  abbreviation: 'SRM',
+};
+
 const HappeningNow = () => (
   <div className="SRMCard now">
     <div className="left-panel">
       <div className="SRM-track">
-        <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
-          <TrackIcon track="DATA_SCIENCE" subTrack="SRM" tcoEligible="TCO" />
+        <TrackAbbreviationTooltip track={track} type={type}>
+          <TrackIcon track={track} type={type} tcoEligible="TCO" />
         </TrackAbbreviationTooltip>
       </div>
       <div className="SRM-details">
         <p className="open-title">
-Happening now: SRM 678
+          Happening now: SRM 678
         </p>
         <div className="SRM-open-info">
           <p className="registered">
-156 registered members
+            156 registered members
           </p>
           <p className="registeration-ends">
-Registration ends in 24 min.
+            Registration ends in 24 min.
           </p>
         </div>
       </div>
@@ -88,7 +93,7 @@ Registration ends in 24 min.
     </div>
     <a href="" className="register-button">
       <span className="to-register">
-+ Register
+        + Register
       </span>
     </a>
   </div>
@@ -99,13 +104,13 @@ const UpcomingSRMs = ({ srmChallenge }) => (
   <div className="SRMCard upcoming">
     <div className="left-panel upcoming">
       <div className="SRM-track">
-        <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
-          <TrackIcon track="DATA_SCIENCE" subTrack="SRM" />
+        <TrackAbbreviationTooltip track={track} type={type}>
+          <TrackIcon track={track} type={type} />
         </TrackAbbreviationTooltip>
       </div>
       <div className="SRM-details">
         <p className="upcoming-title">
-Competitive Programming -
+          Competitive Programming -
           {srmChallenge.name}
         </p>
         <div className="SRM-date">
@@ -118,12 +123,12 @@ Competitive Programming -
         {moment(srmChallenge.startDate).format('MMM DD, YYYY hh:mm a')}
       </div>
       <a href="" className="notify-me">
-Notify me
+        Notify me
       </a>
     </div>
     <a href="" className="notify-button">
       <span className="notify-me">
-+ Notify me
+        + Notify me
       </span>
     </a>
   </div>

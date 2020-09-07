@@ -109,30 +109,31 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <label
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="track-select"
+          htmlFor="type-select"
         >
-          Subtrack
+          Type
           <input
             type="hidden"
           />
         </label>
         <Select
-          id="track-select"
+          disabled={false}
+          id="type-select"
           multi={true}
           onChange={[Function]}
           options={
             Array [
               Object {
                 "label": "sub",
-                "value": "sub",
+                "value": undefined,
               },
               Object {
                 "label": "track",
-                "value": "track",
+                "value": undefined,
               },
             ]
           }
-          placeholder="Select Subtrack"
+          placeholder="Select Type"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
@@ -201,29 +202,6 @@ exports[`Matches shallow shapshot 1`] = `
       type="button"
     >
       Clear filters
-    </ThemedButton>
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={true}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[MockFunction]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
-      theme={
-        Object {
-          "button": undefined,
-        }
-      }
-      themePriority="adhoc-context-default"
-      to={null}
-      type="button"
-    >
-      Save filter
     </ThemedButton>
   </div>
 </div>
@@ -327,19 +305,20 @@ exports[`Matches shallow shapshot 2`] = `
       >
         <label
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="track-select"
+          htmlFor="type-select"
         >
-          Subtrack
+          Type
           <input
             type="hidden"
           />
         </label>
         <Select
-          id="track-select"
+          disabled={false}
+          id="type-select"
           multi={true}
           onChange={[Function]}
           options={Array []}
-          placeholder="Select Subtrack"
+          placeholder="Select Type"
           selectRef={[Function]}
           simpleValue={true}
           value={null}
@@ -408,29 +387,6 @@ exports[`Matches shallow shapshot 2`] = `
       type="button"
     >
       Clear filters
-    </ThemedButton>
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={true}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[MockFunction]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
-      theme={
-        Object {
-          "button": undefined,
-        }
-      }
-      themePriority="adhoc-context-default"
-      to={null}
-      type="button"
-    >
-      Save filter
     </ThemedButton>
   </div>
 </div>

@@ -6,11 +6,17 @@ import TrackAbbreviationTooltip from 'components/challenge-listing/Tooltips/Trac
 
 const mockDatas = [
   {
-    subTrack: 'F2F',
-    track: 'DEVELOP',
+    track: 'Development',
+    type: {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    },
   }, {
-    subTrack: 'CODE',
-    track: 'DEVELOP',
+    track: 'Design',
+    type: {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    },
   },
 ];
 
@@ -20,7 +26,7 @@ test('Matches shallow shapshot', () => {
     renderer.render((
       <TrackAbbreviationTooltip {...data}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </TrackAbbreviationTooltip>
     ));
@@ -35,7 +41,7 @@ class Wrapper extends React.Component {
     return (
       <TrackAbbreviationTooltip {...this.props}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </TrackAbbreviationTooltip>
     );

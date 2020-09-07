@@ -15,6 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { config } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 import PT from 'prop-types';
 
@@ -29,7 +30,7 @@ export default function Submission(props) {
   const {
     submissionObject,
     showScreeningDetails,
-    type,
+    track,
     onDelete,
     onShowDetails,
     status,
@@ -40,23 +41,23 @@ export default function Submission(props) {
   return (
     <tr styleName="submission-row">
       <td styleName="id-col">
-        {submissionObject.submissionId}
+        {submissionObject.id}
       </td>
       <td>
-        {submissionObject.submissionType}
+        {submissionObject.type}
       </td>
       <td styleName="date-col">
-        {formatDate(submissionObject.submissionDate)}
+        {formatDate(submissionObject.created)}
       </td>
       {
-        type === 'DESIGN' && (
+        track === COMPETITION_TRACKS.DESIGN && (
           <td styleName="status-col">
             {submissionObject.screening
               && (
               <ScreeningStatus
                 screeningObject={submissionObject.screening}
                 onShowDetails={onShowDetails}
-                submissionId={submissionObject.submissionId}
+                submissionId={submissionObject.id}
               />
               )}
           </td>
@@ -66,8 +67,8 @@ export default function Submission(props) {
         <div>
           <a
             href={
-              type === 'DESIGN'
-                ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.submissionId}`
+              track === COMPETITION_TRACKS.DESIGN
+                ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.id}`
                 : submissionObject.download
             }
           >
@@ -80,14 +81,14 @@ export default function Submission(props) {
               downloads. Then we'll use this commented out code or
               remove it for good.
           <button
-            onClick={() => onDownload(submissionObject.submissionId)}
+            onClick={() => onDownload(submissionObject.id)}
           ><DownloadIcon /></button>
           */ }
           {status !== 'COMPLETED'
             && (
             <button
               styleName="delete-icon"
-              onClick={() => onDelete(submissionObject.submissionId)}
+              onClick={() => onDelete(submissionObject.id)}
               disabled={!allowDelete}
               type="button"
             >
@@ -97,7 +98,7 @@ export default function Submission(props) {
           }
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
-            onClick={() => onShowDetails(submissionObject.submissionId)}
+            onClick={() => onShowDetails(submissionObject.id)}
             type="button"
           >
             <ExpandIcon />
@@ -116,19 +117,18 @@ Submission.defaultProps = {
 
 Submission.propTypes = {
   submissionObject: PT.shape({
-    submissionId: PT.number,
+    id: PT.string,
     warpreviewnings: PT.string,
     screening: PT.shape({
       status: PT.string,
     }),
     submitted: PT.string,
     type: PT.string,
-    submissionType: PT.any,
-    submissionDate: PT.any,
+    created: PT.any,
     download: PT.any,
   }),
   showScreeningDetails: PT.bool,
-  type: PT.string.isRequired,
+  track: PT.string.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
   status: PT.string.isRequired,

@@ -28,6 +28,8 @@ import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
+import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -42,6 +44,7 @@ const PODIUM_ITEM_MODIFIER = {
   1: 'first',
   2: 'second',
   3: 'third',
+  4: 'fourth',
 };
 
 /**
@@ -53,11 +56,13 @@ const CUSTOM_STYLES = {
     1: avatarStyles.gold,
     2: avatarStyles.silver,
     3: avatarStyles.bronze,
+    4: avatarStyles.iron,
   },
   TCO20: {
     1: avatarStyles['tco20-1'],
     2: avatarStyles['tco20-2'],
     3: avatarStyles['tco20-3'],
+    4: avatarStyles['tco20-4'],
   },
 };
 
@@ -68,6 +73,7 @@ const DISPLAY_RANKING = {
   1: '1',
   2: '2',
   3: '3',
+  4: '4',
 };
 
 const THEME = {
@@ -94,7 +100,7 @@ export default function PodiumSpot(props) {
   } = props;
 
   const stylesName = THEME[themeName];
-  let photoUrl = competitor.avatar;
+  let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
   if (photoUrl) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
@@ -105,12 +111,16 @@ export default function PodiumSpot(props) {
   return (
     <div styleName={rootStyle}>
       <span styleName={`${stylesName}.leaderboard-avatar`}>
-        <Avatar
-          theme={{
-            avatar: CUSTOM_STYLES[themeName][competitor.rank],
-          }}
-          url={photoUrl}
-        />
+        {
+          photoUrl ? (
+            <Avatar
+              theme={{
+                avatar: CUSTOM_STYLES[themeName][competitor.rank],
+              }}
+              url={photoUrl}
+            />
+          ) : <DefaultAvatar />
+        }
         <div styleName={`${stylesName}.ranking`}>{DISPLAY_RANKING[competitor.rank]}</div>
       </span>
       {
@@ -122,11 +132,15 @@ export default function PodiumSpot(props) {
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
                 >
-                  {competitor.handle}
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
-                <a styleName={`${stylesName}.profile-link`} href={`${config.URL.BASE}/members/${competitor.handle}/`}>
-                  {competitor.handle}
+                <a
+                  styleName={`${stylesName}.profile-link`}
+                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                  target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                >
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )
             }
@@ -143,11 +157,15 @@ export default function PodiumSpot(props) {
                     styleName={`${stylesName}.handle-link`}
                     onClick={() => onUsernameClick(competitor)}
                   >
-                    {competitor.handle}
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
                   </div>
                 ) : (
-                  <a styleName={`${stylesName}.profile-link`} href={`${config.URL.BASE}/members/${competitor.handle}/`}>
-                    {competitor.handle}
+                  <a
+                    styleName={`${stylesName}.profile-link`}
+                    href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                    target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                  >
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
                   </a>
                 )
               }
@@ -158,16 +176,16 @@ export default function PodiumSpot(props) {
           isCopilot ? (
             <div styleName={`${stylesName}.stats`}>
               <span styleName={`${stylesName}.value`}>{competitor.fulfillment}</span>
-              <span>fulfillment</span>
+              <span styleName={`${stylesName}.value-title`}>fulfillment</span>
             </div>
           ) : null
         }
         <div styleName={`${stylesName}.stats`}>
-          <span styleName={`${stylesName}.value`}>{competitor.challengecount}</span>
+          <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
           <span styleName={`${stylesName}.value-title`}>challenges</span>
         </div>
         <div styleName={`${stylesName}.stats`}>
-          <span styleName={`${stylesName}.value`}>{formatPoints(competitor.points)}</span>
+          <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
           <span styleName={`${stylesName}.value-title`}>points</span>
         </div>
         {
@@ -216,7 +234,7 @@ PodiumSpot.propTypes = {
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
   isAlgo: PT.bool,
-  themeName: PT.string.isRequired,
+  themeName: PT.string,
 };
 
 PodiumSpot.defaultProps = {
@@ -224,4 +242,5 @@ PodiumSpot.defaultProps = {
   onUsernameClick: null,
   isTopGear: false,
   isAlgo: false,
+  themeName: 'Default',
 };

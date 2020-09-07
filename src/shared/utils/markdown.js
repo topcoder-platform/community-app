@@ -13,6 +13,8 @@ import { Button, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import hljs from 'highlight.js';
 import ReactHtmlParser from 'react-html-parser';
+import sub from 'markdown-it-sub';
+import sup from 'markdown-it-sup';
 import 'highlight.js/styles/github.css';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
@@ -38,6 +40,8 @@ import tco10 from 'components/buttons/outline/tco/tco10.scss';
 import tco09 from 'components/buttons/outline/tco/tco09.scss';
 import tco07 from 'components/buttons/outline/tco/tco07.scss';
 import tc from 'components/buttons/themed/tc.scss';
+
+import Highlighter from './highlighter';
 
 /**
  * Themes of legacy TCO buttons
@@ -178,15 +182,12 @@ function renderToken(tokens, index, md) {
     case 'text':
       return token.content;
     case 'fence':
-      if (token.info && hljs.getLanguage(token.info)) {
-        try {
-          return ReactHtmlParser(`<pre class="hljs"><code>${hljs.highlight(token.info, token.content, true).value}</code></pre>`);
-        } catch (__) { return _.noop(); }
-      } else {
-        try {
-          return ReactHtmlParser(`<pre class="hljs"><code>${hljs.highlightAuto(token.content).value}</code></pre>`);
-        } catch (__) { return _.noop(); }
-      }
+      return Highlighter({
+        codeString: token.content,
+        language: token.info,
+        showLineNumbers: true,
+        key: index,
+      });
     case 'code_inline':
       if (token.info && hljs.getLanguage(token.info)) {
         try {
@@ -270,10 +271,15 @@ function renderTokens(tokens, startFrom, md) {
   return output;
 }
 
-const md = new MarkdownIt({ html: true });
+const md = new MarkdownIt({ html: true, linkify: true, typographer: true });
 // Disable html_block detection to force all html tags to be evaluated inline,
 // this is required to parse each tag individually
 md.block.ruler.disable('html_block');
+
+// plugins
+md
+  .use(sub)
+  .use(sup);
 
 // Assign the custom renderer
 md.renderer.render = tokens => renderTokens(tokens, 0, md);

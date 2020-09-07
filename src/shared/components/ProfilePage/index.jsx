@@ -63,7 +63,12 @@ class ProfilePage extends React.Component {
   }
 
   getActiveTracks() {
-    const { copilot, stats } = this.props;
+    const { copilot } = this.props;
+    let { stats } = this.props;
+    if (_.isArray(stats)) {
+      // eslint-disable-next-line prefer-destructuring
+      stats = stats[0];
+    }
     const activeTracks = [];
 
     if (copilot && stats && stats.COPILOT && stats.COPILOT.fulfillment) {
@@ -80,10 +85,10 @@ class ProfilePage extends React.Component {
       const active = [];
       const subTracks = stats && stats[track] ? stats[track].subTracks || [] : [];
 
-      if (stats && stats[track].SRM) {
+      if (stats && stats[track] && stats[track].SRM) {
         subTracks.push({ ...stats[track].SRM, name: 'SRM' });
       }
-      if (stats && stats[track].MARATHON_MATCH) {
+      if (stats && stats[track] && stats[track].MARATHON_MATCH) {
         subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
       }
 
@@ -114,7 +119,6 @@ class ProfilePage extends React.Component {
       copilot,
       externalAccounts,
       externalLinks,
-      info,
       skills: propSkills,
       stats,
       lookupData,
@@ -125,6 +129,12 @@ class ProfilePage extends React.Component {
       isMobile,
       skillsExpanded,
     } = this.state;
+
+    let { info } = this.props;
+
+    if (_.isNull(_.get(info, 'maxRating.rating', 0)) && !_.isEmpty(stats)) {
+      info = _.assign(info, { maxRating: stats[0].maxRating });
+    }
 
     // get country
     let country = '';
@@ -144,7 +154,7 @@ class ProfilePage extends React.Component {
       skills = skills.slice(0, MAX_SKILLS);
     }
 
-    let externals = _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
+    let externals = externalAccounts ? _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data })) : [];
     if (externalLinks) {
       externalLinks.map(data => externals.push(({ type: 'weblink', data })));
       externals = _.filter(externals, 'data');
@@ -181,7 +191,7 @@ class ProfilePage extends React.Component {
                     country={country}
                     info={info}
                     onShowBadges={() => this.setState({ badgesModalOpen: true })}
-                    showBadgesButton={achievements.length > 0}
+                    showBadgesButton={achievements && achievements.length > 0}
                     wins={_.get(stats, 'wins', 0)}
                   />
                 </div>
@@ -193,11 +203,11 @@ class ProfilePage extends React.Component {
                 && (
                 <div styleName="empty-profile">
                   <h2>
-BEEP. BEEP. HELLO!
+                    BEEP. BEEP. HELLO!
                   </h2>
                   <Robot />
                   <p>
-Seems like this member doesn’t have much information to share yet.
+                    Seems like this member doesn’t have much information to share yet.
                   </p>
                 </div>
                 )
@@ -208,7 +218,7 @@ Seems like this member doesn’t have much information to share yet.
                 <div id="profile-skills">
                   <div styleName="skills">
                     <h3 styleName="activity">
-Skills
+                      Skills
                     </h3>
                     <div styleName="list">
                       {
@@ -235,7 +245,7 @@ Skills
                         onClick={() => this.setState({ skillsExpanded: true })}
                         theme={style}
                       >
-VIEW ALL
+                        VIEW ALL
                       </PrimaryButton>
                       )
                     }
@@ -246,7 +256,7 @@ VIEW ALL
                         onClick={() => this.setState({ skillsExpanded: false })}
                         theme={style}
                       >
-VIEW LESS
+                        VIEW LESS
                       </PrimaryButton>
                       )
                     }
@@ -266,7 +276,7 @@ VIEW LESS
                 && (
                 <div styleName="external-links-container">
                   <h3>
-On The Web
+                    On The Web
                   </h3>
                   <div styleName="external-links">
                     {
@@ -292,6 +302,8 @@ On The Web
 }
 
 ProfilePage.defaultProps = {
+  externalAccounts: null,
+  externalLinks: null,
   achievements: [],
   skills: null,
   stats: null,
@@ -300,11 +312,11 @@ ProfilePage.defaultProps = {
 ProfilePage.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   copilot: PT.bool.isRequired,
-  externalAccounts: PT.shape().isRequired,
-  externalLinks: PT.arrayOf(PT.shape()).isRequired,
+  externalAccounts: PT.shape(),
+  externalLinks: PT.arrayOf(PT.shape()),
   info: PT.shape().isRequired,
   skills: PT.shape(),
-  stats: PT.shape(),
+  stats: PT.arrayOf(PT.shape()),
   lookupData: PT.shape().isRequired,
 };
 

@@ -36,7 +36,7 @@ export default function Card({
         styleName="readMore"
         target="_blank"
       >
-Read More
+        Read More
       </a>
     </div>
   );

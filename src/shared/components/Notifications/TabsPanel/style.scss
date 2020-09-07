@@ -1,0 +1,62 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 30px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+
+  .lefts {
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+      @include roboto-bold;
+
+      color: #2a2a2a;
+      background-color: $tc-white;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 30px;
+      text-align: center;
+      height: 30px;
+      padding: 0 15px;
+      cursor: pointer;
+
+      &:not(:first-of-type) {
+        margin-left: 5px;
+      }
+    }
+
+    .active {
+      color: #fff;
+      background-color: #7f7f7f;
+      box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.25);
+      border-radius: 15px;
+    }
+  }
+
+  .rights {
+    .notification-setting {
+      color: #0d61bf;
+
+      @include roboto-bold;
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: $screen-sm + 1px) {
+  .container {
+    margin: 15px 0;
+  }
+}

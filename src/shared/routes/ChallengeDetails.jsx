@@ -5,26 +5,31 @@
  * code is necessary between these two usecases.
  */
 
+import _ from 'lodash';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
-import path from 'path';
 import React from 'react';
-import { AppChunk, webpack } from 'topcoder-react-utils';
+import qs from 'qs';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function ChallengeDetailsRoute(props) {
   return (
     <AppChunk
       chunkName="challenge-details/chunk"
-      renderClientAsync={() => import(/* webpackChunkName: "challenge-details/chunk" */ 'containers/challenge-detail')
-        .then(({ default: ChallengeDetails }) => (
-          <ChallengeDetails {...props} />
-        ))
+      renderClientAsync={renderProps => import(/* webpackChunkName: "challenge-details/chunk" */ 'containers/challenge-detail')
+        .then(({ default: ChallengeDetails }) => {
+          /* TODO: Choice of currency and prize mode should be moved to
+           * Redux actions / reducers. */
+          const query = renderProps.location.search
+            ? qs.parse(renderProps.location.search.slice(1)) : null;
+          const currencyFromUrl = _.get(query, 'currency');
+          const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
+          const newProps = { ...props, ...{ prizeMode } };
+          return (
+            <ChallengeDetails {...newProps} />
+          );
+        })
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
-      renderServer={() => {
-        const p = webpack.resolveWeak('containers/challenge-detail');
-        const ChallengeDetails = webpack.requireWeak(path.resolve(__dirname, p));
-        return <ChallengeDetails {...props} />;
-      }}
     />
   );
 }

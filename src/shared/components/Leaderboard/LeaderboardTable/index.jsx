@@ -27,6 +27,9 @@ import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
+import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
+
 
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
@@ -57,7 +60,7 @@ export default function LeaderboardTable(props) {
   const stylesName = THEME[themeName];
   const renderTableRows = comps => (
     comps.map((competitor) => {
-      let photoUrl = competitor.avatar;
+      let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
       if (photoUrl) {
         photoUrl = `${config.CDN.PUBLIC}/avatar/${
           encodeURIComponent(photoUrl)}?size=40`;
@@ -67,12 +70,16 @@ export default function LeaderboardTable(props) {
           <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
           <td styleName={`${stylesName}.col-avatar`}>
             <span styleName={`${stylesName}.leaderboard-avatar`}>
-              <Avatar
-                theme={{
-                  avatar: avatarStyles.default,
-                }}
-                url={photoUrl}
-              />
+              {
+                photoUrl ? (
+                  <Avatar
+                    theme={{
+                      avatar: avatarStyles.default,
+                    }}
+                    url={photoUrl}
+                  />
+                ) : <DefaultAvatar />
+              }
             </span>
           </td>
           <td styleName={`${stylesName}.col-handle`}>
@@ -82,18 +89,18 @@ export default function LeaderboardTable(props) {
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
                 >
-                  {competitor.handle}
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
-                <a href={`${config.URL.BASE}/members/${competitor.handle}/`}>
-                  {competitor.handle}
+                <a href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )
             }
             <div styleName={`${stylesName}.winnings-info`}>
               {competitor.fulfillment && (<span>{competitor.fulfillment} fulfillment</span>)}
-              <span>{competitor.points} points</span>
-              <span>{competitor.challengecount} challenges</span>
+              <span>{competitor['tco_leaderboard.tco_points'] || competitor.points} points</span>
+              <span>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount} challenges</span>
             </div>
           </td>
           {
@@ -101,8 +108,8 @@ export default function LeaderboardTable(props) {
               <td styleName={`${stylesName}.col-fulfillment`}>{competitor.fulfillment}</td>
             ) : null
           }
-          <td styleName={`${stylesName}.col-challenges`}>{competitor.challengecount}</td>
-          <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor.points)}</td>
+          <td styleName={`${stylesName}.col-challenges`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</td>
+          <td styleName={`${stylesName}.col-points`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</td>
           {
             isTopGear ? (
               <td styleName={`${stylesName}.col-points`}>{competitor.wins}</td>

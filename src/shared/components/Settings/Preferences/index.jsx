@@ -12,12 +12,10 @@ import Accordion from 'components/Settings/Accordion';
 import LoadingIndicator from 'components/LoadingIndicator';
 import EmailIcon from 'assets/images/preferences/email.svg';
 import Forum from 'assets/images/preferences/forum.svg';
-import Invletter from 'assets/images/preferences/invletter.svg';
 import Payment from 'assets/images/preferences/payment.svg';
-import Referral from 'assets/images/preferences/referral.svg';
 import SideBar from 'components/Settings/SideBar';
 import ErrorWrapper from 'components/Settings/ErrorWrapper';
-import Email from './Email';
+import NewsletterPreferencesContainer from 'containers/NewsletterPreferences';
 import { SCREEN_SIZE } from '../constants';
 
 import './styles.scss';
@@ -26,16 +24,12 @@ const tabs = {
   EMAIL: 'e-mail',
   FORUM: 'forum',
   PAYMENT: 'payment',
-  LETTER: 'invitation letter',
-  REFERRALS: 'referrals',
 };
 
 const icons = {
   'e-mail': <EmailIcon />,
   forum: <Forum />,
   payment: <Payment />,
-  'invitation letter': <Invletter />,
-  referrals: <Referral />,
 };
 
 export default class Preferences extends React.Component {
@@ -89,17 +83,14 @@ export default class Preferences extends React.Component {
   }
 
   renderTabContent(tab) {
+    const { profile: { email } } = this.props;
     switch (tab) {
       case 'e-mail':
-        return <Email {...this.props} />;
+        return <NewsletterPreferencesContainer email={email} />;
       case 'forum':
         return (window.location.href = `${config.URL.FORUMS}/?module=Settings`) && <LoadingIndicator />;
       case 'payment':
         return (window.location.href = `${config.URL.COMMUNITY}/tc?module=EditPaymentPreferences`) && <LoadingIndicator />;
-      case 'invitation letter':
-        return (window.location.href = `${config.URL.COMMUNITY}/tc?module=VisaSelection`) && <LoadingIndicator />;
-      case 'referrals':
-        return (window.location.href = `${config.URL.COMMUNITY}/tc?module=ViewReferrals`) && <LoadingIndicator />;
       default:
         return null;
     }
@@ -150,4 +141,5 @@ export default class Preferences extends React.Component {
 
 Preferences.propTypes = {
   clearToastrNotification: PT.func.isRequired,
+  profile: PT.shape().isRequired,
 };

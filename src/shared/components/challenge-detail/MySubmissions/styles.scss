@@ -1,0 +1,17 @@
+@import '~styles/mixins';
+
+.wrapper {
+  @include roboto-regular;
+
+  display: flex;
+  justify-content: center;
+  color: #888894;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin: 50px 20px;
+  max-width: 960px;
+  width: 100%;
+}

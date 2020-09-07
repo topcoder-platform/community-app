@@ -14,6 +14,7 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 import FilestackFilePicker from '../FilestackFilePicker';
 
@@ -46,14 +47,13 @@ class Submit extends React.Component {
       userId,
     } = this.props;
 
-    const { subType, subPhaseId } = this.getSubDetails();
+    const subType = this.getSubDetails();
 
     const formData = new FormData();
     formData.append('url', sub.fileUrl);
     formData.append('type', subType);
     formData.append('memberId', userId);
     formData.append('challengeId', challengeId);
-    formData.append('submissionPhaseId', subPhaseId);
     if (sub.fileType) {
       formData.append('fileType', sub.fileType);
     }
@@ -63,38 +63,31 @@ class Submit extends React.Component {
   // returns both submission type and phase id
   getSubDetails() {
     const {
-      currentPhases,
-      allPhases,
+      phases,
     } = this.props;
-    const statusPhases = (currentPhases && currentPhases.length > 0 ? currentPhases : allPhases);
-    const checkpoint = _.find(statusPhases, {
-      phaseType: 'Checkpoint Submission',
+    const checkpoint = _.find(phases, {
+      name: 'Checkpoint Submission',
     });
-    const submission = _.find(statusPhases, {
-      phaseType: 'Submission',
+    const submission = _.find(phases, {
+      name: 'Submission',
     });
-    const finalFix = _.find(statusPhases, {
-      phaseType: 'Final Fix',
+    const finalFix = _.find(phases, {
+      name: 'Final Fix',
     });
     let subType;
-    let subPhaseId;
 
     // Submission type logic
-    if (checkpoint && checkpoint.phaseStatus === 'Open') {
+    if (checkpoint && checkpoint.isOpen) {
       subType = 'Checkpoint Submission';
-      subPhaseId = checkpoint.id;
-    } else if (checkpoint && checkpoint.phaseStatus === 'Close' && submission && submission.phaseStatus === 'Open') {
+    } else if (checkpoint && !checkpoint.isOpen && submission && submission.isOpen) {
       subType = 'Contest Submission';
-      subPhaseId = submission.id;
-    } else if (finalFix && finalFix.phaseStatus === 'Open') {
+    } else if (finalFix && finalFix.isOpen) {
       subType = 'Studio Final Fix Submission';
-      subPhaseId = finalFix.id;
     } else {
       subType = 'Contest Submission';
-      subPhaseId = submission.id;
     }
 
-    return { subType, subPhaseId };
+    return subType;
   }
 
   reset() {
@@ -194,20 +187,20 @@ class Submit extends React.Component {
                   { isChallengeBelongToTopgearGroup ? 'URL' : 'FILES'}
                 </h2>
                 <p>
-Please follow the instructions on the Challenge Details page regarding
+                  Please follow the instructions on the Challenge Details page regarding
                   what your submission should contain and how it should be organized.
                 </p>
               </div>
               <div styleName="right">
                 <div styleName="submission-hints">
-                  { track === 'DEVELOP' ? (
+                  { track === COMPETITION_TRACKS.DEVELOP ? (
                     <div>
                       {isChallengeBelongToTopgearGroup
                         ? (<p>Enter the URL to your submission.</p>)
                         : (<p>Upload your entire submission as a single zip file.</p>)}
                     </div>
                   ) : null }
-                  { track === 'DESIGN' ? (
+                  { track === COMPETITION_TRACKS.DESIGN ? (
                     <div>
                       <ol>
                         <li>Place your submission files into a &quot;Submission.zip&quot; file.</li>
@@ -215,15 +208,15 @@ Please follow the instructions on the Challenge Details page regarding
                         <li>Create a JPG preview file.</li>
                         <li>
                           Create a declaration.txt file. Document fonts, stock art
-                           and icons used.
+                          and icons used.
                         </li>
                         <li>
                           Zip the 4 files from the previous steps
-                           into a single zip file and upload below.
+                          into a single zip file and upload below.
                         </li>
                       </ol>
                       <p>For detailed information on packaging your submission, please visit the
-                      &zwnj;
+                        &zwnj;
                         <a
                           href="https://help.topcoder.com/hc/en-us/articles/
                             219122667-Formatting-Your-Submission-for-Design-Challenges"
@@ -263,9 +256,9 @@ Please follow the instructions on the Challenge Details page regarding
                 { isChallengeBelongToTopgearGroup
                   ? (
                     <p>
-                    If you are having trouble submitting, please send
-                    your submission to
-                    &zwnj;
+                      If you are having trouble submitting, please send
+                      your submission to
+                      &zwnj;
                       <a
                         href="mailto://support@topcoder.com"
                       >
@@ -275,9 +268,9 @@ Please follow the instructions on the Challenge Details page regarding
                   )
                   : (
                     <p>
-                    If you are having trouble uploading your file, please send
-                    your submission to
-                    &zwnj;
+                      If you are having trouble uploading your file, please send
+                      your submission to
+                      &zwnj;
                       <a
                         href="mailto://support@topcoder.com"
                       >
@@ -298,7 +291,7 @@ Please follow the instructions on the Challenge Details page regarding
                 >
                   Topcoder terms of use
                 </a>
-&zwnj;
+                &zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
                 you hereby assign, grant and transfer and agree to assign, grant and
                 transfer to topcoder all right and title in and to the Winning Submission
@@ -315,7 +308,7 @@ Please follow the instructions on the Challenge Details page regarding
                   <input type="hidden" />
                 </label>
                 <div styleName="tc-checkbox-label">
-I UNDERSTAND AND AGREE
+                  I UNDERSTAND AND AGREE
                 </div>
               </div>
               <PrimaryButton
@@ -358,7 +351,7 @@ const filestackDataProp = PT.shape({
   size: PT.number.isRequired,
   key: PT.string.isRequired,
   container: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   fileUrl: PT.string.isRequired,
 });
 
@@ -366,10 +359,9 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 Submit.propTypes = {
-  currentPhases: PT.arrayOf(PT.object).isRequired,
-  allPhases: PT.arrayOf(PT.object).isRequired,
+  phases: PT.arrayOf(PT.object).isRequired,
   userId: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.shape({
@@ -380,7 +372,7 @@ Submit.propTypes = {
     loadingUuid: PT.string.isRequired,
     timestamp: PT.number.isRequired,
   }).isRequired,
-  groups: PT.shape({}).isRequired,
+  groups: PT.arrayOf(PT.shape()).isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string,
