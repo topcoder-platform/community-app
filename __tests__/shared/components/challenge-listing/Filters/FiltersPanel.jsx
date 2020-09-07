@@ -25,7 +25,7 @@ const mockDatas = [{
   setFilterState,
   setSearchText,
   validKeywords: ['key', 'word'],
-  validSubtracks: [{ name: 'sub', subTrack: 'sub' }, { name: 'track', subTrack: 'track' }],
+  validTypes: [{ name: 'sub', subTrack: 'sub' }, { name: 'track', subTrack: 'track' }],
   onClose,
 }, {
   communityFilters: [
@@ -42,7 +42,7 @@ const mockDatas = [{
   setFilterState,
   setSearchText,
   validKeywords: [],
-  validSubtracks: [],
+  validTypes: [],
   onClose,
 }];
 

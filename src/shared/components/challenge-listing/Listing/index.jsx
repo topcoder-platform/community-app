@@ -20,6 +20,8 @@ function Listing({
   activeBucket,
   auth,
   challenges,
+  challengeTypes,
+  userChallenges,
   challengesUrl,
   communityName,
   extraBucket,
@@ -43,8 +45,9 @@ function Listing({
   expandedTags,
   expandTag,
   pastSearchTimestamp,
+  isLoggedIn,
 }) {
-  const buckets = getBuckets(_.get(auth.user, 'handle'));
+  const buckets = getBuckets(userChallenges);
   const isChallengesAvailable = (bucket) => {
     const filter = Filter.getFilterFunction(buckets[bucket].filter);
     const clonedChallenges = _.clone(challenges);
@@ -89,6 +92,8 @@ function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
+            challengeTypes={challengeTypes}
+            isLoggedIn={isLoggedIn}
           />
         )
         : (
@@ -96,6 +101,7 @@ function Listing({
             bucket={buckets[bucket]}
             bucketId={bucket}
             challenges={challenges}
+            challengeTypes={challengeTypes}
             challengesUrl={challengesUrl}
             communityName={communityName}
             expand={() => selectBucket(bucket)}
@@ -114,9 +120,10 @@ function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
-            userHandle={_.get(auth, 'user.handle')}
+            userId={_.get(auth, 'user.userId')}
             activeBucket={activeBucket}
             searchTimestamp={searchTimestamp}
+            isLoggedIn={isLoggedIn}
           />
         )
     );
@@ -158,6 +165,7 @@ function Listing({
 
 Listing.defaultProps = {
   challenges: [],
+  challengeTypes: [],
   communityName: null,
   // currentFilterName: '',
   // expanded: false,
@@ -172,6 +180,7 @@ Listing.defaultProps = {
   // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
   pastSearchTimestamp: 0,
+  userChallenges: [],
 };
 
 Listing.propTypes = {
@@ -179,10 +188,11 @@ Listing.propTypes = {
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
-      handle: PT.string,
+      userId: PT.string,
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
@@ -206,6 +216,8 @@ Listing.propTypes = {
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
   pastSearchTimestamp: PT.number,
+  userChallenges: PT.arrayOf(PT.string),
+  isLoggedIn: PT.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -213,6 +225,7 @@ const mapStateToProps = (state) => {
   return {
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     pastSearchTimestamp: cl.pastSearchTimestamp,
+    challengeTypes: cl.challengeTypes,
   };
 };
 

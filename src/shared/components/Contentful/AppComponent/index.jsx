@@ -9,6 +9,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { errors } from 'topcoder-react-lib';
 import Leaderboard from 'containers/tco/Leaderboard';
+import RecruitCRMJobs from 'containers/Gigs/RecruitCRMJobs';
 
 const { fireErrorMessage } = errors;
 
@@ -29,6 +30,9 @@ export function AppComponentSwitch(appComponent) {
         themeName={appComponent.fields.theme}
       />
     );
+  }
+  if (appComponent.fields.type === 'RecruitCRM-Jobs') {
+    return <RecruitCRMJobs {...appComponent.fields.props} />;
   }
   fireErrorMessage('Unsupported app component type from contentful', '');
   return null;

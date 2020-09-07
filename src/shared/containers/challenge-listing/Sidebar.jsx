@@ -13,6 +13,7 @@ import Sidebar from 'components/challenge-listing/Sidebar';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import { updateChallengeType } from 'utils/challenge';
 
 export const SidebarPureComponent = Sidebar;
 
@@ -58,10 +59,10 @@ export class SidebarContainer extends React.Component {
       tokenV2,
       updateAllSavedFilters,
       updateSavedFilter,
-      user,
+      userChallenges,
     } = this.props;
 
-    const buckets = getBuckets(user && user.handle);
+    const buckets = getBuckets(userChallenges);
 
     if (extraBucket) {
       buckets[extraBucket.name] = extraBucket;
@@ -114,6 +115,7 @@ SidebarContainer.defaultProps = {
   selectedCommunityId: '',
   tokenV2: null,
   user: null,
+  userChallenges: [],
 };
 
 SidebarContainer.propTypes = {
@@ -134,6 +136,7 @@ SidebarContainer.propTypes = {
   updateAllSavedFilters: PT.func.isRequired,
   updateSavedFilter: PT.func.isRequired,
   user: PT.shape(),
+  userChallenges: PT.arrayOf(PT.string),
 };
 
 function mapDispatchToProps(dispatch) {
@@ -151,6 +154,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state, ownProps) {
   const { activeBucket } = state.challengeListing.sidebar;
   const pending = _.keys(state.challengeListing.pendingRequests);
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
+  );
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
@@ -163,6 +169,7 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,
+    userChallenges: state.challengeListing.userChallenges,
   };
 }
 

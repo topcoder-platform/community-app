@@ -15,7 +15,6 @@ function getId(submissions, placement) {
 export default function Winner({
   isDesign,
   last,
-  pointPrizes,
   prizes,
   submissions,
   viewable,
@@ -32,12 +31,9 @@ export default function Winner({
       encodeURIComponent(avatarUrl)}?size=65`;
   }
 
-  const pair = [];
-  const prizeIndex = winner.placement - 1;
-  if (prizes[prizeIndex]) pair.push(prizes[prizeIndex].toLocaleString());
-  if (pointPrizes[prizeIndex]) pair.push(`${pointPrizes[prizeIndex]}pts`);
-
-  const prize = pair.join(' + ') || 'N/A';
+  let prize = 'N/A';
+  const prizeIndex = parseInt(winner.placement, 10) - 1;
+  if (prizes[prizeIndex]) prize = prizes[prizeIndex].value;
 
   return (
     <div styleName={`winner ${placeStyle}`}>
@@ -125,14 +121,12 @@ export default function Winner({
 }
 
 Winner.defaultProps = {
-  pointPrizes: [],
   prizes: [],
 };
 
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
   last: PT.bool.isRequired,
-  pointPrizes: PT.arrayOf(PT.number),
   prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,

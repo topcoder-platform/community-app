@@ -22,19 +22,19 @@ const { formatDuration } = time;
  * @return {Object} The rendered React element
  */
 const renderPhase = phase => (
-  <div key={`phase-${phase.type}`} styleName={moment().isBetween(phase.scheduledStartTime, phase.scheduledEndTime) ? 'active-phase' : 'inactive-phase'}>
+  <div key={`phase-${phase.type}`} styleName={moment().isBetween(phase.scheduledStartDate, phase.scheduledEndDate) ? 'active-phase' : 'inactive-phase'}>
     <div styleName="type">
       {phase.type}
     </div>
     <div styleName="date">
       <strong>
-        {moment(phase.scheduledStartTime).format('MMM DD')}
+        {moment(phase.scheduledStartDate).format('MMM DD')}
       </strong>
       ,
-      {moment(phase.scheduledStartTime).format('hh:mma')}
+      {moment(phase.scheduledStartDate).format('hh:mma')}
     </div>
     <div styleName="duration">
-      {formatDuration(moment(phase.scheduledEndTime) - moment(phase.scheduledStartTime))}
+      {formatDuration(moment(phase.scheduledEndDate) - moment(phase.scheduledStartDate))}
     </div>
   </div>
 );

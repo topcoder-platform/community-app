@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 
 import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
@@ -15,15 +16,12 @@ import styles from './styles.scss';
 
 export default function SideBar({
   challengesUrl,
+  legacyId,
   documents,
   eventDetail,
-  reviewScorecardId,
-  screeningScorecardId,
   shareable,
   forumLink,
-  submissionLimit,
   hasRegistered,
-  fileTypes,
   reviewType,
   isDesign,
   terms,
@@ -31,14 +29,22 @@ export default function SideBar({
   environment,
   codeRepo,
   isMM,
+  metadata,
+  reviewScorecardId,
+  screeningScorecardId,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
-  if (submissionLimit === 1) {
-    submissionLimitDisplay = '1 submission';
-  } else if (submissionLimit > 1) {
-    submissionLimitDisplay = `${submissionLimit} submissions`;
+  const submissionLimit = _.find(metadata, { name: 'submissionLimit' });
+  const fileTypes = _.find(metadata, { name: 'fileTypes' });
+
+  if (submissionLimit) {
+    if (submissionLimit.value === 1) {
+      submissionLimitDisplay = '1 submission';
+    } else if (submissionLimit.value > 1) {
+      submissionLimitDisplay = `${submissionLimit.value} submissions`;
+    }
   }
 
   const reviewTypeTitle = reviewType === 'PEER' ? 'Peer Review' : 'Community Review Board';
@@ -121,7 +127,7 @@ export default function SideBar({
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="review-tip">
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="review-tip">
                   ?
                 </div>
               </Tooltip>
@@ -132,7 +138,7 @@ export default function SideBar({
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip id="approval-tip" content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="approval-tip">
+                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="approval-tip">
                   ?
                 </div>
               </Tooltip>
@@ -179,16 +185,16 @@ export default function SideBar({
             {
               reviewScorecardId > 0 && !isDesign
               && (
-              <p styleName="link-like-paragraph tooltip-container">
+              <span styleName="link-like-paragraph tooltip-container">
                 <a href={`${scorecardURL}${reviewScorecardId}`}>
                   Review Scorecard
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedBy="reviewscorecard-tip">
+                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="reviewscorecard-tip">
                     ?
                   </div>
                 </Tooltip>
-              </p>
+              </span>
               )
             }
           </div>
@@ -267,17 +273,22 @@ export default function SideBar({
             <h2>
               SOURCE FILES:
             </h2>
-            <ul styleName="source-files-list">
-              {
-                fileTypes && fileTypes.length > 0
-                  ? fileTypes.map(fileT => (
-                    <li key={fileT}>
-                      {fileT}
-                    </li>
-                  ))
-                  : undefined
-              }
-            </ul>
+            {
+              fileTypes
+              && (
+                <ul styleName="source-files-list">
+                  {
+                    fileTypes.value && fileTypes.value.length > 0
+                      ? JSON.parse(fileTypes.value).map(fileT => (
+                        <li key={fileT}>
+                          {fileT}
+                        </li>
+                      ))
+                      : undefined
+                  }
+                </ul>
+              )
+            }
             <p styleName="link-like-paragraph">
               You must include all source files with your submission.
             </p>
@@ -307,9 +318,9 @@ export default function SideBar({
             <div styleName="link-like-paragraph">
               {
                 terms.map(t => (
-                  <div styleName="term" key={t.termsOfUseId}>
+                  <div styleName="term" key={t.id}>
                     <Link
-                      to={`${challengesUrl}/terms/detail/${t.termsOfUseId}`}
+                      to={`${challengesUrl}/terms/detail/${t.id}`}
                     >
                       {t.title}
                     </Link>
@@ -328,6 +339,11 @@ export default function SideBar({
             <ShareSocial />
           </div>
         )}
+        { legacyId && (
+          <div styleName="legacy-challenge-id">
+            <h3>ID: {legacyId}</h3>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -336,10 +352,6 @@ export default function SideBar({
 SideBar.defaultProps = {
   eventDetail: null,
   documents: undefined,
-  screeningScorecardId: 0,
-  reviewScorecardId: 0,
-  submissionLimit: 0,
-  fileTypes: [],
   hasRegistered: false,
   reviewType: 'COMMUNITY',
   isDesign: false,
@@ -348,21 +360,22 @@ SideBar.defaultProps = {
   environment: '',
   codeRepo: '',
   isMM: false,
+  metadata: {},
+  reviewScorecardId: '',
+  screeningScorecardId: '',
+  legacyId: '',
 };
 
 SideBar.propTypes = {
   challengesUrl: PT.string.isRequired,
+  legacyId: PT.string,
   eventDetail: PT.shape({
     eventName: PT.string.isRequired,
     description: PT.string.isRequired,
   }),
   documents: PT.arrayOf(PT.shape()),
-  screeningScorecardId: PT.number,
   shareable: PT.bool.isRequired,
-  reviewScorecardId: PT.number,
   forumLink: PT.string.isRequired,
-  submissionLimit: PT.number,
-  fileTypes: PT.arrayOf(PT.string),
   hasRegistered: PT.bool,
   reviewType: PT.string,
   isDesign: PT.bool,
@@ -371,4 +384,7 @@ SideBar.propTypes = {
   environment: PT.string,
   codeRepo: PT.string,
   isMM: PT.bool,
+  metadata: PT.shape(),
+  reviewScorecardId: PT.string,
+  screeningScorecardId: PT.string,
 };

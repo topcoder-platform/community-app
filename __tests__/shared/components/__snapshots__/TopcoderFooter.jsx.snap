@@ -54,7 +54,7 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://arena.topcoder.com/"
+              href="https://www.topcoder-dev.com/community/arena"
             >
               Competitive Programming
             </a>
@@ -63,9 +63,18 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://www.topcoder-dev.com/community/taas"
+              href="https://www.topcoder-dev.com/gigs"
             >
               Gig Work
+            </a>
+          </li>
+          <li
+            className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+          >
+            <a
+              href="https://www.topcoder-dev.com/community/practice"
+            >
+              Practice
             </a>
           </li>
         </ul>
@@ -149,18 +158,27 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://www.topcoder-dev.com/community/member-programs/topcoder-open"
+              href="https://www.topcoder-dev.com/blog"
             >
-              TCO
+              Blog
             </a>
           </li>
           <li
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://www.topcoder-dev.com/community/member-programs"
+              href="https://www.topcoder-dev.com/community/pipeline"
             >
-              Programs
+              Challenge Pipeline
+            </a>
+          </li>
+          <li
+            className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+          >
+            <a
+              href="https://www.topcoder-dev.com/community/events"
+            >
+              Events Calendar
             </a>
           </li>
           <li
@@ -176,6 +194,15 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
+              href="https://www.topcoder-dev.com/community/member-programs"
+            >
+              Programs
+            </a>
+          </li>
+          <li
+            className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+          >
+            <a
               href="https://www.topcoder-dev.com/community/statistics"
             >
               Statistics
@@ -185,9 +212,9 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://www.topcoder-dev.com/blog"
+              href="https://www.topcoder-dev.com/community/member-programs/topcoder-open"
             >
-              Blog
+              TCO
             </a>
           </li>
           <li
@@ -319,15 +346,6 @@ exports[`Matches shallow shapshot 1`] = `
               href="https://www.topcoder-dev.com/contact-us/"
             >
               Talk to Sales
-            </a>
-          </li>
-          <li
-            className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-          >
-            <a
-              href="https://www.topcoder-dev.com/community/terms"
-            >
-              Terms
             </a>
           </li>
         </ul>
@@ -586,7 +604,7 @@ exports[`Matches shallow shapshot 1`] = `
         © 2020 Topcoder
         <a
           className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-          href="https://www.topcoder.com/privacy-policy/"
+          href="https://www.topcoder-dev.com/policy"
         >
           Policies
         </a>
