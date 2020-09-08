@@ -230,7 +230,8 @@ workflows:
           filters:
             branches:
               only:
-                - milestone-20200910
+                - develop
+                - oanh-kiril-tasks
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -252,6 +253,7 @@ workflows:
           filters:
             branches:
               only:
+                - integration-v5-challenge-api
                 - hot-fix
       # This is stage env for production QA releases
       - "build-prod-staging":
