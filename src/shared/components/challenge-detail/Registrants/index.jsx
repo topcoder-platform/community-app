@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import cn from 'classnames';
+import { getRatingLevel } from 'utils/tc';
 
 import sortList from 'utils/challenge-detail/sort';
 import CheckMark from '../icons/check-mark.svg';
@@ -16,23 +17,23 @@ import './style.scss';
 
 function formatDate(date) {
   if (!date) return '-';
-  return moment(date).format('MMM DD, YYYY HH:mm');
+  return moment(date).local().format('MMM DD, YYYY HH:mm');
 }
 
 function getDate(arr, handle) {
-  const results = arr.filter(a => _.toString(a.submitter || a.handle) === _.toString(handle))
+  const results = arr.filter(a => _.toString(a.createdBy || a.memberHandle) === _.toString(handle))
     .sort((a, b) => new Date(b.submissionTime || b.submissionDate).getTime()
       - new Date(a.submissionTime || a.submissionDate).getTime());
   return results[0] ? (results[0].submissionTime || results[0].submissionDate) : '';
 }
 
 function passedCheckpoint(checkpoints, handle, results) {
-  const mine = checkpoints.filter(c => _.toString(c.submitter) === _.toString(handle));
+  const mine = checkpoints.filter(c => _.toString(c.createdBy) === _.toString(handle));
   return _.some(mine, m => _.find(results, r => r.submissionId === m.submissionId));
 }
 
 function getPlace(results, handle, places) {
-  const found = _.find(results, w => _.toString(w.handle) === _.toString(handle)
+  const found = _.find(results, w => _.toString(w.memberHandle) === _.toString(handle)
     && w.placement <= places && w.submissionStatus !== 'Failed Review');
 
   if (found) {
@@ -78,9 +79,9 @@ export default class Registrants extends React.Component {
     const {
       challenge,
     } = this.props;
-    const checkpointPhase = challenge.allPhases.find(x => x.phaseType === 'Checkpoint Submission');
+    const checkpointPhase = (challenge.phases || []).find(x => x.name === 'Checkpoint Submission');
     return moment(checkpointPhase
-      ? checkpointPhase.actualEndTime || checkpointPhase.scheduledEndTime : 0);
+      ? checkpointPhase.actualEndDate || checkpointPhase.scheduledEndDate : 0);
   }
 
   /**
@@ -99,7 +100,7 @@ export default class Registrants extends React.Component {
 
     let checkpoint;
     if (twoRounds) {
-      checkpoint = getDate(checkpoints, registrant.handle);
+      checkpoint = getDate(checkpoints, registrant.memberHandle);
       if (!checkpoint
       && moment(registrant.submissionDate).isBefore(checkpointDate)) {
         checkpoint = registrant.submissionDate;
@@ -188,14 +189,14 @@ export default class Registrants extends React.Component {
           break;
         }
         case 'Username': {
-          valueA = `${a.handle}`.toLowerCase();
-          valueB = `${b.handle}`.toLowerCase();
+          valueA = `${a.memberHandle}`.toLowerCase();
+          valueB = `${b.memberHandle}`.toLowerCase();
           valueIsString = true;
           break;
         }
         case 'Registration Date': {
-          valueA = new Date(a.registrationDate);
-          valueB = new Date(b.registrationDate);
+          valueA = new Date(a.created);
+          valueB = new Date(b.created);
           break;
         }
         case 'Round 1 Submitted Date': {
@@ -239,14 +240,17 @@ export default class Registrants extends React.Component {
       onSortChange,
     } = this.props;
     const {
-      prizes,
+      prizeSets,
+      track,
     } = challenge;
+
     const { sortedRegistrants } = this.state;
     const { field, sort } = this.getRegistrantsSortParam();
     const revertSort = (sort === 'desc') ? 'asc' : 'desc';
-    const isDesign = challenge.track.toLowerCase() === 'design';
-    const isF2F = challenge.subTrack.indexOf('FIRST_2_FINISH') > -1;
-    const isBugHunt = challenge.subTrack.indexOf('BUG_HUNT') > -1;
+    const isDesign = track.toLowerCase() === 'design';
+
+    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    const { prizes } = placementPrizes || [];
 
     const checkpoints = challenge.checkpoints || [];
 
@@ -257,7 +261,7 @@ export default class Registrants extends React.Component {
       <div styleName={`container ${twoRounds ? 'design' : ''}`} role="table" aria-label="Registrants">
         <div styleName="head" role="row">
           {
-            !isDesign && !isF2F && !isBugHunt && (
+            !isDesign && (
               <button
                 type="button"
                 onClick={() => {
@@ -377,30 +381,27 @@ export default class Registrants extends React.Component {
         <div styleName="body" role="rowgroup">
           {
             sortedRegistrants.map((r) => {
-              const placement = getPlace(results, r.handle, places);
-              const colorStyle = JSON.parse(r.colorStyle.replace(/(\w+):\s*([^;]*)/g, '{"$1": "$2"}'));
+              const placement = getPlace(results, r.memberHandle, places);
               let checkpoint = this.getCheckPoint(r);
               if (checkpoint) {
                 checkpoint = formatDate(checkpoint);
               }
-              let final = this.getFinal(r);
-              if (final) {
-                final = formatDate(final);
-              } else {
-                final = '-';
-              }
+              const final = this.getFinal(r);
 
               return (
-                <div styleName="row" key={r.handle} role="row">
+                <div styleName="row" key={r.memberHandle} role="row">
                   {
-                    !isDesign && !isF2F && !isBugHunt && (
+                    !isDesign && (
                       <div styleName="col-2">
                         <div styleName="sm-only title">
                           Rating
                         </div>
                         <div>
-                          <span style={colorStyle} role="cell">
-                            { !_.isNil(r.rating) ? r.rating : '-'}
+                          <span
+                            styleName={`level-${getRatingLevel(_.get(r, 'rating', 0))}`}
+                            role="cell"
+                          >
+                            { (!_.isNil(r.rating) && r.rating !== 0) ? r.rating : '-'}
                           </span>
                         </div>
                       </div>
@@ -409,11 +410,11 @@ export default class Registrants extends React.Component {
                   <div styleName="col-3">
                     <span role="cell">
                       <a
-                        href={`${window.origin}/members/${r.handle}`}
-                        style={colorStyle}
+                        href={`${window.origin}/members/${r.memberHandle}`}
+                        styleName={isDesign ? '' : `level-${getRatingLevel(_.get(r, 'rating', 0))}`}
                         target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                       >
-                        {r.handle}
+                        {r.memberHandle}
                       </a>
                     </span>
                   </div>
@@ -421,7 +422,7 @@ export default class Registrants extends React.Component {
                     <div styleName="sm-only title">
                       Registration Date
                     </div>
-                    <span role="cell">{formatDate(r.registrationDate)}</span>
+                    <span role="cell">{formatDate(r.created)}</span>
                   </div>
                   {
                     twoRounds
@@ -435,7 +436,7 @@ export default class Registrants extends React.Component {
                           {checkpoint}
                         </span>
                         {
-                          passedCheckpoint(checkpoints, r.handle, checkpointResults)
+                          passedCheckpoint(checkpoints, r.memberHandle, checkpointResults)
                           && <CheckMark styleName="passed" />
                         }
                       </div>
@@ -449,7 +450,7 @@ export default class Registrants extends React.Component {
                     </div>
                     <div>
                       <span role="cell">
-                        {final}
+                        {formatDate(final)}
                       </span>
                       {placement > 0 && (
                       <span role="cell" styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>
@@ -478,18 +479,19 @@ Registrants.defaultProps = {
 
 Registrants.propTypes = {
   challenge: PT.shape({
-    allPhases: PT.arrayOf(PT.shape({
-      actualEndTime: PT.string,
-      phaseType: PT.string.isRequired,
-      scheduledEndTime: PT.string,
+    phases: PT.arrayOf(PT.shape({
+      actualEndDate: PT.string,
+      name: PT.string.isRequired,
+      scheduledEndDate: PT.string,
     })).isRequired,
     checkpoints: PT.arrayOf(PT.shape()),
-    track: PT.any,
     subTrack: PT.any,
-    prizes: PT.arrayOf(PT.number).isRequired,
+    prizeSets: PT.arrayOf(PT.shape()).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
     round2Introduction: PT.string,
+    type: PT.string,
+    track: PT.string,
   }).isRequired,
   results: PT.arrayOf(PT.shape()),
   checkpointResults: PT.shape(),

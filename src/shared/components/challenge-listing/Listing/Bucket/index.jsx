@@ -26,6 +26,7 @@ export default function Bucket({
   bucket,
   bucketId,
   challenges,
+  challengeTypes,
   challengesUrl,
   expanded,
   expand,
@@ -41,11 +42,12 @@ export default function Bucket({
   setFilterState,
   setSort,
   sort,
-  userHandle,
+  userId,
   expandedTags,
   expandTag,
   activeBucket,
   searchTimestamp,
+  isLoggedIn,
 }) {
   const refs = useRef([]);
   refs.current = [];
@@ -97,20 +99,22 @@ export default function Bucket({
     );
   }
 
-  const cards = filteredChallenges.map(item => (
+  const cards = filteredChallenges.map(challenge => (
     <ChallengeCard
-      challenge={item}
+      challenge={challenge}
+      challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
-      key={item.id}
+      key={challenge.id}
       selectChallengeDetailsTab={selectChallengeDetailsTab}
-      userHandle={userHandle}
+      userId={userId}
       expandedTags={expandedTags}
       expandTag={expandTag}
       domRef={addToRefs}
+      isLoggedIn={isLoggedIn}
     />
   ));
 
@@ -178,13 +182,14 @@ export default function Bucket({
 Bucket.defaultProps = {
   expanded: false,
   expand: _.noop,
+  challengeTypes: [],
   keepPlaceholders: false,
   loading: false,
   loadMore: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
   sort: null,
-  userHandle: '',
+  userId: '',
   expandedTags: [],
   expandTag: null,
   activeBucket: '',
@@ -197,6 +202,7 @@ Bucket.propTypes = {
   expanded: PT.bool,
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   keepPlaceholders: PT.bool,
@@ -210,9 +216,10 @@ Bucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
-  userHandle: PT.string,
+  userId: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   activeBucket: PT.string,
   searchTimestamp: PT.number,
+  isLoggedIn: PT.bool.isRequired,
 };

@@ -143,6 +143,7 @@ export default createActions({
 
       /* Pass in the bucket type. */
       SELECT_BUCKET: _.identity,
+      SELECT_BUCKET_DONE: _.noop,
 
       /* Pass in the index of filter inside savedFilters array. */
       SELECT_SAVED_FILTER: _.identity,

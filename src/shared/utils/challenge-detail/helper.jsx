@@ -9,9 +9,9 @@ import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
 import Prize from 'components/challenge-listing/ChallengeCard/Prize';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import { phaseEndDate } from 'utils/challenge-listing/helper';
 
 const Filter = challengeUtils.filter;
-
 
 // Constants
 export const PRIZE_MODE = {
@@ -22,15 +22,28 @@ export const PRIZE_MODE = {
 };
 
 /**
+ * Get challenge type abbreviation
+ * @param {Object} challenge challenge info
+ */
+export function getChallengeTypeAbbr(track, challengeTypes) {
+  const type = _.find(challengeTypes, { name: track });
+  if (type) {
+    return type.abbreviation;
+  }
+  return null;
+}
+
+/**
  * Get end date
  * @param {Object} challenge challenge info
  */
 export function getEndDate(challenge) {
-  let phases = challenge.allPhases;
-  if (challenge.subTrack === 'FIRST_2_FINISH' && challenge.status === 'COMPLETED') {
-    phases = challenge.allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+  const { type } = challenge;
+  let phases = challenge.phases || [];
+  if (type === 'First2Finish' && challenge.status === 'Completed') {
+    phases = challenge.phases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
   }
-  const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
+  const endPhaseDate = Math.max(...phases.map(d => phaseEndDate(d)));
   return moment(endPhaseDate).format('MMM DD');
 }
 
@@ -53,7 +66,7 @@ export function getTimeLeft(
     return { late: false, text: FF_TIME_LEFT_MSG };
   }
 
-  let time = moment(phase.scheduledEndTime).diff();
+  let time = moment(phaseEndDate(phase)).diff();
   const late = time < 0;
   if (late) time = -time;
 
@@ -137,13 +150,14 @@ export function getPrizePurseUI(
  * @param {Object} challenge challenge info
  */
 export function getPrizePointsUI(challenge) {
-  if (challenge.pointPrizes && challenge.pointPrizes.length > 0) {
+  if (challenge.prizeSets && challenge.prizeSets.length > 0 && challenge.prizeSets[0].prizes) {
+    const { prizes } = challenge.prizeSets[0];
     return (
       <Prize
-        label="Points"
-        prizes={challenge.pointPrizes}
-        prizeUnitSymbol=""
-        totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
+        label="Purse"
+        prizes={prizes}
+        prizeUnitSymbol="$"
+        totalPrize={prizes.reduce((acc, prize) => acc + prize.value, 0)}
       />
     );
   }
@@ -151,17 +165,17 @@ export function getPrizePointsUI(challenge) {
 }
 
 /**
- * Get recommended technologies for challenge
+ * Get recommended tags for challenge
  * @param {Object} challenge challenge info
  */
-export function getRecommendedTechnology(challenge) {
-  let recommendedTechnology = '';
-  _.forEach(challenge.technologies, (technology) => {
-    if (!recommendedTechnology && technology.toLowerCase() !== 'other') {
-      recommendedTechnology = technology;
+export function getRecommendedTags(challenge) {
+  let recommendedTag = '';
+  _.forEach(challenge.tags, (tag) => {
+    if (!recommendedTag && tag.toLowerCase() !== 'other') {
+      recommendedTag = tag;
     }
   });
-  return recommendedTechnology;
+  return recommendedTag;
 }
 
 /**
@@ -185,17 +199,17 @@ export function getDisplayRecommendedChallenges(
     return array.slice(0, n);
   };
 
-  const recommendedTechnology = getRecommendedTechnology(challenge);
-  const displayRecommendedChallenges = recommendedChallenges[recommendedTechnology]
-    ? recommendedChallenges[recommendedTechnology].challenges : [];
+  const recommendedTag = getRecommendedTags(challenge);
+  const displayRecommendedChallenges = recommendedChallenges[recommendedTag]
+    ? recommendedChallenges[recommendedTag].challenges : [];
   const filterParams = getBuckets(null)[BUCKETS.OPEN_FOR_REGISTRATION].filter;
-  const userHandle = _.get(auth.user, 'handle');
+  const userId = _.get(auth.user, 'userId');
   const filter = Filter.getFilterFunction(filterParams);
 
   let results = _.filter(displayRecommendedChallenges, (c) => {
     let isValid = filter(c);
-    if (isValid && userHandle) {
-      isValid = !c.users[userHandle] && c.id !== challenge.id;
+    if (isValid && userId) {
+      isValid = c.id !== challenge.id && !c.users[userId];
     }
     return isValid;
   });

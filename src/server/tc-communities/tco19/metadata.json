@@ -1,9 +1,6 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000078"],
-    "or": [{
-      "tags": ["TCO", "TCO19"]
-    }]
+    "events": ["tco19"]
   },
   "communityId": "tco19",
   "communityName": "TCO19",

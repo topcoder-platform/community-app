@@ -45,7 +45,7 @@ export default function TopcoderFooter() {
             <ul styleName="navi-col-links">
               <Link to={`${base}/challenges`}>All Challenges</Link>
               <Link to={`${base}/community/arena`}>Competitive Programming</Link>
-              <Link to={`${base}/community/taas`}>Gig Work</Link>
+              <Link to={`${base}/gigs`}>Gig Work</Link>
               <Link to={`${base}/community/practice`}>Practice</Link>
             </ul>
           </div>

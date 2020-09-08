@@ -129,7 +129,18 @@ function onSelectBucket(state, { payload }) {
       updateQuery({ bucket: payload });
       break;
   }
-  return { ...state, activeBucket: payload };
+  return {
+    ...state,
+    activeBucket: payload,
+    isBucketSwitching: true,
+  };
+}
+
+function onSelectBucketDone(state) {
+  return {
+    ...state,
+    isBucketSwitching: false,
+  };
 }
 
 function onSelectSavedFilter(state, { payload }) {
@@ -181,6 +192,7 @@ function create(initialState = {}) {
       isSavingFilter: true,
     }),
     [a.selectBucket]: onSelectBucket,
+    [a.selectBucketDone]: onSelectBucketDone,
     [a.selectSavedFilter]: onSelectSavedFilter,
     [a.setEditSavedFiltersMode]: (state, { payload }) => ({
       ...state,
