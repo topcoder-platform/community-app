@@ -134,7 +134,7 @@
     "showdown": "^1.8.6",
     "slick-carousel": "^1.8.1",
     "supertest": "^3.1.0",
-    "tc-accounts": "git+https://github.com/appirio-tech/accounts-app.git#dev",
+    "tc-auth-lib": "git+https://github.com/topcoder-platform/tc-auth-lib.git#master",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3",
     "tc-ui": "^1.0.12",
     "topcoder-react-lib": "1.0.3",

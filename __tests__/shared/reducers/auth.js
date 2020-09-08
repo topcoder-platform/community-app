@@ -24,7 +24,7 @@ const mockActions = {
 
 _.merge(actions, mockActions);
 
-jest.setMock('tc-accounts', {
+jest.setMock('tc-auth-lib', {
   decodeToken: () => 'User object',
   isTokenExpired: () => false,
 });

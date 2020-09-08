@@ -5,7 +5,7 @@
 
 import _ from 'lodash';
 import moment from 'moment-timezone';
-import { isTokenExpired } from 'tc-accounts';
+import { isTokenExpired } from 'tc-auth-lib';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import { tc } from 'topcoder-react-lib';

@@ -7,7 +7,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { goToLogin } from 'utils/tc';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { isTokenExpired } from 'tc-accounts';
+import { isTokenExpired } from 'tc-auth-lib';
 
 import SubmissionsList from './SubmissionsList';
 import SubmissionsDetail from './SubmissionsDetail';

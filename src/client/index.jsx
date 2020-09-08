@@ -11,7 +11,7 @@ import {
   configureConnector,
   decodeToken,
   getFreshToken,
-} from 'tc-accounts';
+} from 'tc-auth-lib';
 import { actions, logger, errors } from 'topcoder-react-lib';
 import { client, redux } from 'topcoder-react-utils';
 

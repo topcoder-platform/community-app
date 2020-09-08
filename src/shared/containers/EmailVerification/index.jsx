@@ -8,7 +8,7 @@ import PT from 'prop-types';
 import {connect} from "react-redux";
 import { actions } from "topcoder-react-lib";
 import { Redirect } from 'react-router';
-import {isTokenExpired} from "tc-accounts";
+import {isTokenExpired} from "tc-auth-lib";
 import * as queryString from 'query-string';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Error404 from 'components/Error404';

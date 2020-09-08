@@ -25,7 +25,7 @@ import { updateChallengeType } from 'utils/challenge';
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 
-import { isTokenExpired, decodeToken } from 'tc-accounts';
+import { isTokenExpired, decodeToken } from 'tc-auth-lib';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
