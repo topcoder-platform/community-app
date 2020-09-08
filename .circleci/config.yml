@@ -231,7 +231,6 @@ workflows:
             branches:
               only:
                 - develop
-                - oanh-kiril-tasks
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -261,6 +260,7 @@ workflows:
           filters:
             branches:
               only:
+                - milestone-v1.3
                 - milestone-20200910
                 - develop
       # Production builds are exectuted 
