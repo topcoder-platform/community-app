@@ -27,7 +27,7 @@ const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
 const EDU_TAXONOMY_ID = '15caxocitaxyK65K9oSd91';
 // The keys for subcategory lists/references
 // If need to add new track add its fieldID here to be autopickuped
-const EDU_TRACK_KEYS = ['dataScience', 'competitiveProgramming', 'design', 'development', 'qualityAssurance', 'topcoder'];
+const EDU_TRACK_KEYS = ['dataScience', 'competitiveProgramming', 'design', 'development', 'qualityAssurance', 'topcoder', 'gigWork'];
 
 const EDU_ARTICLE_TYPES = ['Article', 'Video', 'Forum post'];
 

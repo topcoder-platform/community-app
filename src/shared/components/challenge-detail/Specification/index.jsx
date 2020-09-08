@@ -45,7 +45,6 @@ export default function ChallengeDetailsView(props) {
     legacy,
     legacyId,
     documents,
-    finalSubmissionGuidelines,
     userDetails,
     metadata,
     events,
@@ -85,7 +84,7 @@ export default function ChallengeDetailsView(props) {
   let isWipro = false;
   const wiproCommunity = communitiesList.find(x => x.communityId === 'wipro');
   if (wiproCommunity && groups) {
-    isWipro = wiproCommunity.groupIds.some(id => groups[id]);
+    isWipro = wiproCommunity.groupIds.some(id => groups.includes(id));
   }
 
   let accentedStyle = '';
@@ -190,35 +189,6 @@ export default function ChallengeDetailsView(props) {
                             <SpecificationComponent
                               bodyText={description}
                               format={descriptionFormat}
-                            />
-                          )
-                        }
-                      </article>
-                      )
-                    }
-                    {
-                      finalSubmissionGuidelines
-                      && (
-                      <article>
-                        <h2>
-                          Final Submission Guidelines
-                        </h2>
-                        {
-                          editMode ? (
-                            <Editor
-                              connector={toolbarConnector}
-                              id="submissionGuidelines"
-                              initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(finalSubmissionGuidelines)}
-                            />
-                          ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: finalSubmissionGuidelines,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
                             />
                           )
                         }
@@ -408,7 +378,6 @@ ChallengeDetailsView.defaultProps = {
     track: 'design',
     reviewType: undefined,
     numberOfCheckpointsPrizes: 0,
-    finalSubmissionGuidelines: '',
     environment: '',
     descriptionFormat: 'HTML',
     codeRepo: '',
@@ -438,7 +407,6 @@ ChallengeDetailsView.propTypes = {
     groups: PT.any,
     reviewType: PT.string,
     numberOfCheckpointsPrizes: PT.number,
-    finalSubmissionGuidelines: PT.string,
     environment: PT.string,
     codeRepo: PT.string,
     userDetails: PT.shape({

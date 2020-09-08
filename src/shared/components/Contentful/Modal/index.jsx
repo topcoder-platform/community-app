@@ -14,6 +14,7 @@ import { errors } from 'topcoder-react-lib';
 import { themr } from 'react-css-super-themr';
 import classnames from 'classnames';
 
+import defaultModalTheme from 'components/Leaderboard/ChallengeHistoryModal/styles.scss';
 import defaultStyle from './style.scss';
 
 const { fireErrorMessage } = errors;
@@ -102,7 +103,10 @@ class ContentfulModal extends React.Component {
                 className: classnames(theme.modalTrigger, child.props.className),
               }))}
               {isOpen && (
-              <Modal onCancel={this.onCloseModal}>
+              <Modal
+                onCancel={this.onCloseModal}
+                theme={defaultModalTheme}
+              >
                 <div
                   className={theme.dismissButton}
                   onClick={this.onCloseModal}
