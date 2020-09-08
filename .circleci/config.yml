@@ -231,6 +231,7 @@ workflows:
             branches:
               only:
                 - milestone-v1.3
+                - milestone-20200910
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -260,6 +261,7 @@ workflows:
             branches:
               only:
                 - milestone-v1.3
+                - milestone-20200910
                 - develop
       # Production builds are exectuted 
       # when PR is merged to the master
