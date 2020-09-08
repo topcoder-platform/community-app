@@ -244,7 +244,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
     const { track } = nextProps.challenge;
-    if (track === COMPETITION_TRACKS.DESIGN && thriveArticles.length === 0) {
+    if (track !== COMPETITION_TRACKS.DESIGN && thriveArticles.length === 0) {
       // filter all tags with value 'Other'
       const tags = _.filter(nextProps.challenge.tags, tag => tag !== 'Other');
       if (tags.length > 0) {
@@ -558,8 +558,8 @@ class ChallengeDetailPageContainer extends React.Component {
                 hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 submissionEnded={submissionEnded}
-                isMM
-                isLegacyMM
+                isMM={isMM}
+                isLegacyMM={isLegacyMM}
                 loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                 auth={auth}
                 loadMMSubmissions={loadMMSubmissions}
