@@ -114,7 +114,7 @@ module.exports = {
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
 
     ARENA: 'https://arena.topcoder-dev.com',
-    AUTH: 'http://accounts.topcoder-dev.com',
+    AUTH: 'http://accounts-auth0.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
     HOME: '/my-dashboard',
     BLOG: 'https://www.topcoder-dev.com/blog',
