@@ -22,7 +22,7 @@ class RecruitCRMJobsContainer extends React.Component {
     this.state = {
       term: '',
       page: 0,
-      sortBy: 'updated_on',
+      sortBy: 'created_on',
     };
 
     this.onSearch = this.onSearch.bind(this);
