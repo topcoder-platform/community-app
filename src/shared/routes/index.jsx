@@ -3,6 +3,7 @@
  */
 
 import CommunityLoader from 'containers/tc-communities/Loader';
+import ContentfulRoute from 'components/Contentful/Route';
 import Content from 'components/Content';
 import React from 'react';
 
@@ -102,6 +103,16 @@ function Routes({ communityId }) {
           component={GigsPages}
           exact
           path={`${config.GIGS_PAGES_PATH}/:id?`}
+        />
+        <Route
+          render={() => (
+            <ContentfulRoute
+              baseUrl={config.START_PAGE_PATH}
+              id="vpcfRkUPoTtxXoEIBvCRl"
+            />
+          )}
+          exact
+          path={config.START_PAGE_PATH}
         />
         <Topcoder />
       </Switch>
