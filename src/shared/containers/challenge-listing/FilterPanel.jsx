@@ -64,12 +64,6 @@ export class Container extends React.Component {
     const query = qs.parse(window.location.search.slice(1));
     if (query.filter && !filterState.track) {
       setFilterState(query.filter);
-    } else {
-      const trackStatus = localStorage.getItem('trackStatus');
-      const filterObj = trackStatus ? JSON.parse(trackStatus) : null;
-      if (filterObj) {
-        setFilterState(filterObj);
-      }
     }
   }
 
