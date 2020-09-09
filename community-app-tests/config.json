@@ -63,7 +63,8 @@
     "talkToSales": "https://go.topcoder.com/contact/",
     "events": "https://www.topcoder.com/community/events",
     "terms": "https://www.topcoder.com/community/terms",
-    "challengePipeline": "https://www.topcoder.com/community/pipeline"
+    "challengePipeline": "https://www.topcoder.com/community/pipeline",
+    "practice": "https://www.topcoder.com/community/practice"
   },
   "socialLinks": {
     "facebook": "https://www.facebook.com/topcoder/",
