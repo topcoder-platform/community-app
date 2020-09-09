@@ -239,7 +239,6 @@ workflows:
               only:                
                 - feature-contentful
                 - hot-fix
-                - feature/auth0-RS256-Idtoken
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -247,6 +246,7 @@ workflows:
             branches:
               only:
                 - hot-fix
+                - feature/auth0-RS256-Idtoken
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
