@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Default render 1`] = `
-<div>
+<div
+  style={
+    Object {
+      "zIndex": 2,
+    }
+  }
+>
   <TopNav
     loggedIn={true}
     logo={

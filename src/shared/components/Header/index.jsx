@@ -69,7 +69,7 @@ const Header = ({
 
   if (TopNavRef) {
     return (
-      <div>
+      <div style={{ zIndex: 2 }}>
         <TopNavRef
           menu={headerMenu || config.HEADER_MENU}
           rightMenu={(
