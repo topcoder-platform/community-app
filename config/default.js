@@ -409,4 +409,5 @@ module.exports = {
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/policy',
   GIGS_PAGES_PATH: '/gigs',
+  START_PAGE_PATH: '/start',
 };

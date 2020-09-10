@@ -142,6 +142,7 @@
 
               img {
                 margin-right: 16px;
+                min-width: 40px;
               }
 
               &:last-child {
@@ -163,6 +164,7 @@
           font-weight: 600;
           font-family: Barlow, sans-serif;
           margin-top: 20px;
+          line-height: 20px;
         }
       }
 
@@ -189,6 +191,7 @@
         .skills {
           display: flex;
           align-items: center;
+          line-height: 21px;
           /* stylelint-disable */
           img {
             margin-right: 8px;
