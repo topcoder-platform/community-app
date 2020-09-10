@@ -10,7 +10,6 @@ import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
-import localStorage from 'localStorage';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
