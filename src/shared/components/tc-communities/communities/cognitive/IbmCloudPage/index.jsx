@@ -4,7 +4,6 @@ import React from 'react';
 import Differences from './Differences';
 import HeadBanner from './HeadBanner';
 import JoinBlock from './JoinBlock';
-import NewsSignup from '../NewsSignup';
 
 export default function IbmCloudPage() {
   return (
@@ -16,8 +15,6 @@ export default function IbmCloudPage() {
       {/* Hidden by the request from Trevor: the transition process won't start
         * until Feb 12. */}
       {/* <AutoTransition /> */}
-
-      <NewsSignup />
     </div>
   );
 }
