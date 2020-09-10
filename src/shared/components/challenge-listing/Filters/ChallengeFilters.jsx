@@ -53,7 +53,6 @@ export default function ChallengeFilters({
   const switchTrack = (track, on) => {
     const act = on ? Filter.addTrack : Filter.removeTrack;
     const filterObj = act(filterState, track);
-    const newFilterObj = _.pick(filterObj, 'tracks');
     setFilterState(filterObj);
   };
 
