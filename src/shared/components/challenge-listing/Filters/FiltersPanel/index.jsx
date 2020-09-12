@@ -51,7 +51,7 @@ export default function FiltersPanel({
   onClose,
   // onSaveFilter,
   selectCommunity,
-  selectedCommunityId,
+  // selectedCommunityId,
   setFilterState,
   setSearchText,
   validKeywords,
@@ -238,10 +238,14 @@ export default function FiltersPanel({
               autoBlur
               clearable={false}
               id="community-select"
-              onChange={selectCommunity}
+              // onChange={selectCommunity}
+              onChange={(value) => {
+                const group = value;
+                setFilterState({ ..._.clone(filterState), group });
+              }}
               options={communityOps}
               simpleValue
-              value={selectedCommunityId}
+              value={filterState.group}
               valueRenderer={option => (
                 <span styleName="active-community">
                   {option.name}
@@ -351,7 +355,7 @@ export default function FiltersPanel({
               name: '',
               tags: [],
               types: [],
-              communityId: 'All',
+              group: '',
               startDateStart: null,
               endDateEnd: null,
             });
@@ -403,7 +407,7 @@ FiltersPanel.propTypes = {
   isReviewOpportunitiesBucket: PT.bool,
   // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
-  selectedCommunityId: PT.string.isRequired,
+  // selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,

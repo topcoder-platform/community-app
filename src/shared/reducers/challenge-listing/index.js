@@ -381,8 +381,8 @@ function onSelectCommunity(state, { payload }) {
       * the code simple we just reset them each time a filter is modified.
       * (This community selection defines community-specific filter for
       * challenges). */
-    allPastChallengesLoaded: false,
-    lastRequestedPageOfPastChallenges: -1,
+    // allPastChallengesLoaded: false,
+    // lastRequestedPageOfPastChallenges: -1,
     // pastSearchTimestamp: -1,
   };
 }
@@ -400,7 +400,7 @@ function onSetFilter(state, { payload }) {
    * do it very carefuly (many params are not validated). */
   const filter = _.pickBy(_.pick(
     payload,
-    ['tags', 'types', 'name', 'startDateStart', 'endDateEnd'],
+    ['tags', 'types', 'name', 'startDateStart', 'endDateEnd', 'group'],
   ), value => (!_.isArray(value) && value && value !== '') || (_.isArray(value) && value.length > 0));
   // if (_.isPlainObject(filter.tags)) {
   //   filter.tags = _.values(filter.tags);
@@ -802,7 +802,7 @@ function create(initialState) {
       name: '',
       tags: [],
       types: [],
-      communityId: 'All',
+      group: '',
       startDateStart: null,
       endDateEnd: null,
     },

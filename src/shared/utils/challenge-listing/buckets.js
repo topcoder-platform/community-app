@@ -174,6 +174,7 @@ export function filterChanged(filter, prevFilter) {
   || (filter.name !== prevFilter.name)
   || (filter.startDateStart !== prevFilter.startDateStart)
   || (filter.endDateEnd !== prevFilter.endDateEnd)
+  || (filter.group !== prevFilter.group)
   || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
   || _.filter(prevFilter.tags, val => _.indexOf(filter.tags, val) < 0).length > 0
   || _.filter(filter.types, val => _.indexOf(prevFilter.types, val) < 0).length > 0

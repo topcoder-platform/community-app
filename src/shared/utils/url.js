@@ -47,7 +47,7 @@ export function updateQuery(update) {
    * fields in the target object. */
   _.forIn(update, (value, key) => {
     if (_.isArray(value)) filterArray.push(value.map(item => `${key}[]=${item}`).join('&'));
-    else if (_.isUndefined(value)) delete query[key];
+    else if (_.isUndefined(value) || _.isEmpty(value)) delete query[key];
     else query += `${key}=${value}`;
   });
   if (query === '?') {
