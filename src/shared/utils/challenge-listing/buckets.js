@@ -10,11 +10,11 @@ export const BUCKETS = {
   MY: 'my',
   OPEN_FOR_REGISTRATION: 'openForRegistration',
   ONGOING: 'ongoing',
-  PAST: 'past',
-  SAVED_FILTER: 'saved-filter',
-  UPCOMING: 'upcoming',
+  // PAST: 'past',
+  // SAVED_FILTER: 'saved-filter',
+  // UPCOMING: 'upcoming',
   REVIEW_OPPORTUNITIES: 'reviewOpportunities',
-  SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
+  // SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
 };
 
 export const BUCKET_DATA = {
@@ -89,16 +89,16 @@ export const BUCKET_DATA = {
       SORTS.TITLE_A_TO_Z,
     ],
   },
-  [BUCKETS.PAST]: {
-    // filter: { status: ['Completed', 'PAST'] },
-    // hideCount: true,
-    name: 'Past challenges',
-    sorts: [
-      SORTS.MOST_RECENT,
-      // SORTS.PRIZE_HIGH_TO_LOW,
-      SORTS.TITLE_A_TO_Z,
-    ],
-  },
+  // [BUCKETS.PAST]: {
+  //   // filter: { status: ['Completed', 'PAST'] },
+  //   // hideCount: true,
+  //   name: 'Past challenges',
+  //   sorts: [
+  //     SORTS.MOST_RECENT,
+  //     // SORTS.PRIZE_HIGH_TO_LOW,
+  //     SORTS.TITLE_A_TO_Z,
+  //   ],
+  // },
   [BUCKETS.REVIEW_OPPORTUNITIES]: {
     filter: {},
     // hideCount: true,
@@ -109,14 +109,14 @@ export const BUCKET_DATA = {
       SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
     ],
   },
-  [BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER]: {
-    // filter: {},
-    sorts: [
-      // SORTS.REVIEW_OPPORTUNITIES_START_DATE,
-      // SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
-      // SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
-    ],
-  },
+  // [BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER]: {
+  //   // filter: {},
+  //   sorts: [
+  //     // SORTS.REVIEW_OPPORTUNITIES_START_DATE,
+  //     // SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
+  //     // SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
+  //   ],
+  // },
 };
 
 export const NO_LIVE_CHALLENGES_CONFIG = {
@@ -124,9 +124,9 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
   [BUCKETS.MY]: 'No challenges found in My Challenges',
   [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found in Open for Registration Challenges',
   [BUCKETS.ONGOING]: 'No challenges found in Ongoing Challenges',
-  [BUCKETS.PAST]: 'No challenges found in Past Challenges',
-  [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
-  [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
+  // [BUCKETS.PAST]: 'No challenges found in Past Challenges',
+  // [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
+  // [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
 };
 
 /**
@@ -146,7 +146,8 @@ export function getBuckets(userChallenges) {
  * @return {Boolean} True if the bucket contains Review Opportunities
  */
 export const isReviewOpportunitiesBucket = bucket => (
-  bucket === BUCKETS.REVIEW_OPPORTUNITIES || bucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER);
+// bucket === BUCKETS.REVIEW_OPPORTUNITIES || bucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER);
+  bucket === BUCKETS.REVIEW_OPPORTUNITIES);
 
 /**
  * Registers a new bucket.
@@ -183,7 +184,7 @@ export function sortChangedBucket(sorts, prevSorts) {
   if (sorts.ongoing !== prevSorts.ongoing) return 'ongoing';
   if (sorts.my !== prevSorts.my) return 'my';
   if (sorts.openForRegistration !== prevSorts.openForRegistration) return 'openForRegistration';
-  if (sorts.past !== prevSorts.past) return 'past';
+  // if (sorts.past !== prevSorts.past) return 'past';
   return '';
 }
 

@@ -40,7 +40,6 @@ export default function ReviewOpportunityBucket({
 
   const sortedOpportunities = _.clone(opportunities);
   sortedOpportunities.sort(Sort[activeSort].func);
-  console.log(challengeTypes);
 
   /* Filtering for Review Opportunities will be done entirely in the front-end
    * which means it can be done at render, rather than in the reducer,

@@ -23,7 +23,7 @@ function Listing({
   challenges,
   openForRegistrationChallenges,
   myChallenges,
-  pastChallenges,
+  // pastChallenges,
   challengeTypes,
   // userChallenges,
   challengesUrl,
@@ -31,7 +31,7 @@ function Listing({
   // extraBucket,
   filterState,
   keepPastPlaceholders,
-  loadingPastChallenges,
+  // loadingPastChallenges,
   loadingReviewOpportunities,
   loadingMyChallenges,
   loadMoreMy,
@@ -39,7 +39,7 @@ function Listing({
   loadMoreOpenForRegistration,
   loadingOnGoingChallenges,
   loadMoreOnGoing,
-  loadMorePast,
+  // loadMorePast,
   loadMoreReviewOpportunities,
   newChallengeDetails,
   openChallengesInNewTabs,
@@ -70,19 +70,19 @@ function Listing({
   //   return filteredChallenges.length > 0;
   // };
   const getBucket = (bucket, expanded = false) => {
-    let keepPlaceholders = false;
+    // const keepPlaceholders = false;
     let loading;
     let loadMore;
     // let searchTimestamp;
     let bucketChallenges = [];
     switch (bucket) {
-      case BUCKETS.PAST:
-        keepPlaceholders = keepPastPlaceholders;
-        bucketChallenges = [].concat(pastChallenges);
-        loading = loadingPastChallenges;
-        loadMore = loadMorePast;
-        // searchTimestamp = pastSearchTimestamp;
-        break;
+      // case BUCKETS.PAST:
+      //   keepPlaceholders = keepPastPlaceholders;
+      //   bucketChallenges = [].concat(pastChallenges);
+      //   loading = loadingPastChallenges;
+      //   loadMore = loadMorePast;
+      //   // searchTimestamp = pastSearchTimestamp;
+      //   break;
       case BUCKETS.MY:
         bucketChallenges = [].concat(myChallenges);
         loading = loadingMyChallenges;
@@ -113,7 +113,7 @@ function Listing({
             expandedTags={expandedTags}
             expandTag={expandTag}
             filterState={filterState}
-            keepPlaceholders={keepPlaceholders}
+            keepPlaceholders={keepPastPlaceholders}
             loading={loadingReviewOpportunities}
             loadMore={loadMoreReviewOpportunities}
             opportunities={reviewOpportunities}
@@ -187,7 +187,7 @@ function Listing({
       {auth.user ? getBucket(BUCKETS.MY) : null}
       {/* {extraBucket ? getBucket(extraBucket) : null} */}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
-      {getBucket(BUCKETS.ONGOING)}
+      {/* {getBucket(BUCKETS.ONGOING)} */}
     </div>
   );
 }
@@ -196,7 +196,7 @@ Listing.defaultProps = {
   challenges: [],
   openForRegistrationChallenges: [],
   myChallenges: [],
-  pastChallenges: [],
+  // pastChallenges: [],
   challengeTypes: [],
   communityName: null,
   // currentFilterName: '',
@@ -204,7 +204,7 @@ Listing.defaultProps = {
   expandedTags: [],
   expandTag: null,
   // extraBucket: null,
-  loadMorePast: null,
+  // loadMorePast: null,
   loadMoreReviewOpportunities: null,
   loadMoreMy: null,
   loadMoreOpenForRegistration: null,
@@ -229,7 +229,7 @@ Listing.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   openForRegistrationChallenges: PT.arrayOf(PT.shape()),
   myChallenges: PT.arrayOf(PT.shape()),
-  pastChallenges: PT.arrayOf(PT.shape()),
+  // pastChallenges: PT.arrayOf(PT.shape()),
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
@@ -238,7 +238,7 @@ Listing.propTypes = {
   // extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
-  loadingPastChallenges: PT.bool.isRequired,
+  // loadingPastChallenges: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
@@ -246,7 +246,7 @@ Listing.propTypes = {
   loadMoreMy: PT.func,
   loadMoreOnGoing: PT.func,
   loadMoreOpenForRegistration: PT.func,
-  loadMorePast: PT.func,
+  // loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,

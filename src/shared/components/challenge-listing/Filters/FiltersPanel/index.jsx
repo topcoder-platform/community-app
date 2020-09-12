@@ -22,7 +22,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-// import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
@@ -31,13 +31,13 @@ import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
-// import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
-// const Filter = challengeUtils.filter;
+const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
   communityFilters,
@@ -273,7 +273,7 @@ export default function FiltersPanel({
             />
           </div>
           {/* Only shown when the Review Opportunity bucket is selected */}
-          {/* { isReviewOpportunitiesBucket
+          { isReviewOpportunitiesBucket
             ? (
               <div styleName="filter review-type">
                 <label htmlFor="review-type-select">
@@ -297,7 +297,7 @@ export default function FiltersPanel({
                 />
               </div>
             ) : null
-          } */}
+          }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
               Date range

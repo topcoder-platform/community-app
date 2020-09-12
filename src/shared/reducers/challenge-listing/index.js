@@ -303,73 +303,73 @@ function onGetChallengeTagsDone(state, action) {
   };
 }
 
-function onGetPastChallengesInit(state, action) {
-  const { frontFilter, page, uuid } = action.payload;
-  const tracks = frontFilter && frontFilter.tracks;
-  if (tracks && _.isEmpty(tracks)) {
-    return {
-      ...state,
-      allPastChallengesLoaded: true,
-      loadingPastChallengesUUID: '',
-    };
-  }
+// function onGetPastChallengesInit(state, action) {
+//   const { frontFilter, page, uuid } = action.payload;
+//   const tracks = frontFilter && frontFilter.tracks;
+//   if (tracks && _.isEmpty(tracks)) {
+//     return {
+//       ...state,
+//       allPastChallengesLoaded: true,
+//       loadingPastChallengesUUID: '',
+//     };
+//   }
 
-  return {
-    ...state,
-    lastRequestedPageOfPastChallenges: page,
-    loadingPastChallengesUUID: uuid,
-  };
-}
+//   return {
+//     ...state,
+//     lastRequestedPageOfPastChallenges: page,
+//     loadingPastChallengesUUID: uuid,
+//   };
+// }
 
-function onGetPastChallengesDone(state, { error, payload }) {
-  if (error) {
-    logger.error(payload);
-    return state;
-  }
-  const { uuid, pastChallenges: loaded } = payload;
-  if (uuid !== state.loadingPastChallengesUUID) return state;
-  const challenges = state.pastChallenges.concat(loaded);
-  return {
-    ...state,
-    pastChallenges: challenges,
-    loadingPastChallengesUUID: '',
-  };
-  // if (error) {
-  //   logger.error(payload);
-  //   return state;
-  // }
-  // const { uuid, challenges: loaded, frontFilter } = payload;
-  // if (uuid !== state.loadingPastChallengesUUID) return state;
+// function onGetPastChallengesDone(state, { error, payload }) {
+//   if (error) {
+//     logger.error(payload);
+//     return state;
+//   }
+//   const { uuid, pastChallenges: loaded } = payload;
+//   if (uuid !== state.loadingPastChallengesUUID) return state;
+//   const challenges = state.pastChallenges.concat(loaded);
+//   return {
+//     ...state,
+//     pastChallenges: challenges,
+//     loadingPastChallengesUUID: '',
+//   };
+// if (error) {
+//   logger.error(payload);
+//   return state;
+// }
+// const { uuid, challenges: loaded, frontFilter } = payload;
+// if (uuid !== state.loadingPastChallengesUUID) return state;
 
-  // const ids = new Set();
-  // loaded.forEach(item => ids.add(item.id));
+// const ids = new Set();
+// loaded.forEach(item => ids.add(item.id));
 
-  // /* Fetching 0 page of past challenges also drops any past challenges
-  //  * loaded to the state before. */
-  // // const filter = state.lastRequestedPageOfPastChallenges
-  // //   ? item => !ids.has(item.id)
-  // //   : item => !ids.has(item.id) && item.status !== 'COMPLETED' && item.status !== 'PAST';
+// /* Fetching 0 page of past challenges also drops any past challenges
+//  * loaded to the state before. */
+// // const filter = state.lastRequestedPageOfPastChallenges
+// //   ? item => !ids.has(item.id)
+// //   : item => !ids.has(item.id) && item.status !== 'COMPLETED' && item.status !== 'PAST';
 
-  // const challenges = state.challenges.filter(filter).concat(loaded);
+// const challenges = state.challenges.filter(filter).concat(loaded);
 
-  // // let keepPastPlaceholders = false;
-  // // if (loaded.length) {
-  // // const ff = Filter.getFilterFunction(frontFilter);
-  // keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
-  // // }
+// // let keepPastPlaceholders = false;
+// // if (loaded.length) {
+// // const ff = Filter.getFilterFunction(frontFilter);
+// keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
+// // }
 
-  // // const pastSearchTimestamp = state.pastSearchTimestamp && state.pastSearchTimestamp > 0
-  // //   ? state.pastSearchTimestamp : Date.now();
+// // const pastSearchTimestamp = state.pastSearchTimestamp && state.pastSearchTimestamp > 0
+// //   ? state.pastSearchTimestamp : Date.now();
 
-  // return {
-  //   ...state,
-  //   allPastChallengesLoaded: loaded.length === 0,
-  //   challenges,
-  //   // keepPastPlaceholders,
-  //   loadingPastChallengesUUID: '',
-  //   // pastSearchTimestamp,
-  // };
-}
+// return {
+//   ...state,
+//   allPastChallengesLoaded: loaded.length === 0,
+//   challenges,
+//   // keepPastPlaceholders,
+//   loadingPastChallengesUUID: '',
+//   // pastSearchTimestamp,
+// };
+// }
 
 function onSelectCommunity(state, { payload }) {
   updateQuery({ communityId: payload || undefined });
@@ -461,6 +461,8 @@ function onGetReviewOpportunitiesDone(state, { payload, error }) {
     uuid,
     loaded,
   } = payload;
+  // console.log(`=====> review oppo`);
+  // console.log(loaded);
 
   if (uuid !== state.loadingReviewOpportunitiesUUID) return state;
 
@@ -619,26 +621,26 @@ function create(initialState) {
       ...state,
       // allActiveChallengesLoaded: false,
       // allPastChallengesLoaded: false,
-      allReviewOpportunitiesLoaded: false,
+      // allReviewOpportunitiesLoaded: false,
       challenges: [],
       myChallenges: [],
       openForRegistrationChallenges: [],
-      pastChallenges: [],
+      // pastChallenges: [],
       lastRequestedPageOfActiveChallenges: -1,
       lastRequestedPageOfOpenForRegistrationChallenges: -1,
       lastRequestedPageOfMyChallenges: -1,
-      lastRequestedPageOfPastChallenges: -1,
-      lastRequestedPageOfReviewOpportunities: -1,
+      // lastRequestedPageOfPastChallenges: -1,
+      // lastRequestedPageOfReviewOpportunities: -1,
       // lastUpdateOfActiveChallenges: 0,
       loadingActiveChallengesUUID: '',
       loadingOpenForRegistrationChallengesUUID: '',
       loadingMyChallengesUUID: '',
       // loadingRestActiveChallengesUUID: '',
-      loadingPastChallengesUUID: '',
-      loadingReviewOpportunitiesUUID: '',
+      // loadingPastChallengesUUID: '',
+      // loadingReviewOpportunitiesUUID: '',
 
       loadingTotalChallengesCountUUID: '',
-      reviewOpportunities: [],
+      // reviewOpportunities: [],
       // filter: {
       //   tracks: {
       //     Dev: true,
@@ -679,12 +681,12 @@ function create(initialState) {
       lastRequestedPageOfMyChallenges: -1,
       loadingMyChallengesUUID: '',
     }),
-    [a.dropPastChallenges]: state => ({
-      ...state,
-      pastChallenges: [],
-      lastRequestedPageOfPastChallenges: -1,
-      loadingPastChallengesUUID: '',
-    }),
+    // [a.dropPastChallenges]: state => ({
+    //   ...state,
+    //   pastChallenges: [],
+    //   lastRequestedPageOfPastChallenges: -1,
+    //   loadingPastChallengesUUID: '',
+    // }),
     [a.expandTag]: (state, { payload }) => ({
       ...state,
       expandedTags: [...state.expandedTags, payload],
@@ -729,8 +731,8 @@ function create(initialState) {
     }),
     [a.getChallengeTagsDone]: onGetChallengeTagsDone,
 
-    [a.getPastChallengesInit]: onGetPastChallengesInit,
-    [a.getPastChallengesDone]: onGetPastChallengesDone,
+    // [a.getPastChallengesInit]: onGetPastChallengesInit,
+    // [a.getPastChallengesDone]: onGetPastChallengesDone,
 
     [a.getReviewOpportunitiesInit]: onGetReviewOpportunitiesInit,
     [a.getReviewOpportunitiesDone]: onGetReviewOpportunitiesDone,
@@ -759,7 +761,7 @@ function create(initialState) {
     challenges: [],
     myChallenges: [],
     openForRegistrationChallenges: [],
-    pastChallenges: [],
+    // pastChallenges: [],
     recommendedChallenges: {},
     challengeTypes: [],
     challengeTypesMap: {},
@@ -772,7 +774,7 @@ function create(initialState) {
     lastRequestedPageOfActiveChallenges: -1,
     lastRequestedPageOfOpenForRegistrationChallenges: -1,
     lastRequestedPageOfMyChallenges: -1,
-    lastRequestedPageOfPastChallenges: -1,
+    // lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
     // lastUpdateOfActiveChallenges: 0,
 
@@ -783,7 +785,7 @@ function create(initialState) {
     // loadingRestActiveChallengesUUID: '',
     loadingRecommendedChallengesTechnologies: '',
     loadingTotalChallengesCountUUID: '',
-    loadingPastChallengesUUID: '',
+    // loadingPastChallengesUUID: '',
     loadingReviewOpportunitiesUUID: '',
 
     loadingChallengeTypes: false,
@@ -811,7 +813,7 @@ function create(initialState) {
       ongoing: 'updated',
       openForRegistration: 'updated',
       my: 'updated',
-      past: 'updated',
+      // past: 'updated',
       reviewOpportunities: 'review-opportunities-start-date',
     },
 

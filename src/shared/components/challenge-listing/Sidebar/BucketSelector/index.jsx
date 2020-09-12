@@ -81,7 +81,7 @@ export default function BucketSelector({
       {getBucket(BUCKETS.ONGOING)}
       <hr />
       {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
-      {getBucket(BUCKETS.PAST)}
+      {/* {getBucket(BUCKETS.PAST)} */}
       {/* NOTE: We do not show upcoming challenges for now, for various reasons,
         * more political than technical ;)
           getBucket(BUCKETS.UPCOMING) */

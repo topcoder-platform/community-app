@@ -341,9 +341,9 @@ function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
  * @param {Object} frontFilter
  * @return {Object}
  */
-function getPastChallengesInit(uuid, page, frontFilter) {
-  return { uuid, page, frontFilter };
-}
+// function getPastChallengesInit(uuid, page, frontFilter) {
+//   return { uuid, page, frontFilter };
+// }
 
 /**
  * Gets the specified page of past challenges (including MMs).
@@ -353,27 +353,27 @@ function getPastChallengesInit(uuid, page, frontFilter) {
  * @param {Object} frontFilter Optional. Original frontend filter.
  * @param {Object}
  */
-function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
-  const { sorts } = frontFilter;
-  const filter = {
-    backendFilter,
-    frontFilter: {
-      ...frontFilter,
-      status: 'Completed',
-      perPage: PAGE_SIZE,
-      page: page + 1,
-      sortBy: sorts[BUCKETS.PAST],
-      sortOrder: SORT[sorts[BUCKETS.PAST]].order,
-    },
-  };
-  delete filter.frontFilter.sorts;
-  const service = getService(tokenV3);
-  return service.getChallenges(filter).then(({ challenges }) => ({
-    uuid,
-    pastChallenges: challenges,
-    frontFilter,
-  }));
-}
+// function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+//   const { sorts } = frontFilter;
+//   const filter = {
+//     backendFilter,
+//     frontFilter: {
+//       ...frontFilter,
+//       status: 'Completed',
+//       perPage: PAGE_SIZE,
+//       page: page + 1,
+//       sortBy: sorts[BUCKETS.PAST],
+//       sortOrder: SORT[sorts[BUCKETS.PAST]].order,
+//     },
+//   };
+//   delete filter.frontFilter.sorts;
+//   const service = getService(tokenV3);
+//   return service.getChallenges(filter).then(({ challenges }) => ({
+//     uuid,
+//     pastChallenges: challenges,
+//     frontFilter,
+//   }));
+// }
 
 /**
  * Action to get a list of currently open Review Opportunities using V3 API
@@ -494,8 +494,8 @@ export default createActions({
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
 
-    GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
-    GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
+    // GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
+    // GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
 
     GET_REVIEW_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
     GET_REVIEW_OPPORTUNITIES_DONE: getReviewOpportunitiesDone,

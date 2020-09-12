@@ -31,7 +31,7 @@ export default function ChallengeListing(props) {
     challenges,
     openForRegistrationChallenges,
     myChallenges,
-    pastChallenges,
+    // pastChallenges,
     // communityFilter,
     communityName,
     defaultCommunityId,
@@ -98,7 +98,7 @@ export default function ChallengeListing(props) {
       challenges={challenges}
       openForRegistrationChallenges={openForRegistrationChallenges}
       myChallenges={myChallenges}
-      pastChallenges={pastChallenges}
+      // pastChallenges={pastChallenges}
       challengesUrl={props.challengesUrl}
       communityName={props.communityName}
       expandedTags={props.expandedTags}
@@ -106,7 +106,7 @@ export default function ChallengeListing(props) {
       // extraBucket={extraBucket}
       filterState={props.filterState}
       keepPastPlaceholders={keepPastPlaceholders}
-      loadingPastChallenges={props.loadingPastChallenges}
+      // loadingPastChallenges={props.loadingPastChallenges}
       loadingMyChallenges={props.loadingMyChallenges}
       loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
       loadingOnGoingChallenges={props.loadingOnGoingChallenges}
@@ -114,7 +114,7 @@ export default function ChallengeListing(props) {
       loadMoreMy={props.loadMoreMy}
       loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
       loadMoreOnGoing={props.loadMoreOnGoing}
-      loadMorePast={props.loadMorePast}
+      // loadMorePast={props.loadMorePast}
       loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
       newChallengeDetails={props.newChallengeDetails}
       openChallengesInNewTabs={props.openChallengesInNewTabs}
@@ -177,7 +177,7 @@ ChallengeListing.defaultProps = {
   loadMoreMy: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
-  loadMorePast: null,
+  // loadMorePast: null,
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
@@ -196,7 +196,7 @@ ChallengeListing.propTypes = {
   challenges: PT.arrayOf(PT.shape()).isRequired,
   openForRegistrationChallenges: PT.arrayOf(PT.shape()).isRequired,
   myChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
-  pastChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
+  // pastChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
   challengesUrl: PT.string.isRequired,
   // communityFilter: PT.shape(),
   communityName: PT.string,
@@ -213,12 +213,12 @@ ChallengeListing.propTypes = {
   loadingMyChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
-  loadingPastChallenges: PT.bool.isRequired,
+  // loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreMy: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMoreOnGoing: PT.func,
-  loadMorePast: PT.func,
+  // loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,

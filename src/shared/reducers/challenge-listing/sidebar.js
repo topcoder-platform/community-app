@@ -122,7 +122,7 @@ import { updateQuery } from 'utils/url';
 function onSelectBucket(state, { payload }) {
   switch (payload) {
     case BUCKETS.ALL:
-    case BUCKETS.SAVED_FILTER:
+    // case BUCKETS.SAVED_FILTER:
       updateQuery({ bucket: undefined });
       break;
     default:

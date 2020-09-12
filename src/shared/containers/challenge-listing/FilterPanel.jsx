@@ -13,6 +13,7 @@ import React from 'react';
 // import localStorage from 'localStorage';
 // import sidebarActions from 'actions/challenge-listing/sidebar';
 // import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import qs from 'qs';
@@ -75,7 +76,7 @@ export class Container extends React.Component {
 
   render() {
     const {
-      // activeBucket,
+      activeBucket,
       communityFilters,
       // filterState,
       // isSavingFilter,
@@ -95,7 +96,7 @@ export class Container extends React.Component {
       ...communityFilters,
     ];
 
-    // const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
+    const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
 
     return (
       <FilterPanel
@@ -121,7 +122,7 @@ export class Container extends React.Component {
           // }
         }}
         // isSavingFilter={isSavingFilter}
-        // isReviewOpportunitiesBucket={isForReviewOpportunities}
+        isReviewOpportunitiesBucket={isForReviewOpportunities}
       />
     );
   }
