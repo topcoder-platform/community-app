@@ -46,8 +46,9 @@ export function updateQuery(update) {
    * set as undefined in the objects to be merged, rather than deleting such
    * fields in the target object. */
   _.forIn(update, (value, key) => {
-    if (_.isArray(value)) filterArray.push(value.map(item => `${key}[]=${item}`).join('&'));
-    else if (_.isUndefined(value) || _.isEmpty(value)) delete query[key];
+    if (_.isArray(value) && value.length > 0) filterArray.push(value.map(item => `${key}[]=${item}`).join('&'));
+    // eslint-disable-next-line max-len
+    else if (_.isUndefined(value) || _.isEmpty(value) || (_.isArray(value) && value.length === 0)) delete query[key];
     else query += `${key}=${value}`;
   });
   if (query === '?') {

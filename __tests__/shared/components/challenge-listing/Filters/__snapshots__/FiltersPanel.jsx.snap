@@ -96,6 +96,7 @@ exports[`Matches shallow shapshot 1`] = `
           }
           selectRef={[Function]}
           simpleValue={true}
+          value=""
           valueRenderer={[Function]}
         />
       </div>
@@ -291,6 +292,7 @@ exports[`Matches shallow shapshot 2`] = `
           }
           selectRef={[Function]}
           simpleValue={true}
+          value=""
           valueRenderer={[Function]}
         />
       </div>

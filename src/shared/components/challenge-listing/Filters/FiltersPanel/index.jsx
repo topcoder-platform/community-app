@@ -241,11 +241,11 @@ export default function FiltersPanel({
               // onChange={selectCommunity}
               onChange={(value) => {
                 const group = value;
-                setFilterState({ ..._.clone(filterState), group });
+                setFilterState({ ..._.clone(filterState), groups: group === '' ? [] : [group] });
               }}
               options={communityOps}
               simpleValue
-              value={filterState.group}
+              value={filterState.groups.length === 0 ? '' : filterState.groups[0]}
               valueRenderer={option => (
                 <span styleName="active-community">
                   {option.name}
@@ -355,7 +355,7 @@ export default function FiltersPanel({
               name: '',
               tags: [],
               types: [],
-              group: '',
+              groups: [],
               startDateStart: null,
               endDateEnd: null,
             });
