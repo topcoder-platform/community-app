@@ -42,6 +42,7 @@ export default function Submission(props) {
     <tr styleName="submission-row">
       <td styleName="id-col">
         {submissionObject.id}
+        <div styleName="legacy-id">{submissionObject.legacyId}</div>
       </td>
       <td>
         {submissionObject.type}
