@@ -230,7 +230,8 @@ workflows:
           filters:
             branches:
               only:
-                - milestone-20200910
+                - milestone-20200917
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -238,20 +239,20 @@ workflows:
             branches:
               only:                
                 - feature-contentful
-                - hot-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - hot-fix
+                - community-app-tests-poc
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
+                - integration-v5-challenge-api
                 - hot-fix
       # This is stage env for production QA releases
       - "build-prod-staging":
@@ -259,7 +260,6 @@ workflows:
           filters:
             branches:
               only:
-                - milestone-20200910
                 - develop
       # Production builds are exectuted 
       # when PR is merged to the master
