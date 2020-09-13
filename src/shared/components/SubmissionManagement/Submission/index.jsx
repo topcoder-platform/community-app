@@ -119,6 +119,7 @@ Submission.defaultProps = {
 Submission.propTypes = {
   submissionObject: PT.shape({
     id: PT.string,
+    legacyId: PT.string,
     warpreviewnings: PT.string,
     screening: PT.shape({
       status: PT.string,
