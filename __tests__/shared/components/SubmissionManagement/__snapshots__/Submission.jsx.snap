@@ -6,7 +6,10 @@ exports[`Snapshot match 1`] = `
 >
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
-  />
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__legacy-id___3T2Ay"
+    />
+  </td>
   <td />
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
@@ -63,6 +66,9 @@ exports[`Snapshot match 2`] = `
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   >
     12345
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__legacy-id___3T2Ay"
+    />
   </td>
   <td />
   <td
