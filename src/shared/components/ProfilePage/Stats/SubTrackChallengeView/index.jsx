@@ -116,7 +116,7 @@ class SubTrackChallengeView extends React.Component {
     this.state = {
       // this is current page number. starts with 0.
       // everytime we scroll at the bottom, we query from offset = pageNum * CHALLENGE_PER_PAGE
-      pageNum: 0,
+      pageNum: 1,
       // which challenge's modal should be poped. null means no modal
       challengeIndexToPopModal: null,
     };
@@ -140,6 +140,10 @@ class SubTrackChallengeView extends React.Component {
       userId,
     } = this.props;
 
+    const {
+      pageNum,
+    } = this.state;
+
     if (track === 'DEVELOP' || track === 'DESIGN') {
       if (!loadingSubTrackChallengesUUID) {
         loadSubtrackChallenges(
@@ -159,7 +163,7 @@ class SubTrackChallengeView extends React.Component {
         }
       } else if (subTrack === 'MARATHON_MATCH') {
         if (!loadingMarathonUUID) {
-          loadMarathon(handle, auth.tokenV3, 0, CHALLENGE_PER_PAGE, true);
+          loadMarathon(handle, userId, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, true);
         }
       }
     }
@@ -209,7 +213,7 @@ class SubTrackChallengeView extends React.Component {
         }
       } else if (subTrack === 'MARATHON_MATCH') {
         if (!loadingMarathonUUID) {
-          loadMarathon(handle, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
+          loadMarathon(handle, userId, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
           this.setState({ pageNum: pageNum + 1 });
         }
       }
@@ -347,7 +351,6 @@ class SubTrackChallengeView extends React.Component {
         userMarathons,
         item => ({
           ...item,
-          submissionEndDate: _.get(item, 'rounds.0.systemTestEndAt'),
           pointTotal: _.get(item, 'rounds.0.userMMDetails.pointTotal'),
         }),
       );
@@ -440,10 +443,18 @@ function mapDispatchToProps(dispatch) {
       dispatch(action.getUserSrmInit(handle, uuid));
       dispatch(action.getUserSrmDone(uuid, handle, tokenV3, pageNum, pageSize, refresh));
     },
-    loadMarathon: (handle, tokenV3, pageNum, pageSize, refresh) => {
+    loadMarathon: (handle, memberId, tokenV3, pageNum, pageSize, refresh) => {
       const uuid = shortId();
       dispatch(action.getUserMarathonInit(handle, uuid));
-      dispatch(action.getUserMarathonDone(uuid, handle, tokenV3, pageNum, pageSize, refresh));
+      dispatch(action.getUserMarathonDone(
+        uuid,
+        handle,
+        memberId,
+        tokenV3,
+        pageNum,
+        pageSize,
+        refresh,
+      ));
     },
   };
 }
