@@ -370,6 +370,7 @@ module.exports = {
             {
               title: 'Blog',
               href: 'https://www.topcoder-dev.com/blog',
+              openNewTab: true,
             },
             {
               title: 'Thrive',
