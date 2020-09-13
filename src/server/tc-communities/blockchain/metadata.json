@@ -1,13 +1,13 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000010"],
+    "groups": ["blockchain"],
     "or": [{
       "tags": ["Blockchain", "Ethereum"]
     }]
   },
   "communityId": "blockchain",
   "communityName": "Blockchain Community",
-  "groupIds": ["20000010"],
+  "groups": ["blockchain"],
   "hideSearch": true,
   "logos": [{
     "img": "/community-app-assets/themes/blockchain/logo_topcoder_with_name.svg",

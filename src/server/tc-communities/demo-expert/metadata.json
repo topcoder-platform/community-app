@@ -1,11 +1,11 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000003"],
+    "groups": ["demo-expert"],
     "tags": [".NET"]
   },
   "communityId": "demo-expert",
   "communityName": "Demo Expert Community",
-  "groupIds": ["20000003"],
+  "groups": ["demo-expert"],
   "hidden": true,
   "logos": [{
     "img": "/community-app-assets/themes/demo-expert/logo_topcoder_with_name.svg",
