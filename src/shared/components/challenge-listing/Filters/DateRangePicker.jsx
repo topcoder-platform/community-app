@@ -13,9 +13,12 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import 'react-dates/initialize';
+import shortId from 'shortid';
 import { DateRangePicker as WrappedDateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
+import defaultPhrases from 'react-dates/lib/defaultPhrases';
 
 class DateRangePicker extends React.Component {
   constructor(props) {
@@ -36,9 +39,13 @@ class DateRangePicker extends React.Component {
     const {
       focusedInput,
     } = this.state;
+    const phraseOverrides = {
+      ...defaultPhrases,
+      jumpToPrevMonth: 'Previous Month',
+      jumpToNextMonth: 'Next Month',
+    };
     return (
       <WrappedDateRangePicker
-        hideKeyboardShortcutsPanel
         numberOfMonths={numberOfMonths}
         focusedInput={focusedInput}
         isOutsideRange={() => false}
@@ -47,10 +54,13 @@ class DateRangePicker extends React.Component {
           this.setState({ focusedInput: newFocusedInput });
         }}
         startDate={startDate}
+        startDateId={shortId()}
         endDate={endDate}
+        endDateId={shortId()}
         anchorDirection="right"
         displayFormat="MMM DD, YYYY"
         readOnly={readOnly}
+        phrases={phraseOverrides}
       />
     );
   }

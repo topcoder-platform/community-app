@@ -11,6 +11,8 @@ function ChallengeHistoryModalContainer({
   getChallengesHistory,
   onCancel,
   loading,
+  isCopilot,
+  isAlgo,
 }) {
   if (!challenges.length) {
     getChallengesHistory(dataUrl, competitor);
@@ -22,6 +24,8 @@ function ChallengeHistoryModalContainer({
       challenges={challenges}
       competitor={competitor}
       loading={loading}
+      isCopilot={isCopilot}
+      isAlgo={isAlgo}
     />
   );
 }
@@ -30,11 +34,13 @@ ChallengeHistoryModalContainer.defaultProps = {
   dataUrl: 'http://www.mocky.io/v2/5bbec82f3400006e006fcba6?mocky-delay=5000ms',
   challenges: [],
   loading: true,
+  isCopilot: false,
+  isAlgo: false,
 };
 
 const CHALLENGES_TYPE = PT.arrayOf(PT.shape({
   challenge_name: PT.string.isRequired,
-  place: PT.number.isRequired,
+  place: PT.number,
   points: PT.number.isRequired,
 }));
 
@@ -53,6 +59,8 @@ ChallengeHistoryModalContainer.propTypes = {
   getChallengesHistory: PT.func.isRequired,
   onCancel: PT.func.isRequired,
   loading: PT.bool,
+  isAlgo: PT.bool,
+  isCopilot: PT.bool,
 };
 
 function mapStateToProps(state, ownProps) {

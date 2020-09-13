@@ -3,13 +3,12 @@
  * tab of Challenge Details page (to Details tab, when there is no registrants
  * in the challenge yet). Shows a tooltip when hovered.
  */
-
-import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config, Link } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 /* TODO: The icon should be converted back to SVG and imported using the
  * the standard approach for our code! */
@@ -17,28 +16,30 @@ import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 
 import './style.scss';
 
-const ID_LENGTH = 6;
-const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
-
 export default function NumSubmissions({
   challenge: {
-    id, numSubmissions, rounds, status, track,
+    id,
+    numOfSubmissions,
+    numOfCheckpointSubmissions,
+    track,
   },
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
+  openChallengesInNewTabs,
+  isLoggedIn,
 }) {
   let tip;
-  switch (numSubmissions) {
+  const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
+  switch (numOfSub) {
     case 0: tip = 'No submissions'; break;
     case 1: tip = '1 total submission'; break;
-    default: tip = `${numSubmissions} total submissions`;
+    default: tip = `${numOfSub} total submissions`;
   }
-  const query = numSubmissions && status === 'COMPLETED'
-    ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-  let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
+
+  const query = (numOfSub && isLoggedIn) ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
+  let link = `${challengesUrl}/${id}${query}`;
+  if (!newChallengeDetails && track !== COMPETITION_TRACKS.DATA_SCIENCE) {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (
@@ -48,35 +49,41 @@ export default function NumSubmissions({
           <div styleName="tooltip">
             {tip}
           </div>
-)}
+        )}
       >
         <Link
           onClick={() => (
-            selectChallengeDetailsTab(numSubmissions
+            selectChallengeDetailsTab((numOfSub && isLoggedIn)
               ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
+          openNewTab={openChallengesInNewTabs}
         >
           <SubmissionsIcon />
           <span styleName="number">
-            {numSubmissions}
+            {numOfSub}
           </span>
         </Link>
       </Tooltip>
     </div>
   );
 }
+NumSubmissions.defaultProps = {
+  openChallengesInNewTabs: false,
+};
 
 NumSubmissions.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
-    numSubmissions: PT.number.isRequired,
-    rounds: PT.arrayOf(PT.object),
+    numOfSubmissions: PT.number,
+    numOfCheckpointSubmissions: PT.number,
     status: PT.string.isRequired,
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
+  openChallengesInNewTabs: PT.bool,
+  isLoggedIn: PT.bool.isRequired,
 };

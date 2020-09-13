@@ -32,11 +32,11 @@ export default function Item({
         {title}
       </h1>
       <div>
-Start Date:
+        Start Date:
         {moment(startDate).toString()}
       </div>
       <div>
-End Date:
+        End Date:
         {moment(endDate).toString()}
       </div>
     </a>
@@ -49,6 +49,8 @@ Item.propTypes = {
     endDate: PT.string.isRequired,
     startDate: PT.string.isRequired,
     title: PT.string.isRequired,
+    fields: PT.any,
+    sys: PT.any,
   }).isRequired,
   level: PT.number.isRequired,
   top: PT.number.isRequired,

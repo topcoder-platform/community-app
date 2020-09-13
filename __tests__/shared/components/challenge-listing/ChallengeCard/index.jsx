@@ -20,87 +20,116 @@ afterAll(() => {
 
 const mockData1 = {
   challenge: {
-    technologies: 'Data Science',
+    technologies: ['Data Science'],
+    tags: ['Data Science'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Open',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DEVELOP',
+    track: 'Data Science',
+    type: 'Challenge',
     totalPrize: 1800,
-    subTrack: 'CODE',
     events: [{ eventName: 'Submit' }],
     status: 'ACTIVE',
     users: {},
+  },
+  challengeType: {
+    name: 'Challenge',
+    abbreviation: 'CH',
   },
 };
 
 const mockData2 = {
   challenge: {
-    technologies: 'Go',
+    technologies: ['Go'],
+    tags: ['Go'],
     allPhases: [{
       phaseType: 'Submit',
       phaseStatus: 'Open',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
-    subTrack: 'CODE',
+    track: 'Data Science',
+    type: 'Challenge',
     id: '1',
     totalPrize: 1800,
     users: {},
+    events: [],
+  },
+  challengeType: {
+    name: 'Challenge',
+    abbreviation: 'CH',
   },
 };
 
 const mockData3 = {
   challenge: {
-    technologies: '',
+    technologies: [],
+    tags: [],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
-    subTrack: 'CODE',
+    track: 'Data Science',
+    type: 'Challenge',
     id: 'long id',
     totalPrize: 1800,
     users: {},
+    events: [],
+  },
+  challengeType: {
+    name: 'Challenge',
+    abbreviation: 'CH',
   },
 };
 
 const mockData4 = {
   challenge: {
-    technologies: 'more, technology, to, show',
+    technologies: ['more', 'technology', 'to', 'show'],
+    tags: ['more', 'technology', 'to', 'show'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
-    subTrack: 'CODE',
+    track: 'Data Science',
+    type: 'Challenge',
     id: 'long id',
     totalPrize: 1800,
     users: {},
+    events: [],
+  },
+  challengeType: {
+    name: 'Challenge',
+    abbreviation: 'CH',
   },
 };
 
 const mockData5 = {
   challenge: {
-    technologies: '+tag, more, technology, to, show',
+    technologies: ['+tag', 'more', 'technology', 'to', 'show'],
+    tags: ['+tag', 'more', 'technology', 'to', 'show'],
     allPhases: [{
       phaseType: 'Registration',
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
     prizes: [1200, 600],
-    track: 'DATA_SCIENCE',
-    subTrack: 'CODE',
+    track: 'Data Science',
+    type: 'Challenge',
     id: 'long id',
     totalPrize: 1800,
     users: {},
+    events: [],
+  },
+  challengeType: {
+    name: 'Challenge',
+    abbreviation: 'CH',
   },
 };
 

@@ -4,16 +4,22 @@
   margin: 0 auto;
 
   @include md-to-xl {
-    width: 960px;
+    width: 1280px;
+    padding: 0 15px;
+  }
+
+  .description {
+    margin-bottom: 2em;
   }
 
   h1 {
     @include frutiger-light;
 
-    font-size: 36px;
-    color: #706964;
+    font-size: 40px;
+    line-height: 1.2;
+    color: #4c433d;
     padding: 60px 0 30px;
-    text-align: center;
+    text-align: left;
     margin: 0;
 
     @include xs-to-sm {
@@ -26,15 +32,32 @@
     @include frutiger-light;
 
     color: #706964;
+    margin-top: 1em;
+  }
+
+  h2 {
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #706964;
   }
 
   p {
     @include frutiger-regular;
 
     color: #3e3e3e;
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 1.5;
     opacity: 1;
+    margin-bottom: 0;
+  }
+
+  ul,
+  ol {
+    list-style: disc;
+    margin-bottom: 1em;
+  }
+
+  ol {
+    list-style: decimal;
   }
 }
 
@@ -48,6 +71,8 @@
 .titleList {
   position: relative;
   width: 300px;
+  flex: 1;
+  margin-right: 2em;
 
   &::after {
     background-color: #ddd;
@@ -78,8 +103,9 @@
 
   @include frutiger-bold;
 
-  font-size: 14px;
-  color: #4066b3;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #039;
   padding: 20px 0;
   position: relative;
 
@@ -90,22 +116,24 @@
 
 .titleListItemSelected {
   cursor: default;
-  color: #706964;
+  color: #979797;
 
   &::after {
-    background-color: #706964;
+    background-color: #4268b1;
     bottom: 5px;
     content: '';
     display: block;
     position: absolute;
     right: 1px;
     top: 5px;
-    width: 3px;
+    width: 4px;
   }
 }
 
 .content {
   width: 600px;
+  flex: 2;
+  margin-left: 2em;
 
   @include md {
     width: 430px;
@@ -113,6 +141,39 @@
 
   @include xs-to-sm {
     width: 100%;
+  }
+
+  h1 {
+    @include frutiger-light;
+
+    font-size: 40px;
+    line-height: 1.2;
+    color: #4c433d;
+  }
+
+  h3 {
+    @include frutiger-regular;
+
+    font-size: 18px;
+    line-height: 1.22;
+    color: #4c433d;
+    margin: 1em 0;
+  }
+
+  p {
+    @include frutiger-regular;
+
+    color: #4c433d;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  ul {
+    margin-left: 2em;
+
+    li {
+      margin-bottom: 1em;
+    }
   }
 }
 

@@ -46,13 +46,13 @@ class ApplyModal extends React.Component {
         </p>
         <div styleName="head">
           <div styleName="col-1">
-Role
+            Role
           </div>
           <div styleName="col-2">
-Positions
+            Positions
           </div>
           <div styleName="col-3">
-Payment
+            Payment
           </div>
           <div styleName="col-4" />
         </div>
@@ -71,7 +71,7 @@ Payment
                 <div styleName="col-3">
                   $
                   {position.payment}
-.00*
+                  .00*
                 </div>
                 <div styleName="col-4">
                   <div styleName="tc-checkbox">
@@ -83,6 +83,7 @@ Payment
                       type="checkbox"
                     />
                     <label htmlFor={`${position.roleId}-checkbox`}>
+                      <input type="hidden" />
                       <div styleName="tc-checkbox-label" />
                     </label>
                   </div>
@@ -92,11 +93,11 @@ Payment
           }
         </div>
         <p>
-*Depends on the number of submissions, the actual payment may differ.
+          *Depends on the number of submissions, the actual payment may differ.
         </p>
         <div styleName="buttons">
           <Button onClick={onCancel}>
-Cancel
+            Cancel
           </Button>
           <PrimaryButton
             disabled={!hasChanged}

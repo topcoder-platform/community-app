@@ -10,8 +10,10 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import ConsentComponent from 'components/Settings/ConsentComponent';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConfirmationModal from '../../CofirmationModal';
 import dropdowns from './dropdowns.json';
 import ServiceProviderList from './List';
 
@@ -22,6 +24,7 @@ export default class ServiceProviders extends ConsentComponent {
     super(props);
     this.onHandleDeleteServiceProvider = this.onHandleDeleteServiceProvider.bind(this);
     this.onDeleteServiceProvider = this.onDeleteServiceProvider.bind(this);
+    this.onEditServiceProvider = this.onEditServiceProvider.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadServiceProviderTrait = this.loadServiceProviderTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -29,11 +32,13 @@ export default class ServiceProviders extends ConsentComponent {
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.isFormValid = this.isFormValid.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
 
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      errorMessage: '',
+      isSubmit: false,
       serviceProviderTrait: this.loadServiceProviderTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newServiceProvider: {
@@ -42,6 +47,9 @@ export default class ServiceProviders extends ConsentComponent {
       },
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
+      isEdit: false,
     };
   }
 
@@ -57,7 +65,7 @@ export default class ServiceProviders extends ConsentComponent {
       serviceProviderTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
+      isSubmit: false,
       newServiceProvider: {
         serviceProviderType: '',
         name: '',
@@ -76,10 +84,28 @@ export default class ServiceProviders extends ConsentComponent {
   onHandleAddServiceProvider(e) {
     e.preventDefault();
     const { newServiceProvider } = this.state;
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newServiceProvider)) {
       return;
     }
     this.showConsent(this.onAddServiceProvider.bind(this));
+  }
+
+  /**
+   * Edit Service Provider by index
+   * @param indexNo the Service Provider index no
+   */
+  onEditServiceProvider(indexNo) {
+    const { serviceProviderTrait } = this.state;
+    this.setState({
+      newServiceProvider: {
+        serviceProviderType: serviceProviderTrait.traits.data[indexNo].serviceProviderType,
+        name: serviceProviderTrait.traits.data[indexNo].name,
+      },
+      isEdit: true,
+      indexNo,
+      isSubmit: false,
+    });
   }
 
   /**
@@ -90,29 +116,23 @@ export default class ServiceProviders extends ConsentComponent {
   onCheckFormValue(newServiceProvider) {
     let invalid = false;
 
-    let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newServiceProvider.serviceProviderType).length) {
-      invalidFields.push('Type');
       invalid = true;
     }
 
     if (!_.trim(newServiceProvider.name).length) {
-      invalidFields.push('Name');
       invalid = true;
     }
 
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
-      errorMessage += ' cannot be empty';
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
+    this.setState({ formInvalid: invalid });
     return invalid;
   }
 
   onHandleDeleteServiceProvider(indexNo) {
-    this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -139,6 +159,12 @@ export default class ServiceProviders extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'service_provider', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+      formInvalid: false,
+      isSubmit: false,
+    });
   }
 
   /**
@@ -146,7 +172,9 @@ export default class ServiceProviders extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddServiceProvider(answer) {
-    const { newServiceProvider, personalizationTrait } = this.state;
+    const {
+      newServiceProvider, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -156,24 +184,27 @@ export default class ServiceProviders extends ConsentComponent {
     } = this.props;
     const { serviceProviderTrait } = this.state;
     if (serviceProviderTrait.traits && serviceProviderTrait.traits.data.length > 0) {
-      const newServiceProviderTrait = { ...serviceProviderTrait };
+      const newServiceProviderTrait = _.cloneDeep(serviceProviderTrait);
+      if (isEdit) {
+        newServiceProviderTrait.traits.data.splice(indexNo, 1);
+      }
       newServiceProviderTrait.traits.data.push(newServiceProvider);
-      this.setState({ serviceProviderTrait: newServiceProviderTrait });
       updateUserTrait(handle, 'service_provider', newServiceProviderTrait.traits.data, tokenV3);
     } else {
       const newServiceProviders = [];
       newServiceProviders.push(newServiceProvider);
-      const traits = {
-        data: newServiceProviders,
-      };
-      this.setState({ serviceProviderTrait: { traits } });
       addUserTrait(handle, 'service_provider', newServiceProviders, tokenV3);
     }
     const empty = {
       serviceProviderType: '',
       name: '',
     };
-    this.setState({ newServiceProvider: empty });
+    this.setState({
+      newServiceProvider: empty,
+      isEdit: false,
+      indexNo: null,
+      isSubmit: false,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -187,7 +218,6 @@ export default class ServiceProviders extends ConsentComponent {
     }
   }
 
-
   /**
    * Update input value
    * @param e event
@@ -196,7 +226,7 @@ export default class ServiceProviders extends ConsentComponent {
     const { newServiceProvider: oldServiceProvider } = this.state;
     const newServiceProvider = { ...oldServiceProvider };
     newServiceProvider[e.target.name] = e.target.value;
-    this.setState({ newServiceProvider });
+    this.setState({ newServiceProvider, isSubmit: false });
   }
 
   /**
@@ -208,7 +238,7 @@ export default class ServiceProviders extends ConsentComponent {
       const { newServiceProvider: oldServiceProvider } = this.state;
       const newServiceProvider = { ...oldServiceProvider };
       newServiceProvider[option.key] = option.name;
-      this.setState({ newServiceProvider });
+      this.setState({ newServiceProvider, isSubmit: false });
     }
   }
 
@@ -237,17 +267,52 @@ export default class ServiceProviders extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newServiceProvider } = this.state;
+    if (newServiceProvider.serviceProviderType && (newServiceProvider.name.trim().length !== 0)) {
+      return true;
+    }
+    return false;
+  }
+
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        isSubmit: false,
+        indexNo: null,
+        formInvalid: false,
+        newServiceProvider: {
+          serviceProviderType: '',
+          name: '',
+        },
+      });
+    }
+  }
+
   render() {
-    const { serviceProviderTrait, isMobileView } = this.state;
+    const {
+      serviceProviderTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      formInvalid, isSubmit,
+    } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
-    const { newServiceProvider, formInvalid, errorMessage } = this.state;
-
+    const { newServiceProvider } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
     return (
       <div styleName="service-provider-container">
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteServiceProvider.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+            name={serviceProviderTrait.traits.data[indexNo].name}
+          />
+        )}
         <h1>
           Service Providers
         </h1>
@@ -259,12 +324,17 @@ export default class ServiceProviders extends ConsentComponent {
           && (
             <ServiceProviderList
               serviceProviderList={{ items: serviceProviderItems }}
-              onDeleteItem={this.onDeleteServiceProvider}
+              onDeleteItem={this.onHandleDeleteServiceProvider}
+              disabled={!canModifyTrait}
+              onEditItem={this.onEditServiceProvider}
             />
           )
         }
         <div styleName={`sub-title ${serviceProviderItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new service provider
+          {
+            isEdit ? (<React.Fragment>Edit service provider</React.Fragment>)
+              : (<React.Fragment>Add a new service provider</React.Fragment>)
+          }
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
@@ -272,6 +342,7 @@ export default class ServiceProviders extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="serviceProviderType">
                   Type
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -285,38 +356,67 @@ export default class ServiceProviders extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="name">
                   Name
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
-          </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddServiceProvider}
-            >
-              Add service provider to your list
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddServiceProvider}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit service provider to your list</React.Fragment>)
+                    : (<React.Fragment>Add service provider to your list</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         <div styleName="form-container-mobile">
           <form name="service-provider-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Service Provider
+                {
+                  isEdit ? (<React.Fragment>Edit Service Provider</React.Fragment>)
+                    : (<React.Fragment>Add Service Provider</React.Fragment>)
+                }
               </p>
             </div>
             <div styleName="row">
@@ -324,6 +424,7 @@ export default class ServiceProviders extends ConsentComponent {
                 <label htmlFor="serviceProviderType">
                   Type
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
                 <Select
                   name="serviceProviderType"
@@ -334,24 +435,53 @@ export default class ServiceProviders extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.serviceProviderType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
                   Provider Name
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
-                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newServiceProvider.name} maxLength="64" required />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newServiceProvider.name) && formInvalid} message="Name cannot be empty" />
+                  )
+                }
               </div>
             </div>
           </form>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddServiceProvider}
-            >
-              Add Provider
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddServiceProvider}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit Provider</React.Fragment>)
+                    : (<React.Fragment>Add Provider</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
         {
@@ -360,6 +490,8 @@ export default class ServiceProviders extends ConsentComponent {
             <ServiceProviderList
               serviceProviderList={{ items: serviceProviderItems }}
               onDeleteItem={this.onHandleDeleteServiceProvider}
+              disabled={!canModifyTrait}
+              onEditItem={this.onEditServiceProvider}
             />
           )
         }
@@ -371,6 +503,7 @@ export default class ServiceProviders extends ConsentComponent {
 ServiceProviders.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
+  traitRequestCount: PT.number.isRequired,
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,

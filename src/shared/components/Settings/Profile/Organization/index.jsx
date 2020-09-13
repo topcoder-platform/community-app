@@ -339,6 +339,7 @@ export default class Organization extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="name">
                     Organization Name
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -350,6 +351,7 @@ export default class Organization extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="sector">
                     Sector
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -361,6 +363,7 @@ export default class Organization extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="city">
                     City
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -372,6 +375,7 @@ export default class Organization extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="timePeriodFrom">
                     From
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -383,6 +387,7 @@ export default class Organization extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="timePeriodTo">
                     To
+                    <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
@@ -411,12 +416,14 @@ export default class Organization extends ConsentComponent {
                 <div styleName="field col-1">
                   <label htmlFor="name">
                     Organization Name
+                    <input type="hidden" />
                   </label>
                   <input id="name" name="name" type="text" placeholder="Organization" onChange={this.onUpdateInput} value={newOrganization.name} maxLength="128" required />
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="sector">
                     Sector
+                    <input type="hidden" />
                   </label>
                   <input id="sector" name="sector" type="text" placeholder="Sector" onChange={this.onUpdateInput} value={newOrganization.sector} maxLength="128" required />
                 </div>
@@ -425,18 +432,21 @@ export default class Organization extends ConsentComponent {
                 <div styleName="field city">
                   <label htmlFor="city">
                     City
+                    <input type="hidden" />
                   </label>
                   <input id="city" name="city" type="text" placeholder="City" onChange={this.onUpdateInput} value={newOrganization.city} maxLength="64" required />
                 </div>
                 <div styleName="field date">
                   <label htmlFor="timePeriodFrom">
                     From
+                    <input type="hidden" />
                   </label>
                   <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newOrganization.timePeriodFrom} required />
                 </div>
                 <div styleName="field date">
                   <label htmlFor="timePeriodTo">
                     To
+                    <input type="hidden" />
                   </label>
                   <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newOrganization.timePeriodTo} required />
                 </div>

@@ -10,6 +10,8 @@ import BadgeTco17Champion from
   'assets/images/dashboard/badge-tco17-gold.svg';
 import BadgeTco17Finalist from
   'assets/images/dashboard/badge-tco17-finalist.svg';
+import BadgeTco18Finalist from
+  'assets/images/dashboard/badge-tco18-finalist.svg';
 
 import './style.scss';
 
@@ -38,6 +40,7 @@ export const MAP = {
   'Studio Spirit': 'studioSpirit',
   'TCO17 Champion': 'tco17Champion',
   'TCO17 Finalist': 'tco17Finalist',
+  'TCO18 Finalist': 'tco18Finalist',
   'TopCoder Reviewer': 'topcoderReviewer',
 };
 
@@ -47,6 +50,7 @@ export const XL_MAP = {
   'SRM Engagement Honor': BadgeSrmEngagementHonor,
   'TCO17 Champion': <BadgeTco17Champion styleName="xlBadge" />,
   'TCO17 Finalist': <BadgeTco17Finalist styleName="xlBadge" />,
+  'TCO18 Finalist': <BadgeTco18Finalist styleName="xlBadge" />,
 };
 
 export default function Badge({

@@ -1,0 +1,242 @@
+@import "~styles/mixins";
+$white: white;
+$turquoise-dark: turquoise;
+$turquoise-super-dark: turquoise;
+
+*:focus {
+  outline: none;
+}
+
+.outer-container {
+  width: 1000px;
+  height: auto;
+  background-color: $tc-white;
+  margin: 70px auto 150px auto;
+
+  .heading {
+    color: $tc-black;
+
+    @include barlow-condensed;
+
+    font-size: 60px;
+    font-weight: 500;
+    line-height: 58px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .notifications-panel {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    min-height: 685px;
+
+    [role="button"] {
+      cursor: pointer;
+    }
+
+    .noti-body {
+      border: 1px solid #e0e0e0;
+
+      &.center {
+        text-align: center;
+      }
+
+      .txt {
+        margin: 0;
+        color: $tc-gray-90;
+        font-size: 14px;
+
+        @include roboto-regular;
+
+        line-height: 22px;
+
+        &.center-txt {
+          text-align: center;
+          margin: 15px auto 25px auto;
+        }
+
+        a {
+          color: #0d61bf;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+
+      .challenge-title {
+        background-color: #f4f4f4;
+        color: $tc-gray-90;
+        font-size: 14px;
+
+        @include roboto-bold;
+
+        font-weight: 500;
+        line-height: 22px;
+        margin-top: -2px;
+        padding: 5px 20px;
+        display: flex;
+        justify-content: space-between;
+
+        .challenge-header-rights {
+          display: flex;
+          width: 45.4px;
+          justify-content: space-between;
+
+          &.hide-challenge-header-rights {
+            display: none;
+          }
+
+          .dismiss-challenge {
+            cursor: pointer;
+            color: #aaa;
+
+            @include roboto-regular;
+
+            font-size: 20px;
+            width: 10px;
+            height: 10px;
+          }
+
+          .arrow {
+            margin: auto;
+            cursor: pointer;
+
+            &.up {
+              transform: rotateZ(180deg);
+            }
+
+            &.down {
+              transform: rotateZ(0deg);
+            }
+          }
+        }
+      }
+
+      .right-remove {
+        position: absolute;
+        right: 1px;
+        top: 50%;
+        margin-top: -10px;
+        z-index: 666;
+        display: none;
+
+        .btn-close {
+          display: block;
+          background-size: 10px;
+          width: 20px;
+          height: 20px;
+        }
+
+        .black-txt {
+          position: absolute;
+          top: -28px;
+          left: -76px;
+          background-color: $tc-gray-90;
+          border-radius: 2px;
+          padding: 6px 0;
+          color: $tc-white;
+          font-size: 11px;
+
+          @include roboto-regular;
+
+          line-height: 13px;
+          text-align: center;
+          min-width: 110px;
+          display: none;
+
+          &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -5px;
+            left: calc(50% + 30px);
+            margin-left: -3px;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid $tc-gray-90;
+          }
+        }
+
+        &:hover {
+          .black-txt {
+            display: block;
+          }
+        }
+      }
+
+      .noti-item {
+        background-color: $tc-white;
+        padding: 5px 20px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px #e0e0e0 solid;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        .left {
+          display: flex;
+          flex-direction: column;
+          padding-left: 30px;
+
+          .txt {
+            margin: 0;
+            color: $tc-gray-90;
+            font-size: 14px;
+
+            @include roboto-regular;
+
+            line-height: 22px;
+          }
+
+          .time-txt {
+            display: inline-block;
+            vertical-align: middle;
+            color: #aaa;
+            font-size: 12px;
+
+            @include roboto-regular;
+
+            line-height: 20px;
+          }
+        }
+
+        .right {
+          margin: auto 0;
+
+          .point {
+            width: 10px;
+            height: 10px;
+            background-color: $tc-white;
+            border-radius: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            z-index: 10;
+          }
+
+          .point-red {
+            background-color: $tc-red;
+          }
+
+          .point-grey {
+            background-color: $tc-gray-10;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm + 1px) {
+  .outer-container {
+    margin: 15px auto 50px auto;
+    padding: 0 10px;
+
+    .heading {
+      font-size: 40px;
+    }
+  }
+}

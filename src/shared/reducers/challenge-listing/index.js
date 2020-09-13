@@ -8,8 +8,12 @@ import { handleActions } from 'redux-actions';
 import { redux } from 'topcoder-react-utils';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
-import { logger, errors, challenge as challengeUtils }
-  from 'topcoder-react-lib';
+import {
+  logger,
+  errors,
+  challenge as challengeUtils,
+  actions as actionsUtils,
+} from 'topcoder-react-lib';
 
 import filterPanel from './filter-panel';
 import sidebar, { factory as sidebarFactory } from './sidebar';
@@ -17,7 +21,61 @@ import sidebar, { factory as sidebarFactory } from './sidebar';
 const { fireErrorMessage } = errors;
 const { filter: Filter } = challengeUtils;
 
+/** TODO: Inspect if the 2 actions bellow can be removed?
+ * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
+ * which was refactored in listing-improve
+ */
+function onGetAllActiveChallengesInit(state, { payload }) {
+  return { ...state, loadingActiveChallengesUUID: payload };
+}
 function onGetAllActiveChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, challenges: loaded } = payload;
+  if (uuid !== state.loadingActiveChallengesUUID) return state;
+  /* Once all active challenges are fetched from the API, we remove from the
+   * store any active challenges stored there previously, and also any
+   * challenges with IDs matching any challenges loaded now as active. */
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+  const challenges = state.challenges
+    .filter(item => item.status !== 'Active' && !ids.has(item.id))
+    .concat(loaded);
+
+  return {
+    ...state,
+    challenges,
+    lastUpdateOfActiveChallenges: Date.now(),
+    loadingActiveChallengesUUID: '',
+  };
+}
+
+function onGetAllUserChallengesInit(state, { payload }) {
+  return { ...state, loadingActiveChallengesUUID: payload };
+}
+function onGetAllUserChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { challenges } = payload || [];
+
+  return {
+    ...state,
+    challenges,
+    lastUpdateOfActiveChallenges: Date.now(),
+    loadingActiveChallengesUUID: '',
+  };
+}
+
+/**
+ * Called when 1st page of ative challenges is loaded from `/challenges` api
+ * @param {*} state
+ * @param {*} param1
+ */
+function onGetActiveChallengesDone(state, { error, payload }) {
   if (error) {
     logger.error(payload);
     return state;
@@ -30,8 +88,15 @@ function onGetAllActiveChallengesDone(state, { error, payload }) {
    * challenges with IDs matching any challenges loaded now as active. */
   const ids = new Set();
   loaded.forEach(item => ids.add(item.id));
+
+  /* Fetching 0 page of active challenges also drops any active challenges
+   * loaded to the state before. */
+  const filter = state.lastRequestedPageOfActiveChallenges
+    ? item => !ids.has(item.id)
+    : item => !ids.has(item.id) && item.status !== 'Active';
+
   const challenges = state.challenges
-    .filter(item => item.status !== 'ACTIVE' && !ids.has(item.id))
+    .filter(filter)
     .concat(loaded);
 
   return {
@@ -39,11 +104,152 @@ function onGetAllActiveChallengesDone(state, { error, payload }) {
     challenges,
     lastUpdateOfActiveChallenges: Date.now(),
     loadingActiveChallengesUUID: '',
+    meta: payload.meta,
   };
 }
 
-function onGetAllActiveChallengesInit(state, { payload }) {
-  return { ...state, loadingActiveChallengesUUID: payload };
+/**
+ * Called when loading of 1st page of active challenges is started
+ * @param {*} state
+ * @param {*} param1
+ */
+function onGetActiveChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingActiveChallengesUUID: payload.uuid,
+    lastRequestedPageOfActiveChallenges: payload.page,
+  };
+}
+function onGetRestActiveChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingRestActiveChallengesUUID: payload.uuid,
+  };
+}
+
+/**
+ * Called when all challenges are loaded
+ * @param {*} state
+ * @param {*} param1
+ */
+function onGetRestActiveChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, challenges: loaded } = payload;
+  if (uuid !== state.loadingRestActiveChallengesUUID) return state;
+
+  /* Once all active challenges are fetched from the API, we remove from the
+   * store any active challenges stored there previously, and also any
+   * challenges with IDs matching any challenges loaded now as active. */
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+
+  /* Fetching 0 page of active challenges also drops any active challenges
+   * loaded to the state before. */
+  const filter = item => !ids.has(item.id);
+
+  const challenges = state.challenges
+    .filter(filter)
+    .concat(loaded);
+
+  return {
+    ...state,
+    challenges,
+    allActiveChallengesLoaded: true,
+    lastUpdateOfActiveChallenges: Date.now(),
+    lastRequestedPageOfActiveChallenges: -1,
+    loadingRestActiveChallengesUUID: '',
+  };
+}
+
+/**
+ * Before get all recommended challenges
+ * @param {Object} state current state
+ * @param {Object} param1 payload info
+ */
+function onGetAllRecommendedChallengesInit(state, { payload }) {
+  return { ...state, loadingRecommendedChallengesUUID: payload };
+}
+
+/**
+ * Get all recommended challenges
+ * @param {Object} state current state
+ * @param {Object} param1 payload info
+ */
+function onGetAllRecommendedChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, challenges, tag } = payload;
+  if (uuid !== state.loadingRecommendedChallengesUUID) return state;
+  const { recommendedChallenges } = state;
+  recommendedChallenges[tag] = {
+    challenges,
+    lastUpdateOfActiveChallenges: Date.now(),
+  };
+  return {
+    ...state,
+    recommendedChallenges,
+    loadingRecommendedChallengesTechnologies: tag,
+    loadingRecommendedChallengesUUID: '',
+  };
+}
+
+/**
+ * On register done
+ * @param {Object} state current state
+ * @param {Object} param1 payload info
+ */
+function onRegisterDone(state, { error, payload }) {
+  if (error) {
+    return state;
+  }
+  const { recommendedChallenges, loadingRecommendedChallengesTechnologies } = state;
+  if (!loadingRecommendedChallengesTechnologies) {
+    return state;
+  }
+
+  const { challenges } = recommendedChallenges[loadingRecommendedChallengesTechnologies];
+  const challenge = _.find(challenges, { id: payload.id });
+  if (!challenge) {
+    return state;
+  }
+  // add current user to registed recommended challenges
+  challenge.users = payload.users;
+  return {
+    ...state,
+    recommendedChallenges,
+  };
+}
+
+/**
+ * On unregister done
+ * @param {Object} state current state
+ * @param {Object} param1 payload info
+ */
+function onUnregisterDone(state, { error, payload }) {
+  if (error) {
+    return state;
+  }
+  const { recommendedChallenges, loadingRecommendedChallengesTechnologies } = state;
+  if (!loadingRecommendedChallengesTechnologies) {
+    return state;
+  }
+
+  const { challenges } = recommendedChallenges[loadingRecommendedChallengesTechnologies];
+  const challenge = _.find(challenges, { id: payload.id });
+  if (!challenge) {
+    return state;
+  }
+  // remove current user from registed recommended challenges
+  challenge.users = {};
+  return {
+    ...state,
+    recommendedChallenges,
+  };
 }
 
 /**
@@ -52,13 +258,13 @@ function onGetAllActiveChallengesInit(state, { payload }) {
  * @param {Object} action
  * @return {Object}
  */
-function onGetChallengeSubtracksDone(state, action) {
+function onGetChallengeTypesDone(state, action) {
   if (action.error) logger.error(action.payload);
   return {
     ...state,
-    challengeSubtracks: action.error ? [] : action.payload,
-    challengeSubtracksMap: action.error ? {} : _.keyBy(action.payload, 'subTrack'),
-    loadingChallengeSubtracks: false,
+    challengeTypes: action.error ? [] : action.payload,
+    challengeTypesMap: action.error ? {} : _.keyBy(action.payload, 'id'),
+    loadingChallengeTypes: false,
   };
 }
 
@@ -74,42 +280,6 @@ function onGetChallengeTagsDone(state, action) {
     ...state,
     challengeTags: action.error ? [] : action.payload,
     loadingChallengeTags: false,
-  };
-}
-
-function onGetDraftChallengesInit(state, { payload: { uuid, page } }) {
-  return {
-    ...state,
-    lastRequestedPageOfDraftChallenges: page,
-    loadingDraftChallengesUUID: uuid,
-  };
-}
-
-function onGetDraftChallengesDone(state, { error, payload }) {
-  if (error) {
-    logger.error(payload);
-    return state;
-  }
-  const { uuid, challenges: loaded } = payload;
-  if (uuid !== state.loadingDraftChallengesUUID) return state;
-
-  const ids = new Set();
-  loaded.forEach(item => ids.add(item.id));
-
-  /* Fetching 0 page of draft challenges also drops any draft challenges
-   * loaded to the state before. */
-  const filter = state.lastRequestedPageOfDraftChallenges
-    ? item => !ids.has(item.id)
-    : item => !ids.has(item.id) && item.status !== 'DRAFT';
-
-  const challenges = state.challenges
-    .filter(filter).concat(loaded);
-
-  return {
-    ...state,
-    allDraftChallengesLoaded: loaded.length === 0,
-    challenges,
-    loadingDraftChallengesUUID: '',
   };
 }
 
@@ -156,12 +326,16 @@ function onGetPastChallengesDone(state, { error, payload }) {
     keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
   }
 
+  const pastSearchTimestamp = state.pastSearchTimestamp && state.pastSearchTimestamp > 0
+    ? state.pastSearchTimestamp : Date.now();
+
   return {
     ...state,
     allPastChallengesLoaded: loaded.length === 0,
     challenges,
     keepPastPlaceholders,
     loadingPastChallengesUUID: '',
+    pastSearchTimestamp,
   };
 }
 
@@ -175,10 +349,9 @@ function onSelectCommunity(state, { payload }) {
       * the code simple we just reset them each time a filter is modified.
       * (This community selection defines community-specific filter for
       * challenges). */
-    allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
-    lastRequestedPageOfDraftChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
+    pastSearchTimestamp: -1,
   };
 }
 
@@ -213,10 +386,9 @@ function onSetFilter(state, { payload }) {
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
-    allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
-    lastRequestedPageOfDraftChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
+    pastSearchTimestamp: -1,
   };
 }
 
@@ -308,28 +480,61 @@ function onGetSrmsDone(state, { error, payload }) {
 }
 
 /**
+ * Handles CHALLENGE_LISTING/GET_USER_CHALLENGES_INIT action
+ * @param {Object} state
+ * @return {Object} New state.
+ */
+function onGetUserChallengesInit(state) {
+  return {
+    ...state,
+    userChallenges: [],
+  };
+}
+
+/**
+ * Handles CHALLENGE_LISTING/GET_USER_CHALLENGES_DONE action
+ * @param {Object} state
+ * @param {Object} payload
+ * @return {Object} New state.
+ */
+function onGetUserChallengesDone(state, { payload }) {
+  return {
+    ...state,
+    userChallenges: payload,
+  };
+}
+
+/**
  * Creates a new Challenge Listing reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
  * @return Challenge Listing reducer.
  */
 function create(initialState) {
   const a = actions.challengeListing;
+  const actionChallenge = actionsUtils.challenge;
   return handleActions({
     [a.dropChallenges]: state => ({
       ...state,
-      allDraftChallengesLoaded: false,
+      allActiveChallengesLoaded: false,
       allPastChallengesLoaded: false,
       allReviewOpportunitiesLoaded: false,
       challenges: [],
-      lastRequestedPageOfDraftChallenges: -1,
+      lastRequestedPageOfActiveChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
       lastRequestedPageOfReviewOpportunities: -1,
       lastUpdateOfActiveChallenges: 0,
       loadingActiveChallengesUUID: '',
-      loadingDraftChallengesUUID: '',
+      loadingRestActiveChallengesUUID: '',
       loadingPastChallengesUUID: '',
       loadingReviewOpportunitiesUUID: '',
       reviewOpportunities: [],
+      meta: {
+        allChallengesCount: 0,
+        myChallengesCount: 0,
+        ongoingChallengesCount: 0,
+        openChallengesCount: 0,
+        totalCount: 0,
+      },
     }),
 
     [a.expandTag]: (state, { payload }) => ({
@@ -340,20 +545,32 @@ function create(initialState) {
     [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
     [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
 
-    [a.getChallengeSubtracksInit]: state => ({
+    [a.getAllUserChallengesInit]: onGetAllUserChallengesInit,
+    [a.getAllUserChallengesDone]: onGetAllUserChallengesDone,
+
+    [a.getAllRecommendedChallengesInit]: onGetAllRecommendedChallengesInit,
+    [a.getAllRecommendedChallengesDone]: onGetAllRecommendedChallengesDone,
+
+    [actionChallenge.registerDone]: onRegisterDone,
+    [actionChallenge.unregisterDone]: onUnregisterDone,
+
+    [a.getActiveChallengesInit]: onGetActiveChallengesInit,
+    [a.getActiveChallengesDone]: onGetActiveChallengesDone,
+
+    [a.getRestActiveChallengesInit]: onGetRestActiveChallengesInit,
+    [a.getRestActiveChallengesDone]: onGetRestActiveChallengesDone,
+
+    [a.getChallengeTypesInit]: state => ({
       ...state,
-      loadingChallengeSubtracks: true,
+      loadingChallengetypes: true,
     }),
-    [a.getChallengeSubtracksDone]: onGetChallengeSubtracksDone,
+    [a.getChallengeTypesDone]: onGetChallengeTypesDone,
 
     [a.getChallengeTagsInit]: state => ({
       ...state,
       loadingChallengeTags: true,
     }),
     [a.getChallengeTagsDone]: onGetChallengeTagsDone,
-
-    [a.getDraftChallengesInit]: onGetDraftChallengesInit,
-    [a.getDraftChallengesDone]: onGetDraftChallengesDone,
 
     [a.getPastChallengesInit]: onGetPastChallengesInit,
     [a.getPastChallengesDone]: onGetPastChallengesDone,
@@ -363,6 +580,9 @@ function create(initialState) {
 
     [a.getSrmsInit]: onGetSrmsInit,
     [a.getSrmsDone]: onGetSrmsDone,
+
+    [a.getUserChallengesInit]: onGetUserChallengesInit,
+    [a.getUserChallengesDone]: onGetUserChallengesDone,
 
     [a.selectCommunity]: onSelectCommunity,
 
@@ -375,13 +595,14 @@ function create(initialState) {
       },
     }),
   }, _.defaults(_.clone(initialState) || {}, {
-    allDraftChallengesLoaded: false,
+    allActiveChallengesLoaded: false,
     allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 
     challenges: [],
-    challengeSubtracks: [],
-    challengeSubtracksMap: {},
+    recommendedChallenges: {},
+    challengeTypes: [],
+    challengeTypesMap: {},
     challengeTags: [],
 
     expandedTags: [],
@@ -390,17 +611,19 @@ function create(initialState) {
 
     keepPastPlaceholders: false,
 
-    lastRequestedPageOfDraftChallenges: -1,
+    lastRequestedPageOfActiveChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
     lastUpdateOfActiveChallenges: 0,
 
     loadingActiveChallengesUUID: '',
-    loadingDraftChallengesUUID: '',
+    loadingRecommendedChallengesUUID: '',
+    loadingRestActiveChallengesUUID: '',
+    loadingRecommendedChallengesTechnologies: '',
     loadingPastChallengesUUID: '',
     loadingReviewOpportunitiesUUID: '',
 
-    loadingChallengeSubtracks: false,
+    loadingChallengeTypes: false,
     loadingChallengeTags: false,
 
     reviewOpportunities: [],
@@ -414,6 +637,16 @@ function create(initialState) {
       loadingUuid: '',
       timestamp: 0,
     },
+
+    meta: {
+      allChallengesCount: 0,
+      myChallengesCount: 0,
+      ongoingChallengesCount: 0,
+      openChallengesCount: 0,
+      totalCount: 0,
+    },
+
+    pastSearchTimestamp: -1,
   }));
 }
 

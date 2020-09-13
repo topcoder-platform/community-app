@@ -58,15 +58,17 @@ class ScoreboardPageContainer extends React.Component {
 }
 
 ScoreboardPageContainer.defaultProps = {
-  challengeId: 0,
+  challengeId: '',
   scoreboard: null,
   loading: false,
   loadScoreboard: _.noop,
 };
 
 ScoreboardPageContainer.propTypes = {
-  challengeId: PT.number,
-  scoreboard: PT.shape({}),
+  challengeId: PT.string,
+  scoreboard: PT.shape({
+    details: PT.any,
+  }),
   loading: PT.bool,
   loadScoreboard: PT.func,
 };
@@ -74,7 +76,7 @@ ScoreboardPageContainer.propTypes = {
 function mapStateToProps(state, props) {
   return {
     scoreboard: state.scoreboard,
-    challengeId: Number(props.match.params.challengeId),
+    challengeId: String(props.match.params.challengeId),
   };
 }
 

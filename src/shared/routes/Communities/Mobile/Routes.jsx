@@ -12,6 +12,8 @@ import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
+import Profile from 'routes/Profile';
+import ProfileStats from 'routes/ProfileStats';
 
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
@@ -65,7 +67,7 @@ export default function Mobile({ base, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})`}
               />
               <Route
                 component={routeProps => Submission({
@@ -73,7 +75,7 @@ export default function Mobile({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/submit`}
               />
               <Route
                 component={routeProps => SubmissionManagement({
@@ -81,12 +83,22 @@ export default function Mobile({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
               />
               <Route
                 component={TermsDetail}
                 exact
                 path={`${base}/challenges/terms/detail/:termId`}
+              />
+              <Route
+                render={props => <Profile {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                render={props => <ProfileStats {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
               />
               <ContentfulRoute
                 baseUrl={base}
@@ -109,5 +121,7 @@ Mobile.defaultProps = {
 
 Mobile.propTypes = {
   base: PT.string,
-  meta: PT.shape({}),
+  meta: PT.shape({
+    communityId: PT.any,
+  }),
 };

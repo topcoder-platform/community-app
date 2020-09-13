@@ -1,0 +1,12 @@
+.tcoButton {
+  color: #fafafb !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  background-color: #0e477a !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+
+  &:hover {
+    background-image: none !important;
+  }
+}

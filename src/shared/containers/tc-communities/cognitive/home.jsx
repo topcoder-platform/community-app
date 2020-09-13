@@ -7,6 +7,8 @@ import PT from 'prop-types';
 import React from 'react';
 import resourcesActions from 'actions/page/communities/cognitive/resources';
 import shortId from 'shortid';
+import { USER_GROUP_MAXAGE } from 'config';
+import { updateChallengeType } from 'utils/challenge';
 
 import { connect } from 'react-redux';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -30,7 +32,7 @@ class HomeContainer extends React.Component {
     && !loadingActiveChallenges) {
       getAllActiveChallenges(auth.tokenV3);
     }
-    if (Date.now() - communitiesList.timestamp > MAXAGE
+    if (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE
     && !communitiesList.loadingUuid) {
       getCommunitiesList(auth);
     }
@@ -52,7 +54,7 @@ class HomeContainer extends React.Component {
     if (filter) {
       filter = Filter.getFilterFunction(filter.challengeFilter);
       challenges = activeChallenges
-        .filter(x => x.status === 'ACTIVE')
+        .filter(x => x.status === 'Active')
         .filter(filter)
         .sort((a, b) => moment(a.registrationStartDate).diff(b.registrationStartDate));
     }
@@ -85,6 +87,7 @@ HomeContainer.propTypes = {
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
     timestamp: PT.number.isRequired,
+    loadingUuid: PT.any,
   }).isRequired,
   getAllActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
@@ -94,6 +97,9 @@ HomeContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
+  );
   return {
     auth: state.auth,
     activeChallenges: state.challengeListing.challenges,

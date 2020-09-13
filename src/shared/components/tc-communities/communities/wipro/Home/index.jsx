@@ -57,7 +57,8 @@ function PrevArrow({
       onClick={onClick}
       className={`${style.PrevArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
       type="button"
-    />);
+    />
+  );
 }
 
 function NextArrow({
@@ -69,7 +70,8 @@ function NextArrow({
       onClick={onClick}
       className={`${style.NextArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
       type="button"
-    />);
+    />
+  );
 }
 
 PrevArrow.defaultProps = {
@@ -147,6 +149,35 @@ export default function Home(props) {
       >
         <div>
           <ImageText
+            title="Leverage The Crowd"
+            text="Access your on-demand community of designers and technology experts."
+            link={[{
+              newTab: true,
+              title: 'Initiate Project',
+              url: `${config.URL.TOPGEAR}/topcoder_projects/initiate_project?user_id=${userId}`,
+            }, {
+              newTab: true,
+              title: 'Add me to account groups',
+              url: 'https://topgear-app.wipro.com/topgear_groups/confirm_group_membership',
+            }, {
+              newTab: true,
+              title: 'Reusable Components',
+              url: 'https://wipro365.sharepoint.com/sites/ipgateway/SiteContent/Components.aspx',
+            }]}
+            theme={ImageTextStyles}
+            imageSrc="/community-app-assets/themes/wipro/home/image-text-leverage.png"
+          />
+          <ImageText
+            title="Get Involved"
+            text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
+            link={[{
+              title: 'Start Earning',
+              url: 'challenges',
+            }]}
+            theme={ImageTextStyles}
+            imageSrc="/community-app-assets/themes/wipro/home/image-text-do.png"
+          />
+          <ImageText
             title="Improve Your Skills"
             text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. To keep abreast of emerging new technologies and succeed in this rapidly changing technology landscape. Click below to visit TopGear."
             link={{
@@ -156,39 +187,6 @@ export default function Home(props) {
             }}
             theme={ImageTextStyles}
             imageSrc="/community-app-assets/themes/wipro/home/image-text-learn.png"
-          />
-          <ImageText
-            title="Get Involved"
-            text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
-            link={[{
-              title: 'Start Earning',
-              url: 'challenges',
-            }, {
-              newTab: true,
-              title: 'Become a Reviewer',
-              url: 'https://help.topcoder.com/hc/requests/new',
-            }, {
-              newTab: true,
-              title: 'Become a Copilot',
-              url: 'https://help.topcoder.com/hc/requests/new',
-            }]}
-            theme={ImageTextStyles}
-            imageSrc="/community-app-assets/themes/wipro/home/image-text-do.png"
-          />
-          <ImageText
-            title="Leverage The Crowd"
-            text="Access your on-demand community of designers and technology experts."
-            link={[{
-              newTab: true,
-              title: 'Initiate Project',
-              url: `${config.URL.TOPGEAR}/topcoder_projects/initiate_project?user_id=${userId}`,
-            }, {
-              newTab: true,
-              title: 'Request Group',
-              url: 'https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747',
-            }]}
-            theme={ImageTextStyles}
-            imageSrc="/community-app-assets/themes/wipro/home/image-text-leverage.png"
           />
         </div>
       </Section>
@@ -205,7 +203,7 @@ export default function Home(props) {
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
           >
-View All Public Challenges
+            View All Public Challenges
           </Link>
         </div>
       </Section>

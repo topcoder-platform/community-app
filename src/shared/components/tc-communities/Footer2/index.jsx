@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
-
+import moment from 'moment';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
 import './style.scss';
+
 
 export default function Footer2() {
   return (
@@ -14,7 +15,7 @@ export default function Footer2() {
       <div styleName="content">
         <TopcoderLogoGray />
         <span styleName="copyright">
-&copy; Topcoder, 2017
+          &copy; Topcoder, {moment().year()}
         </span>
         <div styleName="right">
           <a
@@ -22,7 +23,7 @@ export default function Footer2() {
             rel="noopener noreferrer"
             target="_blank"
           >
-About
+            About
           </a>
           &bull;
           <a
@@ -30,7 +31,7 @@ About
             rel="noopener noreferrer"
             target="_blank"
           >
-Contact
+            Contact
           </a>
           &bull;
           <a
@@ -38,15 +39,15 @@ Contact
             rel="noopener noreferrer"
             target="_blank"
           >
-Help
+            Help
           </a>
           &bull;
           <a
-            href="https://www.topcoder.com/community/how-it-works/privacy-policy/"
+            href="https://www.topcoder.com/privacy-policy/"
             rel="noopener noreferrer"
             target="_blank"
           >
-Privacy
+            Privacy
           </a>
           &bull;
           <a
@@ -54,7 +55,7 @@ Privacy
             rel="noopener noreferrer"
             target="_blank"
           >
-Terms
+            Terms
           </a>
         </div>
       </div>

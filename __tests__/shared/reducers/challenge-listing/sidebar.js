@@ -169,6 +169,7 @@ function testReducer(reducer) {
     expectedState = {
       ...expectedState,
       activeBucket: 'all',
+      isBucketSwitching: true,
     };
     expect(state).toEqual(expectedState);
 
@@ -176,6 +177,7 @@ function testReducer(reducer) {
     expectedState = {
       ...expectedState,
       activeBucket: 'saved-filter',
+      isBucketSwitching: true,
     };
     expect(state).toEqual(expectedState);
 
@@ -183,6 +185,7 @@ function testReducer(reducer) {
     expectedState = {
       ...expectedState,
       activeBucket: 'upcoming',
+      isBucketSwitching: true,
     };
     expect(state).toEqual(expectedState);
   });
@@ -193,6 +196,7 @@ function testReducer(reducer) {
       ...expectedState,
       activeBucket: 'saved-filter',
       activeSavedFilter: 1,
+      isBucketSwitching: true,
     };
     expect(state).toEqual(expectedState);
   });

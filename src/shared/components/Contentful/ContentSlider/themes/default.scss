@@ -1,38 +1,35 @@
-@import '~styles/mixins';
+// @import '~styles/mixins';
 
 .container {
   width: 100%;
-}
 
-.content {
-  width: 100%;
-  background: $tc-gray-10;
-}
-
-.button {
-  background: red;
-  width: 100px;
-  height: 100px;
-}
-
-.control {
-  color: white;
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 0;
-  text-align: center;
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 130%;
-
-  a {
-    cursor: pointer;
-
-    &:focus {
-      outline: 0;
+  :global {
+    .slider-control-bottomcenter {
+      z-index: 999999;
     }
   }
+}
+
+.singleContent {
+  width: 100%;
+}
+
+.multiContent {
+  width: 100%;
+}
+
+.controlLeft,
+.controlRight {
+  border: 0;
+  color: white;
+  cursor: pointer;
+  display: flex;
+}
+
+.controlLeft {
+  margin-left: 25px;
+}
+
+.controlRight {
+  margin-right: 25px;
 }

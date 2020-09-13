@@ -13,8 +13,6 @@ import data from './data';
 
 import './styles.scss';
 
-const SAVE_DELAY = 1000;
-
 class Community extends ConsentComponent {
   constructor(props) {
     super(props);
@@ -91,7 +89,7 @@ class Community extends ConsentComponent {
         updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
     }
-  }, SAVE_DELAY);
+  });
 
 
   /**

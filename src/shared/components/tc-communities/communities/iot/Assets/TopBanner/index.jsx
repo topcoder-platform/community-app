@@ -21,11 +21,11 @@ const TopBanner = ({
   return (
     <div styleName="assets-header">
       <h1>
-Predix Assets
+        Predix Assets
       </h1>
       <div styleName="description">
         <p>
-Download the latest Predix assets created by Topcoder members to accelerate your Predix learning, and be sure to check out the latest Predix challenges. Your winning code could be posted next!
+          Download the latest Predix assets created by Topcoder members to accelerate your Predix learning, and be sure to check out the latest Predix challenges. Your winning code could be posted next!
         </p>
       </div>
 
@@ -33,7 +33,8 @@ Download the latest Predix assets created by Topcoder members to accelerate your
         <a styleName={gridBtnStyleName} onClick={toggleGrid} />
         <a styleName={listBtnStyleName} onClick={toggleList} />
       </div>
-    </div>);
+    </div>
+  );
 };
 
 TopBanner.propTypes = {

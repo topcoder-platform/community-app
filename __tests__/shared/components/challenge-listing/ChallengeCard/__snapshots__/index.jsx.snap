@@ -18,7 +18,6 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
           "eventName": "Submit",
         },
       ],
-      "isDataScience": true,
       "prize": Array [
         1200,
         600,
@@ -28,20 +27,31 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         600,
       ],
       "status": "ACTIVE",
-      "subTrack": "CODE",
-      "technologies": "Data Science",
+      "tags": Array [
+        "Data Science",
+      ],
+      "technologies": Array [
+        "Data Science",
+      ],
       "totalPrize": 1800,
-      "track": "DEVELOP",
+      "track": "Data Science",
+      "type": "Challenge",
       "users": Object {},
     }
   }
+  challengeType={
+    Object {
+      "abbreviation": "CH",
+      "name": "Challenge",
+    }
+  }
+  domRef={null}
   expandTag={null}
   expandedTags={Array []}
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
-  prizeMode="money-usd"
-  userHandle=""
+  userId=""
 />
 `;
 
@@ -58,25 +68,37 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       "currentPhases": Array [
         "Registration",
       ],
+      "events": Array [],
       "id": "1",
       "prizes": Array [
         1200,
         600,
       ],
-      "subTrack": "CODE",
-      "technologies": "Go",
+      "tags": Array [
+        "Go",
+      ],
+      "technologies": Array [
+        "Go",
+      ],
       "totalPrize": 1800,
-      "track": "DATA_SCIENCE",
+      "track": "Data Science",
+      "type": "Challenge",
       "users": Object {},
     }
   }
+  challengeType={
+    Object {
+      "abbreviation": "CH",
+      "name": "Challenge",
+    }
+  }
+  domRef={null}
   expandTag={null}
   expandedTags={Array []}
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
-  prizeMode="money-usd"
-  userHandle=""
+  userId=""
 />
 `;
 
@@ -93,24 +115,32 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       "currentPhases": Array [
         "Registration",
       ],
+      "events": Array [],
       "id": "long id",
       "prizes": Array [
         1200,
         600,
       ],
-      "subTrack": "CODE",
-      "technologies": "",
+      "tags": Array [],
+      "technologies": Array [],
       "totalPrize": 1800,
-      "track": "DATA_SCIENCE",
+      "track": "Data Science",
+      "type": "Challenge",
       "users": Object {},
     }
   }
+  challengeType={
+    Object {
+      "abbreviation": "CH",
+      "name": "Challenge",
+    }
+  }
+  domRef={null}
   expandTag={null}
   expandedTags={Array []}
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
-  prizeMode="money-usd"
-  userHandle=""
+  userId=""
 />
 `;

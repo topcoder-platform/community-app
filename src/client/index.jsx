@@ -33,6 +33,11 @@ function identify(profile, roles) {
     id: profile.userId,
     lastName: profile.lastName,
     roles,
+    groups: _.map(profile.groups || [], g => ({
+      id: g.id,
+      name: g.name,
+    })),
+    tracks: profile.tracks || [],
     username: profile.handle,
   });
 }
@@ -54,6 +59,7 @@ function authenticate(store) {
     configureConnector({
       connectorUrl: window.CONFIG.URL.ACCOUNTS_APP_CONNECTOR,
       frameId: 'tc-accounts-iframe',
+      frameTitle: 'Accounts authentication window',
     });
   }
 

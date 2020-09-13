@@ -17,7 +17,7 @@
 
   a {
     font-size: 18px;
-    color: #a3a3ae;
+    color: $tc-gray-60;
     font-weight: 300;
     display: flex;
     align-items: center;
@@ -31,7 +31,7 @@
     }
   }
 
-  h2 {
+  h1 {
     font-weight: 300;
     font-size: 24px;
     color: #3d3d3d;

@@ -23,7 +23,7 @@ const SRMStats = ({ subTrackDetails }) => {
                         {`division ${i + 1}`}
                       </h3>
                       <span>
-TOTAL
+                        TOTAL
                       </span>
                     </li>
                     <li>
@@ -31,7 +31,7 @@ TOTAL
                         {percentageFunc(division.total.percentSuccessful)}
                       </h3>
                       <span>
-SUCCESS
+                        SUCCESS
                       </span>
                     </li>
                     <li>
@@ -39,7 +39,7 @@ SUCCESS
                         {division.total.problemsSubmitted}
                       </h3>
                       <span>
-SUBMITTED
+                        SUBMITTED
                       </span>
                     </li>
                     <li>
@@ -47,7 +47,7 @@ SUBMITTED
                         {division.total.problemsFailed}
                       </h3>
                       <span>
-FAILED CHALLENGES
+                        FAILED CHALLENGES
                       </span>
                     </li>
                     <li>
@@ -55,7 +55,7 @@ FAILED CHALLENGES
                         {division.total.problemsSysByTest}
                       </h3>
                       <span>
-FAILED SYS. TEST
+                        FAILED SYS. TEST
                       </span>
                     </li>
                   </ul>
@@ -74,7 +74,7 @@ FAILED SYS. TEST
                             {percentageFunc(level.percentSuccessful)}
                           </h3>
                           <span>
-SUCCESS
+                            SUCCESS
                           </span>
                         </li>
                         <li>
@@ -82,7 +82,7 @@ SUCCESS
                             {level.problemsSubmitted}
                           </h3>
                           <span>
-SUBMITTED
+                            SUBMITTED
                           </span>
                         </li>
                         <li>
@@ -90,7 +90,7 @@ SUBMITTED
                             {level.problemsFailed}
                           </h3>
                           <span>
-FAILED CHALLENGES
+                            FAILED CHALLENGES
                           </span>
                         </li>
                         <li>
@@ -98,7 +98,7 @@ FAILED CHALLENGES
                             {level.problemsSysByTest}
                           </h3>
                           <span>
-FAILED SYS. TEST
+                            FAILED SYS. TEST
                           </span>
                         </li>
                       </ul>
@@ -118,10 +118,10 @@ FAILED SYS. TEST
               <ul styleName="row">
                 <li styleName="left" className={styles.wide}>
                   <h3>
-CHALLENGES
+                    CHALLENGES
                   </h3>
                   <span>
-TOTAL
+                    TOTAL
                   </span>
                 </li>
                 <li>
@@ -129,7 +129,7 @@ TOTAL
                     {percentageFunc(challenges.total.percentSuccessful)}
                   </h3>
                   <span>
-SUCCESS
+                    SUCCESS
                   </span>
                 </li>
                 <li>
@@ -137,7 +137,7 @@ SUCCESS
                     {challenges.total.problemsSubmitted}
                   </h3>
                   <span>
-CREATED
+                    CREATED
                   </span>
                 </li>
                 <li>
@@ -145,7 +145,7 @@ CREATED
                     {challenges.total.problemsFailed}
                   </h3>
                   <span>
-FAILED
+                    FAILED
                   </span>
                 </li>
               </ul>
@@ -164,7 +164,7 @@ FAILED
                         {percentageFunc(level.percentSuccessful)}
                       </h3>
                       <span>
-SUCCESS
+                        SUCCESS
                       </span>
                     </li>
                     <li>
@@ -172,7 +172,7 @@ SUCCESS
                         {level.problemsSubmitted}
                       </h3>
                       <span>
-CREATED
+                        CREATED
                       </span>
                     </li>
                     <li>
@@ -180,7 +180,7 @@ CREATED
                         {level.problemsFailed}
                       </h3>
                       <span>
-FAILED
+                        FAILED
                       </span>
                     </li>
                   </ul>
@@ -191,7 +191,8 @@ FAILED
         </li>
         )
       }
-    </ul>);
+    </ul>
+  );
 };
 
 SRMStats.defaultProps = {};

@@ -2,6 +2,7 @@
  * New Content Block component.
  */
 
+import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
@@ -14,6 +15,10 @@ import rowItemTheme from './themes/row_item.scss';
 import cardTheme from './themes/card.scss';
 import TCO19Theme from './themes/TCO19.scss';
 import zurichTheme from './themes/zurich.scss';
+import generalTheme from './themes/general.scss';
+import blobCard from './themes/blobCard.scss';
+import TCO20Theme from './themes/TCO20.scss';
+import largeCard from './themes/largeCard.scss';
 
 const THEMES = {
   Default: defaultTheme,
@@ -22,18 +27,26 @@ const THEMES = {
   Card: cardTheme,
   TCO19: TCO19Theme,
   Zurich: zurichTheme,
+  General: generalTheme,
+  'Blob Card': blobCard,
+  TCO20: TCO20Theme,
+  'Large Card': largeCard,
 };
 
 /* Loads content block background asset. */
-function BackgroundLoader(props) {
+function ContentBlockAssetsLoader(props) {
   const {
     contentBlock, preview, spaceName, environment,
   } = props;
   const { image } = contentBlock;
-  if (image) {
-    const assetId = image.sys.id;
+  const animationId = _.get(contentBlock, 'animationOnScroll.sys.id');
+  if (image || animationId) {
+    const assetId = image ? image.sys.id : null;
+    // eslint-disable-next-line no-unneeded-ternary
+    const entryId = animationId ? animationId : null;
     return (
       <ContentfulLoader
+        entryIds={entryId}
         assetIds={assetId}
         preview={preview}
         spaceName={spaceName}
@@ -41,8 +54,9 @@ function BackgroundLoader(props) {
         render={data => (
           <ContentBlock
             {...props}
-            background={data.assets.items[assetId].fields}
+            background={_.get(data, `assets.items.${assetId}.fields`)}
             theme={THEMES[contentBlock.baseTheme]}
+            animation={_.get(data, `entries.items.${animationId}.fields`)}
           />
         )}
         renderPlaceholder={LoadingIndicator}
@@ -53,12 +67,12 @@ function BackgroundLoader(props) {
 }
 
 
-BackgroundLoader.defaultProps = {
+ContentBlockAssetsLoader.defaultProps = {
   spaceName: null,
   environment: null,
 };
 
-BackgroundLoader.propTypes = {
+ContentBlockAssetsLoader.propTypes = {
   contentBlock: PT.shape().isRequired,
   id: PT.string.isRequired,
   preview: PT.bool.isRequired,
@@ -78,7 +92,7 @@ export default function ContentBlockLoader(props) {
       spaceName={spaceName}
       environment={environment}
       render={data => (
-        <BackgroundLoader
+        <ContentBlockAssetsLoader
           {...props}
           contentBlock={data.entries.items[id].fields}
         />

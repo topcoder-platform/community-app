@@ -12,45 +12,48 @@ import './style.scss';
 export default function Footer({
   hideTcLinksInFooter,
 }) {
+  const goToLink = (url) => {
+    window.open(url);
+  };
   return (
     <div styleName="sidebar-footer">
       {
         hideTcLinksInFooter ? null : (
           <ul>
             <li>
-              <a href={`${config.URL.BASE}/about`}>
-About
+              <a role="link" onKeyPress={() => goToLink(`${config.URL.BASE}/about`)} onClick={() => goToLink(`${config.URL.BASE}/about`)} aria-label="About" tabIndex="0">
+                About
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>
-Contact
+              <a role="link" onKeyPress={() => goToLink(`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`)} onClick={() => goToLink(`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`)} aria-label="Contact" tabIndex="0">
+                Contact
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={config.URL.HELP}>
-Help
+              <a role="link" onKeyPress={() => goToLink(config.URL.HELP)} onClick={() => goToLink(config.URL.HELP)} aria-label="Help" tabIndex="0">
+                Help
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={`${config.URL.BASE}/community/how-it-works/privacy-policy/`}>
-Privacy
+              <a role="link" onKeyPress={() => goToLink(`${config.URL.BASE}/privacy-policy/`)} onClick={() => goToLink(`${config.URL.BASE}/privacy-policy/`)} aria-label="Privacy" tabIndex="0">
+                Privacy
               </a>
 &nbsp;•&nbsp;
             </li>
             <li>
-              <a href={`${config.URL.BASE}/community/how-it-works/terms/`}>
-Terms
+              <a role="link" onKeyPress={() => goToLink(`${config.URL.BASE}/community/how-it-works/terms/`)} onClick={() => goToLink(`${config.URL.BASE}/community/how-it-works/terms/`)} aria-label="Terms" tabIndex="0">
+                Terms
               </a>
             </li>
           </ul>
         )
       }
       <p styleName="copyright">
-Topcoder ©
+        Topcoder ©
         {moment().year()}
       </p>
     </div>

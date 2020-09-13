@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
 import challengeListingActions from 'actions/challenge-listing';
+import { config } from 'topcoder-react-utils';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import PT from 'prop-types';
 import React from 'react';
@@ -12,6 +13,7 @@ import Sidebar from 'components/challenge-listing/Sidebar';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import { updateChallengeType } from 'utils/challenge';
 
 export const SidebarPureComponent = Sidebar;
 
@@ -40,7 +42,7 @@ export class SidebarContainer extends React.Component {
   componentDidMount() {
     const { tokenV2, getSavedFilters } = this.props;
     const token = tokenV2;
-    if (token) getSavedFilters(token);
+    if (config.USER_SETTINGS && token) getSavedFilters(token);
   }
 
   render() {
@@ -57,10 +59,10 @@ export class SidebarContainer extends React.Component {
       tokenV2,
       updateAllSavedFilters,
       updateSavedFilter,
-      user,
+      userChallenges,
     } = this.props;
 
-    const buckets = getBuckets(user && user.handle);
+    const buckets = getBuckets(userChallenges);
 
     if (extraBucket) {
       buckets[extraBucket.name] = extraBucket;
@@ -113,6 +115,7 @@ SidebarContainer.defaultProps = {
   selectedCommunityId: '',
   tokenV2: null,
   user: null,
+  userChallenges: [],
 };
 
 SidebarContainer.propTypes = {
@@ -133,6 +136,7 @@ SidebarContainer.propTypes = {
   updateAllSavedFilters: PT.func.isRequired,
   updateSavedFilter: PT.func.isRequired,
   user: PT.shape(),
+  userChallenges: PT.arrayOf(PT.string),
 };
 
 function mapDispatchToProps(dispatch) {
@@ -150,6 +154,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state, ownProps) {
   const { activeBucket } = state.challengeListing.sidebar;
   const pending = _.keys(state.challengeListing.pendingRequests);
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
+  );
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
@@ -162,6 +169,7 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,
+    userChallenges: state.challengeListing.userChallenges,
   };
 }
 

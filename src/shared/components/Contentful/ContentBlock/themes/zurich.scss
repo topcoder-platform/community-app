@@ -4,7 +4,7 @@
 .contentWrapper {
   display: flex;
   margin: 0 auto;
-  max-width: $screen-md;
+  max-width: $screen-lg;
   padding: 15px;
   color: black;
 
@@ -28,30 +28,52 @@
 }
 
 .content {
-  h1 {
-    @include frutiger-light;
-
-    font-size: 36px;
-    color: #706964;
-  }
-
   h3 {
-    @include frutiger-light;
+    @include frutiger-regular;
 
-    font-size: 26px;
-    color: #706964;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #4c433d;
+    margin: 1em 0;
   }
 
   p {
     @include frutiger-regular;
 
-    color: #3e3e3e;
+    color: #4c433d;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  th {
+    font-weight: 500;
+    color: #888894;
+    font-size: 20px;
+    line-height: 1.5;
+    padding: 0 10px;
+    text-align: left;
+    border: 1px solid #ededf2;
+
+    @include md-to-xl {
+      white-space: nowrap;
+    }
+  }
+
+  td {
     font-size: 14px;
-    line-height: 18px;
+    line-height: 1.5;
+    text-align: left;
+    color: $tc-gray-80;
+    border: 1px solid #ededf2;
+    padding: 0 10px;
   }
 
   flex: 1;
   padding: 15px;
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    flex-basis: auto;
+  }
 }
 
 .image {

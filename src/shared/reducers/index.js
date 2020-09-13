@@ -24,6 +24,10 @@ import { getAuthTokens } from 'utils/tc';
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
+import newsletterArchive from './newsletterArchive';
+import menuNavigation from './contentful/menuNavigation';
+import challengesBlock from './contentful/challengesBlock';
+import policyPages from './contentful/policyPages';
 import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
 import { factory as pageFactory } from './page';
@@ -31,6 +35,8 @@ import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
+import newsletterPreferences from './newsletterPreferences';
+import recruitCRM from './recruitCRM';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -42,12 +48,12 @@ function generateSsrOptions(req) {
   const res = {
     auth: getAuthTokens(req),
   };
-  if (req.url.match(/^\/challenges\/\d+\/my-submissions/)) {
-    const challengeId = req.url.match(/\d+/)[0];
+  if (req.url.match(/^\/challenges\/([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})\/my-submissions/)) {
+    const challengeId = req.url.match(/([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/)[0];
     _.set(res, 'challenge.challengeDetails.id', challengeId);
     _.set(res, 'challenge.challengeDetails.mySubmission', true);
-  } else if (req.url.match(/\/challenges\/\d+([?/].*)?$/)) {
-    const challengeId = req.url.match(/\d+/)[0];
+  } else if (req.url.match(/\/challenges\/([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})([?/].*)?$/)) {
+    const challengeId = req.url.match(/([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/)[0];
     _.set(res, 'challenge.challengeDetails.id', challengeId);
   }
 
@@ -59,8 +65,8 @@ function generateSsrOptions(req) {
     let entity;
 
     // if it's challenge details page
-    if (req.url.match(/^\/challenges\/\d+/)) {
-      const challengeId = req.url.match(/\d+/)[0];
+    if (req.url.match(/^\/challenges\/((([\w]{4,12}-?){5}|\d{5,8}))/)) {
+      const challengeId = req.url.match(/((([\w]{4,12}-?){5}|\d{5,8}))/)[0];
       entity = { type: 'challenge', id: challengeId };
     }
 
@@ -130,6 +136,12 @@ export function factory(req) {
     topcoderHeader,
     rss,
     toastr: toastrReducer,
+    newsletterArchive,
+    menuNavigation,
+    challengesBlock,
+    policyPages,
+    newsletterPreferences,
+    recruitCRM,
   }));
 }
 

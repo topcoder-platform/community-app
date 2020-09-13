@@ -1,0 +1,131 @@
+@import "~styles/mixins";
+
+.container {
+  @include xs-to-sm {
+    padding-top: 10px;
+  }
+
+  .row {
+    font-size: 13px;
+    color: $tc-gray-70;
+    display: flex;
+    border-bottom: 1px solid $tc-gray-10;
+
+    &.no-border {
+      border: none;
+    }
+  }
+
+  .col {
+    text-align: center;
+
+    &.child {
+      height: 40px;
+
+      @include xs-to-sm {
+        height: auto;
+      }
+    }
+
+    &.col-1 {
+      flex: 22;
+      display: flex;
+
+      @include xs-to-sm {
+        display: none;
+      }
+
+      .col {
+        flex: 1;
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-2 {
+      flex: 40;
+      text-align: left;
+      color: $tc-gray-50;
+
+      @include xs-to-sm {
+        flex: 10;
+        padding-left: 10px;
+      }
+
+      a {
+        color: black;
+      }
+    }
+
+    &.col-3 {
+      flex: 35;
+      display: flex;
+      color: $tc-gray-50;
+
+      @include xs-to-sm {
+        display: block;
+      }
+
+      .col {
+        flex: 1;
+
+        @include xs-to-sm {
+          width: 50%;
+          text-align: left;
+          display: inline-block;
+
+          &:first-child {
+            text-align: center;
+            font-weight: 500;
+            color: $tc-black;
+          }
+
+          &:nth-child(2) {
+            &::before {
+              display: inline-block;
+              content: '/';
+              margin: 0 4px;
+            }
+          }
+        }
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-4 {
+      flex: 35;
+      color: $tc-gray-50;
+
+      &.history-time {
+        display: flex;
+
+        @include xs-to-sm {
+          flex-direction: column;
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .col {
+          flex: 1;
+        }
+      }
+
+      &.mm {
+        flex: 25;
+      }
+    }
+
+    &.col-5 {
+      flex: 10;
+      color: #0a71e6;
+      cursor: pointer;
+      min-width: 83px;
+      outline: none;
+    }
+  }
+}

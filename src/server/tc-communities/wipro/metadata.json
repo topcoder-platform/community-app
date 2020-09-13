@@ -25,7 +25,7 @@
   ],
   "hideSearch": true,
   "chevronOverAvatar": true,
-  "footerText": "© Copyright Wipro Ltd 2017",
+  "footerText": "© Copyright Wipro Ltd 2019",
   "menuItems": [
     {
       "title": "Home",
@@ -42,11 +42,15 @@
       "url": "/leaderboard"
     }, {
       "title": "FAQ",
-      "url": "/faq"
+      "url": "https://topgear-app.wipro.com/faq-categories"
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["topgear", "wipro"],
   "description": "Wipro's TopGear community.",
-  "image":"wipro.jpg"
+  "image":"wipro.jpg",
+  "accessDeniedPage": {
+    "viewportId": "2ymrKrU9DISEX0zjAYj2k7",
+    "spaceName": "topgear"
+  }
 }

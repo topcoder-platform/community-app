@@ -31,7 +31,7 @@ const Header = ({
     <ApplyTime
       openPositions={details.openPositions}
       onApply={onApply}
-      hasApplied={Boolean(_.find(details.applications, app => app.handle === handle && app.status !== 'Cancelled'))}
+      hasApplied={Boolean(_.find(details.applications, app => _.toString(app.handle) === _.toString(handle) && app.status !== 'Cancelled'))}
       startDate={details.startDate}
       completed={details.openPositions === 0}
     />

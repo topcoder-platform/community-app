@@ -21,4 +21,11 @@ routes.post('/:listId/members', (req, res, next) => new MailchimpService().doReg
 routes.get('/:listId/members/:emailHash', (req, res) => new MailchimpService().checkSubscription(req).then(res.send.bind(res)));
 
 routes.put('/:listId/members/:emailHash', (req, res) => new MailchimpService().subscribeInterests(req).then(res.send.bind(res)));
+
+routes.post('/:listId/members/:emailHash/tags', (req, res) => new MailchimpService().subscribeTags(req).then(res.send.bind(res)));
+
+routes.get('/campaign-folders', (req, res) => new MailchimpService().getCampaignFolder(req).then(res.send.bind(res)));
+
+routes.get('/campaigns', (req, res) => new MailchimpService().getCampaigns(req).then(res.send.bind(res)));
+
 export default routes;

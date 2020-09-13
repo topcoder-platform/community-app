@@ -52,7 +52,6 @@
 
       .file-upload {
         align-self: center;
-        color: $tc-white;
         margin: 0;
 
         div:first-child {
@@ -93,4 +92,16 @@
       }
     }
   }
+}
+
+.error-message {
+  @include roboto-medium;
+
+  display: block;
+  border-radius: 5px;
+  background-color: $tc-red-10;
+  color: $tc-red-110;
+  font-size: 15px;
+  padding: 15px;
+  margin: 15px 0;
 }

@@ -1,0 +1,218 @@
+[
+  {
+    "title": "Programming",
+    "id": 2,
+    "items": [
+      {
+        "title": "Challenge Tips",
+        "items": [],
+        "id": 3
+      },
+      {
+        "title": "Design Tutorials",
+        "items": [],
+        "id": 4
+      },
+      {
+        "title": "Special Design Tutorials",
+        "id": 5,
+        "items": [
+          {
+            "title": "Sketch App",
+            "id": 6,
+            "items": []
+          },
+          {
+            "title": "Adobe XD",
+            "id": 7,
+            "items": []
+          },
+          {
+            "title": "Adobe Photoshop",
+            "id": 8,
+            "items": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Data Science",
+    "id": 9,
+    "items": [
+      {
+        "title": "Challenge Tips",
+        "id": 10,
+        "items": []
+      },
+      {
+        "title": "Design Tutorials",
+        "id": 11,
+        "items": []
+      },
+      {
+        "title": "Special Design Tutorials",
+        "id": 12,
+        "items": [
+          {
+            "title": "Sketch App",
+            "id": 13,
+            "items": []
+          },
+          {
+            "title": "Adobe XD",
+            "id": 14,
+            "items": []
+          },
+          {
+            "title": "Adobe Photoshop",
+            "id": 15,
+            "items": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Design",
+    "id": 16,
+    "items": [
+      {
+        "title": "Challenge Tips",
+        "id": 17,
+        "items": []
+      },
+      {
+        "title": "Design Tutorials",
+        "id": 18,
+        "items": []
+      },
+      {
+        "title": "Special Design Tutorials",
+        "id": 19,
+        "items": [
+          {
+            "title": "Sketch App",
+            "id": 20,
+            "items": []
+          },
+          {
+            "title": "Adobe XD",
+            "id": 21,
+            "items": []
+          },
+          {
+            "title": "Adobe Photoshop",
+            "id": 22,
+            "items": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Development",
+    "id": 23,
+    "items": [
+      {
+        "title": "Front-End",
+        "id": 24,
+        "items": [
+          {
+            "title": "Beginner",
+            "id": 25,
+            "items": []
+          },
+          {
+            "title": "Intermediate",
+            "id": 26,
+            "items": []
+          },
+          {
+            "title": "Advanced",
+            "id": 27,
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Back-End",
+        "id": 28,
+        "items": [
+          {
+            "title": "Beginner",
+            "id": 29,
+            "items": []
+          },
+          {
+            "title": "Intermediate",
+            "id": 30,
+            "items": []
+          },
+          {
+            "title": "Advanced",
+            "id": 31,
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Mobile",
+        "id": 32,
+        "items": []
+      },
+      {
+        "title": "DevOps",
+        "id": 33,
+        "items": []
+      },
+      {
+        "title": "Miscellaneous",
+        "id": 34,
+        "items": []
+      },
+      {
+        "title": "Topcoder-centric",
+        "id": 35,
+        "items": []
+      }
+    ]
+  },
+  {
+    "title": "QA",
+    "id": 36,
+    "items": [
+      {
+        "title": "Challenge Tips",
+        "id": 37,
+        "items": []
+      },
+      {
+        "title": "Design Tutorials",
+        "id": 38,
+        "items": []
+      },
+      {
+        "title": "Special Design Tutorials",
+        "id": 39,
+        "items": [
+          {
+            "title": "Sketch App",
+            "id": 40,
+            "items": []
+          },
+          {
+            "title": "Adobe XD",
+            "id": 41,
+            "items": []
+          },
+          {
+            "title": "Adobe Photoshop",
+            "id": 42,
+            "items": []
+          }
+        ]
+      }
+    ]
+  }
+]

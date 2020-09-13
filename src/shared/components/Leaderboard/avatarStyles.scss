@@ -6,12 +6,6 @@
   width: 100%;
 }
 
-.bronze {
-  @include avatar;
-
-  border-color: #d98f64;
-}
-
 .default {
   @include avatar;
 
@@ -28,4 +22,25 @@
   @include avatar;
 
   border-color: #d1d0cf;
+}
+
+.bronze {
+  @include avatar;
+
+  border-color: #d98f64;
+}
+
+.iron {
+  @include avatar;
+
+  border-color: #d98f64;
+}
+
+.tco20-1,
+.tco20-2,
+.tco20-3,
+.tco20-4 {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
 }

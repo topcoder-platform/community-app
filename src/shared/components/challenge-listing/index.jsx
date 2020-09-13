@@ -15,7 +15,6 @@ import { config } from 'topcoder-react-utils';
 
 import Listing from './Listing';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
-import SRMCard from './SRMCard';
 
 import './style.scss';
 
@@ -39,6 +38,8 @@ export default function ChallengeListing(props) {
     keepPastPlaceholders,
     loadingChallenges,
     preListingMsg,
+    isBucketSwitching,
+    isLoggedIn,
   } = props;
 
   let { challenges } = props;
@@ -70,8 +71,11 @@ export default function ChallengeListing(props) {
   }
 
   let challengeCardContainer;
-  if (!expanded && loadingChallenges && !suppressPlaceholders
-    && !isReviewOpportunitiesBucket(activeBucket)) { // Skip, Review Opps are not auto-refreshed
+  if ((!expanded
+        && loadingChallenges
+        && !suppressPlaceholders
+        && !isReviewOpportunitiesBucket(activeBucket))
+      || isBucketSwitching) { // Skip, Review Opps are not auto-refreshed
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
     challengeCardContainer = (
@@ -94,10 +98,8 @@ export default function ChallengeListing(props) {
         extraBucket={extraBucket}
         filterState={props.filterState}
         keepPastPlaceholders={keepPastPlaceholders}
-        loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
         loadingReviewOpportunities={props.loadingReviewOpportunities}
-        loadMoreDraft={props.loadMoreDraft}
         loadMorePast={props.loadMorePast}
         loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
@@ -111,6 +113,10 @@ export default function ChallengeListing(props) {
         setFilterState={props.setFilterState}
         setSort={props.setSort}
         sorts={props.sorts}
+        loadMoreActive={props.loadMoreActive}
+        loadingActiveChallenges={props.loadingChallenges}
+        userChallenges={props.userChallenges}
+        isLoggedIn={isLoggedIn}
       />
     );
   }
@@ -126,40 +132,8 @@ export default function ChallengeListing(props) {
         isCardTypeSet="Challenges"
         isAuth={Boolean(auth.user)}
       />
-      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
-        <div styleName="sidebar-container-mobile">
-          {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
-        </div>
 
-        <div styleName="challenges-container SRMs-container">
-          {/* happening now */}
-          <div>
-            <SRMCard category="now" />
-          </div>
-          {/* upcoming SRMs */}
-          <div>
-            <div styleName="title">
-Upcoming SRMs
-            </div>
-            { /* UpcomingSrm */ }
-          </div>
-          {/* past SRMs */}
-          <div>
-            <div styleName="title">
-Past SRMs
-            </div>
-            <SRMCard category="past" />
-          </div>
-        </div>
-
-        <div styleName="sidebar-container-desktop">
-          <Sticky top={20}>
-            {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
-          </Sticky>
-        </div>
-      </div>
-
-      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
+      <div styleName="tc-content-wrapper">
         <div styleName="sidebar-container-mobile">
           <Sidebar />
         </div>
@@ -185,7 +159,6 @@ ChallengeListing.defaultProps = {
   communityName: null,
   extraBucket: null,
   hideTcLinksInFooter: false,
-  loadMoreDraft: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
@@ -195,6 +168,9 @@ ChallengeListing.defaultProps = {
   prizeMode: 'money-usd',
   expandedTags: [],
   expandTag: null,
+  loadMoreActive: null,
+  isBucketSwitching: false,
+  userChallenges: [],
 };
 
 ChallengeListing.propTypes = {
@@ -213,10 +189,8 @@ ChallengeListing.propTypes = {
   keepPastPlaceholders: PT.bool.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
-  loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
-  loadMoreDraft: PT.func,
   loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
@@ -231,4 +205,8 @@ ChallengeListing.propTypes = {
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
   auth: PT.shape(),
+  loadMoreActive: PT.func,
+  isBucketSwitching: PT.bool,
+  userChallenges: PT.arrayOf(PT.string),
+  isLoggedIn: PT.bool.isRequired,
 };

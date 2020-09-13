@@ -12,6 +12,8 @@ import ContentSlider from 'components/Contentful/ContentSlider';
 import Accordion from 'components/Contentful/Accordion';
 import Menu from 'components/Contentful/Menu';
 import Banner from 'components/Contentful/Banner';
+import AppComponent from 'components/Contentful/AppComponent';
+import Countdown from 'components/Contentful/Countdown';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import BlogPostLoader, { HeroImageLoader } from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
@@ -21,6 +23,11 @@ import Viewport from 'components/Contentful/Viewport';
 import Tabs from 'components/Contentful/Tabs';
 import Blog from 'components/Contentful/Blog';
 import BlogFeed from 'containers/Contentful/BlogFeed';
+import Modal from 'components/Contentful/Modal';
+import MemberCard from 'components/Contentful/MemberCard';
+import Image from 'components/Contentful/Image';
+import Shape from 'components/Contentful/Shape';
+import Article from 'components/Contentful/Article';
 import qs from 'qs';
 
 import { Route, Switch } from 'react-router-dom';
@@ -67,6 +74,26 @@ export default function Contentful({ location, match }) {
         path={`${base}/banner/:id`}
         component={p => (
           <Banner
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/app-component/:id`}
+        component={p => (
+          <AppComponent
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/countdown/:id`}
+        component={p => (
+          <Countdown
             id={p.match.params.id}
             preview
             spaceName={spaceName}
@@ -192,6 +219,65 @@ export default function Contentful({ location, match }) {
             preview
             spaceName={spaceName}
           />
+        )}
+      />
+      <Route
+        path={`${base}/shape/:id`}
+        component={p => (
+          <Shape
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/image/:id`}
+        component={p => (
+          <Image
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          />
+        )}
+      />
+      <Route
+        path={`${base}/modal/:id`}
+        component={p => (
+          <Modal
+            id={p.match.params.id}
+            preview
+            spaceName={spaceName}
+          >
+            <button type="button">click me</button>
+          </Modal>
+        )}
+      />
+      <Route
+        path={`${base}/member-card/:id`}
+        component={p => (
+          <div>
+            <p>You can adjust wrapper size to scale the member card in devtools</p>
+            <div style={{ width: '350px', height: '350px' }}>
+              <MemberCard
+                id={p.match.params.id}
+                preview
+                spaceName={spaceName}
+              />
+            </div>
+          </div>
+        )}
+      />
+      <Route
+        path={`${base}/article/:id`}
+        component={p => (
+          <div>
+            <Article
+              id={p.match.params.id}
+              preview
+              spaceName={spaceName}
+            />
+          </div>
         )}
       />
     </Switch>

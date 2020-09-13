@@ -22,6 +22,7 @@ export const shouldShowGraph = ({ track, subTrack }) => {
         case 'CONTENT_CREATION':
         case 'SPECIFICATION':
         case 'RIA_BUILD_COMPETITION':
+        case 'CODE':
           return true;
         default:
           return false;
@@ -208,7 +209,6 @@ export function getDetails(stats, track, subTrack) {
   switch (track) {
     case 'DEVELOP':
       switch (subTrack) {
-        case 'CODE':
         case 'FIRST_2_FINISH':
         case 'BUG_BUNT':
           detailConfig = [
@@ -246,6 +246,7 @@ export function getDetails(stats, track, subTrack) {
           break;
         case 'UI_PROTOTYPE_COMPETITION':
         case 'ASSEMBLY_COMPETITION':
+        case 'CODE':
         default:
           detailConfig = [
             {
@@ -303,7 +304,7 @@ export function getDetails(stats, track, subTrack) {
           {
             key: 'rank.countryRank',
             label: 'Country Rank',
-            render: defaultRenderFunc,
+            render: x => (x || '-'),
           },
           {
             key: 'rank.volatility',
@@ -432,6 +433,16 @@ export function isValidTrack(track, subTrack) {
         case 'TEST_SUITES':
         case 'SPECIFICATION':
         case 'RIA_BUILD_COMPETITION':
+        case 'WEB_DESIGNS': // Some data in the db is wrong and returns the following under DEVELOP
+        case 'WIDGET_OR_MOBILE_SCREEN_DESIGN':
+        case 'APPLICATION_FRONT_END_DESIGN':
+        case 'PRINT_OR_PRESENTATION':
+        case 'IDEA_GENERATION':
+        case 'WIREFRAMES':
+        case 'LOGO_DESIGN':
+        case 'BANNERS_OR_ICONS':
+        case 'STUDIO_OTHER':
+        case 'FRONT_END_FLASH':
           return true;
         default:
           return false;

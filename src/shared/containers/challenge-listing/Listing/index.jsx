@@ -21,11 +21,12 @@ import shortId from 'shortid';
 import { connect } from 'react-redux';
 import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { config, MetaTags } from 'topcoder-react-utils';
+import { MetaTags } from 'topcoder-react-utils';
+import { USER_GROUP_MAXAGE } from 'config';
+import { updateChallengeType } from 'utils/challenge';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
@@ -33,9 +34,6 @@ import style from './styles.scss';
 const { combine, mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
-
-/* Holds one minute value in ms. */
-const MIN = 60 * 1000;
 
 const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
@@ -60,7 +58,7 @@ export class ListingContainer extends React.Component {
     }
 
     if (!communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+    && (Date.now() - communitiesList.timestamp > USER_GROUP_MAXAGE)) {
       getCommunitiesList(auth);
     }
 
@@ -72,14 +70,20 @@ export class ListingContainer extends React.Component {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
 
-    this.loadChallenges();
+    if (BUCKETS.PAST !== activeBucket) this.loadChallenges();
   }
 
   componentDidUpdate(prevProps) {
     const {
+      activeBucket,
       auth,
       dropChallenges,
       getCommunitiesList,
+      allActiveChallengesLoaded,
+      getRestActiveChallenges,
+      meta,
+      loadingActiveChallengesUUID,
+      selectBucketDone,
     } = this.props;
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
@@ -96,6 +100,16 @@ export class ListingContainer extends React.Component {
         this.loadChallenges();
       });
     }
+
+    if (!loadingActiveChallengesUUID && !_.isEmpty(meta) && !allActiveChallengesLoaded
+      && BUCKETS.PAST !== activeBucket) {
+      const f = this.getBackendFilter();
+      getRestActiveChallenges(auth.tokenV3, f.back);
+    }
+
+    setTimeout(() => {
+      selectBucketDone();
+    }, 10);
   }
 
   componentWillUnmount() {
@@ -112,6 +126,8 @@ export class ListingContainer extends React.Component {
     const {
       communitiesList,
       selectedCommunityId,
+      groupIds,
+      communityId,
     } = this.props;
     let { filter } = this.props;
     let communityFilter = communitiesList.data.find(
@@ -119,6 +135,9 @@ export class ListingContainer extends React.Component {
     );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
+    if (communityId && !_.isEmpty(groupIds)) {
+      filter.groupIds = groupIds;
+    }
     return {
       back: mapToBackend(filter),
       front: filter,
@@ -128,37 +147,33 @@ export class ListingContainer extends React.Component {
   loadChallenges() {
     const {
       auth,
-      getAllActiveChallenges,
-      getPastChallenges,
+      getActiveChallenges,
+      lastRequestedPageOfActiveChallenges,
+      getUserChallenges,
     } = this.props;
     const f = this.getBackendFilter();
-    getAllActiveChallenges(auth.tokenV3);
-
-    /* No need to fetch draft challenges for now: we are not showing the
-     * Upcoming Challenges bucket, for now. */
-    // this.props.getDraftChallenges(0, backendFilter, this.props.auth.tokenV3);
-
-    getPastChallenges(0, f.back, auth.tokenV3, f.front);
-
-    if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
-      if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
-      this.autoRefreshTimerId = setTimeout(
-        () => this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH,
-      );
+    getActiveChallenges(
+      1 + lastRequestedPageOfActiveChallenges,
+      f.back,
+      auth.tokenV3,
+      f.front,
+    );
+    if (auth.tokenV3) {
+      const userId = _.get(auth.user, 'userId');
+      getUserChallenges(userId, auth.tokenV3);
     }
   }
 
   render() {
     const {
       auth,
-      allDraftChallengesLoaded,
       allPastChallengesLoaded,
       allReviewOpportunitiesLoaded,
       activeBucket,
       ChallengeListingBanner,
       challenges,
+      challengeTypes,
       challengesUrl,
-      challengeSubtracks,
       challengeTags,
       communityFilters,
       communityId,
@@ -169,17 +184,14 @@ export class ListingContainer extends React.Component {
       extraBucket,
       filter,
       groupIds,
-      getDraftChallenges,
       getPastChallenges,
       getReviewOpportunities,
       hideSrm,
       keepPastPlaceholders,
-      lastRequestedPageOfDraftChallenges,
       lastRequestedPageOfPastChallenges,
       lastRequestedPageOfReviewOpportunities,
       lastUpdateOfActiveChallenges,
       loadingActiveChallengesUUID,
-      loadingDraftChallengesUUID,
       loadingPastChallengesUUID,
       loadingReviewOpportunitiesUUID,
       listingOnly,
@@ -196,20 +208,13 @@ export class ListingContainer extends React.Component {
       setSort,
       sorts,
       hideTcLinksInSidebarFooter,
+      isBucketSwitching,
+      userChallenges,
     } = this.props;
 
     const { tokenV3 } = auth;
 
-    let loadMoreDraft;
-    if (!allDraftChallengesLoaded) {
-      loadMoreDraft = () => {
-        getDraftChallenges(
-          1 + lastRequestedPageOfDraftChallenges,
-          this.getBackendFilter().back,
-          tokenV3,
-        );
-      };
-    }
+    const isLoggedIn = !_.isEmpty(auth.tokenV3);
 
     let loadMorePast;
     if (!allPastChallengesLoaded) {
@@ -255,7 +260,7 @@ export class ListingContainer extends React.Component {
     }
 
     return (
-      <div styleName="container">
+      <div styleName="container" role="main">
         <MetaTags
           description={description}
           image={ogImage}
@@ -266,7 +271,7 @@ export class ListingContainer extends React.Component {
         <ChallengeListing
           activeBucket={activeBucket}
           challenges={challenges}
-          challengeSubtracks={challengeSubtracks}
+          challengeTypes={challengeTypes}
           challengeTags={challengeTags}
           challengesUrl={challengesUrl}
           communityFilter={communityFilter}
@@ -281,7 +286,6 @@ export class ListingContainer extends React.Component {
           keepPastPlaceholders={keepPastPlaceholders}
           lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           loadingChallenges={Boolean(loadingActiveChallengesUUID)}
-          loadingDraftChallenges={Boolean(loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(loadingPastChallengesUUID)}
           loadingReviewOpportunities={Boolean(loadingReviewOpportunitiesUUID)}
           newChallengeDetails={newChallengeDetails}
@@ -291,7 +295,6 @@ export class ListingContainer extends React.Component {
           selectBucket={selectBucket}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           selectedCommunityId={selectedCommunityId}
-          loadMoreDraft={loadMoreDraft}
           loadMorePast={loadMorePast}
           loadMoreReviewOpportunities={loadMoreReviewOpportunities}
           reviewOpportunities={reviewOpportunities}
@@ -308,14 +311,10 @@ export class ListingContainer extends React.Component {
           sorts={sorts}
           groupIds={groupIds}
           auth={auth}
+          isBucketSwitching={isBucketSwitching}
+          userChallenges={userChallenges}
+          isLoggedIn={isLoggedIn}
         />
-        { !listingOnly ? (
-          <NewsletterSignup
-            title="Sign up for our newsletter"
-            text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-            imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
-          />
-        ) : null }
       </div>
     );
   }
@@ -323,6 +322,7 @@ export class ListingContainer extends React.Component {
 
 ListingContainer.defaultProps = {
   ChallengeListingBanner: null,
+  challengeTypes: [],
   defaultCommunityId: '',
   extraBucket: null,
   hideSrm: false,
@@ -338,6 +338,9 @@ ListingContainer.defaultProps = {
   preListingMsg: null,
   prizeMode: 'money-usd',
   queryBucket: BUCKETS.ALL,
+  meta: {},
+  isBucketSwitching: false,
+  userChallenges: [],
 };
 
 ListingContainer.propTypes = {
@@ -346,13 +349,13 @@ ListingContainer.propTypes = {
     tokenV3: PT.string,
     user: PT.shape(),
   }).isRequired,
-  allDraftChallengesLoaded: PT.bool.isRequired,
+  allActiveChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
   allReviewOpportunitiesLoaded: PT.bool.isRequired,
   ChallengeListingBanner: PT.node,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string,
-  challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.shape({
@@ -371,18 +374,17 @@ ListingContainer.propTypes = {
   communityName: PT.string,
   communityFilters: PT.arrayOf(PT.object).isRequired,
   extraBucket: PT.string,
-  getAllActiveChallenges: PT.func.isRequired,
+  getActiveChallenges: PT.func.isRequired,
+  getRestActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
-  getDraftChallenges: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
   getReviewOpportunities: PT.func.isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
-  lastRequestedPageOfDraftChallenges: PT.number.isRequired,
+  lastRequestedPageOfActiveChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
   lastRequestedPageOfReviewOpportunities: PT.number.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
-  loadingDraftChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
   loadingReviewOpportunitiesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
@@ -405,19 +407,27 @@ ListingContainer.propTypes = {
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
   queryBucket: PT.string,
+  meta: PT.shape(),
+  isBucketSwitching: PT.bool,
+  selectBucketDone: PT.func.isRequired,
+  userChallenges: PT.arrayOf(PT.string),
+  getUserChallenges: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const cl = state.challengeListing;
   const tc = state.tcCommunities;
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
+  );
   return {
     auth: state.auth,
-    allDraftChallengesLoaded: cl.allDraftChallengesLoaded,
+    allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     allPastChallengesLoaded: cl.allPastChallengesLoaded,
     allReviewOpportunitiesLoaded: cl.allReviewOpportunitiesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
-    challengeSubtracks: cl.challengeSubtracks,
+    challengeTypes: cl.challengeTypes,
     challengeTags: cl.challengeTags,
     communitiesList: tc.list,
     communityFilters: tc.list.data,
@@ -425,15 +435,14 @@ const mapStateToProps = (state, ownProps) => {
     extraBucket: ownProps.extraBucket,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
-    lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
+    lastRequestedPageOfActiveChallenges: cl.lastRequestedPageOfActiveChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastRequestedPageOfReviewOpportunities: cl.lastRequestedPageOfReviewOpportunities,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
-    loadingDraftChallengesUUID: cl.loadingDraftChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
-    loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
+    loadingChallengeTypes: cl.loadingChallengeTypes,
     loadingChallengeTags: cl.loadingChallengeTags,
     newChallengeDetails: ownProps.newChallengeDetails,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
@@ -443,7 +452,10 @@ const mapStateToProps = (state, ownProps) => {
     selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,
+    isBucketSwitching: cl.sidebar.isBucketSwitching,
     expandedTags: cl.expandedTags,
+    meta: cl.meta,
+    userChallenges: cl.userChallenges,
   };
 };
 
@@ -455,20 +467,20 @@ function mapDispatchToProps(dispatch) {
   const ca = communityActions.tcCommunity;
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
-    getAllActiveChallenges: (token) => {
+    getActiveChallenges: (page, filter, token, frontFilter) => {
       const uuid = shortId();
-      dispatch(a.getAllActiveChallengesInit(uuid));
-      dispatch(a.getAllActiveChallengesDone(uuid, token));
+      dispatch(a.getActiveChallengesInit(uuid, page, frontFilter));
+      dispatch(a.getActiveChallengesDone(uuid, page, filter, token, frontFilter));
+    },
+    getRestActiveChallenges: (token, filter) => {
+      const uuid = shortId();
+      dispatch(a.getRestActiveChallengesInit(uuid));
+      dispatch(a.getRestActiveChallengesDone(uuid, token, filter));
     },
     getCommunitiesList: (auth) => {
       const uuid = shortId();
       dispatch(ca.getListInit(uuid));
       dispatch(ca.getListDone(uuid, auth));
-    },
-    getDraftChallenges: (page, filter, token) => {
-      const uuid = shortId();
-      dispatch(a.getDraftChallengesInit(uuid, page));
-      dispatch(a.getDraftChallengesDone(uuid, page, filter, token));
     },
     getPastChallenges: (page, filter, token, frontFilter) => {
       const uuid = shortId();
@@ -481,6 +493,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getReviewOpportunitiesDone(uuid, page, token));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    selectBucketDone: () => dispatch(sa.selectBucketDone()),
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),
@@ -489,6 +502,11 @@ function mapDispatchToProps(dispatch) {
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () => dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
     expandTag: id => dispatch(a.expandTag(id)),
+    getUserChallenges: (userId, tokenV3) => {
+      const uuid = shortId();
+      dispatch(a.getUserChallengesInit(uuid));
+      dispatch(a.getUserChallengesDone(userId, tokenV3));
+    },
   };
 }
 

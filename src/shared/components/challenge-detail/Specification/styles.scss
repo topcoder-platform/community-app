@@ -1,6 +1,10 @@
 @import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
+.container {
+  border-radius: 0 0 (3 * $corner-radius) (3 * $corner-radius);
+}
+
 @mixin noteStyle {
   @include roboto-regular;
 
@@ -74,6 +78,8 @@ $tc-link-visited: #0c4e98;
   align-items: baseline;
   word-break: break-word;
 
+  @include linkStyle;
+
   @include xs-to-sm {
     flex-direction: column;
   }
@@ -114,7 +120,7 @@ $tc-link-visited: #0c4e98;
   }
 }
 
-.h2 {
+h2 {
   @include roboto-bold;
 
   font-size: 20px;
@@ -123,7 +129,7 @@ $tc-link-visited: #0c4e98;
   margin: (6 * $base-unit) 0 (2 * $base-unit);
 }
 
-.h3 {
+h3 {
   @include roboto-bold;
 
   font-size: 15px;
@@ -133,7 +139,17 @@ $tc-link-visited: #0c4e98;
   text-transform: uppercase;
 }
 
-.p {
+p,
+em,
+strong {
+  @include roboto-regular;
+
+  font-size: 15px;
+  color: $tc-gray-90;
+  line-height: 25px;
+}
+
+p {
   @include roboto-regular;
 
   font-size: 15px;
@@ -145,7 +161,7 @@ $tc-link-visited: #0c4e98;
   margin: (2 * $base-unit) 0 (3 * $base-unit);
 }
 
-.ul {
+ul {
   @include roboto-regular;
 
   margin: 0 0 5px 20px;
@@ -162,6 +178,8 @@ $tc-link-visited: #0c4e98;
 }
 
 .rawHtml {
+  @include tc-typography;
+
   h1 {
     @include roboto-medium;
 
@@ -199,6 +217,10 @@ $tc-link-visited: #0c4e98;
     line-height: 25px;
   }
 
+  strong {
+    font-weight: bold !important;
+  }
+
   p,
   em,
   strong,
@@ -214,14 +236,6 @@ $tc-link-visited: #0c4e98;
 
   p {
     margin: (2 * $base-unit) 0 (3 * $base-unit);
-  }
-
-  em {
-    font-style: italic;
-  }
-
-  strong {
-    font-weight: 700;
   }
 
   code {

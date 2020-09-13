@@ -18,12 +18,10 @@
 
 import _ from 'lodash';
 import actions from 'actions/contentful';
-import { errors } from 'topcoder-react-lib';
+
+import { logger } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
-
 import space from './space';
-
-const { fireErrorMessage } = errors;
 
 const validActions = new Set(_.values(actions.contentful)
   .filter(_.isFunction).map(action => action.toString()));
@@ -63,7 +61,7 @@ function create(init) {
     const environment = payload.environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
     const res = _.get(newState, `${spaceName}.${environment}`);
     if (error || !res) {
-      fireErrorMessage('CMS-related error', '');
+      logger.log('CMS-related error');
       return state;
     }
     const st = state[spaceName][environment];

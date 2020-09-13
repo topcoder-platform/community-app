@@ -32,23 +32,37 @@ const mockDatas = [{
       prizes: [1200, 600],
       totalPrize: 1800,
       users: {},
+      type: 'Challenge',
     },
     {
       id: '2',
       status: 'a',
-      technologies: 'a, b, c',
+      technologies: ['a', 'b', 'c'],
+      tags: ['a', 'b', 'c'],
       allPhases: [{
         phaseType: 'Registration',
         phaseStatus: 'Open',
       }],
       currentPhases: ['Registration'],
-      track: 'DEVELOP',
-      subTrack: 'CODE',
+      track: 'Development',
+      type: 'Challenge',
       events: [{ eventName: 'Submit' }],
       prizes: [1200, 600],
       totalPrize: 1800,
       users: {},
     }],
+  challengeTypes: [
+    {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    }, {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    }, {
+      name: 'Task',
+      abbreviation: 'TSK',
+    },
+  ],
   loading: false,
   loadMore,
   setFilterState,
@@ -142,6 +156,18 @@ const mockDatas = [{
       users: {},
     },
   ],
+  challengeTypes: [
+    {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    }, {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    }, {
+      name: 'Task',
+      abbreviation: 'TSK',
+    },
+  ],
   loading: true,
   loadMore,
   setFilterState,
@@ -157,6 +183,18 @@ const mockDatas = [{
   expanded: false,
   expand,
   challenges: [
+  ],
+  challengeTypes: [
+    {
+      name: 'Challenge',
+      abbreviation: 'CH',
+    }, {
+      name: 'First2Finish',
+      abbreviation: 'F2F',
+    }, {
+      name: 'Task',
+      abbreviation: 'TSK',
+    },
   ],
   loading: true,
   setFilterState,

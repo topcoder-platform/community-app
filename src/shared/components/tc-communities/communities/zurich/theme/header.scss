@@ -1,18 +1,33 @@
 @import "../../../Header/style.scss";
 @import "mixins.scss";
 
-.logo {
-  &:first-child > img {
-    max-height: 70px;
+.container {
+  position: relative;
+}
+
+.logos {
+  @include xs-to-sm {
+    display: flex;
+    flex-direction: column;
+    margin-right: 55px;
+    margin-top: 6px;
   }
 
-  &:nth-child(2) {
-    margin-left: 30px;
+  .logo {
+    &:first-child > img {
+      max-height: 70px;
+    }
+
+    &:nth-child(2) {
+      margin-left: 30px;
+    }
   }
 }
 
 .header {
-  height: 110px;
+  @include lg-to-xl {
+    height: 110px;
+  }
 }
 
 .userMenu {
@@ -29,17 +44,43 @@
   }
 
   @include xs-to-lg {
-    display: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+
+    .userMenuHandle {
+      display: inline-block;
+    }
+  }
+
+  @include lg-to-xl {
+    .userMenuHandle {
+      border-left: 1px solid rgb(157, 159, 160);
+      padding-left: 50px;
+    }
   }
 }
 
 .authorize {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  @include xs-to-lg {
+    display: block;
+  }
+
   & > div {
     font-family: 'Akkurat bold', sans-serif;
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
     color: $blue-1;
+  }
+
+  .loginHint {
+    display: none;
+    position: absolute;
   }
 }
 
@@ -54,11 +95,7 @@
 }
 
 .challengeDropdown {
-  border-left: none;
-  font-family: 'Akkurat regular', sans-serif;
-  text-transform: none;
-  font-size: 16px;
-  color: $blue-1;
+  display: none;
 }
 
 .menu {
@@ -69,7 +106,16 @@
   margin: 0 20px;
 }
 
-.menuLink {
+.extraUserLink {
+  margin-top: 5px;
+
+  @include xs-to-md {
+    display: none;
+  }
+}
+
+.menuLink,
+.extraUserLink {
   @include frutiger-regular;
 
   font-size: 16px;
@@ -107,4 +153,25 @@
 
 .userWrapMobile {
   opacity: 0; /* This hack hides the user avatar without braking the layout */
+}
+
+.userWrap {
+  display: flex;
+  align-items: center;
+
+  @include xs-to-md {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.extraMenuItem {
+  display: none;
+  padding: 0 15px;
+  margin: 0 20px;
+
+  @include xs-to-md {
+    display: block;
+  }
 }

@@ -21,7 +21,7 @@ const BUCKET_DATA = {
   [BUCKETS.ALL]: {
     filter: {
       started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
     },
     hideCount: false,
     name: 'All Challenges',
@@ -29,8 +29,7 @@ const BUCKET_DATA = {
   },
   [BUCKETS.MY]: {
     filter: {
-      started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
       // users: [userHandle],
     },
     hideCount: false,
@@ -48,7 +47,7 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: true,
       started: true,
-      status: ['ACTIVE'],
+      status: ['Active'],
     },
     hideCount: false,
     name: 'Open for registration',
@@ -66,7 +65,8 @@ const BUCKET_DATA = {
     filter: {
       registrationOpen: false,
       started: true,
-      status: ['ACTIVE'],
+      ongoing: true,
+      status: ['Active'],
     },
     hideCount: false,
     name: 'Ongoing challenges',
@@ -90,7 +90,7 @@ const BUCKET_DATA = {
     ],
   },
   [BUCKETS.PAST]: {
-    filter: { status: ['COMPLETED', 'PAST'] },
+    filter: { status: ['Completed', 'PAST'] },
     hideCount: true,
     name: 'Past challenges',
     sorts: [
@@ -119,14 +119,24 @@ const BUCKET_DATA = {
   },
 };
 
+export const NO_LIVE_CHALLENGES_CONFIG = {
+  [BUCKETS.ALL]: 'No Live Challenges found in All Challenges',
+  [BUCKETS.MY]: 'No challenges found in My Challenges',
+  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found in Open for Registration Challenges',
+  [BUCKETS.ONGOING]: 'No challenges found in Ongoing Challenges',
+  [BUCKETS.PAST]: 'No challenges found in Past Challenges',
+  [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
+  [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
+};
+
 /**
  * Returns configuration of all possible challenge buckets.
- * @param {String} userHandle Handle of the authenticated
+ * @param {String} userId id of the authenticated
  * user to filter out My Challenges.
  */
-export function getBuckets(userHandle) {
+export function getBuckets(userChallenges) {
   const res = _.cloneDeep(BUCKET_DATA);
-  res[BUCKETS.MY].filter.users = [userHandle];
+  res[BUCKETS.MY].filter.userChallenges = userChallenges;
   return res;
 }
 

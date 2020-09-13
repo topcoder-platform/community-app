@@ -19,21 +19,27 @@ function getSelectorStyle(selectedView, currentView) {
 
 export default function ChallengeViewSelector(props) {
   const {
+    isLoggedIn,
     challenge,
+    isMM,
     checkpointCount,
-    numRegistrants,
-    numSubmissions,
+    numOfRegistrants,
+    numOfCheckpointSubmissions,
+    numOfSubmissions,
     numWinners,
     onSelectorClicked,
     selectedView,
     trackLower,
     hasRegistered,
+    mySubmissions,
   } = props;
 
-  const forumId = _.get(challenge, 'forumId') || 0;
+  const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
+  const forumId = _.get(challenge, 'legacy.forumId') || 0;
   const roles = _.get(challenge, 'userDetails.roles') || [];
+  const isDesign = trackLower === 'design';
 
-  const forumEndpoint = trackLower === 'design'
+  const forumEndpoint = isDesign
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
 
@@ -73,15 +79,21 @@ export default function ChallengeViewSelector(props) {
       <div styleName="mask right" />
       <div styleName="challenge-view-selector">
         <a
+          tabIndex="0"
+          role="tab"
+          aria-selected={selectedView === DETAIL_TABS.DETAILS}
           onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS)}
         >
-DETAILS
+          DETAILS
         </a>
         {
-          numRegistrants ? (
+          numOfRegistrants ? (
             <a
+              tabIndex="0"
+              role="tab"
+              aria-selected={selectedView === DETAIL_TABS.REGISTRANTS}
               onClick={(e) => {
                 handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
               }}
@@ -90,49 +102,74 @@ DETAILS
               }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
             >
-REGISTRANTS (
-              {numRegistrants}
-)
+              REGISTRANTS (
+              {numOfRegistrants}
+              )
             </a>
           ) : null
         }
         {
-          trackLower === 'design' && checkpointCount > 0
+          isDesign && checkpointCount > 0
           && (
           <a
+            tabIndex="0"
+            role="tab"
+            aria-selected={selectedView === DETAIL_TABS.CHECKPOINTS}
             onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
             onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
           >
-CHECKPOINTS (
+            CHECKPOINTS (
             {checkpointCount}
-)
+            )
           </a>
           )
         }
         {
-          numSubmissions ? (
+          (numOfSub && isLoggedIn) ? (
             <a
+              tabIndex="0"
+              role="tab"
+              aria-selected={selectedView === DETAIL_TABS.SUBMISSIONS}
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >
-SUBMISSIONS (
-              {numSubmissions}
-)
+              SUBMISSIONS (
+              {numOfSub}
+              )
+            </a>
+          ) : null
+        }
+        {
+          (hasRegistered && isMM && mySubmissions) ? (
+            <a
+              tabIndex="0"
+              role="tab"
+              aria-selected={selectedView === DETAIL_TABS.MY_SUBMISSIONS}
+              onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
+              onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.MY_SUBMISSIONS); }}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.MY_SUBMISSIONS)}
+            >
+              MY SUBMISSIONS (
+              {mySubmissions.length}
+              )
             </a>
           ) : null
         }
         {
           numWinners ? (
             <a
+              tabIndex="0"
+              role="tab"
+              aria-selected={selectedView === DETAIL_TABS.WINNERS}
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS)}
             >
-WINNERS (
+              WINNERS (
               { numWinners }
-)
+              )
             </a>
           ) : null
         }
@@ -142,7 +179,7 @@ WINNERS (
             href={`${config.URL.FORUMS}${forumEndpoint}`}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
           >
-CHALLENGE FORUM
+            CHALLENGE FORUM
           </a>
           )
         }
@@ -152,28 +189,34 @@ CHALLENGE FORUM
 }
 
 ChallengeViewSelector.defaultProps = {
+  isLoggedIn: false,
   challenge: {},
+  isMM: false,
   checkpointCount: 0,
-  numRegistrants: 0,
-  numSubmissions: 0,
-  // hasRegistered: false,
+  numOfRegistrants: 0,
+  numOfCheckpointSubmissions: 0,
+  numOfSubmissions: 0,
 };
 
 ChallengeViewSelector.propTypes = {
+  isLoggedIn: PT.bool,
   challenge: PT.shape({
-    details: PT.shape({
-      forumId: PT.number.isRequired,
+    legacy: PT.shape({
+      forumId: PT.number,
     }),
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string),
     }),
   }),
+  isMM: PT.bool,
   checkpointCount: PT.number,
-  numRegistrants: PT.number,
-  numSubmissions: PT.number,
+  numOfRegistrants: PT.number,
+  numOfCheckpointSubmissions: PT.number,
+  numOfSubmissions: PT.number,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   selectedView: PT.string.isRequired,
   trackLower: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
+  mySubmissions: PT.arrayOf(PT.shape()).isRequired,
 };

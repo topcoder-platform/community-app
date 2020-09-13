@@ -24,6 +24,7 @@ You can change the contentful keys under config/default.js under
 ```
 SECRET: {
     CONTENTFUL: {
+      MANAGEMENT_TOKEN: '', // Personal Access Token to use the Content Management API
       default: { // Human-readable name of space
         SPACE_ID: "<YOUR_CONTENTFUL_SPACE_ID>",
         master: { // Name of an environment

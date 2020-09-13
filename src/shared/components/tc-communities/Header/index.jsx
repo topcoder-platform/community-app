@@ -20,6 +20,8 @@ import Menu from 'components/Contentful/Menu';
 
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
+import IconNavProfile from '../../../../assets/images/nav/profile.svg';
+import IconNavWallet from '../../../../assets/images/nav/wallet.svg';
 import IconNavSettings from '../../../../assets/images/nav/settings.svg';
 
 import style from './style.scss';
@@ -45,23 +47,41 @@ function Header(props) {
     onMobileToggleClick,
     profile,
     theme,
+    logoutRedirect,
+    meta,
   } = props;
 
   const BASE_URL = config.URL.BASE;
+  const AUTH_URL = config.URL.AUTH;
+  const normalizedProfile = profile && _.clone(profile);
+  const isZurichCompetitor = (profile && profile.groups) ? _.intersection(
+    _.map(profile.groups, 'oldId'),
+    meta.competitorsGroupIds,
+  ) : [];
 
   let userSubMenu;
   if (profile) {
     userSubMenu = {
       title: 'User',
       items: [{
+        enforceA: true,
+        icon: <IconNavProfile />,
+        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/members/${normalizedProfile.handle}`,
+        title: 'My Profile',
+      }, {
+        openNewTab: true,
+        icon: <IconNavWallet />,
+        link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
+        title: 'Payments',
+      }, {
         icon: <IconNavSettings />,
-        link: `${BASE_URL}/settings/profile`,
+        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/settings/profile`,
         title: 'Settings',
       }, {
         icon: <IconNavExit />,
-        // TODO: In addition to hitting ${BASE_URL}/logout, which logs out
+        // TODO: In addition to hitting ${AUTH_URL}/logout, which logs out
         // from the accounts-app, we should wipe out auth cookies!
-        link: `${BASE_URL}/logout`,
+        link: `${AUTH_URL}/logout?retUrl=${logoutRedirect}`,
         title: 'Log Out',
       }],
     };
@@ -126,15 +146,31 @@ function Header(props) {
     </div>
   ) : (
     <div className={theme.authorize}>
-      <Button
-        onClick={() => {
-          const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
-          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
-        }}
-        size="sm"
-      >
-Log In
-      </Button>
+      {
+        communityId === 'zurich' ? (
+          <PrimaryButton
+            onClick={() => {
+              const returnUrl = encodeURIComponent(window.location.href);
+              window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
+            }}
+            size="sm"
+            title="Lorem Ipsum"
+          >
+            Log In
+            <div className={theme.loginHint}>Lorem ipsum bla bla</div>
+          </PrimaryButton>
+        ) : (
+          <Button
+            onClick={() => {
+              const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+            }}
+            size="sm"
+          >
+            Log In
+          </Button>
+        )
+      }
       { hideJoinNow ? null : (
         <PrimaryButton
           onClick={() => {
@@ -145,13 +181,36 @@ Log In
           }}
           size="sm"
         >
-Join Topcoder
+          Join Topcoder
         </PrimaryButton>
       )}
     </div>
   );
 
   const currentPage = pageId === 'home' ? '' : pageId;
+  const menuIterator = (item) => {
+    if (communityId === 'zurich' && item.url === '/challenges?communityId=zurich' && !isZurichCompetitor.length) {
+      return null;
+    }
+    return (
+      <li
+        className={theme.menuItem}
+        key={item.url}
+      >
+        <NavLink
+          activeClassName={theme.menuLinkActive}
+          className={theme.menuLink}
+          openNewTab={item.openNewTab}
+          isActive={() => `/${currentPage}` === item.url}
+          to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
+        >
+          {item.title}
+        </NavLink>
+      </li>
+    );
+  };
+
+  const isDev = process.env.NODE_ENV !== 'production';
 
   return (
     <div>
@@ -163,7 +222,7 @@ Join Topcoder
             type="button"
           >
             <span>
-Toggle navigation
+              Toggle navigation
             </span>
             <i />
             <i />
@@ -193,31 +252,46 @@ Toggle navigation
         <div className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}>
           {
             menuItems[0] && menuItems[0].navigationMenu ? (
-              <Menu id={menuItems[0].navigationMenu} baseUrl={baseUrl} />
+              <Menu
+                id={menuItems[0].navigationMenu}
+                baseUrl={baseUrl}
+                spaceName={menuItems[0].spaceName}
+                environment={menuItems[0].environment}
+              />
             ) : (
               <ul className={theme.menu}>
-                {_.map(menuItems, item => (
-                  <li
-                    className={theme.menuItem}
-                    key={item.url}
-                  >
-                    <NavLink
-                      activeClassName={theme.menuLinkActive}
-                      className={theme.menuLink}
-                      openNewTab={item.openNewTab}
-                      isActive={() => `/${currentPage}` === item.url}
-                      to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
+                {_.map(menuItems, menuIterator)}
+                {
+                  profile && communityId === 'zurich' ? (
+                    <li
+                      className={theme.extraMenuItem}
+                      key="myProjects"
                     >
-                      {item.title}
-                    </NavLink>
-                  </li>
-                ))}
+                      <NavLink
+                        to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
+                        className={theme.menuLink}
+                      >
+                        My Projects
+                      </NavLink>
+                    </li>
+                  ) : null
+                }
               </ul>
             )
           }
         </div>
         <div className={theme.userWrap}>
           {loginState}
+          {
+            profile && communityId === 'zurich' ? (
+              <NavLink
+                to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
+                className={theme.extraUserLink}
+              >
+                My Projects
+              </NavLink>
+            ) : null
+          }
           { !hideSearch && (
           <div className={theme.search}>
             <IconSearch />
@@ -257,10 +331,13 @@ Header.defaultProps = {
   chevronOverAvatar: false,
   profile: null,
   isMobileOpen: false,
+  logoutRedirect: null,
 };
 
 Header.propTypes = {
-  activeTrigger: PT.shape({}),
+  activeTrigger: PT.shape({
+    bottom: PT.string,
+  }),
   baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
   communityId: PT.string.isRequired,
@@ -272,6 +349,8 @@ Header.propTypes = {
     title: PT.string,
     url: PT.string,
     navigationMenu: PT.string,
+    spaceName: PT.string,
+    environment: PT.string,
   })),
   logos: PT.arrayOf(PT.oneOfType([
     PT.string,
@@ -288,8 +367,14 @@ Header.propTypes = {
   openMenu: PT.func.isRequired,
   pageId: PT.string.isRequired,
   onMobileToggleClick: PT.func.isRequired,
-  profile: PT.shape({}),
+  profile: PT.shape({
+    photoURL: PT.string,
+    groups: PT.any,
+    handle: PT.string,
+  }),
   theme: PT.shape().isRequired,
+  logoutRedirect: PT.string,
+  meta: PT.shape().isRequired,
 };
 
 export default themr('CommunityHeader', style)(Header);

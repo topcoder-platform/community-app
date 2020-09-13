@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1240" height="240" rx="6"></rect>
+        <filter x="-1.2%" y="-5.2%" width="102.3%" height="112.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.149019608   0 0 0 0 0.149019608   0 0 0 0 0.156862745  0 0 0 0.06 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M12.6666667,2 L11.3333333,2 L11.3333333,1.33333333 C11.3333333,0.933333333 11.0666667,0.666666667 10.6666667,0.666666667 C10.2666667,0.666666667 10,0.933333333 10,1.33333333 L10,2 L6,2 L6,1.33333333 C6,0.933333333 5.73333333,0.666666667 5.33333333,0.666666667 C4.93333333,0.666666667 4.66666667,0.933333333 4.66666667,1.33333333 L4.66666667,2 L3.33333333,2 C2.2,2 1.33333333,2.86666667 1.33333333,4 L1.33333333,13.3333333 C1.33333333,14.4666667 2.2,15.3333333 3.33333333,15.3333333 L12.6666667,15.3333333 C13.8,15.3333333 14.6666667,14.4666667 14.6666667,13.3333333 L14.6666667,4 C14.6666667,2.86666667 13.8,2 12.6666667,2 Z M3.33333333,3.33333333 L4.66666667,3.33333333 L4.66666667,4 C4.66666667,4.4 4.93333333,4.66666667 5.33333333,4.66666667 C5.73333333,4.66666667 6,4.4 6,4 L6,3.33333333 L10,3.33333333 L10,4 C10,4.4 10.2666667,4.66666667 10.6666667,4.66666667 C11.0666667,4.66666667 11.3333333,4.4 11.3333333,4 L11.3333333,3.33333333 L12.6666667,3.33333333 C13.0666667,3.33333333 13.3333333,3.6 13.3333333,4 L13.3333333,6 L2.66666667,6 L2.66666667,4 C2.66666667,3.6 2.93333333,3.33333333 3.33333333,3.33333333 Z M12.6666667,14 L3.33333333,14 C2.93333333,14 2.66666667,13.7333333 2.66666667,13.3333333 L2.66666667,7.33333333 L13.3333333,7.33333333 L13.3333333,13.3333333 C13.3333333,13.7333333 13.0666667,14 12.6666667,14 Z" id="path-3"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="FF_TCChallengeDetails-tagging" transform="translate(-515.000000, -3268.000000)">
+            <rect fill="#EBEBEB" x="0" y="0" width="1367" height="3700"></rect>
+            <g id="related-thrive" transform="translate(64.000000, 3111.000000)">
+                <g id="background-copy">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="article-copy" transform="translate(430.000000, 72.000000)">
+                    <rect id="Rectangle" fill="#D8D8D8" opacity="0.400000006" x="6.0254024e-12" y="4.54747351e-13" width="380" height="140" rx="10"></rect>
+                    <path d="M10,-2.27373675e-13 L242.216797,-2.27373675e-13 L242.216797,-2.27373675e-13 C247.890625,19.9257813 245.710938,42.2942708 235.677734,67.1054688 C220.62793,104.322266 242.216797,115.402344 242.216797,140 C164.811198,140 87.405599,140 10,140 C4.4771525,140 2.45271059e-15,135.522847 0,130 L0,10 C1.10000309e-15,4.4771525 4.4771525,-2.33464572e-13 10,-2.27373675e-13 Z" id="Rectangle-Copy-2" fill="#F4F4F4" opacity="0.400000006"></path>
+                    <g id="icon-/-calendar" transform="translate(20.000000, 85.000000)">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <use id="Mask" fill="#000000" fill-rule="nonzero" xlink:href="#path-3"></use>
+                        <g id="color-/-black" mask="url(#mask-4)" fill="#000000" fill-rule="evenodd">
+                            <rect id="Shape" x="0" y="0" width="16" height="16"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

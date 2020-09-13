@@ -14,7 +14,6 @@
   color: $tc-black;
   border-radius: 2 * $corner-radius;
   cursor: pointer;
-  outline: none;
   padding: 0 2 * $base-unit 0 3 * $base-unit;
 
   @include xs-to-sm {
@@ -24,7 +23,7 @@
 }
 
 .right {
-  color: $tc-gray-50;
+  color: $tc-gray-70;
   float: right;
   position: static;
   font-weight: 700;

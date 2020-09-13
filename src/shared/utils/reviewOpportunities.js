@@ -1,6 +1,7 @@
 /**
 * Utility functions for Review Opportunities
 */
+import _ from 'lodash';
 
 /**
  * Infers open positions using review opportunity details and organizes them by role
@@ -44,7 +45,7 @@ export const openPositionsByRole = (details) => {
 export const activeRoleIds = (details, handle) => {
   const positions = openPositionsByRole(details);
   const apps = details.applications
-    ? details.applications.filter(app => app.handle === handle && app.status !== 'Cancelled') : [];
+    ? details.applications.filter(app => _.toString(app.handle) === _.toString(handle) && app.status !== 'Cancelled') : [];
   return apps.map(app => positions.find(p => p.role === app.role).roleId);
 };
 

@@ -4,12 +4,13 @@ $challenge-space-15: $base-unit * 3;
 $challenge-space-20: $base-unit * 4;
 $challenge-space-30: $base-unit * 6;
 $challenge-space-40: $base-unit * 8;
+$challenge-space-60: $base-unit * 12;
 $challenge-radius-1: $corner-radius / 2;
 $challenge-radius-4: $corner-radius * 2;
 
 /* -100px is necessary to compensate for the temporarly added `Alpha preview`
  * banner. Should be modified / removed together with banner. */
-$search-bar-width: '100% - 705px';
+$search-bar-width: '100% - 536px';
 $search-input-width: '100% - 56px';
 
 .ChallengeSearchBar {
@@ -17,7 +18,16 @@ $search-input-width: '100% - 56px';
   vertical-align: middle;
   margin-right: 40px;
   position: relative;
-  top: 1px;
+  top: 10px;
+  height: 60px;
+
+  label {
+    font-size: 12px;
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 
   @include xs-to-md {
     display: none;
@@ -27,14 +37,14 @@ $search-input-width: '100% - 56px';
 
   input:not([type="checkbox"]) {
     display: inline-block;
-
-    @include calc(width, $search-input-width);
-
+    flex: 1;
     background: $tc-white;
     border: 1px solid $tc-gray-20;
     border-radius: $challenge-radius-4 0 0 $challenge-radius-4;
     margin-bottom: 0;
+    margin-left: 10px;
     vertical-align: middle;
+    padding-right: 28px;
 
     @include placeholder {
       @include roboto-light;
@@ -67,6 +77,26 @@ $search-input-width: '100% - 56px';
     .zoomIcon {
       height: 16px;
       width: 16px;
+    }
+  }
+
+  .ClearButton {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    right: $challenge-space-60 - 3;
+    padding: $base-unit;
+    border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
+    vertical-align: middle;
+    height: 38px;
+    font-size: 25px;
+
+    &.active {
+      display: inline-block;
+    }
+
+    &:hover {
+      color: $tc-red-110;
     }
   }
 }

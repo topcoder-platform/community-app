@@ -13,6 +13,8 @@ import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
+import Profile from 'routes/Profile';
+import ProfileStats from 'routes/ProfileStats';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
@@ -51,7 +53,7 @@ export default function TaskForce({ base, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})`}
               />
               <Route
                 component={routeProps => Submission({
@@ -59,7 +61,7 @@ export default function TaskForce({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/submit`}
               />
               <Route
                 component={routeProps => SubmissionManagement({
@@ -67,12 +69,22 @@ export default function TaskForce({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
               />
               <Route
                 component={TermsDetail}
                 exact
                 path={`${base}/challenges/terms/detail/:termId`}
+              />
+              <Route
+                render={props => <Profile {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                render={props => <ProfileStats {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}

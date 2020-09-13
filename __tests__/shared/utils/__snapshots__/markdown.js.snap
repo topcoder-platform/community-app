@@ -653,7 +653,7 @@ Array [
     <a
       href="/projects/markdown/syntax.text"
     >
-      see the source for it by adding '.text' to the URL
+      see the source for it by adding ‘.text’ to the URL
     </a>
     .
   </p>,
@@ -672,11 +672,11 @@ Array [
     <br />
     document should be publishable as-is, as plain text, without looking
     <br />
-    like it's been marked up with tags or formatting instructions. While
+    like it’s been marked up with tags or formatting instructions. While
     <br />
-    Markdown's syntax has been influenced by several existing text-to-HTML
+    Markdown’s syntax has been influenced by several existing text-to-HTML
     <br />
-    filters -- including 
+    filters – including 
     <a
       href="http://docutils.sourceforge.net/mirror/setext.html"
     >
@@ -713,9 +713,9 @@ Array [
     >
       EtText
     </a>
-     -- the single biggest source of
+     – the single biggest source of
     <br />
-    inspiration for Markdown's syntax is the format of plain text email.
+    inspiration for Markdown’s syntax is the format of plain text email.
   </p>,
   <h2>
     Block Elements
@@ -728,22 +728,26 @@ Array [
     <br />
     by one or more blank lines. (A blank line is any line that looks like a
     <br />
-    blank line -- a line containing nothing but spaces or tabs is considered
+    blank line – a line containing nothing but spaces or tabs is considered
     <br />
     blank.) Normal paragraphs should not be indented with spaces or tabs.
   </p>,
   <p>
-    The implication of the "one or more consecutive lines of text" rule is
+    The implication of the “one or more consecutive lines of text” rule is
     <br />
-    that Markdown supports "hard-wrapped" text paragraphs. This differs
+    that Markdown supports “hard-wrapped” text paragraphs. This differs
     <br />
     significantly from most other text-to-HTML formatters (including Movable
     <br />
-    Type's "Convert Line Breaks" option) which translate every line break
+    Type’s “Convert Line Breaks” option) which translate every line break
     <br />
     character in a paragraph into a 
     <code>
-      &lt;br /&gt;
+      <span
+        className="hljs-section"
+      >
+        &lt;br /&gt;
+      </span>
     </code>
      tag.
   </p>,
@@ -754,7 +758,11 @@ Array [
     </em>
      want to insert a 
     <code>
-      &lt;br /&gt;
+      <span
+        className="hljs-section"
+      >
+        &lt;br /&gt;
+      </span>
     </code>
      break tag using Markdown, you
     <br />
@@ -767,11 +775,11 @@ Array [
     Markdown supports two styles of headers, [Setext] [1] and [atx] [2].
   </p>,
   <p>
-    Optionally, you may "close" atx-style headers. This is purely
+    Optionally, you may “close” atx-style headers. This is purely
     <br />
-    cosmetic -- you can use this if you think it looks better. The
+    cosmetic – you can use this if you think it looks better. The
     <br />
-    closing hashes don't even need to match the number of hashes
+    closing hashes don’t even need to match the number of hashes
     <br />
     used to open the header. (The number of opening hashes
     <br />
@@ -783,9 +791,13 @@ Array [
   <p>
     Markdown uses email-style 
     <code>
-      &gt;
+      <span
+        className="hljs-meta"
+      >
+        &gt;
+      </span>
     </code>
-     characters for blockquoting. If you're
+     characters for blockquoting. If you’re
     <br />
     familiar with quoting passages of text in an email message, then you
     <br />
@@ -793,7 +805,11 @@ Array [
     <br />
     wrap the text and put a 
     <code>
-      &gt;
+      <span
+        className="hljs-meta"
+      >
+        &gt;
+      </span>
     </code>
      before every line:
   </p>,
@@ -814,7 +830,11 @@ Array [
   <p>
     Markdown allows you to be lazy and only put the 
     <code>
-      &gt;
+      <span
+        className="hljs-meta"
+      >
+        &gt;
+      </span>
     </code>
      before the first
     <br />
@@ -841,7 +861,11 @@ Array [
     <br />
     adding additional levels of 
     <code>
-      &gt;
+      <span
+        className="hljs-meta"
+      >
+        &gt;
+      </span>
     </code>
     :
   </p>,
@@ -880,7 +904,7 @@ Array [
       </li>
     </ol>
     <p>
-      Here's some example code:
+      Here’s some example code:
     </p>
     <code>
       return shell_exec("echo $input | $markdown_script");
@@ -901,9 +925,9 @@ Array [
     Markdown supports ordered (numbered) and unordered (bulleted) lists.
   </p>,
   <p>
-    Unordered lists use asterisks, pluses, and hyphens -- interchangably
+    Unordered lists use asterisks, pluses, and hyphens – interchangably
     <br />
-    -- as list markers:
+    – as list markers:
   </p>,
   <ul>
     <li>
@@ -983,7 +1007,7 @@ Array [
     </li>
   </ol>,
   <p>
-    It's important to note that the actual numbers you use to mark the
+    It’s important to note that the actual numbers you use to mark the
     <br />
     list have no effect on the HTML output Markdown produces. The HTML
     <br />
@@ -1032,13 +1056,13 @@ Array [
     </li>
   </ol>,
   <p>
-    you'd get the exact same HTML output. The point is, if you want to,
+    you’d get the exact same HTML output. The point is, if you want to,
     <br />
     you can use ordinal numbers in your ordered Markdown lists, so that
     <br />
     the numbers in your source match the numbers in your published HTML.
     <br />
-    But if you want to be lazy, you don't have to.
+    But if you want to be lazy, you don’t have to.
   </p>,
   <p>
     To make lists look nice, you can wrap items with hanging indents:
@@ -1062,7 +1086,7 @@ Array [
     </li>
   </ul>,
   <p>
-    But if you want to be lazy, you don't have to:
+    But if you want to be lazy, you don’t have to:
   </p>,
   <ul>
     <li>
@@ -1125,7 +1149,7 @@ Array [
         This is a list item with two paragraphs.
       </p>
       <p>
-        This is the second paragraph in the list item. You're
+        This is the second paragraph in the list item. You’re
         <br />
         only required to indent the first line. Lorem ipsum dolor
         <br />
@@ -1139,9 +1163,13 @@ Array [
     </li>
   </ul>,
   <p>
-    To put a blockquote within a list item, the blockquote's 
+    To put a blockquote within a list item, the blockquote’s 
     <code>
-      &gt;
+      <span
+        className="hljs-meta"
+      >
+        &gt;
+      </span>
     </code>
     <br />
     delimiters need to be indented:
@@ -1167,7 +1195,7 @@ Array [
     <em>
       twice
     </em>
-     -- 8 spaces or two tabs:
+     – 8 spaces or two tabs:
   </p>,
   <ul>
     <li>
@@ -1192,11 +1220,19 @@ Array [
     <br />
     in both 
     <code>
-      &lt;pre&gt;
+      <span
+        className="hljs-section"
+      >
+        &lt;pre&gt;
+      </span>
     </code>
      and 
     <code>
-      &lt;code&gt;
+      <span
+        className="hljs-section"
+      >
+        &lt;code&gt;
+      </span>
     </code>
      tags.
   </p>,
@@ -1229,7 +1265,11 @@ end tell
   <p>
     Within a code block, ampersands (
     <code>
-      &
+      <span
+        className="hljs-meta"
+      >
+        &
+      </span>
     </code>
     ) and angle brackets (
     <code>
@@ -1237,13 +1277,17 @@ end tell
     </code>
      and 
     <code>
-      &gt;
+      <span
+        className="hljs-meta"
+      >
+        &gt;
+      </span>
     </code>
     )
     <br />
     are automatically converted into HTML entities. This makes it very
     <br />
-    easy to include example HTML source code using Markdown -- just paste
+    easy to include example HTML source code using Markdown – just paste
     <br />
     it and indent it, and Markdown will handle the hassle of encoding the
     <br />
@@ -1260,14 +1304,112 @@ end tell
     <br />
     asterisks are just literal asterisks within a code block. This means
     <br />
-    it's also easy to use Markdown to write about Markdown's own syntax.
+    it’s also easy to use Markdown to write about Markdown’s own syntax.
   </p>,
-  <code>
+  <SyntaxHighlighter
+    language=""
+    showLineNumbers={true}
+    style={
+      Object {
+        "hljs": Object {
+          "background": "white",
+          "color": "black",
+          "display": "block",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        },
+        "hljs-addition": Object {
+          "color": "#a31515",
+        },
+        "hljs-attr": Object {
+          "color": "#f00",
+        },
+        "hljs-attribute": Object {
+          "color": "#a31515",
+        },
+        "hljs-built_in": Object {
+          "color": "#00f",
+        },
+        "hljs-bullet": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-comment": Object {
+          "color": "#008000",
+        },
+        "hljs-deletion": Object {
+          "color": "#2b91af",
+        },
+        "hljs-doctag": Object {
+          "color": "#808080",
+        },
+        "hljs-emphasis": Object {
+          "fontStyle": "italic",
+        },
+        "hljs-keyword": Object {
+          "color": "#00f",
+        },
+        "hljs-link": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-literal": Object {
+          "color": "#a31515",
+        },
+        "hljs-meta": Object {
+          "color": "#2b91af",
+        },
+        "hljs-name": Object {
+          "color": "#00f",
+        },
+        "hljs-quote": Object {
+          "color": "#008000",
+        },
+        "hljs-section": Object {
+          "color": "#a31515",
+        },
+        "hljs-selector-attr": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-pseudo": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-string": Object {
+          "color": "#a31515",
+        },
+        "hljs-strong": Object {
+          "fontWeight": "bold",
+        },
+        "hljs-symbol": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-template-tag": Object {
+          "color": "#a31515",
+        },
+        "hljs-template-variable": Object {
+          "color": "#a31515",
+        },
+        "hljs-title": Object {
+          "color": "#a31515",
+        },
+        "hljs-type": Object {
+          "color": "#a31515",
+        },
+        "hljs-variable": Object {
+          "color": "#008000",
+        },
+      }
+    }
+  >
     tell application "Foo"
-    beep
+beep
 end tell
 
-  </code>,
+  </SyntaxHighlighter>,
   <h2>
     Span Elements
   </h2>,
@@ -1291,7 +1433,7 @@ end tell
   <p>
     To create an inline link, use a set of regular parentheses immediately
     <br />
-    after the link text's closing square bracket. Inside the parentheses,
+    after the link text’s closing square bracket. Inside the parentheses,
     <br />
     put the URL where you want the link to point, along with an 
     <em>
@@ -1323,40 +1465,72 @@ end tell
   <p>
     Markdown treats asterisks (
     <code>
-      *
+      <span
+        className="hljs-comment"
+      >
+        *
+      </span>
     </code>
     ) and underscores (
     <code>
-      _
+      <span
+        className="hljs-literal"
+      >
+        _
+      </span>
     </code>
     ) as indicators of
     <br />
     emphasis. Text wrapped with one 
     <code>
-      *
+      <span
+        className="hljs-comment"
+      >
+        *
+      </span>
     </code>
      or 
     <code>
-      _
+      <span
+        className="hljs-literal"
+      >
+        _
+      </span>
     </code>
      will be wrapped with an
     <br />
     HTML 
     <code>
-      &lt;em&gt;
+      <span
+        className="hljs-section"
+      >
+        &lt;em&gt;
+      </span>
     </code>
      tag; double 
     <code>
-      *
+      <span
+        className="hljs-comment"
+      >
+        *
+      </span>
     </code>
     's or 
     <code>
-      _
+      <span
+        className="hljs-literal"
+      >
+        _
+      </span>
     </code>
     's will be wrapped with an HTML
     <br />
     <code>
-      &lt;strong&gt;
+      <span
+        className="hljs-section"
+      >
+        &lt;strong&gt;
+      </span>
     </code>
      tag. E.g., this input:
   </p>,
@@ -1401,7 +1575,20 @@ end tell
   <p>
     Use the 
     <code>
-      printf()
+      <span
+        className="hljs-function"
+      >
+        <span
+          className="hljs-title"
+        >
+          printf
+        </span>
+        <span
+          className="hljs-params"
+        >
+          ()
+        </span>
+      </span>
     </code>
      function.
   </p>,
@@ -2055,11 +2242,43 @@ Array [
   <p>
     Ad amet irure est magna id mollit Lorem in do duis enim. Excepteur velit nisi magna ea pariatur pariatur ullamco fugiat deserunt sint non sint. Duis duis est 
     <code>
-      code in text
+      <span
+        className="hljs-built_in"
+      >
+        code
+      </span>
+       in 
+      <span
+        className="hljs-built_in"
+      >
+        text
+      </span>
     </code>
      velit velit aute culpa ex quis pariatur pariatur laborum aute pariatur duis tempor sunt ad. Irure magna voluptate dolore consectetur consectetur irure esse. Anim magna 
     <code>
-      &lt;strong&gt;in culpa qui officia&lt;/strong&gt;
+      <span
+        className="hljs-tag"
+      >
+        &lt;
+        <span
+          className="hljs-name"
+        >
+          strong
+        </span>
+        &gt;
+      </span>
+      in culpa qui officia
+      <span
+        className="hljs-tag"
+      >
+        &lt;/
+        <span
+          className="hljs-name"
+        >
+          strong
+        </span>
+        &gt;
+      </span>
     </code>
      dolor eiusmod esse amet aute cupidatat aliqua do id voluptate cupidatat reprehenderit amet labore deserunt.
   </p>,
@@ -2069,24 +2288,122 @@ Array [
   <p>
     Et fugiat ad nisi amet magna labore do cillum fugiat occaecat cillum Lorem proident. In sint dolor ullamco ad do adipisicing amet id excepteur Lorem aliquip sit irure veniam laborum duis cillum. Aliqua occaecat minim cillum deserunt magna sunt laboris do do irure ea nostrud consequat ut voluptate ex.
   </p>,
-  <code>
+  <SyntaxHighlighter
+    language="go"
+    showLineNumbers={true}
+    style={
+      Object {
+        "hljs": Object {
+          "background": "white",
+          "color": "black",
+          "display": "block",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        },
+        "hljs-addition": Object {
+          "color": "#a31515",
+        },
+        "hljs-attr": Object {
+          "color": "#f00",
+        },
+        "hljs-attribute": Object {
+          "color": "#a31515",
+        },
+        "hljs-built_in": Object {
+          "color": "#00f",
+        },
+        "hljs-bullet": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-comment": Object {
+          "color": "#008000",
+        },
+        "hljs-deletion": Object {
+          "color": "#2b91af",
+        },
+        "hljs-doctag": Object {
+          "color": "#808080",
+        },
+        "hljs-emphasis": Object {
+          "fontStyle": "italic",
+        },
+        "hljs-keyword": Object {
+          "color": "#00f",
+        },
+        "hljs-link": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-literal": Object {
+          "color": "#a31515",
+        },
+        "hljs-meta": Object {
+          "color": "#2b91af",
+        },
+        "hljs-name": Object {
+          "color": "#00f",
+        },
+        "hljs-quote": Object {
+          "color": "#008000",
+        },
+        "hljs-section": Object {
+          "color": "#a31515",
+        },
+        "hljs-selector-attr": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-pseudo": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-string": Object {
+          "color": "#a31515",
+        },
+        "hljs-strong": Object {
+          "fontWeight": "bold",
+        },
+        "hljs-symbol": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-template-tag": Object {
+          "color": "#a31515",
+        },
+        "hljs-template-variable": Object {
+          "color": "#a31515",
+        },
+        "hljs-title": Object {
+          "color": "#a31515",
+        },
+        "hljs-type": Object {
+          "color": "#a31515",
+        },
+        "hljs-variable": Object {
+          "color": "#008000",
+        },
+      }
+    }
+  >
     package main
 
-import (
-    "fmt"
-    "net/http"
+import(
+  "fmt"
+  "net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+func handler(w http.ResponseWriter, r * http.Request) {
+  fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1: ])
 }
 
 func main() {
-    http.HandleFunc("/", handler)
-    http.ListenAndServe(":8080", nil)
+  http.HandleFunc("/", handler)
+  http.ListenAndServe(":8080", nil)
 }
 
-  </code>,
+  </SyntaxHighlighter>,
   <p>
     Ex amet id ex aliquip id do laborum excepteur exercitation elit sint commodo occaecat nostrud est. Nostrud pariatur esse veniam laborum non sint magna sit laboris minim in id. Aliqua pariatur pariatur excepteur adipisicing irure culpa consequat commodo et ex id ad.
   </p>,
@@ -2136,7 +2453,11 @@ func main() {
     </em>
      ea tempor cillum non cillum velit deserunt. Voluptate laborum incididunt sit consectetur Lorem irure incididunt voluptate nostrud. Commodo ut eiusmod tempor cupidatat esse enim minim ex anim consequat. Mollit sint culpa qui laboris quis consectetur ad sint esse. Amet anim anim minim ullamco et duis non irure. Sit tempor adipisicing ea laboris 
     <code>
-      culpa ex duis sint
+      <span
+        className="hljs-attribute"
+      >
+        culpa ex duis sint
+      </span>
     </code>
      anim aute reprehenderit id eu ea. Aute 
     <a
@@ -2200,7 +2521,105 @@ Array [
   <h3>
     Markdown fence (\`\`\`) codeblock
   </h3>,
-  <code>
+  <SyntaxHighlighter
+    language=""
+    showLineNumbers={true}
+    style={
+      Object {
+        "hljs": Object {
+          "background": "white",
+          "color": "black",
+          "display": "block",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        },
+        "hljs-addition": Object {
+          "color": "#a31515",
+        },
+        "hljs-attr": Object {
+          "color": "#f00",
+        },
+        "hljs-attribute": Object {
+          "color": "#a31515",
+        },
+        "hljs-built_in": Object {
+          "color": "#00f",
+        },
+        "hljs-bullet": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-comment": Object {
+          "color": "#008000",
+        },
+        "hljs-deletion": Object {
+          "color": "#2b91af",
+        },
+        "hljs-doctag": Object {
+          "color": "#808080",
+        },
+        "hljs-emphasis": Object {
+          "fontStyle": "italic",
+        },
+        "hljs-keyword": Object {
+          "color": "#00f",
+        },
+        "hljs-link": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-literal": Object {
+          "color": "#a31515",
+        },
+        "hljs-meta": Object {
+          "color": "#2b91af",
+        },
+        "hljs-name": Object {
+          "color": "#00f",
+        },
+        "hljs-quote": Object {
+          "color": "#008000",
+        },
+        "hljs-section": Object {
+          "color": "#a31515",
+        },
+        "hljs-selector-attr": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-pseudo": Object {
+          "color": "#2b91af",
+        },
+        "hljs-selector-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-string": Object {
+          "color": "#a31515",
+        },
+        "hljs-strong": Object {
+          "fontWeight": "bold",
+        },
+        "hljs-symbol": Object {
+          "color": "#00b0e8",
+        },
+        "hljs-tag": Object {
+          "color": "#00f",
+        },
+        "hljs-template-tag": Object {
+          "color": "#a31515",
+        },
+        "hljs-template-variable": Object {
+          "color": "#a31515",
+        },
+        "hljs-title": Object {
+          "color": "#a31515",
+        },
+        "hljs-type": Object {
+          "color": "#a31515",
+        },
+        "hljs-variable": Object {
+          "color": "#008000",
+        },
+      }
+    }
+  >
     for (let i = 0; i &lt; 10; i += 1) {
 
   for (let j = 0; j &lt; 10; j += 1) {
@@ -2211,7 +2630,7 @@ Array [
   }
 }
 
-  </code>,
+  </SyntaxHighlighter>,
   <h3>
     Html code block
   </h3>,

@@ -1,3 +1,5 @@
+@import "~styles/mixins";
+
 @mixin default-headers {
   h1,
   h2,
@@ -11,25 +13,287 @@
   h1 {
     font-size: 42px;
     line-height: 50px;
+
+    @include roboto-light;
   }
 
   h2 {
     font-size: 36px;
     line-height: 45px;
+
+    @include roboto-light;
   }
 
   h3 {
     font-size: 28px;
     line-height: 35px;
+
+    @include roboto-regular;
   }
 
   h4 {
     font-size: 20px;
-    line-height: 30px;
+    line-height: 35px;
+
+    @include roboto-regular;
   }
 
   h5 {
     font-size: 15px;
     line-height: 25px;
+
+    @include roboto-bold;
+  }
+
+  h6 {
+    font-size: 13px;
+    line-height: 25px;
+
+    @include roboto-bold;
+  }
+}
+
+@mixin gui-kit-headers {
+  h1 {
+    @include barlow-condensed-semi-bold;
+
+    font-size: 80px;
+    line-height: 74px;
+    text-transform: uppercase;
+    margin-top: 80px;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      font-size: 42px !important;
+      font-weight: 600 !important;
+      line-height: 38px !important;
+      margin-top: 42px;
+      margin-bottom: 10px;
+    }
+  }
+
+  h2 {
+    @include barlow-condensed-medium;
+
+    font-size: 60px;
+    line-height: 58px;
+    text-transform: uppercase;
+    margin-top: 60px;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      font-size: 36px !important;
+      font-weight: 500 !important;
+      margin-top: 36px;
+      margin-bottom: 10px;
+      line-height: 36px !important;
+    }
+  }
+
+  h3 {
+    @include barlow-condensed-medium;
+
+    font-size: 48px;
+    line-height: 50px;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      font-size: 31px !important;
+      font-weight: 500 !important;
+      line-height: 33px !important;
+      margin-top: 31px;
+      margin-bottom: 10px;
+    }
+  }
+
+  h4 {
+    @include barlow-condensed-medium;
+
+    font-size: 34px;
+    line-height: 38px;
+    text-transform: uppercase;
+    margin-top: 40px;
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      font-size: 25px !important;
+      font-weight: 500 !important;
+      line-height: 27px !important;
+      margin-top: 25px;
+    }
+  }
+
+  h5 {
+    @include barlow-bold;
+
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      font-size: 21px !important;
+      font-weight: 600 !important;
+      line-height: 25px !important;
+      margin-top: 21px;
+    }
+  }
+
+  h6 {
+    @include barlow-bold;
+
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      line-height: 22px !important;
+      margin-top: 18px;
+    }
+  }
+}
+
+@mixin gui-kit-content {
+  a {
+    @include roboto-regular;
+
+    font-size: 16px;
+    line-height: 24px;
+    color: #0d61bf;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+      color: #0d61bf;
+    }
+
+    &:visited {
+      color: #8231a9;
+    }
+  }
+
+  p {
+    @include tc-body-md;
+
+    color: $tco-black;
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 20px;
+    margin-top: 0;
+
+    strong {
+      @include roboto-medium;
+
+      line-height: 20px;
+      text-align: left;
+      font-weight: 600;
+    }
+  }
+
+  table {
+    margin-bottom: 20px;
+
+    th {
+      @include roboto-regular;
+
+      color: #2a2a2a;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 18px;
+      text-align: left;
+      text-transform: uppercase;
+      padding: 18px 10px 14px 0;
+
+      @include md-to-xl {
+        white-space: nowrap;
+      }
+
+      &:first-child {
+        padding-left: 10px;
+      }
+    }
+
+    td {
+      @include roboto-regular;
+
+      font-size: 16px;
+      line-height: 26px;
+      text-align: left;
+      color: #2a2a2a;
+      border-top: 1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
+      padding: 18px 50px 18px 0;
+      max-height: 63px;
+
+      &:first-child {
+        padding-left: 10px;
+      }
+
+      &:last-child {
+        padding-right: 10px;
+      }
+    }
+  }
+
+  ul,
+  ol {
+    @include tc-body-md;
+
+    padding-left: 20px;
+    margin-bottom: 20px;
+
+    @include roboto-regular;
+
+    color: $tc-black;
+
+    li p {
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 6px;
+  }
+
+  code {
+    @include roboto-mono-regular;
+
+    color: #2a2a2a;
+    line-height: 1.5;
+    white-space: pre;
+  }
+
+  sub,
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  sup {
+    top: -0.5em;
+  }
+
+  sub {
+    bottom: -0.25em;
   }
 }

@@ -10,7 +10,6 @@ import actions from 'actions/leaderboard';
 import LeaderboardTable from 'components/Leaderboard/LeaderboardTable';
 import Podium from 'components/Leaderboard/Podium';
 import Banner from 'components/tc-communities/Banner';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 
 import style from './styles.scss';
 
@@ -23,9 +22,10 @@ class LeaderboardPageContainer extends React.Component {
       isLoadingLeaderboard,
       loadLeaderboard,
       loadedApiUrl,
+      id,
     } = this.props;
     if (!(apiUrl === loadedApiUrl || isLoadingLeaderboard)) {
-      loadLeaderboard(auth, apiUrl);
+      loadLeaderboard(auth, apiUrl, id);
     }
   }
 
@@ -53,22 +53,18 @@ class LeaderboardPageContainer extends React.Component {
         {/* eslint-enable max-len */}
         <div styleName="Leaderboard">
           <h2 styleName="section-title">
-Leaderboard
+            Leaderboard
           </h2>
           <Podium competitors={ld.slice(0, 3)} isTopGear={isTopGear} />
           <LeaderboardTable competitors={ld.slice(3)} isTopGear={isTopGear} />
         </div>
-        <NewsletterSignup
-          title="Sign up for our newsletter"
-          text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-          imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
-        />
       </div>
     );
   }
 }
 
 LeaderboardPageContainer.defaultProps = {
+  id: 'communityLeaderboard',
   HeadBanner: null,
   leaderboardData: [],
   isLoadingLeaderboard: false,
@@ -81,6 +77,7 @@ LeaderboardPageContainer.defaultProps = {
 };
 
 LeaderboardPageContainer.propTypes = {
+  id: PT.string,
   HeadBanner: PT.func,
   leaderboardData: PT.arrayOf(PT.shape()),
   isLoadingLeaderboard: PT.bool,
@@ -91,17 +88,25 @@ LeaderboardPageContainer.propTypes = {
   isTopGear: PT.bool,
 };
 
-const mapStateToProps = state => ({
-  leaderboardData: state.leaderboard.data,
-  isLoadingLeaderboard: state.leaderboard.loading,
-  loadedApiUrl: state.leaderboard.loadedApiUrl,
-  auth: state.auth,
-});
+function mapStateToProps(state, props) {
+  const ldId = props.id || LeaderboardPageContainer.defaultProps.id;
+  return state.leaderboard[ldId] ? {
+    leaderboardData: state.leaderboard[ldId].data,
+    isLoadingLeaderboard: state.leaderboard[ldId].loading,
+    loadedApiUrl: state.leaderboard[ldId].loadedApiUrl,
+    auth: state.auth,
+  } : {
+    leaderboardData: null,
+    isLoadingLeaderboard: false,
+    loadedApiUrl: null,
+    auth: state.auth,
+  };
+}
 
 const mapDispatchToProps = dispatch => ({
-  loadLeaderboard: (auth, apiUrl) => {
-    dispatch(actions.leaderboard.fetchLeaderboardInit());
-    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl));
+  loadLeaderboard: (auth, apiUrl, id) => {
+    dispatch(actions.leaderboard.fetchLeaderboardInit({ id }));
+    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl, id));
   },
 });
 

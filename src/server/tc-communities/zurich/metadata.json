@@ -6,12 +6,14 @@
     "groupIds": ["20000145"]
   },
   "challengeListing": {
-    "ignoreCommunityFilterByDefault": true,
+    "ignoreCommunityFilterByDefault": false,
     "openChallengesInNewTabs": false
   },
   "communityId": "zurich",
   "communityName": "Zurich Community",
   "groupIds": ["20000145"],
+  "authorizedGroupIdsCatalog": ["c40767a9-e02e-4872-87eb-d50dcb946055", "a1bcb865-7235-481f-ae62-b82dd958fc4c"],
+  "competitorsGroupIds": ["20000226"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",
     "url": "https://www.zurich.com/"
@@ -19,7 +21,7 @@
     "img": "/community-app-assets/themes/zurich/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
   }],
-  "footerText": "© Copyright Topcoder, 2018",
+  "footerText": "© Copyright Topcoder, 2019",
   "menuItems": [
     {
       "title": "Home",
@@ -35,12 +37,16 @@
       "url": "/faq"
     }, {
       "title": "Challenges",
-      "url": "/challenges"
+      "url": "/challenges?communityId=zurich"
+    }, {
+      "title": "THRIVE/LEARN",
+      "url": "https://topcoder.com/thrive",
+      "openNewTab": true
     }
   ],
   "hideSearch": true,
   "newsFeed": "http://www.topcoder.com/feed",
-  "subdomains": ["zurich"],
+  "subdomains": ["zurich", "community-zurich"],
   "description": "Zurich Community.",
   "image":"wipro.jpg"
 }

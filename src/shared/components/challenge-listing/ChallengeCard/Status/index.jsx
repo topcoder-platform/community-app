@@ -6,6 +6,10 @@ import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 import { config, Link } from 'topcoder-react-utils';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import 'moment-duration-format';
+import { phaseEndDate } from 'utils/challenge-listing/helper';
+import {
+  getTimeLeft,
+} from 'utils/challenge-detail/helper';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
@@ -20,36 +24,6 @@ import NumSubmissions from '../NumSubmissions';
 const MAX_VISIBLE_WINNERS = 3;
 const STALLED_MSG = 'Stalled';
 const DRAFT_MSG = 'In Draft';
-const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
-const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
-
-const HOUR_MS = 60 * 60 * 1000;
-const DAY_MS = 24 * HOUR_MS;
-
-/**
- * Generates human-readable string containing time till the phase end.
- * @param {Object} phase
- * @return {String}
- */
-const getTimeLeft = (phase) => {
-  if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG };
-  if (phase.phaseType === 'Final Fix') {
-    return { late: false, text: FF_TIME_LEFT_MSG };
-  }
-
-  let time = moment(phase.scheduledEndTime).diff();
-  const late = time < 0;
-  if (late) time = -time;
-
-  let format;
-  if (time > DAY_MS) format = 'D[d] H[h]';
-  else if (time > HOUR_MS) format = 'H[h] m[min]';
-  else format = 'm[min] s[s]';
-
-  time = moment.duration(time).format(format);
-  time = late ? `Late by ${time}` : `${time} to go`;
-  return { late, text: time };
-};
 
 /**
  * Calculates progress of the specified phase (as a percentage).
@@ -57,8 +31,8 @@ const getTimeLeft = (phase) => {
  * @return {Number}
  */
 function getPhaseProgress(phase) {
-  const end = moment(phase.scheduledEndTime);
-  const start = moment(phase.actualStartTime);
+  const end = moment(phase.scheduledEndDate);
+  const start = moment(phase.actualStartDate);
   return 100 * (moment().diff(start) / end.diff(start));
 }
 
@@ -86,7 +60,9 @@ export default function ChallengeStatus(props) {
     challengesUrl,
     newChallengeDetails,
     selectChallengeDetailsTab,
-    userHandle,
+    openChallengesInNewTabs,
+    userId,
+    isLoggedIn,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -94,15 +70,16 @@ export default function ChallengeStatus(props) {
     const {
       challenge,
       detailLink,
-      openChallengesInNewTabs,
     } = props;
 
-    let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
-      .map(winner => ({
+    let winners = _.map(
+      challenge.winners,
+      winner => ({
         handle: winner.handle,
         position: winner.placement,
         photoURL: winner.photoURL,
-      }));
+      }),
+    );
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
       const lastItem = {
@@ -135,21 +112,18 @@ export default function ChallengeStatus(props) {
           <UserAvatarTooltip user={userProfile}>
             <LeaderboardAvatar member={winner} />
           </UserAvatarTooltip>
-        </div>);
+        </div>
+      );
     });
-    let resultsLink = detailLink;
-    if (challenge.challengeType === 'Marathon') {
-      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'rounds[0].id')}`;
-    }
 
     return leaderboard || (
       <Link
         onClick={() => (
           setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
         )}
-        to={resultsLink}
+        to={detailLink}
       >
-Results
+        Results
       </Link>
     );
   }
@@ -158,9 +132,8 @@ Results
     const {
       challenge,
       detailLink,
-      openChallengesInNewTabs,
     } = props;
-    const timeDiff = getTimeLeft(challenge.allPhases.find(p => p.phaseType === 'Registration'));
+    const timeDiff = getTimeLeft((challenge.phases || []).find(p => p.name === 'Registration'), 'to go');
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,
@@ -177,10 +150,10 @@ Results
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
         <span>
-          { timeNote }
+          {timeNote}
         </span>
         <span styleName="to-register">
-to register
+          to register
         </span>
       </a>
     );
@@ -192,6 +165,7 @@ to register
    * the common code being used in both places. */
   function completedChallenge() {
     const { challenge } = props;
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
     return (
       <div>
         {renderLeaderboard()}
@@ -202,6 +176,7 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
             />
           </div>
           <div styleName="spacing">
@@ -210,16 +185,18 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
             challenge.myChallenge
             && (
-            <div styleName="spacing">
-              <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}>
-                <ForumIcon />
-              </a>
-            </div>
+              <div styleName="spacing">
+                <a styleName="link-forum past" href={`${FORUM_URL}${forumId}`}>
+                  <ForumIcon />
+                </a>
+              </div>
             )
           }
         </span>
@@ -230,38 +207,32 @@ to register
   function activeChallenge() {
     const { challenge } = props;
     const {
-      allPhases,
-      currentPhases,
-      forumId,
       myChallenge,
       status,
-      subTrack,
+      type,
     } = challenge;
+    const allPhases = challenge.phases || [];
+    const forumId = _.get(challenge, 'legacy.forumId') || 0;
 
-    let statusPhase = currentPhases
-      .filter(p => p.phaseType !== 'Registration')
-      .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
+    let statusPhase = allPhases
+      .filter(p => p.name !== 'Registration' && p.isOpen)
+      .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && currentPhases.length) {
-      statusPhase = _.clone(currentPhases[0]);
-      statusPhase.phaseType = 'Submission';
+    if (!statusPhase && type === 'First2Finish' && allPhases.length) {
+      statusPhase = _.clone(allPhases[0]);
+      statusPhase.name = 'Submission';
     }
 
-    const registrationPhase = allPhases
-      .find(p => p.phaseType === 'Registration');
-    const isRegistrationOpen = registrationPhase
-      && registrationPhase.phaseStatus === 'Open';
-
     let phaseMessage = STALLED_MSG;
-    if (statusPhase) phaseMessage = statusPhase.phaseType;
-    else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
+    if (statusPhase) phaseMessage = statusPhase.name;
+    else if (status === 'Draft') phaseMessage = DRAFT_MSG;
 
-    const showRegisterInfo = isRegistrationOpen && !challenge.users[userHandle];
+    const showRegisterInfo = challenge.registrationOpen === 'Yes' && !challenge.users[userId];
 
     return (
       <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
         <span styleName="current-phase">
-          { phaseMessage }
+          {phaseMessage}
         </span>
         <span styleName="challenge-stats">
           <div styleName="spacing">
@@ -270,6 +241,7 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
             />
           </div>
           <div styleName="spacing">
@@ -278,30 +250,32 @@ to register
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
+              openChallengesInNewTabs={openChallengesInNewTabs}
+              isLoggedIn={isLoggedIn}
             />
           </div>
           {
             myChallenge
             && (
-            <div styleName="spacing">
-              <a styleName="link-forum" href={`${FORUM_URL}${forumId}`}>
-                <ForumIcon />
-              </a>
-            </div>
+              <div styleName="spacing">
+                <a styleName="link-forum" href={`${FORUM_URL}${forumId}`}>
+                  <ForumIcon />
+                </a>
+              </div>
             )
           }
         </span>
         <ProgressBarTooltip challenge={challenge}>
           {
-            status === 'ACTIVE' && statusPhase ? (
+            status === 'Active' && statusPhase ? (
               <div>
                 <ChallengeProgressBar
                   color="green"
                   value={getPhaseProgress(statusPhase)}
-                  isLate={moment().isAfter(statusPhase.scheduledEndTime)}
+                  isLate={moment().isAfter(phaseEndDate(statusPhase))}
                 />
                 <div styleName="time-left">
-                  {getTimeLeft(statusPhase).text}
+                  {getTimeLeft(statusPhase, 'to go').text}
                 </div>
               </div>
             ) : <ChallengeProgressBar color="gray" value="100" />
@@ -312,11 +286,11 @@ to register
     );
   }
 
-  const { challenge } = props;
-  const completed = challenge.status === 'COMPLETED';
+  const { challenge, className } = props;
+  const completed = challenge.status === 'Completed';
   const status = completed ? 'completed' : '';
   return (
-    <div styleName={`challenge-status ${status}`}>
+    <div className={className} styleName={`challenge-status ${status}`}>
       {completed ? completedChallenge() : activeChallenge()}
     </div>
   );
@@ -326,7 +300,8 @@ ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
   openChallengesInNewTabs: false,
-  userHandle: '',
+  className: '',
+  userId: '',
 };
 
 ChallengeStatus.propTypes = {
@@ -336,5 +311,7 @@ ChallengeStatus.propTypes = {
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
-  userHandle: PT.string,
+  className: PT.string,
+  userId: PT.string,
+  isLoggedIn: PT.bool.isRequired,
 };

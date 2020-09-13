@@ -17,25 +17,8 @@ export default function Prize({
   prizeUnitSymbol,
   totalPrize,
   withoutTooltip,
-  isMM,
+  onlyShowTooltipForPrize,
 }) {
-  const component = (
-    !isMM
-    && (
-    <div>
-      <div styleName="prize">
-        <span styleName="symbol">
-          {prizeUnitSymbol}
-        </span>
-        {totalPrize.toLocaleString()}
-      </div>
-      <div styleName="label">
-        {label}
-      </div>
-    </div>
-    )
-  );
-  if (withoutTooltip) return component;
   const tip = (
     <Tip
       bonuses={bonuses}
@@ -43,6 +26,35 @@ export default function Prize({
       prizeUnitSymbol={prizeUnitSymbol}
     />
   );
+  const prizeUI = (
+    <div styleName="prize" aria-hidden="true">
+      <span styleName="symbol">
+        {prizeUnitSymbol}
+      </span>
+      {totalPrize.toLocaleString()}
+    </div>
+  );
+
+  const component = (
+    <div
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+      tabIndex={0}
+      aria-label={`${label} ${prizeUnitSymbol} ${totalPrize.toLocaleString()}`}
+    >
+      {((onlyShowTooltipForPrize && !withoutTooltip)
+        ? (
+          <Tooltip content={tip}>
+            {prizeUI}
+          </Tooltip>
+        )
+        : (prizeUI)
+      )}
+      <div styleName="label" aria-hidden="true">
+        {label}
+      </div>
+    </div>
+  );
+  if (withoutTooltip || onlyShowTooltipForPrize) return component;
   return (
     <Tooltip content={tip}>
       {component}
@@ -54,15 +66,15 @@ Prize.defaultProps = {
   bonuses: [],
   prizes: [],
   withoutTooltip: false,
-  isMM: false,
+  onlyShowTooltipForPrize: false,
 };
 
 Prize.propTypes = {
   bonuses: PT.arrayOf(PT.object),
   label: PT.string.isRequired,
-  prizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.shape()),
   prizeUnitSymbol: PT.string.isRequired,
   totalPrize: PT.number.isRequired,
   withoutTooltip: PT.bool,
-  isMM: PT.bool,
+  onlyShowTooltipForPrize: PT.bool,
 };

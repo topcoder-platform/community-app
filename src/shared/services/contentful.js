@@ -21,7 +21,13 @@ if (isomorphy.isServerSide()) {
   /* eslint-enable global-require */
 }
 
-const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
+// Education Center Taxonomy
+const EDU_TAXONOMY_ID = '15caxocitaxyK65K9oSd91';
+// The keys for subcategory lists/references
+// If need to add new track add its fieldID here to be autopickuped
+const EDU_TRACK_KEYS = ['dataScience', 'competitiveProgramming', 'design', 'development', 'qualityAssurance', 'topcoder', 'gigWork'];
+
+const EDU_ARTICLE_TYPES = ['Article', 'Video', 'Forum post'];
 
 /* Holds URL of Community App CDN (and the dedicated Contentful endpoint
  * there). */
@@ -29,8 +35,7 @@ const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * Contentful APIs. */
-const PROXY_ENDPOINT = `${LOCAL_MODE ? '' : config.URL.APP}/api/cdn/public/contentful`;
-
+const PROXY_ENDPOINT = '/api/cdn/public/contentful';
 /* At the client-side only, it holds the cached index of published Contentful
  * assets and content. Do not use it directly, use getIndex() function below
  * instead (it takes care about updating this when necessary). */
@@ -154,7 +159,6 @@ class Service {
     if (!res.ok) {
       const error = new Error('Failed to get an asset');
       logger.error(error);
-      throw error;
     }
     return res.json();
   }
@@ -191,7 +195,6 @@ class Service {
     if (!res.ok) {
       const error = new Error('Failed to get a content entry');
       logger.error(error);
-      throw error;
     }
     return res.json();
   }
@@ -216,7 +219,10 @@ class Service {
     url += this.private.preview ? '/preview' : '/published';
     if (query) url += `?${_.isString(query) ? query : qs.stringify(query)}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) {
+      const error = new Error('Failed to get assets.');
+      logger.error(error);
+    }
     return res.json();
   }
 
@@ -241,8 +247,128 @@ class Service {
     url += '/entries';
     if (query) url += `?${qs.stringify(query)}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) {
+      const error = new Error('Failed to get entries.');
+      logger.error(error);
+    }
     return res.json();
+  }
+
+  /**
+   * Vote on article
+   * @param {String} id Entry ID.
+   * @param {Array} data The updated data array
+   * @returns {Promise<void>}
+   */
+  async articleVote(id, votes) {
+    // eslint-disable-next-line prefer-template
+    const url = this.private.baseUrl + '/votes';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id, votes,
+      }),
+    });
+    if (!res.ok) {
+      const error = new Error('Failed to update article votes.');
+      logger.error(error);
+    }
+    return res.json();
+  }
+
+  /**
+   * Retrieve EDU taxonomy from Contentful by fixed id
+   */
+  async getEDUTaxonomy() {
+    let EDUtax = await this.getEntry(EDU_TAXONOMY_ID);
+    EDUtax = _.pick(EDUtax.fields, EDU_TRACK_KEYS);
+    const IDs = _.flatten(
+      _.map(EDUtax, items => items.map(item => item.sys.id)),
+    );
+    let taxonomy = await this.queryEntries({
+      'sys.id[in]': IDs.join(','),
+      limit: 1000,
+    });
+    taxonomy = _.groupBy(taxonomy.items.map(item => ({ ...item.fields, id: item.sys.id })), 'trackParent');
+    return taxonomy;
+  }
+
+  /**
+   * Query EDU articles
+   * @param {Object} query
+   */
+  async getEDUContent({
+    track, types, limit = 5, skip = 0, tags,
+    tax, startDate, endDate, author, taxonomy, phrase, title,
+  }) {
+    const query = {
+      content_type: 'article',
+      limit,
+      skip,
+    };
+    if (author && author !== 'All authors') {
+      // author based articles query need the authorID
+      // thus we need to find it first
+      await this.queryEntries({
+        content_type: 'person',
+        query: author,
+      })
+        .then((result) => {
+          if (result.total) {
+            query['fields.contentAuthor.sys.id'] = result.items[0].sys.id;
+          }
+        });
+    }
+    if (tax && track && taxonomy && taxonomy[track]) {
+      // tax query is based on linked items
+      // we need to find all articles that link to that specific tax[s]
+      const taxIDs = [];
+      if (_.isArray(tax)) {
+        _.map(taxonomy[track], (contentTax) => {
+          if (_.indexOf(tax, contentTax.name) !== -1) {
+            taxIDs.push(contentTax.id);
+          }
+        });
+      } else {
+        const taxId = _.find(taxonomy[track], ['name', tax]).id;
+        taxIDs.push(taxId);
+      }
+      if (taxIDs.length) query['fields.contentCategory.sys.id[in]'] = taxIDs.join(',');
+    }
+    if (track) query['fields.trackCategory'] = track;
+    if (!_.isEmpty(tags)) {
+      if (tags.length === 1) {
+        query['fields.tags[match]'] = tags.join(',');
+      } else {
+        query.query = tags.join(' ');
+      }
+    }
+    if (startDate) query['sys.createdAt[gte]'] = startDate;
+    if (endDate) query['sys.createdAt[lte]'] = endDate;
+    if (phrase) query.query = phrase;
+    if (title) query['fields.title[match]'] = title;
+    const content = {};
+    await Promise.all(
+      _.map(types || EDU_ARTICLE_TYPES,
+        type => this.queryEntries({ ...query, 'fields.type': type })
+          // eslint-disable-next-line no-return-assign
+          .then(results => content[type] = results)),
+    );
+    return content;
+  }
+
+  /**
+   * Get a list of all EDU content authors
+   */
+  async getEDUAuthors() {
+    const authors = await this.queryEntries({
+      content_type: 'person',
+      limit: 1000,
+    });
+    return authors;
   }
 }
 

@@ -24,7 +24,7 @@ const AssetList = ({
                 <div styleName="col-asset col-asset-details">
                   <a href={detailUrl} styleName="icon">
                     <span styleName="sr-only">
-icon
+                      icon
                     </span>
                   </a>
                   <h2>
@@ -36,11 +36,11 @@ icon
                   <div styleName="description">
                     <p>
                       { item.description }
-…
+                      …
                     </p>
                     <p styleName="links">
                       <a href={detailUrl} styleName="details">
-More Details
+                        More Details
                       </a>
                     </p>
                     <p styleName="links">
@@ -52,7 +52,7 @@ More Details
                 </div>
                 <div styleName="col-asset col-asset-technologies">
                   <strong>
-Technologies
+                    Technologies
                   </strong>
                   <div styleName="technologies">
                     {
@@ -74,7 +74,7 @@ Technologies
                 </div>
                 <div styleName="col-asset col-asset-platforms">
                   <strong>
-Platforms
+                    Platforms
                   </strong>
                   <div styleName="platforms">
                     {
@@ -96,10 +96,10 @@ Platforms
                 </div>
                 <div styleName="col-asset col-asset-links">
                   <a href={item.githubUrl} target="_blank" rel="noreferrer noopener" styleName="github">
-GitHub
+                    GitHub
                   </a>
                   <a href={detailUrl} styleName="details">
-More Details
+                    More Details
                   </a>
                 </div>
               </li>
@@ -107,7 +107,8 @@ More Details
           })
       }
       </ul>
-    </div>);
+    </div>
+  );
 };
 AssetList.propTypes = {
   baseUrl: PT.string.isRequired,

@@ -17,45 +17,43 @@ export default function EditorExample() {
         connector={connector}
         nodeId="editor-toolbar"
       />
-      {
-        <Sticky innerZ={1} top="#editor-toolbar">
-          <Previewer connector={connector} />
-        </Sticky>
-      }
+      <Sticky innerZ={1} top="#editor-toolbar">
+        <Previewer connector={connector} />
+      </Sticky>
       <div styleName="container">
         <div styleName="content">
           <h1 styleName="title">
-Editor
+            Editor
           </h1>
           <p styleName="text">
             Demo/test of content editing system based on DraftJS.
           </p>
           <h3 styleName="section">
-Generic DraftJS Editor
+            Generic DraftJS Editor
           </h3>
           <GenericEditor connector={connector} />
           <h3 styleName="section">
-Markdown Editor
+            Markdown Editor
           </h3>
           <MarkdownEditor connector={connector} />
           <h3 styleName="section">
-Multi Editor
+            Multi Editor
           </h3>
           <MultiEditor connector={connector} />
 
           <h3 styleName="section">
-Editable Area #1
+            Editable Area #1
           </h3>
           <Editor
             connector={connector}
             initialContent="<p>Initial Content</p><p>Will it work?</p>"
           />
           <h3 styleName="section">
-Editable Area #2
+            Editable Area #2
           </h3>
           <Editor connector={connector} />
           <h3 styleName="section">
-Editable Area #3
+            Editable Area #3
           </h3>
           <Editor connector={connector} />
         </div>

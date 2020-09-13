@@ -56,6 +56,7 @@ class HeaderContainer extends React.Component {
 
 HeaderContainer.defaultProps = {
   auth: {},
+  logoutRedirect: null,
 };
 
 HeaderContainer.propTypes = {
@@ -70,6 +71,7 @@ HeaderContainer.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   communityId: PT.string.isRequired,
+  logoutRedirect: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -95,6 +97,7 @@ function mapStateToProps(state, ownProps) {
     openedMenu: state.topcoderHeader.openedMenu,
     pageId: ownProps.pageId,
     profile: state.auth.profile,
+    meta: state.tcCommunities.meta.data,
   };
 }
 

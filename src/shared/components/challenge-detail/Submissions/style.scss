@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import '~styles/mixins';
 
 .container {
   @include roboto-regular;
@@ -6,6 +6,10 @@
   max-width: 1060px;
   margin-left: auto;
   margin-right: auto;
+
+  div {
+    white-space: nowrap;
+  }
 
   &.no-view {
     display: flex;
@@ -50,6 +54,7 @@
       color: $tc-gray-50;
       line-height: 25px;
       width: 500px;
+      white-space: pre-wrap;
 
       @include xs-to-sm {
         margin-left: 28px;
@@ -114,10 +119,132 @@
     }
   }
 
-  &.dev {
-    padding: 30px 0;
-    line-height: 50px;
+  .head {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+    color: $tc-gray-50;
+    background: #e8e8e8;
+    display: flex;
+    border-radius: 5px 5px 0 0;
+
+    @include xs-to-sm {
+      display: none;
+    }
+
+    .col {
+      display: block !important;
+      color: $tc-gray-50;
+
+      &.col-1 {
+        color: black;
+      }
+    }
+  }
+
+  .sub-head {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    color: $tc-gray-50;
+    background: #faf9fa;
+    display: flex;
+    border-bottom: 1px solid $tc-gray-10;
+
+    @include xs-to-sm {
+      display: none;
+    }
+
+    .handle {
+      color: $tc-dark-blue-110;
+    }
+  }
+
+  .lock {
+    fill: $tc-light-blue;
+    height: 136px;
+    margin-bottom: 30px;
+    width: 110px;
+  }
+}
+
+.container.dev {
+  margin: 30px 80px;
+  padding-bottom: 30px;
+  line-height: 50px;
+  text-align: center;
+
+  @include xs-to-sm {
+    margin: 30px 0;
+    line-height: 20px;
+  }
+
+  .col {
     text-align: center;
+
+    &.col-1 {
+      flex: 22;
+      display: flex;
+
+      .col {
+        flex: 1;
+      }
+    }
+
+    &.col-2 {
+      flex: 35;
+      display: flex;
+      color: $tc-gray-50;
+      padding-left: 10px;
+
+      a {
+        color: black;
+      }
+
+      .col {
+        flex: 1;
+      }
+    }
+
+    &.col-3 {
+      flex: 45;
+      display: flex;
+      color: $tc-gray-50;
+
+      .col {
+        flex: 1;
+      }
+    }
+
+    &.col-4 {
+      flex: 20;
+      color: $tc-gray-50;
+    }
+  }
+
+  .handle {
+    color: $tc-dark-blue;
+  }
+
+  &.non-mm {
+    .head {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+      padding-bottom: 14px;
+      color: $tc-gray-50;
+      display: flex;
+      border-bottom: 1px solid $tc-gray-10;
+      background: transparent;
+
+      @include xs-to-sm {
+        display: none;
+      }
+    }
 
     .row {
       color: $tc-gray-70;
@@ -129,40 +256,122 @@
     .col-1 {
       padding-left: 30px;
       text-align: left;
-      width: 33%;
+      width: 10%;
+      justify-content: flex-start;
+      display: flex;
+      min-width: 140px;
+
+      @include xs-to-sm {
+        min-width: none;
+      }
     }
 
     .col-2 {
-      width: 33%;
+      width: 10%;
+      justify-content: flex-start;
+      display: flex;
     }
 
     .col-3 {
-      width: 33%;
+      width: 26.6%;
+    }
+
+    .col-4 {
+      width: 26.6%;
+    }
+
+    .col-5 {
+      width: 26.6%;
     }
 
     .handle {
-      color: $tc-dark-blue-110;
+      color: $tc-black;
     }
   }
 }
 
-.head {
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 15px;
-  padding-bottom: 14px;
-  color: $tc-gray-50;
-  display: flex;
-  border-bottom: 1px solid $tc-gray-10;
+.tooltip {
+  font-size: 14px;
+  margin: 10px 10px 0 10px;
+  padding-top: 5px;
+}
 
-  @include xs-to-sm {
-    display: none;
+.col-arrow {
+  display: flex;
+  padding-left: 5px;
+
+  :global {
+    svg {
+      margin-bottom: -1px;
+    }
   }
 }
 
-.lock {
-  fill: $tc-light-blue;
-  height: 136px;
-  margin-bottom: 30px;
-  width: 110px;
+.col-arrow-is-sorting {
+  :global {
+    g {
+      fill: $tc-dark-blue;
+    }
+  }
+}
+
+.col-arrow-sort-asc {
+  :global {
+    svg {
+      -moz-transform: scale(1, -1);
+      -o-transform: scale(1, -1);
+      -webkit-transform: scale(1, -1);
+      transform: scale(1, -1);
+    }
+  }
+}
+
+.header-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  background: transparent;
+
+  &:hover {
+    color: $tc-dark-blue;
+
+    :global {
+      g {
+        fill: $tc-dark-blue;
+      }
+    }
+  }
+}
+
+.challengeAction {
+  min-width: 0;
+  width: 181px;
+  margin-top: 25px !important;
+  align-self: center;
+}
+
+.level-1 {
+  color: $member-gray !important;
+}
+
+.level-2 {
+  color: $member-green !important;
+}
+
+.level-3 {
+  color: $member-blue !important;
+}
+
+.level-4 {
+  color: $member-yellow !important;
+}
+
+.level-5 {
+  color: $member-red !important;
 }

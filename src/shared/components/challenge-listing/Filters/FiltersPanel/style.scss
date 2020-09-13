@@ -91,6 +91,7 @@ $panel-radius-4: $corner-radius * 2;
     position: absolute;
     right: $panel-space-20;
     top: $panel-space-15;
+    bottom: $panel-space-15;
 
     @include xs-to-md {
       float: none;
@@ -461,7 +462,7 @@ $panel-radius-4: $corner-radius * 2;
 
   .filter.review-type {
     // margin - (.date.input width + .date.text width) * 2 - filters.label width
-    @include calc(width, '50% - 30px - (14px + 114px) * 2 - 96px');
+    @include calc(width, '50% - 45px - (12px + 112px) * 2 - 96px');
 
     order: 3; // Show after Date Picker when in lg screen mode
 

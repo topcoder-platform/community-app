@@ -7,13 +7,11 @@ exports[`Matches shallow shapshot shapshot 1`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
-    <FiltersCardsType
-      isCardTypeSet="type"
-      setCardType={[MockFunction]}
-    />
     <ChallengeSearchBar
+      label="Search Challenges:"
+      onClearSearch={[Function]}
       onSearch={[Function]}
-      placeholder="Search Challenges"
+      placeholder="Type the challenge name here"
       query=""
       setQuery={[MockFunction]}
     />
@@ -35,11 +33,16 @@ exports[`Matches shallow shapshot shapshot 1`] = `
           viewBox="0 0 16 16"
           width="16"
         />
+        <span
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___35dFo"
+        >
+          1
+        </span>
       </span>
       <FiltersSwitch
         active={false}
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
-        filtersCount={0}
+        filtersCount={1}
         onSwitch={[MockFunction]}
       />
     </span>
@@ -70,7 +73,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
         "",
       ]
     }
-    validSubtracks={
+    validTypes={
       Array [
         "",
       ]
@@ -82,9 +85,11 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     devEnabled={true}
     onClose={[Function]}
     opened={true}
+    qaEnabled={true}
     switchDataScience={[Function]}
     switchDesign={[Function]}
     switchDev={[Function]}
+    switchQA={[Function]}
   />
 </div>
 `;
@@ -96,19 +101,20 @@ exports[`Matches shallow shapshot shapshot 2`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
-    <FiltersCardsType
-      isCardTypeSet="Challenges"
-      setCardType={[MockFunction]}
-    />
     <ChallengeSearchBar
+      label="Search Challenges:"
+      onClearSearch={[Function]}
       onSearch={[Function]}
-      placeholder="Search Challenges"
+      placeholder="Type the challenge name here"
       query=""
       setQuery={[MockFunction]}
     />
     <span>
       <span
+        aria-checked={false}
+        aria-label="Design toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -122,7 +128,10 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         />
       </span>
       <span
+        aria-checked={false}
+        aria-label="Development toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -136,7 +145,10 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         />
       </span>
       <span
+        aria-checked={false}
+        aria-label="Data Science toggle button pressed Off"
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
       >
         <ThemedSwitchWithLabel
           composeAdhocTheme="deeply"
@@ -144,6 +156,23 @@ exports[`Matches shallow shapshot shapshot 2`] = `
           enabled={false}
           labelAfter=""
           labelBefore="Data Science"
+          mapThemrProps={[Function]}
+          onSwitch={[Function]}
+          themePriority="adhoc-context-default"
+        />
+      </span>
+      <span
+        aria-checked={false}
+        aria-label="QA toggle button pressed Off"
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+        role="switch"
+      >
+        <ThemedSwitchWithLabel
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
+          enabled={false}
+          labelAfter=""
+          labelBefore="QA"
           mapThemrProps={[Function]}
           onSwitch={[Function]}
           themePriority="adhoc-context-default"
@@ -181,13 +210,13 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         <span
           className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___35dFo"
         >
-          3
+          4
         </span>
       </span>
       <FiltersSwitch
         active={false}
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
-        filtersCount={3}
+        filtersCount={4}
         onSwitch={[MockFunction]}
       />
     </span>
@@ -206,14 +235,14 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       Object {
         "endDate": "2019-12-31T23:00:00.000Z",
         "startDate": "2019-12-31T23:00:00.000Z",
-        "subtracks": Array [
-          "CODE",
-        ],
         "tags": Array [
           "abc",
         ],
         "tracks": Array [
           "tracks",
+        ],
+        "types": Array [
+          "927abff4-7af9-4145-8ba1-577c16e64e2e",
         ],
       }
     }
@@ -232,7 +261,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         "",
       ]
     }
-    validSubtracks={
+    validTypes={
       Array [
         "",
       ]
@@ -244,9 +273,11 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     devEnabled={false}
     onClose={[Function]}
     opened={true}
+    qaEnabled={false}
     switchDataScience={[Function]}
     switchDesign={[Function]}
     switchDev={[Function]}
+    switchQA={[Function]}
   />
 </div>
 `;

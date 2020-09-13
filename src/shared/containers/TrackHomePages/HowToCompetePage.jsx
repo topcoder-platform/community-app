@@ -11,7 +11,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Error404 from 'components/Error404';
 import ContentfulLoader from '../ContentfulLoader';
 
-const HowToCompetePageContainer = ({ match }) => (
+const HowToCompetePageContainer = ({ match, location }) => (
   <ContentfulLoader
     entryQueries={{
       content_type: 'trackHowToCompete',
@@ -31,6 +31,7 @@ const HowToCompetePageContainer = ({ match }) => (
             render={() => (
               <HowToCompetePage
                 howToCompete={howToCompete}
+                location={location}
               />
             )}
             renderPlaceholder={LoadingIndicator}
@@ -49,6 +50,7 @@ HowToCompetePageContainer.propTypes = {
       track: PT.string,
     }),
   }).isRequired,
+  location: PT.shape().isRequired,
 };
 
 export default withRouter(HowToCompetePageContainer);

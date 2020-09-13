@@ -1,6 +1,7 @@
 /**
  * Connects the Redux store to the Profile display components.
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -14,13 +15,11 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     const {
       handleParam,
-      profileForHandle,
       loadProfile,
+      meta,
     } = this.props;
 
-    if (handleParam !== profileForHandle) {
-      loadProfile(handleParam);
-    }
+    loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,20 +27,18 @@ class ProfileContainer extends React.Component {
       handleParam,
       profileForHandle,
       loadProfile,
+      meta,
     } = nextProps;
 
     if (handleParam !== profileForHandle) {
-      loadProfile(handleParam);
+      loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
     }
   }
 
   render() {
     const {
-      achievements,
       info,
       loadingError,
-      skills,
-      stats,
     } = this.props;
 
     if (loadingError) {
@@ -62,7 +59,7 @@ class ProfileContainer extends React.Component {
       });
     }
 
-    return achievements && info && skills && stats
+    return info
       ? (
         <ProfilePage
           {...this.props}
@@ -81,6 +78,7 @@ ProfileContainer.defaultProps = {
   profileForHandle: '',
   skills: null,
   stats: null,
+  meta: null,
 };
 
 ProfileContainer.propTypes = {
@@ -95,7 +93,9 @@ ProfileContainer.propTypes = {
   loadProfile: PT.func.isRequired,
   profileForHandle: PT.string,
   skills: PT.shape(),
-  stats: PT.shape(),
+  stats: PT.arrayOf(PT.shape()),
+  lookupData: PT.shape().isRequired,
+  meta: PT.shape(),
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -105,17 +105,20 @@ const mapStateToProps = (state, ownProps) => ({
   externalAccounts: state.profile.externalAccounts,
   externalLinks: state.profile.externalLinks,
   handleParam: ownProps.match.params.handle,
+  meta: ownProps.meta,
   info: state.profile.info,
   loadingError: state.profile.loadingError,
   profileForHandle: state.profile.profileForHandle,
   skills: state.profile.skills,
   stats: state.profile.stats,
+  lookupData: state.lookup,
 });
 
 function mapDispatchToProps(dispatch) {
   const a = actions.profile;
+  const lookupActions = actions.lookup;
   return {
-    loadProfile: (handle) => {
+    loadProfile: (handle, groupIds) => {
       dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
@@ -124,12 +127,14 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getInfoInit());
       dispatch(a.getSkillsInit());
       dispatch(a.getStatsInit());
-      dispatch(a.getAchievementsDone(handle));
+      dispatch(lookupActions.getCountriesInit());
+      dispatch(a.getAchievementsV3Done(handle));
       dispatch(a.getExternalAccountsDone(handle));
       dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
       dispatch(a.getSkillsDone(handle));
-      dispatch(a.getStatsDone(handle));
+      dispatch(a.getStatsDone(handle, groupIds));
+      dispatch(lookupActions.getCountriesDone());
     },
   };
 }

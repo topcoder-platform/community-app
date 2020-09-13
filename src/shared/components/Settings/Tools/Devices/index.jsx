@@ -10,9 +10,11 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import ConsentComponent from 'components/Settings/ConsentComponent';
-import Select from 'components/Select';
+import ErrorMessage from 'components/Settings/ErrorMessage';
+import InputSelect from 'components/InputSelect';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import dropdowns from './dropdowns.json';
+import { toastr } from 'react-redux-toastr';
+import ConfirmationModal from '../../CofirmationModal';
 import DeviceList from './List';
 
 import './styles.scss';
@@ -22,16 +24,23 @@ export default class Devices extends ConsentComponent {
     super(props);
     this.onHandleDeleteDevice = this.onHandleDeleteDevice.bind(this);
     this.onDeleteDevice = this.onDeleteDevice.bind(this);
-    this.onUpdateSelect = this.onUpdateSelect.bind(this);
+    this.onEditDevice = this.onEditDevice.bind(this);
     this.loadDeviceTrait = this.loadDeviceTrait.bind(this);
-    this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onHandleAddDevice = this.onHandleAddDevice.bind(this);
     this.onAddDevice = this.onAddDevice.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
+    this.onUpdateType = this.onUpdateType.bind(this);
+    this.onUpdateManufacturer = this.onUpdateManufacturer.bind(this);
+    this.onUpdateModel = this.onUpdateModel.bind(this);
+    this.onUpdateOs = this.onUpdateOs.bind(this);
+    this.onLoadMoreModels = this.onLoadMoreModels.bind(this);
+    this.onLoadMoreOses = this.onLoadMoreOses.bind(this);
 
     const { userTraits } = props;
     this.state = {
+      isSubmit: false,
       formInvalid: false,
       deviceTrait: this.loadDeviceTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
@@ -40,12 +49,12 @@ export default class Devices extends ConsentComponent {
         manufacturer: '',
         model: '',
         operatingSystem: '',
-        osVersion: '',
-        osLanguage: '',
       },
-      errorMessage: '',
       isMobileView: false,
       screenSM: 767,
+      showConfirmation: false,
+      indexNo: null,
+      isEdit: false,
     };
   }
 
@@ -61,15 +70,7 @@ export default class Devices extends ConsentComponent {
       deviceTrait,
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
-      newDevice: {
-        deviceType: '',
-        manufacturer: '',
-        model: '',
-        operatingSystem: '',
-        osVersion: '',
-        osLanguage: '',
-      },
+      isSubmit: false,
     });
   }
 
@@ -83,15 +84,54 @@ export default class Devices extends ConsentComponent {
    */
   onHandleAddDevice(e) {
     e.preventDefault();
-    const { newDevice } = this.state;
+    const { newDevice, deviceTrait, isEdit } = this.state;
+    const { clearDeviceState } = this.props;
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newDevice)) {
       return;
+    }
+    if (!isEdit) {
+      const deviceItems = deviceTrait.traits
+        ? deviceTrait.traits.data.slice() : [];
+      let exist = false;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const item of deviceItems) {
+        if (item.deviceType === newDevice.deviceType
+          && item.manufacturer === newDevice.manufacturer
+          && item.model === newDevice.model
+          && item.operatingSystem === newDevice.operatingSystem) {
+          exist = true;
+          break;
+        }
+      }
+      if (exist === true) {
+        const empty = {
+          deviceType: '',
+          manufacturer: '',
+          model: '',
+          operatingSystem: '',
+        };
+        this.setState({
+          newDevice: empty,
+          isEdit: false,
+          indexNo: null,
+          isSubmit: false,
+        });
+        clearDeviceState();
+        setImmediate(() => {
+          toastr.error('Looks like you\'ve already entered this device.');
+        });
+        return;
+      }
     }
     this.showConsent(this.onAddDevice.bind(this));
   }
 
   onHandleDeleteDevice(indexNo) {
-    this.showConsent(this.onDeleteDevice.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
   }
 
   /**
@@ -99,7 +139,7 @@ export default class Devices extends ConsentComponent {
    * @param indexNo the device index no
    */
   onDeleteDevice(indexNo) {
-    const { deviceTrait } = this.state;
+    const { deviceTrait, isEdit } = this.state;
     const newDeviceTrait = { ...deviceTrait };
     newDeviceTrait.traits.data.splice(indexNo, 1);
     this.setState({
@@ -118,6 +158,50 @@ export default class Devices extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'device', tokenV3);
     }
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+      isSubmit: false,
+      formInvalid: false,
+    });
+    if (isEdit) {
+      this.onCancelEditStatus();
+    }
+  }
+
+  /**
+   * Edit device by index
+   * @param indexNo the device index no
+   */
+  onEditDevice(indexNo) {
+    const { deviceTrait } = this.state;
+    const {
+      getManufacturers,
+      getModels,
+      getOses,
+    } = this.props;
+    this.setState({
+      newDevice: {
+        deviceType: deviceTrait.traits.data[indexNo].deviceType,
+        manufacturer: _.isEmpty(deviceTrait.traits.data[indexNo].manufacturer) ? '' : deviceTrait.traits.data[indexNo].manufacturer,
+        model: _.isEmpty(deviceTrait.traits.data[indexNo].model) ? '' : deviceTrait.traits.data[indexNo].model,
+        operatingSystem: _.isEmpty(deviceTrait.traits.data[indexNo].operatingSystem) ? '' : deviceTrait.traits.data[indexNo].operatingSystem,
+      },
+      isEdit: true,
+      indexNo,
+      isSubmit: false,
+    });
+    const selectDevice = deviceTrait.traits.data[indexNo];
+    const {
+      deviceType,
+      manufacturer,
+      model,
+    } = selectDevice;
+
+    // preload all select
+    getManufacturers(deviceType);
+    getModels(1, deviceType, manufacturer);
+    getOses(1, deviceType, manufacturer, model);
   }
 
   /**
@@ -125,29 +209,40 @@ export default class Devices extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddDevice(answer) {
-    const { newDevice, personalizationTrait } = this.state;
+    const {
+      newDevice, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
       tokenV3,
       updateUserTrait,
       addUserTrait,
+      clearDeviceState,
     } = this.props;
     const {
       deviceTrait,
     } = this.state;
+    const device = _.clone(newDevice);
+    if (_.isEmpty(device.manufacturer)) {
+      delete device.manufacturer;
+    }
+    if (_.isEmpty(device.model)) {
+      delete device.model;
+    }
+    if (_.isEmpty(device.operatingSystem)) {
+      delete device.operatingSystem;
+    }
     if (deviceTrait.traits && deviceTrait.traits.data.length > 0) {
-      const newDeviceTrait = { ...deviceTrait };
-      newDeviceTrait.traits.data.push(newDevice);
-      this.setState({ deviceTrait: newDeviceTrait });
+      const newDeviceTrait = _.cloneDeep(deviceTrait);
+      if (isEdit) {
+        newDeviceTrait.traits.data.splice(indexNo, 1);
+      }
+      newDeviceTrait.traits.data.push(device);
       updateUserTrait(handle, 'device', newDeviceTrait.traits.data, tokenV3);
     } else {
       const newDevices = [];
-      newDevices.push(newDevice);
-      const traits = {
-        data: newDevices,
-      };
-      this.setState({ deviceTrait: { traits } });
+      newDevices.push(device);
       addUserTrait(handle, 'device', newDevices, tokenV3);
     }
     const empty = {
@@ -155,10 +250,14 @@ export default class Devices extends ConsentComponent {
       manufacturer: '',
       model: '',
       operatingSystem: '',
-      osVersion: '',
-      osLanguage: '',
     };
-    this.setState({ newDevice: empty });
+    this.setState({
+      newDevice: empty,
+      isEdit: false,
+      indexNo: null,
+      isSubmit: false,
+    });
+    clearDeviceState();
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -177,72 +276,117 @@ export default class Devices extends ConsentComponent {
    * Invalid value, can not save
    * @param newDevice object
    */
-  onCheckFormValue(newDevice) {
+  onCheckFormValue(newDevice, updateState = true) {
     let invalid = false;
 
-    let errorMessage = '';
-    const invalidFields = [];
     if (!_.trim(newDevice.deviceType).length) {
-      invalidFields.push('Type');
       invalid = true;
     }
 
-    if (!_.trim(newDevice.manufacturer).length) {
-      invalidFields.push('Manufacturer');
-      invalid = true;
+    if (updateState) {
+      this.setState({ formInvalid: invalid });
     }
-
-    if (!_.trim(newDevice.model).length) {
-      invalidFields.push('Model');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.operatingSystem).length) {
-      invalidFields.push('Operating system');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.osVersion).length) {
-      invalidFields.push('OS Version');
-      invalid = true;
-    }
-
-    if (!_.trim(newDevice.osLanguage).length) {
-      invalidFields.push('OS Language');
-      invalid = true;
-    }
-
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
-      errorMessage += ' cannot be empty';
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
   }
 
   /**
-   * Update input value
+   * Update deviceType
    * @param e event
    */
-  onUpdateInput(e) {
-    const { newDevice: device } = this.state;
-    const newDevice = { ...device };
-    newDevice[e.target.name] = e.target.value;
-    this.setState({ newDevice });
+  onUpdateType(val) {
+    const {
+      getManufacturers,
+    } = this.props;
+
+    const newDevice = { deviceType: val };
+    newDevice.manufacturer = '';
+    newDevice.model = '';
+    newDevice.operatingSystem = '';
+    this.setState({ newDevice, isSubmit: false });
+
+    // preload manufacturers
+    getManufacturers(val);
   }
 
   /**
-   * Update select value
-   * @param option selected value
+   * Update manufacturer
+   * @param e event
    */
-  onUpdateSelect(option) {
-    if (option) {
-      const { newDevice: device } = this.state;
-      const newDevice = { ...device };
-      newDevice[option.key] = option.name;
-      this.setState({ newDevice });
-    }
+  onUpdateManufacturer(val) {
+    const {
+      getModels,
+    } = this.props;
+    const { newDevice: device } = this.state;
+    const newDevice = { ..._.pick(device, ['deviceType']) };
+    newDevice.manufacturer = val;
+    newDevice.model = '';
+    newDevice.operatingSystem = '';
+    this.setState({ newDevice, isSubmit: false });
+    // preload models
+    getModels(1, newDevice.deviceType, newDevice.manufacturer);
+  }
+
+  /**
+   * Update model
+   * @param e event
+   */
+  onUpdateModel(val) {
+    const {
+      getOses,
+      // lookupData: {modelPage}
+    } = this.props;
+    const { newDevice: device } = this.state;
+    const newDevice = { ..._.pick(device, ['deviceType', 'manufacturer']) };
+    newDevice.model = val;
+    newDevice.operatingSystem = '';
+    this.setState({ newDevice, isSubmit: false });
+
+    // preload oses
+    getOses(1, newDevice.deviceType, newDevice.manufacturer, newDevice.model);
+  }
+
+  /**
+   * Update operatingSystem
+   * @param e event
+   */
+  onUpdateOs(val) {
+    const { newDevice: device } = this.state;
+    const newDevice = { ..._.pick(device, ['deviceType', 'manufacturer', 'model']) };
+    newDevice.operatingSystem = val;
+    this.setState({ newDevice, isSubmit: false });
+  }
+
+  onLoadMoreModels() {
+    const {
+      lookupData: {
+        modelPage,
+      },
+      getMoreModels,
+    } = this.props;
+
+    const {
+      newDevice: {
+        deviceType,
+        manufacturer,
+      },
+    } = this.state;
+    getMoreModels(modelPage + 1, deviceType, manufacturer);
+  }
+
+  onLoadMoreOses() {
+    const {
+      lookupData: {
+        osPage,
+      },
+      getMoreOses,
+    } = this.props;
+    const {
+      newDevice: {
+        deviceType,
+        manufacturer, model,
+      },
+    } = this.state;
+    getMoreOses(osPage + 1, deviceType, manufacturer, model);
   }
 
   /**
@@ -270,17 +414,66 @@ export default class Devices extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  isFormValid() {
+    const { newDevice } = this.state;
+    return this.onCheckFormValue(newDevice, false);
+  }
+
+  onCancelEditStatus() {
+    const { clearDeviceState } = this.props;
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        isSubmit: false,
+        indexNo: null,
+        formInvalid: false,
+        newDevice: {
+          deviceType: '',
+          manufacturer: '',
+          model: '',
+          operatingSystem: '',
+        },
+      });
+      clearDeviceState();
+    }
+  }
+
   render() {
-    const { deviceTrait, isMobileView } = this.state;
+    const {
+      lookupData,
+    } = this.props;
+    const {
+      types,
+      manufacturers,
+      models,
+      oses,
+      hasMoreModels,
+      hasMoreOses,
+      isModelsLoading,
+      isOsesLoading,
+    } = lookupData;
+    const {
+      deviceTrait, isMobileView, showConfirmation, indexNo, isEdit,
+      formInvalid, isSubmit,
+    } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
-    const { newDevice, formInvalid, errorMessage } = this.state;
-
+    const { newDevice } = this.state;
+    const canModifyTrait = !this.props.traitRequestCount;
     return (
       <div styleName="devices-container">
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
+        {showConfirmation
+        && (
+          <ConfirmationModal
+            onConfirm={() => this.showConsent(this.onDeleteDevice.bind(this, indexNo))}
+            onCancel={() => this.setState({ showConfirmation: false, indexNo: null })}
+            name={`${deviceTrait.traits.data[indexNo].deviceType}${!_.isEmpty(deviceTrait.traits.data[indexNo].manufacturer) ? ` ${deviceTrait.traits.data[indexNo].manufacturer}` : ''}`}
+          />
+        )}
         <h1>
           Devices
         </h1>
@@ -289,10 +482,21 @@ export default class Devices extends ConsentComponent {
         </div>
         {
           !isMobileView && deviceItems.length > 0
-          && (<DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />)
+          && (
+            <DeviceList
+              deviceList={{ items: deviceItems }}
+              onDeleteItem={this.onHandleDeleteDevice}
+              indexNo={indexNo}
+              disabled={!canModifyTrait}
+              onEditItem={this.onEditDevice}
+            />
+          )
         }
         <div styleName={`sub-title ${deviceItems.length > 0 ? 'second' : 'first'}`}>
-          Add a new device
+          {
+            isEdit ? (<React.Fragment>Edit device</React.Fragment>)
+              : (<React.Fragment>Add a new device</React.Fragment>)
+          }
         </div>
         <div styleName="form-container-default">
           <form name="device-form" noValidate autoComplete="off">
@@ -300,162 +504,252 @@ export default class Devices extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="deviceType">
                   Type
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
-                <Select
+                <InputSelect
                   name="deviceType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
+                  options={types}
+                  onChange={this.onUpdateType}
                   value={newDevice.deviceType}
-                  placeholder="Device Type"
-                  labelKey="name"
+                  placeholder="Select device Type"
                   valueKey="name"
-                  clearable={false}
+                  labelKey="name"
+                  disabled={!canModifyTrait}
+                />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1-no-padding">
+                <label htmlFor="manufacturer">
+                  Manufacturer
+                  <input type="hidden" />
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <InputSelect
+                  name="manufacturer"
+                  options={manufacturers}
+                  onChange={this.onUpdateManufacturer}
+                  value={newDevice.manufacturer}
+                  placeholder="Select device Manufacturer"
+                  valueKey="name"
+                  labelKey="name"
+                  disabled={!canModifyTrait}
                 />
               </div>
             </div>
             <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="manufacturer">
-                  Manufacturer
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
+              <div styleName="field col-1-no-padding">
                 <label htmlFor="model">
                   Model
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
+                <InputSelect
+                  name="model"
+                  options={models}
+                  onChange={this.onUpdateModel}
+                  value={newDevice.model}
+                  placeholder="Select device Model"
+                  valueKey="model"
+                  labelKey="model"
+                  onLoadMore={this.onLoadMoreModels}
+                  isLoading={isModelsLoading}
+                  hasMore={hasMoreModels}
+                  disabled={!canModifyTrait}
+                />
               </div>
             </div>
             <div styleName="row">
-              <div styleName="field col-1">
+              <div styleName="field col-1-no-padding">
                 <label htmlFor="operating-system">
-                  Operating System(OS)
+                  Operating System
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="osVersion">
-                  OS Version
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-1">
-                <label htmlFor="osLanguage">
-                  OS Language
-                </label>
-              </div>
-              <div styleName="field col-2">
-                <span styleName="text-required">* Required</span>
-                <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
+                <InputSelect
+                  name="Operating System"
+                  options={oses}
+                  onChange={this.onUpdateOs}
+                  value={newDevice.operatingSystem}
+                  placeholder="Select device Operating System"
+                  valueKey="operatingSystem"
+                  labelKey="operatingSystem"
+                  hasMore={hasMoreOses}
+                  isLoading={isOsesLoading}
+                  onLoadMore={this.onLoadMoreOses}
+                  disabled={!canModifyTrait}
+                />
               </div>
             </div>
           </form>
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddDevice}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit device to your list</React.Fragment>)
+                    : (<React.Fragment>Add device to your list</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
           </div>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddDevice}
-            >
-              Add device to your list
-            </PrimaryButton>
+          <div styleName="help-text-container">
+            <div styleName="help-text-label">
+              Don&#39;t see your device?
+            </div>
+            <div styleName="help-text-email">
+              Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+            </div>
           </div>
         </div>
         <div styleName="form-container-mobile">
           <form name="device-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-                Add Device
+                {
+                  isEdit ? (<React.Fragment>Edit Device</React.Fragment>)
+                    : (<React.Fragment>Add Device</React.Fragment>)
+                }
               </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="deviceType">
-                  Device Type
+                  Type
                   <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
-                <Select
+                <InputSelect
                   name="deviceType"
-                  options={dropdowns.type}
-                  onChange={this.onUpdateSelect}
+                  options={types}
+                  onChange={this.onUpdateType}
                   value={newDevice.deviceType}
-                  placeholder="Device Type"
-                  labelKey="name"
+                  placeholder="Select device Type"
                   valueKey="name"
-                  clearable={false}
+                  labelKey="name"
+                  disabled={!canModifyTrait}
                 />
+                {
+                  isSubmit && (
+                    <ErrorMessage invalid={_.isEmpty(newDevice.deviceType) && formInvalid} addMargin message="Type cannot be empty" />
+                  )
+                }
               </div>
               <div styleName="field col-1">
                 <label htmlFor="manufacturer">
                   Manufacturer
-                  <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
-                <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
+                <InputSelect
+                  name="manufacturer"
+                  options={manufacturers}
+                  onChange={this.onUpdateManufacturer}
+                  value={newDevice.manufacturer}
+                  placeholder="Select device Manufacturer"
+                  valueKey="name"
+                  labelKey="name"
+                  disabled={!canModifyTrait}
+                />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-2">
                 <label htmlFor="model">
                   Model
-                  <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
-                <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
+                <InputSelect
+                  name="model"
+                  options={models}
+                  onChange={this.onUpdateModel}
+                  value={newDevice.model}
+                  placeholder="Select device Model"
+                  valueKey="model"
+                  labelKey="model"
+                  onLoadMore={this.onLoadMoreModels}
+                  isLoading={isModelsLoading}
+                  hasMore={hasMoreModels}
+                  disabled={!canModifyTrait}
+                />
               </div>
               <div styleName="field col-2">
                 <label htmlFor="operating-system">
                   Operating System
-                  <span styleName="text-required">* Required</span>
+                  <input type="hidden" />
                 </label>
-                <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
-              </div>
-            </div>
-            <div styleName="row">
-              <div styleName="field col-2">
-                <label htmlFor="osVersion">
-                  OS version
-                  <span styleName="text-required">* Required</span>
-                </label>
-                <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
-              </div>
-              <div styleName="field col-2">
-                <label htmlFor="osLanguage">
-                  OS Language
-                  <span styleName="text-required">* Required</span>
-                </label>
-                <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
+                <InputSelect
+                  name="Operating System"
+                  options={oses}
+                  onChange={this.onUpdateOs}
+                  value={newDevice.operatingSystem}
+                  placeholder="Select device Operating System"
+                  valueKey="operatingSystem"
+                  labelKey="operatingSystem"
+                  hasMore={hasMoreOses}
+                  isLoading={isOsesLoading}
+                  onLoadMore={this.onLoadMoreOses}
+                  disabled={!canModifyTrait}
+                />
               </div>
             </div>
           </form>
-          <div styleName="button-save">
-            <PrimaryButton
-              styleName="complete"
-              onClick={this.onHandleAddDevice}
-            >
-              Add Device
-            </PrimaryButton>
+          <div styleName="button-container">
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onHandleAddDevice}
+              >
+                {
+                  isEdit ? (<React.Fragment>Edit Device</React.Fragment>)
+                    : (<React.Fragment>Add Device</React.Fragment>)
+                }
+              </PrimaryButton>
+            </div>
+            {
+              isEdit && (
+                <div styleName="button-cancel">
+                  <PrimaryButton
+                    styleName="complete"
+                    onClick={this.onCancelEditStatus}
+                  >
+                    Cancel
+                  </PrimaryButton>
+                </div>
+              )
+            }
+          </div>
+          <div styleName="help-text-container">
+            <div styleName="help-text-label">
+              Don&#39;t see your device?
+            </div>
+            <div styleName="help-text-email">
+              Contact Support at <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+            </div>
           </div>
         </div>
         {
@@ -463,10 +757,14 @@ export default class Devices extends ConsentComponent {
           && (
             <DeviceList
               deviceList={{ items: deviceItems }}
+              indexNo={indexNo}
               onDeleteItem={this.onHandleDeleteDevice}
+              disabled={!canModifyTrait}
+              onEditItem={this.onEditDevice}
             />
           )
         }
+
       </div>
     );
   }
@@ -475,6 +773,7 @@ export default class Devices extends ConsentComponent {
 Devices.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
+  traitRequestCount: PT.number.isRequired,
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,

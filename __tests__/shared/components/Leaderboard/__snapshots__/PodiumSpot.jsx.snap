@@ -2,56 +2,56 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___22B_7 src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___1NOMr"
+  className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__PodiumSpot___2ym_s src-shared-components-Leaderboard-PodiumSpot-themes-___styles__PodiumSpot--first___n-zX6"
 >
   <span
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
+    className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__leaderboard-avatar___JjdZ_"
   >
-    <ThemedAvatar
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      mapThemrProps={[Function]}
-      theme={
-        Object {
-          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___1KUGNq",
-        }
-      }
-      themePriority="adhoc-context-default"
+    <DefaultAvatar
+      data-name="Layer 1"
+      viewBox="0 0 33 33.00137"
+      xmlns="http://www.w3.org/2000/svg"
     />
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__ranking___3eGBy"
     >
       1
     </div>
   </span>
   <div>
     <a
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
-      href="https://www.topcoder-dev.com/members/undefined/"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
+      href="undefined/members/undefined/"
+      target="_blank"
     />
   </div>
   <div
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+    className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__winnings-info___1hih8"
+    style={null}
   >
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats___1iYej"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"
       />
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value-title___1Jf_7"
+      >
         challenges
       </span>
     </div>
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats___1iYej"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"
       >
-        0
+        0.00
       </span>
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value-title___1Jf_7"
+      >
         points
       </span>
     </div>
@@ -61,56 +61,56 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___22B_7 src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___1NOMr"
+  className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__PodiumSpot___2ym_s src-shared-components-Leaderboard-PodiumSpot-themes-___styles__PodiumSpot--first___n-zX6"
 >
   <span
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
+    className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__leaderboard-avatar___JjdZ_"
   >
-    <ThemedAvatar
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      mapThemrProps={[Function]}
-      theme={
-        Object {
-          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold___1KUGNq",
-        }
-      }
-      themePriority="adhoc-context-default"
+    <DefaultAvatar
+      data-name="Layer 1"
+      viewBox="0 0 33 33.00137"
+      xmlns="http://www.w3.org/2000/svg"
     />
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__ranking___3eGBy"
     >
       1
     </div>
   </span>
   <div>
     <a
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
-      href="https://www.topcoder-dev.com/members/undefined/"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__profile-link___3s9pr"
+      href="undefined/members/undefined/"
+      target="_blank"
     />
   </div>
   <div
-    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+    className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__winnings-info___1hih8"
+    style={null}
   >
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats___1iYej"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"
       />
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value-title___1Jf_7"
+      >
         challenges
       </span>
     </div>
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__stats___354PS"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats___1iYej"
     >
       <span
-        className="src-shared-components-Leaderboard-PodiumSpot-___styles__value___1buRs"
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"
       >
-        0
+        0.00
       </span>
-      <span>
+      <span
+        className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value-title___1Jf_7"
+      >
         points
       </span>
     </div>

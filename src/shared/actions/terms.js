@@ -22,7 +22,7 @@ const { getService } = services.terms;
  * @return {Promise}
  */
 function getTermsDone(entity, tokens, mockAgreed) {
-  const service = getService(tokens.tokenV2);
+  const service = getService(tokens.tokenV3);
   let termsPromise;
 
   // if mockAgreed=true passed, then we create an array of 10 true which we pass to the
@@ -34,7 +34,7 @@ function getTermsDone(entity, tokens, mockAgreed) {
 
   switch (entity.type) {
     case 'challenge': {
-      termsPromise = service.getChallengeTerms(entity.id, mockAgreedArray);
+      termsPromise = service.getChallengeTerms(entity.terms, mockAgreedArray);
       break;
     }
     case 'community': {
@@ -49,7 +49,7 @@ function getTermsDone(entity, tokens, mockAgreed) {
       throw new Error(`Entity type '${entity.type}' is not supported by getTermsDone.`);
   }
 
-  return termsPromise.then(res => ({ entity, terms: res.terms }));
+  return termsPromise.then(res => ({ entity, terms: res }));
 }
 
 /**
@@ -68,11 +68,11 @@ function getTermDetailsInit(termId) {
  * Payload creator for TERMS/GET_TERM_DETAILS_DONE action,
  * which fetch details of the specified term.
  * @param {Number|String} termId
- * @param {String} tokenV2
+ * @param {String} tokenV3
  * @return {Promise}
  */
-function getTermDetailsDone(termId, tokenV2) {
-  const service = getService(tokenV2);
+function getTermDetailsDone(termId, tokenV3) {
+  const service = getService(tokenV3);
   return service.getTermDetails(termId).then(details => ({ termId, details }));
 }
 
@@ -90,11 +90,11 @@ function getDocuSignUrlInit(templateId) {
  * which generate the url of DoduSign term
  * @param  {Number|String} templateId id of document template to sign
  * @param  {String} returnUrl  callback url after finishing singing
- * @param  {String} tokenV2    auth token
+ * @param  {String} tokenV3    auth token
  * @return {Promise}           promise of request result
  */
-function getDocuSignUrlDone(templateId, returnUrl, tokenV2) {
-  const service = getService(tokenV2);
+function getDocuSignUrlDone(templateId, returnUrl, tokenV3) {
+  const service = getService(tokenV3);
   return service.getDocuSignUrl(templateId, returnUrl)
     .then(resp => ({ templateId, docuSignUrl: resp.recipientViewUrl }));
 }
@@ -111,11 +111,11 @@ function agreeTermInit(termId) {
 /**
  * Payload creator for TERMS/AGREE_TERM_DONE
  * @param  {Number|String} termId id of term
- * @param  {String} tokenV2    auth token
+ * @param  {String} tokenV3    auth token
  * @return {Promise}           promise of request result
  */
-function agreeTermDone(termId, tokenV2) {
-  const service = getService(tokenV2);
+function agreeTermDone(termId, tokenV3) {
+  const service = getService(tokenV3);
   return service.agreeTerm(termId).then(resp => ({ termId, success: resp.success }));
 }
 

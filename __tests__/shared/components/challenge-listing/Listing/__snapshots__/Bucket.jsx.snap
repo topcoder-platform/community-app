@@ -7,6 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   location="/"
 >
   <Bucket
+    activeBucket=""
     bucket={
       Object {
         "filter": Object {
@@ -16,6 +17,22 @@ exports[`Matches shallow shapshot 1`] = `
           "current-phase",
         ],
       }
+    }
+    challengeTypes={
+      Array [
+        Object {
+          "abbreviation": "CH",
+          "name": "Challenge",
+        },
+        Object {
+          "abbreviation": "F2F",
+          "name": "First2Finish",
+        },
+        Object {
+          "abbreviation": "TSK",
+          "name": "Task",
+        },
+      ]
     }
     challenges={
       Array [
@@ -27,6 +44,7 @@ exports[`Matches shallow shapshot 1`] = `
           ],
           "status": "b",
           "totalPrize": 1800,
+          "type": "Challenge",
           "users": Object {},
         },
         Object {
@@ -45,7 +63,6 @@ exports[`Matches shallow shapshot 1`] = `
             },
           ],
           "id": "2",
-          "isDataScience": false,
           "prize": Array [
             1200,
             600,
@@ -55,10 +72,19 @@ exports[`Matches shallow shapshot 1`] = `
             600,
           ],
           "status": "a",
-          "subTrack": "CODE",
-          "technologies": "a, b, c",
+          "tags": Array [
+            "a",
+            "b",
+            "c",
+          ],
+          "technologies": Array [
+            "a",
+            "b",
+            "c",
+          ],
           "totalPrize": 1800,
-          "track": "DEVELOP",
+          "track": "Development",
+          "type": "Challenge",
           "users": Object {},
         },
       ]
@@ -72,10 +98,11 @@ exports[`Matches shallow shapshot 1`] = `
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
+    searchTimestamp={0}
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
     sort=""
-    userHandle=""
+    userId=""
   />
 </StaticRouter>
 `;
@@ -87,6 +114,7 @@ exports[`Matches shallow shapshot 2`] = `
   location="/"
 >
   <Bucket
+    activeBucket=""
     bucket={
       Object {
         "filter": Object {
@@ -96,6 +124,22 @@ exports[`Matches shallow shapshot 2`] = `
           "current-phase",
         ],
       }
+    }
+    challengeTypes={
+      Array [
+        Object {
+          "abbreviation": "CH",
+          "name": "Challenge",
+        },
+        Object {
+          "abbreviation": "F2F",
+          "name": "First2Finish",
+        },
+        Object {
+          "abbreviation": "TSK",
+          "name": "Task",
+        },
+      ]
     }
     challenges={
       Array [
@@ -220,10 +264,11 @@ exports[`Matches shallow shapshot 2`] = `
     loading={true}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
+    searchTimestamp={0}
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
     sort=""
-    userHandle=""
+    userId=""
   />
 </StaticRouter>
 `;
@@ -235,6 +280,7 @@ exports[`Matches shallow shapshot 3`] = `
   location="/"
 >
   <Bucket
+    activeBucket=""
     bucket={
       Object {
         "filter": Object {
@@ -244,6 +290,22 @@ exports[`Matches shallow shapshot 3`] = `
           "current-phase",
         ],
       }
+    }
+    challengeTypes={
+      Array [
+        Object {
+          "abbreviation": "CH",
+          "name": "Challenge",
+        },
+        Object {
+          "abbreviation": "F2F",
+          "name": "First2Finish",
+        },
+        Object {
+          "abbreviation": "TSK",
+          "name": "Task",
+        },
+      ]
     }
     challenges={Array []}
     expand={[MockFunction]}
@@ -255,10 +317,11 @@ exports[`Matches shallow shapshot 3`] = `
     loading={true}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
+    searchTimestamp={0}
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
     sort=""
-    userHandle=""
+    userId=""
   />
 </StaticRouter>
 `;

@@ -125,6 +125,7 @@ TermsPageContainer.defaultProps = {
   isLoadingTerms: false,
   loadingDocuSignUrl: '',
   loadingTermId: '',
+  openTermsModalUuid: '',
   selectedTerm: null,
   // showTermsModal: false,
   description: '',
@@ -168,7 +169,7 @@ TermsPageContainer.propTypes = {
   loadingTermId: PT.string,
   loadTermDetails: PT.func.isRequired,
   loadTerms: PT.func.isRequired,
-  openTermsModalUuid: PT.string.isRequired,
+  openTermsModalUuid: PT.string,
   register: PT.func.isRequired,
   selectedTerm: PT.shape(),
   selectTerm: PT.func.isRequired,
@@ -210,15 +211,15 @@ function mapDispatchToProps(dispatch) {
     },
     loadTermDetails: (tokens, termId) => {
       dispatch(actions.terms.getTermDetailsInit(termId));
-      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV3));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
       dispatch(actions.terms.getDocuSignUrlInit(templateId));
-      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV3));
     },
     agreeTerm: (tokens, termId) => {
       dispatch(actions.terms.agreeTermInit(termId));
-      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV3));
     },
     signDocu: (id) => {
       dispatch(termsActions.terms.signDocu(id));

@@ -1,5 +1,8 @@
 ![Dev Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/develop.svg?label=develop)
 ![Master Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/master.svg?label=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=topcoder-platform_community-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=topcoder-platform_community-app)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=topcoder-platform_community-app&metric=security_rating)](https://sonarcloud.io/dashboard?id=topcoder-platform_community-app)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=topcoder-platform_community-app&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=topcoder-platform_community-app)
 
 # Topcoder Community App
 New version of Topcoder Community website.
@@ -89,7 +92,7 @@ To automatically correct js files, you can use `npm run lint:js -- --fix`.
 
 ### Accessing Wipro Community
 
-Access to Wipro community demands proper authorization. In development environment (both local and remote) the test user `dan_developer / dantopcoder123` is authorized to access this community.
+Access to Wipro community demands proper authorization. In development environment (both local and remote) the test user `dan_developer / dantopcoder123` is authorized to access this community. So login at `https://accounts.topcoder-dev.com/member` in the same browser before you do anything.
 
 It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in dev (both local and remote) and `wipro.topcoder.com` in prod. Thus, to deploy it locally you should have in your `/etc/hosts` the alias `127.0.0.1 wipro.topcoder-dev.com`, and run the app with the command `NODE_CONFIG_ENV=development PORT=80 npm run dev`. Take into account the following:
 
@@ -106,6 +109,10 @@ We use [https://logentries.com](https://logentries.com) to track the logs. Log E
 ### Configuration for Scoreboard API
 
 Change the property in `URL.COMMUNITY_API` in config.
+
+### Configuration for Email Verify URL
+
+Change the property in `URL.EMAIL_VERIFY_URL` in config.
 
 ### TC pages integrated
 
@@ -173,3 +180,22 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * PROD_SERVER_API_KEY
 * PROD_AUTH0_CLIENT_ID
 
+Folowing environment variables should be set to configure M2M communication
+between Community App server and TC APIs. At the moment of writing, it is
+expected that these credentials give full access to the TC Groups API.
+**XXX** is a placeholder for one of `DEV`, `PROD`, `PRODBETA` - API environment
+given credentials relate to.
+
+* **XXX**_TC_M2M_CLIENT_ID
+* **XXX**_TC_M2M_CLIENT_SECRET
+* **XXX**_TC_M2M_AUDIENCE
+* **XXX**_TC_M2M_GRANT_TYPE
+
+
+### Changelog
+
+[https://github.com/topcoder-platform/community-app/blob/master/CHANGELOG.md](Check the latest changes)
+
+### Submitting Changes 
+
+Please check the [https://github.com/topcoder-platform/community-app/blob/master/CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on rules to be followed.

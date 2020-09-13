@@ -97,7 +97,7 @@ export default function Announcements({
   return (
     <div styleName="container">
       <h1>
-Currently Published and Scheduled Dashboard Announcements
+        Currently Published and Scheduled Dashboard Announcements
       </h1>
       {content}
     </div>

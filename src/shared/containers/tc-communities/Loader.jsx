@@ -15,7 +15,6 @@ import LoadingPagePlaceholder
 import PT from 'prop-types';
 import React from 'react';
 import { config } from 'topcoder-react-utils';
-
 import { connect } from 'react-redux';
 
 /**
@@ -48,11 +47,15 @@ class Loader extends React.Component {
     )) nextProps.loadMetaData(communityId, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
-     * (Wipro) community visitors. Should be re-factored, but not it is not
+     * (Wipro) and Zurich community visitors. Should be re-factored, but not it is not
      * clear, what exactly do we need to support it in general. */
-    if (communityId === 'wipro' && !visitorGroups) {
+    if ((communityId === 'wipro' || communityId === 'comcast') && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=wipro`;
+      let subpath = 'member';
+      if (communityId === 'wipro') {
+        subpath = 'sso-login/';
+      }
+      window.location = `${config.URL.AUTH}/${subpath}?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
   }
 
@@ -89,11 +92,20 @@ class Loader extends React.Component {
        * while that redirection is handled we want to show page loading
        * placeholder rather than access denied message. In future a more
        * generic implementation of this should be put here. */
-      if (communityId === 'wipro') return <LoadingPagePlaceholder />;
+      if (communityId === 'wipro' || communityId === 'comcast') return <LoadingPagePlaceholder />;
+      // Only fo Zurich community we implement special auth system described
+      // here: https://github.com/topcoder-platform/community-app/issues/1878
+      // at this check specially we allow not authenticated visitos
+      // to see the "Public Site" on Zurich
+      if (communityId === 'zurich') return Community({ member, meta });
+      // All other get the not authorized page
       return (
         <AccessDenied
           cause={ACCESS_DENIED_REASON.NOT_AUTHENTICATED}
           communityId={communityId}
+          viewportId={meta.accessDeniedPage.viewportId}
+          spaceName={meta.accessDeniedPage.spaceName}
+          environment={meta.accessDeniedPage.environment}
         />
       );
     }
@@ -103,9 +115,22 @@ class Loader extends React.Component {
     if (_.intersection(meta.authorizedGroupIds, visitorGroupIds).length) {
       return Community({ member, meta });
     }
+    if (communityId === 'zurich') {
+      // Again only for Zurich we have a special error page
+      // handled via Contentful. We allow to pass here and return in for visitors that do not belong
+      // to any groups authorized to access this community
+      return Community({ member, meta });
+    }
 
     /* Visitor is not authorized to access this community. */
-    return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
+    return (
+      <AccessDenied
+        cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED}
+        viewportId={meta.accessDeniedPage.viewportId}
+        spaceName={meta.accessDeniedPage.spaceName}
+        environment={meta.accessDeniedPage.environment}
+      />
+    );
   }
 }
 
@@ -125,6 +150,9 @@ Loader.propTypes = {
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
+    terms: PT.any,
+    groupIds: PT.any,
+    accessDeniedPage: PT.any,
   }),
   tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),

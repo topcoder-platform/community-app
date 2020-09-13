@@ -8,9 +8,12 @@ exports[`Matches shallow shapshot 1`] = `
 >
   <Link
     enforceA={false}
+    openNewTab={false}
     to="menu url"
   >
-    icon url
+    <div
+      aria-label="title"
+    />
     title
   </Link>
 </li>
@@ -24,9 +27,12 @@ exports[`Matches shallow shapshot 2`] = `
 >
   <Link
     enforceA={false}
+    openNewTab={false}
     to="menu url"
   >
-    icon url
+    <div
+      aria-label="title"
+    />
     title
   </Link>
 </li>

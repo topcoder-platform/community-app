@@ -14,17 +14,14 @@ const { getService } = services.challenge;
 const { getReviewOpportunitiesService } = services.reviewOpportunities;
 
 /**
- * The maximum number of challenges to fetch in a single API call. Currently,
- * the backend never returns more than 50 challenges, even when a higher limit
- * was specified in the request. Thus, this constant should not be larger than
- * 50 (otherwise the frontend code will miss to load some challenges).
+ * The maximum number of challenges to fetch in a single API call.
  */
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 99;
 
 /**
  * The maximum number of review opportunities to fetch in a single API call.
  */
-const REVIEW_OPPORTUNITY_PAGE_SIZE = 10;
+const REVIEW_OPPORTUNITY_PAGE_SIZE = 1000;
 
 /**
  * Private. Loads from the backend all challenges matching some conditions.
@@ -40,8 +37,8 @@ function getAll(getter, page = 0, prev) {
    * explicitely required. */
 
   return getter({
-    limit: PAGE_SIZE,
-    offset: page * PAGE_SIZE,
+    perPage: PAGE_SIZE,
+    page: page + 1,
   }).then(({ challenges: chunk }) => {
     if (!chunk.length) return prev || [];
     return getAll(getter, 1 + page, prev ? prev.concat(chunk) : chunk);
@@ -49,12 +46,12 @@ function getAll(getter, page = 0, prev) {
 }
 
 /**
- * Gets possible challenge subtracks.
+ * Gets possible challenge types.
  * @return {Promise}
  */
-function getChallengeSubtracksDone() {
+function getChallengeTypesDone() {
   return getService()
-    .getChallengeSubtracks()
+    .getChallengeTypes()
     .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
@@ -76,45 +73,45 @@ function getChallengeTagsDone() {
  * @param {String} uuid
  * @return {String}
  */
-function getAllActiveChallengesInit(uuid) {
-  return uuid;
+function getActiveChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
 }
 
 /**
- * Gets all active challenges (including marathon matches) from the backend.
- * Once this action is completed any active challenges saved to the state before
- * will be dropped, and the newly fetched ones will be stored there.
- * @param {String} uuid
- * @param {String} tokenV3 Optional. Topcoder auth token v3. Without token only
- *  public challenges will be fetched. With the token provided, the action will
- *  also fetch private challenges related to this user.
- * @return {Promise}
+ * Get all challenges and match with user challenges
+ * @param {String} uuid progress id
+ * @param {String} tokenV3 token v3
+ * @param {Object} filter filter object
+ * @param {number} page start page
  */
-function getAllActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'ACTIVE' };
+function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
   const service = getService(tokenV3);
   const calls = [
-    getAll(params => service.getChallenges(filter, params)),
-    getAll(params => service.getMarathonMatches(filter, params)),
+    getAll(params => service.getChallenges(filter, params), page),
   ];
   let user;
   if (tokenV3) {
-    user = decodeToken(tokenV3).handle;
-    calls.push(getAll(params => service.getUserChallenges(user, filter, params)));
-    calls.push(getAll(params => service.getUserMarathonMatches(user, filter, params)));
-  }
-  return Promise.all(calls).then(([ch, mm, uch, umm]) => {
-    const challenges = ch.concat(mm);
+    user = decodeToken(tokenV3).userId;
 
-    /* uch and umm arrays contain challenges where the user is participating in
-     * some role. The same challenge are already listed in res array, but they
-     * are not attributed to the user there. This block of code marks user
+    const newFilter = _.mapKeys(filter, (value, key) => {
+      if (key === 'tag') return 'technologies';
+
+      return key;
+    });
+
+    // Handle any errors on this endpoint so that the non-user specific challenges
+    // will still be loaded.
+    calls.push(getAll(params => service.getUserChallenges(user, newFilter, params)
+      .catch(() => ({ challenges: [] }))), page);
+  }
+  return Promise.all(calls).then(([ch, uch]) => {
+    /* uch array contains challenges where the user is participating in
+@@ -111,8 +124,8 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
      * challenges in an efficient way. */
     if (uch) {
       const map = {};
       uch.forEach((item) => { map[item.id] = item; });
-      umm.forEach((item) => { map[item.id] = item; });
-      challenges.forEach((item) => {
+      ch.forEach((item) => {
         if (map[item.id]) {
           /* It is fine to reassing, as the array we modifying is created just
            * above within the same function. */
@@ -126,51 +123,116 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
       });
     }
 
-    return { uuid, challenges };
+    return { uuid, challenges: ch, ...filter };
   });
 }
 
-/**
- * Notifies the state that we are about to load the specified page of draft
- * challenges.
- * @param {Number} page
- * @return {Object}
+/** TODO: Inspect if the 2 actions bellow can be removed?
+ * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
+ * which was refactored in listing-improve
  */
-function getDraftChallengesInit(uuid, page) {
-  return { uuid, page };
+function getAllActiveChallengesInit(uuid) {
+  return uuid;
+}
+function getAllActiveChallengesDone(uuid, tokenV3) {
+  const filter = { status: 'Active' };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
+}
+
+function getAllUserChallengesInit(uuid) {
+  return uuid;
+}
+
+function getAllUserChallengesDone(uuid, tokenV3) {
+  const memberId = decodeToken(tokenV3).userId;
+  const filter = { status: 'Active', memberId };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
 /**
- * Gets the specified page of draft challenges (including MMs).
- * @param {Number} page Page of challenges to fetch.
- * @param {Object} filter Backend filter to use.
- * @param {String} tokenV3 Optional. Topcoder auth token v3.
- * @param {Object}
+ * Gets 1 page of active challenges (including marathon matches) from the backend.
+ * Once this action is completed any active challenges saved to the state before
+ * will be dropped, and the newly fetched ones will be stored there.
+ * Loading of all challenges wil start in background.
+ * @param {String} uuid
+ * @param {Number} page
+ * @param {Object} backendFilter Backend filter to use.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3. Without token only
+ *  public challenges will be fetched. With the token provided, the action will
+ *  also fetch private challenges related to this user.
+ * @param {Object} frontFilter
+
+ * @return {Promise}
  */
-function getDraftChallengesDone(uuid, page, filter, tokenV3) {
+function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const filter = {
+    ...backendFilter,
+    status: 'Active',
+  };
   const service = getService(tokenV3);
-  return Promise.all([
-    service.getChallenges({
-      ...filter,
-      status: 'DRAFT',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
+  const calls = [
+    service.getChallenges(filter, {
+      perPage: PAGE_SIZE,
+      page: page + 1,
     }),
-    service.getMarathonMatches({
-      ...filter,
-      status: 'DRAFT',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(
-    ([{
-      challenges: chunkA,
-    }, {
-      challenges: chunkB,
-    }]) => ({ uuid, challenges: chunkA.concat(chunkB) }),
-  );
+  ];
+  let user;
+  if (tokenV3) {
+    user = decodeToken(tokenV3).userId;
+
+    // Handle any errors on this endpoint so that the non-user specific challenges
+    // will still be loaded.
+    calls.push(service.getUserChallenges(user, filter, {})
+      .catch(() => ({ challenges: [] })));
+  }
+  return Promise.all(calls).then(([ch]) => ({
+    uuid,
+    challenges: ch.challenges,
+    meta: ch.meta,
+    frontFilter,
+  }));
+}
+
+/**
+ * Init loading of all challenges
+ * @param {String} uuid
+ */
+function getRestActiveChallengesInit(uuid) {
+  return { uuid };
+}
+
+/**
+ * Loading all challenges
+ * @param {String} uuid progress id
+ * @param {String} tokenV3 token v3
+ */
+function getRestActiveChallengesDone(uuid, tokenV3, filter) {
+  const mergedFilter = {
+    ...filter,
+    status: 'Active',
+  };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, mergedFilter, 1);
+}
+
+/**
+ * Prepare for getting all recommended challenges
+ * @param {String} uuid progress id
+ */
+function getAllRecommendedChallengesInit(uuid) {
+  return uuid;
+}
+/**
+ * Get all recommended challenges
+ * @param {String} uuid progress id
+ * @param {String} tokenV3 token v3
+ * @param {*} recommendedTags recommended tags
+ */
+function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTags) {
+  const filter = {
+    status: 'Active',
+    ...(!_.isEmpty(recommendedTags) && { tag: recommendedTags }),
+  };
+  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
 }
 
 /**
@@ -195,26 +257,13 @@ function getPastChallengesInit(uuid, page, frontFilter) {
  */
 function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
   const service = getService(tokenV3);
-  return Promise.all([
-    service.getChallenges({
-      ...filter,
-      status: 'COMPLETED',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-    service.getMarathonMatches({
-      ...filter,
-      status: 'PAST',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(([{
-    challenges: chunkA,
+  return service.getChallenges({
+    ...filter,
+    status: 'Completed',
   }, {
-    challenges: chunkB,
-  }]) => ({ uuid, challenges: chunkA.concat(chunkB), frontFilter }));
+    perPage: PAGE_SIZE,
+    page: page + 1,
+  }).then(({ challenges }) => ({ uuid, challenges, frontFilter }));
 }
 
 /**
@@ -273,6 +322,31 @@ function getSrmsDone(uuid, handle, params, tokenV3) {
   });
 }
 
+/**
+ * Payload creator for the action that initialize user registered challenges.
+ * @param {String} uuid
+ * @return {String}
+ */
+function getUserChallengesInit(uuid) {
+  return { uuid };
+}
+
+/**
+ * Payload creator for the action that loads user registered challenges.
+ * @param {String} userId
+ * @return {String}
+ */
+function getUserChallengesDone(userId, tokenV3) {
+  const service = getService(tokenV3);
+
+  return service.getUserResources(userId, 1, 10000)
+    .then(item => item)
+    .catch((error) => {
+      fireErrorMessage('Error Getting User Challenges', error.content || error);
+      return Promise.reject(error);
+    });
+}
+
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
@@ -280,14 +354,23 @@ export default createActions({
     GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
 
-    GET_CHALLENGE_SUBTRACKS_INIT: _.noop,
-    GET_CHALLENGE_SUBTRACKS_DONE: getChallengeSubtracksDone,
+    GET_ALL_USER_CHALLENGES_INIT: getAllUserChallengesInit,
+    GET_ALL_USER_CHALLENGES_DONE: getAllUserChallengesDone,
+
+    GET_ALL_RECOMMENDED_CHALLENGES_INIT: getAllRecommendedChallengesInit,
+    GET_ALL_RECOMMENDED_CHALLENGES_DONE: getAllRecommendedChallengesDone,
+
+    GET_ACTIVE_CHALLENGES_INIT: getActiveChallengesInit,
+    GET_ACTIVE_CHALLENGES_DONE: getActiveChallengesDone,
+
+    GET_REST_ACTIVE_CHALLENGES_INIT: getRestActiveChallengesInit,
+    GET_REST_ACTIVE_CHALLENGES_DONE: getRestActiveChallengesDone,
+
+    GET_CHALLENGE_TYPES_INIT: _.noop,
+    GET_CHALLENGE_TYPES_DONE: getChallengeTypesDone,
 
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
-
-    GET_DRAFT_CHALLENGES_INIT: getDraftChallengesInit,
-    GET_DRAFT_CHALLENGES_DONE: getDraftChallengesDone,
 
     GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
     GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
@@ -297,6 +380,9 @@ export default createActions({
 
     GET_SRMS_INIT: getSrmsInit,
     GET_SRMS_DONE: getSrmsDone,
+
+    GET_USER_CHALLENGES_INIT: getUserChallengesInit,
+    GET_USER_CHALLENGES_DONE: getUserChallengesDone,
 
     EXPAND_TAG: id => id,
 

@@ -15,7 +15,7 @@ import { services } from 'topcoder-react-lib';
 
 import style from './style.scss';
 
-const { getApiV2 } = services.api;
+const { getApi } = services.api;
 const INFO_ID = '30058834';
 
 /**
@@ -34,7 +34,7 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     const { tokenV2 } = this.props;
-    getApiV2(tokenV2)
+    getApi('V2', tokenV2)
       .fetch(`/challenges/${INFO_ID}`)
       .then(res => res.json())
       .then(res => this.setState({ msgHtml: res.detailedRequirements }));

@@ -194,6 +194,7 @@ TermsDetailPageContainer.propTypes = {
     'terms-detail-container': PT.string.isRequired,
     'terms-acceptance-handler': PT.string.isRequired,
     'terms-title': PT.string.isRequired,
+    modalMsg: PT.any,
   }).isRequired,
 };
 
@@ -215,15 +216,15 @@ function mapDispatchToProps(dispatch) {
   return {
     loadTermDetails: (tokens, termId) => {
       dispatch(actions.terms.getTermDetailsInit(termId));
-      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2, false));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV3, false));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
       dispatch(actions.terms.getDocuSignUrlInit(templateId));
-      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV3));
     },
     agreeTerms: (tokens, termId) => {
       dispatch(actions.terms.agreeTermInit(termId));
-      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV3));
     },
   };
 }

@@ -1,0 +1,215 @@
+@import "~styles/mixins";
+
+.container {
+  a { cursor: pointer; }
+
+  .row {
+    font-size: 13px;
+    color: $tc-gray-70;
+    display: flex;
+    border-bottom: 1px solid $tc-gray-10;
+
+    @include xs-to-sm {
+      align-items: center;
+    }
+
+    &.no-border {
+      border: none;
+    }
+  }
+
+  .history {
+    color: $tc-gray-70;
+    background: #faf9fa;
+    padding-bottom: 10px;
+
+    .history-head {
+      font-weight: 500;
+      font-size: 13px;
+      color: $tc-gray-50;
+      width: 100%;
+      display: flex;
+
+      @include xs-to-sm {
+        display: none;
+      }
+
+      .col-2 {
+        color: black;
+      }
+
+      .col-3 {
+        flex: 30;
+      }
+
+      .col-4 {
+        flex: 35;
+      }
+    }
+  }
+
+  .col {
+    text-align: center;
+
+    &.col-1 {
+      flex: 20;
+      display: flex;
+
+      @include xs-to-sm {
+        flex: 15;
+        display: block;
+      }
+
+      .col {
+        flex: 1;
+
+        @include xs-to-sm {
+          text-align: left;
+          display: inline-block;
+
+          &:nth-child(2) {
+            &::before {
+              display: inline-block;
+              content: '/';
+              margin: 0 4px;
+            }
+          }
+        }
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-2 {
+      flex: 35;
+      text-align: left;
+      padding-left: 10px;
+      color: $tc-gray-50;
+      display: flex;
+
+      @include xs-to-sm {
+        flex: 33;
+      }
+
+      a {
+        color: black;
+      }
+
+      .col {
+        flex: 1;
+      }
+    }
+
+    &.col-3 {
+      flex: 45;
+      display: flex;
+      color: $tc-gray-50;
+
+      @include xs-to-sm {
+        flex: 42;
+        display: block;
+        text-align: left;
+      }
+
+      .col {
+        flex: 1;
+
+        @include xs-to-sm {
+          text-align: left;
+          display: inline-block;
+
+          &:nth-child(2) {
+            &::before {
+              display: inline-block;
+              content: '/';
+              margin: 0 4px;
+            }
+          }
+
+          &.time {
+            width: 100%;
+            display: block;
+          }
+        }
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-4 {
+      flex: 20;
+      color: $tc-gray-50;
+
+      @include xs-to-sm {
+        flex: 10;
+      }
+
+      a span {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        float: right;
+
+        &.text {
+          @include xs-to-sm {
+            display: none;
+          }
+        }
+
+        .icon {
+          width: 15px;
+          height: 15px;
+          margin: 0 15px 0 10px;
+
+          &.down {
+            transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+          }
+        }
+      }
+
+      &.mm {
+        flex: 25;
+      }
+    }
+
+    &.col-5 {
+      flex: 10;
+    }
+  }
+
+  .handle {
+    color: $tc-dark-blue;
+  }
+}
+
+.tooltip {
+  font-size: 14px;
+  margin: 10px 10px 0 10px;
+  padding-top: 5px;
+}
+
+.level-1 {
+  color: $member-gray !important;
+}
+
+.level-2 {
+  color: $member-green !important;
+}
+
+.level-3 {
+  color: $member-blue !important;
+}
+
+.level-4 {
+  color: $member-yellow !important;
+}
+
+.level-5 {
+  color: $member-red !important;
+}

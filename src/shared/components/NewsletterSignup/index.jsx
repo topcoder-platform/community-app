@@ -165,9 +165,10 @@ class NewsletterSignup extends React.Component {
                 button: defaultStyle.returnToCommunityButton,
               }}
             >
- Ok
+              Ok
             </PrimaryButton>
-          </Modal>)}
+          </Modal>
+        )}
         <span className={`${theme.error} ${invalidEmail ? '' : theme.hide}`}>* Invalid email</span>
         <span className={`${theme.form}`}>
           <input className={`${(invalidEmail ? theme.invalid : theme.valid)}`} type="email" placeholder="Email Address" value={email} onChange={this.handleEmailChange} onKeyPress={this.handleKeyPress} />

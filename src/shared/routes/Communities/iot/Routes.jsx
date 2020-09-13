@@ -18,6 +18,8 @@ import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
+import Profile from 'routes/Profile';
+import ProfileStats from 'routes/ProfileStats';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
 
@@ -65,7 +67,7 @@ export default function IoT({ base, meta }) {
                   communityId: meta.communityId,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})`}
               />
               <Route
                 component={routeProps => Submission({
@@ -73,7 +75,7 @@ export default function IoT({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/submit`}
               />
               <Route
                 component={TermsDetail}
@@ -86,7 +88,27 @@ export default function IoT({ base, meta }) {
                   challengesUrl: `${base}/challenges`,
                 })}
                 exact
-                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+                path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
+              />
+              <Route
+                render={props => <Profile {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                render={props => <ProfileStats {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+              />
+              <Route
+                render={props => <Profile {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+              />
+              <Route
+                render={props => <ProfileStats {...props} meta={meta} />}
+                exact
+                path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
               />
               <Route
                 component={() => <Home baseUrl={base} />}
@@ -150,5 +172,7 @@ IoT.defaultProps = {
 
 IoT.propTypes = {
   base: PT.string,
-  meta: PT.shape({}),
+  meta: PT.shape({
+    communityId: PT.any,
+  }),
 };

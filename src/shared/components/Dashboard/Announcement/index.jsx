@@ -5,6 +5,7 @@ import PT from 'prop-types';
 import React from 'react';
 import YouTubeVideo from 'components/YouTubeVideo';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import MarkdownRenderer from 'components/MarkdownRenderer';
 
 import style from './style.scss';
 
@@ -61,7 +62,7 @@ export default function Announcement({
           styleName="hide"
           tabIndex={0}
         >
-+
+          +
         </div>
         { type ? (
           <div styleName="type">
@@ -76,7 +77,7 @@ export default function Announcement({
         <div
           styleName="text"
         >
-          {text}
+          {publicTitle || title}
         </div>
       </div>
     );
@@ -94,7 +95,7 @@ export default function Announcement({
       >
         { preview ? (
           <h1 styleName="previewLabel">
-Preview
+            Preview
           </h1>
         ) : null }
         <div styleName="details">
@@ -105,7 +106,7 @@ Preview
             styleName="hide"
             tabIndex={0}
           >
-&times;
+            &times;
           </div>
           { type ? (
             <div styleName="type">
@@ -128,7 +129,7 @@ Preview
               maxWidth: maxTextWidth,
             }}
           >
-            {text}
+            <MarkdownRenderer markdown={text} />
           </div>
           {
             readMore ? (
@@ -162,23 +163,23 @@ Preview
     res = (
       <div styleName="preview">
         <div>
-Created:
+          Created:
           {moment(createdAt).toLocaleString()}
         </div>
         <div>
-Last update:
+          Last update:
           {moment(updatedAt).toLocaleString()}
         </div>
         <div>
-Revision:
+          Revision:
           {revision}
         </div>
         <div>
-Display start date:
+          Display start date:
           {moment(startDate).toLocaleString()}
         </div>
         <div>
-Display end date:
+          Display end date:
           {moment(endDate).toLocaleString()}
         </div>
         <div styleName="previewContent">

@@ -30,6 +30,7 @@ export default function ReviewOpportunityBucket({
   opportunities,
   setFilterState,
   setSort,
+  challengeTypes,
   sort,
 }) {
   if (!opportunities.length && !loadMore) return null;
@@ -47,12 +48,13 @@ export default function ReviewOpportunityBucket({
     Filter.getReviewOpportunitiesFilterFunction({
       ...bucket.filter, // Default bucket filters from utils/buckets.js
       ...filterState, // User selected filters
-    }),
+    }, challengeTypes),
   );
 
   const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
       challengesUrl={challengesUrl}
+      challengeType={_.find(challengeTypes, { name: item.challenge.type }) || []}
       expandedTags={expandedTags}
       expandTag={expandTag}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
@@ -62,7 +64,7 @@ export default function ReviewOpportunityBucket({
   ));
 
   const placeholders = [];
-  if (loading || keepPlaceholders) {
+  if ((loading || keepPlaceholders) && cards.length === 0) {
     for (let i = 0; i < 8; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
@@ -126,4 +128,5 @@ ReviewOpportunityBucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
+  challengeTypes: PT.arrayOf(PT.shape()).isRequired,
 };

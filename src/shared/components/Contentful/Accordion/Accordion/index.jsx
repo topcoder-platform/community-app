@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
+import MarkdownRenderer from 'components/MarkdownRenderer';
+
 import defaultStyle from './style.scss';
 
 class Accordion extends Component {
@@ -22,19 +24,35 @@ class Accordion extends Component {
   }
 
   render() {
-    const { children, theme, title } = this.props;
+    const {
+      children,
+      theme,
+      title,
+      description,
+      spaceName,
+      environment,
+      preview,
+    } = this.props;
     const { selectedIndex } = this.state;
+    const contentfulConfig = {
+      spaceName,
+      environment,
+      preview,
+    };
 
     return (
       <div className={theme.outerContainer}>
-        <h1>
-          {title}
-        </h1>
+        { title ? (<h1>{title}</h1>) : null}
+        { description ? (
+          <div className={theme.description}>
+            <MarkdownRenderer markdown={description} {...contentfulConfig} />
+          </div>
+        ) : null }
         <div className={theme.container} id="accordion">
           <ul className={theme.titleList}>
             {React.Children.map(children, (child, index) => (
               <li
-                key={index}
+                key={parseInt(index.toString(), 10)}
                 className={
                   `${theme.titleListItem} ${index === selectedIndex ? theme.titleListItemSelected : ''}`
                 }
@@ -68,7 +86,11 @@ class Accordion extends Component {
 Accordion.defaultProps = {
   defaultSelectedIndex: 0,
   theme: {},
-  title: '',
+  title: null,
+  description: null,
+  preview: false,
+  spaceName: null,
+  environment: null,
 };
 
 Accordion.propTypes = {
@@ -80,8 +102,14 @@ Accordion.propTypes = {
     titleListItem: PT.string,
     titleListItemSelected: PT.string,
     content: PT.string,
+    outerContainer: PT.any,
+    description: PT.any,
   }),
   title: PT.string,
+  description: PT.string,
+  preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
 };
 
 export default themr('Contentful-Accordion', defaultStyle)(Accordion);

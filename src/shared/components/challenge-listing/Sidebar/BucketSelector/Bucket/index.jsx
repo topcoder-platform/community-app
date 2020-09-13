@@ -5,23 +5,52 @@
 import _ from 'lodash';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import PT from 'prop-types';
+import { connect } from 'react-redux';
 import React from 'react';
 import './style.scss';
 
 const Filter = challengeUtils.filter;
 
-export default function Bucket({
+function Bucket({
   active,
   bucket,
   challenges,
   disabled,
   onClick,
+  allActiveChallengesLoaded,
+  meta,
 }) {
-  let count;
+  let countEl;
   if (!bucket.hideCount && !disabled) {
     const filter = Filter.getFilterFunction(bucket.filter);
-    count = challenges.filter(filter).length;
-    count = (
+    const clonedChallenges = _.clone(challenges);
+    const filteredChallenges = [];
+    for (let i = 0; i < clonedChallenges.length; i += 1) {
+      if (filter(clonedChallenges[i])) {
+        filteredChallenges.push(clonedChallenges[i]);
+      }
+    }
+    let count;
+    if (allActiveChallengesLoaded) {
+      count = challenges.filter(filter).length;
+    } else {
+      switch (bucket.name) {
+        case 'All Challenges':
+          count = meta.allChallengesCount;
+          break;
+        case 'My Challenges':
+          count = filteredChallenges.length;
+          break;
+        case 'Open for registration':
+          count = meta.openChallengesCount;
+          break;
+        case 'Ongoing challenges':
+          count = meta.ongoingChallengesCount;
+          break;
+        default:
+      }
+    }
+    countEl = (
       <span styleName="right">
         {count}
       </span>
@@ -38,7 +67,7 @@ export default function Bucket({
     return (
       <div styleName="active bucket">
         {bucket.name}
-        {count}
+        {countEl}
         {error}
       </div>
     );
@@ -53,7 +82,7 @@ export default function Bucket({
       tabIndex={0}
     >
       {bucket.name}
-      {count}
+      {countEl}
       {error}
     </div>
   );
@@ -63,6 +92,7 @@ Bucket.defaultProps = {
   active: false,
   disabled: false,
   onClick: _.noop,
+  meta: {},
 };
 
 Bucket.propTypes = {
@@ -71,8 +101,25 @@ Bucket.propTypes = {
     hideCount: PT.bool,
     name: PT.string.isRequired,
     error: PT.string,
+    filter: PT.any,
   }).isRequired,
   challenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,
   onClick: PT.func,
+  meta: PT.shape(),
+  allActiveChallengesLoaded: PT.bool.isRequired,
 };
+
+const mapStateToProps = (state) => {
+  const cl = state.challengeListing;
+  return {
+    allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    meta: cl.meta,
+  };
+};
+
+const BucketContainer = connect(
+  mapStateToProps,
+)(Bucket);
+
+export default BucketContainer;

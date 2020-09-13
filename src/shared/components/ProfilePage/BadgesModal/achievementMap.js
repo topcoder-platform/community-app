@@ -156,7 +156,7 @@ const groupAchievements = [
         specificClass: 'Successful-Challenges-100',
       },
       {
-        name: 'Two Hundred Successful Challenges',
+        name: 'Two Hundred And Fifty Successful Challenges',
         active: false,
         specificClass: 'Successful-Challenges-250',
       },
@@ -457,12 +457,6 @@ const singleAchievements = [
     active: false,
   },
   {
-    id: 1,
-    name: 'Two Hundred Successful Challenges',
-    groupClass: 'Successful-Challenges-200',
-    active: false,
-  },
-  {
     id: 129,
     name: 'CoECI Client Badge',
     groupClass: 'CoECI-Client-Badge',
@@ -556,6 +550,12 @@ const singleAchievements = [
     id: 1011,
     name: 'TCO17 Champion',
     groupClass: 'TCO17-Champion',
+    active: false,
+  },
+  {
+    id: 1012,
+    name: 'TCO18 Finalist',
+    groupClass: 'TCO18-Finalist',
     active: false,
   },
 ];

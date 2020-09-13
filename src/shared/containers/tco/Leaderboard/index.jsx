@@ -11,9 +11,10 @@ import actions from 'actions/leaderboard';
 import LeaderboardTable from 'components/Leaderboard/LeaderboardTable';
 import Podium from 'components/Leaderboard/Podium';
 import { themr } from 'react-css-super-themr';
+import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeHistoryModalContainer from './ChallengeHistoryModal';
 
-import defaultTheme from './styles.scss';
+import defaultTheme from './themes/styles.scss';
 
 // The container component
 class LeaderboardPageContainer extends React.Component {
@@ -29,6 +30,7 @@ class LeaderboardPageContainer extends React.Component {
 
   componentDidMount() {
     const {
+      id,
       apiUrl,
       auth,
       isLoadingLeaderboard,
@@ -36,7 +38,7 @@ class LeaderboardPageContainer extends React.Component {
       loadedApiUrl,
     } = this.props;
     if (!(apiUrl === loadedApiUrl || isLoadingLeaderboard)) {
-      loadLeaderboard(auth, apiUrl);
+      loadLeaderboard(auth, apiUrl, id);
     }
   }
 
@@ -57,40 +59,50 @@ class LeaderboardPageContainer extends React.Component {
   render() {
     const {
       leaderboardData, title, podiumSpots, isCopilot, hasChallengeHistory,
-      tcoPointsApiUrl,
+      tcoPointsApiUrl, memberLimit, isAlgo, isLoadingLeaderboard, themeName,
     } = this.props;
-    const ld = leaderboardData || [];
     const { competitor } = this.state;
+    let ld = leaderboardData || [];
+    if (memberLimit > 0 && ld.length > memberLimit) {
+      ld = ld.slice(0, memberLimit);
+    }
     const member = _.find(ld, {
       userid: competitor ? competitor.userid : null,
     }) || {};
-    return (
-      <div>
-        <div styleName="Leaderboard">
-          <h2 styleName="section-title">{title}</h2>
-          <Podium
-            competitors={ld.slice(0, podiumSpots)}
-            isCopilot={isCopilot}
-            onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
-          />
-          <LeaderboardTable
-            competitors={ld.slice(podiumSpots)}
-            isCopilot={isCopilot}
-            onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
-          />
-          {
-            hasChallengeHistory && competitor ? (
-              <ChallengeHistoryModalContainer
-                competitor={competitor}
-                challenges={member.challenges}
-                onCancel={this.onChallengeHistoryClose}
-                dataUrl={tcoPointsApiUrl}
-              />
-            ) : null
-          }
+    return isLoadingLeaderboard
+      ? (<LoadingIndicator />) : (
+        <div>
+          <div styleName="Leaderboard">
+            {title ? (<h2 styleName="section-title">{title}</h2>) : null}
+            <Podium
+              competitors={ld.slice(0, podiumSpots)}
+              isCopilot={isCopilot}
+              isAlgo={isAlgo}
+              onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
+              themeName={themeName}
+            />
+            <LeaderboardTable
+              competitors={ld.slice(podiumSpots)}
+              isCopilot={isCopilot}
+              isAlgo={isAlgo}
+              onUsernameClick={hasChallengeHistory ? this.onUsernameClick : null}
+              themeName={themeName}
+            />
+            {
+              hasChallengeHistory && competitor ? (
+                <ChallengeHistoryModalContainer
+                  competitor={competitor}
+                  challenges={member.challenges}
+                  onCancel={this.onChallengeHistoryClose}
+                  dataUrl={tcoPointsApiUrl}
+                  isCopilot={isCopilot}
+                  isAlgo={isAlgo}
+                />
+              ) : null
+            }
+          </div>
         </div>
-      </div>
-    );
+      );
   }
 }
 
@@ -105,9 +117,13 @@ LeaderboardPageContainer.defaultProps = {
   isCopilot: false,
   hasChallengeHistory: true,
   tcoPointsApiUrl: null,
+  memberLimit: null,
+  isAlgo: false,
+  themeName: 'Default',
 };
 
 LeaderboardPageContainer.propTypes = {
+  id: PT.string.isRequired,
   leaderboardData: PT.arrayOf(PT.shape()),
   isLoadingLeaderboard: PT.bool,
   loadLeaderboard: PT.func.isRequired,
@@ -120,19 +136,29 @@ LeaderboardPageContainer.propTypes = {
   hasChallengeHistory: PT.bool,
   resetTcoHistoryChallenges: PT.func.isRequired,
   tcoPointsApiUrl: PT.string,
+  memberLimit: PT.number,
+  isAlgo: PT.bool,
+  themeName: PT.string,
 };
 
-const mapStateToProps = state => ({
-  leaderboardData: state.leaderboard.data,
-  isLoadingLeaderboard: state.leaderboard.loading,
-  loadedApiUrl: state.leaderboard.loadedApiUrl,
-  auth: state.auth,
-});
+function mapStateToProps(state, props) {
+  return state.leaderboard[props.id] ? {
+    leaderboardData: state.leaderboard[props.id].data,
+    isLoadingLeaderboard: state.leaderboard[props.id].loading,
+    loadedApiUrl: state.leaderboard[props.id].loadedApiUrl,
+    auth: state.auth,
+  } : {
+    leaderboardData: null,
+    isLoadingLeaderboard: false,
+    loadedApiUrl: null,
+    auth: state.auth,
+  };
+}
 
 const mapDispatchToProps = dispatch => ({
-  loadLeaderboard: (auth, apiUrl) => {
-    dispatch(actions.leaderboard.fetchLeaderboardInit());
-    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl));
+  loadLeaderboard: (auth, apiUrl, id) => {
+    dispatch(actions.leaderboard.fetchLeaderboardInit({ id }));
+    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl, id));
   },
   resetTcoHistoryChallenges: () => {
     dispatch(actions.leaderboard.resetTcoHistoryChallenges());

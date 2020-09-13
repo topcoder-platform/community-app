@@ -61,7 +61,7 @@ function Footer({
             }}
             type="button"
           >
-Register
+            Register
           </button>
           <button
             className={theme.btnLogin}
@@ -71,7 +71,7 @@ Register
             }}
             type="button"
           >
-Login
+            Login
           </button>
         </div>
       )}
@@ -96,6 +96,10 @@ Footer.propTypes = {
     authorize: PT.string,
     btnRegister: PT.string,
     btnLogin: PT.string,
+    link: PT.any,
+    item: PT.any,
+    itemLogo: PT.any,
+    logo: PT.any,
   }),
 };
 

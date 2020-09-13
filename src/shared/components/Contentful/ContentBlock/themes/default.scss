@@ -6,7 +6,7 @@
   margin: 0 auto;
   max-width: $screen-md;
   padding: 15px;
-  color: black;
+  color: $tc-black;
 
   @include xs-to-sm {
     flex-direction: column;
@@ -33,6 +33,7 @@
 
   flex: 1;
   padding: 15px;
+  color: $tc-black;
 }
 
 .image {
@@ -42,4 +43,27 @@
   img {
     width: 100%;
   }
+}
+
+code {
+  background-color: $tc-gray-neutral-light;
+  padding: 0.2em 0.4em;
+}
+
+pre {
+  code {
+    background-color: transparent;
+    color: #2a2a2a;
+  }
+}
+
+:global {
+  .hljs-comment::after {
+    content: '\A';
+    white-space: pre;
+  }
+}
+
+strong a {
+  font-weight: 600 !important;
 }

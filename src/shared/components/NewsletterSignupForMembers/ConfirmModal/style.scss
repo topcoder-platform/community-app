@@ -1,16 +1,30 @@
 @import "~styles/mixins";
 
 .container {
-  padding: 10px;
-  width: 520px;
+  padding: 90px 60px;
+  width: 629px;
+  height: 440px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.overlay {
+  background-color: #2a2a2a;
+  opacity: 0.95;
 }
 
 .confirmMsg {
-  @include tc-body-md;
-
-  color: #787d81;
   text-align: center;
-  padding-bottom: 10px;
+
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    padding: 0 50px;
+  }
 }
 
 .signupButtons,
@@ -19,17 +33,5 @@
 
   button {
     margin: 24px 12px 0;
-  }
-}
-
-.joinButtons {
-  button {
-    width: 100px;
-  }
-}
-
-.loginButtons {
-  button {
-    width: 200px;
   }
 }

@@ -25,9 +25,9 @@ export default function Header({
         styleName="header"
         tabIndex={0}
       >
-        {<LogoTopcoder styleName="logo" />}
+        <span aria-label="Topcoder Homepage" role="banner"><LogoTopcoder styleName="logo" /></span>
         <div styleName="menu">
-Menu
+          Menu
         </div>
         {profile ? (
           <div styleName="avatar">
@@ -62,6 +62,8 @@ Header.propTypes = {
   mainMenu: PT.arrayOf(SUB_MENU_SHAPE).isRequired,
   open: PT.func.isRequired,
   opened: PT.bool,
-  profile: PT.shape({}),
+  profile: PT.shape({
+    photoURL: PT.any,
+  }),
   userMenu: SUB_MENU_SHAPE,
 };

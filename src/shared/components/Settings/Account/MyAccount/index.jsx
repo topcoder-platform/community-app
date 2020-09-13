@@ -7,20 +7,26 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { omit } from 'lodash';
+import { omit, get } from 'lodash';
+import ConsentComponent from 'components/Settings/ConsentComponent';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import Personalization from 'components/Settings/Preferences/Personalization';
+import { config } from 'topcoder-react-utils';
 
-import './styles.scss';
+import Style from './styles.scss';
 
-export default class MyAccount extends React.Component {
+const theme = {
+  container: Style.modalContainer,
+};
+
+export default class MyAccount extends ConsentComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       newEmail: '',
       currentEmail: '',
-      inputNewEmailVisible: false,
+      isValidEmail: false,
       btnChangeEmailVisible: true,
       btnVerifiEmailVisible: false,
       btnVerifiAgainlVisible: false,
@@ -29,23 +35,32 @@ export default class MyAccount extends React.Component {
       hasSymbolNumber: false,
       differentOldPassword: false,
       passwordValid: false,
+      rePasswordValid: false,
       showNewTips: false,
+      showRePasswordTips: false,
       showEmailTips: false,
+      newEmailSameAsCurrent: false,
       focus: {
         'new-password-input': false,
         'new-email-input': false,
         'current-password-input': false,
+        're-new-password-input': false,
       },
       passwordInputType: {
         'new-password-input': 'password',
         'new-email-input': 'text',
         'current-password-input': 'password',
+        're-new-password-input': 'password',
       },
       newPassword: '',
       currentPassword: '',
+      reNewPassword: '',
       isMobileView: false,
       screenSM: 767,
+      isSent: false,
+      isOpen: false,
     };
+    this.reNewPasswordRef = React.createRef();
     this.newPasswordRef = React.createRef();
     this.currentPasswordRef = React.createRef();
 
@@ -62,6 +77,7 @@ export default class MyAccount extends React.Component {
     this.onUpdateNewEmailInput = this.onUpdateNewEmailInput.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.updateButtonsVisible = this.updateButtonsVisible.bind(this);
   }
 
   componentDidMount() {
@@ -83,9 +99,27 @@ export default class MyAccount extends React.Component {
       && !nextProps.settingsPageState.incorrectPassword
     ) {
       this.setState({
+        rePasswordValid: false,
         passwordValid: false,
         newPassword: '',
         currentPassword: '',
+        reNewPassword: '',
+      });
+    }
+
+    if (nextProps.profileState.updateProfileSuccess
+      && !nextProps.profileState.updatingProfile
+      && this.state.isSent) {
+      this.setState({
+        isOpen: true,
+      });
+    }
+
+    if (nextProps.profileState.updateProfileSuccess
+      && !nextProps.profileState.updatingProfile
+      && this.state.isSent) {
+      this.setState({
+        isOpen: true,
       });
     }
   }
@@ -99,50 +133,54 @@ export default class MyAccount extends React.Component {
   }
 
   onUpdateNewEmailInput(e) {
+    const { profileState, updateEmailConflict } = this.props;
+    if (profileState.isEmailConflict) {
+      updateEmailConflict(false);
+    }
     const newEmail = e.target.value;
-    this.setState({
-      newEmail,
-      showEmailTips: false,
-    });
-  }
-
-  onSendVerificationEmail() {
     const newState = { ...this.state };
-    const { updateProfile, profile, tokenV3 } = this.props;
-
     const email = /^([0-9A-Za-z\-_\.+]+)@([0-9A-Za-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
 
-    if (newState.newEmail === '' || !email.test(newState.newEmail) || newState.newEmail === newState.currentEmail) {
-      newState.focus['new-email-input'] = true;
-      newState.showEmailTips = true;
-    } else {
-      newState.btnChangeEmailVisible = false;
-      newState.btnVerifiAgainlVisible = true;
-      newState.btnVerifiEmailVisible = false;
-      newState.inputNewEmailVisible = false;
-      newState.currentEmail = newState.newEmail;
+    newState.newEmail = newEmail;
 
-      profile.email = newState.newEmail;
-      updateProfile(omit(profile, ['groups']), tokenV3);
+    if (newEmail === '' || !email.test(newEmail) || newEmail === newState.currentEmail) {
+      newState.focus['new-email-input'] = true;
+      newState.isValidEmail = false;
+      newState.showEmailTips = newEmail !== '';
+      newState.newEmailSameAsCurrent = newEmail === newState.currentEmail;
+    } else {
+      newState.showEmailTips = false;
+      newState.isValidEmail = true;
     }
 
     this.setState(newState);
   }
 
+  onSendVerificationEmail() {
+    this.setState({
+      isSent: true,
+    });
+    const { updateProfile, profile, tokenV3 } = this.props;
+    profile.email = this.state.newEmail;
+    profile.verifyUrl = `${config.URL.EMAIL_VERIFY_URL}`;
+    updateProfile(omit(profile, ['groups']), tokenV3);
+  }
+
   onCancelVerificationEmail() {
     const newState = { ...this.state };
-    newState.inputNewEmailVisible = false;
     newState.btnChangeEmailVisible = true;
     newState.btnVerifiEmailVisible = false;
     this.setState(newState);
   }
 
   onChangeEmail() {
-    const newState = { ...this.state };
-    newState.inputNewEmailVisible = true;
-    newState.btnChangeEmailVisible = false;
-    newState.btnVerifiEmailVisible = true;
-    this.setState(newState);
+    const { profileState } = this.props;
+    if (get(profileState, 'credential.hasPassword')) {
+      const newState = { ...this.state };
+      newState.btnChangeEmailVisible = false;
+      newState.btnVerifiEmailVisible = true;
+      this.setState(newState);
+    }
   }
 
   onUpdatePassword(e) {
@@ -152,14 +190,18 @@ export default class MyAccount extends React.Component {
       tokenV3,
       profileState,
     } = this.props;
+
     const {
       passwordValid,
+      rePasswordValid,
+      newPassword,
+      currentPassword,
     } = this.state;
 
     const { updatingPassword } = profileState;
     e.preventDefault();
-    const { newPassword, currentPassword } = this.state;
-    if (!passwordValid || updatingPassword) {
+
+    if (!passwordValid || !rePasswordValid || updatingPassword) {
       const newState = { ...this.state };
       newState.focus['new-password-input'] = true;
       newState.showNewTips = true;
@@ -202,6 +244,8 @@ export default class MyAccount extends React.Component {
       newState.showNewTips = true;
     } else if (e.target.id === 'current-password-input') {
       newState.showNewTips = true;
+    } else if (e.target.id === 're-new-password-input') {
+      newState.showRePasswordTips = true;
     }
 
     this.setState(newState);
@@ -212,19 +256,12 @@ export default class MyAccount extends React.Component {
     newState.focus[e.target.id] = false;
 
     if (e.target.id === 'new-password-input') {
-      if (e.relatedTarget && e.relatedTarget.id === 'newPasswordCheckbox') {
-        newState.showNewTips = true;
-      } else {
-        newState.showNewTips = false;
-      }
-    } else if (e.target.id === 'current-password-input') {
-      if (e.relatedTarget && e.relatedTarget.id === 'currentPasswordCheckbox') {
-        newState.showNewTips = true;
-      } else {
-        newState.showNewTips = false;
-      }
+      newState.showNewTips = false;
+    } else if (e.target.id === 're-new-password-input') {
+      newState.showRePasswordTips = false;
     } else {
       newState.showNewTips = false;
+      newState.showRePasswordTips = false;
     }
 
     this.setState(newState);
@@ -254,11 +291,13 @@ export default class MyAccount extends React.Component {
     const {
       clearIncorrectPassword,
     } = this.props;
-    let { newPassword, currentPassword } = this.state;
+    let { newPassword, currentPassword, reNewPassword } = this.state;
 
     if (e.target.id === 'current-password-input') {
       currentPassword = e.target.value;
       clearIncorrectPassword();
+    } else if (e.target.id === 're-new-password-input') {
+      reNewPassword = e.target.value;
     } else {
       newPassword = e.target.value;
     }
@@ -284,12 +323,29 @@ export default class MyAccount extends React.Component {
         && hasLength && hasLetter && hasSymbolNumber && differentOldPassword,
       newPassword,
       currentPassword,
+      reNewPassword,
+      rePasswordValid: reNewPassword.length > 0 && newPassword === reNewPassword,
     });
   }
 
   updatePredicate() {
     const { screenSM } = this.state;
     this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
+  updateButtonsVisible(sendSuccess) {
+    const newState = { ...this.state };
+    if (sendSuccess) {
+      newState.btnVerifiAgainlVisible = true;
+      newState.btnVerifiEmailVisible = false;
+    }
+
+    // rest sent verification email status
+    newState.isSent = false;
+    // close modal
+    newState.isOpen = false;
+
+    this.setState(newState);
   }
 
   render() {
@@ -316,15 +372,50 @@ export default class MyAccount extends React.Component {
       passwordInputType,
       showNewTips,
       showEmailTips,
+      newEmailSameAsCurrent,
       passwordValid,
       isMobileView,
+      showRePasswordTips,
+      rePasswordValid,
+      isValidEmail,
+      isOpen,
     } = this.state;
 
-    const { updatingPassword } = profileState;
+    const { updatingPassword, updatingProfile, isEmailConflict = false } = profileState;
     const { incorrectPassword } = settingsPageState;
 
     return (
       <div styleName={containerStyle}>
+        {
+          this.shouldRenderConsent() && this.renderConsent()
+        }
+        {
+          isOpen && (
+            <Modal theme={theme}>
+              <div styleName="verification-send-container">
+                <div styleName="verification-send-details">
+                  <div styleName="verification-send-title">
+                    Email Change Verification
+                  </div>
+                  <div styleName="verification-send-message">
+                    A confirmation email has been sent to both accounts.&nbsp;
+                    In order to finalize your email address change request,&nbsp;
+                    you must click on the links in the message sent to both your&nbsp;
+                    old and new email accounts.
+                  </div>
+                  <div styleName="verification-send-button">
+                    <PrimaryButton
+                      styleName="white-label"
+                      onClick={() => this.updateButtonsVisible(true)}
+                    >
+                      Close
+                    </PrimaryButton>
+                  </div>
+                </div>
+              </div>
+            </Modal>
+          )
+        }
         <div styleName="myaccount-container">
           {
             incorrectPassword
@@ -349,36 +440,47 @@ export default class MyAccount extends React.Component {
                     <div styleName="field">
                       <label htmlFor="username-mobile">
                         Username
+                        <input type="hidden" />
                       </label>
                       <input id="username-mobile" name="username" type="text" value={handle} styleName="form-field grey" disabled />
                     </div>
                     <div styleName="field">
                       <label htmlFor="email-mobile">
                         Primary Email
+                        <input type="hidden" />
                       </label>
                       <input id="email-mobile" name="email" type="text" value={currentEmail} styleName="form-field grey" disabled />
                     </div>
                     <div styleName={`field ${btnChangeEmailVisible ? 'hide' : ''}`}>
                       <label htmlFor="newemail">
                         New Email
+                        <input type="hidden" />
                       </label>
                       <div styleName="validation-bar" className="form-field">
                         <div styleName={`password toggle-password ${focus['new-email-input'] ? 'focus' : ''}`}>
                           <input id="new-email-input" styleName="password-input" ref={this.newEmailRef} onBlur={this.onNewEmailBlur} value={newEmail} onChange={this.onUpdateNewEmailInput} name="newemail" autoCapitalize="off" placeholder="New email" required />
                         </div>
-                        <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
+                        <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div id="password-tips" styleName="tips password-tips mobile" className={showEmailTips ? '' : 'hidden'}>
-                    <h3>
-                      Your email address is not valid.
-                    </h3>
-                  </div>
+                  {
+                    get(profileState, 'credential.hasPassword', false) === false && (
+                      <div styleName="error-message">
+                        Since you joined Topcoder using your &lt;SSO Service&gt; account,
+                        any email updates will need to be handled by logging in to
+                        your &lt;SSO Service&gt; account.
+                      </div>
+                    )
+                  }
                   <div styleName="row">
                     <div styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
@@ -391,6 +493,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
+                        disabled={!isValidEmail || updatingProfile}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email
@@ -399,6 +502,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
+                        disabled={!isValidEmail || updatingProfile}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email Again
@@ -420,6 +524,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-1">
                       <label htmlFor="username">
                         Username
+                        <input type="hidden" />
                       </label>
                     </div>
                     <div styleName="field col-2">
@@ -430,6 +535,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-1">
                       <label htmlFor="email">
                         Primary Email
+                        <input type="hidden" />
                       </label>
                     </div>
                     <div styleName="field col-2">
@@ -440,6 +546,7 @@ export default class MyAccount extends React.Component {
                     <div styleName="field col-1">
                       <label htmlFor="newemail">
                         New Email
+                        <input type="hidden" />
                       </label>
                     </div>
                     <div styleName="field col-2">
@@ -449,13 +556,32 @@ export default class MyAccount extends React.Component {
                         </div>
                         <div id="password-tips" styleName="tips password-tips" className={showEmailTips ? '' : 'hidden'}>
                           <h3>
-                            Your email address is not valid.
+                            {
+                              newEmailSameAsCurrent
+                                ? 'The new email cannot be the same as the current email.'
+                                : 'Your email address is not valid.'
+                            }
                           </h3>
                         </div>
                       </div>
                     </div>
                   </div>
-
+                  {
+                    get(profileState, 'credential.hasPassword', false) === false && (
+                      <div styleName="error-message">
+                        Since you joined Topcoder using your &lt;SSO Service&gt; account,
+                        any email updates will need to be handled by logging in to
+                        your &lt;SSO Service&gt; account.
+                      </div>
+                    )
+                  }
+                  {
+                    isEmailConflict && (
+                      <div styleName="error-message">
+                        The email you have entered is already in use.
+                      </div>
+                    )
+                  }
                   <div styleName="row button-group">
                     <div styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
@@ -468,6 +594,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
+                        disabled={!isValidEmail || updatingProfile}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email
@@ -476,6 +603,7 @@ export default class MyAccount extends React.Component {
                     <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
                       <PrimaryButton
                         styleName="white-label"
+                        disabled={!isValidEmail || updatingProfile}
                         onClick={this.onSendVerificationEmail}
                       >
                         Send Verification Email Again
@@ -502,12 +630,13 @@ export default class MyAccount extends React.Component {
                       <form name="passowrd-form-mobile" styleName="form-mobile" noValidate autoComplete="off">
                         <div styleName="row">
                           <div styleName="field">
-                            <label htmlFor="password">
-                              Password
+                            <label htmlFor="current-password-input">
+                              Current Password
+                              <input type="hidden" />
                             </label>
                             <div styleName="validation-bar" className="form-field">
                               <div styleName={`password toggle-password ${focus['current-password-input'] ? 'focus' : ''}`}>
-                                <input id="current-password-input" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} name="password" type={passwordInputType['current-password-input']} placeholder="Not filled for security reasons" minLength="8" maxLength="64" required />
+                                <input id="current-password-input" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} name="password" type={passwordInputType['current-password-input']} placeholder="TYPE YOUR CURRENT PASSWORD" minLength="8" maxLength="64" required />
                                 <label htmlFor="currentPasswordCheckbox" styleName="passwordCheckbox">
                                   <input type="checkbox" id="currentPasswordCheckbox" styleName="currentPasswordCheckbox" onChange={() => this.toggleTypeAttribute('current-password-input')} />
                                   Show
@@ -516,42 +645,66 @@ export default class MyAccount extends React.Component {
                             </div>
                           </div>
                           <div styleName="field">
-                            <label htmlFor="email">
+                            <label htmlFor="new-password-input">
                               New password
+                              <input type="hidden" />
                             </label>
                             <div styleName="validation-bar" className="form-field">
                               <div styleName={`password toggle-password ${focus['new-password-input'] ? 'focus' : ''}`}>
-                                <input id="new-password-input" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={passwordInputType['new-password-input']} placeholder="Type a new password to change it" minLength="8" maxLength="64" required />
+                                <input id="new-password-input" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={passwordInputType['new-password-input']} placeholder="TYPE YOUR NEW PASSWORD" minLength="8" maxLength="64" required />
                                 <label htmlFor="newPasswordCheckbox" styleName="passwordCheckbox">
                                   <input type="checkbox" id="newPasswordCheckbox" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('new-password-input')} />
                                   Show
                                 </label>
                               </div>
                             </div>
+                            <div id="password-tips" styleName="tips password-tips mobile" className={showNewTips ? '' : 'hidden'}>
+                              <h3>
+                                Your password must have:
+                              </h3>
+                              <p styleName={hasLength ? 'has-length-between-range' : ''}>
+                                At least 8 characters
+                              </p>
+                              <p styleName={hasLetter ? 'has-letter' : ''}>
+                                At least one letter
+                              </p>
+                              <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
+                                At least one number or symbol
+                              </p>
+                              <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
+                                Should not be the same as the old password
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        <div id="password-tips" styleName="tips password-tips mobile" className={showNewTips ? '' : 'hidden'}>
-                          <h3>
-                            Your password must have:
-                          </h3>
-                          <p styleName={hasLength ? 'has-length-between-range' : ''}>
-                            At least 8 characters
-                          </p>
-                          <p styleName={hasLetter ? 'has-letter' : ''}>
-                            At least one letter
-                          </p>
-                          <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
-                            At least one number or symbol
-                          </p>
-                          <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
-                            Should not be the same as the old password
-                          </p>
+                          <div styleName="field">
+                            <label htmlFor="re-new-password-input">
+                              Re-type new password
+                              <input type="hidden" />
+                            </label>
+                            <div styleName="validation-bar" className="form-field">
+                              <div styleName={`password toggle-password ${focus['re-new-password-input'] ? 'focus' : ''}`}>
+                                <input id="re-new-password-input" styleName="password-input" ref={this.reNewPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="re-password" type={passwordInputType['re-new-password-input']} placeholder="RE-TYPE YOUR NEW PASSWORD" minLength="8" maxLength="64" required />
+                                <label htmlFor="reNewPasswordCheckbox" styleName="passwordCheckbox">
+                                  <input type="checkbox" id="reNewPasswordCheckbox" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('re-new-password-input')} />
+                                  Show
+                                </label>
+                              </div>
+                            </div>
+                            <div id="password-tips" styleName="tips password-tips mobile" className={showRePasswordTips ? '' : 'hidden'}>
+                              <h3>
+                                Your Re-typed password must:
+                              </h3>
+                              <p styleName={rePasswordValid ? 're-password-match' : ''}>
+                                Match the new password entered
+                              </p>
+                            </div>
+                          </div>
                         </div>
                         <div styleName="row">
                           <div styleName="button-change-password">
                             <PrimaryButton
                               styleName="white-label"
-                              disabled={!passwordValid || updatingPassword}
+                              disabled={!passwordValid || !rePasswordValid || updatingPassword}
                               onClick={this.onUpdatePassword}
                             >
                               {
@@ -568,17 +721,18 @@ export default class MyAccount extends React.Component {
                       <form name="newPasswordForm" styleName="password-section" noValidate>
                         <div styleName="row">
                           <div styleName="field col-1">
-                            <label htmlFor="password">
-                                Password
+                            <label htmlFor="current-password-input">
+                              Current Password
+                              <input type="hidden" />
                             </label>
                           </div>
                           <div styleName="field col-2">
                             <div styleName="validation-bar" className="form-field">
                               <div styleName={`password toggle-password ${focus['current-password-input'] ? 'focus' : ''}`}>
-                                <input id="current-password-input" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} name="password" type={passwordInputType['current-password-input']} placeholder="Not filled for security reasons" minLength="8" maxLength="64" required />
+                                <input id="current-password-input" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} name="password" type={passwordInputType['current-password-input']} placeholder="TYPE YOUR CURRENT PASSWORD" minLength="8" maxLength="64" required />
                                 <label htmlFor="currentPasswordCheckbox" styleName="passwordCheckbox">
                                   <input type="checkbox" id="currentPasswordCheckbox" styleName="currentPasswordCheckbox" onChange={() => this.toggleTypeAttribute('current-password-input')} />
-                                    Show
+                                  Show
                                 </label>
                               </div>
                             </div>
@@ -586,34 +740,62 @@ export default class MyAccount extends React.Component {
                         </div>
                         <div styleName="row">
                           <div styleName="field col-1 password">
-                            <label htmlFor="new-password">
-                                New password
+                            <label htmlFor="new-password-input">
+                              New password
+                              <input type="hidden" />
                             </label>
                           </div>
                           <div styleName="field col-2">
                             <div styleName="validation-bar" className="form-field">
                               <div styleName={`password toggle-password ${focus['new-password-input'] ? 'focus' : ''}`}>
-                                <input id="new-password-input" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={passwordInputType['new-password-input']} placeholder="Type a new password to change it" minLength="8" maxLength="64" required />
+                                <input id="new-password-input" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={passwordInputType['new-password-input']} placeholder="RE-TYPE YOUR NEW PASSWORD" minLength="8" maxLength="64" required />
                                 <label htmlFor="newPasswordCheckbox" styleName="passwordCheckbox">
                                   <input type="checkbox" id="newPasswordCheckbox" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('new-password-input')} />
-                                    Show
+                                  Show
                                 </label>
                               </div>
                               <div id="password-tips" styleName="tips password-tips" className={showNewTips ? '' : 'hidden'}>
                                 <h3>
-                                    Your password must have:
+                                  Your password must have:
                                 </h3>
                                 <p styleName={hasLength ? 'has-length-between-range' : ''}>
-                                    At least 8 characters
+                                  At least 8 characters
                                 </p>
                                 <p styleName={hasLetter ? 'has-letter' : ''}>
-                                    At least one letter
+                                  At least one letter
                                 </p>
                                 <p styleName={hasSymbolNumber ? 'has-symbol-or-number' : ''}>
-                                    At least one number or symbol
+                                  At least one number or symbol
                                 </p>
                                 <p styleName={differentOldPassword ? 'different-with-old-password' : ''}>
-                                    Should not be the same as the old password
+                                  Should not be the same as the old password
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div styleName="row">
+                          <div styleName="field col-1 password">
+                            <label htmlFor="re-new-password-input">
+                              Re-type new password
+                              <input type="hidden" />
+                            </label>
+                          </div>
+                          <div styleName="field col-2">
+                            <div styleName="validation-bar" className="form-field">
+                              <div styleName={`password toggle-password ${focus['re-new-password-input'] ? 'focus' : ''}`}>
+                                <input id="re-new-password-input" styleName="password-input" ref={this.reNewPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="re-password" type={passwordInputType['re-new-password-input']} placeholder="TYPE YOUR NEW PASSWORD" minLength="8" maxLength="64" required />
+                                <label htmlFor="reNewPasswordCheckbox" styleName="passwordCheckbox">
+                                  <input type="checkbox" id="reNewPasswordCheckbox" styleName="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('re-new-password-input')} />
+                                  Show
+                                </label>
+                              </div>
+                              <div id="password-tips" styleName="tips password-tips mobile" className={showRePasswordTips ? '' : 'hidden'}>
+                                <h3>
+                                  Your Re-typed password must:
+                                </h3>
+                                <p styleName={rePasswordValid ? 're-password-match' : ''}>
+                                  Match the new password entered
                                 </p>
                               </div>
                             </div>
@@ -623,15 +805,15 @@ export default class MyAccount extends React.Component {
                           <div styleName="button-change-password">
                             <PrimaryButton
                               styleName="white-label"
-                              disabled={!passwordValid || updatingPassword}
+                              disabled={!passwordValid || !rePasswordValid || updatingPassword}
                               onClick={this.onUpdatePassword}
                             >
                               {
-                                  !updatingPassword && 'Change Password'
-                                }
+                                !updatingPassword && 'Change Password'
+                              }
                               {
-                                  updatingPassword && <i className="fa fa-spinner fa-spin" />
-                                }
+                                updatingPassword && <i className="fa fa-spinner fa-spin" />
+                              }
                             </PrimaryButton>
                           </div>
                         </div>
@@ -647,7 +829,7 @@ export default class MyAccount extends React.Component {
                 <div>
                   <p>
                     You joined Topcoder by using an external account,
-                    so we don&quot;t have a password for you.
+                    so we don&#39;t have a password for you.
                   </p>
                 </div>
               )
@@ -671,4 +853,5 @@ MyAccount.propTypes = {
   updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
   loadTabData: PT.func.isRequired,
+  updateEmailConflict: PT.func.isRequired,
 };

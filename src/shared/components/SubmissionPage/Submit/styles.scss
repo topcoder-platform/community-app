@@ -45,7 +45,7 @@
   }
 
   a {
-    color: #1f7be7;
+    color: $tc-dark-blue-110;
     cursor: pointer;
   }
 
@@ -66,7 +66,7 @@
     p,
     a {
       font-size: 13px;
-      color: #a3a3ae;
+      color: $tc-gray-60;
       font-style: italic;
       max-width: 270px;
       width: 270px;
@@ -93,7 +93,7 @@
       }
     }
 
-    h4 {
+    h2 {
       font-size: 15px;
       line-height: 25px;
       margin-bottom: 4px;
@@ -163,7 +163,7 @@
     }
 
     a {
-      color: #1a85ff;
+      color: $tc-dark-blue-110;
     }
 
     .tc-checkbox-label {
@@ -187,7 +187,12 @@
       margin-bottom: 30px;
 
       input[type=checkbox] {
-        display: none;
+        visibility: visible;
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
       }
 
       label {
@@ -228,6 +233,10 @@
       input[type=checkbox]:checked ~ label {
         background: $tc-dark-blue;
         border-color: $tc-dark-blue;
+      }
+
+      input[type=checkbox]:focus ~ label {
+        outline: 2px auto $tc-dark-blue;
       }
 
       input[type=checkbox]:checked + label::after {

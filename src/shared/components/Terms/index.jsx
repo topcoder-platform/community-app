@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /**
  * Terms component which displays modal window with term details
  */
@@ -9,6 +10,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { Modal, PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import LoadingIndicator from 'components/LoadingIndicator';
+import FocusTrap from 'focus-trap-react';
 import TermDetails from './TermDetails';
 
 import style from './styles.scss';
@@ -54,15 +56,17 @@ export default class Terms extends React.Component {
     this.resizeHandler = this.resizeHandler.bind(this);
     this.nextTerm = this.nextTerm.bind(this);
     this.max = 0;
+    this.terms = React.createRef();
   }
 
   componentDidMount() {
     const { loadDetails, selectedTerm } = this.props;
     if (selectedTerm) {
-      loadDetails(selectedTerm.termsOfUseId);
+      loadDetails(selectedTerm.id);
     }
     window.addEventListener('message', this.messageHandler, false);
     window.addEventListener('resize', this.resizeHandler, false);
+    this.terms.current.focus();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,8 +75,8 @@ export default class Terms extends React.Component {
       checkStatus, canRegister, onCancel, register,
     } = this.props;
     if (nextProps.selectedTerm && !_.isEqual(selectedTerm, nextProps.selectedTerm)
-      && nextProps.loadingTermId !== _.toString(nextProps.selectedTerm.termsOfUseId)) {
-      loadDetails(nextProps.selectedTerm.termsOfUseId);
+      && nextProps.loadingTermId !== _.toString(nextProps.selectedTerm.id)) {
+      loadDetails(nextProps.selectedTerm.id);
     }
     if (!_.every(terms, 'agreed') && _.every(nextProps.terms, 'agreed') && !nextProps.checkingStatus) {
       checkStatus();
@@ -81,6 +85,10 @@ export default class Terms extends React.Component {
       onCancel();
       register();
     }
+  }
+
+  componentDidUpdate() {
+    this.terms.current.focus();
   }
 
   componentWillUnmount() {
@@ -104,8 +112,8 @@ export default class Terms extends React.Component {
   messageHandler(event) {
     const { onCancel, selectedTerm, signDocu } = this.props;
     if (event.data.type === 'DocuSign') {
-      if (event.data.event === 'signing_complete') {
-        signDocu(selectedTerm.termsOfUseId);
+      if (event.data.event === 'signing_complete' || event.data.event === 'viewing_complete') {
+        signDocu(selectedTerm.id);
       } else {
         onCancel();
       }
@@ -151,18 +159,19 @@ export default class Terms extends React.Component {
     };
 
     return (
-      <div key={(selectedTerm || {}).termsOfUseId}>
-        <Modal
-          onCancel={onCancel}
-          theme={{ container: style['modal-container'] }}
-        >
-          {
+      <div key={(selectedTerm || {}).id}>
+        <FocusTrap>
+          <Modal
+            onCancel={onCancel}
+            theme={{ container: style['modal-container'] }}
+          >
+            {
             isLoadingTerms
             && <LoadingIndicator />
           }
-          {
+            {
             !isLoadingTerms && (
-              <div styleName="modal-content">
+              <div styleName="modal-content" ref={this.terms} tabIndex="0">
                 <div styleName="title">
                   {terms.length > 1 ? defaultTitle : terms[0].title}
                 </div>
@@ -190,7 +199,7 @@ export default class Terms extends React.Component {
                           {
                             terms.map((t, index) => (
                               <div
-                                key={t.termsOfUseId}
+                                key={t.id}
                                 /* TODO: No need to use so much style names and
                                  * related logic here. It can be simplified:
                                  * "view-only" style should move to the root
@@ -216,6 +225,8 @@ export default class Terms extends React.Component {
                                 </div>
                                 <div
                                   styleName="tab-title"
+                                  tabIndex="0"
+                                  role="tab"
                                   onClick={() => this.selectTerm(t)}
                                   onKeyPress={() => this.selectTerm(t)}
                                 >
@@ -248,11 +259,11 @@ export default class Terms extends React.Component {
                         )
                       }
                       {
-                        loadingTermId === _.toString(selectedTerm.termsOfUseId)
+                        loadingTermId === _.toString(selectedTerm.id)
                         && <LoadingIndicator />
                       }
                       {
-                        loadingTermId !== _.toString(selectedTerm.termsOfUseId) && details
+                        loadingTermId !== _.toString(selectedTerm.id) && details
                         && (
                         <TermDetails
                           details={details}
@@ -271,7 +282,7 @@ export default class Terms extends React.Component {
                 {
                   !isLoadingTerms && !checkingStatus && selectedTerm && details
                     && !viewOnly
-                    && loadingTermId !== _.toString(selectedTerm.termsOfUseId)
+                    && loadingTermId !== _.toString(selectedTerm.id)
                     && details.agreeabilityType === 'Electronically-agreeable' ? (
                       <div styleName="buttons">
                         {
@@ -292,9 +303,9 @@ export default class Terms extends React.Component {
                             : (
                               <div>
                                 <PrimaryButton
-                                  disabled={agreeingTerm === details.termsOfUseId}
+                                  disabled={agreeingTerm === details.id}
                                   onClick={() => {
-                                    agreeTerm(details.termsOfUseId);
+                                    agreeTerm(details.id);
                                     if (this.vScrollArea) {
                                       this.vScrollArea.scrollTop = 0;
                                     }
@@ -318,7 +329,8 @@ export default class Terms extends React.Component {
               </div>
             )
           }
-        </Modal>
+          </Modal>
+        </FocusTrap>
       </div>
     );
   }

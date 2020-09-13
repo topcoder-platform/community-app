@@ -28,9 +28,12 @@ import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
+import _ from 'lodash';
+import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
 
 import avatarStyles from '../avatarStyles.scss';
-import styles from './styles.scss'; // eslint-disable-line
+import defaultStyles from './themes/styles.scss'; // eslint-disable-line
+import tco20Styles from './themes/tco20.scss'; // eslint-disable-line
 
 /**
  * Object used to add a CSS modifier (PodiumSpot--first) that will
@@ -41,6 +44,7 @@ const PODIUM_ITEM_MODIFIER = {
   1: 'first',
   2: 'second',
   3: 'third',
+  4: 'fourth',
 };
 
 /**
@@ -48,9 +52,18 @@ const PODIUM_ITEM_MODIFIER = {
  * based based on user ranking.
  */
 const CUSTOM_STYLES = {
-  1: avatarStyles.gold,
-  2: avatarStyles.silver,
-  3: avatarStyles.bronze,
+  Default: {
+    1: avatarStyles.gold,
+    2: avatarStyles.silver,
+    3: avatarStyles.bronze,
+    4: avatarStyles.iron,
+  },
+  TCO20: {
+    1: avatarStyles['tco20-1'],
+    2: avatarStyles['tco20-2'],
+    3: avatarStyles['tco20-3'],
+    4: avatarStyles['tco20-4'],
+  },
 };
 
 /**
@@ -60,7 +73,19 @@ const DISPLAY_RANKING = {
   1: '1',
   2: '2',
   3: '3',
+  4: '4',
 };
+
+const THEME = {
+  Default: 'defaultStyles',
+  TCO20: 'tco20Styles',
+};
+
+/**
+ * Format points number
+ * @param {Number} points points number
+ */
+const formatPoints = points => parseFloat(Math.round(points * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -70,73 +95,120 @@ export default function PodiumSpot(props) {
     isCopilot,
     onUsernameClick,
     isTopGear,
+    isAlgo,
+    themeName,
   } = props;
 
-  let photoUrl = competitor.avatar;
+  const stylesName = THEME[themeName];
+  let photoUrl = competitor['member_profile_basic.photo_url'] || competitor.avatar;
   if (photoUrl) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
   }
-  let rootStyle = 'styles.PodiumSpot';
-  if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` styles.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
+  let rootStyle = `${stylesName}.PodiumSpot`;
+  if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` ${stylesName}.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
 
   return (
     <div styleName={rootStyle}>
-      <span styleName="styles.leaderboard-avatar">
-        <Avatar
-          theme={{
-            avatar: CUSTOM_STYLES[competitor.rank],
-          }}
-          url={photoUrl}
-        />
-        <div styleName="styles.ranking">{DISPLAY_RANKING[competitor.rank]}</div>
-      </span>
-      <div>
+      <span styleName={`${stylesName}.leaderboard-avatar`}>
         {
-          onUsernameClick ? (
-            <div
-              styleName="styles.handle-link"
-              onClick={() => onUsernameClick(competitor)}
-            >
-              {competitor.handle}
-            </div>
-          ) : (
-            <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor.handle}/`}>
-              {competitor.handle}
-            </a>
-          )
+          photoUrl ? (
+            <Avatar
+              theme={{
+                avatar: CUSTOM_STYLES[themeName][competitor.rank],
+              }}
+              url={photoUrl}
+            />
+          ) : <DefaultAvatar />
         }
-      </div>
-      <div styleName="styles.winnings-info">
+        <div styleName={`${stylesName}.ranking`}>{DISPLAY_RANKING[competitor.rank]}</div>
+      </span>
+      {
+        themeName === 'Default' ? (
+          <div>
+            {
+              onUsernameClick ? (
+                <div
+                  styleName={`${stylesName}.handle-link`}
+                  onClick={() => onUsernameClick(competitor)}
+                >
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
+                </div>
+              ) : (
+                <a
+                  styleName={`${stylesName}.profile-link`}
+                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                  target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                >
+                  {competitor['member_profile_basic.handle'] || competitor.handle}
+                </a>
+              )
+            }
+          </div>
+        ) : null
+      }
+      <div styleName={`${stylesName}.winnings-info`} style={isTopGear ? { 'flex-direction': 'column' } : null}>
+        {
+          themeName !== 'Default' ? (
+            <div>
+              {
+                onUsernameClick ? (
+                  <div
+                    styleName={`${stylesName}.handle-link`}
+                    onClick={() => onUsernameClick(competitor)}
+                  >
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
+                  </div>
+                ) : (
+                  <a
+                    styleName={`${stylesName}.profile-link`}
+                    href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                    target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                  >
+                    {competitor['member_profile_basic.handle'] || competitor.handle}
+                  </a>
+                )
+              }
+            </div>
+          ) : null
+        }
         {
           isCopilot ? (
-            <div styleName="styles.stats">
-              <span styleName="styles.value">{competitor.fulfillment}</span>
-              <span>fulfillment</span>
+            <div styleName={`${stylesName}.stats`}>
+              <span styleName={`${stylesName}.value`}>{competitor.fulfillment}</span>
+              <span styleName={`${stylesName}.value-title`}>fulfillment</span>
             </div>
           ) : null
         }
-        <div styleName="styles.stats">
-          <span styleName="styles.value">{competitor.challengecount}</span>
-          <span>challenges</span>
+        <div styleName={`${stylesName}.stats`}>
+          <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
+          <span styleName={`${stylesName}.value-title`}>challenges</span>
         </div>
-        <div styleName="styles.stats">
-          <span styleName="styles.value">{competitor.points}</span>
-          <span>points</span>
+        <div styleName={`${stylesName}.stats`}>
+          <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
+          <span styleName={`${stylesName}.value-title`}>points</span>
         </div>
         {
           isTopGear ? (
-            <div styleName="styles.stats">
-              <span styleName="styles.value">{competitor.wins}</span>
-              <span>wins</span>
+            <div styleName={`${stylesName}.stats`}>
+              <span styleName={`${stylesName}.value`}>{competitor.wins}</span>
+              <span styleName={`${stylesName}.value-title`}>wins</span>
             </div>
           ) : null
         }
         {
           isTopGear ? (
-            <div styleName="styles.stats">
-              <span styleName="styles.value">{competitor.total_earnings}</span>
-              <span>total earnings</span>
+            <div styleName={`${stylesName}.stats`}>
+              <span styleName={`${stylesName}.value`}>{competitor.total_earnings}</span>
+              <span styleName={`${stylesName}.value-title`}>total earnings</span>
+            </div>
+          ) : null
+        }
+        {
+          isAlgo ? (
+            <div styleName={`${stylesName}.stats`}>
+              <span styleName={`${stylesName}.value`}>{competitor['srm_tco19.score']}</span>
+              <span styleName={`${stylesName}.value-title`}>total score</span>
             </div>
           ) : null
         }
@@ -161,10 +233,14 @@ PodiumSpot.propTypes = {
   isCopilot: PT.bool,
   onUsernameClick: PT.func,
   isTopGear: PT.bool,
+  isAlgo: PT.bool,
+  themeName: PT.string,
 };
 
 PodiumSpot.defaultProps = {
   isCopilot: false,
   onUsernameClick: null,
   isTopGear: false,
+  isAlgo: false,
+  themeName: 'Default',
 };

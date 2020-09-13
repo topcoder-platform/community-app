@@ -2,11 +2,10 @@
  * Child component of Settings/Profile/AboutMe renders "About Me" section of profile setting page.
  */
 /* global document */
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import { getAllCountryObjects, getCountryObjFromAlpha3 } from 'utils/countries';
 
@@ -23,7 +22,6 @@ export default class AboutMe extends React.Component {
 
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onUploadPhoto = this.onUploadPhoto.bind(this);
-    this.onDeletePhoto = this.onDeletePhoto.bind(this);
 
     this.onUpdateBio = this.onUpdateBio.bind(this);
     this.onUpdateCountry = this.onUpdateCountry.bind(this);
@@ -62,24 +60,6 @@ export default class AboutMe extends React.Component {
     uploadPhoto(handle, tokenV3, file);
   }
 
-  onDeletePhoto(e) {
-    const {
-      deletePhoto,
-      profile,
-      profileState,
-      tokenV3,
-    } = this.props;
-    e.preventDefault();
-    if (profileState.deletingPhoto) {
-      return;
-    }
-    const newProfile = _.clone(profile);
-    delete newProfile.photoURL;
-    delete newProfile.groups;
-    newProfile.tracks = newProfile.tracks || [];
-    deletePhoto(newProfile, tokenV3);
-  }
-
   onUpdateBio(e) {
     const { onUpdateBio } = this.props;
     e.preventDefault();
@@ -113,16 +93,16 @@ export default class AboutMe extends React.Component {
       <div className="settings-section">
         <div className="section-info">
           <h2>
-About Me
+            About Me
           </h2>
           <div className="description">
-The most important information that other community members should know about you.
+            The most important information that other community members should know about you.
           </div>
         </div>
         <div className="section-fields">
           <div styleName="image">
             <div className="form-label">
-your profile image
+              your profile image
             </div>
             <div styleName="edit-image">
               {
@@ -146,31 +126,12 @@ your profile image
                   }
                 </PrimaryButton>
                 <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
-                {
-                  profile.photoURL
-                  && (
-                  <div>
-                    <SecondaryButton
-                      onClick={this.onDeletePhoto}
-                      disabled={uploadingPhoto || deletingPhoto}
-                      theme={{ button: Styles['file-delete'] }}
-                    >
-                      {
-                        deletingPhoto && <i className="fa fa-spinner fa-spin" />
-                      }
-                      {
-                        !deletingPhoto && 'Delete'
-                      }
-                    </SecondaryButton>
-                  </div>
-                  )
-                }
               </div>
             </div>
           </div>
           <div styleName="country">
             <div className="form-label">
-Country to represent
+              Country to represent
             </div>
             <Select
               name="location"
@@ -187,7 +148,7 @@ Country to represent
           </div>
           <div styleName="bio">
             <div className="form-label">
-short bio
+              short bio
               <span className="char-count">
                 {(bio && bio.length) || 0}
                 <span className="grey">
@@ -226,5 +187,4 @@ AboutMe.propTypes = {
   onUpdateCountry: PT.func.isRequired,
   onUpdateBio: PT.func.isRequired,
   uploadPhoto: PT.func.isRequired,
-  deletePhoto: PT.func.isRequired,
 };

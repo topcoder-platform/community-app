@@ -10,6 +10,7 @@ import './style.scss';
 export default function Item({
   currentSubMenuTitle,
   enforceA,
+  openNewTab,
   icon,
   link,
   title,
@@ -17,6 +18,7 @@ export default function Item({
 }) {
   let styleName = 'item';
   if (currentSubMenuTitle === title) styleName += ' current';
+  const accessibleIcon = React.cloneElement(icon, { 'aria-label': `${title}` });
   return (
     /* TODO: Should be done in a clean way, witout disabling eslint rules. */
     /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
@@ -27,8 +29,8 @@ export default function Item({
       role="button"
       tabIndex={0}
     >
-      <Link enforceA={enforceA} to={link}>
-        {icon}
+      <Link enforceA={enforceA} openNewTab={openNewTab} to={link}>
+        {accessibleIcon}
         {title}
       </Link>
     </li>
@@ -38,10 +40,12 @@ export default function Item({
 
 Item.defaultProps = {
   enforceA: false,
+  openNewTab: false,
 };
 
 Item.propTypes = {
   enforceA: PT.bool,
+  openNewTab: PT.bool,
   currentSubMenuTitle: PT.string.isRequired,
   icon: PT.node.isRequired,
   link: PT.string.isRequired,

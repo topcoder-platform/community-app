@@ -7,7 +7,11 @@ exports[`Matches shallow shapshot 1`] = `
   <ul>
     <li>
       <a
-        href="https://www.topcoder-dev.com/about"
+        aria-label="About"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="link"
+        tabIndex="0"
       >
         About
       </a>
@@ -15,7 +19,11 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
-        href="https://help.topcoder-dev.com/hc/en-us/articles/219069687-Contact-Support"
+        aria-label="Contact"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="link"
+        tabIndex="0"
       >
         Contact
       </a>
@@ -23,7 +31,11 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
-        href="https://help.topcoder-dev.com"
+        aria-label="Help"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="link"
+        tabIndex="0"
       >
         Help
       </a>
@@ -31,7 +43,11 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
-        href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
+        aria-label="Privacy"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="link"
+        tabIndex="0"
       >
         Privacy
       </a>
@@ -39,7 +55,11 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
     <li>
       <a
-        href="https://www.topcoder-dev.com/community/how-it-works/terms/"
+        aria-label="Terms"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="link"
+        tabIndex="0"
       >
         Terms
       </a>
@@ -49,7 +69,7 @@ exports[`Matches shallow shapshot 1`] = `
     className="src-shared-components-challenge-listing-Sidebar-Footer-___style__copyright___ghkHg"
   >
     Topcoder ©
-    2018
+    2020
   </p>
 </div>
 `;

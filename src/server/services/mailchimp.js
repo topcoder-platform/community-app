@@ -3,6 +3,7 @@
  */
 import fetch from 'isomorphic-fetch';
 import config from 'config';
+import qs from 'qs';
 
 /**
  * Auxiliary class that handles communication with mailchimp
@@ -59,6 +60,51 @@ export default class MailchimpService {
         Authorization: this.authorization,
       },
       body: formData,
+    });
+    return res.json();
+  }
+
+  async subscribeTags(req) {
+    const formData = JSON.stringify(req.body);
+    const res = await fetch(`${this.mailchimpBaseUrl}/lists/${req.params.listId}/members/${req.params.emailHash}/tags`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        Authorization: this.authorization,
+      },
+      body: formData,
+    });
+    return { status: res.status };
+  }
+
+  /**
+   * Gets campaign-folders endpoint.
+   * @return {Promise}
+   * @param {Object} the request.
+   */
+  async getCampaignFolder(req) {
+    const res = await fetch(`${this.mailchimpBaseUrl}/campaign-folders?count=500`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        Authorization: this.authorization,
+      },
+    });
+    return res.json();
+  }
+
+  /**
+   * Gets campaigns endpoint.
+   * @return {Promise}
+   * @param {Object} the request.
+   */
+  async getCampaigns(req) {
+    const res = await fetch(`${this.mailchimpBaseUrl}/campaigns?${qs.stringify(req.query)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        Authorization: this.authorization,
+      },
     });
     return res.json();
   }

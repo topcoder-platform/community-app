@@ -1,0 +1,28 @@
+@import "~styles/mixins";
+
+$tco-seconary: #229174;
+$tco-seconary-border: #0ab88a;
+$tco-disabled-background: #e9e9e9;
+
+.tcoButton {
+  @include roboto-bold;
+
+  color: $tco-seconary !important;
+  background: $tc-white !important;
+  font-weight: 700 !important;
+  border: 1px solid $tco-seconary-border !important;
+  border-radius: 15px !important;
+  font-size: 12px !important;
+  letter-spacing: 0.8px;
+  text-decoration: none !important;
+  min-height: 30px !important;
+  margin-left: 0 !important;
+}
+
+.tcoButtonDisabled {
+  background-color: $tco-disabled-background !important;
+  border-radius: 15px !important;
+  border: none !important;
+  color: $tc-white !important;
+  text-decoration: none !important;
+}

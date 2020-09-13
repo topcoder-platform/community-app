@@ -78,7 +78,7 @@ export default class AddWebLink extends React.Component {
     const {
       allLinks,
     } = this.props;
-    return _.some(allLinks, link => link.URL && (link.URL.toLowerCase() === webLink.toLowerCase()));
+    return _.some(allLinks, link => link.URL && (link.URL.toLowerCase().replace(/https?:\/\//, '') === webLink.toLowerCase().replace(/https?:\/\//, '')));
   }
 
   render() {
@@ -101,6 +101,7 @@ export default class AddWebLink extends React.Component {
                 <div styleName="field col-1">
                   <label htmlFor="name">
                     External link
+                    <input type="hidden" />
                   </label>
                   <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
                     <input
@@ -156,6 +157,7 @@ export default class AddWebLink extends React.Component {
           >
             <label htmlFor="external-link">
               External Link
+              <input type="hidden" />
             </label>
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
               <input
@@ -175,7 +177,7 @@ export default class AddWebLink extends React.Component {
                 && (
                   <div styleName="form-input-error">
                     <p>
-Please enter a valid URL
+                      Please enter a valid URL
                     </p>
                   </div>
                 )

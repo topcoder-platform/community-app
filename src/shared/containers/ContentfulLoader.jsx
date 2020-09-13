@@ -14,8 +14,13 @@ import SSR from 'utils/SSR';
 import { config } from 'topcoder-react-utils';
 import { connect } from 'react-redux';
 
-const DEFAULT_MAXAGE = 5 * 60 * 1000;
-const DEFAULT_REFRESH_MAXAGE = 1 * 60 * 1000;
+// Setting those to infinity to disable maxage and auto refresh
+// There are reports that this mechanisum is not working in some cases.
+// For instance after long incativity pages are refreshed but if fetch calls fail in that moment
+// loding spinners are never removed and page looks ugly with them.
+// TODO: find what is causing the probem in details and fix it.
+const DEFAULT_MAXAGE = Number.POSITIVE_INFINITY;
+const DEFAULT_REFRESH_MAXAGE = Number.POSITIVE_INFINITY;
 
 /* Timeout for server-side rendering routine [ms]. */
 const SSR_TIMEOUT = 3000; /* 3 seconds */

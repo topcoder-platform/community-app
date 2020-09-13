@@ -3,13 +3,15 @@
  */
 
 import CommunityLoader from 'containers/tc-communities/Loader';
+import ContentfulRoute from 'components/Contentful/Route';
 import Content from 'components/Content';
+import Footer from 'components/TopcoderFooter';
 import React from 'react';
 
 import {
   Switch, Route, withRouter, Redirect,
 } from 'react-router-dom';
-import { MetaTags } from 'topcoder-react-utils';
+import { MetaTags, config } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
 
@@ -22,6 +24,8 @@ import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
 import TrackHomePages from './TrackHomePages';
+import PolicyPages from './PolicyPages';
+import GigsPages from './GigsPages';
 
 function Routes({ communityId }) {
   const metaTags = (
@@ -54,7 +58,7 @@ function Routes({ communityId }) {
       {metaTags}
       <Switch>
         <Route exact path="/" component={Content} />
-        { Examples() }
+        {Examples()}
         <Route
           render={({ match }) => (
             <CommunityLoader
@@ -89,7 +93,30 @@ function Routes({ communityId }) {
         />
         <Route
           component={() => <TrackHomePages base="/community" />}
-          path="/community/(competitive-programming|data-science|design|development)/how-to-compete"
+          path="/community/(competitive-programming|data-science|design|development|qa)/how-to-compete"
+        />
+        <Route
+          component={PolicyPages}
+          exact
+          path={`${config.POLICY_PAGES_PATH}/:slug?`}
+        />
+        <Route
+          component={GigsPages}
+          exact
+          path={`${config.GIGS_PAGES_PATH}/:id?`}
+        />
+        <Route
+          render={() => (
+            <React.Fragment>
+              <ContentfulRoute
+                baseUrl={config.START_PAGE_PATH}
+                id="vpcfRkUPoTtxXoEIBvCRl"
+              />
+              <Footer />
+            </React.Fragment>
+          )}
+          exact
+          path={config.START_PAGE_PATH}
         />
         <Topcoder />
       </Switch>

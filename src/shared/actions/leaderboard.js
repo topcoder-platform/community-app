@@ -10,7 +10,7 @@ import { createActions } from 'redux-actions';
 /**
  * Load user ranking for the leaderboard page.
  */
-function fetchLeaderboard(auth, apiUrl) {
+function fetchLeaderboard(auth, apiUrl, id) {
   // we use fetch directly here, as we are making request to api v4 using token v3
   // so we don't create a new service to not bring inconsistency in an existent service approach
   return fetch(apiUrl, {
@@ -30,7 +30,7 @@ function fetchLeaderboard(auth, apiUrl) {
       data.forEach((element, index) => {
         element.rank = index + 1;
       });
-      return { data, loadedApiUrl: apiUrl };
+      return { data, id, loadedApiUrl: apiUrl };
     });
 }
 
@@ -42,14 +42,18 @@ async function getTcoHistoryChallengesDone(url, competitor) {
   const res = await fetch(url)
     .then(response => response.json())
     .then(jsonResponse => ({
-      challenges: _.filter(jsonResponse, challenge => challenge.userid === competitor.userid),
+      challenges: _.filter(jsonResponse, challenge => (
+        challenge['member_profile_basic.user_id']
+          ? (challenge['member_profile_basic.user_id'] === competitor['member_profile_basic.user_id'])
+          : (challenge.userid === competitor.userid)
+      )),
     }));
   return res;
 }
 
 export default createActions({
   LEADERBOARD: {
-    FETCH_LEADERBOARD_INIT: _.noop,
+    FETCH_LEADERBOARD_INIT: _.identity,
     FETCH_LEADERBOARD_DONE: fetchLeaderboard,
     GET_TCO_HISTORY_CHALLENGES_INIT: getTcoHistoryChallengesInit,
     GET_TCO_HISTORY_CHALLENGES_DONE: getTcoHistoryChallengesDone,

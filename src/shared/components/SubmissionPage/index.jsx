@@ -20,27 +20,27 @@ function SubmissionsPage(props) {
     challengeName,
     challengesUrl,
     status,
-    currentPhases,
+    phases,
     winners,
     handle,
   } = props;
 
   const submissionEnded = status === 'COMPLETED'
-    || (!_.some(currentPhases, { phaseType: 'Submission', phaseStatus: 'Open' })
-    && !_.some(currentPhases, { phaseType: 'Checkpoint Submission', phaseStatus: 'Open' }));
+    || (!_.some(phases, { name: 'Submission', isOpen: true })
+      && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
   const hasFirstPlacement = !_.isEmpty(winners) && _.some(winners, { placement: 1, handle });
 
   let canSubmitFinalFixes = false;
-  if (hasFirstPlacement && !_.isEmpty(currentPhases)) {
-    canSubmitFinalFixes = _.some(currentPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
+  if (hasFirstPlacement && !_.isEmpty(phases)) {
+    canSubmitFinalFixes = _.some(phases, { phaseType: 'Final Fix', isOpen: true });
   }
 
   const submissionPermitted = !submissionEnded || canSubmitFinalFixes;
 
   return (
     <div styleName="container">
-      <div styleName="content">
+      <div styleName="content" role="main">
         <Header
           challengeId={challengeId}
           challengesUrl={challengesUrl}
@@ -75,7 +75,7 @@ const filestackDataProp = PT.shape({
 SubmissionsPage.propTypes = {
   userId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   challengeName: PT.string.isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.shape({
@@ -85,7 +85,7 @@ SubmissionsPage.propTypes = {
     loadingUuid: PT.string.isRequired,
     timestamp: PT.number.isRequired,
   }).isRequired,
-  groups: PT.shape({}).isRequired,
+  groups: PT.arrayOf(PT.shape()).isRequired,
   track: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,
@@ -108,7 +108,7 @@ SubmissionsPage.propTypes = {
   submissionFilestackData: filestackDataProp.isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
   handle: PT.string.isRequired,
-  currentPhases: PT.arrayOf(PT.object).isRequired,
+  phases: PT.arrayOf(PT.object).isRequired,
 };
 
 export default SubmissionsPage;

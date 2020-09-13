@@ -47,7 +47,8 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
         >
-          EET
+          UTC
+          2019-12-31T08:00:00.000Z
         </span>
       </div>
     </div>
@@ -111,7 +112,8 @@ exports[`Matches shallow shapshot 2`] = `
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
         >
-          EET
+          UTC
+          2019-12-31T08:00:00.000Z
         </span>
       </div>
     </div>

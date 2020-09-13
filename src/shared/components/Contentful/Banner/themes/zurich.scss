@@ -13,7 +13,10 @@
     @include frutiger-light;
 
     font-size: 40px;
-    color: #039;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #4c433d;
     text-transform: uppercase;
 
     @include xs-to-sm {
@@ -24,8 +27,8 @@
   p {
     @include frutiger-light;
 
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 18px;
+    line-height: 1.33;
     margin-top: 10px;
     color: #4c433d;
 

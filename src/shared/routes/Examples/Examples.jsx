@@ -26,6 +26,10 @@ import Tags from 'components/examples/Tags';
 import Themr from 'components/examples/Themr';
 import Typography from 'components/examples/Typography';
 import CountdownExample from 'components/examples/CountdownExample';
+import SearchBarExample from 'components/examples/SearchBar';
+import TracksTreeExample from 'components/examples/TracksTree';
+import TracksFilterExample from 'components/examples/TracksFilter';
+import SearchPageFilterExample from 'components/examples/SearchPageFilter';
 
 import {
   Switch,
@@ -85,6 +89,11 @@ export default function Examples({
       <Route path={`${base}/tags`} component={Tags} />
       <Route path={`${base}/themr`} component={Themr} />
       <Route path={`${base}/typography`} component={Typography} />
+      <Route path={`${base}/markdown`} component={Markdown} />
+      <Route path={`${base}/search-bar`} component={SearchBarExample} />
+      <Route path={`${base}/tracks-tree`} component={TracksTreeExample} />
+      <Route path={`${base}/tracks-filter`} component={TracksFilterExample} />
+      <Route path={`${base}/search-page-filter`} component={SearchPageFilterExample} />
       <Content />
     </Switch>
   );

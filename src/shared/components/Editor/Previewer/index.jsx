@@ -31,7 +31,7 @@ export default class Previewer extends React.Component {
           visible ? (
             <div>
               <div styleName="title">
-Rendering Preview
+                Rendering Preview
               </div>
               <div
                 /* eslint-disable react/no-danger */

@@ -9,16 +9,19 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-
+import fetch from 'isomorphic-fetch';
+import { config } from 'topcoder-react-utils';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import ImageInput from '../ImageInput';
 import Track from './Track';
 import DefaultImageInput from './ImageInput';
 import dropdowns from './dropdowns.json';
 import tracks from './tracks';
+
 
 import './styles.scss';
 
@@ -40,7 +43,6 @@ export default class BasicInfo extends ConsentComponent {
     this.state = {
       inputChanged: false,
       formInvalid: false,
-      errorMessage: '',
       basicInfoTrait: this.loadBasicInfoTraits(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newBasicInfo: {
@@ -54,7 +56,7 @@ export default class BasicInfo extends ConsentComponent {
         country: '',
         primaryInterestInTopcoder: '',
         currentLocation: '',
-        birthDate: '',
+        birthDate: null,
         userId: '',
         description: '',
         otherLangName: null,
@@ -70,7 +72,6 @@ export default class BasicInfo extends ConsentComponent {
         }],
         homeCountryCode: null,
         competitionCountryCode: null,
-        photoURL: '',
         tracks: [],
       },
     };
@@ -86,57 +87,62 @@ export default class BasicInfo extends ConsentComponent {
     const basicInfoTrait = this.loadBasicInfoTraits(nextProps.userTraits);
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
-    this.processBasicInfo(basicInfo);
-    this.setState({
-      basicInfoTrait,
-      personalizationTrait,
-      inputChanged: false,
-    });
+    if (basicInfoTrait.updatedAt !== this.loadBasicInfoTraits(this.props.userTraits).updatedAt) {
+      this.processBasicInfo(basicInfo);
+      this.setState({
+        basicInfoTrait,
+        personalizationTrait,
+        inputChanged: false,
+      });
+    }
   }
 
   onCheckFormValue(newBasicInfo) {
     let invalid = false;
-    let errorMessage = '';
-    let dateError = '';
-    let birthDateInvalid = false;
-    const invalidFields = [];
 
     if (!_.trim(newBasicInfo.firstName).length) {
-      invalidFields.push('First Name');
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.lastName).length) {
-      invalidFields.push('Last Name');
       invalid = true;
     }
 
     if (!_.trim(newBasicInfo.country).length) {
-      invalidFields.push('Country');
       invalid = true;
-    }
-
-    if (invalidFields.length > 0) {
-      errorMessage += invalidFields.join(', ');
-      errorMessage += ' cannot be empty';
     }
 
     if (_.trim(newBasicInfo.birthDate).length > 0) {
       if (!moment().isAfter(newBasicInfo.birthDate)) {
-        dateError = 'You must enter a valid date for Birth Date';
-        birthDateInvalid = true;
+        invalid = true;
       }
     }
 
-    if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}. ${dateError}`;
-    } else if (dateError.length > 0) {
-      errorMessage = dateError;
-      invalid = birthDateInvalid;
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
+    this.setState({ formInvalid: invalid });
     return invalid;
+  }
+
+  async onCheckUserTrait(traitId) {
+    const { handle, tokenV3 } = this.props;
+    let isExists = false;
+    await fetch(`${config.API.V3}/members/${handle}/traits?traitIds=${traitId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenV3}`,
+      },
+    })
+      .then(result => result.json())
+      .then((dataResponse) => {
+        if (dataResponse.result && dataResponse.result.content.length > 0) {
+          const trait = dataResponse.result.content[0];
+          if (trait.createdAt) {
+            isExists = true;
+          }
+        }
+      });
+
+    return isExists;
   }
 
   /**
@@ -145,8 +151,10 @@ export default class BasicInfo extends ConsentComponent {
    */
   onHandleSaveBasicInfo(e) {
     e.preventDefault();
+    this.setState({ isSaving: true, inputChange: true });
     const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
+      this.setState({ isSaving: false });
       return;
     }
     this.showConsent(this.onSaveBasicInfo.bind(this));
@@ -156,7 +164,7 @@ export default class BasicInfo extends ConsentComponent {
    * Save Basic Info
    * @param answer user consent answer value
    */
-  onSaveBasicInfo(answer) {
+  async onSaveBasicInfo(answer) {
     const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
     const {
       handle,
@@ -165,7 +173,7 @@ export default class BasicInfo extends ConsentComponent {
       updateUserTrait,
     } = this.props;
     try {
-      const parsedDate = moment(newBasicInfo.birthDate);
+      const parsedDate = moment(newBasicInfo.birthDate).utc();
       if (parsedDate.isValid()) {
         newBasicInfo.birthDate = `${parsedDate.format('YYYY-MM-DD')}T00:00:00.000Z`;
       } else {
@@ -182,30 +190,39 @@ export default class BasicInfo extends ConsentComponent {
     if (newBasicInfo.tshirtSize === '') {
       newBasicInfo.tshirtSize = null;
     }
+
+    _.forEach(newBasicInfo.addresses[0], (value, key) => {
+      newBasicInfo.addresses[0][key] = _.trim(value);
+    });
+    _.forEach(['currentLocation', 'primaryInterestInTopcoder', 'description'], (key) => {
+      newBasicInfo[key] = _.trim(newBasicInfo[key]);
+    });
     // This is a hack to check if the user has an existing basic_info trait object
-    if (basicInfoTrait.traits
-      && basicInfoTrait.traits.data.length > 0 && basicInfoTrait.createdAt) {
+    const exists = await this.onCheckUserTrait('basic_info');
+    if (exists) {
       const newBasicInfoTrait = { ...basicInfoTrait };
       newBasicInfoTrait.traits.data = [];
       newBasicInfoTrait.traits.data.push(newBasicInfo);
-      updateUserTrait(handle, 'basic_info', newBasicInfoTrait.traits.data, tokenV3);
+      await updateUserTrait(handle, 'basic_info', newBasicInfoTrait.traits.data, tokenV3);
     } else {
       const data = [];
       data.push(newBasicInfo);
-      addUserTrait(handle, 'basic_info', data, tokenV3);
+      await addUserTrait(handle, 'basic_info', data, tokenV3);
     }
 
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
-      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      await addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
     } else {
       const trait = personalizationTrait.traits.data[0];
       if (trait.userConsent !== answer) {
         const personalizationData = { userConsent: answer };
-        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+        await updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
     }
+
+    this.setState({ isSaving: false });
   }
 
   onUpdateSelect(option) {
@@ -249,6 +266,8 @@ export default class BasicInfo extends ConsentComponent {
       const { newBasicInfo: oldBasicInfo } = this.state;
       const newBasicInfo = { ...oldBasicInfo };
       newBasicInfo.country = country.name;
+      newBasicInfo.competitionCountryCode = country.key;
+      newBasicInfo.homeCountryCode = country.key;
       this.setState({ newBasicInfo, inputChanged: true });
     }
   }
@@ -276,7 +295,7 @@ export default class BasicInfo extends ConsentComponent {
    */
   loadBasicInfoTraits = (userTraits) => {
     const trait = userTraits.filter(t => t.traitId === 'basic_info');
-    const basicInfo = trait.length === 0 ? {} : trait[0];
+    const basicInfo = trait.length === 0 ? {} : trait[trait.length - 1];
     return _.assign({}, basicInfo);
   }
 
@@ -314,7 +333,10 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
       }
       if (_.has(value, 'birthDate')) {
-        newBasicInfo.birthDate = moment(value.birthDate);
+        const newDate = moment(value.birthDate).utc();
+        if (newDate.isValid()) {
+          newBasicInfo.birthDate = newDate;
+        }
       }
       if (_.has(value, 'competitionCountryCode')) {
         newBasicInfo.competitionCountryCode = value.competitionCountryCode;
@@ -328,7 +350,9 @@ export default class BasicInfo extends ConsentComponent {
         newBasicInfo.currentLocation = value.currentLocation;
       }
       if (_.has(value, 'description')) {
-        newBasicInfo.description = value.description;
+        if (_.trim(value.description).length) {
+          newBasicInfo.description = value.description;
+        }
       } else {
         newBasicInfo.description = profile.description ? profile.description : '';
       }
@@ -352,11 +376,6 @@ export default class BasicInfo extends ConsentComponent {
       }
       if (_.has(value, 'lastName')) {
         newBasicInfo.lastName = value.lastName;
-      }
-      if (_.has(value, 'photoURL')) {
-        newBasicInfo.photoURL = value.photoURL;
-      } else {
-        newBasicInfo.photoURL = profile.photoURL;
       }
       if (_.has(value, 'primaryInterestInTopcoder')) {
         newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
@@ -389,7 +408,6 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo.email = profile.email;
       newBasicInfo.homeCountryCode = profile.homeCountryCode;
       newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
-      newBasicInfo.photoURL = profile.photoURL;
       newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
       newBasicInfo.description = profile.description ? profile.description : '';
       this.setState({ newBasicInfo });
@@ -405,7 +423,6 @@ export default class BasicInfo extends ConsentComponent {
 
     const invalid = !_.trim(newBasicInfo.firstName).length
       || !_.trim(newBasicInfo.lastName).length
-      || !_.trim(newBasicInfo.description).length
       || !_.trim(newBasicInfo.gender).length
       || !_.trim(newBasicInfo.tshirtSize).length
       || !_.trim(newBasicInfo.country).length
@@ -429,9 +446,15 @@ export default class BasicInfo extends ConsentComponent {
   render() {
     const {
       newBasicInfo,
-      formInvalid,
-      errorMessage,
+      inputChanged,
     } = this.state;
+
+    const canModifyTrait = !this.props.traitRequestCount;
+    const { lookupData } = this.props;
+    const countries = _.get(lookupData, 'countries', []).map(country => ({
+      key: country.countryCode,
+      name: country.country,
+    }));
 
     return (
       <div styleName="basic-info-container">
@@ -458,35 +481,42 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="firstName">
                   First name
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
-                <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
+                <ErrorMessage invalid={_.isEmpty(newBasicInfo.firstName) && inputChanged} message="First Name cannot be empty" />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="lastName">
                   Last name
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
-                <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
+                <ErrorMessage invalid={_.isEmpty(newBasicInfo.lastName) && inputChanged} message="Last Name cannot be empty" />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="birthDate">
                   Birth Date
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
 
                 <div styleName="date-picker">
                   <DatePicker
+                    readOnly
                     numberOfMonths={1}
+                    isOutsideRange={moment()}
                     date={newBasicInfo.birthDate}
                     id="date-range-picker1"
                     onDateChange={this.onUpdateDate}
@@ -498,63 +528,69 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="address">
                   Address
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="address" name="streetAddr1" type="text" placeholder="Your address" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="address" name="streetAddr1" type="text" placeholder="Your address" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="address2">
                   Address 2
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Your address continued" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
+                <input disabled={!canModifyTrait} id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Your address continued" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="city">
                   City
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="city" name="city" type="text" placeholder="Which city do you live in?" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="city" name="city" type="text" placeholder="Which city do you live in?" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="state">
                   State
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="state" name="stateCode" type="text" placeholder="State" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="state" name="stateCode" type="text" placeholder="State" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="zipCode">
                   ZIP
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="zipCode" name="zip" type="text" placeholder="ZIP/Postal Code" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="zipCode" name="zip" type="text" placeholder="ZIP/Postal Code" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="country">
                   Country
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <Select
                   name="country"
-                  options={dropdowns.countries}
+                  options={countries}
                   value={newBasicInfo.country}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
@@ -562,8 +598,10 @@ export default class BasicInfo extends ConsentComponent {
                   matchProp="name"
                   labelKey="name"
                   valueKey="name"
+                  disabled={!canModifyTrait}
                   clearable={false}
                 />
+                <ErrorMessage invalid={_.isEmpty(newBasicInfo.country) && inputChanged} message="Country cannot be empty" addMargin />
               </div>
             </div>
           </form>
@@ -577,6 +615,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="gender">
                   Gender
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -589,6 +628,7 @@ export default class BasicInfo extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
               </div>
             </div>
@@ -596,6 +636,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="tshirtSize">
                   T-shirt size
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
@@ -608,6 +649,7 @@ export default class BasicInfo extends ConsentComponent {
                   labelKey="name"
                   valueKey="name"
                   clearable={false}
+                  disabled={!canModifyTrait}
                 />
               </div>
             </div>
@@ -615,26 +657,29 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-1">
                 <label htmlFor="currentLocation">
                   Current Location
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="currentLocation" name="currentLocation" type="text" placeholder="Where in the world are you currently?" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="currentLocation" name="currentLocation" type="text" placeholder="Where in the world are you currently?" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="primaryInterestInTopcoder">
                   Primary interests
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field col-2">
-                <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="bio">
                   Short bio
+                  <input type="hidden" />
                 </label>
               </div>
               <div styleName="field description">
@@ -643,7 +688,7 @@ export default class BasicInfo extends ConsentComponent {
                     {newBasicInfo.description.length}/240
                   </span>
                 </div>
-                <textarea id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
+                <textarea disabled={!canModifyTrait} id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" />
               </div>
             </div>
           </form>
@@ -676,19 +721,23 @@ export default class BasicInfo extends ConsentComponent {
                   </p>
                   <div styleName="row">
                     <div styleName="field">
-                      <label htmlFor="firstName">
+                      <label htmlFor="firstNameId">
                         First name
                         <span styleName="text-required">* Required</span>
+                        <input type="hidden" />
                       </label>
 
-                      <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
+                      <input disabled={!canModifyTrait} id="firstNameId" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
+                      <ErrorMessage invalid={_.isEmpty(newBasicInfo.firstName) && inputChanged} addMargin message="First Name cannot be empty" />
                     </div>
                     <div styleName="field">
-                      <label htmlFor="lastName">
+                      <label htmlFor="lastNameId">
                         Last name
                         <span styleName="text-required">* Required</span>
+                        <input type="hidden" />
                       </label>
-                      <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
+                      <input disabled={!canModifyTrait} id="lastNameId" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
+                      <ErrorMessage invalid={_.isEmpty(newBasicInfo.lastName) && inputChanged} addMargin message="Last Name cannot be empty" />
                     </div>
                   </div>
                 </div>
@@ -697,10 +746,13 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="birthDate">
                     Birth Date
+                    <input type="hidden" />
                   </label>
                   <div styleName="date-picker-sm">
                     <DatePicker
+                      readOnly
                       numberOfMonths={1}
+                      isOutsideRange={moment()}
                       date={newBasicInfo.birthDate}
                       id="date-range-picker2"
                       onDateChange={this.onUpdateDate}
@@ -710,40 +762,45 @@ export default class BasicInfo extends ConsentComponent {
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="address">
+                  <label htmlFor="addressId">
                     Address
+                    <input type="hidden" />
                   </label>
-                  <input id="address" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
-                  <input id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
+                  <input disabled={!canModifyTrait} id="addressId" name="streetAddr1" type="text" placeholder="Address Line 1" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
+                  <input disabled={!canModifyTrait} id="addressId" name="streetAddr2" type="text" styleName="second-addr" placeholder="Address Line 2  " onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="city">
+                  <label htmlFor="cityId">
                     City
+                    <input type="hidden" />
                   </label>
-                  <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
+                  <input disabled={!canModifyTrait} id="cityId" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].city : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="state">
+                  <label htmlFor="stateId">
                     State
+                    <input type="hidden" />
                   </label>
-                  <input id="state" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
+                  <input disabled={!canModifyTrait} id="stateId" name="stateCode" type="text" placeholder="state" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="zipCode">
+                  <label htmlFor="zipCodeId">
                     ZIP Code
+                    <input type="hidden" />
                   </label>
-                  <input id="zipCode" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
+                  <input disabled={!canModifyTrait} id="zipCodeId" name="zip" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={`${newBasicInfo.addresses.length > 0 ? newBasicInfo.addresses[0].zip : ''}`} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="country">
+                  <label htmlFor="countryId">
                     Country
                     <span styleName="text-required">* Required</span>
+                    <input type="hidden" />
                   </label>
                   <Select
-                    name="country"
-                    options={dropdowns.countries}
+                    name="countryId"
+                    options={countries}
                     value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
@@ -752,13 +809,16 @@ export default class BasicInfo extends ConsentComponent {
                     labelKey="name"
                     valueKey="name"
                     clearable={false}
+                    disabled={!canModifyTrait}
                   />
+                  <ErrorMessage invalid={_.isEmpty(newBasicInfo.country) && inputChanged} message="Country cannot be empty" />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
                   <label htmlFor="gender">
                     Gender
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="gender"
@@ -769,11 +829,13 @@ export default class BasicInfo extends ConsentComponent {
                     labelKey="name"
                     valueKey="name"
                     clearable={false}
+                    disabled={!canModifyTrait}
                   />
                 </div>
                 <div styleName="field">
                   <label htmlFor="tshirtSize">
                     T-Shirt-Size
+                    <input type="hidden" />
                   </label>
                   <Select
                     name="tshirtSize"
@@ -784,6 +846,7 @@ export default class BasicInfo extends ConsentComponent {
                     labelKey="name"
                     valueKey="name"
                     clearable={false}
+                    disabled={!canModifyTrait}
                   />
                 </div>
               </div>
@@ -791,16 +854,18 @@ export default class BasicInfo extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="currentLocation">
                     Current Location
+                    <input type="hidden" />
                   </label>
-                  <input id="currentLocation" name="currentLocation" type="text" placeholder="current Location" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
+                  <input disabled={!canModifyTrait} id="currentLocation" name="currentLocation" type="text" placeholder="current Location" onChange={this.onUpdateInput} value={newBasicInfo.currentLocation} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
                   <label htmlFor="primaryInterestInTopcoder">
                     Primary Interest in Topcoder
+                    <input type="hidden" />
                   </label>
-                  <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
+                  <input disabled={!canModifyTrait} id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={newBasicInfo.primaryInterestInTopcoder} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
@@ -813,7 +878,7 @@ export default class BasicInfo extends ConsentComponent {
                       {newBasicInfo.description.length}/240
                     </span>
                   </label>
-                  <textarea id="description" styleName="bio-text" name="description" placeholder="short Bio" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
+                  <textarea disabled={!canModifyTrait} id="description" styleName="bio-text" name="description" placeholder="short Bio" onChange={this.onUpdateInput} value={newBasicInfo.description} maxLength="240" cols="3" rows="10" required />
                 </div>
               </div>
             </form>
@@ -852,18 +917,13 @@ export default class BasicInfo extends ConsentComponent {
             }
           </div>
         </div>
-        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-          {errorMessage}
-        </div>
         <div styleName="button-save">
           <PrimaryButton
             styleName="white-label"
-            disabled={false}
+            disabled={!canModifyTrait}
             onClick={this.onHandleSaveBasicInfo}
           >
-            {
-              'Save Changes'
-            }
+            Save Changes
           </PrimaryButton>
         </div>
       </div>
@@ -878,5 +938,5 @@ BasicInfo.propTypes = {
   userTraits: PT.array.isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
-  deleteUserTrait: PT.func.isRequired,
+  traitRequestCount: PT.number.isRequired,
 };

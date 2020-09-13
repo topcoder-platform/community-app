@@ -1,0 +1,18 @@
+@import "~styles/mixins";
+
+.container {
+  padding: 0;
+
+  @include xs-to-sm {
+    padding: 0 15px;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  margin: 0 auto;
+  max-width: $screen-md;
+  color: black;
+  flex-direction: column;
+  border-top: 1px solid #d4d4d4;
+}

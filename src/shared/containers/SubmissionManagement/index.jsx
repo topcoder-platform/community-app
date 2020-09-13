@@ -27,7 +27,6 @@ class SubmissionManagementPageContainer extends React.Component {
       authTokens,
       challenge,
       challengeId,
-      mySubmissions,
       loadChallengeDetails,
       loadingSubmissionsForChallengeId,
       loadMySubmissions,
@@ -38,7 +37,7 @@ class SubmissionManagementPageContainer extends React.Component {
       loadChallengeDetails(authTokens, challengeId);
     }
 
-    if (!mySubmissions && challengeId !== loadingSubmissionsForChallengeId) {
+    if (challengeId !== loadingSubmissionsForChallengeId) {
       loadMySubmissions(authTokens, challengeId);
     }
   }
@@ -52,7 +51,6 @@ class SubmissionManagementPageContainer extends React.Component {
       deleting,
       loadingSubmissionsForChallengeId,
       submissionPhaseStartDate,
-      handle,
       isLoadingChallenge,
       mySubmissions,
       onCancelSubmissionDelete,
@@ -60,13 +58,11 @@ class SubmissionManagementPageContainer extends React.Component {
       onShowDetails,
       onSubmissionDelete,
       onSubmissionDeleteConfirmed,
-      registrants,
       showDetails,
       showModal,
       toBeDeletedId,
     } = this.props;
-    const isRegistered = registrants.find(r => r.handle === handle);
-    if (!isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
+    if (!challenge.isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
     const isEmpty = _.isEmpty(challenge);
     const smConfig = {
@@ -81,7 +77,7 @@ class SubmissionManagementPageContainer extends React.Component {
 
     return (
       <div styleName="outer-container">
-        <div styleName="submission-management-container">
+        <div styleName="submission-management-container" role="main">
           {!isEmpty
             && (
             <SubmissionManagement
@@ -109,7 +105,7 @@ class SubmissionManagementPageContainer extends React.Component {
                 <span styleName="id">
                   {toBeDeletedId}
                 </span>
-?
+                ?
               </p>
               <p styleName="remove-warn">
                 This will permanently remove all
@@ -135,7 +131,7 @@ class SubmissionManagementPageContainer extends React.Component {
                   className="tc-btn-sm tc-btn-default"
                   onClick={() => onCancelSubmissionDelete()}
                 >
-Cancel
+                  Cancel
                 </Button>
                 <Button
                   className="tc-btn-sm tc-btn-warning"
@@ -146,7 +142,7 @@ Cancel
                     )
                   }
                 >
-Delete Submission
+                  Delete Submission
                 </Button>
               </div>
             </div>
@@ -165,7 +161,7 @@ SubmissionManagementPageContainer.defaultProps = {
   mySubmissions: [],
   // isLoadingSubmissions: false,
   showModal: false,
-  toBeDeletedId: 0,
+  toBeDeletedId: '',
   challenge: null,
 };
 
@@ -176,7 +172,7 @@ SubmissionManagementPageContainer.propTypes = {
   isLoadingChallenge: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   authTokens: PT.shape().isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()),
   loadingSubmissionsForChallengeId: PT.string.isRequired,
   loadMySubmissions: PT.func.isRequired,
@@ -186,11 +182,9 @@ SubmissionManagementPageContainer.propTypes = {
   showDetails: PT.shape().isRequired,
   showModal: PT.bool,
   onCancelSubmissionDelete: PT.func.isRequired,
-  toBeDeletedId: PT.number,
+  toBeDeletedId: PT.string,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
-  registrants: PT.arrayOf(PT.object).isRequired,
-  handle: PT.string.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -200,10 +194,11 @@ function mapStateToProps(state, props) {
   mySubmissions = challengeId === mySubmissions.challengeId
     ? mySubmissions.v2 : null;
 
-  const submissionPhase = state.challenge.details.allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.phaseType) && phase.phaseStatus === 'Open') || {};
+  const allPhases = state.challenge.details.phases || [];
+  const submissionPhase = allPhases.find(phase => ['Submission', 'Checkpoint Submission'].includes(phase.name) && phase.isOpen) || {};
 
   return {
-    challengeId: Number(challengeId),
+    challengeId: String(challengeId),
     challenge: state.challenge.details,
     challengesUrl: props.challengesUrl,
 
@@ -215,7 +210,7 @@ function mapStateToProps(state, props) {
       state.challenge.loadingSubmissionsForChallengeId || '',
     mySubmissions,
 
-    submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
+    submissionPhaseStartDate: submissionPhase.actualStartDate || submissionPhase.scheduledStartDate || '',
 
     showDetails: state.page.submissionManagement.showDetails,
 
@@ -259,7 +254,7 @@ const mapDispatchToProps = dispatch => ({
   loadMySubmissions: (tokens, challengeId) => {
     const a = actions.challenge;
     dispatch(a.getSubmissionsInit(challengeId));
-    dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV2));
+    dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV3));
   },
 });
 

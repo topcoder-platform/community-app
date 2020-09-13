@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 
 import ArrowDown from 'assets/images/arrow-down.svg';
+import ErrorWrapper from 'components/Settings/ErrorWrapper';
 
 import './styles.scss';
 
@@ -35,20 +36,6 @@ export default class Accordion extends React.Component {
   componentDidMount() {
     const { currentSidebarTab } = this.props;
     this.setState({ currentItem: currentSidebarTab });
-  }
-
-  /*
-   * Sync the state of the Accordion with the state of the Sidebar
-   */
-  componentWillReceiveProps(nextProps) {
-    const {
-      hasToggled,
-      currentItem,
-    } = this.state;
-    const { currentSidebarTab } = nextProps;
-    if (hasToggled && currentItem !== currentSidebarTab) {
-      this.setState({ currentItem: currentSidebarTab });
-    }
   }
 
   /*
@@ -121,7 +108,9 @@ export default class Accordion extends React.Component {
               {
                 this.isOpened(name) ? (
                   <div>
-                    {renderTabContent(name)}
+                    <ErrorWrapper>
+                      {renderTabContent(name)}
+                    </ErrorWrapper>
                   </div>
                 ) : null
               }

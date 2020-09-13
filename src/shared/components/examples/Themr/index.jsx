@@ -42,29 +42,29 @@ export default class Themr extends React.Component {
       <div styleName="style.container">
         <h1 styleName="style.title">
           <code>
-react-css-super-themr
+            react-css-super-themr
           </code>
           {' '}
-test/demo
+          test/demo
         </h1>
         <h3>
-Default theme
+          Default theme
         </h3>
         <ThemableComponent />
         <h3>
-Default theme + Parent-provided styling
+          Default theme + Parent-provided styling
         </h3>
         <ThemableComponent
           theme={style}
         />
         <h3>
-Default theme + Context styling
+          Default theme + Context styling
         </h3>
         <ThemeProvider theme={contextTheme}>
           <ThemableComponent />
         </ThemeProvider>
         <h3>
-Default theme + Context styling + Parent-provided styling
+          Default theme + Context styling + Parent-provided styling
         </h3>
         <ThemeProvider theme={contextTheme}>
           <ThemableComponent theme={style} />
@@ -88,25 +88,25 @@ Default theme + Context styling + Parent-provided styling
         </ThemeProvider>
 
         <h3>
-Test of nested theme providers.
+          Test of nested theme providers.
         </h3>
         <p>
           The external theme provider tries to set the same theme as in the
           &zwnj;
           <em>
-Default theme + Parent-provided styling
+            Default theme + Parent-provided styling
           </em>
           {' '}
-example, and
+          example, and
           the innter one tries to set the same theme as in
           the
           {' '}
           <em>
-Default theme + Context styling
+            Default theme + Context styling
             {' '}
           </em>
           {' '}
-example. The question is, which will win
+          example. The question is, which will win
           with the current version of react-css-super-themr?
         </p>
         <ThemeProvider theme={stateStyle}>

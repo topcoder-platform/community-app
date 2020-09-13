@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import loadImage from 'blueimp-load-image';
 
 
@@ -24,6 +24,7 @@ export default class ImageInput extends React.Component {
 
     this.state = {
       newBasicInfo: {},
+      isImageOversize: false,
     };
   }
 
@@ -71,6 +72,16 @@ export default class ImageInput extends React.Component {
     if (file === undefined) {
       return;
     }
+    if (file.size > 2 * 1024 * 1024) {
+      // If file size is greater than 2 MB, show error message
+      this.setState({
+        isImageOversize: true,
+      });
+      return;
+    }
+    this.setState({
+      isImageOversize: false,
+    });
     uploadPhotoInit();
     loadImage.parseMetaData(file, (data) => {
       let orientation = 0;
@@ -115,7 +126,7 @@ export default class ImageInput extends React.Component {
       deletingPhoto,
     } = profileState;
 
-    const { newBasicInfo } = this.state;
+    const { newBasicInfo, isImageOversize } = this.state;
 
     return (
       <div styleName="image">
@@ -144,27 +155,9 @@ export default class ImageInput extends React.Component {
               }
             </PrimaryButton>
             <input type="file" name="image" accept="image/*" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
-            {
-              newBasicInfo.photoURL
-              && (
-                <div>
-                  <Button
-                    onClick={this.onDeletePhoto}
-                    disabled={uploadingPhoto || deletingPhoto}
-                    theme={{ button: Styles['file-delete'] }}
-                  >
-                    {
-                      deletingPhoto && <i className="fa fa-spinner fa-spin" />
-                    }
-                    {
-                      !deletingPhoto && 'Delete avatar'
-                    }
-                  </Button>
-                </div>
-              )
-            }
           </div>
         </div>
+        {isImageOversize && <div styleName="error-message">Please select an image smaller than 2MB</div>}
       </div>
     );
   }

@@ -1,9 +1,15 @@
+/* eslint-disable */
+/* Datadog debugging */
+import ddTrace from 'dd-trace';
+
+ddTrace.init();
+
 import atob from 'atob';
 import Application from 'shared';
 import config from 'config';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
-import { logger } from 'topcoder-react-lib';
+import { logger, services } from 'topcoder-react-lib';
 import fs from 'fs';
 import moment from 'moment';
 import path from 'path';
@@ -20,11 +26,13 @@ import { toJson as xmlToJson } from 'utils/xml2json';
 import cdnRouter from './routes/cdn';
 import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
+import recruitCRMRouter from './routes/recruitCRM';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
 
 import webpackConfigFactory from '../../webpack.config';
+/* eslint-enable */
 
 global.atob = atob;
 
@@ -126,6 +134,7 @@ async function onExpressJsSetup(server) {
 
   server.use('/api/cdn', cdnRouter);
   server.use('/api/mailchimp', mailChimpRouter);
+  server.use('/api/recruit', recruitCRMRouter);
 
   // serve demo api
   server.use(
@@ -153,7 +162,7 @@ async function onExpressJsSetup(server) {
 
   /* Proxy endpoint for GET requests (to fetch data from resources prohibiting
    * cross-origin requests). */
-  server.use(
+  /*  server.use(
     '/community-app-assets/api/proxy-get',
     checkAuthorizationHeader, async (req, res, next) => {
       try {
@@ -165,6 +174,7 @@ async function onExpressJsSetup(server) {
       }
     },
   );
+  */
 
   /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
    * cross-origin requests). */

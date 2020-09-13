@@ -5,24 +5,30 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { BUCKETS, getBuckets, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+import { connect } from 'react-redux';
+import {
+  BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
+} from 'utils/challenge-listing/buckets';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
 import './style.scss';
 
-export default function Listing({
+const Filter = challengeUtils.filter;
+
+function Listing({
   activeBucket,
   auth,
   challenges,
+  challengeTypes,
+  userChallenges,
   challengesUrl,
   communityName,
   extraBucket,
   filterState,
   keepPastPlaceholders,
-  loadingDraftChallenges,
   loadingPastChallenges,
   loadingReviewOpportunities,
-  loadMoreDraft,
   loadMorePast,
   loadMoreReviewOpportunities,
   newChallengeDetails,
@@ -38,23 +44,35 @@ export default function Listing({
   sorts,
   expandedTags,
   expandTag,
+  pastSearchTimestamp,
+  isLoggedIn,
 }) {
-  const buckets = getBuckets(_.get(auth.user, 'handle'));
+  const buckets = getBuckets(userChallenges);
+  const isChallengesAvailable = (bucket) => {
+    const filter = Filter.getFilterFunction(buckets[bucket].filter);
+    const clonedChallenges = _.clone(challenges);
+    const filteredChallenges = [];
+    for (let i = 0; i < clonedChallenges.length; i += 1) {
+      if (filter(clonedChallenges[i])) {
+        filteredChallenges.push(clonedChallenges[i]);
+      }
+    }
+    return filteredChallenges.length > 0;
+  };
   const getBucket = (bucket, expanded = false) => {
     let keepPlaceholders = false;
     let loading;
     let loadMore;
+    let searchTimestamp;
     switch (bucket) {
       case BUCKETS.PAST:
         keepPlaceholders = keepPastPlaceholders;
         loading = loadingPastChallenges;
         loadMore = loadMorePast;
+        searchTimestamp = pastSearchTimestamp;
         break;
-      case BUCKETS.UPCOMING:
-        loading = loadingDraftChallenges;
-        loadMore = loadMoreDraft;
+      default:
         break;
-      default: break;
     }
     return (
       /* Review Opportunities use a different Bucket, Card and data source than normal challenges
@@ -74,6 +92,8 @@ export default function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
+            challengeTypes={challengeTypes}
+            isLoggedIn={isLoggedIn}
           />
         )
         : (
@@ -81,6 +101,7 @@ export default function Listing({
             bucket={buckets[bucket]}
             bucketId={bucket}
             challenges={challenges}
+            challengeTypes={challengeTypes}
             challengesUrl={challengesUrl}
             communityName={communityName}
             expand={() => selectBucket(bucket)}
@@ -99,7 +120,10 @@ export default function Listing({
             setFilterState={setFilterState}
             setSort={sort => setSort(bucket, sort)}
             sort={sorts[bucket]}
-            userHandle={_.get(auth, 'user.handle')}
+            userId={_.get(auth, 'user.userId')}
+            activeBucket={activeBucket}
+            searchTimestamp={searchTimestamp}
+            isLoggedIn={isLoggedIn}
           />
         )
     );
@@ -114,6 +138,20 @@ export default function Listing({
     );
   }
 
+  let isFilled = isChallengesAvailable(BUCKETS.OPEN_FOR_REGISTRATION)
+  || isChallengesAvailable(BUCKETS.ONGOING);
+  if (auth.user) {
+    isFilled = isFilled || isChallengesAvailable(BUCKETS.MY);
+  }
+  if (!isFilled) {
+    return (
+      <div styleName="challengeCardContainer">
+        <div styleName="no-results">
+          {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+        </div>
+      </div>
+    );
+  }
   return (
     <div styleName="challengeCardContainer">
       {preListingMsg}
@@ -121,24 +159,19 @@ export default function Listing({
       {extraBucket ? getBucket(extraBucket) : null}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
-      {/* NOTE: We do not show upcoming challenges for now, for various reasons,
-        * more political than technical ;)
-        getBucket(BUCKETS.UPCOMING) */
-      }
-      { /* getBucket(BUCKETS.PAST) */ }
     </div>
   );
 }
 
 Listing.defaultProps = {
   challenges: [],
+  challengeTypes: [],
   communityName: null,
   // currentFilterName: '',
   // expanded: false,
   expandedTags: [],
   expandTag: null,
   extraBucket: null,
-  loadMoreDraft: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
   preListingMsg: null,
@@ -146,6 +179,8 @@ Listing.defaultProps = {
   // onTechTagClicked: _.noop,
   // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
+  pastSearchTimestamp: 0,
+  userChallenges: [],
 };
 
 Listing.propTypes = {
@@ -153,10 +188,11 @@ Listing.propTypes = {
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
-      handle: PT.string,
+      userId: PT.string,
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),
+  challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
@@ -164,10 +200,8 @@ Listing.propTypes = {
   extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
-  loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
-  loadMoreDraft: PT.func,
   loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
@@ -181,4 +215,22 @@ Listing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
+  pastSearchTimestamp: PT.number,
+  userChallenges: PT.arrayOf(PT.string),
+  isLoggedIn: PT.bool.isRequired,
 };
+
+const mapStateToProps = (state) => {
+  const cl = state.challengeListing;
+  return {
+    allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    pastSearchTimestamp: cl.pastSearchTimestamp,
+    challengeTypes: cl.challengeTypes,
+  };
+};
+
+const ListingContainer = connect(
+  mapStateToProps,
+)(Listing);
+
+export default ListingContainer;

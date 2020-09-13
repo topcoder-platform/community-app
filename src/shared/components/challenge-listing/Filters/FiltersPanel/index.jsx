@@ -27,7 +27,7 @@ import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
-import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
+import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
@@ -49,13 +49,13 @@ export default function FiltersPanel({
   auth,
   isReviewOpportunitiesBucket,
   onClose,
-  onSaveFilter,
+  // onSaveFilter,
   selectCommunity,
   selectedCommunityId,
   setFilterState,
   setSearchText,
   validKeywords,
-  validSubtracks,
+  validTypes,
   isSavingFilter,
 }) {
   let className = 'FiltersPanel';
@@ -75,7 +75,8 @@ export default function FiltersPanel({
       );
     }
 
-    const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
+    // eslint-disable-next-line max-len
+    const visitorGroupIds = (auth.profile && auth.profile.groups) ? auth.profile.groups.map(g => g.id) : [];
     const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,
@@ -84,7 +85,7 @@ export default function FiltersPanel({
     const registrationStatus = visitorRegisteredToCommunity
       ? (
         <div>
-Registered
+          Registered
         </div>
       )
       : (
@@ -92,10 +93,10 @@ Registered
           You are
           {' '}
           <span styleName="bold uppercase">
-not
+            not
           </span>
           {' '}
-registered.
+          registered.
           <Link
             onMouseDown={(e) => {
               const url = community.mainSubdomain ? (
@@ -154,20 +155,20 @@ registered.
           content={(
             <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
               <p>
-You are
+                You are
                 { !visitorRegisteredToCommunity && (
                 <span styleName="bold">
-NOT
+                  NOT
                 </span>
                 )}
                 {' '}
-registered for this sub community.
+                registered for this sub community.
               </p>
               <p>
-There are
+                There are
                 {challengesInCommunity}
                 {' '}
-challenges in this sub community
+                challenges in this sub community
               </p>
             </div>
 )}
@@ -180,9 +181,10 @@ challenges in this sub community
 
   const communityOps = communityFilters.filter(community => !community.hidden)
     .map(community => ({
-      label: getLabel(community),
+      label: community.communityName,
       value: community.communityId,
       name: community.communityName,
+      data: getLabel(community),
     }));
 
   const disableClearSaveFilterButtons = isSavingFilter || (
@@ -191,12 +193,12 @@ challenges in this sub community
   );
 
   const mapOps = item => ({ label: item, value: item });
-  const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
+  const mapTypes = item => ({ label: item.name, value: item.id });
   return (
     <div styleName={className}>
       <div styleName="header">
         <span styleName="title">
-Filters
+          Filters
         </span>
         <span
           styleName="close-icon"
@@ -210,9 +212,11 @@ Filters
         <div styleName="filter-row">
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">
-Keywords
+              Keywords
+              <input type="hidden" />
             </label>
             <Select
+              placeholder="Select Keywords"
               id="keyword-select"
               multi
               onChange={(value) => {
@@ -226,7 +230,8 @@ Keywords
           </div>
           <div styleName="filter community">
             <label htmlFor="community-select">
-Sub community
+              Sub community
+              <input type="hidden" />
             </label>
             <Select
               autoBlur
@@ -246,21 +251,24 @@ Sub community
         </div>
         <div styleName="filter-row">
           <div styleName="filter track">
-            <label htmlFor="track-select" styleName="left-label">
-Subtrack
+            <label htmlFor="type-select" styleName="left-label">
+              Type
+              <input type="hidden" />
             </label>
             <Select
-              id="track-select"
+              placeholder="Select Type"
+              id="type-select"
               multi
               onChange={(value) => {
-                const subtracks = value ? value.split(',') : undefined;
-                setFilterState(Filter.setSubtracks(filterState, subtracks));
+                const types = value ? value.split(',') : undefined;
+                setFilterState(Filter.setTypes(filterState, types));
               }}
-              options={validSubtracks.map(mapSubtracks)}
+              options={validTypes.map(mapTypes)}
               simpleValue
               value={
-                filterState.subtracks ? filterState.subtracks.join(',') : null
+                (filterState.types && !isReviewOpportunitiesBucket) ? filterState.types.join(',') : null
               }
+              disabled={isReviewOpportunitiesBucket}
             />
           </div>
           {/* Only shown when the Review Opportunity bucket is selected */}
@@ -268,7 +276,8 @@ Subtrack
             ? (
               <div styleName="filter review-type">
                 <label htmlFor="review-type-select">
-Review Type
+                  Review Type
+                  <input type="hidden" />
                 </label>
                 <Select
                   autoBlur
@@ -290,7 +299,8 @@ Review Type
           }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
-Date range
+              Date range
+              <input type="hidden" />
             </label>
             <DateRangePicker
               numberOfMonths={1}
@@ -310,7 +320,8 @@ Date range
           </div>
           <div styleName="filter dates hideonemonthdatepicker">
             <label htmlFor="date-range-picker-two-months">
-Date range
+              Date range
+              <input type="hidden" />
             </label>
             <DateRangePicker
               numberOfMonths={2}
@@ -338,21 +349,22 @@ Date range
             setFilterState({});
             selectCommunity(defaultCommunityId);
             setSearchText('');
+            localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >
-Clear filters
+          Clear filters
         </Button>
-        <PrimaryButton
+        {/* <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
           theme={{ button: style.button }}
         >
-Save filter
-        </PrimaryButton>
+          Save filter
+        </PrimaryButton> */}
       </div>
     </div>
   );
@@ -364,7 +376,7 @@ FiltersPanel.defaultProps = {
   isAuth: false,
   isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
-  onSaveFilter: _.noop,
+  // onSaveFilter: _.noop,
   onClose: _.noop,
 };
 
@@ -381,12 +393,12 @@ FiltersPanel.propTypes = {
   auth: PT.shape().isRequired,
   isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
-  onSaveFilter: PT.func,
+  // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.shape()).isRequired,
+  validTypes: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
 };

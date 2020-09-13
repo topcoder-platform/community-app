@@ -7,6 +7,7 @@
  */
 import React from 'react';
 import PT from 'prop-types';
+import ReactHtmlParser from 'react-html-parser';
 
 import './styles.scss';
 
@@ -25,7 +26,7 @@ export default function ToggleableItem({
           {primaryText}
         </p>
         <p styleName="secondary">
-          {secondaryText}
+          {ReactHtmlParser(secondaryText)}
         </p>
       </div>
       <div className="onoffswitch" styleName="onoffswitch-no-padding-right">
@@ -41,6 +42,7 @@ export default function ToggleableItem({
         <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
           <span className="onoffswitch-inner" />
           <span className="onoffswitch-switch" />
+          <input type="hidden" />
         </label>
       </div>
       <div className="onoffswitch-mobile" styleName="onoffswitch-no-padding-right">
@@ -56,6 +58,7 @@ export default function ToggleableItem({
         <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
           <span className="onoffswitch-inner" />
           <span className="onoffswitch-switch" />
+          <input type="hidden" />
         </label>
       </div>
     </div>
