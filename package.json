@@ -138,7 +138,7 @@
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3",
     "tc-ui": "^1.0.12",
     "topcoder-react-lib": "1.0.4",
-    "topcoder-react-ui-kit": "2.0.0",
+    "topcoder-react-ui-kit": "1000.1.0",
     "topcoder-react-utils": "0.7.8",
     "turndown": "^4.0.2",
     "url-parse": "^1.4.1",

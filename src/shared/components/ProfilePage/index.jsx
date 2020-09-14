@@ -192,7 +192,7 @@ class ProfilePage extends React.Component {
                     info={info}
                     onShowBadges={() => this.setState({ badgesModalOpen: true })}
                     showBadgesButton={achievements && achievements.length > 0}
-                    wins={_.get(stats, 'wins', 0)}
+                    wins={_.get((stats && stats[0]) || {}, 'wins', 0)}
                   />
                 </div>
               </Sticky>
