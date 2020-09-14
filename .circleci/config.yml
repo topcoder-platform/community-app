@@ -230,6 +230,7 @@ workflows:
           filters:
             branches:
               only:
+                - milestone-20200924
                 - develop
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -260,8 +261,7 @@ workflows:
           filters:
             branches:
               only:
-                - milestone-v1.3
-                - milestone-20200910
+                - milestone-20200924
                 - develop
       # Production builds are exectuted 
       # when PR is merged to the master
