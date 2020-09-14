@@ -111,10 +111,8 @@ const processPastChallenge = (challenge) => {
 class SubTrackChallengeView extends React.Component {
   constructor(props, context) {
     super(props, context);
-    // this is current page number. starts with 0.
-    // everytime we scroll at the bottom, we query from offset = pageNum * CHALLENGE_PER_PAGE
     this.state = {
-      // this is current page number. starts with 0.
+      // this is current page number. starts with 1.
       // everytime we scroll at the bottom, we query from offset = pageNum * CHALLENGE_PER_PAGE
       pageNum: 1,
       // which challenge's modal should be poped. null means no modal
@@ -150,7 +148,7 @@ class SubTrackChallengeView extends React.Component {
           handle,
           auth.tokenV3,
           track, subTrack,
-          0,
+          pageNum,
           CHALLENGE_PER_PAGE,
           true,
           userId,
@@ -159,7 +157,8 @@ class SubTrackChallengeView extends React.Component {
     } else if (track === 'DATA_SCIENCE') {
       if (subTrack === 'SRM') {
         if (!loadingSRMUUID) {
-          loadSRM(handle, auth.tokenV3, 0, CHALLENGE_PER_PAGE, true);
+          // pageNum - 1 to match with v4 offset
+          loadSRM(handle, auth.tokenV3, pageNum - 1, CHALLENGE_PER_PAGE, true);
         }
       } else if (subTrack === 'MARATHON_MATCH') {
         if (!loadingMarathonUUID) {
@@ -208,7 +207,7 @@ class SubTrackChallengeView extends React.Component {
     } else if (track === 'DATA_SCIENCE') {
       if (subTrack === 'SRM') {
         if (!loadingSRMUUID) {
-          loadSRM(handle, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
+          loadSRM(handle, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, false);
           this.setState({ pageNum: pageNum + 1 });
         }
       } else if (subTrack === 'MARATHON_MATCH') {
@@ -249,7 +248,7 @@ class SubTrackChallengeView extends React.Component {
       userId,
     } = this.props;
 
-    if (pageNum === 0
+    if (pageNum === 1
         && (loadingSubTrackChallengesUUID || loadingSRMUUID || loadingMarathonUUID)) {
       return <LoadingIndicator />;
     }
