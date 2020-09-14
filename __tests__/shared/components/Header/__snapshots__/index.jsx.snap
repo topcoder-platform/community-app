@@ -2,7 +2,7 @@
 
 exports[`Default render 1`] = `
 <div
-  className="src-shared-components-Header-___style__nav-header-wrapper___2HtiH"
+  className="src-shared-components-Header-___style__nav-header-wrapper___3oH9J"
 >
   <TopNav
     loggedIn={true}
