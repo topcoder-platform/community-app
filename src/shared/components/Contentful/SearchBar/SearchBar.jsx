@@ -455,6 +455,7 @@ export class SearchBarInner extends Component {
           contentAuthor: contentAuthor.fields,
           externalArticle: fields.externalArticle,
           contentUrl: fields.contentUrl,
+          slug: fields.slug,
         };
       }),
       'type',
