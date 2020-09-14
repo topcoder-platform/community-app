@@ -3,7 +3,7 @@
  */
 
 import moment from 'moment';
-import { find, sumBy } from 'lodash';
+import { find, sumBy, isEmpty } from 'lodash';
 import { phaseStartDate, phaseEndDate } from './helper';
 
 export const SORTS = {
@@ -59,7 +59,7 @@ export default {
         const registrationPhase = find(challenge.phases, p => p.name === 'Registration') || {};
         const submissionPhase = find(challenge.phases, p => p.name === 'Submission') || {};
         // registration phase exists
-        if (registrationPhase) {
+        if (!isEmpty(registrationPhase)) {
           return moment(phaseStartDate(registrationPhase));
         }
         // registration phase doesnt exist, This is possibly a F2F or TSK. Take submission phase
