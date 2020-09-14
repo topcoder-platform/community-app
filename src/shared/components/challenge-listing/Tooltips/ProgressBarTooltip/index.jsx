@@ -97,9 +97,9 @@ function Tip(props) {
 
   const allPhases = c.phases || [];
   const endPhaseDate = Math.max(...allPhases.map(d => phaseEndDate(d)));
-  const registrationPhase = allPhases.find(phase => phase.name === 'Registration');
-  const submissionPhase = allPhases.find(phase => phase.name === 'Submission');
-  const checkpointPhase = allPhases.find(phase => phase.name === 'Checkpoint Submission');
+  const registrationPhase = allPhases.find(phase => phase.name === 'Registration') || {};
+  const submissionPhase = allPhases.find(phase => phase.name === 'Submission') || {};
+  const checkpointPhase = allPhases.find(phase => phase.name === 'Checkpoint Submission') || {};
 
   if (registrationPhase) {
     steps.push({

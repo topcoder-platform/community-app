@@ -56,8 +56,8 @@ export default {
       const getChallengeStartDate = (challenge) => {
         // extract the phases from `challenge.phases`,
         // as `challenge.registrationStartDate` returned from API is not reliable
-        const registrationPhase = find(challenge.phases, p => p.name === 'Registration');
-        const submissionPhase = find(challenge.phases, p => p.name === 'Submission');
+        const registrationPhase = find(challenge.phases, p => p.name === 'Registration') || {};
+        const submissionPhase = find(challenge.phases, p => p.name === 'Submission') || {};
         // registration phase exists
         if (registrationPhase) {
           return moment(phaseStartDate(registrationPhase));
