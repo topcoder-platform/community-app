@@ -93,6 +93,10 @@ function Routes({ communityId }) {
           component={() => <TrackHomePages base="/community" />}
           path="/community/(competitive-programming|data-science|design|development|qa)/how-to-compete"
         />
+        <Redirect
+          from="/community/gigs"
+          to="/gigs"
+        />
         <Route
           component={PolicyPages}
           exact
