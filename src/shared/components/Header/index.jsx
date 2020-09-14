@@ -5,6 +5,8 @@ import { config } from 'topcoder-react-utils';
 import Logo from 'assets/images/tc-logo.svg';
 import { tracking } from '../../actions';
 
+import './style.scss';
+
 let TopNavRef;
 let LoginNavRef;
 
@@ -69,7 +71,7 @@ const Header = ({
 
   if (TopNavRef) {
     return (
-      <div style={{ zIndex: 2 }}>
+      <div styleName="nav-header-wrapper">
         <TopNavRef
           menu={headerMenu || config.HEADER_MENU}
           rightMenu={(

@@ -2,11 +2,7 @@
 
 exports[`Default render 1`] = `
 <div
-  style={
-    Object {
-      "zIndex": 2,
-    }
-  }
+  className="src-shared-components-Header-___style__nav-header-wrapper___2HtiH"
 >
   <TopNav
     loggedIn={true}
