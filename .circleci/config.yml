@@ -230,6 +230,7 @@ workflows:
           filters:
             branches:
               only:
+                - milestone-20200917
                 - develop
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -251,6 +252,7 @@ workflows:
           filters:
             branches:
               only:
+                - integration-v5-challenge-api
                 - hot-fix
       # This is stage env for production QA releases
       - "build-prod-staging":
@@ -258,7 +260,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature-contentful
+                - develop
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

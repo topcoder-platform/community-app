@@ -346,8 +346,8 @@ class Service {
         query.query = tags.join(' ');
       }
     }
-    if (startDate) query['sys.createdAt[gte]'] = startDate;
-    if (endDate) query['sys.createdAt[lte]'] = endDate;
+    if (startDate) query['fields.creationDate[gte]'] = startDate;
+    if (endDate) query['fields.creationDate[lte]'] = endDate;
     if (phrase) query.query = phrase;
     if (title) query['fields.title[match]'] = title;
     const content = {};

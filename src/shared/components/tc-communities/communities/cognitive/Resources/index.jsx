@@ -24,7 +24,6 @@ import MsgsSvg from
 import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 
 import FaqItem from './FaqItem';
-import NewsSignup from '../NewsSignup';
 
 import style from './style.scss';
 
@@ -324,7 +323,6 @@ export default function Resources({
           </div>
         </div>
       </div>
-      <NewsSignup />
     </main>
   );
 }
