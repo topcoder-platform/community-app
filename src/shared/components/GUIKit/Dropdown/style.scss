@@ -1,27 +1,215 @@
+@import '~components/GUIKit/Assets/Styles/default';
+
+.label {
+  @include textInputLabel;
+}
+
+.relative {
+  position: relative;
+}
+
+.errorMessage {
+  @include errorMessage;
+}
+
+.iconDropdown {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  pointer-events: none;
+  margin-top: -4px;
+}
+
 .container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+
+  &.haveValue .label,
+  &.isFocused .label {
+    display: flex;
+  }
+
+  &.isFocused {
+    .label {
+      color: $tc-level-2;
+    }
+
+    .iconDropdown {
+      transform: scale(1, -1);
+    }
+  }
+
+  &.haveError .label,
+  &.haveError.isFocused .label {
+    color: $tc-level-5;
+  }
+
   :global {
     @import '~react-select/dist/react-select';
 
     width: 100%;
 
-    input.Select-input,
-    input.Select-input:focus {
-      background-color: transparent !important;
-      margin-left: 0 !important;
-      padding-right: 6px !important;
-      color: red;
+    .Select-control {
+      margin: 0;
+      padding: 0;
+      border: 1px solid $tc-gray-30 !important;
+      border-radius: 6px !important;
+      height: 52px;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .Select-input {
+      input {
+        font-size: 16px;
+        padding: 0;
+        height: 22px;
+        line-height: 22px;
+      }
+    }
+
+    .Select-value {
+      .Select-value-label {
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+      }
+    }
+
+    .Select-placeholder,
+    .Select-value,
+    .Select-input {
+      padding: 0 15px !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .Select-placeholder {
+      color: $tc-gray-30;
+      opacity: 1;
+      text-transform: none;
+      font-size: 16px;
     }
 
     .Select-multi-value-wrapper {
       width: 100% !important;
+      height: 100% !important;
+    }
+
+    .Select-arrow-zone {
+      padding-right: 15px !important;
+
+      .Select-arrow {
+        background-image: none;
+        border: none;
+        width: 15px;
+        height: 9px;
+        background-size: 15px 9px;
+        top: 0 !important;
+        border-width: 0 !important;
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .Select {
+      &.is-open {
+        .Select-arrow-zone {
+          .Select-arrow {
+            transform: scale(1, -1);
+          }
+        }
+      }
+    }
+
+    .Select-menu-outer {
+      top: calc(100% + 2px) !important;
+      border: 1px solid $tc-gray-30 !important;
+      border-radius: 0 !important;
+      max-height: 269px;
+      z-index: 7;
+
+      .Select-menu {
+        max-height: 269px;
+
+        .Select-option {
+          padding: 0 15px !important;
+          font-size: 16px !important;
+          line-height: 30px !important;
+          color: $tc-gray-90 !important;
+          background-color: transparent !important;
+
+          &.is-selected {
+            font-weight: bold !important;
+          }
+
+          &:hover {
+            background-color: $tc-level-2 !important;
+            color: $tc-white !important;
+          }
+        }
+      }
     }
   }
 
-  .label {
-    position: relative;
+  &.haveError {
+    :global {
+      .Select-control {
+        border: 2px solid $tc-level-5 !important;
+      }
+    }
   }
 
-  .active-option {
-    color: red;
+  // lg size
+  &.lgSize {
+    :global {
+      .Select-control {
+        height: 52px;
+      }
+    }
+  }
+
+  // xs size
+  &.xsSize {
+    :global {
+      .Select-control {
+        height: 40px;
+      }
+
+      .Select-input {
+        input {
+          font-size: 14px;
+        }
+      }
+
+      .Select-value {
+        .Select-value-label {
+          font-size: 14px;
+        }
+      }
+
+      .Select-placeholder {
+        font-size: 14px;
+      }
+
+      .Select-menu-outer {
+        * {
+          font-size: 14px !important;
+        }
+
+        .Select-menu {
+          .Select-option {
+            font-size: 14px !important;
+          }
+        }
+      }
+    }
+
+    .errorMessage {
+      @include errorMessageXs;
+    }
   }
 }

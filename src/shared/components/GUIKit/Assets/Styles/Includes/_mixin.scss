@@ -1,0 +1,72 @@
+@mixin textInputLabel {
+  font-size: 12px;
+  line-height: 24px;
+  background-color: $tc-white;
+  position: absolute;
+  top: 0;
+  left: 8px;
+  padding: 0 8px;
+  color: $tc-gray-30;
+  display: none;
+}
+
+@mixin textInput {
+  border: 1px solid $tc-gray-30;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 15px;
+  margin-bottom: 0;
+  margin-top: 12px;
+
+  &::-webkit-input-placeholder {
+    /* Edge */
+    color: $tc-gray-30;
+    opacity: 1;
+    text-transform: none;
+    font-size: 16px;
+  }
+
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $tc-gray-30;
+    opacity: 1;
+    text-transform: none;
+    font-size: 16px;
+  }
+
+  &::placeholder {
+    color: $tc-gray-30;
+    opacity: 1;
+    text-transform: none;
+    font-size: 16px;
+  }
+}
+
+@mixin textInputXs {
+  font-size: 14px;
+
+  &::-webkit-input-placeholder {
+    /* Edge */
+    font-size: 14px;
+  }
+
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 14px;
+  }
+
+  &::placeholder {
+    font-size: 14px;
+  }
+}
+
+@mixin errorMessage {
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+@mixin errorMessageXs {
+  margin-top: 8px;
+}
