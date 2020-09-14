@@ -56,6 +56,7 @@ export class SearchBarInner extends Component {
     this.getSuggestionList = this.getSuggestionList.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     // using debounce to avoid processing or requesting too much
     this.updateSuggestionListWithNewSearch = _.debounce(
       this.updateSuggestionListWithNewSearch.bind(this), 400,
@@ -69,6 +70,29 @@ export class SearchBarInner extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  onKeyDown(e) {
+    const { inputlVal, selectedFilter } = this.state;
+    if (inputlVal && e.which === 13) {
+      const searchQuery = {};
+      if (this.searchFieldRef && this.searchFieldRef.value) {
+        if (selectedFilter.name === 'Tags') {
+          searchQuery.tags = [this.searchFieldRef.value];
+        }
+        if (selectedFilter.name === 'All') {
+          searchQuery.phrase = this.searchFieldRef.value;
+        }
+        if (selectedFilter.name === 'Title') {
+          searchQuery.title = this.searchFieldRef.value;
+        }
+      }
+      if (selectedFilter.name !== 'Author') {
+        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify(searchQuery)}`;
+      } else {
+        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?author=${inputlVal}`;
+      }
+    }
   }
 
   /**
@@ -136,6 +160,7 @@ export class SearchBarInner extends Component {
       isShowSuggestion,
       suggestionList,
       selectedFilter,
+      noResults,
     } = this.state;
 
     const searchQuery = {};
@@ -151,7 +176,8 @@ export class SearchBarInner extends Component {
       }
     }
 
-    return (suggestionList && !_.isEmpty(suggestionList) && isShowSuggestion && (
+    // eslint-disable-next-line no-nested-ternary
+    return suggestionList && !_.isEmpty(suggestionList) && isShowSuggestion ? (
       <div
         className={theme['popup-search-result']}
         ref={this.setPopupSearchResultRef}
@@ -319,7 +345,14 @@ export class SearchBarInner extends Component {
           ) : null
         }
       </div>
-    ));
+    ) : noResults ? (
+      <div
+        className={theme['popup-search-result']}
+        ref={this.setPopupSearchResultRef}
+      >
+        <span>No Results</span>
+      </div>
+    ) : null;
   }
 
   handleClickOutside(e) {
@@ -379,7 +412,10 @@ export class SearchBarInner extends Component {
         .then((results) => {
           // Nothing found?
           if (!results.total) {
-            this.setState({ suggestionList: {} });
+            this.setState({
+              suggestionList: {},
+              noResults: true,
+            });
             return;
           }
           // Author query?
@@ -387,7 +423,7 @@ export class SearchBarInner extends Component {
             const suggestionList = {
               Author: _.map(results.items, item => ({ ...item.fields })),
             };
-            this.setState({ suggestionList });
+            this.setState({ suggestionList, noResults: false });
             return;
           }
           // ALL && Tags
@@ -395,7 +431,7 @@ export class SearchBarInner extends Component {
           this.setState({ suggestionList });
         });
     } else {
-      this.setState({ suggestionList: {} });
+      this.setState({ suggestionList: {}, noResults: false });
     }
   }
 
@@ -471,6 +507,7 @@ export class SearchBarInner extends Component {
               document.addEventListener('mousedown', this.handleClickOutside);
             }}
             onChange={this.handleSearchChange}
+            onKeyDown={this.onKeyDown}
           />
           <div className={theme.dropdown}>
             <button

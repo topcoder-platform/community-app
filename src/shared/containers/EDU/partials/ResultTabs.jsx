@@ -162,7 +162,7 @@ export default class ResultTabs extends React.Component {
                   ]}
                 />
               ))
-            ) : (<h3>Nothing Found</h3>)
+            ) : (<h3>No results found</h3>)
           }
           {
             articles.total > articles.items.length ? (
@@ -193,7 +193,7 @@ export default class ResultTabs extends React.Component {
                   ))
                 }
               </div>
-            ) : (<h3>Nothing Found</h3>)
+            ) : (<h3>No results found</h3>)
           }
           {
             videos.total > videos.items.length ? (
@@ -225,7 +225,7 @@ export default class ResultTabs extends React.Component {
                   />
                 );
               })
-            ) : (<h3>Nothing Found</h3>)
+            ) : (<h3>No results found</h3>)
           }
           {
             posts.total > posts.items.length ? (
