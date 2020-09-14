@@ -101,13 +101,13 @@ function Tip(props) {
   const submissionPhase = allPhases.find(phase => phase.name === 'Submission') || {};
   const checkpointPhase = allPhases.find(phase => phase.name === 'Checkpoint Submission') || {};
 
-  if (registrationPhase) {
+  if (!_.isEmpty(registrationPhase)) {
     steps.push({
       date: phaseStartDate(registrationPhase),
       name: 'Start',
     });
   }
-  if (checkpointPhase) {
+  if (!_.isEmpty(checkpointPhase)) {
     steps.push({
       date: phaseEndDate(checkpointPhase),
       name: 'Checkpoint',
@@ -119,7 +119,7 @@ function Tip(props) {
       date: phaseEndDate(iterativeReviewPhase),
       name: 'Iterative Review',
     });
-  } else if (submissionPhase) {
+  } else if (!_.isEmpty(submissionPhase)) {
     steps.push({
       date: phaseEndDate(submissionPhase),
       name: 'Submission',
