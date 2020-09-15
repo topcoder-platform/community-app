@@ -230,6 +230,7 @@ workflows:
           filters:
             branches:
               only:
+                - milestone-20200924
                 - develop
       # This is alternate dev env for parallel testing
       - "build-test":
