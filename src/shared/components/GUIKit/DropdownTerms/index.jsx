@@ -47,6 +47,8 @@ function DropdownTerms({
       selectInput[0].style.top = focused ? `${height1 + height2 - 1}px` : '0';
       inputField = selectInput[0].getElementsByTagName('input');
       inputField[0].placeholder = focused ? addNewOptionPlaceholder : '';
+      inputField[0].style.border = 'none';
+      inputField[0].style.boxShadow = 'none';
     }
   }, [focused, selectedOption]);
 

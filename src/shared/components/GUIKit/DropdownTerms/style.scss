@@ -51,7 +51,7 @@
       padding: 0 !important;
       border-radius: 5px !important;
       font-size: 12 !important;
-      color: $tc-gray-90 !important;
+      color: $gui-kit-gray-90 !important;
       padding-left: 7px !important;
       margin-top: 0 !important;
       margin-bottom: 5px !important;
@@ -64,7 +64,7 @@
         border-right: none !important;
         padding: 0 7px !important;
         margin: 0 !important;
-        color: $tc-gray-90 !important;
+        color: $gui-kit-gray-90 !important;
         background: transparent !important;
       }
 
@@ -74,8 +74,9 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: $tc-gray-90 !important;
+        color: $gui-kit-gray-90 !important;
         text-decoration: none !important;
+        font-size: 12px;
       }
     }
 
@@ -107,7 +108,7 @@
       .Select-input {
         background: $tc-white;
         height: 40px !important;
-        border: 1px solid $tc-gray-30;
+        border: 1px solid $gui-kit-gray-30;
         right: -1px;
         left: -1px;
         cursor: auto;
@@ -119,7 +120,7 @@
 
           &::-webkit-input-placeholder {
             /* Edge */
-            color: $tc-gray-30;
+            color: $gui-kit-gray-30;
             opacity: 1;
             text-transform: none;
             font-size: 16px;
@@ -127,14 +128,14 @@
 
           &:-ms-input-placeholder {
             /* Internet Explorer 10-11 */
-            color: $tc-gray-30;
+            color: $gui-kit-gray-30;
             opacity: 1;
             text-transform: none;
             font-size: 16px;
           }
 
           &::placeholder {
-            color: $tc-gray-30;
+            color: $gui-kit-gray-30;
             opacity: 1;
             text-transform: none;
             font-size: 16px;

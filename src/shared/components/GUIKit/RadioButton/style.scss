@@ -7,7 +7,7 @@
   left: 0;
   background-color: $tc-white;
   border-radius: 50%;
-  border: 1px solid $tc-gray-30;
+  border: 1px solid $gui-kit-gray-30;
 
   /* Create the indicator (the dot/circle - hidden when not checked) */
   &::after {
@@ -44,7 +44,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: $tc-gray-90;
+  color: $gui-kit-gray-90;
 
   /* Hide the browser's default radio button */
   input {
@@ -54,7 +54,7 @@
 
     /* When the radio button is checked, add a blue background */
     &:checked ~ .checkmark {
-      background-color: $tc-level-2;
+      background-color: $gui-kit-level-2;
       box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.29);
       border: none;
 

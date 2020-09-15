@@ -15,7 +15,7 @@
   }
 
   &.isFocused .label {
-    color: $tc-level-2;
+    color: $gui-kit-level-2;
   }
 
   &.haveError .label,
@@ -64,7 +64,7 @@
         top: 64px !important;
 
         .DayPicker__withBorder {
-          border: 1px solid $tc-gray-30;
+          border: 1px solid $gui-kit-gray-30;
           box-shadow: 2px 2px 3px 0 $tc-gray-neutral-light;
           overflow: hidden;
         }
@@ -79,7 +79,7 @@
 
           svg {
             path {
-              fill: $tc-level-2;
+              fill: $gui-kit-level-2;
             }
           }
 
@@ -115,7 +115,7 @@
           .DayPicker_weekHeader_ul {
             .DayPicker_weekHeader_li {
               small {
-                color: $tc-gray-90;
+                color: $gui-kit-gray-90;
                 font-weight: 500 !important;
               }
             }
@@ -157,7 +157,7 @@
                             background: transparent !important;
 
                             div {
-                              background: $tc-level-2;
+                              background: $gui-kit-level-2;
                             }
                           }
 

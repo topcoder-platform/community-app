@@ -33,7 +33,7 @@
 
   &.isFocused {
     .label {
-      color: $tc-level-2;
+      color: $gui-kit-level-2;
     }
 
     .iconDropdown {
@@ -54,7 +54,7 @@
     .Select-control {
       margin: 0;
       padding: 0;
-      border: 1px solid $tc-gray-30 !important;
+      border: 1px solid $gui-kit-gray-30 !important;
       border-radius: 6px !important;
       height: 52px;
       outline: none !important;
@@ -67,6 +67,11 @@
         padding: 0;
         height: 22px;
         line-height: 22px;
+
+        &:focus {
+          border: none;
+          box-shadow: none;
+        }
       }
     }
 
@@ -88,7 +93,7 @@
     }
 
     .Select-placeholder {
-      color: $tc-gray-30;
+      color: $gui-kit-gray-30;
       opacity: 1;
       text-transform: none;
       font-size: 16px;
@@ -127,7 +132,7 @@
 
     .Select-menu-outer {
       top: calc(100% + 2px) !important;
-      border: 1px solid $tc-gray-30 !important;
+      border: 1px solid $gui-kit-gray-30 !important;
       border-radius: 0 !important;
       max-height: 269px;
       z-index: 7;
@@ -139,7 +144,7 @@
           padding: 0 15px !important;
           font-size: 16px !important;
           line-height: 30px !important;
-          color: $tc-gray-90 !important;
+          color: $gui-kit-gray-90 !important;
           background-color: transparent !important;
 
           &.is-selected {
@@ -147,7 +152,7 @@
           }
 
           &:hover {
-            background-color: $tc-level-2 !important;
+            background-color: #229173 !important;
             color: $tc-white !important;
           }
         }
@@ -169,6 +174,12 @@
       .Select-control {
         height: 52px;
       }
+
+      .Select-input {
+        input {
+          height: 52px;
+        }
+      }
     }
   }
 
@@ -182,6 +193,7 @@
       .Select-input {
         input {
           font-size: 14px;
+          height: 40px;
         }
       }
 

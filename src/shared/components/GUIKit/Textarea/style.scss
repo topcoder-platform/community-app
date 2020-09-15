@@ -25,7 +25,7 @@
     }
 
     &:focus ~ label {
-      color: $tc-level-2;
+      color: $gui-kit-level-2;
     }
 
     &.haveError ~ label,

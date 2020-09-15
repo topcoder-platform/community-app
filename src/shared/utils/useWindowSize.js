@@ -11,7 +11,10 @@ export default function useWindowSize() {
   });
 
   function changeWindowSize() {
-    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    setWindowSize({
+      width: isSSR ? window.innerWidth : 1200,
+      height: isSSR ? window.innerHeight : 800,
+    });
   }
 
   React.useEffect(() => {
