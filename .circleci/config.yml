@@ -230,7 +230,7 @@ workflows:
           filters:
             branches:
               only:
-                - milestone-20200917
+                - milestone-20200924
                 - develop
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -238,6 +238,7 @@ workflows:
           filters:
             branches:
               only:                
+                - hot-fix-ad-code
                 - feature-contentful
       # This is alternate dev env for parallel testing
       - "build-qa":

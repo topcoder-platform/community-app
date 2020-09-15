@@ -58,7 +58,7 @@ exports[`renders a full Profile correctly 1`] = `
               }
               onShowBadges={[Function]}
               showBadgesButton={true}
-              wins={3}
+              wins={0}
             />
           </div>
         </Sticky>
