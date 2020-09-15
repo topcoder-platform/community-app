@@ -111,12 +111,10 @@ const processPastChallenge = (challenge) => {
 class SubTrackChallengeView extends React.Component {
   constructor(props, context) {
     super(props, context);
-    // this is current page number. starts with 0.
-    // everytime we scroll at the bottom, we query from offset = pageNum * CHALLENGE_PER_PAGE
     this.state = {
-      // this is current page number. starts with 0.
+      // this is current page number. starts with 1.
       // everytime we scroll at the bottom, we query from offset = pageNum * CHALLENGE_PER_PAGE
-      pageNum: 0,
+      pageNum: 1,
       // which challenge's modal should be poped. null means no modal
       challengeIndexToPopModal: null,
     };
@@ -140,13 +138,17 @@ class SubTrackChallengeView extends React.Component {
       userId,
     } = this.props;
 
+    const {
+      pageNum,
+    } = this.state;
+
     if (track === 'DEVELOP' || track === 'DESIGN') {
       if (!loadingSubTrackChallengesUUID) {
         loadSubtrackChallenges(
           handle,
           auth.tokenV3,
           track, subTrack,
-          0,
+          pageNum,
           CHALLENGE_PER_PAGE,
           true,
           userId,
@@ -155,11 +157,12 @@ class SubTrackChallengeView extends React.Component {
     } else if (track === 'DATA_SCIENCE') {
       if (subTrack === 'SRM') {
         if (!loadingSRMUUID) {
-          loadSRM(handle, auth.tokenV3, 0, CHALLENGE_PER_PAGE, true);
+          // pageNum - 1 to match with v4 offset
+          loadSRM(handle, auth.tokenV3, pageNum - 1, CHALLENGE_PER_PAGE, true);
         }
       } else if (subTrack === 'MARATHON_MATCH') {
         if (!loadingMarathonUUID) {
-          loadMarathon(handle, auth.tokenV3, 0, CHALLENGE_PER_PAGE, true);
+          loadMarathon(handle, userId, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, true);
         }
       }
     }
@@ -204,12 +207,12 @@ class SubTrackChallengeView extends React.Component {
     } else if (track === 'DATA_SCIENCE') {
       if (subTrack === 'SRM') {
         if (!loadingSRMUUID) {
-          loadSRM(handle, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
+          loadSRM(handle, auth.tokenV3, pageNum, CHALLENGE_PER_PAGE, false);
           this.setState({ pageNum: pageNum + 1 });
         }
       } else if (subTrack === 'MARATHON_MATCH') {
         if (!loadingMarathonUUID) {
-          loadMarathon(handle, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
+          loadMarathon(handle, userId, auth.tokenV3, pageNum + 1, CHALLENGE_PER_PAGE, false);
           this.setState({ pageNum: pageNum + 1 });
         }
       }
@@ -245,7 +248,7 @@ class SubTrackChallengeView extends React.Component {
       userId,
     } = this.props;
 
-    if (pageNum === 0
+    if (pageNum === 1
         && (loadingSubTrackChallengesUUID || loadingSRMUUID || loadingMarathonUUID)) {
       return <LoadingIndicator />;
     }
@@ -347,7 +350,6 @@ class SubTrackChallengeView extends React.Component {
         userMarathons,
         item => ({
           ...item,
-          submissionEndDate: _.get(item, 'rounds.0.systemTestEndAt'),
           pointTotal: _.get(item, 'rounds.0.userMMDetails.pointTotal'),
         }),
       );
@@ -440,10 +442,18 @@ function mapDispatchToProps(dispatch) {
       dispatch(action.getUserSrmInit(handle, uuid));
       dispatch(action.getUserSrmDone(uuid, handle, tokenV3, pageNum, pageSize, refresh));
     },
-    loadMarathon: (handle, tokenV3, pageNum, pageSize, refresh) => {
+    loadMarathon: (handle, memberId, tokenV3, pageNum, pageSize, refresh) => {
       const uuid = shortId();
       dispatch(action.getUserMarathonInit(handle, uuid));
-      dispatch(action.getUserMarathonDone(uuid, handle, tokenV3, pageNum, pageSize, refresh));
+      dispatch(action.getUserMarathonDone(
+        uuid,
+        handle,
+        memberId,
+        tokenV3,
+        pageNum,
+        pageSize,
+        refresh,
+      ));
     },
   };
 }
