@@ -72,6 +72,7 @@ class ProfileHeader extends React.Component {
             <span>
               {' '}
               |
+              {' '}
               {wins}
               {' '}
               Wins
