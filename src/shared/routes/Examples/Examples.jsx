@@ -30,6 +30,7 @@ import SearchBarExample from 'components/examples/SearchBar';
 import TracksTreeExample from 'components/examples/TracksTree';
 import TracksFilterExample from 'components/examples/TracksFilter';
 import SearchPageFilterExample from 'components/examples/SearchPageFilter';
+import GUIKit from 'components/examples/GUIKit';
 
 import {
   Switch,
@@ -66,6 +67,7 @@ export default function Examples({
       />
       <Route path={`${base}/color-mixins`} component={ColorMixins} />
       <Route path={`${base}/contentful`} component={Contentful} />
+      <Route path={`${base}/GUIKit`} component={GUIKit} />
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/editor`} component={Editor} />
