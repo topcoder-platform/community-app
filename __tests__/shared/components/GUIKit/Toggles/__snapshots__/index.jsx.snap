@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<label
+  className="src-shared-components-GUIKit-Toggles-___style__container___Ny137 src-shared-components-GUIKit-Toggles-___style__smSize___3FNLG"
+>
+  <input
+    checked={false}
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <span
+    className="src-shared-components-GUIKit-Toggles-___style__slider___A0xAb"
+  />
+</label>
+`;

@@ -10,6 +10,28 @@
 
   .filters {
     display: flex;
+    align-items: flex-end;
+
+    @include xs-to-sm {
+      flex-direction: column;
+    }
+
+    > div {
+      margin-right: 30px;
+      flex: 1;
+
+      @include xs-to-sm {
+        margin-right: 0;
+      }
+
+      &:first-child {
+        flex: 3;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 
   .jobs-list-container {

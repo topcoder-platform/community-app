@@ -410,4 +410,7 @@ module.exports = {
   POLICY_PAGES_PATH: '/policy',
   GIGS_PAGES_PATH: '/gigs',
   START_PAGE_PATH: '/start',
+  GUIKIT: {
+    DEBOUNCE_ON_CHANGE_TIME: 150,
+  },
 };
