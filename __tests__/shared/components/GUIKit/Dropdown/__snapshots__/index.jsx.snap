@@ -65,13 +65,12 @@ exports[`Default render 1`] = `
       valueComponent={[Function]}
       valueKey="value"
     />
-    <IconDown
+    <img
+      alt="dropdown-arraow-icon"
       className="src-shared-components-GUIKit-Dropdown-___style__iconDropdown___2bPox"
       height="9"
-      viewBox="0 0 22 13"
+      src="/community-app-assets/images/e740c51bb099110dff2900fa4fc94d72.png"
       width="15"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
     />
   </div>
 </div>

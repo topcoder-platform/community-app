@@ -6,7 +6,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { Creatable } from 'react-select';
-import IconDown from 'assets/images/minimal-down.svg';
+import iconDown from 'assets/images/dropdown-arrow.png';
 import './style.scss';
 
 import { config } from 'topcoder-react-utils';
@@ -149,7 +149,7 @@ function DropdownTerms({
             internalTerms, t => !_.find(selectedOption, { label: t.label }),
           ).map(o => ({ value: o.label, label: o.label }))}
         />
-        <IconDown width="15" height="9" styleName="iconDropdown" />
+        <img width="15" height="9" styleName="iconDropdown" src={iconDown} alt="dropdown-arrow-icon" />
       </div>
       {label ? (
         <span styleName="label">

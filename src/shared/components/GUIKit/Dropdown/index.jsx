@@ -7,7 +7,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import ReactSelect from 'react-select';
 import './style.scss';
-import IconDown from 'assets/images/minimal-down.svg';
+import iconDown from 'assets/images/dropdown-arrow.png';
 import { config } from 'topcoder-react-utils';
 
 
@@ -59,7 +59,7 @@ function Dropdown({
           placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
           clearable={false}
         />
-        <IconDown width="15" height="9" styleName="iconDropdown" />
+        <img width="15" height="9" styleName="iconDropdown" src={iconDown} alt="dropdown-arraow-icon" />
       </div>
       {label ? (
         <span styleName="label">
