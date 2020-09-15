@@ -349,7 +349,6 @@ export default function FiltersPanel({
             setFilterState({});
             selectCommunity(defaultCommunityId);
             setSearchText('');
-            localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
           theme={{ button: style.button }}

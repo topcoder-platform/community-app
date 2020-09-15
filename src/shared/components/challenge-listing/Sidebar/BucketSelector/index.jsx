@@ -15,7 +15,8 @@ import './style.scss';
 
 const Filter = challengeUtils.filter;
 
-const RSS_LINK = 'http://feeds.topcoder.com/challenges/feed?list=active&contestType=all';
+// DISABLED: Until feeds.topcoder.com domain fixed community-app#4606
+// const RSS_LINK = 'http://feeds.topcoder.com/challenges/feed?list=active&contestType=all';
 
 export default function BucketSelector({
   activeBucket,
@@ -109,11 +110,14 @@ export default function BucketSelector({
           ) : ''
       }
       <hr />
+      {/* DISABLED: Until feeds.topcoder.com domain fixed community-app#4606 */}
+      {/*
       <div styleName="get-rss">
         <a href={RSS_LINK}>
           Get the RSS feed
         </a>
       </div>
+      */}
     </div>
   );
 }

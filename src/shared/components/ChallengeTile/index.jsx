@@ -2,7 +2,6 @@
  * Challenge tile.
  */
 /* eslint-env browser */
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -83,36 +82,27 @@ class ChallengeTile extends React.Component {
       margin: '10px 5px',
     };
 
-    const isDataScience = track === COMPETITION_TRACKS.DATA_SCIENCE;
     const isDevelopment = track === COMPETITION_TRACKS.DEVELOP;
     const isDesign = track === COMPETITION_TRACKS.DESIGN;
-
-    const roundId = isDataScience ? _.get(challenge, 'rounds.0.id') : 0;
 
     return (
       <div styleName="challenge tile" style={extraStyle}>
         <div styleName={outStyleName}>
           <div styleName="completed-challenge">
             <header>
-              { !isDataScience && (!challenge.isPrivate
+              { !challenge.isPrivate
                 ? (
                   <Link to={`/challenges/${challenge.id}`} styleName="name">
                     <span>
                       { challenge.name }
                     </span>
                   </Link>
-                ) : (
+                )
+                : (
                   <span>
                     { challenge.name }
                   </span>
-                )) }
-
-              { isDataScience
-                && (
-                <a styleName="name" href={`https://community.topcoder.com/longcontest/stats/?module=ViewOverview&rd=${roundId}`}>
-                  { challenge.name }
-                </a>
-                ) }
+                )}
 
               <p styleName="subtrack-color">
                 {underscoreReplace(type)}
