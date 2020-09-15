@@ -156,6 +156,10 @@ $link-color: #0d61bf;
   overflow-y: auto;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.15);
   z-index: 999;
+
+  > span {
+    margin-left: 15px;
+  }
 }
 
 .icon-search {

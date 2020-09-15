@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { config } from 'topcoder-react-utils';
+import { Helmet } from 'react-helmet';
 import Viewport from 'components/Contentful/Viewport';
 import SearchBar from 'components/Contentful/SearchBar/SearchBar';
 import { getService } from 'services/contentful';
@@ -45,6 +46,13 @@ export default class EDUHome extends React.Component {
     const { taxonomy } = this.state;
     return (
       <div className={homeTheme.container}>
+        <Helmet>
+          <title>THRIVE - Grow with us. Tutorials and workshops that matter.</title>
+          <meta name="title" property="og:title" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="og:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="twitter:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+        </Helmet>
         {/* Banner */}
         <div className={homeTheme.bannerContainer}>
           <div className={homeTheme.bannerImage} />

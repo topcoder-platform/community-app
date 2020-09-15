@@ -14,6 +14,7 @@ import qs from 'qs';
 import TracksTree from 'components/Contentful/TracksTree/TracksTree';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TracksFilter from 'components/Contentful/TracksFilter/TracksFilter';
+import { Helmet } from 'react-helmet';
 // SVGs & Assets
 import Dev from 'assets/images/img-development.png';
 import Design from 'assets/images/img_design.png';
@@ -167,6 +168,13 @@ export default class EDUTracks extends React.Component {
     if (!taxonomy) return <LoadingIndicator />;
     return (
       <div className={tracksTheme.container}>
+        <Helmet>
+          <title>THRIVE - {`${query.track}`}</title>
+          <meta name="title" property="og:title" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="og:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="twitter:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+        </Helmet>
         {/* Banner */}
         <div
           className={tracksTheme.bannerContainer}
