@@ -51,13 +51,13 @@
 
   input:not([type='checkbox']).haveError + label,
   input:not([type='checkbox']).haveError:focus + label {
-    color: $tc-level-5;
+    color: $gui-kit-level-5;
   }
 
   input:not([type='checkbox']).haveError,
   input:not([type='checkbox']).haveError:active,
   input:not([type='checkbox']).haveError:focus,
   input:not([type='checkbox']).haveError:hover {
-    border: 2px solid $tc-level-5;
+    border: 2px solid $gui-kit-level-5;
   }
 }

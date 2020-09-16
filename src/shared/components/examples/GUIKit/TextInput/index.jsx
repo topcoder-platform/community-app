@@ -40,6 +40,7 @@ function TextInputExample({ size }) {
       value: 'Adam Morehead',
       required: true,
       errorMsg: '',
+      sectionTitle: 'Required',
     },
   ];
 
