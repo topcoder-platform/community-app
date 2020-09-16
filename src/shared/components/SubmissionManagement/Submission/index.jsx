@@ -42,7 +42,7 @@ export default function Submission(props) {
     <tr styleName="submission-row">
       <td styleName="id-col">
         {submissionObject.id}
-        <div styleName="legacy-id">{submissionObject.legacyId}</div>
+        <div styleName="legacy-id">{submissionObject.legacySubmissionId}</div>
       </td>
       <td>
         {submissionObject.type}
@@ -119,7 +119,7 @@ Submission.defaultProps = {
 Submission.propTypes = {
   submissionObject: PT.shape({
     id: PT.string,
-    legacyId: PT.string,
+    legacySubmissionId: PT.string,
     warpreviewnings: PT.string,
     screening: PT.shape({
       status: PT.string,
