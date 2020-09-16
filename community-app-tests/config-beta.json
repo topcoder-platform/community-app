@@ -79,7 +79,7 @@
   },
   "forumSettingUrl": "https://apps.topcoder.com/forums/?module=Settings",
   "paymentSettingUrl": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-  "helpUrl": "https://beta-community-app.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+  "helpUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
   "searchUrl": "https://beta-community-app.topcoder.com/search/members",
   "allNotificationsUrl": "https://beta-community-app.topcoder.com/notifications",
   "policiesUrl": "https://www.topcoder.com/policy",
