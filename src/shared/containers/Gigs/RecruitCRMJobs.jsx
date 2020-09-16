@@ -21,9 +21,7 @@ const sortByOptions = [
   { label: 'Latest Updated Descending', selected: false },
 ];
 // Locations
-const locations = [{
-  label: 'Anywhere', selected: true,
-}];
+let locations = [];
 
 class RecruitCRMJobsContainer extends React.Component {
   constructor(props) {
@@ -33,7 +31,7 @@ class RecruitCRMJobsContainer extends React.Component {
       term: '',
       page: 0,
       sortBy: 'created_on',
-      location: 'Anywhere',
+      location: 'Any Location',
     };
     // binds
     this.onSearch = this.onSearch.bind(this);
@@ -127,6 +125,8 @@ class RecruitCRMJobsContainer extends React.Component {
       if (location === 'Anywhere' || location === 'Any' || location === 'Any Location') return true;
       return location.toLowerCase() === job.country.toLowerCase();
     });
+    // sort location dropdown
+    locations = _.sortBy(locations, ['label']);
     // Filter by term
     if (term) {
       jobsToDisplay = _.filter(jobsToDisplay, (job) => {
@@ -178,11 +178,12 @@ class RecruitCRMJobsContainer extends React.Component {
 
 RecruitCRMJobsContainer.defaultProps = {
   jobs: [],
+  loading: true,
 };
 
 RecruitCRMJobsContainer.propTypes = {
   getJobs: PT.func.isRequired,
-  loading: PT.bool.isRequired,
+  loading: PT.bool,
   jobs: PT.arrayOf(PT.shape),
 };
 
