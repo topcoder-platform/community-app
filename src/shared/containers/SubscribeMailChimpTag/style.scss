@@ -10,21 +10,19 @@
     font-family: Roboto, sans-serif;
     font-size: 14px;
     line-height: 22px;
+  }
 
-    &::placeholder,
-    &::-moz-placeholder,
-    &::-webkit-input-placeholder,
-    &::-webkit-placeholder {
-      color: #aaa !important;
-      font-family: Roboto, sans-serif !important;
-      font-size: 14px !important;
-      line-height: 40px !important;
-      text-transform: none;
-    }
+  input::-webkit-input-placeholder,
+  input::placeholder {
+    color: #aaa !important;
+    font-family: Roboto, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 40px !important;
+    text-transform: none;
+  }
 
-    &:focus {
-      box-shadow: none !important;
-    }
+  input:focus {
+    box-shadow: none !important;
   }
 
   .button {

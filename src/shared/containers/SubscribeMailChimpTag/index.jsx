@@ -4,14 +4,13 @@
 import React from 'react';
 import PT from 'prop-types';
 import { isValidEmail } from 'utils/tc';
-import { config } from 'topcoder-react-utils';
 import { Modal } from 'topcoder-react-ui-kit';
 import modalStyle from 'components/NewsletterSignupForMembers/modal.scss';
 import defaulTheme from './style.scss';
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * mailchimp APIs. */
-const PROXY_ENDPOINT = `${config.URL.COMMUNITY_APP}/api/mailchimp`;
+const PROXY_ENDPOINT = '/api/mailchimp';
 
 class SubscribeMailChimpTagContainer extends React.Component {
   constructor(props) {
