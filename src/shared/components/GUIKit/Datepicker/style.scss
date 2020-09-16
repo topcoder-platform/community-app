@@ -20,7 +20,7 @@
 
   &.haveError .label,
   &.haveError.isFocused .label {
-    color: $tc-level-5;
+    color: $gui-kit-level-5;
   }
 
   :global {
@@ -153,8 +153,17 @@
                             border-radius: 50%;
                           }
 
+                          &.CalendarDay__default {
+                            color: #2a2a2a;
+                          }
+
+                          &.CalendarDay__blocked_out_of_range {
+                            color: #aaa;
+                          }
+
                           &.CalendarDay__selected {
                             background: transparent !important;
+                            color: #fff;
 
                             div {
                               background: $gui-kit-level-2;
@@ -190,7 +199,7 @@
       .SingleDatePickerInput {
         .DateInput {
           input {
-            border: 2px solid $tc-level-5;
+            border: 2px solid $gui-kit-level-5;
           }
         }
       }

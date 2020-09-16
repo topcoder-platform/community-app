@@ -43,7 +43,7 @@
 
   &.haveError .label,
   &.haveError.isFocused .label {
-    color: $tc-level-5;
+    color: $gui-kit-level-5;
   }
 
   :global {
@@ -80,6 +80,7 @@
         height: 22px;
         line-height: 22px;
         font-size: 16px;
+        color: $gui-kit-gray-90 !important;
       }
     }
 
@@ -163,7 +164,7 @@
   &.haveError {
     :global {
       .Select-control {
-        border: 2px solid $tc-level-5 !important;
+        border: 2px solid $gui-kit-level-5 !important;
       }
     }
   }
@@ -200,6 +201,7 @@
       .Select-value {
         .Select-value-label {
           font-size: 14px;
+          color: $gui-kit-gray-90 !important;
         }
       }
 

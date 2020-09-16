@@ -5,7 +5,7 @@
  */
 import React, { useRef, useState } from 'react';
 import PT from 'prop-types';
-import IconCheckSolid from 'assets/images/dashboard/ico-checkmark.svg';
+import IconCheckSolid from 'assets/images/check-mark.svg';
 import _ from 'lodash';
 import './style.scss';
 

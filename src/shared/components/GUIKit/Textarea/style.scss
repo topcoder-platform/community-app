@@ -30,7 +30,7 @@
 
     &.haveError ~ label,
     &.haveError:focus ~ label {
-      color: $tc-level-5;
+      color: $gui-kit-level-5;
     }
   }
 
@@ -52,7 +52,7 @@
   textarea.haveError:active,
   textarea.haveError:focus,
   textarea.haveError:hover {
-    border: 2px solid $tc-level-5;
+    border: 2px solid $gui-kit-level-5;
   }
 
   textarea.haveError ~ .labelMask {
