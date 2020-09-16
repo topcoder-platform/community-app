@@ -160,6 +160,7 @@ module.exports = {
     COMMUNITY_API: 'http://localhost:8000',
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
     EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
+    ABANDONMENT_EMBED: 'https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -370,6 +371,7 @@ module.exports = {
             {
               title: 'Blog',
               href: 'https://www.topcoder-dev.com/blog',
+              openNewTab: true,
             },
             {
               title: 'Thrive',
@@ -409,4 +411,5 @@ module.exports = {
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/policy',
   GIGS_PAGES_PATH: '/gigs',
+  START_PAGE_PATH: '/start',
 };

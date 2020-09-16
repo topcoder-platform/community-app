@@ -202,12 +202,15 @@ exports[`renders marathon 1`] = `
       className="src-shared-components-ChallengeTile-___style__completed-challenge___3w5tT"
     >
       <header>
-        <a
+        <Link
           className="src-shared-components-ChallengeTile-___style__name___1jF7j"
-          href="https://community.topcoder.com/longcontest/stats/?module=ViewOverview&rd=17153"
+          replace={false}
+          to="/challenges/15404"
         >
-          2018 TCO Marathon
-        </a>
+          <span>
+            2018 TCO Marathon
+          </span>
+        </Link>
         <p
           className="src-shared-components-ChallengeTile-___style__subtrack-color___2AJaw"
         >

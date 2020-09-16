@@ -230,15 +230,16 @@ workflows:
           filters:
             branches:
               only:
-                - feature-contentful
+                - milestone-20200924
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
+                - hot-fix-ad-code
                 - feature-contentful
-                - hot-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -247,12 +248,14 @@ workflows:
               only:
                 - hot-fix
                 - feature/auth0-RS256-Idtoken
+                - community-app-tests-poc
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
+                - integration-v5-challenge-api
                 - hot-fix
       # This is stage env for production QA releases
       - "build-prod-staging":
@@ -260,7 +263,6 @@ workflows:
           filters:
             branches:
               only:
-                - feature-contentful
                 - develop
       # Production builds are exectuted 
       # when PR is merged to the master
