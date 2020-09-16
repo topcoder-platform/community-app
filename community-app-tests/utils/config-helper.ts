@@ -106,6 +106,13 @@ export const ConfigHelper = {
     return this.getConfig().businessUrl;
   },
 
+    /**
+   * Gets the url on redirection after clicking the Switch To business link
+   */
+  getSwitchToBusinessUrl() {
+    return this.getConfig().switchToBusinessUrl;
+  },
+
   /**
    * Gets the policies url
    */

@@ -166,11 +166,13 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     it('[TC-024] should verify All Challenges link functionality with the design, development, data science and QA toggle switches Off', async () => {
       await ChallengeListingPageHelper.verifyWithAllSwitchesTurnedOff();
     });
+    
+    //Commented as the RSS Feed link is currently hidden
 
-    it('[TC_025] should verify whether the page is redirected to the RSS Feed page on clicking the RSS feed link', async () => {
+    /*it('[TC_025] should verify whether the page is redirected to the RSS Feed page on clicking the RSS feed link', async () => {
       await ChallengeListingPageHelper.clickOnRssLink();
       await ChallengeListingPageHelper.verifyRssPage();
-    });
+    });*/
 
     it('[TC_026] should verify whether the page is redirected to the respective page on clicking the link(About, Contact, Help, Privacy, Terms)', async () => {
       await ChallengeListingPageHelper.verifyLinksUnderRss();

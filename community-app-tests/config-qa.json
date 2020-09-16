@@ -2,6 +2,7 @@
   "env": "dev",
   "logoRedirectionUrl": "https://www.topcoder-dev.com/",
   "businessUrl": "https://www.topcoder.com/",
+  "switchToBusinessUrl": "https://www.topcoder.com/",
   "loginUrl": "https://accounts.topcoder-dev.com/member",
   "homePageUrl": "https://www.topcoder-dev.com/",
   "splashPageUrl": "https://www.topcoder.com/splash/",
@@ -34,12 +35,12 @@
     "dashboard": "https://qa-community-app.topcoder-dev.com/my-dashboard",
     "myProfile": "https://qa-community-app.topcoder-dev.com/members/tester1234",
     "payments": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-    "competitiveProgramming": "https://arena.topcoder-dev.com/#/loggingin",
+    "competitiveProgramming": "https://qa-community-app.topcoder-dev.com/community/arena",
     "forums": "https://apps.topcoder-dev.com/forums/"
   },
   "footerLinks": {
     "allChallenges": "https://www.topcoder-dev.com/challenges",
-    "competitiveProgramming": "https://accounts.topcoder.com/",
+    "competitiveProgramming": "https://qa-community-app.topcoder-dev.com/community/arena",
     "taas": "https://www.topcoder-dev.com/gigs",
     "competitiveProgrammingThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Competitive%20Programming",
     "dataScienceThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Data%20Science",
@@ -63,10 +64,12 @@
     "changeLog": "https://www.topcoder-dev.com/community/changelog",
     "talkToSales": "https://go.topcoder.com/contact/",
     "events": "https://www.topcoder-dev.com/community/events",
-    "terms": "https://www.topcoder-dev.com/community/terms"
+    "terms": "https://www.topcoder-dev.com/community/terms",
+    "challengePipeline": "https://www.topcoder-dev.com/community/pipeline",
+    "practice": "https://www.topcoder-dev.com/community/practice"
   },
   "footerLinksAfterLogin": {
-    "competitiveProgramming": "https://accounts.topcoder.com/"
+    "competitiveProgramming": "https://www.topcoder-dev.com/community/arena"
   },
   "socialLinks": {
     "facebook": "https://www.facebook.com/topcoder/",
@@ -80,8 +83,100 @@
   "helpUrl": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
   "searchUrl": "https://qa-community-app.topcoder-dev.com/search/members",
   "allNotificationsUrl": "https://qa-community-app.topcoder-dev.com/notifications",
-  "policiesUrl": "https://www.topcoder.com/privacy-policy/",
+  "policiesUrl": "https://www.topcoder.com/policy",
   "username": "tester1234",
   "password": "appirio123",
-  "email": "sathya.jayabal@gmail.com"
+  "email": "sathya.jayabal@gmail.com",
+  "challangesLinks": {
+    "rssFeedUrl": "http://feeds.topcoder-dev.com/challenges/feed",
+    "aboutUrl": "https://www.topcoder.com/about-the-2018-topcoder-open/",
+    "contactUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles/hc/en-us/articles/219069687-Contact-Support",
+    "privacyUrl": "https://www.topcoder-dev.com/privacy-policy/",
+    "helpUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+    "termsUrl": "https://www.topcoder-dev.com/community/how-it-works/terms/"
+  },
+  "challengeDetail": {
+    "url": "https://qa-community-app.topcoder-dev.com/challenges/ee951f3e-8c3d-41d7-b232-aa8774ff7f27",
+    "termsLinkText": "Standard Terms for Topcoder Competitions v2.2",
+    "challengeName": "Test Automation challenge",
+    "challengeTag": "Challenge",
+    "termUrl": "https://qa-community-app.topcoder-dev.com/challenges/terms/detail/b11da5cd-713f-478d-90f4-f679ef53ee95",
+    "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=0",
+    "submissionUrl": "https://qa-community-app.topcoder-dev.com/challenges/ee951f3e-8c3d-41d7-b232-aa8774ff7f27/submit",
+    "scorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001610"
+  },
+  "myDashboard": {
+    "url": "https://qa-community-app.topcoder-dev.com/my-dashboard",
+    "challenge": {
+      "name": "Test_challenge_Automation",
+      "currentPhase": "Submission",
+      "linkToSubmit": "",
+      "userRole": ""
+    },
+    "community": {
+      "name": "Blockchain Community",
+      "learnMoreUrl": "https://qa-community-app.topcoder-dev.com/__community__/blockchain"
+    }
+  },
+  "memberProfile": {
+    "url": "https://qa-community-app.topcoder-dev.com/members",
+    "profileInfo": {
+      "handle": "iamtong",
+      "numberOfCollapsedSkills": 10,
+      "verifiedSkill": "HTML5",
+      "noneVerifiedSkill": "Marvel - Design",
+      "country": "THAILAND",
+      "memberSince": "MEMBER SINCE MAY, 2009",
+      "tracks": ["COPILOT", "DEVELOP", "DESIGN"],
+      "quote": "I'm a designer focusing on designing mobile/ web applications and user experience.",
+      "forumLink": "https://apps.topcoder-dev.com/forums/?module=History&userID=22781893"
+    },
+    "memberHaveWebSectionInfo": {
+      "handle": "oton",
+      "webLink": "HTTPS://ARIFWIDIANTO.COM"
+    },
+    "copilotProfile": {
+      "handle": "iamtong",
+      "trackName": "COPILOT",
+      "fullfillmentInfo": {
+        "name": "COPILOT",
+        "info": "100%",
+        "infoTitle": "FULFILLMENT",
+        "link": "https://qa-community-app.topcoder-dev.com/members/iamtong/details/?track=COPILOT&subTrack=COPILOT"
+      }
+    },
+    "designProfile": {
+      "handle": "iamtong",
+      "trackName": "DESIGN",
+      "numberOfSubtracks": 11,
+      "winInfo": {
+        "name": "WEB DESIGNS",
+        "info": "189",
+        "infoTitle": "WINS",
+        "link": "https://qa-community-app.topcoder-dev.com/members/iamtong/details/?track=DESIGN&subTrack=WEB_DESIGNS"
+      }
+    },
+    "developmentProfile": {
+      "handle": "winterflame",
+      "trackName": "DEVELOP",
+      "numberOfSubtracks": 14,
+      "winInfo": {
+        "name": "FIRST2FINISH",
+        "info": "2",
+        "infoTitle": "WINS",
+        "link": "https://qa-community-app.topcoder-dev.com/members/winterflame/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
+      }
+    },
+    "dataScienceProfile": {
+      "handle": "FireIce",
+      "trackName": "DATA_SCIENCE",
+      "numberOfSubtracks": 2,
+      "ratingInfo": {
+        "name": "MARATHON MATCH",
+        "info": "999",
+        "infoTitle": "RATING",
+        "link": "https://qa-community-app.topcoder-dev.com/members/FireIce/details/?track=DATA_SCIENCE&subTrack=MARATHON_MATCH"
+      }
+    }
+  }
 }

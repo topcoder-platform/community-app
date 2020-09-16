@@ -1,40 +1,41 @@
 {
-  "env": "beta",
+  "env": "staging",
   "logoRedirectionUrl": "https://www.topcoder.com/",
   "businessUrl": "https://www.topcoder.com/",
+  "switchToBusinessUrl": "https://www.topcoder.com/",
   "loginUrl": "https://accounts.topcoder.com/member",
   "homePageUrl": "https://www.topcoder.com/",
   "splashPageUrl": "https://www.topcoder.com/splash/",
   "logoutUrl": "https://www.topcoder.com/logout",
-  "toolsUrl": "https://beta-community-app.topcoder.com/settings/tools",
-  "accountUrl": "https://beta-community-app.topcoder.com/settings/account",
-  "profileUrl": "https://beta-community-app.topcoder.com/settings/profile",
-  "preferencesUrl": "https://beta-community-app.topcoder.com/settings/preferences",
-  "challengeListingUrl": "https://beta-community-app.topcoder.com/challenges",
+  "toolsUrl": "https://staging-community-app.topcoder.com/settings/tools",
+  "accountUrl": "https://staging-community-app.topcoder.com/settings/account",
+  "profileUrl": "https://staging-community-app.topcoder.com/settings/profile",
+  "preferencesUrl": "https://staging-community-app.topcoder.com/settings/preferences",
+  "challengeListingUrl": "https://staging-community-app.topcoder.com/challenges",
   "subMenuUrls": {
-    "overview": "https://beta-community-app.topcoder.com/community/learn",
-    "howItWorks": "https://beta-community-app.topcoder.com/thrive/tracks?track=Topcoder",
-    "allChallenges": "http://beta-community-app.topcoder.com/challenges",
-    "competitiveProgramming": "https://beta-community-app.topcoder.com/community/arena",
-    "taas": "https://beta-community-app.topcoder.com/gigs",
-    "practice": "https://beta-community-app.topcoder.com/community/practice",
-    "competitiveProgrammingThrive": "https://beta-community-app.topcoder.com/thrive/tracks?track=Competitive%20Programming",
-    "dataScienceThrive": "https://beta-community-app.topcoder.com/thrive/tracks?track=Data%20Science&tax=",
-    "designThrive": "https://beta-community-app.topcoder.com/thrive/tracks?track=Design&tax=",
-    "developmentThrive": "https://beta-community-app.topcoder.com/thrive/tracks?track=Development&tax=",
-    "qaThrive": "https://beta-community-app.topcoder.com/thrive/tracks?track=QA&tax=",
-    "tco": "https://beta-community-app.topcoder.com/community/member-programs/topcoder-open",
-    "programs": "https://beta-community-app.topcoder.com/community/member-programs",
+    "overview": "https://staging-community-app.topcoder.com/community/learn",
+    "howItWorks": "https://staging-community-app.topcoder.com/thrive/tracks?track=Topcoder",
+    "allChallenges": "http://staging-community-app.topcoder.com/challenges",
+    "competitiveProgramming": "https://staging-community-app.topcoder.com/community/arena",
+    "taas": "https://staging-community-app.topcoder.com/gigs",
+    "practice": "https://staging-community-app.topcoder.com/community/practice",
+    "competitiveProgrammingThrive": "https://staging-community-app.topcoder.com/thrive/tracks?track=Competitive%20Programming",
+    "dataScienceThrive": "https://staging-community-app.topcoder.com/thrive/tracks?track=Data%20Science&tax=",
+    "designThrive": "https://staging-community-app.topcoder.com/thrive/tracks?track=Design&tax=",
+    "developmentThrive": "https://staging-community-app.topcoder.com/thrive/tracks?track=Development&tax=",
+    "qaThrive": "https://staging-community-app.topcoder.com/thrive/tracks?track=QA&tax=",
+    "tco": "https://staging-community-app.topcoder.com/community/member-programs/topcoder-open",
+    "programs": "https://staging-community-app.topcoder.com/community/member-programs",
     "forums": "https://accounts.topcoder.com/member",
-    "statistics": "https://beta-community-app.topcoder.com/community/statistics",
+    "statistics": "https://staging-community-app.topcoder.com/community/statistics",
     "blog": "https://www.topcoder.com/blog/",
-    "thrive": "https://beta-community-app.topcoder.com/thrive"
+    "thrive": "https://staging-community-app.topcoder.com/thrive"
   },
   "subMenuUrlsAfterLogin": {
-    "dashboard": "https://beta-community-app.topcoder.com/my-dashboard",
-    "myProfile": "https://beta-community-app.topcoder.com/members/CustomerUser",
+    "dashboard": "https://staging-community-app.topcoder.com/my-dashboard",
+    "myProfile": "https://staging-community-app.topcoder.com/members/CustomerUser",
     "payments": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-    "competitiveProgramming": "https://beta-community-app.topcoder.com/community/arena",
+    "competitiveProgramming": "https://staging-community-app.topcoder.com/community/arena",
     "forums": "https://apps.topcoder.com/forums/"
   },
   "footerLinks": {
@@ -79,9 +80,9 @@
   },
   "forumSettingUrl": "https://apps.topcoder.com/forums/?module=Settings",
   "paymentSettingUrl": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-  "helpUrl": "https://beta-community-app.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
-  "searchUrl": "https://beta-community-app.topcoder.com/search/members",
-  "allNotificationsUrl": "https://beta-community-app.topcoder.com/notifications",
+  "helpUrl": "https://staging-community-app.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+  "searchUrl": "https://staging-community-app.topcoder.com/search/members",
+  "allNotificationsUrl": "https://staging-community-app.topcoder.com/notifications",
   "policiesUrl": "https://www.topcoder.com/policy",
   "username": "CustomerUser",
   "password": "appirio123",
@@ -95,20 +96,20 @@
     "termsUrl": "https://www.topcoder.com/community/how-it-works/terms/"
   },
   "challengeDetail": {
-    "url": "https://beta-community-app.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023",
+    "url": "https://staging-community-app.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023",
     "termsLinkText": "Standard Terms for Topcoder Competitions v2.2",
     "challengeName": "[Do not register] Sample challenge for Automation.",
     "challengeTag": "QA",
-    "termUrl": "https://beta-community-app.topcoder.com/challenges/terms/detail/9ef9dec4-dddb-48c9-9cce-659db68bc5ac",
+    "termUrl": "https://staging-community-app.topcoder.com/challenges/terms/detail/9ef9dec4-dddb-48c9-9cce-659db68bc5ac",
     "forumUrl": "https://apps.topcoder.com/forums/?module=Category&categoryID=82117",
-    "submissionUrl": "https://beta-community-app.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023/submit",
+    "submissionUrl": "https://staging-community-app.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023/submit",
     "scorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133"
   },
   "myDashboard": {
-    "url": "https://beta-community-app.topcoder.com/my-dashboard",
+    "url": "https://staging-community-app.topcoder.com/my-dashboard",
     "challenge": {
       "name": "Test challenge- Spec Preview",
-      "currentPhase": "Checkpoint Review",
+      "currentPhase": "Submission",
       "linkToSubmit": "",
       "userRole": ""
     },
@@ -118,7 +119,7 @@
     }
   },
   "memberProfile": {
-    "url": "https://beta-community-app.topcoder.com/members",
+    "url": "https://staging-community-app.topcoder.com/members",
     "profileInfo": {
       "handle": "iamtong",
       "numberOfCollapsedSkills": 10,
@@ -141,7 +142,7 @@
         "name": "COPILOT",
         "info": "100%",
         "infoTitle": "FULFILLMENT",
-        "link": "https://beta-community-app.topcoder.com/members/iamtong/details/?track=COPILOT&subTrack=COPILOT"
+        "link": "https://staging-community-app.topcoder.com/members/iamtong/details/?track=COPILOT&subTrack=COPILOT"
       }
     },
     "designProfile": {
@@ -152,7 +153,7 @@
         "name": "WEB DESIGNS",
         "info": "258",
         "infoTitle": "WINS",
-        "link": "https://beta-community-app.topcoder.com/members/iamtong/details/?track=DESIGN&subTrack=WEB_DESIGNS"
+        "link": "https://staging-community-app.topcoder.com/members/iamtong/details/?track=DESIGN&subTrack=WEB_DESIGNS"
       }
     },
     "developmentProfile": {
@@ -163,7 +164,7 @@
         "name": "FIRST2FINISH",
         "info": "56",
         "infoTitle": "WINS",
-        "link": "https://beta-community-app.topcoder.com/members/iamtong/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
+        "link": "https://staging-community-app.topcoder.com/members/iamtong/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
       }
     },
     "dataScienceProfile": {
@@ -174,7 +175,7 @@
         "name": "MARATHON MATCH",
         "info": "999",
         "infoTitle": "RATING",
-        "link": "https://beta-community-app.topcoder.com/members/FireIce/details/?track=DATA_SCIENCE&subTrack=MARATHON_MATCH"
+        "link": "https://staging-community-app.topcoder.com/members/FireIce/details/?track=DATA_SCIENCE&subTrack=MARATHON_MATCH"
       }
     }
   }

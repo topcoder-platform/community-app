@@ -294,6 +294,7 @@ export class ChallengeDetailPageHelper {
       'Started',
       'Registration',
       'Submission',
+      'Review',
       'Winners',
     ];
     for (let i = 0; i < childDivs.length; i++) {

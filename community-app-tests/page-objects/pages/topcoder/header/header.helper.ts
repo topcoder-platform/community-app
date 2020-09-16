@@ -96,7 +96,11 @@ export class HeaderHelper {
         await CommonHelper.verifyPopupWindow();
       } else if (text === 'Statistics') {
         await CommonHelper.verifyCurrentUrlToContain(url);
-      } else {
+      } else if (text === 'Blog') {
+        await CommonHelper.verifyPopupWindow();
+      } else if (text === 'Thrive') {
+        await CommonHelper.verifyCurrentUrlToContain(url);
+      }else {
         await CommonHelper.verifyCurrentUrl(url);
       }
 
@@ -125,7 +129,7 @@ export class HeaderHelper {
   public static async verifyUserMenuBusinessLink() {
     await this.headerPageObject.openUserMenu();
     await this.headerPageObject.clickOnSwitchToBusinessLink();
-    const expectedUrl = ConfigHelper.getBusinessUrl();
+    const expectedUrl = ConfigHelper.getSwitchToBusinessUrl();
     await BrowserHelper.sleep(1000);
     await CommonHelper.verifyCurrentUrl(expectedUrl);
   }
