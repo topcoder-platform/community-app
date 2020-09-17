@@ -90,7 +90,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
-            ./community-app-tests/smoketest.sh qa_community-app-qavar.json dev
+            ./community-app-tests/smoketest.sh automation-config-qa.json dev
   # Build & Deploy against testing backend
   "build-test":
     <<: *defaults
