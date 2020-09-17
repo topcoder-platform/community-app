@@ -1,0 +1,141 @@
+@import '~components/GUIKit/Assets/Styles/default';
+
+.container {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $gui-kit-gray-30;
+    box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.29);
+
+    &::before {
+      position: absolute;
+      content: '';
+      background-color: $tc-white;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.35);
+      border-radius: 50%;
+    }
+  }
+
+  // sm size
+  &.smSize {
+    width: 34px;
+    height: 20px;
+
+    .slider {
+      border-radius: 10px;
+
+      &::before {
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+      }
+    }
+  }
+
+  // xs size
+  &.xsSize {
+    width: 26px;
+    height: 15px;
+
+    .slider {
+      border-radius: 7px;
+
+      &::before {
+        height: 11px;
+        width: 11px;
+        left: 2px;
+        bottom: 2px;
+      }
+    }
+  }
+
+  // lg size
+  &.lgSize {
+    width: 48px;
+    height: 25px;
+
+    .slider {
+      border-radius: 17px;
+
+      &::before {
+        height: 17px;
+        width: 17px;
+        left: 4px;
+        bottom: 4px;
+      }
+    }
+  }
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:focus + .slider {
+      box-shadow: 0 0 1px $gui-kit-level-2;
+    }
+
+    &:checked + .slider {
+      background-color: $gui-kit-level-2;
+    }
+  }
+
+  // lg size
+  &.lgSize input {
+    &:checked + .slider {
+      &::before {
+        -webkit-transform: translateX(23px);
+        -ms-transform: translateX(23px);
+        transform: translateX(23px);
+      }
+    }
+  }
+
+  // sm size
+  &.smSize input {
+    &:checked + .slider {
+      &::before {
+        -webkit-transform: translateX(14px);
+        -ms-transform: translateX(14px);
+        transform: translateX(14px);
+      }
+    }
+  }
+
+  // xs size
+  &.xsSize input {
+    &:checked + .slider {
+      &::before {
+        -webkit-transform: translateX(11px);
+        -ms-transform: translateX(11px);
+        transform: translateX(11px);
+      }
+    }
+  }
+}
+
+.on,
+.off {
+  position: absolute;
+  top: 5px;
+  font-size: 12px;
+  line-height: 14px;
+  color: $tc-white;
+}
+
+.on {
+  left: 8px;
+}
+
+.off {
+  right: 8px;
+}

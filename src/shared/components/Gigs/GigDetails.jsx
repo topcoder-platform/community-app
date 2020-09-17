@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import { isomorphy, Link, config } from 'topcoder-react-utils';
 import ReactHtmlParser from 'react-html-parser';
 import { getSalaryType, getCustomField } from 'utils/gigs';
+import SubscribeMailChimpTag from 'containers/SubscribeMailChimpTag';
 import './style.scss';
 import IconFacebook from 'assets/images/icon-facebook.svg';
 import IconTwitter from 'assets/images/icon-twitter.svg';
@@ -21,7 +22,6 @@ import iconSkills from 'assets/images/icon-skills-blue.png';
 import iconLabel1 from 'assets/images/l1.png';
 import iconLabel2 from 'assets/images/l2.png';
 import iconLabel3 from 'assets/images/l3.png';
-import iconLabel4 from 'assets/images/l4.png';
 
 // Cleanup HTML from style tags
 // so it won't affect other parts of the UI
@@ -127,8 +127,12 @@ export default function GigDetails(props) {
                     <IconTwitter />
                   </a>
                 </div>
+                <div styleName="subscribe-area">
+                  <h6>SUBSCRIBE TO WEEKLY UPDATES</h6>
+                  <p>Not ready to apply? Want to stay tuned for any new gigs that may be upcoming? Join our weekly Gig Work list.</p>
+                  <SubscribeMailChimpTag listId="28bfd3c062" tags={['Gig Work']} />
+                </div>
                 <div styleName="info-area">
-                  <p>Thank you for checking out our latest gig at Topcoder. Gig work through us is simple and effective for those that would like traditional freelance work. To learn more about how Gigs work with us, go <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/thrive/tracks?track=Topcoder&amp;tax=Gig%20Work">here</a>.</p>
                   <p>At Topcoder, we pride ourselves in bringing our customers the very best candidates to help fill their needs. Want to improve your chances? You can do a few things:</p>
                   <ul>
                     <li>
@@ -137,14 +141,10 @@ export default function GigDetails(props) {
                     </li>
                     <li>
                       <img src={iconLabel2} alt="label 2" />
-                      <div><strong>Subscribe to our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/community/taas">Gig notifications email</a>.</strong> We’ll send you a weekly update on gigs available so you don’t miss a beat.</div>
+                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href="https://apps.topcoder.com/forums/?module=ThreadList&forumID=703475">Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
                     </li>
                     <li>
                       <img src={iconLabel3} alt="label 3" />
-                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href="https://apps.topcoder.com/forums/">Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
-                    </li>
-                    <li>
-                      <img src={iconLabel4} alt="label 4" />
                       <div><strong>Check out our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/challenges">Topcoder challenges</a> and participate.</strong> Challenges showing your technology skills make you a “qualified” candidate so we know you’re good. The proof is in the pudding!</div>
                     </li>
                   </ul>

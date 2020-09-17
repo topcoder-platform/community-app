@@ -1,0 +1,59 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  font-family: Roboto, sans-serif;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.grid2,
+.grid1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid2Label {
+  font-size: 13px;
+  color: $tc-purple-110;
+  margin-bottom: 20px;
+}
+
+.grid21 {
+  display: flex;
+  flex-wrap: wrap;
+
+  :global {
+    .radioButtonContainer {
+      margin-right: 60px;
+      height: 60px;
+      justify-content: space-around;
+    }
+  }
+}
+
+.grid1 {
+  margin-right: 100px;
+
+  :global {
+    .radioButtonContainer {
+      display: flex;
+      flex-direction: row;
+      margin-top: 20px;
+      width: 76px;
+      justify-content: space-between;
+
+      &:nth-child(2) {
+        width: 73px;
+      }
+
+      &:nth-child(3) {
+        width: 69px;
+      }
+    }
+  }
+}
+
+.grid2 {
+  margin-top: 20px;
+}
