@@ -113,67 +113,182 @@ $tc-link-visited: #0c4e98;
         padding-left: 17px;
       }
     }
-
-    img {
-      max-width: 100%;
-    }
   }
-}
 
-h2 {
-  @include roboto-bold;
+  h1 {
+    @include roboto-bold;
 
-  font-size: 20px;
-  color: $tc-black;
-  line-height: 30px;
-  margin: (6 * $base-unit) 0 (2 * $base-unit);
-}
+    font-size: 28px;
+    color: #151516;
+    letter-spacing: -0.78px;
+    line-height: 40px;
+    margin: (10 * $base-unit) 0 (2 * $base-unit);
+  }
 
-h3 {
-  @include roboto-bold;
+  h2 {
+    @include roboto-bold;
 
-  font-size: 15px;
-  color: $tc-black;
-  line-height: 25px;
-  margin: (5 * $base-unit) 0 0;
-  text-transform: uppercase;
-}
+    font-size: 20px;
+    color: $tc-black;
+    line-height: 30px;
+    margin: (6 * $base-unit) 0 (2 * $base-unit);
+  }
 
-p,
-em,
-strong {
-  @include roboto-regular;
+  h3 {
+    @include roboto-bold;
 
-  font-size: 15px;
-  color: $tc-gray-90;
-  line-height: 25px;
-}
+    font-size: 15px;
+    color: $tc-black;
+    line-height: 25px;
+    margin: (5 * $base-unit) 0 0;
+    text-transform: uppercase;
+  }
 
-p {
-  @include roboto-regular;
+  h4 {
+    @include roboto-bold;
 
-  font-size: 15px;
-  color: $tc-gray-90;
-  line-height: 25px;
+    margin: (4 * $base-unit) 0 (2 * $base-unit);
+    font-size: 15px;
+    line-height: 25px;
+    color: $tc-gray-90;
+  }
 
-  @include linkStyle;
+  h5,
+  h6 {
+    margin: (4 * $base-unit) 0 (2 * $base-unit);
+  }
 
-  margin: (2 * $base-unit) 0 (3 * $base-unit);
-}
+  p,
+  em,
+  strong {
+    @include roboto-regular;
 
-ul {
-  @include roboto-regular;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+  }
 
-  margin: 0 0 5px 20px;
-  font-size: 15px;
-  color: $tc-gray-90;
-  line-height: 25px;
-  list-style: disc outside none;
+  p {
+    @include roboto-regular;
 
-  li {
-    font-weight: 400;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
 
     @include linkStyle;
+
+    margin: (2 * $base-unit) 0 (3 * $base-unit);
+  }
+
+  ul {
+    @include roboto-regular;
+
+    margin: 0 0 5px 20px;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+    list-style: disc outside none;
+
+    li {
+      font-weight: 400;
+
+      @include linkStyle;
+    }
+  }
+
+  em {
+    @include roboto-regular;
+
+    font-style: italic;
+    font-weight: 400;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+  }
+
+  ol {
+    @include roboto-regular;
+
+    color: $tc-gray-80;
+    font-size: 15px;
+    line-height: 25px;
+    padding-left: 20px;
+    list-style-type: decimal;
+    margin: 0 0 5px;
+    counter-reset: item;
+    display: table;
+
+    li {
+      list-style-type: none;
+      font-weight: 400;
+      counter-increment: item;
+      display: table-row;
+      white-space: normal;
+
+      &::before {
+        display: table-cell;
+        font-weight: 700;
+        text-align: right;
+        content: counter(item) ".";
+        padding: 0 10px 0 0;
+      }
+    }
+  }
+
+  td,
+  th {
+    @include roboto-regular;
+
+    color: $tc-gray-80;
+    font-size: 15px;
+    line-height: 25px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    white-space: pre;
+    margin: 10px 0 15px;
+    background: $tc-gray-neutral-light;
+    border: 1px solid silver;
+    border-radius: 6px;
+    font-family: Roboto Mono, monospace;
+    font-weight: 400;
+    font-size: 13px;
+    color: $tc-black;
+    line-height: 20px;
+    padding: 15px;
+    display: block;
+  }
+
+  sub {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    bottom: -0.25em;
+  }
+
+  sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+  }
+
+  strong {
+    @include roboto-bold;
+
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+  }
+
+  pre {
+    overflow-x: scroll;
   }
 }
 
