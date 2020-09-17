@@ -32,7 +32,7 @@ export function AppComponentSwitch(appComponent) {
     );
   }
   if (appComponent.fields.type === 'RecruitCRM-Jobs') {
-    return <RecruitCRMJobs {...appComponent.fields.props} />;
+    return <RecruitCRMJobs {...appComponent.fields.props} key={appComponent.sys.id} />;
   }
   fireErrorMessage('Unsupported app component type from contentful', '');
   return null;
