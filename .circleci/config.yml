@@ -260,7 +260,6 @@ workflows:
           filters:
             branches:
               only:
-                - submissionId-hotfix
                 - develop
       # Production builds are exectuted 
       # when PR is merged to the master
