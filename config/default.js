@@ -78,16 +78,6 @@ module.exports = {
     },
   },
 
-  /* Amount of time [seconds] before expiration of authentication tokens,
-   * when the frontend will automatically trigger their refreshment. Once
-   * ready, it will either write to the Redux store fresh token, or will
-   * remove auth tokens from the store.
-   * NOTE: With the current implementation of accounts-app this value must be
-   * smaller than 60 seconds (earlier than 60 seconds before expiration of an
-   * auth token, a call to the getFreshToken() method returns the old token,
-   * due to caching). */
-  REAUTH_TIME: 55,
-
   /* API key for Segment.io. For development environment the value is set inside
    * development.json, for production environment it is set via CircleCI
    * variables. */
