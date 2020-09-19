@@ -18,7 +18,7 @@ const mockDatas = [{
     },
   ],
   filterState: {
-    groups: []
+    groups: [],
   },
   hidden: true,
   onSaveFilter,
@@ -37,7 +37,7 @@ const mockDatas = [{
     },
   ],
   filterState: {
-    groups: []
+    groups: [],
   },
   hidden: false,
   onSaveFilter,
