@@ -182,7 +182,7 @@ export default function FiltersPanel({
   const communityOps = communityFilters.filter(community => !community.hidden)
     .map(community => ({
       label: community.communityName,
-      value: community.communityId,
+      value: community.groupIds && community.groupIds.length > 0 ? community.groupIds[0] : '',
       name: community.communityName,
       data: getLabel(community),
     }));

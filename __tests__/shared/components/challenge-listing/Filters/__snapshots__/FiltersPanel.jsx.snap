@@ -90,7 +90,7 @@ exports[`Matches shallow shapshot 1`] = `
                 </div>,
                 "label": "Sample community",
                 "name": "Sample community",
-                "value": "123",
+                "value": "",
               },
             ]
           }
@@ -286,7 +286,7 @@ exports[`Matches shallow shapshot 2`] = `
                 </div>,
                 "label": "Sample community",
                 "name": "Sample community",
-                "value": "123",
+                "value": "",
               },
             ]
           }
