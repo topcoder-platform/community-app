@@ -190,4 +190,21 @@ export function sortChangedBucket(sorts, prevSorts) {
   return '';
 }
 
+export function isFilterEmpty(filter) {
+  return _.isEqual(filter, {
+    tracks: {
+      Dev: true,
+      Des: true,
+      DS: true,
+      QA: true,
+    },
+    name: '',
+    tags: [],
+    types: [],
+    groups: [],
+    startDateStart: null,
+    endDateEnd: null,
+  });
+}
+
 export default undefined;

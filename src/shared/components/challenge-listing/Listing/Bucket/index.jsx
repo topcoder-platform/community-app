@@ -32,7 +32,7 @@ export default function Bucket({
   challengesUrl,
   expanded,
   expand,
-  // filterState,
+  filterState,
   // keepPlaceholders,
   loading,
   loadMore,
@@ -108,7 +108,7 @@ export default function Bucket({
       challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
-      onTechTagClicked={tag => setFilterState({ tags: [tag] })}
+      onTechTagClicked={tag => setFilterState({ ..._.clone(filterState), tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
       key={challenge.id}
@@ -213,7 +213,7 @@ Bucket.propTypes = {
   challenges: PT.arrayOf(PT.shape()).isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
-  // filterState: PT.shape().isRequired,
+  filterState: PT.shape().isRequired,
   // keepPlaceholders: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,
