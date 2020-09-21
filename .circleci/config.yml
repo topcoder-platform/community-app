@@ -237,7 +237,7 @@ workflows:
           filters:
             branches:
               only:                
-                - integration-v5-challenge-api
+                - feature-refactor-challengelist
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
