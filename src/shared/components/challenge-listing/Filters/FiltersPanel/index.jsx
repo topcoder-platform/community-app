@@ -32,6 +32,7 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import { isFilterEmpty } from 'utils/challenge-listing/buckets';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
@@ -187,11 +188,12 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  const disableClearSaveFilterButtons = false;
+  // const disableClearSaveFilterButtons = false;
   // const disableClearSaveFilterButtons = isSavingFilter || (
   //   selectedCommunityId === defaultCommunityId
   //   && _.isEmpty(filterState)
   // );
+  const disableClearSaveFilterButtons = isFilterEmpty(filterState);
 
   const mapOps = item => ({ label: item, value: item });
   const mapTypes = item => ({ label: item.name, value: item.abbreviation });

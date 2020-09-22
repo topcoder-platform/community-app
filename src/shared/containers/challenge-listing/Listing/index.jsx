@@ -254,12 +254,16 @@ export class ListingContainer extends React.Component {
       auth.tokenV3,
       f.front,
     );
-    getMyChallenges(
-      0,
-      f.back,
-      auth.tokenV3,
-      f.front,
-    );
+
+    // Only retrieve my challenge only when user has login
+    if (auth.user) {
+      getMyChallenges(
+        0,
+        f.back,
+        auth.tokenV3,
+        f.front,
+      );
+    }
     // getPastChallenges(
     //   0,
     //   f.back,
