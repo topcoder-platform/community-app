@@ -107,6 +107,16 @@ function authenticate(store) {
       store.dispatch(actions.direct.dropAll());
       store.dispatch(actions.groups.dropGroups());
     }
+
+    /* Automatic refreshment of auth tokens. */
+    let time = Number.MAX_VALUE;
+    if (tctV2) time = decodeToken(tctV2).exp;
+    if (userV3) time = Math.min(time, userV3.exp);
+    if (time < Number.MAX_VALUE) {
+      time = Math.max(1000, (time * 1000) - Date.now());
+      logger.log('Reauth scheduled in', time / 1000, 'seconds');
+      setTimeout(() => authenticate(store), time + 1000);
+    }
   });
 }
 
