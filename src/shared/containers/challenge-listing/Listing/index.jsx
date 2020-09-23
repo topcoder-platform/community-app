@@ -375,6 +375,7 @@ export class ListingContainer extends React.Component {
       hideTcLinksInSidebarFooter,
       // isBucketSwitching,
       // userChallenges,
+      meta,
     } = this.props;
 
     const { tokenV3 } = auth;
@@ -530,6 +531,7 @@ export class ListingContainer extends React.Component {
           // isBucketSwitching={isBucketSwitching}
           // userChallenges={[]}
           isLoggedIn={isLoggedIn}
+          meta={meta}
         />
       </div>
     );
@@ -555,7 +557,7 @@ ListingContainer.defaultProps = {
   preListingMsg: null,
   prizeMode: 'money-usd',
   queryBucket: BUCKETS.ALL,
-  // meta: {},
+  meta: {},
   // isBucketSwitching: false,
   // userChallenges: [],
 };
@@ -637,7 +639,7 @@ ListingContainer.propTypes = {
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
   queryBucket: PT.string,
-  // meta: PT.shape(),
+  meta: PT.shape(),
   // isBucketSwitching: PT.bool,
   selectBucketDone: PT.func.isRequired,
   getTotalChallengesCount: PT.func.isRequired,
