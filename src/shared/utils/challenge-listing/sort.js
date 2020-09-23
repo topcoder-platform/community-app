@@ -94,7 +94,7 @@ export default {
   },
   [SORTS.REVIEW_OPPORTUNITIES_START_DATE]: {
     // This will implicitly use moment#valueOf
-    func: (a, b) => moment(b.startDate) - moment(a.startDate), // descending
+    func: (a, b) => moment(b.startDate) - moment(a.startDate), // ascending
     name: 'Review start date',
   },
 };
