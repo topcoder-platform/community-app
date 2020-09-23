@@ -110,7 +110,7 @@ export default function GigDetails(props) {
                   </strong>
                 </div>
                 <div styleName="cta-buttons">
-                  <a styleName="primaryBtn" href={`https://recruitcrm.io/apply/${job.slug}`} target="_blank" rel="noopener noreferrer">APPLY TO THIS JOB</a>
+                  <Link styleName="primaryBtn" to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}>APPLY TO THIS JOB</Link>
                   <Link to={config.GIGS_PAGES_PATH}>VIEW OTHER JOBS</Link>
                 </div>
               </div>

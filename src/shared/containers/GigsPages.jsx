@@ -13,14 +13,19 @@ import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 export default function GigsPagesContainer(props) {
   const { match } = props;
   const { id } = match.params;
+  const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   return (
     <div>
-      <MetaTags title="Topcoder - Gig Work Opportunities" />
+      <MetaTags
+        title="Topcoder - Gig Work Opportunities"
+        description="Topcoder - Gig Work Opportunities"
+      />
       <Header />
       {
         id ? (
           <RecruitCRMJobDetails
             id={id}
+            isApply={isApply}
           />
         ) : (
           <Viewport

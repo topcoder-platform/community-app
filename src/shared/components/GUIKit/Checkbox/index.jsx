@@ -15,6 +15,7 @@ function Checkbox({
   checked,
   onChange,
   size,
+  errorMsg,
 }) {
   const [checkedInternal, setCheckedInternal] = useState(checked);
   let sizeStyle = size === 'lg' ? 'lgSize' : null;
@@ -37,9 +38,10 @@ function Checkbox({
           delayedOnChange(e.target.checked, onChange);
         }}
       />
-      <div styleName="checkmark">
+      <div styleName={`checkmark ${errorMsg ? 'haveError' : ''}`}>
         <IconCheckSolid styleName="after" width={checkmarkSize} height={checkmarkSize} />
       </div>
+      {errorMsg ? (<span styleName="errorMessage">{errorMsg}</span>) : null}
     </label>
   );
 }
@@ -48,12 +50,14 @@ Checkbox.defaultProps = {
   checked: false,
   onChange: () => {},
   size: 'sm',
+  errorMsg: '',
 };
 
 Checkbox.propTypes = {
   checked: PT.bool,
   onChange: PT.func,
   size: PT.oneOf(['xs', 'sm', 'lg']),
+  errorMsg: PT.string,
 };
 
 export default Checkbox;

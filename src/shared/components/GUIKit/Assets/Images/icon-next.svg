@@ -5,7 +5,7 @@
             <mask id="mask-2" fill="white">
                 <polygon points="4.9 15.7 3.4 14.3 9.7 8 3.4 1.7 4.9 0.3 12.6 8"></polygon>
             </mask>
-            <polygon fill="#2A2A2A" points="4.9 15.7 3.4 14.3 9.7 8 3.4 1.7 4.9 0.3 12.6 8"></polygon>
+            <polygon fill="#137D60" points="4.9 15.7 3.4 14.3 9.7 8 3.4 1.7 4.9 0.3 12.6 8"></polygon>
         </g>
     </g>
 </svg>

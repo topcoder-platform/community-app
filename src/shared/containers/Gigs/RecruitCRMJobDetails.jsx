@@ -3,34 +3,40 @@
  * driven by recruitCRM
  */
 
+import _ from 'lodash';
 import actions from 'actions/recruitCRM';
 import LoadingIndicator from 'components/LoadingIndicator';
 import GigDetails from 'components/Gigs/GigDetails';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import RecruitCRMJobApply from './RecruitCRMJobApply';
 
 class RecruitCRMJobDetailsContainer extends React.Component {
   componentDidMount() {
     const {
       getJob,
       id,
+      job,
     } = this.props;
 
-    getJob(id);
+    if (_.isEmpty(job)) {
+      getJob(id);
+    }
   }
 
   render() {
     const {
       loading,
       job,
+      isApply,
     } = this.props;
 
     if (loading) {
       return <LoadingIndicator />;
     }
 
-    return <GigDetails job={job} />;
+    return isApply ? <RecruitCRMJobApply job={job} /> : <GigDetails job={job} />;
   }
 }
 
@@ -43,6 +49,7 @@ RecruitCRMJobDetailsContainer.propTypes = {
   loading: PT.bool.isRequired,
   job: PT.shape(),
   id: PT.string.isRequired,
+  isApply: PT.bool.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {

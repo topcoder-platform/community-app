@@ -8,6 +8,10 @@
   background-color: $tc-white;
   border: 1px solid $gui-kit-gray-30;
 
+  &.haveError {
+    border: 2px solid #ef476f;
+  }
+
   /* Create the checkmark/indicator (hidden when not checked) */
   .after {
     position: absolute;
@@ -106,4 +110,15 @@
       }
     }
   }
+}
+
+.errorMessage {
+  display: block;
+
+  @include errorMessage;
+
+  position: absolute;
+  white-space: nowrap;
+  margin: 35px 0 0 0;
+  color: #ef476f;
 }
