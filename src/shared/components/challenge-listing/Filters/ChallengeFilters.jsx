@@ -43,12 +43,13 @@ export default function ChallengeFilters({
   validTypes,
   // isSavingFilter,
 }) {
-  // let filterRulesCount = 0;
-  // if (filterState.tags) filterRulesCount += 1;
-  // if (filterState.types) filterRulesCount += 1;
-  // if (filterState.endDate || filterState.startDate) filterRulesCount += 1;
-  // if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
-  // if (selectedCommunityId !== '') filterRulesCount += 1;
+  let filterRulesCount = 0;
+  if (filterState.groups && filterState.groups.length) filterRulesCount += 1;
+  if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
+  if (filterState.types && filterState.types.length) filterRulesCount += 1;
+  if (filterState.endDateEnd || filterState.startDateStart) filterRulesCount += 1;
+  if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
+  if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
   const isTrackOn = track => filterState.tracks[track];
 
   const switchTrack = (track, on) => {
@@ -151,7 +152,7 @@ export default function ChallengeFilters({
           </span>
           <FiltersSwitch
             active={expanded}
-            // filtersCount={filterRulesCount}
+            filtersCount={filterRulesCount}
             onSwitch={setExpanded}
             styleName="FiltersSwitch"
           />
