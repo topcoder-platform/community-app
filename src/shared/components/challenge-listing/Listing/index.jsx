@@ -184,9 +184,9 @@ function Listing({
   return (
     <div styleName="challengeCardContainer">
       {preListingMsg}
-      {auth.user ? getBucket(BUCKETS.MY) : null}
+      {(auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null}
       {/* {extraBucket ? getBucket(extraBucket) : null} */}
-      {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+      {openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {/* {getBucket(BUCKETS.ONGOING)} */}
     </div>
   );
