@@ -812,7 +812,7 @@ function create(initialState) {
     sorts: {
       ongoing: 'updated',
       openForRegistration: 'updated',
-      my: 'updated',
+      my: 'startDate',
       // past: 'updated',
       reviewOpportunities: 'review-opportunities-start-date',
     },

@@ -35,7 +35,7 @@ export const BUCKET_DATA = {
     // hideCount: false,
     name: 'My Challenges',
     sorts: [
-      SORTS.MOST_RECENT,
+      SORTS.MOST_RECENT_START_DATE,
       // SORTS.TIME_TO_SUBMIT,
       // SORTS.NUM_REGISTRANTS,
       // SORTS.NUM_SUBMISSIONS,
