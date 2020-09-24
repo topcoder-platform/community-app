@@ -49,7 +49,10 @@ export function updateQuery(update) {
     if (_.isArray(value) && value.length > 0) filterArray.push(value.map(item => `${key}[]=${item}`).join('&'));
     // eslint-disable-next-line max-len
     else if (_.isUndefined(value) || _.isEmpty(value) || (_.isArray(value) && value.length === 0)) delete query[key];
-    else query += `${key}=${value}`;
+    else {
+      const separator = query === '?' ? '' : '&';
+      query += `${separator}${key}=${value}`;
+    }
   });
   if (query === '?') {
     if (filterArray.length > 0) {

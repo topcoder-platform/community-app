@@ -20,6 +20,9 @@ import './style.scss';
 function Listing({
   activeBucket,
   auth,
+  allActiveChallengesLoaded,
+  allMyChallengesLoaded,
+  allOpenForRegistrationChallengesLoaded,
   challenges,
   openForRegistrationChallenges,
   myChallenges,
@@ -86,17 +89,17 @@ function Listing({
       case BUCKETS.MY:
         bucketChallenges = [].concat(myChallenges);
         loading = loadingMyChallenges;
-        loadMore = loadMoreMy;
+        loadMore = allMyChallengesLoaded ? null : loadMoreMy;
         break;
       case BUCKETS.OPEN_FOR_REGISTRATION:
         bucketChallenges = [].concat(openForRegistrationChallenges);
         loading = loadingOpenForRegistrationChallenges;
-        loadMore = loadMoreOpenForRegistration;
+        loadMore = allOpenForRegistrationChallengesLoaded ? null : loadMoreOpenForRegistration;
         break;
       case BUCKETS.ONGOING:
         bucketChallenges = [].concat(challenges);
         loading = loadingOnGoingChallenges;
-        loadMore = loadMoreOnGoing;
+        loadMore = allActiveChallengesLoaded ? null : loadMoreOnGoing;
         break;
       default:
         break;
@@ -226,6 +229,9 @@ Listing.propTypes = {
       userId: PT.string,
     }),
   }).isRequired,
+  allActiveChallengesLoaded: PT.bool.isRequired,
+  allMyChallengesLoaded: PT.bool.isRequired,
+  allOpenForRegistrationChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape()),
   openForRegistrationChallenges: PT.arrayOf(PT.shape()),
   myChallenges: PT.arrayOf(PT.shape()),
@@ -268,6 +274,9 @@ const mapStateToProps = (state) => {
   const cl = state.challengeListing;
   return {
     // allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    allMyChallengesLoaded: cl.allMyChallengesLoaded,
+    allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
     // pastSearchTimestamp: cl.pastSearchTimestamp,
     challengeTypes: cl.challengeTypes,
   };
