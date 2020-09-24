@@ -70,8 +70,14 @@ class TermsDetailPageContainer extends React.Component {
       agreeingTerm,
       agreeTermFailure,
       theme,
+      history,
     } = this.props;
     const { termsAccepted, showModal } = this.state;
+
+    if (details && details.isLegacyTerm && !history.location.pathname.includes(details.id)) {
+      const path = `/challenges/terms/detail/${details.id}`;
+      history.push(path, history.state);
+    }
 
     return (
       <div className={theme['outer-container']}>
@@ -196,6 +202,7 @@ TermsDetailPageContainer.propTypes = {
     'terms-title': PT.string.isRequired,
     modalMsg: PT.any,
   }).isRequired,
+  history: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, props) {
