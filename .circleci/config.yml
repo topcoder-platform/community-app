@@ -245,7 +245,7 @@ workflows:
           filters:
             branches:
               only:
-                - community-app-tests-poc
+                - milestone-20200917
                 - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
