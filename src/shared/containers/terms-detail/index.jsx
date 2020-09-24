@@ -75,8 +75,8 @@ class TermsDetailPageContainer extends React.Component {
     const { termsAccepted, showModal } = this.state;
 
     if (details && details.isLegacyTerm && !history.location.pathname.includes(details.id)) {
-      history.location.pathname = `/challenges/terms/detail/${details.id}`; // eslint-disable-line no-param-reassign
-      history.push(history.location.pathname, history.state);
+      const path = `/challenges/terms/detail/${details.id}`;
+      history.push(path, history.state);
     }
 
     return (
