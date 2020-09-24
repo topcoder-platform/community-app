@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<div
+  className="textareaContainer src-shared-components-GUIKit-Textarea-___style__container___399ft"
+>
+  <textarea
+    className=""
+    defaultValue=""
+    id="textAreaInput"
+    onChange={[Function]}
+    placeholder=""
+  />
+</div>
+`;

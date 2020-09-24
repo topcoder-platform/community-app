@@ -230,13 +230,14 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - hot-fix
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
+                - hot-fix-ad-code
                 - feature-contentful
       # This is alternate dev env for parallel testing
       - "build-qa":
