@@ -12,7 +12,7 @@ import React, { useRef } from 'react';
 import Sort from 'utils/challenge-listing/sort';
 // import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA }
 // from 'utils/challenge-listing/buckets';
-import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
+import { NO_LIVE_CHALLENGES_CONFIG, BUCKET_DATA } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -102,6 +102,13 @@ export default function Bucket({
   //   );
   // }
 
+  if (sortedChallenges.length === 0) {
+    return (
+      <div styleName="no-results">
+        { `${NO_LIVE_CHALLENGES_CONFIG[bucket]}` }
+      </div>
+    );
+  }
   const cards = sortedChallenges.map(challenge => (
     <ChallengeCard
       challenge={challenge}

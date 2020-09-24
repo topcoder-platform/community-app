@@ -104,6 +104,7 @@ function onGetActiveChallengesDone(state, { error, payload }) {
     challenges,
     // lastUpdateOfActiveChallenges: Date.now(),
     loadingActiveChallengesUUID: '',
+    allActiveChallengesLoaded: challenges.length >= payload.meta.allChallengesCount,
     meta: {
       ...state.meta,
       ongoingChallengesCount: payload.meta.allChallengesCount,
@@ -558,6 +559,7 @@ function onGetOpenForRegistrationChallengesDone(state, { error, payload }) {
     ...state,
     openForRegistrationChallenges: challenges,
     loadingOpenForRegistrationChallengesUUID: '',
+    allOpenForRegistrationChallengesLoaded: challenges.length >= payload.meta.allChallengesCount,
     meta: {
       ...state.meta,
       openChallengesCount: payload.meta.allChallengesCount,
@@ -577,6 +579,7 @@ function onGetMyChallengesDone(state, { error, payload }) {
     ...state,
     myChallenges: challenges,
     loadingMyChallengesUUID: '',
+    allMyChallengesLoaded: challenges.length >= payload.meta.allChallengesCount,
     meta: {
       ...state.meta,
       myChallengesCount: payload.meta.allChallengesCount,
@@ -619,7 +622,9 @@ function create(initialState) {
   return handleActions({
     [a.dropChallenges]: state => ({
       ...state,
-      // allActiveChallengesLoaded: false,
+      allActiveChallengesLoaded: false,
+      allMyChallengesLoaded: false,
+      allOpenForRegistrationChallengesLoaded: false,
       // allPastChallengesLoaded: false,
       // allReviewOpportunitiesLoaded: false,
       challenges: [],
@@ -754,7 +759,9 @@ function create(initialState) {
       },
     }),
   }, _.defaults(_.clone(initialState) || {}, {
-    // allActiveChallengesLoaded: false,
+    allActiveChallengesLoaded: false,
+    allMyChallengesLoaded: false,
+    allOpenForRegistrationChallengesLoaded: false,
     // allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 

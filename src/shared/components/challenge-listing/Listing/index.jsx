@@ -20,6 +20,9 @@ import './style.scss';
 function Listing({
   activeBucket,
   auth,
+  allActiveChallengesLoaded,
+  allMyChallengesLoaded,
+  allOpenForRegistrationChallengesLoaded,
   challenges,
   openForRegistrationChallenges,
   myChallenges,
@@ -88,19 +91,19 @@ function Listing({
       case BUCKETS.MY:
         bucketChallenges = [].concat(myChallenges);
         loading = loadingMyChallenges;
-        loadMore = loadMoreMy;
+        loadMore = allMyChallengesLoaded ? null : loadMoreMy;
         newExpanded = newExpanded || (+meta.myChallengesCount === bucketChallenges.length);
         break;
       case BUCKETS.OPEN_FOR_REGISTRATION:
         bucketChallenges = [].concat(openForRegistrationChallenges);
         loading = loadingOpenForRegistrationChallenges;
-        loadMore = loadMoreOpenForRegistration;
+        loadMore = allOpenForRegistrationChallengesLoaded ? null : loadMoreOpenForRegistration;
         newExpanded = newExpanded || (+meta.openChallengesCount === bucketChallenges.length);
         break;
       case BUCKETS.ONGOING:
         bucketChallenges = [].concat(challenges);
         loading = loadingOnGoingChallenges;
-        loadMore = loadMoreOnGoing;
+        loadMore = allActiveChallengesLoaded ? null : loadMoreOnGoing;
         newExpanded = newExpanded || (+meta.ongoingChallengesCount === bucketChallenges.length);
         break;
       default:
@@ -189,9 +192,9 @@ function Listing({
   return (
     <div styleName="challengeCardContainer">
       {preListingMsg}
-      {auth.user ? getBucket(BUCKETS.MY) : null}
+      {(auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null}
       {/* {extraBucket ? getBucket(extraBucket) : null} */}
-      {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+      {openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {/* {getBucket(BUCKETS.ONGOING)} */}
     </div>
   );
@@ -231,6 +234,9 @@ Listing.propTypes = {
       userId: PT.string,
     }),
   }).isRequired,
+  allActiveChallengesLoaded: PT.bool.isRequired,
+  allMyChallengesLoaded: PT.bool.isRequired,
+  allOpenForRegistrationChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape()),
   openForRegistrationChallenges: PT.arrayOf(PT.shape()),
   myChallenges: PT.arrayOf(PT.shape()),
@@ -274,6 +280,9 @@ const mapStateToProps = (state) => {
   const cl = state.challengeListing;
   return {
     // allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
+    allMyChallengesLoaded: cl.allMyChallengesLoaded,
+    allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
     // pastSearchTimestamp: cl.pastSearchTimestamp,
     challengeTypes: cl.challengeTypes,
   };
