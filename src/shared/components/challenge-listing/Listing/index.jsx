@@ -7,7 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  BUCKETS, isReviewOpportunitiesBucket,
+  BUCKETS, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
   // BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
 } from 'utils/challenge-listing/buckets';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -181,13 +181,19 @@ function Listing({
   //     </div>
   //   );
   // }
-  return (
+  return challenges.length > 0 ? (
     <div styleName="challengeCardContainer">
       {preListingMsg}
       {(auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null}
       {/* {extraBucket ? getBucket(extraBucket) : null} */}
       {openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {/* {getBucket(BUCKETS.ONGOING)} */}
+    </div>
+  ) : (
+    <div styleName="challengeCardContainer">
+      <div styleName="no-results">
+        { `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
+      </div>
     </div>
   );
 }
