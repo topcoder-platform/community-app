@@ -37,9 +37,24 @@ class TermsDetailPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { loadTermDetails, authTokens, termId } = this.props;
+    const {
+      loadTermDetails,
+      authTokens,
+      termId,
+    } = this.props;
+
+    const {
+      details,
+      history,
+    } = nextProps;
+
     if (!_.isEqual(nextProps.termId, termId)) {
       loadTermDetails(authTokens, nextProps.termId);
+    }
+
+    if (details && details.isLegacyTerm && !history.location.pathname.includes(details.id)) {
+      const path = `/challenges/terms/detail/${details.id}`;
+      history.push(path, history.state);
     }
   }
 
@@ -70,14 +85,8 @@ class TermsDetailPageContainer extends React.Component {
       agreeingTerm,
       agreeTermFailure,
       theme,
-      history,
     } = this.props;
     const { termsAccepted, showModal } = this.state;
-
-    if (details && details.isLegacyTerm && !history.location.pathname.includes(details.id)) {
-      const path = `/challenges/terms/detail/${details.id}`;
-      history.push(path, history.state);
-    }
 
     return (
       <div className={theme['outer-container']}>
@@ -96,7 +105,7 @@ class TermsDetailPageContainer extends React.Component {
           ) : null
         }
         {
-          details
+          (details && details.text)
             ? (
               <div className={theme['terms-detail-container']}>
                 <MetaTags title={details.title} description={details.title} />
