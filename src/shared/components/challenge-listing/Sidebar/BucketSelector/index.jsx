@@ -24,6 +24,7 @@ export default function BucketSelector({
   // challenges,
   // communityFilter,
   disabled,
+  expanded,
   // extraBucket,
   // filterState,
   isAuth,
@@ -44,6 +45,7 @@ export default function BucketSelector({
       bucket={bucket}
       // challenges={challenges}
       disabled={disabled}
+      expanded={expanded}
       onClick={() => {
         selectBucket(bucket);
         /* eslint-env browser */
@@ -121,6 +123,7 @@ export default function BucketSelector({
 BucketSelector.defaultProps = {
   // communityFilter: null,
   disabled: false,
+  expanded: false,
   // extraBucket: null,
   isAuth: false,
 };
@@ -133,6 +136,7 @@ BucketSelector.propTypes = {
   // })).isRequired,
   // communityFilter: PT.shape(),
   disabled: PT.bool,
+  expanded: PT.bool,
   // extraBucket: PT.string,
   // filterState: PT.shape().isRequired,
   isAuth: PT.bool,

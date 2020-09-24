@@ -336,6 +336,7 @@ export class ListingContainer extends React.Component {
       communityId,
       communityName,
       defaultCommunityId,
+      expanded,
       expandTag,
       expandedTags,
       // extraBucket,
@@ -485,6 +486,7 @@ export class ListingContainer extends React.Component {
           communityFilter={communityFilter}
           communityName={communityName}
           defaultCommunityId={defaultCommunityId}
+          expanded={expanded}
           expandedTags={expandedTags}
           expandTag={expandTag}
           // extraBucket={extraBucket}
@@ -555,6 +557,7 @@ ListingContainer.defaultProps = {
   preListingMsg: null,
   prizeMode: 'money-usd',
   queryBucket: BUCKETS.ALL,
+  expanded: false,
   // meta: {},
   // isBucketSwitching: false,
   // userChallenges: [],
@@ -628,6 +631,7 @@ ListingContainer.propTypes = {
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   activeBucket: PT.string.isRequired,
+  expanded: PT.bool,
   selectedCommunityId: PT.string,
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
@@ -691,6 +695,7 @@ const mapStateToProps = (state, ownProps) => {
     selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,
+    expanded: cl.sidebar.expanded,
     // isBucketSwitching: cl.sidebar.isBucketSwitching,
     expandedTags: cl.expandedTags,
     meta: cl.meta,
@@ -750,7 +755,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getReviewOpportunitiesInit(uuid, page));
       dispatch(a.getReviewOpportunitiesDone(uuid, page, token));
     },
-    selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    selectBucket: (bucket, expanded) => dispatch(sa.selectBucket(bucket, expanded)),
     selectBucketDone: () => dispatch(sa.selectBucketDone()),
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),

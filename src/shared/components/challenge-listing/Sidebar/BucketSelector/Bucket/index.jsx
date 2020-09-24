@@ -17,6 +17,7 @@ function Bucket({
   bucket,
   // challenges,
   disabled,
+  expanded,
   onClick,
   // allActiveChallengesLoaded,
   meta,
@@ -31,6 +32,7 @@ function Bucket({
   //   filteredChallenges.push(clonedChallenges[i]);
   // }
   // }
+  const isActive = expanded ? bucket === BUCKETS.ALL : active;
   let count;
   // if (allActiveChallengesLoaded) {
   // count = challenges.filter(filter).length;
@@ -64,9 +66,13 @@ function Bucket({
   //   </div>
   // );
 
-  if (active) {
+  if (isActive) {
     return (
-      <div styleName="active bucket">
+      <div
+        onClick={disabled ? _.noop : onClick}
+        onKeyPress={e => (e.key === 'Enter' ? onClick() : null)}
+        styleName="active bucket"
+      >
         {BUCKET_DATA[bucket].name}
         {countEl}
         {/* {error} */}
@@ -92,6 +98,7 @@ function Bucket({
 Bucket.defaultProps = {
   active: false,
   disabled: false,
+  expanded: false,
   onClick: _.noop,
   meta: {},
 };
@@ -107,6 +114,7 @@ Bucket.propTypes = {
   // }).isRequired,
   // challenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,
+  expanded: PT.bool,
   onClick: PT.func,
   meta: PT.shape(),
   // allActiveChallengesLoaded: PT.bool.isRequired,

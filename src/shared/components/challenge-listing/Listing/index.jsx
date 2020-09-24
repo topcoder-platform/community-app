@@ -136,7 +136,7 @@ function Listing({
             challengeTypes={challengeTypes}
             challengesUrl={challengesUrl}
             communityName={communityName}
-            expand={() => selectBucket(bucket)}
+            expand={() => selectBucket(bucket, true)}
             expanded={expanded}
             expandedTags={expandedTags}
             expandTag={expandTag}

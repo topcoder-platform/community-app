@@ -37,6 +37,7 @@ export default function ChallengeListing(props) {
     defaultCommunityId,
     // extraBucket,
     // filterState,
+    expanded,
     hideSrm,
     hideTcLinksInFooter,
     keepPastPlaceholders,
@@ -159,6 +160,7 @@ export default function ChallengeListing(props) {
           <Sticky top={20} bottomBoundary="#challengeFilterContainer">
             <Sidebar
               // extraBucket={extraBucket}
+              expanded={expanded}
               hideTcLinksInFooter={hideTcLinksInFooter}
             />
           </Sticky>
@@ -187,12 +189,14 @@ ChallengeListing.defaultProps = {
   expandedTags: [],
   expandTag: null,
   loadMoreActive: null,
+  expanded: false,
   // isBucketSwitching: false,
   // userChallenges: [],
 };
 
 ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
+  expanded: PT.bool,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   openForRegistrationChallenges: PT.arrayOf(PT.shape()).isRequired,
   myChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
