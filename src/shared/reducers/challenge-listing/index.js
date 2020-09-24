@@ -810,8 +810,8 @@ function create(initialState) {
     selectedCommunityId: 'All',
 
     sorts: {
-      ongoing: 'updated',
-      openForRegistration: 'updated',
+      ongoing: 'startDate',
+      openForRegistration: 'startDate',
       my: 'startDate',
       // past: 'updated',
       reviewOpportunities: 'review-opportunities-start-date',

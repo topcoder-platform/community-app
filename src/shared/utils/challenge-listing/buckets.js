@@ -52,7 +52,7 @@ export const BUCKET_DATA = {
     // hideCount: false,
     name: 'Open for registration',
     sorts: [
-      SORTS.MOST_RECENT,
+      SORTS.MOST_RECENT_START_DATE,
       // SORTS.TIME_TO_REGISTER,
       // SORTS.TIME_TO_SUBMIT,
       // SORTS.NUM_REGISTRANTS,
@@ -71,7 +71,7 @@ export const BUCKET_DATA = {
     // hideCount: false,
     name: 'Ongoing challenges',
     sorts: [
-      SORTS.MOST_RECENT,
+      SORTS.MOST_RECENT_START_DATE,
       // SORTS.CURRENT_PHASE,
       SORTS.TITLE_A_TO_Z,
       // SORTS.PRIZE_HIGH_TO_LOW,
