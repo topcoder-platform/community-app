@@ -10,6 +10,7 @@ exports[`Matches shallow shapshot 1`] = `
     <BucketSelector
       activeBucket="activeBucket"
       disabled={false}
+      expanded={false}
       isAuth={false}
       selectBucket={[MockFunction]}
     />
@@ -30,6 +31,7 @@ exports[`Matches shallow shapshot 2`] = `
     <BucketSelector
       activeBucket="activeBucket"
       disabled={false}
+      expanded={false}
       isAuth={false}
       selectBucket={[MockFunction]}
     />
