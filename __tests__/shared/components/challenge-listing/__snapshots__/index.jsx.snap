@@ -55,6 +55,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         top={20}
       >
         <Connect(SidebarContainer)
+          expanded={false}
           hideTcLinksInFooter={false}
         />
       </Sticky>
@@ -118,6 +119,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         top={20}
       >
         <Connect(SidebarContainer)
+          expanded={false}
           hideTcLinksInFooter={false}
         />
       </Sticky>
