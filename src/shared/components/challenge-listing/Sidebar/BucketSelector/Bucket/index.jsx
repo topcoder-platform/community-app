@@ -72,6 +72,7 @@ function Bucket({
         onClick={disabled ? _.noop : onClick}
         onKeyPress={e => (e.key === 'Enter' ? onClick() : null)}
         styleName="active bucket"
+        role="presentation"
       >
         {BUCKET_DATA[bucket].name}
         {countEl}
