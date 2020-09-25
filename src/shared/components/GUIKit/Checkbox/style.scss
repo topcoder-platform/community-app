@@ -18,14 +18,6 @@
     display: none;
     left: 50%;
     top: 50%;
-    -webkit-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
-
-    :global {
-      path {
-        fill: $tc-white;
-      }
-    }
   }
 }
 
@@ -50,8 +42,8 @@
       border-radius: 4px;
 
       .after {
-        margin-left: -8px;
-        margin-top: -9px;
+        margin-left: -9px;
+        margin-top: -7px;
       }
     }
   }
@@ -67,8 +59,8 @@
       border-radius: 3px;
 
       .after {
-        margin-left: -6px;
-        margin-top: -7px;
+        margin-left: -7px;
+        margin-top: -6px;
       }
     }
   }
@@ -84,8 +76,8 @@
       border-radius: 2px;
 
       .after {
-        margin-left: -5px;
-        margin-top: -5px;
+        margin-left: -6px;
+        margin-top: -4px;
       }
     }
   }

@@ -1,5 +1,13 @@
 @import "~styles/mixins";
 
+.loading-text {
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  line-height: 26px;
+  color: #2a2a2a;
+  text-align: center;
+}
+
 .container {
   max-width: $screen-lg;
   margin: auto;

@@ -40,11 +40,70 @@ async function getJobDone(id) {
   };
 }
 
+/**
+ * Apply for Job init
+ */
+function applyForJobInit(id, payload) {
+  return { id, payload };
+}
+
+/**
+ * Helper utitlity
+ * @param {object} payload The apply form payload
+ */
+function normalizeRecruitPayload(payload) {
+  return {
+    last_name: payload.lname,
+    first_name: payload.fname,
+    email: payload.email,
+    contact_number: payload.phone,
+    city: payload.city,
+    locality: payload.country,
+    available_from: payload.availFrom,
+    salary_expectation: payload.payExpectation,
+    skill: payload.skills.filter(s => s.selected).map(s => s.label).join(','),
+    custom_fields: [
+      {
+        field_id: 13,
+        value: payload.reffereal || '',
+      },
+      {
+        field_id: 1,
+        value: payload.tcProfileLink || (payload.handle ? `topcoder.com/members/${payload.handle}` : ''),
+      },
+      {
+        field_id: 2,
+        value: payload.handle || '',
+      },
+      {
+        field_id: 3,
+        value: payload.whyFit || '',
+      },
+    ],
+    resume: payload.fileCV,
+  };
+}
+
+/**
+ * Apply for Job done
+ */
+async function applyForJobDone(id, payload) {
+  const ss = new Service();
+  const res = await ss.applyForJob(id, normalizeRecruitPayload(payload));
+
+  return {
+    id,
+    data: res,
+  };
+}
+
 export default redux.createActions({
   RECRUIT: {
     GET_JOBS_INIT: getJobsInit,
     GET_JOBS_DONE: getJobsDone,
     GET_JOB_INIT: getJobInit,
     GET_JOB_DONE: getJobDone,
+    APPLY_FOR_JOB_INIT: applyForJobInit,
+    APPLY_FOR_JOB_DONE: applyForJobDone,
   },
 });

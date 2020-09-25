@@ -41,6 +41,7 @@
   }
 
   input:not([type='checkbox']).haveValue + label,
+  input:not([type='checkbox']).haveError + label,
   input:not([type='checkbox']):focus + label {
     display: flex;
   }
