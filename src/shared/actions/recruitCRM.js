@@ -1,5 +1,6 @@
 import { redux } from 'topcoder-react-utils';
 import Service from 'services/recruitCRM';
+import _ from 'lodash';
 
 /**
  * Jobs page fetch init
@@ -58,7 +59,7 @@ function normalizeRecruitPayload(payload) {
     email: payload.email,
     contact_number: payload.phone,
     city: payload.city,
-    locality: payload.country,
+    locality: _.find(payload.country, { selected: true }).label,
     available_from: payload.availFrom,
     salary_expectation: payload.payExpectation,
     skill: payload.skills.filter(s => s.selected).map(s => s.label).join(','),

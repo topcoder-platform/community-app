@@ -11,6 +11,9 @@ import { connect } from 'react-redux';
 import { isValidEmail } from 'utils/tc';
 import techSkills from './techSkills';
 
+const countries = require('i18n-iso-countries');
+countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
+
 class RecruitCRMJobApplyContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +29,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
           { label: '10 hours', checked: false }, { label: '20 hours', checked: false }, { label: '30 hours', checked: false }, { label: '40 hours', checked: false },
         ],
         agreedTerms: false,
+        country: _.map(countries.getNames('en'), val => ({ label: val, selected: false })),
         // eslint-disable-next-line react/destructuring-assignment
       },
     };
@@ -69,7 +73,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
       const { formData, formErrors } = state;
       // Form validation happens here
       const requiredTextFields = [
-        'fname', 'lname', 'city', 'country', 'reffereal', 'phone', 'email',
+        'fname', 'lname', 'city', 'reffereal', 'phone', 'email',
       ];
       // check required text fields for value
       _.each(requiredTextFields, (key) => {
@@ -77,6 +81,9 @@ class RecruitCRMJobApplyContainer extends React.Component {
         else if (formData[key] && _.trim(formData[key]).length < 2) formErrors[key] = 'Must be at least 2 characters';
         else delete formErrors[key];
       });
+      // check for selected country
+      if (!_.find(formData.country, { selected: true })) formErrors.country = 'Please, select your country';
+      else delete formErrors.country;
       // check payExpectation to be a number
       if (formData.payExpectation && _.trim(formData.payExpectation)) {
         if (!_.isInteger(_.toNumber(formData.payExpectation))) formErrors.payExpectation = 'Must be integer value in $';

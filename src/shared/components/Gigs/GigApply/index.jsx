@@ -14,6 +14,7 @@ import Checkbox from 'components/GUIKit/Checkbox';
 import { getCustomField } from 'utils/gigs';
 import Modal from 'components/Contentful/Modal';
 import FilestackFilePicker from 'components/GUIKit/FilePicker';
+import Dropdown from 'components/GUIKit/Dropdown';
 import './style.scss';
 import bigCheckmark from 'assets/images/big-checkmark.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
@@ -72,7 +73,7 @@ export default function GigApply(props) {
             }
             {
               !application ? (
-                <div styleName="form-wrap">
+                <div styleName={`form-wrap ${applying ? 'applying' : ''}`}>
                   <h4>PERSONAL INFORMATION</h4>
                   <p>Welcome to Topcoder Gigs! We’d like to get to know you.</p>
                   <div styleName="form-section">
@@ -121,12 +122,12 @@ export default function GigApply(props) {
                         value={formData.city}
                         required
                       />
-                      <TextInput
+                      <Dropdown
                         placeholder="Country"
                         label="Country"
                         onChange={val => onFormInputChange('country', val)}
                         errorMsg={formErrors.country}
-                        value={formData.country}
+                        options={formData.country}
                         required
                       />
                     </div>

@@ -245,4 +245,9 @@
     }
     /* stylelint-enable */
   }
+
+  .form-wrap.applying .form-section {
+    opacity: 0.6;
+    pointer-events: none !important;
+  }
 }

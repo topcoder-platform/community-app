@@ -27,6 +27,7 @@
   padding-top: 12px;
 
   &.haveValue .label,
+  &.haveError .label,
   &.isFocused .label {
     display: flex;
   }
