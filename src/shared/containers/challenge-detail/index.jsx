@@ -21,7 +21,8 @@ import MySubmissions from 'components/challenge-detail/MySubmissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
 import RecommendedThriveArticles from 'components/challenge-detail/ThriveArticles';
-import RecommendedActiveChallenges from 'components/challenge-detail/RecommendedActiveChallenges';
+// eslint-disable-next-line max-len
+// import RecommendedActiveChallenges from 'components/challenge-detail/RecommendedActiveChallenges';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
@@ -36,10 +37,10 @@ import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/t
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
-import {
-  getDisplayRecommendedChallenges,
-  getRecommendedTags,
-} from 'utils/challenge-detail/helper';
+// import {
+// getDisplayRecommendedChallenges,
+// getRecommendedTags,
+// } from 'utils/challenge-detail/helper';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -200,11 +201,11 @@ class ChallengeDetailPageContainer extends React.Component {
     const {
       challengeId,
       reloadChallengeDetails,
-      getAllRecommendedChallenges,
-      recommendedChallenges,
-      auth,
+      // getAllRecommendedChallenges,
+      // recommendedChallenges,
+      // auth,
       challenge,
-      loadingRecommendedChallengesUUID,
+      // loadingRecommendedChallengesUUID,
       history,
     } = this.props;
 
@@ -213,21 +214,21 @@ class ChallengeDetailPageContainer extends React.Component {
       history.push(history.location.pathname, history.state);
     }
 
-    const recommendedTechnology = getRecommendedTags(challenge);
-    if (
-      challenge
-      && challenge.id === challengeId
-      && !loadingRecommendedChallengesUUID
-      && (
-        !recommendedChallenges[recommendedTechnology]
-        || (
-          Date.now() - recommendedChallenges[recommendedTechnology].lastUpdateOfActiveChallenges
-          > 10 * MIN
-        )
-      )
-    ) {
-      getAllRecommendedChallenges(auth.tokenV3, recommendedTechnology);
-    }
+    // const recommendedTechnology = getRecommendedTags(challenge);
+    // if (
+    //   challenge
+    //   && challenge.id === challengeId
+    //   && !loadingRecommendedChallengesUUID
+    //   && (
+    //     !recommendedChallenges[recommendedTechnology]
+    //     || (
+    //       Date.now() - recommendedChallenges[recommendedTechnology].lastUpdateOfActiveChallenges
+    //       > 10 * MIN
+    //     )
+    //   )
+    // ) {
+    //   getAllRecommendedChallenges(auth.tokenV3, recommendedTechnology);
+    // }
 
     const { thriveArticles } = this.state;
     const userId = _.get(this, 'props.auth.user.userId');
@@ -251,9 +252,9 @@ class ChallengeDetailPageContainer extends React.Component {
         }).then((content) => {
         // format image file data
           _.forEach(content.Article.items, (item) => {
-            const asset = _.find(content.Article.includes.Asset,
-              a => a.sys.id === item.fields.featuredImage.sys.id);
-            _.assign(item.fields.featuredImage, { file: asset.fields.file });
+            // eslint-disable-next-line max-len
+            const asset = _.find(content.Article.includes.Asset, a => item.fields.featuredImage !== null && a.sys.id === item.fields.featuredImage.sys.id);
+            if (asset) _.assign(item.fields.featuredImage, { file: asset.fields.file });
           });
           this.setState({
             thriveArticles: content.Article.items,
@@ -326,20 +327,20 @@ class ChallengeDetailPageContainer extends React.Component {
       isLoadingSubmissionInformation,
       submissionInformation,
       loadSubmissionInformation,
-      selectChallengeDetailsTab,
-      prizeMode,
-      recommendedChallenges,
-      expandedTags,
-      expandTag,
+      // selectChallengeDetailsTab,
+      // prizeMode,
+      // recommendedChallenges,
+      // expandedTags,
+      // expandTag,
       mySubmissions,
       reviewTypes,
     } = this.props;
 
-    const displayRecommendedChallenges = getDisplayRecommendedChallenges(
-      challenge,
-      recommendedChallenges,
-      auth,
-    );
+    // const displayRecommendedChallenges = getDisplayRecommendedChallenges(
+    //   challenge,
+    //   recommendedChallenges,
+    //   auth,
+    // );
 
     const {
       thriveArticles,
@@ -451,7 +452,7 @@ class ChallengeDetailPageContainer extends React.Component {
               registerForChallenge={this.registerForChallenge}
               registering={registering}
               selectedView={selectedTab}
-              hasRecommendedChallenges={displayRecommendedChallenges.length > 0}
+              // hasRecommendedChallenges={displayRecommendedChallenges.length > 0}
               hasThriveArticles={thriveArticles.length > 0}
               setChallengeListingFilter={setChallengeListingFilter}
               unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
@@ -590,7 +591,7 @@ class ChallengeDetailPageContainer extends React.Component {
             }}
           />
         )}
-        {
+        {/* {
         !isEmpty && displayRecommendedChallenges.length ? (
           <RecommendedActiveChallenges
             challenges={displayRecommendedChallenges}
@@ -604,7 +605,7 @@ class ChallengeDetailPageContainer extends React.Component {
             isLoggedIn={isLoggedIn}
           />
         ) : null
-        }
+        } */}
         {
         !isEmpty && thriveArticles.length ? (
           <RecommendedThriveArticles articles={thriveArticles} />
@@ -635,7 +636,7 @@ ChallengeDetailPageContainer.defaultProps = {
   mySubmissions: [],
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
-  prizeMode: 'money-usd',
+  // prizeMode: 'money-usd',
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -648,7 +649,7 @@ ChallengeDetailPageContainer.propTypes = {
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpointResultsUi: PT.shape().isRequired,
   checkpoints: PT.shape(),
-  recommendedChallenges: PT.shape().isRequired,
+  // recommendedChallenges: PT.shape().isRequired,
   communityId: PT.string,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
@@ -692,12 +693,12 @@ ChallengeDetailPageContainer.propTypes = {
   isLoadingSubmissionInformation: PT.bool,
   submissionInformation: PT.shape(),
   loadSubmissionInformation: PT.func.isRequired,
-  selectChallengeDetailsTab: PT.func.isRequired,
-  getAllRecommendedChallenges: PT.func.isRequired,
-  prizeMode: PT.string,
-  expandedTags: PT.arrayOf(PT.number).isRequired,
-  expandTag: PT.func.isRequired,
-  loadingRecommendedChallengesUUID: PT.string.isRequired,
+  // selectChallengeDetailsTab: PT.func.isRequired,
+  // getAllRecommendedChallenges: PT.func.isRequired,
+  // prizeMode: PT.string,
+  // expandedTags: PT.arrayOf(PT.number).isRequired,
+  // expandTag: PT.func.isRequired,
+  // loadingRecommendedChallengesUUID: PT.string.isRequired,
   history: PT.shape().isRequired,
 };
 
@@ -765,8 +766,8 @@ function mapStateToProps(state, props) {
     auth: state.auth,
     challenge,
     challengeTypes: cl.challengeTypes,
-    recommendedChallenges: cl.recommendedChallenges,
-    loadingRecommendedChallengesUUID: cl.loadingRecommendedChallengesUUID,
+    // recommendedChallenges: cl.recommendedChallenges,
+    // loadingRecommendedChallengesUUID: cl.loadingRecommendedChallengesUUID,
     expandedTags: cl.expandedTags,
     challengeId: String(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
@@ -811,16 +812,16 @@ const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
   const lookupActions = actions.lookup;
   return {
-    getAllRecommendedChallenges: (tokenV3, recommendedTechnology) => {
-      const uuid = shortId();
-      const cl = challengeListingActions.challengeListing;
-      dispatch(cl.getAllRecommendedChallengesInit(uuid));
-      dispatch(
-        cl.getAllRecommendedChallengesDone(
-          uuid, tokenV3, recommendedTechnology,
-        ),
-      );
-    },
+    // getAllRecommendedChallenges: (tokenV3, recommendedTechnology) => {
+    //   const uuid = shortId();
+    //   const cl = challengeListingActions.challengeListing;
+    //   dispatch(cl.getAllRecommendedChallengesInit(uuid));
+    //   dispatch(
+    //     cl.getAllRecommendedChallengesDone(
+    //       uuid, tokenV3, recommendedTechnology,
+    //     ),
+    //   );
+    // },
     getCommunitiesList: (auth) => {
       const uuid = shortId();
       dispatch(ca.getListInit(uuid));
