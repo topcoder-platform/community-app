@@ -3,6 +3,10 @@
  */
 import _ from 'lodash';
 
+export function isEmpty(value) {
+  return value == null || value === '' || _.isEqual(value, []) || _.isEqual(value, {});
+}
+
 export function validateStartDate(flag, fromDate, toDate) {
   const result = {
     invalid: false,
@@ -11,7 +15,7 @@ export function validateStartDate(flag, fromDate, toDate) {
 
   const currentDate = new Date().setHours(0, 0, 0, 0);
 
-  if (!_.isEmpty(fromDate)) {
+  if (!isEmpty(fromDate)) {
     const startDate = new Date(fromDate).setHours(0, 0, 0, 0);
 
     if (startDate > currentDate) {
@@ -20,17 +24,17 @@ export function validateStartDate(flag, fromDate, toDate) {
     }
   }
 
-  if (!_.isEmpty(toDate)) {
+  if (!isEmpty(toDate)) {
     const endDate = new Date(toDate).setHours(0, 0, 0, 0);
     if (flag) {
-      if (!_.isEmpty(fromDate)) {
+      if (!isEmpty(fromDate)) {
         const startDate = new Date(fromDate).setHours(0, 0, 0, 0);
         if (startDate >= endDate) {
           result.invalid = true;
           result.message = 'Start Date should be before End Date';
         }
       }
-    } else if (!flag && !_.isEmpty(fromDate)) {
+    } else if (!flag && !isEmpty(fromDate)) {
       const startDate = new Date(fromDate).setHours(0, 0, 0, 0);
       if (startDate >= endDate) {
         result.invalid = true;
@@ -50,15 +54,15 @@ export function validateEndDate(flag, fromDate, toDate) {
 
   const currentDate = new Date().setHours(0, 0, 0, 0);
 
-  if (!_.isEmpty(toDate)) {
+  if (!isEmpty(toDate)) {
     const endDate = new Date(toDate).setHours(0, 0, 0, 0);
     if (flag) {
-      if (!_.isEmpty(fromDate)) {
+      if (!isEmpty(fromDate)) {
         if (endDate > currentDate) {
           result.invalid = true;
           result.message = 'End Date should be current or in past';
         }
-      } else if (_.isEmpty(fromDate)) {
+      } else if (isEmpty(fromDate)) {
         if (endDate > currentDate) {
           result.invalid = true;
           result.message = 'End Date should be current or in past';
