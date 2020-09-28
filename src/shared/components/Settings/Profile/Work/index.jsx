@@ -6,6 +6,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable no-undef */
+/* eslint-disable react/jsx-boolean-value */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -14,9 +15,13 @@ import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import DatePicker from 'components/challenge-listing/Filters/DatePicker';
 import ErrorMessage from 'components/Settings/ErrorMessage';
-import { validateStartDate, validateEndDate } from 'utils/settings';
+import { validateStartDate, validateEndDate, isEmpty as isDateEmpty } from 'utils/settings';
+import Connector from 'components/Editor/Connector';
+import Select from 'components/Select';
+import Editor from 'components/Editor';
 import ConfirmationModal from '../../CofirmationModal';
 import WorkList from './List';
+import Toolbar from './Toolbar';
 
 import './styles.scss';
 
@@ -34,6 +39,9 @@ export default class Work extends ConsentComponent {
     this.updatePredicate = this.updatePredicate.bind(this);
     this.onUpdateDate = this.onUpdateDate.bind(this);
     this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
+    this.onUpdateJobDescription = this.onUpdateJobDescription.bind(this);
+    this.onUpdateAchievements = this.onUpdateAchievements.bind(this);
+    this.onUpdateTechnologies = this.onUpdateTechnologies.bind(this);
 
     const { userTraits } = props;
     this.state = {
@@ -54,6 +62,14 @@ export default class Work extends ConsentComponent {
         timePeriodTo: '',
         industry: '',
         working: false,
+        jobDescription: '',
+        achievements: '',
+        technologies: [],
+        initialJobDescription: '',
+        initialAchievements: '',
+        numJobDescription: 0,
+        numAchievements: 0,
+        numTechnologies: 0,
       },
       isMobileView: false,
       screenSM: 767,
@@ -61,6 +77,11 @@ export default class Work extends ConsentComponent {
       indexNo: null,
       showConfirmation: false,
     };
+
+    this.connectorJobDescription = new Connector();
+    this.connectorAchievements = new Connector();
+    this.connectorJobDescriptionMobile = new Connector();
+    this.connectorAchievementsMobile = new Connector();
   }
 
   componentDidMount() {
@@ -89,6 +110,14 @@ export default class Work extends ConsentComponent {
         timePeriodTo: '',
         industry: '',
         working: false,
+        jobDescription: '',
+        achievements: '',
+        technologies: [],
+        initialJobDescription: '',
+        initialAchievements: '',
+        numJobDescription: 0,
+        numAchievements: 0,
+        numTechnologies: 0,
       },
     });
   }
@@ -151,7 +180,7 @@ export default class Work extends ConsentComponent {
     if (date) {
       const { newWork: oldWork } = this.state;
       const newWork = { ...oldWork };
-      newWork[timePeriod] = date;
+      newWork[timePeriod] = date.toISOString();
       this.setState({ newWork, isSubmit: false });
     }
   }
@@ -205,10 +234,34 @@ export default class Work extends ConsentComponent {
         company: workTrait.traits.data[indexNo].company,
         position: _.isEmpty(workTrait.traits.data[indexNo].position) ? '' : workTrait.traits.data[indexNo].position,
         cityTown: _.isEmpty(workTrait.traits.data[indexNo].cityTown) ? '' : workTrait.traits.data[indexNo].cityTown,
-        timePeriodFrom: _.isEmpty(workTrait.traits.data[indexNo].timePeriodFrom) ? '' : workTrait.traits.data[indexNo].timePeriodFrom,
-        timePeriodTo: _.isEmpty(workTrait.traits.data[indexNo].timePeriodTo) ? '' : workTrait.traits.data[indexNo].timePeriodTo,
+        timePeriodFrom: isDateEmpty(workTrait.traits.data[indexNo].timePeriodFrom) ? '' : workTrait.traits.data[indexNo].timePeriodFrom,
+        timePeriodTo: isDateEmpty(workTrait.traits.data[indexNo].timePeriodTo) ? '' : workTrait.traits.data[indexNo].timePeriodTo,
         industry: _.isEmpty(workTrait.traits.data[indexNo].industry) ? '' : workTrait.traits.data[indexNo].industry,
         working: workTrait.traits.data[indexNo].working,
+        jobDescription: _.isEmpty(workTrait.traits.data[indexNo].jobDescription)
+          ? ''
+          : workTrait.traits.data[indexNo].jobDescription,
+        achievements: _.isEmpty(workTrait.traits.data[indexNo].achievements)
+          ? ''
+          : workTrait.traits.data[indexNo].achievements,
+        technologies: _.isEmpty(workTrait.traits.data[indexNo].technologies)
+          ? []
+          : workTrait.traits.data[indexNo].technologies,
+        initialJobDescription: _.isEmpty(workTrait.traits.data[indexNo].jobDescription)
+          ? ''
+          : workTrait.traits.data[indexNo].jobDescription,
+        initialAchievements: _.isEmpty(workTrait.traits.data[indexNo].achievements)
+          ? ''
+          : workTrait.traits.data[indexNo].achievements,
+        numJobDescription: _.isEmpty(workTrait.traits.data[indexNo].jobDescription)
+          ? 0
+          : workTrait.traits.data[indexNo].jobDescription.length,
+        numAchievements: _.isEmpty(workTrait.traits.data[indexNo].achievements)
+          ? 0
+          : workTrait.traits.data[indexNo].achievements.length,
+        numTechnologies: _.isEmpty(workTrait.traits.data[indexNo].technologies)
+          ? 0
+          : workTrait.traits.data[indexNo].technologies.length,
       },
       isEdit: true,
       indexNo,
@@ -247,12 +300,12 @@ export default class Work extends ConsentComponent {
     if (_.isEmpty(work.cityTown)) {
       delete work.cityTown;
     }
-    if (_.isEmpty(work.timePeriodFrom)) {
+    if (isDateEmpty(work.timePeriodFrom)) {
       delete work.timePeriodFrom;
     } else {
       work.timePeriodFrom = new Date(work.timePeriodFrom).getTime();
     }
-    if (_.isEmpty(work.timePeriodTo)) {
+    if (isDateEmpty(work.timePeriodTo)) {
       delete work.timePeriodTo;
     } else {
       work.timePeriodTo = new Date(work.timePeriodTo).getTime();
@@ -260,6 +313,20 @@ export default class Work extends ConsentComponent {
     if (_.isEmpty(work.industry)) {
       delete work.industry;
     }
+    if (_.isEmpty(work.jobDescription)) {
+      delete work.jobDescription;
+    }
+    if (_.isEmpty(work.achievements)) {
+      delete work.achievements;
+    }
+    if (_.isEmpty(work.technologies)) {
+      delete work.technologies;
+    }
+    delete work.initialJobDescription;
+    delete work.initialAchievements;
+    delete work.numJobDescription;
+    delete work.numAchievements;
+    delete work.numTechnologies;
 
     if (workTrait.traits && workTrait.traits.data.length > 0) {
       const newWorkTrait = _.cloneDeep(workTrait);
@@ -353,6 +420,14 @@ export default class Work extends ConsentComponent {
           timePeriodTo: '',
           industry: '',
           working: false,
+          jobDescription: '',
+          achievements: '',
+          technologies: [],
+          initialJobDescription: '',
+          initialAchievements: '',
+          numJobDescription: 0,
+          numAchievements: 0,
+          numTechnologies: 0,
         },
         formInvalid: false,
         startDateInvalid: false,
@@ -364,9 +439,39 @@ export default class Work extends ConsentComponent {
     }
   }
 
+  onUpdateJobDescription(editor) {
+    const html = editor.getHtml();
+    const length = editor.state.editor.getCurrentContent().getPlainText('').length; // eslint-disable-line prefer-destructuring
+    const { newWork: oldWork } = this.state;
+
+    const newWork = { ...oldWork, jobDescription: html, numJobDescription: length };
+    this.setState({ newWork, isSubmit: false, endDateDisabled: newWork.working });
+  }
+
+  onUpdateAchievements(editor) {
+    const { newWork: oldWork } = this.state;
+    const newWork = { ...oldWork, achievements: editor.getHtml(), numAchievements: editor.state.editor.getCurrentContent().getPlainText('').length };
+    this.setState({ newWork, isSubmit: false, endDateDisabled: newWork.working });
+  }
+
+  onUpdateTechnologies(value) {
+    if (value.length > 3) {
+      value.shift();
+    }
+
+    const { newWork: oldWork } = this.state;
+    const newWork = {
+      ...oldWork,
+      technologies: value.map(val => ({ id: val.id, name: val.name })),
+      numTechnologies: value.length,
+    };
+    this.setState({ newWork, isSubmit: false, endDateDisabled: newWork.working });
+  }
+
   render() {
     const {
       settingsUI,
+      lookupData,
     } = this.props;
     const {
       workTrait,
@@ -388,6 +493,16 @@ export default class Work extends ConsentComponent {
     const workItems = workTrait.traits
       ? workTrait.traits.data.slice() : [];
     const { newWork } = this.state;
+    const {
+      initialJobDescription,
+      initialAchievements,
+      technologies,
+      numJobDescription,
+      numTechnologies,
+      numAchievements,
+    } = newWork;
+    const techTags = lookupData.technologies
+      .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
 
     return (
       <div styleName={containerStyle}>
@@ -493,7 +608,11 @@ export default class Work extends ConsentComponent {
                     readOnly
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
-                    date={newWork.timePeriodFrom}
+                    date={
+                      isDateEmpty(newWork.timePeriodFrom)
+                        ? null
+                        : moment(newWork.timePeriodFrom)
+                    }
                     id="date-from1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
@@ -521,7 +640,7 @@ export default class Work extends ConsentComponent {
                     disabled={endDateDisabled}
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
-                    date={newWork.timePeriodTo}
+                    date={isDateEmpty(newWork.timePeriodTo) ? null : moment(newWork.timePeriodTo)}
                     id="date-to1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
@@ -537,13 +656,12 @@ export default class Work extends ConsentComponent {
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-long-text">
-                  <label htmlFor="working">
+                <div styleName="field col-long-text">&nbsp;</div>
+                <div styleName="field col-2">
+                  <label htmlFor="working" styleName="label-checkbox-working">
                     I am currently working in this role
                     <input type="hidden" />
                   </label>
-                </div>
-                <div styleName="field col-2">
                   <div styleName="tc-checkbox">
                     <input
                       name="working"
@@ -558,6 +676,87 @@ export default class Work extends ConsentComponent {
                       </div>
                       <input type="hidden" />
                     </label>
+                  </div>
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text align-top">
+                  <label htmlFor="jobDescription">
+                    Job Description
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="char-num">{numJobDescription} / 400</span>
+                  <div styleName="editor-outer-container">
+                    <div styleName="toolbar-wrapper">
+                      <Toolbar
+                        connector={this.connectorJobDescription}
+                        onEditorChange={this.onUpdateJobDescription}
+                      />
+                    </div>
+                    <Editor
+                      connector={this.connectorJobDescription}
+                      theme={{ container: 'editor-container' }}
+                      placeholder="Job description"
+                      maxLength={400}
+                      initialContent={initialJobDescription}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text align-top">
+                  <label styleName="label-achievements" htmlFor="achievements">
+                    Outputs and Achievements Within the Role
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="char-num">{numAchievements} / 400</span>
+                  <div styleName="editor-outer-container">
+                    <div styleName="toolbar-wrapper">
+                      <Toolbar
+                        connector={this.connectorAchievements}
+                        onEditorChange={this.onUpdateAchievements}
+                      />
+                    </div>
+                    <Editor
+                      connector={this.connectorAchievements}
+                      theme={{ container: 'editor-container' }}
+                      placeholder="Outputs and achievements within the role"
+                      maxLength={400}
+                      initialContent={initialAchievements}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text">
+                  <label htmlFor="technologies ">
+                    Technologies
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="char-num">{numTechnologies} / 3 technologies</span>
+                  <div styleName="select-technologies-container">
+                    <Select
+                      name="technologies"
+                      multi
+                      options={techTags}
+                      value={technologies}
+                      onChange={this.onUpdateTechnologies}
+                      labelKey="name"
+                      valueKey="id"
+                      className="select-technologies"
+                      clearable={false}
+                      placeholder="Select technologies from list"
+                      joinValues={true}
+                      removeSelected={false}
+                      searchable={false}
+                      valueComponent={valueProps => (<span styleName="selected-value-text">{valueProps.value.name}</span>)}
+                    />
                   </div>
                 </div>
               </div>
@@ -644,7 +843,11 @@ export default class Work extends ConsentComponent {
                     readOnly
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
-                    date={newWork.timePeriodFrom}
+                    date={
+                      isDateEmpty(newWork.timePeriodFrom)
+                        ? null
+                        : moment(newWork.timePeriodFrom)
+                    }
                     id="date-from2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
@@ -668,7 +871,7 @@ export default class Work extends ConsentComponent {
                     disabled={endDateDisabled}
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
-                    date={newWork.timePeriodTo}
+                    date={isDateEmpty(newWork.timePeriodTo) ? null : moment(newWork.timePeriodTo)}
                     id="date-to2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
@@ -699,6 +902,81 @@ export default class Work extends ConsentComponent {
                       </div>
                       <input type="hidden" />
                     </label>
+                  </div>
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text col-checkbox-sibling-next">
+                  <label htmlFor="jobDescription">
+                    Job Description
+                    <input type="hidden" />
+                  </label>
+                  <span styleName="char-num">{numJobDescription} / 400</span>
+                  <div styleName="editor-outer-container">
+                    <div styleName="toolbar-wrapper">
+                      <Toolbar
+                        connector={this.connectorJobDescriptionMobile}
+                        onEditorChange={this.onUpdateJobDescription}
+                      />
+                    </div>
+                    <Editor
+                      connector={this.connectorJobDescriptionMobile}
+                      theme={{ container: 'editor-container' }}
+                      placeholder="Job description"
+                      maxLength={400}
+                      initialContent={initialJobDescription}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text">
+                  <label styleName="label-achievements" htmlFor="achievements">
+                    Outputs and Achievements Within the Role
+                    <input type="hidden" />
+                  </label>
+                  <span styleName="char-num">{numAchievements} / 400</span>
+                  <div styleName="editor-outer-container">
+                    <div styleName="toolbar-wrapper">
+                      <Toolbar
+                        connector={this.connectorAchievementsMobile}
+                        onEditorChange={this.onUpdateAchievements}
+                      />
+                    </div>
+                    <Editor
+                      connector={this.connectorAchievementsMobile}
+                      theme={{ container: 'editor-container' }}
+                      placeholder="Outputs and achievements within the role"
+                      maxLength={400}
+                      initialContent={initialAchievements}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text">
+                  <label htmlFor="technologies ">
+                    Technologies
+                    <input type="hidden" />
+                  </label>
+                  <span styleName="char-num">{numTechnologies} / 3 technologies</span>
+                  <div styleName="select-technologies-container">
+                    <Select
+                      name="technologies"
+                      multi
+                      options={techTags}
+                      value={technologies}
+                      onChange={this.onUpdateTechnologies}
+                      labelKey="name"
+                      valueKey="id"
+                      className="select-technologies"
+                      clearable={false}
+                      placeholder="Select technologies from list"
+                      joinValues={true}
+                      removeSelected={false}
+                      searchable={false}
+                      valueComponent={valueProps => (<span styleName="selected-value-text">{valueProps.value.name}</span>)}
+                    />
                   </div>
                 </div>
               </div>

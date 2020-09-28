@@ -1,4 +1,5 @@
 @import "../../style";
+@import "./List//Item/mixin";
 
 $checkbox-size: $base-unit * 4;
 $checkbox-bg-empty: $tc-gray-neutral-light;
@@ -139,6 +140,10 @@ label {
     margin-left: $base-unit * 6;
     user-select: none;
     cursor: pointer;
+  }
+
+  .row .field.align-top {
+    margin-top: 25px;
   }
 }
 
@@ -283,6 +288,14 @@ label {
           top: 25px;
         }
       }
+
+      &.col-checkbox-sibling-next {
+        padding-top: 30px;
+
+        @include upto-sm {
+          padding-top: 55px;
+        }
+      }
     }
   }
 
@@ -390,6 +403,163 @@ label {
   }
 }
 
+.editor-outer-container {
+  position: relative;
+
+  @include upto-sm {
+    margin-top: 5px;
+  }
+
+  .toolbar-wrapper {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  :global {
+    .editor-container {
+      height: 254px;
+      margin: 0;
+      padding: 0;
+      background: $tc-white;
+      border: 1px solid #c3c3c8;
+      border-radius: 4px;
+    }
+
+    .DraftEditor-root {
+      margin-top: 0;
+      padding: 10px 10px 0 10px;
+      height: calc(100% - 10px);
+      overflow: auto;
+    }
+
+    .editor-container.is-focused .DraftEditor-root {
+      margin-top: 40px;
+      height: calc(100% - 40px);
+    }
+
+    .editor-container.is-focused .public-DraftEditorPlaceholder-root,
+    .editor-container.has-user-input .public-DraftEditorPlaceholder-root {
+      display: none;
+    }
+
+    .public-DraftEditorPlaceholder-inner {
+      line-height: 20px;
+    }
+
+    .public-DraftEditor-content {
+      @include html-content-style {
+        ol li {
+          list-style-type: decimal;
+        }
+
+        ol li::before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.char-num {
+  @include roboto-medium;
+
+  margin-bottom: 2px;
+  line-height: 15px;
+  font-size: 11px;
+  color: $tc-dark-blue-100;
+  text-align: right;
+
+  @include upto-sm {
+    position: relative;
+    top: -15px;
+    margin-bottom: -3px;
+    height: 0;
+  }
+}
+
+.label-achievements {
+  width: 134px;
+  white-space: normal;
+
+  @include upto-sm {
+    width: auto;
+  }
+}
+
+.label-checkbox-working {
+  margin-left: 29px;
+}
+
+.select-technologies-container {
+  @include upto-sm {
+    margin-top: 5px;
+  }
+
+  .selected-value-text {
+    @include roboto-regular;
+
+    font-size: 15px;
+    color: #262628;
+
+    &:not(:first-child) {
+      &::before {
+        content: ', ';
+      }
+    }
+  }
+
+  :global {
+    .select-technologies {
+      .Select-control {
+        height: 40px;
+      }
+
+      .Select-placeholder {
+        line-height: 40px;
+        padding: 0 15px;
+      }
+
+      .Select-multi-value-wrapper {
+        padding: 0 15px;
+        line-height: 40px;
+      }
+
+      .Select-option {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 15px;
+
+        &.is-selected {
+          position: relative;
+          background-color: white;
+
+          &::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            bottom: 22px;
+            display: block;
+            width: 15px;
+            height: 8px;
+            border-left: 2px solid $tc-gray-90;
+            border-bottom: 2px solid $tc-gray-90;
+            transform: rotate(-45deg);
+          }
+        }
+
+        &.is-focused {
+          background-color: $tc-dark-blue-10;
+        }
+      }
+    }
+  }
+}
+
+.work-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
+}
+
 /*
  * React Select component styling
  */
@@ -404,8 +574,4 @@ label {
   @include upto-sm {
     margin-top: 5px;
   }
-}
-
-.work-container .form-container .row .field :global .Select-placeholder {
-  color: $tc-gray-50;
 }
