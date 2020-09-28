@@ -86,6 +86,7 @@ export default function Submission(props) {
           ><DownloadIcon /></button>
           */ }
           {status !== CHALLENGE_STATUS.COMPLETED
+            && track !== COMPETITION_TRACKS.DESIGN
             && (
             <button
               styleName="delete-icon"
