@@ -44,6 +44,7 @@ export default function ChallengeListing(props) {
     preListingMsg,
     // isBucketSwitching,
     isLoggedIn,
+    meta,
   } = props;
 
   // const { challenges } = props;
@@ -131,6 +132,7 @@ export default function ChallengeListing(props) {
       // loadingActiveChallenges={props.loadingChallenges}
       // userChallenges={props.userChallenges}
       isLoggedIn={isLoggedIn}
+      meta={meta}
     />
   );
   // }
@@ -236,4 +238,5 @@ ChallengeListing.propTypes = {
   // isBucketSwitching: PT.bool,
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
+  meta: PT.shape().isRequired,
 };

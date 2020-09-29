@@ -59,6 +59,7 @@ function Listing({
   expandTag,
   // pastSearchTimestamp,
   isLoggedIn,
+  meta,
 }) {
   // const buckets = getBuckets(userChallenges);
   // const isChallengesAvailable = (bucket) => {
@@ -78,6 +79,7 @@ function Listing({
     let loadMore;
     // let searchTimestamp;
     let bucketChallenges = [];
+    let newExpanded = expanded;
     switch (bucket) {
       // case BUCKETS.PAST:
       //   keepPlaceholders = keepPastPlaceholders;
@@ -90,16 +92,19 @@ function Listing({
         bucketChallenges = [].concat(myChallenges);
         loading = loadingMyChallenges;
         loadMore = allMyChallengesLoaded ? null : loadMoreMy;
+        newExpanded = newExpanded || (+meta.myChallengesCount === bucketChallenges.length);
         break;
       case BUCKETS.OPEN_FOR_REGISTRATION:
         bucketChallenges = [].concat(openForRegistrationChallenges);
         loading = loadingOpenForRegistrationChallenges;
         loadMore = allOpenForRegistrationChallengesLoaded ? null : loadMoreOpenForRegistration;
+        newExpanded = newExpanded || (+meta.openChallengesCount === bucketChallenges.length);
         break;
       case BUCKETS.ONGOING:
         bucketChallenges = [].concat(challenges);
         loading = loadingOnGoingChallenges;
         loadMore = allActiveChallengesLoaded ? null : loadMoreOnGoing;
+        newExpanded = newExpanded || (+meta.ongoingChallengesCount === bucketChallenges.length);
         break;
       default:
         break;
@@ -137,7 +142,7 @@ function Listing({
             challengesUrl={challengesUrl}
             communityName={communityName}
             expand={() => selectBucket(bucket)}
-            expanded={expanded}
+            expanded={newExpanded}
             expandedTags={expandedTags}
             expandTag={expandTag}
             filterState={filterState}
@@ -268,6 +273,7 @@ Listing.propTypes = {
   // pastSearchTimestamp: PT.number,
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
+  meta: PT.shape().isRequired,
 };
 
 const mapStateToProps = (state) => {
