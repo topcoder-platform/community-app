@@ -58,7 +58,7 @@ export default function Bucket({
       refs.current.push(el);
     }
   };
-  const activeSort = sort || 'updated';
+  const activeSort = sort || 'startDate';
 
   const sortedChallenges = activeBucket === 'all' ? _.clone(challenges.slice(0, 10)) : _.clone(challenges);
   // sortedChallenges.sort(Sort[activeSort].func);

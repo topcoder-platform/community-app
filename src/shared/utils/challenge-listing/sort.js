@@ -8,6 +8,7 @@ import { sumBy } from 'lodash';
 export const SORTS = {
   // CURRENT_PHASE: 'current-phase',
   MOST_RECENT: 'updated',
+  MOST_RECENT_START_DATE: 'startDate',
   // NUM_REGISTRANTS: 'num-registrants',
   // NUM_SUBMISSIONS: 'num-submissions',
   // PRIZE_HIGH_TO_LOW: 'prize-high-to-low',
@@ -26,6 +27,10 @@ export default {
   // },
   [SORTS.MOST_RECENT]: {
     // func: (a, b) => moment(b.registrationStartDate).diff(a.registrationStartDate),
+    name: 'Most recent',
+    order: 'desc',
+  },
+  [SORTS.MOST_RECENT_START_DATE]: {
     name: 'Most recent',
     order: 'desc',
   },
