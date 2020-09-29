@@ -31,6 +31,7 @@ export default function Bucket({
   challengeTypes,
   challengesUrl,
   expanded,
+  expanding,
   expand,
   filterState,
   // keepPlaceholders,
@@ -60,7 +61,18 @@ export default function Bucket({
   };
   const activeSort = sort || 'startDate';
 
-  const sortedChallenges = activeBucket === 'all' ? _.clone(challenges.slice(0, 10)) : _.clone(challenges);
+  // const sortedChallenges = activeBucket === 'all' ?
+  //   _.clone(challenges.slice(0, 10)) : _.clone(challenges);
+  let sortedChallenges;
+  if (activeBucket === 'all' && !expanded) {
+    if (loadMore && challenges.length > 10) {
+      sortedChallenges = _.clone(challenges);
+    } else {
+      sortedChallenges = _.clone(challenges.slice(0, 10));
+    }
+  } else {
+    sortedChallenges = _.clone(challenges);
+  }
   // sortedChallenges.sort(Sort[activeSort].func);
 
   // const bucketQuery = qs.stringify({
@@ -165,21 +177,21 @@ export default function Bucket({
       />
       {cards}
       {
-        !expandable && loadMore && !loading ? (
+        !expanding && !expandable && loadMore && !loading && activeBucket === bucket ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }
       {placeholders}
       {
       // (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
-        (expandable || loadMore) && !loading && !expanded ? (
+        (expanding || expandable || loadMore) && !loading && !expanded ? (
           <a
             // href={`${challengesUrl}?${bucketQuery}`}
             href={`${challengesUrl}`}
             onClick={(event) => {
               expand();
-              document.body.scrollTop = 0;
-              document.documentElement.scrollTop = 0;
+              // document.body.scrollTop = 0;
+              // document.documentElement.scrollTop = 0;
               event.preventDefault();
             }}
             role="button"
@@ -209,6 +221,7 @@ Bucket.defaultProps = {
   expandedTags: [],
   expandTag: null,
   activeBucket: '',
+  expanding: false,
   // searchTimestamp: 0,
 };
 
@@ -216,6 +229,7 @@ Bucket.propTypes = {
   bucket: PT.string.isRequired,
   // bucketId: PT.string.isRequired,
   expanded: PT.bool,
+  expanding: PT.bool,
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),

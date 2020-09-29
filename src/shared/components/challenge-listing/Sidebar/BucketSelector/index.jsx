@@ -24,6 +24,7 @@ export default function BucketSelector({
   // challenges,
   // communityFilter,
   disabled,
+  expanding,
   // extraBucket,
   // filterState,
   isAuth,
@@ -38,20 +39,23 @@ export default function BucketSelector({
   // filteredChallenges = filteredChallenges.filter(Filter.getFilterFunction(communityFilter));
   // }
 
-  const getBucket = bucket => (
-    <Bucket
-      active={!disabled && activeBucket === bucket}
-      bucket={bucket}
-      // challenges={challenges}
-      disabled={disabled}
-      onClick={() => {
-        selectBucket(bucket);
-        /* eslint-env browser */
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }}
-    />
-  );
+  const getBucket = (bucket) => {
+    const isActive = expanding ? bucket === BUCKETS.ALL : activeBucket === bucket;
+    return (
+      <Bucket
+        active={!disabled && isActive}
+        bucket={bucket}
+        // challenges={challenges}
+        disabled={disabled}
+        onClick={() => {
+          selectBucket(bucket);
+          /* eslint-env browser */
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }}
+      />
+    );
+  };
 
   // const savedFiltersRender = savedFilters.map((item, index) => (
   //   <Bucket
@@ -123,10 +127,12 @@ BucketSelector.defaultProps = {
   disabled: false,
   // extraBucket: null,
   isAuth: false,
+  expanding: false,
 };
 
 BucketSelector.propTypes = {
   activeBucket: PT.string.isRequired,
+  expanding: PT.bool,
   // activeSavedFilter: PT.number.isRequired,
   // buckets: PT.shape().isRequired,
   // challenges: PT.arrayOf(PT.shape({
