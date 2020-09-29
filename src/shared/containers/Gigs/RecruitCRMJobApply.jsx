@@ -65,7 +65,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
   onApplyClick() {
     const { applyForJob, job } = this.props;
     const { formData } = this.state;
-    applyForJob(job.slug, formData);
+    applyForJob(job, formData);
   }
 
   validateForm() {
@@ -76,10 +76,27 @@ class RecruitCRMJobApplyContainer extends React.Component {
         'fname', 'lname', 'city', 'reffereal', 'phone', 'email',
       ];
       // check required text fields for value
+      // check min/max lengths
       _.each(requiredTextFields, (key) => {
         if (!formData[key] || !_.trim(formData[key])) formErrors[key] = 'Required field';
         else if (formData[key] && _.trim(formData[key]).length < 2) formErrors[key] = 'Must be at least 2 characters';
-        else delete formErrors[key];
+        else if (formData[key] && _.trim(formData[key]).length > 2) {
+          switch (key) {
+            case 'reffereal':
+              if (_.trim(formData[key]).length > 2000) formErrors[key] = 'Must be max 2000 characters';
+              else delete formErrors[key];
+              break;
+            case 'city':
+            case 'phone':
+              if (_.trim(formData[key]).length > 50) formErrors[key] = 'Must be max 50 characters';
+              else delete formErrors[key];
+              break;
+            default:
+              if (_.trim(formData[key]).length > 40) formErrors[key] = 'Must be max 40 characters';
+              else delete formErrors[key];
+              break;
+          }
+        } else delete formErrors[key];
       });
       // check for selected country
       if (!_.find(formData.country, { selected: true })) formErrors.country = 'Please, select your country';
@@ -175,9 +192,9 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToActions(dispatch) {
   const a = actions.recruit;
   return {
-    applyForJob: (id, payload) => {
-      dispatch(a.applyForJobInit(id, payload));
-      dispatch(a.applyForJobDone(id, payload));
+    applyForJob: (job, payload) => {
+      dispatch(a.applyForJobInit(job, payload));
+      dispatch(a.applyForJobDone(job, payload));
     },
   };
 }

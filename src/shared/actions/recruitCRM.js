@@ -44,15 +44,27 @@ async function getJobDone(id) {
 /**
  * Apply for Job init
  */
-function applyForJobInit(id, payload) {
-  return { id, payload };
+function applyForJobInit(job, payload) {
+  return { id: job.slug, payload };
 }
 
 /**
  * Helper utitlity
+ * @param {object} joib The job object
  * @param {object} payload The apply form payload
  */
-function normalizeRecruitPayload(payload) {
+function normalizeRecruitPayload(job, payload) {
+  const perJob = [
+    `${job.name} ->`,
+    `Pay Expectation: ${payload.payExpectation}`,
+    `Date Available: ${new Date(payload.availFrom).toDateString()}`,
+    `Heard About Gig: ${payload.reffereal}`,
+    `Why fit: ${payload.whyFit}`,
+    `Availability Per Week: ${payload.timeAvailability.filter(s => s.checked).map(s => s.label).join(',')}`,
+    `Able to work during timezone? ${payload.timezoneConfirm.filter(s => s.value).map(s => s.label).join(',')}`,
+    `Am I ok to work the duration? ${payload.durationConfirm.filter(s => s.value).map(s => s.label).join(',')}`,
+    `Notes: ${payload.notes}`,
+  ];
   return {
     last_name: payload.lname,
     first_name: payload.fname,
@@ -80,6 +92,10 @@ function normalizeRecruitPayload(payload) {
         field_id: 3,
         value: payload.whyFit || '',
       },
+      {
+        field_id: 14,
+        value: perJob.join(','),
+      },
     ],
     resume: payload.fileCV,
   };
@@ -88,12 +104,12 @@ function normalizeRecruitPayload(payload) {
 /**
  * Apply for Job done
  */
-async function applyForJobDone(id, payload) {
+async function applyForJobDone(job, payload) {
   const ss = new Service();
-  const res = await ss.applyForJob(id, normalizeRecruitPayload(payload));
+  const res = await ss.applyForJob(job.slug, normalizeRecruitPayload(job, payload));
 
   return {
-    id,
+    id: job.slug,
     data: res,
   };
 }

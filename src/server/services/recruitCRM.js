@@ -210,6 +210,17 @@ export default class RecruitCRMService {
         // Candidate exists we will update profile fields
         // otherwise we create it
         candidateSlug = candidateData.data[0].slug;
+        const fieldIndexProfile = _.findIndex(
+          candidateData.data[0].custom_fields, { field_id: 14 },
+        );
+        const fieldIndexForm = _.findIndex(form.custom_fields, { field_id: 14 });
+        if (fieldIndexProfile !== -1 && fieldIndexForm !== -1) {
+          form.custom_fields[fieldIndexForm].value += `;${candidateData.data[0].custom_fields[fieldIndexProfile].value}`;
+          if (form.custom_fields[fieldIndexForm].value.length > 2000) {
+            form.custom_fields[fieldIndexForm].value = form.custom_fields[
+              fieldIndexForm].value.slice(0, 2000);
+          }
+        }
       }
       // Create/update candidate profile
       const workCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${candidateSlug}` : ''}`, {
@@ -218,7 +229,7 @@ export default class RecruitCRMService {
           'Content-Type': 'application/json',
           Authorization: this.private.authorization,
         },
-        body: body.form,
+        body: JSON.stringify(form),
       });
       if (workCandidateResponse.status >= 400) {
         return res.send({
