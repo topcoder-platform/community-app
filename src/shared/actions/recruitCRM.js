@@ -106,12 +106,22 @@ function normalizeRecruitPayload(job, payload) {
  */
 async function applyForJobDone(job, payload) {
   const ss = new Service();
-  const res = await ss.applyForJob(job.slug, normalizeRecruitPayload(job, payload));
+  try {
+    const res = await ss.applyForJob(job.slug, normalizeRecruitPayload(job, payload));
 
-  return {
-    id: job.slug,
-    data: res,
-  };
+    return {
+      id: job.slug,
+      data: res,
+    };
+  } catch (error) {
+    return {
+      id: job.slug,
+      data: {
+        error: true,
+        errorObj: error,
+      },
+    };
+  }
 }
 
 export default redux.createActions({

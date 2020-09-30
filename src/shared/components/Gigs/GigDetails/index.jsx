@@ -35,7 +35,7 @@ const ReactHtmlParserOptions = {
 };
 
 export default function GigDetails(props) {
-  const { job } = props;
+  const { job, application } = props;
   let shareUrl;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
@@ -110,7 +110,11 @@ export default function GigDetails(props) {
                   </strong>
                 </div>
                 <div styleName="cta-buttons">
-                  <Link styleName="primaryBtn" to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}>APPLY TO THIS JOB</Link>
+                  {
+                    !application || !application.success ? (
+                      <Link styleName="primaryBtn" to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}>APPLY TO THIS JOB</Link>
+                    ) : null
+                  }
                   <Link to={config.GIGS_PAGES_PATH}>VIEW OTHER JOBS</Link>
                 </div>
               </div>
@@ -159,6 +163,11 @@ export default function GigDetails(props) {
   );
 }
 
+GigDetails.defaultProps = {
+  application: null,
+};
+
 GigDetails.propTypes = {
   job: PT.shape().isRequired,
+  application: PT.shape(),
 };

@@ -15,9 +15,11 @@ import { getCustomField } from 'utils/gigs';
 import Modal from 'components/Contentful/Modal';
 import FilestackFilePicker from 'components/GUIKit/FilePicker';
 import Dropdown from 'components/GUIKit/Dropdown';
+import LoadingIndicator from 'components/LoadingIndicator';
 import './style.scss';
 import bigCheckmark from 'assets/images/big-checkmark.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
+import backArrowGig from 'assets/images/back-arrow-gig-apply.png';
 
 export default function GigApply(props) {
   const {
@@ -36,8 +38,8 @@ export default function GigApply(props) {
           </div>
         ) : (
           <div styleName="wrap">
+            <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="back-link"><img src={backArrowGig} alt="back-arrow-icon" /> GIG DETAILS</Link>
             <h2>{job.name}</h2>
-            <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="back-link">GIG DETAILS</Link>
             <div styleName="separator" />
             {
               application ? (
@@ -72,8 +74,16 @@ export default function GigApply(props) {
               ) : null
             }
             {
-              !application ? (
-                <div styleName={`form-wrap ${applying ? 'applying' : ''}`}>
+              applying ? (
+                <div styleName="loading-wrap">
+                  <LoadingIndicator />
+                  <p styleName="loading-text">Processing your application…</p>
+                </div>
+              ) : null
+            }
+            {
+              !application && !applying ? (
+                <div styleName="form-wrap">
                   <h4>PERSONAL INFORMATION</h4>
                   <p>Welcome to Topcoder Gigs! We’d like to get to know you.</p>
                   <div styleName="form-section">

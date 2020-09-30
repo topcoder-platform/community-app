@@ -1,9 +1,22 @@
 @import '~styles/mixins';
 @import "~components/Contentful/default";
 
+.loading-wrap {
+  margin-top: 35px;
+
+  .loading-text {
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    line-height: 26px;
+    color: #2a2a2a;
+    text-align: center;
+    margin-top: 26px;
+  }
+}
+
 .container {
   max-width: $screen-lg;
-  min-height: 50vh;
+  min-height: 80vh;
   margin: auto;
   color: #2a2a2a;
 
@@ -46,8 +59,8 @@
     h2 {
       color: #26b3c5;
       text-align: center;
-      margin-top: 47px;
-      margin-bottom: 40px;
+      margin-top: 6px;
+      margin-bottom: 83px;
 
       @include xs-to-md {
         text-align: left;
@@ -77,6 +90,8 @@
 
       h2 {
         color: #2a2a2a;
+        margin-top: 31px;
+        margin-bottom: 20px;
       }
 
       p {
@@ -88,6 +103,10 @@
           font-size: 24px;
           line-height: 36px;
         }
+      }
+
+      .cta-buttons {
+        margin-top: 30px;
       }
     }
 
@@ -103,6 +122,10 @@
       p {
         font-size: 14px;
         line-height: 22px;
+
+        a {
+          font-size: 14px;
+        }
       }
 
       .form-section {
@@ -112,7 +135,7 @@
           display: grid;
           gap: 20px;
           grid-template-columns: 1fr 1fr;
-          margin-bottom: 20px;
+          margin-bottom: 8px;
 
           @include xs-to-md {
             display: flex;
@@ -212,7 +235,7 @@
       }
     }
   }
-
+/* stylelint-disable */
   .cta-buttons {
     display: flex;
     justify-content: center;
@@ -222,7 +245,6 @@
       flex-direction: column;
     }
 
-    /* stylelint-disable */
     a {
       background-color: #fff;
       border: 1px solid #137d60;
@@ -243,11 +265,6 @@
         text-align: center;
       }
     }
-    /* stylelint-enable */
   }
-
-  .form-wrap.applying .form-section {
-    opacity: 0.6;
-    pointer-events: none !important;
-  }
+  /* stylelint-enable */
 }

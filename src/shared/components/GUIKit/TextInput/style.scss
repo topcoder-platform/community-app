@@ -47,7 +47,7 @@
   }
 
   input:not([type='checkbox']):focus + label {
-    color: $gui-kit-level-2;
+    color: $gui-kit-active-label;
   }
 
   input:not([type='checkbox']).haveError + label,

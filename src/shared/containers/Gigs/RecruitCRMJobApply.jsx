@@ -46,7 +46,6 @@ class RecruitCRMJobApplyContainer extends React.Component {
     this.setState({
       formData: _.merge(formData, user),
     });
-    this.validateForm();
   }
 
   onFormInputChange(key, value) {
@@ -65,7 +64,12 @@ class RecruitCRMJobApplyContainer extends React.Component {
   onApplyClick() {
     const { applyForJob, job } = this.props;
     const { formData } = this.state;
-    applyForJob(job, formData);
+    this.validateForm();
+    this.setState((state) => {
+      if (_.isEmpty(state.formErrors)) {
+        applyForJob(job, formData);
+      }
+    });
   }
 
   validateForm() {

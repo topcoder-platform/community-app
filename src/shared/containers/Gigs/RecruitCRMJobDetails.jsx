@@ -30,18 +30,21 @@ class RecruitCRMJobDetailsContainer extends React.Component {
       loading,
       job,
       isApply,
+      application,
     } = this.props;
 
     if (loading) {
       return <LoadingIndicator />;
     }
 
-    return isApply ? <RecruitCRMJobApply job={job} /> : <GigDetails job={job} />;
+    return isApply
+      ? <RecruitCRMJobApply job={job} /> : <GigDetails job={job} application={application} />;
   }
 }
 
 RecruitCRMJobDetailsContainer.defaultProps = {
   job: {},
+  application: null,
 };
 
 RecruitCRMJobDetailsContainer.propTypes = {
@@ -50,6 +53,7 @@ RecruitCRMJobDetailsContainer.propTypes = {
   job: PT.shape(),
   id: PT.string.isRequired,
   isApply: PT.bool.isRequired,
+  application: PT.shape(),
 };
 
 function mapStateToProps(state, ownProps) {
@@ -57,6 +61,7 @@ function mapStateToProps(state, ownProps) {
   return {
     job: data ? data.job : {},
     loading: data ? data.loading : true,
+    application: data ? data.application : null,
   };
 }
 
