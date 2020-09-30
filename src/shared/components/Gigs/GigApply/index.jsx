@@ -176,7 +176,7 @@ export default function GigApply(props) {
                       <Datepicker
                         placeholder="Available From"
                         label="Available From"
-                        onChange={val => onFormInputChange('availFrom', val.toISOString())}
+                        onChange={val => onFormInputChange('availFrom', val ? val.toISOString() : null)}
                         errorMsg={formErrors.availFrom}
                         value={formData.availFrom}
                       />

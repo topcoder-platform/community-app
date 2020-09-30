@@ -41,7 +41,7 @@ function Datepicker({
         date={date}
         onDateChange={(changedDate) => {
           setDate(changedDate);
-          onChange(changedDate.toDate());
+          onChange(changedDate ? changedDate.toDate() : null);
         }}
         focused={focused}
         onFocusChange={({ focused: changedFocused }) => setFocused(changedFocused)
