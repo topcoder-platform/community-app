@@ -6,7 +6,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable no-undef */
-/* eslint-disable react/jsx-boolean-value */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -752,7 +751,7 @@ export default class Work extends ConsentComponent {
                       className="select-technologies"
                       clearable={false}
                       placeholder="Select technologies from list"
-                      joinValues={true}
+                      joinValues
                       removeSelected={false}
                       searchable={false}
                       valueComponent={valueProps => (<span styleName="selected-value-text">{valueProps.value.name}</span>)}
@@ -972,7 +971,7 @@ export default class Work extends ConsentComponent {
                       className="select-technologies"
                       clearable={false}
                       placeholder="Select technologies from list"
-                      joinValues={true}
+                      joinValues
                       removeSelected={false}
                       searchable={false}
                       valueComponent={valueProps => (<span styleName="selected-value-text">{valueProps.value.name}</span>)}
