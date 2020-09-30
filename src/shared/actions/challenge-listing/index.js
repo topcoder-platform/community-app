@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
-import { decodeToken } from 'tc-auth-lib';
+import { decodeToken } from '@topcoder-platform/tc-auth-lib';
 import 'isomorphic-fetch';
 import { processSRM } from 'utils/tc';
 import { errors, services } from 'topcoder-react-lib';

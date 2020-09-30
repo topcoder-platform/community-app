@@ -8,7 +8,7 @@ import _ from 'lodash';
 import actions from 'actions/tc-communities';
 import { logger, services, errors } from 'topcoder-react-lib';
 import { handleActions } from 'redux-actions';
-import { decodeToken } from 'tc-auth-lib';
+import { decodeToken } from '@topcoder-platform/tc-auth-lib';
 import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { getCommunityId } from 'server/services/communities';

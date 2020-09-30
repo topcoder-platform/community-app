@@ -11,7 +11,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import { submission as submissionUtils } from 'topcoder-react-lib';
-import { isTokenExpired } from 'tc-auth-lib';
+import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import cn from 'classnames';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 
