@@ -57,8 +57,6 @@ class RecruitCRMJobApplyContainer extends React.Component {
         [key]: value,
       },
     }));
-    // run form validation
-    this.validateForm();
   }
 
   onApplyClick() {

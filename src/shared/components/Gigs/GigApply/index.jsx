@@ -19,7 +19,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import './style.scss';
 import bigCheckmark from 'assets/images/big-checkmark.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
-import backArrowGig from 'assets/images/back-arrow-gig-apply.png';
+import BackArrowGig from 'assets/images/back-arrow-gig-apply.svg';
 
 export default function GigApply(props) {
   const {
@@ -38,8 +38,8 @@ export default function GigApply(props) {
           </div>
         ) : (
           <div styleName="wrap">
-            <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="back-link"><img src={backArrowGig} alt="back-arrow-icon" /> GIG DETAILS</Link>
             <h2>{job.name}</h2>
+            <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="back-link"><BackArrowGig /> GIG DETAILS</Link>
             <div styleName="separator" />
             {
               application ? (

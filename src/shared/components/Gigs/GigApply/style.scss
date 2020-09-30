@@ -59,8 +59,8 @@
     h2 {
       color: #26b3c5;
       text-align: center;
-      margin-top: 6px;
-      margin-bottom: 83px;
+      margin-top: 47px;
+      margin-bottom: 31px;
 
       @include xs-to-md {
         text-align: left;
@@ -75,6 +75,13 @@
       text-decoration: none;
       line-height: 40px;
       margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+
+      svg {
+        width: 8px;
+        margin-right: 6px;
+      }
     }
 
     .separator {
