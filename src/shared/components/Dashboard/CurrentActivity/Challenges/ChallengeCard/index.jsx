@@ -66,7 +66,7 @@ export default function ChallengeCard({
   const STALLED_MSG = 'Stalled';
   const DRAFT_MSG = 'In Draft';
 
-  const forumEndpoint = track === COMPETITION_TRACKS.DESIGN
+  const forumEndpoint = track === COMPETITION_TRACKS.DES
     ? `/?module=ThreadList&forumID=${legacy.forumId}`
     : `/?module=Category&categoryID=${legacy.forumId}`;
 
