@@ -11,7 +11,7 @@ import { mock, actions } from 'topcoder-react-lib';
 
 const { mockAction } = mock;
 
-jest.setMock('tc-auth-lib', {
+jest.setMock('@topcoder-platform/tc-auth-lib', {
   decodeToken: () => 'User object',
   isTokenExpired: () => false,
 });
