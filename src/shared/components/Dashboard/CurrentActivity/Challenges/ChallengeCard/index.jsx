@@ -47,13 +47,13 @@ export default function ChallengeCard({
 
   let EventTag;
   switch (track) {
-    case COMPETITION_TRACKS.DATA_SCIENCE:
+    case COMPETITION_TRACKS.DS:
       EventTag = DataScienceTrackEventTag;
       break;
-    case COMPETITION_TRACKS.DESIGN:
+    case COMPETITION_TRACKS.DES:
       EventTag = DesignTrackEventTag;
       break;
-    case COMPETITION_TRACKS.DEVELOP:
+    case COMPETITION_TRACKS.DEV:
       EventTag = DevelopmentTrackEventTag;
       break;
     case COMPETITION_TRACKS.QA:
