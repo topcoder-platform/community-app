@@ -22,6 +22,7 @@ import iconSkills from 'assets/images/icon-skills-blue.png';
 import iconLabel1 from 'assets/images/l1.png';
 import iconLabel2 from 'assets/images/l2.png';
 import iconLabel3 from 'assets/images/l3.png';
+import SadFace from 'assets/images/sad-face-icon.svg';
 
 // Cleanup HTML from style tags
 // so it won't affect other parts of the UI
@@ -48,7 +49,8 @@ export default function GigDetails(props) {
       {
         job.error || job.enable_job_application_form !== 1 ? (
           <div styleName="error">
-            <h3>Gig does not exist.</h3>
+            { job.error ? <SadFace /> : null }
+            <h3>{ job.error ? 'Gig does not exist' : 'This Gig has been Fulfilled'}</h3>
             <div styleName="cta-buttons">
               <Link to={config.GIGS_PAGES_PATH}>VIEW OTHER GIGS</Link>
             </div>
