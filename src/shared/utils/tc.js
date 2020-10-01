@@ -10,7 +10,11 @@ import { config, isomorphy } from 'topcoder-react-utils';
 
 import { tc } from 'topcoder-react-lib';
 
-export const { COMPETITION_TRACKS, REVIEW_OPPORTUNITY_TYPES } = tc;
+export const {
+  COMPETITION_TRACKS,
+  CHALLENGE_STATUS,
+  REVIEW_OPPORTUNITY_TYPES,
+} = tc;
 
 /**
  * Possible phase types (at the moment, this map does not cover all

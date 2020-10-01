@@ -245,7 +245,6 @@ workflows:
           filters:
             branches:
               only:
-                - rdm-email-switch
                 - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
