@@ -55,6 +55,11 @@ const newsletters = [
     name: 'TCO Newsletter',
     desc: 'For all the latest updates surrounding the <a href="https://www.topcoder.com/community/member-programs/topcoder-open" style="color:#0d61bf;text-decoration:underline">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!',
   },
+  {
+    id: 'RDM',
+    name: 'Rapid Development Match (RDM) Reminders',
+    desc: 'Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!',
+  },
 ];
 
 export default class EmailPreferences extends React.Component {
