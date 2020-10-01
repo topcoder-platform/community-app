@@ -11,8 +11,12 @@ import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import IconCalendar from 'assets/images/tc-edu/icon-calendar.svg';
 import useWindowSize from 'utils/useWindowSize';
+import CalendarWeek from 'react-dates/lib/components/CalendarWeek';
 import IconNext from '../Assets/Images/icon-next.svg';
 import IconPrev from '../Assets/Images/icon-prev.svg';
+
+// eslint-disable-next-line no-unused-expressions, react/forbid-foreign-prop-types
+CalendarWeek && CalendarWeek.propTypes && delete CalendarWeek.propTypes.children; // fixing the bug in react-dates, more detail in here https://github.com/airbnb/react-dates/issues/1121
 
 function Datepicker({
   value,
@@ -27,7 +31,6 @@ function Datepicker({
   const { width } = useWindowSize();
   return (
     <div
-      className="datepickerContainer"
       styleName={`container ${date ? 'haveValue' : ''} ${
         errorMsg ? 'haveError' : ''
       } ${focused ? 'isFocused' : ''}`}
@@ -50,7 +53,7 @@ function Datepicker({
         navPrev={<IconPrev />}
         navNext={<IconNext />}
         displayFormat="MMM DD, YYYY"
-        daySize={width > 600 ? 53 : 35}
+        daySize={width > 600 ? 47 : 35}
         renderDayContents={d => (<div>{d.date ? d.date() : ''}</div>)}
         enableOutsideDays
         firstDayOfWeek={1}

@@ -9,12 +9,14 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import Viewport from 'components/Contentful/Viewport';
-import { Modal } from 'topcoder-react-ui-kit';
+import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { errors } from 'topcoder-react-lib';
 import { themr } from 'react-css-super-themr';
 import classnames from 'classnames';
+import tc from 'components/buttons/themed/tc.scss';
+import { fixStyle } from 'utils/contentful';
 
-import defaultModalTheme from 'components/Leaderboard/ChallengeHistoryModal/styles.scss';
+import defaultModalTheme from './modal-styles.scss';
 import defaultStyle from './style.scss';
 
 const { fireErrorMessage } = errors;
@@ -89,6 +91,9 @@ class ContentfulModal extends React.Component {
         renderPlaceholder={LoadingIndicator}
         render={(data) => {
           const contentId = _.get(data, `entries.items.${id}.fields.content.sys.id`);
+          const hideDismissIcon = _.get(data, `entries.items.${id}.fields.hideDismissIcon`);
+          const hideCloseButton = _.get(data, `entries.items.${id}.fields.hideCloseButton`);
+          const extraStylesForContainer = _.get(data, `entries.items.${id}.fields.extraStylesForContainer`);
           if (!contentId) return null;
           return (
             <React.Fragment>
@@ -107,16 +112,20 @@ class ContentfulModal extends React.Component {
                 onCancel={this.onCloseModal}
                 theme={defaultModalTheme}
               >
-                <div
-                  className={theme.dismissButton}
-                  onClick={this.onCloseModal}
-                  onKeyPress={this.onCloseModal}
-                  role="button"
-                  tabIndex={0}
-                  ref={(node) => { this.dismissButtonRef = node; }}
-                >
-                  &times;
-                </div>
+                {
+                  !hideDismissIcon && (
+                    <div
+                      className={theme.dismissButton}
+                      onClick={this.onCloseModal}
+                      onKeyPress={this.onCloseModal}
+                      role="button"
+                      tabIndex={0}
+                      ref={(node) => { this.dismissButtonRef = node; }}
+                    >
+                      &times;
+                    </div>
+                  )
+                }
                 <ContentfulLoader
                   entryIds={contentId}
                   {...contentfulConfig}
@@ -134,6 +143,22 @@ class ContentfulModal extends React.Component {
                     return fireErrorMessage('Unsupported content type from contentful', '');
                   }}
                 />
+                {
+                  !hideCloseButton && (
+                    <div className={theme.closeButton} style={fixStyle(extraStylesForContainer)}>
+                      <PrimaryButton
+                        theme={{
+                          button: tc['primary-green-md'],
+                          disabled: tc.themedButtonDisabled,
+                        }}
+                        onClick={this.onCloseModal}
+                        onKeyPress={this.onCloseModal}
+                      >
+                        CLOSE
+                      </PrimaryButton>
+                    </div>
+                  )
+                }
               </Modal>
               )}
             </React.Fragment>
@@ -160,6 +185,7 @@ ContentfulModal.propTypes = {
   theme: PT.shape({
     modalTrigger: PT.string,
     dismissButton: PT.any,
+    closeButton: PT.any,
   }),
   preview: PT.bool,
   spaceName: PT.string,

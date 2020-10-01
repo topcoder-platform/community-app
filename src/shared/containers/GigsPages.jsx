@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet';
 export default function GigsPagesContainer(props) {
   const { match } = props;
   const { id } = match.params;
+  const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   return (
     <div>
       <Helmet>
@@ -32,6 +33,7 @@ window._chatlio = window._chatlio||[];
         id ? (
           <RecruitCRMJobDetails
             id={id}
+            isApply={isApply}
           />
         ) : (
           <Viewport

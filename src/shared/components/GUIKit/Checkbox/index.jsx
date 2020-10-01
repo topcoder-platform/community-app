@@ -5,23 +5,26 @@
  */
 import React, { useRef, useState } from 'react';
 import PT from 'prop-types';
-import IconCheckSolid from 'assets/images/check-mark.svg';
 import _ from 'lodash';
 import './style.scss';
-
 import { config } from 'topcoder-react-utils';
+
+import iconCheckL from '../Assets/Images/checkmark-large.png';
+import iconCheckM from '../Assets/Images/checkmark-medium.png';
+import iconCheckS from '../Assets/Images/checkmark-small.png';
 
 function Checkbox({
   checked,
   onChange,
   size,
+  errorMsg,
 }) {
   const [checkedInternal, setCheckedInternal] = useState(checked);
   let sizeStyle = size === 'lg' ? 'lgSize' : null;
-  let checkmarkSize = size === 'lg' ? 16 : 0;
+  // eslint-disable-next-line no-nested-ternary
+  const imgSrc = size === 'xs' ? iconCheckS : (size === 'sm' ? iconCheckM : iconCheckL);
   if (!sizeStyle) {
     sizeStyle = size === 'xs' ? 'xsSize' : 'smSize';
-    checkmarkSize = size === 'xs' ? 10 : 13;
   }
   const delayedOnChange = useRef(
     _.debounce((q, cb) => cb(q), config.GUIKIT.DEBOUNCE_ON_CHANGE_TIME),
@@ -37,9 +40,10 @@ function Checkbox({
           delayedOnChange(e.target.checked, onChange);
         }}
       />
-      <div styleName="checkmark">
-        <IconCheckSolid styleName="after" width={checkmarkSize} height={checkmarkSize} />
+      <div styleName={`checkmark ${errorMsg ? 'haveError' : ''}`}>
+        <img src={imgSrc} styleName="after" alt="checkmark-icon" />
       </div>
+      {errorMsg ? (<span styleName="errorMessage">{errorMsg}</span>) : null}
     </label>
   );
 }
@@ -48,12 +52,14 @@ Checkbox.defaultProps = {
   checked: false,
   onChange: () => {},
   size: 'sm',
+  errorMsg: '',
 };
 
 Checkbox.propTypes = {
   checked: PT.bool,
   onChange: PT.func,
   size: PT.oneOf(['xs', 'sm', 'lg']),
+  errorMsg: PT.string,
 };
 
 export default Checkbox;

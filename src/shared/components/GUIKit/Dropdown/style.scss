@@ -27,6 +27,7 @@
   padding-top: 12px;
 
   &.haveValue .label,
+  &.haveError .label,
   &.isFocused .label {
     display: flex;
   }
@@ -147,6 +148,7 @@
           line-height: 30px !important;
           color: $gui-kit-gray-90 !important;
           background-color: transparent !important;
+          text-decoration: none !important;
 
           &.is-selected {
             font-weight: bold !important;
