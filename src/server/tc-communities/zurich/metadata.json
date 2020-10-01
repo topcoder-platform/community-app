@@ -1,18 +1,19 @@
 {
-  "authorizedGroups": [
-    "zurich"
+  "authorizedGroupIds": [
+    "20000145"
   ],
   "challengeFilter": {
-    "groups": ["zurich"]
+    "groupIds": ["20000145"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": false,
     "openChallengesInNewTabs": false
   },
   "communityId": "zurich",
+  "hidden": true,
   "communityName": "Zurich Community",
-  "groups": ["zurich"],
-  "authorizedGroupIdsCatalog": ["20000160", "20000161"],
+  "groupIds": ["20000145"],
+  "authorizedGroupIdsCatalog": ["c40767a9-e02e-4872-87eb-d50dcb946055", "a1bcb865-7235-481f-ae62-b82dd958fc4c"],
   "competitorsGroupIds": ["20000226"],
   "logos": [{
     "img": "/community-app-assets/themes/zurich/zurich.svg",

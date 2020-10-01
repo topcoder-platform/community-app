@@ -1,6 +1,6 @@
 {
   "challengeFilter": {
-    "groups": ["cognitive"],
+    "groupIds": ["20000015"],
     "or": [{
       "tags": ["Cognitive", "IBM Cognitive", "IBM Watson"]
     }]
@@ -9,8 +9,9 @@
     "openChallengesInNewTabs": false
   },
   "communityId": "cognitive",
+  "hidden": true,
   "communityName": "Topcoder Cognitive Community",
-  "groups": ["cognitive"],
+  "groupIds": ["20000015"],
   "logos": [{
     "img": "/community-app-assets/themes/cognitive/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"

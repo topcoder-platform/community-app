@@ -1,17 +1,18 @@
 {
-  "authorizedGroups": [
-    "wipro", "wipro-holmes", "wipro-topgear-capital-one-tg-captialone-map-migration", "wipro-future-employees"
+  "authorizedGroupIds": [
+    "20000000", "20000005", "20000011", "20000016"
   ],
   "challengeFilter": {
-    "groups": ["wipro"]
+    "groupIds": ["20000000"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": true,
     "openChallengesInNewTabs": false
   },
   "communityId": "wipro",
+  "hidden": true,
   "communityName": "TopGear Community",
-  "groups": ["wipro"],
+  "groupIds": ["20000000"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
     "img": "/community-app-assets/themes/wipro/wipro-logo.png",

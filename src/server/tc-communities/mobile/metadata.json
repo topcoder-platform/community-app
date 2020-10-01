@@ -1,7 +1,7 @@
 {
-  "authorizedGroups": ["hide-challenges"],
+  "authorizedGroupIds": ["20000014"],
   "challengeFilter": {
-    "groups": ["mobile"],
+    "groupIds": ["20000047"],
     "or": [{
       "tags": ["Mobile", "iOS", "Android"]
     }]
@@ -11,8 +11,9 @@
     "openChallengesInNewTabs": false
   },
   "communityId": "mobile",
+  "hidden": true,
   "communityName": "Mobile Community",
-  "groups": ["mobile"],
+  "groupIds": ["20000047"],
   "hideSearch": true,
   "logos": [{
     "img": "/community-app-assets/themes/mobile/logo_topcoder_with_name.svg",

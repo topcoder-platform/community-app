@@ -1,13 +1,13 @@
 {
-  "authorizedGroups": [
-    "taskforce"
+  "authorizedGroupIds": [
+    "20000003"
   ],
   "challengeFilter": {
-    "groups": ["taskforce"]
+    "groupIds": ["20000003"]
   },
   "communityId": "taskforce",
   "communityName": "Taskforce",
-  "groups": ["taskforce"],
+  "groupIds": ["20000003"],
   "hidden": true,
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
