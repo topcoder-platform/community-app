@@ -8,20 +8,16 @@
   background-color: $tc-white;
   border: 1px solid $gui-kit-gray-30;
 
+  &.haveError {
+    border: 2px solid #ef476f;
+  }
+
   /* Create the checkmark/indicator (hidden when not checked) */
   .after {
     position: absolute;
     display: none;
     left: 50%;
     top: 50%;
-    -webkit-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
-
-    :global {
-      path {
-        fill: $tc-white;
-      }
-    }
   }
 }
 
@@ -46,8 +42,8 @@
       border-radius: 4px;
 
       .after {
-        margin-left: -8px;
-        margin-top: -9px;
+        margin-left: -9px;
+        margin-top: -7px;
       }
     }
   }
@@ -63,8 +59,8 @@
       border-radius: 3px;
 
       .after {
-        margin-left: -6px;
-        margin-top: -7px;
+        margin-left: -7px;
+        margin-top: -6px;
       }
     }
   }
@@ -80,8 +76,8 @@
       border-radius: 2px;
 
       .after {
-        margin-left: -5px;
-        margin-top: -5px;
+        margin-left: -6px;
+        margin-top: -4px;
       }
     }
   }
@@ -106,4 +102,15 @@
       }
     }
   }
+}
+
+.errorMessage {
+  display: block;
+
+  @include errorMessage;
+
+  position: absolute;
+  white-space: nowrap;
+  margin: 35px 0 0 0;
+  color: #ef476f;
 }

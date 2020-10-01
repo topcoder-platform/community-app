@@ -2,7 +2,7 @@
 
 exports[`Default render 1`] = `
 <div
-  className="datepickerContainer src-shared-components-GUIKit-Datepicker-___style__container___Sl58X"
+  className="src-shared-components-GUIKit-Datepicker-___style__container___Sl58X"
 >
   <withStyles(SingleDatePicker)
     anchorDirection="left"
@@ -19,7 +19,7 @@ exports[`Default render 1`] = `
       />
     }
     date={null}
-    daySize={53}
+    daySize={47}
     disableScroll={false}
     disabled={false}
     displayFormat="MMM DD, YYYY"

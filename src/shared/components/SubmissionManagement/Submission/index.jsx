@@ -15,7 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { config } from 'topcoder-react-utils';
-import { COMPETITION_TRACKS } from 'utils/tc';
+import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
 
 import PT from 'prop-types';
 
@@ -85,7 +85,8 @@ export default function Submission(props) {
             onClick={() => onDownload(submissionObject.id)}
           ><DownloadIcon /></button>
           */ }
-          {status !== 'COMPLETED'
+          {status !== CHALLENGE_STATUS.COMPLETED
+            && track !== COMPETITION_TRACKS.DESIGN
             && (
             <button
               styleName="delete-icon"

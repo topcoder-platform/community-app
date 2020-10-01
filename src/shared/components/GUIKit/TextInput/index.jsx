@@ -30,7 +30,7 @@ function TextInput({
         defaultValue={value}
         type="text"
         placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
-        styleName={`${val ? 'haveValue' : ''} ${errorMsg ? 'haveError' : ''}`}
+        styleName={`${value || val ? 'haveValue' : ''} ${errorMsg ? 'haveError' : ''}`}
         onChange={(e) => {
           delayedOnChange(e.target.value, onChange);
           setVal(e.target.value);

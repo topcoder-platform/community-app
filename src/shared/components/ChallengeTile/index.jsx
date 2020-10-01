@@ -108,7 +108,7 @@ class ChallengeTile extends React.Component {
                 {underscoreReplace(type)}
               </p>
               <p styleName="date-completed">
-                {formatDate(challenge.submissionEndDate)}
+                {challenge.submissionEndDate && formatDate(challenge.submissionEndDate)}
               </p>
               { challenge.wonFirst && !challenge.isPrivate
               && (

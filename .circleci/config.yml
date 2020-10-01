@@ -245,8 +245,7 @@ workflows:
           filters:
             branches:
               only:
-                - milestone-20200917
-                - develop
+                - gig-application
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
