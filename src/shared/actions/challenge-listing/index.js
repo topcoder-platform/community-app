@@ -182,6 +182,7 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
       ...frontFilter,
       status: 'Active',
       currentPhaseName: 'Submission',
+      registrationEndDateEnd: new Date().toISOString(),
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sorts[BUCKETS.ONGOING],
