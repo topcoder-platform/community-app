@@ -57,6 +57,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
         [key]: value,
       },
     }));
+    this.validateForm(key);
   }
 
   onApplyClick() {
@@ -70,7 +71,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
     });
   }
 
-  validateForm() {
+  validateForm(prop) {
     this.setState((state) => {
       const { formData, formErrors } = state;
       // Form validation happens here
@@ -80,6 +81,9 @@ class RecruitCRMJobApplyContainer extends React.Component {
       // check required text fields for value
       // check min/max lengths
       _.each(requiredTextFields, (key) => {
+        // validate only modified prop if set
+        // and do not touch the others
+        if (prop && prop !== key) return;
         if (!formData[key] || !_.trim(formData[key])) formErrors[key] = 'Required field';
         else if (formData[key] && _.trim(formData[key]).length < 2) formErrors[key] = 'Must be at least 2 characters';
         else if (formData[key] && _.trim(formData[key]).length > 2) {
@@ -101,36 +105,48 @@ class RecruitCRMJobApplyContainer extends React.Component {
         } else delete formErrors[key];
       });
       // check for selected country
-      if (!_.find(formData.country, { selected: true })) formErrors.country = 'Please, select your country';
-      else delete formErrors.country;
+      if (!prop || prop === 'country') {
+        if (!_.find(formData.country, { selected: true })) formErrors.country = 'Please, select your country';
+        else delete formErrors.country;
+      }
       // check payExpectation to be a number
-      if (formData.payExpectation && _.trim(formData.payExpectation)) {
-        if (!_.isInteger(_.toNumber(formData.payExpectation))) formErrors.payExpectation = 'Must be integer value in $';
-        else delete formErrors.payExpectation;
-      } else delete formErrors.payExpectation;
+      if (!prop || prop === 'payExpectation') {
+        if (formData.payExpectation && _.trim(formData.payExpectation)) {
+          if (!_.isInteger(_.toNumber(formData.payExpectation))) formErrors.payExpectation = 'Must be integer value in $';
+          else delete formErrors.payExpectation;
+        } else delete formErrors.payExpectation;
+      }
       // check for valid email
-      if (formData.email && _.trim(formData.email)) {
-        if (!(isValidEmail(formData.email))) formErrors.email = 'Invalid email';
-        else delete formErrors.email;
+      if (!prop || prop === 'email') {
+        if (formData.email && _.trim(formData.email)) {
+          if (!(isValidEmail(formData.email))) formErrors.email = 'Invalid email';
+          else delete formErrors.email;
+        }
       }
       // require atleast 1 skill
-      if (!_.find(formData.skills, { selected: true })) formErrors.skills = 'Please, add technical skills';
-      else delete formErrors.skills;
+      if (!prop || prop === 'skills') {
+        if (!_.find(formData.skills, { selected: true })) formErrors.skills = 'Please, add technical skills';
+        else delete formErrors.skills;
+      }
       // have accepted terms
-      if (!formData.agreedTerms) formErrors.agreedTerms = 'Please, accept our terms';
-      else delete formErrors.agreedTerms;
+      if (!prop || prop === 'agreedTerms') {
+        if (!formData.agreedTerms) formErrors.agreedTerms = 'Please, accept our terms';
+        else delete formErrors.agreedTerms;
+      }
       // has CV file ready for upload
-      if (!formData.fileCV) formErrors.fileCV = 'Please, pick your CV file for uploading';
-      else {
-        const sizeInMB = (formData.fileCV.size / (1024 * 1024)).toFixed(2);
-        if (sizeInMB > 8) {
-          formErrors.fileCV = 'Max file size is limited to 8 MB';
-          delete formData.fileCV;
-        } else if (_.endsWith(formData.fileCV.name, '.pdf') || _.endsWith(formData.fileCV.name, '.docx')) {
-          delete formErrors.fileCV;
-        } else {
-          formErrors.fileCV = 'Only .pdf and .docx files are allowed';
-          delete formErrors.fileCV;
+      if (!prop || prop === 'fileCV') {
+        if (!formData.fileCV) formErrors.fileCV = 'Please, pick your CV file for uploading';
+        else {
+          const sizeInMB = (formData.fileCV.size / (1024 * 1024)).toFixed(2);
+          if (sizeInMB > 8) {
+            formErrors.fileCV = 'Max file size is limited to 8 MB';
+            delete formData.fileCV;
+          } else if (_.endsWith(formData.fileCV.name, '.pdf') || _.endsWith(formData.fileCV.name, '.docx')) {
+            delete formErrors.fileCV;
+          } else {
+            formErrors.fileCV = 'Only .pdf and .docx files are allowed';
+            delete formErrors.fileCV;
+          }
         }
       }
       // updated state
