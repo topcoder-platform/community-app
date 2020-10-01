@@ -145,7 +145,6 @@ class RecruitCRMJobApplyContainer extends React.Component {
             delete formErrors.fileCV;
           } else {
             formErrors.fileCV = 'Only .pdf and .docx files are allowed';
-            delete formErrors.fileCV;
           }
         }
       }
