@@ -7,12 +7,13 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  BUCKETS, isReviewOpportunitiesBucket,
+  BUCKETS, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
   // BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
 } from 'utils/challenge-listing/buckets';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
+import CardPlaceholder from '../placeholders/ChallengeCard';
 import './style.scss';
 
 // const Filter = challengeUtils.filter;
@@ -194,13 +195,36 @@ function Listing({
   //     </div>
   //   );
   // }
+  const loading = loadingMyChallenges
+    || loadingOpenForRegistrationChallenges
+    || loadingOnGoingChallenges;
+  const placeholders = [];
+  if (challenges.length > 0) {
+    return (
+      <div styleName="challengeCardContainer">
+        {preListingMsg}
+        {(auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null}
+        {/* {extraBucket ? getBucket(extraBucket) : null} */}
+        {openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+        {/* {getBucket(BUCKETS.ONGOING)} */}
+      </div>
+    );
+  }
+
+  if (loading) {
+    for (let i = 0; i < 10; i += 1) {
+      placeholders.push(<CardPlaceholder id={i} key={i} />);
+    }
+  }
   return (
     <div styleName="challengeCardContainer">
-      {preListingMsg}
-      {(auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null}
-      {/* {extraBucket ? getBucket(extraBucket) : null} */}
-      {openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
-      {/* {getBucket(BUCKETS.ONGOING)} */}
+      {
+        loading
+          ? placeholders
+          : (
+            <div styleName="no-results">{ `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }</div>
+          )
+      }
     </div>
   );
 }

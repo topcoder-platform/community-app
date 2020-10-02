@@ -114,7 +114,7 @@ export default function Bucket({
   //   );
   // }
 
-  if (sortedChallenges.length === 0) {
+  if (!loading && sortedChallenges.length === 0) {
     return (
       <div styleName="no-results">
         { `${NO_LIVE_CHALLENGES_CONFIG[bucket]}` }
