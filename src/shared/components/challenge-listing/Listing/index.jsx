@@ -55,6 +55,7 @@ function Listing({
   setFilterState,
   setSort,
   sorts,
+  expanding,
   expandedTags,
   expandTag,
   // pastSearchTimestamp,
@@ -141,8 +142,12 @@ function Listing({
             challengeTypes={challengeTypes}
             challengesUrl={challengesUrl}
             communityName={communityName}
-            expand={() => selectBucket(bucket)}
+            expand={() => {
+              selectBucket(bucket, true);
+              loadMore();
+            }}
             expanded={newExpanded}
+            expanding={expanding}
             expandedTags={expandedTags}
             expandTag={expandTag}
             filterState={filterState}
@@ -166,7 +171,7 @@ function Listing({
     );
   };
 
-  if ((activeBucket !== BUCKETS.ALL)
+  if (!expanding && (activeBucket !== BUCKETS.ALL)
   && (activeBucket !== BUCKETS.SAVED_FILTER)) {
     return (
       <div styleName="challengeCardContainer">
@@ -224,10 +229,12 @@ Listing.defaultProps = {
   openChallengesInNewTabs: false,
   // pastSearchTimestamp: 0,
   // userChallenges: [],
+  expanding: false,
 };
 
 Listing.propTypes = {
   activeBucket: PT.string.isRequired,
+  expanding: PT.bool,
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
