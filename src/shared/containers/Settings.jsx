@@ -6,7 +6,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import { isTokenExpired } from 'tc-auth-lib';
+import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import { goToLogin } from 'utils/tc';
 
 import { actions } from 'topcoder-react-lib';
