@@ -245,7 +245,8 @@ workflows:
           filters:
             branches:
               only:
-                - gig-application
+                - develop
+                - tcx-202010
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
