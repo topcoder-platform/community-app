@@ -4,7 +4,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
-// import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 // import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 import _ from 'lodash';
 
@@ -17,7 +17,7 @@ import FiltersSwitch from './FiltersSwitch';
 
 import './ChallengeFilters.scss';
 
-// const Filter = challengeUtils.filter;
+const Filter = challengeUtils.filter;
 
 export default function ChallengeFilters({
   communityFilters,
@@ -53,9 +53,9 @@ export default function ChallengeFilters({
   const isTrackOn = track => filterState.tracks[track];
 
   const switchTrack = (track, on) => {
-    const newFilter = _.cloneDeep(filterState);
-    newFilter.tracks[track] = on;
-    setFilterState({ ...newFilter });
+    const act = on ? Filter.addTrack : Filter.removeTrack;
+    const filterObj = act(filterState, track);
+    setFilterState({ ...filterObj });
   };
 
   const clearSearch = () => {
