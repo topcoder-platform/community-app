@@ -16,6 +16,7 @@
     "url": "https://www.topcoder.com"
   }],
   "hideSearch": true,
+  "hideFilter": true,
   "menuItems": [
     {
       "title": "Home",
