@@ -10,7 +10,6 @@
     "openChallengesInNewTabs": false
   },
   "communityId": "wipro",
-  "hidden": true,
   "communityName": "TopGear Community",
   "groupIds": ["20000000"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",

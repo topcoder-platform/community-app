@@ -6,7 +6,6 @@
     }]
   },
   "communityId": "blockchain",
-  "hidden": true,
   "communityName": "Blockchain Community",
   "groupIds": ["20000010"],
   "hideSearch": true,

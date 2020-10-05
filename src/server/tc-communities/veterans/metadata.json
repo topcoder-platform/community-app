@@ -6,7 +6,6 @@
     "ignoreCommunityFilterByDefault": true
   },
   "communityId": "veterans",
-  "hidden": true,
   "communityName": "Veterans Community",
   "groupIds": ["20000013"],
   "terms": [21193, 21263],
