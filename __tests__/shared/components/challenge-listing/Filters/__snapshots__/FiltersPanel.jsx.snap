@@ -82,18 +82,7 @@ exports[`Matches shallow shapshot 1`] = `
           clearable={false}
           id="community-select"
           onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "data": <div>
-                  Sample community
-                </div>,
-                "label": "Sample community",
-                "name": "Sample community",
-                "value": "",
-              },
-            ]
-          }
+          options={Array []}
           selectRef={[Function]}
           simpleValue={true}
           value=""
@@ -278,18 +267,7 @@ exports[`Matches shallow shapshot 2`] = `
           clearable={false}
           id="community-select"
           onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "data": <div>
-                  Sample community
-                </div>,
-                "label": "Sample community",
-                "name": "Sample community",
-                "value": "",
-              },
-            ]
-          }
+          options={Array []}
           selectRef={[Function]}
           simpleValue={true}
           value=""

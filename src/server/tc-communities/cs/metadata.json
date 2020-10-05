@@ -1,17 +1,18 @@
 {
-  "authorizedGroups": [
-    "cs"
+  "authorizedGroupIds": [
+    "20000044"
   ],
   "challengeFilter": {
-    "groups": ["cs"]
+    "groupIds": ["20000044"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": true,
     "openChallengesInNewTabs": false
   },
   "communityId": "cs",
+  "hidden": true,
   "communityName": "CS Community",
-  "groups": ["cs"],
+  "groupIds": ["20000044"],
   "hideSearch": true,
   "logos": [{
     "img": "/community-app-assets/themes/cs/credit-suisse-logo.jpg",

@@ -1,10 +1,10 @@
 {
   "challengeFilter": {
-    "groups": ["community-2"]
+    "groupIds": ["20000002"]
   },
   "communityId": "community-2",
   "communityName": "Community 2",
-  "groups": ["community-2"],
+  "groupIds": ["20000002"],
   "hidden": true,
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{

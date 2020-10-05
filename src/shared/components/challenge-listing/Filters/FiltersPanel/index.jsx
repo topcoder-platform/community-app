@@ -180,10 +180,12 @@ export default function FiltersPanel({
     );
   };
 
-  const communityOps = communityFilters.filter(community => !community.hidden)
+  const communityOps = communityFilters.filter(community => (
+    !community.hidden && community.groupIds && community.groupIds.length > 0
+  ))
     .map(community => ({
       label: community.communityName,
-      value: community.groupIds && community.groupIds.length > 0 ? community.groupIds[0] : '',
+      value: community.groupIds[0],
       name: community.communityName,
       data: getLabel(community),
     }));
@@ -242,8 +244,9 @@ export default function FiltersPanel({
               id="community-select"
               // onChange={selectCommunity}
               onChange={(value) => {
-                const group = value;
-                setFilterState({ ..._.clone(filterState), groups: group === '' ? [] : [group] });
+                // const group = value;
+                // setFilterState({ ..._.clone(filterState), groups: group === '' ? [] : [group] });
+                setFilterState({ ..._.clone(filterState), groups: [value] });
               }}
               options={communityOps}
               simpleValue

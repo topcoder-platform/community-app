@@ -1,16 +1,17 @@
 {
-  "authorizedGroups": [
-    "comcast"
+  "authorizedGroupIds": [
+    "20000867"
   ],
   "challengeFilter": {
-    "groups": ["comcast"],
+    "groupIds": ["20000867"],
     "or": [{
       "tags": ["Comcast"]
     }]
   },
   "communityId": "comcast",
+  "hidden": true,
   "communityName": "Comcast Community",
-  "groups": ["comcast"],
+  "groupIds": ["20000867"],
   "hideSearch": true,
   "logos": [{
     "img": "/community-app-assets/themes/comcast/corporate_Official-Comcast-Logo.png",

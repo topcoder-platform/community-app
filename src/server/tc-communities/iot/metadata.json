@@ -1,14 +1,15 @@
 {
-  "authorizedGroups": ["hide-challenges"],
+  "authorizedGroupIds": ["20000014"],
   "challengeFilter": {
-    "groups": ["iot"],
+    "groupIds": ["20000045"],
     "or": [{
       "tags": ["IoT", "Predix"]
     }]
   },
   "communityId": "iot",
+  "hidden": true,
   "communityName": "IoT Community",
-  "groups": ["iot"],
+  "groupIds": ["20000045"],
   "hideSearch": true,
   "logos": [{
     "img": "/community-app-assets/themes/iot/logo_topcoder_with_name.svg",

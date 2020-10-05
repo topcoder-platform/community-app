@@ -3,8 +3,9 @@
     "events": ["tco20"]
   },
   "communityId": "tco20",
+  "hidden": true,
   "communityName": "TCO20",
-  "groups": [],
+  "groupIds": [],
   "hideSearch": true,
   "logos": [{
     "img": "/community-app-assets/themes/tco/TCO20.svg",
