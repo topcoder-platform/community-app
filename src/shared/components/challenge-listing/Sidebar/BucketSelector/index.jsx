@@ -7,87 +7,91 @@
 import PT from 'prop-types';
 import React from 'react';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+// import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import Bucket from './Bucket';
 
 import './style.scss';
 
-const Filter = challengeUtils.filter;
+// const Filter = challengeUtils.filter;
 
 // DISABLED: Until feeds.topcoder.com domain fixed community-app#4606
 // const RSS_LINK = 'http://feeds.topcoder.com/challenges/feed?list=active&contestType=all';
 
 export default function BucketSelector({
   activeBucket,
-  activeSavedFilter,
-  buckets,
-  challenges,
-  communityFilter,
+  // activeSavedFilter,
+  // buckets,
+  // challenges,
+  // communityFilter,
   disabled,
-  extraBucket,
-  filterState,
+  expanding,
+  // extraBucket,
+  // filterState,
   isAuth,
-  savedFilters,
+  // savedFilters,
   selectBucket,
-  selectSavedFilter,
-  setEditSavedFiltersMode,
+  // selectSavedFilter,
+  // setEditSavedFiltersMode,
 }) {
-  let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
+  // let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
 
-  if (communityFilter) {
-    filteredChallenges = filteredChallenges.filter(Filter.getFilterFunction(communityFilter));
-  }
+  // if (communityFilter) {
+  // filteredChallenges = filteredChallenges.filter(Filter.getFilterFunction(communityFilter));
+  // }
 
-  const getBucket = bucket => (
-    <Bucket
-      active={!disabled && activeBucket === bucket}
-      bucket={buckets[bucket]}
-      challenges={filteredChallenges}
-      disabled={disabled}
-      onClick={() => {
-        selectBucket(bucket);
-        /* eslint-env browser */
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }}
-    />
-  );
+  const getBucket = (bucket) => {
+    const isActive = expanding ? bucket === BUCKETS.ALL : activeBucket === bucket;
+    return (
+      <Bucket
+        active={!disabled && isActive}
+        bucket={bucket}
+        // challenges={challenges}
+        disabled={disabled}
+        onClick={() => {
+          selectBucket(bucket);
+          /* eslint-env browser */
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }}
+      />
+    );
+  };
 
-  const savedFiltersRender = savedFilters.map((item, index) => (
-    <Bucket
-      active={
-        (activeBucket === BUCKETS.SAVED_FILTER
-          || activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER)
-          && index === activeSavedFilter
-      }
-      bucket={{
-        hideCount: true,
-        name: item.filter.isForReviewOpportunities
-          ? `${item.name} (Review Opportunities)` : item.name,
-        error: item.filterError,
-      }}
-      challenges={[]}
-      key={item.id}
-      onClick={() => selectSavedFilter(index)}
-    />
-  ));
+  // const savedFiltersRender = savedFilters.map((item, index) => (
+  //   <Bucket
+  //     active={
+  //       (activeBucket === BUCKETS.SAVED_FILTER
+  //         || activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER)
+  //         && index === activeSavedFilter
+  //     }
+  //     bucket={{
+  //       hideCount: true,
+  //       name: item.filter.isForReviewOpportunities
+  //         ? `${item.name} (Review Opportunities)` : item.name,
+  //       error: item.filterError,
+  //     }}
+  //     challenges={[]}
+  //     key={item.id}
+  //     onClick={() => selectSavedFilter(index)}
+  //   />
+  // ));
 
   return (
     <div>
       {getBucket(BUCKETS.ALL)}
       {isAuth ? getBucket(BUCKETS.MY) : null}
-      {extraBucket ? getBucket(extraBucket) : null}
+      {/* {extraBucket ? getBucket(extraBucket) : null} */}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
       <hr />
       {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
-      {getBucket(BUCKETS.PAST)}
+      {/* {getBucket(BUCKETS.PAST)} */}
       {/* NOTE: We do not show upcoming challenges for now, for various reasons,
         * more political than technical ;)
           getBucket(BUCKETS.UPCOMING) */
       }
-      {
+      {/* {
         savedFilters.length
           ? (
             <div>
@@ -108,7 +112,7 @@ export default function BucketSelector({
               {savedFiltersRender}
             </div>
           ) : ''
-      }
+      } */}
       <hr />
       {/* DISABLED: Until feeds.topcoder.com domain fixed community-app#4606 */}
       {/*
@@ -123,25 +127,27 @@ export default function BucketSelector({
 }
 
 BucketSelector.defaultProps = {
-  communityFilter: null,
+  // communityFilter: null,
   disabled: false,
-  extraBucket: null,
+  // extraBucket: null,
   isAuth: false,
+  expanding: false,
 };
 
 BucketSelector.propTypes = {
   activeBucket: PT.string.isRequired,
-  activeSavedFilter: PT.number.isRequired,
-  buckets: PT.shape().isRequired,
-  challenges: PT.arrayOf(PT.shape({
-  })).isRequired,
-  communityFilter: PT.shape(),
+  expanding: PT.bool,
+  // activeSavedFilter: PT.number.isRequired,
+  // buckets: PT.shape().isRequired,
+  // challenges: PT.arrayOf(PT.shape({
+  // })).isRequired,
+  // communityFilter: PT.shape(),
   disabled: PT.bool,
-  extraBucket: PT.string,
-  filterState: PT.shape().isRequired,
+  // extraBucket: PT.string,
+  // filterState: PT.shape().isRequired,
   isAuth: PT.bool,
-  savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
-  selectSavedFilter: PT.func.isRequired,
-  setEditSavedFiltersMode: PT.func.isRequired,
+  // selectSavedFilter: PT.func.isRequired,
+  // setEditSavedFiltersMode: PT.func.isRequired,
 };

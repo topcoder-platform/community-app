@@ -6,11 +6,9 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   id="challengeFilterContainer"
 >
   <Connect(Container)
-    challenges={Array []}
     communityName={null}
     isAuth={false}
-    isCardTypeSet="Challenges"
-    setCardType={[Function]}
+    setFilterState={[MockFunction]}
   />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
@@ -27,13 +25,13 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       communityName={null}
       expandTag={null}
       expandedTags={Array []}
-      extraBucket={null}
+      expanding={false}
       filterState={Object {}}
       loadMoreActive={null}
-      loadMorePast={null}
+      loadMoreMy={null}
+      loadMoreOnGoing={null}
+      loadMoreOpenForRegistration={null}
       loadMoreReviewOpportunities={null}
-      loadingActiveChallenges={false}
-      loadingPastChallenges={false}
       newChallengeDetails={false}
       openChallengesInNewTabs={false}
       preListingMsg={null}
@@ -43,7 +41,6 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       setFilterState={[MockFunction]}
       setSort={[MockFunction]}
       sorts={Object {}}
-      userChallenges={Array []}
     />
     <div
       className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
@@ -59,7 +56,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         top={20}
       >
         <Connect(SidebarContainer)
-          extraBucket={null}
+          expanding={false}
           hideTcLinksInFooter={false}
         />
       </Sticky>
@@ -74,11 +71,9 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   id="challengeFilterContainer"
 >
   <Connect(Container)
-    challenges={Array []}
     communityName={null}
     isAuth={false}
-    isCardTypeSet="Challenges"
-    setCardType={[Function]}
+    setFilterState={[MockFunction]}
   />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
@@ -88,38 +83,30 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
     >
       <Connect(SidebarContainer) />
     </div>
-    <div
-      className="src-shared-components-challenge-listing-___style__challenge-cards-container___37tl8"
-    >
-      <div
-        className="src-shared-components-challenge-listing-___style__ChallengeCardExamples___EHRPE"
-      >
-        <ChallengeCardPlaceholder
-          id={0}
-        />
-        <ChallengeCardPlaceholder
-          id={1}
-        />
-        <ChallengeCardPlaceholder
-          id={2}
-        />
-        <ChallengeCardPlaceholder
-          id={3}
-        />
-        <ChallengeCardPlaceholder
-          id={4}
-        />
-        <ChallengeCardPlaceholder
-          id={5}
-        />
-        <ChallengeCardPlaceholder
-          id={6}
-        />
-        <ChallengeCardPlaceholder
-          id={7}
-        />
-      </div>
-    </div>
+    <Connect(Listing)
+      activeBucket="abc"
+      auth={Object {}}
+      challenges={Array []}
+      communityName={null}
+      expandTag={null}
+      expandedTags={Array []}
+      expanding={false}
+      filterState={Object {}}
+      loadMoreActive={null}
+      loadMoreMy={null}
+      loadMoreOnGoing={null}
+      loadMoreOpenForRegistration={null}
+      loadMoreReviewOpportunities={null}
+      newChallengeDetails={false}
+      openChallengesInNewTabs={false}
+      preListingMsg={null}
+      prizeMode="money-usd"
+      reviewOpportunities={Array []}
+      selectBucket={[MockFunction]}
+      setFilterState={[MockFunction]}
+      setSort={[MockFunction]}
+      sorts={Object {}}
+    />
     <div
       className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
     >
@@ -134,7 +121,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         top={20}
       >
         <Connect(SidebarContainer)
-          extraBucket={null}
+          expanding={false}
           hideTcLinksInFooter={false}
         />
       </Sticky>

@@ -1,9 +1,9 @@
 {
-  "authorizedGroupIds": [
-    "20000145"
+  "authorizedGroups": [
+    "zurich"
   ],
   "challengeFilter": {
-    "groupIds": ["20000145"]
+    "groups": ["zurich"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": false,
@@ -11,7 +11,7 @@
   },
   "communityId": "zurich",
   "communityName": "Zurich Community",
-  "groupIds": ["20000145"],
+  "groups": ["zurich"],
   "authorizedGroupIdsCatalog": ["c40767a9-e02e-4872-87eb-d50dcb946055", "a1bcb865-7235-481f-ae62-b82dd958fc4c"],
   "competitorsGroupIds": ["20000226"],
   "logos": [{

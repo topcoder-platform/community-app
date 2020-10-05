@@ -17,7 +17,9 @@ const mockDatas = [{
       communityName: 'Sample community',
     },
   ],
-  filterState: {},
+  filterState: {
+    groups: [],
+  },
   hidden: true,
   onSaveFilter,
   selectCommunity,
@@ -34,7 +36,9 @@ const mockDatas = [{
       communityName: 'Sample community',
     },
   ],
-  filterState: {},
+  filterState: {
+    groups: [],
+  },
   hidden: false,
   onSaveFilter,
   selectCommunity,

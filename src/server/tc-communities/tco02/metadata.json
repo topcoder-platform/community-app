@@ -2,7 +2,7 @@
   "communityId": "tco02",
   "hidden": true,
   "communityName": "TCO02",
-  "groupIds": [],
+  "groups": [],
   "hideSearch": true,
   "logos": [{
     "img": "/community-app-assets/themes/tco/TCO02.png",

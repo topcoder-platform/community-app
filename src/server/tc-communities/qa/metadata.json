@@ -1,14 +1,14 @@
 {
-  "authorizedGroupIds": ["20000014"],
+  "authorizedGroups": ["hide-challenges"],
   "challengeFilter": {
-    "groupIds": ["20000012","20000004"],
+    "groups": ["qa-public","wipro-qaas"],
     "or": [{
       "tags": ["QA"]
     }]
   },
   "communityId": "qa",
   "communityName": "QA Community",
-  "groupIds": ["20000012","20000004"],
+  "groups": ["qa-public","wipro-qaas"],
   "hidden": true,
   "logos": [{
     "img": "/community-app-assets/themes/qa/logo_topcoder_with_name.svg",

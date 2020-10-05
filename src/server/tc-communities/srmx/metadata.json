@@ -1,11 +1,11 @@
 {
-  "authorizedGroupIds": ["20000006"],
+  "authorizedGroups": ["srmx"],
   "challengeFilter": {
-    "groupIds": ["20000006"]
+    "groups": ["srmx"]
   },
   "communityId": "srmx",
   "communityName": "SRMX",
-  "groupIds": ["20000006"],
+  "groups": ["srmx"],
   "hidden": true,
   "logos": [{
     "img": "/community-app-assets/themes/srmx/logo_topcoder_with_name.svg",
