@@ -68,7 +68,7 @@ export default class MMLeaderboard extends Component {
 
     if (sortParam.field) {
       // Use Lodash to sort array
-      data = _.orderBy(data, [sortParam.field], [sortParam.order]);
+      data = _.orderBy(data, [d => (typeof d[sortParam.field] === 'string' ? d[sortParam.field].toLowerCase() : d[sortParam.field])], [sortParam.order]);
     }
 
     const renderData = () => {
