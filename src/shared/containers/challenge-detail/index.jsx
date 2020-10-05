@@ -245,7 +245,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
     const { track } = nextProps.challenge;
-    if (track !== COMPETITION_TRACKS.DESIGN && thriveArticles.length === 0) {
+    if (track !== COMPETITION_TRACKS.DES && thriveArticles.length === 0) {
       // filter all tags with value 'Other'
       const tags = _.filter(nextProps.challenge.tags, tag => tag !== 'Other');
       if (tags.length > 0) {
@@ -841,7 +841,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.track === COMPETITION_TRACKS.DESIGN) {
+          if (ch.track === COMPETITION_TRACKS.DES) {
             const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -865,7 +865,7 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.track === COMPETITION_TRACKS.DESIGN) {
+          if (challengeDetails.track === COMPETITION_TRACKS.DES) {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
