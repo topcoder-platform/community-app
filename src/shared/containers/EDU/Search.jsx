@@ -13,6 +13,7 @@ import { updateQuery } from 'utils/url';
 import qs from 'qs';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SearchPageFilter from 'components/Contentful/SearchPageFilter/SearchPageFilter';
+import { Helmet } from 'react-helmet';
 // Partials
 import ResultTabs from './partials/ResultTabs';
 // CSS
@@ -91,6 +92,13 @@ export default class EDUSearch extends React.Component {
     if (!taxonomy) return <LoadingIndicator />;
     return (
       <div className={searchTheme.container}>
+        <Helmet>
+          <title>THRIVE - Search {`${query.title}`}</title>
+          <meta name="title" property="og:title" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="og:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="twitter:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+        </Helmet>
         {/* Banner */}
         <div className={searchTheme.bannerContainer}>
           <div className={searchTheme.searchBarWrapp}>

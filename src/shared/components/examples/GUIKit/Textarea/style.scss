@@ -1,0 +1,33 @@
+@import '~styles/mixins';
+
+.container {
+  font-family: Roboto, sans-serif;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+
+  :global {
+    .textareaContainer {
+      flex-grow: 1;
+      height: 176px;
+    }
+  }
+}
+
+.rowItem {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+  max-width: 520px;
+  min-height: 176px;
+  flex-shrink: 0;
+}
+
+.sectionTitle {
+  margin-right: 24px;
+  font-size: 13px;
+  color: $tc-purple-110;
+  margin-left: 27px;
+  width: 50px;
+  margin-top: 32px;
+  flex-shrink: 0;
+}

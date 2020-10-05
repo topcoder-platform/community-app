@@ -12,7 +12,7 @@ exports[`renders design 1`] = `
   }
 >
   <div
-    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__DESIGN___Qvjqd"
+    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__design___1wk2u"
   >
     <div
       className="src-shared-components-ChallengeTile-___style__completed-challenge___3w5tT"
@@ -30,7 +30,7 @@ exports[`renders design 1`] = `
         <p
           className="src-shared-components-ChallengeTile-___style__subtrack-color___2AJaw"
         >
-          LOGO DESIGN
+          Challenge
         </p>
         <p
           className="src-shared-components-ChallengeTile-___style__date-completed___22F18"
@@ -42,7 +42,7 @@ exports[`renders design 1`] = `
         className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___CYUWj"
       >
         <div
-          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
+          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__data-science___2SGr7"
         >
           <div
             className="src-shared-components-ChallengeTile-___style__design-challenge-user-place___3v-1O"
@@ -91,7 +91,7 @@ exports[`renders develop 1`] = `
   }
 >
   <div
-    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__DEVELOP___GgzgV"
+    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__development___19vlt"
   >
     <div
       className="src-shared-components-ChallengeTile-___style__completed-challenge___3w5tT"
@@ -109,7 +109,7 @@ exports[`renders develop 1`] = `
         <p
           className="src-shared-components-ChallengeTile-___style__subtrack-color___2AJaw"
         >
-          FIRST 2 FINISH
+          First2Finish
         </p>
         <p
           className="src-shared-components-ChallengeTile-___style__date-completed___22F18"
@@ -131,7 +131,7 @@ exports[`renders develop 1`] = `
         className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___CYUWj"
       >
         <div
-          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
+          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__data-science___2SGr7"
         >
           <div
             className="src-shared-components-ChallengeTile-___style__dev-challenge-user-place___2tS8j"
@@ -196,22 +196,25 @@ exports[`renders marathon 1`] = `
   }
 >
   <div
-    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
+    className="src-shared-components-ChallengeTile-___style__challenge___1vlh0 src-shared-components-ChallengeTile-___style__tile-view___1stZU src-shared-components-ChallengeTile-___style__data-science___2SGr7"
   >
     <div
       className="src-shared-components-ChallengeTile-___style__completed-challenge___3w5tT"
     >
       <header>
-        <a
+        <Link
           className="src-shared-components-ChallengeTile-___style__name___1jF7j"
-          href="https://community.topcoder.com/longcontest/stats/?module=ViewOverview&rd=17153"
+          replace={false}
+          to="/challenges/15404"
         >
-          2018 TCO Marathon
-        </a>
+          <span>
+            2018 TCO Marathon
+          </span>
+        </Link>
         <p
           className="src-shared-components-ChallengeTile-___style__subtrack-color___2AJaw"
         >
-          MARATHON MATCH
+          Challenge
         </p>
         <p
           className="src-shared-components-ChallengeTile-___style__date-completed___22F18"
@@ -223,7 +226,7 @@ exports[`renders marathon 1`] = `
         className="src-shared-components-ChallengeTile-___style__challenge-card__bottom___CYUWj"
       >
         <div
-          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__DATA_SCIENCE___1b8GD"
+          className="src-shared-components-ChallengeTile-___style__challenge-details___3xZDW src-shared-components-ChallengeTile-___style__data-science___2SGr7"
         >
           <div
             className="src-shared-components-ChallengeTile-___style__marathon-score___V-afd"

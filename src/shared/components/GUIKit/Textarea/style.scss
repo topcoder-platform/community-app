@@ -1,0 +1,66 @@
+@import '~components/GUIKit/Assets/Styles/default';
+
+.labelMask {
+  position: absolute;
+  background: $tc-white;
+  height: 11px;
+  top: 13px;
+  left: 4px;
+  right: 10px;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    @include textInputLabel;
+  }
+
+  textarea {
+    &.haveValue ~ label,
+    &:focus ~ label {
+      display: flex;
+    }
+
+    &:focus ~ label {
+      color: $gui-kit-level-2;
+    }
+
+    &.haveError ~ label,
+    &.haveError:focus ~ label {
+      color: $gui-kit-level-5;
+    }
+  }
+
+  textarea,
+  textarea:active,
+  textarea:focus,
+  textarea:hover {
+    @include textInput;
+
+    min-height: 52px;
+    resize: none;
+    outline: none;
+    box-shadow: none;
+    height: 100%;
+    line-height: 26px;
+  }
+
+  textarea.haveError,
+  textarea.haveError:active,
+  textarea.haveError:focus,
+  textarea.haveError:hover {
+    border: 2px solid $gui-kit-level-5;
+  }
+
+  textarea.haveError ~ .labelMask {
+    height: 10px;
+    top: 14px;
+  }
+}
+
+.errorMessage {
+  @include errorMessage;
+}

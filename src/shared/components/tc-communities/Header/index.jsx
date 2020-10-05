@@ -55,7 +55,7 @@ function Header(props) {
   const AUTH_URL = config.URL.AUTH;
   const normalizedProfile = profile && _.clone(profile);
   const isZurichCompetitor = (profile && profile.groups) ? _.intersection(
-    _.map(profile.groups, 'id'),
+    _.map(profile.groups, 'oldId'),
     meta.competitorsGroupIds,
   ) : [];
 

@@ -65,6 +65,14 @@ exports[`renders email preferences setting page correctly 1`] = `
       secondaryText="For all the latest updates surrounding the <a href=\\"https://www.topcoder.com/community/member-programs/topcoder-open\\" style=\\"color:#0d61bf;text-decoration:underline\\">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!"
       value="TCO Tuesdays"
     />
+    <ToggleableItem
+      checked={false}
+      id="RDM"
+      onToggle={[Function]}
+      primaryText="Rapid Development Match (RDM) Reminders"
+      secondaryText="Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!"
+      value="RDM"
+    />
   </div>
 </div>
 `;

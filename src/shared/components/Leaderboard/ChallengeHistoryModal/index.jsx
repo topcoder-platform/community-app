@@ -117,7 +117,7 @@ class ChallengeHistoryModal extends Component {
                 <tr styleName="row" key={`${challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}`}>
                   <td styleName="name">
                     <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}/`} styleName="link" target="_blank" rel="noopener noreferrer">
-                      {challenge['challenge.challenge_name'] || challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}
+                      {challenge.challenge_name || challenge['challenge.challenge_name'] || challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}
                     </a>
                   </td>
                   {

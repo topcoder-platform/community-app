@@ -1,0 +1,351 @@
+@import '~components/GUIKit/Assets/Styles/default';
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  .label {
+    @include textInputLabel;
+  }
+
+  &.haveValue .label,
+  &.isFocused .label {
+    display: flex;
+  }
+
+  &.isFocused .label {
+    color: $gui-kit-level-2;
+  }
+
+  &.haveError .label,
+  &.haveError.isFocused .label {
+    color: $gui-kit-level-5;
+  }
+
+  :global {
+    @import '~react-dates/lib/css/_datepicker.css';
+
+    .SingleDatePicker {
+      width: 100%;
+      position: relative;
+      display: inline-block;
+    }
+
+    button {
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .SingleDatePickerInput {
+      position: relative;
+      border: none;
+      width: 100%;
+
+      .SingleDatePickerInput_calendarIcon {
+        position: absolute;
+        top: 12px;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        width: 48px;
+        bottom: 0;
+        z-index: 1;
+        background: 0 0;
+        border: 0;
+        color: inherit;
+        font: inherit;
+        line-height: normal;
+        overflow: visible;
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .DateInput {
+        padding: 0;
+        width: 100%;
+        font-family: "Roboto", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        margin: 0;
+        background: #fff;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+
+        input {
+          @include textInput;
+
+          height: 52px;
+          padding-right: 48px;
+        }
+
+        .DateInput_fang {
+          display: none;
+        }
+
+        .DateInput_screenReaderMessage {
+          border: 0;
+          clip: rect(0, 0, 0, 0);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+        }
+      }
+
+      .SingleDatePicker_picker {
+        z-index: 7;
+        top: 64px !important;
+        background-color: #fff;
+        position: absolute;
+
+        .DayPicker {
+          background: #fff;
+          position: relative;
+          text-align: left;
+
+          .DayPicker_weekHeaders__horizontal {
+            margin-left: 9px;
+
+            .DayPicker_weekHeader {
+              color: #757575;
+              position: absolute;
+              top: 62px;
+              z-index: 2;
+              text-align: left;
+
+              .DayPicker_weekHeader_ul {
+                list-style: none;
+                margin: 1px 0;
+                padding-left: 0;
+                padding-right: 0;
+                font-size: 14px;
+
+                .DayPicker_weekHeader_ul {
+                  list-style: none;
+                  margin: 1px 0;
+                  padding-left: 0;
+                  padding-right: 0;
+                  font-size: 14px;
+                  display: inline-block;
+                  text-align: center;
+                }
+              }
+            }
+          }
+
+          .DayPicker_weekHeaders {
+            position: relative;
+
+            .DayPicker_weekHeader_li {
+              font-size: 15px;
+              font-family: "Roboto", Helvetica, Arial, sans-serif;
+              font-weight: 400;
+              line-height: 20px;
+              display: inline-block;
+              text-align: center;
+            }
+          }
+
+          .DayPicker_focusRegion {
+            outline: 0;
+          }
+        }
+
+        .DayPicker__withBorder {
+          border: 1px solid $gui-kit-gray-30;
+          box-shadow: 2px 2px 3px 0 $tc-gray-neutral-light;
+          overflow: hidden;
+          border-radius: 3px;
+        }
+
+        .DayPickerNavigation__horizontal {
+          height: 0;
+        }
+
+        .DayPickerNavigation {
+          position: relative;
+          z-index: 2;
+        }
+
+        .DayPickerNavigation_button {
+          position: absolute;
+          top: 18px;
+          cursor: pointer;
+
+          &:focus {
+            outline: none;
+          }
+
+          &:first-child {
+            left: 18px;
+          }
+
+          &:last-child {
+            right: 18px;
+          }
+        }
+
+        .CalendarMonth_caption {
+          font-size: 16px;
+          line-height: 26px;
+          padding-top: 13px;
+          padding-bottom: 10px;
+          margin-bottom: 45px;
+          position: relative;
+          color: $gui-kit-gray-90;
+          text-align: center;
+          caption-side: initial;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: 1px;
+            background-color: #d4d4d4;
+          }
+        }
+        /* stylelint-disable */
+        .DayPicker_weekHeader {
+          .DayPicker_weekHeader_ul {
+            .DayPicker_weekHeader_li {
+              small {
+                color: $gui-kit-gray-90;
+                font-weight: 500 !important;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+
+        .DayPicker_focusRegion {
+          .DayPicker_transitionContainer {
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+
+            &.DayPicker_transitionContainer__horizontal {
+              transition: none !important;
+            }
+
+            .CalendarMonthGrid {
+              background: #fff;
+              text-align: left;
+              z-index: 0;
+              position: absolute;
+              left: 9px;
+
+              .CalendarMonthGrid_month__horizontal {
+                display: inline-block;
+                vertical-align: top;
+                min-height: 100%;
+
+                &.CalendarMonthGrid_month__hidden {
+                  visibility: hidden;
+                }
+
+                &.CalendarMonthGrid_month__hideForAnimation {
+                  position: absolute;
+                  z-index: -1;
+                  opacity: 0;
+                  pointer-events: none;
+                }
+
+                .CalendarMonth {
+                  background: #fff;
+                  text-align: center;
+                  vertical-align: top;
+                  user-select: none;
+
+                  table.CalendarMonth_table {
+                    margin-bottom: 0;
+
+                    tbody {
+                      tr {
+                        td {
+                          border: none;
+                          border-radius: 50%;
+                          font-size: 16px;
+
+                          &:focus {
+                            outline: none;
+                          }
+
+                          div {
+                            width: 35px;
+                            height: 35px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: auto !important;
+                            border-radius: 50%;
+                          }
+
+                          &.CalendarDay__default {
+                            color: #2a2a2a;
+                            padding: 0;
+                          }
+
+                          &.CalendarDay__blocked_out_of_range {
+                            color: #aaa;
+                          }
+
+                          &.CalendarDay__selected {
+                            background: transparent !important;
+                            color: #fff;
+
+                            div {
+                              background: $gui-kit-level-2;
+                            }
+                          }
+
+                          &.CalendarDay__outside {
+                            color: $gui-kit-gray-30;
+                          }
+
+                          &:not(.CalendarDay__outside):not(.CalendarDay__blocked_out_of_range):not(.CalendarDay__selected):hover {
+                            background: transparent !important;
+                            cursor: pointer;
+
+                            div {
+                              background: $tc-gray-05;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        /* stylelint-enable */
+      }
+    }
+  }
+
+  &.haveError {
+    :global {
+      .SingleDatePickerInput {
+        .DateInput {
+          input {
+            border: 2px solid $gui-kit-level-5;
+          }
+        }
+      }
+    }
+  }
+}
+
+.errorMessage {
+  @include errorMessage;
+}

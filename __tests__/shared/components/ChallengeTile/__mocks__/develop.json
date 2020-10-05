@@ -22,10 +22,10 @@
 	"technologies": "CSS, HTML, JavaScript",
 	"status": "COMPLETED",
 	"legacy": {
-		"track": "DEVELOP",
 		"forumId": 39153
 	},
-	"subTrack": "FIRST_2_FINISH",
+	"track": "Development",
+	"type": "First2Finish",
 	"name": "$100 Eaton PX 2.0 Petting Zoo - MDC Web Enhancement F2F Challenge",
 	"reviewType": "INTERNAL",
 	"id": 30060905,
@@ -165,10 +165,10 @@
 	"technologies": "ReactJS",
 	"status": "COMPLETED",
 	"legacy": {
-		"track": "DEVELOP",
 		"forumId": 39151
 	},
-	"subTrack": "FIRST_2_FINISH",
+	"track": "Development",
+	"type": "First2Finish",
 	"name": "$100 Eaton PX 2.0 Petting Zoo - ReactJS Enhancement F2F Challenge",
 	"reviewType": "INTERNAL",
 	"id": 30060903,
@@ -323,10 +323,10 @@
 	"technologies": "Angular 2+, Express, JSON, Node.js",
 	"status": "COMPLETED",
 	"legacy": {
-		"track": "DEVELOP",
 		"forumId": 38951
 	},
-	"subTrack": "FIRST_2_FINISH",
+	"track": "Development",
+	"type": "First2Finish",
 	"name": "$500 BG800 Online Course Mock Rest API F2F Challenge",
 	"reviewType": "INTERNAL",
 	"id": 30060687,
@@ -630,11 +630,11 @@
 	"updatedBy": "22841596",
 	"technologies": "JavaScript, ReactJS",
 	"status": "COMPLETED",
-	"legacy": {
-		"track": "DEVELOP",
+	"legacy": {		
 		"forumId": 38702
 	},
-	"subTrack": "FIRST_2_FINISH",
+	"track": "Development",
+	"type": "First2Finish",
 	"name": "John Hancock - Giving Tuesday - General image handling",
 	"reviewType": "INTERNAL",
 	"id": 30060425,

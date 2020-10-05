@@ -9,13 +9,18 @@ import Option from './Option';
 import './style.scss';
 
 export default function Header({
-  numChallenges,
+  // numChallenges,
   numCommunities,
   switchTab,
   tab,
 }) {
+  /**
+   * Temporary hide My Active Challenges - community-app#5004
+   */
+  /*
   let myChallengesTitle = 'My Active Challenges';
   if (numChallenges) myChallengesTitle += ` (${numChallenges})`;
+  */
 
   let myCommunitiesTitle = 'My Communities';
   if (numCommunities) myCommunitiesTitle += ` (${numCommunities})`;
@@ -25,11 +30,13 @@ export default function Header({
       <Carousel
         alignItems="start"
       >
+        {/* {/* Temporary hide My Active Challenges - community-app#5004
         <Option
           selected={tab === TABS.MY_ACTIVE_CHALLENGES}
           select={() => switchTab(TABS.MY_ACTIVE_CHALLENGES)}
           title={myChallengesTitle}
         />
+        */}
         <Option
           selected={tab === TABS.COMMUNITIES}
           select={() => switchTab(TABS.COMMUNITIES)}
@@ -46,7 +53,7 @@ export default function Header({
 }
 
 Header.propTypes = {
-  numChallenges: PT.number.isRequired,
+  // numChallenges: PT.number.isRequired,
   numCommunities: PT.number.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.string.isRequired,

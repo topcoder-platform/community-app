@@ -33,7 +33,12 @@ import { connect } from 'react-redux';
 import challengeDetailsActions, { TABS as DETAIL_TABS }
   from 'actions/page/challenge-details';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
+import {
+  CHALLENGE_PHASE_TYPES,
+  COMPETITION_TRACKS,
+  COMPETITION_TRACKS_V3,
+  SUBTRACKS,
+} from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
@@ -239,9 +244,8 @@ class ChallengeDetailPageContainer extends React.Component {
       reloadChallengeDetails(nextProps.auth, challengeId);
     }
 
-    const { legacy } = nextProps.challenge;
-    const track = legacy ? legacy.track : nextProps.challenge.track;
-    if (track && track.toLowerCase() !== 'design' && thriveArticles.length === 0) {
+    const { track } = nextProps.challenge;
+    if (track !== COMPETITION_TRACKS.DESIGN && thriveArticles.length === 0) {
       // filter all tags with value 'Other'
       const tags = _.filter(nextProps.challenge.tags, tag => tag !== 'Other');
       if (tags.length > 0) {
@@ -555,8 +559,8 @@ class ChallengeDetailPageContainer extends React.Component {
                 hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 submissionEnded={submissionEnded}
-                isMM
-                isLegacyMM
+                isMM={isMM}
+                isLegacyMM={isLegacyMM}
                 loadingMMSubmissionsForChallengeId={loadingMMSubmissionsForChallengeId}
                 auth={auth}
                 loadMMSubmissions={loadMMSubmissions}
@@ -718,25 +722,22 @@ function mapStateToProps(state, props) {
     if (challenge.submissions) {
       challenge.submissions = challenge.submissions.map(submission => ({
         ...submission,
-        registrant: _.find(challenge.registrants, { memberHandle: submission.createdBy }),
+        registrant: _.find(challenge.registrants, r => (`${r.memberId}` === `${submission.memberId}`)),
       }));
     }
 
     if (!_.isEmpty(mmSubmissions)) {
       mmSubmissions = mmSubmissions.map((submission) => {
         let registrant;
-        let { member } = submission;
-        if (auth.user.handle === submission.member) {
+        const { memberId } = submission;
+        let member = memberId;
+        if (`${auth.user.userId}` === `${memberId}`) {
           mySubmissions = submission.submissions || [];
           mySubmissions.forEach((mySubmission, index) => {
             mySubmissions[index].id = mySubmissions.length - index;
           });
         }
-        let submissionDetail = _.find(challenge.submissions, { createdBy: submission.createdBy });
-        if (!submissionDetail) {
-          // get submission detail from submissions challenge detail
-          submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
-        }
+        const submissionDetail = _.find(challenge.submissions, s => (`${s.memberId}` === `${submission.memberId}`));
 
         if (submissionDetail) {
           member = submissionDetail.createdBy;
@@ -744,12 +745,11 @@ function mapStateToProps(state, props) {
         }
 
         if (!registrant) {
-          registrant = _.find(challenge.registrants, { handle: submission.member });
+          registrant = _.find(challenge.registrants, r => `${r.memberId}` === `${memberId}`);
         }
 
-        if (!submissionDetail && registrant) {
-          // sometime member is member id, do this to make sure it's alway member handle
-          member = registrant.handle;
+        if (registrant) {
+          member = registrant.memberHandle;
         }
 
         return ({
@@ -841,7 +841,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
           const ch = res.payload;
-          if (ch.legacy.track === 'DESIGN') {
+          if (ch.track === COMPETITION_TRACKS.DESIGN) {
             const p = ch.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -865,7 +865,7 @@ const mapDispatchToProps = (dispatch) => {
       const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          if (challengeDetails.legacy.track === 'DESIGN') {
+          if (challengeDetails.track === COMPETITION_TRACKS.DESIGN) {
             const p = challengeDetails.phases || []
               .filter(x => x.name === 'Checkpoint Review');
             if (p.length && !p[0].isOpen) {
@@ -923,10 +923,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.updateChallengeInit(uuid));
       dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },
-    loadMMSubmissions: (challengeId, registrants, tokenV3) => {
+    loadMMSubmissions: (challengeId, tokenV3) => {
       const a = actions.challenge;
       dispatch(a.getMmSubmissionsInit(challengeId));
-      dispatch(a.getMmSubmissionsDone(challengeId, registrants, tokenV3));
+      dispatch(a.getMmSubmissionsDone(challengeId, tokenV3));
     },
     loadSubmissionInformation: (challengeId, submissionId, tokenV3) => {
       const a = actions.challenge;

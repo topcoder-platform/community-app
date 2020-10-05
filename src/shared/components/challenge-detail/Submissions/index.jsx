@@ -54,7 +54,7 @@ class SubmissionsComponent extends React.Component {
     }
 
     if (isMM) {
-      loadMMSubmissions(challenge.id, challenge.registrants, auth.tokenV3);
+      loadMMSubmissions(challenge.id, auth.tokenV3);
     }
     this.updateSortedSubmissions();
   }
@@ -175,13 +175,16 @@ class SubmissionsComponent extends React.Component {
             valueA = `${a.member || ''}`.toLowerCase();
             valueB = `${b.member || ''}`.toLowerCase();
           } else {
-            valueA = `${a.createdBy}`.toLowerCase();
-            valueB = `${b.createdBy}`.toLowerCase();
+            valueA = _.get(a.registrant, 'memberHandle', '').toLowerCase();
+            valueB = _.get(b.registrant, 'memberHandle', '').toLowerCase();
           }
           valueIsString = true;
           break;
         }
         case 'Time':
+          valueA = new Date(a.submissions && a.submissions[0].submissionTime);
+          valueB = new Date(b.submissions && b.submissions[0].submissionTime);
+          break;
         case 'Submission Date': {
           valueA = new Date(a.created);
           valueB = new Date(b.created);
@@ -247,7 +250,7 @@ class SubmissionsComponent extends React.Component {
 
     let isReviewPhaseComplete = false;
     _.forEach(allPhases, (phase) => {
-      if (phase.name === 'Review' && !phase.isOpen) {
+      if (phase.name === 'Review' && !phase.isOpen && moment(phase.scheduledStartDate).isBefore()) {
         isReviewPhaseComplete = true;
       }
     });
@@ -314,12 +317,12 @@ class SubmissionsComponent extends React.Component {
               {`#${s.id}`}
             </a>
             <a
-              href={`${window.origin}/members/${s.createdBy}`}
+              href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
               target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
               rel="noopener noreferrer"
               styleName={`level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
             >
-              {s.createdBy}
+              {_.get(s.registrant, 'memberHandle', '')}
             </a>
           </div>
           <div>
@@ -705,7 +708,7 @@ class SubmissionsComponent extends React.Component {
         {
           !isMM && (
             sortedSubmissions.map(s => (
-              <div key={s.createdBy + s.created} styleName="row">
+              <div key={_.get(s.registrant, 'memberHandle', '') + s.created} styleName="row">
                 {
                   !isF2F && !isBugHunt && (
                     <div styleName={`col-2 level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}>
@@ -715,12 +718,12 @@ class SubmissionsComponent extends React.Component {
                 }
                 <div styleName="col-3">
                   <a
-                    href={`${window.origin}/members/${s.createdBy}`}
+                    href={`${window.origin}/members/${_.get(s.registrant, 'memberHandle', '')}`}
                     target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
                     rel="noopener noreferrer"
                     styleName={`handle level-${getRatingLevel(_.get(s.registrant, 'rating', 0))}`}
                   >
-                    {s.createdBy}
+                    {_.get(s.registrant, 'memberHandle', '')}
                   </a>
                 </div>
                 <div styleName="col-4">

@@ -40,6 +40,19 @@ class SubmissionsPageContainer extends React.Component {
     getCommunitiesList(auth);
   }
 
+  componentWillReceiveProps() {
+    const {
+      challenge,
+      history,
+    } = this.props;
+
+    const { details } = challenge;
+
+    if (details && details.isLegacyChallenge && !history.location.pathname.includes(details.id)) {
+      history.push(`/challenges/${details.id}/submit`, history.state);
+    }
+  }
+
   /* A child component has called their submitForm() prop, prepare the passed
      form data for submission and create a submit action */
   handleSubmit(body) {
@@ -150,6 +163,7 @@ SubmissionsPageContainer.propTypes = {
   submissionFilestackData: filestackDataProp.isRequired,
   winners: PT.arrayOf(PT.object).isRequired,
   loadChallengeDetails: PT.func.isRequired,
+  history: PT.shape().isRequired,
 };
 
 /**
@@ -174,7 +188,7 @@ const mapStateToProps = (state, ownProps) => {
     challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
-    track: details.legacy ? details.legacy.track : '',
+    track: details.track,
     challenge: state.challenge,
     status: details.status,
     isRegistered: details.isRegistered,
