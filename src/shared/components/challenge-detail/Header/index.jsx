@@ -14,6 +14,8 @@ import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
+import { COMPETITION_TRACKS } from 'utils/tc';
+import { phaseEndDate } from 'utils/challenge-listing/helper';
 
 import LeftArrow from 'assets/images/arrow-prev.svg';
 
@@ -68,16 +70,17 @@ export default function ChallengeHeader(props) {
     numOfRegistrants,
     numOfCheckpointSubmissions,
     numOfSubmissions,
-    endDate,
     status,
     type,
     track,
   } = challenge;
 
   const tags = challenge.tags || [];
-  const appealsEndDate = endDate;
 
   const allPhases = challenge.phases || [];
+  const sortedAllPhases = _.cloneDeep(allPhases)
+    .sort((a, b) => moment(phaseEndDate(a)).diff(phaseEndDate(b)));
+
   const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
 
   const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
@@ -121,14 +124,14 @@ export default function ChallengeHeader(props) {
   */
   const hasSubmissions = !_.isEmpty(mySubmissions);
 
-  let nextPhase = allPhases.filter(p => p.isOpen)
-    .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
-  if (hasRegistered && allPhases[0] && allPhases[0].name === 'Registration') {
-    nextPhase = allPhases[1] || {};
+  const openPhases = sortedAllPhases.filter(p => p.isOpen);
+  let nextPhase = openPhases[0];
+  if (hasRegistered && openPhases[0] && openPhases[0].name === 'Registration') {
+    nextPhase = openPhases[1] || {};
   }
   const nextDeadline = nextPhase && nextPhase.name;
 
-  const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndDate);
+  const deadlineEnd = moment(nextPhase && phaseEndDate(nextPhase));
   const currentTime = moment();
 
   let timeLeft = deadlineEnd.isAfter(currentTime)
@@ -146,8 +149,8 @@ export default function ChallengeHeader(props) {
   if (showDeadlineDetail) {
     relevantPhases = (allPhases || []).filter((phase) => {
       if (phase.name === 'Iterative Review') {
-        const end = phase.actualEndDate || phase.scheduledEndDate;
-        return moment(end).isAfter(moment());
+        const end = phaseEndDate(phase);
+        return moment(end).isAfter();
       }
       const phaseLowerCase = phase.name.toLowerCase();
       if (phaseLowerCase.includes('screening') || phaseLowerCase.includes('specification')) {
@@ -167,30 +170,34 @@ export default function ChallengeHeader(props) {
       if (b.name.toLowerCase().includes('registration')) {
         return 1;
       }
-      return (new Date(a.scheduledEndDate || a.actualEndDate)).getTime()
-        - (new Date(b.scheduledEndDate || b.actualEndDate)).getTime();
+      const aEndDate = phaseEndDate(a);
+      const bEndDate = phaseEndDate(b);
+      return moment(aEndDate).diff(bEndDate);
     });
     if (type === 'First2Finish' && status === 'Completed') {
       const phases2 = allPhases.filter(p => p.name === 'Iterative Review' && !p.isOpen);
-      const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndDate)));
+      const endPhaseDate = Math.max(...phases2.map(d => phaseEndDate(d)));
       relevantPhases = _.filter(relevantPhases, p => (p.name.toLowerCase().includes('registration')
-        || new Date(p.scheduledEndDate).getTime() < endPhaseDate));
+        || phaseEndDate(p).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
         name: 'Winners',
+        isOpen: false,
+        actualEndDate: endPhaseDate,
         scheduledEndDate: endPhaseDate,
       });
     } else if (relevantPhases.length > 1) {
       const lastPhase = relevantPhases[relevantPhases.length - 1];
-      const lastPhaseTime = (
-        new Date(lastPhase.actualEndDate || lastPhase.scheduledEndDate)
-      ).getTime();
+      const lastPhaseTime = phaseEndDate(lastPhase).getTime();
 
-      const appealsEnd = (new Date(appealsEndDate).getTime());
-      if (lastPhaseTime < appealsEnd && lastPhase.name !== 'Review') {
+      const appealsEndDate = phaseEndDate(sortedAllPhases[sortedAllPhases.length - 1]);
+      const appealsEnd = appealsEndDate.getTime();
+      if (lastPhaseTime < appealsEnd) {
         relevantPhases.push({
           id: -1,
           name: 'Winners',
+          isOpen: false,
+          actualEndDate: appealsEndDate,
           scheduledEndDate: appealsEndDate,
         });
       }
@@ -385,7 +392,7 @@ export default function ChallengeHeader(props) {
                 Submit
               </PrimaryButton>
               {
-                track === 'DESIGN' && hasRegistered && !unregistering
+                track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
                 && hasSubmissions && (
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}
@@ -494,7 +501,6 @@ ChallengeHeader.propTypes = {
     numOfCheckpointSubmissions: PT.any,
     numOfSubmissions: PT.any,
     status: PT.any,
-    endDate: PT.any,
     phases: PT.any,
     roundId: PT.any,
     prizeSets: PT.any,

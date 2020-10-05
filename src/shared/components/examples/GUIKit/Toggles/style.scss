@@ -1,0 +1,45 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  font-family: Roboto, sans-serif;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.grid1,
+.grid2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid2 {
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.grid11 {
+  display: flex;
+  margin-top: 20px;
+}
+
+.grid111 {
+  width: 70px;
+}
+
+.grid2Label {
+  font-size: 13px;
+  color: $tc-purple-110;
+  margin-bottom: 2px;
+}
+
+.grid21 {
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.grid21Label {
+  font-size: 14px;
+  margin-right: 10px;
+}

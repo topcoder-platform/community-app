@@ -36,13 +36,13 @@ export default function SideBar({
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
-  const submissionLimit = _.find(metadata, { type: 'submissionLimit' });
+  const submissionLimit = _.find(metadata, { name: 'submissionLimit' });
   const fileTypes = _.find(metadata, { name: 'fileTypes' });
 
   if (submissionLimit) {
     if (submissionLimit.value === 1) {
       submissionLimitDisplay = '1 submission';
-    } else if (submissionLimit > 1) {
+    } else if (submissionLimit.value > 1) {
       submissionLimitDisplay = `${submissionLimit.value} submissions`;
     }
   }

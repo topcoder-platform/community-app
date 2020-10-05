@@ -336,6 +336,7 @@ export class ListingContainer extends React.Component {
       communityId,
       communityName,
       defaultCommunityId,
+      expanding,
       expandTag,
       expandedTags,
       // extraBucket,
@@ -375,6 +376,7 @@ export class ListingContainer extends React.Component {
       hideTcLinksInSidebarFooter,
       // isBucketSwitching,
       // userChallenges,
+      meta,
     } = this.props;
 
     const { tokenV3 } = auth;
@@ -485,6 +487,7 @@ export class ListingContainer extends React.Component {
           communityFilter={communityFilter}
           communityName={communityName}
           defaultCommunityId={defaultCommunityId}
+          expanding={expanding}
           expandedTags={expandedTags}
           expandTag={expandTag}
           // extraBucket={extraBucket}
@@ -530,6 +533,7 @@ export class ListingContainer extends React.Component {
           // isBucketSwitching={isBucketSwitching}
           // userChallenges={[]}
           isLoggedIn={isLoggedIn}
+          meta={meta}
         />
       </div>
     );
@@ -555,7 +559,8 @@ ListingContainer.defaultProps = {
   preListingMsg: null,
   prizeMode: 'money-usd',
   queryBucket: BUCKETS.ALL,
-  // meta: {},
+  meta: {},
+  expanding: false,
   // isBucketSwitching: false,
   // userChallenges: [],
 };
@@ -628,6 +633,7 @@ ListingContainer.propTypes = {
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   activeBucket: PT.string.isRequired,
+  expanding: PT.bool,
   selectedCommunityId: PT.string,
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
@@ -637,7 +643,7 @@ ListingContainer.propTypes = {
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
   queryBucket: PT.string,
-  // meta: PT.shape(),
+  meta: PT.shape(),
   // isBucketSwitching: PT.bool,
   selectBucketDone: PT.func.isRequired,
   getTotalChallengesCount: PT.func.isRequired,
@@ -691,6 +697,7 @@ const mapStateToProps = (state, ownProps) => {
     selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,
+    expanding: cl.sidebar.expanding,
     // isBucketSwitching: cl.sidebar.isBucketSwitching,
     expandedTags: cl.expandedTags,
     meta: cl.meta,
@@ -750,7 +757,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getReviewOpportunitiesInit(uuid, page));
       dispatch(a.getReviewOpportunitiesDone(uuid, page, token));
     },
-    selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    selectBucket: (bucket, expanding) => dispatch(sa.selectBucket(bucket, expanding)),
     selectBucketDone: () => dispatch(sa.selectBucketDone()),
     selectChallengeDetailsTab:
       tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),

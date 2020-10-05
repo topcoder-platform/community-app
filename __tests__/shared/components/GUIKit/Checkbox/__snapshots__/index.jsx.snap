@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<label
+  className="src-shared-components-GUIKit-Checkbox-___style__container___2a1GZ src-shared-components-GUIKit-Checkbox-___style__smSize___3aux-"
+>
+  <input
+    checked={false}
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <div
+    className="src-shared-components-GUIKit-Checkbox-___style__checkmark___1xdsj"
+  >
+    <img
+      alt="checkmark-icon"
+      className="src-shared-components-GUIKit-Checkbox-___style__after___2rEBg"
+      src="/community-app-assets/images/07507a04e0986d806cbd3ec73c724143.png"
+    />
+  </div>
+</label>
+`;

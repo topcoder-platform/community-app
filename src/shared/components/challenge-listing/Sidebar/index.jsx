@@ -32,6 +32,7 @@ export default function SideBarFilters({
   // communityFilter,
   // deleteSavedFilter,
   disabled,
+  expanding,
   // dragSavedFilterMove,
   // dragSavedFilterStart,
   // dragState,
@@ -72,6 +73,7 @@ export default function SideBarFilters({
           // challenges={challenges}
           // communityFilter={communityFilter}
           disabled={disabled}
+          expanding={expanding}
           // extraBucket={extraBucket}
           // filterState={filterState}
           isAuth={isAuth}
@@ -94,10 +96,12 @@ SideBarFilters.defaultProps = {
   // extraBucket: null,
   hideTcLinksInFooter: false,
   isAuth: false,
+  expanding: false,
 };
 
 SideBarFilters.propTypes = {
   activeBucket: PT.string.isRequired,
+  expanding: PT.bool,
   // activeSavedFilter: PT.number.isRequired,
   // buckets: PT.shape().isRequired,
   // challenges: PT.arrayOf(PT.shape({

@@ -45,7 +45,6 @@ export default function ChallengeDetailsView(props) {
     legacy,
     legacyId,
     documents,
-    finalSubmissionGuidelines,
     userDetails,
     metadata,
     events,
@@ -59,7 +58,12 @@ export default function ChallengeDetailsView(props) {
     forumId,
   } = legacy;
 
-  const allowStockArt = _.find(metadata, { type: 'allowStockArt' });
+  let stockArtValue = '';
+  const allowStockArt = _.find(metadata, { name: 'allowStockArt' });
+  if (allowStockArt) {
+    stockArtValue = allowStockArt.value;
+  }
+
   let environment = '';
   const environmentData = _.find(metadata, { name: 'environment' });
   if (environmentData) {
@@ -80,7 +84,7 @@ export default function ChallengeDetailsView(props) {
   let isWipro = false;
   const wiproCommunity = communitiesList.find(x => x.communityId === 'wipro');
   if (wiproCommunity && groups) {
-    isWipro = wiproCommunity.groupIds.some(id => groups[id]);
+    isWipro = wiproCommunity.groupIds.some(id => groups.includes(id));
   }
 
   let accentedStyle = '';
@@ -103,7 +107,7 @@ export default function ChallengeDetailsView(props) {
   const toolbarConnector = new ToolbarConnector();
   const isSaving = specsTabState === SPECS_TAB_STATES.SAVING;
 
-  const stockArtText = allowStockArt
+  const stockArtText = stockArtValue
     ? 'Stock photography is allowed in this challenge.'
     : 'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
 
@@ -170,7 +174,7 @@ export default function ChallengeDetailsView(props) {
                       description
                       && (
                       <article>
-                        <h2 styleName="h2">
+                        <h2>
                           Challenge Overview
                         </h2>
                         {
@@ -191,35 +195,6 @@ export default function ChallengeDetailsView(props) {
                       </article>
                       )
                     }
-                    {
-                      finalSubmissionGuidelines
-                      && (
-                      <article>
-                        <h2 styleName="h2">
-                          Final Submission Guidelines
-                        </h2>
-                        {
-                          editMode ? (
-                            <Editor
-                              connector={toolbarConnector}
-                              id="submissionGuidelines"
-                              initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(finalSubmissionGuidelines)}
-                            />
-                          ) : (
-                            <div
-                              /* eslint-disable react/no-danger */
-                              dangerouslySetInnerHTML={{
-                                __html: finalSubmissionGuidelines,
-                              }}
-                              /* eslint-enable react/no-danger */
-                              styleName="rawHtml"
-                            />
-                          )
-                        }
-                      </article>
-                      )
-                    }
                   </div>
                 )
                 : (
@@ -228,7 +203,7 @@ export default function ChallengeDetailsView(props) {
                       description
                       && (
                       <article>
-                        <h2 styleName="h2">
+                        <h2>
                           Challenge Summary
                         </h2>
                         {
@@ -246,8 +221,8 @@ export default function ChallengeDetailsView(props) {
                             />
                           )
                         }
-                        <p styleName="p" />
-                        <p styleName="p note">
+                        <p />
+                        <p styleName="note">
                           Please read the challenge specification carefully and
                           watch the forums for any questions or feedback
                           concerning this challenge. It is important that you
@@ -259,10 +234,10 @@ export default function ChallengeDetailsView(props) {
                       )
                     }
                     <article>
-                      <h2 styleName="h2">
+                      <h2>
                         Stock Photography
                       </h2>
-                      <p styleName="p">
+                      <p>
                         {stockArtText}
 &nbsp;
                         <a href={config.URL.INFO.STOCK_ART_POLICY}>
@@ -271,10 +246,10 @@ export default function ChallengeDetailsView(props) {
                       </p>
                     </article>
                     <article>
-                      <h2 styleName="h2">
+                      <h2>
                         How To Submit
                       </h2>
-                      <ul styleName="ul">
+                      <ul>
                         <li>
                           New to Studio?
                           &zwnj;
@@ -311,10 +286,10 @@ export default function ChallengeDetailsView(props) {
                     </article>
 
                     <article>
-                      <h2 styleName="h2">
+                      <h2>
                         Winner Selection
                       </h2>
-                      <p styleName="p">
+                      <p>
                         Submissions are viewable to the client as they are entered
                         into the challenge. Winners are selected by the client and
                         are chosen solely at the client&apos;s discretion.
@@ -324,13 +299,13 @@ export default function ChallengeDetailsView(props) {
                 )
             }
             <article>
-              <h2 styleName="h2">
+              <h2>
                 Payments
               </h2>
               {
                 isWipro ? (
                   <div>
-                    <p styleName="p">
+                    <p>
                       For employees of Wipro Technologies, following are the
                       payment terms. Winner/s would be awarded the prize money on
                       successful completion and acceptance of the submission by
@@ -354,7 +329,7 @@ export default function ChallengeDetailsView(props) {
                     </p>
                   </div>
                 ) : (
-                  <p styleName="p">
+                  <p>
                     Topcoder will compensate members in accordance with our standard payment policies, unless
                     otherwise specified in this challenge. For information on payment policies, setting up your profile to
                     receive payments, and general payment questions, please refer to
@@ -403,7 +378,6 @@ ChallengeDetailsView.defaultProps = {
     track: 'design',
     reviewType: undefined,
     numberOfCheckpointsPrizes: 0,
-    finalSubmissionGuidelines: '',
     environment: '',
     descriptionFormat: 'HTML',
     codeRepo: '',
@@ -433,7 +407,6 @@ ChallengeDetailsView.propTypes = {
     groups: PT.any,
     reviewType: PT.string,
     numberOfCheckpointsPrizes: PT.number,
-    finalSubmissionGuidelines: PT.string,
     environment: PT.string,
     codeRepo: PT.string,
     userDetails: PT.shape({

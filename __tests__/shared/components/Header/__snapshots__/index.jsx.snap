@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Default render 1`] = `
-<div>
+<div
+  className="src-shared-components-Header-___style__nav-header-wrapper___3oH9J"
+>
   <TopNav
     loggedIn={true}
     logo={
@@ -62,7 +64,7 @@ exports[`Default render 1`] = `
                   "title": "Competitive Programming",
                 },
                 Object {
-                  "href": "/community/taas",
+                  "href": "/gigs",
                   "title": "Gig Work",
                 },
                 Object {
@@ -118,6 +120,7 @@ exports[`Default render 1`] = `
                 },
                 Object {
                   "href": "https://www.topcoder-dev.com/blog",
+                  "openNewTab": true,
                   "title": "Blog",
                 },
                 Object {

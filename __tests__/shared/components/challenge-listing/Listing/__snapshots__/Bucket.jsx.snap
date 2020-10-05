@@ -81,6 +81,7 @@ exports[`Matches shallow shapshot 1`] = `
     expandTag={null}
     expanded={true}
     expandedTags={Array []}
+    expanding={false}
     loadMore={[MockFunction]}
     loading={false}
     newChallengeDetails={false}

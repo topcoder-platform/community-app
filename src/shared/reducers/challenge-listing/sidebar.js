@@ -120,18 +120,19 @@ import { updateQuery } from 'utils/url';
 // }
 
 function onSelectBucket(state, { payload }) {
-  switch (payload) {
+  switch (payload.bucket) {
     case BUCKETS.ALL:
     // case BUCKETS.SAVED_FILTER:
       updateQuery({ bucket: undefined });
       break;
     default:
-      updateQuery({ bucket: payload });
+      updateQuery({ bucket: payload.expanding ? undefined : payload.bucket });
       break;
   }
   return {
     ...state,
-    activeBucket: payload,
+    activeBucket: payload.bucket,
+    expanding: payload.expanding,
     isBucketSwitching: true,
   };
 }
