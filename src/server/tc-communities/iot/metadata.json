@@ -7,7 +7,6 @@
     }]
   },
   "communityId": "iot",
-  "hidden": true,
   "communityName": "IoT Community",
   "groupIds": ["20000045"],
   "hideSearch": true,

@@ -9,7 +9,6 @@
     }]
   },
   "communityId": "comcast",
-  "hidden": true,
   "communityName": "Comcast Community",
   "groupIds": ["20000867"],
   "hideSearch": true,
