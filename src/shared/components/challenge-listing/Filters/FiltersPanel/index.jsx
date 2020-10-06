@@ -250,7 +250,7 @@ export default function FiltersPanel({
               }}
               options={communityOps}
               simpleValue
-              value={filterState.groups.length === 0 ? '' : filterState.groups[0]}
+              value={filterState.groups && filterState.groups.length ? filterState.groups[0] : ''}
               valueRenderer={option => (
                 <span styleName="active-community">
                   {option.name}
