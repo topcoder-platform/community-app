@@ -51,9 +51,8 @@ export function updateQuery(update) {
     else if (_.isUndefined(value) || _.isEmpty(value) || (_.isArray(value) && value.length === 0)) delete query[key];
     else if (typeof value === 'object') {
       const separator = query === '?' ? '' : '&';
-      query += `${separator}${qs.stringify({tracks: value}, { encodeValuesOnly: true })}`;
-    }
-    else {
+      query += `${separator}${qs.stringify({ tracks: value }, { encodeValuesOnly: true })}`;
+    } else {
       const separator = query === '?' ? '' : '&';
       query += `${separator}${key}=${value}`;
     }
