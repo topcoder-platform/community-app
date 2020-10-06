@@ -423,7 +423,7 @@ function onSetFilter(state, { payload }) {
   // console.log(`======`);
   return {
     ...state,
-    filter: payload,
+    filter: _.assign({}, state.filter, payload),
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */

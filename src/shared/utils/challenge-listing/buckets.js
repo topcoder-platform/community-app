@@ -167,15 +167,12 @@ export function filterChanged(filter, prevFilter) {
   if (!filter || !prevFilter) {
     return true;
   }
-  return (filter.tracks.Dev !== prevFilter.tracks.Dev)
-  || (filter.tracks.Des !== prevFilter.tracks.Des)
-  || (filter.tracks.DS !== prevFilter.tracks.DS)
-  || (filter.tracks.QA !== prevFilter.tracks.QA)
+  return (!_.isEqual(filter.tracks, prevFilter.tracks))
   || (filter.name !== prevFilter.name)
   || (filter.startDateStart !== prevFilter.startDateStart)
   || (filter.endDateEnd !== prevFilter.endDateEnd)
   // eslint-disable-next-line max-len
-  || (filter.groups.length !== prevFilter.groups.length || filter.groups[0] !== prevFilter.groups[0])
+  || (!_.isEqual(filter.groups, prevFilter.groups))
   || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
   || _.filter(prevFilter.tags, val => _.indexOf(filter.tags, val) < 0).length > 0
   || _.filter(filter.types, val => _.indexOf(prevFilter.types, val) < 0).length > 0
