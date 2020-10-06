@@ -298,7 +298,7 @@ export default class RecruitCRMService {
         body: JSON.stringify({
           candidate_slug: candidateData.slug,
           job_slug: id,
-          status_id: '65183',
+          status_id: '10',
         }),
       });
       if (hireStageResponse.status >= 400) {
