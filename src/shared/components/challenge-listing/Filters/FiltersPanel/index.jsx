@@ -311,20 +311,20 @@ export default function FiltersPanel({
             </label>
             <DateRangePicker
               numberOfMonths={1}
-              endDate={filterState.submissionEndDateEnd && moment(filterState.submissionEndDateEnd)}
+              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
               id="date-range-picker-one-month"
               onDatesChange={(dates) => {
                 const d = dates.endDate ? dates.endDate.toISOString() : null;
                 const s = dates.startDate ? dates.startDate.toISOString() : null;
                 setFilterState({
                   ..._.clone(filterState),
-                  registrationStartDateStart: s,
-                  submissionEndDateEnd: d,
+                  endDateStart: s,
+                  startDateEnd: d,
                 });
               }}
               startDate={
-                filterState.registrationStartDateStart
-                  && moment(filterState.registrationStartDateStart)
+                filterState.endDateStart
+                  && moment(filterState.endDateStart)
               }
             />
           </div>
@@ -335,20 +335,20 @@ export default function FiltersPanel({
             </label>
             <DateRangePicker
               numberOfMonths={2}
-              endDate={filterState.submissionEndDateEnd && moment(filterState.submissionEndDateEnd)}
+              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
               id="date-range-picker-two-months"
               onDatesChange={(dates) => {
                 const d = dates.endDate ? dates.endDate.toISOString() : null;
                 const s = dates.startDate ? dates.startDate.toISOString() : null;
                 setFilterState({
                   ..._.clone(filterState),
-                  registrationStartDateStart: s,
-                  submissionEndDateEnd: d,
+                  endDateStart: s,
+                  startDateEnd: d,
                 });
               }}
               startDate={
-                filterState.registrationStartDateStart
-                  && moment(filterState.registrationStartDateStart)
+                filterState.endDateStart
+                  && moment(filterState.endDateStart)
               }
             />
           </div>
@@ -370,8 +370,8 @@ export default function FiltersPanel({
               tags: [],
               types: [],
               groups: [],
-              registrationStartDateStart: null,
-              submissionEndDateEnd: null,
+              endDateStart: null,
+              startDateEnd: null,
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');

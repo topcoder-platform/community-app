@@ -47,7 +47,7 @@ export default function ChallengeFilters({
   if (filterState.groups && filterState.groups.length) filterRulesCount += 1;
   if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
   if (filterState.types && filterState.types.length) filterRulesCount += 1;
-  if (filterState.submissionEndDateEnd || filterState.registrationStartDateStart) {
+  if (filterState.startDateEnd || filterState.endDateStart) {
     filterRulesCount += 1;
   }
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;

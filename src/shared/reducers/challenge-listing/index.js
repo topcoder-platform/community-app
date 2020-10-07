@@ -401,7 +401,7 @@ function onSetFilter(state, { payload }) {
    * do it very carefuly (many params are not validated). */
   const filter = _.pickBy(_.pick(
     payload,
-    ['tags', 'types', 'name', 'registrationStartDateStart', 'submissionEndDateEnd', 'groups'],
+    ['tags', 'types', 'name', 'endDateStart', 'startDateEnd', 'groups'],
   ), value => (!_.isArray(value) && value && value !== '') || (_.isArray(value) && value.length > 0));
   // if (_.isPlainObject(filter.tags)) {
   //   filter.tags = _.values(filter.tags);
@@ -409,11 +409,11 @@ function onSetFilter(state, { payload }) {
   // if (_.isPlainObject(filter.subtracks)) {
   //   filter.subtracks = _.values(filter.subtracks);
   // }
-  if (filter.registrationStartDateStart && !moment(filter.registrationStartDateStart).isValid()) {
-    delete filter.registrationStartDateStart;
+  if (filter.endDateStart && !moment(filter.endDateStart).isValid()) {
+    delete filter.endDateStart;
   }
-  if (filter.submissionEndDateEnd && !moment(filter.submissionEndDateEnd).isValid()) {
-    delete filter.submissionEndDateEnd;
+  if (filter.startDateEnd && !moment(filter.startDateEnd).isValid()) {
+    delete filter.startDateEnd;
   }
   // console.log(`aaaaa`);
   // console.log(filter);
@@ -810,8 +810,8 @@ function create(initialState) {
       tags: [],
       types: [],
       groups: [],
-      registrationStartDateStart: null,
-      submissionEndDateEnd: null,
+      endDateStart: null,
+      startDateEnd: null,
     },
 
     selectedCommunityId: 'All',
