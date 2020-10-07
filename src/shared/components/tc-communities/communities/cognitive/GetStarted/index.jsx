@@ -20,8 +20,6 @@ import cardImg02 from
 
 import MarchMadnessBanner from '../MarchMadnessBanner';
 
-import NewsSignup from '../NewsSignup';
-
 import style from './style.scss';
 
 export default function GetStarted({ baseUrl }) {
@@ -88,7 +86,6 @@ export default function GetStarted({ baseUrl }) {
           />
         </ImageText>
       </div>
-      <NewsSignup />
     </main>
   );
 }

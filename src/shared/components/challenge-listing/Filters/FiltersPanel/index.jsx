@@ -180,10 +180,12 @@ export default function FiltersPanel({
     );
   };
 
-  const communityOps = communityFilters.filter(community => !community.hidden)
+  const communityOps = communityFilters.filter(community => (
+    (!community.hidden && !community.hideFilter && !_.isEmpty(community.groupIds)) || community.communityName === 'All'
+  ))
     .map(community => ({
       label: community.communityName,
-      value: community.groupIds && community.groupIds.length > 0 ? community.groupIds[0] : '',
+      value: community.communityName === 'All' ? '' : community.groupIds[0],
       name: community.communityName,
       data: getLabel(community),
     }));
@@ -244,10 +246,11 @@ export default function FiltersPanel({
               onChange={(value) => {
                 const group = value;
                 setFilterState({ ..._.clone(filterState), groups: group === '' ? [] : [group] });
+                // setFilterState({ ..._.clone(filterState), groups: [value] });
               }}
               options={communityOps}
               simpleValue
-              value={filterState.groups && filterState.groups.length === 0 ? '' : filterState.groups && filterState.groups[0]}
+              value={filterState.groups && filterState.groups.length ? filterState.groups[0] : ''}
               valueRenderer={option => (
                 <span styleName="active-community">
                   {option.name}

@@ -16,7 +16,6 @@ import { config, Link } from 'topcoder-react-utils';
 import davePhotoUrl from 'assets/images/communities/cognitive/home/dave.jpg';
 
 import IbmCloudBanner from '../IbmCloudBanner';
-import NewsletterSignup from '../NewsSignup';
 
 import style from './style.scss';
 
@@ -317,8 +316,6 @@ export default function Home({
           </div>
         </div>
       </div>
-
-      <NewsletterSignup />
     </main>
   );
 }

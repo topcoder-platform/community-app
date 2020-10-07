@@ -14,6 +14,7 @@ import qs from 'qs';
 import TracksTree from 'components/Contentful/TracksTree/TracksTree';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TracksFilter from 'components/Contentful/TracksFilter/TracksFilter';
+import { Helmet } from 'react-helmet';
 // SVGs & Assets
 import Dev from 'assets/images/img-development.png';
 import Design from 'assets/images/img_design.png';
@@ -21,6 +22,7 @@ import DS from 'assets/images/img-data-science.png';
 import Algo from 'assets/images/img-algorithm.png';
 import QA from 'assets/images/img-QA.png';
 import Topcoder from 'assets/images/img-Topcoder.png';
+import GigWork from 'assets/images/img-gig-work.png';
 // Partials
 import ResultTabs from './partials/ResultTabs';
 // CSS
@@ -33,6 +35,7 @@ const TRACK_BANNER_BACK_COLORS = {
   'Competitive Programming': '#FFA45D',
   QA: '#8AFB8A',
   Topcoder: '#2A2A2A',
+  'Gig Work': '#ef476f',
 };
 const TRACK_IMAGES = {
   Development: Dev,
@@ -41,6 +44,7 @@ const TRACK_IMAGES = {
   'Competitive Programming': Algo,
   QA,
   Topcoder,
+  'Gig Work': GigWork,
 };
 
 export default class EDUTracks extends React.Component {
@@ -164,6 +168,13 @@ export default class EDUTracks extends React.Component {
     if (!taxonomy) return <LoadingIndicator />;
     return (
       <div className={tracksTheme.container}>
+        <Helmet>
+          <title>THRIVE - {`${query.track}`}</title>
+          <meta name="title" property="og:title" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="og:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="description" property="description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+          <meta name="twitter:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
+        </Helmet>
         {/* Banner */}
         <div
           className={tracksTheme.bannerContainer}

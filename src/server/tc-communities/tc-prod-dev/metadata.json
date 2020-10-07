@@ -1,10 +1,10 @@
 {
   "challengeFilter": {
-    "groups": ["tc-prod-dev"]
+    "groupIds": ["20000013"]
   },
   "communityId": "tc-prod-dev",
   "communityName": "Topcoder Product Development",
-  "groups": ["tc-prod-dev"],
+  "groupIds": ["20000013"],
   "hidden": true,
   "terms": [21193,21153],
   "logos": [{

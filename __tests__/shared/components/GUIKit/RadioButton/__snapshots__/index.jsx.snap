@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<React.Fragment>
+  <div
+    className="radioButtonContainer src-shared-components-GUIKit-RadioButton-___style__radioButtonContainer___3YAY0 src-shared-components-GUIKit-RadioButton-___style__smSize____lb3s"
+  >
+    <div
+      className="radioButton src-shared-components-GUIKit-RadioButton-___style__radioButton___2Jtbj"
+    >
+      <label
+        className="src-shared-components-GUIKit-RadioButton-___style__container___3nVSA"
+      >
+        <input
+          checked={true}
+          onChange={[Function]}
+          type="radio"
+        />
+        <span
+          className="src-shared-components-GUIKit-RadioButton-___style__checkmark___1iCFJ"
+        />
+      </label>
+      <span
+        className="src-shared-components-GUIKit-RadioButton-___style__label___MCxnk"
+      >
+        radio
+      </span>
+    </div>
+  </div>
+</React.Fragment>
+`;

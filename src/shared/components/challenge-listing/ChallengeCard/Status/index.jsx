@@ -6,6 +6,7 @@ import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 import { config, Link } from 'topcoder-react-utils';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import 'moment-duration-format';
+import { phaseEndDate } from 'utils/challenge-listing/helper';
 import {
   getTimeLeft,
 } from 'utils/challenge-detail/helper';
@@ -208,7 +209,7 @@ export default function ChallengeStatus(props) {
     const {
       myChallenge,
       status,
-      subTrack,
+      type,
     } = challenge;
     const allPhases = challenge.phases || [];
     const forumId = _.get(challenge, 'legacy.forumId') || 0;
@@ -217,7 +218,7 @@ export default function ChallengeStatus(props) {
       .filter(p => p.name !== 'Registration' && p.isOpen)
       .sort((a, b) => moment(a.scheduledEndDate).diff(b.scheduledEndDate))[0];
 
-    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && allPhases.length) {
+    if (!statusPhase && type === 'First2Finish' && allPhases.length) {
       statusPhase = _.clone(allPhases[0]);
       statusPhase.name = 'Submission';
     }
@@ -271,7 +272,7 @@ export default function ChallengeStatus(props) {
                 <ChallengeProgressBar
                   color="green"
                   value={getPhaseProgress(statusPhase)}
-                  isLate={moment().isAfter(statusPhase.scheduledEndDate)}
+                  isLate={moment().isAfter(phaseEndDate(statusPhase))}
                 />
                 <div styleName="time-left">
                   {getTimeLeft(statusPhase, 'to go').text}

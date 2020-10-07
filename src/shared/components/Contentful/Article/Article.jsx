@@ -15,7 +15,10 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import YouTubeVideo from 'components/YouTubeVideo';
 import moment from 'moment';
 import localStorage from 'localStorage';
-import { config, Link, isomorphy } from 'topcoder-react-utils';
+import { Helmet } from 'react-helmet';
+import {
+  config, Link, isomorphy,
+} from 'topcoder-react-utils';
 import qs from 'qs';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
@@ -110,9 +113,27 @@ export default class Article extends React.Component {
     if (isomorphy.isClientSide()) {
       shareUrl = encodeURIComponent(window.location.href);
     }
+    const description = htmlToText.fromString(
+      ReactDOMServer.renderToString(markdown(fields.content)),
+      {
+        ignoreHref: true,
+        ignoreImage: true,
+        singleNewLineParagraphs: true,
+        uppercaseHeadings: false,
+      },
+    ).substring(0, CONTENT_PREVIEW_LENGTH);
 
     return (
       <React.Fragment>
+        <Helmet>
+          <title>{fields.title}</title>
+          <meta name="title" property="og:title" content={fields.title} />
+          <meta name="description" property="og:description" content={description} />
+          <meta name="description" property="description" content={description} />
+          <meta name="twitter:description" content={description} />
+          <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : null} />
+          <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : null} />
+        </Helmet>
         {/* Banner */}
         {
           fields.featuredImage ? (

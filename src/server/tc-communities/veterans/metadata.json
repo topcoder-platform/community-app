@@ -1,13 +1,13 @@
 {
   "challengeFilter": {
-    "groups": ["veterans"]
+    "groupIds": ["20000013"]
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": true
   },
   "communityId": "veterans",
   "communityName": "Veterans Community",
-  "groups": ["veterans"],
+  "groupIds": ["20000013"],
   "terms": [21193, 21263],
   "logos": [{
     "img": "/community-app-assets/themes/veterans/logo_topcoder_with_name.svg",

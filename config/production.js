@@ -115,7 +115,7 @@ module.exports = {
             },
             {
               title: 'Gig Work',
-              href: '/community/taas',
+              href: '/gigs',
             },
             {
               title: 'Practice',
@@ -171,6 +171,7 @@ module.exports = {
             {
               title: 'Blog',
               href: 'https://www.topcoder.com/blog',
+              openNewTab: true,
             },
             {
               title: 'Thrive',

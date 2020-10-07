@@ -1,0 +1,231 @@
+@import '~components/GUIKit/Assets/Styles/default';
+
+.label {
+  @include textInputLabel;
+}
+
+.relative {
+  position: relative;
+}
+
+.errorMessage {
+  @include errorMessage;
+}
+
+.iconDropdown {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  pointer-events: none;
+  margin-top: -4px;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+
+  &.haveValue .label,
+  &.haveError .label,
+  &.isFocused .label {
+    display: flex;
+  }
+
+  &.isFocused {
+    .label {
+      color: $gui-kit-level-2;
+    }
+
+    .iconDropdown {
+      transform: scale(1, -1);
+    }
+  }
+
+  &.haveError .label,
+  &.haveError.isFocused .label {
+    color: $gui-kit-level-5;
+  }
+
+  :global {
+    @import '~react-select/dist/react-select';
+
+    width: 100%;
+
+    .Select-control {
+      margin: 0;
+      padding: 0;
+      border: 1px solid $gui-kit-gray-30 !important;
+      border-radius: 6px !important;
+      height: 52px;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .Select-input {
+      input {
+        font-size: 16px;
+        padding: 0;
+        height: 22px;
+        line-height: 22px;
+
+        &:focus {
+          border: none;
+          box-shadow: none;
+        }
+      }
+    }
+
+    .Select-value {
+      .Select-value-label {
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        color: $gui-kit-gray-90 !important;
+      }
+    }
+
+    .Select-placeholder,
+    .Select-value,
+    .Select-input {
+      padding: 0 15px !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .Select-placeholder {
+      color: $gui-kit-gray-30;
+      opacity: 1;
+      text-transform: none;
+      font-size: 16px;
+    }
+
+    .Select-multi-value-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .Select-arrow-zone {
+      padding-right: 15px !important;
+
+      .Select-arrow {
+        background-image: none;
+        border: none;
+        width: 15px;
+        height: 9px;
+        background-size: 15px 9px;
+        top: 0 !important;
+        border-width: 0 !important;
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .Select {
+      &.is-open {
+        .Select-arrow-zone {
+          .Select-arrow {
+            transform: scale(1, -1);
+          }
+        }
+      }
+    }
+
+    .Select-menu-outer {
+      top: calc(100% + 2px) !important;
+      border: 1px solid $gui-kit-gray-30 !important;
+      border-radius: 0 !important;
+      max-height: 269px;
+      z-index: 7;
+
+      .Select-menu {
+        max-height: 269px;
+
+        .Select-option {
+          padding: 0 15px !important;
+          font-size: 16px !important;
+          line-height: 30px !important;
+          color: $gui-kit-gray-90 !important;
+          background-color: transparent !important;
+          text-decoration: none !important;
+
+          &.is-selected {
+            font-weight: bold !important;
+          }
+
+          &:hover {
+            background-color: #229173 !important;
+            color: $tc-white !important;
+          }
+        }
+      }
+    }
+  }
+
+  &.haveError {
+    :global {
+      .Select-control {
+        border: 2px solid $gui-kit-level-5 !important;
+      }
+    }
+  }
+
+  // lg size
+  &.lgSize {
+    :global {
+      .Select-control {
+        height: 52px;
+      }
+
+      .Select-input {
+        input {
+          height: 52px;
+        }
+      }
+    }
+  }
+
+  // xs size
+  &.xsSize {
+    :global {
+      .Select-control {
+        height: 40px;
+      }
+
+      .Select-input {
+        input {
+          font-size: 14px;
+          height: 40px;
+        }
+      }
+
+      .Select-value {
+        .Select-value-label {
+          font-size: 14px;
+          color: $gui-kit-gray-90 !important;
+        }
+      }
+
+      .Select-placeholder {
+        font-size: 14px;
+      }
+
+      .Select-menu-outer {
+        * {
+          font-size: 14px !important;
+        }
+
+        .Select-menu {
+          .Select-option {
+            font-size: 14px !important;
+          }
+        }
+      }
+    }
+
+    .errorMessage {
+      @include errorMessageXs;
+    }
+  }
+}

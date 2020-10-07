@@ -19,6 +19,7 @@ import React from 'react';
 import PT from 'prop-types';
 import shortid from 'shortid';
 import moment from 'moment';
+import { COMPETITION_TRACKS } from 'utils/tc';
 import Submission from '../Submission';
 import ScreeningDetails from '../ScreeningDetails';
 import './styles.scss';
@@ -101,7 +102,7 @@ export default function SubmissionsTable(props) {
             <th>
               Submission Date
             </th>
-            {track === 'Design' && (
+            {track === COMPETITION_TRACKS.DES && (
             <th styleName="status">
               Screening Status
             </th>
