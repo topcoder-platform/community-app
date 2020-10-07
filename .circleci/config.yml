@@ -245,7 +245,7 @@ workflows:
           filters:
             branches:
               only:
-                - gig-application-fixes
+                - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

@@ -204,7 +204,7 @@ export default function ChallengeHeader(props) {
     }
   }
 
-  const checkpointCount = checkpoints && checkpoints.numberOfUniqueSubmitters;
+  const checkpointCount = checkpoints && checkpoints.numberOfPassedScreeningSubmissions;
 
   let nextDeadlineMsg;
   switch ((status || '').toLowerCase()) {
