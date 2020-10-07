@@ -175,7 +175,7 @@ export function filterChanged(filter, prevFilter) {
   || (filter.startDateStart !== prevFilter.startDateStart)
   || (filter.endDateEnd !== prevFilter.endDateEnd)
   // eslint-disable-next-line max-len
-  || (filter.groups.length !== prevFilter.groups.length || filter.groups[0] !== prevFilter.groups[0])
+  || ((filter.groups && prevFilter.groups) && (filter.groups.length !== prevFilter.groups.length || filter.groups[0] !== prevFilter.groups[0]))
   || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
   || _.filter(prevFilter.tags, val => _.indexOf(filter.tags, val) < 0).length > 0
   || _.filter(filter.types, val => _.indexOf(prevFilter.types, val) < 0).length > 0
