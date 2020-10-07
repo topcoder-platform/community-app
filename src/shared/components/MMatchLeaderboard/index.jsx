@@ -217,7 +217,7 @@ export default class MMLeaderboard extends Component {
     };
     return (
       <React.Fragment>
-        { renderData() }
+        { data.length ? renderData() : <h4>No data available yet.</h4> }
       </React.Fragment>
     );
   }

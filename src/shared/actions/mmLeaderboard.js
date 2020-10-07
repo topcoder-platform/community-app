@@ -20,11 +20,12 @@ async function getMMLeaderboardDone(id) {
     const groupedData = _.groupBy(res.subs, 'createdBy');
     _.each(groupedData, (subs, handle) => {
       const sortedSubs = _.orderBy(subs, ['updated'], ['desc']);
+      const scores = _.orderBy(_.compact(sortedSubs[0].review), ['updated'], ['desc']);
       data.push({
         createdBy: handle,
         updated: sortedSubs[0].submittedDate,
         id: sortedSubs[0].id,
-        score: _.orderBy(_.compact(sortedSubs[0].review), ['updated'], ['desc'])[0].score,
+        score: scores && scores.length ? scores[0].score : '...',
       });
     });
     data = _.orderBy(data, ['score', 'updated'], ['desc']).map((r, i) => ({
