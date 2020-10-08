@@ -83,7 +83,8 @@ export default function BucketSelector({
       {isAuth ? getBucket(BUCKETS.MY) : null}
       {/* {extraBucket ? getBucket(extraBucket) : null} */}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
-      {getBucket(BUCKETS.ONGOING)}
+      {/* DISABLED: Until api receive fix community-app#5073 */}
+      {/* {getBucket(BUCKETS.ONGOING)} */}
       <hr />
       {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
       {/* {getBucket(BUCKETS.PAST)} */}

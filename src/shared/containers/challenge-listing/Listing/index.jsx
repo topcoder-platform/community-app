@@ -242,7 +242,8 @@ export class ListingContainer extends React.Component {
   loadChallenges() {
     const {
       auth,
-      getActiveChallenges,
+      // DISABLED: Until api receive fix community-app#5073
+      // getActiveChallenges,
       getOpenForRegistrationChallenges,
       getMyChallenges,
       getAllChallenges,
@@ -261,12 +262,15 @@ export class ListingContainer extends React.Component {
       auth.tokenV3,
       f.front,
     );
+    // DISABLED: Until api receive fix community-app#5073
+    /*
     getActiveChallenges(
       0,
       f.back,
       auth.tokenV3,
       f.front,
     );
+    */
     getOpenForRegistrationChallenges(
       0,
       f.back,
