@@ -521,7 +521,7 @@ export class ListingContainer extends React.Component {
             setFilter(state);
             setSearchText(state.name || '');
             // if (activeBucket === BUCKETS.SAVED_FILTER) {
-            //   selectBucket(BUCKETS.ALL);
+            //   selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
             // } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
             //   selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
             // }
@@ -558,7 +558,7 @@ ListingContainer.defaultProps = {
   openChallengesInNewTabs: false,
   preListingMsg: null,
   prizeMode: 'money-usd',
-  queryBucket: BUCKETS.ALL,
+  queryBucket: BUCKETS.OPEN_FOR_REGISTRATION,
   meta: {},
   expanding: false,
   // isBucketSwitching: false,

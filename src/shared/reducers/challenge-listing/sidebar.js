@@ -201,7 +201,7 @@ function create(initialState = {}) {
     // }),
     // [a.updateSavedFilter]: onUpdateSavedFilter,
   }, _.defaults(initialState, {
-    activeBucket: BUCKETS.ALL,
+    activeBucket: BUCKETS.OPEN_FOR_REGISTRATION,
     // activeSavedFilter: 0,
     // editSavedFiltersMode: false,
     // savedFilters: [],
