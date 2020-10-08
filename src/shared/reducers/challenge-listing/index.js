@@ -401,7 +401,7 @@ function onSetFilter(state, { payload }) {
    * do it very carefuly (many params are not validated). */
   const filter = _.pickBy(_.pick(
     payload,
-    ['tags', 'types', 'name', 'startDateEnd', 'endDateStart', 'groups'],
+    ['tags', 'types', 'name', 'startDateEnd', 'endDateStart', 'groups', 'events'],
   ), value => (!_.isArray(value) && value && value !== '') || (_.isArray(value) && value.length > 0));
   // if (_.isPlainObject(filter.tags)) {
   //   filter.tags = _.values(filter.tags);
@@ -810,6 +810,7 @@ function create(initialState) {
       tags: [],
       types: [],
       groups: [],
+      events: [],
       startDateEnd: null,
       endDateStart: null,
     },
