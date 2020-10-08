@@ -16,7 +16,8 @@ import React from 'react';
 import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import qs from 'qs';
+import qs from 'qs';
+import _ from 'lodash';
 
 /* The default name for user-saved challenge filters. An integer
  * number will be appended to it, when necessary, to keep filter
@@ -47,8 +48,8 @@ export class Container extends React.Component {
       getTypes,
       loadingKeywords,
       loadingTypes,
-      // setFilterState,
-      // filterState,
+      setFilterState,
+      filterState,
       communityList,
       getCommunityList,
       auth,
@@ -62,10 +63,10 @@ export class Container extends React.Component {
     if (!loadingKeywords) getKeywords();
 
 
-    // const query = qs.parse(window.location.search.slice(1));
-    // if (query.filter && !filterState.track) {
-    //   setFilterState(query.filter);
-    // } else {
+    const query = qs.parse(window.location.search.slice(1));
+    if (!_.isEmpty(query) && !filterState.track) {
+      setFilterState(query);
+    }
     //   const trackStatus = localStorage.getItem('trackStatus');
     //   const filterObj = trackStatus ? JSON.parse(trackStatus) : null;
     //   if (filterObj) {
@@ -189,7 +190,7 @@ function mapDispatchToProps(dispatch) {
     // },
     // selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
-    // setFilterState: s => dispatch(cla.setFilter(s)),
+    setFilterState: s => dispatch(cla.setFilter(s)),
   };
 }
 

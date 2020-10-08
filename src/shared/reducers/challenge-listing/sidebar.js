@@ -123,7 +123,7 @@ function onSelectBucket(state, { payload }) {
   switch (payload.bucket) {
     case BUCKETS.ALL:
     // case BUCKETS.SAVED_FILTER:
-      updateQuery({ bucket: undefined });
+      updateQuery({ bucket: payload.bucket });
       break;
     default:
       updateQuery({ bucket: payload.expanding ? undefined : payload.bucket });
