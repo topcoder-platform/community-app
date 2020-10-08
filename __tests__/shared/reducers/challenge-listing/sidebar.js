@@ -1,7 +1,7 @@
 const defaultReducer = require('reducers/challenge-listing/sidebar').default;
 
 const expectedState = {
-  activeBucket: 'openForRegistration',
+  activeBucket: 'all',
 };
 
 function testReducer(reducer) {

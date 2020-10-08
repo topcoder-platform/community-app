@@ -879,7 +879,7 @@ const mapDispatchToProps = (dispatch) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(cl.setFilter(filter));
-      dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
+      dispatch(cls.selectBucket(BUCKETS.ALL));
     },
     setSpecsTabState: state => dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {

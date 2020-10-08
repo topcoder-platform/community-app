@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
       const sa = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(a.selectCommunity(''));
       dispatch(a.setFilter({}));
-      dispatch(sa.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
+      dispatch(sa.selectBucket(BUCKETS.ALL));
     },
   };
 }
