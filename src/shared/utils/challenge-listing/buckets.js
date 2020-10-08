@@ -169,8 +169,8 @@ export function filterChanged(filter, prevFilter) {
   }
   return (!_.isEqual(filter.tracks, prevFilter.tracks))
   || (filter.name !== prevFilter.name)
-  || (filter.startDateStart !== prevFilter.startDateStart)
-  || (filter.endDateEnd !== prevFilter.endDateEnd)
+  || (filter.startDateEnd !== prevFilter.startDateEnd)
+  || (filter.endDateStart !== prevFilter.endDateStart)
   // eslint-disable-next-line max-len
   || (!_.isEqual(filter.groups, prevFilter.groups))
   || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
