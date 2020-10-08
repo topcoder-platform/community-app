@@ -32,7 +32,7 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { isFilterEmpty } from 'utils/challenge-listing/buckets';
+import { BUCKETS, isFilterEmpty } from 'utils/challenge-listing/buckets';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
@@ -49,6 +49,7 @@ export default function FiltersPanel({
   isAuth,
   auth,
   isReviewOpportunitiesBucket,
+  activeBucket,
   onClose,
   // onSaveFilter,
   selectCommunity,
@@ -65,6 +66,8 @@ export default function FiltersPanel({
   const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) => Boolean(
     _.intersection(visitorGroupIds, communityGroupIds).length,
   );
+
+  const isAllBucket = activeBucket === BUCKETS.ALL;
 
   const getLabel = (community) => {
     const { communityName } = community;
@@ -304,6 +307,28 @@ export default function FiltersPanel({
               </div>
             ) : null
           }
+          {/* Only shown when the All Challenges bucket is selected */}
+          { isAllBucket
+            ? (
+              <div styleName="filter status">
+                <label htmlFor="status-select" styleName="left-label">
+                  Status
+                  <input type="hidden" />
+                </label>
+                <Select
+                  placeholder="Select Status"
+                  id="status-select"
+                  onChange={(value) => {
+                    const status = value;
+                    setFilterState({ ..._.clone(filterState), status });
+                  }}
+                  options={['Active', 'Completed', 'All'].map(mapOps)}
+                  simpleValue
+                  value={filterState.status || 'Active'}
+                />
+              </div>
+            ) : null
+          }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
               Date range
@@ -412,6 +437,7 @@ FiltersPanel.propTypes = {
     communityName: PT.string.isRequired,
   })).isRequired,
   defaultCommunityId: PT.string.isRequired,
+  activeBucket: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   // challenges: PT.arrayOf(PT.shape()),
   hidden: PT.bool,

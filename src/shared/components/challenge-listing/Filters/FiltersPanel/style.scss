@@ -382,6 +382,31 @@ $panel-radius-4: $corner-radius * 2;
         }
       }
     }
+
+    &.status {
+      @include calc(width, '50% - 45px - (12px + 112px) * 2 - 96px');
+      order: 3; // Show after Date Picker when in lg screen mode
+
+      @include xs-to-sm {
+        margin-top: $panel-space-15;
+        width: 100%;
+      }
+
+      :global(.Select) {
+        z-index: 3;
+      }
+
+      margin-right: $panel-space-30;
+
+      :global(.Select-value) {
+        top: inherit;
+        background: $tc-white !important;
+        font-weight: 300;
+        font-size: 13px;
+        color: $tc-gray-50;
+        line-height: $panel-space-30 - 2;
+      }
+    }
   }
 }
 
