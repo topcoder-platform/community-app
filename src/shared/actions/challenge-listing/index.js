@@ -87,6 +87,10 @@ function getMyChallengesInit(uuid, page, frontFilter) {
   return { uuid, page, frontFilter };
 }
 
+function getAllChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
+}
+
 /**
  * Get all challenges and match with user challenges
  * @param {String} uuid progress id
@@ -265,6 +269,31 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
   return service.getChallenges(filter).then(ch => ({
     uuid,
     myChallenges: ch.challenges,
+    meta: ch.meta,
+    frontFilter,
+  }));
+}
+
+function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const { sorts, status } = frontFilter;
+  const filter = {
+    backendFilter,
+    frontFilter: {
+      ...frontFilter,
+      perPage: PAGE_SIZE,
+      page: page + 1,
+      sortBy: sorts[BUCKETS.ALL],
+      sortOrder: SORT[sorts[BUCKETS.ALL]].order,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  if (status === 'All') {
+    delete filter.frontFilter.status;
+  }
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
+    uuid,
+    allChallenges: ch.challenges,
     meta: ch.meta,
     frontFilter,
   }));
@@ -463,6 +492,7 @@ export default createActions({
     DROP_ACTIVE_CHALLENGES: _.noop,
     DROP_OPEN_FOR_REGISTRATION_CHALLENGES: _.noop,
     DROP_MY_CHALLENGES: _.noop,
+    DROP_ALL_CHALLENGES: _.noop,
     DROP_PAST_CHALLENGES: _.noop,
 
     // GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
@@ -473,6 +503,9 @@ export default createActions({
 
     // GET_ALL_RECOMMENDED_CHALLENGES_INIT: getAllRecommendedChallengesInit,
     // GET_ALL_RECOMMENDED_CHALLENGES_DONE: getAllRecommendedChallengesDone,
+
+    GET_ALL_CHALLENGES_INIT: getAllChallengesInit,
+    GET_ALL_CHALLENGES_DONE: getAllChallengesDone,
 
     GET_ACTIVE_CHALLENGES_INIT: getActiveChallengesInit,
     GET_ACTIVE_CHALLENGES_DONE: getActiveChallengesDone,
