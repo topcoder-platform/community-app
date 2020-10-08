@@ -124,6 +124,7 @@ export class Container extends React.Component {
         }}
         // isSavingFilter={isSavingFilter}
         isReviewOpportunitiesBucket={isForReviewOpportunities}
+        activeBucket={activeBucket}
       />
     );
   }

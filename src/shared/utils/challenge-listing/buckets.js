@@ -25,7 +25,10 @@ export const BUCKET_DATA = {
     // },
     // hideCount: false,
     name: 'All Challenges',
-    sorts: [],
+    sorts: [
+      SORTS.MOST_RECENT_START_DATE,
+      SORTS.TITLE_A_TO_Z,
+    ],
   },
   [BUCKETS.MY]: {
     // filter: {
@@ -169,8 +172,9 @@ export function filterChanged(filter, prevFilter) {
   }
   return (!_.isEqual(filter.tracks, prevFilter.tracks))
   || (filter.name !== prevFilter.name)
-  || (filter.startDateStart !== prevFilter.startDateStart)
-  || (filter.endDateEnd !== prevFilter.endDateEnd)
+  || (filter.status !== prevFilter.status)
+  || (filter.startDateEnd !== prevFilter.startDateEnd)
+  || (filter.endDateStart !== prevFilter.endDateStart)
   // eslint-disable-next-line max-len
   || (!_.isEqual(filter.groups, prevFilter.groups))
   || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
@@ -182,6 +186,7 @@ export function filterChanged(filter, prevFilter) {
 export function sortChangedBucket(sorts, prevSorts) {
   if (sorts.ongoing !== prevSorts.ongoing) return 'ongoing';
   if (sorts.my !== prevSorts.my) return 'my';
+  if (sorts.all !== prevSorts.all) return 'all';
   if (sorts.openForRegistration !== prevSorts.openForRegistration) return 'openForRegistration';
   // if (sorts.past !== prevSorts.past) return 'past';
   return '';
@@ -201,6 +206,7 @@ export function isFilterEmpty(filter) {
     groups: [],
     startDateStart: null,
     endDateEnd: null,
+    status: 'Active',
   });
 }
 

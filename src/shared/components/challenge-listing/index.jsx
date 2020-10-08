@@ -31,6 +31,7 @@ export default function ChallengeListing(props) {
     challenges,
     openForRegistrationChallenges,
     myChallenges,
+    allChallenges,
     // pastChallenges,
     // communityFilter,
     communityName,
@@ -100,6 +101,7 @@ export default function ChallengeListing(props) {
       challenges={challenges}
       openForRegistrationChallenges={openForRegistrationChallenges}
       myChallenges={myChallenges}
+      allChallenges={allChallenges}
       // pastChallenges={pastChallenges}
       challengesUrl={props.challengesUrl}
       communityName={props.communityName}
@@ -110,10 +112,12 @@ export default function ChallengeListing(props) {
       keepPastPlaceholders={keepPastPlaceholders}
       // loadingPastChallenges={props.loadingPastChallenges}
       loadingMyChallenges={props.loadingMyChallenges}
+      loadingAllChallenges={props.loadingAllChallenges}
       loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
       loadingOnGoingChallenges={props.loadingOnGoingChallenges}
       loadingReviewOpportunities={props.loadingReviewOpportunities}
       loadMoreMy={props.loadMoreMy}
+      loadMoreAll={props.loadMoreAll}
       loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
       loadMoreOnGoing={props.loadMoreOnGoing}
       // loadMorePast={props.loadMorePast}
@@ -180,6 +184,7 @@ ChallengeListing.defaultProps = {
   // extraBucket: null,
   hideTcLinksInFooter: false,
   loadMoreMy: null,
+  loadMoreAll: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
   // loadMorePast: null,
@@ -203,6 +208,7 @@ ChallengeListing.propTypes = {
   challenges: PT.arrayOf(PT.shape()).isRequired,
   openForRegistrationChallenges: PT.arrayOf(PT.shape()).isRequired,
   myChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
+  allChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
   // pastChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
   challengesUrl: PT.string.isRequired,
   // communityFilter: PT.shape(),
@@ -218,11 +224,13 @@ ChallengeListing.propTypes = {
   // lastUpdateOfActiveChallenges: PT.number.isRequired,
   // loadingChallenges: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
+  loadingAllChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
   // loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreMy: PT.func,
+  loadMoreAll: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMoreOnGoing: PT.func,
   // loadMorePast: PT.func,

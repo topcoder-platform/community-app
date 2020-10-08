@@ -30,6 +30,7 @@ export default function ChallengeFilters({
   auth,
   // isCardTypeSet,
   isReviewOpportunitiesBucket,
+  activeBucket,
   // saveFilter,
   searchText,
   selectCommunity,
@@ -47,7 +48,9 @@ export default function ChallengeFilters({
   if (filterState.groups && filterState.groups.length) filterRulesCount += 1;
   if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
   if (filterState.types && filterState.types.length) filterRulesCount += 1;
-  if (filterState.endDateEnd || filterState.startDateStart) filterRulesCount += 1;
+  if (filterState.endDateStart || filterState.startDateEnd) {
+    filterRulesCount += 1;
+  }
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
   if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
   const isTrackOn = track => filterState.tracks && filterState.tracks[track];
@@ -168,6 +171,7 @@ export default function ChallengeFilters({
         isAuth={isAuth}
         auth={auth}
         isReviewOpportunitiesBucket={isReviewOpportunitiesBucket}
+        activeBucket={activeBucket}
         filterState={filterState}
         onClose={() => setExpanded(false)}
         // onSaveFilter={saveFilter}
@@ -209,6 +213,7 @@ ChallengeFilters.propTypes = {
   communityFilters: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,
+  activeBucket: PT.string.isRequired,
   // challenges: PT.arrayOf(PT.shape()),
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
