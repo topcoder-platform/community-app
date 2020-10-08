@@ -47,7 +47,9 @@ export default function ChallengeFilters({
   if (filterState.groups && filterState.groups.length) filterRulesCount += 1;
   if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
   if (filterState.types && filterState.types.length) filterRulesCount += 1;
-  if (filterState.endDateEnd || filterState.startDateStart) filterRulesCount += 1;
+  if (filterState.endDateStart || filterState.startDateEnd) {
+    filterRulesCount += 1;
+  }
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
   if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
   const isTrackOn = track => filterState.tracks[track];
