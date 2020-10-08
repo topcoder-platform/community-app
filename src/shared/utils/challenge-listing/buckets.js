@@ -172,8 +172,8 @@ export function filterChanged(filter, prevFilter) {
   || (filter.tracks.DS !== prevFilter.tracks.DS)
   || (filter.tracks.QA !== prevFilter.tracks.QA)
   || (filter.name !== prevFilter.name)
-  || (filter.startDateStart !== prevFilter.startDateStart)
-  || (filter.endDateEnd !== prevFilter.endDateEnd)
+  || (filter.startDateEnd !== prevFilter.startDateEnd)
+  || (filter.endDateStart !== prevFilter.endDateStart)
   // eslint-disable-next-line max-len
   || (filter.groups.length !== prevFilter.groups.length || filter.groups[0] !== prevFilter.groups[0])
   || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
