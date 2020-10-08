@@ -95,6 +95,8 @@ export class ListingContainer extends React.Component {
       sorts,
       dropMyChallenges,
       getMyChallenges,
+      dropAllChallenges,
+      getAllChallenges,
       getOpenForRegistrationChallenges,
       getActiveChallenges,
       dropActiveChallenges,
@@ -149,6 +151,16 @@ export class ListingContainer extends React.Component {
         case BUCKETS.ONGOING: {
           dropActiveChallenges();
           getActiveChallenges(
+            0,
+            f.back,
+            auth.tokenV3,
+            f.front,
+          );
+          break;
+        }
+        case BUCKETS.ALL: {
+          dropAllChallenges();
+          getAllChallenges(
             0,
             f.back,
             auth.tokenV3,
@@ -230,9 +242,11 @@ export class ListingContainer extends React.Component {
   loadChallenges() {
     const {
       auth,
-      getActiveChallenges,
+      // DISABLED: Until api receive fix community-app#5073
+      // getActiveChallenges,
       getOpenForRegistrationChallenges,
       getMyChallenges,
+      getAllChallenges,
       // getPastChallenges,
       // lastRequestedPageOfActiveChallenges,
       // lastRequestedPageOfOpenForRegistrationChallenges,
@@ -242,12 +256,21 @@ export class ListingContainer extends React.Component {
       getTotalChallengesCount,
     } = this.props;
     const f = this.getBackendFilter();
+    getAllChallenges(
+      0,
+      f.back,
+      auth.tokenV3,
+      f.front,
+    );
+    // DISABLED: Until api receive fix community-app#5073
+    /*
     getActiveChallenges(
       0,
       f.back,
       auth.tokenV3,
       f.front,
     );
+    */
     getOpenForRegistrationChallenges(
       0,
       f.back,
@@ -328,6 +351,7 @@ export class ListingContainer extends React.Component {
       challenges,
       openForRegistrationChallenges,
       myChallenges,
+      allChallenges,
       // pastChallenges,
       challengeTypes,
       challengesUrl,
@@ -344,12 +368,14 @@ export class ListingContainer extends React.Component {
       groupIds,
       getActiveChallenges,
       getMyChallenges,
+      getAllChallenges,
       getOpenForRegistrationChallenges,
       // getPastChallenges,
       getReviewOpportunities,
       hideSrm,
       keepPastPlaceholders,
       lastRequestedPageOfMyChallenges,
+      lastRequestedPageOfAllChallenges,
       lastRequestedPageOfActiveChallenges,
       lastRequestedPageOfOpenForRegistrationChallenges,
       // lastRequestedPageOfPastChallenges,
@@ -358,6 +384,7 @@ export class ListingContainer extends React.Component {
       loadingActiveChallengesUUID,
       loadingOpenForRegistrationChallengesUUID,
       loadingMyChallengesUUID,
+      loadingAllChallengesUUID,
       // loadingPastChallengesUUID,
       loadingReviewOpportunitiesUUID,
       listingOnly,
@@ -436,6 +463,16 @@ export class ListingContainer extends React.Component {
       );
     };
 
+    const loadMoreAll = () => {
+      const f = this.getBackendFilter();
+      getAllChallenges(
+        1 + lastRequestedPageOfAllChallenges,
+        f.back,
+        tokenV3,
+        f.front,
+      );
+    };
+
     let loadMoreReviewOpportunities;
     if (!allReviewOpportunitiesLoaded) {
       loadMoreReviewOpportunities = () => getReviewOpportunities(
@@ -480,6 +517,7 @@ export class ListingContainer extends React.Component {
           challenges={challenges}
           openForRegistrationChallenges={openForRegistrationChallenges}
           myChallenges={myChallenges}
+          allChallenges={allChallenges}
           // pastChallenges={pastChallenges}
           challengeTypes={challengeTypes}
           challengeTags={challengeTags}
@@ -498,6 +536,7 @@ export class ListingContainer extends React.Component {
           // lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           // eslint-disable-next-line max-len
           loadingMyChallenges={Boolean(loadingMyChallengesUUID)}
+          loadingAllChallenges={Boolean(loadingAllChallengesUUID)}
           loadingOpenForRegistrationChallenges={Boolean(loadingOpenForRegistrationChallengesUUID)}
           loadingOnGoingChallenges={Boolean(loadingActiveChallengesUUID)}
           // eslint-disable-next-line max-len
@@ -514,6 +553,7 @@ export class ListingContainer extends React.Component {
           // loadMorePast={loadMorePast}
           loadMoreReviewOpportunities={loadMoreReviewOpportunities}
           loadMoreMy={loadMoreMy}
+          loadMoreAll={loadMoreAll}
           loadMoreOpenForRegistration={loadMoreOpenForRegistration}
           loadMoreOnGoing={loadMoreOnGoing}
           reviewOpportunities={reviewOpportunities}
@@ -578,6 +618,7 @@ ListingContainer.propTypes = {
   challenges: PT.arrayOf(PT.shape({})).isRequired, // active challenges.
   openForRegistrationChallenges: PT.arrayOf(PT.shape({})).isRequired,
   myChallenges: PT.arrayOf(PT.shape({})).isRequired,
+  allChallenges: PT.arrayOf(PT.shape({})).isRequired,
   // pastChallenges: PT.arrayOf(PT.shape({})),
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string,
@@ -593,6 +634,7 @@ ListingContainer.propTypes = {
   defaultCommunityId: PT.string,
   dropChallenges: PT.func.isRequired,
   dropMyChallenges: PT.func.isRequired,
+  dropAllChallenges: PT.func.isRequired,
   dropOpenForRegistrationChallenges: PT.func.isRequired,
   dropActiveChallenges: PT.func.isRequired,
   // dropPastChallenges: PT.func.isRequired,
@@ -606,6 +648,7 @@ ListingContainer.propTypes = {
   getActiveChallenges: PT.func.isRequired,
   getOpenForRegistrationChallenges: PT.func.isRequired,
   getMyChallenges: PT.func.isRequired,
+  getAllChallenges: PT.func.isRequired,
   // getRestActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
   // getPastChallenges: PT.func.isRequired,
@@ -614,12 +657,14 @@ ListingContainer.propTypes = {
   lastRequestedPageOfActiveChallenges: PT.number.isRequired,
   lastRequestedPageOfOpenForRegistrationChallenges: PT.number.isRequired,
   lastRequestedPageOfMyChallenges: PT.number.isRequired,
+  lastRequestedPageOfAllChallenges: PT.number.isRequired,
   // lastRequestedPageOfPastChallenges: PT.number.isRequired,
   lastRequestedPageOfReviewOpportunities: PT.number.isRequired,
   // lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
   loadingOpenForRegistrationChallengesUUID: PT.string.isRequired,
   loadingMyChallengesUUID: PT.string.isRequired,
+  loadingAllChallengesUUID: PT.string.isRequired,
   // loadingPastChallengesUUID: PT.string.isRequired,
   loadingReviewOpportunitiesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
@@ -666,6 +711,7 @@ const mapStateToProps = (state, ownProps) => {
     challenges: cl.challenges,
     openForRegistrationChallenges: cl.openForRegistrationChallenges,
     myChallenges: cl.myChallenges,
+    allChallenges: cl.allChallenges,
     // pastChallenges: cl.pastChallenges,
     challengeTypes: cl.challengeTypes,
     challengeTags: cl.challengeTags,
@@ -679,12 +725,14 @@ const mapStateToProps = (state, ownProps) => {
     // eslint-disable-next-line max-len
     lastRequestedPageOfOpenForRegistrationChallenges: cl.lastRequestedPageOfOpenForRegistrationChallenges,
     lastRequestedPageOfMyChallenges: cl.lastRequestedPageOfMyChallenges,
+    lastRequestedPageOfAllChallenges: cl.lastRequestedPageOfAllChallenges,
     // lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastRequestedPageOfReviewOpportunities: cl.lastRequestedPageOfReviewOpportunities,
     // lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
     loadingOpenForRegistrationChallengesUUID: cl.loadingOpenForRegistrationChallengesUUID,
     loadingMyChallengesUUID: cl.loadingMyChallengesUUID,
+    loadingAllChallengesUUID: cl.loadingAllChallengesUUID,
     // loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
     loadingChallengeTypes: cl.loadingChallengeTypes,
@@ -731,6 +779,12 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getMyChallengesDone(uuid, page, filter, token, frontFilter));
     },
     dropMyChallenges: () => dispatch(a.dropMyChallenges()),
+    getAllChallenges: (page, filter, token, frontFilter) => {
+      const uuid = shortId();
+      dispatch(a.getAllChallengesInit(uuid, page, frontFilter));
+      dispatch(a.getAllChallengesDone(uuid, page, filter, token, frontFilter));
+    },
+    dropAllChallenges: () => dispatch(a.dropAllChallenges()),
     getTotalChallengesCount: (token, frontFilter) => {
       const uuid = shortId();
       dispatch(a.getTotalChallengesCountInit(uuid));

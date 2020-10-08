@@ -141,6 +141,14 @@ function onGetMyChallengesInit(state, { payload }) {
   };
 }
 
+function onGetAllChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingAllChallengesUUID: payload.uuid,
+    lastRequestedPageOfAllChallenges: payload.page,
+  };
+}
+
 // function onGetRestActiveChallengesInit(state, { payload }) {
 //   return {
 //     ...state,
@@ -587,6 +595,26 @@ function onGetMyChallengesDone(state, { error, payload }) {
   };
 }
 
+function onGetAllChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, allChallenges: loaded } = payload;
+  if (uuid !== state.loadingAllChallengesUUID) return state;
+  const challenges = state.allChallenges.concat(loaded);
+  return {
+    ...state,
+    allChallenges: challenges,
+    loadingAllChallengesUUID: '',
+    allChallengesLoaded: challenges.length >= payload.meta.allChallengesCount,
+    meta: {
+      ...state.meta,
+      allChallengesCount: payload.meta.allChallengesCount,
+    },
+  };
+}
+
 function onGetTotalChallengesCountInit(state, { payload }) {
   return {
     ...state,
@@ -624,16 +652,19 @@ function create(initialState) {
       ...state,
       allActiveChallengesLoaded: false,
       allMyChallengesLoaded: false,
+      allChallengesLoaded: false,
       allOpenForRegistrationChallengesLoaded: false,
       // allPastChallengesLoaded: false,
       // allReviewOpportunitiesLoaded: false,
       challenges: [],
+      allChallenges: [],
       myChallenges: [],
       openForRegistrationChallenges: [],
       // pastChallenges: [],
       lastRequestedPageOfActiveChallenges: -1,
       lastRequestedPageOfOpenForRegistrationChallenges: -1,
       lastRequestedPageOfMyChallenges: -1,
+      lastRequestedPageOfAllChallenges: -1,
       // lastRequestedPageOfPastChallenges: -1,
       // lastRequestedPageOfReviewOpportunities: -1,
       // lastUpdateOfActiveChallenges: 0,
@@ -686,6 +717,12 @@ function create(initialState) {
       lastRequestedPageOfMyChallenges: -1,
       loadingMyChallengesUUID: '',
     }),
+    [a.dropAllChallenges]: state => ({
+      ...state,
+      allChallenges: [],
+      lastRequestedPageOfAllChallenges: -1,
+      loadingAllChallengesUUID: '',
+    }),
     // [a.dropPastChallenges]: state => ({
     //   ...state,
     //   pastChallenges: [],
@@ -717,6 +754,9 @@ function create(initialState) {
 
     [a.getMyChallengesInit]: onGetMyChallengesInit,
     [a.getMyChallengesDone]: onGetMyChallengesDone,
+
+    [a.getAllChallengesInit]: onGetAllChallengesInit,
+    [a.getAllChallengesDone]: onGetAllChallengesDone,
 
     [a.getTotalChallengesCountInit]: onGetTotalChallengesCountInit,
     [a.getTotalChallengesCountDone]: onGetTotalChallengesCountDone,
@@ -762,10 +802,12 @@ function create(initialState) {
     allActiveChallengesLoaded: false,
     allMyChallengesLoaded: false,
     allOpenForRegistrationChallengesLoaded: false,
+    allChallengesLoaded: false,
     // allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 
     challenges: [],
+    allChallenges: [],
     myChallenges: [],
     openForRegistrationChallenges: [],
     // pastChallenges: [],
@@ -781,6 +823,7 @@ function create(initialState) {
     lastRequestedPageOfActiveChallenges: -1,
     lastRequestedPageOfOpenForRegistrationChallenges: -1,
     lastRequestedPageOfMyChallenges: -1,
+    lastRequestedPageOfAllChallenges: -1,
     // lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
     // lastUpdateOfActiveChallenges: 0,
@@ -788,6 +831,7 @@ function create(initialState) {
     loadingActiveChallengesUUID: '',
     loadingOpenForRegistrationChallengesUUID: '',
     loadingMyChallengesUUID: '',
+    loadingAllChallengesUUID: '',
     loadingRecommendedChallengesUUID: '',
     // loadingRestActiveChallengesUUID: '',
     loadingRecommendedChallengesTechnologies: '',
@@ -813,6 +857,7 @@ function create(initialState) {
       events: [],
       startDateEnd: null,
       endDateStart: null,
+      status: 'Active',
     },
 
     selectedCommunityId: 'All',
@@ -821,6 +866,7 @@ function create(initialState) {
       ongoing: 'startDate',
       openForRegistration: 'startDate',
       my: 'startDate',
+      all: 'startDate',
       // past: 'updated',
       reviewOpportunities: 'review-opportunities-start-date',
     },
