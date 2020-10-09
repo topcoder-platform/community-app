@@ -35,6 +35,10 @@ function TextInput({
           delayedOnChange(e.target.value, onChange);
           setVal(e.target.value);
         }}
+        onBlur={(e) => {
+          delayedOnChange(e.target.value, onChange);
+          setVal(e.target.value);
+        }}
       />
       {label ? (
         <label htmlFor="textBoxInput">

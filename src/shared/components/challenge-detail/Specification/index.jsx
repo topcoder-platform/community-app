@@ -61,7 +61,7 @@ export default function ChallengeDetailsView(props) {
   let stockArtValue = '';
   const allowStockArt = _.find(metadata, { name: 'allowStockArt' });
   if (allowStockArt) {
-    stockArtValue = allowStockArt.value;
+    stockArtValue = allowStockArt.value === 'true';
   }
 
   let environment = '';
