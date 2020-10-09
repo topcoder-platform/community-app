@@ -263,7 +263,7 @@ export default function ChallengeHeader(props) {
             <div styleName="tag-container">
               <ChallengeTags
                 track={track}
-                challengeType={_.find(challengeTypesMap, { name: type }) || []}
+                challengeType={_.find(challengeTypesMap, { name: type }) || {}}
                 challengesUrl={challengesUrl}
                 events={eventNames}
                 technPlatforms={miscTags}
@@ -392,7 +392,7 @@ export default function ChallengeHeader(props) {
                 Submit
               </PrimaryButton>
               {
-                track === COMPETITION_TRACKS.DESIGN && hasRegistered && !unregistering
+                track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
                 && hasSubmissions && (
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}
