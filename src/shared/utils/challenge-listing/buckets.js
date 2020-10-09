@@ -177,6 +177,7 @@ export function filterChanged(filter, prevFilter) {
   || (filter.endDateStart !== prevFilter.endDateStart)
   // eslint-disable-next-line max-len
   || (!_.isEqual(filter.groups, prevFilter.groups))
+  || (!_.isEqual(filter.events, prevFilter.events))
   || _.filter(filter.tags, val => _.indexOf(prevFilter.tags, val) < 0).length > 0
   || _.filter(prevFilter.tags, val => _.indexOf(filter.tags, val) < 0).length > 0
   || _.filter(filter.types, val => _.indexOf(prevFilter.types, val) < 0).length > 0
@@ -204,6 +205,7 @@ export function isFilterEmpty(filter) {
     tags: [],
     types: [],
     groups: [],
+    events: [],
     startDateStart: null,
     endDateEnd: null,
     status: 'Active',

@@ -46,6 +46,7 @@ export default function ChallengeFilters({
 }) {
   let filterRulesCount = 0;
   if (filterState.groups && filterState.groups.length) filterRulesCount += 1;
+  if (filterState.events && filterState.events.length) filterRulesCount += 1;
   if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
   if (filterState.types && filterState.types.length) filterRulesCount += 1;
   if (filterState.endDateStart || filterState.startDateEnd) {

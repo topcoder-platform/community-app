@@ -183,12 +183,21 @@ export default function FiltersPanel({
     );
   };
 
+  const mapCommunityOps = (community) => {
+    if (community.challengeFilter
+      && community.challengeFilter.events && community.challengeFilter.events.length) {
+      return `event_${community.challengeFilter.events[0]}`;
+    }
+
+    return community.communityName === 'All' ? '' : community.groupIds[0];
+  };
+
   const communityOps = communityFilters.filter(community => (
     (!community.hidden && !community.hideFilter && !_.isEmpty(community.groupIds)) || community.communityName === 'All'
   ))
     .map(community => ({
       label: community.communityName,
-      value: community.communityName === 'All' ? '' : community.groupIds[0],
+      value: mapCommunityOps(community),
       name: community.communityName,
       data: getLabel(community),
     }));
@@ -202,6 +211,16 @@ export default function FiltersPanel({
 
   const mapOps = item => ({ label: item, value: item });
   const mapTypes = item => ({ label: item.name, value: item.abbreviation });
+  const getCommunityOption = () => {
+    if (filterState.events && filterState.events.length) {
+      return `event_${filterState.events[0]}`;
+    }
+    if (filterState.groups && filterState.groups.length) {
+      return filterState.groups[0];
+    }
+    return '';
+  };
+
   return (
     <div styleName={className}>
       <div styleName="header">
@@ -247,13 +266,26 @@ export default function FiltersPanel({
               id="community-select"
               // onChange={selectCommunity}
               onChange={(value) => {
-                const group = value;
-                setFilterState({ ..._.clone(filterState), groups: group === '' ? [] : [group] });
+                if (value && value.startsWith('event_')) {
+                  const event = value.split('_')[1];
+                  setFilterState({
+                    ..._.clone(filterState),
+                    events: event === '' ? [] : [event],
+                    groups: [],
+                  });
+                } else {
+                  const group = value;
+                  setFilterState({
+                    ..._.clone(filterState),
+                    groups: group === '' ? [] : [group],
+                    events: [],
+                  });
+                }
                 // setFilterState({ ..._.clone(filterState), groups: [value] });
               }}
               options={communityOps}
               simpleValue
-              value={filterState.groups && filterState.groups.length ? filterState.groups[0] : ''}
+              value={getCommunityOption()}
               valueRenderer={option => (
                 <span styleName="active-community">
                   {option.name}
@@ -398,6 +430,7 @@ export default function FiltersPanel({
               tags: [],
               types: [],
               groups: [],
+              events: [],
               endDateStart: null,
               startDateEnd: null,
             });
