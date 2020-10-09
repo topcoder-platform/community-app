@@ -32,7 +32,7 @@ export default function ThriveArticles({ articles }) {
       <div
         styleName="article-right"
         style={{
-          backgroundImage: `url(${a.fields.featuredImage.file.url})`,
+          backgroundImage: `url(${a.fields.featuredImage ? a.fields.featuredImage.file.url : ''})`,
         }}
       />
     </div>

@@ -82,8 +82,8 @@ class ChallengeTile extends React.Component {
       margin: '10px 5px',
     };
 
-    const isDevelopment = track === COMPETITION_TRACKS.DEVELOP;
-    const isDesign = track === COMPETITION_TRACKS.DESIGN;
+    const isDevelopment = track === COMPETITION_TRACKS.DEV;
+    const isDesign = track === COMPETITION_TRACKS.DES;
 
     return (
       <div styleName="challenge tile" style={extraStyle}>
@@ -308,7 +308,7 @@ class ChallengeTile extends React.Component {
               </div>
 
               <p styleName="roles">
-                { track !== COMPETITION_TRACKS.DATA_SCIENCE
+                { track !== COMPETITION_TRACKS.DS
                   && (
                   <span>
                     <span>

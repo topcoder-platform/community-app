@@ -360,7 +360,7 @@ SideBar.defaultProps = {
   environment: '',
   codeRepo: '',
   isMM: false,
-  metadata: {},
+  metadata: [],
   reviewScorecardId: '',
   screeningScorecardId: '',
   legacyId: '',
@@ -368,7 +368,7 @@ SideBar.defaultProps = {
 
 SideBar.propTypes = {
   challengesUrl: PT.string.isRequired,
-  legacyId: PT.string,
+  legacyId: PT.oneOfType([PT.string, PT.number]),
   eventDetail: PT.shape({
     eventName: PT.string.isRequired,
     description: PT.string.isRequired,
@@ -384,7 +384,7 @@ SideBar.propTypes = {
   environment: PT.string,
   codeRepo: PT.string,
   isMM: PT.bool,
-  metadata: PT.shape(),
-  reviewScorecardId: PT.string,
+  metadata: PT.array,
+  reviewScorecardId: PT.oneOfType([PT.string, PT.number]),
   screeningScorecardId: PT.string,
 };
