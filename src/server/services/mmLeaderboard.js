@@ -4,7 +4,7 @@
  */
 import { services } from 'topcoder-react-lib';
 
-const { api, submissions } = services;
+const { api } = services;
 
 /**
  * Auxiliary class that handles communication with MMLeaderboard
@@ -18,11 +18,11 @@ export default class MMLService {
   async getLeaderboard(req, res, next) {
     try {
       const m2mToken = await api.getTcM2mToken();
-      const ss = submissions.getService(m2mToken);
-      const subs = await ss.getSubmissions({ challengeId: req.params.id });
+      const v5api = api.getApiV5(m2mToken);
+      const subs = await v5api.get(`/submissions?challengeId=${req.params.id}&page=1&perPage=500`);
       return res.send({
         id: req.params.id,
-        subs,
+        subs: await subs.json(),
       });
     } catch (err) {
       return next(err);
