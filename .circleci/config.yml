@@ -238,7 +238,7 @@ workflows:
             branches:
               only:                
                 - hot-fix-ad-code
-                - feature-contentful
+                - gig-work-email-landing
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
