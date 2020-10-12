@@ -44,6 +44,7 @@ export default function GigDetails(props) {
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
   const hPerW = getCustomField(job.custom_fields, 'Hours per week');
+  const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary}`;
 
   return (
     <div styleName="container">
@@ -71,7 +72,7 @@ export default function GigDetails(props) {
                 <IconMoney />
                 <div styleName="infos-data">
                   Compensation
-                  <strong>${job.min_annual_salary} - ${job.max_annual_salary} / {getSalaryType(job.salary_type)}</strong>
+                  <strong>${compens} / {getSalaryType(job.salary_type)}</strong>
                 </div>
               </div>
               <div styleName="infos-item">
