@@ -6,14 +6,14 @@ import moment from 'moment';
 import { sumBy } from 'lodash';
 
 export const SORTS = {
-  // CURRENT_PHASE: 'current-phase',
+  CURRENT_PHASE: 'current-phase',
   MOST_RECENT: 'updated',
   MOST_RECENT_START_DATE: 'startDate',
   // NUM_REGISTRANTS: 'num-registrants',
   // NUM_SUBMISSIONS: 'num-submissions',
-  PRIZE_HIGH_TO_LOW: 'prize-high-to-low',
-  TIME_TO_REGISTER: 'time-to-register',
-  TIME_TO_SUBMIT: 'time-to-submit',
+  PRIZE_HIGH_TO_LOW: 'prizeSets.prizes.value',
+  TIME_TO_REGISTER: 'registrationEndDate',
+  TIME_TO_SUBMIT: 'submissionEndDate',
   TITLE_A_TO_Z: 'name',
   REVIEW_OPPORTUNITIES_TITLE_A_TO_Z: 'review-opportunities-title-a-to-z',
   REVIEW_OPPORTUNITIES_PAYMENT: 'review-opportunities-payment',
