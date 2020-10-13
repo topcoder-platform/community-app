@@ -237,15 +237,14 @@ workflows:
           filters:
             branches:
               only:                
-                - hot-fix-ad-code
-                - gig-work-email-landing
+                - hot-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - gig-application
+                - develop
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

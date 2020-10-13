@@ -43,6 +43,8 @@ export default function GigDetails(props) {
   }
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
+  const hPerW = getCustomField(job.custom_fields, 'Hours per week');
+  const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary}`;
 
   return (
     <div styleName="container">
@@ -70,7 +72,7 @@ export default function GigDetails(props) {
                 <IconMoney />
                 <div styleName="infos-data">
                   Compensation
-                  <strong>${job.min_annual_salary} - ${job.max_annual_salary} / {getSalaryType(job.salary_type)}</strong>
+                  <strong>${compens} / {getSalaryType(job.salary_type)}</strong>
                 </div>
               </div>
               <div styleName="infos-item">
@@ -84,7 +86,7 @@ export default function GigDetails(props) {
                 <IconHours />
                 <div styleName="infos-data">
                   Hours
-                  <strong>{getCustomField(job.custom_fields, 'Hours per week')} hours / week</strong>
+                  <strong>{hPerW === 'n/a' ? hPerW : `${hPerW} hours / week`}</strong>
                 </div>
               </div>
               <div styleName="infos-item">
@@ -108,7 +110,10 @@ export default function GigDetails(props) {
                     * Topcoder does not provide visa sponsorship nor will we work with Staffing Agencies.
                   </strong>
                   <strong>
-                    ** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:support@topcoder.com">support@topcoder.com</a>.
+                    ** USA Visa Holders - Please consult an attorney before applying to any Topcoder Gig. Some visa statuses will or will not allow you to conduct freelance work with Topcoder.
+                  </strong>
+                  <strong>
+                    *** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:support@topcoder.com">support@topcoder.com</a>.
                   </strong>
                 </div>
                 <div styleName="cta-buttons">

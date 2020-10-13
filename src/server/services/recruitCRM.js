@@ -288,6 +288,29 @@ export default class RecruitCRMService {
           errObj,
         });
       }
+      // Set hired-stage
+      const hireStageResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.private.authorization,
+        },
+        body: JSON.stringify({
+          candidate_slug: candidateData.slug,
+          job_slug: id,
+          status_id: '10',
+        }),
+      });
+      if (hireStageResponse.status >= 400) {
+        return res.send({
+          error: true,
+          status: hireStageResponse.status,
+          url: `$${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`,
+          form,
+          errObj: await hireStageResponse.json(),
+        });
+      }
+      // respond to API call
       const data = await applyResponse.json();
       return res.send(data);
     } catch (err) {

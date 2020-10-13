@@ -158,7 +158,7 @@ const Uploading = ({
         submitDone && !error
           && (
           <div styleName="button-container">
-            { track === COMPETITION_TRACKS.DESIGN ? (
+            { track === COMPETITION_TRACKS.DES ? (
               <span>
                 <Button
                   onClick={() => reset()}
