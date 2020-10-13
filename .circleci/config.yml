@@ -245,6 +245,7 @@ workflows:
             branches:
               only:
                 - develop
+                - issue-5041
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
