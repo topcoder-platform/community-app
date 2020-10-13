@@ -236,8 +236,8 @@ workflows:
           context : org-global      
           filters:
             branches:
-              only:
-                - gig-details-fixes
+              only:                
+                - hot-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
