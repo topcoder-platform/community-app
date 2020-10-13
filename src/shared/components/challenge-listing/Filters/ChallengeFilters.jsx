@@ -53,7 +53,7 @@ export default function ChallengeFilters({
     filterRulesCount += 1;
   }
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
-  if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
+  // if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
   const isTrackOn = track => filterState.tracks && filterState.tracks[track];
 
   const switchTrack = (track, on) => {
