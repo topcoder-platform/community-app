@@ -19,7 +19,13 @@ async function getMMLeaderboardDone(id) {
   if (res) {
     const groupedData = _.groupBy(res.subs, 'createdBy');
     _.each(groupedData, (subs, handle) => {
-      const sortedSubs = _.orderBy(subs, ['updated'], ['desc']);
+      // filter member subs from reviewIds
+      const filteredSubs = _.map(subs, (sub) => {
+        // eslint-disable-next-line no-param-reassign
+        sub.review = _.filter(sub.review, r => res.reviewIds.indexOf(r.typeId) === -1);
+        return sub;
+      });
+      const sortedSubs = _.orderBy(filteredSubs, ['updated'], ['desc']);
       const scores = _.orderBy(_.compact(sortedSubs[0].review), ['updated'], ['desc']);
       data.push({
         createdBy: handle,
@@ -28,7 +34,7 @@ async function getMMLeaderboardDone(id) {
         score: scores && scores.length ? scores[0].score : '...',
       });
     });
-    data = _.orderBy(data, ['score', 'updated'], ['desc']).map((r, i) => ({
+    data = _.orderBy(data, [d => (Number(d.score) ? Number(d.score) : 0)], ['desc']).map((r, i) => ({
       ...r,
       rank: i + 1,
       score: r.score % 1 ? Number(r.score).toFixed(5) : r.score,
