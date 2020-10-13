@@ -61,7 +61,7 @@ export default function ChallengeDetailsView(props) {
   let stockArtValue = '';
   const allowStockArt = _.find(metadata, { name: 'allowStockArt' });
   if (allowStockArt) {
-    stockArtValue = allowStockArt.value;
+    stockArtValue = allowStockArt.value === 'true';
   }
 
   let environment = '';
@@ -381,7 +381,7 @@ ChallengeDetailsView.defaultProps = {
     environment: '',
     descriptionFormat: 'HTML',
     codeRepo: '',
-    metadata: {},
+    metadata: [],
     events: [],
     reviewScorecardId: '',
     screeningScorecardId: '',
@@ -398,12 +398,12 @@ ChallengeDetailsView.propTypes = {
     id: PT.any,
     privateDescription: PT.string,
     legacy: PT.shape({
-      reviewScorecardId: PT.string,
+      reviewScorecardId: PT.oneOfType([PT.string, PT.number]),
       screeningScorecardId: PT.string,
       forumId: PT.number,
     }),
     track: PT.string.isRequired,
-    legacyId: PT.string,
+    legacyId: PT.oneOfType([PT.string, PT.number]),
     groups: PT.any,
     reviewType: PT.string,
     numberOfCheckpointsPrizes: PT.number,
@@ -412,7 +412,7 @@ ChallengeDetailsView.propTypes = {
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
     }),
-    metadata: PT.shape(),
+    metadata: PT.array,
     events: PT.arrayOf(PT.string),
   }),
   challengesUrl: PT.string.isRequired,

@@ -51,7 +51,7 @@ export default function Submission(props) {
         {formatDate(submissionObject.created)}
       </td>
       {
-        track === COMPETITION_TRACKS.DESIGN && (
+        track === COMPETITION_TRACKS.DES && (
           <td styleName="status-col">
             {submissionObject.screening
               && (
@@ -68,7 +68,7 @@ export default function Submission(props) {
         <div>
           <a
             href={
-              track === COMPETITION_TRACKS.DESIGN
+              track === COMPETITION_TRACKS.DES
                 ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.id}`
                 : submissionObject.download
             }
@@ -86,7 +86,7 @@ export default function Submission(props) {
           ><DownloadIcon /></button>
           */ }
           {status !== CHALLENGE_STATUS.COMPLETED
-            && track !== COMPETITION_TRACKS.DESIGN
+            && track !== COMPETITION_TRACKS.DES
             && (
             <button
               styleName="delete-icon"

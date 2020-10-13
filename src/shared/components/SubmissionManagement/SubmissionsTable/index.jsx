@@ -102,7 +102,7 @@ export default function SubmissionsTable(props) {
             <th>
               Submission Date
             </th>
-            {track === COMPETITION_TRACKS.DESIGN && (
+            {track === COMPETITION_TRACKS.DES && (
             <th styleName="status">
               Screening Status
             </th>

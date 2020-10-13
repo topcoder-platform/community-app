@@ -1,0 +1,98 @@
+@import "~components/Contentful/default";
+
+.loadingWrap {
+  margin: 0;
+  padding: 0 34px;
+
+  @include gui-kit-headers;
+  @include gui-kit-content;
+  @include roboto-regular;
+
+  .loadingText {
+    font-family: Roboto, sans-serif;
+    color: #2a2a2a;
+    text-align: center;
+    margin-top: 26px;
+  }
+}
+
+.subscribedWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 34px;
+
+  @include gui-kit-headers;
+  @include gui-kit-content;
+  @include roboto-regular;
+
+  > h4 {
+    margin-bottom: 16px !important;
+  }
+
+  > p {
+    font-size: 24px !important;
+    line-height: 36px !important;
+    text-align: center;
+
+    &.errorMsg {
+      color: #ef476f;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  color: #2a2a2a;
+
+  @include gui-kit-headers;
+  @include gui-kit-content;
+  @include roboto-regular;
+
+  h6 {
+    margin-top: 41px;
+
+    @include xs-to-sm {
+      margin-top: 0;
+    }
+  }
+
+  > div {
+    margin-bottom: 8px;
+  }
+
+  .button {
+    background-color: #137d60;
+    border-radius: 20px;
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: bolder;
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 40px;
+    padding: 0 20px;
+    border: none;
+    outline: none;
+    margin-top: 13px;
+    margin-bottom: 41px;
+    max-width: 150px;
+
+    &:hover {
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      background-color: #0ab88a;
+    }
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
+
+    &:disabled {
+      background-color: #e9e9e9 !important;
+      border: none !important;
+      text-decoration: none !important;
+      color: #fafafb !important;
+      box-shadow: none !important;
+    }
+  }
+}
