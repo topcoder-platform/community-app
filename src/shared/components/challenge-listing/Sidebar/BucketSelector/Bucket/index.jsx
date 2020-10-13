@@ -68,7 +68,7 @@ function Bucket({
     return (
       <div styleName="active bucket">
         {BUCKET_DATA[bucket].name}
-        {countEl}
+        {bucket !== BUCKETS.ALL && countEl}
         {/* {error} */}
       </div>
     );
@@ -83,7 +83,7 @@ function Bucket({
       tabIndex={0}
     >
       {BUCKET_DATA[bucket].name}
-      {countEl}
+      {bucket !== BUCKETS.ALL && countEl}
       {/* {error} */}
     </div>
   );

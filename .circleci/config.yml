@@ -237,14 +237,15 @@ workflows:
           filters:
             branches:
               only:
-                - listing-develop-sync
+                - develop
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - gig-application
+                - develop
+                - listing-develop-sync
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

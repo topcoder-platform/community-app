@@ -4,7 +4,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
-// import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 // import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 import _ from 'lodash';
 
@@ -17,7 +17,7 @@ import FiltersSwitch from './FiltersSwitch';
 
 import './ChallengeFilters.scss';
 
-// const Filter = challengeUtils.filter;
+const Filter = challengeUtils.filter;
 
 export default function ChallengeFilters({
   communityFilters,
@@ -30,6 +30,7 @@ export default function ChallengeFilters({
   auth,
   // isCardTypeSet,
   isReviewOpportunitiesBucket,
+  activeBucket,
   // saveFilter,
   searchText,
   selectCommunity,
@@ -45,17 +46,20 @@ export default function ChallengeFilters({
 }) {
   let filterRulesCount = 0;
   if (filterState.groups && filterState.groups.length) filterRulesCount += 1;
+  if (filterState.events && filterState.events.length) filterRulesCount += 1;
   if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
   if (filterState.types && filterState.types.length) filterRulesCount += 1;
-  if (filterState.endDateEnd || filterState.startDateStart) filterRulesCount += 1;
+  if (filterState.endDateStart || filterState.startDateEnd) {
+    filterRulesCount += 1;
+  }
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
   if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
-  const isTrackOn = track => filterState.tracks[track];
+  const isTrackOn = track => filterState.tracks && filterState.tracks[track];
 
   const switchTrack = (track, on) => {
-    const newFilter = _.cloneDeep(filterState);
-    newFilter.tracks[track] = on;
-    setFilterState({ ...newFilter });
+    const act = on ? Filter.addTrack : Filter.removeTrack;
+    const filterObj = act(filterState, track);
+    setFilterState({ ...filterObj });
   };
 
   const clearSearch = () => {
@@ -168,6 +172,7 @@ export default function ChallengeFilters({
         isAuth={isAuth}
         auth={auth}
         isReviewOpportunitiesBucket={isReviewOpportunitiesBucket}
+        activeBucket={activeBucket}
         filterState={filterState}
         onClose={() => setExpanded(false)}
         // onSaveFilter={saveFilter}
@@ -209,6 +214,7 @@ ChallengeFilters.propTypes = {
   communityFilters: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,
+  activeBucket: PT.string.isRequired,
   // challenges: PT.arrayOf(PT.shape()),
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,

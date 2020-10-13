@@ -141,6 +141,14 @@ function onGetMyChallengesInit(state, { payload }) {
   };
 }
 
+function onGetAllChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingAllChallengesUUID: payload.uuid,
+    lastRequestedPageOfAllChallenges: payload.page,
+  };
+}
+
 // function onGetRestActiveChallengesInit(state, { payload }) {
 //   return {
 //     ...state,
@@ -401,7 +409,7 @@ function onSetFilter(state, { payload }) {
    * do it very carefuly (many params are not validated). */
   const filter = _.pickBy(_.pick(
     payload,
-    ['tags', 'types', 'name', 'startDateStart', 'endDateEnd', 'groups'],
+    ['tags', 'types', 'name', 'startDateEnd', 'endDateStart', 'groups', 'events', 'tracks'],
   ), value => (!_.isArray(value) && value && value !== '') || (_.isArray(value) && value.length > 0));
   // if (_.isPlainObject(filter.tags)) {
   //   filter.tags = _.values(filter.tags);
@@ -409,11 +417,11 @@ function onSetFilter(state, { payload }) {
   // if (_.isPlainObject(filter.subtracks)) {
   //   filter.subtracks = _.values(filter.subtracks);
   // }
-  if (filter.startDateStart && !moment(filter.startDateStart).isValid()) {
-    delete filter.startDateStart;
+  if (filter.startDateEnd && !moment(filter.startDateEnd).isValid()) {
+    delete filter.startDateEnd;
   }
-  if (filter.endDateEnd && !moment(filter.endDateEnd).isValid()) {
-    delete filter.endDateEnd;
+  if (filter.endDateStart && !moment(filter.endDateStart).isValid()) {
+    delete filter.endDateStart;
   }
   // console.log(`aaaaa`);
   // console.log(filter);
@@ -423,7 +431,7 @@ function onSetFilter(state, { payload }) {
   // console.log(`======`);
   return {
     ...state,
-    filter: payload,
+    filter: _.assign({}, state.filter, payload),
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
@@ -587,6 +595,26 @@ function onGetMyChallengesDone(state, { error, payload }) {
   };
 }
 
+function onGetAllChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, allChallenges: loaded } = payload;
+  if (uuid !== state.loadingAllChallengesUUID) return state;
+  const challenges = state.allChallenges.concat(loaded);
+  return {
+    ...state,
+    allChallenges: challenges,
+    loadingAllChallengesUUID: '',
+    allChallengesLoaded: challenges.length >= payload.meta.allChallengesCount,
+    meta: {
+      ...state.meta,
+      allChallengesCount: payload.meta.allChallengesCount,
+    },
+  };
+}
+
 function onGetTotalChallengesCountInit(state, { payload }) {
   return {
     ...state,
@@ -624,16 +652,19 @@ function create(initialState) {
       ...state,
       allActiveChallengesLoaded: false,
       allMyChallengesLoaded: false,
+      allChallengesLoaded: false,
       allOpenForRegistrationChallengesLoaded: false,
       // allPastChallengesLoaded: false,
       // allReviewOpportunitiesLoaded: false,
       challenges: [],
+      allChallenges: [],
       myChallenges: [],
       openForRegistrationChallenges: [],
       // pastChallenges: [],
       lastRequestedPageOfActiveChallenges: -1,
       lastRequestedPageOfOpenForRegistrationChallenges: -1,
       lastRequestedPageOfMyChallenges: -1,
+      lastRequestedPageOfAllChallenges: -1,
       // lastRequestedPageOfPastChallenges: -1,
       // lastRequestedPageOfReviewOpportunities: -1,
       // lastUpdateOfActiveChallenges: 0,
@@ -686,6 +717,12 @@ function create(initialState) {
       lastRequestedPageOfMyChallenges: -1,
       loadingMyChallengesUUID: '',
     }),
+    [a.dropAllChallenges]: state => ({
+      ...state,
+      allChallenges: [],
+      lastRequestedPageOfAllChallenges: -1,
+      loadingAllChallengesUUID: '',
+    }),
     // [a.dropPastChallenges]: state => ({
     //   ...state,
     //   pastChallenges: [],
@@ -717,6 +754,9 @@ function create(initialState) {
 
     [a.getMyChallengesInit]: onGetMyChallengesInit,
     [a.getMyChallengesDone]: onGetMyChallengesDone,
+
+    [a.getAllChallengesInit]: onGetAllChallengesInit,
+    [a.getAllChallengesDone]: onGetAllChallengesDone,
 
     [a.getTotalChallengesCountInit]: onGetTotalChallengesCountInit,
     [a.getTotalChallengesCountDone]: onGetTotalChallengesCountDone,
@@ -762,10 +802,12 @@ function create(initialState) {
     allActiveChallengesLoaded: false,
     allMyChallengesLoaded: false,
     allOpenForRegistrationChallengesLoaded: false,
+    allChallengesLoaded: false,
     // allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 
     challenges: [],
+    allChallenges: [],
     myChallenges: [],
     openForRegistrationChallenges: [],
     // pastChallenges: [],
@@ -781,6 +823,7 @@ function create(initialState) {
     lastRequestedPageOfActiveChallenges: -1,
     lastRequestedPageOfOpenForRegistrationChallenges: -1,
     lastRequestedPageOfMyChallenges: -1,
+    lastRequestedPageOfAllChallenges: -1,
     // lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
     // lastUpdateOfActiveChallenges: 0,
@@ -788,6 +831,7 @@ function create(initialState) {
     loadingActiveChallengesUUID: '',
     loadingOpenForRegistrationChallengesUUID: '',
     loadingMyChallengesUUID: '',
+    loadingAllChallengesUUID: '',
     loadingRecommendedChallengesUUID: '',
     // loadingRestActiveChallengesUUID: '',
     loadingRecommendedChallengesTechnologies: '',
@@ -810,8 +854,10 @@ function create(initialState) {
       tags: [],
       types: [],
       groups: [],
-      startDateStart: null,
-      endDateEnd: null,
+      events: [],
+      startDateEnd: null,
+      endDateStart: null,
+      status: 'Active',
     },
 
     selectedCommunityId: 'All',
@@ -820,6 +866,7 @@ function create(initialState) {
       ongoing: 'startDate',
       openForRegistration: 'startDate',
       my: 'startDate',
+      all: 'startDate',
       // past: 'updated',
       reviewOpportunities: 'review-opportunities-start-date',
     },

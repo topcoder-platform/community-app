@@ -7,7 +7,7 @@
 import _ from 'lodash';
 import qs from 'qs';
 import { isomorphy } from 'topcoder-react-utils';
-
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 /**
  * Get current URL hash parameters as object
  */
@@ -37,7 +37,25 @@ export function getQuery() {
 export function updateQuery(update) {
   if (isomorphy.isServerSide()) return;
 
-  // let query = qs.parse(window.location.search.slice(1));
+  let filterObj = {};
+  // check if bucket is selected
+  if (update.bucket) {
+    // fetching everything else from url except bucket
+    filterObj = {
+      ...qs.parse(window.location.search.slice(1)),
+      ...update,
+    };
+    if (update.bucket === BUCKETS.ALL) {
+      delete filterObj.bucket; // delete bucket field for all challenges
+    }
+  } else {
+    // fetch only bucket from url
+    const query = qs.parse(window.location.search.slice(1));
+    filterObj = {
+      ...(query.bucket && { bucket: query.bucket }), // fetch only bucket from url
+      ...update,
+    };
+  }
   let query = '?';
   const { hash } = window.location;
   const filterArray = [];
@@ -45,11 +63,14 @@ export function updateQuery(update) {
   /* _.merge won't work here, because it just ignores the fields explicitely
    * set as undefined in the objects to be merged, rather than deleting such
    * fields in the target object. */
-  _.forIn(update, (value, key) => {
+  _.forIn(filterObj, (value, key) => {
     if (_.isArray(value) && value.length > 0) filterArray.push(value.map(item => `${key}[]=${item}`).join('&'));
     // eslint-disable-next-line max-len
     else if (_.isUndefined(value) || _.isEmpty(value) || (_.isArray(value) && value.length === 0)) delete query[key];
-    else {
+    else if (typeof value === 'object') {
+      const separator = query === '?' ? '' : '&';
+      query += `${separator}${qs.stringify({ tracks: value }, { encodeValuesOnly: true })}`;
+    } else {
       const separator = query === '?' ? '' : '&';
       query += `${separator}${key}=${value}`;
     }

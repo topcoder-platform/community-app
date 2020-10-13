@@ -23,10 +23,12 @@ function Listing({
   auth,
   allActiveChallengesLoaded,
   allMyChallengesLoaded,
+  allChallengesLoaded,
   allOpenForRegistrationChallengesLoaded,
   challenges,
   openForRegistrationChallenges,
   myChallenges,
+  allChallenges,
   // pastChallenges,
   challengeTypes,
   // userChallenges,
@@ -39,6 +41,8 @@ function Listing({
   loadingReviewOpportunities,
   loadingMyChallenges,
   loadMoreMy,
+  loadingAllChallenges,
+  loadMoreAll,
   loadingOpenForRegistrationChallenges,
   loadMoreOpenForRegistration,
   loadingOnGoingChallenges,
@@ -107,6 +111,12 @@ function Listing({
         loading = loadingOnGoingChallenges;
         loadMore = allActiveChallengesLoaded ? null : loadMoreOnGoing;
         newExpanded = newExpanded || (+meta.ongoingChallengesCount === bucketChallenges.length);
+        break;
+      case BUCKETS.ALL:
+        bucketChallenges = [].concat(allChallenges);
+        loading = loadingAllChallenges;
+        loadMore = allChallengesLoaded ? null : loadMoreAll;
+        newExpanded = newExpanded || (+meta.allChallengesCount === bucketChallenges.length);
         break;
       default:
         break;
@@ -199,14 +209,15 @@ function Listing({
     || loadingOpenForRegistrationChallenges
     || loadingOnGoingChallenges;
   const placeholders = [];
-  if (challenges.length > 0) {
+  if (challenges.length > 0 || (activeBucket === BUCKETS.ALL && allChallenges.length > 0)) {
     return (
       <div styleName="challengeCardContainer">
         {preListingMsg}
-        {(auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null}
+        {/* (auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null */}
         {/* {extraBucket ? getBucket(extraBucket) : null} */}
-        {openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+        {/* openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION) */}
         {/* {getBucket(BUCKETS.ONGOING)} */}
+        {getBucket(BUCKETS.ALL)}
       </div>
     );
   }
@@ -233,6 +244,7 @@ Listing.defaultProps = {
   challenges: [],
   openForRegistrationChallenges: [],
   myChallenges: [],
+  allChallenges: [],
   // pastChallenges: [],
   challengeTypes: [],
   communityName: null,
@@ -244,6 +256,7 @@ Listing.defaultProps = {
   // loadMorePast: null,
   loadMoreReviewOpportunities: null,
   loadMoreMy: null,
+  loadMoreAll: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
   preListingMsg: null,
@@ -267,10 +280,12 @@ Listing.propTypes = {
   }).isRequired,
   allActiveChallengesLoaded: PT.bool.isRequired,
   allMyChallengesLoaded: PT.bool.isRequired,
+  allChallengesLoaded: PT.bool.isRequired,
   allOpenForRegistrationChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape()),
   openForRegistrationChallenges: PT.arrayOf(PT.shape()),
   myChallenges: PT.arrayOf(PT.shape()),
+  allChallenges: PT.arrayOf(PT.shape()),
   // pastChallenges: PT.arrayOf(PT.shape()),
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
@@ -282,10 +297,12 @@ Listing.propTypes = {
   keepPastPlaceholders: PT.bool.isRequired,
   // loadingPastChallenges: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
+  loadingAllChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreMy: PT.func,
+  loadMoreAll: PT.func,
   loadMoreOnGoing: PT.func,
   loadMoreOpenForRegistration: PT.func,
   // loadMorePast: PT.func,
@@ -313,6 +330,7 @@ const mapStateToProps = (state) => {
     // allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     allMyChallengesLoaded: cl.allMyChallengesLoaded,
+    allChallengesLoaded: cl.allChallengesLoaded,
     allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
     // pastSearchTimestamp: cl.pastSearchTimestamp,
     challengeTypes: cl.challengeTypes,

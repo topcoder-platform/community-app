@@ -127,7 +127,7 @@ export default function Bucket({
       challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
-      onTechTagClicked={tag => setFilterState({ ..._.clone(filterState), tags: [tag] })}
+      onTechTagClicked={tag => setFilterState({ ..._.clone(filterState), tags: [tag], types: [] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
       key={challenge.id}

@@ -63,10 +63,10 @@ export default function ChallengeTags(props) {
         && (
           <TrackTag
             onClick={() => (
-              setImmediate(() => setChallengeListingFilter({ types: [challengeType.id] }))
+              setImmediate(() => setChallengeListingFilter({ types: [challengeType.abbreviation] }))
             )
             }
-            to={`${challengesUrl}?filter[types][0]=${encodeURIComponent(challengeType.id)}`}
+            to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
           >
             {challengeType.name}
           </TrackTag>
@@ -90,7 +90,7 @@ export default function ChallengeTags(props) {
                 key={tag}
                 onClick={() => setImmediate(() => setChallengeListingFilter({ tags: [tag] }))
                 }
-                to={`${challengesUrl}?filter[tags][0]=${
+                to={`${challengesUrl}?tags[]=${
                   encodeURIComponent(tag)}`}
               >
                 {tag}
