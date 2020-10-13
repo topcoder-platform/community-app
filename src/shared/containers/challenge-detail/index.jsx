@@ -879,7 +879,7 @@ const mapDispatchToProps = (dispatch) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       const newFilter = _.assign({}, { types: [], tags: [] }, filter);
-      dispatch(cls.selectBucket(BUCKETS.ALL));
+      dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
       dispatch(cl.setFilter(newFilter));
     },
     setSpecsTabState: state => dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
