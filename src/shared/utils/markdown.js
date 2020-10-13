@@ -25,6 +25,7 @@ import Looker from 'containers/Looker';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Modal from 'components/Contentful/Modal';
 import NewsletterArchive from 'containers/NewsletterArchive';
+import MMLeaderboard from 'containers/MMLeaderboard';
 
 import tco19SecLg from 'components/buttons/outline/tco/tco19-sec-lg.scss';
 import tco19Lg from 'components/buttons/outline/tco/tco19-lg.scss';
@@ -127,6 +128,7 @@ const customComponents = {
       },
     };
   },
+  MMLeaderboard: attrs => ({ type: MMLeaderboard, props: attrs }),
 };
 
 /**
