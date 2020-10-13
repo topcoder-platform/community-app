@@ -15,9 +15,15 @@ const mockDatas = [{
     {
       communityId: '123',
       communityName: 'Sample community',
+      groupIds: ['123'],
     },
   ],
-  filterState: {},
+  challengeFilter: {
+    groupIds: ['123'],
+  },
+  filterState: {
+    groups: [],
+  },
   hidden: true,
   onSaveFilter,
   selectCommunity,
@@ -32,9 +38,15 @@ const mockDatas = [{
     {
       communityId: '123',
       communityName: 'Sample community',
+      groupIds: ['123'],
     },
   ],
-  filterState: {},
+  challengeFilter: {
+    groupIds: ['123'],
+  },
+  filterState: {
+    groups: [],
+  },
   hidden: false,
   onSaveFilter,
   selectCommunity,

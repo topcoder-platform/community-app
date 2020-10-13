@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="15px" viewBox="0 0 18 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 63.1 (101010) - https://sketch.com -->
+    <title>21742205-DC86-42C6-AD5E-D5ADCDBB3E3F</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M10.6,14 L8.10710678,11.5071068 C7.71658249,11.1165825 7.08341751,11.1165825 6.69289322,11.5071068 L5.70710678,12.4928932 C5.31658249,12.8834175 5.31658249,13.5165825 5.70710678,13.9071068 L10.6,18.8 L10.6,18.8 L20.2928932,9.10710678 C20.6834175,8.71658249 20.6834175,8.08341751 20.2928932,7.69289322 L19.3071068,6.70710678 C18.9165825,6.31658249 18.2834175,6.31658249 17.8928932,6.70710678 L10.6,14 L10.6,14 Z" id="path-1"></path>
+        <filter x="-9.9%" y="-4.6%" width="119.8%" height="128.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.35 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Forms" transform="translate(-762.000000, -188.000000)" fill-rule="nonzero">
+            <g id="checkbox/lg/checked" transform="translate(758.000000, 182.000000)">
+                <g id="check-mark">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

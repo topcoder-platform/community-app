@@ -8,12 +8,20 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import SearchCombo from 'components/GUIKit/SearchCombo';
 import Paginate from 'components/GUIKit/Paginate';
 import JobListCard from 'components/GUIKit/JobListCard';
+import Dropdown from 'components/GUIKit/Dropdown';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import './jobLisingStyles.scss';
 
 const GIGS_PER_PAGE = 10;
+// Sort by dropdown
+const sortByOptions = [
+  { label: 'Latest Added Descending', selected: true },
+  { label: 'Latest Updated Descending', selected: false },
+];
+// Locations
+let locations = [];
 
 class RecruitCRMJobsContainer extends React.Component {
   constructor(props) {
@@ -23,11 +31,14 @@ class RecruitCRMJobsContainer extends React.Component {
       term: '',
       page: 0,
       sortBy: 'created_on',
+      location: 'Any Location',
     };
-
+    // binds
     this.onSearch = this.onSearch.bind(this);
     this.onPaginate = this.onPaginate.bind(this);
     this.onFilter = this.onFilter.bind(this);
+    this.onLocation = this.onLocation.bind(this);
+    this.onSort = this.onSort.bind(this);
   }
 
   componentDidMount() {
@@ -69,6 +80,22 @@ class RecruitCRMJobsContainer extends React.Component {
     });
   }
 
+  onLocation(newLocation) {
+    const selected = _.find(newLocation, { selected: true });
+    this.onFilter({
+      location: selected.label,
+      page: 0,
+    });
+  }
+
+  onSort(newSort) {
+    const selected = _.find(newSort, { selected: true });
+    this.onFilter({
+      sortBy: selected.label === 'Latest Updated Descending' ? 'updated_on' : 'created_on',
+      page: 0,
+    });
+  }
+
   render() {
     const {
       loading,
@@ -78,16 +105,36 @@ class RecruitCRMJobsContainer extends React.Component {
       term,
       page,
       sortBy,
+      location,
     } = this.state;
 
     if (loading) {
-      return <LoadingIndicator />;
+      return (
+        <React.Fragment>
+          <LoadingIndicator />;
+          <p styleName="loading-text">Searching our database for the best gigs…</p>
+        </React.Fragment>
+      );
     }
 
     let jobsToDisplay = jobs;
+    // build current locations dropdown based on all data
+    // and filter by selected location
+    jobsToDisplay = _.filter(jobs, (job) => {
+      // build dropdown
+      const found = _.find(locations, { label: job.country });
+      if (!found) {
+        locations.push({ label: job.country, selected: location === job.country });
+      }
+      // filter
+      if (location === 'Anywhere' || location === 'Any' || location === 'Any Location') return true;
+      return location.toLowerCase() === job.country.toLowerCase();
+    });
+    // sort location dropdown
+    locations = _.sortBy(locations, ['label']);
     // Filter by term
     if (term) {
-      jobsToDisplay = _.filter(jobs, (job) => {
+      jobsToDisplay = _.filter(jobsToDisplay, (job) => {
         // eslint-disable-next-line no-underscore-dangle
         const _term = term.toLowerCase();
         // name search
@@ -97,6 +144,9 @@ class RecruitCRMJobsContainer extends React.Component {
         if (skills && skills.value && skills.value.toLowerCase().includes(_term)) return true;
         // location
         if (job.country.toLowerCase().includes(_term)) return true;
+        // duration
+        const duration = _.find(job.custom_fields, ['field_name', 'Duration']);
+        if (duration && duration.value && duration.value.toLowerCase().includes(_term)) return true;
         // no match
         return false;
       });
@@ -115,6 +165,8 @@ class RecruitCRMJobsContainer extends React.Component {
       <div styleName="container">
         <div styleName="filters">
           <SearchCombo placeholder="Search Gig Listings by Name, Skills, or Location" onSearch={this.onSearch} term={term} />
+          <Dropdown label="Location" onChange={this.onLocation} options={locations} size="xs" />
+          <Dropdown label="Sort by" onChange={this.onSort} options={sortByOptions} size="xs" />
         </div>
         <div styleName="jobs-list-container">
           {
@@ -134,11 +186,12 @@ class RecruitCRMJobsContainer extends React.Component {
 
 RecruitCRMJobsContainer.defaultProps = {
   jobs: [],
+  loading: true,
 };
 
 RecruitCRMJobsContainer.propTypes = {
   getJobs: PT.func.isRequired,
-  loading: PT.bool.isRequired,
+  loading: PT.bool,
   jobs: PT.arrayOf(PT.shape),
 };
 

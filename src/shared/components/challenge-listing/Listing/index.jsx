@@ -7,29 +7,47 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
+  BUCKETS, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
+  // BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
 } from 'utils/challenge-listing/buckets';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+// import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
+import CardPlaceholder from '../placeholders/ChallengeCard';
 import './style.scss';
 
-const Filter = challengeUtils.filter;
+// const Filter = challengeUtils.filter;
 
 function Listing({
   activeBucket,
   auth,
+  allActiveChallengesLoaded,
+  allMyChallengesLoaded,
+  allChallengesLoaded,
+  allOpenForRegistrationChallengesLoaded,
   challenges,
+  openForRegistrationChallenges,
+  myChallenges,
+  allChallenges,
+  // pastChallenges,
   challengeTypes,
-  userChallenges,
+  // userChallenges,
   challengesUrl,
   communityName,
-  extraBucket,
+  // extraBucket,
   filterState,
   keepPastPlaceholders,
-  loadingPastChallenges,
+  // loadingPastChallenges,
   loadingReviewOpportunities,
-  loadMorePast,
+  loadingMyChallenges,
+  loadMoreMy,
+  loadingAllChallenges,
+  loadMoreAll,
+  loadingOpenForRegistrationChallenges,
+  loadMoreOpenForRegistration,
+  loadingOnGoingChallenges,
+  loadMoreOnGoing,
+  // loadMorePast,
   loadMoreReviewOpportunities,
   newChallengeDetails,
   openChallengesInNewTabs,
@@ -42,34 +60,63 @@ function Listing({
   setFilterState,
   setSort,
   sorts,
+  expanding,
   expandedTags,
   expandTag,
-  pastSearchTimestamp,
+  // pastSearchTimestamp,
   isLoggedIn,
+  meta,
 }) {
-  const buckets = getBuckets(userChallenges);
-  const isChallengesAvailable = (bucket) => {
-    const filter = Filter.getFilterFunction(buckets[bucket].filter);
-    const clonedChallenges = _.clone(challenges);
-    const filteredChallenges = [];
-    for (let i = 0; i < clonedChallenges.length; i += 1) {
-      if (filter(clonedChallenges[i])) {
-        filteredChallenges.push(clonedChallenges[i]);
-      }
-    }
-    return filteredChallenges.length > 0;
-  };
+  // const buckets = getBuckets(userChallenges);
+  // const isChallengesAvailable = (bucket) => {
+  //   // const filter = Filter.getFilterFunction(buckets[bucket].filter);
+  //   const clonedChallenges = _.clone(challenges);
+  //   const filteredChallenges = [];
+  //   for (let i = 0; i < clonedChallenges.length; i += 1) {
+  //     // if (filter(clonedChallenges[i])) {
+  //       // filteredChallenges.push(clonedChallenges[i]);
+  //     // }
+  //   }
+  //   return filteredChallenges.length > 0;
+  // };
   const getBucket = (bucket, expanded = false) => {
-    let keepPlaceholders = false;
+    // const keepPlaceholders = false;
     let loading;
     let loadMore;
-    let searchTimestamp;
+    // let searchTimestamp;
+    let bucketChallenges = [];
+    let newExpanded = expanded;
     switch (bucket) {
-      case BUCKETS.PAST:
-        keepPlaceholders = keepPastPlaceholders;
-        loading = loadingPastChallenges;
-        loadMore = loadMorePast;
-        searchTimestamp = pastSearchTimestamp;
+      // case BUCKETS.PAST:
+      //   keepPlaceholders = keepPastPlaceholders;
+      //   bucketChallenges = [].concat(pastChallenges);
+      //   loading = loadingPastChallenges;
+      //   loadMore = loadMorePast;
+      //   // searchTimestamp = pastSearchTimestamp;
+      //   break;
+      case BUCKETS.MY:
+        bucketChallenges = [].concat(myChallenges);
+        loading = loadingMyChallenges;
+        loadMore = allMyChallengesLoaded ? null : loadMoreMy;
+        newExpanded = newExpanded || (+meta.myChallengesCount === bucketChallenges.length);
+        break;
+      case BUCKETS.OPEN_FOR_REGISTRATION:
+        bucketChallenges = [].concat(openForRegistrationChallenges);
+        loading = loadingOpenForRegistrationChallenges;
+        loadMore = allOpenForRegistrationChallengesLoaded ? null : loadMoreOpenForRegistration;
+        newExpanded = newExpanded || (+meta.openChallengesCount === bucketChallenges.length);
+        break;
+      case BUCKETS.ONGOING:
+        bucketChallenges = [].concat(challenges);
+        loading = loadingOnGoingChallenges;
+        loadMore = allActiveChallengesLoaded ? null : loadMoreOnGoing;
+        newExpanded = newExpanded || (+meta.ongoingChallengesCount === bucketChallenges.length);
+        break;
+      case BUCKETS.ALL:
+        bucketChallenges = [].concat(allChallenges);
+        loading = loadingAllChallenges;
+        loadMore = allChallengesLoaded ? null : loadMoreAll;
+        newExpanded = newExpanded || (+meta.allChallengesCount === bucketChallenges.length);
         break;
       default:
         break;
@@ -80,12 +127,13 @@ function Listing({
       isReviewOpportunitiesBucket(bucket)
         ? (
           <ReviewOpportunityBucket
-            bucket={buckets[bucket]}
+            // bucket={buckets[bucket]}
+            bucket={bucket}
             challengesUrl={challengesUrl}
             expandedTags={expandedTags}
             expandTag={expandTag}
             filterState={filterState}
-            keepPlaceholders={keepPlaceholders}
+            keepPlaceholders={keepPastPlaceholders}
             loading={loadingReviewOpportunities}
             loadMore={loadMoreReviewOpportunities}
             opportunities={reviewOpportunities}
@@ -98,18 +146,23 @@ function Listing({
         )
         : (
           <Bucket
-            bucket={buckets[bucket]}
-            bucketId={bucket}
-            challenges={challenges}
+            // bucket={buckets[bucket]}
+            bucket={bucket}
+            // bucketId={bucket}
+            challenges={bucketChallenges}
             challengeTypes={challengeTypes}
             challengesUrl={challengesUrl}
             communityName={communityName}
-            expand={() => selectBucket(bucket)}
-            expanded={expanded}
+            expand={() => {
+              selectBucket(bucket, true);
+              loadMore();
+            }}
+            expanded={newExpanded}
+            expanding={expanding}
             expandedTags={expandedTags}
             expandTag={expandTag}
             filterState={filterState}
-            keepPlaceholders={keepPlaceholders}
+            // keepPlaceholders={keepPlaceholders}
             loading={loading}
             loadMore={loadMore}
             newChallengeDetails={newChallengeDetails}
@@ -122,14 +175,14 @@ function Listing({
             sort={sorts[bucket]}
             userId={_.get(auth, 'user.userId')}
             activeBucket={activeBucket}
-            searchTimestamp={searchTimestamp}
+            // searchTimestamp={searchTimestamp}
             isLoggedIn={isLoggedIn}
           />
         )
     );
   };
 
-  if ((activeBucket !== BUCKETS.ALL)
+  if (!expanding && (activeBucket !== BUCKETS.ALL)
   && (activeBucket !== BUCKETS.SAVED_FILTER)) {
     return (
       <div styleName="challengeCardContainer">
@@ -138,71 +191,121 @@ function Listing({
     );
   }
 
-  let isFilled = isChallengesAvailable(BUCKETS.OPEN_FOR_REGISTRATION)
-  || isChallengesAvailable(BUCKETS.ONGOING);
-  if (auth.user) {
-    isFilled = isFilled || isChallengesAvailable(BUCKETS.MY);
-  }
-  if (!isFilled) {
+  // let isFilled = isChallengesAvailable(BUCKETS.OPEN_FOR_REGISTRATION)
+  // || isChallengesAvailable(BUCKETS.ONGOING);
+  // if (auth.user) {
+  //   isFilled = isFilled || isChallengesAvailable(BUCKETS.MY);
+  // }
+  // if (!isFilled) {
+  //   return (
+  //     <div styleName="challengeCardContainer">
+  //       <div styleName="no-results">
+  //         {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
+  //       </div>
+  //     </div>
+  //   );
+  // }
+  const loading = loadingMyChallenges
+    || loadingOpenForRegistrationChallenges
+    || loadingOnGoingChallenges;
+  const placeholders = [];
+  if (challenges.length > 0 || (activeBucket === BUCKETS.ALL && allChallenges.length > 0)) {
     return (
       <div styleName="challengeCardContainer">
-        <div styleName="no-results">
-          {`${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}`}
-        </div>
+        {preListingMsg}
+        {/* (auth.user && myChallenges.length > 0) ? getBucket(BUCKETS.MY) : null */}
+        {/* {extraBucket ? getBucket(extraBucket) : null} */}
+        {/* openForRegistrationChallenges.length > 0 && getBucket(BUCKETS.OPEN_FOR_REGISTRATION) */}
+        {/* {getBucket(BUCKETS.ONGOING)} */}
+        {getBucket(BUCKETS.ALL)}
       </div>
     );
   }
+
+  if (loading) {
+    for (let i = 0; i < 10; i += 1) {
+      placeholders.push(<CardPlaceholder id={i} key={i} />);
+    }
+  }
   return (
     <div styleName="challengeCardContainer">
-      {preListingMsg}
-      {auth.user ? getBucket(BUCKETS.MY) : null}
-      {extraBucket ? getBucket(extraBucket) : null}
-      {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
-      {getBucket(BUCKETS.ONGOING)}
+      {
+        loading
+          ? placeholders
+          : (
+            <div styleName="no-results">{ `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }</div>
+          )
+      }
     </div>
   );
 }
 
 Listing.defaultProps = {
   challenges: [],
+  openForRegistrationChallenges: [],
+  myChallenges: [],
+  allChallenges: [],
+  // pastChallenges: [],
   challengeTypes: [],
   communityName: null,
   // currentFilterName: '',
   // expanded: false,
   expandedTags: [],
   expandTag: null,
-  extraBucket: null,
-  loadMorePast: null,
+  // extraBucket: null,
+  // loadMorePast: null,
   loadMoreReviewOpportunities: null,
+  loadMoreMy: null,
+  loadMoreAll: null,
+  loadMoreOpenForRegistration: null,
+  loadMoreOnGoing: null,
   preListingMsg: null,
   reviewOpportunities: [],
   // onTechTagClicked: _.noop,
   // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
-  pastSearchTimestamp: 0,
-  userChallenges: [],
+  // pastSearchTimestamp: 0,
+  // userChallenges: [],
+  expanding: false,
 };
 
 Listing.propTypes = {
   activeBucket: PT.string.isRequired,
+  expanding: PT.bool,
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
       userId: PT.string,
     }),
   }).isRequired,
+  allActiveChallengesLoaded: PT.bool.isRequired,
+  allMyChallengesLoaded: PT.bool.isRequired,
+  allChallengesLoaded: PT.bool.isRequired,
+  allOpenForRegistrationChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape()),
+  openForRegistrationChallenges: PT.arrayOf(PT.shape()),
+  myChallenges: PT.arrayOf(PT.shape()),
+  allChallenges: PT.arrayOf(PT.shape()),
+  // pastChallenges: PT.arrayOf(PT.shape()),
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
-  extraBucket: PT.string,
+  // extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
-  loadingPastChallenges: PT.bool.isRequired,
+  // loadingPastChallenges: PT.bool.isRequired,
+  loadingMyChallenges: PT.bool.isRequired,
+  loadingAllChallenges: PT.bool.isRequired,
+  loadingOpenForRegistrationChallenges: PT.bool.isRequired,
+  loadingOnGoingChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
-  loadMorePast: PT.func,
+  loadMoreMy: PT.func,
+  loadMoreAll: PT.func,
+  loadMoreOnGoing: PT.func,
+  loadMoreOpenForRegistration: PT.func,
+  // loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
@@ -215,16 +318,21 @@ Listing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
-  pastSearchTimestamp: PT.number,
-  userChallenges: PT.arrayOf(PT.string),
+  // pastSearchTimestamp: PT.number,
+  // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
+  meta: PT.shape().isRequired,
 };
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
   return {
+    // allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
-    pastSearchTimestamp: cl.pastSearchTimestamp,
+    allMyChallengesLoaded: cl.allMyChallengesLoaded,
+    allChallengesLoaded: cl.allChallengesLoaded,
+    allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
+    // pastSearchTimestamp: cl.pastSearchTimestamp,
     challengeTypes: cl.challengeTypes,
   };
 };

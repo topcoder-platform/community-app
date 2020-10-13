@@ -110,6 +110,11 @@ function Routes({ communityId }) {
           path={`${config.GIGS_PAGES_PATH}/:id?`}
         />
         <Route
+          component={GigsPages}
+          exact
+          path={`${config.GIGS_PAGES_PATH}/:id/apply`}
+        />
+        <Route
           render={() => (
             <React.Fragment>
               <ContentfulRoute

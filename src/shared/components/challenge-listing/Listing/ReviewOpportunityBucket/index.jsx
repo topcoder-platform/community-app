@@ -5,6 +5,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
+import { BUCKET_DATA } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -35,7 +36,7 @@ export default function ReviewOpportunityBucket({
 }) {
   if (!opportunities.length && !loadMore) return null;
 
-  const activeSort = sort || bucket.sorts[0];
+  const activeSort = sort || BUCKET_DATA[bucket].sorts[0];
 
   const sortedOpportunities = _.clone(opportunities);
   sortedOpportunities.sort(Sort[activeSort].func);
@@ -46,15 +47,16 @@ export default function ReviewOpportunityBucket({
    * a filter is changed.  */
   const filteredOpportunities = sortedOpportunities.filter(
     Filter.getReviewOpportunitiesFilterFunction({
-      ...bucket.filter, // Default bucket filters from utils/buckets.js
+      ...BUCKET_DATA[bucket].filter, // Default bucket filters from utils/buckets.js
       ...filterState, // User selected filters
     }, challengeTypes),
+    // }),
   );
 
   const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
       challengesUrl={challengesUrl}
-      challengeType={_.find(challengeTypes, { name: item.challenge.type }) || []}
+      challengeType={_.find(challengeTypes, { name: item.challenge.type }) || {}}
       expandedTags={expandedTags}
       expandTag={expandTag}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
@@ -65,7 +67,7 @@ export default function ReviewOpportunityBucket({
 
   const placeholders = [];
   if ((loading || keepPlaceholders) && cards.length === 0) {
-    for (let i = 0; i < 8; i += 1) {
+    for (let i = 0; i < 10; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
   }
@@ -76,7 +78,7 @@ export default function ReviewOpportunityBucket({
         title="Open for review"
         onSelect={setSort}
         options={
-          bucket.sorts.map(item => ({
+          BUCKET_DATA[bucket].sorts.map(item => ({
             label: Sort[item].name,
             value: item,
           }))
@@ -116,7 +118,8 @@ ReviewOpportunityBucket.defaultProps = {
 
 // Prop Validation
 ReviewOpportunityBucket.propTypes = {
-  bucket: PT.shape().isRequired,
+  // bucket: PT.shape().isRequired,
+  bucket: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,

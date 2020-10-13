@@ -8,6 +8,8 @@ import { decodeToken } from '@topcoder-platform/tc-auth-lib';
 import 'isomorphic-fetch';
 import { processSRM } from 'utils/tc';
 import { errors, services } from 'topcoder-react-lib';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
+import SORT from 'utils/challenge-listing/sort';
 
 const { fireErrorMessage } = errors;
 const { getService } = services.challenge;
@@ -16,7 +18,7 @@ const { getReviewOpportunitiesService } = services.reviewOpportunities;
 /**
  * The maximum number of challenges to fetch in a single API call.
  */
-const PAGE_SIZE = 99;
+const PAGE_SIZE = 10;
 
 /**
  * The maximum number of review opportunities to fetch in a single API call.
@@ -31,19 +33,19 @@ const REVIEW_OPPORTUNITY_PAGE_SIZE = 1000;
  * @param {Number} page Optional. Next page of challenges to load.
  * @param {Array} prev Optional. Challenges loaded so far.
  */
-function getAll(getter, page = 0, prev) {
-  /* Amount of challenges to fetch in one API call. 50 is the current maximum
-   * amount of challenges the backend returns, event when the larger limit is
-   * explicitely required. */
+// function getAll(getter, page = 0, prev) {
+//   /* Amount of challenges to fetch in one API call. 50 is the current maximum
+//    * amount of challenges the backend returns, event when the larger limit is
+//    * explicitely required. */
 
-  return getter({
-    perPage: PAGE_SIZE,
-    page: page + 1,
-  }).then(({ challenges: chunk }) => {
-    if (!chunk.length) return prev || [];
-    return getAll(getter, 1 + page, prev ? prev.concat(chunk) : chunk);
-  });
-}
+//   return getter({
+//     perPage: PAGE_SIZE,
+//     page: page + 1,
+//   }).then(({ challenges: chunk }) => {
+//     if (!chunk.length) return prev || [];
+//     return getAll(getter, 1 + page, prev ? prev.concat(chunk) : chunk);
+//   });
+// }
 
 /**
  * Gets possible challenge types.
@@ -77,6 +79,18 @@ function getActiveChallengesInit(uuid, page, frontFilter) {
   return { uuid, page, frontFilter };
 }
 
+function getOpenForRegistrationChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
+}
+
+function getMyChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
+}
+
+function getAllChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
+}
+
 /**
  * Get all challenges and match with user challenges
  * @param {String} uuid progress id
@@ -84,70 +98,70 @@ function getActiveChallengesInit(uuid, page, frontFilter) {
  * @param {Object} filter filter object
  * @param {number} page start page
  */
-function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
-  const service = getService(tokenV3);
-  const calls = [
-    getAll(params => service.getChallenges(filter, params), page),
-  ];
-  let user;
-  if (tokenV3) {
-    user = decodeToken(tokenV3).userId;
+// function getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter, page = 0) {
+//   const service = getService(tokenV3);
+//   const calls = [
+//     getAll(params => service.getChallenges(filter, params), page),
+//   ];
+//   let user;
+//   if (tokenV3) {
+//     user = decodeToken(tokenV3).userId;
 
-    const newFilter = _.mapKeys(filter, (value, key) => {
-      if (key === 'tag') return 'technologies';
+//     const newFilter = _.mapKeys(filter, (value, key) => {
+//       if (key === 'tag') return 'technologies';
 
-      return key;
-    });
+//       return key;
+//     });
 
-    // Handle any errors on this endpoint so that the non-user specific challenges
-    // will still be loaded.
-    calls.push(getAll(params => service.getUserChallenges(user, newFilter, params)
-      .catch(() => ({ challenges: [] }))), page);
-  }
-  return Promise.all(calls).then(([ch, uch]) => {
-    /* uch array contains challenges where the user is participating in
-@@ -111,8 +124,8 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
-     * challenges in an efficient way. */
-    if (uch) {
-      const map = {};
-      uch.forEach((item) => { map[item.id] = item; });
-      ch.forEach((item) => {
-        if (map[item.id]) {
-          /* It is fine to reassing, as the array we modifying is created just
-           * above within the same function. */
-          /* eslint-disable no-param-reassign */
-          item.users[user] = true;
-          item.userDetails = map[item.id].userDetails;
-          /* eslint-enable no-param-reassign */
-        }
-      });
-    }
+//     // Handle any errors on this endpoint so that the non-user specific challenges
+//     // will still be loaded.
+//     calls.push(getAll(params => service.getUserChallenges(user, newFilter, params)
+//       .catch(() => ({ challenges: [] }))), page);
+//   }
+//   return Promise.all(calls).then(([ch, uch]) => {
+//     /* uch array contains challenges where the user is participating in
+// @@ -111,8 +124,8 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
+//      * challenges in an efficient way. */
+//     if (uch) {
+//       const map = {};
+//       uch.forEach((item) => { map[item.id] = item; });
+//       ch.forEach((item) => {
+//         if (map[item.id]) {
+//           /* It is fine to reassing, as the array we modifying is created just
+//            * above within the same function. */
+//           /* eslint-disable no-param-reassign */
+//           item.users[user] = true;
+//           item.userDetails = map[item.id].userDetails;
+//           /* eslint-enable no-param-reassign */
+//         }
+//       });
+//     }
 
-    return { uuid, challenges: ch, ...filter };
-  });
-}
+//     return { uuid, challenges: ch, ...filter };
+//   });
+// }
 
 /** TODO: Inspect if the 2 actions bellow can be removed?
  * They do  duplicate what is done in `getActiveChallengesDone` but fetch all challenges
  * which was refactored in listing-improve
  */
-function getAllActiveChallengesInit(uuid) {
-  return uuid;
-}
-function getAllActiveChallengesDone(uuid, tokenV3) {
-  const filter = { status: 'Active' };
-  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
-}
+// function getAllActiveChallengesInit(uuid) {
+//   return uuid;
+// }
+// function getAllActiveChallengesDone(uuid, tokenV3) {
+//   const filter = { status: 'Active' };
+//   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
+// }
 
-function getAllUserChallengesInit(uuid) {
-  return uuid;
-}
+// function getAllUserChallengesInit(uuid) {
+//   return uuid;
+// }
 
-function getAllUserChallengesDone(uuid, tokenV3) {
-  const memberId = decodeToken(tokenV3).userId;
-  const filter = { status: 'Active', memberId };
-  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
-}
+// function getAllUserChallengesDone(uuid, tokenV3) {
+//   const memberId = decodeToken(tokenV3).userId;
+//   const filter = { status: 'Active', memberId };
+//   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
+// }
 
 /**
  * Gets 1 page of active challenges (including marathon matches) from the backend.
@@ -165,31 +179,145 @@ function getAllUserChallengesDone(uuid, tokenV3) {
  * @return {Promise}
  */
 function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const { sorts } = frontFilter;
   const filter = {
-    ...backendFilter,
-    status: 'Active',
-  };
-  const service = getService(tokenV3);
-  const calls = [
-    service.getChallenges(filter, {
+    backendFilter,
+    frontFilter: {
+      ...frontFilter,
+      status: 'Active',
+      currentPhaseName: 'Submission',
+      registrationEndDateEnd: new Date().toISOString(),
       perPage: PAGE_SIZE,
       page: page + 1,
-    }),
-  ];
-  let user;
-  if (tokenV3) {
-    user = decodeToken(tokenV3).userId;
-
-    // Handle any errors on this endpoint so that the non-user specific challenges
-    // will still be loaded.
-    calls.push(service.getUserChallenges(user, filter, {})
-      .catch(() => ({ challenges: [] })));
-  }
-  return Promise.all(calls).then(([ch]) => ({
+      sortBy: sorts[BUCKETS.ONGOING],
+      sortOrder: SORT[sorts[BUCKETS.ONGOING]].order,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
     uuid,
     challenges: ch.challenges,
     meta: ch.meta,
     frontFilter,
+  }));
+  // const calls = [
+  //   service.getChallenges(filter, {
+  //     perPage: PAGE_SIZE,
+  //     page: page + 1,
+  //   }),
+  // ];
+  // let user;
+  // if (tokenV3) {
+  //   user = decodeToken(tokenV3).userId;
+
+  //   // Handle any errors on this endpoint so that the non-user specific challenges
+  //   // will still be loaded.
+  //   calls.push(service.getUserChallenges(user, filter, {})
+  //     .catch(() => ({ challenges: [] })));
+  // }
+  // return Promise.all(calls).then(([ch]) => ({
+  //   uuid,
+  //   challenges: ch.challenges,
+  //   meta: ch.meta,
+  //   frontFilter,
+  // }));
+}
+
+function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
+  tokenV3, frontFilter = {}) {
+  const { sorts } = frontFilter;
+  const filter = {
+    backendFilter,
+    frontFilter: {
+      ...frontFilter,
+      status: 'Active',
+      currentPhaseName: 'Registration',
+      perPage: PAGE_SIZE,
+      page: page + 1,
+      sortBy: sorts[BUCKETS.OPEN_FOR_REGISTRATION],
+      sortOrder: SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]].order,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
+    uuid,
+    openForRegistrationChallenges: ch.challenges,
+    meta: ch.meta,
+    frontFilter,
+  }));
+}
+
+function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const userId = decodeToken(tokenV3).userId.toString();
+  const { sorts } = frontFilter;
+  const filter = {
+    backendFilter,
+    frontFilter: {
+      ...frontFilter,
+      status: 'Active',
+      memberId: userId,
+      perPage: PAGE_SIZE,
+      page: page + 1,
+      sortBy: sorts[BUCKETS.MY],
+      sortOrder: SORT[sorts[BUCKETS.MY]].order,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
+    uuid,
+    myChallenges: ch.challenges,
+    meta: ch.meta,
+    frontFilter,
+  }));
+}
+
+function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const { sorts, status } = frontFilter;
+  const filter = {
+    backendFilter,
+    frontFilter: {
+      ...frontFilter,
+      perPage: PAGE_SIZE,
+      page: page + 1,
+      sortBy: sorts[BUCKETS.ALL],
+      sortOrder: SORT[sorts[BUCKETS.ALL]].order,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  if (status === 'All') {
+    delete filter.frontFilter.status;
+  }
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
+    uuid,
+    allChallenges: ch.challenges,
+    meta: ch.meta,
+    frontFilter,
+  }));
+}
+
+function getTotalChallengesCountInit(uuid) {
+  return { uuid };
+}
+
+function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
+  const filter = {
+    backendFilter: {},
+    frontFilter: {
+      ...frontFilter,
+      status: 'Active',
+      isLightweight: true,
+      perPage: 1,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
+    uuid,
+    meta: ch.meta,
   }));
 }
 
@@ -197,43 +325,43 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
  * Init loading of all challenges
  * @param {String} uuid
  */
-function getRestActiveChallengesInit(uuid) {
-  return { uuid };
-}
+// function getRestActiveChallengesInit(uuid) {
+//   return { uuid };
+// }
 
 /**
  * Loading all challenges
  * @param {String} uuid progress id
  * @param {String} tokenV3 token v3
  */
-function getRestActiveChallengesDone(uuid, tokenV3, filter) {
-  const mergedFilter = {
-    ...filter,
-    status: 'Active',
-  };
-  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, mergedFilter, 1);
-}
+// function getRestActiveChallengesDone(uuid, tokenV3, filter) {
+//   const mergedFilter = {
+//     ...filter,
+//     status: 'Active',
+//   };
+//   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, mergedFilter, 1);
+// }
 
 /**
  * Prepare for getting all recommended challenges
  * @param {String} uuid progress id
  */
-function getAllRecommendedChallengesInit(uuid) {
-  return uuid;
-}
+// function getAllRecommendedChallengesInit(uuid) {
+//   return uuid;
+// }
 /**
  * Get all recommended challenges
  * @param {String} uuid progress id
  * @param {String} tokenV3 token v3
  * @param {*} recommendedTags recommended tags
  */
-function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTags) {
-  const filter = {
-    status: 'Active',
-    ...(!_.isEmpty(recommendedTags) && { tag: recommendedTags }),
-  };
-  return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
-}
+// function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTags) {
+//   const filter = {
+//     status: 'Active',
+//     ...(!_.isEmpty(recommendedTags) && { tag: recommendedTags }),
+//   };
+//   return getAllActiveChallengesWithUsersDone(uuid, tokenV3, filter);
+// }
 
 /**
  * Notifies the state that we are about to load the specified page of past
@@ -243,9 +371,9 @@ function getAllRecommendedChallengesDone(uuid, tokenV3, recommendedTags) {
  * @param {Object} frontFilter
  * @return {Object}
  */
-function getPastChallengesInit(uuid, page, frontFilter) {
-  return { uuid, page, frontFilter };
-}
+// function getPastChallengesInit(uuid, page, frontFilter) {
+//   return { uuid, page, frontFilter };
+// }
 
 /**
  * Gets the specified page of past challenges (including MMs).
@@ -255,16 +383,27 @@ function getPastChallengesInit(uuid, page, frontFilter) {
  * @param {Object} frontFilter Optional. Original frontend filter.
  * @param {Object}
  */
-function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
-  const service = getService(tokenV3);
-  return service.getChallenges({
-    ...filter,
-    status: 'Completed',
-  }, {
-    perPage: PAGE_SIZE,
-    page: page + 1,
-  }).then(({ challenges }) => ({ uuid, challenges, frontFilter }));
-}
+// function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+//   const { sorts } = frontFilter;
+//   const filter = {
+//     backendFilter,
+//     frontFilter: {
+//       ...frontFilter,
+//       status: 'Completed',
+//       perPage: PAGE_SIZE,
+//       page: page + 1,
+//       sortBy: sorts[BUCKETS.PAST],
+//       sortOrder: SORT[sorts[BUCKETS.PAST]].order,
+//     },
+//   };
+//   delete filter.frontFilter.sorts;
+//   const service = getService(tokenV3);
+//   return service.getChallenges(filter).then(({ challenges }) => ({
+//     uuid,
+//     pastChallenges: challenges,
+//     frontFilter,
+//   }));
+// }
 
 /**
  * Action to get a list of currently open Review Opportunities using V3 API
@@ -326,54 +465,71 @@ function getSrmsDone(uuid, handle, params, tokenV3) {
  * Payload creator for the action that initialize user registered challenges.
  * @param {String} uuid
  * @return {String}
- */
-function getUserChallengesInit(uuid) {
-  return { uuid };
-}
+//  */
+// function getUserChallengesInit(uuid) {
+//   return { uuid };
+// }
 
-/**
- * Payload creator for the action that loads user registered challenges.
- * @param {String} userId
- * @return {String}
- */
-function getUserChallengesDone(userId, tokenV3) {
-  const service = getService(tokenV3);
+// /**
+//  * Payload creator for the action that loads user registered challenges.
+//  * @param {String} userId
+//  * @return {String}
+//  */
+// function getUserChallengesDone(userId, tokenV3) {
+//   const service = getService(tokenV3);
 
-  return service.getUserResources(userId, 1, 10000)
-    .then(item => item)
-    .catch((error) => {
-      fireErrorMessage('Error Getting User Challenges', error.content || error);
-      return Promise.reject(error);
-    });
-}
+//   return service.getUserResources(userId)
+//     .then(item => item)
+//     .catch((error) => {
+//       fireErrorMessage('Error Getting User Challenges', error.content || error);
+//       return Promise.reject(error);
+//     });
+// }
 
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
+    DROP_ACTIVE_CHALLENGES: _.noop,
+    DROP_OPEN_FOR_REGISTRATION_CHALLENGES: _.noop,
+    DROP_MY_CHALLENGES: _.noop,
+    DROP_ALL_CHALLENGES: _.noop,
+    DROP_PAST_CHALLENGES: _.noop,
 
-    GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
-    GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
+    // GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
+    // GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
 
-    GET_ALL_USER_CHALLENGES_INIT: getAllUserChallengesInit,
-    GET_ALL_USER_CHALLENGES_DONE: getAllUserChallengesDone,
+    // GET_ALL_USER_CHALLENGES_INIT: getAllUserChallengesInit,
+    // GET_ALL_USER_CHALLENGES_DONE: getAllUserChallengesDone,
 
-    GET_ALL_RECOMMENDED_CHALLENGES_INIT: getAllRecommendedChallengesInit,
-    GET_ALL_RECOMMENDED_CHALLENGES_DONE: getAllRecommendedChallengesDone,
+    // GET_ALL_RECOMMENDED_CHALLENGES_INIT: getAllRecommendedChallengesInit,
+    // GET_ALL_RECOMMENDED_CHALLENGES_DONE: getAllRecommendedChallengesDone,
+
+    GET_ALL_CHALLENGES_INIT: getAllChallengesInit,
+    GET_ALL_CHALLENGES_DONE: getAllChallengesDone,
 
     GET_ACTIVE_CHALLENGES_INIT: getActiveChallengesInit,
     GET_ACTIVE_CHALLENGES_DONE: getActiveChallengesDone,
 
-    GET_REST_ACTIVE_CHALLENGES_INIT: getRestActiveChallengesInit,
-    GET_REST_ACTIVE_CHALLENGES_DONE: getRestActiveChallengesDone,
+    GET_OPEN_FOR_REGISTRATION_CHALLENGES_INIT: getOpenForRegistrationChallengesInit,
+    GET_OPEN_FOR_REGISTRATION_CHALLENGES_DONE: getOpenForRegistrationChallengesDone,
+
+    GET_MY_CHALLENGES_INIT: getMyChallengesInit,
+    GET_MY_CHALLENGES_DONE: getMyChallengesDone,
+
+    // GET_REST_ACTIVE_CHALLENGES_INIT: getRestActiveChallengesInit,
+    // GET_REST_ACTIVE_CHALLENGES_DONE: getRestActiveChallengesDone,
 
     GET_CHALLENGE_TYPES_INIT: _.noop,
     GET_CHALLENGE_TYPES_DONE: getChallengeTypesDone,
 
+    GET_TOTAL_CHALLENGES_COUNT_INIT: getTotalChallengesCountInit,
+    GET_TOTAL_CHALLENGES_COUNT_DONE: getTotalChallengesCountDone,
+
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
 
-    GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
-    GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
+    // GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
+    // GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
 
     GET_REVIEW_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
     GET_REVIEW_OPPORTUNITIES_DONE: getReviewOpportunitiesDone,
@@ -381,8 +537,8 @@ export default createActions({
     GET_SRMS_INIT: getSrmsInit,
     GET_SRMS_DONE: getSrmsDone,
 
-    GET_USER_CHALLENGES_INIT: getUserChallengesInit,
-    GET_USER_CHALLENGES_DONE: getUserChallengesDone,
+    // GET_USER_CHALLENGES_INIT: getUserChallengesInit,
+    // GET_USER_CHALLENGES_DONE: getUserChallengesDone,
 
     EXPAND_TAG: id => id,
 

@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import { isomorphy, Link, config } from 'topcoder-react-utils';
 import ReactHtmlParser from 'react-html-parser';
 import { getSalaryType, getCustomField } from 'utils/gigs';
+import SubscribeMailChimpTag from 'containers/SubscribeMailChimpTag';
 import './style.scss';
 import IconFacebook from 'assets/images/icon-facebook.svg';
 import IconTwitter from 'assets/images/icon-twitter.svg';
@@ -21,7 +22,7 @@ import iconSkills from 'assets/images/icon-skills-blue.png';
 import iconLabel1 from 'assets/images/l1.png';
 import iconLabel2 from 'assets/images/l2.png';
 import iconLabel3 from 'assets/images/l3.png';
-import iconLabel4 from 'assets/images/l4.png';
+import SadFace from 'assets/images/sad-face-icon.svg';
 
 // Cleanup HTML from style tags
 // so it won't affect other parts of the UI
@@ -35,20 +36,23 @@ const ReactHtmlParserOptions = {
 };
 
 export default function GigDetails(props) {
-  const { job } = props;
+  const { job, application } = props;
   let shareUrl;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
   }
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
+  const hPerW = getCustomField(job.custom_fields, 'Hours per week');
+  const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary}`;
 
   return (
     <div styleName="container">
       {
         job.error || job.enable_job_application_form !== 1 ? (
           <div styleName="error">
-            <h3>Gig does not exist.</h3>
+            { job.error ? <SadFace /> : null }
+            <h3>{ job.error ? 'Gig does not exist' : 'This Gig has been Fulfilled'}</h3>
             <div styleName="cta-buttons">
               <Link to={config.GIGS_PAGES_PATH}>VIEW OTHER GIGS</Link>
             </div>
@@ -68,7 +72,7 @@ export default function GigDetails(props) {
                 <IconMoney />
                 <div styleName="infos-data">
                   Compensation
-                  <strong>${job.min_annual_salary} - ${job.max_annual_salary} / {getSalaryType(job.salary_type)}</strong>
+                  <strong>${compens} / {getSalaryType(job.salary_type)}</strong>
                 </div>
               </div>
               <div styleName="infos-item">
@@ -82,7 +86,7 @@ export default function GigDetails(props) {
                 <IconHours />
                 <div styleName="infos-data">
                   Hours
-                  <strong>{getCustomField(job.custom_fields, 'Hours per week')} hours / week</strong>
+                  <strong>{hPerW === 'n/a' ? hPerW : `${hPerW} hours / week`}</strong>
                 </div>
               </div>
               <div styleName="infos-item">
@@ -106,11 +110,18 @@ export default function GigDetails(props) {
                     * Topcoder does not provide visa sponsorship nor will we work with Staffing Agencies.
                   </strong>
                   <strong>
-                    ** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:support@topcoder.com">support@topcoder.com</a>.
+                    ** USA Visa Holders - Please consult an attorney before applying to any Topcoder Gig. Some visa statuses will or will not allow you to conduct freelance work with Topcoder.
+                  </strong>
+                  <strong>
+                    *** Topcoder and Wipro employees are not eligible for Gig work opportunities. Do not apply and send questions to <a href="mailto:support@topcoder.com">support@topcoder.com</a>.
                   </strong>
                 </div>
                 <div styleName="cta-buttons">
-                  <a styleName="primaryBtn" href={`https://recruitcrm.io/apply/${job.slug}`} target="_blank" rel="noopener noreferrer">APPLY TO THIS JOB</a>
+                  {
+                    !application || !application.success ? (
+                      <Link styleName="primaryBtn" to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}>APPLY TO THIS JOB</Link>
+                    ) : null
+                  }
                   <Link to={config.GIGS_PAGES_PATH}>VIEW OTHER JOBS</Link>
                 </div>
               </div>
@@ -127,8 +138,12 @@ export default function GigDetails(props) {
                     <IconTwitter />
                   </a>
                 </div>
+                <div styleName="subscribe-area">
+                  <h6>SUBSCRIBE TO WEEKLY UPDATES</h6>
+                  <p>Not ready to apply? Want to stay tuned for any new gigs that may be upcoming? Join our weekly Gig Work list.</p>
+                  <SubscribeMailChimpTag listId="28bfd3c062" tags={['Gig Work']} />
+                </div>
                 <div styleName="info-area">
-                  <p>Thank you for checking out our latest gig at Topcoder. Gig work through us is simple and effective for those that would like traditional freelance work. To learn more about how Gigs work with us, go <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/thrive/tracks?track=Topcoder&amp;tax=Gig%20Work">here</a>.</p>
                   <p>At Topcoder, we pride ourselves in bringing our customers the very best candidates to help fill their needs. Want to improve your chances? You can do a few things:</p>
                   <ul>
                     <li>
@@ -137,14 +152,10 @@ export default function GigDetails(props) {
                     </li>
                     <li>
                       <img src={iconLabel2} alt="label 2" />
-                      <div><strong>Subscribe to our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/community/taas">Gig notifications email</a>.</strong> We’ll send you a weekly update on gigs available so you don’t miss a beat.</div>
+                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href="https://apps.topcoder.com/forums/?module=ThreadList&forumID=703475">Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
                     </li>
                     <li>
                       <img src={iconLabel3} alt="label 3" />
-                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href="https://apps.topcoder.com/forums/">Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
-                    </li>
-                    <li>
-                      <img src={iconLabel4} alt="label 4" />
                       <div><strong>Check out our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/challenges">Topcoder challenges</a> and participate.</strong> Challenges showing your technology skills make you a “qualified” candidate so we know you’re good. The proof is in the pudding!</div>
                     </li>
                   </ul>
@@ -159,6 +170,11 @@ export default function GigDetails(props) {
   );
 }
 
+GigDetails.defaultProps = {
+  application: null,
+};
+
 GigDetails.propTypes = {
   job: PT.shape().isRequired,
+  application: PT.shape(),
 };

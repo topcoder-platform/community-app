@@ -12,6 +12,7 @@ export function getSalaryType(data) {
   switch (data.id) {
     case 2: return 'annual';
     case 3: return 'week';
+    case 5: return 'hourly';
     default: return 'n/a';
   }
 }

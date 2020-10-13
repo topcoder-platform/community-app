@@ -142,6 +142,7 @@ export function getList(userGroupIds) {
           description: data.description,
           groupIds: data.groupIds,
           hidden: data.hidden || false,
+          hideFilter: data.hideFilter || false,
           image: data.image,
           mainSubdomain: _.get(data, 'subdomains[0]', ''),
         });
