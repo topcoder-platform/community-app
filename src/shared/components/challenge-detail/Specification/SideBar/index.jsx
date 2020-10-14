@@ -88,6 +88,28 @@ export default function SideBar({
     </div>
   );
 
+  const usableCodeArticle = (
+    <div styleName="tctooltiptext tooltiptextapproval">
+      <h4>
+        Useable Code Rules
+      </h4>
+      <p>
+        A set of guidelines to help determine if code is acceptable or not.
+      </p>
+    </div>
+  );
+
+  const vscodeTip = (
+    <div styleName="tctooltiptext tooltiptextapproval">
+      <h4>
+        Topcoder Extension for VSCode
+      </h4>
+      <p>
+        Shortcuts to perform actions related to Topcoder platform without having to open a browser
+      </p>
+    </div>
+  );
+
   return (
     <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
@@ -199,15 +221,20 @@ export default function SideBar({
             }
             {
               !isDesign && (
-              <span styleName="link-like-paragraph">
+              <span styleName="link-like-paragraph tooltip-container no-margin-top">
                 <a
                   href="https://www.topcoder.com/thrive/articles/Usable%20Code%20in%20Dev%20Challenges"
-                  title="Usable Code in Dev Challenges"
+                  title="Useable Code Rules"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Usable Code in Dev Challenges
+                  Useable Code Rules
                 </a>
+                <Tooltip id="usablecode-tip" content={usableCodeArticle} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
+                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="usablecode-tip">
+                    ?
+                  </div>
+                </Tooltip>
               </span>
               )
             }
@@ -362,23 +389,26 @@ export default function SideBar({
           </div>
           )
         }
-        { !isDesign && (
-          <div>
-            <h2>
-              TOOLBOX:
-            </h2>
-            <p styleName="link-like-paragraph">
-              <a
-                href="https://marketplace.visualstudio.com/items?itemName=Topcoder.topcoder-workflow&ssr=false#overview"
-                title="Topcoder Extension for VSCode"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Topcoder Extension for VSCode
-              </a>
-            </p>
-          </div>
-        )}
+        <div>
+          <h2>
+            TOOLBOX:
+          </h2>
+          <span styleName="link-like-paragraph tooltip-container">
+            <a
+              href="https://marketplace.visualstudio.com/items?itemName=Topcoder.topcoder-workflow&ssr=false#overview"
+              title="Topcoder Extension for VSCode"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Topcoder Extension <br /> for VSCode
+            </a>
+            <Tooltip id="vscode-tip" content={vscodeTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
+              <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="vscode-tip">
+                ?
+              </div>
+            </Tooltip>
+          </span>
+        </div>
         { shareable && (
           <div>
             <h2>
