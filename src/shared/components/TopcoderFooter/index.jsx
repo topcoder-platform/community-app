@@ -2,7 +2,7 @@ import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 
-import { config } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 import FacebookIcon from './icons/icon-fb.svg';
 import YouTubeIcon from './icons/icon-youtube.svg';
@@ -33,6 +33,8 @@ Link.propTypes = {
 
 export default function TopcoderFooter() {
   const base = config.URL.BASE;
+  const auth = config.URL.AUTH;
+  const retUrl = isomorphy.isClientSide() ? encodeURIComponent(window.location.href) : '';
   const currentYear = moment().year();
   return (
     <div styleName="footer" role="contentinfo">
@@ -90,7 +92,7 @@ export default function TopcoderFooter() {
             <ul styleName="navi-col-links">
               <Link to={`${base}/community/admins`}>Admins</Link>
               <Link to={`${base}/community/contact`}>Contact Us</Link>
-              <Link to="https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion">Join Community</Link>
+              <Link to={`${auth}?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion&retUrl=${retUrl}`}>Join Community</Link>
               <Link to={`${base}/community/learn`}>About Community</Link>
               <Link to={`${base}/community/changelog`}>Changelog</Link>
               <Link to={`${base}/contact-us/`}>Talk to Sales</Link>
