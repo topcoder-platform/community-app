@@ -197,9 +197,40 @@ export default function SideBar({
               </span>
               )
             }
+            {
+              !isDesign && (
+              <span styleName="link-like-paragraph">
+                <a
+                  href="https://www.topcoder.com/thrive/articles/Usable%20Code%20in%20Dev%20Challenges"
+                  title="Usable Code in Dev Challenges"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Usable Code in Dev Challenges
+                </a>
+              </span>
+              )
+            }
           </div>
           )
         }
+        { isMM && (
+          <div>
+            <h2>
+              CHALLENGE LINKS:
+            </h2>
+            <p styleName="link-like-paragraph">
+              <a
+                href="https://www.topcoder.com/thrive/articles/How%20To%20Compete%20in%20a%20Marathon%20Match"
+                title="How To Compete in a Marathon Match"
+                target="_blank"
+                rel="noreferrer"
+              >
+                How To Compete in a Marathon Match
+              </a>
+            </p>
+          </div>
+        )}
         {
           isDesign
           && (
@@ -331,6 +362,23 @@ export default function SideBar({
           </div>
           )
         }
+        { !isDesign && (
+          <div>
+            <h2>
+              TOOLBOX:
+            </h2>
+            <p styleName="link-like-paragraph">
+              <a
+                href="https://marketplace.visualstudio.com/items?itemName=Topcoder.topcoder-workflow&ssr=false#overview"
+                title="Topcoder Extension for VSCode"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Topcoder Extension for VSCode
+              </a>
+            </p>
+          </div>
+        )}
         { shareable && (
           <div>
             <h2>
