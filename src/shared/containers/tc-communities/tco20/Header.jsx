@@ -3,20 +3,47 @@
 import PT from 'prop-types';
 import React from 'react';
 import ContentfulMenu from 'components/Contentful/Menu';
-import { Link } from 'topcoder-react-utils';
+import { Link, config } from 'topcoder-react-utils';
 import { connect } from 'react-redux';
 import { Avatar } from 'topcoder-react-ui-kit';
+import MediaQuery from 'react-responsive';
+import { getCurrentUrl } from 'utils/url';
 import TCO20Logo from 'assets/themes/tco/TCO20.svg';
 import defaultStyle from './header.scss';
 
 function TCO20Header(props) {
   const { base, meta, auth } = props;
-  console.log('TCO20Header', props)
+  const profileHTML = () => (
+    <div className={defaultStyle.profile}>
+      {
+        auth && auth.profile ? (
+          <React.Fragment>
+            <Link to={`${base}/members/${auth.profile.handle}`} className={defaultStyle.userMenuHandle}>
+              {auth.profile.handle}
+            </Link>
+            <Avatar url={auth.profile.photoURL} />
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <a href={`${config.URL.AUTH}?utm_source=TCO20site&retUrl=${getCurrentUrl()}`} className={defaultStyle.loginLink}>LOGIN</a>
+            <a href={`${config.URL.AUTH}/member/registration?utm_source=TCO20site&retUrl=${getCurrentUrl()}`} className={defaultStyle.signUpLink}>SIGN UP</a>
+          </React.Fragment>
+        )
+      }
+    </div>
+  );
   return (
     <div className={defaultStyle.topHeader}>
-      <Link to={base} className={defaultStyle.headerLogo}>
-        <TCO20Logo />
-      </Link>
+      <div className={defaultStyle.logoWrapp}>
+        <Link to={base} className={defaultStyle.headerLogo}>
+          <TCO20Logo />
+        </Link>
+        <MediaQuery maxWidth={768}>
+          {
+            profileHTML()
+          }
+        </MediaQuery>
+      </div>
       {
         meta.menuItems ? (
           <ContentfulMenu
@@ -27,23 +54,11 @@ function TCO20Header(props) {
           />
         ) : null
       }
-      <div className={defaultStyle.profile}>
+      <MediaQuery minWidth={769}>
         {
-          auth && auth.profile ? (
-            <React.Fragment>
-              <Link to={`${base}/members/${auth.profile.handle}`} className={defaultStyle.userMenuHandle}>
-                {auth.profile.handle}
-              </Link>
-              <Avatar url={auth.profile.photoURL} />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <a href="">LOGIN</a>
-              <a href="">SIGN UP</a>
-            </React.Fragment>
-          )
+          profileHTML()
         }
-      </div>
+      </MediaQuery>
     </div>
   );
 }
