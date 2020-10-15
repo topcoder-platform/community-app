@@ -221,7 +221,7 @@ export default function SideBar({
             }
             {
               !isDesign && (
-              <span styleName="link-like-paragraph tooltip-container no-margin-top">
+              <span styleName="link-like-paragraph tooltip-container">
                 <a
                   href={config.URL.INFO.USABLECODEDEV}
                   title="Useable Code Rules"
