@@ -26,7 +26,7 @@ module.exports = {
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder.com',
 
-    AUTH: 'https://accounts.topcoder.com',
+    AUTH: 'https://accounts-auth0.topcoder.com',
     BASE: 'https://www.topcoder.com',
     HOME: '/my-dashboard',
     COMMUNITY: 'https://community.topcoder.com',
@@ -39,7 +39,7 @@ module.exports = {
     IOS: 'https://ios.topcoder.com',
 
     /* Connector URL of the TC accounts App. */
-    ACCOUNTS_APP_CONNECTOR: 'https://accounts.topcoder.com/connector.html',
+    ACCOUNTS_APP_CONNECTOR: 'https://accounts-auth0.topcoder.com/',
     TCO17: 'https://tco17.topcoder.com/',
 
     TOPGEAR: 'https://topgear-app.wipro.com',
@@ -184,8 +184,8 @@ module.exports = {
   ],
   HEADER_MENU_THEME: 'light',
   HEADER_AUTH_URLS: {
-    href: 'https://accounts.topcoder.com/member/registration?utm_source=community-app-main',
-    location: 'https://accounts.topcoder.com/member?retUrl=%S&utm_source=community-app-main',
+    href: 'https://accounts-auth0.topcoder.com?utm_source=community-app-main',
+    location: 'https://accounts-auth0.topcoder.com?retUrl=%S&utm_source=community-app-main',
   },
   ACCOUNT_MENU: [
     {

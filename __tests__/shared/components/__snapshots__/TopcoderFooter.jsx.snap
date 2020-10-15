@@ -316,7 +316,7 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion"
+              href="https://accounts-auth0.topcoder-dev.com?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion&retUrl="
             >
               Join Community
             </a>

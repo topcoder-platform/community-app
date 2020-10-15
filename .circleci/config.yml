@@ -230,7 +230,8 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
+                - feature/auth0-RS256-Idtoken
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -260,7 +261,6 @@ workflows:
             branches:
               only:
                 - develop
-                - listing-develop-sync
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
