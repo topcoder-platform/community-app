@@ -150,8 +150,7 @@ export class DashboardPageContainer extends React.Component {
     // if (now - tcBlogTimestamp > CACHE_MAX_AGE
     // && !tcBlogLoading) getTopcoderBlogFeed();
 
-    if (now - communitiesTimestamp < CACHE_MAX_AGE
-    && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
+    if (now - communitiesTimestamp < CACHE_MAX_AGE) {
       updateCommunityStats(this.props);
     }
   }
