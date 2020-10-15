@@ -84,7 +84,7 @@ export default function SideBarFilters({
         />
         {/* )} */}
       </div>
-      <Footer hideTcLinksInFooter={true} />
+      <Footer hideTcLinksInFooter />
     </div>
   );
 }
