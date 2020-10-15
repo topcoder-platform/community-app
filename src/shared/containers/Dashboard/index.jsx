@@ -445,7 +445,7 @@ function mapDispatchToProps(dispatch) {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(cl.setFilter(filter));
-      dispatch(cls.selectBucket(BUCKETS.ALL));
+      dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
     },
     showXlBadge: name => dispatch(dash.showXlBadge(name)),
     switchChallengeFilter: filter => dispatch(dash.switchChallengeFilter(filter)),

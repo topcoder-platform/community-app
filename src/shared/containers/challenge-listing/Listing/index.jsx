@@ -50,8 +50,10 @@ export class ListingContainer extends React.Component {
       getCommunitiesList,
       markHeaderMenu,
       selectBucket,
+      setFilter,
       selectCommunity,
       queryBucket,
+      filter,
     } = this.props;
 
     markHeaderMenu();
@@ -65,8 +67,10 @@ export class ListingContainer extends React.Component {
       getCommunitiesList(auth);
     }
 
+    let selectedCommunity;
     if (communityId) {
       selectCommunity(communityId);
+      selectedCommunity = communitiesList.data.find(item => item.communityId === communityId);
     }
 
     if (mounted) {
@@ -76,7 +80,14 @@ export class ListingContainer extends React.Component {
     // if (BUCKETS.PAST !== activeBucket) {
     // dropChallenges();
     // this.loadChallenges();
-    this.reloadChallenges();
+    if (!selectedCommunity) {
+      this.reloadChallenges();
+    } else {
+      const groups = selectedCommunity.groupIds && selectedCommunity.groupIds.length
+        ? [selectedCommunity.groupIds[0]] : [];
+      // update the challenge listing filter for selected community
+      setFilter({ ..._.clone(filter), groups, events: [] });
+    }
     // }
   }
 
@@ -561,7 +572,7 @@ export class ListingContainer extends React.Component {
             setFilter(state);
             setSearchText(state.name || '');
             // if (activeBucket === BUCKETS.SAVED_FILTER) {
-            //   selectBucket(BUCKETS.ALL);
+            //   selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
             // } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
             //   selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
             // }
@@ -598,7 +609,7 @@ ListingContainer.defaultProps = {
   openChallengesInNewTabs: false,
   preListingMsg: null,
   prizeMode: 'money-usd',
-  queryBucket: BUCKETS.ALL,
+  queryBucket: BUCKETS.OPEN_FOR_REGISTRATION,
   meta: {},
   expanding: false,
   // isBucketSwitching: false,
