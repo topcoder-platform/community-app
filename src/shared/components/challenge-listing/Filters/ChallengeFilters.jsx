@@ -49,7 +49,7 @@ export default function ChallengeFilters({
   if (filterState.events && filterState.events.length) filterRulesCount += 1;
   if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
   if (filterState.types && filterState.types.length) filterRulesCount += 1;
-  if (filterState.status && filterState.status !== 'Active') filterRulesCount += 1;
+  if (filterState.status && filterState.status !== 'All') filterRulesCount += 1;
   if (filterState.endDateStart || filterState.startDateEnd) {
     filterRulesCount += 1;
   }
