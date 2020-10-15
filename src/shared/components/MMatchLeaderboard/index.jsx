@@ -68,7 +68,10 @@ export default class MMLeaderboard extends Component {
 
     if (sortParam.field) {
       // Use Lodash to sort array
-      data = _.orderBy(data, [d => (typeof d[sortParam.field] === 'string' ? d[sortParam.field].toLowerCase() : d[sortParam.field])], [sortParam.order]);
+      data = _.orderBy(
+        data,
+        [d => String(d[sortParam.field]).toLowerCase()], [sortParam.order],
+      );
     }
 
     const renderData = () => {
@@ -217,7 +220,7 @@ export default class MMLeaderboard extends Component {
     };
     return (
       <React.Fragment>
-        { data.length ? renderData() : <h4>No data available yet.</h4> }
+        { data.length ? renderData() : <h4 styleName="no-data-title">No data available yet.</h4> }
       </React.Fragment>
     );
   }
