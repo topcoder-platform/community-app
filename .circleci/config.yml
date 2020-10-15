@@ -230,7 +230,7 @@ workflows:
           filters:
             branches:
               only:
-                - feature/auth0-RS256-Idtoken
+                - develop-auth0-sync
                 - develop
       # This is alternate dev env for parallel testing
       - "build-test":
