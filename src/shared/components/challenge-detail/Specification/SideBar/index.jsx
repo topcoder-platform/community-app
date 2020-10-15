@@ -223,7 +223,7 @@ export default function SideBar({
               !isDesign && (
               <span styleName="link-like-paragraph tooltip-container no-margin-top">
                 <a
-                  href="https://www.topcoder.com/thrive/articles/Usable%20Code%20in%20Dev%20Challenges"
+                  href={config.URL.INFO.USABLECODEDEV}
                   title="Useable Code Rules"
                   target="_blank"
                   rel="noreferrer"
@@ -248,7 +248,7 @@ export default function SideBar({
             </h2>
             <p styleName="link-like-paragraph">
               <a
-                href="https://www.topcoder.com/thrive/articles/How%20To%20Compete%20in%20a%20Marathon%20Match"
+                href={config.URL.INFO.HOWTOCOMPETEINMARATHON}
                 title="How To Compete in a Marathon Match"
                 target="_blank"
                 rel="noreferrer"
@@ -395,7 +395,7 @@ export default function SideBar({
           </h2>
           <span styleName="link-like-paragraph tooltip-container">
             <a
-              href="https://marketplace.visualstudio.com/items?itemName=Topcoder.topcoder-workflow&ssr=false#overview"
+              href={config.URL.INFO.EXTENSIONVSCODE}
               title="Topcoder Extension for VSCode"
               target="_blank"
               rel="noreferrer"

@@ -143,6 +143,9 @@ module.exports = {
       STUDIO_FONTS_POLICY:
         'http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges',
       TOPCODER_TERMS: 'https://www.topcoder.com/community/how-it-works/terms/',
+      HOWTOCOMPETEINMARATHON: 'https://www.topcoder.com/thrive/articles/How%20To%20Compete%20in%20a%20Marathon%20Match',
+      USABLECODEDEV: 'https://www.topcoder.com/thrive/articles/Usable%20Code%20in%20Dev%20Challenges',
+      EXTENSIONVSCODE: 'https://marketplace.visualstudio.com/items?itemName=Topcoder.topcoder-workflow&ssr=false#overview',
     },
 
     IOS: 'https://ios.topcoder-dev.com',
