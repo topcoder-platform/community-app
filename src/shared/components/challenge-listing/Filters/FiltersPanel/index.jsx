@@ -433,7 +433,7 @@ export default function FiltersPanel({
               events: [],
               endDateStart: null,
               startDateEnd: null,
-              status: 'Active',
+              status: 'All',
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');
