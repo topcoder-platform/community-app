@@ -359,7 +359,7 @@ export default function FiltersPanel({
                   }}
                   options={['Active', 'Completed', 'All'].map(mapOps)}
                   simpleValue
-                  value={filterState.status || 'Active'}
+                  value={filterState.status || 'All'}
                 />
               </div>
             ) : null
