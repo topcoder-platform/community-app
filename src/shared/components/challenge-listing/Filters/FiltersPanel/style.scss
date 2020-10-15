@@ -295,6 +295,7 @@ $panel-radius-4: $corner-radius * 2;
     display: flex;
     align-items: center;
     margin-right: $panel-space-100 + 17;
+    flex-wrap: wrap;
 
     @include xs-to-md {
       display: block;
