@@ -385,7 +385,7 @@ $panel-radius-4: $corner-radius * 2;
     }
 
     &.status {
-      @include calc(width, '50% - 45px - (12px + 112px) * 2 - 96px');
+      @include calc(width, '50% - 45px - (12px + 112px) * 2 - 53px');
 
       order: 3; // Show after Date Picker when in lg screen mode
 
