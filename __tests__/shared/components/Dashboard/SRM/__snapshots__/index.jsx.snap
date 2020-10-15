@@ -49,7 +49,7 @@ exports[`Matches shallow shapshot 1`] = `
           </a>
           <a
             className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3no83"
-            href="https://www.topcoder-dev.com/thrive/articles/How%20To%20Compete%20in%20SRMs/"
+            href="https://www.topcoder-dev.com/thrive/articles/How%20To%20Compete%20in%20SRMs"
           >
             Learn More
           </a>
