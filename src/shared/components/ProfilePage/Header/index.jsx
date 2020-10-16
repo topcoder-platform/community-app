@@ -5,7 +5,6 @@ import React from 'react';
 import PT from 'prop-types';
 import { noop, get } from 'lodash';
 import moment from 'moment';
-import ReactSVG from 'react-svg';
 
 import { getRatingLevel } from 'utils/tc';
 import { config, isomorphy } from 'topcoder-react-utils';
@@ -29,46 +28,39 @@ const TRACK_LABELS = {
   DEVELOP: 'DEVELOPER',
 };
 
-class ProfileHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    const {
-      info,
-    } = this.props;
-    const { photoURL } = info;
-    this.state = {
-      imageUrl: photoURL,
-    };
+const ProfileHeader = ({
+  copilot,
+  country,
+  info,
+  onShowBadges,
+  showBadgesButton,
+  wins,
+}) => {
+  const defaultProfilePicture = assets('./ico-user-default.svg');
 
-    this.loadImageError = this.loadImageError.bind(this);
-  }
+  const { photoURL = defaultProfilePicture } = info;
 
-  loadImageError() {
-    this.setState({ imageUrl: null });
-  }
+  const onProfileImageError = (e) => {
+    e.target.src = defaultProfilePicture;
+  };
 
-  render() {
-    const {
-      copilot,
-      country,
-      info,
-      onShowBadges,
-      showBadgesButton,
-      wins,
-    } = this.props;
-    const { imageUrl } = this.state;
-    return (
-      <div styleName="container">
-        <div>
-          { imageUrl ? <img src={imageUrl} onError={this.loadImageError} styleName="profile-circle" alt="Member Portait" /> : <ReactSVG path={assets('./ico-user-default.svg')} /> }
-        </div>
-        <div styleName="info">
-          <h1 styleName={`handle level-${getRatingLevel(get(info, 'maxRating.rating', 0))}`}>
-            {info.handle}
-          </h1>
-          <h3 styleName="location-challenges">
-            {country}
-            {Boolean(wins) && (
+  return (
+    <div styleName="container">
+      <div>
+        <img
+          src={photoURL}
+          onError={onProfileImageError}
+          styleName="profile-circle"
+          alt="Member Portait"
+        />
+      </div>
+      <div styleName="info">
+        <h1 styleName={`handle level-${getRatingLevel(get(info, 'maxRating.rating', 0))}`}>
+          {info.handle}
+        </h1>
+        <h3 styleName="location-challenges">
+          {country}
+          {Boolean(wins) && (
             <span>
               {' '}
               |
@@ -77,26 +69,26 @@ class ProfileHeader extends React.Component {
               {' '}
               Wins
             </span>
-            ) }
-          </h3>
-          <h3 styleName="tenure">
-            Member Since
-            {' '}
-            {moment(info.createdAt).format('MMMM, YYYY')}
-          </h3>
-        </div>
-        {
-          info.tracks && info.tracks.length > 0
-          && (
+          )}
+        </h3>
+        <h3 styleName="tenure">
+          Member Since
+          {' '}
+          {moment(info.createdAt).format('MMMM, YYYY')}
+        </h3>
+      </div>
+      {
+        info.tracks && info.tracks.length > 0
+        && (
           <div styleName="tracks-links">
             <div styleName="tracks">
               {
                 [...info.tracks, ...(copilot ? ['COPILOT'] : [])].map(track => (
                   <a href={`#${track}`} key={track} styleName="track">
-                    { track === 'COPILOT' && <CopilotIcon styleName="track-icon" /> }
-                    { track === 'DATA_SCIENCE' && <DataScienceIcon styleName="track-icon" /> }
-                    { track === 'DESIGN' && <DesignIcon styleName="track-icon" /> }
-                    { track === 'DEVELOP' && <DevelopIcon styleName="track-icon" /> }
+                    {track === 'COPILOT' && <CopilotIcon styleName="track-icon" />}
+                    {track === 'DATA_SCIENCE' && <DataScienceIcon styleName="track-icon" />}
+                    {track === 'DESIGN' && <DesignIcon styleName="track-icon" />}
+                    {track === 'DEVELOP' && <DevelopIcon styleName="track-icon" />}
                     <div styleName="text">
                       {TRACK_LABELS[track]}
                     </div>
@@ -105,35 +97,34 @@ class ProfileHeader extends React.Component {
               }
             </div>
           </div>
-          )
-        }
-        { info.description && (
+        )
+      }
+      {info.description && (
         <p styleName="description">
           {info.description}
         </p>
-        ) }
-        <div styleName="links">
-          {
-            showBadgesButton ? (
-              <a
-                onClick={() => onShowBadges()}
-                onKeyPress={() => onShowBadges()}
-                role="link"
-                styleName="link badge-link"
-                tabIndex="0"
-              >
-                Badges
-              </a>
-            ) : null
-          }
-          <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">
-            Forum Posts
-          </a>
-        </div>
+      )}
+      <div styleName="links">
+        {
+          showBadgesButton ? (
+            <a
+              onClick={() => onShowBadges()}
+              onKeyPress={() => onShowBadges()}
+              role="link"
+              styleName="link badge-link"
+              tabIndex="0"
+            >
+              Badges
+            </a>
+          ) : null
+        }
+        <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">
+          Forum Posts
+        </a>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 ProfileHeader.defaultProps = {
   copilot: false,
