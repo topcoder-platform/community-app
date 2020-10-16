@@ -2,6 +2,7 @@
  * Challenge tile.
  */
 /* eslint-env browser */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -315,7 +316,7 @@ class ChallengeTile extends React.Component {
                       Role: &nbsp;
                     </span>
                     <span>
-                      { listRoles(challenge.userDetails.roles) }
+                      { listRoles(_.get(challenge, 'userDetails.roles')) }
                     </span>
                   </span>
                   ) }
