@@ -238,6 +238,7 @@ workflows:
             branches:
               only:                
                 - hot-fix
+                - develop-on-16Oct
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
