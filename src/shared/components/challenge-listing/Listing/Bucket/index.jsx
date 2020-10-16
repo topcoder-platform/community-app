@@ -184,7 +184,7 @@ export default function Bucket({
       {placeholders}
       {
       // (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
-        (expanding || expandable || loadMore) && !loading && !expanded ? (
+        (expanding || expandable) && !loading && !expanded && loadMore ? (
           <a
             // href={`${challengesUrl}?${bucketQuery}`}
             href={`${challengesUrl}`}
