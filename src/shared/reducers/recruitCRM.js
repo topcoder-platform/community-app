@@ -59,6 +59,32 @@ function onJobDone(state, { payload }) {
 }
 
 /**
+ * Handles recruit.applyForJobInit action.
+ * @param {Object} state Previous state.
+ */
+function onApplyForJobInit(state, { payload }) {
+  const r = {
+    ...state,
+  };
+  r[payload.id].applying = true;
+  return r;
+}
+
+/**
+ * Handles recruit.applyForJobDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action The action.
+ */
+function onApplyForJobDone(state, { payload }) {
+  const r = {
+    ...state,
+  };
+  r[payload.id].applying = false;
+  r[payload.id].application = payload.data;
+  return r;
+}
+
+/**
  * Creates recruitCRM reducer with the specified initial state.
  * @param {Object} state Optional. If not given, the default one is
  *  generated automatically.
@@ -70,6 +96,8 @@ function create(state = {}) {
     [actions.recruit.getJobsDone]: onDone,
     [actions.recruit.getJobInit]: onJobInit,
     [actions.recruit.getJobDone]: onJobDone,
+    [actions.recruit.applyForJobInit]: onApplyForJobInit,
+    [actions.recruit.applyForJobDone]: onApplyForJobDone,
   }, state);
 }
 

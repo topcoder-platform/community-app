@@ -24,6 +24,10 @@
     background-color: $tc-white;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.35);
   }
+
+  &.hasError {
+    border: 2px solid $gui-kit-level-5;
+  }
 }
 
 .radioButton {
@@ -33,6 +37,7 @@
 
 .label {
   font-size: 14px;
+  cursor: pointer;
 }
 
 /* The container */
@@ -70,6 +75,10 @@
   display: flex;
   flex-direction: column;
 
+  .label {
+    color: $gui-kit-gray-90;
+  }
+
   // lg size
   &.lgSize {
     .container {
@@ -91,7 +100,7 @@
     }
 
     .label {
-      margin-left: 15px;
+      margin-left: 8px;
     }
   }
 
@@ -116,7 +125,7 @@
     }
 
     .label {
-      margin-left: 10px;
+      margin-left: 8px;
     }
   }
 
@@ -141,7 +150,16 @@
     }
 
     .label {
-      margin-left: 10px;
+      margin-left: 8px;
     }
   }
+}
+
+.errorMessage {
+  display: block;
+
+  @include errorMessage;
+
+  color: #ef476f;
+  margin-left: 0;
 }

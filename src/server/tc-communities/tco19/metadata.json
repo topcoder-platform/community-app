@@ -2,6 +2,7 @@
   "challengeFilter": {
     "events": ["tco19"]
   },
+  "hidden": true,
   "communityId": "tco19",
   "communityName": "TCO19",
   "groupIds": ["20000078"],

@@ -237,16 +237,14 @@ workflows:
           filters:
             branches:
               only:                
-                - hot-fix-ad-code
-                - feature-contentful
+                - hot-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - community-app-tests-poc
-                - develop
+                - listing-develop-sync
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

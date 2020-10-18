@@ -15,7 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { config } from 'topcoder-react-utils';
-import { COMPETITION_TRACKS } from 'utils/tc';
+import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
 
 import PT from 'prop-types';
 
@@ -51,7 +51,7 @@ export default function Submission(props) {
         {formatDate(submissionObject.created)}
       </td>
       {
-        track === COMPETITION_TRACKS.DESIGN && (
+        track === COMPETITION_TRACKS.DES && (
           <td styleName="status-col">
             {submissionObject.screening
               && (
@@ -68,7 +68,7 @@ export default function Submission(props) {
         <div>
           <a
             href={
-              track === COMPETITION_TRACKS.DESIGN
+              track === COMPETITION_TRACKS.DES
                 ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.id}`
                 : submissionObject.download
             }
@@ -85,7 +85,8 @@ export default function Submission(props) {
             onClick={() => onDownload(submissionObject.id)}
           ><DownloadIcon /></button>
           */ }
-          {status !== 'COMPLETED'
+          {status !== CHALLENGE_STATUS.COMPLETED
+            && track !== COMPETITION_TRACKS.DES
             && (
             <button
               styleName="delete-icon"

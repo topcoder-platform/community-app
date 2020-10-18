@@ -12,13 +12,10 @@ exports[`Default render 1`] = `
   <div
     className="src-shared-components-GUIKit-Checkbox-___style__checkmark___1xdsj"
   >
-    <IconCheckSolid
+    <img
+      alt="checkmark-icon"
       className="src-shared-components-GUIKit-Checkbox-___style__after___2rEBg"
-      height={13}
-      viewBox="0 0 18 15"
-      width={13}
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
+      src="/community-app-assets/images/07507a04e0986d806cbd3ec73c724143.png"
     />
   </div>
 </label>

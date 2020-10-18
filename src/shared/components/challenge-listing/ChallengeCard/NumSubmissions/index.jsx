@@ -39,7 +39,7 @@ export default function NumSubmissions({
 
   const query = (numOfSub && isLoggedIn) ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
   let link = `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== COMPETITION_TRACKS.DATA_SCIENCE) {
+  if (!newChallengeDetails && track !== COMPETITION_TRACKS.DS) {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (

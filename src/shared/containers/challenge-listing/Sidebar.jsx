@@ -2,18 +2,18 @@
  * Container for the Sidebar.
  */
 
-import _ from 'lodash';
+// import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
-import challengeListingActions from 'actions/challenge-listing';
-import { config } from 'topcoder-react-utils';
-import filterPanelActions from 'actions/challenge-listing/filter-panel';
+// import challengeListingActions from 'actions/challenge-listing';
+// import { config } from 'topcoder-react-utils';
+// import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import PT from 'prop-types';
 import React from 'react';
 import Sidebar from 'components/challenge-listing/Sidebar';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
-import { updateChallengeType } from 'utils/challenge';
+// import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+// import { updateChallengeType } from 'utils/challenge';
 
 export const SidebarPureComponent = Sidebar;
 
@@ -23,153 +23,156 @@ export const SidebarPureComponent = Sidebar;
  * @param {Array} communityFilters
  * @return {Array} cloned savedFilters with errors set if any detected
  */
-function checkFilterErrors(savedFilters, communityFilters) {
-  const communityIds = _.keyBy(communityFilters, f => f.communityId);
+// function checkFilterErrors(savedFilters, communityFilters) {
+//   const communityIds = _.keyBy(communityFilters, f => f.communityId);
 
-  const savedFiltersClone = _.clone(savedFilters);
-  savedFilters.forEach((f, index) => {
-    if (f.filter.communityId && !communityIds[f.filter.communityId]) {
-      savedFiltersClone[index] = {
-        ...f,
-        filterError: `Filter uses unknown community '${f.filter.communityId}'`,
-      };
-    }
-  });
-  return savedFiltersClone;
-}
+//   const savedFiltersClone = _.clone(savedFilters);
+//   savedFilters.forEach((f, index) => {
+//     if (f.filter.communityId && !communityIds[f.filter.communityId]) {
+//       savedFiltersClone[index] = {
+//         ...f,
+//         filterError: `Filter uses unknown community '${f.filter.communityId}'`,
+//       };
+//     }
+//   });
+//   return savedFiltersClone;
+// }
 
 export class SidebarContainer extends React.Component {
   componentDidMount() {
-    const { tokenV2, getSavedFilters } = this.props;
-    const token = tokenV2;
-    if (config.USER_SETTINGS && token) getSavedFilters(token);
+    // const { tokenV2, getSavedFilters } = this.props;
+    // const token = tokenV2;
+    // if (config.USER_SETTINGS && token) getSavedFilters(token);
   }
 
   render() {
-    const {
-      communityFilters,
-      deleteSavedFilter,
-      extraBucket,
-      savedFilters: origSavedFilters,
-      selectCommunity,
-      selectSavedFilter,
-      selectedCommunityId,
-      setFilter,
-      setSearchText,
-      tokenV2,
-      updateAllSavedFilters,
-      updateSavedFilter,
-      userChallenges,
-    } = this.props;
+    // const {
+    // activeBucket,
+    // communityFilters,
+    // deleteSavedFilter,
+    // extraBucket,
+    // savedFilters: origSavedFilters,
+    // selectCommunity,
+    // selectSavedFilter,
+    // selectedCommunityId,
+    // setFilter,
+    // setSearchText,
+    // tokenV2,
+    // updateAllSavedFilters,
+    // updateSavedFilter,
+    // userChallenges,
+    // } = this.props;
 
-    const buckets = getBuckets(userChallenges);
+    // const buckets = getBuckets(userChallenges);
 
-    if (extraBucket) {
-      buckets[extraBucket.name] = extraBucket;
-    }
+    // if (extraBucket) {
+    //   buckets[extraBucket.name] = extraBucket;
+    // }
 
-    const updatedCommunityFilters = [
-      {
-        communityId: '',
-        communityName: 'All',
-        challengeFilter: {},
-      },
-      ...communityFilters,
-    ];
+    // const updatedCommunityFilters = [
+    //   {
+    //     communityId: '',
+    //     communityName: 'All',
+    //     challengeFilter: {},
+    //   },
+    //   ...communityFilters,
+    // ];
 
-    let communityFilter = updatedCommunityFilters.find(
-      item => item.communityId === selectedCommunityId,
-    );
-    if (communityFilter) communityFilter = communityFilter.challengeFilter;
+    // let communityFilter = updatedCommunityFilters.find(
+    //   item => item.communityId === selectedCommunityId,
+    // );
+    // if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
-    const savedFilters = checkFilterErrors(origSavedFilters, updatedCommunityFilters);
+    // const savedFilters = checkFilterErrors(origSavedFilters, updatedCommunityFilters);
 
     return (
       <Sidebar
         {...this.props}
-        buckets={buckets}
-        extraBucket={extraBucket}
-        savedFilters={savedFilters}
-        communityFilter={communityFilter}
-        deleteSavedFilter={id => deleteSavedFilter(id, tokenV2)}
-        selectSavedFilter={(index) => {
-          const { filter } = origSavedFilters[index];
-          selectSavedFilter(index);
-          setFilter(_.omit(filter, 'communityId'));
-          setSearchText(filter.text || '');
-          selectCommunity(filter.communityId || '');
-        }}
-        updateAllSavedFilters={() => updateAllSavedFilters(
-          origSavedFilters,
-          tokenV2,
-        )
-        }
-        updateSavedFilter={filter => updateSavedFilter(filter, tokenV2)}
+        // bucket={activeBucket}
+        // extraBucket={extraBucket}
+        // savedFilters={savedFilters}
+        // communityFilter={communityFilter}
+        // deleteSavedFilter={id => deleteSavedFilter(id, tokenV2)}
+        // selectSavedFilter={(index) => {
+        //   const { filter } = origSavedFilters[index];
+        //   selectSavedFilter(index);
+        //   setFilter(_.omit(filter, 'communityId'));
+        //   setSearchText(filter.text || '');
+        //   selectCommunity(filter.communityId || '');
+        // }}
+        // updateAllSavedFilters={() => updateAllSavedFilters(
+        //   origSavedFilters,
+        //   tokenV2,
+        // )
+        // }
+        // updateSavedFilter={filter => updateSavedFilter(filter, tokenV2)}
       />
     );
   }
 }
 
 SidebarContainer.defaultProps = {
-  extraBucket: null,
-  selectedCommunityId: '',
-  tokenV2: null,
-  user: null,
-  userChallenges: [],
+  // extraBucket: null,
+  // selectedCommunityId: '',
+  // tokenV2: null,
+  // user: null,
+  // userChallenges: [],
 };
 
 SidebarContainer.propTypes = {
-  communityFilters: PT.arrayOf(PT.shape({
-    challengeFilter: PT.shape(),
-    communityId: PT.string.isRequired,
-  })).isRequired,
-  deleteSavedFilter: PT.func.isRequired,
-  extraBucket: PT.shape(),
-  getSavedFilters: PT.func.isRequired,
-  savedFilters: PT.arrayOf(PT.shape()).isRequired,
-  selectedCommunityId: PT.string,
-  selectSavedFilter: PT.func.isRequired,
-  setFilter: PT.func.isRequired,
-  selectCommunity: PT.func.isRequired,
-  setSearchText: PT.func.isRequired,
-  tokenV2: PT.string,
-  updateAllSavedFilters: PT.func.isRequired,
-  updateSavedFilter: PT.func.isRequired,
-  user: PT.shape(),
-  userChallenges: PT.arrayOf(PT.string),
+  activeBucket: PT.string.isRequired,
+  // communityFilters: PT.arrayOf(PT.shape({
+  //   challengeFilter: PT.shape(),
+  //   communityId: PT.string.isRequired,
+  // })).isRequired,
+  // deleteSavedFilter: PT.func.isRequired,
+  // extraBucket: PT.shape(),
+  // getSavedFilters: PT.func.isRequired,
+  // savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  // selectedCommunityId: PT.string,
+  // selectSavedFilter: PT.func.isRequired,
+  // setFilter: PT.func.isRequired,
+  // selectCommunity: PT.func.isRequired,
+  // setSearchText: PT.func.isRequired,
+  // tokenV2: PT.string,
+  // updateAllSavedFilters: PT.func.isRequired,
+  // updateSavedFilter: PT.func.isRequired,
+  // user: PT.shape(),
+  // userChallenges: PT.arrayOf(PT.string),
 };
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing.sidebar;
-  const cla = challengeListingActions.challengeListing;
-  const fpa = filterPanelActions.challengeListing.filterPanel;
+  // const cla = challengeListingActions.challengeListing;
+  // const fpa = filterPanelActions.challengeListing.filterPanel;
   return {
     ...bindActionCreators(a, dispatch),
-    setFilter: filter => dispatch(cla.setFilter(filter)),
-    selectCommunity: communityId => dispatch(cla.selectCommunity(communityId)),
-    setSearchText: text => dispatch(fpa.setSearchText(text)),
+    // setFilter: filter => dispatch(cla.setFilter(filter)),
+    // selectCommunity: communityId => dispatch(cla.selectCommunity(communityId)),
+    // setSearchText: text => dispatch(fpa.setSearchText(text)),
   };
 }
 
 function mapStateToProps(state, ownProps) {
-  const { activeBucket } = state.challengeListing.sidebar;
-  const pending = _.keys(state.challengeListing.pendingRequests);
-  updateChallengeType(
-    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
-  );
+  // const { activeBucket } = state.challengeListing.sidebar;
+  // const pending = _.keys(state.challengeListing.pendingRequests);
+  // updateChallengeType(
+  //   state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
+  // );
   return {
-    ...state.challengeListing.sidebar,
-    challenges: state.challengeListing.challenges,
-    disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
-    extraBucket: ownProps.extraBucket,
+    activeBucket: state.challengeListing.sidebar.activeBucket,
+    // ...state.challengeListing.sidebar,
+    // challenges: state.challengeListing.challenges,
+    // disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
+    // extraBucket: ownProps.extraBucket,
     hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
-    filterState: state.challengeListing.filter,
+    // filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
-    communityFilters: state.tcCommunities.list.data,
-    selectedCommunityId: state.challengeListing.selectedCommunityId,
-    tokenV2: state.auth.tokenV2,
-    user: state.auth.user,
-    userChallenges: state.challengeListing.userChallenges,
+    // communityFilters: state.tcCommunities.list.data,
+    // selectedCommunityId: state.challengeListing.selectedCommunityId,
+    // tokenV2: state.auth.tokenV2,
+    // user: state.auth.user,
+    // userChallenges: state.challengeListing.userChallenges,
   };
 }
 

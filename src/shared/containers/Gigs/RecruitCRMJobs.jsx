@@ -109,7 +109,12 @@ class RecruitCRMJobsContainer extends React.Component {
     } = this.state;
 
     if (loading) {
-      return <LoadingIndicator />;
+      return (
+        <React.Fragment>
+          <LoadingIndicator />;
+          <p styleName="loading-text">Searching our database for the best gigs…</p>
+        </React.Fragment>
+      );
     }
 
     let jobsToDisplay = jobs;
@@ -139,6 +144,9 @@ class RecruitCRMJobsContainer extends React.Component {
         if (skills && skills.value && skills.value.toLowerCase().includes(_term)) return true;
         // location
         if (job.country.toLowerCase().includes(_term)) return true;
+        // duration
+        const duration = _.find(job.custom_fields, ['field_name', 'Duration']);
+        if (duration && duration.value && duration.value.toLowerCase().includes(_term)) return true;
         // no match
         return false;
       });

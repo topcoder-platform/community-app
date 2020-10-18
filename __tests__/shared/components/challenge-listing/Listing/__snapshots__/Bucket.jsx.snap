@@ -8,16 +8,7 @@ exports[`Matches shallow shapshot 1`] = `
 >
   <Bucket
     activeBucket=""
-    bucket={
-      Object {
-        "filter": Object {
-          "status": "ac",
-        },
-        "sorts": Array [
-          "current-phase",
-        ],
-      }
-    }
+    bucket="all"
     challengeTypes={
       Array [
         Object {
@@ -43,6 +34,7 @@ exports[`Matches shallow shapshot 1`] = `
             600,
           ],
           "status": "b",
+          "tags": Array [],
           "totalPrize": 1800,
           "type": "Challenge",
           "users": Object {},
@@ -63,10 +55,6 @@ exports[`Matches shallow shapshot 1`] = `
             },
           ],
           "id": "2",
-          "prize": Array [
-            1200,
-            600,
-          ],
           "prizes": Array [
             1200,
             600,
@@ -93,231 +81,11 @@ exports[`Matches shallow shapshot 1`] = `
     expandTag={null}
     expanded={true}
     expandedTags={Array []}
-    keepPlaceholders={false}
+    expanding={false}
     loadMore={[MockFunction]}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
-    searchTimestamp={0}
-    setFilterState={[MockFunction]}
-    setSort={[MockFunction]}
-    sort=""
-    userId=""
-  />
-</StaticRouter>
-`;
-
-exports[`Matches shallow shapshot 2`] = `
-<StaticRouter
-  basename=""
-  context={Object {}}
-  location="/"
->
-  <Bucket
-    activeBucket=""
-    bucket={
-      Object {
-        "filter": Object {
-          "status": "ac",
-        },
-        "sorts": Array [
-          "current-phase",
-        ],
-      }
-    }
-    challengeTypes={
-      Array [
-        Object {
-          "abbreviation": "CH",
-          "name": "Challenge",
-        },
-        Object {
-          "abbreviation": "F2F",
-          "name": "First2Finish",
-        },
-        Object {
-          "abbreviation": "TSK",
-          "name": "Task",
-        },
-      ]
-    }
-    challenges={
-      Array [
-        Object {
-          "id": "1",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "b",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "2",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "3",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "4",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "5",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "6",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "7",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "8",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "9",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "10",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-        Object {
-          "id": "11",
-          "prizes": Array [
-            1200,
-            600,
-          ],
-          "status": "a",
-          "totalPrize": 1800,
-          "users": Object {},
-        },
-      ]
-    }
-    expand={[MockFunction]}
-    expandTag={null}
-    expanded={false}
-    expandedTags={Array []}
-    keepPlaceholders={false}
-    loadMore={[MockFunction]}
-    loading={true}
-    newChallengeDetails={false}
-    openChallengesInNewTabs={false}
-    searchTimestamp={0}
-    setFilterState={[MockFunction]}
-    setSort={[MockFunction]}
-    sort=""
-    userId=""
-  />
-</StaticRouter>
-`;
-
-exports[`Matches shallow shapshot 3`] = `
-<StaticRouter
-  basename=""
-  context={Object {}}
-  location="/"
->
-  <Bucket
-    activeBucket=""
-    bucket={
-      Object {
-        "filter": Object {
-          "status": "e",
-        },
-        "sorts": Array [
-          "current-phase",
-        ],
-      }
-    }
-    challengeTypes={
-      Array [
-        Object {
-          "abbreviation": "CH",
-          "name": "Challenge",
-        },
-        Object {
-          "abbreviation": "F2F",
-          "name": "First2Finish",
-        },
-        Object {
-          "abbreviation": "TSK",
-          "name": "Task",
-        },
-      ]
-    }
-    challenges={Array []}
-    expand={[MockFunction]}
-    expandTag={null}
-    expanded={false}
-    expandedTags={Array []}
-    keepPlaceholders={false}
-    loadMore={null}
-    loading={true}
-    newChallengeDetails={false}
-    openChallengesInNewTabs={false}
-    searchTimestamp={0}
     setFilterState={[MockFunction]}
     setSort={[MockFunction]}
     sort=""

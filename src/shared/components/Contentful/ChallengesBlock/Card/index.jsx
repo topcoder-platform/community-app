@@ -30,13 +30,13 @@ export default function Card({
 
   let TrackTag;
   switch (track.toLowerCase()) {
-    case COMPETITION_TRACKS.DATA_SCIENCE:
+    case COMPETITION_TRACKS.DS:
       TrackTag = DataScienceTrackTag;
       break;
-    case COMPETITION_TRACKS.DESIGN:
+    case COMPETITION_TRACKS.DES:
       TrackTag = DesignTrackTag;
       break;
-    case COMPETITION_TRACKS.DEVELOP:
+    case COMPETITION_TRACKS.DEV:
       TrackTag = DevelopmentTrackTag;
       break;
     case COMPETITION_TRACKS.QA:
