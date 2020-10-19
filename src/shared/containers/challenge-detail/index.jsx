@@ -640,6 +640,7 @@ ChallengeDetailPageContainer.defaultProps = {
   mySubmissions: [],
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
+  toggledFeedback: null,
   // prizeMode: 'money-usd',
 };
 
@@ -704,6 +705,7 @@ ChallengeDetailPageContainer.propTypes = {
   // expandTag: PT.func.isRequired,
   // loadingRecommendedChallengesUUID: PT.string.isRequired,
   history: PT.shape().isRequired,
+  toggledFeedback: PT.shape(),
 };
 
 function mapStateToProps(state, props) {
@@ -762,6 +764,14 @@ function mapStateToProps(state, props) {
       mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
     }
   }
+  const feedbackOpen = state.page.challengeDetails.feedbackOpen;
+  const checkpoints = state.challenge.checkpoints || {};
+  if (checkpoints.checkpointResults) {
+    checkpoints.checkpointResults = checkpoints.checkpointResults.map(result => ({
+      ...result,
+      expanded: result.submissionId === feedbackOpen.id ? feedbackOpen.open : result.expanded,
+    }));
+  }
   return {
     auth: state.auth,
     challenge,
@@ -772,9 +782,9 @@ function mapStateToProps(state, props) {
     challengeId: String(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
     challengeTypesMap: state.challengeListing.challengeTypesMap,
-    checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+    checkpointResults: checkpoints.checkpointResults,
     checkpointResultsUi: state.page.challengeDetails.checkpoints,
-    checkpoints: state.challenge.checkpoints || {},
+    checkpoints,
     communityId: props.communityId,
     communitiesList: state.tcCommunities.list,
     domain: state.domain,

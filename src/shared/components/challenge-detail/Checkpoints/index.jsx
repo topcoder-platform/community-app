@@ -27,7 +27,7 @@ function Checkpoints(props) {
                 document
                   .getElementsByClassName(style['challenge-checkpoint-winners'])[index]
                   .scrollIntoView(true);
-                toggleCheckpointFeedback(index, true);
+                toggleCheckpointFeedback(item.submissionId, true);
               }}
               type="button"
             >
@@ -52,7 +52,7 @@ function Checkpoints(props) {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  toggleCheckpointFeedback(index);
+                  toggleCheckpointFeedback(item.submissionId, !item.expanded);
                 }}
                 styleName="challenge-checkpoint-submission"
                 type="button"
