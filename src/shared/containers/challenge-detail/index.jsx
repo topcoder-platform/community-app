@@ -762,7 +762,7 @@ function mapStateToProps(state, props) {
       mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
     }
   }
-  const { page: { challengeDetails : { feedbackOpen } } } = state;
+  const { page: { challengeDetails: { feedbackOpen } } } = state;
   const checkpoints = state.challenge.checkpoints || {};
   if (feedbackOpen.id && checkpoints.checkpointResults) {
     checkpoints.checkpointResults = checkpoints.checkpointResults.map(result => ({
