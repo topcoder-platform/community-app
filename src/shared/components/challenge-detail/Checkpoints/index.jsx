@@ -47,7 +47,7 @@ function Checkpoints(props) {
           }}
         />
         {
-          checkpointResults && checkpointResults.map((item, index) => (
+          checkpointResults && checkpointResults.map((item) => (
             <div key={item.submissionId} styleName="challenge-checkpoint-winners">
               <button
                 onClick={(e) => {
