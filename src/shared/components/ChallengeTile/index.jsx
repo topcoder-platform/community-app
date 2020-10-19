@@ -75,6 +75,7 @@ class ChallengeTile extends React.Component {
     } = this.props;
 
     const { track, type } = challenge;
+    const roles = _.get(challenge, 'userDetails.roles');
 
     const outStyleName = `challenge tile-view ${track.replace(' ', '-').toLowerCase()}`;
     const extraStyle = {
@@ -308,19 +309,22 @@ class ChallengeTile extends React.Component {
                 ) }
               </div>
 
-              <p styleName="roles">
-                { track !== COMPETITION_TRACKS.DS
+              { !_.isEmpty(roles)
+                && (
+                <p styleName="roles">
+                  { track !== COMPETITION_TRACKS.DS
                   && (
                   <span>
                     <span>
                       Role: &nbsp;
                     </span>
                     <span>
-                      { listRoles(_.get(challenge, 'userDetails.roles')) }
+                      { listRoles(roles) }
                     </span>
                   </span>
                   ) }
-              </p>
+                </p>
+                ) }
             </div>
           </div>
         </div>
