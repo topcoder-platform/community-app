@@ -17,7 +17,11 @@ function DateInput(props) {
       disabled && styles.disabled,
     ])}
     >
-      <InputMask {...props} />
+      <InputMask {...props}>
+        {() => (
+          <input id="input-date-range" disabled={disabled} />
+        )}
+      </InputMask>
       <CalendarIcon styleName="calendarIcon" onClick={onIconClick} />
     </div>
   );

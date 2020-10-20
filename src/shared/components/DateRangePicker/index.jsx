@@ -159,6 +159,8 @@ function DateRangePicker(props) {
   return (
     <div>
       <div styleName="dateInputWrapper">
+        {/* eslint-disable-next-line */}
+        <label styleName="inputLabel" htmlFor="input-date-range">Date range</label>
         <DateInput
           isFocused={focusedRange[1] === 0 && isComponentVisible}
           disabled={disabled}
