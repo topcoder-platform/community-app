@@ -14,7 +14,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { services } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
 
 import PT from 'prop-types';
@@ -26,20 +26,19 @@ import ScreeningStatus from '../ScreeningStatus';
 
 import './styles.scss';
 
-const { getService } = services.submissions;
-
 export default function Submission(props) {
   const {
-    auth,
     submissionObject,
     showScreeningDetails,
     track,
+    onDownload,
     onDelete,
     onShowDetails,
     status,
     allowDelete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
+  const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
 
   return (
     <tr styleName="submission-row">
@@ -70,20 +69,7 @@ export default function Submission(props) {
       <td styleName="action-col">
         <div>
           <button
-            onClick={() => {
-              // download submission
-              const submissionsService = getService(auth.tokenV3);
-              submissionsService.downloadSubmission(submissionObject.id)
-                .then((blob) => {
-                  const url = window.URL.createObjectURL(new Blob([blob]));
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.setAttribute('download', `submission-${submissionObject.id}.zip`);
-                  document.body.appendChild(link);
-                  link.click();
-                  link.parentNode.removeChild(link);
-                });
-            }}
+            onClick={() => onDownloadSubmission(submissionObject.id)}
             type="button"
           >
             <DownloadIcon />
@@ -149,5 +135,4 @@ Submission.propTypes = {
   onShowDetails: PT.func,
   status: PT.string.isRequired,
   allowDelete: PT.bool.isRequired,
-  auth: PT.shape().isRequired,
 };

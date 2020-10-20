@@ -26,7 +26,6 @@ import './styles.scss';
 
 export default function SubmissionsTable(props) {
   const {
-    auth,
     submissionObjects,
     showDetails,
     track,
@@ -57,7 +56,6 @@ export default function SubmissionsTable(props) {
 
       const submission = (
         <Submission
-          auth={auth}
           submissionObject={subObject}
           showScreeningDetails={showDetails[subObject.id]}
           track={track}
@@ -152,5 +150,4 @@ SubmissionsTable.propTypes = {
   onShowDetails: PT.func,
   status: PT.string.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
-  auth: PT.shape().isRequired,
 };
