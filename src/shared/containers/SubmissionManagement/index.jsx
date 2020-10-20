@@ -95,7 +95,6 @@ class SubmissionManagementPageContainer extends React.Component {
           {!isEmpty
             && (
             <SubmissionManagement
-              auth={authTokens}
               challenge={challenge}
               challengesUrl={challengesUrl}
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
