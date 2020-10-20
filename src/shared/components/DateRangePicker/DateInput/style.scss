@@ -1,0 +1,26 @@
+.isFocused {}
+
+.dateInput {
+  width: 110px;
+
+  input {
+    padding: 5px;
+    height: 30px !important;
+    font-size: 13px !important;
+    line-height: 16px !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+.calendarIcon {
+  position: absolute;
+  cursor: pointer;
+  margin-left: -22px;
+  margin-top: 6px;
+}
+
+.disabled {
+  .calendarIcon {
+    cursor: not-allowed;
+  }
+}
