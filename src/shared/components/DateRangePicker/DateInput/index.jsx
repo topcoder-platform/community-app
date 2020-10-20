@@ -27,6 +27,9 @@ function DateInput(props) {
   );
 }
 
+// It use https://www.npmjs.com/package/react-input-mask internally
+// Check the docs for further options
+
 DateInput.propTypes = {
   readOnly: PropTypes.bool,
   onChange: PropTypes.func,

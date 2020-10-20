@@ -37,6 +37,11 @@ function DateRangePicker(props) {
     setIsComponentVisible,
   } = useComponentVisible(false);
 
+  /**
+   * Handle end date change on user input
+   * After user input the end date via keyboard, validate it then update the range state
+   * @param {Object} e Input Event.
+   */
   const onEndDateChange = (e) => {
     const endDateString = e.target.value;
     const endDate = moment(endDateString, 'MM/DD/YYYY', true);
@@ -58,6 +63,11 @@ function DateRangePicker(props) {
     }
   };
 
+  /**
+   * Handle start date change on user input
+   * After user input the start date via keyboard, validate it then update the range state
+   * @param {Object} e Input Event.
+   */
   const onStartDateChange = (e) => {
     const startDateString = e.target.value;
     const startDate = moment(startDateString, 'MM/DD/YYYY', true);
@@ -79,20 +89,33 @@ function DateRangePicker(props) {
     }
   };
 
+  /**
+   * Trigger to open calendar modal on calendar icon in start date input
+   */
   const onIconClickStartDate = () => {
-    setFocusedRange([0, 0]);
+    setFocusedRange([0, 0]); // set current focused input to start date
     setIsComponentVisible(true);
   };
 
+  /**
+   * Trigger to open calendar modal on calendar icon in end date input
+   */
   const onIconClickEndDate = () => {
-    if (rangeString.startDateString) {
-      setFocusedRange([0, 1]);
+    if (rangeString.startDateString) { // Must have input start date first
+      setFocusedRange([0, 1]); // set current focused input to end date
       setIsComponentVisible(true);
     }
   };
 
+  /**
+   * Check whether the end date input is disabled
+   */
   const isEndDateDisabled = () => disabled || !range.startDate;
 
+  /**
+   * Event handler on date selection changes
+   * @param {Object} item item.selection that has endDate and startDate data
+   */
   const onDateRangePickerChange = (item) => {
     const isStartDateFocused = focusedRange[1] === 0;
     const isEndDateFocused = focusedRange[1] === 1;
@@ -108,14 +131,19 @@ function DateRangePicker(props) {
       startDateString: undefined,
     };
 
+    // User is active on start date calendar modal
     if (isStartDateFocused && isSameDay(payload.startDate, payload.endDate)) {
+      // User click start date when end date is not yet chosen
+      // or the start date is after the previous end date
       if (isAfterDay(payload.startDate, range.endDate) || !range.endDate) {
         payload.endDate = payload.startDate;
         payloadString.endDateString = '';
       } else {
         payload.endDate = range.endDate;
       }
-    } else if (isEndDateFocused) {
+    } else if (isEndDateFocused) { // User is active on end date calendar modal
+      // User click end date that occur before previous start date
+      // so reset the data and move focus to start date calendar
       if (
         isBeforeDay(payload.startDate, range.startDate)
         && isSameDay(payload.endDate, range.startDate)) {
@@ -125,20 +153,21 @@ function DateRangePicker(props) {
         shouldCloseCalendar = true;
       }
     } else {
-      // Changes From Defined Selection (Past Week, Past Month, etc)
+      // User clicks defined date ranges (Past Week, Past Month, etc)
       shouldCloseCalendar = true;
     }
-
 
     payloadString.startDateString = payload.startDate ? moment(payload.startDate).format('MM/DD/YYYY') : '';
     if (payloadString.endDateString === undefined) {
       payloadString.endDateString = payload.endDate ? moment(payload.endDate).format('MM/DD/YYYY') : '';
     }
 
+    // Emit the payload
     onChange({
       startDate: payload.startDate,
       endDate: payload.endDate ? moment(payload.endDate).endOf('day').toDate() : null,
     });
+
     setRangeString(payloadString);
 
     if (shouldCloseCalendar) {
@@ -146,6 +175,11 @@ function DateRangePicker(props) {
     }
   };
 
+  /**
+   * Focus the calendar to the given date,
+   * so for example, if the user click menu for end date it will open the calendar
+   * and focus it to current end date
+   */
   const getShownDate = () => {
     const isStartDateFocused = focusedRange[1] === 0;
 
@@ -221,6 +255,9 @@ function DateRangePicker(props) {
     </div>
   );
 }
+
+// It use https://www.npmjs.com/package/react-date-range internally
+// Check the docs for further options
 
 DateRangePicker.propTypes = {
   readOnly: PropTypes.bool,
