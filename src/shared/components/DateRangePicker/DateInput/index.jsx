@@ -9,6 +9,8 @@ function DateInput(props) {
   const {
     onIconClick,
     disabled,
+    placeholder,
+    id,
   } = props;
 
   return (
@@ -19,7 +21,7 @@ function DateInput(props) {
     >
       <InputMask {...props}>
         {() => (
-          <input id="input-date-range" disabled={disabled} />
+          <input id={id} placeholder={placeholder} disabled={disabled} />
         )}
       </InputMask>
       <CalendarIcon styleName="calendarIcon" onClick={onIconClick} />
@@ -41,12 +43,16 @@ DateInput.propTypes = {
   disabled: PropTypes.bool,
   isFocused: PropTypes.bool,
   mask: PropTypes.string,
+  placeholder: PropTypes.string,
+  id: PropTypes.string,
 };
 
 DateInput.defaultProps = {
   readOnly: false,
   disabled: false,
   mask: '99/99/9999',
+  placeholder: '',
+  id: 'input-date-range',
   isFocused: false,
   onChange: () => {},
   onMouseDown: () => {},

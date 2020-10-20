@@ -208,6 +208,7 @@ function DateRangePicker(props) {
         />
         <ArrowNext styleName="arrow" />
         <DateInput
+          id="input-end-date-range"
           isFocused={focusedRange[1] === 1 && isComponentVisible}
           disabled={isEndDateDisabled()}
           label="You must input start date first"
