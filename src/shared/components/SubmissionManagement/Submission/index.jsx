@@ -14,7 +14,6 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { config } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
 
 import PT from 'prop-types';
@@ -131,6 +130,7 @@ Submission.propTypes = {
   }),
   showScreeningDetails: PT.bool,
   track: PT.string.isRequired,
+  onDownload: PT.func.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
   status: PT.string.isRequired,

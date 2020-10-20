@@ -56,7 +56,6 @@ class SubmissionManagementPageContainer extends React.Component {
       isLoadingChallenge,
       mySubmissions,
       onCancelSubmissionDelete,
-      onDownloadSubmission,
       onShowDetails,
       onSubmissionDelete,
       onSubmissionDeleteConfirmed,
