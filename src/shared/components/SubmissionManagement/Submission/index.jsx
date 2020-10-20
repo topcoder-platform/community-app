@@ -14,7 +14,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { config } from 'topcoder-react-utils';
+import { services } from 'topcoder-react-lib';
 import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
 
 import PT from 'prop-types';
@@ -26,8 +26,11 @@ import ScreeningStatus from '../ScreeningStatus';
 
 import './styles.scss';
 
+const { getService } = services.submissions;
+
 export default function Submission(props) {
   const {
+    auth,
     submissionObject,
     showScreeningDetails,
     track,
@@ -66,15 +69,25 @@ export default function Submission(props) {
       }
       <td styleName="action-col">
         <div>
-          <a
-            href={
-              track === COMPETITION_TRACKS.DES
-                ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.id}`
-                : submissionObject.download
-            }
+          <button
+            onClick={() => {
+              // download submission
+              const submissionsService = getService(auth.tokenV3);
+              submissionsService.downloadSubmission(submissionObject.id)
+                .then((blob) => {
+                  const url = window.URL.createObjectURL(new Blob([blob]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', `submission-${submissionObject.id}.zip`);
+                  document.body.appendChild(link);
+                  link.click();
+                  link.parentNode.removeChild(link);
+                });
+            }}
+            type="button"
           >
             <DownloadIcon />
-          </a>
+          </button>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
               Topcoder Studio API, and we don't need any JS code to this.
@@ -136,4 +149,5 @@ Submission.propTypes = {
   onShowDetails: PT.func,
   status: PT.string.isRequired,
   allowDelete: PT.bool.isRequired,
+  auth: PT.shape().isRequired,
 };

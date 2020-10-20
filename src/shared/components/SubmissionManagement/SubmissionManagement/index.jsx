@@ -26,6 +26,7 @@ import style from './styles.scss';
 
 export default function SubmissionManagement(props) {
   const {
+    auth,
     challenge,
     submissions,
     loadingSubmissions,
@@ -156,6 +157,7 @@ export default function SubmissionManagement(props) {
         {!loadingSubmissions
           && (
           <SubmissionsTable
+            auth={auth}
             submissionObjects={submissions}
             showDetails={showDetails}
             track={track}
@@ -208,4 +210,5 @@ SubmissionManagement.propTypes = {
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,
   submissionPhaseStartDate: PT.string.isRequired,
+  auth: PT.shape().isRequired,
 };
