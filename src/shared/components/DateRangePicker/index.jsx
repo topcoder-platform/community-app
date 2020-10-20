@@ -18,14 +18,9 @@ function DateRangePicker(props) {
     startDatePlaceholder,
     endDatePlaceholder,
     disabled,
+    range,
+    onChange,
   } = props;
-
-  const [range, setRange] = useState(
-    {
-      startDate: null,
-      endDate: null,
-    },
-  );
 
   const [rangeString, setRangeString] = useState(
     {
@@ -44,16 +39,20 @@ function DateRangePicker(props) {
 
   const onEndDateChange = (e) => {
     const endDateString = e.target.value;
-    const endDate = moment(e.target.value, 'MM/DD/YYYY', true);
+    const endDate = moment(endDateString, 'MM/DD/YYYY', true);
     if (endDate.isValid()) {
-      setRange({
-        ...range,
+      onChange({
         endDate: endDate.toDate(),
+        startDate: range.startDate,
+      });
+
+      setRangeString({
+        ...rangeString,
         endDateString: endDate.format('MM/DD/YYYY'),
       });
     } else {
       setRangeString({
-        ...range,
+        ...rangeString,
         endDateString,
       });
     }
@@ -61,10 +60,10 @@ function DateRangePicker(props) {
 
   const onStartDateChange = (e) => {
     const startDateString = e.target.value;
-    const startDate = moment(e.target.value, 'MM/DD/YYYY', true);
+    const startDate = moment(startDateString, 'MM/DD/YYYY', true);
     if (startDate.isValid()) {
-      setRange({
-        ...range,
+      onChange({
+        endDate: range.endDate,
         startDate: startDate.toDate(),
       });
 
@@ -92,7 +91,7 @@ function DateRangePicker(props) {
     }
   };
 
-  const isEndDateDisabled = () => disabled || !range.startDate || !rangeString.startDateString;
+  const isEndDateDisabled = () => disabled || !range.startDate;
 
   const onDateRangePickerChange = (item) => {
     const isStartDateFocused = focusedRange[1] === 0;
@@ -136,9 +135,9 @@ function DateRangePicker(props) {
       payloadString.endDateString = payload.endDate ? moment(payload.endDate).format('MM/DD/YYYY') : '';
     }
 
-    setRange({
-      ...payload,
-      dateRange: payload.dateRange ? moment(payload.dateRange).endOf('day').toDate() : null,
+    onChange({
+      startDate: payload.startDate,
+      endDate: payload.endDate ? moment(payload.endDate).endOf('day').toDate() : null,
     });
     setRangeString(payloadString);
 
@@ -226,6 +225,8 @@ DateRangePicker.propTypes = {
   disabled: PropTypes.bool,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
+  range: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 DateRangePicker.defaultProps = {
