@@ -9,14 +9,12 @@ function DateInput(props) {
   const {
     onIconClick,
     disabled,
-    isFocused,
   } = props;
 
   return (
     <div className={cn([
       styles.dateInput,
       disabled && styles.disabled,
-      isFocused && styles.isFocused,
     ])}
     >
       <InputMask {...props} />

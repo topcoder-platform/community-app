@@ -16,11 +16,6 @@ export function isAfterDay(date1, date2) {
   return moment(date1).isAfter(moment(date2), 'day');
 }
 
-export function isSameOrAfterDay(date1, date2) {
-  if (!date1 || !date2) return false;
-  return moment(date1).isSameOrAfter(moment(date2), 'day');
-}
-
 const staticRangeHandler = {
   range: {},
   isSelected(range) {

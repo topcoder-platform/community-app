@@ -32,15 +32,15 @@
       }
 
       .rdrDayStartPreview {
-        left: 10% !important;
-        width: 38px !important;
+        margin-left: 8% !important;
+        width: 36px !important;
         border-top-left-radius: 50% !important;
         border-bottom-left-radius: 50% !important;
       }
 
       .rdrDayEndPreview {
         width: 36px !important;
-        left: 10% !important;
+        margin-left: 8% !important;
         border-top-right-radius: 50% !important;
         border-bottom-right-radius: 50% !important;
       }
@@ -67,17 +67,31 @@
 
     .rdrDayStartOfMonth {
       .rdrDayInPreview {
-        width: 400px;
+        width: 410px;
         border-radius: 0 !important;
         margin-left: -360px;
+      }
+
+      .rdrInRange {
+        margin-left: 0;
+        width: 36px;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
       }
     }
 
     .rdrDayEndOfMonth {
       .rdrDayInPreview {
-        width: 400px;
+        width: 410px;
         border-radius: 0 !important;
         margin-right: -360px;
+      }
+
+      .rdrInRange {
+        margin-left: 10px;
+        width: 36px;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
       }
     }
 

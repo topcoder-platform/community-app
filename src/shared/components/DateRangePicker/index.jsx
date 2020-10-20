@@ -9,7 +9,7 @@ import styles from './style.scss';
 
 import DateInput from './DateInput';
 import {
-  useComponentVisible, createStaticRanges, isSameDay, isAfterDay, isBeforeDay, isSameOrAfterDay,
+  useComponentVisible, createStaticRanges, isSameDay, isAfterDay, isBeforeDay,
 } from './helpers';
 
 function DateRangePicker(props) {
@@ -17,15 +17,20 @@ function DateRangePicker(props) {
     readOnly,
     startDatePlaceholder,
     endDatePlaceholder,
+    disabled,
   } = props;
 
   const [range, setRange] = useState(
     {
       startDate: null,
+      endDate: null,
+    },
+  );
+
+  const [rangeString, setRangeString] = useState(
+    {
       startDateString: '',
       endDateString: '',
-      endDate: null,
-      key: 'selection',
     },
   );
 
@@ -37,7 +42,6 @@ function DateRangePicker(props) {
     setIsComponentVisible,
   } = useComponentVisible(false);
 
-
   const onEndDateChange = (e) => {
     const endDateString = e.target.value;
     const endDate = moment(e.target.value, 'MM/DD/YYYY', true);
@@ -48,7 +52,7 @@ function DateRangePicker(props) {
         endDateString: endDate.format('MM/DD/YYYY'),
       });
     } else {
-      setRange({
+      setRangeString({
         ...range,
         endDateString,
       });
@@ -62,31 +66,33 @@ function DateRangePicker(props) {
       setRange({
         ...range,
         startDate: startDate.toDate(),
+      });
+
+      setRangeString({
+        ...rangeString,
         startDateString: startDate.format('MM/DD/YYYY'),
       });
     } else {
-      setRange({
-        ...range,
+      setRangeString({
+        ...rangeString,
         startDateString,
       });
     }
   };
 
-  const handleRangeFocusChange = newFocusedRange => setFocusedRange(newFocusedRange);
-
   const onIconClickStartDate = () => {
-    handleRangeFocusChange([0, 0]);
-    setIsComponentVisible(!isComponentVisible);
+    setFocusedRange([0, 0]);
+    setIsComponentVisible(true);
   };
 
   const onIconClickEndDate = () => {
-    if (range.startDateString) {
-      handleRangeFocusChange([0, 1]);
-      setIsComponentVisible(!isComponentVisible);
+    if (rangeString.startDateString) {
+      setFocusedRange([0, 1]);
+      setIsComponentVisible(true);
     }
   };
 
-  const isEndDateDisabled = () => range.disabled || !range.startDate || !range.startDateString;
+  const isEndDateDisabled = () => disabled || !range.startDate || !rangeString.startDateString;
 
   const onDateRangePickerChange = (item) => {
     const isStartDateFocused = focusedRange[1] === 0;
@@ -96,7 +102,9 @@ function DateRangePicker(props) {
 
     const payload = {
       ...item.selection,
-      endDate: moment(item.selection.endDate).endOf('day').toDate(),
+    };
+
+    const payloadString = {
       endDateString: undefined,
       startDateString: undefined,
     };
@@ -104,12 +112,14 @@ function DateRangePicker(props) {
     if (isStartDateFocused && isSameDay(payload.startDate, payload.endDate)) {
       if (isAfterDay(payload.startDate, range.endDate) || !range.endDate) {
         payload.endDate = payload.startDate;
-        payload.endDateString = '';
+        payloadString.endDateString = '';
       } else {
         payload.endDate = range.endDate;
       }
     } else if (isEndDateFocused) {
-      if (isBeforeDay(payload.startDate, range.startDate)) {
+      if (
+        isBeforeDay(payload.startDate, range.startDate)
+        && isSameDay(payload.endDate, range.startDate)) {
         payload.endDate = null;
         payload.startDate = null;
       } else {
@@ -120,34 +130,45 @@ function DateRangePicker(props) {
       shouldCloseCalendar = true;
     }
 
-    console.dir(payload)
 
-    payload.startDateString = payload.startDate ? moment(payload.startDate).format('MM/DD/YYYY') : '';
-    if (payload.endDateString === undefined) {
-      payload.endDateString = payload.endDate ? moment(payload.endDate).format('MM/DD/YYYY') : '';
+    payloadString.startDateString = payload.startDate ? moment(payload.startDate).format('MM/DD/YYYY') : '';
+    if (payloadString.endDateString === undefined) {
+      payloadString.endDateString = payload.endDate ? moment(payload.endDate).format('MM/DD/YYYY') : '';
     }
 
-    setRange(payload);
+    setRange({
+      ...payload,
+      dateRange: payload.dateRange ? moment(payload.dateRange).endOf('day').toDate() : null,
+    });
+    setRangeString(payloadString);
 
     if (shouldCloseCalendar) {
       setIsComponentVisible(false);
     }
   };
 
-  const disabledDay = day => false;
+  const getShownDate = () => {
+    const isStartDateFocused = focusedRange[1] === 0;
+
+    if (isStartDateFocused) {
+      return range.startDate || moment().toDate();
+    }
+    // isEndDateFocused
+    return range.endDate || moment().toDate();
+  };
 
   return (
     <div>
       <div styleName="dateInputWrapper">
         <DateInput
           isFocused={focusedRange[1] === 0 && isComponentVisible}
-          disabled={range.disabled}
+          disabled={disabled}
           readOnly={readOnly}
-          value={range.startDateString}
+          value={rangeString.startDateString}
           placeholder={startDatePlaceholder}
           maskChar={null}
           onChange={onStartDateChange}
-          onFocus={() => handleRangeFocusChange([0, 0])}
+          onFocus={() => setFocusedRange([0, 0])}
           onIconClick={onIconClickStartDate}
         />
         <ArrowNext styleName="arrow" />
@@ -156,11 +177,11 @@ function DateRangePicker(props) {
           disabled={isEndDateDisabled()}
           label="You must input start date first"
           readOnly={readOnly}
-          value={range.endDateString}
+          value={rangeString.endDateString}
           placeholder={endDatePlaceholder}
           maskChar={null}
           onChange={onEndDateChange}
-          onFocus={() => handleRangeFocusChange([0, 1])}
+          onFocus={() => setFocusedRange([0, 1])}
           onIconClick={onIconClickEndDate}
         />
       </div>
@@ -169,7 +190,7 @@ function DateRangePicker(props) {
         className={cn([
           styles.calendarWrapper,
           focusedRange[1] === 1 && styles.endDate,
-          (!range.startDate && !range.endDate) && styles.empty
+          (!range.startDate && !range.endDate) && styles.empty,
         ])}
         ref={calendarRef}
       >
@@ -177,7 +198,7 @@ function DateRangePicker(props) {
           isComponentVisible && (
             <ReactDateRangePicker
               focusedRange={focusedRange}
-              onRangeFocusChange={handleRangeFocusChange}
+              onRangeFocusChange={setFocusedRange}
               onChange={onDateRangePickerChange}
               dateDisplayFormat="MM/dd/yyyy"
               rangeColors={['#10B88A']}
@@ -185,10 +206,13 @@ function DateRangePicker(props) {
               staticRanges={createStaticRanges()}
               inputRanges={[]}
               moveRangeOnFirstSelection={false}
-              disabledDay={disabledDay}
-              initialFocusedRange={[0,1]}
+              initialFocusedRange={[0, 1]}
               showMonthArrow={false}
-              ranges={[range]}
+              ranges={[{
+                ...range,
+                key: 'selection',
+              }]}
+              shownDate={getShownDate()}
             />
           )
         }
@@ -199,12 +223,14 @@ function DateRangePicker(props) {
 
 DateRangePicker.propTypes = {
   readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
   startDatePlaceholder: PropTypes.string,
   endDatePlaceholder: PropTypes.string,
 };
 
 DateRangePicker.defaultProps = {
   readOnly: false,
+  disabled: false,
   startDatePlaceholder: 'Start Date',
   endDatePlaceholder: 'End Date',
 };
