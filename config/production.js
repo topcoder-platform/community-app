@@ -41,6 +41,7 @@ module.exports = {
     /* Connector URL of the TC accounts App. */
     ACCOUNTS_APP_CONNECTOR: 'https://accounts-auth0.topcoder.com/',
     TCO17: 'https://tco17.topcoder.com/',
+    TCO19: 'https://tco19.topcoder.com/',
 
     TOPGEAR: 'https://topgear-app.wipro.com',
 
