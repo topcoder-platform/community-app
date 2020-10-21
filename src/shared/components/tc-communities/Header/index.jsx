@@ -81,7 +81,7 @@ function Header(props) {
         icon: <IconNavExit />,
         // TODO: In addition to hitting ${AUTH_URL}/logout, which logs out
         // from the accounts-app, we should wipe out auth cookies!
-        link: `${AUTH_URL}/logout?retUrl=${logoutRedirect}`,
+        link: `${AUTH_URL}?logout=true&retUrl=${encodeURIComponent(logoutRedirect)}`,
         title: 'Log Out',
       }],
     };

@@ -142,6 +142,7 @@ module.exports = {
     STUDIO: 'https://studio.topcoder-dev.com',
     TCO: 'https://www.topcoder.com/tco',
     TCO17: 'https://tco17.topcoder.com/',
+    TCO19: 'https://community-app.topcoder-dev.com/__community__/tco19',
 
     TOPGEAR: 'https://dev-topgear.wipro.com',
 
