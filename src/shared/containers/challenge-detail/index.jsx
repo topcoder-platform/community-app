@@ -406,7 +406,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
 
-    const submissionEnded = status === 'COMPLETED'
+    const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
     || (!_.some(phases, { name: 'Submission', isOpen: true })
       && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
@@ -849,9 +849,7 @@ const mapDispatchToProps = (dispatch) => {
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, ch.legacyId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
-          if (ch.status === 'COMPLETED') {
-            dispatch(a.loadResultsInit(challengeId));
-            dispatch(a.loadResultsDone(tokens, challengeId, ch.track.toLowerCase()));
+          if (ch.status === CHALLENGE_STATUS.COMPLETED) {
           } else dispatch(a.dropResults());
           return res;
         });
