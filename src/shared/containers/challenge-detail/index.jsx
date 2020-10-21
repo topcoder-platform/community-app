@@ -38,6 +38,7 @@ import {
   COMPETITION_TRACKS,
   COMPETITION_TRACKS_V3,
   SUBTRACKS,
+  CHALLENGE_STATUS,
 } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
@@ -850,6 +851,8 @@ const mapDispatchToProps = (dispatch) => {
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
           if (ch.status === CHALLENGE_STATUS.COMPLETED) {
+            dispatch(a.loadResultsInit(ch.legacyId));
+            dispatch(a.loadResultsDone(tokens, ch.legacyId, ch.track.toLowerCase()));
           } else dispatch(a.dropResults());
           return res;
         });
