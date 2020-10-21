@@ -122,7 +122,7 @@ export default function LeaderboardTable(props) {
           }
           {
             isAlgo ? (
-              <td styleName={`${stylesName}.col-points`}>{competitor['srm_tco19.score']}</td>
+              <td styleName={`${stylesName}.col-points`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</td>
             ) : null
           }
         </tr>
@@ -141,7 +141,13 @@ export default function LeaderboardTable(props) {
               <th styleName={`${stylesName}.col-fulfillment`}>Fulfillment</th>
             ) : null
           }
-          <th styleName={`${stylesName}.col-challenges`}># of Challenges</th>
+          {
+            isAlgo ? (
+              <th styleName={`${stylesName}.col-challenges`}># of Matches</th>
+            ) : (
+              <th styleName={`${stylesName}.col-challenges`}># of Challenges</th>
+            )
+          }
           <th styleName={`${stylesName}.col-points`}>Points</th>
           {
             isTopGear ? (
