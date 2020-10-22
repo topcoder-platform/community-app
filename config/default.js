@@ -119,6 +119,8 @@ module.exports = {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
       COGNITIVE: 'https://cognitive.topcoder-dev.com',
       ZURICH: 'https://community-app.topcoder-dev.com/__community__/zurich',
+      COMCAST: 'https://community-app.topcoder-dev.com/__community__/comcast',
+      CS: 'https://community-app.topcoder-dev.com/__community__/cs',
     },
 
     /* Dedicated section to group together links to various articles in
