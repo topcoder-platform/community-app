@@ -1,3 +1,4 @@
+import cookies from 'browser-cookies';
 import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
@@ -33,9 +34,10 @@ Link.propTypes = {
 
 export default function TopcoderFooter() {
   const base = config.URL.BASE;
-  const auth = config.URL.AUTH;
+  const authUrl = config.URL.AUTH;
   const retUrl = isomorphy.isClientSide() ? encodeURIComponent(window.location.href) : '';
   const currentYear = moment().year();
+  const loggedIn = cookies.get('tcjwt') !== null;
   return (
     <div styleName="footer" role="contentinfo">
       <div styleName="footer-wrap">
@@ -92,7 +94,9 @@ export default function TopcoderFooter() {
             <ul styleName="navi-col-links">
               <Link to={`${base}/community/admins`}>Admins</Link>
               <Link to={`${base}/community/contact`}>Contact Us</Link>
-              <Link to={`${auth}?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion&retUrl=${retUrl}`}>Join Community</Link>
+              {!loggedIn
+                && <Link to={`${authUrl}?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion&retUrl=${retUrl}`}>Join Community</Link>
+              }
               <Link to={`${base}/community/learn`}>About Community</Link>
               <Link to={`${base}/community/changelog`}>Changelog</Link>
               <Link to={`${base}/contact-us/`}>Talk to Sales</Link>
