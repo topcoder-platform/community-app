@@ -36,8 +36,8 @@ export default function TopcoderFooter() {
   const base = config.URL.BASE;
   const authUrl = config.URL.AUTH;
   const retUrl = isomorphy.isClientSide() ? encodeURIComponent(window.location.href) : '';
+  const loggedIn = isomorphy.isClientSide() && cookies.get('tcjwt') !== null;
   const currentYear = moment().year();
-  const loggedIn = cookies.get('tcjwt') !== null;
   return (
     <div styleName="footer" role="contentinfo">
       <div styleName="footer-wrap">
