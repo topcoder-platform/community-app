@@ -2,6 +2,16 @@ import React from 'react';
 import PT from 'prop-types';
 import Connector from 'components/Editor/Connector';
 import { RichUtils } from 'draft-js';
+import IconBold from 'assets/images/settings/profile/work/tc-text-16-bold.svg';
+import IconBoldActive from 'assets/images/settings/profile/work/tc-text-16-bold-active.svg';
+import IconItalic from 'assets/images/settings/profile/work/tc-text-16-italic.svg';
+import IconItalicActive from 'assets/images/settings/profile/work/tc-text-16-italic-active.svg';
+import IconUnderline from 'assets/images/settings/profile/work/tc-text-16-underline.svg';
+import IconUnderlineActive from 'assets/images/settings/profile/work/tc-text-16-underline-active.svg';
+import IconListBullet from 'assets/images/settings/profile/work/text-16px_list-bullet.svg';
+import IconListBulletActive from 'assets/images/settings/profile/work/text-16px_list-bullet-active.svg';
+import IconListNumbers from 'assets/images/settings/profile/work/text-16px_list-numbers.svg';
+import IconListNumbersActive from 'assets/images/settings/profile/work/text-16px_list-numbers-active.svg';
 
 import './style.scss';
 
@@ -134,12 +144,22 @@ export default class Toolbar extends React.Component {
 
     return (
       <div styleName="container" style={{ display: hidden ? 'none' : 'flex' }}>
-        <button type="button" onMouseDown={this.onClickBoldButton} styleName={bold ? 'is-pressed' : ''}>B</button>
-        <button type="button" onMouseDown={this.onClickItalicButton} styleName={italic ? 'is-pressed' : ''}>I</button>
-        <button type="button" onMouseDown={this.onClickUnderlineButton} styleName={underline ? 'is-pressed' : ''}>U</button>
+        <button type="button" onMouseDown={this.onClickBoldButton}>
+          {bold ? <IconBoldActive /> : <IconBold />}
+        </button>
+        <button type="button" onMouseDown={this.onClickItalicButton}>
+          {italic ? <IconItalicActive /> : <IconItalic />}
+        </button>
+        <button type="button" onMouseDown={this.onClickUnderlineButton}>
+          {underline ? <IconUnderlineActive /> : <IconUnderline />}
+        </button>
         <span styleName="separator" />
-        <button type="button" onMouseDown={this.onClickOrderedListButton} styleName={orderedList ? 'is-pressed' : ''}>OL</button>
-        <button type="button" onMouseDown={this.onClickUnorderedListButton} styleName={unorderedList ? 'is-pressed' : ''}>UL</button>
+        <button type="button" onMouseDown={this.onClickOrderedListButton}>
+          {orderedList ? <IconListNumbersActive /> : <IconListNumbers />}
+        </button>
+        <button type="button" onMouseDown={this.onClickUnorderedListButton}>
+          {unorderedList ? <IconListBulletActive /> : <IconListBullet />}
+        </button>
       </div>
     );
   }

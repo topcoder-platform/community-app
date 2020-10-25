@@ -27,7 +27,7 @@ export default function Item(props) {
   const {
     jobDescription,
     technologies,
-    achievements,
+    jobAchievements,
   } = work;
 
   const hasSecondLine = () => {
@@ -90,7 +90,7 @@ export default function Item(props) {
           </p>
         </a>
       </div>
-      { !_.isEmpty(jobDescription)
+      { !_.isEmpty(jobDescription) && jobDescription !== '<p><br></p>'
         && (
           <div styleName="job-description">
             <h4 styleName="title">Job Description</h4>
@@ -106,11 +106,11 @@ export default function Item(props) {
           </div>
         )
       }
-      { !_.isEmpty(achievements)
+      { !_.isEmpty(jobAchievements) && jobAchievements !== '<p><br></p>'
         && (
           <div styleName="achievements">
             <h4 styleName="title">Outputs and Achievements Within the Role</h4>
-            <div styleName="html-content" dangerouslySetInnerHTML={{ __html: achievements /* eslint-disable-line react/no-danger */ }} />
+            <div styleName="html-content" dangerouslySetInnerHTML={{ __html: jobAchievements /* eslint-disable-line react/no-danger */ }} />
           </div>
         )
       }

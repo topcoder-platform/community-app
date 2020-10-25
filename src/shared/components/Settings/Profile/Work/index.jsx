@@ -63,12 +63,12 @@ export default class Work extends ConsentComponent {
         industry: '',
         working: false,
         jobDescription: '',
-        achievements: '',
+        jobAchievements: '',
         technologies: [],
         initialJobDescription: '',
-        initialAchievements: '',
+        initialJobAchievements: '',
         numJobDescription: 0,
-        numAchievements: 0,
+        numJobAchievements: 0,
         numTechnologies: 0,
       },
       isMobileView: false,
@@ -111,15 +111,15 @@ export default class Work extends ConsentComponent {
         industry: '',
         working: false,
         jobDescription: '',
-        achievements: '',
+        jobAchievements: '',
         technologies: [],
         initialJobDescription: '',
-        initialAchievements: '',
+        initialJobAchievements: '',
         numJobDescription: 0,
-        numAchievements: 0,
+        numJobAchievements: 0,
         numTechnologies: 0,
       },
-    });
+    }, () => this.resetEditorContents());
   }
 
   componentWillUnmount() {
@@ -241,24 +241,24 @@ export default class Work extends ConsentComponent {
         jobDescription: _.isEmpty(workTrait.traits.data[indexNo].jobDescription)
           ? ''
           : workTrait.traits.data[indexNo].jobDescription,
-        achievements: _.isEmpty(workTrait.traits.data[indexNo].achievements)
+        jobAchievements: _.isEmpty(workTrait.traits.data[indexNo].jobAchievements)
           ? ''
-          : workTrait.traits.data[indexNo].achievements,
+          : workTrait.traits.data[indexNo].jobAchievements,
         technologies: _.isEmpty(workTrait.traits.data[indexNo].technologies)
           ? []
           : workTrait.traits.data[indexNo].technologies,
         initialJobDescription: _.isEmpty(workTrait.traits.data[indexNo].jobDescription)
           ? ''
           : workTrait.traits.data[indexNo].jobDescription,
-        initialAchievements: _.isEmpty(workTrait.traits.data[indexNo].achievements)
+        initialJobAchievements: _.isEmpty(workTrait.traits.data[indexNo].jobAchievements)
           ? ''
-          : workTrait.traits.data[indexNo].achievements,
+          : workTrait.traits.data[indexNo].jobAchievements,
         numJobDescription: _.isEmpty(workTrait.traits.data[indexNo].jobDescription)
           ? 0
           : workTrait.traits.data[indexNo].jobDescription.length,
-        numAchievements: _.isEmpty(workTrait.traits.data[indexNo].achievements)
+        numJobAchievements: _.isEmpty(workTrait.traits.data[indexNo].jobAchievements)
           ? 0
-          : workTrait.traits.data[indexNo].achievements.length,
+          : workTrait.traits.data[indexNo].jobAchievements.length,
         numTechnologies: _.isEmpty(workTrait.traits.data[indexNo].technologies)
           ? 0
           : workTrait.traits.data[indexNo].technologies.length,
@@ -315,17 +315,21 @@ export default class Work extends ConsentComponent {
     }
     if (_.isEmpty(work.jobDescription)) {
       delete work.jobDescription;
+    } else {
+      work.jobDescription = _.escape(work.jobDescription);
     }
-    if (_.isEmpty(work.achievements)) {
-      delete work.achievements;
+    if (_.isEmpty(work.jobAchievements)) {
+      delete work.jobAchievements;
+    } else {
+      work.jobAchievements = _.escape(work.jobAchievements);
     }
     if (_.isEmpty(work.technologies)) {
       delete work.technologies;
     }
     delete work.initialJobDescription;
-    delete work.initialAchievements;
+    delete work.initialJobAchievements;
     delete work.numJobDescription;
-    delete work.numAchievements;
+    delete work.numJobAchievements;
     delete work.numTechnologies;
 
     if (workTrait.traits && workTrait.traits.data.length > 0) {
@@ -387,6 +391,14 @@ export default class Work extends ConsentComponent {
   loadWorkTrait = (userTraits) => {
     const trait = userTraits.filter(t => t.traitId === 'work');
     const works = trait.length === 0 ? {} : trait[0];
+    if (works.traits && works.traits.data) {
+      works.traits.data = works.traits.data.map((item) => {
+        const result = _.assign({}, item);
+        result.jobDescription = _.unescape(item.jobDescription);
+        result.jobAchievements = _.unescape(item.jobAchievements);
+        return result;
+      });
+    }
     return _.assign({}, works);
   }
 
@@ -421,12 +433,12 @@ export default class Work extends ConsentComponent {
           industry: '',
           working: false,
           jobDescription: '',
-          achievements: '',
+          jobAchievements: '',
           technologies: [],
           initialJobDescription: '',
-          initialAchievements: '',
+          initialJobAchievements: '',
           numJobDescription: 0,
-          numAchievements: 0,
+          numJobAchievements: 0,
           numTechnologies: 0,
         },
         formInvalid: false,
@@ -435,7 +447,7 @@ export default class Work extends ConsentComponent {
         endDateInvalid: false,
         endDateDisabled: false,
         endDateInvalidMsg: '',
-      });
+      }, () => this.resetEditorContents());
     }
   }
 
@@ -449,8 +461,11 @@ export default class Work extends ConsentComponent {
   }
 
   onUpdateAchievements(editor) {
+    const html = editor.getHtml();
+    const length = editor.state.editor.getCurrentContent().getPlainText('').length; // eslint-disable-line prefer-destructuring
     const { newWork: oldWork } = this.state;
-    const newWork = { ...oldWork, achievements: editor.getHtml(), numAchievements: editor.state.editor.getCurrentContent().getPlainText('').length };
+
+    const newWork = { ...oldWork, jobAchievements: html, numJobAchievements: length };
     this.setState({ newWork, isSubmit: false, endDateDisabled: newWork.working });
   }
 
@@ -466,6 +481,13 @@ export default class Work extends ConsentComponent {
       numTechnologies: value.length,
     };
     this.setState({ newWork, isSubmit: false, endDateDisabled: newWork.working });
+  }
+
+  resetEditorContents() {
+    this.connectorJobDescription.editors[0].setInitialContent('');
+    this.connectorAchievements.editors[0].setInitialContent('');
+    this.connectorJobDescriptionMobile.editors[0].setInitialContent('');
+    this.connectorAchievementsMobile.editors[0].setInitialContent('');
   }
 
   render() {
@@ -495,11 +517,11 @@ export default class Work extends ConsentComponent {
     const { newWork } = this.state;
     const {
       initialJobDescription,
-      initialAchievements,
+      initialJobAchievements,
       technologies,
       numJobDescription,
       numTechnologies,
-      numAchievements,
+      numJobAchievements,
     } = newWork;
     const techTags = lookupData.technologies
       .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
@@ -713,7 +735,7 @@ export default class Work extends ConsentComponent {
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="char-num">{numAchievements} / 400</span>
+                  <span styleName="char-num">{numJobAchievements} / 400</span>
                   <div styleName="editor-outer-container">
                     <div styleName="toolbar-wrapper">
                       <Toolbar
@@ -726,7 +748,7 @@ export default class Work extends ConsentComponent {
                       theme={{ container: 'editor-container' }}
                       placeholder="Outputs and achievements within the role"
                       maxLength={400}
-                      initialContent={initialAchievements}
+                      initialContent={initialJobAchievements}
                     />
                   </div>
                 </div>
@@ -754,7 +776,7 @@ export default class Work extends ConsentComponent {
                       placeholder="Select technologies from list"
                       joinValues={true}
                       removeSelected={false}
-                      searchable={false}
+                      searchable={true}
                       valueComponent={valueProps => (<span styleName="selected-value-text">{valueProps.value.name}</span>)}
                     />
                   </div>
@@ -935,7 +957,7 @@ export default class Work extends ConsentComponent {
                     Outputs and Achievements Within the Role
                     <input type="hidden" />
                   </label>
-                  <span styleName="char-num">{numAchievements} / 400</span>
+                  <span styleName="char-num">{numJobAchievements} / 400</span>
                   <div styleName="editor-outer-container">
                     <div styleName="toolbar-wrapper">
                       <Toolbar
@@ -948,7 +970,7 @@ export default class Work extends ConsentComponent {
                       theme={{ container: 'editor-container' }}
                       placeholder="Outputs and achievements within the role"
                       maxLength={400}
-                      initialContent={initialAchievements}
+                      initialContent={initialJobAchievements}
                     />
                   </div>
                 </div>
@@ -974,7 +996,7 @@ export default class Work extends ConsentComponent {
                       placeholder="Select technologies from list"
                       joinValues={true}
                       removeSelected={false}
-                      searchable={false}
+                      searchable={true}
                       valueComponent={valueProps => (<span styleName="selected-value-text">{valueProps.value.name}</span>)}
                     />
                   </div>

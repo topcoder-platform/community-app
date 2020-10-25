@@ -433,6 +433,10 @@ label {
       overflow: auto;
     }
 
+    .public-DraftEditorPlaceholder-root {
+      z-index: auto;
+    }
+
     .editor-container.is-focused .DraftEditor-root {
       margin-top: 40px;
       height: calc(100% - 40px);
@@ -515,14 +519,30 @@ label {
         height: 40px;
       }
 
+      .Select-multi-value-wrapper {
+        padding: 0 15px;
+        line-height: 40px;
+      }
+
       .Select-placeholder {
         line-height: 40px;
         padding: 0 15px;
       }
 
-      .Select-multi-value-wrapper {
-        padding: 0 15px;
-        line-height: 40px;
+      .Select-input {
+        height: 40px;
+        margin: 0;
+
+        > input {
+          padding: 0;
+        }
+      }
+
+      &:not(.is-open) {
+        .Select-input {
+          width: 1px;
+          margin: 0;
+        }
       }
 
       .Select-option {

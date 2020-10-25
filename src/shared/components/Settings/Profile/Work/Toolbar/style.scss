@@ -23,8 +23,8 @@
     background: none;
     border: 0;
 
-    &.is-pressed {
-      box-shadow: 0 0 0 1px #c3c3c8;
+    svg {
+      vertical-align: bottom;
     }
   }
 
