@@ -7,12 +7,12 @@ import { TcElementImpl } from 'topcoder-testing-lib/dist/src/tc-element-impl';
 /**
  * Wait until condition return true
  * @param func function for checking condition
- * @param extraMesage extra error message when timeout
+ * @param extraMessage extra error message when timeout
  * @param isPageLoad wait for loading page
  */
 const waitUntil = async (
   func: () => any,
-  extraMesage: string,
+  extraMessage: string,
   isPageLoad: boolean
 ) => {
   await BrowserHelper.waitUntil(
@@ -24,7 +24,7 @@ const waitUntil = async (
       ? appconfig.LoggerErrors.PageLoad
       : appconfig.LoggerErrors.ElementVisibilty) +
       '.' +
-      extraMesage
+      extraMessage
   );
 };
 
@@ -177,12 +177,12 @@ export const CommonHelper = {
   /**
    * Wait until the element becomes visible
    * @param {TcElementImpl} tcElement element
-   * @param {TcElementImpl} extraMesage extra message
+   * @param {TcElementImpl} extraMessage extra message
    * @param {Boolean} isPageLoad is loading page
    */
   async waitUntilVisibilityOf(
     func: () => TcElement,
-    extraMesage: string,
+    extraMessage: string,
     isPageLoad: boolean
   ) {
     await waitUntil(
@@ -194,7 +194,7 @@ export const CommonHelper = {
           return false;
         }
       },
-      extraMesage,
+      extraMessage,
       isPageLoad
     );
   },
@@ -202,12 +202,12 @@ export const CommonHelper = {
   /**
    * Wait until the element becomes invisible
    * @param {TcElementImpl} tcElement element
-   * @param {TcElementImpl} extraMesage extra message
+   * @param {TcElementImpl} extraMessage extra message
    * @param {Boolean} isPageLoad is loading page
    */
   async waitUntilInVisibilityOf(
     func: () => TcElement,
-    extraMesage: string,
+    extraMessage: string,
     isPageLoad: boolean
   ) {
     await waitUntil(
@@ -219,7 +219,7 @@ export const CommonHelper = {
           return true;
         }
       },
-      extraMesage,
+      extraMessage,
       isPageLoad
     );
   },
@@ -253,12 +253,12 @@ export const CommonHelper = {
   /**
    * Wait until the element is present
    * @param {TcElementImpl} tcElement element
-   * @param {TcElementImpl} extraMesage extra message
+   * @param {TcElementImpl} extraMessage extra message
    * @param {Boolean} isPageLoad is loading page
    */
   async waitUntilPresenceOf(
     func: () => TcElement,
-    extraMesage: string,
+    extraMessage: string,
     isPageLoad: boolean
   ) {
     await BrowserHelper.waitUntil(
@@ -277,18 +277,18 @@ export const CommonHelper = {
         ? appconfig.LoggerErrors.PageLoad
         : appconfig.LoggerErrors.ElementPresence) +
         '.' +
-        extraMesage
+        extraMessage
     );
   },
 
   /**
    * Wait until the condition is true
    * @param {function} func
-   * @param {TcElementImpl} extraMesage extra message
+   * @param {TcElementImpl} extraMessage extra message
    * @param {Boolean} isPageLoad is loading page
    */
-  async waitUntil(func: () => any, extraMesage: string, isPageLoad: boolean) {
-    await waitUntil(func, extraMesage, isPageLoad);
+  async waitUntil(func: () => any, extraMessage: string, isPageLoad: boolean) {
+    await waitUntil(func, extraMessage, isPageLoad);
   },
 
   /**

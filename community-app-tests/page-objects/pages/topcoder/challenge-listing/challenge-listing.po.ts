@@ -171,6 +171,13 @@ export class ChallengeListingPageObject {
   }
 
   /**
+   * Get title a-z sort option
+   */
+  static get selectSortByTitleOption() {
+    return CommonHelper.findElementByText('div', 'Title A-Z');
+  }
+
+  /**
    * Get submission elements
    */
   static async submissionElements() {
@@ -182,6 +189,14 @@ export class ChallengeListingPageObject {
         ElementHelper.getElementByXPath('..', headers[0])
       )
     );
+  }
+
+  /**
+   * Get submission title
+   */
+  static async submissionTitle() {
+    const headers = await CommonHelper.h2Fields;
+    return ElementHelper.getAllElementsByClassName('vir_2D', headers[0]);
   }
 
   /**

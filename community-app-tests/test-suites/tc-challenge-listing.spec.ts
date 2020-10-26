@@ -38,9 +38,8 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
     });
 
-    it('[TC_004] should verify whether all the open for registration and Ongoing challenges are listed on clicking the Challenge tab', async () => {
+    it('[TC_004] should verify whether all the open for registration are listed on clicking the Challenge tab', async () => {
       await ChallengeListingPageHelper.verifyOpenForRegistrationChallenges();
-      await ChallengeListingPageHelper.verifyOngoingChallenges();
     });
 
     it('[TC_006] should verify whether the user is able to search for a challenge by using the Search challenges textbox', async () => {
@@ -116,11 +115,11 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyClearFilterState(false);
     });
 
-    it('[TC_018] should verify whether the Sort by select option under the Open for registration/Ongoing Challenges list sorts the challenges according to the selected option', async () => {
+    it('[TC_018] should verify whether the Sort by select option under the Open for registration list sorts the challenges according to the selected option', async () => {
       await ChallengeListingPageHelper.verifySortingFunctionality();
     });
 
-    it('[TC_019] should verify whether the View more challenges link under the Open for registration/Ongoing Challenges list displays all the Open for registration/Ongoing challenges', async () => {
+    it('[TC_019] should verify whether the View more challenges link under the Open for registration list displays all the Open for registration', async () => {
       await ChallengeListingPageHelper.verifyViewMoreChallenges();
     });
 
@@ -133,18 +132,12 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     });
 
     it('[TC-022] should verify that the challenge count remains the same when switching to the challenge details and then back to the challenge listings page', async () => {
-      const beforeOngoingChallengesCount = await ChallengeListingPageHelper.getOngoingChallengesCount();
       const beforeAllChallengesCount = await ChallengeListingPageHelper.getAllChallengesCount();
       const beforeOpenForRegistrationChallengesCount = await ChallengeListingPageHelper.getOpenForRegistrationChallengesCount();
       await ChallengeListingPageHelper.navigateToFirstChallenge();
       await ChallengeDetailPageHelper.clickOnBackButton();
-      const afterOngoingChallengesCount = await ChallengeListingPageHelper.getOngoingChallengesCount();
       const afterAllChallengesCount = await ChallengeListingPageHelper.getAllChallengesCount();
       const afterOpenForRegistrationChallengesCount = await ChallengeListingPageHelper.getOpenForRegistrationChallengesCount();
-      expect(beforeOngoingChallengesCount).toBe(
-        afterOngoingChallengesCount,
-        'Ongoing challenge count is not same as before '
-      );
       expect(beforeAllChallengesCount).toBe(
         afterAllChallengesCount,
         'All challenge count is not same as before '
@@ -158,9 +151,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     it('[TC-023] should verify All Challenges link functionality with the design, development, data science and QA toggle switches on', async () => {
       await ChallengeListingPageHelper.verifyAllChallenges();
       await ChallengeListingPageHelper.verifyOpenForRegistrationChallengesOnly();
-      await ChallengeListingPageHelper.verifyOngoingChallengesOnly();
       await ChallengeListingPageHelper.verifyOpenForReviewChallengesOnly();
-      await ChallengeListingPageHelper.verifyPastChallengesOnly();
     });
 
     it('[TC-024] should verify All Challenges link functionality with the design, development, data science and QA toggle switches Off', async () => {
@@ -232,7 +223,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
     });
 
-    it('[TC_033] should verify whether all the my challenges, open for registration and Ongoing challenges are listed on clicking the Challenge tab', async () => {
+    it('[TC_033] should verify whether all the my challenges, open for registration are listed on clicking the Challenge tab', async () => {
       await ChallengeListingPageHelper.verifyChallengesAfterLogin();
     });
   });

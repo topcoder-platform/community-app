@@ -18,7 +18,6 @@ export class ChallengeListingPageHelper {
   public static async open() {
     await ChallengeListingPageObject.open();
     await this.waitForLoadingNewChallengeList();
-    await this.waitTillHeaderPresentWithText('Ongoing challenges');
   }
 
   /**
@@ -42,20 +41,6 @@ export class ChallengeListingPageHelper {
     const headers = await ElementHelper.getAllElementsByTag('h2');
     const registrationChallenges = await headers[0].getText();
     expect(registrationChallenges).toEqual('Open for registration');
-  }
-
-  /**
-   * Check if the ongoing challenges should be listed.
-   */
-  static async verifyOngoingChallenges() {
-    await CommonHelper.waitUntilVisibilityOf(
-      () => ElementHelper.getElementByTag('h2'),
-      'Wait for h2 tag',
-      false
-    );
-    const headers = await ElementHelper.getAllElementsByTag('h2');
-    const registrationChallenges = await headers[1].getText();
-    expect(registrationChallenges).toEqual('Ongoing challenges');
   }
 
   /**
@@ -155,8 +140,16 @@ export class ChallengeListingPageHelper {
    * Wait for fetching new challenge list
    */
   public static async waitForLoadingNewChallengeList() {
+
+    // Scroll down until see footer.
+    await BrowserHelper.executeScript('arguments[0].scrollIntoView();', CommonHelper.findElementByText(
+      'a',
+      'Policies'
+    ));
+
     // sleeping since challenge number takes time to update
     BrowserHelper.sleep(5000);
+
     // wait for showing page
     await CommonHelper.waitUntilVisibilityOf(
       () => CommonHelper.findElementByText('span', 'All Challenges'),
@@ -256,6 +249,7 @@ export class ChallengeListingPageHelper {
 
   static async selectSubCommunity(index: number) {
     await ChallengeListingPageObject.subCommunityDropdown.click();
+    await BrowserHelper.sleep(3000);
     await CommonHelper.waitUntilVisibilityOf(
       () => CommonHelper.selectOptionElement,
       'Wait for select option',
@@ -280,7 +274,7 @@ export class ChallengeListingPageHelper {
     await this.selectSubCommunity(1);
     let challenges = await ChallengeListingPageObject.challengeLinks;
 
-    let count = await this.getAllChallengesCount();
+    let count = await this.getOpenForRegistrationChallengesCount();
     expect(challenges.length).toEqual(count);
 
     await this.selectSubCommunity(0);
@@ -434,7 +428,7 @@ export class ChallengeListingPageHelper {
 
     await this.viewMoreChallenges();
 
-    const count = await this.getAllChallengesCount();
+    const count = await this.getOpenForRegistrationChallengesCount();
 
     await this.verifyChallengesMatchingType(count, [
       { name: 'F2F' },
@@ -478,20 +472,20 @@ export class ChallengeListingPageHelper {
     await el.click();
 
     await CommonHelper.waitUntilVisibilityOf(
-      () => ChallengeListingPageObject.selectNumberOfSubmissions,
-      'Wait for select number of submissions',
+      () => ChallengeListingPageObject.selectSortByTitleOption,
+      'Wait for select sort by title',
       false
     );
-    await ChallengeListingPageObject.selectNumberOfSubmissions.click();
+    await ChallengeListingPageObject.selectSortByTitleOption.click();
 
-    const submissionEls = await ChallengeListingPageObject.submissionElements();
-    if (submissionEls.length > 0) {
-      let numberOfSubmissions = await submissionEls[0].getText();
+    const challenges = await ChallengeListingPageObject.submissionTitle();
+    if (challenges.length > 0) {
+      let titleOfCurrentChallenge = await challenges[0].getText();
 
-      for (let i = 1; i < submissionEls.length; i++) {
-        const text = await submissionEls[i].getText();
-        expect(parseInt(numberOfSubmissions) >= parseInt(text)).toBe(true);
-        numberOfSubmissions = text;
+      for (let i = 1; i < challenges.length; i++) {
+        const text = await challenges[i].getText();
+        expect(titleOfCurrentChallenge <= text).toBe(true);
+        titleOfCurrentChallenge = text;
       }
     }
   }
@@ -512,7 +506,7 @@ export class ChallengeListingPageHelper {
         return texts.indexOf(header) >= 0;
       },
       `Wait for ${header} header`,
-      true
+      false
     );
   }
 
@@ -546,13 +540,6 @@ export class ChallengeListingPageHelper {
       const bucket = splits[1];
       if (bucket == 'openForRegistration') {
         await allViewMoreLinks[i].click();
-
-        await this.waitTillOnlyOneHeaderPresentWithText(
-          'Open for registration'
-        );
-      } else if (bucket == 'ongoing') {
-        await allViewMoreLinks[i].click();
-        await this.waitTillOnlyOneHeaderPresentWithText('Ongoing challenges');
       }
 
       const allChallengesLink = await ChallengeListingPageObject.filterChallengesBy(
@@ -587,9 +574,6 @@ export class ChallengeListingPageHelper {
     };
     const registrationChallenges = await ChallengeListingPageObject.openForRegistrationChallenges;
     await checkTagMatchWithChallenge(registrationChallenges);
-
-    const ongoingChallenges = await ChallengeListingPageObject.ongoingChallenges;
-    await checkTagMatchWithChallenge(ongoingChallenges);
   }
 
   /**
@@ -616,21 +600,6 @@ export class ChallengeListingPageHelper {
     let challenges = await ChallengeListingPageObject.openForRegistrationChallenges;
     const afterOpenForRegistrationChallengesCount = await this.getOpenForRegistrationChallengesCount();
     expect(afterOpenForRegistrationChallengesCount).toEqual(challenges.length);
-
-    // switch on development once again
-    el = await ChallengeListingPageObject.developmentSwitch();
-    await el.click();
-    await CommonHelper.waitUntilPresenceOf(
-      () => ChallengeListingPageObject.developmentSwitchTurnedOn,
-      'Wait for development switch turn on',
-      false
-    );
-
-    await this.waitForLoadingNewChallengeList();
-
-    const beforeOpenForRegistrationChallengesCount = await this.getOpenForRegistrationChallengesCount();
-    challenges = await ChallengeListingPageObject.openForRegistrationChallenges;
-    expect(beforeOpenForRegistrationChallengesCount).toEqual(challenges.length);
   }
 
   /**
@@ -686,7 +655,6 @@ export class ChallengeListingPageHelper {
    */
   static async verifyAllChallenges() {
     await this.verifyOpenForRegistrationChallenges();
-    await this.verifyOngoingChallenges();
   }
 
   /**
@@ -807,25 +775,8 @@ export class ChallengeListingPageHelper {
       false
     );
 
-    const ongoingChallengesLink = await ChallengeListingPageObject.filterChallengesBy(
-      'Ongoing challenges'
-    );
-    await ongoingChallengesLink.click();
-
     const headers = await CommonHelper.h2Fields;
     expect(headers.length).toBe(0);
-
-    await CommonHelper.waitUntil(
-      () => async () => {
-        const ongoingChallengesText = await ongoingChallengesLink.getText();
-        return (
-          ongoingChallengesText.replace(/(\r\n|\n|\r)/gm, ' ') ===
-          'Ongoing challenges 0'
-        );
-      },
-      'wait for ongoing challenge === 0',
-      false
-    );
 
     const openForReviewLink = await ChallengeListingPageObject.filterChallengesBy(
       'Open for review'
@@ -922,14 +873,7 @@ export class ChallengeListingPageHelper {
       false
     );
     const headers = await CommonHelper.h2Fields;
-    let expectedHeaders = [
-      'My Challenges',
-      'Open for registration',
-      'Ongoing challenges',
-    ];
-    if (headers.length === 2) {
-      expectedHeaders = ['Open for registration', 'Ongoing challenges'];
-    }
+    let expectedHeaders = ['Open for registration'];
     for (let i = 0; i < headers.length; i++) {
       const headerText = await headers[i].getText();
       expect(headerText).toEqual(expectedHeaders[i]);
@@ -942,7 +886,7 @@ export class ChallengeListingPageHelper {
    */
   static async verifyClearFilterState(enabled: boolean) {
     const cursorPointer = await CommonHelper.findElementByText(
-      'div',
+      'button',
       'Clear filters'
     ).getCssValue('cursor');
     expect(cursorPointer !== 'not-allowed').toEqual(enabled);

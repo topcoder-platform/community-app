@@ -5,6 +5,7 @@ import { ConfigHelper } from '../../../../utils/config-helper';
 import { HomePage } from '../home-page/home.po.js';
 import { SplashPage } from '../splash/splash.po';
 import { CommonHelper } from '../common-page/common.helper';
+import { StartPage } from '../start/start.po';
 
 export class LoginPage {
   /**
@@ -107,6 +108,19 @@ export class LoginPage {
       true
     );
     return homepage;
+  }
+
+  /**
+   * Wait for start page to be displayed
+   */
+  public async waitForStartPage() {
+    const startPage = new StartPage();
+    await CommonHelper.waitUntilVisibilityOf(
+      () => startPage.container,
+      'Wait for home page',
+      true
+    );
+    return startPage;
   }
 
   /**

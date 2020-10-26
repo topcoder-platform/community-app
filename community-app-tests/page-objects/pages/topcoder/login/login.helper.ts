@@ -30,7 +30,7 @@ export class LoginPageHelper {
   public static async login(username: string, password: string) {
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
-    await this.loginPageObject.waitForHomePage();
+    await this.loginPageObject.waitForStartPage();
   }
 
   /**
