@@ -1,10 +1,11 @@
 /**
  * The loader of Profile webpack chunks.
  */
+import path from 'path';
 import React from 'react';
 
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
-import { AppChunk } from 'topcoder-react-utils';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ProfileStatsRoute(props) {
   return (
@@ -16,6 +17,11 @@ export default function ProfileStatsRoute(props) {
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
+      renderServer={() => {
+        const p = webpack.resolveWeak('containers/ProfileStats');
+        const ProfileStatsContainer = webpack.requireWeak(path.resolve(__dirname, p));
+        return <ProfileStatsContainer {...props} />;
+      }}
     />
   );
 }
