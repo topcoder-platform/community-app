@@ -9,6 +9,7 @@ import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfileStatsPage from 'components/ProfilePage/Stats';
 import { shouldShowGraph, isValidTrack } from 'utils/memberStats';
+import { MetaTags } from 'topcoder-react-utils';
 import _ from 'lodash';
 import qs from 'qs';
 
@@ -78,23 +79,35 @@ class ProfileStatsContainer extends React.Component {
       loadingError,
       location,
       isLoading,
+      handleParam,
     } = this.props;
 
     const { track, subTrack, tab } = getQueryParamsQuery(location);
     if (loadingError || !isValidTrack(track, subTrack)) {
       return <Error404 />;
     }
+    const title = `${handleParam} | Community Profile | Topcoder`;
+    const description = `Meet Topcoder member ${handleParam} and view their skills and development and design activity. You can also see wins and tenure with Topcoder.`;
 
-    return isLoading
-      ? <LoadingIndicator />
-      : (
-        <ProfileStatsPage
-          {...this.props}
-          track={track}
-          subTrack={subTrack}
-          tab={tab}
+    return (
+      <React.Fragment>
+        <MetaTags
+          description={description}
+          title={title}
         />
-      );
+        {
+          isLoading ? <LoadingIndicator />
+            : (
+              <ProfileStatsPage
+                {...this.props}
+                track={track}
+                subTrack={subTrack}
+                tab={tab}
+              />
+            )
+        }
+      </React.Fragment>
+    );
   }
 }
 
