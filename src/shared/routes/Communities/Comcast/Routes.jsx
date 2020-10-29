@@ -19,6 +19,7 @@ import theme from 'components/tc-communities/communities/comcast/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
 import ContentfulRoute from 'components/Contentful/Route';
+import { config } from 'topcoder-react-utils';
 
 export default function CS({ base, meta }) {
   return (
@@ -29,6 +30,7 @@ export default function CS({ base, meta }) {
             <Header
               baseUrl={base}
               pageId={match.params.pageId || 'home'}
+              logoutRedirect={config.URL.COMMUNITIES.COMCAST}
             />
             <Switch>
               <Route
