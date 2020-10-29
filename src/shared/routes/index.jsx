@@ -134,7 +134,6 @@ function Routes({ communityId }) {
               id="4Ie8cLj2OvuFqbU46HBGQM"
             />
           )}
-          exact
           path="/apollo"
         />
         <Topcoder />
