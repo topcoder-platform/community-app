@@ -140,39 +140,24 @@ exports[`Matches shallow shapshot 1`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c"
       >
         <label
-          htmlFor="date-range-picker-one-month"
+          htmlFor="input-start-date-range"
         >
           Date range
-          <input
-            type="hidden"
-          />
         </label>
         <DateRangePicker
-          id="date-range-picker-one-month"
-          numberOfMonths={1}
-          onDatesChange={[Function]}
-          readOnly={true}
-        />
-      </div>
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
-      >
-        <label
-          htmlFor="date-range-picker-two-months"
-        >
-          Date range
-          <input
-            type="hidden"
-          />
-        </label>
-        <DateRangePicker
-          id="date-range-picker-two-months"
-          numberOfMonths={2}
-          onDatesChange={[Function]}
-          readOnly={true}
+          endDatePlaceholder="End Date"
+          onChange={[Function]}
+          range={
+            Object {
+              "endDate": null,
+              "startDate": null,
+            }
+          }
+          readOnly={false}
+          startDatePlaceholder="Start Date"
         />
       </div>
     </div>
@@ -325,39 +310,24 @@ exports[`Matches shallow shapshot 2`] = `
         />
       </div>
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c"
       >
         <label
-          htmlFor="date-range-picker-one-month"
+          htmlFor="input-start-date-range"
         >
           Date range
-          <input
-            type="hidden"
-          />
         </label>
         <DateRangePicker
-          id="date-range-picker-one-month"
-          numberOfMonths={1}
-          onDatesChange={[Function]}
-          readOnly={true}
-        />
-      </div>
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
-      >
-        <label
-          htmlFor="date-range-picker-two-months"
-        >
-          Date range
-          <input
-            type="hidden"
-          />
-        </label>
-        <DateRangePicker
-          id="date-range-picker-two-months"
-          numberOfMonths={2}
-          onDatesChange={[Function]}
-          readOnly={true}
+          endDatePlaceholder="End Date"
+          onChange={[Function]}
+          range={
+            Object {
+              "endDate": null,
+              "startDate": null,
+            }
+          }
+          readOnly={false}
+          startDatePlaceholder="Start Date"
         />
       </div>
     </div>
