@@ -61,7 +61,6 @@
 
     @include phone {
       .rdrDateRangePickerWrapper {
-        z-index: 15;
         margin-left: 0 !important;
         position: fixed !important;
         top: 65px;
@@ -71,6 +70,7 @@
         flex-direction: column-reverse;
         align-items: center;
         justify-content: flex-end;
+        border-radius: 0 !important;
 
         .rdrDefinedRangesWrapper {
           width: 100vw;
@@ -135,7 +135,7 @@
     }
 
     .rdrDateRangePickerWrapper {
-      z-index: 1;
+      z-index: 15;
       position: absolute;
       margin-left: -340px;
       background: $tc-white;

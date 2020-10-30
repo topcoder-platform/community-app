@@ -10,6 +10,7 @@ function DateInput(props) {
     onIconClick,
     isActive,
     error,
+    id,
     ...restProps
   } = props;
 
@@ -21,7 +22,6 @@ function DateInput(props) {
     // Enter key pressed
     if (e.keyCode === 13) {
       onIconClick();
-      e.target.blur();
     }
   };
 
@@ -32,10 +32,10 @@ function DateInput(props) {
       error && styles.isError,
     ])}
     >
-      <div>
-        <InputMask {...restProps} />
-        <CalendarIcon tabIndex={0} styleName="calendarIcon" onClick={onIconClick} onKeyDown={onKeyDown} />
-      </div>
+      <section>
+        <InputMask id={id} {...restProps} />
+        <CalendarIcon id={`${id}-calendar-icon`} tabIndex={0} styleName="calendarIcon" onClick={onIconClick} onKeyDown={onKeyDown} />
+      </section>
       <div styleName="errorHint">
         { error }
       </div>

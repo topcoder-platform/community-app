@@ -124,18 +124,28 @@ function DateRangePicker(props) {
    * Trigger to open calendar modal on calendar icon in start date input
    */
   const onIconClickStartDate = () => {
+    const calendarIcon = document.querySelector('#input-start-date-range-calendar-icon');
+    if (calendarIcon) {
+      calendarIcon.blur();
+    }
     setFocusedRange([0, 0]); // set current focused input to start date
     setActiveDate(null);
     setIsComponentVisible(true);
+    setPreview(null);
   };
 
   /**
    * Trigger to open calendar modal on calendar icon in end date input
    */
   const onIconClickEndDate = () => {
+    const calendarIcon = document.querySelector('#input-end-date-range-calendar-icon');
+    if (calendarIcon) {
+      calendarIcon.blur();
+    }
     setFocusedRange([0, 1]); // set current focused input to end date
     setActiveDate(null);
     setIsComponentVisible(true);
+    setPreview(null);
   };
 
 
@@ -146,8 +156,9 @@ function DateRangePicker(props) {
   const onDateRangePickerChange = (newRange) => {
     let newEndDate = newRange.endDate;
     let newStartDate = newRange.startDate;
+    const isUseKeyPress = focusedRange[0] !== 0;
 
-    if (focusedRange[0] !== 0) {
+    if (isUseKeyPress) {
       setFocusedRange([0, focusedRange[1]]);
     }
 
@@ -155,8 +166,8 @@ function DateRangePicker(props) {
     let shouldOpenNextCalendar = false;
 
     // User is active on start date calendar modal
-    if (isStartDateFocused && isSameDay(newStartDate, newEndDate)) {
-      if (isAfterDay(newStartDate, range.endDate)) return;
+    if (isStartDateFocused && (isUseKeyPress || isSameDay(newStartDate, newEndDate))) {
+      if (range.endDate && isAfterDay(newStartDate, range.endDate)) return;
       newEndDate = range.endDate;
       if (!range.endDate) {
         shouldCloseCalendar = false;
@@ -166,8 +177,8 @@ function DateRangePicker(props) {
         ...errors,
         startDate: '',
       });
-    } else if (isEndDateFocused) {
-      if (isBeforeDay(newEndDate, range.startDate)) return;
+    } else if (isEndDateFocused && (isUseKeyPress || isSameDay(newEndDate, newStartDate))) {
+      if (range.startDate && isBeforeDay(newEndDate, range.startDate)) return;
       newStartDate = range.startDate;
       setErrors({
         ...errors,
@@ -248,18 +259,22 @@ function DateRangePicker(props) {
       case 'Down':
       case 'ArrowDown':
         currentActiveDate = moment(currentActiveDate).add(7, 'days').toDate();
+        onPreviewChange(currentActiveDate);
         break;
       case 'Up':
       case 'ArrowUp':
         currentActiveDate = moment(currentActiveDate).subtract(7, 'days').toDate();
+        onPreviewChange(currentActiveDate);
         break;
       case 'Left':
       case 'ArrowLeft':
         currentActiveDate = moment(currentActiveDate).subtract(1, 'days').toDate();
+        onPreviewChange(currentActiveDate);
         break;
       case 'Right':
       case 'ArrowRight':
         currentActiveDate = moment(currentActiveDate).add(1, 'days').toDate();
+        onPreviewChange(currentActiveDate);
         break;
       case 'Enter':
         if (activeDate) {
@@ -276,8 +291,6 @@ function DateRangePicker(props) {
       default:
         return; // Quit when this doesn't handle the key event.
     }
-
-    onPreviewChange(currentActiveDate);
 
     e.preventDefault();
   };
