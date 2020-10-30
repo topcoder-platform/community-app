@@ -14,6 +14,7 @@ import {
 } from '@topcoder-platform/tc-auth-lib';
 import { actions, logger, errors } from 'topcoder-react-lib';
 import { client, redux } from 'topcoder-react-utils';
+import { goToLogin } from 'utils/tc';
 
 import './styles.scss';
 
@@ -72,6 +73,8 @@ function authenticate(store) {
     logger.warn('Authentication failed!');
     return ({});
   }).then(({ tctV2, tctV3 }) => {
+    // Redirect to login page if have old auth0
+    if (tctV2 !== tctV3) goToLogin('community-app-main');
     const { auth } = store.getState();
     if (auth.profile && !analyticsIdentitySet) {
       identify(auth.profile, _.get(auth, 'user.roles'));
