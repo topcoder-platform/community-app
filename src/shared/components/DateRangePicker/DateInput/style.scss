@@ -1,5 +1,11 @@
+@import "~tc-ui/src/styles/tc-styles";
+
+.errorHint {
+  display: none;
+}
+
 .dateInput {
-  width: 110px;
+  width: 115px;
 
   input {
     padding: 5px;
@@ -8,6 +14,28 @@
     line-height: 16px !important;
     margin-bottom: 0 !important;
     border-radius: 4px !important;
+    border-color: $tc-gray-30;
+  }
+
+  &.isActive {
+    input {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+
+  &.isError {
+    input {
+      border: 1px solid $tc-level-5;
+    }
+
+    .errorHint {
+      display: block;
+      color: $tc-level-5;
+      font-size: 12px;
+      padding: 4px 0;
+      height: 20px;
+    }
   }
 }
 
@@ -16,10 +44,4 @@
   cursor: pointer;
   margin-left: -22px;
   margin-top: 6px;
-}
-
-.disabled {
-  .calendarIcon {
-    cursor: not-allowed;
-  }
 }

@@ -8,23 +8,37 @@ import styles from './style.scss';
 function DateInput(props) {
   const {
     onIconClick,
-    disabled,
-    placeholder,
-    id,
+    isActive,
+    error,
+    ...restProps
   } = props;
+
+  /**
+   * Event handler for user keydown
+   * @param {Event} e Keyboard event
+   */
+  const onKeyDown = (e) => {
+    // Enter key pressed
+    if (e.keyCode === 13) {
+      onIconClick();
+      e.target.blur();
+    }
+  };
 
   return (
     <div className={cn([
       styles.dateInput,
-      disabled && styles.disabled,
+      isActive && styles.isActive,
+      error && styles.isError,
     ])}
     >
-      <InputMask {...props}>
-        {() => (
-          <input id={id} placeholder={placeholder} disabled={disabled} />
-        )}
-      </InputMask>
-      <CalendarIcon styleName="calendarIcon" onClick={onIconClick} />
+      <div>
+        <InputMask {...restProps} />
+        <CalendarIcon tabIndex={0} styleName="calendarIcon" onClick={onIconClick} onKeyDown={onKeyDown} />
+      </div>
+      <div styleName="errorHint">
+        { error }
+      </div>
     </div>
   );
 }
@@ -41,10 +55,12 @@ DateInput.propTypes = {
   onIconClick: PropTypes.func,
   value: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  isFocused: PropTypes.bool,
+  isActive: PropTypes.bool,
   mask: PropTypes.string,
   placeholder: PropTypes.string,
   id: PropTypes.string,
+  maskPlaceholder: PropTypes.string,
+  error: PropTypes.string,
 };
 
 DateInput.defaultProps = {
@@ -53,12 +69,14 @@ DateInput.defaultProps = {
   mask: '99/99/9999',
   placeholder: '',
   id: 'input-date-range',
-  isFocused: false,
+  isActive: false,
   onChange: () => {},
   onMouseDown: () => {},
   onFocus: () => {},
   onBlur: () => {},
   onIconClick: () => {},
+  maskPlaceholder: 'mm/dd/yyyy',
+  error: '',
 };
 
 export default DateInput;

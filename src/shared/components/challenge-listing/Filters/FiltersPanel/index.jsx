@@ -364,25 +364,31 @@ export default function FiltersPanel({
               </div>
             ) : null
           }
-          <DateRangePicker
-            onChange={(range) => {
-              const d = range.endDate ? moment(range.endDate).toISOString() : null;
-              const s = range.startDate ? moment(range.startDate).toISOString() : null;
-              setFilterState({
-                ..._.clone(filterState),
-                endDateStart: s,
-                startDateEnd: d,
-              });
-            }}
-            range={{
-              startDate: filterState.endDateStart
-                ? moment(filterState.endDateStart).toDate()
-                : null,
-              endDate: filterState.startDateEnd
-                ? moment(filterState.startDateEnd).toDate()
-                : null,
-            }}
-          />
+          <div styleName="filter dates">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="input-start-date-range">
+              Date range
+            </label>
+            <DateRangePicker
+              onChange={(range) => {
+                const d = range.endDate ? moment(range.endDate).toISOString() : null;
+                const s = range.startDate ? moment(range.startDate).toISOString() : null;
+                setFilterState({
+                  ..._.clone(filterState),
+                  endDateStart: s,
+                  startDateEnd: d,
+                });
+              }}
+              range={{
+                startDate: filterState.endDateStart
+                  ? moment(filterState.endDateStart).toDate()
+                  : null,
+                endDate: filterState.startDateEnd
+                  ? moment(filterState.startDateEnd).toDate()
+                  : null,
+              }}
+            />
+          </div>
         </div>
       </div>
       <div styleName="buttons">
