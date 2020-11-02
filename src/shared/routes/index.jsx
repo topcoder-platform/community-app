@@ -127,6 +127,15 @@ function Routes({ communityId }) {
           exact
           path={config.START_PAGE_PATH}
         />
+        <Route
+          render={() => (
+            <ContentfulRoute
+              baseUrl="/apollo"
+              id="4Ie8cLj2OvuFqbU46HBGQM"
+            />
+          )}
+          path="/apollo"
+        />
         <Topcoder />
       </Switch>
     </div>
