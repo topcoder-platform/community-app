@@ -1,0 +1,66 @@
+@import '~styles/mixins';
+@import 'components/buttons/themed/tc.scss';
+
+.topHeader {
+  display: flex;
+  align-items: center;
+  background-color: $tc-black;
+
+  @include xs-to-sm {
+    flex-direction: column;
+    padding-top: 15px;
+  }
+
+  .logoWrapp {
+    display: flex;
+    justify-content: space-between;
+
+    @include xs-to-sm {
+      width: 100%;
+    }
+
+    .headerLogo {
+      svg {
+        max-height: 28px;
+
+        @include xs-to-sm {
+          margin-left: -35px;
+        }
+      }
+    }
+  }
+
+  .profile {
+    margin-right: 26px;
+    display: flex;
+
+    .userMenuHandle {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 30px;
+      white-space: nowrap;
+      font-family: Roboto, sans-serif;
+      margin-right: 12px;
+    }
+
+    .loginLink {
+      text-decoration: none;
+      color: #888894;
+      font-family: Roboto, sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 30px;
+      margin-right: 30px;
+    }
+
+    .signUpLink {
+      @include primary-borderless;
+      @include sm;
+
+      &:hover {
+        @include primary-borderless;
+      }
+    }
+  }
+}

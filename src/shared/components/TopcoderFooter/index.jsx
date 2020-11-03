@@ -58,10 +58,10 @@ export default function TopcoderFooter() {
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
               <Link to={`${base}/thrive/tracks?track=Competitive%20Programming`}>Competitive Programming</Link>
-              <Link to={`${base}/thrive/tracks?track=Data%20Science`}>Data Science</Link>
-              <Link to={`${base}/thrive/tracks?track=Design`}>Design</Link>
-              <Link to={`${base}/thrive/tracks?track=Development`}>Development</Link>
-              <Link to={`${base}/thrive/tracks?track=QA`}>QA</Link>
+              <Link to={`${base}/thrive/tracks?track=Data%20Science&tax=`}>Data Science</Link>
+              <Link to={`${base}/thrive/tracks?track=Design&tax=`}>Design</Link>
+              <Link to={`${base}/thrive/tracks?track=Development&tax=`}>Development</Link>
+              <Link to={`${base}/thrive/tracks?track=QA&tax=`}>QA</Link>
             </ul>
           </div>
           <div styleName="navi-col">
