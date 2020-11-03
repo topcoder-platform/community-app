@@ -78,16 +78,6 @@ module.exports = {
     },
   },
 
-  /* Amount of time [seconds] before expiration of authentication tokens,
-   * when the frontend will automatically trigger their refreshment. Once
-   * ready, it will either write to the Redux store fresh token, or will
-   * remove auth tokens from the store.
-   * NOTE: With the current implementation of accounts-app this value must be
-   * smaller than 60 seconds (earlier than 60 seconds before expiration of an
-   * auth token, a call to the getFreshToken() method returns the old token,
-   * due to caching). */
-  REAUTH_TIME: 55,
-
   /* API key for Segment.io. For development environment the value is set inside
    * development.json, for production environment it is set via CircleCI
    * variables. */
@@ -104,7 +94,7 @@ module.exports = {
    * platform. */
   URL: {
     /* Connector URL of the TC accounts App. */
-    ACCOUNTS_APP_CONNECTOR: 'https://accounts.topcoder-dev.com/connector.html',
+    ACCOUNTS_APP_CONNECTOR: 'https://accounts-auth0.topcoder-dev.com',
 
     /* The remote address where the app is deployed. */
     APP: 'https://community-app.topcoder-dev.com',
@@ -114,7 +104,7 @@ module.exports = {
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
 
     ARENA: 'https://arena.topcoder-dev.com',
-    AUTH: 'http://accounts.topcoder-dev.com',
+    AUTH: 'https://accounts-auth0.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
     HOME: '/my-dashboard',
     BLOG: 'https://www.topcoder-dev.com/blog',
@@ -129,6 +119,8 @@ module.exports = {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
       COGNITIVE: 'https://cognitive.topcoder-dev.com',
       ZURICH: 'https://community-app.topcoder-dev.com/__community__/zurich',
+      COMCAST: 'https://community-app.topcoder-dev.com/__community__/comcast',
+      CS: 'https://community-app.topcoder-dev.com/__community__/cs',
     },
 
     /* Dedicated section to group together links to various articles in
@@ -155,6 +147,7 @@ module.exports = {
     STUDIO: 'https://studio.topcoder-dev.com',
     TCO: 'https://www.topcoder.com/tco',
     TCO17: 'https://tco17.topcoder.com/',
+    TCO19: 'https://community-app.topcoder-dev.com/__community__/tco19',
 
     TOPGEAR: 'https://dev-topgear.wipro.com',
 
@@ -387,8 +380,8 @@ module.exports = {
   ],
   HEADER_MENU_THEME: 'light',
   HEADER_AUTH_URLS: {
-    href: 'https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main',
-    location: 'https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main',
+    href: 'https://accounts-auth0.topcoder-dev.com?utm_source=community-app-main',
+    location: 'https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main',
   },
   ACCOUNT_MENU: [
     {

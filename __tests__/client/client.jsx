@@ -106,7 +106,7 @@ const mockTcAccounts = {
   decodeToken: () => ({ exp: Date.now() }),
   getFreshToken: () => Promise.resolve(tokenV3),
 };
-jest.setMock('tc-accounts', mockTcAccounts);
+jest.setMock('@topcoder-platform/tc-auth-lib', mockTcAccounts);
 
 /* Mock auth actions */
 /*
