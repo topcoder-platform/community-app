@@ -12,7 +12,12 @@ import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar, PrimaryButton, Button } from 'topcoder-react-ui-kit';
-import { config, Link, NavLink } from 'topcoder-react-utils';
+import {
+  config,
+  Link,
+  NavLink,
+  isomorphy,
+} from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
 import { themr } from 'react-css-super-themr';
@@ -47,8 +52,11 @@ function Header(props) {
     onMobileToggleClick,
     profile,
     theme,
-    logoutRedirect,
     meta,
+  } = props;
+
+  let {
+    logoutRedirect,
   } = props;
 
   const BASE_URL = config.URL.BASE;
@@ -58,6 +66,10 @@ function Header(props) {
     _.map(profile.groups, 'oldId'),
     meta.competitorsGroupIds,
   ) : [];
+
+  if (_.isEmpty(logoutRedirect) && isomorphy.isClientSide()) {
+    logoutRedirect = window.location.href;
+  }
 
   let userSubMenu;
   if (profile) {
@@ -81,7 +93,7 @@ function Header(props) {
         icon: <IconNavExit />,
         // TODO: In addition to hitting ${AUTH_URL}/logout, which logs out
         // from the accounts-app, we should wipe out auth cookies!
-        link: `${AUTH_URL}/logout?retUrl=${logoutRedirect}`,
+        link: `${AUTH_URL}?logout=true&retUrl=${encodeURIComponent(logoutRedirect)}`,
         title: 'Log Out',
       }],
     };
