@@ -244,14 +244,16 @@ function Header(props) {
             <div className={theme.logos}>
               {renderedLogos}
             </div>
-
-            <div className={theme.challengeDropdown}>
-              <Dropdown
-                options={communitySelector}
-                value="-1"
-              />
-            </div>
-
+            {
+              !_.startsWith(communityId, 'tco') ? (
+                <div className={theme.challengeDropdown}>
+                  <Dropdown
+                    options={communitySelector}
+                    value="-1"
+                  />
+                </div>
+              ) : null
+            }
           </div>
           <div className={theme.userWrapMobile}>
             {profile && (
