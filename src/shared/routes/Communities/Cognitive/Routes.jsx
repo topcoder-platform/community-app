@@ -40,6 +40,7 @@ export default function Cognitive({ base, member, meta }) {
           <Header
             baseUrl={base}
             pageId={match.params.pageId || 'home'}
+            logoutRedirect={config.URL.COMMUNITIES.COGNITIVE}
           />
           <Switch>
             <Route

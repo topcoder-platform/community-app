@@ -38,6 +38,7 @@ import {
   COMPETITION_TRACKS,
   COMPETITION_TRACKS_V3,
   SUBTRACKS,
+  CHALLENGE_STATUS,
 } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
@@ -406,7 +407,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
 
-    const submissionEnded = status === 'COMPLETED'
+    const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
     || (!_.some(phases, { name: 'Submission', isOpen: true })
       && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
@@ -849,9 +850,9 @@ const mapDispatchToProps = (dispatch) => {
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, ch.legacyId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
-          if (ch.status === 'COMPLETED') {
-            dispatch(a.loadResultsInit(challengeId));
-            dispatch(a.loadResultsDone(tokens, challengeId, ch.track.toLowerCase()));
+          if (ch.status === CHALLENGE_STATUS.COMPLETED) {
+            dispatch(a.loadResultsInit(ch.legacyId));
+            dispatch(a.loadResultsDone(tokens, ch.legacyId, ch.track.toLowerCase()));
           } else dispatch(a.dropResults());
           return res;
         });
