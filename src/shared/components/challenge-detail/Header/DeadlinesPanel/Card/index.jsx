@@ -10,6 +10,7 @@ import './style.scss';
 
 /* Date/time format to use in the card. */
 const FORMAT = 'MMM DD, HH:mm';
+const FORMAT_YEAR = 'MMM DD YYYY, HH:mm';
 
 export default function Card({ past, time, title }) {
   const time2 = moment(time);
@@ -20,7 +21,7 @@ export default function Card({ past, time, title }) {
         {title}
       </p>
       <p styleName="date">
-        {time2.format(FORMAT)}
+        {time2.format(time2.year() !== moment().year() ? FORMAT_YEAR : FORMAT)}
       </p>
     </div>
   );

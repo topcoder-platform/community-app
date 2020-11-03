@@ -16,7 +16,7 @@ exports[`Matches shallow shapshot 1`] = `
     />
   </div>
   <Footer
-    hideTcLinksInFooter={false}
+    hideTcLinksInFooter={true}
   />
 </div>
 `;
@@ -37,7 +37,7 @@ exports[`Matches shallow shapshot 2`] = `
     />
   </div>
   <Footer
-    hideTcLinksInFooter={false}
+    hideTcLinksInFooter={true}
   />
 </div>
 `;

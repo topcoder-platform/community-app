@@ -7,6 +7,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 
 import { actions } from 'topcoder-react-lib';
+import { MetaTags } from 'topcoder-react-utils';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
@@ -39,6 +40,7 @@ class ProfileContainer extends React.Component {
     const {
       info,
       loadingError,
+      handleParam,
     } = this.props;
 
     if (loadingError) {
@@ -58,13 +60,24 @@ class ProfileContainer extends React.Component {
         return track2Ranking - track1Ranking;
       });
     }
+    const title = `${handleParam} | Community Profile | Topcoder`;
+    const description = `Meet Topcoder member ${handleParam} and view their skills and development and design activity. You can also see wins and tenure with Topcoder.`;
 
-    return info
-      ? (
-        <ProfilePage
-          {...this.props}
+    return (
+      <React.Fragment>
+        <MetaTags
+          description={description}
+          title={title}
         />
-      ) : <LoadingIndicator />;
+        {
+          info ? (
+            <ProfilePage
+              {...this.props}
+            />
+          ) : <LoadingIndicator />
+        }
+      </React.Fragment>
+    );
   }
 }
 
