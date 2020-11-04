@@ -12,7 +12,7 @@ export class LoginPage {
    * Get login page
    */
   public async open() {
-    await BrowserHelper.open(ConfigHelper.getLoginUrl());
+    await BrowserHelper.open(ConfigHelper.getRedirectLoginUrl());
     logger.info('User navigated to Topcoder Login Page');
   }
 
@@ -20,21 +20,21 @@ export class LoginPage {
    * Get login form
    */
   public get loginForm() {
-    return ElementHelper.getElementByName('vm.loginForm');
+    return ElementHelper.getElementByClassName('auth0-lock-widget');
   }
 
   /**
    * Get Username field
    */
   public get userNameField() {
-    return ElementHelper.getElementById('username');
+    return ElementHelper.getElementByName('username');
   }
 
   /**
    * Get Password field
    */
   public get passwordField() {
-    return ElementHelper.getElementByName('currentPassword');
+    return ElementHelper.getElementByName('password');
   }
 
   /**
@@ -63,6 +63,8 @@ export class LoginPage {
    * Wait for the login form to be displayed
    */
   public async waitForLoginForm() {
+    // Wait until login form appear
+    await BrowserHelper.sleep(8000);
     CommonHelper.waitUntilVisibilityOf(
       () => this.loginForm,
       'Wait for login form',

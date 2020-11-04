@@ -128,6 +128,13 @@ export const ConfigHelper = {
   },
 
   /**
+   * Get Redirected login URL
+   */
+  getRedirectLoginUrl() {
+    return this.getConfig().redirectLoginUrl;
+  },
+
+  /**
    * Get homepage URL
    */
   getHomePageUrl(): string {
