@@ -26,6 +26,7 @@ import { challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
+import DateRangePicker from 'components/DateRangePicker';
 import moment from 'moment';
 import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
@@ -34,7 +35,6 @@ import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import { BUCKETS, isFilterEmpty } from 'utils/challenge-listing/buckets';
 import CheckmarkIcon from './CheckmarkIcon';
-import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
@@ -364,52 +364,29 @@ export default function FiltersPanel({
               </div>
             ) : null
           }
-          <div styleName="filter dates hidetwomonthdatepicker">
-            <label htmlFor="date-range-picker-one-month">
+          <div styleName="filter dates">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="input-start-date-range">
               Date range
-              <input type="hidden" />
             </label>
             <DateRangePicker
-              numberOfMonths={1}
-              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
-              id="date-range-picker-one-month"
-              onDatesChange={(dates) => {
-                const d = dates.endDate ? dates.endDate.toISOString() : null;
-                const s = dates.startDate ? dates.startDate.toISOString() : null;
+              onChange={(range) => {
+                const d = range.endDate ? moment(range.endDate).toISOString() : null;
+                const s = range.startDate ? moment(range.startDate).toISOString() : null;
                 setFilterState({
                   ..._.clone(filterState),
                   endDateStart: s,
                   startDateEnd: d,
                 });
               }}
-              startDate={
-                filterState.endDateStart
-                  && moment(filterState.endDateStart)
-              }
-            />
-          </div>
-          <div styleName="filter dates hideonemonthdatepicker">
-            <label htmlFor="date-range-picker-two-months">
-              Date range
-              <input type="hidden" />
-            </label>
-            <DateRangePicker
-              numberOfMonths={2}
-              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
-              id="date-range-picker-two-months"
-              onDatesChange={(dates) => {
-                const d = dates.endDate ? dates.endDate.toISOString() : null;
-                const s = dates.startDate ? dates.startDate.toISOString() : null;
-                setFilterState({
-                  ..._.clone(filterState),
-                  endDateStart: s,
-                  startDateEnd: d,
-                });
+              range={{
+                startDate: filterState.endDateStart
+                  ? moment(filterState.endDateStart).toDate()
+                  : null,
+                endDate: filterState.startDateEnd
+                  ? moment(filterState.startDateEnd).toDate()
+                  : null,
               }}
-              startDate={
-                filterState.endDateStart
-                  && moment(filterState.endDateStart)
-              }
             />
           </div>
         </div>
