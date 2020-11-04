@@ -80,7 +80,8 @@ export default function FiltersPanel({
     }
 
     // eslint-disable-next-line max-len
-    const visitorGroupIds = _.get(auth, 'profile.groups', []).map(g => g.id);
+    const visitorGroups = _.get(auth, 'profile.groups', []);
+    const visitorGroupIds = !_.isEmpty(visitorGroups) ? visitorGroups.map(g => g.id) : [];
     const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,
