@@ -185,7 +185,13 @@ export default function PodiumSpot(props) {
         }
         <div styleName={`${stylesName}.stats`}>
           <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
-          <span styleName={`${stylesName}.value-title`}>challenges</span>
+          {
+            isAlgo ? (
+              <span styleName={`${stylesName}.value-title`}># of matches</span>
+            ) : (
+              <span styleName={`${stylesName}.value-title`}>challenges</span>
+            )
+          }
         </div>
         <div styleName={`${stylesName}.stats`}>
           <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
@@ -210,7 +216,7 @@ export default function PodiumSpot(props) {
         {
           isAlgo ? (
             <div styleName={`${stylesName}.stats`}>
-              <span styleName={`${stylesName}.value`}>{competitor['srm_tco19.score']}</span>
+              <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</span>
               <span styleName={`${stylesName}.value-title`}>total score</span>
             </div>
           ) : null
