@@ -27,7 +27,6 @@ import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
-import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeDetailsActions, { TABS as DETAIL_TABS }
@@ -376,15 +375,8 @@ class ChallengeDetailPageContainer extends React.Component {
       prizesStr = challenge.prizes.map(p => `$${p}`).join('/');
       prizesStr = `[${prizesStr}] - `;
     }
-    const title = challenge.name;
-
-    let description = challenge.description || challenge.detailedRequirements;
-    description = description ? description.slice(0, 256) : '';
-    description = htmlToText.fromString(description, {
-      singleNewLineParagraphs: true,
-      wordwrap: false,
-    });
-    description = description.replace(/\n/g, ' ');
+    const title = 'Topcoder Challenge | Topcoder Community | Topcoder';
+    const description = 'Browse the challenges currently available on Topcoder. Search by type of challenge, then find those of interest to register for and compete in today.';
 
     const results2 = resultsLoadedForChallengeId === _.toString(challengeId)
       ? results : null;
@@ -432,10 +424,10 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty
             && (
               <MetaTags
-                description={description.slice(0, 155)}
+                description={description}
                 image={getOgImage(challenge)}
                 siteName="Topcoder"
-                socialDescription={description.slice(0, 200)}
+                socialDescription={description}
                 socialTitle={`${prizesStr}${title}`}
                 title={title}
               />
