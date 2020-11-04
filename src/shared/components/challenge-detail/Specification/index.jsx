@@ -76,7 +76,7 @@ export default function ChallengeDetailsView(props) {
     codeRepo = codeRepoData.value;
   }
 
-  const discuss = (_.get(challenge, 'discussions') || 0).filter(d => (
+  const discuss = _.get(challenge, 'discussions', []).filter(d => (
     d.type === 'challenge' && !_.isEmpty(d.url)
   ));
 
