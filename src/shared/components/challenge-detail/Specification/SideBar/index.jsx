@@ -280,7 +280,7 @@ export default function SideBar({
                     <a
                       href={d.url}
                     >
-                      {d.name}
+                      CHALLENGE DISCUSSION
                     </a>
                   </li>
                 ))}

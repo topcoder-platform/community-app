@@ -191,7 +191,7 @@ export default function ChallengeViewSelector(props) {
                 href={d.url}
                 styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
               >
-                {d.name}
+                CHALLENGE DISCUSSION
               </a>
             ))
           )
