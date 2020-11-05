@@ -21,8 +21,9 @@ class ScoreboardService {
   * @param {String} challengeId The challenge id.
   * @return {Object} Scoreboard service object
   */
-  getScoreboard(challengeId) {
-    return this.private.api.get(`/scoreboard/challenges/${challengeId}`)
+  async getScoreboard(challengeId) {
+    const api = await this.private.api;
+    return api.get(`/scoreboard/challenges/${challengeId}`)
       .then(res => res.json());
   }
 }

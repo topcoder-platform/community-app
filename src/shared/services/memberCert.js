@@ -24,8 +24,9 @@ class MemberCertService {
    * @param  {string} programId program's id
    * @return {Promise}           a promise will resolve user's program info
    */
-  getMemberRegistration(userId, programId) {
-    return this.private.api.get(`/memberCert/registrations/${userId}/programs/${programId}/`)
+  async getMemberRegistration(userId, programId) {
+    const api = await this.private.api;
+    return api.get(`/memberCert/registrations/${userId}/programs/${programId}/`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(res => (
         res.result.status === 200 ? res.result.content : new Error(res.result.content)
@@ -38,8 +39,9 @@ class MemberCertService {
    * @param  {string} programId program's id
    * @return {Promise}          a promise will resolve the request result
    */
-  registerMember(userId, programId) {
-    return this.private.api.post(`/memberCert/registrations/${userId}/programs/${programId}/`)
+  async registerMember(userId, programId) {
+    const api = await this.private.api;
+    return api.post(`/memberCert/registrations/${userId}/programs/${programId}/`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(res => (
         res.result.status === 200 ? res.result.content : new Error(res.result.content)
