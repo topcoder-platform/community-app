@@ -14,7 +14,6 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { config } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
 
 import PT from 'prop-types';
@@ -31,12 +30,14 @@ export default function Submission(props) {
     submissionObject,
     showScreeningDetails,
     track,
+    onDownload,
     onDelete,
     onShowDetails,
     status,
     allowDelete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
+  const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
 
   return (
     <tr styleName="submission-row">
@@ -66,15 +67,12 @@ export default function Submission(props) {
       }
       <td styleName="action-col">
         <div>
-          <a
-            href={
-              track === COMPETITION_TRACKS.DES
-                ? `${config.URL.ONLINE_REVIEW}/review/actions/DownloadContestSubmission?uid=${submissionObject.id}`
-                : submissionObject.download
-            }
+          <button
+            onClick={() => onDownloadSubmission(submissionObject.id)}
+            type="button"
           >
             <DownloadIcon />
-          </a>
+          </button>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
               Topcoder Studio API, and we don't need any JS code to this.
@@ -132,6 +130,7 @@ Submission.propTypes = {
   }),
   showScreeningDetails: PT.bool,
   track: PT.string.isRequired,
+  onDownload: PT.func.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
   status: PT.string.isRequired,
