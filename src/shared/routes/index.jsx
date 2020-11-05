@@ -130,7 +130,7 @@ function Routes({ communityId }) {
         <Route
           render={() => (
             <ContentfulRoute
-              baseUrl="/apollo"
+              baseUrl="/wipro-apollo"
               id="4Ie8cLj2OvuFqbU46HBGQM"
             />
           )}
