@@ -134,7 +134,7 @@ function Routes({ communityId }) {
               id="4Ie8cLj2OvuFqbU46HBGQM"
             />
           )}
-          path="/apollo"
+          path="/wipro-apollo"
         />
         <Topcoder />
       </Switch>
