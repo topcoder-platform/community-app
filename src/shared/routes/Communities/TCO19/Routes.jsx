@@ -15,6 +15,7 @@ import { HeroImageLoader } from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
 import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
+import { config } from 'topcoder-react-utils';
 
 
 import headerTheme from 'components/tc-communities/communities/tco19/themes/header.scss';
@@ -28,6 +29,7 @@ export default function TCO19({ base, meta }) {
             baseUrl={base}
             pageId={match.params.pageId || 'home'}
             theme={headerTheme}
+            logoutRedirect={config.URL.TCO19}
           />
           <Switch>
             <Route
