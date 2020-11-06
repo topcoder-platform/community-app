@@ -40,6 +40,20 @@
   br + br {
     display: none;
   }
+
+  ol {
+    list-style-type: decimal;
+    padding: 0 15px;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding: 0 15px;
+  }
+
+  li {
+    list-style-position: outside;
+  }
 }
 
 .frame {
