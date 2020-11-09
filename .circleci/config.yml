@@ -230,7 +230,7 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
+                - fix_for_job_description
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -260,7 +260,6 @@ workflows:
             branches:
               only:
                 - develop
-                - fix_for_job_description
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
