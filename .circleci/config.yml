@@ -237,14 +237,14 @@ workflows:
           filters:
             branches:
               only:                
-                - hot-fix
+                - apollo-site
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - listing-develop-sync
+                - issue-5041
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

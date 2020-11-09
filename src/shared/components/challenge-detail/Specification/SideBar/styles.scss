@@ -1,5 +1,9 @@
 @import "mixins";
 
+.no-margin-top {
+  margin-top: -10px !important;
+}
+
 .challenge-spec-sidebar {
   background: $tc-dark-blue-10;
   width: 245px;
