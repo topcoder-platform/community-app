@@ -182,6 +182,8 @@ export default function ChallengeViewSelector(props) {
             <a
               href={`${config.URL.FORUMS}${forumEndpoint}`}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+              target="_blank"
+              rel="oopener noreferrer"
             >
               CHALLENGE FORUM
             </a>
@@ -190,6 +192,8 @@ export default function ChallengeViewSelector(props) {
               <a
                 href={d.url}
                 styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+                target="_blank"
+                rel="oopener noreferrer"
               >
                 CHALLENGE DISCUSSION
               </a>

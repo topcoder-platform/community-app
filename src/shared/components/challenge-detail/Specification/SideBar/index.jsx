@@ -268,7 +268,11 @@ export default function SideBar({
               Questions?
               &zwnj;
               {_.isEmpty(discuss) && (
-                <a href={forumLink}>
+                <a
+                  href={forumLink}
+                  target="_blank"
+                  rel="oopener noreferrer"
+                >
                   Ask in the Challenge Discussion Forums.
                 </a>
               )}
@@ -279,6 +283,8 @@ export default function SideBar({
                   <li>
                     <a
                       href={d.url}
+                      target="_blank"
+                      rel="oopener noreferrer"
                     >
                       CHALLENGE DISCUSSION
                     </a>
