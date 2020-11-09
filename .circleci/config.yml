@@ -230,8 +230,8 @@ workflows:
           filters:
             branches:
               only:
-                - develop-auth0-sync
                 - develop
+                - bug-bash
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
