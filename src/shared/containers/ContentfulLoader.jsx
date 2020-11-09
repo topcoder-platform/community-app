@@ -11,7 +11,7 @@ import React from 'react';
 import shortId from 'shortid';
 import qs from 'qs';
 import SSR from 'utils/SSR';
-import { config } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 import { connect } from 'react-redux';
 
 // Setting those to infinity to disable maxage and auto refresh
@@ -156,6 +156,10 @@ class ContentfulLoader extends React.Component {
     const b = this.loadContentOnMount(entryIds, 'entries', timeLimit);
     const c = this.loadQueriesOnMount(assetQueries, 'assets', timeLimit);
     const d = this.loadQueriesOnMount(entryQueries, 'entries', timeLimit);
+    if (isomorphy.isClientSide()) {
+      this.handleResize = _.throttle(this.handleResize.bind(this), 250);
+      window.addEventListener('resize', this.handleResize);
+    }
     return Promise.all([...a, ...b, ...c, ...d])
       .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)));
   }
@@ -208,6 +212,18 @@ class ContentfulLoader extends React.Component {
       const ids = toArray(entryQueries).map(query => queryToMd5(query));
       ids.forEach(id => freeQuery(id, 'entries', preview, spaceName, environment));
     }
+
+    if (isomorphy.isClientSide()) {
+      window.removeEventListener('resize', this.handleResize);
+    }
+  }
+
+  /**
+   * On window resize trigger render
+   * for this and all child componets
+   */
+  handleResize() {
+    this.forceUpdate();
   }
 
   /**
