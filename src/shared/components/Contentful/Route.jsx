@@ -71,6 +71,7 @@ function ChildRoutesLoader(props) {
                         environment={environment}
                         baseUrl={url}
                         title={fields.passwordScreenTitle}
+                        btnText={fields.passwordScreenButtonText}
                       />
                     )
                     ) : <Error404 />
