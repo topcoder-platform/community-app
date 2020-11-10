@@ -1,10 +1,8 @@
 @import "../../../../style";
-@import './mixin';
 
 .container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-items: center;
   justify-content: space-between;
   height: 100%;
@@ -151,52 +149,5 @@
         display: none;
       }
     }
-  }
-}
-
-.operation-container + div {
-  margin-top: 15px;
-  padding-top: 20px;
-  border-top: 1px solid #ededf2;
-}
-
-.job-description,
-.technologies,
-.achievements {
-  @include roboto-regular;
-
-  width: 100%;
-  margin: 0 0 20px;
-  margin-left: 66px;
-  font-size: 15px;
-  color: #262628;
-
-  .title {
-    @include roboto-medium;
-
-    line-height: 25px;
-    margin-bottom: 4px;
-  }
-}
-
-.technologies {
-  .title {
-    margin: 0;
-    line-height: 1;
-  }
-
-  div {
-    line-height: 25px;
-  }
-}
-
-.achievements {
-  margin-bottom: 5px;
-}
-
-.job-description,
-.achievements {
-  .html-content {
-    @include html-content-style;
   }
 }

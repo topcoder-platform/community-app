@@ -46,67 +46,35 @@ export default class EditorWrapper extends React.Component {
     this.customPlugin = createCustomPlugin({
       editor: this,
     });
-
-    this.onBeforeInput = this.onBeforeInput.bind(this);
-    this.onPasteText = this.onPasteText.bind(this);
   }
 
   componentDidMount() {
     const { connector, initialContent } = this.props;
     connector.addEditor(this);
-    this.setInitialContent(initialContent);
+    if (initialContent) {
+      let editorState = convertFromHTML(initialContent);
+      editorState = ContentState.createFromBlockArray(
+        editorState.contentBlocks,
+        editorState.entityMap,
+      );
+      editorState = EditorState.createWithContent(editorState);
+      this.initialContent = editorState.getCurrentContent();
+      setImmediate(() => this.setState({ editor: editorState }));
+    }
   }
 
-  componentWillReceiveProps({ connector, id, initialContent }) {
-    const { connector: prevConnector, initialContent: prevInitialContent } = this.props;
+  componentWillReceiveProps({ connector, id }) {
+    const { connector: prevConnector } = this.props;
     this.id = id;
     if (connector !== prevConnector) {
       if (prevConnector) prevConnector.removeEditor(this);
       if (connector) connector.addEditor(this);
-    }
-    if (initialContent !== prevInitialContent) {
-      this.setInitialContent(initialContent);
     }
   }
 
   componentWillUnmount() {
     const { connector } = this.props;
     connector.removeEditor(this);
-  }
-
-  onBeforeInput() { // eslint-disable-line consistent-return
-    const { maxLength } = this.props;
-    const { editor: editorState } = this.state;
-    if (maxLength !== -1 && maxLength <= editorState.getCurrentContent().getPlainText('').length) {
-      return 'handled';
-    }
-  }
-
-  onPasteText(text) { // eslint-disable-line consistent-return
-    const { maxLength } = this.props;
-    const { editor: editorState } = this.state;
-    if (maxLength !== -1 && maxLength <= text.length + editorState.getCurrentContent().getPlainText('').length) {
-      return 'handled';
-    }
-  }
-
-  setInitialContent(content) {
-    if (content) {
-      let editorState = convertFromHTML(content);
-      if (editorState.contentBlocks) {
-        editorState = ContentState.createFromBlockArray(
-          editorState.contentBlocks,
-          editorState.entityMap,
-        );
-        editorState = EditorState.createWithContent(editorState);
-        this.initialContent = editorState.getCurrentContent();
-        setImmediate(() => this.setState({ editor: editorState }));
-      }
-    } else {
-      let { editor: editorState } = this.state;
-      editorState = EditorState.push(editorState, ContentState.createFromText(''));
-      this.setState({ editor: editorState });
-    }
   }
 
   getHtml() {
@@ -130,9 +98,10 @@ export default class EditorWrapper extends React.Component {
    * @param {String} type The new block style
    */
   applyBlockStyle(type) {
-    let { editor: editorState } = this.state;
+    const { editor } = this.state;
+    let editorState = editor;
     editorState = RichUtils.toggleBlockType(editorState, type);
-    this.setState({ editor: editorState }); // eslint-disable-line
+    this.setState({ editorState }); // eslint-disable-line
   }
 
   /**
@@ -262,16 +231,13 @@ export default class EditorWrapper extends React.Component {
   }
 
   render() {
-    const { connector, theme, placeholder } = this.props;
+    const { connector, theme } = this.props;
 
     const st = this.state;
 
     let containerStyles = style.container;
     if (st.editor.getSelection().getHasFocus()) {
-      containerStyles += ` ${style.focused} is-focused`;
-    }
-    if (st.editor.getCurrentContent().hasText() || /<ol>|<ul>/.test(this.getHtml())) {
-      containerStyles += ' has-user-input';
+      containerStyles += ` ${style.focused}`;
     }
     if (theme.container) {
       containerStyles += ` ${theme.container}`;
@@ -287,7 +253,6 @@ export default class EditorWrapper extends React.Component {
         tabIndex={0}
       >
         <Editor
-          placeholder={placeholder}
           editorState={st.editor}
           handleKeyCommand={(command, state) => {
             const editorState = RichUtils.handleKeyCommand(state, command);
@@ -318,8 +283,6 @@ export default class EditorWrapper extends React.Component {
           ]}
           ref={(node) => { this.node = node; }}
           spellCheck
-          handleBeforeInput={this.onBeforeInput}
-          handlePastedText={this.onPasteText}
         />
       </div>
     );
@@ -329,10 +292,8 @@ export default class EditorWrapper extends React.Component {
 EditorWrapper.defaultProps = {
   connector: new Connector(),
   id: null,
-  initialContent: '',
+  initialContent: null,
   theme: {},
-  placeholder: '',
-  maxLength: -1,
 };
 
 EditorWrapper.propTypes = {
@@ -340,6 +301,4 @@ EditorWrapper.propTypes = {
   id: PT.string,
   initialContent: PT.string,
   theme: PT.shape(),
-  placeholder: PT.string,
-  maxLength: PT.number,
 };
