@@ -231,14 +231,13 @@ workflows:
             branches:
               only:
                 - develop
-                - auth0-hotfix-v3
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
-                - apollo-site
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      

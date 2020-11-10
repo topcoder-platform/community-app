@@ -21,10 +21,12 @@ export default class PasswordScreen extends React.Component {
 
   onSubmit() {
     const { password } = this.props;
-    const { inputVal } = this.state;
-    this.setState({
-      authorized: password === inputVal,
-      errorMsg: password === inputVal ? '' : 'Password incorrect',
+    this.setState((state) => {
+      const { inputVal } = state;
+      return {
+        authorized: password === inputVal,
+        errorMsg: password === inputVal ? '' : 'Password incorrect',
+      };
     });
   }
 
@@ -41,7 +43,7 @@ export default class PasswordScreen extends React.Component {
       authorized, errorMsg, inputVal,
     } = this.state;
     const {
-      viewPortId, preview, spaceName, environment, baseUrl, title,
+      viewPortId, preview, spaceName, environment, baseUrl, title, btnText, content,
     } = this.props;
     return authorized ? (
       <Viewport
@@ -62,11 +64,24 @@ export default class PasswordScreen extends React.Component {
             onChange={val => this.onPasswordInput(val)}
             errorMsg={errorMsg}
             required
+            type="password"
+            onEnterKey={this.onSubmit}
           />
           <div styleName="cta">
-            <button type="button" styleName="submit" onClick={this.onSubmit} disabled={!inputVal}>SUBMIT</button>
+            <button type="button" styleName="submit" onClick={this.onSubmit} disabled={!inputVal}>{btnText}</button>
           </div>
         </div>
+        {
+          content ? (
+            <Viewport
+              id={content.sys.id}
+              preview={preview}
+              spaceName={spaceName}
+              environment={environment}
+              baseUrl={baseUrl}
+            />
+          ) : null
+        }
       </div>
     );
   }
@@ -78,6 +93,8 @@ PasswordScreen.defaultProps = {
   environment: null,
   baseUrl: '',
   title: 'GET ACCESS WITH PASSWORD',
+  btnText: 'SUBMIT',
+  content: null,
 };
 
 PasswordScreen.propTypes = {
@@ -88,4 +105,6 @@ PasswordScreen.propTypes = {
   environment: PT.string,
   baseUrl: PT.string,
   title: PT.string,
+  btnText: PT.string,
+  content: PT.shape(),
 };
