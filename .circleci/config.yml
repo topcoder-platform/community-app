@@ -230,21 +230,21 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
-                - hot-fix
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - listing-develop-sync
+                - issue-5041
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -260,7 +260,6 @@ workflows:
             branches:
               only:
                 - develop
-                - stats-history-v4
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

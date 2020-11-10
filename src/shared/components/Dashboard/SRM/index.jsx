@@ -35,7 +35,7 @@ const SRM = (props) => {
               <a href={`${config.URL.COMMUNITY}/tc?module=ProblemArchive`} className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost" styleName="tc-btn">
                 Problem Archive
               </a>
-              <a href={`${config.URL.BASE}/member-onboarding/learning-practicing-skills/`} className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost" styleName="tc-btn">
+              <a href={`${config.URL.BASE}/thrive/articles/How%20To%20Compete%20in%20SRMs`} className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost" styleName="tc-btn">
                 Learn More
               </a>
             </div>

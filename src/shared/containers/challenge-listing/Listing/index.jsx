@@ -37,8 +37,6 @@ const { mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
 
-const SEO_PAGE_TITLE = 'Topcoder Challenges';
-
 export class ListingContainer extends React.Component {
   componentDidMount() {
     const {
@@ -368,7 +366,6 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       challengeTags,
       communityFilters,
-      communityId,
       communityName,
       defaultCommunityId,
       expanding,
@@ -494,7 +491,8 @@ export class ListingContainer extends React.Component {
     let communityFilter = communityFilters.find(item => item.communityId === selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
-    const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
+    const title = 'Topcoder Challenge Listings | Topcoder Community | Topcoder';
+    const description = 'Browse the challenges currently available on Topcoder. Search by type of challenge, then find those of interest to register for and compete in today.';
 
     let banner;
     if (!listingOnly) {
@@ -520,7 +518,7 @@ export class ListingContainer extends React.Component {
           description={description}
           image={ogImage}
           siteName="Topcoder"
-          title={communityId ? `${communityName} Challenges` : SEO_PAGE_TITLE}
+          title={title}
         />
         {banner}
         <ChallengeListing

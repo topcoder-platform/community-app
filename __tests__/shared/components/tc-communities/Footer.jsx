@@ -41,8 +41,8 @@ test('render properly', () => {
     <Wrapper
       menuItems={[]}
       communityId="wipro"
-      registerUrl="https://accounts.topcoder-dev.com/member/registration"
-      loginUrl="https://accounts.topcoder-dev.com/member"
+      registerUrl="https://accounts-auth0.topcoder-dev.com/member/registration"
+      loginUrl="https://accounts-auth0.topcoder-dev.com/member"
       isAuthorized
     />
   ));
@@ -63,8 +63,8 @@ test('render properly', () => {
         url: 'leaderboard',
       }]}
       communityId="wipro"
-      registerUrl="https://accounts.topcoder-dev.com/member/registration"
-      loginUrl="https://accounts.topcoder-dev.com/member"
+      registerUrl="https://accounts-auth0.topcoder-dev.com/member/registration"
+      loginUrl="https://accounts-auth0.topcoder-dev.com/member"
       isAuthorized={false}
       theme={{
         container: 'container',
