@@ -13,6 +13,7 @@ import shortId from 'shortid';
 import ChallengeTile from 'components/ChallengeTile';
 import SRMTile from 'components/SRMTile';
 import { actions } from 'topcoder-react-lib';
+import { OLD_COMPETITION_TRACKS, COMPETITION_TRACKS } from 'utils/tc';
 import LoadingIndicator from 'components/LoadingIndicator';
 import GalleryModal from './GalleryModal';
 import './style.scss';
@@ -103,6 +104,27 @@ const processPastChallenge = (challenge) => {
       cloned.numImages = cloned.userDetails.submissions.length;
     } else {
       cloned.numImages = 0;
+    }
+
+    if (!cloned.type) {
+      cloned.type = cloned.subTrack;
+    }
+
+    switch (cloned.track) {
+      case OLD_COMPETITION_TRACKS.DATA_SCIENCE:
+        cloned.track = COMPETITION_TRACKS.DS;
+        break;
+      case OLD_COMPETITION_TRACKS.DESIGN:
+        cloned.track = COMPETITION_TRACKS.DES;
+        break;
+      case OLD_COMPETITION_TRACKS.DEVELOP:
+        cloned.track = COMPETITION_TRACKS.DEV;
+        break;
+      case OLD_COMPETITION_TRACKS.QA:
+        cloned.track = COMPETITION_TRACKS.QA;
+        break;
+      default:
+        break;
     }
   }
   return cloned;
@@ -421,7 +443,6 @@ function mapDispatchToProps(dispatch) {
       pageNum,
       pageSize,
       refresh,
-      userId,
     ) => {
       const uuid = shortId();
       dispatch(action.getSubtrackChallengesInit(handle, uuid));
@@ -434,7 +455,6 @@ function mapDispatchToProps(dispatch) {
         pageNum,
         pageSize,
         refresh,
-        userId,
       ));
     },
     loadSRM: (handle, tokenV3, pageNum, pageSize, refresh) => {
