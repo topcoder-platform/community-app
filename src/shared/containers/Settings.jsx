@@ -153,6 +153,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(lookupActions.getSkillTagsDone());
       dispatch(lookupActions.getCountriesInit());
       dispatch(lookupActions.getCountriesDone());
+      dispatch(lookupActions.getTechnologiesInit());
+      dispatch(lookupActions.getTechnologiesDone());
     } else if (settingsTab === TABS.PREFERENCES) {
       // Deprecated. Leaving it here as reminder to update topcoder-react-lib as well
       // dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
