@@ -17,6 +17,8 @@ function TextInput({
   onChange,
   required,
   size,
+  type,
+  onEnterKey,
 }) {
   const [val, setVal] = useState(value);
   const delayedOnChange = useRef(
@@ -28,7 +30,7 @@ function TextInput({
     <div className="textInputContainer" styleName={`container ${sizeStyle}`}>
       <input
         defaultValue={value}
-        type="text"
+        type={type}
         placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
         styleName={`${value || val ? 'haveValue' : ''} ${errorMsg ? 'haveError' : ''}`}
         onChange={(e) => {
@@ -38,6 +40,11 @@ function TextInput({
         onBlur={(e) => {
           delayedOnChange(e.target.value, onChange);
           setVal(e.target.value);
+        }}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            onEnterKey();
+          }
         }}
       />
       {label ? (
@@ -58,6 +65,8 @@ TextInput.defaultProps = {
   onChange: () => {},
   required: false,
   size: 'lg',
+  type: 'text',
+  onEnterKey: () => {},
 };
 
 TextInput.propTypes = {
@@ -68,6 +77,8 @@ TextInput.propTypes = {
   onChange: PT.func,
   required: PT.bool,
   size: PT.oneOf(['xs', 'lg']),
+  type: PT.string,
+  onEnterKey: PT.func,
 };
 
 export default TextInput;
