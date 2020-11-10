@@ -15,10 +15,12 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import { actions } from 'topcoder-react-lib';
+import { actions, services } from 'topcoder-react-lib';
 
 import './styles.scss';
 import smpActions from '../../actions/page/submission_management';
+
+const { getService } = services.submissions;
 
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
@@ -54,7 +56,6 @@ class SubmissionManagementPageContainer extends React.Component {
       isLoadingChallenge,
       mySubmissions,
       onCancelSubmissionDelete,
-      onDownloadSubmission,
       onShowDetails,
       onSubmissionDelete,
       onSubmissionDeleteConfirmed,
@@ -68,7 +69,19 @@ class SubmissionManagementPageContainer extends React.Component {
     const smConfig = {
       onShowDetails,
       onDelete: onSubmissionDelete,
-      onDownload: () => onDownloadSubmission(0, authTokens),
+      onDownload: (challengeType, submissionId) => {
+        const submissionsService = getService(authTokens.tokenV3);
+        submissionsService.downloadSubmission(submissionId)
+          .then((blob) => {
+            const url = window.URL.createObjectURL(new Blob([blob]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `submission-${challengeType}-${submissionId}.zip`);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+          });
+      },
       onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${challengeId}`,
       challengeUrl: `${challengesUrl}/${challengeId}`,
       addSumissionUrl: `${config.URL.BASE}/challenges/${challengeId}/submit`,
