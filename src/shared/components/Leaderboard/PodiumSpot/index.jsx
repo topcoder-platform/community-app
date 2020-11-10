@@ -107,6 +107,9 @@ export default function PodiumSpot(props) {
   }
   let rootStyle = `${stylesName}.PodiumSpot`;
   if (PODIUM_ITEM_MODIFIER[competitor.rank]) rootStyle += ` ${stylesName}.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`;
+  const fulfillment = competitor['tco_leaderboard.fulfillment']
+    ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
+    : competitor.fulfillment;
 
   return (
     <div styleName={rootStyle}>
@@ -175,14 +178,20 @@ export default function PodiumSpot(props) {
         {
           isCopilot ? (
             <div styleName={`${stylesName}.stats`}>
-              <span styleName={`${stylesName}.value`}>{competitor.fulfillment}</span>
+              <span styleName={`${stylesName}.value`}>{fulfillment}</span>
               <span styleName={`${stylesName}.value-title`}>fulfillment</span>
             </div>
           ) : null
         }
         <div styleName={`${stylesName}.stats`}>
           <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
-          <span styleName={`${stylesName}.value-title`}>challenges</span>
+          {
+            isAlgo ? (
+              <span styleName={`${stylesName}.value-title`}># of matches</span>
+            ) : (
+              <span styleName={`${stylesName}.value-title`}>challenges</span>
+            )
+          }
         </div>
         <div styleName={`${stylesName}.stats`}>
           <span styleName={`${stylesName}.value`}>{formatPoints(competitor['tco_leaderboard.tco_points'] || competitor.points)}</span>
@@ -207,7 +216,7 @@ export default function PodiumSpot(props) {
         {
           isAlgo ? (
             <div styleName={`${stylesName}.stats`}>
-              <span styleName={`${stylesName}.value`}>{competitor['srm_tco19.score']}</span>
+              <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</span>
               <span styleName={`${stylesName}.value-title`}>total score</span>
             </div>
           ) : null
