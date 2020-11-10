@@ -8,19 +8,8 @@ import { updateQuery } from 'utils/url';
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
-function onToggleCheckpointFeedback(state, action) {
-  const { payload: { id, open } } = action;
-  const newCheckpointResults = _.clone(state.checkpoints.checkpointResults);
-  newCheckpointResults[id].expanded = _.isUndefined(open)
-    ? !newCheckpointResults[id].expanded : open;
-  const newCheckpoints = {
-    ...state.checkpoints,
-    checkpointResults: newCheckpointResults,
-  };
-  return {
-    ...state,
-    checkpoints: newCheckpoints,
-  };
+function onToggleCheckpointFeedback(state, { payload }) {
+  return { ...state, feedbackOpen: payload };
 }
 
 /**
@@ -92,7 +81,7 @@ function create(state = {}) {
     [a.submissions.toggleSubmissionTestcase]: toggleSubmissionTestcase,
     [a.submissions.clearSubmissionTestcaseOpen]: clearSubmissionTestcaseOpen,
   }, _.defaults(state, {
-    checkpoints: {},
+    feedbackOpen: {},
     specsTabState: SPECS_TAB_STATES.VIEW,
     submissionHistoryOpen: {},
     submissionTestcaseOpen: {},

@@ -241,9 +241,6 @@ exports[`renders marathon 1`] = `
             </p>
           </div>
         </div>
-        <p
-          className="src-shared-components-ChallengeTile-___style__roles___1V-WA"
-        />
       </div>
     </div>
   </div>
