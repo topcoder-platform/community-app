@@ -5,11 +5,11 @@
 
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
-// import path from 'path';
+import path from 'path';
 import qs from 'qs';
 import React from 'react';
-// import { StaticRouter } from 'react-router-dom';
-import { AppChunk } from 'topcoder-react-utils';
+import { StaticRouter } from 'react-router-dom';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ChallengeListingRoute() {
   return (
@@ -39,13 +39,14 @@ export default function ChallengeListingRoute() {
       /*
         TODO: Making server-side rendering work demands some more efforts
         with reducers coding.
+      */
       renderServer={(renderProps) => {
-        const p = resolveWeak('containers/challenge-listing/Listing');
-        const ChallengeListing = requireWeak(path.resolve(__dirname, p));
+        const p = webpack.resolveWeak('containers/challenge-listing/Listing');
+        const ChallengeListing = webpack.requireWeak(path.resolve(__dirname, p));
         /* TODO: Choice of currency and prize mode should be moved to
-           * Redux actions / reducers. *//*
-        const query = renderProps.location.search ?
-          qs.parse(renderProps.location.search.slice(1)) : null;
+           * Redux actions / reducers. */
+        const query = renderProps.location.search
+          ? qs.parse(renderProps.location.search.slice(1)) : null;
         const currencyFromUrl = _.get(query, 'currency');
         const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
         return (
@@ -61,7 +62,6 @@ export default function ChallengeListingRoute() {
           </StaticRouter>
         );
       }}
-      */
     />
   );
 }
