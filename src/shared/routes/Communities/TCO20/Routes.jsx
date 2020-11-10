@@ -7,24 +7,15 @@ import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ContentfulRoute from 'components/Contentful/Route';
-import ContentfulMenu from 'components/Contentful/Menu';
 import Viewport from 'components/Contentful/Viewport';
 import Profile from 'routes/Profile';
 import ProfileStats from 'routes/ProfileStats';
+import TCO20Header from 'containers/tc-communities/tco20/Header';
 
 export default function TCO20({ base, meta }) {
   return (
     <div>
-      {
-        meta.menuItems ? (
-          <ContentfulMenu
-            id={meta.menuItems[0].navigationMenu}
-            spaceName={meta.menuItems[0].spaceName}
-            environment={meta.menuItems[0].environment}
-            baseUrl={base}
-          />
-        ) : null
-      }
+      <TCO20Header base={base} meta={meta} />
       <Switch>
         <Route
           render={props => <Profile {...props} meta={meta} />}

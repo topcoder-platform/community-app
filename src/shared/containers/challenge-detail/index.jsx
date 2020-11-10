@@ -38,6 +38,7 @@ import {
   COMPETITION_TRACKS,
   COMPETITION_TRACKS_V3,
   SUBTRACKS,
+  CHALLENGE_STATUS,
 } from 'utils/tc';
 import { config, MetaTags } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
@@ -406,7 +407,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
 
-    const submissionEnded = status === 'COMPLETED'
+    const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
     || (!_.some(phases, { name: 'Submission', isOpen: true })
       && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
 
@@ -762,6 +763,14 @@ function mapStateToProps(state, props) {
       mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
     }
   }
+  const { page: { challengeDetails: { feedbackOpen } } } = state;
+  const checkpoints = state.challenge.checkpoints || {};
+  if (feedbackOpen.id && checkpoints.checkpointResults) {
+    checkpoints.checkpointResults = checkpoints.checkpointResults.map(result => ({
+      ...result,
+      expanded: result.submissionId === feedbackOpen.id ? feedbackOpen.open : result.expanded,
+    }));
+  }
   return {
     auth: state.auth,
     challenge,
@@ -772,9 +781,9 @@ function mapStateToProps(state, props) {
     challengeId: String(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
     challengeTypesMap: state.challengeListing.challengeTypesMap,
-    checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+    checkpointResults: checkpoints.checkpointResults,
     checkpointResultsUi: state.page.challengeDetails.checkpoints,
-    checkpoints: state.challenge.checkpoints || {},
+    checkpoints,
     communityId: props.communityId,
     communitiesList: state.tcCommunities.list,
     domain: state.domain,
@@ -849,9 +858,9 @@ const mapDispatchToProps = (dispatch) => {
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, ch.legacyId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
-          if (ch.status === 'COMPLETED') {
-            dispatch(a.loadResultsInit(challengeId));
-            dispatch(a.loadResultsDone(tokens, challengeId, ch.track.toLowerCase()));
+          if (ch.status === CHALLENGE_STATUS.COMPLETED) {
+            dispatch(a.loadResultsInit(ch.legacyId));
+            dispatch(a.loadResultsDone(tokens, ch.legacyId, ch.track.toLowerCase()));
           } else dispatch(a.dropResults());
           return res;
         });

@@ -8,6 +8,15 @@ import _ from 'lodash';
 import qs from 'qs';
 import { isomorphy } from 'topcoder-react-utils';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+
+/**
+ * Get current URL
+ */
+export function getCurrentUrl() {
+  if (isomorphy.isServerSide()) return null;
+  return window.location.href;
+}
+
 /**
  * Get current URL hash parameters as object
  */

@@ -57,6 +57,7 @@ export default function Blockchain({ base, member, meta }) {
               baseUrl={base}
               hideJoinNow
               pageId={match.params.pageId || 'home'}
+              logoutRedirect={config.URL.COMMUNITIES.BLOCKCHAIN}
             />
             <Switch>
               <Route

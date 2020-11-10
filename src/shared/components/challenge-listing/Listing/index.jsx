@@ -182,8 +182,7 @@ function Listing({
     );
   };
 
-  if (!expanding && (activeBucket !== BUCKETS.ALL)
-  && (activeBucket !== BUCKETS.SAVED_FILTER)) {
+  if ((activeBucket !== BUCKETS.SAVED_FILTER)) {
     return (
       <div styleName="challengeCardContainer">
         {getBucket(activeBucket, true)}
@@ -207,7 +206,8 @@ function Listing({
   // }
   const loading = loadingMyChallenges
     || loadingOpenForRegistrationChallenges
-    || loadingOnGoingChallenges;
+    || loadingOnGoingChallenges
+    || loadingAllChallenges;
   const placeholders = [];
   if (challenges.length > 0 || (activeBucket === BUCKETS.ALL && allChallenges.length > 0)) {
     return (
