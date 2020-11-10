@@ -39,7 +39,7 @@ export default function SideBarFilters({
   // editSavedFiltersMode,
   // extraBucket,
   // filterState,
-  hideTcLinksInFooter,
+  // hideTcLinksInFooter,
   isAuth,
   // resetFilterName,
   // savedFilters,
@@ -84,7 +84,7 @@ export default function SideBarFilters({
         />
         {/* )} */}
       </div>
-      <Footer hideTcLinksInFooter={hideTcLinksInFooter} />
+      <Footer hideTcLinksInFooter />
     </div>
   );
 }
@@ -94,7 +94,7 @@ SideBarFilters.defaultProps = {
   disabled: false,
   // dragState: {},
   // extraBucket: null,
-  hideTcLinksInFooter: false,
+  // hideTcLinksInFooter: false,
   isAuth: false,
   expanding: false,
 };
@@ -116,7 +116,7 @@ SideBarFilters.propTypes = {
   // editSavedFiltersMode: PT.bool.isRequired,
   // extraBucket: PT.string,
   // filterState: PT.shape().isRequired,
-  hideTcLinksInFooter: PT.bool,
+  // hideTcLinksInFooter: PT.bool,
   isAuth: PT.bool,
   // resetFilterName: PT.func.isRequired,
   // savedFilters: PT.arrayOf(PT.shape()).isRequired,
