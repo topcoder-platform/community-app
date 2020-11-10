@@ -229,28 +229,29 @@ workflows:
           filters:
             branches:
               only:
-                - feature-contentful
+                - develop
+                - auth0-hotfix-v3
       # This is alternate dev env for parallel testing
       - "build-test":
           context: org-global
           filters:
             branches:
               only:                
-                - feature-contentful
-                - hot-fix
+                - apollo-site
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - develop
-      # This is beta env for production soft releases 
+                - issue-5041
+      # This is beta env for production soft releases
       - "build-prod-beta":
           context: org-global
           filters:
             branches:
               only:
+                - integration-v5-challenge-api
                 - hot-fix
       # This is stage env for production QA releases
       - "build-prod-staging":
@@ -258,7 +259,6 @@ workflows:
           filters:
             branches:
               only:
-                - feature-contentful
                 - develop
       # Production builds are exectuted 
       # when PR is merged to the master

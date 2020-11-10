@@ -1,4 +1,4 @@
-@import "~components/GUIKit/default";
+@import "~components/GUIKit/Assets/Styles/default";
 
 .container {
   display: flex;
@@ -30,12 +30,9 @@
       z-index: 0;
       top: 8px;
       left: 15px;
-
-      @include xs-to-sm {
-        max-width: 250px;
-        overflow: hidden;
-        white-space: nowrap;
-      }
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: calc(100% - 20px);
     }
 
     .clear-search {

@@ -150,8 +150,8 @@ class Submit extends React.Component {
         const topGearCommunity = _.find(communitiesList.data, { mainSubdomain: 'topgear' });
         if (topGearCommunity) {
           // check the group info match with group list
-          _.forOwn(groups, (value, key) => {
-            if (value && _.includes(topGearCommunity.groupIds, key)) {
+          _.forOwn(groups, (value) => {
+            if (value && _.includes(topGearCommunity.groupIds, value)) {
               isChallengeBelongToTopgearGroup = true;
               return false;
             }
@@ -193,14 +193,14 @@ class Submit extends React.Component {
               </div>
               <div styleName="right">
                 <div styleName="submission-hints">
-                  { track === COMPETITION_TRACKS.DEVELOP ? (
+                  { track === COMPETITION_TRACKS.DEV ? (
                     <div>
                       {isChallengeBelongToTopgearGroup
                         ? (<p>Enter the URL to your submission.</p>)
                         : (<p>Upload your entire submission as a single zip file.</p>)}
                     </div>
                   ) : null }
-                  { track === COMPETITION_TRACKS.DESIGN ? (
+                  { track === COMPETITION_TRACKS.DES ? (
                     <div>
                       <ol>
                         <li>Place your submission files into a &quot;Submission.zip&quot; file.</li>

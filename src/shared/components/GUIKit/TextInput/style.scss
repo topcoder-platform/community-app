@@ -1,0 +1,64 @@
+@import '~components/GUIKit/Assets/Styles/default';
+
+.errorMessage {
+  @include errorMessage;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    @include textInputLabel;
+  }
+
+  input:not([type='checkbox']) {
+    @include textInput;
+
+    height: 52px;
+  }
+
+  // lg size
+  &.lgSize {
+    input:not([type='checkbox']) {
+      height: 52px;
+    }
+  }
+
+  // xs size
+  &.xsSize {
+    input:not([type='checkbox']) {
+      @include textInputXs;
+
+      height: 40px;
+      padding: 0 15px;
+    }
+
+    .errorMessage {
+      @include errorMessageXs;
+    }
+  }
+
+  input:not([type='checkbox']).haveValue + label,
+  input:not([type='checkbox']).haveError + label,
+  input:not([type='checkbox']):focus + label {
+    display: flex;
+  }
+
+  input:not([type='checkbox']):focus + label {
+    color: $gui-kit-active-label;
+  }
+
+  input:not([type='checkbox']).haveError + label,
+  input:not([type='checkbox']).haveError:focus + label {
+    color: $gui-kit-level-5;
+  }
+
+  input:not([type='checkbox']).haveError,
+  input:not([type='checkbox']).haveError:active,
+  input:not([type='checkbox']).haveError:focus,
+  input:not([type='checkbox']).haveError:hover {
+    border: 2px solid $gui-kit-level-5;
+  }
+}

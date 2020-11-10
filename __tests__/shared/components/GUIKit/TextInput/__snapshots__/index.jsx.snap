@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<div
+  className="textInputContainer src-shared-components-GUIKit-TextInput-___style__container___7zYbm src-shared-components-GUIKit-TextInput-___style__lgSize___1boxA"
+>
+  <input
+    className=""
+    defaultValue=""
+    onBlur={[Function]}
+    onChange={[Function]}
+    placeholder=""
+    type="text"
+  />
+</div>
+`;

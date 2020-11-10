@@ -1,5 +1,13 @@
 @import "~styles/mixins";
 
+.loading-text {
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  line-height: 26px;
+  color: #2a2a2a;
+  text-align: center;
+}
+
 .container {
   max-width: $screen-lg;
   margin: auto;
@@ -10,6 +18,28 @@
 
   .filters {
     display: flex;
+    align-items: flex-end;
+
+    @include xs-to-sm {
+      flex-direction: column;
+    }
+
+    > div {
+      margin-right: 30px;
+      flex: 1;
+
+      @include xs-to-sm {
+        margin-right: 0;
+      }
+
+      &:first-child {
+        flex: 3;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 
   .jobs-list-container {

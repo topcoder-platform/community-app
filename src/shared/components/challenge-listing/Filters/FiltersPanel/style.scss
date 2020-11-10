@@ -293,8 +293,11 @@ $panel-radius-4: $corner-radius * 2;
 
   .filter-row {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     margin-right: $panel-space-100 + 17;
+    width: auto;
 
     @include xs-to-md {
       display: block;
@@ -380,6 +383,44 @@ $panel-radius-4: $corner-radius * 2;
         @media screen and (max-width: $screen-md - 1px) {
           display: none;
         }
+      }
+    }
+
+    &.status {
+      @include calc(width, '50% - 45px - (12px + 112px) * 2 - 96px');
+
+      order: 3; // Show after Date Picker when in lg screen mode
+
+      @include xs-to-sm {
+        margin-top: $panel-space-15;
+        width: 100%;
+      }
+
+      :global(.Select) {
+        z-index: 3;
+      }
+
+      min-width: 206px;
+      margin-right: $panel-space-30;
+
+      :global(.Select-value) {
+        top: inherit;
+        background: $tc-white !important;
+        font-weight: 300;
+        font-size: 13px;
+        color: $tc-gray-50;
+        line-height: $panel-space-30 - 2;
+      }
+
+      @media screen and (max-width: 1024px) {
+        width: 100%;
+        margin-top: 15px;
+      }
+
+      @media screen and (min-width: 1025px) and (max-width: 1346px) {
+        margin-top: 15px;
+
+        @include calc(width, '50% - 30px');
       }
     }
   }

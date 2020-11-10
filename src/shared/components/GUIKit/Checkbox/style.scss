@@ -1,0 +1,116 @@
+@import '~components/GUIKit/Assets/Styles/default';
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $tc-white;
+  border: 1px solid $gui-kit-gray-30;
+
+  &.haveError {
+    border: 2px solid #ef476f;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .after {
+    position: absolute;
+    display: none;
+    left: 50%;
+    top: 50%;
+  }
+}
+
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  // lg size
+  &.lgSize {
+    width: 25px;
+    height: 25px;
+
+    .checkmark {
+      width: 25px;
+      height: 25px;
+      border-radius: 4px;
+
+      .after {
+        margin-left: -9px;
+        margin-top: -7px;
+      }
+    }
+  }
+
+  // sm size
+  &.smSize {
+    width: 20px;
+    height: 20px;
+
+    .checkmark {
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+
+      .after {
+        margin-left: -7px;
+        margin-top: -6px;
+      }
+    }
+  }
+
+  // xs size
+  &.xsSize {
+    width: 15px;
+    height: 15px;
+
+    .checkmark {
+      width: 15px;
+      height: 15px;
+      border-radius: 2px;
+
+      .after {
+        margin-left: -6px;
+        margin-top: -4px;
+      }
+    }
+  }
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    /* When the checkbox is checked, add a blue background */
+    &:checked ~ .checkmark {
+      background-color: $gui-kit-level-2;
+      border: none;
+      box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.29);
+
+      /* Show the checkmark when checked */
+      .after {
+        display: block;
+      }
+    }
+  }
+}
+
+.errorMessage {
+  display: block;
+
+  @include errorMessage;
+
+  position: absolute;
+  white-space: nowrap;
+  margin: 35px 0 0 0;
+  color: #ef476f;
+}

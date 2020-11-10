@@ -8,6 +8,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Sticky from 'react-stickynode';
+import { isomorphy } from 'topcoder-react-utils';
 
 import Robot from 'assets/images/robot-happy.svg';
 
@@ -55,11 +56,15 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     this.handleResize();
-    window.addEventListener('resize', this.handleResize);
+    if (isomorphy.isClientSide()) {
+      window.addEventListener('resize', this.handleResize);
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    if (isomorphy.isClientSide()) {
+      window.removeEventListener('resize', this.handleResize);
+    }
   }
 
   getActiveTracks() {
@@ -181,7 +186,7 @@ class ProfilePage extends React.Component {
           <div styleName="about-container">
             <div styleName="profile-header-container">
               <Sticky
-                bottomBoundary={document.body.scrollHeight - 250}
+                bottomBoundary={isomorphy.isClientSide() ? document.body.scrollHeight - 250 : 0}
                 enabled={!isMobile}
                 top={10}
               >
@@ -192,7 +197,7 @@ class ProfilePage extends React.Component {
                     info={info}
                     onShowBadges={() => this.setState({ badgesModalOpen: true })}
                     showBadgesButton={achievements && achievements.length > 0}
-                    wins={_.get(stats, 'wins', 0)}
+                    wins={_.get((stats && stats[0]) || {}, 'wins', 0)}
                   />
                 </div>
               </Sticky>

@@ -78,16 +78,6 @@ module.exports = {
     },
   },
 
-  /* Amount of time [seconds] before expiration of authentication tokens,
-   * when the frontend will automatically trigger their refreshment. Once
-   * ready, it will either write to the Redux store fresh token, or will
-   * remove auth tokens from the store.
-   * NOTE: With the current implementation of accounts-app this value must be
-   * smaller than 60 seconds (earlier than 60 seconds before expiration of an
-   * auth token, a call to the getFreshToken() method returns the old token,
-   * due to caching). */
-  REAUTH_TIME: 55,
-
   /* API key for Segment.io. For development environment the value is set inside
    * development.json, for production environment it is set via CircleCI
    * variables. */
@@ -104,7 +94,7 @@ module.exports = {
    * platform. */
   URL: {
     /* Connector URL of the TC accounts App. */
-    ACCOUNTS_APP_CONNECTOR: 'https://accounts.topcoder-dev.com/connector.html',
+    ACCOUNTS_APP_CONNECTOR: 'https://accounts-auth0.topcoder-dev.com',
 
     /* The remote address where the app is deployed. */
     APP: 'https://community-app.topcoder-dev.com',
@@ -114,7 +104,7 @@ module.exports = {
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
 
     ARENA: 'https://arena.topcoder-dev.com',
-    AUTH: 'http://accounts.topcoder-dev.com',
+    AUTH: 'https://accounts-auth0.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
     HOME: '/my-dashboard',
     BLOG: 'https://www.topcoder-dev.com/blog',
@@ -129,6 +119,8 @@ module.exports = {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
       COGNITIVE: 'https://cognitive.topcoder-dev.com',
       ZURICH: 'https://community-app.topcoder-dev.com/__community__/zurich',
+      COMCAST: 'https://community-app.topcoder-dev.com/__community__/comcast',
+      CS: 'https://community-app.topcoder-dev.com/__community__/cs',
     },
 
     /* Dedicated section to group together links to various articles in
@@ -143,6 +135,9 @@ module.exports = {
       STUDIO_FONTS_POLICY:
         'http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges',
       TOPCODER_TERMS: 'https://www.topcoder.com/community/how-it-works/terms/',
+      HOWTOCOMPETEINMARATHON: 'https://www.topcoder.com/thrive/articles/How%20To%20Compete%20in%20a%20Marathon%20Match',
+      USABLECODEDEV: 'https://www.topcoder.com/thrive/articles/Usable%20Code%20in%20Dev%20Challenges',
+      EXTENSIONVSCODE: 'https://marketplace.visualstudio.com/items?itemName=Topcoder.topcoder-workflow&ssr=false#overview',
     },
 
     IOS: 'https://ios.topcoder-dev.com',
@@ -152,6 +147,7 @@ module.exports = {
     STUDIO: 'https://studio.topcoder-dev.com',
     TCO: 'https://www.topcoder.com/tco',
     TCO17: 'https://tco17.topcoder.com/',
+    TCO19: 'https://community-app.topcoder-dev.com/__community__/tco19',
 
     TOPGEAR: 'https://dev-topgear.wipro.com',
 
@@ -160,6 +156,7 @@ module.exports = {
     COMMUNITY_API: 'http://localhost:8000',
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
     EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
+    ABANDONMENT_EMBED: 'https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com',
   },
 
   /* Information about Topcoder user groups can be cached in various places.
@@ -370,6 +367,7 @@ module.exports = {
             {
               title: 'Blog',
               href: 'https://www.topcoder-dev.com/blog',
+              openNewTab: true,
             },
             {
               title: 'Thrive',
@@ -382,8 +380,8 @@ module.exports = {
   ],
   HEADER_MENU_THEME: 'light',
   HEADER_AUTH_URLS: {
-    href: 'https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main',
-    location: 'https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main',
+    href: 'https://accounts-auth0.topcoder-dev.com?utm_source=community-app-main',
+    location: 'https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main',
   },
   ACCOUNT_MENU: [
     {
@@ -409,4 +407,8 @@ module.exports = {
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/policy',
   GIGS_PAGES_PATH: '/gigs',
+  START_PAGE_PATH: '/start',
+  GUIKIT: {
+    DEBOUNCE_ON_CHANGE_TIME: 150,
+  },
 };

@@ -17,7 +17,7 @@ const standardDevelopmentConfig = configFactory({
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule => rule.loader === 'babel-loader');
 jsxRule.exclude = [
-  /node_modules[\\/](?!appirio-tech.*|topcoder|tc-)/,
+  /node_modules[\\/](?!appirio-tech.*|topcoder|tc-|@topcoder)/,
   /src[\\/]assets[\\/]fonts/,
   /src[\\/]assets[\\/]images[\\/]dashboard/,
 ];

@@ -5,10 +5,14 @@
       "tags": ["Blockchain", "Ethereum"]
     }]
   },
+  "challengeListing": {
+    "ignoreCommunityFilterByDefault": true
+  },
   "communityId": "blockchain",
   "communityName": "Blockchain Community",
   "groupIds": ["20000010"],
   "hideSearch": true,
+  "hideFilter": true,
   "logos": [{
     "img": "/community-app-assets/themes/blockchain/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"

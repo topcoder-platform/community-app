@@ -32,6 +32,7 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import { BUCKETS, isFilterEmpty } from 'utils/challenge-listing/buckets';
 import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
@@ -43,20 +44,21 @@ export default function FiltersPanel({
   communityFilters,
   defaultCommunityId,
   filterState,
-  challenges,
+  // challenges,
   hidden,
   isAuth,
   auth,
   isReviewOpportunitiesBucket,
+  activeBucket,
   onClose,
   // onSaveFilter,
   selectCommunity,
-  selectedCommunityId,
+  // selectedCommunityId,
   setFilterState,
   setSearchText,
   validKeywords,
   validTypes,
-  isSavingFilter,
+  // isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -64,6 +66,8 @@ export default function FiltersPanel({
   const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) => Boolean(
     _.intersection(visitorGroupIds, communityGroupIds).length,
   );
+
+  const isAllBucket = activeBucket === BUCKETS.ALL;
 
   const getLabel = (community) => {
     const { communityName } = community;
@@ -115,8 +119,8 @@ export default function FiltersPanel({
         </div>
       );
 
-    const filterFunction = Filter.getFilterFunction(community.challengeFilter);
-    const challengesInCommunity = challenges.filter(filterFunction).length;
+    // const filterFunction = Filter.getFilterFunction(community.challengeFilter);
+    // const challengesInCommunity = challenges.filter(filterFunction).length;
 
     const selectItem = (
       <div styleName="community-select-item">
@@ -138,7 +142,7 @@ export default function FiltersPanel({
           </div>
         </div>
         <div>
-          {challengesInCommunity}
+          {/* {challengesInCommunity} */}
         </div>
       </div>
     );
@@ -166,7 +170,7 @@ export default function FiltersPanel({
               </p>
               <p>
                 There are
-                {challengesInCommunity}
+                {/* {challengesInCommunity} */}
                 {' '}
                 challenges in this sub community
               </p>
@@ -179,21 +183,44 @@ export default function FiltersPanel({
     );
   };
 
-  const communityOps = communityFilters.filter(community => !community.hidden)
+  const mapCommunityOps = (community) => {
+    if (community.challengeFilter
+      && community.challengeFilter.events && community.challengeFilter.events.length) {
+      return `event_${community.challengeFilter.events[0]}`;
+    }
+
+    return community.communityName === 'All' ? '' : community.groupIds[0];
+  };
+
+  const communityOps = communityFilters.filter(community => (
+    (!community.hidden && !community.hideFilter) || community.communityName === 'All'
+  ))
     .map(community => ({
       label: community.communityName,
-      value: community.communityId,
+      value: mapCommunityOps(community),
       name: community.communityName,
       data: getLabel(community),
     }));
 
-  const disableClearSaveFilterButtons = isSavingFilter || (
-    selectedCommunityId === defaultCommunityId
-    && _.isEmpty(filterState)
-  );
+  // const disableClearSaveFilterButtons = false;
+  // const disableClearSaveFilterButtons = isSavingFilter || (
+  //   selectedCommunityId === defaultCommunityId
+  //   && _.isEmpty(filterState)
+  // );
+  const disableClearSaveFilterButtons = isFilterEmpty(filterState);
 
   const mapOps = item => ({ label: item, value: item });
-  const mapTypes = item => ({ label: item.name, value: item.id });
+  const mapTypes = item => ({ label: item.name, value: item.abbreviation });
+  const getCommunityOption = () => {
+    if (filterState.events && filterState.events.length) {
+      return `event_${filterState.events[0]}`;
+    }
+    if (filterState.groups && filterState.groups.length) {
+      return filterState.groups[0];
+    }
+    return '';
+  };
+
   return (
     <div styleName={className}>
       <div styleName="header">
@@ -221,7 +248,7 @@ export default function FiltersPanel({
               multi
               onChange={(value) => {
                 const tags = value ? value.split(',') : undefined;
-                setFilterState(Filter.setTags(filterState, tags));
+                setFilterState({ ..._.clone(filterState), tags });
               }}
               options={validKeywords.map(mapOps)}
               simpleValue
@@ -237,10 +264,28 @@ export default function FiltersPanel({
               autoBlur
               clearable={false}
               id="community-select"
-              onChange={selectCommunity}
+              // onChange={selectCommunity}
+              onChange={(value) => {
+                if (value && value.startsWith('event_')) {
+                  const event = value.split('_')[1];
+                  setFilterState({
+                    ..._.clone(filterState),
+                    events: event === '' ? [] : [event],
+                    groups: [],
+                  });
+                } else {
+                  const group = value;
+                  setFilterState({
+                    ..._.clone(filterState),
+                    groups: group === '' ? [] : [group],
+                    events: [],
+                  });
+                }
+                // setFilterState({ ..._.clone(filterState), groups: [value] });
+              }}
               options={communityOps}
               simpleValue
-              value={selectedCommunityId}
+              value={getCommunityOption()}
               valueRenderer={option => (
                 <span styleName="active-community">
                   {option.name}
@@ -261,7 +306,7 @@ export default function FiltersPanel({
               multi
               onChange={(value) => {
                 const types = value ? value.split(',') : undefined;
-                setFilterState(Filter.setTypes(filterState, types));
+                setFilterState({ ..._.clone(filterState), types });
               }}
               options={validTypes.map(mapTypes)}
               simpleValue
@@ -297,6 +342,28 @@ export default function FiltersPanel({
               </div>
             ) : null
           }
+          {/* Only shown when the All Challenges bucket is selected */}
+          { isAllBucket
+            ? (
+              <div styleName="filter status">
+                <label htmlFor="status-select" styleName="left-label">
+                  Status
+                  <input type="hidden" />
+                </label>
+                <Select
+                  placeholder="Select Status"
+                  id="status-select"
+                  onChange={(value) => {
+                    const status = value;
+                    setFilterState({ ..._.clone(filterState), status });
+                  }}
+                  options={['Active', 'Completed', 'All'].map(mapOps)}
+                  simpleValue
+                  value={filterState.status || 'All'}
+                />
+              </div>
+            ) : null
+          }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker-one-month">
               Date range
@@ -304,17 +371,20 @@ export default function FiltersPanel({
             </label>
             <DateRangePicker
               numberOfMonths={1}
-              endDate={filterState.endDate && moment(filterState.endDate)}
+              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
               id="date-range-picker-one-month"
               onDatesChange={(dates) => {
-                let d = dates.endDate ? dates.endDate.toISOString() : null;
-                let state = Filter.setEndDate(filterState, d);
-                d = dates.startDate ? dates.startDate.toISOString() : null;
-                state = Filter.setStartDate(state, d);
-                setFilterState(state);
+                const d = dates.endDate ? dates.endDate.toISOString() : null;
+                const s = dates.startDate ? dates.startDate.toISOString() : null;
+                setFilterState({
+                  ..._.clone(filterState),
+                  endDateStart: s,
+                  startDateEnd: d,
+                });
               }}
               startDate={
-                filterState.startDate && moment(filterState.startDate)
+                filterState.endDateStart
+                  && moment(filterState.endDateStart)
               }
             />
           </div>
@@ -325,17 +395,20 @@ export default function FiltersPanel({
             </label>
             <DateRangePicker
               numberOfMonths={2}
-              endDate={filterState.endDate && moment(filterState.endDate)}
+              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
               id="date-range-picker-two-months"
               onDatesChange={(dates) => {
-                let d = dates.endDate ? dates.endDate.toISOString() : null;
-                let state = Filter.setEndDate(filterState, d);
-                d = dates.startDate ? dates.startDate.toISOString() : null;
-                state = Filter.setStartDate(state, d);
-                setFilterState(state);
+                const d = dates.endDate ? dates.endDate.toISOString() : null;
+                const s = dates.startDate ? dates.startDate.toISOString() : null;
+                setFilterState({
+                  ..._.clone(filterState),
+                  endDateStart: s,
+                  startDateEnd: d,
+                });
               }}
               startDate={
-                filterState.startDate && moment(filterState.startDate)
+                filterState.endDateStart
+                  && moment(filterState.endDateStart)
               }
             />
           </div>
@@ -346,10 +419,25 @@ export default function FiltersPanel({
           composeContextTheme={COMPOSE.SOFT}
           disabled={disableClearSaveFilterButtons}
           onClick={() => {
-            setFilterState({});
+            setFilterState({
+              tracks: {
+                Dev: true,
+                Des: true,
+                DS: true,
+                QA: true,
+              },
+              name: '',
+              tags: [],
+              types: [],
+              groups: [],
+              events: [],
+              endDateStart: null,
+              startDateEnd: null,
+              status: 'All',
+            });
             selectCommunity(defaultCommunityId);
             setSearchText('');
-            localStorage.setItem('trackStatus', JSON.stringify({}));
+            // localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
           theme={{ button: style.button }}
@@ -371,10 +459,10 @@ export default function FiltersPanel({
 }
 
 FiltersPanel.defaultProps = {
-  challenges: [],
+  // challenges: [],
   hidden: false,
   isAuth: false,
-  isSavingFilter: false,
+  // isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
   // onSaveFilter: _.noop,
   onClose: _.noop,
@@ -386,16 +474,17 @@ FiltersPanel.propTypes = {
     communityName: PT.string.isRequired,
   })).isRequired,
   defaultCommunityId: PT.string.isRequired,
+  activeBucket: PT.string.isRequired,
   filterState: PT.shape().isRequired,
-  challenges: PT.arrayOf(PT.shape()),
+  // challenges: PT.arrayOf(PT.shape()),
   hidden: PT.bool,
   isAuth: PT.bool,
   auth: PT.shape().isRequired,
-  isSavingFilter: PT.bool,
+  // isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
   // onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
-  selectedCommunityId: PT.string.isRequired,
+  // selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,

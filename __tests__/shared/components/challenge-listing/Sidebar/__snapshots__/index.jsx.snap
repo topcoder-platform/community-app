@@ -9,29 +9,14 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <BucketSelector
       activeBucket="activeBucket"
-      activeSavedFilter={3}
-      buckets={Object {}}
-      challenges={
-        Array [
-          Object {
-            "id": "1",
-            "registrationOpen": "open",
-          },
-        ]
-      }
-      communityFilter={Object {}}
       disabled={false}
-      extraBucket={null}
-      filterState={Object {}}
+      expanding={false}
       isAuth={false}
-      savedFilters={Array []}
       selectBucket={[MockFunction]}
-      selectSavedFilter={[MockFunction]}
-      setEditSavedFiltersMode={[MockFunction]}
     />
   </div>
   <Footer
-    hideTcLinksInFooter={false}
+    hideTcLinksInFooter={true}
   />
 </div>
 `;
@@ -43,21 +28,16 @@ exports[`Matches shallow shapshot 2`] = `
   <div
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
-    <FiltersEditor
-      changeFilterName={[MockFunction]}
-      deleteSavedFilter={[MockFunction]}
-      dragSavedFilterMove={[MockFunction]}
-      dragSavedFilterStart={[MockFunction]}
-      dragState={Object {}}
-      resetFilterName={[MockFunction]}
-      savedFilters={Array []}
-      setEditSavedFiltersMode={[MockFunction]}
-      updateAllSavedFilters={[MockFunction]}
-      updateSavedFilter={[MockFunction]}
+    <BucketSelector
+      activeBucket="activeBucket"
+      disabled={false}
+      expanding={false}
+      isAuth={false}
+      selectBucket={[MockFunction]}
     />
   </div>
   <Footer
-    hideTcLinksInFooter={false}
+    hideTcLinksInFooter={true}
   />
 </div>
 `;

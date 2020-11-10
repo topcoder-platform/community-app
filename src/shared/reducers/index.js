@@ -36,6 +36,7 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
 import newsletterPreferences from './newsletterPreferences';
+import mmLeaderboard from './mmLeaderboard';
 import recruitCRM from './recruitCRM';
 
 /**
@@ -142,6 +143,7 @@ export function factory(req) {
     policyPages,
     newsletterPreferences,
     recruitCRM,
+    mmLeaderboard,
   }));
 }
 

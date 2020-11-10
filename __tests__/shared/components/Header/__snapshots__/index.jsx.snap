@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Default render 1`] = `
-<div>
+<div
+  className="src-shared-components-Header-___style__nav-header-wrapper___3oH9J"
+>
   <TopNav
     loggedIn={true}
     logo={
@@ -118,6 +120,7 @@ exports[`Default render 1`] = `
                 },
                 Object {
                   "href": "https://www.topcoder-dev.com/blog",
+                  "openNewTab": true,
                   "title": "Blog",
                 },
                 Object {
@@ -162,8 +165,8 @@ exports[`Default render 1`] = `
         auth={null}
         authURLs={
           Object {
-            "href": "https://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main",
-            "location": "https://accounts.topcoder-dev.com/member?retUrl=%S&utm_source=community-app-main",
+            "href": "https://accounts-auth0.topcoder-dev.com?utm_source=community-app-main",
+            "location": "https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main",
           }
         }
         loggedIn={true}

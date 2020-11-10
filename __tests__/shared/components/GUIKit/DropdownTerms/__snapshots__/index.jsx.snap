@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<div
+  className="dropdownContainer src-shared-components-GUIKit-DropdownTerms-___style__container___oBZ2m src-shared-components-GUIKit-DropdownTerms-___style__haveValue___1Ppjh src-shared-components-GUIKit-DropdownTerms-___style__isEmptySelectList___CWafx"
+>
+  <div
+    className="src-shared-components-GUIKit-DropdownTerms-___style__relative___EOspV"
+  >
+    <CreatableSelect
+      autosize={false}
+      backspaceRemoves={false}
+      clearable={false}
+      filterOptions={[Function]}
+      isOptionUnique={[Function]}
+      isValidNewOption={[Function]}
+      menuRenderer={[Function]}
+      multi={true}
+      newOptionCreator={[Function]}
+      onChange={[Function]}
+      onClose={[Function]}
+      onInputKeyDown={[Function]}
+      onOpen={[Function]}
+      optionComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "defaultProps": Object {
+            "children": null,
+            "className": "",
+            "onSelect": [Function],
+          },
+          "propTypes": Object {
+            "children": [Function],
+            "className": [Function],
+            "onSelect": [Function],
+            "option": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      options={
+        Array [
+          Object {
+            "label": "dropdownLabel",
+            "value": "dropdownLabel",
+          },
+        ]
+      }
+      placeholder=""
+      promptTextCreator={[Function]}
+      shouldKeyDownEventCreateNewOption={[Function]}
+      showNewOptionAtTop={true}
+      value={
+        Array [
+          Object {
+            "label": "dropdownLabel",
+            "value": "dropdownLabel",
+          },
+        ]
+      }
+    />
+    <img
+      alt="dropdown-arrow-icon"
+      className="src-shared-components-GUIKit-DropdownTerms-___style__iconDropdown___25Wtg"
+      height="9"
+      src="/community-app-assets/images/e740c51bb099110dff2900fa4fc94d72.png"
+      width="15"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<div
+  className="dropdownContainer src-shared-components-GUIKit-Dropdown-___style__container___1qhm8 src-shared-components-GUIKit-Dropdown-___style__lgSize___1fYu0 src-shared-components-GUIKit-Dropdown-___style__haveValue___1b1qb"
+  onBlurCapture={[Function]}
+  onFocusCapture={[Function]}
+>
+  <div
+    className="src-shared-components-GUIKit-Dropdown-___style__relative___1Yq0F"
+  >
+    <Select
+      arrowRenderer={[Function]}
+      autoBlur={true}
+      autosize={false}
+      backspaceRemoves={true}
+      backspaceToRemoveMessage="Press backspace to remove {label}"
+      clearAllText="Clear all"
+      clearRenderer={[Function]}
+      clearValueText="Clear value"
+      clearable={false}
+      closeOnSelect={true}
+      deleteRemoves={true}
+      delimiter=","
+      disabled={false}
+      escapeClearsValue={true}
+      filterOptions={[Function]}
+      ignoreAccents={true}
+      ignoreCase={true}
+      inputProps={Object {}}
+      isLoading={false}
+      joinValues={false}
+      labelKey="label"
+      matchPos="any"
+      matchProp="any"
+      menuBuffer={0}
+      menuRenderer={[Function]}
+      multi={false}
+      noResultsText="No results found"
+      onBlurResetsInput={true}
+      onChange={[Function]}
+      onCloseResetsInput={true}
+      onSelectResetsInput={true}
+      openOnClick={true}
+      optionComponent={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "dropdownLable",
+            "value": "dropdownLable",
+          },
+        ]
+      }
+      pageSize={5}
+      placeholder=""
+      removeSelected={true}
+      required={false}
+      rtl={false}
+      scrollMenuIntoView={true}
+      searchable={true}
+      simpleValue={false}
+      tabSelectsValue={true}
+      trimFilter={true}
+      value="dropdownLable"
+      valueComponent={[Function]}
+      valueKey="value"
+    />
+    <img
+      alt="dropdown-arraow-icon"
+      className="src-shared-components-GUIKit-Dropdown-___style__iconDropdown___2bPox"
+      height="9"
+      src="/community-app-assets/images/e740c51bb099110dff2900fa4fc94d72.png"
+      width="15"
+    />
+  </div>
+</div>
+`;

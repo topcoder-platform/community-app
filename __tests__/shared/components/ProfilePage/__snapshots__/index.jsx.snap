@@ -16,7 +16,7 @@ exports[`renders a full Profile correctly 1`] = `
       >
         <Sticky
           activeClass="active"
-          bottomBoundary={-250}
+          bottomBoundary={0}
           enableTransforms={true}
           enabled={true}
           onStateChange={null}
@@ -58,7 +58,7 @@ exports[`renders a full Profile correctly 1`] = `
               }
               onShowBadges={[Function]}
               showBadgesButton={true}
-              wins={3}
+              wins={0}
             />
           </div>
         </Sticky>
@@ -630,7 +630,7 @@ exports[`renders an empty Profile correctly 1`] = `
       >
         <Sticky
           activeClass="active"
-          bottomBoundary={-250}
+          bottomBoundary={0}
           enableTransforms={true}
           enabled={true}
           onStateChange={null}

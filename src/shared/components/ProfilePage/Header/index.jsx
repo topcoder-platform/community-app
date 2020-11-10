@@ -35,7 +35,10 @@ class ProfileHeader extends React.Component {
     const {
       info,
     } = this.props;
-    const { photoURL } = info;
+    let photoURL = '';
+    if (isomorphy.isClientSide()) {
+      ({ photoURL } = info);
+    }
     this.state = {
       imageUrl: photoURL,
     };
@@ -72,6 +75,7 @@ class ProfileHeader extends React.Component {
             <span>
               {' '}
               |
+              {' '}
               {wins}
               {' '}
               Wins
