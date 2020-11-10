@@ -7,7 +7,6 @@ import PT from 'prop-types';
 import ReactSVG from 'react-svg';
 import moment from 'moment';
 import { isomorphy } from 'topcoder-react-utils';
-import { isEmpty as isDateEmpty } from 'utils/settings';
 
 import './styles.scss';
 
@@ -24,14 +23,8 @@ export default function Item(props) {
     onEditItem,
   } = props;
 
-  const {
-    jobDescription,
-    technologies,
-    jobAchievements,
-  } = work;
-
   const hasSecondLine = () => {
-    if (isDateEmpty(work.timePeriodFrom) && isDateEmpty(work.timePeriodTo)
+    if (_.isEmpty(work.timePeriodFrom) && _.isEmpty(work.timePeriodTo)
       && _.isEmpty(work.position) && !work.working) {
       return false;
     }
@@ -52,11 +45,11 @@ export default function Item(props) {
             { `${work.company}${_.isEmpty(work.industry) ? '' : ` | ${work.industry}`}${_.isEmpty(work.cityTown) ? '' : ` | ${work.cityTown}`}` }
           </div>
           <div styleName="parameter-second-line">
-            { `${!isDateEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!isDateEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ` ${current}`} ${!_.isEmpty(work.position) && (!isDateEmpty(work.timePeriodTo) || !isDateEmpty(work.timePeriodFrom)) ? ' | ' : ''}${!_.isEmpty(work.position) ? `${work.position}` : ''}` }
+            { `${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ` ${current}`} ${!_.isEmpty(work.position) && (!_.isEmpty(work.timePeriodTo) || !_.isEmpty(work.timePeriodFrom)) ? ' | ' : ''}${!_.isEmpty(work.position) ? `${work.position}` : ''}` }
           </div>
           <div styleName="parameter-second-line-mobile">
             <p>
-              {`${!isDateEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!isDateEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ` ${current}`}`}
+              {`${!_.isEmpty(work.timePeriodFrom) ? moment(work.timePeriodFrom).format('YYYY') : ''}${!_.isEmpty(work.timePeriodTo) ? ` - ${moment(work.timePeriodTo).format('YYYY')}` : ` ${current}`}`}
             </p>
             <p>
               {`${!_.isEmpty(work.position) ? `${work.position}` : ''}`}
@@ -90,30 +83,6 @@ export default function Item(props) {
           </p>
         </a>
       </div>
-      { !_.isEmpty(jobDescription) && jobDescription !== '<p><br></p>'
-        && (
-          <div styleName="job-description">
-            <h4 styleName="title">Job Description</h4>
-            <div styleName="html-content" dangerouslySetInnerHTML={{ __html: jobDescription /* eslint-disable-line react/no-danger */ }} />
-          </div>
-        )
-      }
-      { !_.isEmpty(technologies)
-        && (
-          <div styleName="technologies">
-            <h4 styleName="title">Technologies</h4>
-            <div>{technologies.map(item => item.name).join(', ')}</div>
-          </div>
-        )
-      }
-      { !_.isEmpty(jobAchievements) && jobAchievements !== '<p><br></p>'
-        && (
-          <div styleName="achievements">
-            <h4 styleName="title">Outputs and Achievements Within the Role</h4>
-            <div styleName="html-content" dangerouslySetInnerHTML={{ __html: jobAchievements /* eslint-disable-line react/no-danger */ }} />
-          </div>
-        )
-      }
     </div>
   );
 }
