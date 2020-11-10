@@ -763,6 +763,14 @@ function mapStateToProps(state, props) {
       mySubmissions = _.filter(challenge.submissions, s => (`${s.memberId}` === `${auth.user.userId}`));
     }
   }
+  const { page: { challengeDetails: { feedbackOpen } } } = state;
+  const checkpoints = state.challenge.checkpoints || {};
+  if (feedbackOpen.id && checkpoints.checkpointResults) {
+    checkpoints.checkpointResults = checkpoints.checkpointResults.map(result => ({
+      ...result,
+      expanded: result.submissionId === feedbackOpen.id ? feedbackOpen.open : result.expanded,
+    }));
+  }
   return {
     auth: state.auth,
     challenge,
@@ -773,9 +781,9 @@ function mapStateToProps(state, props) {
     challengeId: String(props.match.params.challengeId),
     challengesUrl: props.challengesUrl,
     challengeTypesMap: state.challengeListing.challengeTypesMap,
-    checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+    checkpointResults: checkpoints.checkpointResults,
     checkpointResultsUi: state.page.challengeDetails.checkpoints,
-    checkpoints: state.challenge.checkpoints || {},
+    checkpoints,
     communityId: props.communityId,
     communitiesList: state.tcCommunities.list,
     domain: state.domain,
