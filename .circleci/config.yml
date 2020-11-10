@@ -230,14 +230,14 @@ workflows:
           filters:
             branches:
               only:
-                - fix_for_job_description
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
-                - apollo-site
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      

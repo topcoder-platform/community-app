@@ -22,7 +22,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import { challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
@@ -38,7 +37,6 @@ import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
-const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
   communityFilters,
@@ -328,9 +326,10 @@ export default function FiltersPanel({
                   autoBlur
                   clearable={false}
                   id="review-type-select"
-                  onChange={
-                    value => setFilterState(Filter.setReviewOpportunityType(filterState, value))
-                  }
+                  onChange={(value) => {
+                    const reviewOpportunityType = value === 0 ? undefined : value;
+                    setFilterState({ ..._.clone(filterState), reviewOpportunityType });
+                  }}
                   options={[
                     { label: 'All', value: 0 }, // 0 value deactivates above filter
                     ...Object.entries(REVIEW_OPPORTUNITY_TYPES)
@@ -434,6 +433,7 @@ export default function FiltersPanel({
               endDateStart: null,
               startDateEnd: null,
               status: 'All',
+              reviewOpportunityType: undefined,
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');

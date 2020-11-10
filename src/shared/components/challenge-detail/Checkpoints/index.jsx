@@ -27,7 +27,7 @@ function Checkpoints(props) {
                 document
                   .getElementsByClassName(style['challenge-checkpoint-winners'])[index]
                   .scrollIntoView(true);
-                toggleCheckpointFeedback(index, true);
+                toggleCheckpointFeedback(item.submissionId, true);
               }}
               type="button"
             >
@@ -47,12 +47,12 @@ function Checkpoints(props) {
           }}
         />
         {
-          checkpointResults && checkpointResults.map((item, index) => (
+          checkpointResults && checkpointResults.map(item => (
             <div key={item.submissionId} styleName="challenge-checkpoint-winners">
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  toggleCheckpointFeedback(index);
+                  toggleCheckpointFeedback(item.submissionId, !item.expanded);
                 }}
                 styleName="challenge-checkpoint-submission"
                 type="button"
