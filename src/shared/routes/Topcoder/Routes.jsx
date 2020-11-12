@@ -83,7 +83,7 @@ export default function Topcoder() {
               <Route
                 component={Profile}
                 exact
-                path="/members/:handle([\w\-\[\].{}]{2,15})"
+                path="/members/:handle([\w\-\[\].{} ]{2,15})"
               />
               <Route
                 component={() => <Settings base="/settings" />}
@@ -92,7 +92,7 @@ export default function Topcoder() {
               <Route
                 component={ProfileStats}
                 exact
-                path="/members/:handle([\w\-\[\].{}]{2,15})/details"
+                path="/members/:handle([\w\-\[\].{} ]{2,15})/details"
               />
               {/* EDU Portal */}
               <Route
