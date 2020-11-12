@@ -322,19 +322,21 @@ export default function SideBar({
                 pass screening.
               </a>
             </p>
-            <p styleName="link-like-paragraph">
-              Questions?
-              &zwnj;
-              {_.isEmpty(discuss) && (
-                <a
-                  href={forumLink}
-                  target="_blank"
-                  rel="oopener noreferrer"
-                >
-                  Ask in the Challenge Discussion Forums.
-                </a>
-              )}
-            </p>
+            {(forumLink || !_.isEmpty(discuss)) && (
+              <p styleName="link-like-paragraph">
+                Questions?
+                &zwnj;
+                {_.isEmpty(discuss) && (
+                  <a
+                    href={forumLink}
+                    target="_blank"
+                    rel="oopener noreferrer"
+                  >
+                    Ask in the Challenge Discussion Forums.
+                  </a>
+                )}
+              </p>
+            )}
             {!_.isEmpty(discuss) && (
               <ul>
                 { discuss.map(d => (

@@ -178,7 +178,21 @@ export default function ChallengeViewSelector(props) {
         }
         { (() => {
           if (hasRegistered || Boolean(roles.length)) {
-            if (_.isEmpty(discuss)) {
+            if (!_.isEmpty(discuss)) {
+              return (
+                discuss.map(d => (
+                  <a
+                    href={d.url}
+                    styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+                    target="_blank"
+                    rel="oopener noreferrer"
+                  >
+                    CHALLENGE DISCUSSION
+                  </a>
+                ))
+              );
+            }
+            if (forumId > 0) {
               return (
                 <a
                   href={`${config.URL.FORUMS}${forumEndpoint}`}
@@ -190,18 +204,6 @@ export default function ChallengeViewSelector(props) {
                 </a>
               );
             }
-            return (
-              discuss.map(d => (
-                <a
-                  href={d.url}
-                  styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
-                  target="_blank"
-                  rel="oopener noreferrer"
-                >
-                  CHALLENGE DISCUSSION
-                </a>
-              ))
-            );
           }
           return '';
         })()}
