@@ -36,6 +36,9 @@ export default function ChallengeViewSelector(props) {
 
   const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
+  const discuss = _.get(challenge, 'discussions', []).filter(d => (
+    d.type === 'challenge' && !_.isEmpty(d.url)
+  ));
   const roles = _.get(challenge, 'userDetails.roles') || [];
   const isDesign = trackLower === 'design';
 
@@ -174,13 +177,27 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         { (hasRegistered || Boolean(roles.length))
-          && (
-          <a
-            href={`${config.URL.FORUMS}${forumEndpoint}`}
-            styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
-          >
-            CHALLENGE FORUM
-          </a>
+          && _.isEmpty(discuss)
+          ? (
+            <a
+              href={`${config.URL.FORUMS}${forumEndpoint}`}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+              target="_blank"
+              rel="oopener noreferrer"
+            >
+              CHALLENGE FORUM
+            </a>
+          ) : (
+            discuss.map(d => (
+              <a
+                href={d.url}
+                styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+                target="_blank"
+                rel="oopener noreferrer"
+              >
+                CHALLENGE DISCUSSION
+              </a>
+            ))
           )
         }
       </div>

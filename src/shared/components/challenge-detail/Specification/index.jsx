@@ -76,6 +76,10 @@ export default function ChallengeDetailsView(props) {
     codeRepo = codeRepoData.value;
   }
 
+  const discuss = _.get(challenge, 'discussions', []).filter(d => (
+    d.type === 'challenge' && !_.isEmpty(d.url)
+  ));
+
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
@@ -351,6 +355,7 @@ export default function ChallengeDetailsView(props) {
           challengesUrl={challengesUrl}
           legacyId={legacyId}
           forumLink={forumLink}
+          discuss={discuss}
           documents={documents}
           hasRegistered={hasRegistered}
           isDesign={track.toLowerCase() === 'design'}
