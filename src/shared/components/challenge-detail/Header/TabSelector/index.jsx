@@ -176,30 +176,35 @@ export default function ChallengeViewSelector(props) {
             </a>
           ) : null
         }
-        { (hasRegistered || Boolean(roles.length))
-          && _.isEmpty(discuss)
-          ? (
-            <a
-              href={`${config.URL.FORUMS}${forumEndpoint}`}
-              styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
-              target="_blank"
-              rel="oopener noreferrer"
-            >
-              CHALLENGE FORUM
-            </a>
-          ) : (
-            discuss.map(d => (
-              <a
-                href={d.url}
-                styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
-                target="_blank"
-                rel="oopener noreferrer"
-              >
-                CHALLENGE DISCUSSION
-              </a>
-            ))
-          )
-        }
+        { (() => {
+          if (hasRegistered || Boolean(roles.length)) {
+            if (_.isEmpty(discuss)) {
+              return (
+                <a
+                  href={`${config.URL.FORUMS}${forumEndpoint}`}
+                  styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+                  target="_blank"
+                  rel="oopener noreferrer"
+                >
+                  CHALLENGE FORUM
+                </a>
+              );
+            }
+            return (
+              discuss.map(d => (
+                <a
+                  href={d.url}
+                  styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+                  target="_blank"
+                  rel="oopener noreferrer"
+                >
+                  CHALLENGE DISCUSSION
+                </a>
+              ))
+            );
+          }
+          return '';
+        })()}
       </div>
     </div>
   );
