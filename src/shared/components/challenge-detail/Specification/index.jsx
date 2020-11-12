@@ -80,10 +80,12 @@ export default function ChallengeDetailsView(props) {
     d.type === 'challenge' && !_.isEmpty(d.url)
   ));
 
-  let forumLink = track.toLowerCase() === 'design'
-    ? `/?module=ThreadList&forumID=${forumId}`
-    : `/?module=Category&categoryID=${forumId}`;
-  forumLink = `${config.URL.FORUMS}${forumLink}`;
+  let forumLink = '';
+  if (forumId > 0) {
+    forumLink = track.toLowerCase() === 'design'
+      ? `/?module=ThreadList&forumID=${forumId}`
+      : `/?module=Category&categoryID=${forumId}`;
+  }
 
   let isWipro = false;
   const wiproCommunity = communitiesList.find(x => x.communityId === 'wipro');
