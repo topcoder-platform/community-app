@@ -65,6 +65,9 @@ export default function LeaderboardTable(props) {
         photoUrl = `${config.CDN.PUBLIC}/avatar/${
           encodeURIComponent(photoUrl)}?size=40`;
       }
+      const fulfillment = competitor['tco_leaderboard.fulfillment']
+        ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
+        : competitor.fulfillment;
       return (
         <tr key={competitor.rank}>
           <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
@@ -105,7 +108,7 @@ export default function LeaderboardTable(props) {
           </td>
           {
             isCopilot ? (
-              <td styleName={`${stylesName}.col-fulfillment`}>{competitor.fulfillment}</td>
+              <td styleName={`${stylesName}.col-fulfillment`}>{fulfillment}</td>
             ) : null
           }
           <td styleName={`${stylesName}.col-challenges`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</td>
@@ -122,7 +125,7 @@ export default function LeaderboardTable(props) {
           }
           {
             isAlgo ? (
-              <td styleName={`${stylesName}.col-points`}>{competitor['srm_tco19.score']}</td>
+              <td styleName={`${stylesName}.col-points`}>{competitor['tco_leaderboard.total_score'] || competitor['srm_tco19.score']}</td>
             ) : null
           }
         </tr>
@@ -141,7 +144,13 @@ export default function LeaderboardTable(props) {
               <th styleName={`${stylesName}.col-fulfillment`}>Fulfillment</th>
             ) : null
           }
-          <th styleName={`${stylesName}.col-challenges`}># of Challenges</th>
+          {
+            isAlgo ? (
+              <th styleName={`${stylesName}.col-challenges`}># of Matches</th>
+            ) : (
+              <th styleName={`${stylesName}.col-challenges`}># of Challenges</th>
+            )
+          }
           <th styleName={`${stylesName}.col-points`}>Points</th>
           {
             isTopGear ? (

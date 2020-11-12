@@ -4,6 +4,7 @@ import Submission from 'components/SubmissionManagement/Submission';
 import TU from 'react-dom/test-utils';
 
 const mockOnDelete = jest.fn();
+const mockOnDownload = jest.fn();
 const mockOnShowDetails = jest.fn();
 
 const rnd = new Rnd();
@@ -12,6 +13,7 @@ test('Snapshot match', () => {
   rnd.render((
     <Submission
       onDelete={mockOnDelete}
+      onDownload={mockOnDownload}
       onShowDetails={mockOnShowDetails}
       showScreeningDetails
       type="develop"
@@ -21,6 +23,7 @@ test('Snapshot match', () => {
   rnd.render((
     <Submission
       onDelete={mockOnDelete}
+      onDownload={mockOnDownload}
       onShowDetails={mockOnShowDetails}
       submissionObject={{
         id: '12345',
@@ -49,6 +52,7 @@ class Wrapper extends React.Component {
 const page = TU.renderIntoDocument((
   <Wrapper
     onDelete={mockOnDelete}
+    onDownload={mockOnDownload}
     onShowDetails={mockOnShowDetails}
     submissionObject={{
       id: '12345',

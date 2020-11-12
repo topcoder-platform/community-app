@@ -6,6 +6,7 @@
     }]
   },
   "challengeListing": {
+    "ignoreCommunityFilterByDefault": true,
     "openChallengesInNewTabs": false
   },
   "communityId": "cognitive",

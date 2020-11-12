@@ -25,7 +25,7 @@ import { updateChallengeType } from 'utils/challenge';
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 
-import { isTokenExpired, decodeToken } from 'tc-accounts';
+import { isTokenExpired, decodeToken } from '@topcoder-platform/tc-auth-lib';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
@@ -150,8 +150,7 @@ export class DashboardPageContainer extends React.Component {
     // if (now - tcBlogTimestamp > CACHE_MAX_AGE
     // && !tcBlogLoading) getTopcoderBlogFeed();
 
-    if (now - communitiesTimestamp < CACHE_MAX_AGE
-    && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
+    if (now - communitiesTimestamp < CACHE_MAX_AGE) {
       updateCommunityStats(this.props);
     }
   }
@@ -445,7 +444,7 @@ function mapDispatchToProps(dispatch) {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(cl.setFilter(filter));
-      dispatch(cls.selectBucket(BUCKETS.ALL));
+      dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
     },
     showXlBadge: name => dispatch(dash.showXlBadge(name)),
     switchChallengeFilter: filter => dispatch(dash.switchChallengeFilter(filter)),

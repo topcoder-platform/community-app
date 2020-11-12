@@ -37,8 +37,6 @@ const { mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
 
-const SEO_PAGE_TITLE = 'Topcoder Challenges';
-
 export class ListingContainer extends React.Component {
   componentDidMount() {
     const {
@@ -50,8 +48,10 @@ export class ListingContainer extends React.Component {
       getCommunitiesList,
       markHeaderMenu,
       selectBucket,
+      setFilter,
       selectCommunity,
       queryBucket,
+      filter,
     } = this.props;
 
     markHeaderMenu();
@@ -65,8 +65,10 @@ export class ListingContainer extends React.Component {
       getCommunitiesList(auth);
     }
 
+    let selectedCommunity;
     if (communityId) {
       selectCommunity(communityId);
+      selectedCommunity = communitiesList.data.find(item => item.communityId === communityId);
     }
 
     if (mounted) {
@@ -76,7 +78,14 @@ export class ListingContainer extends React.Component {
     // if (BUCKETS.PAST !== activeBucket) {
     // dropChallenges();
     // this.loadChallenges();
-    this.reloadChallenges();
+    if (!selectedCommunity) {
+      this.reloadChallenges();
+    } else {
+      const groups = selectedCommunity.groupIds && selectedCommunity.groupIds.length
+        ? [selectedCommunity.groupIds[0]] : [];
+      // update the challenge listing filter for selected community
+      setFilter({ ..._.clone(filter), groups, events: [] });
+    }
     // }
   }
 
@@ -357,7 +366,6 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       challengeTags,
       communityFilters,
-      communityId,
       communityName,
       defaultCommunityId,
       expanding,
@@ -483,7 +491,8 @@ export class ListingContainer extends React.Component {
     let communityFilter = communityFilters.find(item => item.communityId === selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
-    const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
+    const title = 'Topcoder Challenge Listings | Topcoder Community | Topcoder';
+    const description = 'Browse the challenges currently available on Topcoder. Search by type of challenge, then find those of interest to register for and compete in today.';
 
     let banner;
     if (!listingOnly) {
@@ -509,7 +518,7 @@ export class ListingContainer extends React.Component {
           description={description}
           image={ogImage}
           siteName="Topcoder"
-          title={communityId ? `${communityName} Challenges` : SEO_PAGE_TITLE}
+          title={title}
         />
         {banner}
         <ChallengeListing
@@ -561,7 +570,7 @@ export class ListingContainer extends React.Component {
             setFilter(state);
             setSearchText(state.name || '');
             // if (activeBucket === BUCKETS.SAVED_FILTER) {
-            //   selectBucket(BUCKETS.ALL);
+            //   selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
             // } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
             //   selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
             // }
@@ -598,7 +607,7 @@ ListingContainer.defaultProps = {
   openChallengesInNewTabs: false,
   preListingMsg: null,
   prizeMode: 'money-usd',
-  queryBucket: BUCKETS.ALL,
+  queryBucket: BUCKETS.OPEN_FOR_REGISTRATION,
   meta: {},
   expanding: false,
   // isBucketSwitching: false,

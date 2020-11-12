@@ -12,6 +12,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
+import PasswordScreen from 'components/Contentful/PasswordScreen';
 
 // Concatenates a base and segment and handles optional trailing slashes
 const buildUrl = (base, segment) => `${_.trimEnd(base, '/')}/${_.trim(segment, '/')}`;
@@ -51,8 +52,9 @@ function ChildRoutesLoader(props) {
                   url={fields.socialUrl}
                 />
                 {
+                  // eslint-disable-next-line no-nested-ternary
                   fields.viewport
-                    ? (
+                    ? (!fields.password ? (
                       <Viewport
                         id={fields.viewport.sys.id}
                         preview={preview}
@@ -60,6 +62,19 @@ function ChildRoutesLoader(props) {
                         environment={environment}
                         baseUrl={url}
                       />
+                    ) : (
+                      <PasswordScreen
+                        password={fields.password}
+                        viewPortId={fields.viewport.sys.id}
+                        preview={preview}
+                        spaceName={spaceName}
+                        environment={environment}
+                        baseUrl={url}
+                        title={fields.passwordScreenTitle}
+                        btnText={fields.passwordScreenButtonText}
+                        content={fields.passwordScreenContent}
+                      />
+                    )
                     ) : <Error404 />
                 }
               </React.Fragment>

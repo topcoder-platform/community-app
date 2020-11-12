@@ -23,6 +23,7 @@ import Settings from 'routes/Settings';
 import theme from 'components/tc-communities/communities/cs/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
+import { config } from 'topcoder-react-utils';
 
 import Leaderboard from '../Leaderboard';
 
@@ -35,6 +36,7 @@ export default function CS({ base, meta }) {
             <Header
               baseUrl={base}
               pageId={match.params.pageId || 'home'}
+              logoutRedirect={config.URL.COMMUNITIES.CS}
             />
             <Switch>
               <Route

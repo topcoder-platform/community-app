@@ -230,22 +230,21 @@ workflows:
           filters:
             branches:
               only:
-                - hot-fix
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
-              only:
-                - develop
+              only:                
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - develop
-                - new-forums
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

@@ -127,7 +127,7 @@ export default function Bucket({
       challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
-      onTechTagClicked={tag => setFilterState({ ..._.clone(filterState), tags: [tag] })}
+      onTechTagClicked={tag => setFilterState({ ..._.clone(filterState), tags: [tag], types: [] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
       key={challenge.id}
@@ -184,7 +184,7 @@ export default function Bucket({
       {placeholders}
       {
       // (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
-        (expanding || expandable || loadMore) && !loading && !expanded ? (
+        (expanding || expandable) && !loading && loadMore && (expandable ? expanded : !expanded) ? (
           <a
             // href={`${challengesUrl}?${bucketQuery}`}
             href={`${challengesUrl}`}

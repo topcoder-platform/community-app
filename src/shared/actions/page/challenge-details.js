@@ -59,7 +59,7 @@ function setSpecsTabState(state) {
  * @param {Boolean} open
  * @return {Object}
  */
-function toggleCheckpointFeedback(id, open) {
+function toggleCheckpointFeedback(id, open = false) {
   return { id, open };
 }
 

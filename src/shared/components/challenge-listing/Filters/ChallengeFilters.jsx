@@ -7,6 +7,7 @@ import SwitchWithLabel from 'components/SwitchWithLabel';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 // import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 import _ from 'lodash';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 // import localStorage from 'localStorage';
 import ChallengeSearchBar from './ChallengeSearchBar';
@@ -49,11 +50,12 @@ export default function ChallengeFilters({
   if (filterState.events && filterState.events.length) filterRulesCount += 1;
   if (filterState.tags && filterState.tags.length) filterRulesCount += 1;
   if (filterState.types && filterState.types.length) filterRulesCount += 1;
+  if (activeBucket === BUCKETS.ALL && filterState.status && filterState.status !== 'All') filterRulesCount += 1;
   if (filterState.endDateStart || filterState.startDateEnd) {
     filterRulesCount += 1;
   }
   if (isReviewOpportunitiesBucket && filterState.reviewOpportunityType) filterRulesCount += 1;
-  if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
+  // if (selectedCommunityId !== '' && selectedCommunityId !== 'All') filterRulesCount += 1;
   const isTrackOn = track => filterState.tracks && filterState.tracks[track];
 
   const switchTrack = (track, on) => {
