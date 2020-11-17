@@ -3,7 +3,7 @@ $podium-border-color: #ededf2;
 
 .PodiumSpot {
   border-radius: 6px;
-  padding: 23px 15px;
+  padding: 23px 25px;
   display: flex;
   width: auto;
 
@@ -19,12 +19,14 @@ $podium-border-color: #ededf2;
     @include roboto-black;
 
     border-radius: 20px;
-    padding: 3px 9px;
+    padding: 4px 9px 3px;
     display: inline-block;
     position: absolute;
     right: 0;
     bottom: -10px;
     font-size: 15px;
+    width: 30px;
+    height: 30px;
   }
 
   .winnings-info span {
@@ -91,13 +93,13 @@ $podium-border-color: #ededf2;
   .handle-link,
   a.profile-link {
     color: #0d61bf;
-    font-family: Barlow, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 19px;
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
     text-align: left;
     text-decoration: underline;
-    margin-bottom: 13px;
+    margin-bottom: 14px;
 
     &:hover {
       text-decoration: none;
@@ -110,38 +112,38 @@ $podium-border-color: #ededf2;
 }
 
 .PodiumSpot--first {
-  background-color: #ffd84d;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
-    color: #fff;
+    background-color: #ffd84c;
+    color: #2a2a2a;
   }
 }
 
 .PodiumSpot--second {
-  background-color: #d4d4d4;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
-    color: #fff;
+    background-color: #716d66;
+    color: #2a2a2a;
   }
 }
 
 .PodiumSpot--third {
-  background-color: #f1a87d;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
-    color: #fff;
+    background-color: #844d29;
+    color: #2a2a2a;
   }
 }
 
 .PodiumSpot--fourth {
-  background-color: #8dccd4;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
-    color: #fff;
+    background-color: #844d29;
+    color: #2a2a2a;
   }
 }
 
@@ -152,7 +154,7 @@ $podium-border-color: #ededf2;
   margin-top: 0;
 
   .leaderboard-avatar {
-    height: 79px;
-    width: 79px;
+    height: 110px;
+    width: 110px;
   }
 }
