@@ -362,8 +362,8 @@ export default class MyAccount extends ConsentComponent {
       newEmail,
       currentEmail,
       btnChangeEmailVisible,
-      btnVerifiEmailVisible,
-      btnVerifiAgainlVisible,
+      // btnVerifiEmailVisible,
+      // btnVerifiAgainlVisible,
       focus,
       hasLength,
       hasLetter,
@@ -377,11 +377,11 @@ export default class MyAccount extends ConsentComponent {
       isMobileView,
       showRePasswordTips,
       rePasswordValid,
-      isValidEmail,
+      // isValidEmail,
       isOpen,
     } = this.state;
 
-    const { updatingPassword, updatingProfile, isEmailConflict = false } = profileState;
+    const { updatingPassword, /* updatingProfile, */ isEmailConflict = false } = profileState;
     const { incorrectPassword } = settingsPageState;
 
     return (
@@ -481,8 +481,13 @@ export default class MyAccount extends ConsentComponent {
                       </div>
                     )
                   }
+                  { /* TEMPORARY DISABLE CHANGE E-MAIL - community-app#5107
                   <div styleName="row">
-                    <div styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={
+                        `button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`
+                      }
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         onClick={this.onChangeEmail}
@@ -490,7 +495,11 @@ export default class MyAccount extends ConsentComponent {
                         Change Email
                       </PrimaryButton>
                     </div>
-                    <div styleName={`button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={
+                        `button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`
+                      }
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         disabled={!isValidEmail || updatingProfile}
@@ -499,7 +508,11 @@ export default class MyAccount extends ConsentComponent {
                         Send Verification Email
                       </PrimaryButton>
                     </div>
-                    <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={
+                        `button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`
+                      }
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         disabled={!isValidEmail || updatingProfile}
@@ -508,7 +521,11 @@ export default class MyAccount extends ConsentComponent {
                         Send Verification Email Again
                       </PrimaryButton>
                     </div>
-                    <div styleName={`button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={
+                        `button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`
+                      }
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         onClick={this.onCancelVerificationEmail}
@@ -517,6 +534,7 @@ export default class MyAccount extends ConsentComponent {
                       </PrimaryButton>
                     </div>
                   </div>
+                  */}
                 </form>
               ) : (
                 <form name="email-form-default" styleName="form-default" noValidate autoComplete="off">
@@ -582,8 +600,11 @@ export default class MyAccount extends ConsentComponent {
                       </div>
                     )
                   }
+                  {/* TEMPORARY DISABLE CHANGE E-MAIL - community-app#5107
                   <div styleName="row button-group">
-                    <div styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={`button-change-email ${btnChangeEmailVisible ? 'active' : 'hide'}`}
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         onClick={this.onChangeEmail}
@@ -591,7 +612,11 @@ export default class MyAccount extends ConsentComponent {
                         Change Email
                       </PrimaryButton>
                     </div>
-                    <div styleName={`button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={
+                        `button-verification-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`
+                      }
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         disabled={!isValidEmail || updatingProfile}
@@ -600,7 +625,11 @@ export default class MyAccount extends ConsentComponent {
                         Send Verification Email
                       </PrimaryButton>
                     </div>
-                    <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={
+                        `button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`
+                      }
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         disabled={!isValidEmail || updatingProfile}
@@ -609,7 +638,11 @@ export default class MyAccount extends ConsentComponent {
                         Send Verification Email Again
                       </PrimaryButton>
                     </div>
-                    <div styleName={`button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`}>
+                    <div
+                      styleName={
+                        `button-cancel-change-email ${btnVerifiEmailVisible ? 'active' : 'hide'}`
+                      }
+                    >
                       <PrimaryButton
                         styleName="white-label"
                         onClick={this.onCancelVerificationEmail}
@@ -618,6 +651,7 @@ export default class MyAccount extends ConsentComponent {
                       </PrimaryButton>
                     </div>
                   </div>
+                  */}
                 </form>
               )
             }

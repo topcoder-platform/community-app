@@ -21,6 +21,7 @@ export default function SideBar({
   eventDetail,
   shareable,
   forumLink,
+  discuss,
   hasRegistered,
   reviewType,
   isDesign,
@@ -321,13 +322,36 @@ export default function SideBar({
                 pass screening.
               </a>
             </p>
-            <p styleName="link-like-paragraph">
-              Questions?
-              &zwnj;
-              <a href={forumLink}>
-                Ask in the Challenge Discussion Forums.
-              </a>
-            </p>
+            {(forumLink || !_.isEmpty(discuss)) && (
+              <p styleName="link-like-paragraph">
+                Questions?
+                &zwnj;
+                {_.isEmpty(discuss) && (
+                  <a
+                    href={forumLink}
+                    target="_blank"
+                    rel="oopener noreferrer"
+                  >
+                    Ask in the Challenge Discussion Forums.
+                  </a>
+                )}
+              </p>
+            )}
+            {!_.isEmpty(discuss) && (
+              <ul>
+                { discuss.map(d => (
+                  <li>
+                    <a
+                      href={d.url}
+                      target="_blank"
+                      rel="oopener noreferrer"
+                    >
+                      CHALLENGE DISCUSSION
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
             <h2>
               SOURCE FILES:
             </h2>
@@ -429,6 +453,7 @@ export default function SideBar({
 
 SideBar.defaultProps = {
   eventDetail: null,
+  discuss: [],
   documents: undefined,
   hasRegistered: false,
   reviewType: 'COMMUNITY',
@@ -454,6 +479,7 @@ SideBar.propTypes = {
   documents: PT.arrayOf(PT.shape()),
   shareable: PT.bool.isRequired,
   forumLink: PT.string.isRequired,
+  discuss: PT.arrayOf(PT.shape()),
   hasRegistered: PT.bool,
   reviewType: PT.string,
   isDesign: PT.bool,
