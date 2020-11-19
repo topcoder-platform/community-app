@@ -9,6 +9,7 @@ exports[`Default render 1`] = `
     defaultValue=""
     onBlur={[Function]}
     onChange={[Function]}
+    onKeyPress={[Function]}
     placeholder=""
     type="text"
   />
