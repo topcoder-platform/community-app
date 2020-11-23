@@ -230,6 +230,7 @@ workflows:
             branches:
               only:
                 - develop
+                - develop-test-poc-merge
       # This is alternate dev env for parallel testing
       - "build-test":
           context: org-global
