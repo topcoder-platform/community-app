@@ -1,0 +1,121 @@
+{
+  "login": {
+    "invalidUsername": "gjhhvv",
+    "invalidPassword": "invalidpassword"
+  },
+  "tools": {
+    "subscription": "Sample A",
+    "newSubscription": "Sample B",
+    "device": {
+      "type": "Console",
+      "manufacturer": "Microsoft",
+      "model": "XBox One S",
+      "os": "Windows"
+    },
+    "newDevice": {
+      "type": "Smartphone",
+      "manufacturer": "Acer",
+      "model": "Allegro",
+      "os": "Windows Phone"
+    },
+    "software": {
+      "type": "Browser",
+      "name": "Software A"
+    },
+    "newSoftware": {
+      "type": "Productivity",
+      "name": "Software B"
+    },
+    "serviceProvider": {
+      "type": "Television",
+      "name": "Service Provider A"
+    },
+    "newServiceProvider": {
+      "type": "Other",
+      "name": "Service Provider B"
+    }
+  },
+  "profile": {
+    "personalDetails": {
+      "firstName": "Test1",
+      "lastName": "User1",
+      "address1": "Address1",
+      "address2": "Address2",
+      "city": "TestCity",
+      "state": "TestState",
+      "zip": "560000",
+      "country": "India"
+    },
+    "aboutYou": {
+      "gender": "Male",
+      "tshirtSize": "XXS",
+      "currentLocation": "India",
+      "primaryInterest": "Coding",
+      "description": "Lorem Ipsum lorem ipsum"
+    },
+    "tracks": {
+      "design": true,
+      "develop": false,
+      "dataScience": true
+    },
+    "language": {
+      "name": "Afar",
+      "spokenLevel": "Basic",
+      "writtenLevel": "Intermediate"
+    },
+    "newLanguage": {
+      "name": "Afar",
+      "spokenLevel": "Advanced",
+      "writtenLevel": "Basic"
+    },
+    "education": {
+      "collegeName": "Test college",
+      "major": "Test Major",
+      "fromDate": "01/06/2010",
+      "toDate": "01/06/2014",
+      "graduated": true
+    },
+    "newEducation": {
+      "collegeName": "Test college1"
+    },
+    "work": {
+      "company": "Topcoder",
+      "position": "Software Developer",
+      "industry": "IT",
+      "city": "California",
+      "startDate": "01/01/2010",
+      "currentlyWorking": true
+    },
+    "newWork": {
+      "company": "Wipro",
+      "position": "Software Developer",
+      "industry": "IT",
+      "city": "California",
+      "startDate": "01/01/2010",
+      "currentlyWorking": true
+    },
+    "skill": {
+      "name": "ADO.NET"
+    },
+    "hobby": {
+      "name": "Coding",
+      "description": "Description 1"
+    },
+    "newHobby": {
+      "name": "Swimming",
+      "description": "Description 1"
+    },
+    "community": {
+      "blockchain": true,
+      "cognitive": false
+    }
+  },
+  "preferences": {
+    "email": [false, true, true, true, false, true]
+  },
+  "search": {
+    "username": "tester1234",
+    "skill": "Java"
+  },
+  "linkedAccount": "www.test.com"
+}
