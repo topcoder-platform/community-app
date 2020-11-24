@@ -11,7 +11,8 @@ import React from 'react';
 import {
   Switch, Route, withRouter, Redirect,
 } from 'react-router-dom';
-import { MetaTags, config } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 
 import PT from 'prop-types';
 

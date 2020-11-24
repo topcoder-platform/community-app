@@ -7,7 +7,7 @@ import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { MetaTags } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';

@@ -161,6 +161,18 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         {
+          (hasRegistered && mySubmissions.length > 0) && (
+            <a
+              href={`${config.URL.SUBMISSION_REVIEW}/challenges/${challenge.legacyId}`}
+              styleName="challenge-selector-common challenge-unselected-view"
+              target="_blank"
+              rel="oopener noreferrer"
+            >
+              SUBMISSION REVIEW
+            </a>
+          )
+        }
+        {
           numWinners ? (
             <a
               tabIndex="0"
@@ -225,6 +237,7 @@ ChallengeViewSelector.defaultProps = {
 ChallengeViewSelector.propTypes = {
   isLoggedIn: PT.bool,
   challenge: PT.shape({
+    legacyId: PT.string,
     legacy: PT.shape({
       forumId: PT.number,
     }),

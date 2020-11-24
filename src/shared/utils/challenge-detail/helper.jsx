@@ -150,8 +150,9 @@ export function getPrizePurseUI(
  * @param {Object} challenge challenge info
  */
 export function getPrizePointsUI(challenge) {
-  if (challenge.prizeSets && challenge.prizeSets.length > 0 && challenge.prizeSets[0].prizes) {
-    const { prizes } = challenge.prizeSets[0];
+  const placementPrizes = _.find(challenge.prizeSets, { type: 'placement' });
+  if (placementPrizes) {
+    const { prizes } = placementPrizes || [];
     return (
       <Prize
         label="Purse"
