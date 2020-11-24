@@ -370,10 +370,16 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
 
+    const { prizeSets } = challenge;
+    let challengePrizes = [];
+    if (prizeSets && prizeSets[0] && prizeSets[0].type === 'placement') {
+      challengePrizes = _.filter(prizeSets[0].prizes, p => p.value > 0);
+    }
+
     /* Generation of data for SEO meta-tags. */
-    let prizesStr;
-    if (challenge.prizes && challenge.prizes.length) {
-      prizesStr = challenge.prizes.map(p => `$${p}`).join('/');
+    let prizesStr = '';
+    if (!_.isEmpty(challengePrizes)) {
+      prizesStr = challengePrizes.map(p => `$${p.value}`).join('/');
       prizesStr = `[${prizesStr}] - `;
     }
     const title = 'Topcoder Challenge | Topcoder Community | Topcoder';
@@ -403,12 +409,6 @@ class ChallengeDetailPageContainer extends React.Component {
     const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
     || (!_.some(phases, { name: 'Submission', isOpen: true })
       && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
-
-    const { prizeSets } = challenge;
-    let challengePrizes = [];
-    if (prizeSets && prizeSets[0] && prizeSets[0].type === 'placement') {
-      challengePrizes = prizeSets[0].prizes;
-    }
 
     return (
       <div styleName="outer-container">
