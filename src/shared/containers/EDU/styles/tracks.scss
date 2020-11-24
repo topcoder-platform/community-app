@@ -2,8 +2,9 @@
 
 .container {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  overflow: hidden;
+  width: 100%;
 
   .bannerContainer {
     min-height: 475px;

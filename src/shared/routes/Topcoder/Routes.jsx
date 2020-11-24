@@ -22,9 +22,9 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Article from 'components/Contentful/Article';
 
-import EDUHome from 'containers/EDU/Home';
-import EDUTracks from 'containers/EDU/Tracks';
-import EDUSearch from 'containers/EDU/Search';
+import EDUHome from '../EDUHome';
+import EDUTracks from '../EDUTracks';
+import EDUSearch from '../EDUSearch';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import Notifications from './Notifications';
