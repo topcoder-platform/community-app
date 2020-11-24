@@ -39,7 +39,8 @@ import {
   SUBTRACKS,
   CHALLENGE_STATUS,
 } from 'utils/tc';
-import { config, MetaTags } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 // import {
