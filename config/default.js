@@ -112,6 +112,7 @@ module.exports = {
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
+    SUBMISSION_REVIEW: 'https://submission-review.topcoder-dev.com',
 
     THRIVE: 'https://www.topcoder.com/thrive',
 
