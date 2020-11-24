@@ -1,71 +1,76 @@
 {
-  "env": "prod",
-  "logoRedirectionUrl": "https://www.topcoder.com/",
-  "businessUrl": "https://www.topcoder.com/",
+  "env": "dev",
+  "logoRedirectionUrl": "https://www.topcoder-dev.com/",
+  "businessUrl": "https://www.topcoder-dev.com/",
   "switchToBusinessUrl": "https://www.topcoder.com/",
-  "loginUrl": "https://auth.topcoder.com/",
-  "redirectLoginUrl": "https://accounts-auth0.topcoder.com/?retUrl=http://www.topcoder.com/",
-  "homePageUrl": "https://www.topcoder.com/",
-  "splashPageUrl": "https://www.topcoder.com/splash/",
-  "logoutUrl": "https://www.topcoder.com/logout",
-  "toolsUrl": "https://www.topcoder.com/settings/tools",
-  "accountUrl": "https://www.topcoder.com/settings/account",
-  "profileUrl": "https://www.topcoder.com/settings/profile",
-  "preferencesUrl": "https://www.topcoder.com/settings/preferences",
-  "challengeListingUrl": "https://www.topcoder.com/challenges",
+  "loginUrl": "https://auth.topcoder-dev.com/",
+  "redirectLoginUrl": "https://accounts-auth0.topcoder-dev.com/?retUrl=http://www.topcoder.com/",
+  "homePageUrl": "https://www.topcoder-dev.com/",
+  "splashPageUrl": "https://www.topcoder-dev.com/splash/",
+  "logoutUrl": "https://www.topcoder-dev.com/logout",
+  "toolsUrl": "https://www.topcoder-dev.com/settings/tools",
+  "accountUrl": "https://www.topcoder-dev.com/settings/account",
+  "profileUrl": "https://www.topcoder-dev.com/settings/profile",
+  "preferencesUrl": "https://www.topcoder-dev.com/settings/preferences",
+  "challengeListingUrl": "https://www.topcoder-dev.com/challenges",
   "subMenuUrls": {
-    "overview": "https://www.topcoder.com/community/learn",
-    "howItWorks": "https://www.topcoder.com/thrive/tracks?track=Topcoder",
-    "allChallenges": "https://www.topcoder.com/challenges",
-    "competitiveProgramming": "https://www.topcoder.com/community/arena",
-    "taas": "https://www.topcoder.com/gigs",
-    "practice": "https://www.topcoder.com/community/practice",
-    "competitiveProgrammingThrive": "https://www.topcoder.com/thrive/tracks?track=Competitive%20Programming",
-    "dataScienceThrive": "https://www.topcoder.com/thrive/tracks?track=Data%20Science&tax=",
-    "designThrive": "https://www.topcoder.com/thrive/tracks?track=Design&tax=",
-    "developmentThrive": "https://www.topcoder.com/thrive/tracks?track=Development&tax=",
-    "qaThrive": "https://www.topcoder.com/thrive/tracks?track=QA&tax=",
-    "tco": "https://www.topcoder.com/community/member-programs/topcoder-open",
-    "programs": "https://www.topcoder.com/community/member-programs",
-    "forums": "https://accounts.topcoder.com/member",
-    "statistics": "https://www.topcoder.com/community/statistics",
+    "overview": "https://www.topcoder-dev.com/community/learn",
+    "howItWorks": "https://www.topcoder-dev.com/thrive/tracks?track=Topcoder",
+    "allChallenges": "http://www.topcoder-dev.com/challenges",
+    "competitiveProgramming": "https://www.topcoder-dev.com/community/arena",
+    "taas": "https://www.topcoder-dev.com/gigs",
+    "practice": "https://www.topcoder-dev.com/community/practice",
+    "competitiveProgrammingThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Competitive%20Programming",
+    "dataScienceThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Data%20Science&tax=",
+    "designThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Design&tax=",
+    "developmentThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Development&tax=",
+    "qaThrive": "https://www.topcoder-dev.com/thrive/tracks?track=QA&tax=",
+    "tco": "https://www.topcoder-dev.com/community/member-programs/topcoder-open",
+    "programs": "https://www.topcoder-dev.com/community/member-programs",
+    "forums": "https://accounts.topcoder-dev.com/member",
+    "statistics": "https://www.topcoder-dev.com/community/statistics",
     "blog": "https://www.topcoder.com/blog/",
-    "thrive": "https://www.topcoder.com/thrive"
+    "thrive": "https://www.topcoder-dev.com/thrive"
   },
   "subMenuUrlsAfterLogin": {
-    "dashboard": "https://www.topcoder.com/my-dashboard",
-    "myProfile": "https://www.topcoder.com/members/CustomerUser",
-    "payments": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-    "forums": "https://apps.topcoder.com/forums/"
+    "dashboard": "https://www.topcoder-dev.com/my-dashboard",
+    "myProfile": "https://www.topcoder-dev.com/members/tester1234",
+    "payments": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+    "competitiveProgramming": "https://www.topcoder-dev.com/community/arena",
+    "forums": "https://apps.topcoder-dev.com/forums/"
   },
   "footerLinks": {
-    "allChallenges": "https://www.topcoder.com/challenges",
-    "competitiveProgramming": "https://www.topcoder.com/community/arena",
-    "taas": "https://www.topcoder.com/gigs",
-    "competitiveProgrammingThrive": "https://www.topcoder.com/thrive/tracks?track=Competitive%20Programming",
-    "dataScienceThrive": "https://www.topcoder.com/thrive/tracks?track=Data%20Science",
-    "designThrive": "https://www.topcoder.com/thrive/tracks?track=Design",
-    "developmentThrive": "https://www.topcoder.com/thrive/tracks?track=Development",
-    "qaThrive": "https://www.topcoder.com/thrive/tracks?track=QA",
-    "tco": "https://www.topcoder.com/community/member-programs/topcoder-open",
-    "programs": "https://www.topcoder.com/community/member-programs",
+    "allChallenges": "https://www.topcoder-dev.com/challenges",
+    "competitiveProgramming": "https://www.topcoder-dev.com/community/arena",
+    "taas": "https://www.topcoder-dev.com/gigs",
+    "competitiveProgrammingThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Competitive%20Programming",
+    "dataScienceThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Data%20Science",
+    "designThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Design",
+    "developmentThrive": "https://www.topcoder-dev.com/thrive/tracks?track=Development",
+    "qaThrive": "https://www.topcoder-dev.com/thrive/tracks?track=QA",
+    "tco": "https://www.topcoder-dev.com/community/member-programs/topcoder-open",
+    "programs": "https://www.topcoder-dev.com/community/member-programs",
     "forums": "https://apps.topcoder.com/forums",
-    "statistics": "https://www.topcoder.com/community/statistics",
+    "statistics": "https://www.topcoder-dev.com/community/statistics",
     "blog": "https://www.topcoder.com/blog/",
-    "thrive": "https://www.topcoder.com/thrive",
-    "gettingPaid": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Getting%20Paid",
-    "faq": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=FAQ",
-    "generalInfo": "https://www.topcoder.com/thrive/tracks?track=Topcoder",
+    "thrive": "https://www.topcoder-dev.com/thrive",
+    "gettingPaid": "https://www.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Getting%20Paid",
+    "faq": "https://www.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=FAQ",
+    "generalInfo": "https://www.topcoder-dev.com/thrive/tracks?track=Topcoder",
     "websiteHelp": "mailto:support@topcoder.com",
-    "admins": "https://www.topcoder.com/community/admins",
-    "contactUs": "https://www.topcoder.com/community/contact",
+    "admins": "https://www.topcoder-dev.com/community/admins",
+    "contactUs": "https://www.topcoder-dev.com/community/contact",
     "joinCommunity": "https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion",
-    "aboutCommunity": "https://www.topcoder.com/community/learn",
-    "changeLog": "https://www.topcoder.com/community/changelog",
+    "aboutCommunity": "https://www.topcoder-dev.com/community/learn",
+    "changeLog": "https://www.topcoder-dev.com/community/changelog",
     "talkToSales": "https://go.topcoder.com/contact/",
-    "events": "https://www.topcoder.com/community/events",
-    "terms": "https://www.topcoder.com/community/terms",
-    "challengePipeline": "https://www.topcoder.com/community/pipeline"
+    "events": "https://www.topcoder-dev.com/community/events",
+    "terms": "https://www.topcoder-dev.com/community/terms",
+    "challengePipeline": "https://www.topcoder-dev.com/community/pipeline",
+    "practice": "https://www.topcoder-dev.com/community/practice"
+  },
+  "footerLinksAfterLogin": {
+    "competitiveProgramming": "https://www.topcoder-dev.com/community/arena"
   },
   "socialLinks": {
     "facebook": "https://www.facebook.com/topcoder/",
@@ -74,48 +79,48 @@
     "twitter": "https://twitter.com/topcoder",
     "instagram": "https://www.instagram.com/topcoder/"
   },
-  "forumSettingUrl": "https://apps.topcoder.com/forums/?module=Settings",
-  "paymentSettingUrl": "https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
-  "helpUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
-  "searchUrl": "https://www.topcoder.com/search/members",
-  "allNotificationsUrl": "https://www.topcoder.com/notifications",
-  "policiesUrl": "https://www.topcoder.com/policy",
-  "username": "CustomerUser",
+  "forumSettingUrl": "https://apps.topcoder-dev.com/forums/?module=Settings",
+  "paymentSettingUrl": "https://community.topcoder-dev.com/tc?module=EditPaymentPreferences",
+  "helpUrl": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+  "searchUrl": "https://www.topcoder-dev.com/search/members",
+  "allNotificationsUrl": "https://www.topcoder-dev.com/notifications",
+  "policiesUrl": "https://www.topcoder-dev.com/policy",
+  "username": "tester1234",
   "password": "appirio123",
-  "email": "topcoderconnect@gmail.com",
+  "email": "sathya.jayabal@gmail.com",
   "challangesLinks": {
-    "rssFeedUrl": "http://feeds.topcoder.com/challenges/feed",
-    "aboutUrl": "https://www.topcoder.com/about-the-2018-topcoder-open/",
-    "contactUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles/hc/en-us/articles/219069687-Contact-Support",
-    "privacyUrl": "https://www.topcoder.com/privacy-policy/",
-    "helpUrl": "https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
-    "termsUrl": "https://www.topcoder.com/community/how-it-works/terms/"
+    "rssFeedUrl": "http://feeds.topcoder-dev.com/challenges/feed",
+    "aboutUrl": "https://www.topcoder-dev.com/about-the-2018-topcoder-open/",
+    "contactUrl": "https://www.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles/hc/en-us/articles/219069687-Contact-Support",
+    "privacyUrl": "https://www.topcoder-dev.com/privacy-policy/",
+    "helpUrl": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+    "termsUrl": "https://www.topcoder-dev.com/community/how-it-works/terms/"
   },
   "challengeDetail": {
-    "url": "https://www.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023",
+    "url": "https://www.topcoder-dev.com/challenges/ee951f3e-8c3d-41d7-b232-aa8774ff7f27",
     "termsLinkText": "Standard Terms for Topcoder Competitions v2.2",
-    "challengeName": "[Do not register] Sample challenge for Automation.",
-    "challengeTag": "QA",
-    "termUrl": "https://www.topcoder.com/challenges/terms/detail/9ef9dec4-dddb-48c9-9cce-659db68bc5ac",
-    "forumUrl": "https://apps.topcoder.com/forums/?module=Category&categoryID=82117",
-    "submissionUrl": "https://www.topcoder.com/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023/submit",
-    "scorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133"
+    "challengeName": "Test Automation challenge",
+    "challengeTag": "Challenge",
+    "termUrl": "https://www.topcoder-dev.com/challenges/terms/detail/b11da5cd-713f-478d-90f4-f679ef53ee95",
+    "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=0",
+    "submissionUrl": "https://www.topcoder-dev.com/challenges/ee951f3e-8c3d-41d7-b232-aa8774ff7f27/submit",
+    "scorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001610"
   },
   "myDashboard": {
-    "url": "https://www.topcoder.com/my-dashboard",
+    "url": "https://www.topcoder-dev.com/my-dashboard",
     "challenge": {
-      "name": "Test challenge- Spec Preview",
-      "currentPhase": "Checkpoint Review",
+      "name": "Test_challenge_Automation",
+      "currentPhase": "Submission",
       "linkToSubmit": "",
       "userRole": ""
     },
     "community": {
       "name": "Blockchain Community",
-      "learnMoreUrl": "https://blockchain.topcoder.com/"
+      "learnMoreUrl": "https://blockchain.topcoder-dev.com/"
     }
   },
   "memberProfile": {
-    "url": "https://www.topcoder.com/members",
+    "url": "https://www.topcoder-dev.com/members",
     "profileInfo": {
       "handle": "iamtong",
       "numberOfCollapsedSkills": 10,
@@ -125,7 +130,7 @@
       "memberSince": "MEMBER SINCE MAY, 2009",
       "tracks": ["COPILOT", "DEVELOP", "DESIGN"],
       "quote": "I'm a designer focusing on designing mobile/ web applications and user experience.",
-      "forumLink": "https://apps.topcoder.com/forums/?module=History&userID=22781893"
+      "forumLink": "https://apps.topcoder-dev.com/forums/?module=History&userID=22781893"
     },
     "memberHaveWebSectionInfo": {
       "handle": "oton",
@@ -138,7 +143,7 @@
         "name": "COPILOT",
         "info": "100%",
         "infoTitle": "FULFILLMENT",
-        "link": "https://www.topcoder.com/members/iamtong/details/?track=COPILOT&subTrack=COPILOT"
+        "link": "https://www.topcoder-dev.com/members/iamtong/details/?track=COPILOT&subTrack=COPILOT"
       }
     },
     "designProfile": {
@@ -147,20 +152,20 @@
       "numberOfSubtracks": 11,
       "winInfo": {
         "name": "WEB DESIGNS",
-        "info": "258",
+        "info": "189",
         "infoTitle": "WINS",
-        "link": "https://www.topcoder.com/members/iamtong/details/?track=DESIGN&subTrack=WEB_DESIGNS"
+        "link": "https://www.topcoder-dev.com/members/iamtong/details/?track=DESIGN&subTrack=WEB_DESIGNS"
       }
     },
     "developmentProfile": {
-      "handle": "iamtong",
+      "handle": "winterflame",
       "trackName": "DEVELOP",
-      "numberOfSubtracks": 8,
+      "numberOfSubtracks": 14,
       "winInfo": {
         "name": "FIRST2FINISH",
-        "info": "56",
+        "info": "2",
         "infoTitle": "WINS",
-        "link": "https://www.topcoder.com/members/iamtong/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
+        "link": "https://www.topcoder-dev.com/members/winterflame/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
       }
     },
     "dataScienceProfile": {
@@ -171,7 +176,7 @@
         "name": "MARATHON MATCH",
         "info": "999",
         "infoTitle": "RATING",
-        "link": "https://www.topcoder.com/members/FireIce/details/?track=DATA_SCIENCE&subTrack=MARATHON_MATCH"
+        "link": "https://www.topcoder-dev.com/members/FireIce/details/?track=DATA_SCIENCE&subTrack=MARATHON_MATCH"
       }
     }
   }

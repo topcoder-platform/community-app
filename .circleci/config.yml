@@ -63,6 +63,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            ./community-app-tests/smoketest.sh automation-config-dev.json dev
   # Build & Deploy against development backend
   "build-qa":
     <<: *defaults
@@ -230,6 +231,7 @@ workflows:
             branches:
               only:
                 - develop
+                - community-app-tests-poc
       # This is alternate dev env for parallel testing
       - "build-test":
           context: org-global
