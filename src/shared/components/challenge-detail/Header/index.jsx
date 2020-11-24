@@ -81,7 +81,8 @@ export default function ChallengeHeader(props) {
   const sortedAllPhases = _.cloneDeep(allPhases)
     .sort((a, b) => moment(phaseEndDate(a)).diff(phaseEndDate(b)));
 
-  const { prizes } = prizeSets && prizeSets.length ? prizeSets[0] : [];
+  const placementPrizes = _.find(prizeSets, { type: 'placement' });
+  const { prizes } = placementPrizes || [];
 
   const checkpointPrizes = _.find(prizeSets, { type: 'checkpoint' });
   let numberOfCheckpointsPrizes = 0;

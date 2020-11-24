@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { config } from 'topcoder-react-utils';
-import { Helmet } from 'react-helmet';
+import MetaTags from 'components/MetaTags';
 import Viewport from 'components/Contentful/Viewport';
 import SearchBar from 'components/Contentful/SearchBar/SearchBar';
 import { getService } from 'services/contentful';
@@ -44,15 +44,15 @@ export default class EDUHome extends React.Component {
 
   render() {
     const { taxonomy } = this.state;
+    const title = 'Topcoder Thrive | Topcoder Community | Topcoder';
+    const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
+
     return (
       <div className={homeTheme.container}>
-        <Helmet>
-          <title>THRIVE - Grow with us. Tutorials and workshops that matter.</title>
-          <meta name="title" property="og:title" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="description" property="og:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="description" property="description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="twitter:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-        </Helmet>
+        <MetaTags
+          description={description}
+          title={title}
+        />
         {/* Banner */}
         <div className={homeTheme.bannerContainer}>
           <div className={homeTheme.bannerImage} />
