@@ -17,7 +17,7 @@ track_error()
 APPCONFIGFILENAME=$1
 LOGICAL_PATH=$2
 
-cd community-app-tests
+cd automated-smoke-test
 aws s3 cp s3://tc-platform-${LOGICAL_PATH}/securitymanager/${APPCONFIGFILENAME} .
 track_error $? "Environment setting"
 cp ${APPCONFIGFILENAME} config.json

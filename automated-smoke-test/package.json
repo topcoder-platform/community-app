@@ -1,5 +1,5 @@
 {
-  "name": "community-app-tests",
+  "name": "automated-smoke-test",
   "version": "1.0.0",
   "description": "Community App Automation Tests",
   "main": "conf.js",

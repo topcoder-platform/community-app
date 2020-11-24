@@ -1,5 +1,5 @@
 import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
-import * as appconfig from '../../../../app-config.json';
+import * as appconfig from '../../../../config/app-config.json';
 import { logger } from '../../../../logger/logger';
 import { ConfigHelper } from '../../../../utils/config-helper';
 import { HomePage } from '../home-page/home.po.js';
