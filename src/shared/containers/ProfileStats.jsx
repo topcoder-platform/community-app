@@ -9,7 +9,7 @@ import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfileStatsPage from 'components/ProfilePage/Stats';
 import { shouldShowGraph, isValidTrack } from 'utils/memberStats';
-import { MetaTags } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import _ from 'lodash';
 import qs from 'qs';
 

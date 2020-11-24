@@ -5,6 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { config, isomorphy } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import Viewport from 'components/Contentful/Viewport';
 import SearchBar from 'components/Contentful/SearchBar/SearchBar';
 import { getService } from 'services/contentful';
@@ -13,7 +14,6 @@ import { updateQuery } from 'utils/url';
 import qs from 'qs';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SearchPageFilter from 'components/Contentful/SearchPageFilter/SearchPageFilter';
-import { Helmet } from 'react-helmet';
 // Partials
 import ResultTabs from './partials/ResultTabs';
 // CSS
@@ -87,18 +87,28 @@ export default class EDUSearch extends React.Component {
     const {
       taxonomy, query, tree, isShowFilter,
     } = this.state;
+    const title = 'Topcoder Thrive | Topcoder Community | Topcoder';
+    const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
+
+    const metaTags = (
+      <MetaTags
+        description={description}
+        title={title}
+      />
+    );
     // This container needs at least those variables
     // to be able to render meaningful data
-    if (!taxonomy) return <LoadingIndicator />;
+    if (!taxonomy) {
+      return (
+        <React.Fragment>
+          { metaTags }
+          <LoadingIndicator />;
+        </React.Fragment>
+      );
+    }
     return (
       <div className={searchTheme.container}>
-        <Helmet>
-          <title>THRIVE - Search {`${query.title}`}</title>
-          <meta name="title" property="og:title" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="description" property="og:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="description" property="description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="twitter:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-        </Helmet>
+        { metaTags }
         {/* Banner */}
         <div className={searchTheme.bannerContainer}>
           <div className={searchTheme.searchBarWrapp}>

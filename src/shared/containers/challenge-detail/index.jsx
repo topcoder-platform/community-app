@@ -39,7 +39,8 @@ import {
   SUBTRACKS,
   CHALLENGE_STATUS,
 } from 'utils/tc';
-import { config, MetaTags } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import { actions } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 // import {
@@ -369,10 +370,17 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
 
+    const { prizeSets } = challenge;
+    let challengePrizes = [];
+    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    if (placementPrizes) {
+      challengePrizes = _.filter(placementPrizes.prizes, p => p.value > 0);
+    }
+
     /* Generation of data for SEO meta-tags. */
-    let prizesStr;
-    if (challenge.prizes && challenge.prizes.length) {
-      prizesStr = challenge.prizes.map(p => `$${p}`).join('/');
+    let prizesStr = '';
+    if (!_.isEmpty(challengePrizes)) {
+      prizesStr = challengePrizes.map(p => `$${p.value}`).join('/');
       prizesStr = `[${prizesStr}] - `;
     }
     const title = 'Topcoder Challenge | Topcoder Community | Topcoder';
@@ -398,17 +406,9 @@ class ChallengeDetailPageContainer extends React.Component {
       hasFirstPlacement = _.some(winners, { placement: 1, handle: userHandle });
     }
 
-
     const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
     || (!_.some(phases, { name: 'Submission', isOpen: true })
       && !_.some(phases, { name: 'Checkpoint Submission', isOpen: true }));
-
-    const { prizeSets } = challenge;
-    let challengePrizes = [];
-    const placementPrizes = _.find(prizeSets, { type: 'placement' });
-    if (placementPrizes) {
-      challengePrizes = placementPrizes.prizes;
-    }
 
     return (
       <div styleName="outer-container">

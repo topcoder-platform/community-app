@@ -23,7 +23,8 @@ import socialImage from 'assets/images/communities/cognitive/social.jpg';
 
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
-import { config, MetaTags } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 
 export default function Cognitive({ base, member, meta }) {
   return (
