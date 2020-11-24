@@ -36,6 +36,9 @@ export default function ChallengeViewSelector(props) {
 
   const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
+  const discuss = _.get(challenge, 'discussions', []).filter(d => (
+    d.type === 'challenge' && !_.isEmpty(d.url)
+  ));
   const roles = _.get(challenge, 'userDetails.roles') || [];
   const isDesign = trackLower === 'design';
 
@@ -158,6 +161,18 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         {
+          (hasRegistered && mySubmissions.length > 0) && (
+            <a
+              href={`${config.URL.SUBMISSION_REVIEW}/challenges/${challenge.legacyId}`}
+              styleName="challenge-selector-common challenge-unselected-view"
+              target="_blank"
+              rel="oopener noreferrer"
+            >
+              SUBMISSION REVIEW
+            </a>
+          )
+        }
+        {
           numWinners ? (
             <a
               tabIndex="0"
@@ -173,16 +188,37 @@ export default function ChallengeViewSelector(props) {
             </a>
           ) : null
         }
-        { (hasRegistered || Boolean(roles.length))
-          && (
-          <a
-            href={`${config.URL.FORUMS}${forumEndpoint}`}
-            styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
-          >
-            CHALLENGE FORUM
-          </a>
-          )
-        }
+        { (() => {
+          if (hasRegistered || Boolean(roles.length)) {
+            if (!_.isEmpty(discuss)) {
+              return (
+                discuss.map(d => (
+                  <a
+                    href={d.url}
+                    styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+                    target="_blank"
+                    rel="oopener noreferrer"
+                  >
+                    CHALLENGE DISCUSSION
+                  </a>
+                ))
+              );
+            }
+            if (forumId > 0) {
+              return (
+                <a
+                  href={`${config.URL.FORUMS}${forumEndpoint}`}
+                  styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+                  target="_blank"
+                  rel="oopener noreferrer"
+                >
+                  CHALLENGE FORUM
+                </a>
+              );
+            }
+          }
+          return '';
+        })()}
       </div>
     </div>
   );
@@ -201,6 +237,7 @@ ChallengeViewSelector.defaultProps = {
 ChallengeViewSelector.propTypes = {
   isLoggedIn: PT.bool,
   challenge: PT.shape({
+    legacyId: PT.string,
     legacy: PT.shape({
       forumId: PT.number,
     }),

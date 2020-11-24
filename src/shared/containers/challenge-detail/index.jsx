@@ -372,8 +372,9 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const { prizeSets } = challenge;
     let challengePrizes = [];
-    if (prizeSets && prizeSets[0] && prizeSets[0].type === 'placement') {
-      challengePrizes = _.filter(prizeSets[0].prizes, p => p.value > 0);
+    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    if (placementPrizes) {
+      challengePrizes = _.filter(placementPrizes.prizes, p => p.value > 0);
     }
 
     /* Generation of data for SEO meta-tags. */
@@ -404,7 +405,6 @@ class ChallengeDetailPageContainer extends React.Component {
       const userHandle = (auth.user || {}).handle;
       hasFirstPlacement = _.some(winners, { placement: 1, handle: userHandle });
     }
-
 
     const submissionEnded = status === CHALLENGE_STATUS.COMPLETED
     || (!_.some(phases, { name: 'Submission', isOpen: true })
