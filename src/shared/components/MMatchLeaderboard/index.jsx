@@ -70,7 +70,8 @@ export default class MMLeaderboard extends Component {
       // Use Lodash to sort array
       data = _.orderBy(
         data,
-        [d => String(d[sortParam.field]).toLowerCase()], [sortParam.order],
+        [d => Number(d[sortParam.field]) || String(d[sortParam.field]).toLowerCase()],
+        [sortParam.order],
       );
     }
 
