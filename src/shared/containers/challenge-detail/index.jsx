@@ -405,8 +405,9 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const { prizeSets } = challenge;
     let challengePrizes = [];
-    if (prizeSets && prizeSets[0] && prizeSets[0].type === 'placement') {
-      challengePrizes = prizeSets[0].prizes;
+    const placementPrizes = _.find(prizeSets, { type: 'placement' });
+    if (placementPrizes) {
+      challengePrizes = placementPrizes.prizes;
     }
 
     return (
