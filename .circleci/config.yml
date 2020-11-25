@@ -53,6 +53,7 @@ jobs:
           command: |
             ./awsconfiguration.sh DEV
             ./buildenv.sh -e DEV -b dev_communityapp_buildvar,dev_communityapp_deployvar
+            ./community-app-tests/smoketest.sh automation-config-dev.json dev
       - run: *build_docker_image
       # Caching node modules.
       - save_cache: *save_cache_settings
@@ -231,8 +232,7 @@ workflows:
             branches:
               only:
                 - develop
-                - community-app-tests-poc
-                - free
+                - develop-test-poc-merge
       # This is alternate dev env for parallel testing
       - "build-test":
           context: org-global
