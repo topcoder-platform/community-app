@@ -9,16 +9,18 @@ import Viewport from 'components/Contentful/Viewport';
 import { config } from 'topcoder-react-utils';
 import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 import { Helmet } from 'react-helmet';
+import MetaTags from 'components/MetaTags';
 
 
 export default function GigsPagesContainer(props) {
   const { match } = props;
   const { id } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
+  const title = 'Gig Work | Topcoder Community | Topcoder';
+  const description = 'Compete and build up your profiles and skills! Topcoder members become eligible to work on Gig Work projects by first proving themselves in various skill sets through Topcoder competitions.';
   return (
     <div>
       <Helmet>
-        <title>Topcoder - Gig Work Opportunities</title>
         <script type="text/javascript">{`
 window._chatlio = window._chatlio||[];
 !function(){ var t=document.getElementById("chatlio-widget-embed");if(t&&window.ChatlioReact&&_chatlio.init)return void _chatlio.init(t,ChatlioReact);for(var e=function(t){return function(){_chatlio.push([t].concat(arguments)) }},i=["configure","identify","track","show","hide","isShown","isOnline", "page", "open", "showOrHide"],a=0;a<i.length;a++)_chatlio[i[a]]||(_chatlio[i[a]]=e(i[a]));var n=document.createElement("script"),c=document.getElementsByTagName("script")[0];n.id="chatlio-widget-embed",n.src="https://w.chatlio.com/w.chatlio-widget.js",n.async=!0,n.setAttribute("data-embed-version","2.3");
@@ -28,6 +30,10 @@ window._chatlio = window._chatlio||[];
         `}
         </script>
       </Helmet>
+      <MetaTags
+        description={description}
+        title={title}
+      />
       <Header />
       {
         id ? (

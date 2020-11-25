@@ -32,7 +32,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyLoginLink();
     });
 
-    it('[TC_003] should verify whether the user is able to search the member by their username/skill using the search icon', async () => {
+    xit('[TC_003] should verify whether the user is able to search the member by their username/skill using the search icon', async () => {
       await HeaderHelper.verifySearchByUsername(testData.search.username);
       await ChallengeListingPageHelper.open();
       await HeaderHelper.verifySearchBySkill(testData.search.skill);

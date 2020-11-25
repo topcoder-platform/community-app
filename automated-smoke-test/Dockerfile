@@ -24,8 +24,8 @@ RUN printf '#!/bin/sh\nXvfb :99 -screen 0 1280x1024x24 &\nexec "$@"\n' > /tmp/en
   && chmod +x /tmp/entrypoint \
         && sudo mv /tmp/entrypoint /docker-entrypoint.sh
 
-COPY . /community-app-tests 
-WORKDIR /community-app-tests 
+COPY . /automated-smoke-test 
+WORKDIR /automated-smoke-test 
 RUN npm install
 RUN ./node_modules/.bin/webdriver-manager update --versions.chrome=="$(google-chrome -version)" 
 ENTRYPOINT ["/docker-entrypoint.sh"]

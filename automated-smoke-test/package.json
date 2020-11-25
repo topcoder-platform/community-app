@@ -1,5 +1,5 @@
 {
-  "name": "community-app-tests",
+  "name": "automated-smoke-test",
   "version": "1.0.0",
   "description": "Community App Automation Tests",
   "main": "conf.js",
@@ -32,7 +32,8 @@
     "clean": "rimraf temp/ && rimraf download/ && rimraf test-results/",
     "webdriver-update": "node node_modules/protractor/bin/webdriver-manager update",
     "pretest": "npm run webdriver-update && npm run clean && npm run tsc",
-    "test": "protractor temp/conf.js"
+    "test": "protractor temp/conf.js",
+    "local-test":"cp config/automation-config-dev.json config/config.json && protractor temp/conf.js"
   },
   "keywords": [
     "protractor",

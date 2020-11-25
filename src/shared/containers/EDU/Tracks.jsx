@@ -5,6 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { config, isomorphy } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import Viewport from 'components/Contentful/Viewport';
 import SearchBar from 'components/Contentful/SearchBar/SearchBar';
 import { getService } from 'services/contentful';
@@ -14,7 +15,6 @@ import qs from 'qs';
 import TracksTree from 'components/Contentful/TracksTree/TracksTree';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TracksFilter from 'components/Contentful/TracksFilter/TracksFilter';
-import { Helmet } from 'react-helmet';
 // SVGs & Assets
 import Dev from 'assets/images/img-development.png';
 import Design from 'assets/images/img_design.png';
@@ -163,18 +163,28 @@ export default class EDUTracks extends React.Component {
       taxonomy, query, tree, isShowFilter,
       articleCnt, videoCnt, forumCnt,
     } = this.state;
+    const title = 'Topcoder Thrive | Topcoder Community | Topcoder';
+    const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
+
+    const metaTags = (
+      <MetaTags
+        description={description}
+        title={title}
+      />
+    );
     // This container needs at least those variables
     // to be able to render meaningful data
-    if (!taxonomy) return <LoadingIndicator />;
+    if (!taxonomy) {
+      return (
+        <React.Fragment>
+          { metaTags }
+          <LoadingIndicator />;
+        </React.Fragment>
+      );
+    }
     return (
       <div className={tracksTheme.container}>
-        <Helmet>
-          <title>THRIVE - {`${query.track}`}</title>
-          <meta name="title" property="og:title" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="description" property="og:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="description" property="description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-          <meta name="twitter:description" content="THRIVE - Grow with us. Tutorials and workshops that matter." />
-        </Helmet>
+        { metaTags }
         {/* Banner */}
         <div
           className={tracksTheme.bannerContainer}

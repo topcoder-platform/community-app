@@ -11,7 +11,7 @@ import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from 'components/Terms/TermDetails';
 import { actions } from 'topcoder-react-lib';
-import { MetaTags } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { themr } from 'react-css-super-themr';

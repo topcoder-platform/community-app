@@ -54,5 +54,6 @@ set-test-env.sh
 *.iml
 
 # e2e test case
-community-app-tests/temp
-community-app-tests/test-results
+automated-smoke-test/temp
+automated-smoke-test/test-results
+automated-smoke-test/config/config.json
