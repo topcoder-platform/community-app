@@ -32,7 +32,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyLoginLink();
     });
 
-    xit('[TC_003] should verify whether the user is able to search the member by their username/skill using the search icon', async () => {
+    it('[TC_003] should verify whether the user is able to search the member by their username/skill using the search icon', async () => {
       await HeaderHelper.verifySearchByUsername(testData.search.username);
       await ChallengeListingPageHelper.open();
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
@@ -165,9 +165,10 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyRssPage();
     });*/
 
-    it('[TC_026] should verify whether the page is redirected to the respective page on clicking the link(About, Contact, Help, Privacy, Terms)', async () => {
-      await ChallengeListingPageHelper.verifyLinksUnderRss();
-    });
+    // Commented as the links are hidden
+    /*it('[TC_026] should verify whether the page is redirected to the respective page on clicking the link(About, Contact, Help, Privacy, Terms)', async () => {
+       await ChallengeListingPageHelper.verifyLinksUnderRss();
+     });*/
   });
 
   /**
