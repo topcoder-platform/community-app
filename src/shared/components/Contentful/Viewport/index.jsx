@@ -113,7 +113,7 @@ function ViewportContentLoader(props) {
         let animation = {};
         if (animationOnScroll) {
           contentIds.pop();
-          animation = { ...data.entries.items[animationOnScroll.sys.id].fields };
+          animation = { ...animationOnScroll.fields };
           // Animations only on client side
           if (isomorphy.isClientSide()) {
             AOS.init();
