@@ -70,8 +70,10 @@ export class DashboardPageContainer extends React.Component {
 
     if (challengeFilter) switchChallengeFilter('');
 
-    const user = decodeToken(tokenV3);
-    getMemberResources(user.userId, tokenV3);
+    if (this.authCheck(tokenV3)) {
+      const user = decodeToken(tokenV3);
+      getMemberResources(user.userId, tokenV3);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
