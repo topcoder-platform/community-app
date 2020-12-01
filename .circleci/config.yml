@@ -237,7 +237,7 @@ workflows:
           filters:
             branches:
               only:                
-                - viewport-resize-fix
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
