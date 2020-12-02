@@ -194,22 +194,19 @@ export function sortChangedBucket(sorts, prevSorts) {
 }
 
 export function isFilterEmpty(filter) {
-  return _.isEqual(filter, {
-    tracks: {
+  return _.isEqual(filter.tracks, {
       Dev: true,
       Des: true,
       DS: true,
       QA: true,
-    },
-    name: '',
-    tags: [],
-    types: [],
-    groups: [],
-    events: [],
-    startDateStart: null,
-    endDateEnd: null,
-    status: 'Active',
-  });
+    })
+    && !filter.name.length
+    && !filter.tags.length
+    && !filter.types.length
+    && !filter.groups.length
+    && !filter.events.length
+    && !filter.endDateStart
+    && !filter.startDateEnd
 }
 
 export default undefined;
