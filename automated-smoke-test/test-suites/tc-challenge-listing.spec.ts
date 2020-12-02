@@ -58,7 +58,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyFilterByType();
     });
 
-    xit('[TC-010] should verify that the "Filter" option "Sub Community" is working correctly', async () => {
+    it('[TC-010] should verify that the "Filter" option "Sub Community" is working correctly', async () => {
       await ChallengeListingPageHelper.verifyFilterBySubCommunity();
     });
 
@@ -88,7 +88,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyRemovalOfType();
     });
 
-    xit('[TC_015] should verify whether the number of filters applied are shown into Filter button according to the keyword/Type/Sub community/Date range fields selected', async () => {
+    it('[TC_015] should verify whether the number of filters applied are shown into Filter button according to the keyword/Type/Sub community/Date range fields selected', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectKeyword('Java');
       await ChallengeListingPageHelper.selectType('Challenge');
@@ -98,7 +98,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(expectedFilterNumber);
     });
 
-    xit('[TC_016] should verify whether the clear filter button clears all the filters selected and all the challenges are displayed', async () => {
+    it('[TC_016] should verify whether the clear filter button clears all the filters selected and all the challenges are displayed', async () => {
       await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectKeyword('Java');
       await ChallengeListingPageHelper.selectType('Challenge');
@@ -152,7 +152,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       );
     });
 
-    fit('[TC-023] should verify All Challenges link functionality with the design, development, data science and QA toggle switches on', async () => {
+    it('[TC-023] should verify All Challenges link functionality with the design, development, data science and QA toggle switches on', async () => {
       await ChallengeListingPageHelper.verifyAllChallenges();
       await ChallengeListingPageHelper.verifyOpenForRegistrationChallengesOnly();
       await ChallengeListingPageHelper.verifyOpenForReviewChallengesOnly();
