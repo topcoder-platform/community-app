@@ -3,7 +3,7 @@ $podium-border-color: #ededf2;
 
 .PodiumSpot {
   border-radius: 6px;
-  padding: 23px 25px;
+  padding: 23px 15px;
   display: flex;
   width: auto;
 
@@ -11,7 +11,7 @@ $podium-border-color: #ededf2;
     display: inline-block;
     position: relative;
     margin-bottom: 12px;
-    margin-right: 20px;
+    margin-right: 11px;
     overflow: visible;
   }
 
@@ -19,14 +19,16 @@ $podium-border-color: #ededf2;
     @include roboto-black;
 
     border-radius: 20px;
-    padding: 4px 9px 3px;
-    display: inline-block;
+    display: flex;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     right: 0;
     bottom: -10px;
     font-size: 15px;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
   }
 
   .winnings-info span {
@@ -93,13 +95,14 @@ $podium-border-color: #ededf2;
   .handle-link,
   a.profile-link {
     color: #0d61bf;
-    font-family: Roboto, sans-serif;
-    font-size: 20px;
-    font-weight: 500;
+    font-family: Barlow, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
     line-height: 24px;
     text-align: left;
     text-decoration: underline;
-    margin-bottom: 14px;
+    margin-top: 11px;
+    margin-bottom: 13px;
 
     &:hover {
       text-decoration: none;
@@ -115,8 +118,8 @@ $podium-border-color: #ededf2;
   background-color: #f4f4f4;
 
   .ranking {
-    background-color: #ffd84c;
-    color: #2a2a2a;
+    background-color: #ffd84d;
+    color: #fff;
   }
 }
 
@@ -124,8 +127,8 @@ $podium-border-color: #ededf2;
   background-color: #f4f4f4;
 
   .ranking {
-    background-color: #716d66;
-    color: #2a2a2a;
+    background-color: #746b65;
+    color: #fff;
   }
 }
 
@@ -133,8 +136,8 @@ $podium-border-color: #ededf2;
   background-color: #f4f4f4;
 
   .ranking {
-    background-color: #844d29;
-    color: #2a2a2a;
+    background-color: #854e29;
+    color: #fff;
   }
 }
 
@@ -142,8 +145,8 @@ $podium-border-color: #ededf2;
   background-color: #f4f4f4;
 
   .ranking {
-    background-color: #844d29;
-    color: #2a2a2a;
+    background-color: #1e94a3;
+    color: #fff;
   }
 }
 
@@ -154,7 +157,7 @@ $podium-border-color: #ededf2;
   margin-top: 0;
 
   .leaderboard-avatar {
-    height: 110px;
-    width: 110px;
+    height: 79px;
+    width: 79px;
   }
 }
