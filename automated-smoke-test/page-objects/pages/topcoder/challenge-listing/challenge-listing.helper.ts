@@ -476,7 +476,7 @@ export class ChallengeListingPageHelper {
     const removeTags = await ChallengeListingPageObject.allRemoveTags();
     await removeTags[1].click();
     const count = await this.getOpenForRegistrationChallengesCount();
-    await this.verifyChallengesMatchingType(count, [{ name: 'Cd' }]);
+    await this.verifyChallengesMatchingType(count, [{ name: 'F2F' }]);
   }
 
   /**
