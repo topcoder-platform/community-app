@@ -232,6 +232,7 @@ workflows:
               only:
                 - develop
                 - develop-test-poc-merge
+                - community-app-tests-poc
       # This is alternate dev env for parallel testing
       - "build-test":
           context: org-global

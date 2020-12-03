@@ -432,8 +432,7 @@ export default function FiltersPanel({
               events: [],
               endDateStart: null,
               startDateEnd: null,
-              status: 'All',
-              reviewOpportunityType: undefined,
+              status: 'Active',
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');

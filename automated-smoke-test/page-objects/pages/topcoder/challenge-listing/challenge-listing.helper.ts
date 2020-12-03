@@ -3,6 +3,7 @@ import { ConfigHelper } from '../../../../utils/config-helper';
 import { CommonHelper } from '../common-page/common.helper';
 import { HeaderPage } from '../header/header.po';
 import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
+import { logger } from '../../../../logger/logger';
 
 export class ChallengeListingPageHelper {
   /**
@@ -136,6 +137,17 @@ export class ChallengeListingPageHelper {
     expect(isDisplayed).toEqual(true);
   }
 
+  public static async scrollDownToPage(totalChallenge = 10) {
+    const scrollCount = totalChallenge / 10 + 1;
+      for (var i = 0; i < scrollCount; i++) {
+        await BrowserHelper.executeScript('arguments[0].scrollIntoView();', CommonHelper.findElementByText(
+          'a',
+          'Policies'
+        ));
+        await BrowserHelper.sleep(1500);
+    }
+  }
+
   /**
    * Wait for fetching new challenge list
    */
@@ -214,6 +226,7 @@ export class ChallengeListingPageHelper {
     expectedChallengesLength: number,
     filters: string | any[]
   ) {
+    await this.scrollDownToPage(expectedChallengesLength);
     const challenges = await ChallengeListingPageObject.challengeLinks;
     let totalChallenges = 0;
     expect(challenges.length).toEqual(expectedChallengesLength);
@@ -256,9 +269,17 @@ export class ChallengeListingPageHelper {
       false
     );
     const allOptions = await CommonHelper.selectAllOptionsElement;
-    await allOptions[index].click();
-    // need to sleep to wait for ajax calls to be completed to filter using the above type
-    await BrowserHelper.sleep(5000);
+    const selectedOption = allOptions[index];
+    logger.info('se ' + allOptions.length);
+    if (selectedOption) {
+      await allOptions[index].click();
+      // need to sleep to wait for ajax calls to be completed to filter using the above type
+      await BrowserHelper.sleep(5000);
+      return true;
+    } else {
+      await ChallengeListingPageObject.subCommunityDropdown.click();
+      return false;
+    }
   }
 
   static async verifyFilterBySubCommunity() {
@@ -272,9 +293,11 @@ export class ChallengeListingPageHelper {
     expect(filtersVisibility).toBe(true);
 
     await this.selectSubCommunity(1);
-    let challenges = await ChallengeListingPageObject.challengeLinks;
 
     let count = await this.getOpenForRegistrationChallengesCount();
+    await this.scrollDownToPage(count);
+    let challenges = await ChallengeListingPageObject.challengeLinks;
+
     expect(challenges.length).toEqual(count);
 
     await this.selectSubCommunity(0);
@@ -392,7 +415,7 @@ export class ChallengeListingPageHelper {
     await this.selectKeyword('Java');
     await this.selectType('Challenge');
     await this.verifyChallengesMatchingKeyword(['Java']);
-    const count = await this.getAllChallengesCount();
+    const count = await this.getOpenForRegistrationChallengesCount();
     await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
   }
 
@@ -423,10 +446,10 @@ export class ChallengeListingPageHelper {
    * verify filter by multiple types
    */
   static async verifyFilterByMultipleTypes() {
-    await this.selectType('First2Finish');
     await this.selectType('Challenge');
+    await this.selectType('First2Finish');
 
-    await this.viewMoreChallenges();
+    // await this.viewMoreChallenges();
 
     const count = await this.getOpenForRegistrationChallengesCount();
 
@@ -452,8 +475,8 @@ export class ChallengeListingPageHelper {
   static async verifyRemovalOfType() {
     const removeTags = await ChallengeListingPageObject.allRemoveTags();
     await removeTags[1].click();
-    const count = await this.getAllChallengesCount();
-    await this.verifyChallengesMatchingType(count, [{ name: 'Cd' }]);
+    const count = await this.getOpenForRegistrationChallengesCount();
+    await this.verifyChallengesMatchingType(count, [{ name: 'F2F' }]);
   }
 
   /**
@@ -595,6 +618,7 @@ export class ChallengeListingPageHelper {
       false
     );
 
+    await this.scrollDownToPage();
     await this.waitForLoadingNewChallengeList();
 
     let challenges = await ChallengeListingPageObject.openForRegistrationChallenges;
@@ -885,9 +909,8 @@ export class ChallengeListingPageHelper {
    * @param enabled check if enable
    */
   static async verifyClearFilterState(enabled: boolean) {
-    const cursorPointer = await CommonHelper.findElementByText(
-      'button',
-      'Clear filters'
+    const cursorPointer = await ElementHelper.getElementByClassName(
+      '_22SITo'
     ).getCssValue('cursor');
     expect(cursorPointer !== 'not-allowed').toEqual(enabled);
   }
