@@ -11,7 +11,18 @@ Chrome Browser
   `npm install`
 
 - To run tests
+  `cd automated-smoke-test`
   `npm run test`
+-  To run Test locally  
+  `cd automated-smoke-test`
+  `npm run local-test`
+
+Note : if you want to run the script for different env, make sure you  there is config.json  file created. For example , to run the dev env 
+  `cd automated-smoke-test`
+  `cp config/automation-config-dev.json config/config.json`
+  `npm run test`
+
+
 - Test results are generated in test-results/ folder
 
 ```
