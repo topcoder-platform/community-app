@@ -429,7 +429,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 image={getOgImage(challenge)}
                 siteName="Topcoder"
                 socialDescription={description}
-                socialTitle={`${prizesStr}${title}`}
+                socialTitle={`${prizesStr}${challenge.name}`}
                 title={title}
               />
             )
