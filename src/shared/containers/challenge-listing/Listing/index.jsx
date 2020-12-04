@@ -568,7 +568,7 @@ export class ListingContainer extends React.Component {
           reviewOpportunities={reviewOpportunities}
           setFilterState={(state) => {
             setFilter(state);
-            setSearchText(state.name || '');
+            setSearchText(state.search || '');
             // if (activeBucket === BUCKETS.SAVED_FILTER) {
             //   selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
             // } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {

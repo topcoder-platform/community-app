@@ -66,7 +66,7 @@ export default function ChallengeFilters({
 
   const clearSearch = () => {
     // setFilterState(Filter.setText(filterState, ''));
-    setFilterState({ ..._.clone(filterState), name: '' });
+    setFilterState({ ..._.clone(filterState), search: '' });
     setSearchText('');
   };
 
@@ -77,7 +77,7 @@ export default function ChallengeFilters({
           onSearch={(text) => {
             // console.log('search text');
             // console.log(text);
-            setFilterState({ ..._.clone(filterState), name: text });
+            setFilterState({ ..._.clone(filterState), search: text });
           }}
           // onSearch={text => setFilterState(Filter.setText(filterState, text))}
           onClearSearch={() => clearSearch()}
