@@ -425,7 +425,7 @@ export default function FiltersPanel({
                 DS: true,
                 QA: true,
               },
-              name: '',
+              search: '',
               tags: [],
               types: [],
               groups: [],
