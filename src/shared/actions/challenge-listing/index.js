@@ -91,6 +91,10 @@ function getAllChallengesInit(uuid, page, frontFilter) {
   return { uuid, page, frontFilter };
 }
 
+function getMyPastChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
+}
+
 /**
  * Get all challenges and match with user challenges
  * @param {String} uuid progress id
@@ -275,7 +279,7 @@ function getMyChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {
 }
 
 function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
-  const { sorts, status } = frontFilter;
+  const { sorts } = frontFilter;
   const filter = {
     backendFilter,
     frontFilter: {
@@ -287,13 +291,38 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     },
   };
   delete filter.frontFilter.sorts;
-  if (status === 'All') {
-    delete filter.frontFilter.status;
-  }
+  // if (status === 'All') {
+  //   delete filter.frontFilter.status;
+  // }
   const service = getService(tokenV3);
   return service.getChallenges(filter).then(ch => ({
     uuid,
     allChallenges: ch.challenges,
+    meta: ch.meta,
+    frontFilter,
+  }));
+}
+
+function getMyPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const userId = decodeToken(tokenV3).userId.toString();
+  const { sorts } = frontFilter;
+  const filter = {
+    backendFilter,
+    frontFilter: {
+      ...frontFilter,
+      status: 'Completed',
+      memberId: userId,
+      perPage: PAGE_SIZE,
+      page: page + 1,
+      sortBy: sorts[BUCKETS.MY_PAST],
+      sortOrder: SORT[sorts[BUCKETS.MY_PAST]].order,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
+    uuid,
+    myPastChallenges: ch.challenges,
     meta: ch.meta,
     frontFilter,
   }));
@@ -371,9 +400,9 @@ function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
  * @param {Object} frontFilter
  * @return {Object}
  */
-// function getPastChallengesInit(uuid, page, frontFilter) {
-//   return { uuid, page, frontFilter };
-// }
+function getPastChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
+}
 
 /**
  * Gets the specified page of past challenges (including MMs).
@@ -383,27 +412,28 @@ function getTotalChallengesCountDone(uuid, tokenV3, frontFilter = {}) {
  * @param {Object} frontFilter Optional. Original frontend filter.
  * @param {Object}
  */
-// function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
-//   const { sorts } = frontFilter;
-//   const filter = {
-//     backendFilter,
-//     frontFilter: {
-//       ...frontFilter,
-//       status: 'Completed',
-//       perPage: PAGE_SIZE,
-//       page: page + 1,
-//       sortBy: sorts[BUCKETS.PAST],
-//       sortOrder: SORT[sorts[BUCKETS.PAST]].order,
-//     },
-//   };
-//   delete filter.frontFilter.sorts;
-//   const service = getService(tokenV3);
-//   return service.getChallenges(filter).then(({ challenges }) => ({
-//     uuid,
-//     pastChallenges: challenges,
-//     frontFilter,
-//   }));
-// }
+function getPastChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = {}) {
+  const { sorts } = frontFilter;
+  const filter = {
+    backendFilter,
+    frontFilter: {
+      ...frontFilter,
+      status: 'Completed',
+      perPage: PAGE_SIZE,
+      page: page + 1,
+      sortBy: sorts[BUCKETS.ALL_PAST],
+      sortOrder: SORT[sorts[BUCKETS.ALL_PAST]].order,
+    },
+  };
+  delete filter.frontFilter.sorts;
+  const service = getService(tokenV3);
+  return service.getChallenges(filter).then(ch => ({
+    uuid,
+    pastChallenges: ch.challenges,
+    frontFilter,
+    meta: ch.meta,
+  }));
+}
 
 /**
  * Action to get a list of currently open Review Opportunities using V3 API
@@ -516,6 +546,9 @@ export default createActions({
     GET_MY_CHALLENGES_INIT: getMyChallengesInit,
     GET_MY_CHALLENGES_DONE: getMyChallengesDone,
 
+    GET_MY_PAST_CHALLENGES_INIT: getMyPastChallengesInit,
+    GET_MY_PAST_CHALLENGES_DONE: getMyPastChallengesDone,
+
     // GET_REST_ACTIVE_CHALLENGES_INIT: getRestActiveChallengesInit,
     // GET_REST_ACTIVE_CHALLENGES_DONE: getRestActiveChallengesDone,
 
@@ -528,8 +561,8 @@ export default createActions({
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
 
-    // GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
-    // GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
+    GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
+    GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
 
     GET_REVIEW_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
     GET_REVIEW_OPPORTUNITIES_DONE: getReviewOpportunitiesDone,

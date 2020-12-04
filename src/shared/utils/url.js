@@ -65,6 +65,16 @@ export function updateQuery(update) {
       ...update,
     };
   }
+
+  if (filterObj.bucket === BUCKETS.REVIEW_OPPORTUNITIES) {
+    delete filterObj.types;
+  }
+
+  // if (!(filterObj.bucket in [BUCKETS.ALL_PAST, BUCKETS.MY_PAST])) {
+  //   delete filterObj.endDateStart;
+  //   delete filterObj.startDateEnd;
+  // }
+
   let query = '?';
   const { hash } = window.location;
   const filterArray = [];
@@ -94,6 +104,7 @@ export function updateQuery(update) {
       query += `&${filterArray.join('&')}`;
     }
   }
+  query = `?${query.substring(1).split('&').sort().join('&')}`;
   if (hash) {
     query += hash;
   }

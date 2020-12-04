@@ -97,7 +97,7 @@ export default function ReviewOpportunityBucket({
         )
       }
       {
-        loadMore && !loading ? (
+        loadMore && !loading && filterState.reviewOpportunityTypes.length ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }

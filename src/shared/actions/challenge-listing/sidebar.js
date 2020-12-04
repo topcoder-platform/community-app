@@ -153,6 +153,8 @@ export default createActions({
 
       // UPDATE_ALL_SAVED_FILTERS: updateAllSavedFilters,
       // UPDATE_SAVED_FILTER: updateSavedFilter,
+
+      SET_PAST: isPast => ({ past: isPast }),
     },
   },
 });

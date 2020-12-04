@@ -1,24 +1,5 @@
 @import '~styles/mixins';
 
-$panel-space-7: $base-unit + 2;
-$panel-space-10: $base-unit * 2;
-$panel-space-15: $base-unit * 3;
-$panel-space-20: $base-unit * 4;
-$panel-space-25: $base-unit * 5;
-$panel-space-30: $base-unit * 6;
-$panel-space-50: $base-unit * 10;
-$panel-space-100: $base-unit * 20;
-$panel-space-110: $base-unit * 22;
-$panel-radius-1: $corner-radius / 2;
-$panel-radius-4: $corner-radius * 2;
-
-.button {
-  display: flex !important;
-  font: 400 12px Arial, sans-serif !important;
-  margin-bottom: 15px !important;
-  width: 100px !important;
-}
-
 .uppercase {
   text-transform: uppercase;
 }
@@ -27,10 +8,41 @@ $panel-radius-4: $corner-radius * 2;
   font-weight: bold;
 }
 
+.filter-btn {
+  @include roboto-bold;
+
+  cursor: pointer;
+  display: none;
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #737380;
+  padding: 0 15px;
+  background: $tc-white;
+  margin: 12px 0 0;
+  border-radius: 4px;
+
+  .FiltersIcon {
+    margin: 0 10px;
+    position: relative;
+    top: 3px;
+
+    path {
+      fill: #737380;
+    }
+  }
+
+  @include xs-to-md {
+    display: block;
+  }
+}
+
 .FiltersPanel {
+  @include roboto-regular;
+
+  font-size: 11px;
+  padding: 24px;
   background: white;
-  padding: $panel-space-15 $panel-space-20;
-  width: 100%;
   position: relative;
 
   @include xs-to-md {
@@ -45,10 +57,6 @@ $panel-radius-4: $corner-radius * 2;
     background: $tc-white;
     padding: 15px;
     overflow-y: scroll;
-  }
-
-  &.hidden {
-    display: none;
   }
 
   .header {
@@ -85,450 +93,328 @@ $panel-radius-4: $corner-radius * 2;
   }
 
   .buttons {
-    border-left: 1px solid $tc-gray-20;
-    float: right;
-    padding-left: $panel-space-20;
-    position: absolute;
-    right: $panel-space-20;
-    top: $panel-space-15;
-    bottom: $panel-space-15;
-
-    @include xs-to-md {
-      float: none;
-      display: flex;
-      justify-content: center;
-      position: relative;
-      right: 0;
-      top: $panel-space-30;
-      width: 100%;
-      padding-left: 0;
-      border-left: none;
-      margin-bottom: $panel-space-100;
-    }
+    text-align: center;
 
     button {
-      display: block;
-      text-transform: none;
-      width: $panel-space-100 - 3;
-      margin-left: 0;
-
-      @include xs-to-md {
-        display: inline-block;
-      }
-    }
-  }
-}
-
-.filter :global .Select-input input {
-  font-size: 15px;
-}
-
-.filter.dates :global .DateInput input {
-  @include roboto-regular;
-
-  padding: $base-unit;
-  height: $panel-space-30;
-  margin-bottom: 0;
-  font-size: 13px;
-  color: $tc-black;
-  line-height: $panel-space-15 + 1;
-}
-
-// filter by keywords
-.filter {
-  :global {
-    .Select-placeholder {
-      font-weight: 300;
-      font-size: 13px;
-      color: $tc-gray-50;
-      line-height: $panel-space-30 - 2;
-    }
-
-    .Select-input {
-      height: 28px;
-    }
-
-    .Select-control {
-      height: $panel-space-30;
-      border-radius: $corner-radius;
-    }
-
-    .Select-input > input:not([type="checkbox"]) {
-      height: $panel-space-30 - 2;
-      border: none;
-      box-shadow: none;
-      background: transparent;
-      border-radius: 0;
-      transition: none;
-      padding-left: 0;
-      margin-bottom: 0;
-
-      &:focus {
-        border: none;
-        box-shadow: none;
-        background: transparent;
-        border-radius: 0;
-        transition: none;
-      }
-    }
-
-    .Select-menu-outer {
-      font-weight: 500;
-      font-size: 13px;
-    }
-
-    .Select--multi,
-    .Select-value {
-      @include roboto-bold;
-
-      background: $tc-gray-neutral-dark !important;
-      border: none !important;
-      font-size: 10px;
-      color: $tc-gray-80 !important;
-      line-height: $panel-space-10 + 2;
-      margin-top: $base-unit - 1;
-      border-radius: $corner-radius + 1;
-      position: relative;
-
-      .Select-value-label {
-        padding: $base-unit - 1 $panel-space-25 $base-unit - 1 $panel-space-7;
-      }
-
-      .Select-value-icon {
-        position: absolute;
-        right: 0;
-        padding: 0 $panel-space-7;
-        font-size: 14px;
-        border: none;
-        border-radius: 0 $corner-radius + 1 $corner-radius + 1 0;
-      }
-    }
-  }
-
-  &.track {
-    :global {
-      .Select-value {
-        background: $tc-light-blue !important;
-        color: $tc-white !important;
-      }
-    }
-  }
-}
-
-// filter by date
-.filter.dates {
-  :global {
-    .DateRangePickerInput__arrow svg {
-      width: $panel-space-15;
-      height: $panel-space-15;
-      fill: $tc-black;
-    }
-
-    .DateInput {
-      padding: $base-unit - 3;
-      line-height: $panel-space-20;
-      width: $panel-space-110 + 2;
-
-      .DateInput__display-text,
-      .DateInput__display-text--has-input {
-        @include roboto-regular;
-
-        font-size: 13px;
-        color: $tc-black;
-        line-height: $panel-space-15 + 1;
-        padding-left: $panel-space-25;
-      }
-
-      .DateInput__display-text {
-        position: relative;
-
-        &::before {
-          content: '';
-          background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEycHgiIGhlaWdodD0iMTJweCIgdmlld0JveD0iMCAwIDE2IDE2Ij48ZyA+PHBhdGggZmlsbD0iI0EzQTNBRCIgZD0iTTE1LDJoLTJWMWMwLTAuNi0wLjQtMS0xLTFoLTFjLTAuNiwwLTEsMC40LTEsMXYxSDZWMWMwLTAuNi0wLjQtMS0xLTFINEMzLjQsMCwzLDAuNCwzLDF2MUgxQzAuNCwyLDAsMi40LDAsM3YxMmMwLDAuNiwwLjQsMSwxLDFoMTRjMC42LDAsMS0wLjQsMS0xVjNDMTYsMi40LDE1LjYsMiwxNSwyeiBNMTQsMTRIMlY3aDEyVjE0eiIvPjwvZz48L3N2Zz4=);
-          background-position: 0 0;
-          background-repeat: no-repeat;
-          width: $panel-space-15 - 1;
-          height: $panel-space-15 - 1;
-          display: inline-block;
-          position: absolute;
-          left: $panel-space-7;
-          top: $panel-space-7 - 1;
-        }
-      }
-    }
-
-    .CalendarMonth table {
-      font-weight: 400;
-    }
-
-    .CalendarMonth__caption {
-      margin-bottom: $panel-space-10;
-    }
-
-    .DayPicker__week-header {
-      font-weight: 400;
-    }
-
-    .DateRangePicker__picker {
-      top: $base-unit * 9;
-    }
-
-    .DateInput--with-caret::before {
-      top: $panel-space-30 + 4;
-    }
-
-    .DateInput--with-caret::after {
-      top: $panel-space-30 + 5;
+      height: 26px;
+      min-height: 26px;
+      line-height: 26px;
+      padding: 0 14px;
     }
   }
 }
 
 .filters {
-  display: inline-block;
-  width: 100%;
-
-  @include xs-to-md {
-    display: block;
-  }
-
   .filter-row {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-right: $panel-space-100 + 17;
-    width: auto;
-
-    @include xs-to-md {
-      display: block;
-      margin-right: 0;
-    }
   }
 
   .filter {
-    display: flex;
-    align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
 
-    &.keywords {
-      position: relative;
-      z-index: 6;
-      width: 100%;
-      margin-bottom: $panel-space-15;
-      margin-right: $panel-space-15;
+    .label {
+      @include roboto-bold;
+
+      display: block;
+      color: $tc-black;
+      font-size: 11px;
+      line-height: 13px;
+      margin-bottom: 4px;
     }
 
-    label {
-      display: inline-block;
-      font-size: 13px;
-      line-height: $panel-space-15;
-      margin-right: $panel-space-15;
-      min-width: 96px;
-      text-align: right;
+    @include xs-to-md {
+      display: flex;
+      align-items: center;
 
-      &.left-label {
-        min-width: 58px;
+      .label {
+        min-width: 108px;
+        align-self: flex-start;
+        line-height: 30px;
       }
 
-      @include xs-to-md {
-        text-align: left;
+      .label + * {
+        flex: 1;
+      }
 
-        &.left-label {
-          min-width: 96px;
+      &.past-period,
+      &.review-type,
+      &.challenge-type {
+        .checkboxes,
+        .radios {
+          flex-direction: column;
         }
-      }
-    }
-
-    :global(.Select) {
-      display: inline-block;
-      width: 100%;
-      margin-bottom: 0;
-
-      &#keywordsFilter {
-        @include calc(width, '100% - 56px');
       }
     }
 
     &.track {
       position: relative;
       z-index: 4;
-      display: flex;
-      align-items: center;
 
-      @include calc(width, '100% - 395px');
+      .label {
+        display: block;
+      }
 
-      margin-right: $panel-space-30;
+      .switches {
+        display: flex;
+        flex-wrap: wrap;
 
-      @include xs-to-md {
-        width: initial;
+        .filter-switch-with-label {
+          display: inline-block;
+          white-space: nowrap;
+          line-height: 30px;
+
+          @include xs-to-md {
+            margin-right: 0 !important;
+          }
+
+          @include sm-to-md {
+            width: 50%;
+
+            > div {
+              display: inline-flex;
+              flex-direction: row-reverse;
+              align-items: baseline;
+
+              > div {
+                margin-left: 0;
+              }
+            }
+          }
+
+          &:not(:last-child) {
+            margin-right: 10px;
+          }
+
+          > div {
+            font-size: 11px;
+
+            > div {
+              width: 23px;
+              height: 13px;
+
+              > div {
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.past-period {
+      .label {
+        display: block;
+      }
+
+      .radios {
+        display: flex;
+        flex-wrap: wrap;
+
+        .radio {
+          position: relative;
+          display: inline-block;
+          line-height: 30px;
+          margin-right: 24px;
+          min-width: 96px;
+
+          .radio-label {
+            display: inline-block;
+            padding-left: 24px;
+            white-space: nowrap;
+            line-height: 15px;
+            vertical-align: top;
+
+            &::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 15px;
+              height: 15px;
+              border: 1px solid #aaa;
+              border-radius: 50%;
+              box-shadow: 0 1px 2px 0 rgba($tc-black, 0.29);
+            }
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 4px;
+              left: 4px;
+              width: 7px;
+              height: 7px;
+              background: white;
+              border-radius: 50%;
+              opacity: 0;
+            }
+          }
+
+          .input-control {
+            display: none;
+
+            &:checked + .radio-label {
+              &::before {
+                background-color: #0681ff;
+                border-color: #0681ff;
+              }
+
+              &::after {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.review-type,
+    &.challenge-type {
+      .label {
+        display: block;
+      }
+
+      .checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+
+        .checkbox {
+          position: relative;
+          display: inline-block;
+          line-height: 30px;
+          width: 33%;
+
+          .checkbox-label {
+            display: inline-block;
+            padding-left: 24px;
+            white-space: nowrap;
+            line-height: 15px;
+            vertical-align: top;
+
+            &::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 15px;
+              height: 15px;
+              border: 1px solid #aaa;
+              border-radius: 2px;
+              box-shadow: 0 1px 2px 0 rgba($tc-black, 0.29);
+            }
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 3px;
+              left: 3px;
+              width: 10px;
+              height: 6px;
+              border-left: 2px solid $tc-white;
+              border-bottom: 2px solid $tc-white;
+              transform: rotate(-45deg);
+              opacity: 0;
+            }
+          }
+
+          .input-control {
+            display: none;
+
+            &:checked + .checkbox-label {
+              &::before {
+                background-color: #0681ff;
+                border-color: #0681ff;
+              }
+
+              &::after {
+                opacity: 1;
+              }
+            }
+          }
+        }
       }
     }
 
     &.dates {
-      position: relative;
-      z-index: 1;
-      display: inline-block;
-      text-align: left;
-
-      @include xs-to-md {
-        margin-top: 20px;
-      }
-
-      &.hidetwomonthdatepicker {
-        @media screen and (min-width: $screen-md) {
-          display: none;
-        }
-      }
-
-      &.hideonemonthdatepicker {
-        @media screen and (max-width: $screen-md - 1px) {
-          display: none;
+      @include sm-to-md {
+        .label + div {
+          max-width: 240px;
         }
       }
     }
 
-    &.status {
-      @include calc(width, '50% - 45px - (12px + 112px) * 2 - 96px');
-
-      order: 3; // Show after Date Picker when in lg screen mode
-
-      @include xs-to-sm {
-        margin-top: $panel-space-15;
-        width: 100%;
+    &.filter.community {
+      .active-community {
+        font-size: 12px;
+        font-weight: normal;
       }
 
-      :global(.Select) {
-        z-index: 3;
+      .registration-status {
+        color: #888894;
+        font-size: 0.7rem;
       }
 
-      min-width: 206px;
-      margin-right: $panel-space-30;
-
-      :global(.Select-value) {
-        top: inherit;
-        background: $tc-white !important;
-        font-weight: 300;
-        font-size: 13px;
-        color: $tc-gray-50;
-        line-height: $panel-space-30 - 2;
+      .community-name {
+        display: flex;
       }
 
-      @media screen and (max-width: 1024px) {
-        width: 100%;
-        margin-top: 15px;
+      .checkmark-icon-container {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        margin-left: 5px;
+        background: #5dca03;
+        border-radius: 50%;
+
+        svg {
+          width: 10px;
+          height: 10px;
+        }
       }
 
-      @media screen and (min-width: 1025px) and (max-width: 1346px) {
-        margin-top: 15px;
-
-        @include calc(width, '50% - 30px');
+      .community-select-item {
+        display: flex;
+        justify-content: space-between;
       }
-    }
-  }
-}
 
-.inGroup .filter-row {
-  .filter.keywords {
-    @include calc(width, '50% - 30px');
+      .learn-more-link {
+        color: $tc-light-blue;
+        margin-left: 5px;
 
-    @include xs-to-md {
-      width: 100%;
-    }
-
-    margin-right: $panel-space-30;
-  }
-
-  .filter.community {
-    @include calc(width, '50% - 30px');
-
-    @include xs-to-md {
-      width: 100%;
-    }
-
-    :global(.Select) {
-      z-index: 5;
-    }
-
-    .active-community {
-      font-size: 12px;
-      font-weight: normal;
-    }
-
-    .registration-status {
-      color: #888894;
-      font-size: 0.7rem;
-    }
-
-    .community-name {
-      display: flex;
-    }
-
-    .checkmark-icon-container {
-      width: 16px;
-      height: 16px;
-      line-height: 16px;
-      text-align: center;
-      margin-left: 5px;
-      background: #5dca03;
-      border-radius: 50%;
-
-      svg {
-        width: 10px;
-        height: 10px;
+        &:hover,
+        &:visited {
+          color: $tc-dark-blue-110;
+        }
       }
-    }
 
-    .community-select-item {
-      display: flex;
-      justify-content: space-between;
-    }
+      :global {
+        .Select {
+          display: block;
+          z-index: 5;
+        }
 
-    .learn-more-link {
-      color: $tc-light-blue;
-      margin-left: 5px;
+        .Select-control {
+          height: 26px;
+          border-radius: 2px;
 
-      &:hover,
-      &:visited {
-        color: $tc-dark-blue-110;
+          &:hover {
+            box-shadow: none;
+          }
+        }
+
+        .Select.is-focused > .Select-control {
+          outline: none;
+          box-shadow: none;
+          border-color: #0681ff !important;
+        }
+
+        .Select-menu-outer {
+          margin-top: 1px;
+        }
       }
-    }
-
-    :global(.Select-value) {
-      line-height: 28px;
-      top: inherit;
-    }
-
-    margin-bottom: $panel-space-15;
-    margin-right: $panel-space-30;
-  }
-
-  .filter.review-type {
-    // margin - (.date.input width + .date.text width) * 2 - filters.label width
-    @include calc(width, '50% - 45px - (12px + 112px) * 2 - 96px');
-
-    order: 3; // Show after Date Picker when in lg screen mode
-
-    @include xs-to-sm {
-      margin-top: $panel-space-15;
-      width: 100%;
-    }
-
-    :global(.Select) {
-      z-index: 3;
-    }
-
-    :global(.Select-value) {
-      line-height: 28px;
-      top: inherit;
-    }
-
-    margin-right: $panel-space-30;
-  }
-
-  .filter.track {
-    @include calc(width, '50% - 30px');
-
-    @include xs-to-md {
-      width: 100%;
     }
   }
 }

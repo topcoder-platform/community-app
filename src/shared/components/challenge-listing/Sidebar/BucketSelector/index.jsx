@@ -33,6 +33,7 @@ export default function BucketSelector({
   selectBucket,
   // selectSavedFilter,
   // setEditSavedFiltersMode,
+  past,
 }) {
   // let filteredChallenges = challenges.filter(Filter.getFilterFunction(filterState));
 
@@ -41,7 +42,9 @@ export default function BucketSelector({
   // }
 
   const getBucket = (bucket) => {
-    const isActive = expanding ? bucket === BUCKETS.ALL : activeBucket === bucket;
+    const isActive = expanding
+      ? bucket === BUCKETS.ALL || bucket === BUCKETS.ALL_PAST
+      : activeBucket === bucket;
     return (
       <Bucket
         active={!disabled && isActive}
@@ -77,53 +80,60 @@ export default function BucketSelector({
   //   />
   // ));
 
-  return (
-    <div>
-      {getBucket(BUCKETS.ALL)}
-      {isAuth ? getBucket(BUCKETS.MY) : null}
-      {/* {extraBucket ? getBucket(extraBucket) : null} */}
-      {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
-      {/* DISABLED: Until api receive fix community-app#5073 */}
-      {/* {getBucket(BUCKETS.ONGOING)} */}
-      <hr />
-      {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
-      {/* {getBucket(BUCKETS.PAST)} */}
-      {/* NOTE: We do not show upcoming challenges for now, for various reasons,
-        * more political than technical ;)
-          getBucket(BUCKETS.UPCOMING) */
-      }
-      {/* {
-        savedFilters.length
-          ? (
-            <div>
-              <div styleName="my-filters">
-                <h1>
-                  My filters
-                </h1>
-                <a
-                  onClick={() => setEditSavedFiltersMode(true)}
-                  onKeyPress={() => setEditSavedFiltersMode(true)}
-                  role="button"
-                  styleName="edit-link"
-                  tabIndex={0}
-                >
-                  edit
-                </a>
+  return (!past
+    ? (
+      <div>
+        {getBucket(BUCKETS.ALL)}
+        {isAuth ? getBucket(BUCKETS.MY) : null}
+        {/* {extraBucket ? getBucket(extraBucket) : null} */}
+        {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+        {/* DISABLED: Until api receive fix community-app#5073 */}
+        {/* {getBucket(BUCKETS.ONGOING)} */}
+        <hr />
+        {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
+        {/* {getBucket(BUCKETS.PAST)} */}
+        {/* NOTE: We do not show upcoming challenges for now, for various reasons,
+          * more political than technical ;)
+            getBucket(BUCKETS.UPCOMING) */
+        }
+        {/* {
+          savedFilters.length
+            ? (
+              <div>
+                <div styleName="my-filters">
+                  <h1>
+                    My filters
+                  </h1>
+                  <a
+                    onClick={() => setEditSavedFiltersMode(true)}
+                    onKeyPress={() => setEditSavedFiltersMode(true)}
+                    role="button"
+                    styleName="edit-link"
+                    tabIndex={0}
+                  >
+                    edit
+                  </a>
+                </div>
+                {savedFiltersRender}
               </div>
-              {savedFiltersRender}
-            </div>
-          ) : ''
-      } */}
-      <hr />
-      {/* DISABLED: Until feeds.topcoder.com domain fixed community-app#4606 */}
-      {/*
-      <div styleName="get-rss">
-        <a href={RSS_LINK}>
-          Get the RSS feed
-        </a>
+            ) : ''
+        } */}
+        <hr />
+        {/* DISABLED: Until feeds.topcoder.com domain fixed community-app#4606 */}
+        {/*
+        <div styleName="get-rss">
+          <a href={RSS_LINK}>
+            Get the RSS feed
+          </a>
+        </div>
+        */}
       </div>
-      */}
-    </div>
+    ) : (
+      <div>
+        {getBucket(BUCKETS.ALL_PAST)}
+        {isAuth ? getBucket(BUCKETS.MY_PAST) : null}
+      </div>
+    )
   );
 }
 
@@ -133,6 +143,7 @@ BucketSelector.defaultProps = {
   // extraBucket: null,
   isAuth: false,
   expanding: false,
+  past: false,
 };
 
 BucketSelector.propTypes = {
@@ -151,4 +162,5 @@ BucketSelector.propTypes = {
   selectBucket: PT.func.isRequired,
   // selectSavedFilter: PT.func.isRequired,
   // setEditSavedFiltersMode: PT.func.isRequired,
+  past: PT.bool,
 };

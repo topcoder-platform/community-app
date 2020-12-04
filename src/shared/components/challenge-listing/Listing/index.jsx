@@ -23,13 +23,15 @@ function Listing({
   auth,
   allActiveChallengesLoaded,
   allMyChallengesLoaded,
+  allMyPastChallengesLoaded,
   allChallengesLoaded,
   allOpenForRegistrationChallengesLoaded,
   challenges,
   openForRegistrationChallenges,
   myChallenges,
+  myPastChallenges,
   allChallenges,
-  // pastChallenges,
+  pastChallenges,
   challengeTypes,
   // userChallenges,
   challengesUrl,
@@ -37,17 +39,19 @@ function Listing({
   // extraBucket,
   filterState,
   keepPastPlaceholders,
-  // loadingPastChallenges,
+  loadingPastChallenges,
   loadingReviewOpportunities,
   loadingMyChallenges,
+  loadingMyPastChallenges,
   loadMoreMy,
+  loadMoreMyPast,
   loadingAllChallenges,
   loadMoreAll,
   loadingOpenForRegistrationChallenges,
   loadMoreOpenForRegistration,
   loadingOnGoingChallenges,
   loadMoreOnGoing,
-  // loadMorePast,
+  loadMorePast,
   loadMoreReviewOpportunities,
   newChallengeDetails,
   openChallengesInNewTabs,
@@ -87,6 +91,12 @@ function Listing({
     let bucketChallenges = [];
     let newExpanded = expanded;
     switch (bucket) {
+      case BUCKETS.ALL_PAST:
+        bucketChallenges = [].concat(pastChallenges);
+        loading = loadingPastChallenges;
+        loadMore = loadMorePast;
+        newExpanded = newExpanded || (+meta.pastChallengesCount === bucketChallenges.length);
+        break;
       // case BUCKETS.PAST:
       //   keepPlaceholders = keepPastPlaceholders;
       //   bucketChallenges = [].concat(pastChallenges);
@@ -99,6 +109,12 @@ function Listing({
         loading = loadingMyChallenges;
         loadMore = allMyChallengesLoaded ? null : loadMoreMy;
         newExpanded = newExpanded || (+meta.myChallengesCount === bucketChallenges.length);
+        break;
+      case BUCKETS.MY_PAST:
+        bucketChallenges = [].concat(myPastChallenges);
+        loading = loadingMyPastChallenges;
+        loadMore = allMyPastChallengesLoaded ? null : loadMoreMyPast;
+        newExpanded = newExpanded || (+meta.myPastChallengesCount === bucketChallenges.length);
         break;
       case BUCKETS.OPEN_FOR_REGISTRATION:
         bucketChallenges = [].concat(openForRegistrationChallenges);
@@ -205,9 +221,11 @@ function Listing({
   //   );
   // }
   const loading = loadingMyChallenges
+    || loadingMyPastChallenges
     || loadingOpenForRegistrationChallenges
     || loadingOnGoingChallenges
-    || loadingAllChallenges;
+    || loadingAllChallenges
+    || loadingPastChallenges;
   const placeholders = [];
   if (challenges.length > 0 || (activeBucket === BUCKETS.ALL && allChallenges.length > 0)) {
     return (
@@ -244,8 +262,9 @@ Listing.defaultProps = {
   challenges: [],
   openForRegistrationChallenges: [],
   myChallenges: [],
+  myPastChallenges: [],
   allChallenges: [],
-  // pastChallenges: [],
+  pastChallenges: [],
   challengeTypes: [],
   communityName: null,
   // currentFilterName: '',
@@ -253,9 +272,10 @@ Listing.defaultProps = {
   expandedTags: [],
   expandTag: null,
   // extraBucket: null,
-  // loadMorePast: null,
+  loadMorePast: null,
   loadMoreReviewOpportunities: null,
   loadMoreMy: null,
+  loadMoreMyPast: null,
   loadMoreAll: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
@@ -280,13 +300,15 @@ Listing.propTypes = {
   }).isRequired,
   allActiveChallengesLoaded: PT.bool.isRequired,
   allMyChallengesLoaded: PT.bool.isRequired,
+  allMyPastChallengesLoaded: PT.bool.isRequired,
   allChallengesLoaded: PT.bool.isRequired,
   allOpenForRegistrationChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape()),
   openForRegistrationChallenges: PT.arrayOf(PT.shape()),
   myChallenges: PT.arrayOf(PT.shape()),
+  myPastChallenges: PT.arrayOf(PT.shape()),
   allChallenges: PT.arrayOf(PT.shape()),
-  // pastChallenges: PT.arrayOf(PT.shape()),
+  pastChallenges: PT.arrayOf(PT.shape()),
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
@@ -295,17 +317,19 @@ Listing.propTypes = {
   // extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
-  // loadingPastChallenges: PT.bool.isRequired,
+  loadingPastChallenges: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
+  loadingMyPastChallenges: PT.bool.isRequired,
   loadingAllChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreMy: PT.func,
+  loadMoreMyPast: PT.func,
   loadMoreAll: PT.func,
   loadMoreOnGoing: PT.func,
   loadMoreOpenForRegistration: PT.func,
-  // loadMorePast: PT.func,
+  loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
@@ -330,6 +354,7 @@ const mapStateToProps = (state) => {
     // allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     allActiveChallengesLoaded: cl.allActiveChallengesLoaded,
     allMyChallengesLoaded: cl.allMyChallengesLoaded,
+    allMyPastChallengesLoaded: cl.allMyPastChallengesLoaded,
     allChallengesLoaded: cl.allChallengesLoaded,
     allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
     // pastSearchTimestamp: cl.pastSearchTimestamp,

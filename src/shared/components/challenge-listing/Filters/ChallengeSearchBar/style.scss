@@ -8,43 +8,39 @@ $challenge-space-60: $base-unit * 12;
 $challenge-radius-1: $corner-radius / 2;
 $challenge-radius-4: $corner-radius * 2;
 
-/* -100px is necessary to compensate for the temporarly added `Alpha preview`
- * banner. Should be modified / removed together with banner. */
-$search-bar-width: '100% - 536px';
-$search-input-width: '100% - 56px';
+.container {
+  background: $tc-gray-neutral-light;
+  border-bottom: 1px solid $tc-gray-30;
+  padding: 0 $base-unit * 3;
+
+  @media (max-width: #{$screen-lg - 1px}) {
+    display: none;
+  }
+}
 
 .ChallengeSearchBar {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 40px;
+  display: block;
   position: relative;
   top: 10px;
   height: 60px;
 
-  label {
+  .input-container {
     font-size: 12px;
-    display: inline-flex;
+    display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
   }
 
-  @include xs-to-md {
-    display: none;
-  }
-
-  @include calc(width, $search-bar-width);
-
   input:not([type="checkbox"]) {
-    display: inline-block;
     flex: 1;
     background: $tc-white;
     border: 1px solid $tc-gray-20;
-    border-radius: $challenge-radius-4 0 0 $challenge-radius-4;
+    border-left: 0;
+    border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
     margin-bottom: 0;
-    margin-left: 10px;
-    vertical-align: middle;
-    padding-right: 28px;
+    padding-left: 0;
+    order: 2;
 
     @include placeholder {
       @include roboto-light;
@@ -56,47 +52,27 @@ $search-input-width: '100% - 56px';
     }
 
     &:hover {
-      border: 1px solid $tc-gray-40;
+      border-color: 1px solid $tc-gray-40;
     }
   }
 
   .SearchButton {
-    display: inline-block;
-    background: $tc-gray-20;
+    background: $tc-white;
     cursor: pointer;
     padding: $challenge-space-10 + 1 $challenge-space-20 $challenge-space-10 - 2;
-    border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
-    vertical-align: middle;
+    border-radius: $challenge-radius-4 0 0 $challenge-radius-4;
     height: 40px;
-
-    &.active,
-    &:hover {
-      background: $tc-dark-blue;
-    }
+    order: 1;
+    border: 1px solid $tc-gray-20;
+    border-right: 0;
 
     .zoomIcon {
       height: 16px;
       width: 16px;
     }
-  }
-
-  .ClearButton {
-    display: none;
-    cursor: pointer;
-    position: absolute;
-    right: $challenge-space-60 - 3;
-    padding: $base-unit;
-    border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
-    vertical-align: middle;
-    height: 38px;
-    font-size: 25px;
-
-    &.active {
-      display: inline-block;
-    }
 
     &:hover {
-      color: $tc-red-110;
+      border-color: $tc-gray-40;
     }
   }
 }

@@ -46,54 +46,21 @@
 }
 
 .dateRangePicker {
-  display: inline-block;
+  @include roboto-regular;
+
+  display: block;
   position: relative;
   color: $tc-black;
 
   :global {
-    @include tablet {
-      .rdrDateRangePickerWrapper {
-        margin-left: 0 !important;
-        border-top-left-radius: 0 !important;
-        border-top-right-radius: 6px !important;
-      }
-    }
-
     @include phone {
       .rdrDateRangePickerWrapper {
-        margin-left: 0 !important;
-        position: fixed !important;
-        top: 65px;
-        right: 0;
+        position: relative;
         width: 100vw !important;
-        height: 100vh !important;
         flex-direction: column-reverse;
         align-items: center;
         justify-content: flex-end;
-        border-radius: 0 !important;
-
-        .rdrDefinedRangesWrapper {
-          width: 100vw;
-          padding-bottom: 10px;
-
-          .rdrStaticRanges {
-            display: inline-flex;
-            flex-direction: row;
-            justify-content: space-around;
-            margin-top: 10px !important;
-            border-bottom: 1px solid $tc-gray-20;
-            width: 100vw;
-            padding-bottom: 10px;
-
-            .rdrStaticRangeLabel {
-              font-size: 14px;
-            }
-
-            & > *:last-child {
-              display: none;
-            }
-          }
-        }
+        padding: 0 20px;
 
         .rdrDateRangeWrapper {
           width: 100%;
@@ -136,32 +103,14 @@
 
     .rdrDateRangePickerWrapper {
       z-index: 15;
-      position: absolute;
-      margin-left: -340px;
+      position: relative;
       background: $tc-white;
-      border: 1px solid $tc-gray-30;
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
-      border-bottom-right-radius: 6px;
-      margin-top: -1px;
       overflow: hidden;
-      width: 455px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
 
       .rdrDefinedRangesWrapper {
-        width: unset;
-        border: none;
-
-        .rdrStaticRanges {
-          margin-top: 60px;
-
-          .rdrStaticRange {
-            border: none;
-          }
-
-          button {
-            color: $tc-gray-80;
-          }
-        }
+        display: none;
       }
     }
 
@@ -169,8 +118,40 @@
       background: url("data:image/svg+xml;utf8,<svg width='9px' height='6px' viewBox='0 0 9 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' transform='translate(-636.000000, -171.000000)'><g id='input' transform='translate(172.000000, 37.000000)' fill='%230B71E6' fill-rule='nonzero'><g id='Group-9' transform='translate(323.000000, 127.000000)'><path d='M142.280245,7.23952813 C141.987305,6.92353472 141.512432,6.92361662 141.219585,7.23971106 C140.926739,7.5558055 140.926815,8.06821394 141.219755,8.38420735 L145.498801,13 L149.780245,8.38162071 C150.073185,8.0656273 150.073261,7.55321886 149.780415,7.23712442 C149.487568,6.92102998 149.012695,6.92094808 148.719755,7.23694149 L145.498801,10.7113732 L142.280245,7.23952813 Z' id='arrow'></path></g></g></g></svg>") no-repeat right 8px center;
     }
 
+    .rdrNextPrevButton {
+      position: relative;
+      width: 22px;
+      height: 23px;
+      background: none;
+      border: 1px solid #0681ff;
+      border-radius: 50%;
+
+      i {
+        position: absolute;
+        top: 7px;
+        left: 7px;
+        display: block;
+        width: 8px;
+        height: 8px;
+        margin: 0;
+        border: 0;
+        border-top: 2px solid #0681ff;
+        border-left: 2px solid #0681ff;
+        transform: none;
+      }
+
+      &.rdrPprevButton {
+        transform: rotate(-45deg);
+      }
+
+      &.rdrNextButton {
+        transform: rotate(135deg);
+      }
+    }
+
     .rdrMonths {
       border-top: 1px solid $tc-gray-20;
+      border-bottom: 1px solid $tc-gray-20;
 
       .rdrWeekDay {
         font-weight: bold;
@@ -347,26 +328,83 @@
 }
 
 .dateInputWrapper {
-  display: inline-flex;
+  display: flex;
   position: relative;
   z-index: 1;
   text-align: left;
+
+  > div:first-child {
+    width: calc(50% - 4px);
+    margin-right: 4px;
+  }
+
+  > div:last-child {
+    width: calc(50% - 4px);
+    margin-left: 4px;
+  }
 }
 
-.arrow {
-  margin: 3px 4px;
+.calendar-container {
+  position: absolute;
+  top: calc(100% + 8px);
+}
+
+.calendar-inner-container {
+  position: absolute;
+  padding: 0 18px;
+  text-align: right;
+  border: 1px solid $tc-gray-30;
+  border-radius: 4px;
+  background: $tc-white;
+  z-index: 10;
+
+  @include phone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 15;
+    padding: 65px 0 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .reset-button {
+    @include roboto-bold;
+
+    width: 71px;
+    height: 24px;
+    line-height: 22px;
+    margin: 9px 4px 16px;
+    padding: 0;
+    font-size: 10.5px;
+    text-align: center;
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+
+    @include phone {
+      width: 79px;
+      height: 26px;
+      line-height: 27px;
+      font-size: 12px;
+      margin: 20px 12px 0;
+    }
+  }
 }
 
 .endDate {
-  :global {
-    .rdrDateRangePickerWrapper {
-      margin-left: -193px;
+  .calendar-container,
+  .calendar-inner-container {
+    right: 0;
+  }
 
-      @include tablet {
-        margin-left: 147px !important;
-        border-top-left-radius: 0;
-        border-top-right-radius: 6px;
-      }
+  @include tablet {
+    .calendar-container,
+    .calendar-inner-container {
+      right: auto;
+      left: 62px;
     }
   }
 }
