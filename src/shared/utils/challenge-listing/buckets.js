@@ -190,7 +190,7 @@ export function filterChanged(filter, prevFilter) {
     return true;
   }
   return (!_.isEqual(filter.tracks, prevFilter.tracks))
-  || (filter.name !== prevFilter.name)
+  || (filter.search !== prevFilter.search)
   || (filter.status !== prevFilter.status)
   || (filter.startDateEnd !== prevFilter.startDateEnd)
   || (filter.endDateStart !== prevFilter.endDateStart)

@@ -7,7 +7,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 
 import { actions } from 'topcoder-react-lib';
-import { MetaTags } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';

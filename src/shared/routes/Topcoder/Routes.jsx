@@ -22,9 +22,9 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Article from 'components/Contentful/Article';
 
-import EDUHome from 'containers/EDU/Home';
-import EDUTracks from 'containers/EDU/Tracks';
-import EDUSearch from 'containers/EDU/Search';
+import EDUHome from '../EDUHome';
+import EDUTracks from '../EDUTracks';
+import EDUSearch from '../EDUSearch';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import Notifications from './Notifications';
@@ -83,7 +83,7 @@ export default function Topcoder() {
               <Route
                 component={Profile}
                 exact
-                path="/members/:handle([\w\-\[\].{}]{2,15})"
+                path="/members/:handle([\w\-\[\].{} ]{2,15})"
               />
               <Route
                 component={() => <Settings base="/settings" />}
@@ -92,7 +92,7 @@ export default function Topcoder() {
               <Route
                 component={ProfileStats}
                 exact
-                path="/members/:handle([\w\-\[\].{}]{2,15})/details"
+                path="/members/:handle([\w\-\[\].{} ]{2,15})/details"
               />
               {/* EDU Portal */}
               <Route

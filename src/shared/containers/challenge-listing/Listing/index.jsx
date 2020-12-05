@@ -24,7 +24,7 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 // import SORT from 'utils/challenge-listing/sort';
 import { BUCKETS, filterChanged, sortChangedBucket } from 'utils/challenge-listing/buckets';
-import { MetaTags } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import { USER_GROUP_MAXAGE } from 'config';
 import { updateChallengeType } from 'utils/challenge';
 
