@@ -2,86 +2,72 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
-  role="search"
+  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__container___29iSI"
 >
-  <label
-    htmlFor="search-challenges"
+  <div
+    className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
+    role="search"
   >
-    Search: 
-    <input
-      id="search-challenges"
-      onChange={[Function]}
-      onKeyPress={[Function]}
-      placeholder=""
-      type="text"
-      value="query"
-    />
-    <span
-      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ClearButton___u_e0r src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__active___8LjMb"
-      onClick={[Function]}
-      onKeyPress={[Function]}
+    <div
+      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__input-container___1II2g"
+      htmlFor="search-challenges"
     >
-      ⨯
-    </span>
-    <span
-      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0 src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__active___8LjMb"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-      role="button"
-      tabIndex="0"
-    >
-      <ZoomIcon
-        className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
+      <input
+        id="search-challenges"
+        onChange={[Function]}
+        onInput={[Function]}
+        placeholder=""
+        type="text"
+        value="query"
       />
-    </span>
-  </label>
+      <span
+        className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0"
+      >
+        <ZoomIcon
+          className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+      </span>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
-  role="search"
+  className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__container___29iSI"
 >
-  <label
-    htmlFor="search-challenges"
+  <div
+    className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ChallengeSearchBar___fvE3o"
+    role="search"
   >
-    Search: 
-    <input
-      id="search-challenges"
-      onChange={[Function]}
-      onKeyPress={[Function]}
-      placeholder=""
-      type="text"
-      value=""
-    />
-    <span
-      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__ClearButton___u_e0r"
-      onClick={[Function]}
-      onKeyPress={[Function]}
+    <div
+      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__input-container___1II2g"
+      htmlFor="search-challenges"
     >
-      ⨯
-    </span>
-    <span
-      className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-      role="button"
-      tabIndex="0"
-    >
-      <ZoomIcon
-        className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
+      <input
+        id="search-challenges"
+        onChange={[Function]}
+        onInput={[Function]}
+        placeholder=""
+        type="text"
+        value=""
       />
-    </span>
-  </label>
+      <span
+        className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0"
+      >
+        <ZoomIcon
+          className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+      </span>
+    </div>
+  </div>
 </div>
 `;

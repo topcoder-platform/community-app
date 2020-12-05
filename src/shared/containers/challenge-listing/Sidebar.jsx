@@ -4,7 +4,7 @@
 
 // import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
-// import challengeListingActions from 'actions/challenge-listing';
+import challengeListingActions from 'actions/challenge-listing';
 // import { config } from 'topcoder-react-utils';
 // import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import PT from 'prop-types';
@@ -39,6 +39,15 @@ export const SidebarPureComponent = Sidebar;
 // }
 
 export class SidebarContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      previousBucketOfActiveTab: null,
+      previousBucketOfPastChallengesTab: null,
+    };
+  }
+
   componentDidMount() {
     // const { tokenV2, getSavedFilters } = this.props;
     // const token = tokenV2;
@@ -46,7 +55,7 @@ export class SidebarContainer extends React.Component {
   }
 
   render() {
-    // const {
+    const {
     // activeBucket,
     // communityFilters,
     // deleteSavedFilter,
@@ -56,12 +65,18 @@ export class SidebarContainer extends React.Component {
     // selectSavedFilter,
     // selectedCommunityId,
     // setFilter,
-    // setSearchText,
     // tokenV2,
     // updateAllSavedFilters,
     // updateSavedFilter,
     // userChallenges,
-    // } = this.props;
+      past,
+      setPast,
+    } = this.props;
+
+    const {
+      previousBucketOfActiveTab,
+      previousBucketOfPastChallengesTab,
+    } = this.state;
 
     // const buckets = getBuckets(userChallenges);
 
@@ -97,7 +112,6 @@ export class SidebarContainer extends React.Component {
         //   const { filter } = origSavedFilters[index];
         //   selectSavedFilter(index);
         //   setFilter(_.omit(filter, 'communityId'));
-        //   setSearchText(filter.text || '');
         //   selectCommunity(filter.communityId || '');
         // }}
         // updateAllSavedFilters={() => updateAllSavedFilters(
@@ -106,6 +120,16 @@ export class SidebarContainer extends React.Component {
         // )
         // }
         // updateSavedFilter={filter => updateSavedFilter(filter, tokenV2)}
+        previousBucketOfActiveTab={previousBucketOfActiveTab}
+        previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
+        setPreviousBucketOfActiveTab={(bucket) => {
+          this.setState({ previousBucketOfActiveTab: bucket });
+        }}
+        setPreviousBucketOfPastChallengesTab={(bucket) => {
+          this.setState({ previousBucketOfPastChallengesTab: bucket });
+        }}
+        past={past}
+        setPast={setPast}
       />
     );
   }
@@ -117,6 +141,7 @@ SidebarContainer.defaultProps = {
   // tokenV2: null,
   // user: null,
   // userChallenges: [],
+  expanding: false,
 };
 
 SidebarContainer.propTypes = {
@@ -131,48 +156,52 @@ SidebarContainer.propTypes = {
   // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   // selectedCommunityId: PT.string,
   // selectSavedFilter: PT.func.isRequired,
-  // setFilter: PT.func.isRequired,
+  setFilter: PT.func.isRequired,
   // selectCommunity: PT.func.isRequired,
-  // setSearchText: PT.func.isRequired,
   // tokenV2: PT.string,
   // updateAllSavedFilters: PT.func.isRequired,
   // updateSavedFilter: PT.func.isRequired,
   // user: PT.shape(),
   // userChallenges: PT.arrayOf(PT.string),
+  expanding: PT.bool,
+  past: PT.bool.isRequired,
+  setPast: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing.sidebar;
-  // const cla = challengeListingActions.challengeListing;
+  const cla = challengeListingActions.challengeListing;
   // const fpa = filterPanelActions.challengeListing.filterPanel;
   return {
     ...bindActionCreators(a, dispatch),
-    // setFilter: filter => dispatch(cla.setFilter(filter)),
+    setFilter: filter => dispatch(cla.setFilter(filter)),
     // selectCommunity: communityId => dispatch(cla.selectCommunity(communityId)),
-    // setSearchText: text => dispatch(fpa.setSearchText(text)),
   };
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   // const { activeBucket } = state.challengeListing.sidebar;
   // const pending = _.keys(state.challengeListing.pendingRequests);
   // updateChallengeType(
   //   state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
   // );
+  const sb = state.challengeListing.sidebar;
   return {
     activeBucket: state.challengeListing.sidebar.activeBucket,
     // ...state.challengeListing.sidebar,
     // challenges: state.challengeListing.challenges,
     // disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
     // extraBucket: ownProps.extraBucket,
-    hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
-    // filterState: state.challengeListing.filter,
+    // hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
+    filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
     // communityFilters: state.tcCommunities.list.data,
     // selectedCommunityId: state.challengeListing.selectedCommunityId,
     // tokenV2: state.auth.tokenV2,
     // user: state.auth.user,
     // userChallenges: state.challengeListing.userChallenges,
+    expanding: sb.expanding,
+    past: sb.past,
   };
 }
 

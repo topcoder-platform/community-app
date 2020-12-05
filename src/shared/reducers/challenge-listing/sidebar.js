@@ -175,6 +175,15 @@ function onSelectBucketDone(state) {
 //   return { ...state, savedFilters };
 // }
 
+function onSetPast(state, { payload }) {
+  const { past } = payload;
+
+  return {
+    ...state,
+    past,
+  };
+}
+
 function create(initialState = {}) {
   const a = actions.challengeListing.sidebar;
   return handleActions({
@@ -200,12 +209,14 @@ function create(initialState = {}) {
     //   editSavedFiltersMode: payload,
     // }),
     // [a.updateSavedFilter]: onUpdateSavedFilter,
+    [a.setPast]: onSetPast,
   }, _.defaults(initialState, {
     activeBucket: BUCKETS.OPEN_FOR_REGISTRATION,
     // activeSavedFilter: 0,
     // editSavedFiltersMode: false,
     // savedFilters: [],
     // isSavingFilter: false,
+    past: false,
   }));
 }
 

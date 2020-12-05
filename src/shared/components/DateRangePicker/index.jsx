@@ -4,12 +4,11 @@ import cn from 'classnames';
 import { DateRangePicker as ReactDateRangePicker } from 'react-date-range';
 import PropTypes from 'prop-types';
 
-import ArrowNext from 'assets/images/long-arrow-next.svg';
 import styles from './style.scss';
 
 import DateInput from './DateInput';
 import {
-  useComponentVisible, createStaticRanges, isSameDay, isAfterDay, isBeforeDay,
+  useComponentVisible, isSameDay, isAfterDay, isBeforeDay,
 } from './helpers';
 
 function DateRangePicker(props) {
@@ -44,6 +43,14 @@ function DateRangePicker(props) {
   const isStartDateFocused = focusedRange[1] === 0;
   const isEndDateFocused = focusedRange[1] === 1;
 
+  useEffect(() => {
+    setRangeString({
+      startDateString: range.startDate ? moment(range.startDate).format('MM/DD/YYYY') : '',
+      endDateString: range.endDate ? moment(range.endDate).format('MM/DD/YYYY') : '',
+    });
+  }, [range]);
+
+
   /**
    * Handle end date change on user input
    * After user input the end date via keyboard, validate it then update the range state
@@ -52,7 +59,13 @@ function DateRangePicker(props) {
   const onEndDateChange = (e) => {
     const endDateString = e.target.value;
     const endDate = moment(endDateString, 'MM/DD/YYYY', true);
-    if (endDate.isValid()) {
+    const startDate = moment(rangeString.startDateString, 'MM/DD/YYYY', true);
+    if (endDate.isValid() && isBeforeDay(endDate, startDate)) {
+      setErrors({
+        ...errors,
+        endDate: 'Range Error',
+      });
+    } else if (endDate.isValid()) {
       onChange({
         endDate: endDate.toDate(),
         startDate: range.startDate,
@@ -90,7 +103,13 @@ function DateRangePicker(props) {
   const onStartDateChange = (e) => {
     const startDateString = e.target.value;
     const startDate = moment(startDateString, 'MM/DD/YYYY', true);
-    if (startDate.isValid()) {
+    const endDate = moment(rangeString.endDateString, 'MM/DD/YYYY', true);
+    if (startDate.isValid() && isAfterDay(startDate, endDate)) {
+      setErrors({
+        ...errors,
+        startDate: 'Range Error',
+      });
+    } else if (startDate.isValid()) {
       onChange({
         endDate: range.endDate,
         startDate: startDate.toDate(),
@@ -401,7 +420,6 @@ function DateRangePicker(props) {
           onIconClick={onIconClickStartDate}
           error={errors.startDate}
         />
-        <ArrowNext styleName="arrow" />
         <DateInput
           id="input-end-date-range"
           isActive={focusedRange[1] === 1 && isComponentVisible}
@@ -415,26 +433,40 @@ function DateRangePicker(props) {
           error={errors.endDate}
         />
       </div>
-      <div ref={calendarRef}>
+      <div ref={calendarRef} styleName="calendar-container">
         {
           isComponentVisible && (
-            <ReactDateRangePicker
-              focusedRange={focusedRange}
-              onRangeFocusChange={setFocusedRange}
-              onChange={item => onDateRangePickerChange(item.selection || item.active)}
-              dateDisplayFormat="MM/dd/yyyy"
-              showDateDisplay={false}
-              staticRanges={createStaticRanges()}
-              inputRanges={[]}
-              moveRangeOnFirstSelection={false}
-              initialFocusedRange={[0, 1]}
-              showMonthArrow={false}
-              ranges={getRanges()}
-              disabledDay={disabledDay}
-              shownDate={getShownDate()}
-              preview={preview}
-              onPreviewChange={onPreviewChange}
-            />
+            <div styleName="calendar-inner-container">
+              <ReactDateRangePicker
+                focusedRange={focusedRange}
+                onRangeFocusChange={setFocusedRange}
+                onChange={item => onDateRangePickerChange(item.selection || item.active)}
+                dateDisplayFormat="MM/dd/yyyy"
+                showDateDisplay={false}
+                staticRanges={[]}
+                inputRanges={[]}
+                moveRangeOnFirstSelection={false}
+                initialFocusedRange={[0, 1]}
+                showMonthArrow
+                ranges={getRanges()}
+                disabledDay={disabledDay}
+                shownDate={getShownDate()}
+                preview={preview}
+                onPreviewChange={onPreviewChange}
+              />
+              <button
+                type="button"
+                styleName="reset-button"
+                onClick={() => {
+                  onDateRangePickerChange({
+                    startDate: null,
+                    endDate: null,
+                  });
+                }}
+              >
+                Reset
+              </button>
+            </div>
           )
         }
       </div>

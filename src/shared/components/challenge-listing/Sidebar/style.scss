@@ -7,6 +7,31 @@
   line-height: 30px;
   width: 100%;
 
+  .StatusBar {
+    display: flex;
+    padding: 10px 24px 0;
+    background: #fafafb;
+    border-bottom: 1px solid #d5d5d5;
+    border-radius: 4px 4px 0 0;
+
+    .Status {
+      font-size: 12px;
+      line-height: 30px;
+      color: #151516;
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+
+      &.active {
+        font-weight: bold;
+        border-bottom-color: #43d7b0;
+      }
+    }
+
+    .Status + .Status {
+      margin-left: 30px;
+    }
+  }
+
   .FilterBox {
     background: $tc-white;
     padding: 2 * $base-unit;

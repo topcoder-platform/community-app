@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputMask from 'react-input-mask';
 import cn from 'classnames';
-import CalendarIcon from 'assets/images/tc-edu/icon-calendar.svg';
+import CalendarIcon from 'assets/images/tc-edu/icon-calendar-blue.svg';
 import styles from './style.scss';
 
 function DateInput(props) {
