@@ -237,7 +237,7 @@ workflows:
           filters:
             branches:
               only:                
-                - free
+                - hall-of-fame-fixes
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
