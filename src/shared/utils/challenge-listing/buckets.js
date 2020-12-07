@@ -183,8 +183,6 @@ export function registerBucket(id, bucket) {
   BUCKETS[id] = id;
   BUCKET_DATA[id] = bucket;
 }
-
-
 export function filterChanged(filter, prevFilter) {
   if (!filter || !prevFilter) {
     return true;
@@ -219,7 +217,7 @@ export function isFilterEmpty(filter, tab, bucket) {
   let empty;
 
   if (tab === 'past') {
-    f = _.pick(filter, 'tracks', 'name', 'types', 'startDateEnd', 'endDateStart');
+    f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart');
     empty = {
       tracks: {
         Dev: true,
@@ -227,13 +225,13 @@ export function isFilterEmpty(filter, tab, bucket) {
         DS: true,
         QA: true,
       },
-      name: '',
+      search: '',
       types: ['CH', 'F2F', 'TSK'],
       startDateEnd: null,
       endDateStart: null,
     };
   } else if (bucket === BUCKETS.REVIEW_OPPORTUNITIES) {
-    f = _.pick(filter, 'tracks', 'name', 'reviewOpportunityTypes');
+    f = _.pick(filter, 'tracks', 'search', 'reviewOpportunityTypes');
     empty = {
       tracks: {
         Dev: true,
@@ -241,11 +239,11 @@ export function isFilterEmpty(filter, tab, bucket) {
         DS: true,
         QA: true,
       },
-      name: '',
+      search: '',
       reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
     };
   } else {
-    f = _.pick(filter, 'tracks', 'name', 'types');
+    f = _.pick(filter, 'tracks', 'search', 'types');
     empty = {
       tracks: {
         Dev: true,
@@ -253,7 +251,7 @@ export function isFilterEmpty(filter, tab, bucket) {
         DS: true,
         QA: true,
       },
-      name: '',
+      search: '',
       types: ['CH', 'F2F', 'TSK'],
     };
   }
