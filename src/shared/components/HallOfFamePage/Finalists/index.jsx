@@ -34,6 +34,7 @@ function findTheme(track) {
     case 'DEVELOPMENT':
     case 'FIRST2FINISH':
     case 'MOD DASH':
+    case 'QA':
       return developmentAndFirst2finishTheme;
     case 'STUDIO':
     case 'UI DESIGN':
