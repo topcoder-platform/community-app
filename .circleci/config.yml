@@ -237,7 +237,7 @@ workflows:
           filters:
             branches:
               only:                
-                - gig-apply-fixes
+                - gig-work-updates
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
