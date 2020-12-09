@@ -231,6 +231,7 @@ workflows:
             branches:
               only:
                 - free
+                - community-app-tests-poc
           post-steps: 
             - run:
                 name: Run automation
