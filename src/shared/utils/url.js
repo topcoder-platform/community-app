@@ -70,10 +70,10 @@ export function updateQuery(update) {
     delete filterObj.types;
   }
 
-  // if (!(filterObj.bucket in [BUCKETS.ALL_PAST, BUCKETS.MY_PAST])) {
-  //   delete filterObj.endDateStart;
-  //   delete filterObj.startDateEnd;
-  // }
+  if (filterObj.bucket !== BUCKETS.ALL_PAST && filterObj.bucket !== BUCKETS.MY_PAST) {
+    delete filterObj.endDateStart;
+    delete filterObj.startDateEnd;
+  }
 
   let query = '?';
   const { hash } = window.location;

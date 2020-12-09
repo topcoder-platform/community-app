@@ -17,7 +17,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
+// import _ from 'lodash';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import BucketSelector from './BucketSelector';
 // import FiltersEditor from './FiltersEditor';
@@ -39,7 +39,7 @@ export default function SideBarFilters({
   // dragState,
   // editSavedFiltersMode,
   // extraBucket,
-  filterState,
+  // filterState,
   // hideTcLinksInFooter,
   isAuth,
   // resetFilterName,
@@ -49,7 +49,7 @@ export default function SideBarFilters({
   // setEditSavedFiltersMode,
   // updateAllSavedFilters,
   // updateSavedFilter,
-  setFilter,
+  // setFilter,
   past,
   setPast,
   previousBucketOfActiveTab,
@@ -62,13 +62,6 @@ export default function SideBarFilters({
       return;
     }
     setPreviousBucketOfPastChallengesTab(activeBucket);
-    setFilter({
-      ..._.omit(filterState, 'status'),
-      endDateStart: null,
-      startDateEnd: null,
-      previousStartDate: filterState.endDateStart,
-      previousEndDate: filterState.startDateEnd,
-    });
     setPast(false);
     if (previousBucketOfActiveTab) {
       selectBucket(previousBucketOfActiveTab);
@@ -82,12 +75,6 @@ export default function SideBarFilters({
       return;
     }
     setPreviousBucketOfActiveTab(activeBucket);
-    setFilter({
-      ..._.omit(filterState, 'previousStartDate', 'previousEndDate'),
-      status: 'Completed',
-      endDateStart: filterState.previousStartDate,
-      startDateEnd: filterState.previousEndDate,
-    });
     setPast(true);
     if (previousBucketOfPastChallengesTab) {
       selectBucket(previousBucketOfPastChallengesTab);
@@ -195,7 +182,7 @@ SideBarFilters.propTypes = {
   // dragSavedFilterStart: PT.func.isRequired,
   // editSavedFiltersMode: PT.bool.isRequired,
   // extraBucket: PT.string,
-  filterState: PT.shape().isRequired,
+  // filterState: PT.shape().isRequired,
   // hideTcLinksInFooter: PT.bool,
   isAuth: PT.bool,
   // resetFilterName: PT.func.isRequired,
@@ -205,7 +192,7 @@ SideBarFilters.propTypes = {
   // setEditSavedFiltersMode: PT.func.isRequired,
   // updateAllSavedFilters: PT.func.isRequired,
   // updateSavedFilter: PT.func.isRequired,
-  setFilter: PT.func.isRequired,
+  // setFilter: PT.func.isRequired,
   past: PT.bool.isRequired,
   setPast: PT.func.isRequired,
   previousBucketOfActiveTab: PT.string,

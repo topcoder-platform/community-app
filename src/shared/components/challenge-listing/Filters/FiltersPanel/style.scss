@@ -284,7 +284,7 @@
           position: relative;
           display: inline-block;
           line-height: 30px;
-          width: 33%;
+          flex: 1 1 33%;
 
           .checkbox-label {
             display: inline-block;

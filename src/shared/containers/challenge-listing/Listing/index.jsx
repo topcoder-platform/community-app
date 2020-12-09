@@ -37,6 +37,11 @@ const { mapToBackend } = challengeUtils.filter;
 let mounted = false;
 
 export class ListingContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.firstReload = false;
+  }
+
   componentDidMount() {
     const {
       activeBucket,
@@ -113,6 +118,7 @@ export class ListingContainer extends React.Component {
       dropOpenForRegistrationChallenges,
       dropPastChallenges,
       getPastChallenges,
+      past,
     } = this.props;
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
@@ -136,15 +142,19 @@ export class ListingContainer extends React.Component {
     // }
     const bucket = sortChangedBucket(sorts, prevProps.sorts);
     const f = this.getBackendFilter();
+    const fA = {
+      back: { ..._.clone(f.back), startDateEnd: null, endDateStart: null },
+      front: { ..._.clone(f.front), startDateEnd: null, endDateStart: null },
+    };
     if (bucket) {
       switch (bucket) {
         case BUCKETS.MY: {
           dropMyChallenges();
           getMyChallenges(
             0,
-            f.back,
+            fA.back,
             auth.tokenV3,
-            f.front,
+            fA.front,
           );
           break;
         }
@@ -162,9 +172,9 @@ export class ListingContainer extends React.Component {
           dropOpenForRegistrationChallenges();
           getOpenForRegistrationChallenges(
             0,
-            f.back,
+            fA.back,
             auth.tokenV3,
-            f.front,
+            fA.front,
           );
           break;
         }
@@ -172,9 +182,9 @@ export class ListingContainer extends React.Component {
           dropActiveChallenges();
           getActiveChallenges(
             0,
-            f.back,
+            fA.back,
             auth.tokenV3,
-            f.front,
+            fA.front,
           );
           break;
         }
@@ -214,7 +224,19 @@ export class ListingContainer extends React.Component {
       }
       return;
     }
-    if (filterChanged(filter, prevProps.filter)) {
+    let reload;
+    if (!this.firstReload) {
+      reload = true;
+      this.firstReload = true;
+    } else if (prevProps.past === past) {
+      reload = past
+        ? filterChanged(filter, prevProps.filter)
+        : filterChanged(
+          _.omit(filter, 'startDateEnd', 'endDateStart'),
+          _.omit(prevProps.filter, 'startDateEnd', 'endDateStart'),
+        );
+    }
+    if (reload) {
       this.reloadChallenges();
     }
     setTimeout(() => {
@@ -738,6 +760,7 @@ ListingContainer.propTypes = {
   getTotalChallengesCount: PT.func.isRequired,
   // userChallenges: PT.arrayOf(PT.string),
   // getUserChallenges: PT.func.isRequired,
+  past: PT.bool.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -797,6 +820,7 @@ const mapStateToProps = (state, ownProps) => {
     expandedTags: cl.expandedTags,
     meta: cl.meta,
     // userChallenges: cl.userChallenges,
+    past: cl.sidebar.past,
   };
 };
 
@@ -877,7 +901,6 @@ function mapDispatchToProps(dispatch) {
     //   dispatch(a.getUserChallengesInit(uuid));
     //   dispatch(a.getUserChallengesDone(userId, tokenV3));
     // },
-    setPast: isPast => dispatch(sa.setPast(isPast)),
   };
 }
 

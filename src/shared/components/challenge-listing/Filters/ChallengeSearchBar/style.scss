@@ -14,7 +14,7 @@ $challenge-radius-4: $corner-radius * 2;
   padding: 0 $base-unit * 3;
 
   @media (max-width: #{$screen-lg - 1px}) {
-    display: none;
+    padding: 0 $base-unit * 2;
   }
 }
 

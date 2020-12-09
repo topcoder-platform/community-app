@@ -284,6 +284,7 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     backendFilter,
     frontFilter: {
       ...frontFilter,
+      status: 'Active',
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sorts[BUCKETS.ALL],
@@ -291,9 +292,6 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     },
   };
   delete filter.frontFilter.sorts;
-  // if (status === 'All') {
-  //   delete filter.frontFilter.status;
-  // }
   const service = getService(tokenV3);
   return service.getChallenges(filter).then(ch => ({
     uuid,

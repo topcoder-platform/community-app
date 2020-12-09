@@ -59,14 +59,9 @@ export class Container extends React.Component {
     if (query.bucket) {
       if (query.bucket === BUCKETS.ALL_PAST || query.bucket === BUCKETS.MY_PAST) {
         setPast(true);
-        query.status = 'Completed';
       }
 
-      if (query.bucket === BUCKETS.REVIEW_OPPORTUNITIES) {
-        this.initialDefaultChallengeTypes = true;
-      }
-
-      if (!(query.bucket === BUCKETS.ALL_PAST || query.bucket === BUCKETS.MY_PAST)) {
+      if (query.bucket !== BUCKETS.ALL_PAST && query.bucket !== BUCKETS.MY_PAST) {
         delete query.endDateStart;
         delete query.startDateEnd;
       }
@@ -91,8 +86,8 @@ export class Container extends React.Component {
       this.initialDefaultChallengeTypes = true;
     }
 
-    if (query.name) {
-      setSearchText(query.name);
+    if (query.search) {
+      setSearchText(query.search);
     }
 
     if (!_.isEmpty(query)) {
@@ -108,11 +103,11 @@ export class Container extends React.Component {
     } = this.props;
 
     if (validTypes.length && !this.initialDefaultChallengeTypes) {
-      this.initialDefaultChallengeTypes = true;
       setFilterState({
         ..._.clone(filterState),
         types: validTypes.map(item => item.abbreviation),
       });
+      this.initialDefaultChallengeTypes = true;
     }
   }
 
