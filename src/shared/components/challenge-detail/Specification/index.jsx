@@ -198,6 +198,19 @@ export default function ChallengeDetailsView(props) {
                             />
                           )
                         }
+                        {
+                          privateDescription && (
+                            <React.Fragment>
+                              <h2>
+                                Registered User Additional Information
+                              </h2>
+                              <SpecificationComponent
+                                bodyText={privateDescription}
+                                format={descriptionFormat}
+                              />
+                            </React.Fragment>
+                          )
+                        }
                       </article>
                       )
                     }
@@ -225,6 +238,19 @@ export default function ChallengeDetailsView(props) {
                               bodyText={description}
                               format={descriptionFormat}
                             />
+                          )
+                        }
+                        {
+                          privateDescription && (
+                            <React.Fragment>
+                              <h2>
+                                Registered User Additional Information
+                              </h2>
+                              <SpecificationComponent
+                                bodyText={privateDescription}
+                                format={descriptionFormat}
+                              />
+                            </React.Fragment>
                           )
                         }
                         <p />
