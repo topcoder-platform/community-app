@@ -31,13 +31,13 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     it('[TC_002] should verify whether the current page is redirected to Registration page on clicking the Log in button', async () => {
       await ChallengeListingPageHelper.verifyLoginLink();
     });
-
+/*
     it('[TC_003] should verify whether the user is able to search the member by their username/skill using the search icon', async () => {
       await HeaderHelper.verifySearchByUsername(testData.search.username);
       await ChallengeListingPageHelper.open();
       await HeaderHelper.verifySearchBySkill(testData.search.skill);
     });
-
+*/
     it('[TC_004] should verify whether all the open for registration are listed on clicking the Challenge tab', async () => {
       await ChallengeListingPageHelper.verifyOpenForRegistrationChallenges();
     });
