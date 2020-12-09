@@ -58,6 +58,7 @@ export default function FiltersPanel({
   selectCommunity,
   // selectedCommunityId,
   setFilterState,
+  setSearchText,
   // validKeywords,
   validTypes,
   // isSavingFilter,
@@ -340,19 +341,13 @@ export default function FiltersPanel({
                           styleName="input-control"
                           name="past-period"
                           id={range.label}
-                          defaultChecked={range.isCustom
-                            ? (
-                              _.every(staticRanges, r => !r.isSelected({
-                                startDate: filterState.endDateStart,
-                                endDate: filterState.startDateEnd,
-                              }))
-                              && (!!filterState.endDateStart || !!filterState.startDateEnd)
-                            ) : (
-                              range.isSelected({
-                                startDate: filterState.endDateStart,
-                                endDate: filterState.startDateEnd,
-                              })
-                            )
+                          value={range.label}
+                          checked={range.isCustom
+                            ? filterState.customDate
+                            : !filterState.customDate && range.isSelected({
+                              startDate: filterState.endDateStart,
+                              endDate: filterState.startDateEnd,
+                            })
                           }
                           onChange={() => {
                             if (range.isCustom) {
@@ -561,9 +556,10 @@ export default function FiltersPanel({
               endDateStart: null,
               startDateEnd: null,
               reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
-              customDate: true,
+              customDate: false,
             });
             selectCommunity(defaultCommunityId);
+            setSearchText('');
             // localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
@@ -605,6 +601,7 @@ FiltersPanel.propTypes = {
   selectCommunity: PT.func.isRequired,
   // selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
+  setSearchText: PT.func.isRequired,
   // validKeywords: PT.arrayOf(PT.string).isRequired,
   validTypes: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,

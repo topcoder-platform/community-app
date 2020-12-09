@@ -120,6 +120,7 @@ export default function ChallengeListing(props) {
       loadingOnGoingChallenges={props.loadingOnGoingChallenges}
       loadingReviewOpportunities={props.loadingReviewOpportunities}
       loadMoreMy={props.loadMoreMy}
+      loadMoreMyPast={props.loadMoreMyPast}
       loadMoreAll={props.loadMoreAll}
       loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
       loadMoreOnGoing={props.loadMoreOnGoing}
@@ -197,6 +198,7 @@ ChallengeListing.defaultProps = {
   // extraBucket: null,
   // hideTcLinksInFooter: false,
   loadMoreMy: null,
+  loadMoreMyPast: null,
   loadMoreAll: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
@@ -245,6 +247,7 @@ ChallengeListing.propTypes = {
   loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreMy: PT.func,
+  loadMoreMyPast: PT.func,
   loadMoreAll: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMoreOnGoing: PT.func,

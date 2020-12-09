@@ -422,7 +422,7 @@ function onSetFilter(state, { payload }) {
    * do it very carefuly (many params are not validated). */
   const filter = _.pickBy(_.pick(
     payload,
-    ['tags', 'types', 'name', 'startDateEnd', 'endDateStart', 'groups', 'events', 'tracks'],
+    ['tags', 'types', 'search', 'startDateEnd', 'endDateStart', 'groups', 'events', 'tracks'],
   ), value => (!_.isArray(value) && value && value !== '') || (_.isArray(value) && value.length > 0));
 
   const emptyArrayAllowedFields = ['types'];
@@ -700,11 +700,13 @@ function create(initialState) {
       challenges: [],
       allChallenges: [],
       myChallenges: [],
+      myPastChallenges: [],
       openForRegistrationChallenges: [],
       pastChallenges: [],
       lastRequestedPageOfActiveChallenges: -1,
       lastRequestedPageOfOpenForRegistrationChallenges: -1,
       lastRequestedPageOfMyChallenges: -1,
+      lastRequestedPageOfMyPastChallenges: -1,
       lastRequestedPageOfAllChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
       // lastRequestedPageOfReviewOpportunities: -1,
@@ -712,6 +714,7 @@ function create(initialState) {
       loadingActiveChallengesUUID: '',
       loadingOpenForRegistrationChallengesUUID: '',
       loadingMyChallengesUUID: '',
+      loadingMyPastChallengesUUID: '',
       // loadingRestActiveChallengesUUID: '',
       loadingPastChallengesUUID: '',
       // loadingReviewOpportunitiesUUID: '',
@@ -911,7 +914,6 @@ function create(initialState) {
       events: [],
       startDateEnd: null,
       endDateStart: null,
-      status: 'Active',
       reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
     },
 

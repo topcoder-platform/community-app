@@ -189,7 +189,6 @@ export function filterChanged(filter, prevFilter) {
   }
   return (!_.isEqual(filter.tracks, prevFilter.tracks))
   || (filter.search !== prevFilter.search)
-  || (filter.status !== prevFilter.status)
   || (filter.startDateEnd !== prevFilter.startDateEnd)
   || (filter.endDateStart !== prevFilter.endDateStart)
   // eslint-disable-next-line max-len

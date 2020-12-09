@@ -25,6 +25,7 @@ function Listing({
   allMyChallengesLoaded,
   allMyPastChallengesLoaded,
   allChallengesLoaded,
+  allPastChallengesLoaded,
   allOpenForRegistrationChallengesLoaded,
   challenges,
   openForRegistrationChallenges,
@@ -94,7 +95,7 @@ function Listing({
       case BUCKETS.ALL_PAST:
         bucketChallenges = [].concat(pastChallenges);
         loading = loadingPastChallenges;
-        loadMore = loadMorePast;
+        loadMore = allPastChallengesLoaded ? null : loadMorePast;
         newExpanded = newExpanded || (+meta.pastChallengesCount === bucketChallenges.length);
         break;
       // case BUCKETS.PAST:
@@ -302,6 +303,7 @@ Listing.propTypes = {
   allMyChallengesLoaded: PT.bool.isRequired,
   allMyPastChallengesLoaded: PT.bool.isRequired,
   allChallengesLoaded: PT.bool.isRequired,
+  allPastChallengesLoaded: PT.bool.isRequired,
   allOpenForRegistrationChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape()),
   openForRegistrationChallenges: PT.arrayOf(PT.shape()),
@@ -356,6 +358,7 @@ const mapStateToProps = (state) => {
     allMyChallengesLoaded: cl.allMyChallengesLoaded,
     allMyPastChallengesLoaded: cl.allMyPastChallengesLoaded,
     allChallengesLoaded: cl.allChallengesLoaded,
+    allPastChallengesLoaded: cl.allPastChallengesLoaded,
     allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
     // pastSearchTimestamp: cl.pastSearchTimestamp,
     challengeTypes: cl.challengeTypes,
