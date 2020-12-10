@@ -877,10 +877,14 @@ const mapDispatchToProps = (dispatch) => {
           return challengeDetails;
         });
     },
-    setChallengeListingFilter: (filter) => {
+    setChallengeListingFilter: (filter, stateProps) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
-      const newFilter = _.assign({}, { types: [], tags: [] }, filter);
+      const newFilter = _.assign(
+        {},
+        { types: stateProps.challengeTypesMap.map(type => type.abbreviation), tags: [] },
+        filter,
+      );
       dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
       dispatch(cl.setFilter(newFilter));
     },
@@ -943,9 +947,17 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  setChallengeListingFilter: filter => dispatchProps.setChallengeListingFilter(filter, stateProps),
+});
+
 const ChallengeDetailContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(ChallengeDetailPageContainer);
 
 export default ChallengeDetailContainer;

@@ -18,7 +18,7 @@
 import React from 'react';
 import PT from 'prop-types';
 // import _ from 'lodash';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { BUCKETS, isPastBucket } from 'utils/challenge-listing/buckets';
 import BucketSelector from './BucketSelector';
 // import FiltersEditor from './FiltersEditor';
 // import Footer from './Footer';
@@ -50,19 +50,18 @@ export default function SideBarFilters({
   // updateAllSavedFilters,
   // updateSavedFilter,
   // setFilter,
-  past,
-  setPast,
   previousBucketOfActiveTab,
   previousBucketOfPastChallengesTab,
   setPreviousBucketOfActiveTab,
   setPreviousBucketOfPastChallengesTab,
 }) {
+  const past = isPastBucket(activeBucket);
+
   const onActiveClick = () => {
     if (!past) {
       return;
     }
     setPreviousBucketOfPastChallengesTab(activeBucket);
-    setPast(false);
     if (previousBucketOfActiveTab) {
       selectBucket(previousBucketOfActiveTab);
     } else {
@@ -75,7 +74,6 @@ export default function SideBarFilters({
       return;
     }
     setPreviousBucketOfActiveTab(activeBucket);
-    setPast(true);
     if (previousBucketOfPastChallengesTab) {
       selectBucket(previousBucketOfPastChallengesTab);
     } else {
@@ -193,8 +191,6 @@ SideBarFilters.propTypes = {
   // updateAllSavedFilters: PT.func.isRequired,
   // updateSavedFilter: PT.func.isRequired,
   // setFilter: PT.func.isRequired,
-  past: PT.bool.isRequired,
-  setPast: PT.func.isRequired,
   previousBucketOfActiveTab: PT.string,
   previousBucketOfPastChallengesTab: PT.string,
   setPreviousBucketOfActiveTab: PT.func,

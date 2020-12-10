@@ -211,51 +211,27 @@ export function sortChangedBucket(sorts, prevSorts) {
   return '';
 }
 
-export function isFilterEmpty(filter, tab, bucket) {
-  let f;
-  let empty;
-
-  if (tab === 'past') {
-    f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart');
-    empty = {
-      tracks: {
-        Dev: true,
-        Des: true,
-        DS: true,
-        QA: true,
-      },
-      search: '',
-      types: ['CH', 'F2F', 'TSK'],
-      startDateEnd: null,
-      endDateStart: null,
-    };
-  } else if (bucket === BUCKETS.REVIEW_OPPORTUNITIES) {
-    f = _.pick(filter, 'tracks', 'search', 'reviewOpportunityTypes');
-    empty = {
-      tracks: {
-        Dev: true,
-        Des: true,
-        DS: true,
-        QA: true,
-      },
-      search: '',
-      reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
-    };
-  } else {
-    f = _.pick(filter, 'tracks', 'search', 'types');
-    empty = {
-      tracks: {
-        Dev: true,
-        Des: true,
-        DS: true,
-        QA: true,
-      },
-      search: '',
-      types: ['CH', 'F2F', 'TSK'],
-    };
-  }
+export function isFilterEmpty(filter) {
+  const f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart', 'reviewOpportunityTypes');
+  const empty = {
+    tracks: {
+      Dev: true,
+      Des: true,
+      DS: true,
+      QA: true,
+    },
+    search: '',
+    types: ['CH', 'F2F', 'TSK'],
+    startDateEnd: null,
+    endDateStart: null,
+    reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
+  };
 
   return _.isEqual(f, empty);
+}
+
+export function isPastBucket(bucket) {
+  return [BUCKETS.ALL_PAST, BUCKETS.MY_PAST].indexOf(bucket) !== -1;
 }
 
 export default undefined;

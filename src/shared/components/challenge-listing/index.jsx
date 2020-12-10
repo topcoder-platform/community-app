@@ -13,6 +13,7 @@ import PT from 'prop-types';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 // import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 // import { config } from 'topcoder-react-utils';
+import { useMediaQuery } from 'react-responsive';
 
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
@@ -147,6 +148,8 @@ export default function ChallengeListing(props) {
   );
   // }
 
+  const desktop = useMediaQuery({ minWidth: 1024 });
+
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       <ChallengeSearchBar
@@ -154,7 +157,7 @@ export default function ChallengeListing(props) {
       />
 
       <div styleName="tc-content-wrapper">
-        <div styleName="sidebar-container-mobile">
+        <div styleName={desktop ? 'sidebar-container-desktop' : 'sidebar-container-mobile'}>
           <Sidebar
             expanding={expanding}
           />
@@ -165,23 +168,8 @@ export default function ChallengeListing(props) {
             hideSrm={hideSrm}
             isAuth={Boolean(auth.user)}
             setFilterState={props.setFilterState}
-            hidden
+            hidden={!desktop}
           />
-        </div>
-
-        <div styleName="sidebar-container-desktop">
-          <Sidebar
-            expanding={expanding}
-          />
-
-          <FilterPanel
-            communityName={communityName}
-            defaultCommunityId={defaultCommunityId}
-            hideSrm={hideSrm}
-            isAuth={Boolean(auth.user)}
-            setFilterState={props.setFilterState}
-          />
-
         </div>
 
         {challengeCardContainer}
