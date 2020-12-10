@@ -225,8 +225,6 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  const disableClearFilterButtons = isFilterEmpty(filterState);
-
   // const mapOps = item => ({ label: item, value: item });
   const mapTypes = item => ({ label: item.name, value: item.abbreviation });
   const getCommunityOption = () => {
@@ -249,6 +247,7 @@ export default function FiltersPanel({
 
   const staticRanges = createStaticRanges();
   const past = isPastBucket(activeBucket);
+  const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
   return (
     <div styleName="FiltersPanel">

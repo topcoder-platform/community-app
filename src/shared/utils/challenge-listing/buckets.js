@@ -211,21 +211,51 @@ export function sortChangedBucket(sorts, prevSorts) {
   return '';
 }
 
-export function isFilterEmpty(filter) {
-  const f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart', 'reviewOpportunityTypes');
-  const empty = {
-    tracks: {
-      Dev: true,
-      Des: true,
-      DS: true,
-      QA: true,
-    },
-    search: '',
-    types: ['CH', 'F2F', 'TSK'],
-    startDateEnd: null,
-    endDateStart: null,
-    reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
-  };
+export function isFilterEmpty(filter, tab, bucket) {
+  let f;
+  let empty;
+
+  if (tab === 'past') {
+    f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart');
+    if (f.types) f.types = [...f.types].sort();
+    empty = {
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      types: ['CH', 'F2F', 'TSK'],
+      startDateEnd: null,
+      endDateStart: null,
+    };
+  } else if (bucket === BUCKETS.REVIEW_OPPORTUNITIES) {
+    f = _.pick(filter, 'tracks', 'search', 'reviewOpportunityTypes');
+    empty = {
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
+    };
+  } else {
+    f = _.pick(filter, 'tracks', 'search', 'types');
+    if (f.types) f.types = [...f.types].sort();
+    empty = {
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      types: ['CH', 'F2F', 'TSK'],
+    };
+  }
 
   return _.isEqual(f, empty);
 }
