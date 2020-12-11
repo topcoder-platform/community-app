@@ -1,7 +1,7 @@
 @import "~styles/mixins";
 
 .container {
-  align-items: center;
+  align-items: stretch;
   display: flex;
   justify-content: space-between;
 
@@ -15,7 +15,6 @@
 .fact {
   background-color: #fff;
   border-radius: 4px;
-  height: 330px;
   width: 360px;
 
   @include xs-to-lg {
@@ -48,10 +47,10 @@
   border-top: solid 4px #5cc900;
   color: #000;
   font-size: 15px;
-  height: 150px;
   line-height: 25px;
   padding: 15px;
   text-align: left;
+  margin-top: -3px;
 
   a,
   a:visited {

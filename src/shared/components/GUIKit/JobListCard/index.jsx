@@ -36,7 +36,7 @@ export default function JobListCard({
           <IconBlackLocation /> {job.country}
         </div>
         <div styleName="icon-val">
-          <IconBlackPayment /> ${job.min_annual_salary} - ${job.max_annual_salary} / {getSalaryType(job.salary_type)}
+          <IconBlackPayment /> ${job.min_annual_salary} - {job.max_annual_salary} (USD) / {getSalaryType(job.salary_type)}
         </div>
         <div styleName="icon-val">
           <IconBlackDuration /> {getCustomField(job.custom_fields, 'Duration')}

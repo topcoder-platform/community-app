@@ -1,5 +1,5 @@
 @import '~styles/mixins';
-$table-cell-padding: 8px;
+$table-cell-padding: 2px;
 $table-border-color: #d4d4d4;
 $table-bg-hover: #f5f5f5;
 
@@ -115,13 +115,13 @@ $table-bg-hover: #f5f5f5;
 
   .col-avatar .leaderboard-avatar {
     display: inline-block;
-    height: 40px;
-    width: 40px;
+    height: 34px;
+    width: 34px;
     overflow: hidden;
 
     svg {
-      border: 3px solid rgba(0, 0, 0, 0.05);
       border-radius: 50%;
+      max-width: 100%;
     }
   }
 

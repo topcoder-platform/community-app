@@ -112,7 +112,7 @@ export const RATING_COLORS = [{
   color: '#616BD5' /* Blue */,
   limit: 1500,
 }, {
-  color: '#FCD617' /* Yellow */,
+  color: '#F2C900' /* Yellow */,
   limit: 2200,
 }, {
   color: '#EF3A3A' /* Red */,
