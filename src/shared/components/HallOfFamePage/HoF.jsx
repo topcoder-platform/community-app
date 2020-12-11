@@ -243,7 +243,7 @@ const HallOfFamePage = ({ eventId, hallOfFame }) => {
                                 {
                                   data.fields.spiritAwardWinners && (
                                     <div styleName="spirit-awards">
-                                      <h3>Spirit Award</h3>
+                                      <h3>SPIRIT AWARD WINNER</h3>
                                       <div styleName="spirit-awards-wrap">
                                         {
                                           _.map(
