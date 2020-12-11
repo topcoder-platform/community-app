@@ -125,7 +125,9 @@ class RecruitCRMJobApplyContainer extends React.Component {
       }
       // require atleast 1 skill
       if (!prop || prop === 'skills') {
-        if (!_.find(formData.skills, { selected: true })) formErrors.skills = 'Please, add technical skills';
+        const skills = _.filter(formData.skills, ['selected', true]);
+        if (!skills.length) formErrors.skills = 'Please, add technical skills';
+        else if (skills.map(skill => skill.label).join(',').length >= 100) formErrors.skills = 'Sum of all skill characters may not be greater than 100';
         else delete formErrors.skills;
       }
       // have accepted terms

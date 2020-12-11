@@ -33,22 +33,12 @@ function DropdownTerms({
   let inputField;
   useEffect(() => {
     const selectInput = containerRef.current.getElementsByClassName('Select-input');
-    const selectMenuOuter = containerRef.current.getElementsByClassName('Select-menu-outer');
     if (selectInput && selectInput.length) {
-      const selectControl = containerRef.current.getElementsByClassName(
-        'Select-control',
-      );
-      const height1 = selectMenuOuter && selectMenuOuter.length
-        ? selectMenuOuter[0].offsetHeight
-        : 0;
-      const height2 = selectControl && selectControl.length
-        ? selectControl[0].offsetHeight
-        : 0;
-      selectInput[0].style.top = focused ? `${height1 + height2 - 1}px` : '0';
       inputField = selectInput[0].getElementsByTagName('input');
       inputField[0].placeholder = focused ? addNewOptionPlaceholder : '';
       inputField[0].style.border = 'none';
       inputField[0].style.boxShadow = 'none';
+      selectInput[0].style.borderTop = 'none';
     }
   }, [focused, selectedOption]);
 
@@ -145,9 +135,13 @@ function DropdownTerms({
           backspaceRemoves={false}
           multi
           promptTextCreator={() => null}
-          filterOptions={() => _.filter(
-            internalTerms, t => !_.find(selectedOption, { label: t.label }),
-          ).map(o => ({ value: o.label, label: o.label }))}
+          filterOptions={(option, inputValue) => _.filter(
+            internalTerms,
+            t => (inputValue && inputValue.length >= 2
+              ? t.label.toLowerCase().includes(inputValue.toLowerCase())
+              && !_.find(selectedOption, { label: t.label })
+              : !_.find(selectedOption, { label: t.label })),
+          )}
         />
         <img width="15" height="9" styleName="iconDropdown" src={iconDown} alt="dropdown-arrow-icon" />
       </div>
