@@ -71,6 +71,7 @@ function Listing({
   // pastSearchTimestamp,
   isLoggedIn,
   meta,
+  setSearchText,
 }) {
   // const buckets = getBuckets(userChallenges);
   // const isChallengesAvailable = (bucket) => {
@@ -159,6 +160,7 @@ function Listing({
             sort={sorts[bucket]}
             challengeTypes={challengeTypes}
             isLoggedIn={isLoggedIn}
+            setSearchText={setSearchText}
           />
         )
         : (
@@ -194,6 +196,7 @@ function Listing({
             activeBucket={activeBucket}
             // searchTimestamp={searchTimestamp}
             isLoggedIn={isLoggedIn}
+            setSearchText={setSearchText}
           />
         )
     );
@@ -348,6 +351,7 @@ Listing.propTypes = {
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
   meta: PT.shape().isRequired,
+  setSearchText: PT.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

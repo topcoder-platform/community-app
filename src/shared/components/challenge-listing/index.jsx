@@ -49,6 +49,7 @@ export default function ChallengeListing(props) {
     // isBucketSwitching,
     isLoggedIn,
     meta,
+    setSearchText,
   } = props;
 
   // const { challenges } = props;
@@ -144,6 +145,7 @@ export default function ChallengeListing(props) {
       // userChallenges={props.userChallenges}
       isLoggedIn={isLoggedIn}
       meta={meta}
+      setSearchText={setSearchText}
     />
   );
   // }
@@ -258,4 +260,5 @@ ChallengeListing.propTypes = {
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
   meta: PT.shape().isRequired,
+  setSearchText: PT.func.isRequired,
 };

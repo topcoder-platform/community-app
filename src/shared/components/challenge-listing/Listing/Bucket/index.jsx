@@ -49,6 +49,7 @@ export default function Bucket({
   activeBucket,
   // searchTimestamp,
   isLoggedIn,
+  setSearchText,
 }) {
   const refs = useRef([]);
   refs.current = [];
@@ -128,9 +129,10 @@ export default function Bucket({
       onTechTagClicked={(tag) => {
         setFilterState({
           ..._.clone(filterState),
-          tags: [tag],
+          search: tag,
           types: challengeTypes.map(type => type.abbreviation),
         });
+        setSearchText(tag);
       }}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
@@ -256,4 +258,5 @@ Bucket.propTypes = {
   activeBucket: PT.string,
   // searchTimestamp: PT.number,
   isLoggedIn: PT.bool.isRequired,
+  setSearchText: PT.func.isRequired,
 };

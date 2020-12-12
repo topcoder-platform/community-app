@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import sidebarActions from 'actions/challenge-listing/sidebar';
+import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import communityActions from 'actions/tc-communities';
 // import SORT from 'utils/challenge-listing/sort';
 import { BUCKETS, filterChanged, sortChangedBucket } from 'utils/challenge-listing/buckets';
@@ -447,6 +448,7 @@ export class ListingContainer extends React.Component {
       // isBucketSwitching,
       // userChallenges,
       meta,
+      setSearchText,
     } = this.props;
 
     const { tokenV3 } = auth;
@@ -617,6 +619,7 @@ export class ListingContainer extends React.Component {
           // userChallenges={[]}
           isLoggedIn={isLoggedIn}
           meta={meta}
+          setSearchText={setSearchText}
         />
       </div>
     );
@@ -741,6 +744,7 @@ ListingContainer.propTypes = {
   getTotalChallengesCount: PT.func.isRequired,
   // userChallenges: PT.arrayOf(PT.string),
   // getUserChallenges: PT.func.isRequired,
+  setSearchText: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -807,6 +811,7 @@ function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing;
   const ah = headerActions.topcoderHeader;
   const sa = sidebarActions.challengeListing.sidebar;
+  const fp = filterPanelActions.challengeListing.filterPanel;
   const ca = communityActions.tcCommunity;
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
@@ -880,6 +885,7 @@ function mapDispatchToProps(dispatch) {
     //   dispatch(a.getUserChallengesInit(uuid));
     //   dispatch(a.getUserChallengesDone(userId, tokenV3));
     // },
+    setSearchText: text => dispatch(fp.setSearchText(text)),
   };
 }
 

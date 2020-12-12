@@ -14,6 +14,7 @@ import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
+import challengeListingFilterPanelActions from 'actions/challenge-listing/filter-panel';
 import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
@@ -880,13 +881,15 @@ const mapDispatchToProps = (dispatch) => {
     setChallengeListingFilter: (filter, stateProps) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
+      const fp = challengeListingFilterPanelActions.challengeListing.filterPanel;
       const newFilter = _.assign(
         {},
-        { types: stateProps.challengeTypesMap.map(type => type.abbreviation), tags: [] },
+        { types: stateProps.challengeTypes.map(type => type.abbreviation), search: '' },
         filter,
       );
       dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
       dispatch(cl.setFilter(newFilter));
+      dispatch(fp.setSearchText(newFilter.search));
     },
     setSpecsTabState: state => dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {
