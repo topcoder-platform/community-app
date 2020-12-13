@@ -49,6 +49,7 @@ export default function Bucket({
   activeBucket,
   // searchTimestamp,
   isLoggedIn,
+  setSearchText,
 }) {
   const refs = useRef([]);
   refs.current = [];
@@ -125,7 +126,14 @@ export default function Bucket({
       challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
-      onTechTagClicked={tag => setFilterState({ ..._.clone(filterState), tags: [tag], types: [] })}
+      onTechTagClicked={(tag) => {
+        setFilterState({
+          ..._.clone(filterState),
+          search: tag,
+          types: challengeTypes.map(type => type.abbreviation),
+        });
+        setSearchText(tag);
+      }}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
       key={challenge.id}
@@ -250,4 +258,5 @@ Bucket.propTypes = {
   activeBucket: PT.string,
   // searchTimestamp: PT.number,
   isLoggedIn: PT.bool.isRequired,
+  setSearchText: PT.func.isRequired,
 };

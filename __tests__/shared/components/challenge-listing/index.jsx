@@ -43,6 +43,9 @@ describe('Matches shallow shapshot 1', () => {
 describe('Matches shallow shapshot 2', () => {
   beforeEach(() => {
     jest.resetModules();
+    jest.mock('react-responsive', () => ({
+      useMediaQuery: () => true,
+    }));
     ChallengeListing = require('components/challenge-listing').default;
   });
 

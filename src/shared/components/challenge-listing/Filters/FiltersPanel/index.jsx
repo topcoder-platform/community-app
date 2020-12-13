@@ -32,7 +32,7 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { isFilterEmpty } from 'utils/challenge-listing/buckets';
+import { isFilterEmpty, isPastBucket } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
@@ -64,7 +64,6 @@ export default function FiltersPanel({
   // isSavingFilter,
   expanded,
   setExpanded,
-  past,
 }) {
   if (hidden && !expanded) {
     return (
@@ -226,8 +225,6 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
-
   // const mapOps = item => ({ label: item, value: item });
   const mapTypes = item => ({ label: item.name, value: item.abbreviation });
   const getCommunityOption = () => {
@@ -249,6 +246,8 @@ export default function FiltersPanel({
   };
 
   const staticRanges = createStaticRanges();
+  const past = isPastBucket(activeBucket);
+  const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
   return (
     <div styleName="FiltersPanel">
@@ -495,47 +494,52 @@ export default function FiltersPanel({
           ) : null
         }
 
-        <div styleName="filter-row">
-          <div styleName="filter filter community">
-            <label htmlFor="community-select" styleName="label">
-              Sub community
-              <input type="hidden" />
-            </label>
-            <Select
-              autoBlur
-              clearable={false}
-              id="community-select"
-              // onChange={selectCommunity}
-              onChange={(value) => {
-                if (value && value.startsWith('event_')) {
-                  const event = value.split('_')[1];
-                  setFilterState({
-                    ..._.clone(filterState),
-                    events: event === '' ? [] : [event],
-                    groups: [],
-                  });
-                } else {
-                  const group = value;
-                  setFilterState({
-                    ..._.clone(filterState),
-                    groups: group === '' ? [] : [group],
-                    events: [],
-                  });
-                }
-                // setFilterState({ ..._.clone(filterState), groups: [value] });
-              }}
-              options={communityOps}
-              simpleValue
-              value={getCommunityOption()}
-              valueRenderer={option => (
-                <span styleName="active-community">
-                  {option.name}
-                </span>
-              )}
-            />
-          </div>
-        </div>
+        { !isReviewOpportunitiesBucket
+          && (
+            <div styleName="filter-row">
+              <div styleName="filter filter community">
+                <label htmlFor="community-select" styleName="label">
+                  Sub community
+                  <input type="hidden" />
+                </label>
+                <Select
+                  autoBlur
+                  clearable={false}
+                  id="community-select"
+                  // onChange={selectCommunity}
+                  onChange={(value) => {
+                    if (value && value.startsWith('event_')) {
+                      const event = value.split('_')[1];
+                      setFilterState({
+                        ..._.clone(filterState),
+                        events: event === '' ? [] : [event],
+                        groups: [],
+                      });
+                    } else {
+                      const group = value;
+                      setFilterState({
+                        ..._.clone(filterState),
+                        groups: group === '' ? [] : [group],
+                        events: [],
+                      });
+                    }
+                    // setFilterState({ ..._.clone(filterState), groups: [value] });
+                  }}
+                  options={communityOps}
+                  simpleValue
+                  value={getCommunityOption()}
+                  valueRenderer={option => (
+                    <span styleName="active-community">
+                      {option.name}
+                    </span>
+                  )}
+                />
+              </div>
+            </div>
+          )
+        }
       </div>
+
       <div styleName="buttons">
         <Button
           composeContextTheme={COMPOSE.SOFT}
@@ -607,5 +611,4 @@ FiltersPanel.propTypes = {
   onClose: PT.func,
   expanded: PT.bool.isRequired,
   setExpanded: PT.func.isRequired,
-  past: PT.bool.isRequired,
 };

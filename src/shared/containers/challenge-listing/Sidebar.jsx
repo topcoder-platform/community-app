@@ -55,7 +55,7 @@ export class SidebarContainer extends React.Component {
   }
 
   render() {
-    const {
+    // const {
     // activeBucket,
     // communityFilters,
     // deleteSavedFilter,
@@ -69,9 +69,7 @@ export class SidebarContainer extends React.Component {
     // updateAllSavedFilters,
     // updateSavedFilter,
     // userChallenges,
-      past,
-      setPast,
-    } = this.props;
+    // } = this.props;
 
     const {
       previousBucketOfActiveTab,
@@ -128,8 +126,6 @@ export class SidebarContainer extends React.Component {
         setPreviousBucketOfPastChallengesTab={(bucket) => {
           this.setState({ previousBucketOfPastChallengesTab: bucket });
         }}
-        past={past}
-        setPast={setPast}
       />
     );
   }
@@ -164,8 +160,6 @@ SidebarContainer.propTypes = {
   // user: PT.shape(),
   // userChallenges: PT.arrayOf(PT.string),
   expanding: PT.bool,
-  past: PT.bool.isRequired,
-  setPast: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -201,7 +195,6 @@ function mapStateToProps(state) {
     // user: state.auth.user,
     // userChallenges: state.challengeListing.userChallenges,
     expanding: sb.expanding,
-    past: sb.past,
   };
 }
 

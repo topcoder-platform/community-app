@@ -392,6 +392,24 @@
       margin: 20px 12px 0;
     }
   }
+
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    line-height: 16px;
+    padding: 15px;
+    font-size: 36px;
+    color: $tc-black;
+    appearance: none;
+    background: none;
+    border: 0;
+
+    @include phone {
+      display: block;
+    }
+  }
 }
 
 .endDate {

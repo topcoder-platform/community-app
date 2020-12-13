@@ -217,6 +217,7 @@ export function isFilterEmpty(filter, tab, bucket) {
 
   if (tab === 'past') {
     f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart');
+    if (f.types) f.types = [...f.types].sort();
     empty = {
       tracks: {
         Dev: true,
@@ -243,6 +244,7 @@ export function isFilterEmpty(filter, tab, bucket) {
     };
   } else {
     f = _.pick(filter, 'tracks', 'search', 'types');
+    if (f.types) f.types = [...f.types].sort();
     empty = {
       tracks: {
         Dev: true,
@@ -256,6 +258,10 @@ export function isFilterEmpty(filter, tab, bucket) {
   }
 
   return _.isEqual(f, empty);
+}
+
+export function isPastBucket(bucket) {
+  return [BUCKETS.ALL_PAST, BUCKETS.MY_PAST].indexOf(bucket) !== -1;
 }
 
 export default undefined;

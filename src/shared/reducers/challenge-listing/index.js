@@ -907,7 +907,7 @@ function create(initialState) {
         DS: true,
         QA: true,
       },
-      name: '',
+      search: '',
       tags: [],
       types: [],
       groups: [],

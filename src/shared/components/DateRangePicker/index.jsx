@@ -466,6 +466,15 @@ function DateRangePicker(props) {
               >
                 Reset
               </button>
+              <button
+                type="button"
+                styleName="close-button"
+                onClick={() => {
+                  setIsComponentVisible(false);
+                }}
+              >
+                &times;
+              </button>
             </div>
           )
         }

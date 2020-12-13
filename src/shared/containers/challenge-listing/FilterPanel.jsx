@@ -4,12 +4,12 @@
 
 import actions from 'actions/challenge-listing/filter-panel';
 import challengeListingActions from 'actions/challenge-listing';
-import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/FiltersPanel';
 import PT from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -37,7 +37,6 @@ export class Container extends React.Component {
       communityList,
       getCommunityList,
       auth,
-      setPast,
       setSearchText,
     } = this.props;
 
@@ -57,15 +56,10 @@ export class Container extends React.Component {
     }
 
     if (query.bucket) {
-      if (query.bucket === BUCKETS.ALL_PAST || query.bucket === BUCKETS.MY_PAST) {
-        setPast(true);
-      }
-
       if (query.bucket !== BUCKETS.ALL_PAST && query.bucket !== BUCKETS.MY_PAST) {
         delete query.endDateStart;
         delete query.startDateEnd;
       }
-
       delete query.bucket;
     }
 
@@ -93,6 +87,9 @@ export class Container extends React.Component {
     if (!_.isEmpty(query)) {
       setFilterState(query);
     }
+
+    this.outlet = document.createElement('div');
+    document.body.appendChild(this.outlet);
   }
 
   componentDidUpdate() {
@@ -109,6 +106,10 @@ export class Container extends React.Component {
       });
       this.initialDefaultChallengeTypes = true;
     }
+  }
+
+  componentWillUnmount() {
+    this.outlet.parentElement.removeChild(this.outlet);
   }
 
   render() {
@@ -132,7 +133,7 @@ export class Container extends React.Component {
 
     const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
 
-    return (
+    const filterPanel = (
       <FilterPanel
         {...this.props}
         communityFilters={communityFilters2}
@@ -147,6 +148,12 @@ export class Container extends React.Component {
         onClose={onClose}
       />
     );
+
+    if (hidden) {
+      return expanded ? ReactDOM.createPortal(filterPanel, this.outlet) : filterPanel;
+    }
+
+    return filterPanel;
   }
 }
 
@@ -182,15 +189,12 @@ Container.propTypes = {
   hidden: PT.bool,
   onClose: PT.func.isRequired,
   validTypes: PT.arrayOf(PT.shape()).isRequired,
-  past: PT.bool.isRequired,
-  setPast: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing.filterPanel;
   const cla = challengeListingActions.challengeListing;
-  const sba = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
     getTypes: () => {
@@ -209,14 +213,12 @@ function mapDispatchToProps(dispatch) {
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
     onClose: () => dispatch(a.setExpanded(false)),
-    setPast: isPast => dispatch(sba.setPast(isPast)),
   };
 }
 
 function mapStateToProps(state, ownProps) {
   const cl = state.challengeListing;
   const tc = state.tcCommunities;
-  const sb = state.challengeListing.sidebar;
   return {
     ...ownProps,
     ...state.challengeListing.filterPanel,
@@ -232,7 +234,6 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: cl.selectedCommunityId,
     auth: state.auth,
     tokenV2: state.auth.tokenV2,
-    past: sb.past,
   };
 }
 
