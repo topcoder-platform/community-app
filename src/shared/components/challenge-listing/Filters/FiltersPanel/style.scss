@@ -284,7 +284,12 @@
           position: relative;
           display: inline-block;
           line-height: 30px;
-          flex: 1 1 33%;
+          flex: 1 0 auto;
+          min-width: calc(33% - 10px);
+
+          &:not(:last-child) {
+            padding-right: 10px;
+          }
 
           .checkbox-label {
             display: inline-block;
