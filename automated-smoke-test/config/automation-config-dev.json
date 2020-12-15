@@ -2,12 +2,12 @@
   "env": "dev",
   "logoRedirectionUrl": "https://community-app.topcoder-dev.com/",
   "businessUrl": "https://community-app.topcoder-dev.com/",
-  "switchToBusinessUrl": "https://www.topcoder.com/",
+  "switchToBusinessUrl": "https://community-app.topcoder.com/",
   "loginUrl": "https://auth.topcoder-dev.com/",
-  "redirectLoginUrl": "https://accounts-auth0.topcoder-dev.com/?retUrl=http://www.topcoder.com/",
+  "redirectLoginUrl": "https://accounts-auth0.topcoder-dev.com/?retUrl=http://community-app.topcoder-dev.com/",
   "homePageUrl": "https://community-app.topcoder-dev.com/",
   "splashPageUrl": "https://community-app.topcoder-dev.com/splash/",
-  "logoutUrl": "https://topcoder-dev.com/logout",
+  "logoutUrl": "https://community-app.topcoder-dev.com/logout",
   "toolsUrl": "https://community-app.topcoder-dev.com/settings/tools",
   "accountUrl": "https://community-app.topcoder-dev.com/settings/account",
   "profileUrl": "https://community-app.topcoder-dev.com/settings/profile",
@@ -27,17 +27,17 @@
     "qaThrive": "https://community-app.topcoder-dev.com/thrive/tracks?track=QA&tax=",
     "tco": "https://community-app.topcoder-dev.com/community/member-programs/topcoder-open",
     "programs": "https://community-app.topcoder-dev.com/community/member-programs",
-    "forums": "https://accoucommunity-app.topcoder-dev.com/member",
+    "forums": "https://accounts.topcoder-dev.com/member",
     "statistics": "https://community-app.topcoder-dev.com/community/statistics",
-    "blog": "https://www.topcoder.com/blog/",
+    "blog": "https://community-app.topcoder.com/blog/",
     "thrive": "https://community-app.topcoder-dev.com/thrive"
   },
   "subMenuUrlsAfterLogin": {
     "dashboard": "https://community-app.topcoder-dev.com/my-dashboard",
     "myProfile": "https://community-app.topcoder-dev.com/members/tester1234",
-    "payments": "https://communcommunity-app.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+    "payments": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
     "competitiveProgramming": "https://community-app.topcoder-dev.com/community/arena",
-    "forums": "https://acommunity-app.topcoder-dev.com/forums/"
+    "forums": "https://apps.topcoder-dev.com/forums/"
   },
   "footerLinks": {
     "allChallenges": "https://community-app.topcoder-dev.com/challenges",
@@ -52,7 +52,7 @@
     "programs": "https://community-app.topcoder-dev.com/community/member-programs",
     "forums": "https://apps.topcoder.com/forums",
     "statistics": "https://community-app.topcoder-dev.com/community/statistics",
-    "blog": "https://www.topcoder.com/blog/",
+    "blog": "https://community-app.topcoder.com/blog/",
     "thrive": "https://community-app.topcoder-dev.com/thrive",
     "gettingPaid": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Getting%20Paid",
     "faq": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=FAQ",
@@ -73,15 +73,15 @@
     "competitiveProgramming": "https://community-app.topcoder-dev.com/community/arena"
   },
   "socialLinks": {
-    "facebook": "https://www.facebook.com/topcoder/",
-    "youtube": "https://www.youtube.com/c/TopcoderOfficial",
-    "linkedin": "www.linkedin.com",
+    "facebook": "https://community-app.facebook.com/topcoder/",
+    "youtube": "https://community-app.youtube.com/c/TopcoderOfficial",
+    "linkedin": "community-app.linkedin.com",
     "twitter": "https://twitter.com/topcoder",
-    "instagram": "https://www.instagram.com/topcoder/"
+    "instagram": "https://community-app.instagram.com/topcoder/"
   },
-  "forumSettingUrl": "https://acommunity-app.topcoder-dev.com/forums/?module=Settings",
-  "paymentSettingUrl": "https://communcommunity-app.topcoder-dev.com/tc?module=EditPaymentPreferences",
-  "helpUrl": "https://community-community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+  "forumSettingUrl": "https://apps.topcoder-dev.com/forums/?module=Settings",
+  "paymentSettingUrl": "https://community.topcoder-dev.com/tc?module=EditPaymentPreferences",
+  "helpUrl": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
   "searchUrl": "https://community-app.topcoder-dev.com/search/members",
   "allNotificationsUrl": "https://community-app.topcoder-dev.com/notifications",
   "policiesUrl": "https://community-app.topcoder-dev.com/policy",
@@ -89,21 +89,21 @@
   "password": "appirio123",
   "email": "sathya.jayabal@gmail.com",
   "challangesLinks": {
-    "rssFeedUrl": "http://fecommunity-app.topcoder-dev.com/challenges/feed",
+    "rssFeedUrl": "http://feeds.topcoder-dev.com/challenges/feed",
     "aboutUrl": "https://community-app.topcoder-dev.com/about-the-2018-topcoder-open/",
     "contactUrl": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles/hc/en-us/articles/219069687-Contact-Support",
     "privacyUrl": "https://community-app.topcoder-dev.com/privacy-policy/",
-    "helpUrl": "https://community-community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+    "helpUrl": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
     "termsUrl": "https://community-app.topcoder-dev.com/community/how-it-works/terms/"
   },
   "challengeDetail": {
-    "url": "https://community-app.topcoder-dev.com/challenges/53383a29-80ef-4230-b48f-08a6d302f1ed",
+    "url": "https://community-app.topcoder-dev.com/challenges/ee951f3e-8c3d-41d7-b232-aa8774ff7f27",
     "termsLinkText": "Standard Terms for Topcoder Competitions v2.2",
-    "challengeName": "[Do not Register] Sample automaton Challenge",
-    "challengeTag": "Java",
+    "challengeName": "Test Automation challenge",
+    "challengeTag": "Challenge",
     "termUrl": "https://community-app.topcoder-dev.com/challenges/terms/detail/b11da5cd-713f-478d-90f4-f679ef53ee95",
-    "forumUrl": "https://submission-revcommunity-app.topcoder-dev.com/challenges/30057057",
-    "submissionUrl": "https://community-app.topcoder-dev.com/challenges/53383a29-80ef-4230-b48f-08a6d302f1ed/submit",
+    "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=0",
+    "submissionUrl": "https://community-app.topcoder-dev.com/challenges/ee951f3e-8c3d-41d7-b232-aa8774ff7f27/submit",
     "scorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001610"
   },
   "myDashboard": {
@@ -116,7 +116,7 @@
     },
     "community": {
       "name": "Blockchain Community",
-      "learnMoreUrl": "https://blockchcommunity-app.topcoder-dev.com/"
+      "learnMoreUrl": "https://blockchain.topcoder-dev.com/"
     }
   },
   "memberProfile": {
@@ -130,7 +130,7 @@
       "memberSince": "MEMBER SINCE MAY, 2009",
       "tracks": ["COPILOT", "DEVELOP", "DESIGN"],
       "quote": "I'm a designer focusing on designing mobile/ web applications and user experience.",
-      "forumLink": "https://acommunity-app.topcoder-dev.com/forums/?module=History&userID=22781893"
+      "forumLink": "https://apps.topcoder-dev.com/forums/?module=History&userID=22781893"
     },
     "memberHaveWebSectionInfo": {
       "handle": "oton",
