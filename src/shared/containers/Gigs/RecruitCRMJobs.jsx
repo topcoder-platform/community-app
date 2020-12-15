@@ -31,7 +31,7 @@ class RecruitCRMJobsContainer extends React.Component {
       term: '',
       page: 0,
       sortBy: 'created_on',
-      location: 'Any Location',
+      location: 'All',
     };
     // binds
     this.onSearch = this.onSearch.bind(this);
@@ -121,13 +121,16 @@ class RecruitCRMJobsContainer extends React.Component {
     // build current locations dropdown based on all data
     // and filter by selected location
     jobsToDisplay = _.filter(jobs, (job) => {
+      const country = job.country === 'Anywhere' || job.country === 'Any' ? 'All' : job.country;
       // build dropdown
-      const found = _.find(locations, { label: job.country });
+      const found = _.find(locations, { label: country });
       if (!found) {
-        locations.push({ label: job.country, selected: location === job.country });
+        locations.push({
+          label: country, selected: location.toLowerCase() === country.toLowerCase(),
+        });
       }
       // filter
-      if (location === 'Anywhere' || location === 'Any' || location === 'Any Location') return true;
+      if (location === 'Anywhere' || location === 'Any' || location === 'All') return true;
       return location.toLowerCase() === job.country.toLowerCase();
     });
     // sort location dropdown

@@ -44,7 +44,7 @@ export default function GigDetails(props) {
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
   const hPerW = getCustomField(job.custom_fields, 'Hours per week');
-  const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary}`;
+  const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary} (USD)`;
 
   return (
     <div styleName="container">
