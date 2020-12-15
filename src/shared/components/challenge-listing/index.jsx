@@ -4,15 +4,16 @@
  */
 
 // import _ from 'lodash';
-import ChallengeFilters from 'containers/challenge-listing/FilterPanel';
+import FilterPanel from 'containers/challenge-listing/FilterPanel';
+import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
 // import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
-import Sticky from 'react-stickynode';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 // import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 // import { config } from 'topcoder-react-utils';
+import { useMediaQuery } from 'react-responsive';
 
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
@@ -31,8 +32,9 @@ export default function ChallengeListing(props) {
     challenges,
     openForRegistrationChallenges,
     myChallenges,
+    myPastChallenges,
     allChallenges,
-    // pastChallenges,
+    pastChallenges,
     // communityFilter,
     communityName,
     defaultCommunityId,
@@ -40,13 +42,14 @@ export default function ChallengeListing(props) {
     // extraBucket,
     // filterState,
     hideSrm,
-    hideTcLinksInFooter,
+    // hideTcLinksInFooter,
     keepPastPlaceholders,
     // loadingChallenges,
     preListingMsg,
     // isBucketSwitching,
     isLoggedIn,
     meta,
+    setSearchText,
   } = props;
 
   // const { challenges } = props;
@@ -101,8 +104,9 @@ export default function ChallengeListing(props) {
       challenges={challenges}
       openForRegistrationChallenges={openForRegistrationChallenges}
       myChallenges={myChallenges}
+      myPastChallenges={myPastChallenges}
       allChallenges={allChallenges}
-      // pastChallenges={pastChallenges}
+      pastChallenges={pastChallenges}
       challengesUrl={props.challengesUrl}
       communityName={props.communityName}
       expandedTags={props.expandedTags}
@@ -110,17 +114,19 @@ export default function ChallengeListing(props) {
       // extraBucket={extraBucket}
       filterState={props.filterState}
       keepPastPlaceholders={keepPastPlaceholders}
-      // loadingPastChallenges={props.loadingPastChallenges}
+      loadingPastChallenges={props.loadingPastChallenges}
       loadingMyChallenges={props.loadingMyChallenges}
+      loadingMyPastChallenges={props.loadingMyPastChallenges}
       loadingAllChallenges={props.loadingAllChallenges}
       loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
       loadingOnGoingChallenges={props.loadingOnGoingChallenges}
       loadingReviewOpportunities={props.loadingReviewOpportunities}
       loadMoreMy={props.loadMoreMy}
+      loadMoreMyPast={props.loadMoreMyPast}
       loadMoreAll={props.loadMoreAll}
       loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
       loadMoreOnGoing={props.loadMoreOnGoing}
-      // loadMorePast={props.loadMorePast}
+      loadMorePast={props.loadMorePast}
       loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
       newChallengeDetails={props.newChallengeDetails}
       openChallengesInNewTabs={props.openChallengesInNewTabs}
@@ -139,39 +145,37 @@ export default function ChallengeListing(props) {
       // userChallenges={props.userChallenges}
       isLoggedIn={isLoggedIn}
       meta={meta}
+      setSearchText={setSearchText}
     />
   );
   // }
 
+  const desktop = useMediaQuery({ minWidth: 1024 });
+
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
-      <ChallengeFilters
-        // challenges={challenges}
-        communityName={communityName}
-        defaultCommunityId={defaultCommunityId}
-        hideSrm={hideSrm}
-        // setCardType={_.noop}
-        // isCardTypeSet="Challenges"
-        isAuth={Boolean(auth.user)}
+      <ChallengeSearchBar
         setFilterState={props.setFilterState}
       />
 
       <div styleName="tc-content-wrapper">
-        <div styleName="sidebar-container-mobile">
-          <Sidebar />
+        <div styleName={desktop ? 'sidebar-container-desktop' : 'sidebar-container-mobile'}>
+          <Sidebar
+            expanding={expanding}
+          />
+
+          <FilterPanel
+            communityName={communityName}
+            defaultCommunityId={defaultCommunityId}
+            hideSrm={hideSrm}
+            isAuth={Boolean(auth.user)}
+            setFilterState={props.setFilterState}
+            hidden={!desktop}
+          />
         </div>
 
         {challengeCardContainer}
 
-        <div styleName="sidebar-container-desktop">
-          <Sticky top={20} bottomBoundary="#challengeFilterContainer">
-            <Sidebar
-              // extraBucket={extraBucket}
-              expanding={expanding}
-              hideTcLinksInFooter={hideTcLinksInFooter}
-            />
-          </Sticky>
-        </div>
       </div>
     </div>
   );
@@ -182,12 +186,13 @@ ChallengeListing.defaultProps = {
   // communityFilter: null,
   communityName: null,
   // extraBucket: null,
-  hideTcLinksInFooter: false,
+  // hideTcLinksInFooter: false,
   loadMoreMy: null,
+  loadMoreMyPast: null,
   loadMoreAll: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
-  // loadMorePast: null,
+  loadMorePast: null,
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
@@ -207,9 +212,10 @@ ChallengeListing.propTypes = {
   expanding: PT.bool,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   openForRegistrationChallenges: PT.arrayOf(PT.shape()).isRequired,
-  myChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
-  allChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
-  // pastChallenges: PT.arrayOf(PT.arrayOf()).isRequired,
+  myChallenges: PT.arrayOf(PT.shape()).isRequired,
+  myPastChallenges: PT.arrayOf(PT.shape()).isRequired,
+  allChallenges: PT.arrayOf(PT.shape()).isRequired,
+  pastChallenges: PT.arrayOf(PT.shape()).isRequired,
   challengesUrl: PT.string.isRequired,
   // communityFilter: PT.shape(),
   communityName: PT.string,
@@ -219,21 +225,23 @@ ChallengeListing.propTypes = {
   // extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   hideSrm: PT.bool.isRequired,
-  hideTcLinksInFooter: PT.bool,
+  // hideTcLinksInFooter: PT.bool,
   keepPastPlaceholders: PT.bool.isRequired,
   // lastUpdateOfActiveChallenges: PT.number.isRequired,
   // loadingChallenges: PT.bool.isRequired,
   loadingMyChallenges: PT.bool.isRequired,
+  loadingMyPastChallenges: PT.bool.isRequired,
   loadingAllChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
-  // loadingPastChallenges: PT.bool.isRequired,
+  loadingPastChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreMy: PT.func,
+  loadMoreMyPast: PT.func,
   loadMoreAll: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMoreOnGoing: PT.func,
-  // loadMorePast: PT.func,
+  loadMorePast: PT.func,
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
@@ -252,4 +260,5 @@ ChallengeListing.propTypes = {
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
   meta: PT.shape().isRequired,
+  setSearchText: PT.func.isRequired,
 };
