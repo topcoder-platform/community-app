@@ -10,9 +10,7 @@ import PT from 'prop-types';
 import React, { useRef } from 'react';
 // import { config } from 'topcoder-react-utils';
 import Sort from 'utils/challenge-listing/sort';
-// import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA }
-// from 'utils/challenge-listing/buckets';
-import { NO_LIVE_CHALLENGES_CONFIG, BUCKET_DATA } from 'utils/challenge-listing/buckets';
+import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA } from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -51,6 +49,7 @@ export default function Bucket({
   activeBucket,
   // searchTimestamp,
   isLoggedIn,
+  setSearchText,
 }) {
   const refs = useRef([]);
   refs.current = [];
@@ -64,7 +63,7 @@ export default function Bucket({
   // const sortedChallenges = activeBucket === 'all' ?
   //   _.clone(challenges.slice(0, 10)) : _.clone(challenges);
   let sortedChallenges;
-  if (activeBucket === 'all' && !expanded) {
+  if ((activeBucket === BUCKETS.ALL || activeBucket === BUCKETS.ALL_PAST) && !expanded) {
     if (loadMore && challenges.length > 10) {
       sortedChallenges = _.clone(challenges);
     } else {
@@ -81,7 +80,7 @@ export default function Bucket({
   //   filter: filterState,
   // }, { encodeValuesOnly: true });
 
-  const expandable = activeBucket === 'all';
+  const expandable = activeBucket === BUCKETS.ALL || activeBucket === BUCKETS.ALL_PAST;
   // const filteredChallenges = [];
   // for (let i = 0; i < sortedChallenges.length; i += 1) {
   // if (filter(sortedChallenges[i])) {
@@ -127,7 +126,14 @@ export default function Bucket({
       challengeType={_.find(challengeTypes, { name: challenge.type })}
       challengesUrl={challengesUrl}
       newChallengeDetails={newChallengeDetails}
-      onTechTagClicked={tag => setFilterState({ ..._.clone(filterState), tags: [tag], types: [] })}
+      onTechTagClicked={(tag) => {
+        setFilterState({
+          ..._.clone(filterState),
+          search: tag,
+          types: challengeTypes.map(type => type.abbreviation),
+        });
+        setSearchText(tag);
+      }}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
       key={challenge.id}
@@ -252,4 +258,5 @@ Bucket.propTypes = {
   activeBucket: PT.string,
   // searchTimestamp: PT.number,
   isLoggedIn: PT.bool.isRequired,
+  setSearchText: PT.func.isRequired,
 };

@@ -5,9 +5,9 @@
   cursor: default;
   font-weight: 600;
 
-  @include xs-to-sm {
-    background: $tc-white;
-  }
+  // @include xs-to-sm {
+  //   background: $tc-white;
+  // }
 }
 
 .bucket {
@@ -16,10 +16,10 @@
   cursor: pointer;
   padding: 0 2 * $base-unit 0 3 * $base-unit;
 
-  @include xs-to-sm {
-    font-size: 15px;
-    padding: 2px 0;
-  }
+  // @include xs-to-sm {
+  //   font-size: 15px;
+  //   padding: 2px 0;
+  // }
 }
 
 .right {
