@@ -20,5 +20,4 @@ if [ $? -eq 0 ]; then
   echo "Test case successfully completed"
 else
   echo "Test case Failed"
-  exit 1
 fi
