@@ -4,6 +4,7 @@ import { CommonHelper } from '../common-page/common.helper';
 import { LoginPageConstants } from './login.constants';
 import { LoginPage } from './login.po';
 import { SplashPage } from '../splash/splash.po';
+import { BrowserHelper } from 'topcoder-testing-lib';
 
 export class LoginPageHelper {
   /**
@@ -30,7 +31,7 @@ export class LoginPageHelper {
   public static async login(username: string, password: string) {
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
-    await this.loginPageObject.waitForHomePage();
+    await BrowserHelper.sleep(5000);
   }
 
   /**
@@ -38,7 +39,7 @@ export class LoginPageHelper {
    */
   public static async logout() {
     await this.loginPageObject.logout();
-    await this.loginPageObject.waitForHomePage();
+    await BrowserHelper.sleep(5000);
   }
 
   /**

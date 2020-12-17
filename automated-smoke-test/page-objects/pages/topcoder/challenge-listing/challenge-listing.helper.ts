@@ -137,7 +137,7 @@ export class ChallengeListingPageHelper {
     expect(isDisplayed).toEqual(true);
   }
 
-  public static async scrollDownToPage(totalChallenge = 10) {
+  public static async scrollDownToPage(totalChallenge = 100) {
     const scrollCount = totalChallenge / 10 + 1;
       for (var i = 0; i < scrollCount; i++) {
         await BrowserHelper.executeScript('arguments[0].scrollIntoView();', CommonHelper.findElementByText(
