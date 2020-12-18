@@ -224,24 +224,6 @@ export default function GigApply(props) {
                       errorMsg={formErrors.whyFit}
                       value={formData.whyFit}
                     />
-                    <p>What is your availability per week?</p>
-                    <div styleName="checkboxes-row">
-                      {
-                        _.map(formData.timeAvailability, (cbox, indx) => (
-                          <div styleName="checkbox" key={`cbox-${indx}`}>
-                            <Checkbox
-                              onChange={(val) => {
-                                formData.timeAvailability[indx].checked = val;
-                                onFormInputChange('timeAvailability', formData.timeAvailability);
-                              }}
-                              checked={formData.timeAvailability[indx].checked}
-                              size="lg"
-                            />
-                            <span styleName="label">{cbox.label}</span>
-                          </div>
-                        ))
-                      }
-                    </div>
                     <p>Are you able to work during the specified timezone? (<strong>{`${getCustomField(job.custom_fields, 'Timezone')}`}</strong>)</p>
                     <RadioButton
                       onChange={val => onFormInputChange('timezoneConfirm', val)}
