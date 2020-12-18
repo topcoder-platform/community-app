@@ -260,6 +260,7 @@ workflows:
             branches:
               only:
                 - develop
+                - auth-lib-1.0.4
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
