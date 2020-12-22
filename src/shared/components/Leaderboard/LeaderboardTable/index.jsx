@@ -93,7 +93,7 @@ export default function LeaderboardTable(props) {
                 <div
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
-                  style={{ color: rating ? getRatingColor(rating) : null }}
+                  style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
@@ -101,7 +101,7 @@ export default function LeaderboardTable(props) {
                 <a
                   href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
                   target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
-                  style={{ color: rating ? getRatingColor(rating) : null }}
+                  style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
