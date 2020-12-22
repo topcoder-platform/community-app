@@ -60,7 +60,6 @@ function normalizeRecruitPayload(job, payload) {
     `Date Available: ${new Date(payload.availFrom).toDateString()}`,
     `Heard About Gig: ${payload.reffereal}`,
     `Why fit: ${payload.whyFit}`,
-    `Availability Per Week: ${payload.timeAvailability.filter(s => s.checked).map(s => s.label).join(',')}`,
     `Able to work during timezone? ${payload.timezoneConfirm.filter(s => s.value).map(s => s.label).join(',')}`,
     `Am I ok to work the duration? ${payload.durationConfirm.filter(s => s.value).map(s => s.label).join(',')}`,
     `Notes: ${payload.notes}`,

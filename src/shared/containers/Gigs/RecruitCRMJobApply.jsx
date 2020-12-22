@@ -25,9 +25,6 @@ class RecruitCRMJobApplyContainer extends React.Component {
         skills: _.map(techSkills, label => ({ label, selected: false })),
         durationConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
         timezoneConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
-        timeAvailability: [
-          { label: '10 hours', checked: false }, { label: '20 hours', checked: false }, { label: '30 hours', checked: false }, { label: '40 hours', checked: false },
-        ],
         agreedTerms: false,
         country: _.map(countries.getNames('en'), val => ({ label: val, selected: false })),
         // eslint-disable-next-line react/destructuring-assignment
