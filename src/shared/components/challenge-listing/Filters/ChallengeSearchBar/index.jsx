@@ -30,7 +30,7 @@ export default function ChallengeSearchBar({
             id="search-challenges"
             onInput={(e) => {
               const s = e.target.value;
-              onSearch(s.trim());
+              onSearch(s);
             }}
             placeholder={placeholder}
             type="text"
