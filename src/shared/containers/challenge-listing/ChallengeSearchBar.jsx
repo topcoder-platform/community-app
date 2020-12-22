@@ -23,7 +23,7 @@ export class Container extends React.Component {
       filterState,
     } = this.props;
 
-    setFilterState({ ..._.clone(filterState), search: text });
+    setFilterState({ ..._.clone(filterState), search: text.trim() });
   }
 
   render() {
