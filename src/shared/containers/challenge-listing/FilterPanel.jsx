@@ -99,7 +99,7 @@ export class Container extends React.Component {
       validTypes,
     } = this.props;
 
-    if (validTypes.length && !this.initialDefaultChallengeTypes) {
+    if (!filterState.types.length && validTypes.length && !this.initialDefaultChallengeTypes) {
       setFilterState({
         ..._.clone(filterState),
         types: validTypes.map(item => item.abbreviation),
