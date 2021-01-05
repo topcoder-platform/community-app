@@ -46,3 +46,4 @@ As of now, the tests are running in headless mode. To view the actual chrom brow
 
 - config.json holds the data level configuration, like user credentials etc
 - conf.ts holds the application configuration, like jasmine reporters to be configured, specs to be run etc.
+ 
