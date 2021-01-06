@@ -26,7 +26,6 @@ export default {
     name: 'Current phase',
   },
   [SORTS.MOST_RECENT]: {
-    // func: (a, b) => moment(b.registrationStartDate).diff(a.registrationStartDate),
     name: 'Most recent',
     order: 'desc',
   },
@@ -34,14 +33,6 @@ export default {
     name: 'Most recent',
     order: 'desc',
   },
-  // [SORTS.NUM_REGISTRANTS]: {
-  //   func: (a, b) => b.numOfRegistrants - a.numOfRegistrants,
-  //   name: '# of registrants',
-  // },
-  // [SORTS.NUM_SUBMISSIONS]: {
-  //   func: (a, b) => b.numOfSubmissions - a.numOfSubmissions,
-  //   name: '# of submissions',
-  // },
   [SORTS.PRIZE_HIGH_TO_LOW]: {
     func: (a, b) => b.totalPrize - a.totalPrize,
     name: 'Prize high to low',
