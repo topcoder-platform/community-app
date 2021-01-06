@@ -11,7 +11,7 @@ export const SORTS = {
   MOST_RECENT_START_DATE: 'startDate',
   // NUM_REGISTRANTS: 'num-registrants',
   // NUM_SUBMISSIONS: 'num-submissions',
-  PRIZE_HIGH_TO_LOW: 'prizeSets.prizes.value',
+  PRIZE_HIGH_TO_LOW: 'overview.totalPrizes',
   TIME_TO_REGISTER: 'registrationEndDate',
   TIME_TO_SUBMIT: 'submissionEndDate',
   TITLE_A_TO_Z: 'name',
