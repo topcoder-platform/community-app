@@ -10,7 +10,7 @@ import './style.scss';
 
 export default function Header({
   // numChallenges,
-  numCommunities,
+  // numCommunities,
   switchTab,
   tab,
 }) {
@@ -22,14 +22,15 @@ export default function Header({
   if (numChallenges) myChallengesTitle += ` (${numChallenges})`;
   */
 
-  let myCommunitiesTitle = 'My Communities';
-  if (numCommunities) myCommunitiesTitle += ` (${numCommunities})`;
+  // let myCommunitiesTitle = 'My Communities';
+  // if (numCommunities) myCommunitiesTitle += ` (${numCommunities})`;
 
   return (
     <div styleName="container">
       <Carousel
         alignItems="start"
       >
+        <Option />
         {/* {/* Temporary hide My Active Challenges - community-app#5004
         <Option
           selected={tab === TABS.MY_ACTIVE_CHALLENGES}
@@ -37,16 +38,19 @@ export default function Header({
           title={myChallengesTitle}
         />
         */}
+        {/* Hide My Communities community-app#5288
         <Option
           selected={tab === TABS.COMMUNITIES}
           select={() => switchTab(TABS.COMMUNITIES)}
           title={myCommunitiesTitle}
         />
+        */}
         <Option
           selected={tab === TABS.SRMS}
           select={() => switchTab(TABS.SRMS)}
           title="SRMs"
         />
+        <Option />
       </Carousel>
     </div>
   );
@@ -54,7 +58,7 @@ export default function Header({
 
 Header.propTypes = {
   // numChallenges: PT.number.isRequired,
-  numCommunities: PT.number.isRequired,
+  // numCommunities: PT.number.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.string.isRequired,
 };
