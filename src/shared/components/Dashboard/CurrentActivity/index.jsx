@@ -5,16 +5,16 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { TABS } from 'actions/page/dashboard';
 
-import { challenge as challengeUtils } from 'topcoder-react-lib';
+// import { challenge as challengeUtils } from 'topcoder-react-lib';
 
-import Challenges from './Challenges';
-import Communities from './Communities';
+// import Challenges from './Challenges';
+// import Communities from './Communities';
 import Header from './Header';
 import Srms from './Srms';
 
 import './styles.scss';
 
-const Filter = challengeUtils.filter;
+// const Filter = challengeUtils.filter;
 
 /* eslint-disable react/no-unused-state */
 
@@ -52,27 +52,28 @@ export default class MyChallenges extends React.Component {
 
   render() {
     const {
-      challengeFilter,
-      challenges,
-      challengesLoading,
-      communities,
-      communitiesLoading,
-      communityStats,
-      selectChallengeDetailsTab,
-      setChallengeListingFilter,
-      showChallengeFilter,
+      // challengeFilter,
+      // challenges,
+      // challengesLoading,
+      // communities,
+      // communitiesLoading,
+      // communityStats,
+      // selectChallengeDetailsTab,
+      // setChallengeListingFilter,
+      // showChallengeFilter,
       srms,
       srmsLoading,
-      switchChallengeFilter,
-      switchShowChallengeFilter,
+      // switchChallengeFilter,
+      // switchShowChallengeFilter,
       switchTab,
       tab,
-      unregisterFromChallenge,
-      userGroups,
-      userResources,
-      challengeTypesMap,
+      // unregisterFromChallenge,
+      // userGroups,
+      // userResources,
+      // challengeTypesMap,
     } = this.props;
 
+    /* Hide My Communities community-app#5288
     const myCommunities = communities.filter(x => _.intersection(userGroups, x.groupIds).length)
       .map((community) => {
         const filter = Filter.getFilterFunction(community.challengeFilter);
@@ -80,16 +81,17 @@ export default class MyChallenges extends React.Component {
         res.number = challenges.filter(x => filter(x)).length;
         return res;
       });
+    */
 
     return (
       <div styleName="container">
         <Header
-          numChallenges={challenges.length}
-          numCommunities={myCommunities.length}
+          // numChallenges={challenges.length}
+          // numCommunities={myCommunities.length}
           switchTab={switchTab}
           tab={tab}
         />
-        {
+        { /*
           tab === TABS.MY_ACTIVE_CHALLENGES ? (
             <Challenges
               challengeFilter={challengeFilter}
@@ -111,8 +113,8 @@ export default class MyChallenges extends React.Component {
               challengeTypesMap={challengeTypesMap}
             />
           ) : null
-        }
-        {
+        */}
+        {/* Hide My Communities community-app#5288
           tab === TABS.COMMUNITIES ? (
             <Communities
               communities={myCommunities}
@@ -120,7 +122,7 @@ export default class MyChallenges extends React.Component {
               communityStats={communityStats}
             />
           ) : null
-        }
+        */}
         {
           tab === TABS.SRMS ? (
             <Srms
@@ -135,28 +137,28 @@ export default class MyChallenges extends React.Component {
 }
 
 MyChallenges.defaultProps = {
-  challenges: [],
-  userResources: [],
+  // challenges: [],
+  // userResources: [],
 };
 
 MyChallenges.propTypes = {
-  challengeFilter: PT.string.isRequired,
-  challenges: PT.arrayOf(PT.object),
-  challengesLoading: PT.bool.isRequired,
-  communities: PT.arrayOf(PT.object).isRequired,
-  communitiesLoading: PT.bool.isRequired,
-  communityStats: PT.shape().isRequired,
-  selectChallengeDetailsTab: PT.func.isRequired,
-  setChallengeListingFilter: PT.func.isRequired,
-  showChallengeFilter: PT.bool.isRequired,
+  // challengeFilter: PT.string.isRequired,
+  // challenges: PT.arrayOf(PT.object),
+  // challengesLoading: PT.bool.isRequired,
+  // communities: PT.arrayOf(PT.object).isRequired,
+  // communitiesLoading: PT.bool.isRequired,
+  // communityStats: PT.shape().isRequired,
+  // selectChallengeDetailsTab: PT.func.isRequired,
+  // setChallengeListingFilter: PT.func.isRequired,
+  // showChallengeFilter: PT.bool.isRequired,
   srms: PT.arrayOf(PT.object).isRequired,
   srmsLoading: PT.bool.isRequired,
-  switchChallengeFilter: PT.func.isRequired,
-  switchShowChallengeFilter: PT.func.isRequired,
+  // switchChallengeFilter: PT.func.isRequired,
+  // switchShowChallengeFilter: PT.func.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.oneOf(_.values(TABS)).isRequired,
-  unregisterFromChallenge: PT.func.isRequired,
-  userGroups: PT.arrayOf(PT.string).isRequired,
-  userResources: PT.arrayOf(PT.shape()),
-  challengeTypesMap: PT.shape().isRequired,
+  // unregisterFromChallenge: PT.func.isRequired,
+  // userGroups: PT.arrayOf(PT.string).isRequired,
+  // userResources: PT.arrayOf(PT.shape()),
+  // challengeTypesMap: PT.shape().isRequired,
 };
