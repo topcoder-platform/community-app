@@ -231,7 +231,7 @@ workflows:
             branches:
               only:
                 - develop
-                - community-app-tests-poc
+                - develop_automation
           post-steps: 
             - run:
                 name: Run automation
