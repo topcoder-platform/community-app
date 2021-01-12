@@ -230,7 +230,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - develop
                 - community-app-tests-poc
           post-steps: 
             - run:
@@ -245,22 +245,21 @@ workflows:
           filters:
             branches:
               only:                
-                - gig-apply-fixes
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - seo-fix
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - integration-v5-challenge-api
-                - hot-fix
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
@@ -268,7 +267,6 @@ workflows:
             branches:
               only:
                 - develop
-                - listing-search
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
@@ -288,4 +286,3 @@ workflows:
             branches:
               ignore:
                 - develop
-  

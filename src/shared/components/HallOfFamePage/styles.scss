@@ -179,6 +179,7 @@
 
   img {
     min-height: 375px;
+    max-height: 100%;
     width: 100%;
   }
 
@@ -253,6 +254,7 @@
     margin: 0;
     padding: 0;
     width: 127px;
+    white-space: nowrap;
   }
 
   margin: 7px;
@@ -370,5 +372,39 @@
 
   .color2 {
     background-color: #5cc900;
+  }
+}
+
+.spirit-awards {
+  margin: 40px auto 60px auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2c6f3;
+  border-radius: 4px;
+  width: 173px;
+
+  h3 {
+    margin: 0;
+    background-color: #914da5;
+    border-radius: 4px 4px 0 0;
+    color: #fff;
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .spirit-awards-wrap {
+    display: flex;
+    justify-content: center;
+
+    a {
+      font-size: 16px;
+    }
+
+    p {
+      margin: 0;
+    }
   }
 }

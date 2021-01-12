@@ -29,6 +29,7 @@ import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import _ from 'lodash';
 import DefaultAvatar from 'assets/images/default-avatar-photo.svg';
+import { getRatingColor } from 'utils/tc';
 
 
 import avatarStyles from '../avatarStyles.scss';
@@ -68,6 +69,7 @@ export default function LeaderboardTable(props) {
       const fulfillment = competitor['tco_leaderboard.fulfillment']
         ? (parseFloat(competitor['tco_leaderboard.fulfillment']) * 100).toFixed(2).replace(/[.,]00$/, '')
         : competitor.fulfillment;
+      const rating = competitor['member_profile_basic.max_rating'];
       return (
         <tr key={competitor.rank}>
           <td styleName={`${stylesName}.col-rank`}>{competitor.rank}</td>
@@ -91,11 +93,16 @@ export default function LeaderboardTable(props) {
                 <div
                   styleName={`${stylesName}.handle-link`}
                   onClick={() => onUsernameClick(competitor)}
+                  style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
                 >
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </div>
               ) : (
-                <a href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}>
+                <a
+                  href={`${window.origin}/members/${competitor['member_profile_basic.handle'] || competitor.handle}/`}
+                  target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+                  style={{ color: rating !== undefined ? getRatingColor(rating) : null }}
+                >
                   {competitor['member_profile_basic.handle'] || competitor.handle}
                 </a>
               )

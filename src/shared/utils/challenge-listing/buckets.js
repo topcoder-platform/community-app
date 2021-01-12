@@ -3,6 +3,7 @@
  */
 
 import _ from 'lodash';
+import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import { SORTS } from './sort';
 
 export const BUCKETS = {
@@ -10,11 +11,13 @@ export const BUCKETS = {
   MY: 'my',
   OPEN_FOR_REGISTRATION: 'openForRegistration',
   ONGOING: 'ongoing',
-  // PAST: 'past',
+  PAST: 'past',
   // SAVED_FILTER: 'saved-filter',
   // UPCOMING: 'upcoming',
   REVIEW_OPPORTUNITIES: 'reviewOpportunities',
   // SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
+  ALL_PAST: 'allPast',
+  MY_PAST: 'myPast',
 };
 
 export const BUCKET_DATA = {
@@ -120,6 +123,20 @@ export const BUCKET_DATA = {
   //     // SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
   //   ],
   // },
+  [BUCKETS.ALL_PAST]: {
+    name: 'All Past Challenges',
+    sorts: [
+      SORTS.MOST_RECENT_START_DATE,
+      SORTS.TITLE_A_TO_Z,
+    ],
+  },
+  [BUCKETS.MY_PAST]: {
+    name: 'My Past Challenges',
+    sorts: [
+      SORTS.MOST_RECENT_START_DATE,
+      SORTS.TITLE_A_TO_Z,
+    ],
+  },
 };
 
 export const NO_LIVE_CHALLENGES_CONFIG = {
@@ -130,6 +147,8 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
   // [BUCKETS.PAST]: 'No challenges found in Past Challenges',
   // [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
   // [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
+  [BUCKETS.ALL_PAST]: 'No challenges found in All Past Challenges',
+  [BUCKETS.MY_PAST]: 'No challenges found in My Past Challenges',
 };
 
 /**
@@ -164,15 +183,12 @@ export function registerBucket(id, bucket) {
   BUCKETS[id] = id;
   BUCKET_DATA[id] = bucket;
 }
-
-
 export function filterChanged(filter, prevFilter) {
   if (!filter || !prevFilter) {
     return true;
   }
   return (!_.isEqual(filter.tracks, prevFilter.tracks))
-  || (filter.name !== prevFilter.name)
-  || (filter.status !== prevFilter.status)
+  || (filter.search !== prevFilter.search)
   || (filter.startDateEnd !== prevFilter.startDateEnd)
   || (filter.endDateStart !== prevFilter.endDateStart)
   // eslint-disable-next-line max-len
@@ -190,23 +206,62 @@ export function sortChangedBucket(sorts, prevSorts) {
   if (sorts.all !== prevSorts.all) return 'all';
   if (sorts.openForRegistration !== prevSorts.openForRegistration) return 'openForRegistration';
   // if (sorts.past !== prevSorts.past) return 'past';
+  if (sorts.allPast !== prevSorts.allPast) return 'allPast';
+  if (sorts.myPast !== prevSorts.myPast) return 'myPast';
   return '';
 }
 
-export function isFilterEmpty(filter) {
-  return _.isEqual(filter.tracks, {
-    Dev: true,
-    Des: true,
-    DS: true,
-    QA: true,
-  })
-  && !filter.name.length
-  && !filter.tags.length
-  && !filter.types.length
-  && !filter.groups.length
-  && !filter.events.length
-  && !filter.endDateStart
-  && !filter.startDateEnd;
+export function isFilterEmpty(filter, tab, bucket) {
+  let f;
+  let empty;
+
+  if (tab === 'past') {
+    f = _.pick(filter, 'tracks', 'search', 'types', 'startDateEnd', 'endDateStart');
+    if (f.types) f.types = [...f.types].sort();
+    empty = {
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      types: ['CH', 'F2F', 'TSK'],
+      startDateEnd: null,
+      endDateStart: null,
+    };
+  } else if (bucket === BUCKETS.REVIEW_OPPORTUNITIES) {
+    f = _.pick(filter, 'tracks', 'search', 'reviewOpportunityTypes');
+    empty = {
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
+    };
+  } else {
+    f = _.pick(filter, 'tracks', 'search', 'types');
+    if (f.types) f.types = [...f.types].sort();
+    empty = {
+      tracks: {
+        Dev: true,
+        Des: true,
+        DS: true,
+        QA: true,
+      },
+      search: '',
+      types: ['CH', 'F2F', 'TSK'],
+    };
+  }
+
+  return _.isEqual(f, empty);
+}
+
+export function isPastBucket(bucket) {
+  return [BUCKETS.ALL_PAST, BUCKETS.MY_PAST].indexOf(bucket) !== -1;
 }
 
 export default undefined;

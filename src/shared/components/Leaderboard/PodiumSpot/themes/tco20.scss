@@ -11,7 +11,7 @@ $podium-border-color: #ededf2;
     display: inline-block;
     position: relative;
     margin-bottom: 12px;
-    margin-right: 20px;
+    margin-right: 11px;
     overflow: visible;
   }
 
@@ -19,12 +19,16 @@ $podium-border-color: #ededf2;
     @include roboto-black;
 
     border-radius: 20px;
-    padding: 3px 9px;
-    display: inline-block;
+    display: flex;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     right: 0;
     bottom: -10px;
     font-size: 15px;
+    width: 28px;
+    height: 28px;
   }
 
   .winnings-info span {
@@ -91,12 +95,13 @@ $podium-border-color: #ededf2;
   .handle-link,
   a.profile-link {
     color: #0d61bf;
-    font-family: Barlow, sans-serif;
+    font-family: Roboto, sans-serif;
     font-size: 16px;
     font-weight: 600;
-    line-height: 19px;
+    line-height: 24px;
     text-align: left;
     text-decoration: underline;
+    margin-top: 11px;
     margin-bottom: 13px;
 
     &:hover {
@@ -110,37 +115,37 @@ $podium-border-color: #ededf2;
 }
 
 .PodiumSpot--first {
-  background-color: #ffd84d;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
+    background-color: #ffd84d;
     color: #fff;
   }
 }
 
 .PodiumSpot--second {
-  background-color: #d4d4d4;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
+    background-color: #746b65;
     color: #fff;
   }
 }
 
 .PodiumSpot--third {
-  background-color: #f1a87d;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
+    background-color: #854e29;
     color: #fff;
   }
 }
 
 .PodiumSpot--fourth {
-  background-color: #8dccd4;
+  background-color: #f4f4f4;
 
   .ranking {
-    background-color: #2a2a2a;
+    background-color: #1e94a3;
     color: #fff;
   }
 }

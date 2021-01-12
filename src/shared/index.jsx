@@ -22,6 +22,9 @@ require('styles/global.scss');
 require('slick-carousel/slick/slick.css');
 require('slick-carousel/slick/slick-theme.css');
 
+require('react-date-range/dist/styles.css');
+require('react-date-range/dist/theme/default.css');
+
 const App = require('./app').default;
 
 export default App;

@@ -17,10 +17,11 @@
 
 import React from 'react';
 import PT from 'prop-types';
-
+// import _ from 'lodash';
+import { BUCKETS, isPastBucket } from 'utils/challenge-listing/buckets';
 import BucketSelector from './BucketSelector';
 // import FiltersEditor from './FiltersEditor';
-import Footer from './Footer';
+// import Footer from './Footer';
 import './style.scss';
 
 export default function SideBarFilters({
@@ -48,9 +49,68 @@ export default function SideBarFilters({
   // setEditSavedFiltersMode,
   // updateAllSavedFilters,
   // updateSavedFilter,
+  // setFilter,
+  previousBucketOfActiveTab,
+  previousBucketOfPastChallengesTab,
+  setPreviousBucketOfActiveTab,
+  setPreviousBucketOfPastChallengesTab,
 }) {
+  const past = isPastBucket(activeBucket);
+
+  const onActiveClick = () => {
+    if (!past) {
+      return;
+    }
+    setPreviousBucketOfPastChallengesTab(activeBucket);
+    if (previousBucketOfActiveTab) {
+      selectBucket(previousBucketOfActiveTab);
+    } else {
+      selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
+    }
+  };
+
+  const onPastChallengesClick = () => {
+    if (past) {
+      return;
+    }
+    setPreviousBucketOfActiveTab(activeBucket);
+    if (previousBucketOfPastChallengesTab) {
+      selectBucket(previousBucketOfPastChallengesTab);
+    } else {
+      selectBucket(BUCKETS.ALL_PAST);
+    }
+  };
+
   return (
     <div styleName="SideBarFilters">
+      <ul styleName="StatusBar">
+        <li
+          styleName={`Status ${!past ? 'active' : ''}`}
+          onClick={onActiveClick}
+          onKeyDown={(e) => {
+            if (e.key !== 'Enter') {
+              return;
+            }
+            onActiveClick();
+          }}
+          role="presentation"
+        >
+          Active
+        </li>
+        <li
+          styleName={`Status ${past ? 'active' : ''}`}
+          onClick={onPastChallengesClick}
+          onKeyDown={(e) => {
+            if (e.key !== 'Enter') {
+              return;
+            }
+            onPastChallengesClick();
+          }}
+          role="presentation"
+        >
+          Past Challenges
+        </li>
+      </ul>
       <div styleName="FilterBox">
         {/* { editSavedFiltersMode ? (
           <FiltersEditor
@@ -81,10 +141,11 @@ export default function SideBarFilters({
           selectBucket={selectBucket}
           // selectSavedFilter={selectSavedFilter}
           // setEditSavedFiltersMode={setEditSavedFiltersMode}
+          past={past}
         />
         {/* )} */}
       </div>
-      <Footer hideTcLinksInFooter />
+      {/* <Footer hideTcLinksInFooter /> */}
     </div>
   );
 }
@@ -97,6 +158,10 @@ SideBarFilters.defaultProps = {
   // hideTcLinksInFooter: false,
   isAuth: false,
   expanding: false,
+  previousBucketOfActiveTab: null,
+  previousBucketOfPastChallengesTab: null,
+  setPreviousBucketOfActiveTab: () => {},
+  setPreviousBucketOfPastChallengesTab: () => {},
 };
 
 SideBarFilters.propTypes = {
@@ -125,4 +190,9 @@ SideBarFilters.propTypes = {
   // setEditSavedFiltersMode: PT.func.isRequired,
   // updateAllSavedFilters: PT.func.isRequired,
   // updateSavedFilter: PT.func.isRequired,
+  // setFilter: PT.func.isRequired,
+  previousBucketOfActiveTab: PT.string,
+  previousBucketOfPastChallengesTab: PT.string,
+  setPreviousBucketOfActiveTab: PT.func,
+  setPreviousBucketOfPastChallengesTab: PT.func,
 };

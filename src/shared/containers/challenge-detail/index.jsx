@@ -14,6 +14,7 @@ import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
+import challengeListingFilterPanelActions from 'actions/challenge-listing/filter-panel';
 import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
@@ -429,7 +430,7 @@ class ChallengeDetailPageContainer extends React.Component {
                 image={getOgImage(challenge)}
                 siteName="Topcoder"
                 socialDescription={description}
-                socialTitle={`${prizesStr}${title}`}
+                socialTitle={`${prizesStr}${challenge.name}`}
                 title={title}
               />
             )
@@ -877,12 +878,18 @@ const mapDispatchToProps = (dispatch) => {
           return challengeDetails;
         });
     },
-    setChallengeListingFilter: (filter) => {
+    setChallengeListingFilter: (filter, stateProps) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
-      const newFilter = _.assign({}, { types: [], tags: [] }, filter);
+      const fp = challengeListingFilterPanelActions.challengeListing.filterPanel;
+      const newFilter = _.assign(
+        {},
+        { types: stateProps.challengeTypes.map(type => type.abbreviation), search: '' },
+        filter,
+      );
       dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
       dispatch(cl.setFilter(newFilter));
+      dispatch(fp.setSearchText(newFilter.search));
     },
     setSpecsTabState: state => dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {
@@ -943,9 +950,17 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  setChallengeListingFilter: filter => dispatchProps.setChallengeListingFilter(filter, stateProps),
+});
+
 const ChallengeDetailContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(ChallengeDetailPageContainer);
 
 export default ChallengeDetailContainer;

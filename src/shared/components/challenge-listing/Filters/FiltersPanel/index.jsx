@@ -25,18 +25,23 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
+import DateRangePicker from 'components/DateRangePicker';
 import moment from 'moment';
 import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { BUCKETS, isFilterEmpty } from 'utils/challenge-listing/buckets';
-import CheckmarkIcon from './CheckmarkIcon';
-import DateRangePicker from '../DateRangePicker';
-import style from './style.scss';
+import { isFilterEmpty, isPastBucket } from 'utils/challenge-listing/buckets';
+import SwitchWithLabel from 'components/SwitchWithLabel';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
+import { createStaticRanges } from 'utils/challenge-listing/date-range';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
+import FiltersIcon from '../../Icons/filters-icon.svg';
+import CheckmarkIcon from './CheckmarkIcon';
+import style from './style.scss';
 
+const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
   communityFilters,
@@ -54,18 +59,38 @@ export default function FiltersPanel({
   // selectedCommunityId,
   setFilterState,
   setSearchText,
-  validKeywords,
+  // validKeywords,
   validTypes,
   // isSavingFilter,
+  expanded,
+  setExpanded,
 }) {
-  let className = 'FiltersPanel';
-  if (hidden) className += ' hidden';
+  if (hidden && !expanded) {
+    return (
+      <div
+        styleName="filter-btn"
+        onClick={() => {
+          setExpanded(!expanded);
+        }}
+        onKeyDown={(e) => {
+          if (e.key !== 'Enter') {
+            return;
+          }
+          setExpanded(!expanded);
+        }}
+        tabIndex={0}
+        role="button"
+      >
+        <FiltersIcon styleName="FiltersIcon" /> More Filters
+      </div>
+    );
+  }
 
   const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) => Boolean(
     _.intersection(visitorGroupIds, communityGroupIds).length,
   );
 
-  const isAllBucket = activeBucket === BUCKETS.ALL;
+  // const isAllBucket = activeBucket === BUCKETS.ALL;
 
   const getLabel = (community) => {
     const { communityName } = community;
@@ -173,7 +198,7 @@ export default function FiltersPanel({
                 challenges in this sub community
               </p>
             </div>
-)}
+          )}
         >
           {selectItem}
         </Tooltip>
@@ -200,14 +225,7 @@ export default function FiltersPanel({
       data: getLabel(community),
     }));
 
-  // const disableClearSaveFilterButtons = false;
-  // const disableClearSaveFilterButtons = isSavingFilter || (
-  //   selectedCommunityId === defaultCommunityId
-  //   && _.isEmpty(filterState)
-  // );
-  const disableClearSaveFilterButtons = isFilterEmpty(filterState);
-
-  const mapOps = item => ({ label: item, value: item });
+  // const mapOps = item => ({ label: item, value: item });
   const mapTypes = item => ({ label: item.name, value: item.abbreviation });
   const getCommunityOption = () => {
     if (filterState.events && filterState.events.length) {
@@ -219,8 +237,20 @@ export default function FiltersPanel({
     return '';
   };
 
+  const isTrackOn = track => filterState.tracks && filterState.tracks[track];
+
+  const switchTrack = (track, on) => {
+    const act = on ? Filter.addTrack : Filter.removeTrack;
+    const filterObj = act(filterState, track);
+    setFilterState({ ...filterObj });
+  };
+
+  const staticRanges = createStaticRanges();
+  const past = isPastBucket(activeBucket);
+  const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
+
   return (
-    <div styleName={className}>
+    <div styleName="FiltersPanel">
       <div styleName="header">
         <span styleName="title">
           Filters
@@ -233,8 +263,9 @@ export default function FiltersPanel({
           <UiSimpleRemove className="cross" />
         </span>
       </div>
-      <div styleName="filters inGroup">
-        <div styleName="filter-row">
+
+      <div styleName="filters">
+        {/* <div styleName="filter-row">
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">
               Keywords
@@ -253,170 +284,266 @@ export default function FiltersPanel({
               value={filterState.tags ? filterState.tags.join(',') : null}
             />
           </div>
-          <div styleName="filter community">
-            <label htmlFor="community-select">
-              Sub community
-              <input type="hidden" />
-            </label>
-            <Select
-              autoBlur
-              clearable={false}
-              id="community-select"
-              // onChange={selectCommunity}
-              onChange={(value) => {
-                if (value && value.startsWith('event_')) {
-                  const event = value.split('_')[1];
-                  setFilterState({
-                    ..._.clone(filterState),
-                    events: event === '' ? [] : [event],
-                    groups: [],
-                  });
-                } else {
-                  const group = value;
-                  setFilterState({
-                    ..._.clone(filterState),
-                    groups: group === '' ? [] : [group],
-                    events: [],
-                  });
-                }
-                // setFilterState({ ..._.clone(filterState), groups: [value] });
-              }}
-              options={communityOps}
-              simpleValue
-              value={getCommunityOption()}
-              valueRenderer={option => (
-                <span styleName="active-community">
-                  {option.name}
-                </span>
-              )}
-            />
-          </div>
-        </div>
+        </div> */}
+
         <div styleName="filter-row">
           <div styleName="filter track">
-            <label htmlFor="type-select" styleName="left-label">
-              Type
-              <input type="hidden" />
-            </label>
-            <Select
-              placeholder="Select Type"
-              id="type-select"
-              multi
-              onChange={(value) => {
-                const types = value ? value.split(',') : undefined;
-                setFilterState({ ..._.clone(filterState), types });
-              }}
-              options={validTypes.map(mapTypes)}
-              simpleValue
-              value={
-                (filterState.types && !isReviewOpportunitiesBucket) ? filterState.types.join(',') : null
-              }
-              disabled={isReviewOpportunitiesBucket}
-            />
+            <span styleName="label">
+              Track
+            </span>
+            <div styleName="switches">
+              <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn('Des') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Des')}>
+                <SwitchWithLabel
+                  enabled={isTrackOn('Des')}
+                  labelBefore="Design"
+                  onSwitch={on => switchTrack('Des', on)}
+                />
+              </span>
+              <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn('Dev') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Dev')}>
+                <SwitchWithLabel
+                  enabled={isTrackOn('Dev')}
+                  labelBefore="Development"
+                  onSwitch={on => switchTrack('Dev', on)}
+                />
+              </span>
+              <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn('DS') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('DS')}>
+                <SwitchWithLabel
+                  enabled={isTrackOn('DS')}
+                  labelBefore="Data Science"
+                  onSwitch={on => switchTrack('DS', on)}
+                />
+              </span>
+              <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn('QA') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('QA')}>
+                <SwitchWithLabel
+                  enabled={isTrackOn('QA')}
+                  labelBefore="QA"
+                  onSwitch={on => switchTrack('QA', on)}
+                />
+              </span>
+            </div>
           </div>
-          {/* Only shown when the Review Opportunity bucket is selected */}
-          { isReviewOpportunitiesBucket
-            ? (
+        </div>
+
+        { past
+          && (
+            <div styleName="filter-row">
+              <div styleName="filter past-period">
+                <span styleName="label">
+                  Past Period
+                </span>
+                <div styleName="radios">
+                  {
+                    staticRanges.map(range => (
+                      <span styleName="radio" key={range.label}>
+                        <input
+                          type="radio"
+                          styleName="input-control"
+                          name="past-period"
+                          id={range.label}
+                          value={range.label}
+                          checked={range.isCustom
+                            ? filterState.customDate
+                            : !filterState.customDate && range.isSelected({
+                              startDate: filterState.endDateStart,
+                              endDate: filterState.startDateEnd,
+                            })
+                          }
+                          onChange={() => {
+                            if (range.isCustom) {
+                              setFilterState({
+                                ..._.clone(filterState),
+                                customDate: true,
+                              });
+                            } else {
+                              setFilterState({
+                                ..._.clone(filterState),
+                                endDateStart: moment(range.startDate).toISOString(),
+                                startDateEnd: moment(range.endDate).toISOString(),
+                                customDate: false,
+                              });
+                            }
+                          }}
+                        />
+                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                        <label styleName="radio-label" htmlFor={range.label}>{range.label}</label>
+                      </span>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          )
+        }
+
+        { past && filterState.customDate
+          && (
+            <div styleName="filter-row">
+              <div styleName="filter dates">
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                <label htmlFor="input-start-date-range" styleName="label">
+                  Date range
+                </label>
+                <DateRangePicker
+                  onChange={(range) => {
+                    const d = range.endDate ? moment(range.endDate).toISOString() : null;
+                    const s = range.startDate ? moment(range.startDate).toISOString() : null;
+                    setFilterState({
+                      ..._.clone(filterState),
+                      endDateStart: s,
+                      startDateEnd: d,
+                    });
+                  }}
+                  range={{
+                    startDate: filterState.endDateStart
+                      ? moment(filterState.endDateStart).toDate()
+                      : null,
+                    endDate: filterState.startDateEnd
+                      ? moment(filterState.startDateEnd).toDate()
+                      : null,
+                  }}
+                />
+              </div>
+            </div>
+          )
+        }
+
+        { !isReviewOpportunitiesBucket
+          && (
+            <div styleName="filter-row">
+              <div styleName="filter challenge-type">
+                <span styleName="label">
+                  Challenge Type
+                </span>
+                <div styleName="checkboxes">
+                  {
+                    validTypes
+                      .map(mapTypes)
+                      .map(option => (
+                        <span styleName="checkbox" key={option.value}>
+                          <input
+                            type="checkbox"
+                            styleName="input-control"
+                            name={option.label}
+                            id={option.label}
+                            checked={filterState.types.includes(option.value)}
+                            onChange={(e) => {
+                              let { types } = filterState;
+
+                              if (e.target.checked) {
+                                types = types.concat(option.value);
+                              } else {
+                                types = types.filter(type => type !== option.value);
+                              }
+
+                              setFilterState({ ..._.clone(filterState), types });
+                            }}
+                          />
+                          <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
+                        </span>
+                      ))
+                  }
+                </div>
+              </div>
+            </div>
+          )
+        }
+
+        {/* Only shown when the Review Opportunity bucket is selected */}
+        { isReviewOpportunitiesBucket
+          ? (
+            <div styleName="filter-row">
               <div styleName="filter review-type">
-                <label htmlFor="review-type-select">
+                <label htmlFor="review-type-select" styleName="label">
                   Review Type
+                  <input type="hidden" />
+                </label>
+                <div styleName="checkboxes">
+                  {
+                    Object.entries(REVIEW_OPPORTUNITY_TYPES)
+                      .map(([value, label]) => ({ value, label }))
+                      .map(option => (
+                        <span styleName="checkbox" key={option.value}>
+                          <input
+                            type="checkbox"
+                            styleName="input-control"
+                            name={option.label}
+                            id={option.label}
+                            checked={_.includes(filterState.reviewOpportunityTypes, option.value)}
+                            onChange={(e) => {
+                              let { reviewOpportunityTypes = [] } = filterState;
+
+                              if (e.target.checked) {
+                                reviewOpportunityTypes = reviewOpportunityTypes
+                                  .concat(option.value);
+                              } else {
+                                reviewOpportunityTypes = reviewOpportunityTypes.filter(
+                                  reviewType => reviewType !== option.value,
+                                );
+                              }
+
+                              setFilterState({ ..._.clone(filterState), reviewOpportunityTypes });
+                            }}
+                          />
+                          <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
+                        </span>
+                      ))
+                  }
+                </div>
+              </div>
+            </div>
+          ) : null
+        }
+
+        { !isReviewOpportunitiesBucket
+          && (
+            <div styleName="filter-row">
+              <div styleName="filter filter community">
+                <label htmlFor="community-select" styleName="label">
+                  Sub community
                   <input type="hidden" />
                 </label>
                 <Select
                   autoBlur
                   clearable={false}
-                  id="review-type-select"
+                  id="community-select"
+                  // onChange={selectCommunity}
                   onChange={(value) => {
-                    const reviewOpportunityType = value === 0 ? undefined : value;
-                    setFilterState({ ..._.clone(filterState), reviewOpportunityType });
+                    if (value && value.startsWith('event_')) {
+                      const event = value.split('_')[1];
+                      setFilterState({
+                        ..._.clone(filterState),
+                        events: event === '' ? [] : [event],
+                        groups: [],
+                      });
+                    } else {
+                      const group = value;
+                      setFilterState({
+                        ..._.clone(filterState),
+                        groups: group === '' ? [] : [group],
+                        events: [],
+                      });
+                    }
+                    // setFilterState({ ..._.clone(filterState), groups: [value] });
                   }}
-                  options={[
-                    { label: 'All', value: 0 }, // 0 value deactivates above filter
-                    ...Object.entries(REVIEW_OPPORTUNITY_TYPES)
-                      .map(([value, label]) => ({ value, label })),
-                  ]}
+                  options={communityOps}
                   simpleValue
-                  value={filterState.reviewOpportunityType || 0}
+                  value={getCommunityOption()}
+                  valueRenderer={option => (
+                    <span styleName="active-community">
+                      {option.name}
+                    </span>
+                  )}
                 />
               </div>
-            ) : null
-          }
-          {/* Only shown when the All Challenges bucket is selected */}
-          { isAllBucket
-            ? (
-              <div styleName="filter status">
-                <label htmlFor="status-select" styleName="left-label">
-                  Status
-                  <input type="hidden" />
-                </label>
-                <Select
-                  placeholder="Select Status"
-                  id="status-select"
-                  onChange={(value) => {
-                    const status = value;
-                    setFilterState({ ..._.clone(filterState), status });
-                  }}
-                  options={['Active', 'Completed', 'All'].map(mapOps)}
-                  simpleValue
-                  value={filterState.status || 'All'}
-                />
-              </div>
-            ) : null
-          }
-          <div styleName="filter dates hidetwomonthdatepicker">
-            <label htmlFor="date-range-picker-one-month">
-              Date range
-              <input type="hidden" />
-            </label>
-            <DateRangePicker
-              numberOfMonths={1}
-              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
-              id="date-range-picker-one-month"
-              onDatesChange={(dates) => {
-                const d = dates.endDate ? dates.endDate.toISOString() : null;
-                const s = dates.startDate ? dates.startDate.toISOString() : null;
-                setFilterState({
-                  ..._.clone(filterState),
-                  endDateStart: s,
-                  startDateEnd: d,
-                });
-              }}
-              startDate={
-                filterState.endDateStart
-                  && moment(filterState.endDateStart)
-              }
-            />
-          </div>
-          <div styleName="filter dates hideonemonthdatepicker">
-            <label htmlFor="date-range-picker-two-months">
-              Date range
-              <input type="hidden" />
-            </label>
-            <DateRangePicker
-              numberOfMonths={2}
-              endDate={filterState.startDateEnd && moment(filterState.startDateEnd)}
-              id="date-range-picker-two-months"
-              onDatesChange={(dates) => {
-                const d = dates.endDate ? dates.endDate.toISOString() : null;
-                const s = dates.startDate ? dates.startDate.toISOString() : null;
-                setFilterState({
-                  ..._.clone(filterState),
-                  endDateStart: s,
-                  startDateEnd: d,
-                });
-              }}
-              startDate={
-                filterState.endDateStart
-                  && moment(filterState.endDateStart)
-              }
-            />
-          </div>
-        </div>
+            </div>
+          )
+        }
       </div>
+
       <div styleName="buttons">
         <Button
           composeContextTheme={COMPOSE.SOFT}
-          disabled={disableClearSaveFilterButtons}
+          disabled={disableClearFilterButtons}
           onClick={() => {
             setFilterState({
               tracks: {
@@ -425,14 +552,16 @@ export default function FiltersPanel({
                 DS: true,
                 QA: true,
               },
-              name: '',
+              search: '',
               tags: [],
-              types: [],
+              types: ['CH', 'F2F', 'TSK'],
               groups: [],
               events: [],
               endDateStart: null,
               startDateEnd: null,
               status: 'Active',
+              reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
+              customDate: false,
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');
@@ -444,14 +573,6 @@ export default function FiltersPanel({
         >
           Clear filters
         </Button>
-        {/* <PrimaryButton
-          disabled={disableClearSaveFilterButtons || !isAuth}
-          onClick={onSaveFilter}
-          size="sm"
-          theme={{ button: style.button }}
-        >
-          Save filter
-        </PrimaryButton> */}
       </div>
     </div>
   );
@@ -486,7 +607,9 @@ FiltersPanel.propTypes = {
   // selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
-  validKeywords: PT.arrayOf(PT.string).isRequired,
+  // validKeywords: PT.arrayOf(PT.string).isRequired,
   validTypes: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
+  expanded: PT.bool.isRequired,
+  setExpanded: PT.func.isRequired,
 };

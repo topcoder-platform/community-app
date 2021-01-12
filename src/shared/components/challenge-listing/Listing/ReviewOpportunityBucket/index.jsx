@@ -33,6 +33,7 @@ export default function ReviewOpportunityBucket({
   setSort,
   challengeTypes,
   sort,
+  setSearchText,
 }) {
   if (!opportunities.length && !loadMore) return null;
 
@@ -59,7 +60,10 @@ export default function ReviewOpportunityBucket({
       challengeType={_.find(challengeTypes, { name: item.challenge.type }) || {}}
       expandedTags={expandedTags}
       expandTag={expandTag}
-      onTechTagClicked={tag => setFilterState({ tags: [tag] })}
+      onTechTagClicked={(tag) => {
+        setFilterState({ search: tag });
+        setSearchText(tag);
+      }}
       opportunity={item}
       key={item.id}
     />
@@ -97,7 +101,7 @@ export default function ReviewOpportunityBucket({
         )
       }
       {
-        loadMore && !loading ? (
+        loadMore && !loading && filterState.reviewOpportunityTypes.length ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }
@@ -132,4 +136,5 @@ ReviewOpportunityBucket.propTypes = {
   setSort: PT.func.isRequired,
   sort: PT.string,
   challengeTypes: PT.arrayOf(PT.shape()).isRequired,
+  setSearchText: PT.func.isRequired,
 };

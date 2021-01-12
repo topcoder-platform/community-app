@@ -25,9 +25,6 @@ class RecruitCRMJobApplyContainer extends React.Component {
         skills: _.map(techSkills, label => ({ label, selected: false })),
         durationConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
         timezoneConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
-        timeAvailability: [
-          { label: '10 hours', checked: false }, { label: '20 hours', checked: false }, { label: '30 hours', checked: false }, { label: '40 hours', checked: false },
-        ],
         agreedTerms: false,
         country: _.map(countries.getNames('en'), val => ({ label: val, selected: false })),
         // eslint-disable-next-line react/destructuring-assignment
@@ -125,7 +122,9 @@ class RecruitCRMJobApplyContainer extends React.Component {
       }
       // require atleast 1 skill
       if (!prop || prop === 'skills') {
-        if (!_.find(formData.skills, { selected: true })) formErrors.skills = 'Please, add technical skills';
+        const skills = _.filter(formData.skills, ['selected', true]);
+        if (!skills.length) formErrors.skills = 'Please, add technical skills';
+        else if (skills.map(skill => skill.label).join(',').length >= 100) formErrors.skills = 'Sum of all skill characters may not be greater than 100';
         else delete formErrors.skills;
       }
       // have accepted terms

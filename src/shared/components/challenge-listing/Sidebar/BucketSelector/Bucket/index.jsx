@@ -48,6 +48,9 @@ function Bucket({
     case BUCKETS.ONGOING:
       count = meta.ongoingChallengesCount;
       break;
+    case BUCKETS.MY_PAST:
+      count = meta.myPastChallengesCount;
+      break;
     default:
   }
   // }

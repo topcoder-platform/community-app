@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
+import ContentBlock from 'components/Contentful/ContentBlock';
 
 import Error404 from 'components/Error404';
 
@@ -237,6 +238,21 @@ const HallOfFamePage = ({ eventId, hallOfFame }) => {
                                     </h2>
                                     <Finalists data={finalistsBoard} />
                                   </div>
+                                  )
+                                }
+                                {
+                                  data.fields.spiritAwardWinners && (
+                                    <div styleName="spirit-awards">
+                                      <h3>SPIRIT AWARD WINNER</h3>
+                                      <div styleName="spirit-awards-wrap">
+                                        {
+                                          _.map(
+                                            data.fields.spiritAwardWinners,
+                                            sA => <ContentBlock id={sA.sys.id} />,
+                                          )
+                                        }
+                                      </div>
+                                    </div>
                                   )
                                 }
                                 {
