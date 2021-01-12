@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 defaults: &defaults
     docker:
@@ -63,7 +63,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
-            
+
   # Build & Deploy against testing backend
   "build-test":
     <<: *defaults
@@ -231,28 +231,35 @@ workflows:
             branches:
               only:
                 - develop
+                - community-app-tests-poc
+          post-steps: 
+            - run:
+                name: Run automation
+                command: |
+                  source awsenvconf
+                  source buildenvvar               
+                  ./automated-smoke-test/smoketest.sh automation-config-dev.json dev
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
-                - gig-apply-fix
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - hide-my-communities
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - integration-v5-challenge-api
-                - hot-fix
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
@@ -279,4 +286,3 @@ workflows:
             branches:
               ignore:
                 - develop
- 

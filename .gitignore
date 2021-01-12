@@ -52,3 +52,8 @@ set-env*.sh
 set-test-env.sh
 .idea
 *.iml
+
+# e2e test case
+automated-smoke-test/temp
+automated-smoke-test/test-results
+automated-smoke-test/config/config.json
