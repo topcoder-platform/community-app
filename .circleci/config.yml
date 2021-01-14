@@ -207,13 +207,24 @@ jobs:
   "smoke-test-on-staging":
     <<: *defaults
     steps: 
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+      - run: *install_dependency
+      - run: *install_deploysuite
+      # Restoration of node_modules from cache.
+      - restore_cache: *restore_cache_settings_for_build
+      - run: 
+          name: "configuring environment"
+          command: |
+            ./awsconfiguration.sh PROD
       - run: 
           name: "Run automation"
           command: |
             source awsenvconf
             source buildenvvar
-            ./automated-smoke-test/smoketest.sh automation-config-dev.json dev
-      
+            ./automated-smoke-test/smoketest.sh automation-config-dev.json prod
+
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
