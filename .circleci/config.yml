@@ -299,7 +299,8 @@ workflows:
           type: approval
           requires:
             - build-prod-staging
-      - "smoke-test-on-staging":          
+      - "smoke-test-on-staging":
+          context : org-global
           requires:
             - hold-smoke-test-on-staging
       # Production builds are exectuted 
