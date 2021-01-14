@@ -287,7 +287,7 @@ workflows:
       - "smoke-test-on-staging":
           type: approval
           requires:
-            - smoke-test-on-staging
+            - build-prod-staging
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
