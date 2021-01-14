@@ -218,13 +218,11 @@ jobs:
           name: "configuring environment"
           command: |
             ./awsconfiguration.sh PROD
-      - run: 
+      - run:
           name: "Run automation"
           command: |
-            source awsenvconf
-# source buildenvvar
+            source awsenvconf            
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
-
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
