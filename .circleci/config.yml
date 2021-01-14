@@ -284,7 +284,7 @@ workflows:
               only:
                 - develop
                 - develop-approval-patch
-      - "smoke-testing-on-staging":
+      - "smoke-test-on-staging":
           type: approval
           requires:
             - smoke-test-on-staging
