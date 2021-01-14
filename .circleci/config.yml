@@ -285,9 +285,15 @@ workflows:
                 - develop
                 - develop-approval-patch
       - "smoke-test-on-staging":
+          context : org-global
           type: approval
           requires:
             - build-prod-staging
+          filters:
+            branches:
+              only:
+                - develop
+                - develop-approval-patch
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
