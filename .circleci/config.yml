@@ -203,6 +203,17 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+
+  "smoke-test-on-staging":
+    <<: *defaults
+    steps: 
+      - run: 
+          name: "Run automation"
+          command: |
+            source awsenvconf
+            source buildenvvar
+            ./automated-smoke-test/smoketest.sh automation-config-dev.json dev
+      
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
@@ -267,14 +278,16 @@ workflows:
                 - free
       # This is stage env for production QA releases
       - "build-prod-staging":
-          context : org-global
-          requires:
-            - smoke-testing
+          context : org-global         
           filters:
             branches:
               only:
                 - develop
-                - ci-manual-approval
+                - develop-approval-patch
+      - "smoke-testing-on-staging":
+          type: approval
+          requires:
+            - smoke-test-on-staging
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
