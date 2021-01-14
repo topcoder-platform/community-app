@@ -283,7 +283,7 @@ workflows:
             branches:
               only:
                 - develop
-                - develop-approval-patch
+                - develop-approval-patch-1
       - "smoke-test-on-staging":
           context : org-global
           type: approval
@@ -293,7 +293,14 @@ workflows:
             branches:
               only:
                 - develop
-                - develop-approval-patch
+                - develop-approval-patch-1
+          post-steps: 
+            - run:
+                name: Run automation
+                command: |
+                  source awsenvconf
+                  source buildenvvar               
+                  ./automated-smoke-test/smoketest.sh automation-config-dev.json dev
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
