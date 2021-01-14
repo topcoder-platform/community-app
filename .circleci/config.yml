@@ -232,6 +232,7 @@ workflows:
               only:
                 - develop
                 - develop_automation
+                - ci-manual-approval
           post-steps: 
             - run:
                 name: Run automation
@@ -239,6 +240,10 @@ workflows:
                   source awsenvconf
                   source buildenvvar               
                   ./automated-smoke-test/smoketest.sh automation-config-dev.json dev
+      - "smoke-testing":
+          type: approval
+          requires:
+            - build-dev
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -263,10 +268,13 @@ workflows:
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global
+          requires:
+            - smoke-testing
           filters:
             branches:
               only:
                 - develop
+                - ci-manual-approval
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
