@@ -240,7 +240,7 @@ workflows:
                   source awsenvconf
                   source buildenvvar               
                   ./automated-smoke-test/smoketest.sh automation-config-dev.json dev
-      - "smoke-testing"
+      - "smoke-testing":
           type: approval
           requires:
             - build-dev
