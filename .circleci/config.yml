@@ -276,10 +276,6 @@ workflows:
             branches:
               only:
                 - develop
-      - "smoke-testing":
-          type: approval
-          requires:
-            - build-dev
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
