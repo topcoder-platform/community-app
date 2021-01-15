@@ -276,8 +276,6 @@ workflows:
             branches:
               only:
                 - develop
-                - develop_automation
-                - ci-manual-approval
       - "smoke-testing":
           type: approval
           requires:
@@ -310,7 +308,6 @@ workflows:
             branches:
               only:
                 - develop
-                - develop-approval-patch-1
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
