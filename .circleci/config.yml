@@ -371,11 +371,9 @@ workflows:
             - approve-smoke-test-on-production
       - "approve-performance-testing":
           type: approval
-          requires:
-            - build-dev
-            - build-prod-staging
-          branches:
-              only:
+          filters:
+            branches:
+              ignore:
                 - develop
       - "connect-performance-testing":
           requires:
