@@ -188,6 +188,13 @@
 
   // xs size
   &.xsSize {
+    padding-top: 0;
+
+    &.haveValue .label,
+    &.isFocused .label {
+      margin-top: -12px;
+    }
+
     :global {
       .Select-control {
         height: 40px;

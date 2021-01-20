@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/destructuring-assignment */
 /**
  * The core tracks filter
  */
@@ -7,10 +9,13 @@ import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
 import { getService } from 'services/contentful';
+import Dropdown from 'components/GUIKit/Dropdown';
+import MediaQuery from 'react-responsive';
 
 import IconCloseBig from 'assets/images/tc-edu/icon-close-big.svg';
+import IconClearFilter from 'assets/images/tc-edu/icon-clear-filter.svg';
 import TracksTags from './TracksTags';
-import TracksAuthor from './TracksAuthor';
+// import TracksAuthor from './TracksAuthor';
 import TracksDate from './TracksDate';
 import defaultTheme from './themes/default.scss';
 
@@ -25,6 +30,7 @@ export class TracksFilterInner extends Component {
       tags: props.tags,
       startDate: props.startDate,
       endDate: props.endDate,
+      sortBy: props.sortBy,
     };
 
     // create a service to work with Contentful
@@ -43,7 +49,10 @@ export class TracksFilterInner extends Component {
         if (results.total) {
           const { authorList } = this.state;
           this.setState({
-            authorList: _.concat(authorList, _.map(results.items, item => item.fields.name)),
+            authorList: _.concat(authorList, _.map(
+              _.sortBy(results.items, i => i.fields.name.toLowerCase()),
+              item => ({ label: item.fields.name, selected: false }),
+            )),
           });
         }
       });
@@ -52,12 +61,25 @@ export class TracksFilterInner extends Component {
   /**
    * Reset filter form to init value
    */
-  onReset() {
+  onReset(noClose) {
+    const {
+      onClose,
+      sortBy,
+      onApply,
+    } = this.props;
     this.setState({
       selectedAuthor: DEF_SELECTED_AUTHOR,
       tags: [],
-      startDate: moment().subtract(1, 'months'),
+      startDate: moment('2001-01-02'),
       endDate: moment(),
+      sortBy: sortBy.map((o) => {
+        // eslint-disable-next-line no-param-reassign
+        o.selected = o.label === 'Content Publish Date';
+        return o;
+      }),
+    }, () => {
+      if (!noClose) onClose();
+      onApply(this.state);
     });
   }
 
@@ -74,55 +96,114 @@ export class TracksFilterInner extends Component {
       startDate,
       endDate,
       tags,
+      sortBy,
     } = this.state;
+    // selected author
+    const updatedAuthorList = authorList.map((a) => {
+      a.selected = a.label === selectedAuthor;
+      return a;
+    });
 
     return (
       <div className={theme.container}>
-        <div className={`${theme.header} ${theme['is-mobile']}`}>
+        <div className={`${theme.header}`}>
           <span>filter</span>
           <button
             type="button"
+            onClick={() => this.onReset(true)}
+            className={`${theme['clear-filter']} ${theme['is-mobile-hidden']}`}
+          >
+            <IconClearFilter />&nbsp;&nbsp;CLEAR ALL FILTERS
+          </button>
+          <button
+            type="button"
             onClick={onClose}
+            className={`${theme['is-mobile']}`}
           >
             <IconCloseBig />
           </button>
         </div>
-        <TracksTags
-          tags={tags}
-          onAddNewTag={(tag) => {
-            this.setState(prevState => ({
-              tags: [...prevState.tags, tag],
-            }));
-          }}
-          onRemoveTag={(index) => {
-            const newTags = _.cloneDeep(tags);
-            if (index !== -1) {
-              newTags.splice(index, 1);
-              this.setState({ tags: newTags });
-            }
-          }}
-        />
+        <MediaQuery minDeviceWidth={769}>
+          {mediaMatches => (
+            <TracksTags
+              tags={tags}
+              onAddNewTag={(tag) => {
+                this.setState(prevState => ({
+                  tags: [...prevState.tags, tag],
+                }), () => (mediaMatches ? onApply(this.state) : null));
+              }}
+              onRemoveTag={(index) => {
+                const newTags = _.cloneDeep(tags);
+                if (index !== -1) {
+                  newTags.splice(index, 1);
+                  this.setState(
+                    { tags: newTags },
+                    () => (mediaMatches ? onApply(this.state) : null),
+                  );
+                }
+              }}
+            />
+          )}
+        </MediaQuery>
         <div className={theme['author-date-container']}>
-          <TracksAuthor
-            className={theme['track-author-container']}
-            selected={selectedAuthor}
-            options={authorList}
-            onSelected={(item) => { this.setState({ selectedAuthor: item }); }}
-          />
-          <TracksDate
-            className={theme['track-date-container']}
-            startDate={startDate}
-            endDate={endDate}
-            onSelectStartDate={(date) => { this.setState({ startDate: date }); }}
-            onSelectEndDate={(date) => { this.setState({ endDate: date }); }}
-          />
+          <div className={theme['track-author-container']}>
+            <MediaQuery minDeviceWidth={769}>
+              {mediaMatches => (
+                <Dropdown
+                  label="Authors"
+                  options={updatedAuthorList}
+                  size="xs"
+                  onChange={(authors) => {
+                    this.setState(
+                      { selectedAuthor: _.find(authors, { selected: true }).label },
+                      () => (mediaMatches ? onApply(this.state) : null),
+                    );
+                  }}
+                />
+              )}
+            </MediaQuery>
+          </div>
+          <MediaQuery minDeviceWidth={769}>
+            {mediaMatches => (
+              <TracksDate
+                className={theme['track-date-container']}
+                startDate={startDate}
+                endDate={endDate}
+                onSelectStartDate={(date) => {
+                  this.setState({ startDate: date ? moment(date) : null },
+                    () => (mediaMatches ? onApply(this.state) : null));
+                }}
+                onSelectEndDate={(date) => {
+                  this.setState({ endDate: date ? moment(date) : null },
+                    () => (mediaMatches ? onApply(this.state) : null));
+                }}
+              />
+            )}
+          </MediaQuery>
+          <div className={theme['track-sortBy']}>
+            <MediaQuery minDeviceWidth={769}>
+              {mediaMatches => (
+                <Dropdown
+                  label="Sort by"
+                  options={sortBy}
+                  size="xs"
+                  onChange={(newSortBy) => {
+                    this.setState(
+                      { sortBy: newSortBy },
+                      () => (mediaMatches ? onApply(this.state) : null),
+                    );
+                  }}
+                />
+              )}
+            </MediaQuery>
+          </div>
         </div>
-        <div className={theme.bottom}>
+        <div className={`${theme.bottom} ${theme['is-mobile']}`}>
           <button
             type="button"
             className={theme['btn-reset']}
-            onClick={this.onReset}
-          >RESET
+            onClick={() => this.onReset()}
+          >CLEAR
           </button>
           <button
             type="button"
@@ -139,6 +220,7 @@ export class TracksFilterInner extends Component {
                 window.TracksTags.resetTagsInput();
               }
               onApply(this.state);
+              onClose();
             }}
           >APPLY FILTER
           </button>
@@ -152,10 +234,11 @@ TracksFilterInner.defaultProps = {
   onClose: () => {},
   onApply: () => {},
   selectedAuthor: DEF_SELECTED_AUTHOR,
-  authorList: [DEF_SELECTED_AUTHOR],
+  authorList: [{ label: DEF_SELECTED_AUTHOR, selected: true }],
   startDate: moment('2001-01-02'),
   endDate: moment(),
   tags: [],
+  sortBy: [],
 };
 
 TracksFilterInner.propTypes = {
@@ -166,9 +249,12 @@ TracksFilterInner.propTypes = {
     'author-date-container': PT.string.isRequired,
     'track-date-container': PT.string.isRequired,
     'track-author-container': PT.string.isRequired,
+    'track-sortBy': PT.string.isRequired,
     'btn-reset': PT.string.isRequired,
     'btn-apply': PT.string.isRequired,
     'is-mobile': PT.string.isRequired,
+    'is-mobile-hidden': PT.string.isRequired,
+    'clear-filter': PT.string.isRequired,
   }).isRequired,
   onClose: PT.func,
   onApply: PT.func,
@@ -177,6 +263,12 @@ TracksFilterInner.propTypes = {
   endDate: PT.instanceOf(moment),
   authorList: PT.arrayOf(PT.string),
   tags: PT.arrayOf(PT.string),
+  sortBy: PT.arrayOf(
+    PT.shape({
+      label: PT.string.isRequired,
+      selected: PT.bool.isRequired,
+    }),
+  ),
 };
 
 export default themr('Contentful-Blog', defaultTheme)(TracksFilterInner);

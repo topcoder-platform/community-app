@@ -302,7 +302,7 @@ class Service {
    */
   async getEDUContent({
     track, types, limit = 5, skip = 0, tags,
-    tax, startDate, endDate, author, taxonomy, phrase, title,
+    tax, startDate, endDate, author, taxonomy, phrase, title, sortBy,
   }) {
     const query = {
       content_type: 'article',
@@ -350,6 +350,12 @@ class Service {
     if (endDate) query['fields.creationDate[lte]'] = endDate;
     if (phrase) query.query = phrase;
     if (title) query['fields.title[match]'] = title;
+    if (sortBy) {
+      switch (sortBy) {
+        case 'Likes': query.order = '-fields.upvotes,-fields.creationDate'; break;
+        default: query.order = '-fields.creationDate'; break;
+      }
+    }
     const content = {};
     await Promise.all(
       _.map(types || EDU_ARTICLE_TYPES,
