@@ -4,7 +4,7 @@
   "businessUrl": "https://www.topcoder.com/",
   "switchToBusinessUrl": "https://www.topcoder.com/",
   "loginUrl": "https://auth.topcoder.com/",
-  "redirectLoginUrl": "https://accounts-auth0.topcoder.com/?retUrl=http://www.topcoder.com/",
+  "redirectLoginUrl": "https://accounts-auth0.topcoder.com/?retUrl=http://staging-community-app/",
   "homePageUrl": "https://www.topcoder.com/",
   "splashPageUrl": "https://www.topcoder.com/splash/",
   "logoutUrl": "https://www.topcoder.com/logout",
