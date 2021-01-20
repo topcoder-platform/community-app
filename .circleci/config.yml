@@ -304,6 +304,7 @@ workflows:
             branches:
               only:
                 - develop
+                - test-automation-fix
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
