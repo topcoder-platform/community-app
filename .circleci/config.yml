@@ -1,5 +1,4 @@
 version: 2.1
-
 defaults: &defaults
     docker:
       - image: docker:17.11.0-ce-git
@@ -265,9 +264,8 @@ jobs:
             - node_modules
       - run: npm test
      
-
       # Performance testing job
- Connect-Performance-Testing:
+ "connect-performance-testing":
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
@@ -305,7 +303,6 @@ jobs:
       - store_artifacts:
           path: target/jmeter/reports     
       
-
 workflows:
   version: 2
   build:
@@ -373,7 +370,7 @@ workflows:
           context : org-global
           requires:
             - approve-smoke-test-on-production
-      - Hold [Performance-Testing]:
+      - "approve-performance-testing":
           type: approval
           requires:
             - build-dev
@@ -381,9 +378,9 @@ workflows:
           branches:
               only:
                 - develop
-      - Connect-Performance-Testing:
+      - "connect-performance-testing":
           requires:
-            - Hold [Performance-Testing]
+            - approve-performance-testing
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
