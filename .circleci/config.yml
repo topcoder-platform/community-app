@@ -383,9 +383,7 @@ workflows:
                 - develop
       - Connect-Performance-Testing:
           requires:
-            - Hold [Performance-Testing]        
-            
-            
+            - Hold [Performance-Testing]
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
