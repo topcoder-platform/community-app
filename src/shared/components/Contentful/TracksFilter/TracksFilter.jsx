@@ -61,9 +61,8 @@ export class TracksFilterInner extends Component {
   /**
    * Reset filter form to init value
    */
-  onReset(noClose) {
+  onReset(isMobile) {
     const {
-      onClose,
       sortBy,
       onApply,
     } = this.props;
@@ -78,8 +77,7 @@ export class TracksFilterInner extends Component {
         return o;
       }),
     }, () => {
-      if (!noClose) onClose();
-      onApply(this.state);
+      if (!isMobile) onApply(this.state);
     });
   }
 
@@ -110,7 +108,7 @@ export class TracksFilterInner extends Component {
           <span>filter</span>
           <button
             type="button"
-            onClick={() => this.onReset(true)}
+            onClick={() => this.onReset()}
             className={`${theme['clear-filter']} ${theme['is-mobile-hidden']}`}
           >
             <IconClearFilter />&nbsp;&nbsp;CLEAR ALL FILTERS
@@ -202,7 +200,7 @@ export class TracksFilterInner extends Component {
           <button
             type="button"
             className={theme['btn-reset']}
-            onClick={() => this.onReset()}
+            onClick={() => this.onReset(true)}
           >CLEAR
           </button>
           <button
