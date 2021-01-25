@@ -264,7 +264,7 @@ jobs:
             - node_modules
       - run: npm test
      
-  "connect-performance-testing":
+  "community-performance-testing":
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
@@ -375,7 +375,7 @@ workflows:
             branches:
               ignore:
                 - develop
-      - "connect-performance-testing":
+      - "community-performance-testing":
           requires:
             - approve-performance-testing
       # Simple testing is executed for any branch other than "develop" and
