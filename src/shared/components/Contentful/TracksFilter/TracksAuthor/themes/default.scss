@@ -8,14 +8,13 @@ $text-black: #2a2a2a;
   display: flex;
   flex-direction: row;
   color: $text-black;
-  background-color: #f4f4f4;
   border-radius: 6px;
   width: 100%;
   border: 1px solid #aaa;
   position: relative;
   padding: 0 15px;
   max-width: 220px;
-  height: 38px;
+  height: 40px;
   align-items: center;
 }
 
@@ -26,7 +25,7 @@ $text-black: #2a2a2a;
   padding: 0 7px;
   left: 8px;
   top: -7px;
-  background: #f4f4f4;
+  background: #fff;
 }
 
 .header {
@@ -42,18 +41,15 @@ $text-black: #2a2a2a;
     @include min-ellipsis;
 
     font-size: 14px;
+    color: #2a2a2a !important;
   }
 }
 
 .icon-arrow {
-  -moz-transform: scale(-1, -1);
-  -o-transform: scale(-1, -1);
-  -webkit-transform: scale(-1, -1);
-  transform: scale(-1, -1);
-
-  polygon {
-    fill: #aaa;
-  }
+  -moz-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  -webkit-transform: scale(1, -1);
+  transform: scale(1, -1);
 }
 
 .popup {

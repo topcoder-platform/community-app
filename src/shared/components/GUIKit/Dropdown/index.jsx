@@ -2,7 +2,7 @@
 /**
  * Dropdown component.
  */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import ReactSelect from 'react-select';
@@ -27,7 +27,9 @@ function Dropdown({
     _.debounce((q, cb) => cb(q), config.GUIKIT.DEBOUNCE_ON_CHANGE_TIME),
   ).current;
   const sizeStyle = size === 'lg' ? 'lgSize' : 'xsSize';
-
+  useEffect(() => {
+    setInternalOptions(options);
+  }, [options]);
   return (
     <div
       onFocusCapture={() => setFocused(true)}

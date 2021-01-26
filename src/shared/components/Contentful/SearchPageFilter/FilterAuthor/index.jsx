@@ -58,6 +58,9 @@ export class FilterAuthorInner extends Component {
       isShowPopup,
     } = this.state;
 
+    // sort by author name
+    options.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
     return (
       <div ref={this.setWrapperRef} className={`${theme.container} ${className}`}>
         <span className={theme.title}>Author</span>

@@ -57,7 +57,6 @@ export class TracksTagsInner extends Component {
     };
     return (
       <div className={theme.container}>
-        <span className={theme.title}>Tags</span>
         <div className={theme['tag-container']}>
           {
             _.map(tags, (option, index) => (
@@ -85,7 +84,7 @@ export class TracksTagsInner extends Component {
             }}
             type="text"
             className={theme['tags-field']}
-            placeholder="Add tags to filter..."
+            placeholder="Add tags to filter content..."
           />
         </div>
       </div>

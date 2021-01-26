@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/destructuring-assignment */
 /**
  * Container for EDU Portal home page.
@@ -32,6 +33,7 @@ export default class ResultTabs extends React.Component {
 
     this.state = {
       loading: true,
+      loadingMore: false,
       taxonomy: props.taxonomy,
       query: _.cloneDeep(props.query),
       articles: { total: 0 },
@@ -68,6 +70,13 @@ export default class ResultTabs extends React.Component {
     // When input query from props change
     // we need to update the data loaded to the tabs
     if (!_.isEqual(newQuery, oldQuery)) {
+      const { loading } = this.state;
+      if (!loading) {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({
+          loading: true,
+        });
+      }
       this.apiService.getEDUContent({ ...newQuery, taxonomy: this.state.taxonomy })
         .then((data) => {
           // Select Videos or Forum posts tab
@@ -89,12 +98,13 @@ export default class ResultTabs extends React.Component {
 
   loadMore(type) {
     const tabData = this.state[type];
-    const { query, taxonomy } = this.state;
+    const { query, taxonomy, loadingMore } = this.state;
     const contTypesMap = {
       articles: 'Article',
       videos: 'Video',
       posts: 'Forum post',
     };
+    if (!loadingMore) this.setState({ loadingMore: true });
     this.apiService.getEDUContent({
       ...query,
       taxonomy,
@@ -103,7 +113,7 @@ export default class ResultTabs extends React.Component {
       types: [contTypesMap[type]],
     })
       .then((data) => {
-        const stateUpdate = {};
+        const stateUpdate = { loadingMore: false };
         const newData = data[contTypesMap[type]];
         tabData.includes.Asset = _.concat(tabData.includes.Asset, newData.includes.Asset);
         tabData.includes.Entry = _.concat(tabData.includes.Entry, newData.includes.Entry);
@@ -117,7 +127,7 @@ export default class ResultTabs extends React.Component {
 
   render() {
     const {
-      articles, videos, posts, loading, tabIndex,
+      articles, videos, posts, loading, tabIndex, loadingMore,
     } = this.state;
     if (loading) return <LoadingIndicator />;
     return (
@@ -165,8 +175,8 @@ export default class ResultTabs extends React.Component {
             ) : (<h3>No results found</h3>)
           }
           {
-            articles.total > articles.items.length ? (
-              <button type="button" className={theme.loadMoreBtn} onClick={this.loadMore.bind(this, 'articles')}>Show More</button>
+            articles.total > articles.items.length ? (loadingMore ? <LoadingIndicator />
+              : <button type="button" className={theme.loadMoreBtn} onClick={this.loadMore.bind(this, 'articles')}>Show More</button>
             ) : null
           }
         </TabPanel>
@@ -196,8 +206,8 @@ export default class ResultTabs extends React.Component {
             ) : (<h3>No results found</h3>)
           }
           {
-            videos.total > videos.items.length ? (
-              <button type="button" className={theme.loadMoreBtn} onClick={this.loadMore.bind(this, 'videos')}>Show More</button>
+            videos.total > videos.items.length ? (loadingMore ? <LoadingIndicator />
+              : <button type="button" className={theme.loadMoreBtn} onClick={this.loadMore.bind(this, 'videos')}>Show More</button>
             ) : null
           }
         </TabPanel>
@@ -228,8 +238,8 @@ export default class ResultTabs extends React.Component {
             ) : (<h3>No results found</h3>)
           }
           {
-            posts.total > posts.items.length ? (
-              <button type="button" className={theme.loadMoreBtn} onClick={this.loadMore.bind(this, 'posts')}>Show More</button>
+            posts.total > posts.items.length ? (loadingMore ? <LoadingIndicator />
+              : <button type="button" className={theme.loadMoreBtn} onClick={this.loadMore.bind(this, 'posts')}>Show More</button>
             ) : null
           }
         </TabPanel>
