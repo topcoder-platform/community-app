@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 defaults: &defaults
     docker:
@@ -63,7 +63,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
-            
+
   # Build & Deploy against testing backend
   "build-test":
     <<: *defaults
@@ -203,6 +203,51 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+
+  "smoke-test-on-staging":
+    <<: *defaults
+    steps: 
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+      - run: *install_dependency
+      - run: *install_deploysuite
+      # Restoration of node_modules from cache.
+      - restore_cache: *restore_cache_settings_for_build
+      - run: 
+          name: "configuring environment"
+          command: |
+            ./awsconfiguration.sh PROD
+            ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar
+      - run:
+          name: "Run automation"
+          command: |
+            source awsenvconf
+            source buildenvvar
+            ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
+
+  "smoke-test-on-production":
+    <<: *defaults
+    steps: 
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+      - run: *install_dependency
+      - run: *install_deploysuite
+      # Restoration of node_modules from cache.
+      - restore_cache: *restore_cache_settings_for_build
+      - run: 
+          name: "configuring environment"
+          command: |
+            ./awsconfiguration.sh PROD
+            ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
+      - run:
+          name: "Run automation"
+          command: |
+            source awsenvconf
+            source buildenvvar
+            ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
+
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
@@ -237,29 +282,36 @@ workflows:
           filters:
             branches:
               only:                
-                - thrive-filter-update
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - hide-my-communities
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - integration-v5-challenge-api
-                - hot-fix
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
-          context : org-global
+          context : org-global         
           filters:
             branches:
               only:
-                - thrive-filter-update
+                - develop
+      - "approve-smoke-test-on-staging":
+          type: approval
+          requires:
+            - build-prod-staging
+      - "smoke-test-on-staging":
+          context : org-global
+          requires:
+            - approve-smoke-test-on-staging
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
@@ -272,6 +324,14 @@ workflows:
             branches:
               only:
                 - master
+      - "approve-smoke-test-on-production":
+          type: approval
+          requires:
+            - build-prod
+      - "smoke-test-on-production":
+          context : org-global
+          requires:
+            - approve-smoke-test-on-production
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
@@ -279,4 +339,3 @@ workflows:
             branches:
               ignore:
                 - develop
- 
