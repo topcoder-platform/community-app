@@ -2,7 +2,7 @@
 
 exports[`Default render 1`] = `
 <div
-  className="src-shared-components-GUIKit-Datepicker-___style__container___Sl58X"
+  className="src-shared-components-GUIKit-Datepicker-___style__container___Sl58X src-shared-components-GUIKit-Datepicker-___style__lgSize___3T8M1"
 >
   <withStyles(SingleDatePicker)
     anchorDirection="left"

@@ -1,5 +1,9 @@
 @import '~components/GUIKit/Assets/Styles/default';
 
+.errorMessage {
+  @include errorMessage;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -344,8 +348,43 @@
       }
     }
   }
-}
 
-.errorMessage {
-  @include errorMessage;
+  // lg size
+  &.lgSize {
+    display: flex;
+  }
+
+  // xs size
+  &.xsSize {
+    &.haveValue .label,
+    &.isFocused .label {
+      margin-top: -12px;
+    }
+
+    :global {
+      .SingleDatePickerInput {
+        .DateInput {
+          input {
+            margin-top: 0;
+            height: 40px;
+            font-size: 14px;
+            padding: 10px 15px 8px;
+          }
+        }
+      }
+
+      .SingleDatePickerInput_calendarIcon {
+        top: 3px;
+        width: 38px !important;
+      }
+
+      .SingleDatePicker_picker {
+        top: 40px !important;
+      }
+    }
+
+    .errorMessage {
+      @include errorMessageXs;
+    }
+  }
 }

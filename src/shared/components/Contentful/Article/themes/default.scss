@@ -430,6 +430,8 @@
 
   .site-header-background {
     width: 100%;
+    height: calc(100vw * (9 / 16));
+    max-height: 565px;
   }
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /**
  * Container for EDU Portal tracks page.
  */
@@ -15,6 +16,7 @@ import qs from 'qs';
 import TracksTree from 'components/Contentful/TracksTree/TracksTree';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TracksFilter from 'components/Contentful/TracksFilter/TracksFilter';
+import MediaQuery from 'react-responsive';
 // SVGs & Assets
 import Dev from 'assets/images/img-development.png';
 import Design from 'assets/images/img_design.png';
@@ -23,6 +25,7 @@ import Algo from 'assets/images/img-algorithm.png';
 import QA from 'assets/images/img-QA.png';
 import Topcoder from 'assets/images/img-Topcoder.png';
 import GigWork from 'assets/images/img-gig-work.png';
+import iconFilterArrow from 'assets/images/tc-edu/icon-filter-arrow.png';
 // Partials
 import ResultTabs from './partials/ResultTabs';
 // CSS
@@ -46,6 +49,10 @@ const TRACK_IMAGES = {
   Topcoder,
   'Gig Work': GigWork,
 };
+const SORT_BY_OPTIONS = [
+  { label: 'Content Publish Date', selected: true },
+  { label: 'Likes', selected: false },
+];
 
 export default class EDUTracks extends React.Component {
   constructor(props) {
@@ -56,9 +63,10 @@ export default class EDUTracks extends React.Component {
     this.state = {
       query: {
         tags: [],
+        sortBy: 'Content Publish Date',
       },
       tree: [],
-      isShowFilter: false,
+      isShowFilter: true,
     };
     // bindings
     this.onTreeClick = this.onTreeClick.bind(this);
@@ -66,6 +74,7 @@ export default class EDUTracks extends React.Component {
   }
 
   componentDidMount() {
+    const { query } = this.state;
     // set current query
     let urlQuery = {};
     if (isomorphy.isClientSide()) {
@@ -73,16 +82,21 @@ export default class EDUTracks extends React.Component {
       // eslint-disable-next-line no-nested-ternary
       urlQuery.tags = _.isArray(urlQuery.tags)
         ? urlQuery.tags : (urlQuery.tags ? [urlQuery.tags] : []);
+      if (urlQuery.startDate) urlQuery.startDate = moment(urlQuery.startDate).format();
+      if (urlQuery.endDate) urlQuery.endDate = moment(urlQuery.endDate).format();
       this.setState({
-        query: urlQuery,
+        query: {
+          ...query,
+          ...urlQuery,
+        },
+        isShowFilter: window.screen.width >= 769,
       });
     }
     // Fire API requests
     // Get the EDU taxonomy
     this.apiService.getEDUTaxonomy()
       .then((taxonomy) => {
-        const { query } = this.state;
-        const tree = tracksTreeBuilder(taxonomy, query);
+        const tree = tracksTreeBuilder(taxonomy, urlQuery);
         this.setState({
           tree,
           taxonomy,
@@ -131,18 +145,23 @@ export default class EDUTracks extends React.Component {
       }),
     });
     // Update the url query
+    const urlQuery = qs.parse(window.location.search.slice(1));
     updateQuery({
+      ...urlQuery,
       track,
       tax,
     });
   }
 
   onApplyFilter(filterState) {
+    const urlQuery = qs.parse(window.location.search.slice(1));
     const queryUpdate = {
+      ...urlQuery,
       author: filterState.selectedAuthor,
       tags: filterState.tags,
-      startDate: filterState.startDate.format(),
-      endDate: filterState.endDate.format(),
+      startDate: filterState.startDate ? moment(filterState.startDate).format('YYYY-MM-DD') : null,
+      endDate: filterState.endDate ? moment(filterState.endDate).format('YYYY-MM-DD') : null,
+      sortBy: _.find(filterState.sortBy, { selected: true }).label,
     };
     // Update the state
     this.setState(prevState => ({
@@ -152,6 +171,7 @@ export default class EDUTracks extends React.Component {
         tags: queryUpdate.tags,
         startDate: queryUpdate.startDate,
         endDate: queryUpdate.endDate,
+        sortBy: queryUpdate.sortBy,
       },
     }));
     // Update the url query
@@ -165,7 +185,6 @@ export default class EDUTracks extends React.Component {
     } = this.state;
     const title = 'Topcoder Thrive | Topcoder Community | Topcoder';
     const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
-
     const metaTags = (
       <MetaTags
         description={description}
@@ -182,6 +201,20 @@ export default class EDUTracks extends React.Component {
         </React.Fragment>
       );
     }
+    // find selected sortBy
+    const sortByState = SORT_BY_OPTIONS.map((o) => {
+      // eslint-disable-next-line no-param-reassign
+      o.selected = o.label === query.sortBy;
+      return o;
+    });
+    // filter cnt
+    let filterCnt = 0;
+    if (query.author && query.author !== 'All authors') filterCnt++;
+    if (query.tags.length) filterCnt++;
+    if (query.startDate) filterCnt++;
+    if (query.endDate) filterCnt++;
+
+
     return (
       <div className={tracksTheme.container}>
         { metaTags }
@@ -232,13 +265,22 @@ export default class EDUTracks extends React.Component {
           <div className={tracksTheme.tracksContent}>
             <div className={tracksTheme.tracksContentTop}>
               <h3 className={tracksTheme.trackTitle}>{query.tax || query.track}</h3>
-              <button
-                className={tracksTheme.filterToggle}
-                type="button"
-                onClick={() => { this.setState({ isShowFilter: !isShowFilter }); }}
+              <MediaQuery
+                maxDeviceWidth={768}
+                onChange={(match) => {
+                  if (!match) {
+                    if (!isShowFilter) this.setState({ isShowFilter: true });
+                  }
+                }}
               >
-                {isShowFilter ? 'Hide filter' : 'Show filter'}
-              </button>
+                <button
+                  className={tracksTheme.filterToggle}
+                  type="button"
+                  onClick={() => { this.setState({ isShowFilter: !isShowFilter }); }}
+                >
+                  FILTER{filterCnt ? ` (${filterCnt}) ` : null}<img className={tracksTheme.filterArrow} src={iconFilterArrow} alt="filter-arrow-mobile" />
+                </button>
+              </MediaQuery>
             </div>
             <div className={isShowFilter ? tracksTheme.filterVisible : tracksTheme.filterHidden}>
               <TracksFilter
@@ -246,8 +288,9 @@ export default class EDUTracks extends React.Component {
                 onApply={this.onApplyFilter}
                 selectedAuthor={query.author}
                 tags={query.tags}
-                startDate={query.startDate ? moment(query.startDate) : undefined}
-                endDate={query.endDate ? moment(query.endDate) : undefined}
+                startDate={query.startDate}
+                endDate={query.endDate}
+                sortBy={sortByState}
               />
             </div>
             <ResultTabs query={query} taxonomy={taxonomy} />
