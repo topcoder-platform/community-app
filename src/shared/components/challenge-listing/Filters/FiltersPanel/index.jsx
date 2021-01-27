@@ -64,6 +64,7 @@ export default function FiltersPanel({
   // isSavingFilter,
   expanded,
   setExpanded,
+  setSort,
 }) {
   if (hidden && !expanded) {
     return (
@@ -249,6 +250,39 @@ export default function FiltersPanel({
   const past = isPastBucket(activeBucket);
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
+  const availableTypes = activeBucket === 'openForRegistration'
+    ? validTypes : validTypes.filter(item => item.abbreviation !== 'REC');
+
+  const handleTypeChange = (option, e) => {
+    let { types } = filterState;
+    if (e.target.checked) {
+      types = types.concat(option.value);
+    } else {
+      types = types.filter(type => type !== option.value);
+    }
+
+    if (option.label === 'Recommended') {
+      types = types.filter(type => type === 'REC');
+      if (!e.target.checked) {
+        setFilterState({ ..._.clone(filterState), types: ['TSK', 'CH', 'F2F'] });
+        setSort('openForRegistration', 'startDate');
+      } else {
+        setSort('openForRegistration', 'updatedBy');
+        setFilterState({ ..._.clone(filterState), types });
+      }
+    } else {
+      types = types.filter(type => type !== 'REC');
+      setFilterState({ ..._.clone(filterState), types });
+      setSort('openForRegistration', 'startDate');
+    }
+  };
+
+  const recommendedCheckboxTip = (
+    <div styleName="tctooltiptext">
+      <p>Shows available challenges <br /> that match your skills</p>
+    </div>
+  );
+
   return (
     <div styleName="FiltersPanel">
       <div styleName="header">
@@ -416,7 +450,7 @@ export default function FiltersPanel({
                 </span>
                 <div styleName="checkboxes">
                   {
-                    validTypes
+                    availableTypes
                       .map(mapTypes)
                       .map(option => (
                         <span styleName="checkbox" key={option.value}>
@@ -426,19 +460,26 @@ export default function FiltersPanel({
                             name={option.label}
                             id={option.label}
                             checked={filterState.types.includes(option.value)}
-                            onChange={(e) => {
-                              let { types } = filterState;
-
-                              if (e.target.checked) {
-                                types = types.concat(option.value);
-                              } else {
-                                types = types.filter(type => type !== option.value);
-                              }
-
-                              setFilterState({ ..._.clone(filterState), types });
-                            }}
+                            onChange={e => handleTypeChange(option, e)}
                           />
-                          <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
+                          {
+                            option.label === 'Recommended'
+                              ? (
+                                <label styleName="checkbox-label" htmlFor={option.label}>
+                                  <Tooltip
+                                    id="recommended-tip"
+                                    content={recommendedCheckboxTip}
+                                    className={style['tooltip-overlay']}
+                                    trigger={['hover', 'focus']}
+                                  >
+                                    {option.label}
+                                  </Tooltip>
+
+                                </label>
+                              )
+
+                              : <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
+                          }
                         </span>
                       ))
                   }
@@ -612,4 +653,5 @@ FiltersPanel.propTypes = {
   onClose: PT.func,
   expanded: PT.bool.isRequired,
   setExpanded: PT.func.isRequired,
+  setSort: PT.func.isRequired,
 };

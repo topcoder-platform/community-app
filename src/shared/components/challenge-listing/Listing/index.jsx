@@ -7,7 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  BUCKETS, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
+  BUCKETS, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG, isRecommendedChallengeType,
   // BUCKETS, getBuckets, isReviewOpportunitiesBucket, NO_LIVE_CHALLENGES_CONFIG,
 } from 'utils/challenge-listing/buckets';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -25,6 +25,7 @@ function Listing({
   allMyChallengesLoaded,
   allMyPastChallengesLoaded,
   allChallengesLoaded,
+  allRecommendedChallengesLoaded,
   allPastChallengesLoaded,
   allOpenForRegistrationChallengesLoaded,
   challenges,
@@ -32,6 +33,7 @@ function Listing({
   myChallenges,
   myPastChallenges,
   allChallenges,
+  recommendedChallenges,
   pastChallenges,
   challengeTypes,
   // userChallenges,
@@ -47,7 +49,9 @@ function Listing({
   loadMoreMy,
   loadMoreMyPast,
   loadingAllChallenges,
+  loadingRecommendedChallenges,
   loadMoreAll,
+  loadMoreRecommended,
   loadingOpenForRegistrationChallenges,
   loadMoreOpenForRegistration,
   loadingOnGoingChallenges,
@@ -119,10 +123,17 @@ function Listing({
         newExpanded = newExpanded || (+meta.myPastChallengesCount === bucketChallenges.length);
         break;
       case BUCKETS.OPEN_FOR_REGISTRATION:
-        bucketChallenges = [].concat(openForRegistrationChallenges);
-        loading = loadingOpenForRegistrationChallenges;
-        loadMore = allOpenForRegistrationChallengesLoaded ? null : loadMoreOpenForRegistration;
-        newExpanded = newExpanded || (+meta.openChallengesCount === bucketChallenges.length);
+        if (isRecommendedChallengeType(bucket, filterState)) {
+          bucketChallenges = [].concat(recommendedChallenges);
+          loading = loadingRecommendedChallenges;
+          loadMore = allRecommendedChallengesLoaded ? null : loadMoreRecommended;
+          newExpanded = newExpanded || (+meta.allChallengesCount === bucketChallenges.length);
+        } else {
+          bucketChallenges = [].concat(openForRegistrationChallenges);
+          loading = loadingOpenForRegistrationChallenges;
+          loadMore = allOpenForRegistrationChallengesLoaded ? null : loadMoreOpenForRegistration;
+          newExpanded = newExpanded || (+meta.openChallengesCount === bucketChallenges.length);
+        }
         break;
       case BUCKETS.ONGOING:
         bucketChallenges = [].concat(challenges);
@@ -210,6 +221,15 @@ function Listing({
     );
   }
 
+  let noLiveBucket = activeBucket;
+  if (isRecommendedChallengeType(activeBucket, filterState)) {
+    if (_.get(auth, 'user.userId')) {
+      noLiveBucket = BUCKETS.NO_RECOMMENDED_MATCH;
+    } else {
+      noLiveBucket = BUCKETS.NOT_LOGGED_IN;
+    }
+  }
+
   // let isFilled = isChallengesAvailable(BUCKETS.OPEN_FOR_REGISTRATION)
   // || isChallengesAvailable(BUCKETS.ONGOING);
   // if (auth.user) {
@@ -224,11 +244,13 @@ function Listing({
   //     </div>
   //   );
   // }
+
   const loading = loadingMyChallenges
     || loadingMyPastChallenges
     || loadingOpenForRegistrationChallenges
     || loadingOnGoingChallenges
     || loadingAllChallenges
+    || loadingRecommendedChallenges
     || loadingPastChallenges;
   const placeholders = [];
   if (challenges.length > 0 || (activeBucket === BUCKETS.ALL && allChallenges.length > 0)) {
@@ -255,7 +277,7 @@ function Listing({
         loading
           ? placeholders
           : (
-            <div styleName="no-results">{ `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }</div>
+            <div styleName="no-results">{ `${NO_LIVE_CHALLENGES_CONFIG[noLiveBucket]}` }</div>
           )
       }
     </div>
@@ -268,6 +290,7 @@ Listing.defaultProps = {
   myChallenges: [],
   myPastChallenges: [],
   allChallenges: [],
+  recommendedChallenges: [],
   pastChallenges: [],
   challengeTypes: [],
   communityName: null,
@@ -281,6 +304,7 @@ Listing.defaultProps = {
   loadMoreMy: null,
   loadMoreMyPast: null,
   loadMoreAll: null,
+  loadMoreRecommended: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
   preListingMsg: null,
@@ -306,6 +330,7 @@ Listing.propTypes = {
   allMyChallengesLoaded: PT.bool.isRequired,
   allMyPastChallengesLoaded: PT.bool.isRequired,
   allChallengesLoaded: PT.bool.isRequired,
+  allRecommendedChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
   allOpenForRegistrationChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape()),
@@ -313,6 +338,7 @@ Listing.propTypes = {
   myChallenges: PT.arrayOf(PT.shape()),
   myPastChallenges: PT.arrayOf(PT.shape()),
   allChallenges: PT.arrayOf(PT.shape()),
+  recommendedChallenges: PT.arrayOf(PT.shape()),
   pastChallenges: PT.arrayOf(PT.shape()),
   challengeTypes: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
@@ -326,12 +352,14 @@ Listing.propTypes = {
   loadingMyChallenges: PT.bool.isRequired,
   loadingMyPastChallenges: PT.bool.isRequired,
   loadingAllChallenges: PT.bool.isRequired,
+  loadingRecommendedChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
   loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreMy: PT.func,
   loadMoreMyPast: PT.func,
   loadMoreAll: PT.func,
+  loadMoreRecommended: PT.func,
   loadMoreOnGoing: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMorePast: PT.func,
@@ -362,6 +390,8 @@ const mapStateToProps = (state) => {
     allMyChallengesLoaded: cl.allMyChallengesLoaded,
     allMyPastChallengesLoaded: cl.allMyPastChallengesLoaded,
     allChallengesLoaded: cl.allChallengesLoaded,
+    allRecommendedChallengesLoaded: cl.allRecommendedChallengesLoaded,
+    recommendedChallenges: cl.recommendedChallenges,
     allPastChallengesLoaded: cl.allPastChallengesLoaded,
     allOpenForRegistrationChallengesLoaded: cl.allOpenForRegistrationChallengesLoaded,
     // pastSearchTimestamp: cl.pastSearchTimestamp,

@@ -10,7 +10,9 @@ import PT from 'prop-types';
 import React, { useRef } from 'react';
 // import { config } from 'topcoder-react-utils';
 import Sort from 'utils/challenge-listing/sort';
-import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA } from 'utils/challenge-listing/buckets';
+import {
+  NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA, isRecommendedChallengeType,
+} from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -51,6 +53,17 @@ export default function Bucket({
   isLoggedIn,
   setSearchText,
 }) {
+  const activeBucketData = isRecommendedChallengeType(bucket, filterState)
+    ? BUCKET_DATA[bucket].sorts : BUCKET_DATA[bucket].sorts.filter(item => item !== 'updatedBy');
+
+  let noLiveBucket = activeBucket;
+  if (isRecommendedChallengeType(bucket, filterState)) {
+    if (isLoggedIn) {
+      noLiveBucket = BUCKETS.NO_RECOMMENDED_MATCH;
+    } else {
+      noLiveBucket = BUCKETS.NOT_LOGGED_IN;
+    }
+  }
   const refs = useRef([]);
   refs.current = [];
   const addToRefs = (el) => {
@@ -116,7 +129,7 @@ export default function Bucket({
   if (!loading && sortedChallenges.length === 0) {
     return (
       <div styleName="no-results">
-        { `${NO_LIVE_CHALLENGES_CONFIG[bucket]}` }
+        { `${NO_LIVE_CHALLENGES_CONFIG[noLiveBucket]}` }
       </div>
     );
   }
@@ -170,7 +183,7 @@ export default function Bucket({
       <SortingSelectBar
         onSelect={setSort}
         options={
-          BUCKET_DATA[bucket].sorts.map(item => ({
+          activeBucketData.map(item => ({
             label: Sort[item].name,
             value: item,
           }))

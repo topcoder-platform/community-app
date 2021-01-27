@@ -118,12 +118,14 @@ export default function ChallengeListing(props) {
       loadingMyChallenges={props.loadingMyChallenges}
       loadingMyPastChallenges={props.loadingMyPastChallenges}
       loadingAllChallenges={props.loadingAllChallenges}
+      loadingRecommendedChallenges={props.loadingRecommendedChallenges}
       loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
       loadingOnGoingChallenges={props.loadingOnGoingChallenges}
       loadingReviewOpportunities={props.loadingReviewOpportunities}
       loadMoreMy={props.loadMoreMy}
       loadMoreMyPast={props.loadMoreMyPast}
       loadMoreAll={props.loadMoreAll}
+      loadMoreRecommended={props.loadMoreRecommended}
       loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
       loadMoreOnGoing={props.loadMoreOnGoing}
       loadMorePast={props.loadMorePast}
@@ -190,6 +192,7 @@ ChallengeListing.defaultProps = {
   loadMoreMy: null,
   loadMoreMyPast: null,
   loadMoreAll: null,
+  loadMoreRecommended: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
   loadMorePast: null,
@@ -232,6 +235,7 @@ ChallengeListing.propTypes = {
   loadingMyChallenges: PT.bool.isRequired,
   loadingMyPastChallenges: PT.bool.isRequired,
   loadingAllChallenges: PT.bool.isRequired,
+  loadingRecommendedChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
@@ -239,6 +243,7 @@ ChallengeListing.propTypes = {
   loadMoreMy: PT.func,
   loadMoreMyPast: PT.func,
   loadMoreAll: PT.func,
+  loadMoreRecommended: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMoreOnGoing: PT.func,
   loadMorePast: PT.func,

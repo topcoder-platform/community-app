@@ -149,6 +149,15 @@ function onGetAllChallengesInit(state, { payload }) {
   };
 }
 
+function onGetRecommendedChallengesInit(state, { payload }) {
+  return {
+    ...state,
+    loadingRecommendedChallengesUUID: payload.uuid,
+    lastRequestedPageOfRecommendedChallenges: payload.page,
+    recommendedChallenges: [],
+  };
+}
+
 function onGetMyPastChallengesInit(state, { payload }) {
   return {
     ...state,
@@ -636,6 +645,26 @@ function onGetAllChallengesDone(state, { error, payload }) {
   };
 }
 
+function onGetRecommendedChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, recommendedChallenges: loaded } = payload;
+  if (uuid !== state.loadingRecommendedChallengesUUID) return state;
+  const challenges = loaded;
+  return {
+    ...state,
+    recommendedChallenges: challenges,
+    loadingRecommendedChallengesUUID: '',
+    allRecommendedChallengesLoaded: challenges.length >= payload.meta.allRecommendedChallengesCount,
+    meta: {
+      ...state.meta,
+      allRecommendedChallengesCount: payload.meta.allRecommendedChallengesCount,
+    },
+  };
+}
+
 function onGetMyPastChallengesDone(state, { error, payload }) {
   if (error) {
     logger.error(payload);
@@ -694,6 +723,7 @@ function create(initialState) {
       allActiveChallengesLoaded: false,
       allMyChallengesLoaded: false,
       allChallengesLoaded: false,
+      allRecommendedChallengesLoaded: false,
       allOpenForRegistrationChallengesLoaded: false,
       allPastChallengesLoaded: false,
       // allReviewOpportunitiesLoaded: false,
@@ -708,6 +738,7 @@ function create(initialState) {
       lastRequestedPageOfMyChallenges: -1,
       lastRequestedPageOfMyPastChallenges: -1,
       lastRequestedPageOfAllChallenges: -1,
+      lastRequestedPageOfRecommendedChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
       // lastRequestedPageOfReviewOpportunities: -1,
       // lastUpdateOfActiveChallenges: 0,
@@ -773,6 +804,12 @@ function create(initialState) {
       lastRequestedPageOfAllChallenges: -1,
       loadingAllChallengesUUID: '',
     }),
+    [a.dropRecommendedChallenges]: state => ({
+      ...state,
+      allChallenges: [],
+      lastRequestedPageOfRecommendedChallenges: -1,
+      loadingAllChallengesUUID: '',
+    }),
     [a.dropPastChallenges]: state => ({
       ...state,
       pastChallenges: [],
@@ -810,6 +847,9 @@ function create(initialState) {
 
     [a.getAllChallengesInit]: onGetAllChallengesInit,
     [a.getAllChallengesDone]: onGetAllChallengesDone,
+
+    [a.getRecommendedChallengesInit]: onGetRecommendedChallengesInit,
+    [a.getRecommendedChallengesDone]: onGetRecommendedChallengesDone,
 
     [a.getTotalChallengesCountInit]: onGetTotalChallengesCountInit,
     [a.getTotalChallengesCountDone]: onGetTotalChallengesCountDone,
@@ -857,6 +897,7 @@ function create(initialState) {
     allMyPastChallengesLoaded: false,
     allOpenForRegistrationChallengesLoaded: false,
     allChallengesLoaded: false,
+    allRecommendedChallengesLoaded: false,
     allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 
@@ -866,7 +907,7 @@ function create(initialState) {
     openForRegistrationChallenges: [],
     pastChallenges: [],
     myPastChallenges: [],
-    recommendedChallenges: {},
+    recommendedChallenges: [],
     challengeTypes: [],
     challengeTypesMap: {},
     challengeTags: [],
@@ -879,6 +920,7 @@ function create(initialState) {
     lastRequestedPageOfOpenForRegistrationChallenges: -1,
     lastRequestedPageOfMyChallenges: -1,
     lastRequestedPageOfAllChallenges: -1,
+    lastRequestedPageOfRecommendedChallenges: -1,
     lastRequestedPageOfMyPastChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
@@ -938,6 +980,7 @@ function create(initialState) {
 
     meta: {
       allChallengesCount: 0,
+      allRecommendedChallengesCount: 0,
       myChallengesCount: 0,
       ongoingChallengesCount: 0,
       openChallengesCount: 0,

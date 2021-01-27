@@ -285,7 +285,7 @@
           display: inline-block;
           line-height: 30px;
           flex: 1 0 auto;
-          min-width: calc(33% - 10px);
+          min-width: calc(11% - 10px);
 
           &:not(:last-child) {
             padding-right: 10px;
@@ -422,4 +422,10 @@
       }
     }
   }
+}
+
+.tctooltiptext {
+  background: $tc-gray-90;
+  border-radius: 6px;
+  padding: 10px;
 }

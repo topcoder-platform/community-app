@@ -18,6 +18,8 @@ export const BUCKETS = {
   // SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
   ALL_PAST: 'allPast',
   MY_PAST: 'myPast',
+  NOT_LOGGED_IN: 'bestMatchNotLoggedIn',
+  NO_RECOMMENDED_MATCH: 'noRecommendedMatch',
 };
 
 export const BUCKET_DATA = {
@@ -58,6 +60,7 @@ export const BUCKET_DATA = {
     // hideCount: false,
     name: 'Open for registration',
     sorts: [
+      SORTS.BEST_MATCH,
       SORTS.MOST_RECENT_START_DATE,
       // SORTS.TIME_TO_REGISTER,
       // SORTS.TIME_TO_SUBMIT,
@@ -149,6 +152,8 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
   // [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
   [BUCKETS.ALL_PAST]: 'No challenges found in All Past Challenges',
   [BUCKETS.MY_PAST]: 'No challenges found in My Past Challenges',
+  [BUCKETS.NOT_LOGGED_IN]: 'There are no recommended challenges for you. This could be because you are not logged in and/or the recommendation tool will only recommend challenges that match your skills once you successfully place in a challenge. Try exploring other challenges or checking back later.',
+  [BUCKETS.NO_RECOMMENDED_MATCH]: 'There are no challenges open for registration at the moment that match your skills. Try exploring other challenges or checking back later.',
 };
 
 /**
@@ -262,6 +267,15 @@ export function isFilterEmpty(filter, tab, bucket) {
 
 export function isPastBucket(bucket) {
   return [BUCKETS.ALL_PAST, BUCKETS.MY_PAST].indexOf(bucket) !== -1;
+}
+
+/**
+ * Checks if current challenge type is recommended challenge type
+ * @param {String} bucket bucket name
+ * @param {Object} filterState current filter state
+*/
+export function isRecommendedChallengeType(bucket, filterState) {
+  return bucket === 'openForRegistration' && filterState.types.length === 1 && filterState.types[0] === 'REC';
 }
 
 export default undefined;

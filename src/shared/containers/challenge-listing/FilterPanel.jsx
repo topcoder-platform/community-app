@@ -102,7 +102,7 @@ export class Container extends React.Component {
     if (!filterState.types.length && validTypes.length && !this.initialDefaultChallengeTypes) {
       setFilterState({
         ..._.clone(filterState),
-        types: validTypes.map(item => item.abbreviation),
+        types: validTypes.map(item => item.abbreviation).filter(item => item !== 'REC'),
       });
       this.initialDefaultChallengeTypes = true;
     }
@@ -121,6 +121,7 @@ export class Container extends React.Component {
       setExpanded,
       hidden,
       onClose,
+      setSort,
     } = this.props;
     const communityFilters2 = [
       {
@@ -146,6 +147,7 @@ export class Container extends React.Component {
         setExpanded={setExpanded}
         hidden={hidden}
         onClose={onClose}
+        setSort={setSort}
       />
     );
 
@@ -190,6 +192,7 @@ Container.propTypes = {
   onClose: PT.func.isRequired,
   validTypes: PT.arrayOf(PT.shape()).isRequired,
   setSearchText: PT.func.isRequired,
+  setSort: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -213,6 +216,7 @@ function mapDispatchToProps(dispatch) {
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
     onClose: () => dispatch(a.setExpanded(false)),
+    setSort: (bucket, sort) => dispatch(cla.setSort(bucket, sort)),
   };
 }
 

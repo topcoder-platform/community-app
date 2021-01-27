@@ -53,8 +53,7 @@ const REVIEW_OPPORTUNITY_PAGE_SIZE = 1000;
  */
 function getChallengeTypesDone() {
   return getService()
-    .getChallengeTypes()
-    .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
+    .getChallengeTypes();
 }
 
 /**
@@ -88,6 +87,10 @@ function getMyChallengesInit(uuid, page, frontFilter) {
 }
 
 function getAllChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
+}
+
+function getRecommendedChallengesInit(uuid, page, frontFilter) {
   return { uuid, page, frontFilter };
 }
 
@@ -231,6 +234,7 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
 function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
   tokenV3, frontFilter = {}) {
   const { sorts } = frontFilter;
+  const sortOrder = SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -240,7 +244,7 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sorts[BUCKETS.OPEN_FOR_REGISTRATION],
-      sortOrder: SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]].order,
+      sortOrder: sortOrder ? sortOrder.order : 'asc',
     },
   };
   delete filter.frontFilter.sorts;
@@ -298,6 +302,17 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     allChallenges: ch.challenges,
     meta: ch.meta,
     frontFilter,
+  }));
+}
+
+function getRecommendedChallengesDone(uuid, tokenV3, sort, filter) {
+  const service = getService(tokenV3);
+  return service.getRecommendedChallenges(sort, filter).then(ch => ({
+    uuid,
+    recommendedChallenges: ch.challenges,
+    meta: {
+      allRecommendedChallengesCount: ch.meta,
+    },
   }));
 }
 
@@ -522,6 +537,7 @@ export default createActions({
     DROP_MY_CHALLENGES: _.noop,
     DROP_ALL_CHALLENGES: _.noop,
     DROP_PAST_CHALLENGES: _.noop,
+    DROP_RECOMMENDED_CHALLENGES: _.noop,
 
     // GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     // GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
@@ -534,6 +550,9 @@ export default createActions({
 
     GET_ALL_CHALLENGES_INIT: getAllChallengesInit,
     GET_ALL_CHALLENGES_DONE: getAllChallengesDone,
+
+    GET_RECOMMENDED_CHALLENGES_INIT: getRecommendedChallengesInit,
+    GET_RECOMMENDED_CHALLENGES_DONE: getRecommendedChallengesDone,
 
     GET_ACTIVE_CHALLENGES_INIT: getActiveChallengesInit,
     GET_ACTIVE_CHALLENGES_DONE: getActiveChallengesDone,

@@ -19,6 +19,7 @@ export const SORTS = {
   REVIEW_OPPORTUNITIES_TITLE_A_TO_Z: 'review-opportunities-title-a-to-z',
   REVIEW_OPPORTUNITIES_PAYMENT: 'review-opportunities-payment',
   REVIEW_OPPORTUNITIES_START_DATE: 'review-opportunities-start-date',
+  BEST_MATCH: 'updatedBy',
 };
 
 export default {
@@ -97,5 +98,10 @@ export default {
     // This will implicitly use moment#valueOf
     func: (a, b) => moment(a.startDate) - moment(b.startDate),
     name: 'Review start date',
+  },
+  [SORTS.BEST_MATCH]: {
+    func: (a, b) => parseFloat(a.matchScore) - parseFloat(b.matchScore),
+    name: 'Best Match',
+    order: 'asc',
   },
 };
