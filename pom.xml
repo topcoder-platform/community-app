@@ -6,10 +6,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--  
-        <jmeter-maven-plugin.version>DEV-SNAPSHOT</jmeter-maven-plugin.version>
-        -->
         <jmeter-maven-plugin.version>2.9.0</jmeter-maven-plugin.version>
+		<jmeterScript>Community-100VU.jmx</jmeterScript>
     </properties>
     <dependencies>
         <dependency>
@@ -77,16 +75,15 @@
                                     <argument>-Xms1024m</argument>
                                 </arguments>
                             </jMeterProcessJVMSettings>
+							<testFilesIncluded>
+								<jMeterTestFile>${jmeterScript}</jMeterTestFile>
+							</testFilesIncluded>
                         </configuration>
                         <executions>
                             <execution>
                                 <id>jmeter-tests</id>
                                 <phase>verify</phase>
                                 <goals>
-                                    <!-- Required after 2.9.0 -->
-                                    <!-- 
-                                    <goal>configure</goal>
-                                    -->
                                     <goal>jmeter</goal>
                                     <goal>results</goal>
                                 </goals>
@@ -156,10 +153,6 @@
                             <execution>
                                 <id>start-jmeter-server</id>
                                 <goals>
-                                    <!-- Required after 2.9.0 -->
-                                    <!-- 
-                                    <goal>configure</goal>
-                                    -->
                                     <goal>remote-server</goal>
                                 </goals>
                                 <phase>verify</phase>
@@ -172,7 +165,6 @@
                 </plugins>
             </build>
         </profile>
-        
         <profile>
             <id>controller</id>
             <build>
@@ -223,16 +215,14 @@
                             <execution>
                                 <id>performance-test</id>
                                 <goals>
-                                    <!-- Required after 2.9.0 -->
-                                    <!-- 
-                                    <goal>configure</goal>
-                                    -->
                                     <goal>jmeter</goal>
                                     <goal>results</goal>
                                 </goals>
                                 <phase>verify</phase>
                             </execution>
                         </executions>
+						<configuration>
+						</configuration>						
                     </plugin>
                 </plugins>
             </build>
