@@ -106,6 +106,10 @@ $challenge-radius-4: $corner-radius * 2;
         display: inline-block;
       }
     }
+
+    .challenge-detail-header {
+      display: flex;
+    }
   }
   // date and technologies
   .details-footer {

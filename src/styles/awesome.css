@@ -65,6 +65,10 @@
   content: "\f110";
 }
 
+.fa-info-cirle::before {
+  content: "\0024D8";
+}
+
 @keyframes fa-spin {
   0% {
     -webkit-transform: rotate(0deg);

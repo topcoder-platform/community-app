@@ -660,7 +660,7 @@ function onGetRecommendedChallengesDone(state, { error, payload }) {
     allRecommendedChallengesLoaded: challenges.length >= payload.meta.allRecommendedChallengesCount,
     meta: {
       ...state.meta,
-      allRecommendedChallengesCount: payload.meta.allRecommendedChallengesCount,
+      openChallengesCount: payload.meta.allRecommendedChallengesCount,
     },
   };
 }

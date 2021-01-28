@@ -13,6 +13,8 @@ import Tags from '../Tags';
 
 import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
+import MatchScore from './MatchScore';
+import { calculateScore } from '../../../utils/challenge-listing/helper';
 import './style.scss';
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
@@ -67,13 +69,19 @@ function ChallengeCard({
         </div>
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
-          <Link
-            onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
-            to={challengeDetailLink}
-            styleName="challenge-title"
-            openNewTab={openChallengesInNewTabs}
-          ><p>{challenge.name}</p>
-          </Link>
+          <div styleName="challenge-detail-header">
+            <Link
+              onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
+              to={challengeDetailLink}
+              styleName="challenge-title"
+              openNewTab={openChallengesInNewTabs}
+            ><p>{challenge.name}</p>
+            </Link>
+            {
+              challenge.matchScore
+              && <MatchScore score={calculateScore(challenge.matchScore)} />
+            }
+          </div>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}

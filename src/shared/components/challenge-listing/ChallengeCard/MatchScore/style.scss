@@ -1,0 +1,12 @@
+@import "~styles/mixins";
+
+.match-score {
+  background-color: $tc-light-blue-30;
+  color: $tc-dark-blue-100;
+  font-size: 10px;
+  line-height: 12px;
+  padding: 3px;
+  border-radius: 2px;
+  margin-left: 5px;
+  margin-top: 1px;
+}

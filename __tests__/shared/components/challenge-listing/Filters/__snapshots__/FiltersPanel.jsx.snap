@@ -184,6 +184,7 @@ exports[`Matches shallow shapshot 2`] = `
       </div>
     </div>
   </div>
+  <hr />
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >

@@ -1,3 +1,4 @@
+@import "../../../../../styles/awesome.css";
 @import '~styles/mixins';
 
 .uppercase {
@@ -285,7 +286,7 @@
           display: inline-block;
           line-height: 30px;
           flex: 1 0 auto;
-          min-width: calc(11% - 10px);
+          min-width: calc(33% - 10px);
 
           &:not(:last-child) {
             padding-right: 10px;
@@ -420,6 +421,15 @@
           margin-top: 1px;
         }
       }
+    }
+  }
+
+  .recommended-challenges-filter {
+    display: flex;
+    margin-bottom: 25px;
+
+    .recommended-challenge-tooltip {
+      margin: 3px 0 0 3px;
     }
   }
 }

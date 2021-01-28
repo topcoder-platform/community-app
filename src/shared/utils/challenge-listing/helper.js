@@ -33,3 +33,11 @@ export function phaseStartDate(phase) {
   // For all other cases, take the `actualStartDate` as phase is already started
   return new Date(phase.actualStartDate);
 }
+
+/**
+ * Calculate match percentage.
+ * @param {Float} score
+ */
+export function calculateScore(score) {
+  return Math.trunc(Math.abs(score + 1.0) * 100.0 / 2.0);
+}
