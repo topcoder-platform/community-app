@@ -22,7 +22,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import DateRangePicker from 'components/DateRangePicker';
@@ -250,8 +250,30 @@ export default function FiltersPanel({
   const past = isPastBucket(activeBucket);
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
-  const availableTypes = activeBucket === 'openForRegistration'
-    ? validTypes : validTypes.filter(item => item.abbreviation !== 'REC');
+  const availableTypes = validTypes.filter(item => item.abbreviation !== 'REC');
+  const isRecommendedChallengesVisible = activeBucket === 'openForRegistration';
+  const [recommendedToggle, setRecommendedToggle] = useState(false);
+
+  useEffect(() => {
+    if (recommendedToggle) {
+      const types = _.union(filterState.types, ['REC']);
+      setFilterState({ ..._.clone(filterState), types });
+    }
+  }, []);
+
+  const onSwitchRecommendedChallenge = (on) => {
+    const { types } = filterState;
+    types.push('REC');
+    setRecommendedToggle(on);
+
+    if (on) {
+      setSort('openForRegistration', 'updatedBy');
+      setFilterState({ ..._.clone(filterState), types });
+    } else {
+      setFilterState({ ..._.clone(filterState), types: ['TSK', 'CH', 'F2F'] });
+      setSort('openForRegistration', 'startDate');
+    }
+  };
 
   const handleTypeChange = (option, e) => {
     let { types } = filterState;
@@ -261,20 +283,14 @@ export default function FiltersPanel({
       types = types.filter(type => type !== option.value);
     }
 
-    if (option.label === 'Recommended') {
-      types = types.filter(type => type === 'REC');
-      if (!e.target.checked) {
-        setFilterState({ ..._.clone(filterState), types: ['TSK', 'CH', 'F2F'] });
-        setSort('openForRegistration', 'startDate');
-      } else {
-        setSort('openForRegistration', 'updatedBy');
-        setFilterState({ ..._.clone(filterState), types });
-      }
+    if (recommendedToggle) {
+      types = [...types, 'REC'];
     } else {
       types = types.filter(type => type !== 'REC');
-      setFilterState({ ..._.clone(filterState), types });
-      setSort('openForRegistration', 'startDate');
     }
+
+    setFilterState({ ..._.clone(filterState), types });
+    setSort('openForRegistration', 'startDate');
   };
 
   const recommendedCheckboxTip = (
@@ -462,24 +478,7 @@ export default function FiltersPanel({
                             checked={filterState.types.includes(option.value)}
                             onChange={e => handleTypeChange(option, e)}
                           />
-                          {
-                            option.label === 'Recommended'
-                              ? (
-                                <label styleName="checkbox-label" htmlFor={option.label}>
-                                  <Tooltip
-                                    id="recommended-tip"
-                                    content={recommendedCheckboxTip}
-                                    className={style['tooltip-overlay']}
-                                    trigger={['hover', 'focus']}
-                                  >
-                                    {option.label}
-                                  </Tooltip>
-
-                                </label>
-                              )
-
-                              : <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
-                          }
+                          <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
                         </span>
                       ))
                   }
@@ -579,7 +578,40 @@ export default function FiltersPanel({
             </div>
           )
         }
+
+        {
+          isRecommendedChallengesVisible
+          && (
+            <div styleName="filter-row recommended-challenges-filter">
+              <span
+                styleName="filter-switch-with-label"
+                aria-label={`Recommended challenge toggle button pressed ${recommendedToggle ? 'On' : 'Off'}`}
+                role="switch"
+                aria-checked={recommendedToggle}
+              >
+                <SwitchWithLabel
+                  enabled={recommendedToggle}
+                  labelAfter="Recommended Challenges"
+                  onSwitch={onSwitchRecommendedChallenge}
+                />
+              </span>
+
+              <div styleName="recommended-challenge-tooltip">
+                <Tooltip
+                  id="recommended-tip"
+                  content={recommendedCheckboxTip}
+                  className={style['tooltip-overlay']}
+                  trigger={['hover', 'focus']}
+                >
+                  <i className="fa fa-info-cirle" aria-hidden="true" />
+                </Tooltip>
+              </div>
+            </div>
+          )
+        }
       </div>
+
+      <hr />
 
       <div styleName="buttons">
         <Button

@@ -275,7 +275,7 @@ export function isPastBucket(bucket) {
  * @param {Object} filterState current filter state
 */
 export function isRecommendedChallengeType(bucket, filterState) {
-  return bucket === 'openForRegistration' && filterState.types.length === 1 && filterState.types[0] === 'REC';
+  return bucket === 'openForRegistration' && filterState.types.includes('REC');
 }
 
 export default undefined;
