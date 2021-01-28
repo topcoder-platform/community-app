@@ -6,7 +6,7 @@ import PT from 'prop-types';
 import React, { Component } from 'react';
 import { themr } from 'react-css-super-themr';
 
-import IconArrow from 'assets/images/tc-edu/icon-arrow-up-big.svg';
+import iconDown from 'assets/images/dropdown-arrow.png';
 import defaultTheme from './themes/default.scss';
 
 
@@ -58,9 +58,12 @@ export class TracksAuthorInner extends Component {
       isShowPopup,
     } = this.state;
 
+    // sort by author name
+    options.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
     return (
       <div ref={this.setWrapperRef} className={`${theme.container} ${className}`}>
-        <span className={theme.title}>Author</span>
+        <span className={theme.title}>Authors</span>
         <button
           type="button"
           className={theme.header}
@@ -69,7 +72,7 @@ export class TracksAuthorInner extends Component {
           }}
         >
           <span>{selected}</span>
-          <IconArrow className={theme['icon-arrow']} />
+          <img width="15" height="9" className={theme['icon-arrow']} src={iconDown} alt="dropdown-arraow-icon" />
         </button>
         {isShowPopup && (
           <div className={theme.popup}>
