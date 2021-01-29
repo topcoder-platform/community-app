@@ -39,5 +39,5 @@ export function phaseStartDate(phase) {
  * @param {Float} score
  */
 export function calculateScore(score) {
-  return Math.trunc(Math.abs(score + 1.0) * 100.0 / 2.0);
+  return Math.trunc((parseFloat(score) + 1.0) / 2.0 * 100.0);
 }

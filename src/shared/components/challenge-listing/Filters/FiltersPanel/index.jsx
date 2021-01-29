@@ -267,7 +267,7 @@ export default function FiltersPanel({
     setRecommendedToggle(on);
 
     if (on) {
-      setSort('openForRegistration', 'updatedBy');
+      setSort('openForRegistration', 'bestMatch');
       setFilterState({ ..._.clone(filterState), types });
     } else {
       setFilterState({ ..._.clone(filterState), types: ['TSK', 'CH', 'F2F'] });

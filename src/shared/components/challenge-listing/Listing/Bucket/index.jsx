@@ -54,7 +54,7 @@ export default function Bucket({
   setSearchText,
 }) {
   const activeBucketData = isRecommendedChallengeType(bucket, filterState)
-    ? BUCKET_DATA[bucket].sorts : BUCKET_DATA[bucket].sorts.filter(item => item !== 'updatedBy');
+    ? BUCKET_DATA[bucket].sorts : BUCKET_DATA[bucket].sorts.filter(item => item !== 'bestMatch');
 
   let noLiveBucket = activeBucket;
   if (isRecommendedChallengeType(bucket, filterState)) {
