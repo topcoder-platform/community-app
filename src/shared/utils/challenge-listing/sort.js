@@ -4,6 +4,7 @@
 
 import moment from 'moment';
 import { sumBy } from 'lodash';
+import { calculateScore } from './helper';
 // import { phaseStartDate, phaseEndDate } from './helper';
 
 export const SORTS = {
@@ -19,7 +20,7 @@ export const SORTS = {
   REVIEW_OPPORTUNITIES_TITLE_A_TO_Z: 'review-opportunities-title-a-to-z',
   REVIEW_OPPORTUNITIES_PAYMENT: 'review-opportunities-payment',
   REVIEW_OPPORTUNITIES_START_DATE: 'review-opportunities-start-date',
-  BEST_MATCH: 'updatedBy',
+  BEST_MATCH: 'bestMatch',
 };
 
 export default {
@@ -100,8 +101,7 @@ export default {
     name: 'Review start date',
   },
   [SORTS.BEST_MATCH]: {
-    func: (a, b) => parseFloat(a.matchScore) - parseFloat(b.matchScore),
+    func: (a, b) => calculateScore(b.matchScore) - calculateScore(a.matchScore),
     name: 'Best Match',
-    order: 'asc',
   },
 };
