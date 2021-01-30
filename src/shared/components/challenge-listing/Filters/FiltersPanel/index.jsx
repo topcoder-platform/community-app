@@ -255,11 +255,16 @@ export default function FiltersPanel({
   const [recommendedToggle, setRecommendedToggle] = useState(false);
 
   useEffect(() => {
-    if (recommendedToggle) {
-      const types = _.union(filterState.types, ['REC']);
-      setFilterState({ ..._.clone(filterState), types });
+    if (!isFilterEmpty(filterState, past ? 'past' : '', activeBucket)
+      && recommendedToggle
+      && filterState.types.length !== _.uniq(filterState.types).length
+    ) {
+      setFilterState({
+        ...filterState,
+        types: _.uniq(filterState.types),
+      });
     }
-  }, []);
+  }, [filterState]);
 
   const onSwitchRecommendedChallenge = (on) => {
     const { types } = filterState;
@@ -270,8 +275,8 @@ export default function FiltersPanel({
       setSort('openForRegistration', 'bestMatch');
       setFilterState({ ..._.clone(filterState), types });
     } else {
-      setFilterState({ ..._.clone(filterState), types: ['TSK', 'CH', 'F2F'] });
       setSort('openForRegistration', 'startDate');
+      setFilterState({ ..._.clone(filterState), types: types.filter(item => item !== 'REC') });
     }
   };
 
@@ -284,13 +289,12 @@ export default function FiltersPanel({
     }
 
     if (recommendedToggle) {
-      types = [...types, 'REC'];
+      types = _.union(types, ['REC']);
     } else {
       types = types.filter(type => type !== 'REC');
+      setSort('openForRegistration', 'startDate');
     }
-
     setFilterState({ ..._.clone(filterState), types });
-    setSort('openForRegistration', 'startDate');
   };
 
   const recommendedCheckboxTip = (
@@ -618,6 +622,8 @@ export default function FiltersPanel({
           composeContextTheme={COMPOSE.SOFT}
           disabled={disableClearFilterButtons}
           onClick={() => {
+            setRecommendedToggle(false);
+            setSort('openForRegistration', 'startDate');
             setFilterState({
               tracks: {
                 Dev: true,
@@ -638,7 +644,6 @@ export default function FiltersPanel({
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');
-            setRecommendedToggle(false);
             // localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
