@@ -169,7 +169,7 @@ export class ListingContainer extends React.Component {
         }
         case BUCKETS.OPEN_FOR_REGISTRATION: {
           if (isRecommendedChallengeType(bucket, filter)) {
-            dropOpenForRegistrationChallenges();
+            dropRecommendedChallenges();
             getRecommendedChallenges(
               0,
               sorts,
@@ -177,7 +177,7 @@ export class ListingContainer extends React.Component {
               filter,
             );
           } else {
-            dropRecommendedChallenges();
+            dropOpenForRegistrationChallenges();
             getOpenForRegistrationChallenges(
               0,
               fA.back,
@@ -234,7 +234,7 @@ export class ListingContainer extends React.Component {
       return;
     }
     if (filterChanged(filter, prevProps.filter)) {
-      if (isRecommendedChallengeType(bucket, prevProps.filter)) {
+      if (filter.types.includes('REC')) {
         this.reloadRecommendedChallenges();
       } else {
         this.reloadChallenges();

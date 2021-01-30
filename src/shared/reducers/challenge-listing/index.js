@@ -806,7 +806,6 @@ function create(initialState) {
     }),
     [a.dropRecommendedChallenges]: state => ({
       ...state,
-      allChallenges: [],
       lastRequestedPageOfRecommendedChallenges: -1,
       loadingAllChallengesUUID: '',
     }),
