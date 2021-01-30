@@ -638,6 +638,7 @@ export default function FiltersPanel({
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');
+            setRecommendedToggle(false);
             // localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
           size="sm"
