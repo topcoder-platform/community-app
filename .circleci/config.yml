@@ -373,7 +373,7 @@ workflows:
           type: approval
           filters:
             branches:
-              only: ['develop', "performance-testing"]
+              only: ['develop', 'performance-testing']
       - "community-performance-testing":
           requires:
             - approve-performance-testing

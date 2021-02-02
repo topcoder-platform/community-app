@@ -221,8 +221,6 @@
                                 <phase>verify</phase>
                             </execution>
                         </executions>
-						<configuration>
-						</configuration>						
                     </plugin>
                 </plugins>
             </build>
