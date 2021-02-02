@@ -1,5 +1,4 @@
 version: 2.1
-
 defaults: &defaults
     docker:
       - image: docker:17.11.0-ce-git
@@ -264,7 +263,45 @@ jobs:
           paths:
             - node_modules
       - run: npm test
+     
+  "community-performance-testing":
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
 
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run: mvn verify
+
+      - store_artifacts:
+          path: target/jmeter/reports     
+      
 workflows:
   version: 2
   build:
@@ -332,6 +369,14 @@ workflows:
           context : org-global
           requires:
             - approve-smoke-test-on-production
+      - "approve-performance-testing":
+          type: approval
+          filters:
+            branches:
+              only: ['develop', 'performance-testing']
+      - "community-performance-testing":
+          requires:
+            - approve-performance-testing
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
