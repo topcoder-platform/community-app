@@ -7,7 +7,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jmeter-maven-plugin.version>2.9.0</jmeter-maven-plugin.version>
-		<jmeterScript>Community-100VU.jmx</jmeterScript>
+		<jmeterScript>Community-15VU.jmx</jmeterScript>
     </properties>
     <dependencies>
         <dependency>
