@@ -69,7 +69,7 @@ export class ChallengeListingPageObject {
    * Get filter sub community label field
    */
   static get subCommunityDropdown() {
-    return ElementHelper.getElementById('react-select-3--value-item');
+    return ElementHelper.getElementById('react-select-2--value-item');
   }
 
   /**
