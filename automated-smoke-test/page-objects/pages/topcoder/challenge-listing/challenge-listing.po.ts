@@ -109,7 +109,7 @@ export class ChallengeListingPageObject {
     const els = await ElementHelper.getAllElementsByXPath(
       '//div[contains(text(), "' + filter + '")]'
     );
-    return els[1];
+    return els[0];
   }
 
   /**
