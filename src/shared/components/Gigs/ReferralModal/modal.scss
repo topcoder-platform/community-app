@@ -16,7 +16,7 @@
   @include gui-kit-content;
 
   .title {
-    color: #1E94A3;
+    color: #1e94a3;
     font-family: BarlowCondensed, sans-serif;
     font-size: 34px;
     line-height: 38px;
@@ -26,7 +26,7 @@
   }
 
   .loginMsg {
-    color: #EF476F;
+    color: #ef476f;
     font-size: 24px;
     line-height: 36px;
     margin-bottom: 40px;
@@ -68,7 +68,7 @@
 
       @include xs-to-sm {
         padding: 20px;
-        width: 90vw;  
+        width: 90vw;
         min-width: auto;
       }
 
