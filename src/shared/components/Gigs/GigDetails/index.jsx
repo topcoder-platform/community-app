@@ -3,11 +3,12 @@
  * The Gig details component.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PT from 'prop-types';
 import { isomorphy, Link, config } from 'topcoder-react-utils';
 import ReactHtmlParser from 'react-html-parser';
 import { getSalaryType, getCustomField } from 'utils/gigs';
+import { getQuery } from 'utils/url';
 import SubscribeMailChimpTag from 'containers/SubscribeMailChimpTag';
 import './style.scss';
 import IconFacebook from 'assets/images/icon-facebook.svg';
@@ -23,6 +24,7 @@ import iconLabel1 from 'assets/images/l1.png';
 import iconLabel2 from 'assets/images/l2.png';
 import iconLabel3 from 'assets/images/l3.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
+import ReferralModal from '../ReferralModal';
 
 // Cleanup HTML from style tags
 // so it won't affect other parts of the UI
@@ -36,15 +38,23 @@ const ReactHtmlParserOptions = {
 };
 
 export default function GigDetails(props) {
-  const { job, application } = props;
+  const {
+    job, application, profile, onSendClick, isReferrSucess, formData, formErrors, onFormInputChange, isReferrError, getReferralId, referralId,
+  } = props;
   let shareUrl;
+  let showModalInitially = false;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
+    const query = getQuery();
+    showModalInitially = !!query.referr;
+    if (showModalInitially) getReferralId();
   }
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
   const hPerW = getCustomField(job.custom_fields, 'Hours per week');
   const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary} (USD)`;
+
+  const [isModalOpen, setModalOpen] = useState(showModalInitially);
 
   return (
     <div styleName="container">
@@ -161,6 +171,25 @@ export default function GigDetails(props) {
                   </ul>
                 </div>
                 <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</div>
+                <div styleName="referral">
+                  <button styleName="primaryBtn" onClick={() => { setModalOpen(true); getReferralId(); }} type="button">Refer</button>
+                  {
+                    isModalOpen
+                    && (
+                    <ReferralModal
+                      profile={profile}
+                      onCloseButton={() => setModalOpen(false)}
+                      onSendClick={onSendClick}
+                      isReferrSucess={isReferrSucess}
+                      formErrors={formErrors}
+                      formData={formData}
+                      onFormInputChange={onFormInputChange}
+                      isReferrError={isReferrError}
+                      referralId={referralId}
+                    />
+                    )
+                  }
+                </div>
               </div>
             </div>
           </div>
@@ -172,9 +201,20 @@ export default function GigDetails(props) {
 
 GigDetails.defaultProps = {
   application: null,
+  profile: {},
+  referralId: null,
 };
 
 GigDetails.propTypes = {
   job: PT.shape().isRequired,
   application: PT.shape(),
+  profile: PT.shape(),
+  onSendClick: PT.func.isRequired,
+  isReferrSucess: PT.bool.isRequired,
+  formErrors: PT.shape().isRequired,
+  formData: PT.shape().isRequired,
+  onFormInputChange: PT.func.isRequired,
+  isReferrError: PT.shape().isRequired,
+  getReferralId: PT.func.isRequired,
+  referralId: PT.string,
 };

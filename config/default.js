@@ -247,6 +247,16 @@ module.exports = {
     },
 
     RECRUITCRM_API_KEY: '',
+    GROWSURF_API_KEY: '',
+    SENDGRID_API_KEY: '',
+  },
+
+  GROWSURF_CAMPAIGN_ID: '',
+  GROWSURF_COOKIE: '_tc_gigs_ref',
+  GROWSURF_COOKIE_SETTINGS: {
+    secure: true,
+    domain: '',
+    expires: 7, // days
   },
 
   AUTH_CONFIG: {

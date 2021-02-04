@@ -4,6 +4,7 @@
 
 import express from 'express';
 import MailchimpService from '../services/mailchimp';
+import { sendEmail } from '../services/sendGrid';
 
 const routes = express.Router();
 /* Sets Access-Control-Allow-Origin header to avoid CORS error.
@@ -27,5 +28,7 @@ routes.post('/:listId/members/:emailHash/tags', (req, res) => new MailchimpServi
 routes.get('/campaign-folders', (req, res) => new MailchimpService().getCampaignFolder(req).then(res.send.bind(res)));
 
 routes.get('/campaigns', (req, res) => new MailchimpService().getCampaigns(req).then(res.send.bind(res)));
+
+routes.post('/email', (req, res) => sendEmail(req, res).then(res.send.bind(res)));
 
 export default routes;

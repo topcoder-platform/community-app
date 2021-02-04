@@ -1,6 +1,37 @@
 @import '~styles/mixins';
 @import "~components/Contentful/default";
 
+@mixin primaryBtn {
+  background-color: #137d60;
+  border-radius: 20px;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: bolder !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  line-height: 40px !important;
+  padding: 0 20px !important;
+  border: none;
+  outline: none;
+
+  &:hover {
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    background-color: #0ab88a;
+  }
+
+  @include xs-to-sm {
+    margin-bottom: 20px;
+  }
+}
+
+.primaryBtn {
+  @include primaryBtn;
+}
+
+.referral {
+  display: flex;
+}
+
 .container {
   max-width: $screen-lg;
   min-height: 50vh;
@@ -145,6 +176,7 @@
               font-weight: bold;
             }
           }
+
           /* stylelint-enable */
 
           ul {
@@ -195,6 +227,7 @@
           line-height: 30px;
           display: inline-block;
         }
+
         /* stylelint-enable */
 
         h4 {
@@ -209,10 +242,12 @@
           display: flex;
           align-items: center;
           line-height: 21px;
+
           /* stylelint-disable */
           img {
             margin-right: 8px;
           }
+
           /* stylelint-enable */
         }
       }
@@ -253,27 +288,9 @@
     /* stylelint-enable */
 
     .primaryBtn {
-      background-color: #137d60;
-      border-radius: 20px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: bolder;
-      text-decoration: none;
-      text-transform: uppercase;
-      line-height: 40px;
-      padding: 0 20px;
-      border: none;
-      outline: none;
       margin-right: 20px;
 
-      &:hover {
-        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-        background-color: #0ab88a;
-      }
-
-      @include xs-to-sm {
-        margin-bottom: 20px;
-      }
+      @include primaryBtn;
     }
   }
 }
