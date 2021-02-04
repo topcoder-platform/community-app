@@ -44,6 +44,9 @@ docker build -t $TAG \
   --build-arg CONTENTFUL_COMCAST_CDN_API_KEY=$CONTENTFUL_COMCAST_CDN_API_KEY \
   --build-arg CONTENTFUL_COMCAST_PREVIEW_API_KEY=$CONTENTFUL_COMCAST_PREVIEW_API_KEY \
   --build-arg RECRUITCRM_API_KEY=$RECRUITCRM_API_KEY \
+  --build-arg SENDGRID_API_KEY=$SENDGRID_API_KEY \
+  --build-arg GROWSURF_API_KEY=$GROWSURF_API_KEY \
+  --build-arg GROWSURF_CAMPAIGN_ID=$GROWSURF_CAMPAIGN_ID \
   --build-arg COMMUNITY_APP_URL=$COMMUNITY_APP_URL .
 
 # Copies "node_modules" from the created image, if necessary for caching.
