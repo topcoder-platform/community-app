@@ -2,7 +2,7 @@
 /**
  * Datepicker component.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import './style.scss';
@@ -25,13 +25,19 @@ function Datepicker({
   onChange,
   errorMsg,
   required,
+  size,
+  isOutsideRange,
 }) {
+  const sizeStyle = size === 'lg' ? 'lgSize' : 'xsSize';
   const [date, setDate] = useState(value ? moment(value) : null);
   const [focused, setFocused] = useState(false);
   const { width } = useWindowSize();
+  useEffect(() => {
+    setDate(value ? moment(value) : null);
+  }, [value]);
   return (
     <div
-      styleName={`container ${date ? 'haveValue' : ''} ${
+      styleName={`container ${sizeStyle} ${date ? 'haveValue' : ''} ${
         errorMsg ? 'haveError' : ''
       } ${focused ? 'isFocused' : ''}`}
     >
@@ -58,6 +64,7 @@ function Datepicker({
         enableOutsideDays
         firstDayOfWeek={1}
         weekDayFormat="ddd"
+        isOutsideRange={isOutsideRange}
       />
       {label ? (
         <span styleName="label">
@@ -77,6 +84,8 @@ Datepicker.defaultProps = {
   onChange: () => {},
   errorMsg: '',
   required: false,
+  size: 'lg',
+  isOutsideRange: day => moment().isSameOrAfter(day),
 };
 
 Datepicker.propTypes = {
@@ -86,6 +95,8 @@ Datepicker.propTypes = {
   onChange: PT.func,
   errorMsg: PT.string,
   required: PT.bool,
+  size: PT.oneOf(['xs', 'lg']),
+  isOutsideRange: PT.func,
 };
 
 export default Datepicker;
