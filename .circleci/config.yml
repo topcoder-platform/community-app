@@ -275,7 +275,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - gig-referrals
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
