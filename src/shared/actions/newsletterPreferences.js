@@ -35,7 +35,7 @@ async function fetchDataDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL
 
     return {
       email: emailHash,
-      preferences: subs.tags,
+      preferences: subs.interests,
       error,
     };
   } catch (error) {
@@ -48,7 +48,7 @@ async function fetchDataDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL
 
 // Updates member newsletter subscription
 async function updateSubscriptionsDone(
-  emailHash, tagId, status, listId = config.NEWSLETTER_SIGNUP.DEFAUL_LIST_ID,
+  emailHash, groupId, status, listId = config.NEWSLETTER_SIGNUP.DEFAUL_LIST_ID,
 ) {
   /* NOTE: In the real life in most cases you don't want to use fetch() directly
    * in an action. You want to create a service for your calls and use it here.
@@ -56,18 +56,16 @@ async function updateSubscriptionsDone(
    * directly here. */
   try {
     let error = false;
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${emailHash}/tags`;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${emailHash}`;
 
     const data = {
-      tags: [
-        { name: tagId, status: status ? 'active' : 'inactive' },
-      ],
+      interests: { [groupId]: !!status },
     };
 
     const formData = JSON.stringify(data);
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
     await fetch(fetchUrl, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -79,14 +77,14 @@ async function updateSubscriptionsDone(
       });
 
     return {
-      id: tagId,
+      id: groupId,
       checked: status,
       email: emailHash,
       error,
     };
   } catch (error) {
     return {
-      id: tagId,
+      id: groupId,
       checked: status,
       email: emailHash,
       error,

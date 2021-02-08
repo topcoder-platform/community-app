@@ -26,39 +26,46 @@ const SAVE_DELAY = 1000;
 
 const newsletters = [
   {
-    id: 'Pipeline',
+    id: '9f950b43a1',
     name: 'Challenge Pipeline',
     desc: 'Subscribe to this newsletter if you want to get updates on the types of challenges coming up in the future. To view these challenges at your leisure you can always visit the <a href="https://www.topcoder.com/community/pipeline" style="color:#0d61bf;text-decoration:underline">Challenge Pipeline</a> page.',
   },
   {
-    id: 'Gig Work',
+    id: 'd0c48e9da3',
     name: 'Gig Work',
     desc: 'This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href="https://www.topcoder.com/community/taas" style="color:#0d61bf;text-decoration:underline">Gig Work</a> page.',
   },
   {
-    id: 'Monthly Newsletter',
+    id: 'a8f858cdf1',
     name: 'Monthly Newsletter',
     desc: 'This newsletter gets sent out at the end of every month and contains a variety of important information across all of our tracks.',
   },
   {
-    id: 'Marathon Match Reminders',
+    id: '5e67dba327',
     name: 'Marathon Match Reminders',
     desc: 'Receive updates whenever a new marathon match is scheduled.',
   },
   {
-    id: 'Single Round Match Reminders',
+    id: '9091b438cc',
     name: 'Single Round Match (SRM) Reminders',
     desc: 'Attention Competitive Programmers! If there is any newsletter you are subscribing too, it better be this one. Receive updates when a new SRM event is scheduled.',
   },
   {
-    id: 'TCO Tuesdays',
+    id: '603c900c32',
     name: 'TCO Newsletter',
     desc: 'For all the latest updates surrounding the <a href="https://www.topcoder.com/community/member-programs/topcoder-open" style="color:#0d61bf;text-decoration:underline">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!',
   },
   {
-    id: 'RDM',
+    id: '3460574ddd',
     name: 'Rapid Development Match (RDM) Reminders',
     desc: 'Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!',
+  },
+];
+const programs = [
+  {
+    id: 'cafe98d7a7',
+    name: 'Beta Testers',
+    desc: '',
   },
 ];
 
@@ -84,8 +91,7 @@ export default class EmailPreferences extends React.Component {
       }
       const { emailPreferences } = this.state;
       const { id, checked } = updated;
-      if (!emailPreferences[id]) emailPreferences[id] = { id, checked };
-      else emailPreferences[id].checked = checked;
+      emailPreferences[id] = checked;
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
@@ -107,14 +113,11 @@ export default class EmailPreferences extends React.Component {
         <h1 styleName="title">
           E-Mail Preferences
         </h1>
-        <div styleName="sub-title">
-          Your preferences
-        </div>
+        <div styleName="sub-title">Newsletters</div>
         <div styleName="preferences-container">
           {
             map(newsletters, (newsletter) => {
-              const checked = emailPreferences[newsletter.id]
-                ? emailPreferences[newsletter.id].checked : false;
+              const checked = emailPreferences[newsletter.id];
               return (
                 <ToggleableItem
                   key={newsletter.id}
@@ -124,6 +127,25 @@ export default class EmailPreferences extends React.Component {
                   primaryText={newsletter.name}
                   secondaryText={newsletter.desc}
                   onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                />
+              );
+            })
+          }
+        </div>
+        <div styleName="sub-title-2">Programs</div>
+        <div styleName="preferences-container">
+          {
+            map(programs, (program) => {
+              const checked = emailPreferences[program.id];
+              return checked && (
+                <ToggleableItem
+                  key={program.id}
+                  id={program.id}
+                  value={program.id}
+                  checked={checked}
+                  primaryText={program.name}
+                  secondaryText={program.desc}
+                  onToggle={e => this.onChange(program.id, e.target.checked)}
                 />
               );
             })
