@@ -67,6 +67,7 @@ export default class GrowsurfService {
         code: response.status,
         url: `${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant`,
         body,
+        private: this.private, // to remove in final release
       };
     }
     const data = await response.json();
