@@ -15,6 +15,7 @@ function onInit(state, { payload }) {
     ...state,
     email: payload,
     preferences: {},
+    status: null,
     loading: true,
   };
 }
@@ -28,6 +29,7 @@ function onDone(state, { payload }) {
   return {
     ...state,
     preferences: payload.error ? null : payload.preferences,
+    status: payload.error ? null : payload.status,
     error: payload.error,
     loading: false,
   };

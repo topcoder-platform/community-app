@@ -36,6 +36,7 @@ async function fetchDataDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL
     return {
       email: emailHash,
       preferences: subs.interests,
+      status: subs.status,
       error,
     };
   } catch (error) {

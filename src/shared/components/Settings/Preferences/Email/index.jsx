@@ -5,6 +5,7 @@ import { debounce, map } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { toastr } from 'react-redux-toastr';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import ToggleableItem from 'components/Settings/ToggleableItem';
 
@@ -79,6 +80,7 @@ export default class EmailPreferences extends React.Component {
     super(props);
     this.state = {
       emailPreferences: { ...props.preferences },
+      status: props.status,
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -107,12 +109,28 @@ export default class EmailPreferences extends React.Component {
   }
 
   render() {
-    const { emailPreferences } = this.state;
+    const { emailPreferences, status } = this.state;
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
           E-Mail Preferences
         </h1>
+        {
+          status !== 'subscribed' ? (
+            <div styleName="unsubscribed-msg">
+              <h3>You have unsubscribed from Topcoder Emails</h3>
+              <p>If this was a mistake or if you would like to resubscribe,
+                please click the button below and fill out the form.
+              </p>
+              <PrimaryButton
+                // eslint-disable-next-line no-return-assign
+                onClick={() => window.location.href = 'https://topcoder.us13.list-manage.com/subscribe?u=65bd5a1857b73643aad556093&id=28bfd3c062'}
+              >
+                Resubscribe
+              </PrimaryButton>
+            </div>
+          ) : null
+        }
         <div styleName="sub-title">Newsletters</div>
         <div styleName="preferences-container">
           {
@@ -127,6 +145,7 @@ export default class EmailPreferences extends React.Component {
                   primaryText={newsletter.name}
                   secondaryText={newsletter.desc}
                   onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                  disabled={status !== 'subscribed'}
                 />
               );
             })
@@ -146,6 +165,7 @@ export default class EmailPreferences extends React.Component {
                   primaryText={program.name}
                   secondaryText={program.desc}
                   onToggle={e => this.onChange(program.id, e.target.checked)}
+                  disabled={status !== 'subscribed'}
                 />
               );
             })
@@ -158,6 +178,7 @@ export default class EmailPreferences extends React.Component {
 
 EmailPreferences.defaultProps = {
   updated: null,
+  status: null,
 };
 
 EmailPreferences.propTypes = {
@@ -165,4 +186,5 @@ EmailPreferences.propTypes = {
   preferences: PT.shape().isRequired,
   saveEmailPreferences: PT.func.isRequired,
   updated: PT.shape(),
+  status: PT.string,
 };
