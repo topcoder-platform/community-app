@@ -91,13 +91,14 @@ export default class EmailPreferences extends React.Component {
       if (updated.error) {
         toastrError('Error! ', 'Failed to update Your email preferences :-(');
       }
-      const { emailPreferences } = this.state;
+      const { emailPreferences, status } = this.state;
       const { id, checked } = updated;
       emailPreferences[id] = checked;
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         emailPreferences,
+        status: updated.resubscribe ? 'subscribed' : status,
       });
       toastrSuccess('Success! ', 'Your email preferences were updated.');
     }
@@ -110,6 +111,7 @@ export default class EmailPreferences extends React.Component {
 
   render() {
     const { emailPreferences, status } = this.state;
+    const { resubscibeEmails, email } = this.props;
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
@@ -123,54 +125,56 @@ export default class EmailPreferences extends React.Component {
                 please click the button below and fill out the form.
               </p>
               <PrimaryButton
-                // eslint-disable-next-line no-return-assign
-                onClick={() => window.location.href = 'https://topcoder.us13.list-manage.com/subscribe?u=65bd5a1857b73643aad556093&id=28bfd3c062'}
+                onClick={() => resubscibeEmails(email)}
               >
                 Resubscribe
               </PrimaryButton>
             </div>
-          ) : null
+          ) : (
+            <React.Fragment>
+              <div styleName="sub-title">Newsletters</div>
+              <div styleName="preferences-container">
+                {
+                    map(newsletters, (newsletter) => {
+                      const checked = emailPreferences[newsletter.id];
+                      return (
+                        <ToggleableItem
+                          key={newsletter.id}
+                          id={newsletter.id}
+                          value={newsletter.id}
+                          checked={checked}
+                          primaryText={newsletter.name}
+                          secondaryText={newsletter.desc}
+                          onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                          disabled={status !== 'subscribed'}
+                        />
+                      );
+                    })
+                  }
+              </div>
+              <div styleName="sub-title-2">Programs</div>
+              <div styleName="preferences-container">
+                {
+                    map(programs, (program) => {
+                      const checked = emailPreferences[program.id];
+                      return (
+                        <ToggleableItem
+                          key={program.id}
+                          id={program.id}
+                          value={program.id}
+                          checked={checked}
+                          primaryText={program.name}
+                          secondaryText={program.desc}
+                          onToggle={e => this.onChange(program.id, e.target.checked)}
+                          disabled={status !== 'subscribed'}
+                        />
+                      );
+                    })
+                  }
+              </div>
+            </React.Fragment>
+          )
         }
-        <div styleName="sub-title">Newsletters</div>
-        <div styleName="preferences-container">
-          {
-            map(newsletters, (newsletter) => {
-              const checked = emailPreferences[newsletter.id];
-              return (
-                <ToggleableItem
-                  key={newsletter.id}
-                  id={newsletter.id}
-                  value={newsletter.id}
-                  checked={checked}
-                  primaryText={newsletter.name}
-                  secondaryText={newsletter.desc}
-                  onToggle={e => this.onChange(newsletter.id, e.target.checked)}
-                  disabled={status !== 'subscribed'}
-                />
-              );
-            })
-          }
-        </div>
-        <div styleName="sub-title-2">Programs</div>
-        <div styleName="preferences-container">
-          {
-            map(programs, (program) => {
-              const checked = emailPreferences[program.id];
-              return checked && (
-                <ToggleableItem
-                  key={program.id}
-                  id={program.id}
-                  value={program.id}
-                  checked={checked}
-                  primaryText={program.name}
-                  secondaryText={program.desc}
-                  onToggle={e => this.onChange(program.id, e.target.checked)}
-                  disabled={status !== 'subscribed'}
-                />
-              );
-            })
-          }
-        </div>
       </div>
     );
   }
@@ -187,4 +191,5 @@ EmailPreferences.propTypes = {
   saveEmailPreferences: PT.func.isRequired,
   updated: PT.shape(),
   status: PT.string,
+  resubscibeEmails: PT.func.isRequired,
 };

@@ -51,6 +51,22 @@ function onUpdateTagDone(state, { payload }) {
   };
 }
 
+function onResubscribeInit(state) {
+  return {
+    ...state,
+    updated: null,
+  };
+}
+
+function onResubscribeDone(state, { payload }) {
+  // eslint-disable-next-line no-param-reassign
+  state.preferences[payload.id] = payload.checked;
+  return {
+    ...state,
+    updated: payload,
+  };
+}
+
 /**
  * Creates newsletterPreferences reducer with the specified initial state.
  * @param {Object} state Optional. If not given, the default one is
@@ -63,6 +79,8 @@ function create(state = {}) {
     [actions.newsletterPreferences.fetchDataDone]: onDone,
     [actions.newsletterPreferences.updateTagInit]: onUpdateTagInit,
     [actions.newsletterPreferences.updateTagDone]: onUpdateTagDone,
+    [actions.newsletterPreferences.resubscribeInit]: onResubscribeInit,
+    [actions.newsletterPreferences.resubscribeDone]: onResubscribeDone,
   }, state);
 }
 
