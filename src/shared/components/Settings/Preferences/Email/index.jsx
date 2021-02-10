@@ -122,7 +122,7 @@ export default class EmailPreferences extends React.Component {
             <div styleName="unsubscribed-msg">
               <h3>You have unsubscribed from Topcoder Emails</h3>
               <p>If this was a mistake or if you would like to resubscribe,
-                please click the button below and fill out the form.
+                please click the button below.
               </p>
               <PrimaryButton
                 onClick={() => resubscibeEmails(email)}
