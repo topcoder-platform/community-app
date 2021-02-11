@@ -20,10 +20,10 @@ export async function sendEmail(req, res) {
     if (result.status >= 300) {
       res.status(result.status);
     }
-    return result;
+    return res.send(result);
   } catch (e) {
     res.status(500);
-    return { message: e.message };
+    return res.send({ message: e.message });
   }
 }
 
