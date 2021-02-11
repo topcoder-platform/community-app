@@ -65,6 +65,7 @@ ARG TC_M2M_AUTH0_URL
 ARG AUTH_SECRET
 
 ARG COMMUNITY_APP_URL
+ARG GSHEETS_API_KEY
 
 ################################################################################
 # Setting of environment variables in the Docker image.
