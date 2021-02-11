@@ -66,6 +66,11 @@ ARG AUTH_SECRET
 
 ARG COMMUNITY_APP_URL
 
+# Gig work referrals
+ARG SENDGRID_API_KEY
+ARG GROWSURF_API_KEY
+ARG GROWSURF_CAMPAIGN_ID
+
 ################################################################################
 # Setting of environment variables in the Docker image.
 
