@@ -13,10 +13,10 @@ exports[`renders email preferences setting page correctly 1`] = `
     className="src-shared-components-Settings-Preferences-Email-___styles__unsubscribed-msg___3yh6s"
   >
     <h3>
-      You have unsubscribed from Topcoder Emails
+      You are not subscribed to receive Topcoder emails
     </h3>
     <p>
-      If this was a mistake or if you would like to resubscribe, please click the button below and fill out the form.
+      If this was a mistake or if you would like to resubscribe, please click the button below.
     </p>
     <ThemedButton
       active={false}

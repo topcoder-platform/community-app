@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * Email Preferences component.
  */
@@ -66,7 +67,7 @@ const programs = [
   {
     id: 'cafe98d7a7',
     name: 'Beta Testers',
-    desc: '',
+    desc: 'If you have applied and been approved as a <a href="https://www.topcoder.com/community/member-programs/beta-testers" style="color:#0d61bf;text-decoration:underline">Beta Tester</a>, you may control the emails you receive here.',
   },
 ];
 
@@ -120,10 +121,8 @@ export default class EmailPreferences extends React.Component {
         {
           status !== 'subscribed' ? (
             <div styleName="unsubscribed-msg">
-              <h3>You have unsubscribed from Topcoder Emails</h3>
-              <p>If this was a mistake or if you would like to resubscribe,
-                please click the button below.
-              </p>
+              <h3>You are not subscribed to receive Topcoder emails</h3>
+              <p>If this was a mistake or if you would like to resubscribe, please click the button below.</p>
               <PrimaryButton
                 onClick={() => resubscibeEmails(email)}
               >
