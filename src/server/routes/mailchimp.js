@@ -29,6 +29,6 @@ routes.get('/campaign-folders', (req, res) => new MailchimpService().getCampaign
 
 routes.get('/campaigns', (req, res) => new MailchimpService().getCampaigns(req).then(res.send.bind(res)));
 
-routes.post('/email', (req, res) => sendEmail(req, res));
+routes.post('/email', (req, res) => sendEmail(req, res).then(res.send.bind(res)));
 
 export default routes;

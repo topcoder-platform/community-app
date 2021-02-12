@@ -14,23 +14,23 @@ sgMail.setApiKey(config.SECRET.SENDGRID_API_KEY);
  * @param {Object} req the request
  * @param {Object} res the response
  */
-export function sendEmail(req, res) {
-  const msg = req.body;
-  sgMail
-    .send(msg)
-    .then(result => res.json(result))
-    .catch((error) => {
-      logger.error(error);
-      const { message, code, response } = error;
-      res.status(code || 500);
-      if (error.response) {
-        const { headers, body } = response;
-        res.json({
-          message, headers, body,
-        });
-      }
-      res.json({ message });
-    });
-}
+export const sendEmail = async (req, res) => {
+  try {
+    const msg = req.body;
+    const result = await sgMail.send(msg);
+    return result;
+  } catch (error) {
+    logger.error(error);
+    const { message, code, response } = error;
+    res.status(code || 500);
+    if (error.response) {
+      const { headers, body } = response;
+      return {
+        message, headers, body,
+      };
+    }
+    return { message };
+  }
+};
 
 export default undefined;
