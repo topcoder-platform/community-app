@@ -2,6 +2,7 @@
  * Server-side functions necessary for sending emails via Sendgrid APIs
  */
 import config from 'config';
+import { logger } from 'topcoder-react-lib';
 
 const sgMail = require('@sendgrid/mail');
 
@@ -13,18 +14,23 @@ sgMail.setApiKey(config.SECRET.SENDGRID_API_KEY);
  * @param {Object} req the request
  * @param {Object} res the response
  */
-export async function sendEmail(req, res) {
-  const { body } = req;
-  try {
-    const result = await sgMail.send(body);
-    if (result.status >= 300) {
-      res.status(result.status);
-    }
-    return res.send(result);
-  } catch (e) {
-    res.status(500);
-    return res.send({ message: e.message });
-  }
+export function sendEmail(req, res) {
+  const msg = req.body;
+  return sgMail
+    .send(msg)
+    .then(result => res.send(result))
+    .catch((error) => {
+      logger.error(error);
+      const { message, code, response } = error;
+      res.status(code || 500);
+      if (error.response) {
+        const { headers, body } = response;
+        return res.send({
+          message, headers, body,
+        });
+      }
+      return res.send({ message });
+    });
 }
 
 export default undefined;
