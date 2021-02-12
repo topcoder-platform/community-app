@@ -18,6 +18,8 @@ import RecruitCRMJobApply from './RecruitCRMJobApply';
 
 const cookies = require('browser-cookies');
 
+const PROXY_ENDPOINT = `${config.URL.COMMUNITY_APP}/api`;
+
 class RecruitCRMJobDetailsContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -98,7 +100,7 @@ https://www.topcoder.com/gigs/${props.id}`,
       return;
     }
     // email the invite
-    const res = await fetch('/api/mailchimp/email', {
+    const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
       method: 'POST',
       body: JSON.stringify({
         from: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork <noreply@topcoder.com>`,
@@ -142,7 +144,7 @@ https://www.topcoder.com/gigs/${props.id}`,
     const { profile } = this.props;
     const { referralId, formData } = this.state;
     if (!referralId && profile.email) {
-      const res = await fetch(`/api/growsurf/participants?participantId=${profile.email}`, {
+      const res = await fetch(`${PROXY_ENDPOINT}/growsurf/participants?participantId=${profile.email}`, {
         method: 'POST',
         body: JSON.stringify({
           email: profile.email,
