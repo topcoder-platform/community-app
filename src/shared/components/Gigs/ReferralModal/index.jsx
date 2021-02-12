@@ -37,7 +37,10 @@ function ReferralModal({
   onFormInputChange,
   isReferrError,
   referralId,
+  onReferralDone,
 }) {
+  let retUrl = window.location.href;
+  retUrl += retUrl.match('\\?') ? '&referr=true' : '?referr=true';
   return (
     <Modal
       onCancel={onCloseButton}
@@ -65,6 +68,7 @@ function ReferralModal({
                     errorMsg={formErrors.body}
                     value={formData.body}
                     required
+                    readonly
                   />
                 </div>
                 <div className={modalStyle.ctaButtons}>
@@ -90,7 +94,7 @@ function ReferralModal({
             ) : null
           }
           {
-            !referralId && (
+            !referralId && !isReferrError && (
             <div className={modalStyle.referrForm}>
               <p style={{ textAlign: 'center' }}>Loading your personal referral form...</p>
               <LoadingIndicator />
@@ -104,7 +108,7 @@ function ReferralModal({
                 <p className={modalStyle.sucessMsg}>Your referral has been sent.</p>
                 <div className={modalStyle.ctaButtons}>
                   <PrimaryButton
-                    onClick={onCloseButton}
+                    onClick={onReferralDone}
                     theme={{
                       button: buttonThemes.tc['primary-green-md'],
                     }}
@@ -145,17 +149,16 @@ function ReferralModal({
             <Link to={HELP_INFO_LINK} className={buttonThemes.tc['primary-white-md']} openNewTab="true">FIND OUT MORE</Link>
             <PrimaryButton
               onClick={() => {
-                let retUrl = window.location.href;
-                retUrl += retUrl.match('\\?') ? '&referr=true' : '?referr=true';
-                window.location = `${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}`;
+                window.location = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`;
               }}
               theme={{
                 button: buttonThemes.tc['primary-green-md'],
               }}
             >
-              REGISTER
+              LOGIN
             </PrimaryButton>
           </div>
+          <p className={modalStyle.regTxt}>Not a member? Register <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}`}>here</a>.</p>
         </div>
       )}
     </Modal>
@@ -165,6 +168,7 @@ function ReferralModal({
 ReferralModal.defaultProps = {
   profile: null,
   referralId: null,
+  isReferrError: null,
 };
 
 ReferralModal.propTypes = {
@@ -175,8 +179,9 @@ ReferralModal.propTypes = {
   formErrors: PT.shape().isRequired,
   formData: PT.shape().isRequired,
   onFormInputChange: PT.func.isRequired,
-  isReferrError: PT.shape().isRequired,
+  isReferrError: PT.shape(),
   referralId: PT.string,
+  onReferralDone: PT.func.isRequired,
 };
 
 export default ReferralModal;

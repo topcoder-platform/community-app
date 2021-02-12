@@ -10,6 +10,7 @@ exports[`Default render 1`] = `
     id="textAreaInput"
     onChange={[Function]}
     placeholder=""
+    readOnly={false}
   />
 </div>
 `;

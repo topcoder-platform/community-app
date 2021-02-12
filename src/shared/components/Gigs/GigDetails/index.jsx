@@ -39,7 +39,7 @@ const ReactHtmlParserOptions = {
 
 export default function GigDetails(props) {
   const {
-    job, application, profile, onSendClick, isReferrSucess, formData, formErrors, onFormInputChange, isReferrError, getReferralId, referralId,
+    job, application, profile, onSendClick, isReferrSucess, formData, formErrors, onFormInputChange, isReferrError, getReferralId, referralId, onReferralDone,
   } = props;
   let shareUrl;
   let showModalInitially = false;
@@ -186,6 +186,10 @@ export default function GigDetails(props) {
                       onFormInputChange={onFormInputChange}
                       isReferrError={isReferrError}
                       referralId={referralId}
+                      onReferralDone={() => {
+                        onReferralDone();
+                        setModalOpen(false);
+                      }}
                     />
                     )
                   }
@@ -203,6 +207,7 @@ GigDetails.defaultProps = {
   application: null,
   profile: {},
   referralId: null,
+  isReferrError: null,
 };
 
 GigDetails.propTypes = {
@@ -214,7 +219,8 @@ GigDetails.propTypes = {
   formErrors: PT.shape().isRequired,
   formData: PT.shape().isRequired,
   onFormInputChange: PT.func.isRequired,
-  isReferrError: PT.shape().isRequired,
+  isReferrError: PT.shape(),
   getReferralId: PT.func.isRequired,
   referralId: PT.string,
+  onReferralDone: PT.func.isRequired,
 };

@@ -28,7 +28,7 @@ class RecruitCRMJobDetailsContainer extends React.Component {
       formData: {
         body: `Hey there!
 
-Topcoder has a freelance gig that I thought you would be interested in. If you get the gig and complete it successfully we both get an extra $1,000.
+Topcoder has a freelance gig that I thought you would be interested in. If you get the gig and complete it successfully we both get an extra $500.
         
 Check it out:
 https://www.topcoder.com/gigs/${props.id}`,
@@ -38,6 +38,7 @@ https://www.topcoder.com/gigs/${props.id}`,
     this.onSendClick = this.onSendClick.bind(this);
     this.onFormInputChange = this.onFormInputChange.bind(this);
     this.getReferralId = this.getReferralId.bind(this);
+    this.onReferralDone = this.onReferralDone.bind(this);
   }
 
   componentDidMount() {
@@ -100,7 +101,7 @@ https://www.topcoder.com/gigs/${props.id}`,
     const res = await fetch('/api/mailchimp/email', {
       method: 'POST',
       body: JSON.stringify({
-        from: 'noreply@topcoder.com',
+        from: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork <noreply@topcoder.com>`,
         to: formData.email,
         subject: `${profile.firstName} ${profile.lastName} Thinks This Topcoder Gig Is For You!`,
         text: formData.body,
@@ -114,10 +115,23 @@ https://www.topcoder.com/gigs/${props.id}`,
         isReferrError: await res.json(),
       });
     } else {
+      await res.json();
       this.setState({
         isReferrSucess: true,
       });
     }
+  }
+
+  /**
+   * Reset the form when referral done
+   */
+  onReferralDone() {
+    const { formData } = this.state;
+    delete formData.email;
+    this.setState({
+      isReferrSucess: false,
+      formData,
+    });
   }
 
   /**
@@ -191,6 +205,7 @@ https://www.topcoder.com/gigs/${props.id}`,
           isReferrError={isReferrError}
           getReferralId={this.getReferralId}
           referralId={referralId}
+          onReferralDone={this.onReferralDone}
         />
       );
   }
