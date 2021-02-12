@@ -103,19 +103,20 @@ https://www.topcoder.com/gigs/${props.id}`,
       body: JSON.stringify({
         from: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork <noreply@topcoder.com>`,
         to: formData.email,
+        replyTo: 'noreply@topcoder.com',
         subject: `${profile.firstName} ${profile.lastName} Thinks This Topcoder Gig Is For You!`,
         text: formData.body,
       }),
       headers: {
         'Content-Type': 'application/json',
       },
+      redirect: 'follow',
     });
     if (res.status >= 300) {
       this.setState({
         isReferrError: await res.json(),
       });
     } else {
-      await res.json();
       this.setState({
         isReferrSucess: true,
       });
