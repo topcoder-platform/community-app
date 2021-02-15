@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "@hapi/joi": "^16.1.4",
-    "@sendgrid/mail": "^7.4.2",
     "@topcoder-platform/tc-auth-lib": "topcoder-platform/tc-auth-lib#1.0.4",
     "aos": "^2.3.4",
     "atob": "^2.1.1",

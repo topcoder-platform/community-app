@@ -103,11 +103,16 @@ https://www.topcoder.com/gigs/${props.id}`,
     const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
       method: 'POST',
       body: JSON.stringify({
-        from: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork <noreply@topcoder.com>`,
-        to: formData.email,
-        replyTo: 'noreply@topcoder.com',
-        subject: `${profile.firstName} ${profile.lastName} Thinks This Topcoder Gig Is For You!`,
-        text: formData.body,
+        personalizations: [
+          {
+            to: [{ email: formData.email }],
+            subject: `${profile.firstName} ${profile.lastName} Thinks This Topcoder Gig Is For You!`,
+          },
+        ],
+        from: { email: 'noreply@topcoder.com', name: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork` },
+        content: [{
+          type: 'text/plain', value: formData.body,
+        }],
       }),
       headers: {
         'Content-Type': 'application/json',

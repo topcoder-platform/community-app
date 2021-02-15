@@ -3,23 +3,27 @@
  */
 import config from 'config';
 import { logger } from 'topcoder-react-lib';
-
-const sgMail = require('@sendgrid/mail');
-
-sgMail.setApiKey(config.SECRET.SENDGRID_API_KEY);
+import fetch from 'isomorphic-fetch';
 
 /**
  * Sends emails via the Sendgrid API
- * https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/#starting-the-project
+ * https://sendgrid.com/docs/api-reference/
  * @param {Object} req the request
  * @param {Object} res the response
  */
 export const sendEmail = async (req, res) => {
   try {
     const msg = req.body;
-    // const result = await sgMail.send(msg);
-    if (req.query.throw) throw new Error('tyr/catch error');
-    return msg;
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${config.SECRET.SENDGRID_API_KEY}`,
+      },
+      body: JSON.stringify(msg),
+    });
+    res.status(response.status);
+    return {};
   } catch (error) {
     logger.error(error);
     const { message, code, response } = error;
