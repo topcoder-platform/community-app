@@ -17,7 +17,10 @@ sgMail.setApiKey(config.SECRET.SENDGRID_API_KEY);
 export const sendEmail = async (req, res) => {
   try {
     const msg = req.body;
-    const result = await sgMail.send(msg);
+    // const result = await sgMail.send(msg);
+    const query = req.query;
+    if (query.throw) throw new Error('tyr/catch error');
+    const result = {a: 1};
     return result;
   } catch (error) {
     logger.error(error);
