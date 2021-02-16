@@ -35,7 +35,8 @@ async function fetchDataDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL
 
     return {
       email: emailHash,
-      preferences: subs.tags,
+      preferences: subs.interests,
+      status: subs.status,
       error,
     };
   } catch (error) {
@@ -48,7 +49,7 @@ async function fetchDataDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL
 
 // Updates member newsletter subscription
 async function updateSubscriptionsDone(
-  emailHash, tagId, status, listId = config.NEWSLETTER_SIGNUP.DEFAUL_LIST_ID,
+  emailHash, groupId, status, listId = config.NEWSLETTER_SIGNUP.DEFAUL_LIST_ID,
 ) {
   /* NOTE: In the real life in most cases you don't want to use fetch() directly
    * in an action. You want to create a service for your calls and use it here.
@@ -56,18 +57,16 @@ async function updateSubscriptionsDone(
    * directly here. */
   try {
     let error = false;
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${emailHash}/tags`;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${emailHash}`;
 
     const data = {
-      tags: [
-        { name: tagId, status: status ? 'active' : 'inactive' },
-      ],
+      interests: { [groupId]: !!status },
     };
 
     const formData = JSON.stringify(data);
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
     await fetch(fetchUrl, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -79,15 +78,55 @@ async function updateSubscriptionsDone(
       });
 
     return {
-      id: tagId,
+      id: groupId,
       checked: status,
       email: emailHash,
       error,
     };
   } catch (error) {
     return {
-      id: tagId,
+      id: groupId,
       checked: status,
+      email: emailHash,
+      error,
+    };
+  }
+}
+
+/**
+ * Resubscribe member for TC emails/list
+ * @param {string} emailHash the email
+ */
+async function resubscribeDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL_LIST_ID) {
+  try {
+    let error = false;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${emailHash}`;
+
+    const data = {
+      status: 'subscribed',
+    };
+
+    const formData = JSON.stringify(data);
+    // use proxy for avoid 'Access-Control-Allow-Origin' bug
+    await fetch(fetchUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formData,
+    })
+      .then((result) => {
+        if (!result.ok) error = true;
+        return result.json();
+      });
+
+    return {
+      email: emailHash,
+      resubscribe: true,
+      error,
+    };
+  } catch (error) {
+    return {
       email: emailHash,
       error,
     };
@@ -100,5 +139,7 @@ export default createActions({
     FETCH_DATA_DONE: fetchDataDone,
     UPDATE_TAG_INIT: _.identity,
     UPDATE_TAG_DONE: updateSubscriptionsDone,
+    RESUBSCRIBE_INIT: _.identity,
+    RESUBSCRIBE_DONE: resubscribeDone,
   },
 });

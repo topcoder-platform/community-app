@@ -20,7 +20,7 @@ class NewsletterPreferencesContainer extends React.Component {
 
   render() {
     const {
-      loading, error, preferences, saveEmailPreferences, email, updated,
+      loading, error, preferences, saveEmailPreferences, email, updated, status, resubscibeEmails,
     } = this.props;
     if (loading || !preferences) return <LoadingIndicator />;
     if (error) {
@@ -32,6 +32,8 @@ class NewsletterPreferencesContainer extends React.Component {
         preferences={preferences}
         saveEmailPreferences={saveEmailPreferences}
         updated={updated}
+        status={status}
+        resubscibeEmails={resubscibeEmails}
       />
     );
   }
@@ -42,6 +44,7 @@ NewsletterPreferencesContainer.defaultProps = {
   error: null,
   preferences: null,
   updated: null,
+  status: null,
 };
 
 NewsletterPreferencesContainer.propTypes = {
@@ -52,6 +55,8 @@ NewsletterPreferencesContainer.propTypes = {
   preferences: PT.shape(),
   email: PT.string.isRequired,
   updated: PT.shape(),
+  status: PT.string,
+  resubscibeEmails: PT.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -61,6 +66,7 @@ function mapStateToProps(state) {
       loading: newsletterPreferences.loading,
       error: newsletterPreferences.error,
       preferences: newsletterPreferences.preferences,
+      status: newsletterPreferences.status,
       updated: newsletterPreferences.updated,
     };
   }
@@ -76,6 +82,10 @@ function mapDispatchToProps(dispatch) {
     saveEmailPreferences: (email, id, checked) => {
       dispatch(actions.newsletterPreferences.updateTagInit());
       dispatch(actions.newsletterPreferences.updateTagDone(email, id, checked));
+    },
+    resubscibeEmails: (email) => {
+      dispatch(actions.newsletterPreferences.resubscribeInit());
+      dispatch(actions.newsletterPreferences.resubscribeDone(email));
     },
   };
 }
