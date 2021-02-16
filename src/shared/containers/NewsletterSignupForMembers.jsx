@@ -31,11 +31,11 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
     // Get interestIds and interest request object for mailchimp api
     // to use in checkSubscription and subscribe function
-    const { groups } = props;
-    this.groupsIds = null;
-    if (groups !== '') {
-      this.groupsIds = groups.split(/ *, */);
-      this.groupsIds[this.groupsIds.length - 1] = this.groupsIds[this.groupsIds.length - 1].replace(/^\s+|\s+$/g, '');
+    const { tags } = props;
+    this.tagsIds = null;
+    if (tags !== '') {
+      this.tagsIds = tags.split(/ *, */);
+      this.tagsIds[this.tagsIds.length - 1] = this.tagsIds[this.tagsIds.length - 1].replace(/^\s+|\s+$/g, '');
     }
     this.isSubscribed = false;
 
@@ -89,9 +89,9 @@ class NewsletterSignupForMembersContainer extends React.Component {
       .then((dataResponse) => {
         if (dataResponse.status === 'subscribed') {
           this.isSubscribed = true;
-          const subscribedTags = _.keys(_.pickBy(dataResponse.interests, v => v));
+          const subscribedTags = dataResponse.tags.map(t => t.name);
           if (subscribedTags.length) {
-            if (_.intersection(subscribedTags, this.groupsIds).length) {
+            if (_.intersection(subscribedTags, this.tagsIds).length) {
               this.setState({ signupState: SIGNUP_NEWSLETTER.HIDDEN });
             }
           } else {
@@ -108,7 +108,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
       listId, user,
     } = this.props;
 
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}`;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}/tags`;
 
     let data = {};
     if (!this.isSubscribed) {
@@ -122,24 +122,18 @@ class NewsletterSignupForMembersContainer extends React.Component {
       };
     }
 
-    if (this.groupsIds) {
-      data.interests = {};
-      // eslint-disable-next-line array-callback-return
-      this.groupsIds.map((group) => {
-        data.interests[group] = true;
-      });
-    }
+    if (this.tagsIds) data.tags = this.tagsIds.map(t => ({ name: t, status: 'active' }));
 
     const formData = JSON.stringify(data);
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
     await fetch(fetchUrl, {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: formData,
     }).then(result => result.json()).then((dataResponse) => {
-      if (dataResponse.status === 'subscribed') {
+      if (dataResponse.status === 204) {
         // regist success
         this.setState({ signupState: SIGNUP_NEWSLETTER.SIGNEDUP });
       } else {
@@ -189,7 +183,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
 NewsletterSignupForMembersContainer.defaultProps = {
   token: '',
   label: 'Subscribe for Newsletter',
-  groups: '',
+  tags: '',
   user: null,
   buttonTheme: 'primary-green-md',
   title: 'Sign up for the Topcoder Newsletter',
@@ -200,7 +194,7 @@ NewsletterSignupForMembersContainer.propTypes = {
   authenticating: PT.bool.isRequired,
   token: PT.string,
   label: PT.string,
-  groups: PT.string,
+  tags: PT.string,
   listId: PT.string.isRequired,
   user: PT.shape(),
   buttonTheme: PT.string,

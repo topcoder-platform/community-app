@@ -282,7 +282,7 @@ workflows:
           filters:
             branches:
               only:                
-                - email-pref-revamp
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
