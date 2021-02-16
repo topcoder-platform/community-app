@@ -65,6 +65,7 @@ ARG TC_M2M_AUTH0_URL
 ARG AUTH_SECRET
 
 ARG COMMUNITY_APP_URL
+ARG GSHEETS_API_KEY
 
 ################################################################################
 # Setting of environment variables in the Docker image.
@@ -120,6 +121,7 @@ ENV CONTENTFUL_EDU_CDN_API_KEY=$CONTENTFUL_EDU_CDN_API_KEY
 ENV CONTENTFUL_EDU_PREVIEW_API_KEY=$CONTENTFUL_EDU_PREVIEW_API_KEY
 ENV RECRUITCRM_API_KEY=$RECRUITCRM_API_KEY
 ENV COMMUNITY_APP_URL=$COMMUNITY_APP_URL
+ENV GSHEETS_API_KEY=$GSHEETS_API_KEY
 
 ################################################################################
 # Testing and build of the application inside the container.
