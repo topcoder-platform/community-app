@@ -28,6 +28,7 @@ import mailChimpRouter from './routes/mailchimp';
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 import recruitCRMRouter from './routes/recruitCRM';
 import mmLeaderboardRouter from './routes/mmLeaderboard';
+import gSheetsRouter from './routes/gSheet';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
@@ -137,6 +138,7 @@ async function onExpressJsSetup(server) {
   server.use('/api/mailchimp', mailChimpRouter);
   server.use('/api/recruit', recruitCRMRouter);
   server.use('/api/mml', mmLeaderboardRouter);
+  server.use('/api/gsheets', gSheetsRouter);
 
   // serve demo api
   server.use(
