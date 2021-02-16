@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * Email Preferences component.
  */
@@ -5,6 +6,7 @@ import { debounce, map } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { toastr } from 'react-redux-toastr';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import ToggleableItem from 'components/Settings/ToggleableItem';
 
@@ -26,39 +28,46 @@ const SAVE_DELAY = 1000;
 
 const newsletters = [
   {
-    id: 'Pipeline',
+    id: '9f950b43a1',
     name: 'Challenge Pipeline',
     desc: 'Subscribe to this newsletter if you want to get updates on the types of challenges coming up in the future. To view these challenges at your leisure you can always visit the <a href="https://www.topcoder.com/community/pipeline" style="color:#0d61bf;text-decoration:underline">Challenge Pipeline</a> page.',
   },
   {
-    id: 'Gig Work',
+    id: 'd0c48e9da3',
     name: 'Gig Work',
     desc: 'This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href="https://www.topcoder.com/community/taas" style="color:#0d61bf;text-decoration:underline">Gig Work</a> page.',
   },
   {
-    id: 'Monthly Newsletter',
+    id: 'a8f858cdf1',
     name: 'Monthly Newsletter',
     desc: 'This newsletter gets sent out at the end of every month and contains a variety of important information across all of our tracks.',
   },
   {
-    id: 'Marathon Match Reminders',
+    id: '5e67dba327',
     name: 'Marathon Match Reminders',
     desc: 'Receive updates whenever a new marathon match is scheduled.',
   },
   {
-    id: 'Single Round Match Reminders',
+    id: '9091b438cc',
     name: 'Single Round Match (SRM) Reminders',
     desc: 'Attention Competitive Programmers! If there is any newsletter you are subscribing too, it better be this one. Receive updates when a new SRM event is scheduled.',
   },
   {
-    id: 'TCO Tuesdays',
+    id: '603c900c32',
     name: 'TCO Newsletter',
     desc: 'For all the latest updates surrounding the <a href="https://www.topcoder.com/community/member-programs/topcoder-open" style="color:#0d61bf;text-decoration:underline">Topcoder Open</a> you should definitely be subscribing to this one. Expect an update in your mailbox every Tuesday!',
   },
   {
-    id: 'RDM',
+    id: '3460574ddd',
     name: 'Rapid Development Match (RDM) Reminders',
     desc: 'Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!',
+  },
+];
+const programs = [
+  {
+    id: 'cafe98d7a7',
+    name: 'Beta Testers',
+    desc: 'If you have applied and been approved as a <a href="https://www.topcoder.com/community/member-programs/beta-testers" style="color:#0d61bf;text-decoration:underline">Beta Tester</a>, you may control the emails you receive here.',
   },
 ];
 
@@ -72,6 +81,7 @@ export default class EmailPreferences extends React.Component {
     super(props);
     this.state = {
       emailPreferences: { ...props.preferences },
+      status: props.status,
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -82,14 +92,14 @@ export default class EmailPreferences extends React.Component {
       if (updated.error) {
         toastrError('Error! ', 'Failed to update Your email preferences :-(');
       }
-      const { emailPreferences } = this.state;
+      const { emailPreferences, status } = this.state;
       const { id, checked } = updated;
-      if (!emailPreferences[id]) emailPreferences[id] = { id, checked };
-      else emailPreferences[id].checked = checked;
+      emailPreferences[id] = checked;
 
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         emailPreferences,
+        status: updated.resubscribe ? 'subscribed' : status,
       });
       toastrSuccess('Success! ', 'Your email preferences were updated.');
     }
@@ -101,34 +111,69 @@ export default class EmailPreferences extends React.Component {
   }
 
   render() {
-    const { emailPreferences } = this.state;
+    const { emailPreferences, status } = this.state;
+    const { resubscibeEmails, email } = this.props;
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
           E-Mail Preferences
         </h1>
-        <div styleName="sub-title">
-          Your preferences
-        </div>
-        <div styleName="preferences-container">
-          {
-            map(newsletters, (newsletter) => {
-              const checked = emailPreferences[newsletter.id]
-                ? emailPreferences[newsletter.id].checked : false;
-              return (
-                <ToggleableItem
-                  key={newsletter.id}
-                  id={newsletter.id}
-                  value={newsletter.id}
-                  checked={checked}
-                  primaryText={newsletter.name}
-                  secondaryText={newsletter.desc}
-                  onToggle={e => this.onChange(newsletter.id, e.target.checked)}
-                />
-              );
-            })
-          }
-        </div>
+        {
+          status !== 'subscribed' ? (
+            <div styleName="unsubscribed-msg">
+              <h3>You are not subscribed to receive Topcoder emails</h3>
+              <p>If this was a mistake or if you would like to resubscribe, please click the button below.</p>
+              <PrimaryButton
+                onClick={() => resubscibeEmails(email)}
+              >
+                Resubscribe
+              </PrimaryButton>
+            </div>
+          ) : (
+            <React.Fragment>
+              <div styleName="sub-title">Newsletters</div>
+              <div styleName="preferences-container">
+                {
+                    map(newsletters, (newsletter) => {
+                      const checked = emailPreferences[newsletter.id];
+                      return (
+                        <ToggleableItem
+                          key={newsletter.id}
+                          id={newsletter.id}
+                          value={newsletter.id}
+                          checked={checked}
+                          primaryText={newsletter.name}
+                          secondaryText={newsletter.desc}
+                          onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                          disabled={status !== 'subscribed'}
+                        />
+                      );
+                    })
+                  }
+              </div>
+              <div styleName="sub-title-2">Programs</div>
+              <div styleName="preferences-container">
+                {
+                    map(programs, (program) => {
+                      const checked = emailPreferences[program.id];
+                      return (
+                        <ToggleableItem
+                          key={program.id}
+                          id={program.id}
+                          value={program.id}
+                          checked={checked}
+                          primaryText={program.name}
+                          secondaryText={program.desc}
+                          onToggle={e => this.onChange(program.id, e.target.checked)}
+                          disabled={status !== 'subscribed'}
+                        />
+                      );
+                    })
+                  }
+              </div>
+            </React.Fragment>
+          )
+        }
       </div>
     );
   }
@@ -136,6 +181,7 @@ export default class EmailPreferences extends React.Component {
 
 EmailPreferences.defaultProps = {
   updated: null,
+  status: null,
 };
 
 EmailPreferences.propTypes = {
@@ -143,4 +189,6 @@ EmailPreferences.propTypes = {
   preferences: PT.shape().isRequired,
   saveEmailPreferences: PT.func.isRequired,
   updated: PT.shape(),
+  status: PT.string,
+  resubscibeEmails: PT.func.isRequired,
 };

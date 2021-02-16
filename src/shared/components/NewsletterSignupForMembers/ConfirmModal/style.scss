@@ -33,5 +33,9 @@
 
   button {
     margin: 24px 12px 0;
+
+    &:first-child {
+      margin-right: 12px !important;
+    }
   }
 }

@@ -51,7 +51,7 @@ export default class MailchimpService {
     return res.json();
   }
 
-  async subscribeInterests(req) {
+  async updateMember(req) {
     const formData = JSON.stringify(req.body);
     const res = await fetch(`${this.mailchimpBaseUrl}/lists/${req.params.listId}/members/${req.params.emailHash}`, {
       method: 'PUT',
