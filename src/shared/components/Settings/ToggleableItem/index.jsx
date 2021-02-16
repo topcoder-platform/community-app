@@ -18,7 +18,6 @@ export default function ToggleableItem({
   primaryText,
   secondaryText,
   value,
-  disabled,
 }) {
   return (
     <div styleName="ToggleableItem">
@@ -39,7 +38,6 @@ export default function ToggleableItem({
           checked={checked}
           onChange={onToggle}
           className="onoffswitch-checkbox"
-          disabled={disabled}
         />
         <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
           <span className="onoffswitch-inner" />
@@ -56,7 +54,6 @@ export default function ToggleableItem({
           checked={checked}
           onChange={onToggle}
           className="onoffswitch-checkbox"
-          disabled={disabled}
         />
         <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
           <span className="onoffswitch-inner" />
@@ -68,10 +65,6 @@ export default function ToggleableItem({
   );
 }
 
-ToggleableItem.defaultProps = {
-  disabled: false,
-};
-
 ToggleableItem.propTypes = {
   id: PT.string.isRequired,
   value: PT.string.isRequired,
@@ -79,5 +72,4 @@ ToggleableItem.propTypes = {
   primaryText: PT.string.isRequired,
   secondaryText: PT.string.isRequired,
   onToggle: PT.func.isRequired,
-  disabled: PT.bool,
 };
