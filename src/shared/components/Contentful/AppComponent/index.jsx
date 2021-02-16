@@ -11,7 +11,6 @@ import { errors } from 'topcoder-react-lib';
 import Leaderboard from 'containers/tco/Leaderboard';
 import RecruitCRMJobs from 'containers/Gigs/RecruitCRMJobs';
 import EmailSubscribeForm from 'containers/EmailSubscribeForm';
-import GSheet from 'containers/GSheet';
 
 
 const { fireErrorMessage } = errors;
@@ -40,10 +39,7 @@ export function AppComponentSwitch(appComponent) {
   if (appComponent.fields.type === 'EmailSubscribeForm') {
     return <EmailSubscribeForm {...appComponent.fields.props} key={appComponent.sys.id} />;
   }
-  if (appComponent.fields.type === 'GSheet') {
-    return <GSheet {...appComponent.fields.props} key={appComponent.sys.id} />;
-  }
-  fireErrorMessage(`Unsupported app component type ${appComponent.fields.type}`, '');
+  fireErrorMessage('Unsupported app component type from contentful', '');
   return null;
 }
 
