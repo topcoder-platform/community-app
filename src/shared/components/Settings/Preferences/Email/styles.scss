@@ -13,8 +13,7 @@
     }
   }
 
-  .sub-title,
-  .sub-title-2 {
+  .sub-title {
     @include roboto-light;
 
     color: #888894;
@@ -29,31 +28,7 @@
     }
   }
 
-  .sub-title-2 {
-    margin-top: 30px;
-  }
-
   .preferences-container {
     border-top: 1px solid $tc-gray-neutral-dark;
-  }
-
-  .unsubscribed-msg {
-    @include sofia-pro-regular;
-
-    display: flex;
-    flex-direction: column;
-    background-color: $tc-red-10;
-    border: 1px solid $tc-red-30;
-    color: $tc-red;
-    line-height: 20px;
-    margin-bottom: 25px;
-    padding: 10px;
-    text-align: left;
-    font-size: 13px;
-    align-items: flex-start;
-
-    button {
-      margin: 20px 0 0 0;
-    }
   }
 }
