@@ -282,7 +282,7 @@ workflows:
           filters:
             branches:
               only:                
-                - gsheet-contentful
+                - gsheet-contentful-develop
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
