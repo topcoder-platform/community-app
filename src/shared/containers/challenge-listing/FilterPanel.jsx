@@ -5,6 +5,7 @@
 import actions from 'actions/challenge-listing/filter-panel';
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
+import sidebarActions from 'actions/challenge-listing/sidebar';
 import shortId from 'shortid';
 import FilterPanel from 'components/challenge-listing/Filters/FiltersPanel';
 import PT from 'prop-types';
@@ -102,7 +103,7 @@ export class Container extends React.Component {
     if (!filterState.types.length && validTypes.length && !this.initialDefaultChallengeTypes) {
       setFilterState({
         ..._.clone(filterState),
-        types: validTypes.map(item => item.abbreviation).filter(item => item !== 'REC'),
+        types: validTypes.map(item => item.abbreviation),
       });
       this.initialDefaultChallengeTypes = true;
     }
@@ -122,6 +123,7 @@ export class Container extends React.Component {
       hidden,
       onClose,
       setSort,
+      selectBucket,
     } = this.props;
     const communityFilters2 = [
       {
@@ -148,6 +150,7 @@ export class Container extends React.Component {
         hidden={hidden}
         onClose={onClose}
         setSort={setSort}
+        selectBucket={selectBucket}
       />
     );
 
@@ -193,11 +196,13 @@ Container.propTypes = {
   validTypes: PT.arrayOf(PT.shape()).isRequired,
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
+  selectBucket: PT.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing.filterPanel;
   const cla = challengeListingActions.challengeListing;
+  const sa = sidebarActions.challengeListing.sidebar;
   return {
     ...bindActionCreators(a, dispatch),
     getTypes: () => {
@@ -217,6 +222,7 @@ function mapDispatchToProps(dispatch) {
     setFilterState: s => dispatch(cla.setFilter(s)),
     onClose: () => dispatch(a.setExpanded(false)),
     setSort: (bucket, sort) => dispatch(cla.setSort(bucket, sort)),
+    selectBucket: (bucket, expanding) => dispatch(sa.selectBucket(bucket, expanding)),
   };
 }
 

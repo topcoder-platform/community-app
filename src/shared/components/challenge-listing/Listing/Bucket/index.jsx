@@ -56,14 +56,6 @@ export default function Bucket({
   const activeBucketData = isRecommendedChallengeType(bucket, filterState)
     ? BUCKET_DATA[bucket].sorts : BUCKET_DATA[bucket].sorts.filter(item => item !== 'bestMatch');
 
-  let noLiveBucket = activeBucket;
-  if (isRecommendedChallengeType(bucket, filterState)) {
-    if (isLoggedIn) {
-      noLiveBucket = BUCKETS.NO_RECOMMENDED_MATCH;
-    } else {
-      noLiveBucket = BUCKETS.NOT_LOGGED_IN;
-    }
-  }
   const refs = useRef([]);
   refs.current = [];
   const addToRefs = (el) => {
@@ -129,7 +121,7 @@ export default function Bucket({
   if (!loading && sortedChallenges.length === 0) {
     return (
       <div styleName="no-results">
-        { `${NO_LIVE_CHALLENGES_CONFIG[noLiveBucket]}` }
+        { filterState.recommended ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
       </div>
     );
   }
@@ -265,7 +257,7 @@ Bucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
-  userId: PT.string,
+  userId: PT.number,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   activeBucket: PT.string,

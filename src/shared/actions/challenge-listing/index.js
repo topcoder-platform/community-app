@@ -53,7 +53,8 @@ const REVIEW_OPPORTUNITY_PAGE_SIZE = 1000;
  */
 function getChallengeTypesDone() {
   return getService()
-    .getChallengeTypes();
+    .getChallengeTypes()
+    .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
 /**
@@ -87,10 +88,6 @@ function getMyChallengesInit(uuid, page, frontFilter) {
 }
 
 function getAllChallengesInit(uuid, page, frontFilter) {
-  return { uuid, page, frontFilter };
-}
-
-function getRecommendedChallengesInit(uuid, page, frontFilter) {
   return { uuid, page, frontFilter };
 }
 
@@ -231,8 +228,22 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
   // }));
 }
 
+/**
+ * Gets open for registration challenges
+ * @param {String} uuid
+ * @param {Number} page
+ * @param {Object} backendFilter Backend filter to use.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3. Without token only
+ *  public challenges will be fetched. With the token provided, the action will
+ *  also fetch private challenges related to this user.
+ * @param {Object} frontFilter
+ * @param {boolean} recommended recommended toggle is on or off
+ * @param {String} handle user handle
+
+ * @return {Promise}
+ */
 function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
-  tokenV3, frontFilter = {}) {
+  tokenV3, frontFilter = {}, recommended = false, handle) {
   const { sorts } = frontFilter;
   const sortOrder = SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]];
   const filter = {
@@ -249,6 +260,15 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
   };
   delete filter.frontFilter.sorts;
   const service = getService(tokenV3);
+  if (recommended) {
+    return service.getRecommendedChallenges(filter, handle).then(ch => ({
+      uuid,
+      openForRegistrationChallenges: ch.challenges,
+      meta: ch.meta,
+      frontFilter,
+    }));
+  }
+
   return service.getChallenges(filter).then(ch => ({
     uuid,
     openForRegistrationChallenges: ch.challenges,
@@ -302,17 +322,6 @@ function getAllChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter = 
     allChallenges: ch.challenges,
     meta: ch.meta,
     frontFilter,
-  }));
-}
-
-function getRecommendedChallengesDone(uuid, tokenV3, sort, filter) {
-  const service = getService(tokenV3);
-  return service.getRecommendedChallenges(sort, filter).then(ch => ({
-    uuid,
-    recommendedChallenges: ch.challenges,
-    meta: {
-      allRecommendedChallengesCount: ch.meta,
-    },
   }));
 }
 
@@ -550,9 +559,6 @@ export default createActions({
 
     GET_ALL_CHALLENGES_INIT: getAllChallengesInit,
     GET_ALL_CHALLENGES_DONE: getAllChallengesDone,
-
-    GET_RECOMMENDED_CHALLENGES_INIT: getRecommendedChallengesInit,
-    GET_RECOMMENDED_CHALLENGES_DONE: getRecommendedChallengesDone,
 
     GET_ACTIVE_CHALLENGES_INIT: getActiveChallengesInit,
     GET_ACTIVE_CHALLENGES_DONE: getActiveChallengesDone,

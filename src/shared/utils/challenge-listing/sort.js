@@ -101,7 +101,7 @@ export default {
     name: 'Review start date',
   },
   [SORTS.BEST_MATCH]: {
-    func: (a, b) => calculateScore(b.matchScore) - calculateScore(a.matchScore),
+    func: (a, b) => calculateScore(b.jaccard_index) - calculateScore(a.jaccard_index),
     name: 'Best Match',
   },
 };

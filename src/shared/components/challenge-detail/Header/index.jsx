@@ -57,6 +57,7 @@ export default function ChallengeHeader(props) {
     isMenuOpened,
     submissionEnded,
     mySubmissions,
+    openForRegistrationChallenges,
   } = props;
 
   const {
@@ -263,12 +264,14 @@ export default function ChallengeHeader(props) {
             </h1>
             <div styleName="tag-container">
               <ChallengeTags
+                challengeId={challengeId}
                 track={track}
                 challengeType={_.find(challengeTypesMap, { name: type }) || {}}
                 challengesUrl={challengesUrl}
                 events={eventNames}
                 technPlatforms={miscTags}
                 setChallengeListingFilter={setChallengeListingFilter}
+                openForRegistrationChallenges={openForRegistrationChallenges}
               />
               {(hasRecommendedChallenges || hasThriveArticles) && (
                 <div styleName="recommend-container">
@@ -505,6 +508,7 @@ ChallengeHeader.propTypes = {
     phases: PT.any,
     roundId: PT.any,
     prizeSets: PT.any,
+    match_skills: PT.arrayOf(PT.string),
   }).isRequired,
   challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
@@ -525,4 +529,5 @@ ChallengeHeader.propTypes = {
   hasFirstPlacement: PT.bool.isRequired,
   isMenuOpened: PT.bool,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
+  openForRegistrationChallenges: PT.shape().isRequired,
 };

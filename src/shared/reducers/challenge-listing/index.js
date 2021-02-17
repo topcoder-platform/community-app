@@ -149,15 +149,6 @@ function onGetAllChallengesInit(state, { payload }) {
   };
 }
 
-function onGetRecommendedChallengesInit(state, { payload }) {
-  return {
-    ...state,
-    loadingRecommendedChallengesUUID: payload.uuid,
-    lastRequestedPageOfRecommendedChallenges: payload.page,
-    recommendedChallenges: [],
-  };
-}
-
 function onGetMyPastChallengesInit(state, { payload }) {
   return {
     ...state,
@@ -645,26 +636,6 @@ function onGetAllChallengesDone(state, { error, payload }) {
   };
 }
 
-function onGetRecommendedChallengesDone(state, { error, payload }) {
-  if (error) {
-    logger.error(payload);
-    return state;
-  }
-  const { uuid, recommendedChallenges: loaded } = payload;
-  if (uuid !== state.loadingRecommendedChallengesUUID) return state;
-  const challenges = loaded;
-  return {
-    ...state,
-    recommendedChallenges: challenges,
-    loadingRecommendedChallengesUUID: '',
-    allRecommendedChallengesLoaded: challenges.length >= payload.meta.allRecommendedChallengesCount,
-    meta: {
-      ...state.meta,
-      openChallengesCount: payload.meta.allRecommendedChallengesCount,
-    },
-  };
-}
-
 function onGetMyPastChallengesDone(state, { error, payload }) {
   if (error) {
     logger.error(payload);
@@ -846,9 +817,6 @@ function create(initialState) {
 
     [a.getAllChallengesInit]: onGetAllChallengesInit,
     [a.getAllChallengesDone]: onGetAllChallengesDone,
-
-    [a.getRecommendedChallengesInit]: onGetRecommendedChallengesInit,
-    [a.getRecommendedChallengesDone]: onGetRecommendedChallengesDone,
 
     [a.getTotalChallengesCountInit]: onGetTotalChallengesCountInit,
     [a.getTotalChallengesCountDone]: onGetTotalChallengesCountDone,

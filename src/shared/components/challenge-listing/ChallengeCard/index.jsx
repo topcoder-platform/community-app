@@ -49,6 +49,7 @@ function ChallengeCard({
 
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
+  const isRecommendedChallenge = challenge.jaccard_index;
 
   return (
     <div ref={domRef} styleName="challengeCard">
@@ -77,17 +78,32 @@ function ChallengeCard({
               openNewTab={openChallengesInNewTabs}
             ><p>{challenge.name}</p>
             </Link>
-            {
-              challenge.matchScore
-              && <MatchScore score={calculateScore(challenge.matchScore)} />
-            }
           </div>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge)}
             </span>
-            { challenge.tags.length > 0
+            {
+              isRecommendedChallenge
+              && <MatchScore score={calculateScore(challenge.jaccard_index)} />
+            }
+            {
+              isRecommendedChallenge
+              && challenge.match_skills.length > 0
+                && (
+                <Tags
+                  tags={challenge.tags}
+                  onTechTagClicked={onTechTagClicked}
+                  isExpanded={expandedTags.includes(challenge.id)}
+                  expand={() => expandTag(challenge.id)}
+                  verifiedTags={challenge.match_skills}
+                  recommended
+                />
+                )
+            }
+            { !isRecommendedChallenge
+              && challenge.tags.length > 0
               && (
               <Tags
                 tags={challenge.tags}
@@ -141,7 +157,7 @@ ChallengeCard.propTypes = {
   openChallengesInNewTabs: PT.bool,
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
-  userId: PT.string,
+  userId: PT.number,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,

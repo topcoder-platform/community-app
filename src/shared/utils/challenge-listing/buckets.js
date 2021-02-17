@@ -18,8 +18,6 @@ export const BUCKETS = {
   // SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
   ALL_PAST: 'allPast',
   MY_PAST: 'myPast',
-  NOT_LOGGED_IN: 'bestMatchNotLoggedIn',
-  NO_RECOMMENDED_MATCH: 'noRecommendedMatch',
 };
 
 export const BUCKET_DATA = {
@@ -152,8 +150,6 @@ export const NO_LIVE_CHALLENGES_CONFIG = {
   // [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
   [BUCKETS.ALL_PAST]: 'No challenges found in All Past Challenges',
   [BUCKETS.MY_PAST]: 'No challenges found in My Past Challenges',
-  [BUCKETS.NOT_LOGGED_IN]: 'There are no recommended challenges for you. This could be because you are not logged in and/or the recommendation tool will only recommend challenges that match your skills once you successfully place in a challenge. Try exploring other challenges or checking back later.',
-  [BUCKETS.NO_RECOMMENDED_MATCH]: 'There are no challenges open for registration at the moment that match your skills. Try exploring other challenges or checking back later.',
 };
 
 /**
@@ -275,7 +271,7 @@ export function isPastBucket(bucket) {
  * @param {Object} filterState current filter state
 */
 export function isRecommendedChallengeType(bucket, filterState) {
-  return bucket === 'openForRegistration' && filterState.types.includes('REC');
+  return bucket === 'openForRegistration' && filterState.recommended;
 }
 
 export default undefined;

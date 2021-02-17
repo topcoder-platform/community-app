@@ -312,6 +312,6 @@ ChallengeStatus.propTypes = {
   openChallengesInNewTabs: PT.bool, // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   className: PT.string,
-  userId: PT.string,
+  userId: PT.number,
   isLoggedIn: PT.bool.isRequired,
 };
