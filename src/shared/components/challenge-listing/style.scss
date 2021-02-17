@@ -97,3 +97,81 @@ $challenge-radius-4: $corner-radius * 2;
     display: none;
   }
 }
+
+.verified-tag {
+  position: absolute;
+}
+
+.verified-tag-text {
+  margin-left: 15px;
+}
+
+.recommended-challenge-tooltip {
+  display: inline-block;
+  margin: 3px 0 0 3px;
+}
+
+.tctooltiptext {
+  background: $tc-white;
+  color: $tc-gray-90;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.tctooltiptext::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  bottom: 4px;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  left: 50%;
+  border-top-color: $tc-white;
+  z-index: 1000;
+}
+
+.card-container {
+  width: 70%;
+
+  @include xs-to-md {
+    width: 100%;
+    padding-top: 0;
+  }
+}
+
+.recommended-plus-tag {
+  margin-left: 3px;
+  display: inline-block;
+  background-color: $tc-white;
+}
+
+.additionalTagWrapper {
+  background: $tc-white;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 5px 5px 10px 5px;
+}
+
+.additionalTagWrapper::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  bottom: 4px;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  left: 50%;
+  border-top-color: $tc-white;
+  z-index: 1000;
+}
+
+.additionalTag {
+  margin-top: 5px;
+  margin-left: 3px;
+  display: inline-block;
+}

@@ -15,6 +15,7 @@ import Sidebar from 'containers/challenge-listing/Sidebar';
 // import { config } from 'topcoder-react-utils';
 import { useMediaQuery } from 'react-responsive';
 
+import NoChallengeCard from './NoChallengeCard';
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 
@@ -40,7 +41,7 @@ export default function ChallengeListing(props) {
     defaultCommunityId,
     expanding,
     // extraBucket,
-    // filterState,
+    filterState,
     hideSrm,
     // hideTcLinksInFooter,
     keepPastPlaceholders,
@@ -48,8 +49,8 @@ export default function ChallengeListing(props) {
     preListingMsg,
     // isBucketSwitching,
     isLoggedIn,
-    meta,
     setSearchText,
+    loadingOpenForRegistrationChallenges,
   } = props;
 
   // const { challenges } = props;
@@ -98,57 +99,66 @@ export default function ChallengeListing(props) {
   //   );
   // } else {
   const challengeCardContainer = (
-    <Listing
-      activeBucket={activeBucket}
-      auth={props.auth}
-      challenges={challenges}
-      openForRegistrationChallenges={openForRegistrationChallenges}
-      myChallenges={myChallenges}
-      myPastChallenges={myPastChallenges}
-      allChallenges={allChallenges}
-      pastChallenges={pastChallenges}
-      challengesUrl={props.challengesUrl}
-      communityName={props.communityName}
-      expandedTags={props.expandedTags}
-      expandTag={props.expandTag}
-      // extraBucket={extraBucket}
-      filterState={props.filterState}
-      keepPastPlaceholders={keepPastPlaceholders}
-      loadingPastChallenges={props.loadingPastChallenges}
-      loadingMyChallenges={props.loadingMyChallenges}
-      loadingMyPastChallenges={props.loadingMyPastChallenges}
-      loadingAllChallenges={props.loadingAllChallenges}
-      loadingRecommendedChallenges={props.loadingRecommendedChallenges}
-      loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
-      loadingOnGoingChallenges={props.loadingOnGoingChallenges}
-      loadingReviewOpportunities={props.loadingReviewOpportunities}
-      loadMoreMy={props.loadMoreMy}
-      loadMoreMyPast={props.loadMoreMyPast}
-      loadMoreAll={props.loadMoreAll}
-      loadMoreRecommended={props.loadMoreRecommended}
-      loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
-      loadMoreOnGoing={props.loadMoreOnGoing}
-      loadMorePast={props.loadMorePast}
-      loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
-      newChallengeDetails={props.newChallengeDetails}
-      openChallengesInNewTabs={props.openChallengesInNewTabs}
-      preListingMsg={preListingMsg}
-      prizeMode={props.prizeMode}
-      reviewOpportunities={props.reviewOpportunities}
-      selectBucket={props.selectBucket}
-      selectChallengeDetailsTab={props.selectChallengeDetailsTab}
-      selectedCommunityId={props.selectedCommunityId}
-      setFilterState={props.setFilterState}
-      setSort={props.setSort}
-      sorts={props.sorts}
-      loadMoreActive={props.loadMoreActive}
-      expanding={expanding}
-      // loadingActiveChallenges={props.loadingChallenges}
-      // userChallenges={props.userChallenges}
-      isLoggedIn={isLoggedIn}
-      meta={meta}
-      setSearchText={setSearchText}
-    />
+    <div styleName="card-container">
+      {
+        filterState.recommended
+        && !loadingOpenForRegistrationChallenges
+        && !openForRegistrationChallenges.length && (
+          <NoChallengeCard />
+        )
+      }
+      <ChallengeSearchBar
+        setFilterState={props.setFilterState}
+      />
+      <Listing
+        activeBucket={activeBucket}
+        auth={props.auth}
+        challenges={challenges}
+        openForRegistrationChallenges={openForRegistrationChallenges}
+        myChallenges={myChallenges}
+        myPastChallenges={myPastChallenges}
+        allChallenges={allChallenges}
+        pastChallenges={pastChallenges}
+        challengesUrl={props.challengesUrl}
+        communityName={props.communityName}
+        expandedTags={props.expandedTags}
+        expandTag={props.expandTag}
+        // extraBucket={extraBucket}
+        filterState={props.filterState}
+        keepPastPlaceholders={keepPastPlaceholders}
+        loadingPastChallenges={props.loadingPastChallenges}
+        loadingMyChallenges={props.loadingMyChallenges}
+        loadingMyPastChallenges={props.loadingMyPastChallenges}
+        loadingAllChallenges={props.loadingAllChallenges}
+        loadingOpenForRegistrationChallenges={props.loadingOpenForRegistrationChallenges}
+        loadingOnGoingChallenges={props.loadingOnGoingChallenges}
+        loadingReviewOpportunities={props.loadingReviewOpportunities}
+        loadMoreMy={props.loadMoreMy}
+        loadMoreMyPast={props.loadMoreMyPast}
+        loadMoreAll={props.loadMoreAll}
+        loadMoreOpenForRegistration={props.loadMoreOpenForRegistration}
+        loadMoreOnGoing={props.loadMoreOnGoing}
+        loadMorePast={props.loadMorePast}
+        loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
+        newChallengeDetails={props.newChallengeDetails}
+        openChallengesInNewTabs={props.openChallengesInNewTabs}
+        preListingMsg={preListingMsg}
+        prizeMode={props.prizeMode}
+        reviewOpportunities={props.reviewOpportunities}
+        selectBucket={props.selectBucket}
+        selectChallengeDetailsTab={props.selectChallengeDetailsTab}
+        selectedCommunityId={props.selectedCommunityId}
+        setFilterState={props.setFilterState}
+        setSort={props.setSort}
+        sorts={props.sorts}
+        loadMoreActive={props.loadMoreActive}
+        expanding={expanding}
+        // loadingActiveChallenges={props.loadingChallenges}
+        // userChallenges={props.userChallenges}
+        isLoggedIn={isLoggedIn}
+        setSearchText={setSearchText}
+      />
+    </div>
   );
   // }
 
@@ -156,9 +166,9 @@ export default function ChallengeListing(props) {
 
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
-      <ChallengeSearchBar
+      {/* <ChallengeSearchBar
         setFilterState={props.setFilterState}
-      />
+      /> */}
 
       <div styleName="tc-content-wrapper">
         <div styleName={desktop ? 'sidebar-container-desktop' : 'sidebar-container-mobile'}>
@@ -192,7 +202,6 @@ ChallengeListing.defaultProps = {
   loadMoreMy: null,
   loadMoreMyPast: null,
   loadMoreAll: null,
-  loadMoreRecommended: null,
   loadMoreOpenForRegistration: null,
   loadMoreOnGoing: null,
   loadMorePast: null,
@@ -235,7 +244,6 @@ ChallengeListing.propTypes = {
   loadingMyChallenges: PT.bool.isRequired,
   loadingMyPastChallenges: PT.bool.isRequired,
   loadingAllChallenges: PT.bool.isRequired,
-  loadingRecommendedChallenges: PT.bool.isRequired,
   loadingOpenForRegistrationChallenges: PT.bool.isRequired,
   loadingOnGoingChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
@@ -243,7 +251,6 @@ ChallengeListing.propTypes = {
   loadMoreMy: PT.func,
   loadMoreMyPast: PT.func,
   loadMoreAll: PT.func,
-  loadMoreRecommended: PT.func,
   loadMoreOpenForRegistration: PT.func,
   loadMoreOnGoing: PT.func,
   loadMorePast: PT.func,
@@ -264,6 +271,5 @@ ChallengeListing.propTypes = {
   // isBucketSwitching: PT.bool,
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
-  meta: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
 };

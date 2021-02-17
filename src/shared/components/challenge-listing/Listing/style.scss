@@ -2,12 +2,12 @@
 
 .challengeCardContainer {
   border-radius: $corner-radius;
-  width: 70%;
-  padding: 0 $base-unit;
+  width: 100%;
+  padding: 12px $base-unit 0 $base-unit;
 
   @include xs-to-md {
     width: 100%;
-    padding: 0 $base-unit + 5;
+    padding: 12px $base-unit + 5 0 $base-unit + 5;
   }
 
   .category-challenges-container {

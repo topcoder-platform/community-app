@@ -32,10 +32,11 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { isFilterEmpty, isPastBucket } from 'utils/challenge-listing/buckets';
+import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
+import circleIcon from 'assets/images/icon-circle.png';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 import FiltersIcon from '../../Icons/filters-icon.svg';
 import CheckmarkIcon from './CheckmarkIcon';
@@ -65,6 +66,7 @@ export default function FiltersPanel({
   expanded,
   setExpanded,
   setSort,
+  selectBucket,
 }) {
   if (hidden && !expanded) {
     return (
@@ -250,7 +252,6 @@ export default function FiltersPanel({
   const past = isPastBucket(activeBucket);
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
-  const availableTypes = validTypes.filter(item => item.abbreviation !== 'REC');
   const isRecommendedChallengesVisible = activeBucket === 'openForRegistration';
   const [recommendedToggle, setRecommendedToggle] = useState(false);
 
@@ -264,37 +265,43 @@ export default function FiltersPanel({
         types: _.uniq(filterState.types),
       });
     }
+
+    if (filterState.recommended) {
+      setRecommendedToggle(true);
+    }
   }, [filterState]);
 
   const onSwitchRecommendedChallenge = (on) => {
-    const { types } = filterState;
-    types.push('REC');
-    setRecommendedToggle(on);
+    setFilterState({ ..._.clone(filterState), recommended: on });
+    selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
 
     if (on) {
       setSort('openForRegistration', 'bestMatch');
-      setFilterState({ ..._.clone(filterState), types });
+      setFilterState({
+        ...filterState,
+        tracks: {
+          Dev: true,
+          Des: true,
+          DS: true,
+          QA: true,
+        },
+        search: '',
+        tags: [],
+        types: ['CH', 'F2F', 'TSK'],
+        groups: [],
+        events: [],
+        endDateStart: null,
+        startDateEnd: null,
+        recommended: true,
+      });
     } else {
       setSort('openForRegistration', 'startDate');
-      setFilterState({ ..._.clone(filterState), types: types.filter(item => item !== 'REC') });
+      setFilterState({
+        ...filterState,
+        recommended: false,
+      });
     }
-  };
-
-  const handleTypeChange = (option, e) => {
-    let { types } = filterState;
-    if (e.target.checked) {
-      types = types.concat(option.value);
-    } else {
-      types = types.filter(type => type !== option.value);
-    }
-
-    if (recommendedToggle) {
-      types = _.union(types, ['REC']);
-    } else {
-      types = types.filter(type => type !== 'REC');
-      setSort('openForRegistration', 'startDate');
-    }
-    setFilterState({ ..._.clone(filterState), types });
+    setRecommendedToggle(on);
   };
 
   const recommendedCheckboxTip = (
@@ -466,11 +473,11 @@ export default function FiltersPanel({
             <div styleName="filter-row">
               <div styleName="filter challenge-type">
                 <span styleName="label">
-                  Challenge Type
+                  Type
                 </span>
                 <div styleName="checkboxes">
                   {
-                    availableTypes
+                    validTypes
                       .map(mapTypes)
                       .map(option => (
                         <span styleName="checkbox" key={option.value}>
@@ -480,7 +487,17 @@ export default function FiltersPanel({
                             name={option.label}
                             id={option.label}
                             checked={filterState.types.includes(option.value)}
-                            onChange={e => handleTypeChange(option, e)}
+                            onChange={(e) => {
+                              let { types } = filterState;
+
+                              if (e.target.checked) {
+                                types = types.concat(option.value);
+                              } else {
+                                types = types.filter(type => type !== option.value);
+                              }
+
+                              setFilterState({ ..._.clone(filterState), types });
+                            }}
                           />
                           <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
                         </span>
@@ -584,7 +601,7 @@ export default function FiltersPanel({
         }
 
         {
-          isRecommendedChallengesVisible
+          isRecommendedChallengesVisible && _.get(auth, 'user.userId')
           && (
             <div styleName="filter-row recommended-challenges-filter">
               <span
@@ -607,7 +624,7 @@ export default function FiltersPanel({
                   className={style['tooltip-overlay']}
                   trigger={['hover', 'focus']}
                 >
-                  <i className="fa fa-info-cirle" aria-hidden="true" />
+                  <img src={circleIcon} alt="circle-icon" />
                 </Tooltip>
               </div>
             </div>
@@ -615,7 +632,10 @@ export default function FiltersPanel({
         }
       </div>
 
-      <hr />
+      {
+        isRecommendedChallengesVisible && _.get(auth, 'user.userId')
+          && (<hr />)
+      }
 
       <div styleName="buttons">
         <Button
@@ -692,4 +712,5 @@ FiltersPanel.propTypes = {
   expanded: PT.bool.isRequired,
   setExpanded: PT.func.isRequired,
   setSort: PT.func.isRequired,
+  selectBucket: PT.func.isRequired,
 };
