@@ -57,3 +57,32 @@
     }
   }
 }
+
+:global {
+  #mc-embedded-subscribe-form {
+    input {
+      display: none;
+    }
+
+    #mc-embedded-subscribe {
+      @include roboto-medium;
+
+      display: inline-block;
+      margin-top: 20px;
+      cursor: pointer;
+      height: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 0;
+      width: 170px;
+      white-space: nowrap;
+      background-color: #006ad7;
+      color: white;
+      border-radius: 4px;
+
+      &:hover {
+        background-image: linear-gradient(180deg, #3996ff, #127bf3);
+      }
+    }
+  }
+}

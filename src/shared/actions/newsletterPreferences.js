@@ -93,53 +93,11 @@ async function updateSubscriptionsDone(
   }
 }
 
-/**
- * Resubscribe member for TC emails/list
- * @param {string} emailHash the email
- */
-async function resubscribeDone(emailHash, listId = config.NEWSLETTER_SIGNUP.DEFAUL_LIST_ID) {
-  try {
-    let error = false;
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${emailHash}`;
-
-    const data = {
-      status: 'subscribed',
-    };
-
-    const formData = JSON.stringify(data);
-    // use proxy for avoid 'Access-Control-Allow-Origin' bug
-    await fetch(fetchUrl, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: formData,
-    })
-      .then((result) => {
-        if (!result.ok) error = true;
-        return result.json();
-      });
-
-    return {
-      email: emailHash,
-      resubscribe: true,
-      error,
-    };
-  } catch (error) {
-    return {
-      email: emailHash,
-      error,
-    };
-  }
-}
-
 export default createActions({
   NEWSLETTER_PREFERENCES: {
     FETCH_DATA_INIT: fetchDataInit,
     FETCH_DATA_DONE: fetchDataDone,
     UPDATE_TAG_INIT: _.identity,
     UPDATE_TAG_DONE: updateSubscriptionsDone,
-    RESUBSCRIBE_INIT: _.identity,
-    RESUBSCRIBE_DONE: resubscribeDone,
   },
 });

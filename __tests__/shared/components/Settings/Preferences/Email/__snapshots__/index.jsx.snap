@@ -18,24 +18,40 @@ exports[`renders email preferences setting page correctly 1`] = `
     <p>
       If this was a mistake or if you would like to resubscribe, please click the button below.
     </p>
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={false}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[Function]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size={null}
-      themePriority="adhoc-context-default"
-      to={null}
-      type="button"
+    <form
+      action="https://topcoder.us13.list-manage.com/subscribe/post?u=65bd5a1857b73643aad556093&id=28bfd3c062"
+      id="mc-embedded-subscribe-form"
+      method="post"
+      name="mc-embedded-subscribe-form"
+      noValidate={true}
     >
-      Resubscribe
-    </ThemedButton>
+      <input
+        id="mce-EMAIL"
+        name="EMAIL"
+        readOnly={true}
+        type="email"
+        value="test@test.com"
+      />
+      <input
+        id="gdpr_11101"
+        name="gdpr[11101]"
+        type="checkbox"
+        value="Y"
+      />
+      <input
+        name="b_65bd5a1857b73643aad556093_28bfd3c062"
+        tabIndex="-1"
+        type="text"
+        value=""
+      />
+      <input
+        className="submit-button"
+        id="mc-embedded-subscribe"
+        name="subscribe"
+        type="submit"
+        value="Subscribe"
+      />
+    </form>
   </div>
 </div>
 `;

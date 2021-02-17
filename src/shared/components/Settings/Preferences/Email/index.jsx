@@ -6,7 +6,6 @@ import { debounce, map } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { toastr } from 'react-redux-toastr';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import ToggleableItem from 'components/Settings/ToggleableItem';
 
@@ -112,7 +111,7 @@ export default class EmailPreferences extends React.Component {
 
   render() {
     const { emailPreferences, status } = this.state;
-    const { resubscibeEmails, email } = this.props;
+    const { email } = this.props;
     return (
       <div styleName="EmailPreferences">
         <h1 styleName="title">
@@ -123,53 +122,54 @@ export default class EmailPreferences extends React.Component {
             <div styleName="unsubscribed-msg">
               <h3>You are not subscribed to receive Topcoder emails</h3>
               <p>If this was a mistake or if you would like to resubscribe, please click the button below.</p>
-              <PrimaryButton
-                onClick={() => resubscibeEmails(email)}
-              >
-                Resubscribe
-              </PrimaryButton>
+              <form action="https://topcoder.us13.list-manage.com/subscribe/post?u=65bd5a1857b73643aad556093&amp;id=28bfd3c062" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" noValidate>
+                <input type="email" value={email} readOnly name="EMAIL" id="mce-EMAIL" />
+                <input type="checkbox" id="gdpr_11101" name="gdpr[11101]" value="Y" />
+                <input type="text" name="b_65bd5a1857b73643aad556093_28bfd3c062" tabIndex="-1" value="" />
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="submit-button" />
+              </form>
             </div>
           ) : (
             <React.Fragment>
               <div styleName="sub-title">Newsletters</div>
               <div styleName="preferences-container">
                 {
-                    map(newsletters, (newsletter) => {
-                      const checked = emailPreferences[newsletter.id];
-                      return (
-                        <ToggleableItem
-                          key={newsletter.id}
-                          id={newsletter.id}
-                          value={newsletter.id}
-                          checked={checked}
-                          primaryText={newsletter.name}
-                          secondaryText={newsletter.desc}
-                          onToggle={e => this.onChange(newsletter.id, e.target.checked)}
-                          disabled={status !== 'subscribed'}
-                        />
-                      );
-                    })
-                  }
+                  map(newsletters, (newsletter) => {
+                    const checked = emailPreferences[newsletter.id];
+                    return (
+                      <ToggleableItem
+                        key={newsletter.id}
+                        id={newsletter.id}
+                        value={newsletter.id}
+                        checked={checked}
+                        primaryText={newsletter.name}
+                        secondaryText={newsletter.desc}
+                        onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                        disabled={status !== 'subscribed'}
+                      />
+                    );
+                  })
+                }
               </div>
               <div styleName="sub-title-2">Programs</div>
               <div styleName="preferences-container">
                 {
-                    map(programs, (program) => {
-                      const checked = emailPreferences[program.id];
-                      return (
-                        <ToggleableItem
-                          key={program.id}
-                          id={program.id}
-                          value={program.id}
-                          checked={checked}
-                          primaryText={program.name}
-                          secondaryText={program.desc}
-                          onToggle={e => this.onChange(program.id, e.target.checked)}
-                          disabled={status !== 'subscribed'}
-                        />
-                      );
-                    })
-                  }
+                  map(programs, (program) => {
+                    const checked = emailPreferences[program.id];
+                    return (
+                      <ToggleableItem
+                        key={program.id}
+                        id={program.id}
+                        value={program.id}
+                        checked={checked}
+                        primaryText={program.name}
+                        secondaryText={program.desc}
+                        onToggle={e => this.onChange(program.id, e.target.checked)}
+                        disabled={status !== 'subscribed'}
+                      />
+                    );
+                  })
+                }
               </div>
             </React.Fragment>
           )
@@ -190,5 +190,4 @@ EmailPreferences.propTypes = {
   saveEmailPreferences: PT.func.isRequired,
   updated: PT.shape(),
   status: PT.string,
-  resubscibeEmails: PT.func.isRequired,
 };
