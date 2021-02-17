@@ -34,6 +34,14 @@ export default function Tags({
     </div>
   );
 
+  const tagRedirectLink = (item) => {
+    if (challengesUrl && item.indexOf('+') !== 0) {
+      return `${challengesUrl}?filter[tags][0]=${
+        encodeURIComponent(item)}`;
+    }
+    return null;
+  };
+
   const renderVerifiedTag = item => (
     <div styleName="recommended-challenge-tooltip">
       <Tooltip
@@ -45,8 +53,7 @@ export default function Tags({
           onClick={() => onClick(item.trim())}
           key={item}
           role="button"
-          to={(challengesUrl && item.indexOf('+') !== 0) ? `${challengesUrl}?filter[tags][0]=${
-            encodeURIComponent(item)}` : null}
+          to={tagRedirectLink(item)}
         >
           <VerifiedIcon styleName="verified-tag" />
           <span styleName={cn({ 'verified-tag-text': recommended })}>{item}</span>
@@ -69,8 +76,7 @@ export default function Tags({
                   onClick={() => onClick(item.trim())}
                   key={item}
                   role="button"
-                  to={(challengesUrl && item.indexOf('+') !== 0) ? `${challengesUrl}?filter[tags][0]=${
-                    encodeURIComponent(item)}` : null}
+                  to={tagRedirectLink(item)}
                 >
                   <span>{item}</span>
                 </Tag>
@@ -113,8 +119,7 @@ export default function Tags({
                     onClick={() => onClick(item.trim())}
                     key={item}
                     role="button"
-                    to={(challengesUrl && item.indexOf('+') !== 0) ? `${challengesUrl}?filter[tags][0]=${
-                      encodeURIComponent(item)}` : null}
+                    to={tagRedirectLink(item)}
                   >
                     <span>{item}</span>
                   </Tag>
@@ -130,8 +135,7 @@ export default function Tags({
             onClick={() => onClick(item.trim())}
             key={item}
             role="button"
-            to={(challengesUrl && item.indexOf('+') !== 0) ? `${challengesUrl}?filter[tags][0]=${
-              encodeURIComponent(item)}` : null}
+            to={tagRedirectLink(item)}
           >
             <span>{item}</span>
           </Tag>

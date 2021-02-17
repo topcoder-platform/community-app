@@ -166,10 +166,6 @@ export default function ChallengeListing(props) {
 
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
-      {/* <ChallengeSearchBar
-        setFilterState={props.setFilterState}
-      /> */}
-
       <div styleName="tc-content-wrapper">
         <div styleName={desktop ? 'sidebar-container-desktop' : 'sidebar-container-mobile'}>
           <Sidebar

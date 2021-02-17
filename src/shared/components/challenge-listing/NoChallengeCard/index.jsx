@@ -1,7 +1,3 @@
-/**
- * Component for rendering a Review Opportunity and associated Challenge
- * information.  Will be contained within a Bucket.
- */
 import React from 'react';
 
 import './style.scss';
@@ -20,11 +16,5 @@ function NoChallengeCard() {
     </div>
   );
 }
-
-NoChallengeCard.defaultProps = {
-};
-
-NoChallengeCard.propTypes = {
-};
 
 export default NoChallengeCard;

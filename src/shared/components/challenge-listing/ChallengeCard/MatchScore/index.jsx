@@ -10,9 +10,6 @@ export default function MatchScore({ score }) {
         {score}% match
       </DevelopmentTrackEventTag>
     </div>
-    // <span styleName="match-score">
-    //   {score}% match
-    // </span>
   );
 }
 
