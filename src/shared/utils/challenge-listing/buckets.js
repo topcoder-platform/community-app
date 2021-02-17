@@ -255,6 +255,7 @@ export function isFilterEmpty(filter, tab, bucket) {
       },
       search: '',
       types: ['CH', 'F2F', 'TSK'],
+      recommended: false,
     };
   }
 

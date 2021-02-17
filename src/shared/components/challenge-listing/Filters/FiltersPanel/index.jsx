@@ -661,6 +661,7 @@ export default function FiltersPanel({
               status: 'Active',
               reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
               customDate: false,
+              recommended: false,
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');

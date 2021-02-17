@@ -23,9 +23,8 @@ import {
 } from 'topcoder-react-ui-kit';
 
 import { COMPETITION_TRACKS } from 'utils/tc';
-import VerifiedIcon from 'assets/images/icon-verified.svg';
+import VerifiedTag from 'components/challenge-listing/VerifiedTag';
 import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
-import Tooltip from 'components/Tooltip';
 import { calculateScore } from '../../../utils/challenge-listing/helper';
 import './style.scss';
 
@@ -71,12 +70,6 @@ export default function ChallengeTags(props) {
 
   const tags = technPlatforms.filter(tag => !matchSkills.includes(tag));
 
-  const verifiedTagTooltip = item => (
-    <div styleName="tctooltiptext">
-      <p>{item} is verified based <br /> on past challenges you won</p>
-    </div>
-  );
-
   return (
     <div>
       {
@@ -105,28 +98,17 @@ export default function ChallengeTags(props) {
       }
       {
         matchScore && (
-          <MatchScore score={calculateScore(matchScore)} />
+          <span styleName="matchScoreWrap">
+            <MatchScore score={calculateScore(matchScore)} />
+          </span>
         )
       }
       {
         matchSkills.map(item => (
-          <div styleName="recommended-challenge-tooltip">
-            <Tooltip
-              id="recommended-tip"
-              content={verifiedTagTooltip(item)}
-              trigger={['hover', 'focus']}
-            >
-              <DevelopmentTrackEventTag
-                key={item}
-                role="button"
-                to={(challengesUrl && item.indexOf('+') !== 0) ? `${challengesUrl}?filter[tags][0]=${
-                  encodeURIComponent(item)}` : null}
-              >
-                <VerifiedIcon styleName="verified-tag" />
-                <span styleName="verified-tag-text">{item}</span>
-              </DevelopmentTrackEventTag>
-            </Tooltip>
-          </div>
+          <VerifiedTag
+            item={item}
+            challengesUrl={challengesUrl}
+          />
         ))
       }
       {

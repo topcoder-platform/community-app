@@ -103,6 +103,7 @@ export default function ChallengeListing(props) {
       {
         filterState.recommended
         && !loadingOpenForRegistrationChallenges
+        && activeBucket === 'openForRegistration'
         && !openForRegistrationChallenges.length && (
           <NoChallengeCard />
         )
