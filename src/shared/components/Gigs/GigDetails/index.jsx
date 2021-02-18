@@ -1,14 +1,15 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable max-len */
 /**
  * The Gig details component.
  */
 
-import React, { useState } from 'react';
+import { isEmpty } from 'lodash';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { isomorphy, Link, config } from 'topcoder-react-utils';
 import ReactHtmlParser from 'react-html-parser';
 import { getSalaryType, getCustomField } from 'utils/gigs';
-import { getQuery } from 'utils/url';
 import SubscribeMailChimpTag from 'containers/SubscribeMailChimpTag';
 import './style.scss';
 import IconFacebook from 'assets/images/icon-facebook.svg';
@@ -42,19 +43,20 @@ export default function GigDetails(props) {
     job, application, profile, onSendClick, isReferrSucess, formData, formErrors, onFormInputChange, isReferrError, getReferralId, referralId, onReferralDone,
   } = props;
   let shareUrl;
-  let showModalInitially = false;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
-    const query = getQuery();
-    showModalInitially = !!query.referr;
-    if (showModalInitially) getReferralId();
   }
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
   const hPerW = getCustomField(job.custom_fields, 'Hours per week');
   const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary} (USD)`;
 
-  const [isModalOpen, setModalOpen] = useState(showModalInitially);
+  const [isModalOpen, setModalOpen] = useState(false);
+  let inputRef;
+
+  useEffect(() => {
+    if (referralId && formData.email && isEmpty(formErrors)) onSendClick();
+  }, [referralId]);
 
   return (
     <div styleName="container">
@@ -148,10 +150,29 @@ export default function GigDetails(props) {
                     <IconTwitter />
                   </a>
                 </div>
+                <div styleName="referr-area">
+                  <h6>REFER THIS GIG</h6>
+                  <p>Refer someone to this gig and earn $500. Just add their email below.</p>
+                  <div styleName="referr-form">
+                    <input type="email" placeholder="Email" value={formData.email} onChange={e => onFormInputChange('email', e.target.value)} ref={el => inputRef = el} />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (isEmpty(profile) || !referralId) {
+                          getReferralId();
+                        } else {
+                          onSendClick();
+                        }
+                        setModalOpen(true);
+                      }}
+                      disabled={!formData.email || formErrors.email}
+                    >SEND
+                    </button>
+                  </div>
+                </div>
                 <div styleName="subscribe-area">
-                  <h6>SUBSCRIBE TO WEEKLY UPDATES</h6>
-                  <p>Not ready to apply? Want to stay tuned for any new gigs that may be upcoming? Join our weekly Gig Work list.</p>
-                  <SubscribeMailChimpTag listId="28bfd3c062" tags={['Gig Work']} />
+                  <h6>SUBSCRIBE TO WEEKLY GIG UPDATES</h6>
+                  <SubscribeMailChimpTag listId="28bfd3c062" groups={{ d0c48e9da3: true }} />
                 </div>
                 <div styleName="info-area">
                   <p>At Topcoder, we pride ourselves in bringing our customers the very best candidates to help fill their needs. Want to improve your chances? You can do a few things:</p>
@@ -172,21 +193,17 @@ export default function GigDetails(props) {
                 </div>
                 <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</div>
                 <div styleName="referral">
-                  <button styleName="primaryBtn" onClick={() => { setModalOpen(true); getReferralId(); }} type="button">Refer</button>
                   {
                     isModalOpen
                     && (
                     <ReferralModal
                       profile={profile}
                       onCloseButton={() => setModalOpen(false)}
-                      onSendClick={onSendClick}
                       isReferrSucess={isReferrSucess}
-                      formErrors={formErrors}
-                      formData={formData}
-                      onFormInputChange={onFormInputChange}
                       isReferrError={isReferrError}
                       referralId={referralId}
                       onReferralDone={() => {
+                        inputRef.value = '';
                         onReferralDone();
                         setModalOpen(false);
                       }}

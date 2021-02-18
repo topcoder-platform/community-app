@@ -1,3 +1,5 @@
+@import '~styles/mixins';
+
 .wrapper {
   display: flex;
 
@@ -5,7 +7,7 @@
     background-color: #fff !important;
     border: 1px solid #aaa !important;
     border-radius: 6px !important;
-    margin-right: 8px;
+    margin-right: 10px;
     margin-bottom: 0 !important;
     color: #2a2a2a;
     font-family: Roboto, sans-serif;
@@ -27,30 +29,34 @@
   }
 
   .button {
-    color: #229174;
-    font-family: Roboto, sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0.8px;
-    line-height: 40px;
-    background-color: #fff;
+    background-color: #137d60;
     border-radius: 20px;
-    border: none;
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: bolder;
+    text-decoration: none;
     text-transform: uppercase;
-    max-height: 40px;
+    line-height: 40px;
     padding: 0 20px;
-    cursor: pointer;
+    border: none;
     outline: none;
+    max-width: 122px;
 
-    &:disabled {
-      background-color: #e9e9e9;
-      color: #fff;
+    &:hover {
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      background-color: #0ab88a;
     }
 
-    &:hover:not(:disabled) {
-      color: #229174;
-      background-color: #fff !important;
-      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
+
+    &:disabled {
+      background-color: #e9e9e9 !important;
+      border: none !important;
+      text-decoration: none !important;
+      color: #fafafb !important;
+      box-shadow: none !important;
     }
   }
 }

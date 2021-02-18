@@ -9,10 +9,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config, Link } from 'topcoder-react-utils';
-import TextInput from 'components/GUIKit/TextInput';
-import Textarea from 'components/GUIKit/Textarea';
 import tc from 'components/buttons/themed/tc.scss';
-import ContentBlock from 'components/Contentful/ContentBlock';
 import LoadingIndicator from 'components/LoadingIndicator';
 import modalStyle from './modal.scss';
 
@@ -30,17 +27,12 @@ const HELP_INFO_LINK = '/community/getting-the-gig';
 function ReferralModal({
   profile,
   onCloseButton,
-  onSendClick,
   isReferrSucess,
-  formErrors,
-  formData,
-  onFormInputChange,
   isReferrError,
   referralId,
   onReferralDone,
 }) {
-  let retUrl = window.location.href;
-  retUrl += retUrl.match('\\?') ? '&referr=true' : '?referr=true';
+  const retUrl = window.location.href;
   return (
     <Modal
       onCancel={onCloseButton}
@@ -49,54 +41,9 @@ function ReferralModal({
       { !isEmpty(profile) ? (
         <div className={modalStyle.referrals}>
           {
-            !isReferrSucess && !isReferrError && referralId ? (
-              <div className={modalStyle.referrForm}>
-                <ContentBlock id="4b3SIWDVWtXLFN43j044fy" />
-                <TextInput
-                  placeholder="Email Referral"
-                  label="Email Referral"
-                  onChange={val => onFormInputChange('email', val)}
-                  errorMsg={formErrors.email}
-                  value={formData.email}
-                  required
-                />
-                <div className={modalStyle.margin}>
-                  <Textarea
-                    placeholder="Email Message"
-                    label="Email Message"
-                    onChange={val => onFormInputChange('body', val)}
-                    errorMsg={formErrors.body}
-                    value={formData.body}
-                    required
-                    readonly
-                  />
-                </div>
-                <div className={modalStyle.ctaButtons}>
-                  <PrimaryButton
-                    onClick={onCloseButton}
-                    theme={{
-                      button: buttonThemes.tc['primary-white-md'],
-                    }}
-                  >
-                    CANCEL
-                  </PrimaryButton>
-                  <PrimaryButton
-                    onClick={onSendClick}
-                    theme={{
-                      button: buttonThemes.tc['primary-green-md'],
-                    }}
-                    disabled={!isEmpty(formErrors)}
-                  >
-                    SEND INVITE
-                  </PrimaryButton>
-                </div>
-              </div>
-            ) : null
-          }
-          {
             !referralId && !isReferrError && (
             <div className={modalStyle.referrForm}>
-              <p style={{ textAlign: 'center' }}>Loading your personal referral form...</p>
+              <p style={{ textAlign: 'center' }}>Sending your referral...</p>
               <LoadingIndicator />
             </div>
             )
@@ -174,11 +121,7 @@ ReferralModal.defaultProps = {
 ReferralModal.propTypes = {
   profile: PT.shape(),
   onCloseButton: PT.func.isRequired,
-  onSendClick: PT.func.isRequired,
   isReferrSucess: PT.bool.isRequired,
-  formErrors: PT.shape().isRequired,
-  formData: PT.shape().isRequired,
-  onFormInputChange: PT.func.isRequired,
   isReferrError: PT.shape(),
   referralId: PT.string,
   onReferralDone: PT.func.isRequired,

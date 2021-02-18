@@ -71,11 +71,11 @@ https://www.topcoder.com/gigs/${props.id}`,
     this.setState((state) => {
       const { formData, formErrors } = state;
       if (key === 'email') {
+        formData.email = update;
         if (trim(update)) {
           if (!(isValidEmail(update))) formErrors.email = 'Invalid email';
           else {
             delete formErrors.email;
-            formData.email = update;
           }
         } else formErrors.email = 'Email is required field';
       }
