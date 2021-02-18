@@ -357,37 +357,8 @@
   top: -5px;
 }
 
-.verified-tag {
-  position: absolute;
-}
-
-.verified-tag-text {
-  margin-left: 15px;
-}
-
-.recommended-challenge-tooltip {
-  display: inline-block;
-  margin: 3px 0 0 0;
-}
-
-.tctooltiptext {
-  background: $tc-white;
-  color: $tc-gray-90;
-  border-radius: 3px;
-  padding: 10px;
-}
-
-.tctooltiptext::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  bottom: 4px;
-  margin-left: -5px;
-  border-width: 5px 5px 0;
-  left: 50%;
-  border-top-color: $tc-white;
-  z-index: 1000;
+.matchScoreWrap {
+  width: 100%;
+  margin-right: -2px;
+  padding: 0;
 }

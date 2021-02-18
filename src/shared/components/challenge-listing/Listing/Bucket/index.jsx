@@ -121,7 +121,7 @@ export default function Bucket({
   if (!loading && sortedChallenges.length === 0) {
     return (
       <div styleName="no-results">
-        { filterState.recommended ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
+        { (filterState.recommended && activeBucket === 'openForRegistration') ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
       </div>
     );
   }

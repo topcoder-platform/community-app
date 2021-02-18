@@ -255,7 +255,7 @@ function Listing({
       {
         loading
           ? placeholders
-          : !filterState.recommended && (
+          : (!filterState.recommended || activeBucket !== 'openForRegistration') && (
             <div styleName="no-results">{ `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }</div>
           )
       }

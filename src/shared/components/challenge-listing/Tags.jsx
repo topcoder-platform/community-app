@@ -4,11 +4,10 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { Tag, DevelopmentTrackEventTag } from 'topcoder-react-ui-kit';
-import VerifiedIcon from 'assets/images/icon-verified.svg';
+import { Tag } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
+import VerifiedTag from './VerifiedTag';
 import './style.scss';
-import cn from 'classnames';
 
 // The number of tags to be shown without requiring expanding
 const VISIBLE_TAGS = 3;
@@ -28,12 +27,6 @@ export default function Tags({
     }
   };
 
-  const verifiedTagTooltip = item => (
-    <div styleName="tctooltiptext">
-      <p>{item} is verified based <br /> on past challenges you won</p>
-    </div>
-  );
-
   const tagRedirectLink = (item) => {
     if (challengesUrl && item.indexOf('+') !== 0) {
       return `${challengesUrl}?filter[tags][0]=${
@@ -42,32 +35,19 @@ export default function Tags({
     return null;
   };
 
-  const renderVerifiedTag = item => (
-    <div styleName="recommended-challenge-tooltip">
-      <Tooltip
-        id="recommended-tip"
-        content={verifiedTagTooltip(item)}
-        trigger={['hover', 'focus']}
-      >
-        <DevelopmentTrackEventTag
-          onClick={() => onClick(item.trim())}
-          key={item}
-          role="button"
-          to={tagRedirectLink(item)}
-        >
-          <VerifiedIcon styleName="verified-tag" />
-          <span styleName={cn({ 'verified-tag-text': recommended })}>{item}</span>
-        </DevelopmentTrackEventTag>
-      </Tooltip>
-    </div>
-  );
-
   const additionalTags = (items, verifiedTagIndex) => (
     <div styleName="additionalTagWrapper">
       {
         items.map((item, index) => {
           if (index < verifiedTagIndex) {
-            return renderVerifiedTag(item);
+            return (
+              <VerifiedTag
+                challengesUrl={challengesUrl}
+                item={item}
+                onClick={onClick}
+                recommended={recommended}
+              />
+            );
           }
           return (
             (
@@ -126,7 +106,14 @@ export default function Tags({
                 </Tooltip>
               </div>
             )
-              : renderVerifiedTag(item)
+              : (
+                <VerifiedTag
+                  challengesUrl={challengesUrl}
+                  item={item}
+                  onClick={onClick}
+                  recommended={recommended}
+                />
+              )
           );
         }
 
