@@ -304,6 +304,7 @@ workflows:
             branches:
               only:
                 - develop
+                - add-sort-options
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
