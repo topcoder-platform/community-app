@@ -165,7 +165,7 @@ module.exports = {
             },
             {
               title: 'Forums',
-              href: 'https://apps.topcoder.com/forums',
+              href: 'https://discussions.topcoder.com',
               openNewTab: true,
             },
             {

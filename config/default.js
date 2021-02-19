@@ -360,7 +360,7 @@ module.exports = {
             },
             {
               title: 'Forums',
-              href: 'https://apps.topcoder-dev.com/forums',
+              href: 'https://vanilla.topcoder-dev.com',
               openNewTab: true,
             },
             {
