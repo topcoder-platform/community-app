@@ -65,8 +65,8 @@ export default function ChallengeTags(props) {
 
 
   const filteredChallenge = _.find(openForRegistrationChallenges, { id: challengeId });
-  const matchSkills = filteredChallenge ? filteredChallenge.match_skills : [];
-  const matchScore = filteredChallenge ? filteredChallenge.jaccard_index : 0;
+  const matchSkills = filteredChallenge ? filteredChallenge.match_skills || [] : [];
+  const matchScore = filteredChallenge ? filteredChallenge.jaccard_index || [] : 0;
 
   const tags = technPlatforms.filter(tag => !matchSkills.includes(tag));
 
@@ -97,7 +97,7 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        matchScore && (
+        matchScore > 0 && (
           <span styleName="matchScoreWrap">
             <MatchScore score={calculateScore(matchScore)} />
           </span>
