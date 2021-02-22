@@ -282,7 +282,7 @@ workflows:
           filters:
             branches:
               only:                
-                - gsheet-contentful-develop
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -303,7 +303,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - email-pref-revamp-develop
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
