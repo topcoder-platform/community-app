@@ -303,7 +303,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - develop
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
