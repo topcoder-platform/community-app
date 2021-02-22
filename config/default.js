@@ -110,7 +110,7 @@ module.exports = {
     BLOG: 'https://www.topcoder-dev.com/blog',
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
-    FORUMS: 'https://apps.topcoder-dev.com/forums',
+    FORUMS: 'https://vanilla.topcoder-dev.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     SUBMISSION_REVIEW: 'https://submission-review.topcoder-dev.com',
 
@@ -360,8 +360,7 @@ module.exports = {
             },
             {
               title: 'Forums',
-              href: 'https://apps.topcoder-dev.com/forums',
-              openNewTab: true,
+              href: 'https://vanilla.topcoder-dev.com',
             },
             {
               title: 'Statistics',
