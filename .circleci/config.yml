@@ -289,7 +289,7 @@ workflows:
           filters:
             branches:
               only:
-                - nav-vanilla-forum
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -303,7 +303,7 @@ workflows:
           filters:
             branches:
               only:
-                - email-pref-revamp-develop
+                - free
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
