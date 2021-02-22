@@ -14,7 +14,8 @@ function onInit(state, { payload }) {
   return {
     ...state,
     email: payload,
-    preferences: [],
+    preferences: {},
+    status: null,
     loading: true,
   };
 }
@@ -25,15 +26,10 @@ function onInit(state, { payload }) {
  * @param {Object} action The action.
  */
 function onDone(state, { payload }) {
-  const preferences = {};
-  if (payload.preferences) {
-    payload.preferences.forEach((record) => {
-      preferences[record.name] = { ...record, checked: true };
-    });
-  }
   return {
     ...state,
-    preferences: payload.error ? null : preferences,
+    preferences: payload.error ? null : payload.preferences,
+    status: payload.error ? null : payload.status,
     error: payload.error,
     loading: false,
   };
@@ -48,7 +44,7 @@ function onUpdateTagInit(state) {
 
 function onUpdateTagDone(state, { payload }) {
   // eslint-disable-next-line no-param-reassign
-  state.preferences[payload.id] = { name: payload.id, checked: payload.checked };
+  state.preferences[payload.id] = payload.checked;
   return {
     ...state,
     updated: payload,
