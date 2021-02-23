@@ -33,7 +33,7 @@ class RecruitCRMJobDetailsContainer extends React.Component {
 Topcoder has a freelance gig that I thought you would be interested in. If you get the gig and complete it successfully we both get an extra $500.
         
 Check it out:
-https://www.topcoder.com/gigs/${props.id}`,
+${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       },
     };
 
