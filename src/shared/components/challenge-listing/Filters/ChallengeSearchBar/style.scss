@@ -9,7 +9,9 @@ $challenge-radius-1: $corner-radius / 2;
 $challenge-radius-4: $corner-radius * 2;
 
 .container {
-  padding: 0 3px;
+  background: $tc-gray-neutral-light;
+  border-bottom: 1px solid $tc-gray-30;
+  padding: 0 $base-unit * 3;
 
   @media (max-width: #{$screen-lg - 1px}) {
     padding: 0 $base-unit * 2;
@@ -19,8 +21,8 @@ $challenge-radius-4: $corner-radius * 2;
 .ChallengeSearchBar {
   display: block;
   position: relative;
-  top: 20px;
-  height: 35px;
+  top: 10px;
+  height: 60px;
 
   .input-container {
     font-size: 12px;

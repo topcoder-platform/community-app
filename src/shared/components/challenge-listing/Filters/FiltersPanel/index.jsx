@@ -555,7 +555,7 @@ export default function FiltersPanel({
           ) : null
         }
 
-        { !isReviewOpportunitiesBucket
+        { !isReviewOpportunitiesBucket && !recommendedToggle
           && (
             <div styleName="filter-row">
               <div styleName="filter filter community">

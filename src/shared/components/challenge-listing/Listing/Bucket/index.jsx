@@ -9,7 +9,7 @@ import PT from 'prop-types';
 // import qs from 'qs';
 import React, { useRef } from 'react';
 // import { config } from 'topcoder-react-utils';
-import Sort from 'utils/challenge-listing/sort';
+import Sort, { SORTS } from 'utils/challenge-listing/sort';
 import {
   NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA, isRecommendedChallengeType,
 } from 'utils/challenge-listing/buckets';
@@ -54,7 +54,7 @@ export default function Bucket({
   setSearchText,
 }) {
   const activeBucketData = isRecommendedChallengeType(bucket, filterState)
-    ? BUCKET_DATA[bucket].sorts : BUCKET_DATA[bucket].sorts.filter(item => item !== 'bestMatch');
+    ? [SORTS.BEST_MATCH] : BUCKET_DATA[bucket].sorts.filter(item => item !== 'bestMatch');
 
   const refs = useRef([]);
   refs.current = [];
