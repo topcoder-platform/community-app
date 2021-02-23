@@ -152,7 +152,7 @@ export default function GigDetails(props) {
                 </div>
                 <div styleName="referr-area">
                   <h6>REFER THIS GIG</h6>
-                  <p>Refer someone to this gig and earn $500. Just add their email below.</p>
+                  <p>Refer someone to this gig and earn $500. Just add their email below. <Link to="/community/gig-referral" openNewTab>How It Works?</Link></p>
                   <div styleName="referr-form">
                     <input type="email" placeholder="Email" value={formData.email} onChange={e => onFormInputChange('email', e.target.value)} ref={el => inputRef = el} />
                     <button
