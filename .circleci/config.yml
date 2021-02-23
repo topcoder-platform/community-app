@@ -282,7 +282,7 @@ workflows:
           filters:
             branches:
               only:                
-                - poc-recommender-sub-2
+                - feature/poc-recommender-sub-2
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
