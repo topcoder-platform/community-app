@@ -22,7 +22,7 @@ const buttonThemes = {
 };
 
 // help article link
-const HELP_INFO_LINK = '/community/getting-the-gig';
+const HELP_INFO_LINK = '/community/gig-referral';
 
 function ReferralModal({
   profile,
