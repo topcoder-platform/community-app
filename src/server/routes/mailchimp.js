@@ -20,7 +20,7 @@ routes.post('/:listId/members', (req, res, next) => new MailchimpService().doReg
 
 routes.get('/:listId/members/:emailHash', (req, res) => new MailchimpService().checkSubscription(req).then(res.send.bind(res)));
 
-routes.put('/:listId/members/:emailHash', (req, res) => new MailchimpService().subscribeInterests(req).then(res.send.bind(res)));
+routes.put('/:listId/members/:emailHash', (req, res) => new MailchimpService().updateMember(req).then(res.send.bind(res)));
 
 routes.post('/:listId/members/:emailHash/tags', (req, res) => new MailchimpService().subscribeTags(req).then(res.send.bind(res)));
 

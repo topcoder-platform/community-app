@@ -31,6 +31,7 @@ module.exports = {
     HOME: '/my-dashboard',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
+    FORUMS_VANILLA: 'https://discussions.topcoder.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     SUBMISSION_REVIEW: 'https://submission-review.topcoder.com',
     MEMBER: 'https://member.topcoder.com',
@@ -165,8 +166,7 @@ module.exports = {
             },
             {
               title: 'Forums',
-              href: 'https://apps.topcoder.com/forums',
-              openNewTab: true,
+              href: 'https://discussions.topcoder.com',
             },
             {
               title: 'Statistics',

@@ -185,7 +185,7 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://apps.topcoder.com/forums"
+              href="https://vanilla.topcoder-dev.com"
             >
               Forums
             </a>
