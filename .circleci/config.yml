@@ -289,7 +289,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - gigs-housekeep
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
