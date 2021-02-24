@@ -9,6 +9,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import { config } from 'topcoder-react-utils';
 
 import {
   Tag,
@@ -97,7 +98,7 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        matchScore > 0 && (
+        matchScore > 0 && config.ENABLE_RECOMMENDER && (
           <span styleName="matchScoreWrap">
             <MatchScore score={calculateScore(matchScore)} />
           </span>

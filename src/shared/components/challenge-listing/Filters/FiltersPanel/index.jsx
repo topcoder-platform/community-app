@@ -252,7 +252,7 @@ export default function FiltersPanel({
   const past = isPastBucket(activeBucket);
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
-  const isRecommendedChallengesVisible = activeBucket === 'openForRegistration';
+  const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER);
   const [recommendedToggle, setRecommendedToggle] = useState(false);
 
   useEffect(() => {

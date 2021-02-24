@@ -414,4 +414,5 @@ module.exports = {
   GUIKIT: {
     DEBOUNCE_ON_CHANGE_TIME: 150,
   },
+  ENABLE_RECOMMENDER: true,
 };
