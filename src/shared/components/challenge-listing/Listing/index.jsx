@@ -224,7 +224,6 @@ function Listing({
   //     </div>
   //   );
   // }
-
   const loading = loadingMyChallenges
     || loadingMyPastChallenges
     || loadingOpenForRegistrationChallenges

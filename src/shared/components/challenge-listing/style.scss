@@ -98,15 +98,6 @@ $challenge-radius-4: $corner-radius * 2;
   }
 }
 
-.card-container {
-  width: 70%;
-
-  @include xs-to-md {
-    width: 100%;
-    padding-top: 0;
-  }
-}
-
 .recommended-plus-tag {
   margin-left: 3px;
   display: inline-block;

@@ -110,8 +110,7 @@ exports[`Default render 1`] = `
                   "title": "Programs",
                 },
                 Object {
-                  "href": "https://apps.topcoder-dev.com/forums",
-                  "openNewTab": true,
+                  "href": "https://vanilla.topcoder-dev.com",
                   "title": "Forums",
                 },
                 Object {

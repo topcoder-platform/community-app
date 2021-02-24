@@ -5,6 +5,9 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
   id="challengeFilterContainer"
 >
+  <Connect(Container)
+    setFilterState={[MockFunction]}
+  />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >
@@ -21,41 +24,34 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         setFilterState={[MockFunction]}
       />
     </div>
-    <div
-      className="src-shared-components-challenge-listing-___style__card-container___3-J4n"
-    >
-      <Connect(Container)
-        setFilterState={[MockFunction]}
-      />
-      <Connect(Listing)
-        activeBucket="abc"
-        auth={Object {}}
-        challenges={Array []}
-        communityName={null}
-        expandTag={null}
-        expandedTags={Array []}
-        expanding={false}
-        filterState={Object {}}
-        loadMoreActive={null}
-        loadMoreAll={null}
-        loadMoreMy={null}
-        loadMoreMyPast={null}
-        loadMoreOnGoing={null}
-        loadMoreOpenForRegistration={null}
-        loadMorePast={null}
-        loadMoreReviewOpportunities={null}
-        loadingPastChallenges={false}
-        newChallengeDetails={false}
-        openChallengesInNewTabs={false}
-        preListingMsg={null}
-        prizeMode="money-usd"
-        reviewOpportunities={Array []}
-        selectBucket={[MockFunction]}
-        setFilterState={[MockFunction]}
-        setSort={[MockFunction]}
-        sorts={Object {}}
-      />
-    </div>
+    <Connect(Listing)
+      activeBucket="abc"
+      auth={Object {}}
+      challenges={Array []}
+      communityName={null}
+      expandTag={null}
+      expandedTags={Array []}
+      expanding={false}
+      filterState={Object {}}
+      loadMoreActive={null}
+      loadMoreAll={null}
+      loadMoreMy={null}
+      loadMoreMyPast={null}
+      loadMoreOnGoing={null}
+      loadMoreOpenForRegistration={null}
+      loadMorePast={null}
+      loadMoreReviewOpportunities={null}
+      loadingPastChallenges={false}
+      newChallengeDetails={false}
+      openChallengesInNewTabs={false}
+      preListingMsg={null}
+      prizeMode="money-usd"
+      reviewOpportunities={Array []}
+      selectBucket={[MockFunction]}
+      setFilterState={[MockFunction]}
+      setSort={[MockFunction]}
+      sorts={Object {}}
+    />
   </div>
 </div>
 `;
@@ -65,6 +61,9 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
   id="challengeFilterContainer"
 >
+  <Connect(Container)
+    setFilterState={[MockFunction]}
+  />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >
@@ -81,41 +80,34 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         setFilterState={[MockFunction]}
       />
     </div>
-    <div
-      className="src-shared-components-challenge-listing-___style__card-container___3-J4n"
-    >
-      <Connect(Container)
-        setFilterState={[MockFunction]}
-      />
-      <Connect(Listing)
-        activeBucket="abc"
-        auth={Object {}}
-        challenges={Array []}
-        communityName={null}
-        expandTag={null}
-        expandedTags={Array []}
-        expanding={false}
-        filterState={Object {}}
-        loadMoreActive={null}
-        loadMoreAll={null}
-        loadMoreMy={null}
-        loadMoreMyPast={null}
-        loadMoreOnGoing={null}
-        loadMoreOpenForRegistration={null}
-        loadMorePast={null}
-        loadMoreReviewOpportunities={null}
-        loadingPastChallenges={false}
-        newChallengeDetails={false}
-        openChallengesInNewTabs={false}
-        preListingMsg={null}
-        prizeMode="money-usd"
-        reviewOpportunities={Array []}
-        selectBucket={[MockFunction]}
-        setFilterState={[MockFunction]}
-        setSort={[MockFunction]}
-        sorts={Object {}}
-      />
-    </div>
+    <Connect(Listing)
+      activeBucket="abc"
+      auth={Object {}}
+      challenges={Array []}
+      communityName={null}
+      expandTag={null}
+      expandedTags={Array []}
+      expanding={false}
+      filterState={Object {}}
+      loadMoreActive={null}
+      loadMoreAll={null}
+      loadMoreMy={null}
+      loadMoreMyPast={null}
+      loadMoreOnGoing={null}
+      loadMoreOpenForRegistration={null}
+      loadMorePast={null}
+      loadMoreReviewOpportunities={null}
+      loadingPastChallenges={false}
+      newChallengeDetails={false}
+      openChallengesInNewTabs={false}
+      preListingMsg={null}
+      prizeMode="money-usd"
+      reviewOpportunities={Array []}
+      selectBucket={[MockFunction]}
+      setFilterState={[MockFunction]}
+      setSort={[MockFunction]}
+      sorts={Object {}}
+    />
   </div>
 </div>
 `;
