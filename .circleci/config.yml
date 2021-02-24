@@ -276,6 +276,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature/poc-recommender-sub-2
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -296,7 +297,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - feature/poc-recommender-sub-2
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
@@ -304,7 +305,6 @@ workflows:
             branches:
               only:
                 - develop
-                - nav-vanilla-forum
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
