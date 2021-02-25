@@ -276,14 +276,13 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/poc-recommender-sub-2
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
-                - free
+                - feature/poc-recommender-sub-2
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
