@@ -213,5 +213,5 @@ module.exports = {
   TC_EDU_ARTICLES_PATH: '/articles',
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
-  ENABLE_RECOMMENDER: true,
+  ENABLE_RECOMMENDER: false,
 };
