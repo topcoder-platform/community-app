@@ -71,7 +71,7 @@ export default function TopcoderFooter() {
               <Link to={`${base}/blog`}>Blog</Link>
               <Link to={`${base}/community/pipeline`}>Challenge Pipeline</Link>
               <Link to={`${base}/community/events`}>Events Calendar</Link>
-              <Link to="https://apps.topcoder.com/forums">Forums</Link>
+              <Link to={`${config.URL.FORUMS_VANILLA}`}>Forums</Link>
               <Link to={`${base}/community/member-programs`}>Programs</Link>
               <Link to={`${base}/community/statistics`}>Statistics</Link>
               <Link to={`${base}/community/member-programs/topcoder-open`}>TCO</Link>

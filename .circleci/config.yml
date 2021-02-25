@@ -304,6 +304,7 @@ workflows:
             branches:
               only:
                 - develop
+                - nav-vanilla-forum
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
