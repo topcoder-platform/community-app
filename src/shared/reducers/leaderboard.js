@@ -32,9 +32,11 @@ function onDone(state, action) {
 function onHistoryChallengesDone(state, action) {
   return {
     ...state,
-    challenges: action.error ? [] : action.payload.challenges,
-    failed: !!action.error,
-    loading: false,
+    [action.payload.url]: {
+      challenges: action.error ? [] : action.payload.challenges,
+      failed: !!action.error,
+      loading: false,
+    },
   };
 }
 
@@ -57,10 +59,12 @@ function create(initialState) {
       };
     },
     [actions.leaderboard.fetchLeaderboardDone]: onDone,
-    [actions.leaderboard.getTcoHistoryChallengesInit](state) {
+    [actions.leaderboard.getTcoHistoryChallengesInit](state, action) {
       return {
         ...state,
-        loading: true,
+        [action.payload]: {
+          loading: true,
+        },
       };
     },
     [actions.leaderboard.getTcoHistoryChallengesDone]: onHistoryChallengesDone,

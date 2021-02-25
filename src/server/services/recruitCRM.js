@@ -5,6 +5,7 @@ import fetch from 'isomorphic-fetch';
 import config from 'config';
 import qs from 'qs';
 import _ from 'lodash';
+import GrowsurfService from './growsurf';
 
 const FormData = require('form-data');
 
@@ -188,7 +189,35 @@ export default class RecruitCRMService {
     const fileData = new FormData();
     fileData.append('resume', file.buffer, file.originalname);
     let candidateSlug;
+    let referralCookie = req.cookies[config.GROWSURF_COOKIE];
+    if (referralCookie) referralCookie = JSON.parse(referralCookie);
     try {
+      // referral tracking via growsurf
+      if (referralCookie && referralCookie.gigId === id) {
+        const gs = new GrowsurfService();
+        const growRes = await gs.addParticipant(JSON.stringify({
+          email: form.email,
+          referredBy: referralCookie.referralId,
+          referralStatus: 'CREDIT_PENDING',
+          firstName: form.first_name,
+          lastName: form.last_name,
+          metadata: {
+            gigId: id,
+          },
+        }));
+        // If everything set in Growsurf
+        // add referral link to candidate profile in recruitCRM
+        if (!growRes.error) {
+          form.custom_fields.push({
+            field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
+          });
+        }
+        // clear the cookie
+        res.cookie(config.GROWSURF_COOKIE, '', {
+          maxAge: 0,
+          overwrite: true,
+        });
+      }
       // Check if candidate exsits in the system?
       const candidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/search?email=${form.email}`, {
         method: 'GET',
@@ -197,7 +226,7 @@ export default class RecruitCRMService {
           Authorization: this.private.authorization,
         },
       });
-      if (candidateResponse.status >= 400) {
+      if (candidateResponse.status >= 300) {
         return res.send({
           error: true,
           status: candidateResponse.status,
@@ -231,7 +260,7 @@ export default class RecruitCRMService {
         },
         body: JSON.stringify(form),
       });
-      if (workCandidateResponse.status >= 400) {
+      if (workCandidateResponse.status >= 300) {
         return res.send({
           error: true,
           status: workCandidateResponse.status,
@@ -251,7 +280,7 @@ export default class RecruitCRMService {
         },
         body: fileData,
       });
-      if (fileCandidateResponse.status >= 400) {
+      if (fileCandidateResponse.status >= 300) {
         return res.send({
           error: true,
           status: fileCandidateResponse.status,
@@ -272,7 +301,7 @@ export default class RecruitCRMService {
           Authorization: this.private.authorization,
         },
       });
-      if (applyResponse.status >= 400) {
+      if (applyResponse.status >= 300) {
         const errObj = await applyResponse.json();
         if (errObj.errorCode === 422 && errObj.errorMessage === 'Candidate is already assigned to this job') {
           return res.send({
@@ -301,7 +330,7 @@ export default class RecruitCRMService {
           status_id: '10',
         }),
       });
-      if (hireStageResponse.status >= 400) {
+      if (hireStageResponse.status >= 300) {
         return res.send({
           error: true,
           status: hireStageResponse.status,

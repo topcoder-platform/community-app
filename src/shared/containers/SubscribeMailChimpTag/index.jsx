@@ -27,22 +27,22 @@ class SubscribeMailChimpTagContainer extends React.Component {
 
   onSubscribeClick() {
     const { inputVal } = this.state;
-    const { listId, tags } = this.props;
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${inputVal}/tags`;
+    const { listId, groups } = this.props;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${inputVal}`;
     const data = {
       email_address: inputVal,
       status: 'subscribed',
-      tags: tags.map(t => ({ name: t, status: 'active' })),
+      interests: groups,
     };
     const formData = JSON.stringify(data);
     fetch(fetchUrl, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: formData,
     }).then(result => result.json()).then((dataResponse) => {
-      if (dataResponse.status === 204) {
+      if (dataResponse.status < 300 || dataResponse.status === 'subscribed') {
         // regist success
         return this.setState({
           subsribed: true,
@@ -59,7 +59,7 @@ class SubscribeMailChimpTagContainer extends React.Component {
           body: JSON.stringify({
             email_address: inputVal,
             status: 'subscribed',
-            tags,
+            interests: groups,
           }),
         })
           .then(result => result.json()).then(() => {
@@ -71,7 +71,7 @@ class SubscribeMailChimpTagContainer extends React.Component {
       }
       return this.setState({
         subsribed: false,
-        error: `Error ${dataResponse.status} when assign to tags`,
+        error: dataResponse.detail ? dataResponse.detail : `Error ${dataResponse.status} when trying to subscribe.`,
       });
     })
       .catch((e) => {
@@ -122,7 +122,7 @@ class SubscribeMailChimpTagContainer extends React.Component {
 
 SubscribeMailChimpTagContainer.propTypes = {
   listId: PT.string.isRequired,
-  tags: PT.arrayOf(PT.string).isRequired,
+  groups: PT.shape().isRequired,
 };
 
 export default SubscribeMailChimpTagContainer;
