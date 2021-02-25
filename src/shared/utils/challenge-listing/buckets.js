@@ -42,7 +42,7 @@ export const BUCKET_DATA = {
     name: 'My Challenges',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
-      SORTS.TIME_TO_SUBMIT,
+      // SORTS.TIME_TO_SUBMIT,
       // SORTS.NUM_REGISTRANTS,
       // SORTS.NUM_SUBMISSIONS,
       SORTS.PRIZE_HIGH_TO_LOW,
@@ -59,8 +59,8 @@ export const BUCKET_DATA = {
     name: 'Open for registration',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
-      SORTS.TIME_TO_REGISTER,
-      SORTS.TIME_TO_SUBMIT,
+      // SORTS.TIME_TO_REGISTER,
+      // SORTS.TIME_TO_SUBMIT,
       // SORTS.NUM_REGISTRANTS,
       // SORTS.NUM_SUBMISSIONS,
       SORTS.PRIZE_HIGH_TO_LOW,

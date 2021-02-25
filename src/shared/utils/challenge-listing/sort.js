@@ -13,8 +13,8 @@ export const SORTS = {
   // NUM_REGISTRANTS: 'num-registrants',
   // NUM_SUBMISSIONS: 'num-submissions',
   PRIZE_HIGH_TO_LOW: 'overview.totalPrizes',
-  TIME_TO_REGISTER: 'registrationEndDate',
-  TIME_TO_SUBMIT: 'submissionEndDate',
+  // TIME_TO_REGISTER: 'registrationEndDate',
+  // TIME_TO_SUBMIT: 'submissionEndDate',
   TITLE_A_TO_Z: 'name',
   REVIEW_OPPORTUNITIES_TITLE_A_TO_Z: 'review-opportunities-title-a-to-z',
   REVIEW_OPPORTUNITIES_PAYMENT: 'review-opportunities-payment',
@@ -39,41 +39,41 @@ export default {
     name: 'Prize high to low',
     order: 'desc',
   },
-  [SORTS.TIME_TO_REGISTER]: {
-    func: (a, b) => {
-      const aDate = moment(a.registrationEndDate || a.submissionEndTimestamp);
-      const bDate = moment(b.registrationEndDate || b.submissionEndTimestamp);
+  // [SORTS.TIME_TO_REGISTER]: {
+  //   func: (a, b) => {
+  //     const aDate = moment(a.registrationEndDate || a.submissionEndTimestamp);
+  //     const bDate = moment(b.registrationEndDate || b.submissionEndTimestamp);
 
-      if (aDate.isBefore() && bDate.isAfter()) return 1;
-      if (aDate.isAfter() && bDate.isBefore()) return -1;
-      if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
+  //     if (aDate.isBefore() && bDate.isAfter()) return 1;
+  //     if (aDate.isAfter() && bDate.isBefore()) return -1;
+  //     if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
 
-      return aDate.diff(bDate);
-    },
-    name: 'Time to register',
-    order: 'desc',
-  },
-  [SORTS.TIME_TO_SUBMIT]: {
-    func: (a, b) => {
-      function nextSubEndDate(o) {
-        if (o.checkpointSubmissionEndDate && moment(o.checkpointSubmissionEndDate).isAfter()) {
-          return moment(o.checkpointSubmissionEndDate);
-        }
-        return moment(o.submissionEndTimestamp);
-      }
+  //     return aDate.diff(bDate);
+  //   },
+  //   name: 'Time to register',
+  //   order: 'desc',
+  // },
+  // [SORTS.TIME_TO_SUBMIT]: {
+  //   func: (a, b) => {
+  //     function nextSubEndDate(o) {
+  //       if (o.checkpointSubmissionEndDate && moment(o.checkpointSubmissionEndDate).isAfter()) {
+  //         return moment(o.checkpointSubmissionEndDate);
+  //       }
+  //       return moment(o.submissionEndTimestamp);
+  //     }
 
-      const aDate = nextSubEndDate(a);
-      const bDate = nextSubEndDate(b);
+  //     const aDate = nextSubEndDate(a);
+  //     const bDate = nextSubEndDate(b);
 
-      if (aDate.isBefore() && bDate.isAfter()) return 1;
-      if (aDate.isAfter() && bDate.isBefore()) return -1;
-      if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
+  //     if (aDate.isBefore() && bDate.isAfter()) return 1;
+  //     if (aDate.isAfter() && bDate.isBefore()) return -1;
+  //     if (aDate.isBefore() && bDate.isBefore()) return bDate.diff(aDate);
 
-      return aDate.diff(bDate);
-    },
-    name: 'Time to submit',
-    order: 'desc',
-  },
+  //     return aDate.diff(bDate);
+  //   },
+  //   name: 'Time to submit',
+  //   order: 'desc',
+  // },
   [SORTS.TITLE_A_TO_Z]: {
     // func: (a, b) => a.name.localeCompare(b.name),
     name: 'Title A-Z',
