@@ -16,6 +16,7 @@ function Textarea({
   value,
   onChange,
   required,
+  readonly,
 }) {
   const [val, setVal] = useState(value);
   const delayedOnChange = useRef(
@@ -25,6 +26,7 @@ function Textarea({
   return (
     <div className="textareaContainer" styleName="container">
       <textarea
+        readOnly={readonly}
         defaultValue={value}
         placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
         id="textAreaInput"
@@ -54,6 +56,7 @@ Textarea.defaultProps = {
   value: '',
   onChange: () => {},
   required: false,
+  readonly: false,
 };
 
 Textarea.propTypes = {
@@ -63,6 +66,7 @@ Textarea.propTypes = {
   value: PT.string,
   onChange: PT.func,
   required: PT.bool,
+  readonly: PT.bool,
 };
 
 export default Textarea;
