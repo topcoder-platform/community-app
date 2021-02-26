@@ -39,6 +39,7 @@ export default function ChallengeTags(props) {
     technPlatforms,
     setChallengeListingFilter,
     openForRegistrationChallenges,
+    meta,
   } = props;
 
   let EventTag;
@@ -98,7 +99,7 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        matchScore > 0 && config.ENABLE_RECOMMENDER && (
+        matchScore > 0 && config.ENABLE_RECOMMENDER && _.get(meta, 'challengeListing.enableRecommenderTool') && (
           <span styleName="matchScoreWrap">
             <MatchScore score={calculateScore(matchScore)} />
           </span>
@@ -146,4 +147,9 @@ ChallengeTags.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   challengeType: PT.shape().isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
+  meta: PT.shape({
+    challengeListing: PT.shape({
+      enableRecommenderTool: PT.bool,
+    }),
+  }).isRequired,
 };

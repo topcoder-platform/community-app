@@ -7,7 +7,8 @@
   },
   "challengeListing": {
     "ignoreCommunityFilterByDefault": true,
-    "openChallengesInNewTabs": false
+    "openChallengesInNewTabs": false,
+    "enableRecommenderTool": false,
   },
   "communityId": "wipro",
   "communityName": "TopGear Community",
