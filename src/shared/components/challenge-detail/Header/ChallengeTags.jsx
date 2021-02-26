@@ -39,7 +39,6 @@ export default function ChallengeTags(props) {
     technPlatforms,
     setChallengeListingFilter,
     openForRegistrationChallenges,
-    meta,
   } = props;
 
   let EventTag;
@@ -147,9 +146,4 @@ ChallengeTags.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   challengeType: PT.shape().isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
-  meta: PT.shape({
-    challengeListing: PT.shape({
-      enableRecommenderTool: PT.bool,
-    }),
-  }).isRequired,
 };
