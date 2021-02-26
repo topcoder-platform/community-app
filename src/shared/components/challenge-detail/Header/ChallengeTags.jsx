@@ -99,7 +99,7 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        matchScore > 0 && config.ENABLE_RECOMMENDER && _.get(meta, 'challengeListing.enableRecommenderTool') && (
+        matchScore > 0 && config.ENABLE_RECOMMENDER && (
           <span styleName="matchScoreWrap">
             <MatchScore score={calculateScore(matchScore)} />
           </span>

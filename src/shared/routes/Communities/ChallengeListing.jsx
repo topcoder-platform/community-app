@@ -56,6 +56,9 @@ export default function ChallengeListingRoute({
               openChallengesInNewTabs={
                 _.get(meta, 'challengeListing.openChallengesInNewTabs')
               }
+              enableRecommenderTool={
+                _.get(meta, 'challengeListing.enableRecommenderTool')
+              }
               preListingMsg={preListingMsg}
               prizeMode={prizeMode}
             />
@@ -86,6 +89,7 @@ ChallengeListingRoute.propTypes = {
   meta: PT.shape({
     challengeListing: PT.shape({
       openChallengesInNewTabs: PT.bool,
+      enableRecommenderTool: PT.bool,
     }),
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,

@@ -180,6 +180,7 @@ export default function ChallengeListing(props) {
             isAuth={Boolean(auth.user)}
             setFilterState={props.setFilterState}
             hidden={!desktop}
+            enableRecommenderTool={props.enableRecommenderTool}
           />
         </div>
 
@@ -209,6 +210,7 @@ ChallengeListing.defaultProps = {
   loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
+  enableRecommenderTool: true,
   reviewOpportunities: [],
   preListingMsg: null,
   prizeMode: 'money-usd',
@@ -258,6 +260,7 @@ ChallengeListing.propTypes = {
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
+  enableRecommenderTool: PT.bool,
   preListingMsg: PT.node,
   prizeMode: PT.string,
   reviewOpportunities: PT.arrayOf(PT.shape()),

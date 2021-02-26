@@ -67,7 +67,7 @@ export default function FiltersPanel({
   setExpanded,
   setSort,
   selectBucket,
-  meta,
+  enableRecommenderTool,
 }) {
   if (hidden && !expanded) {
     return (
@@ -253,7 +253,7 @@ export default function FiltersPanel({
   const past = isPastBucket(activeBucket);
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
-  const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER && _.get(meta, 'challengeListing.enableRecommenderTool'));
+  const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER && enableRecommenderTool);
   const [recommendedToggle, setRecommendedToggle] = useState(false);
 
   useEffect(() => {
@@ -715,9 +715,5 @@ FiltersPanel.propTypes = {
   setExpanded: PT.func.isRequired,
   setSort: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
-  meta: PT.shape({
-    challengeListing: PT.shape({
-      enableRecommenderTool: PT.bool,
-    }),
-  }).isRequired,
+  enableRecommenderTool: PT.bool.isRequired,
 };
