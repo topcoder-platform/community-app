@@ -21,6 +21,7 @@ const mockData1 = {
   setSort,
   sorts: {},
   auth: {},
+  enableRecommenderTool: true,
 };
 
 const mockData2 = _.extend({}, mockData1, {

@@ -254,6 +254,9 @@ export default function FiltersPanel({
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
   const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER && enableRecommenderTool);
+
+  console.log(isRecommendedChallengesVisible); // eslint-disable-line
+  console.log(enableRecommenderTool); // eslint-disable-line
   const [recommendedToggle, setRecommendedToggle] = useState(false);
 
   useEffect(() => {
