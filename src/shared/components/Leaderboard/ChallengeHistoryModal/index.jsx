@@ -114,7 +114,7 @@ class ChallengeHistoryModal extends Component {
           <tbody>
             {
               challengesOrdered.map(challenge => (
-                <tr styleName="row" key={`${challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}`}>
+                <tr styleName="row" key={`${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}`}>
                   <td styleName="name">
                     <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}/`} styleName="link" target="_blank" rel="noopener noreferrer">
                       {challenge.challenge_name || challenge['challenge.challenge_name'] || challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}
@@ -135,6 +135,11 @@ class ChallengeHistoryModal extends Component {
         </table>
         {
           loading ? <LoadingIndicator /> : null
+        }
+        {
+          !challengesOrdered.length && !loading && (
+            <center><strong>No data available.</strong></center>
+          )
         }
         <div styleName="buttons">
           <button onClick={onCancel} type="button" styleName="close-btn">
@@ -163,10 +168,11 @@ const CompetitorShape = PT.shape({
 ChallengeHistoryModal.defaultProps = {
   isCopilot: false,
   isAlgo: false,
+  challenges: [],
 };
 
 ChallengeHistoryModal.propTypes = {
-  challenges: CHALLENGES_TYPE.isRequired,
+  challenges: CHALLENGES_TYPE,
   competitor: CompetitorShape.isRequired,
   onCancel: PT.func.isRequired,
   loading: PT.bool.isRequired,
