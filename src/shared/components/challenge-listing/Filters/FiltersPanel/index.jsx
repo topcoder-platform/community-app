@@ -559,7 +559,7 @@ export default function FiltersPanel({
           ) : null
         }
 
-        { !isReviewOpportunitiesBucket && !recommendedToggle
+        { !isReviewOpportunitiesBucket && !(recommendedToggle && activeBucket === 'openForRegistration')
           && (
             <div styleName="filter-row">
               <div styleName="filter filter community">
