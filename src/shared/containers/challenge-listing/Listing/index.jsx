@@ -148,7 +148,9 @@ export class ListingContainer extends React.Component {
       front: { ..._.clone(f.front), startDateEnd: null, endDateStart: null },
     };
 
-    if (prevProps.filterState.recommended !== filterState.recommended && filterState.recommended) {
+    const isRecommendedChanged = prevProps.filterState.recommended !== filterState.recommended;
+
+    if (isRecommendedChanged && filterState.recommended) {
       bucket = 'openForRegistration';
     }
 
@@ -230,9 +232,12 @@ export class ListingContainer extends React.Component {
           break;
         }
       }
-      return;
+
+      if (!isRecommendedChanged) {
+        return;
+      }
     }
-    if (filterChanged(filter, prevProps.filter)) {
+    if (filterChanged(filter, prevProps.filter) || isRecommendedChanged) {
       this.reloadChallenges();
     }
     setTimeout(() => {
