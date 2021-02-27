@@ -1,9 +1,11 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable max-len */
 /**
  * The Gig details component.
  */
 
-import React from 'react';
+import { isEmpty } from 'lodash';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { isomorphy, Link, config } from 'topcoder-react-utils';
 import ReactHtmlParser from 'react-html-parser';
@@ -23,6 +25,7 @@ import iconLabel1 from 'assets/images/l1.png';
 import iconLabel2 from 'assets/images/l2.png';
 import iconLabel3 from 'assets/images/l3.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
+import ReferralModal from '../ReferralModal';
 
 // Cleanup HTML from style tags
 // so it won't affect other parts of the UI
@@ -36,7 +39,9 @@ const ReactHtmlParserOptions = {
 };
 
 export default function GigDetails(props) {
-  const { job, application } = props;
+  const {
+    job, application, profile, onSendClick, isReferrSucess, formData, formErrors, onFormInputChange, isReferrError, getReferralId, referralId, onReferralDone,
+  } = props;
   let shareUrl;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
@@ -45,6 +50,13 @@ export default function GigDetails(props) {
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
   const hPerW = getCustomField(job.custom_fields, 'Hours per week');
   const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary} (USD)`;
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  let inputRef;
+
+  useEffect(() => {
+    if (referralId && formData.email && isEmpty(formErrors)) onSendClick();
+  }, [referralId]);
 
   return (
     <div styleName="container">
@@ -138,10 +150,29 @@ export default function GigDetails(props) {
                     <IconTwitter />
                   </a>
                 </div>
+                <div styleName="referr-area">
+                  <h6>REFER THIS GIG</h6>
+                  <p>Refer someone to this gig and earn $500. Just add their email below. See <Link to="/community/gig-referral" styleName="how-it-works" openNewTab>how it works.</Link></p>
+                  <div styleName="referr-form">
+                    <input type="email" placeholder="Email" value={formData.email} onChange={e => onFormInputChange('email', e.target.value)} ref={el => inputRef = el} />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (isEmpty(profile) || !referralId) {
+                          getReferralId();
+                        } else {
+                          onSendClick();
+                        }
+                        setModalOpen(true);
+                      }}
+                      disabled={!formData.email || formErrors.email}
+                    >SEND
+                    </button>
+                  </div>
+                </div>
                 <div styleName="subscribe-area">
-                  <h6>SUBSCRIBE TO WEEKLY UPDATES</h6>
-                  <p>Not ready to apply? Want to stay tuned for any new gigs that may be upcoming? Join our weekly Gig Work list.</p>
-                  <SubscribeMailChimpTag listId="28bfd3c062" tags={['Gig Work']} />
+                  <h6>SUBSCRIBE TO WEEKLY GIG UPDATES</h6>
+                  <SubscribeMailChimpTag listId="28bfd3c062" groups={{ d0c48e9da3: true }} />
                 </div>
                 <div styleName="info-area">
                   <p>At Topcoder, we pride ourselves in bringing our customers the very best candidates to help fill their needs. Want to improve your chances? You can do a few things:</p>
@@ -161,6 +192,25 @@ export default function GigDetails(props) {
                   </ul>
                 </div>
                 <div styleName="support">If you have any questions or doubts, don’t hesitate  to email <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</div>
+                <div styleName="referral">
+                  {
+                    isModalOpen
+                    && (
+                    <ReferralModal
+                      profile={profile}
+                      onCloseButton={() => setModalOpen(false)}
+                      isReferrSucess={isReferrSucess}
+                      isReferrError={isReferrError}
+                      referralId={referralId}
+                      onReferralDone={() => {
+                        inputRef.value = '';
+                        onReferralDone();
+                        setModalOpen(false);
+                      }}
+                    />
+                    )
+                  }
+                </div>
               </div>
             </div>
           </div>
@@ -172,9 +222,22 @@ export default function GigDetails(props) {
 
 GigDetails.defaultProps = {
   application: null,
+  profile: {},
+  referralId: null,
+  isReferrError: null,
 };
 
 GigDetails.propTypes = {
   job: PT.shape().isRequired,
   application: PT.shape(),
+  profile: PT.shape(),
+  onSendClick: PT.func.isRequired,
+  isReferrSucess: PT.bool.isRequired,
+  formErrors: PT.shape().isRequired,
+  formData: PT.shape().isRequired,
+  onFormInputChange: PT.func.isRequired,
+  isReferrError: PT.shape(),
+  getReferralId: PT.func.isRequired,
+  referralId: PT.string,
+  onReferralDone: PT.func.isRequired,
 };

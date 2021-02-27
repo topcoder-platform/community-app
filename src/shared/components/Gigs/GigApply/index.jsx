@@ -48,7 +48,11 @@ export default function GigApply(props) {
                   <h2>{application.error ? 'OOPS!' : 'APPLICATION SUBMITTED'}</h2>
                   {
                     application.error ? (
-                      <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
+                      <React.Fragment>
+                        <p styleName="error-text">{application.errorObj.message || JSON.stringify(application.errorObj)}</p>
+                        <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
+                        <p>Please send us an email at <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a> with the subject ‘Gig Error’<br />and paste the URL for the gig you are attempting to apply for so that we know of your interest.</p>
+                      </React.Fragment>
                     ) : (
                       <p>We will contact you via email if it seems like a fit!</p>
                     )
@@ -56,15 +60,18 @@ export default function GigApply(props) {
                   <div styleName="cta-buttons">
                     {
                       application.error ? (
-                        <a
-                          href="#"
-                          styleName="primaryBtn"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.reload();
-                          }}
-                        >APPLY AGAIN
-                        </a>
+                        <React.Fragment>
+                          <a
+                            href="#"
+                            styleName="primaryBtn"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.location.reload();
+                            }}
+                          >APPLY AGAIN
+                          </a>
+                          <Link to={`${config.GIGS_PAGES_PATH}`}>VIEW OTHER GIGS</Link>
+                        </React.Fragment>
                       ) : (
                         <Link to={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIG LIST</Link>
                       )
