@@ -289,7 +289,7 @@ workflows:
           filters:
             branches:
               only:
-                - poc-recommender-sub-2
+                - feature/poc-recommender-sub-2
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
