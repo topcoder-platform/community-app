@@ -158,7 +158,7 @@ export default function ChallengeListing(props) {
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       {
-        filterState.recommended
+        filterState.recommended && activeBucket === 'openForRegistration'
           ? null
           : (
             <ChallengeSearchBar
