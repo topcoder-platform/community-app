@@ -124,6 +124,7 @@ export class Container extends React.Component {
       onClose,
       setSort,
       selectBucket,
+      enableRecommenderTool,
     } = this.props;
     const communityFilters2 = [
       {
@@ -151,6 +152,7 @@ export class Container extends React.Component {
         onClose={onClose}
         setSort={setSort}
         selectBucket={selectBucket}
+        enableRecommenderTool={enableRecommenderTool}
       />
     );
 
@@ -165,6 +167,7 @@ export class Container extends React.Component {
 Container.defaultProps = {
   tokenV2: '',
   hidden: false,
+  enableRecommenderTool: true,
 };
 
 Container.propTypes = {
@@ -197,6 +200,7 @@ Container.propTypes = {
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
+  enableRecommenderTool: PT.bool,
 };
 
 function mapDispatchToProps(dispatch) {

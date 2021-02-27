@@ -473,6 +473,7 @@ export class ListingContainer extends React.Component {
       meta,
       setSearchText,
       filterState,
+      enableRecommenderTool,
     } = this.props;
 
     const { tokenV3 } = auth;
@@ -647,6 +648,7 @@ export class ListingContainer extends React.Component {
           isLoggedIn={isLoggedIn}
           meta={meta}
           setSearchText={setSearchText}
+          enableRecommenderTool={enableRecommenderTool}
         />
       </div>
     );
@@ -676,6 +678,7 @@ ListingContainer.defaultProps = {
   expanding: false,
   // isBucketSwitching: false,
   // userChallenges: [],
+  enableRecommenderTool: true,
 };
 
 ListingContainer.propTypes = {
@@ -773,6 +776,7 @@ ListingContainer.propTypes = {
   // getUserChallenges: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   filterState: PT.shape().isRequired,
+  enableRecommenderTool: PT.bool,
 };
 
 const mapStateToProps = (state, ownProps) => {
