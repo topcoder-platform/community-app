@@ -137,7 +137,7 @@ exports[`Matches shallow shapshot 2`] = `
         <span
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
         >
-          Challenge Type
+          Type
         </span>
         <div
           className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"

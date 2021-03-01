@@ -340,6 +340,7 @@ class ChallengeDetailPageContainer extends React.Component {
       // expandTag,
       mySubmissions,
       reviewTypes,
+      openForRegistrationChallenges,
     } = this.props;
 
     // const displayRecommendedChallenges = getDisplayRecommendedChallenges(
@@ -464,6 +465,7 @@ class ChallengeDetailPageContainer extends React.Component {
               isMenuOpened={isMenuOpened}
               submissionEnded={submissionEnded}
               mySubmissions={challenge.isRegistered ? mySubmissions : []}
+              openForRegistrationChallenges={openForRegistrationChallenges}
             />
             )
           }
@@ -699,6 +701,7 @@ ChallengeDetailPageContainer.propTypes = {
   // expandTag: PT.func.isRequired,
   // loadingRecommendedChallengesUUID: PT.string.isRequired,
   history: PT.shape().isRequired,
+  openForRegistrationChallenges: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -808,6 +811,7 @@ function mapStateToProps(state, props) {
     allCountries: state.lookup.allCountries,
     mySubmissions,
     reviewTypes,
+    openForRegistrationChallenges: state.challengeListing.openForRegistrationChallenges,
   };
 }
 

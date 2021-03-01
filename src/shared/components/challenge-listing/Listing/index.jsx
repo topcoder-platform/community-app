@@ -254,7 +254,7 @@ function Listing({
       {
         loading
           ? placeholders
-          : (
+          : (!filterState.recommended || activeBucket !== 'openForRegistration') && (
             <div styleName="no-results">{ `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }</div>
           )
       }
@@ -299,7 +299,7 @@ Listing.propTypes = {
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
-      userId: PT.string,
+      userId: PT.number,
     }),
   }).isRequired,
   allActiveChallengesLoaded: PT.bool.isRequired,
