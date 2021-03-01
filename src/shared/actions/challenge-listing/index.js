@@ -228,9 +228,24 @@ function getActiveChallengesDone(uuid, page, backendFilter, tokenV3, frontFilter
   // }));
 }
 
+/**
+ * Gets open for registration challenges
+ * @param {String} uuid
+ * @param {Number} page
+ * @param {Object} backendFilter Backend filter to use.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3. Without token only
+ *  public challenges will be fetched. With the token provided, the action will
+ *  also fetch private challenges related to this user.
+ * @param {Object} frontFilter
+ * @param {boolean} recommended recommended toggle is on or off
+ * @param {String} handle user handle
+
+ * @return {Promise}
+ */
 function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
-  tokenV3, frontFilter = {}) {
+  tokenV3, frontFilter = {}, recommended = false, handle) {
   const { sorts } = frontFilter;
+  const sortOrder = SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]];
   const filter = {
     backendFilter,
     frontFilter: {
@@ -240,11 +255,20 @@ function getOpenForRegistrationChallengesDone(uuid, page, backendFilter,
       perPage: PAGE_SIZE,
       page: page + 1,
       sortBy: sorts[BUCKETS.OPEN_FOR_REGISTRATION],
-      sortOrder: SORT[sorts[BUCKETS.OPEN_FOR_REGISTRATION]].order,
+      sortOrder: sortOrder ? sortOrder.order : 'asc',
     },
   };
   delete filter.frontFilter.sorts;
   const service = getService(tokenV3);
+  if (recommended) {
+    return service.getRecommendedChallenges(filter, handle).then(ch => ({
+      uuid,
+      openForRegistrationChallenges: ch.challenges,
+      meta: ch.meta,
+      frontFilter,
+    }));
+  }
+
   return service.getChallenges(filter).then(ch => ({
     uuid,
     openForRegistrationChallenges: ch.challenges,
@@ -522,6 +546,7 @@ export default createActions({
     DROP_MY_CHALLENGES: _.noop,
     DROP_ALL_CHALLENGES: _.noop,
     DROP_PAST_CHALLENGES: _.noop,
+    DROP_RECOMMENDED_CHALLENGES: _.noop,
 
     // GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
     // GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,

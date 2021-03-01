@@ -13,6 +13,8 @@ import Tags from '../Tags';
 
 import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
+import MatchScore from './MatchScore';
+import { calculateScore } from '../../../utils/challenge-listing/helper';
 import './style.scss';
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
@@ -47,6 +49,7 @@ function ChallengeCard({
 
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
+  const isRecommendedChallenge = challenge.jaccard_index;
 
   return (
     <div ref={domRef} styleName="challengeCard">
@@ -67,19 +70,40 @@ function ChallengeCard({
         </div>
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
-          <Link
-            onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
-            to={challengeDetailLink}
-            styleName="challenge-title"
-            openNewTab={openChallengesInNewTabs}
-          ><p>{challenge.name}</p>
-          </Link>
+          <div styleName="challenge-detail-header">
+            <Link
+              onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
+              to={challengeDetailLink}
+              styleName="challenge-title"
+              openNewTab={openChallengesInNewTabs}
+            ><p>{challenge.name}</p>
+            </Link>
+          </div>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge)}
             </span>
-            { challenge.tags.length > 0
+            {
+              isRecommendedChallenge
+              && <MatchScore score={calculateScore(challenge.jaccard_index)} />
+            }
+            {
+              isRecommendedChallenge
+              && challenge.match_skills.length > 0
+                && (
+                <Tags
+                  tags={challenge.tags}
+                  onTechTagClicked={onTechTagClicked}
+                  isExpanded={expandedTags.includes(challenge.id)}
+                  expand={() => expandTag(challenge.id)}
+                  verifiedTags={challenge.match_skills}
+                  recommended
+                />
+                )
+            }
+            { !isRecommendedChallenge
+              && challenge.tags.length > 0
               && (
               <Tags
                 tags={challenge.tags}
@@ -133,7 +157,7 @@ ChallengeCard.propTypes = {
   openChallengesInNewTabs: PT.bool,
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
-  userId: PT.string,
+  userId: PT.number,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   domRef: PT.func,

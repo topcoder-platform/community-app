@@ -15,6 +15,7 @@ import Sidebar from 'containers/challenge-listing/Sidebar';
 // import { config } from 'topcoder-react-utils';
 import { useMediaQuery } from 'react-responsive';
 
+import NoChallengeCard from './NoChallengeCard';
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 
@@ -40,7 +41,7 @@ export default function ChallengeListing(props) {
     defaultCommunityId,
     expanding,
     // extraBucket,
-    // filterState,
+    filterState,
     hideSrm,
     // hideTcLinksInFooter,
     keepPastPlaceholders,
@@ -48,8 +49,8 @@ export default function ChallengeListing(props) {
     preListingMsg,
     // isBucketSwitching,
     isLoggedIn,
-    meta,
     setSearchText,
+    loadingOpenForRegistrationChallenges,
   } = props;
 
   // const { challenges } = props;
@@ -111,7 +112,7 @@ export default function ChallengeListing(props) {
       communityName={props.communityName}
       expandedTags={props.expandedTags}
       expandTag={props.expandTag}
-      // extraBucket={extraBucket}
+            // extraBucket={extraBucket}
       filterState={props.filterState}
       keepPastPlaceholders={keepPastPlaceholders}
       loadingPastChallenges={props.loadingPastChallenges}
@@ -141,22 +142,30 @@ export default function ChallengeListing(props) {
       sorts={props.sorts}
       loadMoreActive={props.loadMoreActive}
       expanding={expanding}
-      // loadingActiveChallenges={props.loadingChallenges}
-      // userChallenges={props.userChallenges}
+        // loadingActiveChallenges={props.loadingChallenges}
+        // userChallenges={props.userChallenges}
       isLoggedIn={isLoggedIn}
-      meta={meta}
       setSearchText={setSearchText}
     />
   );
-  // }
 
   const desktop = useMediaQuery({ minWidth: 1024 });
+  const isRecommendedOn = filterState.recommended
+                          && !loadingOpenForRegistrationChallenges
+                          && activeBucket === 'openForRegistration'
+                          && !openForRegistrationChallenges.length;
 
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
-      <ChallengeSearchBar
-        setFilterState={props.setFilterState}
-      />
+      {
+        filterState.recommended && activeBucket === 'openForRegistration'
+          ? null
+          : (
+            <ChallengeSearchBar
+              setFilterState={props.setFilterState}
+            />
+          )
+      }
 
       <div styleName="tc-content-wrapper">
         <div styleName={desktop ? 'sidebar-container-desktop' : 'sidebar-container-mobile'}>
@@ -174,7 +183,11 @@ export default function ChallengeListing(props) {
           />
         </div>
 
-        {challengeCardContainer}
+        {
+          isRecommendedOn
+            ? <NoChallengeCard />
+            : challengeCardContainer
+        }
 
       </div>
     </div>
@@ -259,6 +272,5 @@ ChallengeListing.propTypes = {
   // isBucketSwitching: PT.bool,
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
-  meta: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
 };
