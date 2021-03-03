@@ -23,10 +23,11 @@ import BackArrowGig from 'assets/images/back-arrow-gig-apply.svg';
 
 export default function GigApply(props) {
   const {
-    job, onFormInputChange, formData, formErrors, onApplyClick, applying, application,
+    job, onFormInputChange, formData, formErrors, onApplyClick, applying, application, user,
   } = props;
+  const retUrl = window.location.href;
 
-  return (
+  return user ? (
     <div styleName="container">
       {
         job.error || job.enable_job_application_form !== 1 ? (
@@ -150,7 +151,6 @@ export default function GigApply(props) {
                     </div>
                   </div>
                   <h4>TOPCODER INFORMATION</h4>
-                  <p>If you have a Topcoder profile, please share. <a href="https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=recruit&utm_medium=GigWork-application-page" target="_blank" rel="noopener noreferrer">Not a Member</a>?</p>
                   <div styleName="form-section">
                     <div styleName="form-row">
                       <TextInput
@@ -159,13 +159,15 @@ export default function GigApply(props) {
                         onChange={val => onFormInputChange('handle', val)}
                         errorMsg={formErrors.handle}
                         value={formData.handle}
+                        readonly
                       />
                       <TextInput
                         placeholder="Topcoder Profile (topcoder.com/members/[username])"
                         label="Topcoder Profile"
                         onChange={val => onFormInputChange('tcProfileLink', val)}
                         errorMsg={formErrors.tcProfileLink}
-                        value={formData.handle ? `topcoder.com/members/${formData.handle}` : null}
+                        value={formData.handle ? `https://topcoder.com/members/${formData.handle}` : null}
+                        readonly
                       />
                     </div>
                   </div>
@@ -279,6 +281,18 @@ export default function GigApply(props) {
         )
       }
     </div>
+  ) : (
+    <div styleName="container">
+      <div styleName="wrap">
+        <div styleName="error">
+          <h3>You must be a Topcoder member to apply!</h3>
+          <div styleName="cta-buttons">
+            <Link to={`${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`} styleName="primaryBtn">Login</Link>
+          </div>
+          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}`}>here</a>.</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -286,6 +300,7 @@ GigApply.defaultProps = {
   formErrors: {},
   applying: false,
   application: null,
+  user: null,
 };
 
 GigApply.propTypes = {
@@ -296,4 +311,5 @@ GigApply.propTypes = {
   onApplyClick: PT.func.isRequired,
   applying: PT.bool,
   application: PT.shape(),
+  user: PT.shape(),
 };

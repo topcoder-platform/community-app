@@ -26,6 +26,7 @@ import iconLabel2 from 'assets/images/l2.png';
 import iconLabel3 from 'assets/images/l3.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
 import ReferralModal from '../ReferralModal';
+import LoginModal from '../LoginModal';
 
 // Cleanup HTML from style tags
 // so it won't affect other parts of the UI
@@ -43,8 +44,10 @@ export default function GigDetails(props) {
     job, application, profile, onSendClick, isReferrSucess, formData, formErrors, onFormInputChange, isReferrError, getReferralId, referralId, onReferralDone,
   } = props;
   let shareUrl;
+  let retUrl;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
+    retUrl = `${window.location.origin}${window.location.pathname}/apply${window.location.search}`;
   }
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
@@ -52,6 +55,7 @@ export default function GigDetails(props) {
   const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary} (USD)`;
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   let inputRef;
 
   useEffect(() => {
@@ -131,7 +135,17 @@ export default function GigDetails(props) {
                 <div styleName="cta-buttons">
                   {
                     !application || !application.success ? (
-                      <Link styleName="primaryBtn" to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}>APPLY TO THIS JOB</Link>
+                      <Link
+                        styleName="primaryBtn"
+                        to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}
+                        onClick={(e) => {
+                          if (isEmpty(profile)) {
+                            e.preventDefault();
+                            setLoginModalOpen(true);
+                          }
+                        }}
+                      >APPLY TO THIS JOB
+                      </Link>
                     ) : null
                   }
                   <Link to={config.GIGS_PAGES_PATH}>VIEW OTHER JOBS</Link>
@@ -211,6 +225,9 @@ export default function GigDetails(props) {
                     )
                   }
                 </div>
+                {
+                  isLoginModalOpen && <LoginModal retUrl={retUrl} />
+                }
               </div>
             </div>
           </div>
