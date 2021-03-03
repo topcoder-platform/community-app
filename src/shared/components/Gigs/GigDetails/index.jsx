@@ -226,7 +226,7 @@ export default function GigDetails(props) {
                   }
                 </div>
                 {
-                  isLoginModalOpen && <LoginModal retUrl={retUrl} />
+                  isLoginModalOpen && <LoginModal retUrl={retUrl} onCancel={() => setLoginModalOpen(false)} />
                 }
               </div>
             </div>

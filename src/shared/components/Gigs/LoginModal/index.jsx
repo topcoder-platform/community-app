@@ -19,10 +19,11 @@ const buttonThemes = {
   tc,
 };
 
-function LoginModal({ retUrl }) {
+function LoginModal({ retUrl, onCancel }) {
   return (
     <Modal
       theme={modalStyle}
+      onCancel={onCancel}
     >
       <div className={modalStyle.loginRequired}>
         <h3 className={modalStyle.title}>WARNING</h3>
@@ -47,6 +48,7 @@ function LoginModal({ retUrl }) {
 
 LoginModal.propTypes = {
   retUrl: PT.string.isRequired,
+  onCancel: PT.func.isRequired,
 };
 
 export default LoginModal;
