@@ -87,6 +87,9 @@ export default class GrowsurfService {
       email: body.email,
       firstName: body.firstName,
       lastName: body.lastName,
+      metadata: {
+        tcHandle: body.tcHandle,
+      },
     }));
     if (result.error) {
       res.status(result.code);

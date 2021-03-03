@@ -179,15 +179,15 @@ export default function GigDetails(props) {
                   <ul>
                     <li>
                       <img src={iconLabel1} alt="label 1" />
-                      <div><strong>Make sure your <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/settings/profile">Topcoder profile</a> says it all.</strong> Fill out your profile to the best of your ability. Your skills, your location, your devices, etc, all help you improve your chances of being selected for a gig.</div>
+                      <div><strong>Make sure your <a target="_blank" rel="noreferrer" href="/settings/profile">Topcoder profile</a> says it all.</strong> Fill out your profile to the best of your ability. Your skills, your location, your devices, etc, all help you improve your chances of being selected for a gig.</div>
                     </li>
                     <li>
                       <img src={iconLabel2} alt="label 2" />
-                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href="https://apps.topcoder.com/forums/?module=ThreadList&forumID=703475">Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
+                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href={`${config.URL.FORUMS_VANILLA}/categories/gig-work-discusssions`}>Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
                     </li>
                     <li>
                       <img src={iconLabel3} alt="label 3" />
-                      <div><strong>Check out our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/challenges">Topcoder challenges</a> and participate.</strong> Challenges showing your technology skills make you a “qualified” candidate so we know you’re good. The proof is in the pudding!</div>
+                      <div><strong>Check out our <a target="_blank" rel="noreferrer" href="/challenges">Topcoder challenges</a> and participate.</strong> Challenges showing your technology skills make you a “qualified” candidate so we know you’re good. The proof is in the pudding!</div>
                     </li>
                   </ul>
                 </div>
