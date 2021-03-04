@@ -11,6 +11,7 @@ exports[`Default render 1`] = `
     onChange={[Function]}
     onKeyPress={[Function]}
     placeholder=""
+    readOnly={false}
     type="text"
   />
 </div>

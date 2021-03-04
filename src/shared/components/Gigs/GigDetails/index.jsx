@@ -26,6 +26,7 @@ import iconLabel2 from 'assets/images/l2.png';
 import iconLabel3 from 'assets/images/l3.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
 import ReferralModal from '../ReferralModal';
+import LoginModal from '../LoginModal';
 
 // Cleanup HTML from style tags
 // so it won't affect other parts of the UI
@@ -43,8 +44,10 @@ export default function GigDetails(props) {
     job, application, profile, onSendClick, isReferrSucess, formData, formErrors, onFormInputChange, isReferrError, getReferralId, referralId, onReferralDone,
   } = props;
   let shareUrl;
+  let retUrl;
   if (isomorphy.isClientSide()) {
     shareUrl = encodeURIComponent(window.location.href);
+    retUrl = `${window.location.origin}${window.location.pathname}/apply${window.location.search}`;
   }
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') skills = skills.split(',').join(', ');
@@ -52,6 +55,7 @@ export default function GigDetails(props) {
   const compens = job.min_annual_salary === job.max_annual_salary ? job.max_annual_salary : `${job.min_annual_salary} - ${job.max_annual_salary} (USD)`;
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   let inputRef;
 
   useEffect(() => {
@@ -131,7 +135,17 @@ export default function GigDetails(props) {
                 <div styleName="cta-buttons">
                   {
                     !application || !application.success ? (
-                      <Link styleName="primaryBtn" to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}>APPLY TO THIS JOB</Link>
+                      <Link
+                        styleName="primaryBtn"
+                        to={`${config.GIGS_PAGES_PATH}/${job.slug}/apply`}
+                        onClick={(e) => {
+                          if (isEmpty(profile)) {
+                            e.preventDefault();
+                            setLoginModalOpen(true);
+                          }
+                        }}
+                      >APPLY TO THIS JOB
+                      </Link>
                     ) : null
                   }
                   <Link to={config.GIGS_PAGES_PATH}>VIEW OTHER JOBS</Link>
@@ -179,15 +193,15 @@ export default function GigDetails(props) {
                   <ul>
                     <li>
                       <img src={iconLabel1} alt="label 1" />
-                      <div><strong>Make sure your <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/settings/profile">Topcoder profile</a> says it all.</strong> Fill out your profile to the best of your ability. Your skills, your location, your devices, etc, all help you improve your chances of being selected for a gig.</div>
+                      <div><strong>Make sure your <a target="_blank" rel="noreferrer" href="/settings/profile">Topcoder profile</a> says it all.</strong> Fill out your profile to the best of your ability. Your skills, your location, your devices, etc, all help you improve your chances of being selected for a gig.</div>
                     </li>
                     <li>
                       <img src={iconLabel2} alt="label 2" />
-                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href="https://apps.topcoder.com/forums/?module=ThreadList&forumID=703475">Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
+                      <div><strong>Let us know you’re here!</strong> Check in on our <a target="_blank" rel="noreferrer" href={`${config.URL.FORUMS_VANILLA}/categories/gig-work-discusssions`}>Gig Work forum</a> and tell us you’re looking for a gig. It’s great visibility for the Gig team.</div>
                     </li>
                     <li>
                       <img src={iconLabel3} alt="label 3" />
-                      <div><strong>Check out our <a target="_blank" rel="noreferrer" href="https://www.topcoder.com/challenges">Topcoder challenges</a> and participate.</strong> Challenges showing your technology skills make you a “qualified” candidate so we know you’re good. The proof is in the pudding!</div>
+                      <div><strong>Check out our <a target="_blank" rel="noreferrer" href="/challenges">Topcoder challenges</a> and participate.</strong> Challenges showing your technology skills make you a “qualified” candidate so we know you’re good. The proof is in the pudding!</div>
                     </li>
                   </ul>
                 </div>
@@ -211,6 +225,9 @@ export default function GigDetails(props) {
                     )
                   }
                 </div>
+                {
+                  isLoginModalOpen && <LoginModal retUrl={retUrl} onCancel={() => setLoginModalOpen(false)} />
+                }
               </div>
             </div>
           </div>
