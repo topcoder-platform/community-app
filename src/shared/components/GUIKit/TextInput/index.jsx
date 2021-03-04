@@ -19,6 +19,7 @@ function TextInput({
   size,
   type,
   onEnterKey,
+  readonly,
 }) {
   const [val, setVal] = useState(value);
   const delayedOnChange = useRef(
@@ -29,6 +30,7 @@ function TextInput({
   return (
     <div className="textInputContainer" styleName={`container ${sizeStyle}`}>
       <input
+        readOnly={readonly}
         defaultValue={value}
         type={type}
         placeholder={`${placeholder}${placeholder && required ? ' *' : ''}`}
@@ -67,6 +69,7 @@ TextInput.defaultProps = {
   size: 'lg',
   type: 'text',
   onEnterKey: () => {},
+  readonly: false,
 };
 
 TextInput.propTypes = {
@@ -79,6 +82,7 @@ TextInput.propTypes = {
   size: PT.oneOf(['xs', 'lg']),
   type: PT.string,
   onEnterKey: PT.func,
+  readonly: PT.bool,
 };
 
 export default TextInput;

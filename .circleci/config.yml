@@ -283,7 +283,7 @@ workflows:
           filters:
             branches:
               only:                
-                - free
+                - gigwork-updates
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      

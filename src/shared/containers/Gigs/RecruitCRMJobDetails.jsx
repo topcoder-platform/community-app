@@ -155,6 +155,7 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
           email: profile.email,
           firstName: profile.firstName,
           lastName: profile.lastName,
+          tcHandle: profile.handle,
         }),
         headers: {
           'Content-Type': 'application/json',
