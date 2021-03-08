@@ -289,7 +289,7 @@ export default function GigApply(props) {
           <div styleName="cta-buttons">
             <Link to={`${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`} styleName="primaryBtn">Login</Link>
           </div>
-          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}`}>here</a>.</p>
+          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp`}>here</a>.</p>
         </div>
       </div>
     </div>
