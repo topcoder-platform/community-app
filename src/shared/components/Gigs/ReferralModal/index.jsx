@@ -105,7 +105,7 @@ function ReferralModal({
               LOGIN
             </PrimaryButton>
           </div>
-          <p className={modalStyle.regTxt}>Not a member? It is free to <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp`}>register</a>!</p>
+          <p className={modalStyle.regTxt}>Not a member? It is free to <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing`}>register</a>!</p>
         </div>
       )}
     </Modal>
