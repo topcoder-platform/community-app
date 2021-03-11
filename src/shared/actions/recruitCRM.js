@@ -1,6 +1,7 @@
 import { redux } from 'topcoder-react-utils';
 import Service from 'services/recruitCRM';
 import _ from 'lodash';
+import { getCustomField } from 'utils/gigs';
 
 /**
  * Jobs page fetch init
@@ -60,7 +61,7 @@ function normalizeRecruitPayload(job, payload) {
     `Date Available: ${new Date(payload.availFrom).toDateString()}`,
     `Heard About Gig: ${payload.reffereal}`,
     `Why fit: ${payload.whyFit}`,
-    `Able to work during timezone? ${payload.timezoneConfirm.filter(s => s.value).map(s => s.label).join(',')}`,
+    `Able to work during timezone? ${payload.timezoneConfirm.filter(s => s.value).map(() => getCustomField(job.custom_fields, 'Timezone')).join(',')}`,
     `Am I ok to work the duration? ${payload.durationConfirm.filter(s => s.value).map(s => s.label).join(',')}`,
     `Notes: ${payload.notes}`,
   ];

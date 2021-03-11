@@ -10,8 +10,10 @@ import _ from 'lodash';
  */
 export function getSalaryType(data) {
   switch (data.id) {
+    case 1: return 'monthly';
     case 2: return 'annual';
     case 3: return 'week';
+    case 4: return 'daily';
     case 5: return 'hourly';
     default: return 'n/a';
   }
