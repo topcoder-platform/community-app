@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ChallengeHistoryModal from 'components/Leaderboard/ChallengeHistoryModal';
 import PT from 'prop-types';
 import actions from 'actions/leaderboard';
@@ -14,9 +14,9 @@ function ChallengeHistoryModalContainer({
   isCopilot,
   isAlgo,
 }) {
-  if (!challenges && !loading) {
+  useEffect(() => {
     getChallengesHistory(dataUrl, competitor);
-  }
+  }, [competitor]);
 
   return (
     <ChallengeHistoryModal

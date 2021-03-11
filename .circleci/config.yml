@@ -290,7 +290,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - tco-leaderboard-fix
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
