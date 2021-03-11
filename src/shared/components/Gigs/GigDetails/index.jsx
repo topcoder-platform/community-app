@@ -108,7 +108,7 @@ export default function GigDetails(props) {
               <div styleName="infos-item">
                 <IconTimezone />
                 <div styleName="infos-data">
-                  Timezone
+                  Working Hours
                   <strong>{getCustomField(job.custom_fields, 'Timezone')}</strong>
                 </div>
               </div>
