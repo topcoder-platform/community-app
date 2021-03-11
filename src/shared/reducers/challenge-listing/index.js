@@ -694,6 +694,7 @@ function create(initialState) {
       allActiveChallengesLoaded: false,
       allMyChallengesLoaded: false,
       allChallengesLoaded: false,
+      allRecommendedChallengesLoaded: false,
       allOpenForRegistrationChallengesLoaded: false,
       allPastChallengesLoaded: false,
       // allReviewOpportunitiesLoaded: false,
@@ -708,6 +709,7 @@ function create(initialState) {
       lastRequestedPageOfMyChallenges: -1,
       lastRequestedPageOfMyPastChallenges: -1,
       lastRequestedPageOfAllChallenges: -1,
+      lastRequestedPageOfRecommendedChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
       // lastRequestedPageOfReviewOpportunities: -1,
       // lastUpdateOfActiveChallenges: 0,
@@ -771,6 +773,11 @@ function create(initialState) {
       ...state,
       allChallenges: [],
       lastRequestedPageOfAllChallenges: -1,
+      loadingAllChallengesUUID: '',
+    }),
+    [a.dropRecommendedChallenges]: state => ({
+      ...state,
+      lastRequestedPageOfRecommendedChallenges: -1,
       loadingAllChallengesUUID: '',
     }),
     [a.dropPastChallenges]: state => ({
@@ -857,6 +864,7 @@ function create(initialState) {
     allMyPastChallengesLoaded: false,
     allOpenForRegistrationChallengesLoaded: false,
     allChallengesLoaded: false,
+    allRecommendedChallengesLoaded: false,
     allPastChallengesLoaded: false,
     allReviewOpportunitiesLoaded: false,
 
@@ -866,7 +874,7 @@ function create(initialState) {
     openForRegistrationChallenges: [],
     pastChallenges: [],
     myPastChallenges: [],
-    recommendedChallenges: {},
+    recommendedChallenges: [],
     challengeTypes: [],
     challengeTypesMap: {},
     challengeTags: [],
@@ -879,6 +887,7 @@ function create(initialState) {
     lastRequestedPageOfOpenForRegistrationChallenges: -1,
     lastRequestedPageOfMyChallenges: -1,
     lastRequestedPageOfAllChallenges: -1,
+    lastRequestedPageOfRecommendedChallenges: -1,
     lastRequestedPageOfMyPastChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
     lastRequestedPageOfReviewOpportunities: -1,
@@ -938,6 +947,7 @@ function create(initialState) {
 
     meta: {
       allChallengesCount: 0,
+      allRecommendedChallengesCount: 0,
       myChallengesCount: 0,
       ongoingChallengesCount: 0,
       openChallengesCount: 0,

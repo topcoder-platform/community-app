@@ -20,7 +20,7 @@ class NewsletterPreferencesContainer extends React.Component {
 
   render() {
     const {
-      loading, error, preferences, saveEmailPreferences, email, updated,
+      loading, error, preferences, saveEmailPreferences, email, updated, status,
     } = this.props;
     if (loading || !preferences) return <LoadingIndicator />;
     if (error) {
@@ -32,6 +32,7 @@ class NewsletterPreferencesContainer extends React.Component {
         preferences={preferences}
         saveEmailPreferences={saveEmailPreferences}
         updated={updated}
+        status={status}
       />
     );
   }
@@ -42,6 +43,7 @@ NewsletterPreferencesContainer.defaultProps = {
   error: null,
   preferences: null,
   updated: null,
+  status: null,
 };
 
 NewsletterPreferencesContainer.propTypes = {
@@ -52,6 +54,7 @@ NewsletterPreferencesContainer.propTypes = {
   preferences: PT.shape(),
   email: PT.string.isRequired,
   updated: PT.shape(),
+  status: PT.string,
 };
 
 function mapStateToProps(state) {
@@ -61,6 +64,7 @@ function mapStateToProps(state) {
       loading: newsletterPreferences.loading,
       error: newsletterPreferences.error,
       preferences: newsletterPreferences.preferences,
+      status: newsletterPreferences.status,
       updated: newsletterPreferences.updated,
     };
   }

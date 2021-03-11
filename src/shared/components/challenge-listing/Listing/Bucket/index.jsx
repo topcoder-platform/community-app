@@ -9,8 +9,10 @@ import PT from 'prop-types';
 // import qs from 'qs';
 import React, { useRef } from 'react';
 // import { config } from 'topcoder-react-utils';
-import Sort from 'utils/challenge-listing/sort';
-import { NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA } from 'utils/challenge-listing/buckets';
+import Sort, { SORTS } from 'utils/challenge-listing/sort';
+import {
+  NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA, isRecommendedChallengeType,
+} from 'utils/challenge-listing/buckets';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
@@ -51,6 +53,9 @@ export default function Bucket({
   isLoggedIn,
   setSearchText,
 }) {
+  const activeBucketData = isRecommendedChallengeType(bucket, filterState)
+    ? [SORTS.BEST_MATCH] : BUCKET_DATA[bucket].sorts.filter(item => item !== 'bestMatch');
+
   const refs = useRef([]);
   refs.current = [];
   const addToRefs = (el) => {
@@ -116,7 +121,7 @@ export default function Bucket({
   if (!loading && sortedChallenges.length === 0) {
     return (
       <div styleName="no-results">
-        { `${NO_LIVE_CHALLENGES_CONFIG[bucket]}` }
+        { (filterState.recommended && activeBucket === 'openForRegistration') ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
       </div>
     );
   }
@@ -170,7 +175,7 @@ export default function Bucket({
       <SortingSelectBar
         onSelect={setSort}
         options={
-          BUCKET_DATA[bucket].sorts.map(item => ({
+          activeBucketData.map(item => ({
             label: Sort[item].name,
             value: item,
           }))
@@ -252,7 +257,7 @@ Bucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
-  userId: PT.string,
+  userId: PT.number,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   activeBucket: PT.string,

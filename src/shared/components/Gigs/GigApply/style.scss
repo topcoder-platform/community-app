@@ -28,12 +28,25 @@
     padding: 0 15px;
   }
 
-  .error {
+  .wrap .error {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 27px;
     height: 80vh;
+
+    h3 {
+      text-align: center;
+    }
+
+    .cta-buttons a.primaryBtn {
+      margin-bottom: 0 !important;
+    }
+
+    .regTxt {
+      font-size: 14px;
+      margin: 10px 0 0;
+    }
   }
 
   .checkboxes-row {
@@ -241,11 +254,16 @@
         text-decoration: none;
       }
     }
+
+    .error-text {
+      color: #ef476f;
+    }
   }
   /* stylelint-disable */
   .cta-buttons {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     margin-top: 47px;
 
     @include xs-to-sm {
@@ -270,6 +288,10 @@
 
       @include xs-to-sm {
         text-align: center;
+      }
+
+      &:last-child {
+        margin-left: 20px;
       }
     }
   }

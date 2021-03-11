@@ -22,7 +22,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import DateRangePicker from 'components/DateRangePicker';
@@ -32,10 +32,11 @@ import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-import { isFilterEmpty, isPastBucket } from 'utils/challenge-listing/buckets';
+import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
+import circleIcon from 'assets/images/icon-circle.png';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 import FiltersIcon from '../../Icons/filters-icon.svg';
 import CheckmarkIcon from './CheckmarkIcon';
@@ -64,6 +65,8 @@ export default function FiltersPanel({
   // isSavingFilter,
   expanded,
   setExpanded,
+  setSort,
+  selectBucket,
 }) {
   if (hidden && !expanded) {
     return (
@@ -249,6 +252,64 @@ export default function FiltersPanel({
   const past = isPastBucket(activeBucket);
   const disableClearFilterButtons = isFilterEmpty(filterState, past ? 'past' : '', activeBucket);
 
+  const isRecommendedChallengesVisible = (activeBucket === 'openForRegistration' && config.ENABLE_RECOMMENDER);
+  const [recommendedToggle, setRecommendedToggle] = useState(false);
+
+  useEffect(() => {
+    if (!isFilterEmpty(filterState, past ? 'past' : '', activeBucket)
+      && recommendedToggle
+      && filterState.types.length !== _.uniq(filterState.types).length
+    ) {
+      setFilterState({
+        ...filterState,
+        types: _.uniq(filterState.types),
+      });
+    }
+
+    if (filterState.recommended) {
+      setRecommendedToggle(true);
+    }
+  }, [filterState]);
+
+  const onSwitchRecommendedChallenge = (on) => {
+    setFilterState({ ..._.clone(filterState), recommended: on });
+    selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
+
+    if (on) {
+      setSort('openForRegistration', 'bestMatch');
+      setFilterState({
+        ...filterState,
+        tracks: {
+          Dev: true,
+          Des: true,
+          DS: true,
+          QA: true,
+        },
+        search: '',
+        tags: [],
+        types: ['CH', 'F2F', 'TSK'],
+        groups: [],
+        events: [],
+        endDateStart: null,
+        startDateEnd: null,
+        recommended: true,
+      });
+    } else {
+      setSort('openForRegistration', 'startDate');
+      setFilterState({
+        ...filterState,
+        recommended: false,
+      });
+    }
+    setRecommendedToggle(on);
+  };
+
+  const recommendedCheckboxTip = (
+    <div styleName="tctooltiptext">
+      <p>Shows available challenges <br /> that match your skills</p>
+    </div>
+  );
+
   return (
     <div styleName="FiltersPanel">
       <div styleName="header">
@@ -412,7 +473,7 @@ export default function FiltersPanel({
             <div styleName="filter-row">
               <div styleName="filter challenge-type">
                 <span styleName="label">
-                  Challenge Type
+                  Type
                 </span>
                 <div styleName="checkboxes">
                   {
@@ -494,7 +555,7 @@ export default function FiltersPanel({
           ) : null
         }
 
-        { !isReviewOpportunitiesBucket
+        { !isReviewOpportunitiesBucket && !(recommendedToggle && activeBucket === 'openForRegistration')
           && (
             <div styleName="filter-row">
               <div styleName="filter filter community">
@@ -538,13 +599,51 @@ export default function FiltersPanel({
             </div>
           )
         }
+
+        {
+          isRecommendedChallengesVisible && _.get(auth, 'user.userId')
+          && (
+            <div styleName="filter-row recommended-challenges-filter">
+              <span
+                styleName="filter-switch-with-label"
+                aria-label={`Recommended challenge toggle button pressed ${recommendedToggle ? 'On' : 'Off'}`}
+                role="switch"
+                aria-checked={recommendedToggle}
+              >
+                <SwitchWithLabel
+                  enabled={recommendedToggle}
+                  labelAfter="Recommended Challenges"
+                  onSwitch={onSwitchRecommendedChallenge}
+                />
+              </span>
+
+              <div styleName="recommended-challenge-tooltip">
+                <Tooltip
+                  id="recommended-tip"
+                  content={recommendedCheckboxTip}
+                  className={style['tooltip-overlay']}
+                  trigger={['hover', 'focus']}
+                >
+                  <img src={circleIcon} alt="circle-icon" />
+                </Tooltip>
+              </div>
+            </div>
+          )
+        }
       </div>
+
+      {
+        isRecommendedChallengesVisible && _.get(auth, 'user.userId')
+          && (<hr />)
+      }
 
       <div styleName="buttons">
         <Button
           composeContextTheme={COMPOSE.SOFT}
           disabled={disableClearFilterButtons}
           onClick={() => {
+            setRecommendedToggle(false);
+            setSort('openForRegistration', 'startDate');
             setFilterState({
               tracks: {
                 Dev: true,
@@ -562,6 +661,7 @@ export default function FiltersPanel({
               status: 'Active',
               reviewOpportunityTypes: _.keys(REVIEW_OPPORTUNITY_TYPES),
               customDate: false,
+              recommended: false,
             });
             selectCommunity(defaultCommunityId);
             setSearchText('');
@@ -612,4 +712,6 @@ FiltersPanel.propTypes = {
   onClose: PT.func,
   expanded: PT.bool.isRequired,
   setExpanded: PT.func.isRequired,
+  setSort: PT.func.isRequired,
+  selectBucket: PT.func.isRequired,
 };

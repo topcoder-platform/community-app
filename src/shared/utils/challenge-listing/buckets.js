@@ -45,7 +45,7 @@ export const BUCKET_DATA = {
       // SORTS.TIME_TO_SUBMIT,
       // SORTS.NUM_REGISTRANTS,
       // SORTS.NUM_SUBMISSIONS,
-      // SORTS.PRIZE_HIGH_TO_LOW,
+      SORTS.PRIZE_HIGH_TO_LOW,
       SORTS.TITLE_A_TO_Z,
     ],
   },
@@ -58,12 +58,13 @@ export const BUCKET_DATA = {
     // hideCount: false,
     name: 'Open for registration',
     sorts: [
+      SORTS.BEST_MATCH,
       SORTS.MOST_RECENT_START_DATE,
       // SORTS.TIME_TO_REGISTER,
       // SORTS.TIME_TO_SUBMIT,
       // SORTS.NUM_REGISTRANTS,
       // SORTS.NUM_SUBMISSIONS,
-      // SORTS.PRIZE_HIGH_TO_LOW,
+      SORTS.PRIZE_HIGH_TO_LOW,
       SORTS.TITLE_A_TO_Z,
     ],
   },
@@ -78,9 +79,9 @@ export const BUCKET_DATA = {
     name: 'Ongoing challenges',
     sorts: [
       SORTS.MOST_RECENT_START_DATE,
-      // SORTS.CURRENT_PHASE,
+      SORTS.CURRENT_PHASE,
       SORTS.TITLE_A_TO_Z,
-      // SORTS.PRIZE_HIGH_TO_LOW,
+      SORTS.PRIZE_HIGH_TO_LOW,
     ],
   },
   [BUCKETS.UPCOMING]: {
@@ -254,6 +255,7 @@ export function isFilterEmpty(filter, tab, bucket) {
       },
       search: '',
       types: ['CH', 'F2F', 'TSK'],
+      recommended: false,
     };
   }
 
@@ -262,6 +264,15 @@ export function isFilterEmpty(filter, tab, bucket) {
 
 export function isPastBucket(bucket) {
   return [BUCKETS.ALL_PAST, BUCKETS.MY_PAST].indexOf(bucket) !== -1;
+}
+
+/**
+ * Checks if current challenge type is recommended challenge type
+ * @param {String} bucket bucket name
+ * @param {Object} filterState current filter state
+*/
+export function isRecommendedChallengeType(bucket, filterState) {
+  return bucket === 'openForRegistration' && filterState.recommended;
 }
 
 export default undefined;

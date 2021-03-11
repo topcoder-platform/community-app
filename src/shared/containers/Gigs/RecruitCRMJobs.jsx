@@ -21,7 +21,9 @@ const sortByOptions = [
   { label: 'Latest Updated Descending', selected: false },
 ];
 // Locations
-let locations = [];
+let locations = [{
+  label: 'All', selected: true,
+}];
 
 class RecruitCRMJobsContainer extends React.Component {
   constructor(props) {
@@ -123,12 +125,15 @@ class RecruitCRMJobsContainer extends React.Component {
     jobsToDisplay = _.filter(jobs, (job) => {
       const country = job.country === 'Anywhere' || job.country === 'Any' ? 'All' : job.country;
       // build dropdown
-      const found = _.find(locations, { label: country });
-      if (!found) {
+      const found = _.findIndex(locations, { label: country });
+      if (found === -1) {
         locations.push({
           label: country, selected: location.toLowerCase() === country.toLowerCase(),
         });
+      } else {
+        locations[found].selected = location.toLowerCase() === country.toLowerCase();
       }
+      locations[0].selected = location === 'All';
       // filter
       if (location === 'Anywhere' || location === 'Any' || location === 'All') return true;
       return location.toLowerCase() === job.country.toLowerCase();

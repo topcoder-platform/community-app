@@ -23,10 +23,11 @@ import BackArrowGig from 'assets/images/back-arrow-gig-apply.svg';
 
 export default function GigApply(props) {
   const {
-    job, onFormInputChange, formData, formErrors, onApplyClick, applying, application,
+    job, onFormInputChange, formData, formErrors, onApplyClick, applying, application, user,
   } = props;
+  const retUrl = window.location.href;
 
-  return (
+  return user ? (
     <div styleName="container">
       {
         job.error || job.enable_job_application_form !== 1 ? (
@@ -48,7 +49,11 @@ export default function GigApply(props) {
                   <h2>{application.error ? 'OOPS!' : 'APPLICATION SUBMITTED'}</h2>
                   {
                     application.error ? (
-                      <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
+                      <React.Fragment>
+                        <p styleName="error-text">{application.errorObj.message || JSON.stringify(application.errorObj)}</p>
+                        <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
+                        <p>Please send us an email at <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a> with the subject ‘Gig Error’<br />and paste the URL for the gig you are attempting to apply for so that we know of your interest.</p>
+                      </React.Fragment>
                     ) : (
                       <p>We will contact you via email if it seems like a fit!</p>
                     )
@@ -56,15 +61,18 @@ export default function GigApply(props) {
                   <div styleName="cta-buttons">
                     {
                       application.error ? (
-                        <a
-                          href="#"
-                          styleName="primaryBtn"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.reload();
-                          }}
-                        >APPLY AGAIN
-                        </a>
+                        <React.Fragment>
+                          <a
+                            href="#"
+                            styleName="primaryBtn"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.location.reload();
+                            }}
+                          >APPLY AGAIN
+                          </a>
+                          <Link to={`${config.GIGS_PAGES_PATH}`}>VIEW OTHER GIGS</Link>
+                        </React.Fragment>
                       ) : (
                         <Link to={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIG LIST</Link>
                       )
@@ -143,7 +151,6 @@ export default function GigApply(props) {
                     </div>
                   </div>
                   <h4>TOPCODER INFORMATION</h4>
-                  <p>If you have a Topcoder profile, please share. <a href="https://accounts.topcoder.com/member/registration?utm_source=community&utm_campaign=recruit&utm_medium=GigWork-application-page" target="_blank" rel="noopener noreferrer">Not a Member</a>?</p>
                   <div styleName="form-section">
                     <div styleName="form-row">
                       <TextInput
@@ -152,13 +159,15 @@ export default function GigApply(props) {
                         onChange={val => onFormInputChange('handle', val)}
                         errorMsg={formErrors.handle}
                         value={formData.handle}
+                        readonly
                       />
                       <TextInput
                         placeholder="Topcoder Profile (topcoder.com/members/[username])"
                         label="Topcoder Profile"
                         onChange={val => onFormInputChange('tcProfileLink', val)}
                         errorMsg={formErrors.tcProfileLink}
-                        value={formData.handle ? `topcoder.com/members/${formData.handle}` : null}
+                        value={formData.handle ? `https://topcoder.com/members/${formData.handle}` : null}
+                        readonly
                       />
                     </div>
                   </div>
@@ -272,6 +281,18 @@ export default function GigApply(props) {
         )
       }
     </div>
+  ) : (
+    <div styleName="container">
+      <div styleName="wrap">
+        <div styleName="error">
+          <h3>You must be a Topcoder member to apply!</h3>
+          <div styleName="cta-buttons">
+            <Link to={`${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`} styleName="primaryBtn">Login</Link>
+          </div>
+          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}`}>here</a>.</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -279,6 +300,7 @@ GigApply.defaultProps = {
   formErrors: {},
   applying: false,
   application: null,
+  user: null,
 };
 
 GigApply.propTypes = {
@@ -289,4 +311,5 @@ GigApply.propTypes = {
   onApplyClick: PT.func.isRequired,
   applying: PT.bool,
   application: PT.shape(),
+  user: PT.shape(),
 };

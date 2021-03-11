@@ -111,6 +111,7 @@ module.exports = {
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
+    FORUMS_VANILLA: 'https://vanilla.topcoder-dev.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     SUBMISSION_REVIEW: 'https://submission-review.topcoder-dev.com',
 
@@ -247,7 +248,19 @@ module.exports = {
     },
 
     RECRUITCRM_API_KEY: '',
+    GROWSURF_API_KEY: '',
+    SENDGRID_API_KEY: '',
   },
+
+  GROWSURF_CAMPAIGN_ID: '',
+  GROWSURF_COOKIE: '_tc_gigs_ref',
+  GROWSURF_COOKIE_SETTINGS: {
+    secure: true,
+    domain: '',
+    expires: 7, // days
+  },
+
+  GSHEETS_API_KEY: 'AIzaSyBRdKySN5JNCb2H6ZxJdTTvp3cWU51jiOQ',
 
   AUTH_CONFIG: {
     AUTH0_URL: 'TC_M2M_AUTH0_URL',
@@ -358,8 +371,7 @@ module.exports = {
             },
             {
               title: 'Forums',
-              href: 'https://apps.topcoder-dev.com/forums',
-              openNewTab: true,
+              href: 'https://vanilla.topcoder-dev.com',
             },
             {
               title: 'Statistics',
@@ -412,4 +424,5 @@ module.exports = {
   GUIKIT: {
     DEBOUNCE_ON_CHANGE_TIME: 150,
   },
+  ENABLE_RECOMMENDER: true,
 };

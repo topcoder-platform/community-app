@@ -6,8 +6,10 @@
 */
 
 
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import { config } from 'topcoder-react-utils';
 
 import {
   Tag,
@@ -22,15 +24,21 @@ import {
 } from 'topcoder-react-ui-kit';
 
 import { COMPETITION_TRACKS } from 'utils/tc';
+import VerifiedTag from 'components/challenge-listing/VerifiedTag';
+import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
+import { calculateScore } from '../../../utils/challenge-listing/helper';
+import './style.scss';
 
 export default function ChallengeTags(props) {
   const {
+    challengeId,
     challengesUrl,
     track,
     challengeType,
     events,
     technPlatforms,
     setChallengeListingFilter,
+    openForRegistrationChallenges,
   } = props;
 
   let EventTag;
@@ -55,6 +63,13 @@ export default function ChallengeTags(props) {
     default:
       throw new Error('Wrong competition track value');
   }
+
+
+  const filteredChallenge = _.find(openForRegistrationChallenges, { id: challengeId });
+  const matchSkills = filteredChallenge ? filteredChallenge.match_skills || [] : [];
+  const matchScore = filteredChallenge ? filteredChallenge.jaccard_index || [] : 0;
+
+  const tags = technPlatforms.filter(tag => !matchSkills.includes(tag));
 
   return (
     <div>
@@ -83,7 +98,22 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        technPlatforms.map(tag => (
+        matchScore > 0 && config.ENABLE_RECOMMENDER && (
+          <span styleName="matchScoreWrap">
+            <MatchScore score={calculateScore(matchScore)} />
+          </span>
+        )
+      }
+      {
+        matchSkills.map(item => (
+          <VerifiedTag
+            item={item}
+            challengesUrl={challengesUrl}
+          />
+        ))
+      }
+      {
+        tags.map(tag => (
           tag
               && (
               <Tag
@@ -108,10 +138,12 @@ ChallengeTags.defaultProps = {
 };
 
 ChallengeTags.propTypes = {
+  challengeId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   track: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
   setChallengeListingFilter: PT.func.isRequired,
   challengeType: PT.shape().isRequired,
+  openForRegistrationChallenges: PT.shape().isRequired,
 };

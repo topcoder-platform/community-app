@@ -422,4 +422,35 @@
       }
     }
   }
+
+  .recommended-challenges-filter {
+    display: flex;
+    margin-bottom: 25px;
+
+    .recommended-challenge-tooltip {
+      margin: 3px 0 0 3px;
+    }
+  }
+}
+
+.tctooltiptext {
+  background: $tc-white;
+  color: $tc-gray-90;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.tctooltiptext::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  bottom: 4px;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  left: 50%;
+  border-top-color: $tc-white;
+  z-index: 1000;
 }
