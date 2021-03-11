@@ -283,7 +283,7 @@ workflows:
           filters:
             branches:
               only:                
-                - gigwork-updates
+                - route-redirects
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      

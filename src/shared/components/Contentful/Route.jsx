@@ -10,9 +10,10 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import MetaTags from 'components/MetaTags';
 import PT from 'prop-types';
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
 import PasswordScreen from 'components/Contentful/PasswordScreen';
+import { isomorphy } from 'topcoder-react-utils';
 
 // Concatenates a base and segment and handles optional trailing slashes
 const buildUrl = (base, segment) => `${_.trimEnd(base, '/')}/${_.trim(segment, '/')}`;
@@ -117,6 +118,29 @@ ChildRoutesLoader.propTypes = {
   url: PT.string.isRequired,
 };
 
+function RedirectWithStatus({ from, to, status }) {
+  return (
+    <Route
+      render={({ staticContext }) => {
+        if (to[0] !== '/' && isomorphy.isClientSide()) {
+          window.location.href = to;
+          return null;
+        }
+        // there is no `staticContext` on the client, so
+        // we need to guard against that here
+        if (staticContext) staticContext.status = status;
+        return <Redirect from={from} to={to} />;
+      }}
+    />
+  );
+}
+
+RedirectWithStatus.propTypes = {
+  from: PT.string.isRequired,
+  to: PT.string.isRequired,
+  status: PT.number.isRequired,
+};
+
 export default function ContentfulRoute(props) {
   const {
     baseUrl,
@@ -145,7 +169,10 @@ export default function ContentfulRoute(props) {
       render={(data) => {
         const { fields } = Object.values(data.entries.items)[0];
         const url = path || buildUrl(baseUrl, fields.url);
-        return (
+        const redirectToUrl = _.trim(fields.redirectToUrl);
+        return redirectToUrl ? (
+          <RedirectWithStatus status={301} from={url} to={redirectToUrl} />
+        ) : (
           <Route
             /* This route prevents fetching data about child routes and their
              * rendering, if they already known to not match. */

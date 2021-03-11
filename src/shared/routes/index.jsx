@@ -97,6 +97,7 @@ function Routes({ communityId }) {
           path="/community/(competitive-programming|data-science|design|development|qa)/how-to-compete"
         />
         <Redirect
+          exact
           from="/community/gigs"
           to="/gigs"
         />
