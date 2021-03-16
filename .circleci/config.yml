@@ -186,8 +186,8 @@ jobs:
             --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
             --header "Circle-Token: ${CIRCLE_TOKEN}" \
             --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_performancetesting":true , "run_basedeployment": false}}'       
-  
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_basedeployment": false}}'
+    
   # Build & Deploy against production backend
   deployProd:
     <<: *defaults
