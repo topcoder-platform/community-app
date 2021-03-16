@@ -16,7 +16,7 @@ export default function Tip({
       <Prize
         key={`${place}-${prize}`}
         place={place}
-        prize={prize}
+        prize={prize.value}
         prizeUnitSymbol={prizeUnitSymbol}
       />
     );
@@ -35,7 +35,7 @@ export default function Tip({
     <div styleName="prizes-tooltip">
       <div style={{ overflow: 'auto' }}>
         <h1>
-Prizes
+          Prizes
         </h1>
         {prizesRender}
       </div>
@@ -43,7 +43,7 @@ Prizes
         points ? (
           <div styleName="points">
             <h1>
-Points
+              Points
             </h1>
             {points}
           </div>
@@ -53,7 +53,7 @@ Points
         bonuses.length ? (
           <div styleName="bonuses">
             <h1>
-Bonuses
+              Bonuses
             </h1>
             {bonusesRender}
           </div>
@@ -71,6 +71,6 @@ Tip.defaultProps = {
 Tip.propTypes = {
   bonuses: PT.arrayOf(PT.object).isRequired,
   points: PT.number,
-  prizes: PT.arrayOf(PT.number).isRequired,
+  prizes: PT.arrayOf(PT.shape()).isRequired,
   prizeUnitSymbol: PT.string.isRequired,
 };

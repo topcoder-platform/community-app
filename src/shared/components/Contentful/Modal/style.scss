@@ -1,0 +1,33 @@
+@import '~styles/mixins';
+
+.modalTrigger {
+  outline: none;
+  cursor: pointer;
+}
+
+.dismissButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  height: 1.5em;
+  width: 1.5em;
+  font-size: 1.5em;
+  padding: 0.5em;
+  opacity: 0.5;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.closeButton {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 80px 0;
+}

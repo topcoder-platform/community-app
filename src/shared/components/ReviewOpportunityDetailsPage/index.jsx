@@ -38,7 +38,7 @@ const ReviewOpportunityDetailsPage = ({
   toggleRole,
 }) => (
   <div styleName="outer-container">
-    <div styleName="page">
+    <div styleName="page" role="main">
 
       <div styleName="header">
         <h1 styleName="challenge-title">
@@ -46,10 +46,10 @@ const ReviewOpportunityDetailsPage = ({
         </h1>
         <div styleName="tags">
           <div styleName="review-opportunity-tag">
-Review Opportunities
+            Review Opportunities
           </div>
           <div styleName="subtrack-tag">
-            {details.challenge.subTrack}
+            {details.challenge.type}
           </div>
         </div>
 
@@ -86,7 +86,7 @@ Review Opportunities
           </div>
           <div styleName="tab">
             <a href="https://help.topcoder.com/hc/en-us/articles/222503827-Development-Reviewer-Role-Responsibilities" target="_blank" rel="noopener noreferrer">
-REVIEW PROCESS AND RULES
+              REVIEW PROCESS AND RULES
             </a>
           </div>
         </div>

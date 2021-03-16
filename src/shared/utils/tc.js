@@ -5,12 +5,17 @@
 
 import _ from 'lodash';
 import moment from 'moment-timezone';
-import { isTokenExpired } from 'tc-accounts';
+import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import { tc } from 'topcoder-react-lib';
 
-export const { COMPETITION_TRACKS, REVIEW_OPPORTUNITY_TYPES } = tc;
+export const {
+  OLD_COMPETITION_TRACKS,
+  COMPETITION_TRACKS,
+  CHALLENGE_STATUS,
+  REVIEW_OPPORTUNITY_TYPES,
+} = tc;
 
 /**
  * Possible phase types (at the moment, this map does not cover all
@@ -98,16 +103,16 @@ export function getRatingLevel(rating) {
 /* TODO: The actual color values below are taken from topcoder-app. Probably,
  * they don't match colors in the current Topcoder style guide. */
 export const RATING_COLORS = [{
-  color: '#9D9FA0' /* Grey */,
+  color: '#555555' /* Grey */,
   limit: 900,
 }, {
-  color: '#69C329' /* Green */,
+  color: '#2D7E2D' /* Green */,
   limit: 1200,
 }, {
   color: '#616BD5' /* Blue */,
   limit: 1500,
 }, {
-  color: '#FCD617' /* Yellow */,
+  color: '#F2C900' /* Yellow */,
   limit: 2200,
 }, {
   color: '#EF3A3A' /* Red */,
@@ -285,6 +290,15 @@ export function formatDate(date, abbreviate, showDay) {
   }
 
   return `${month} ${y}`;
+}
+
+/**
+ * Test if a string is valid email
+ * @param {String} email The string to test
+ */
+export function isValidEmail(email) {
+  const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+  return pattern.test(email);
 }
 
 export default undefined;

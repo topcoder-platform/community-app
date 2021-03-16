@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="60px" viewBox="0 0 61 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>progress</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0-verified-by-old-email-" transform="translate(-653.000000, -184.000000)">
+            <g id="progress" transform="translate(61.000000, 84.000000)">
+                <g transform="translate(592.000000, 100.000000)">
+                    <path d="M60.9220803,23.619403 L60.9220803,23.5298507 L30.5445255,0.0335820896 C30.5,0 30.4554745,0 30.4109489,0.0335820896 L0.0445255474,23.5186567 L0.0445255474,59.9216418 L0.100182482,59.9216418 L0.100182482,59.9776119 L60.9777372,59.9776119 L60.9777372,23.5746269 L60.9220803,23.619403 Z" id="Path" fill="#D5D5D5"></path>
+                    <polygon id="Path" fill="#FFFFFF" points="60 59 1 59 1 23.7736944 30.5 1 60 23.7736944"></polygon>
+                    <polygon id="Path" fill="#CCCCCC" points="58 57 3 57 3 24.1969981 30.5 3 58 24.1969981"></polygon>
+                    <polygon id="Rectangle" fill="#0681FF" transform="translate(28.652936, 28.296257) rotate(-14.690778) translate(-28.652936, -28.296257) " points="11.479067 6.33184249 45.8871961 6.28435871 45.8268041 50.2606724 11.418675 50.3081562"></polygon>
+                    <rect id="Rectangle" fill="#F5F5F5" x="13" y="9" width="35" height="44"></rect>
+                    <polygon id="Path" fill="#000000" opacity="0.05" points="2 24 31 41.5 2 59"></polygon>
+                    <polygon id="Path" fill="#FFFFFF" points="1 24 30 41.5 1 59"></polygon>
+                    <polygon id="Path" fill="#000000" opacity="0.05" points="59 24 30 41.5 59 59"></polygon>
+                    <polygon id="Path" fill="#FFFFFF" points="60 24 31 41.5 60 59"></polygon>
+                    <polygon id="Path" fill="#000000" opacity="0.05" points="1 59 30.5 36 60 59"></polygon>
+                    <polygon id="Path" stroke="#EBEBEB" stroke-width="0.5" fill="#FFFFFF" points="1 59 30.5 36 60 59"></polygon>
+                    <path d="M35.7740492,34 L25.2259508,34 C23.9955257,34 23,32.9549902 23,31.6634051 L23,24.3365949 C23,23.0450098 23.9955257,22 25.2259508,22 L35.7740492,22 C37.0044743,22 38,23.0450098 38,24.3365949 L38,31.6634051 C38,32.9549902 37.0044743,34 35.7740492,34 Z" id="Path" fill="#C0C0C0"></path>
+                    <path d="M35.923994,22 L31,22 L31,34 L35.923994,34 C37.071535,34 38,32.9549902 38,31.6634051 L38,24.3365949 C38,23.0450098 37.071535,22 35.923994,22 Z" id="Path" fill="#EBEBEB"></path>
+                    <path d="M31,30 C30.4479167,30 30,29.5520833 30,29 L30,27 C30,26.4479167 30.4479167,26 31,26 C31.5520833,26 32,26.4479167 32,27 L32,29 C31.9895833,29.5520833 31.5416667,30 31,30 Z" id="Path" fill="#6B6B6B"></path>
+                    <path d="M25.1033403,22 L26.4812109,22 L26.4812109,19.7214397 C26.4812109,17.8920188 28.2954071,16.4021909 30.5114823,16.4021909 C32.7275574,16.4021909 34.5417537,17.8920188 34.5417537,19.7214397 L34.5417537,22 L35.9196242,22 C35.9425887,22 35.9770355,22 36,22 L36,19.7214397 C36,17.1251956 33.5313152,15 30.5,15 C27.4686848,15 25,17.1251956 25,19.7214397 L25,22 C25.045929,22 25.0803758,22 25.1033403,22 Z" id="Path" fill="#808080"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

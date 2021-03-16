@@ -21,24 +21,27 @@ export default function ChallengeSearchBar({
   onSearch,
   placeholder,
   query,
-  setQuery,
 }) {
   return (
-    <div styleName="ChallengeSearchBar">
-      <input
-        onChange={event => setQuery(event.target.value)}
-        onKeyPress={event => (event.key === 'Enter' ? onSearch(query.trim()) : null)}
-        placeholder={placeholder}
-        type="text"
-        value={query}
-      />
-      <span
-        styleName={`SearchButton ${query ? 'active' : ''}`}
-        onClick={() => onSearch(query.trim())}
-        onKeyPress={() => onSearch(query.trim())}
-      >
-        <ZoomIcon styleName="zoomIcon" />
-      </span>
+    <div styleName="container">
+      <div styleName="ChallengeSearchBar" role="search">
+        <div htmlFor="search-challenges" styleName="input-container">
+          <input
+            id="search-challenges"
+            onInput={(e) => {
+              const s = e.target.value;
+              onSearch(s);
+            }}
+            placeholder={placeholder}
+            type="text"
+            value={query}
+            onChange={() => {}}
+          />
+          <span styleName="SearchButton">
+            <ZoomIcon styleName="zoomIcon" />
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -51,5 +54,4 @@ ChallengeSearchBar.propTypes = {
   onSearch: PT.func.isRequired,
   placeholder: PT.string,
   query: PT.string.isRequired,
-  setQuery: PT.func.isRequired,
 };

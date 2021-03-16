@@ -1,19 +1,21 @@
 @import "~styles/mixins";
 
 .container {
-  display: grid;
+  display: grid !important;
   margin: 1em auto;
-  padding: 0 1em;
   overflow: auto;
+  justify-content: center;
+  width: 100%;
 
   @include xl {
     max-width: $screen-lg;
   }
 
   @include xs-to-sm {
-    display: flex;
+    display: flex !important;
     flex-wrap: wrap;
     justify-content: space-around;
+    flex-direction: column;
   }
 
   > div {

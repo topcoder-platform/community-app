@@ -49,9 +49,13 @@ class Loader extends React.Component {
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) and Zurich community visitors. Should be re-factored, but not it is not
      * clear, what exactly do we need to support it in general. */
-    if ((communityId === 'wipro' || communityId === 'cs') && !visitorGroups) {
+    if ((communityId === 'wipro' || communityId === 'comcast') && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=${communityId}`;
+      let subpath = 'member';
+      if (communityId === 'wipro') {
+        subpath = 'sso-login/';
+      }
+      window.location = `${config.URL.AUTH}/${subpath}?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
   }
 
@@ -88,7 +92,7 @@ class Loader extends React.Component {
        * while that redirection is handled we want to show page loading
        * placeholder rather than access denied message. In future a more
        * generic implementation of this should be put here. */
-      if (communityId === 'wipro') return <LoadingPagePlaceholder />;
+      if (communityId === 'wipro' || communityId === 'comcast') return <LoadingPagePlaceholder />;
       // Only fo Zurich community we implement special auth system described
       // here: https://github.com/topcoder-platform/community-app/issues/1878
       // at this check specially we allow not authenticated visitos
@@ -99,6 +103,9 @@ class Loader extends React.Component {
         <AccessDenied
           cause={ACCESS_DENIED_REASON.NOT_AUTHENTICATED}
           communityId={communityId}
+          viewportId={meta.accessDeniedPage.viewportId}
+          spaceName={meta.accessDeniedPage.spaceName}
+          environment={meta.accessDeniedPage.environment}
         />
       );
     }
@@ -116,7 +123,14 @@ class Loader extends React.Component {
     }
 
     /* Visitor is not authorized to access this community. */
-    return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
+    return (
+      <AccessDenied
+        cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED}
+        viewportId={meta.accessDeniedPage.viewportId}
+        spaceName={meta.accessDeniedPage.spaceName}
+        environment={meta.accessDeniedPage.environment}
+      />
+    );
   }
 }
 
@@ -136,6 +150,9 @@ Loader.propTypes = {
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
+    terms: PT.any,
+    groupIds: PT.any,
+    accessDeniedPage: PT.any,
   }),
   tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),

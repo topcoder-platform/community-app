@@ -30,7 +30,7 @@ const ExternalLink = ({ data, type }) => {
     return <div />;
   }
 
-  let url = data.profileURL || data.URL;
+  let url = data ? data.profileURL || data.URL : null;
   if (url && !isWebUri(url)) {
     url = `http://${url}`;
     if (!isWebUri(url)) {
@@ -57,7 +57,7 @@ const ExternalLink = ({ data, type }) => {
       </div>
       <div styleName="bottom">
         {
-          type === 'github'
+          type === 'github' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -69,7 +69,7 @@ const ExternalLink = ({ data, type }) => {
                   {data.followers || 0}
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
               <li>
@@ -77,7 +77,7 @@ followers
                   {data.publicRepos || 0}
                 </div>
                 <div styleName="key">
-repositories
+                  repositories
                 </div>
               </li>
             </ul>
@@ -85,7 +85,7 @@ repositories
           )
         }
         {
-          type === 'stackoverflow'
+          type === 'stackoverflow' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -97,7 +97,7 @@ repositories
                   {data.reputation || 0}
                 </div>
                 <div styleName="key">
-reputation
+                  reputation
                 </div>
               </li>
               <li>
@@ -105,7 +105,7 @@ reputation
                   {data.answers || 0}
                 </div>
                 <div styleName="key">
-answers
+                  answers
                 </div>
               </li>
             </ul>
@@ -113,7 +113,7 @@ answers
           )
         }
         {
-          type === 'behance'
+          type === 'behance' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -125,7 +125,7 @@ answers
                   {data.projectViews || 0}
                 </div>
                 <div styleName="key">
-views
+                  views
                 </div>
               </li>
               <li>
@@ -133,7 +133,7 @@ views
                   {data.projectAppreciations || 0}
                 </div>
                 <div styleName="key">
-likes
+                  likes
                 </div>
               </li>
             </ul>
@@ -141,7 +141,7 @@ likes
           )
         }
         {
-          type === 'behance'
+          type === 'behance' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -153,7 +153,7 @@ likes
                   {data.projectViews || 0}
                 </div>
                 <div styleName="key">
-views
+                  views
                 </div>
               </li>
               <li>
@@ -161,7 +161,7 @@ views
                   {data.projectAppreciations || 0}
                 </div>
                 <div styleName="key">
-likes
+                  likes
                 </div>
               </li>
             </ul>
@@ -169,7 +169,7 @@ likes
           )
         }
         {
-          type === 'dribbble'
+          type === 'dribbble' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -181,7 +181,7 @@ likes
                   {data.followers || 0}
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
               <li>
@@ -189,7 +189,7 @@ followers
                   {data.likes || 0}
                 </div>
                 <div styleName="key">
-likes
+                  likes
                 </div>
               </li>
             </ul>
@@ -197,7 +197,7 @@ likes
           )
         }
         {
-          type === 'bitbucket'
+          type === 'bitbucket' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -209,7 +209,7 @@ likes
                   {data.followers || 0}
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
               <li>
@@ -217,7 +217,7 @@ followers
                   {data.repos || 0}
                 </div>
                 <div styleName="key">
-repositories
+                  repositories
                 </div>
               </li>
             </ul>
@@ -225,7 +225,7 @@ repositories
           )
         }
         {
-          type === 'twitter'
+          type === 'twitter' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -237,15 +237,15 @@ repositories
                   {data.tweets || 0}
                 </div>
                 <div styleName="key">
-tweets
+                  tweets
                 </div>
               </li>
               <li>
                 <div styleName="value">
-TBD
+                  TBD
                 </div>
                 <div styleName="key">
-followers
+                  followers
                 </div>
               </li>
             </ul>
@@ -253,7 +253,7 @@ followers
           )
         }
         {
-          type === 'linkedin'
+          type === 'linkedin' && data !== null
           && (
           <div>
             <div styleName="handle">
@@ -266,7 +266,7 @@ followers
           )
         }
         {
-          type === 'weblink'
+          type === 'weblink' && data !== null
           && (
           <div>
             <p styleName="link-title">

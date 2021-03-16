@@ -11,7 +11,7 @@ import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from 'components/Terms/TermDetails';
 import { actions } from 'topcoder-react-lib';
-import { MetaTags } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 import { Modal, PrimaryButton } from 'topcoder-react-ui-kit';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import { themr } from 'react-css-super-themr';
@@ -37,9 +37,24 @@ class TermsDetailPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { loadTermDetails, authTokens, termId } = this.props;
+    const {
+      loadTermDetails,
+      authTokens,
+      termId,
+    } = this.props;
+
+    const {
+      details,
+      history,
+    } = nextProps;
+
     if (!_.isEqual(nextProps.termId, termId)) {
       loadTermDetails(authTokens, nextProps.termId);
+    }
+
+    if (details && details.isLegacyTerm && !history.location.pathname.includes(details.id)) {
+      const path = `/challenges/terms/detail/${details.id}`;
+      history.push(path, history.state);
     }
   }
 
@@ -90,7 +105,7 @@ class TermsDetailPageContainer extends React.Component {
           ) : null
         }
         {
-          details
+          (details && details.text)
             ? (
               <div className={theme['terms-detail-container']}>
                 <MetaTags title={details.title} description={details.title} />
@@ -194,7 +209,9 @@ TermsDetailPageContainer.propTypes = {
     'terms-detail-container': PT.string.isRequired,
     'terms-acceptance-handler': PT.string.isRequired,
     'terms-title': PT.string.isRequired,
+    modalMsg: PT.any,
   }).isRequired,
+  history: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -215,15 +232,15 @@ function mapDispatchToProps(dispatch) {
   return {
     loadTermDetails: (tokens, termId) => {
       dispatch(actions.terms.getTermDetailsInit(termId));
-      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2, false));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV3, false));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
       dispatch(actions.terms.getDocuSignUrlInit(templateId));
-      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV3));
     },
     agreeTerms: (tokens, termId) => {
       dispatch(actions.terms.agreeTermInit(termId));
-      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV3));
     },
   };
 }

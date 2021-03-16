@@ -146,7 +146,7 @@ export default function ExternalLinks(props) {
     <div className="settings-section" styleName="links">
       <div className="section-info">
         <h2>
-External links
+          External links
         </h2>
         <div className="description">
           Show off your work and experience outside of Topcoder. Connect
@@ -155,14 +155,14 @@ External links
       </div>
       <div className="section-fields">
         <div className="form-label">
-Add a web link
+          Add a web link
         </div>
         <AddWebLink
           {...props}
           allLinks={allLinks}
         />
         <div className="form-label">
-Link Your Accounts
+          Link Your Accounts
         </div>
         <LinkAccounts
           {...props}
@@ -170,7 +170,7 @@ Link Your Accounts
           supportedAccounts={supportedAccounts}
         />
         <div className="form-label">
-Linked Accounts
+          Linked Accounts
         </div>
         <ExistingLinks
           {...props}

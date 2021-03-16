@@ -11,7 +11,7 @@ import {
   configureConnector,
   decodeToken,
   getFreshToken,
-} from 'tc-accounts';
+} from '@topcoder-platform/tc-auth-lib';
 import { actions, logger, errors } from 'topcoder-react-lib';
 import { client, redux } from 'topcoder-react-utils';
 
@@ -59,6 +59,7 @@ function authenticate(store) {
     configureConnector({
       connectorUrl: window.CONFIG.URL.ACCOUNTS_APP_CONNECTOR,
       frameId: 'tc-accounts-iframe',
+      frameTitle: 'Accounts authentication window',
     });
   }
 
@@ -112,10 +113,9 @@ function authenticate(store) {
     if (tctV2) time = decodeToken(tctV2).exp;
     if (userV3) time = Math.min(time, userV3.exp);
     if (time < Number.MAX_VALUE) {
-      time = 1000 * (time - window.CONFIG.REAUTH_TIME);
-      time = Math.max(0, time - Date.now());
+      time = Math.max(1000, (time * 1000) - Date.now());
       logger.log('Reauth scheduled in', time / 1000, 'seconds');
-      setTimeout(() => authenticate(store), time);
+      setTimeout(() => authenticate(store), time + 1000);
     }
   });
 }

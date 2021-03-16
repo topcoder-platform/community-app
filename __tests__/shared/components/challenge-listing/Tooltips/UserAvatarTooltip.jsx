@@ -30,7 +30,7 @@ test('Matches shallow shapshot', () => {
     renderer.render((
       <UserAvatarTooltip {...data}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </UserAvatarTooltip>
     ));
@@ -45,7 +45,7 @@ class Wrapper extends React.Component {
     return (
       <UserAvatarTooltip {...this.props}>
         <div className="mock-class">
-abcedfghik
+          abcedfghik
         </div>
       </UserAvatarTooltip>
     );

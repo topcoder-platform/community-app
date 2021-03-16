@@ -12,7 +12,12 @@ import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar, PrimaryButton, Button } from 'topcoder-react-ui-kit';
-import { config, Link, NavLink } from 'topcoder-react-utils';
+import {
+  config,
+  Link,
+  NavLink,
+  isomorphy,
+} from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
 import { themr } from 'react-css-super-themr';
@@ -47,17 +52,24 @@ function Header(props) {
     onMobileToggleClick,
     profile,
     theme,
-    logoutRedirect,
     meta,
+  } = props;
+
+  let {
+    logoutRedirect,
   } = props;
 
   const BASE_URL = config.URL.BASE;
   const AUTH_URL = config.URL.AUTH;
   const normalizedProfile = profile && _.clone(profile);
   const isZurichCompetitor = (profile && profile.groups) ? _.intersection(
-    _.map(profile.groups, 'id'),
+    _.map(profile.groups, 'oldId'),
     meta.competitorsGroupIds,
   ) : [];
+
+  if (_.isEmpty(logoutRedirect) && isomorphy.isClientSide()) {
+    logoutRedirect = window.location.href;
+  }
 
   let userSubMenu;
   if (profile) {
@@ -66,7 +78,7 @@ function Header(props) {
       items: [{
         enforceA: true,
         icon: <IconNavProfile />,
-        link: `${BASE_URL}/members/${normalizedProfile.handle}`,
+        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/members/${normalizedProfile.handle}`,
         title: 'My Profile',
       }, {
         openNewTab: true,
@@ -75,13 +87,13 @@ function Header(props) {
         title: 'Payments',
       }, {
         icon: <IconNavSettings />,
-        link: `${BASE_URL}/settings/profile`,
+        link: `${meta ? _.replace(BASE_URL, 'www', meta.subdomains[0]) : BASE_URL}/settings/profile`,
         title: 'Settings',
       }, {
         icon: <IconNavExit />,
         // TODO: In addition to hitting ${AUTH_URL}/logout, which logs out
         // from the accounts-app, we should wipe out auth cookies!
-        link: `${AUTH_URL}/logout?retUrl=${logoutRedirect}`,
+        link: `${AUTH_URL}?logout=true&retUrl=${encodeURIComponent(logoutRedirect)}`,
         title: 'Log Out',
       }],
     };
@@ -156,7 +168,7 @@ function Header(props) {
             size="sm"
             title="Lorem Ipsum"
           >
-    Log In
+            Log In
             <div className={theme.loginHint}>Lorem ipsum bla bla</div>
           </PrimaryButton>
         ) : (
@@ -167,7 +179,7 @@ function Header(props) {
             }}
             size="sm"
           >
-    Log In
+            Log In
           </Button>
         )
       }
@@ -181,7 +193,7 @@ function Header(props) {
           }}
           size="sm"
         >
-Join Topcoder
+          Join Topcoder
         </PrimaryButton>
       )}
     </div>
@@ -222,7 +234,7 @@ Join Topcoder
             type="button"
           >
             <span>
-Toggle navigation
+              Toggle navigation
             </span>
             <i />
             <i />
@@ -232,14 +244,16 @@ Toggle navigation
             <div className={theme.logos}>
               {renderedLogos}
             </div>
-
-            <div className={theme.challengeDropdown}>
-              <Dropdown
-                options={communitySelector}
-                value="-1"
-              />
-            </div>
-
+            {
+              !_.startsWith(communityId, 'tco') ? (
+                <div className={theme.challengeDropdown}>
+                  <Dropdown
+                    options={communitySelector}
+                    value="-1"
+                  />
+                </div>
+              ) : null
+            }
           </div>
           <div className={theme.userWrapMobile}>
             {profile && (
@@ -252,7 +266,12 @@ Toggle navigation
         <div className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}>
           {
             menuItems[0] && menuItems[0].navigationMenu ? (
-              <Menu id={menuItems[0].navigationMenu} baseUrl={baseUrl} />
+              <Menu
+                id={menuItems[0].navigationMenu}
+                baseUrl={baseUrl}
+                spaceName={menuItems[0].spaceName}
+                environment={menuItems[0].environment}
+              />
             ) : (
               <ul className={theme.menu}>
                 {_.map(menuItems, menuIterator)}
@@ -266,7 +285,7 @@ Toggle navigation
                         to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
                         className={theme.menuLink}
                       >
-                      My Projects
+                        My Projects
                       </NavLink>
                     </li>
                   ) : null
@@ -283,7 +302,7 @@ Toggle navigation
                 to={`https://connect.topcoder${isDev ? '-dev' : ''}.com/`}
                 className={theme.extraUserLink}
               >
-              My Projects
+                My Projects
               </NavLink>
             ) : null
           }
@@ -330,7 +349,9 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  activeTrigger: PT.shape({}),
+  activeTrigger: PT.shape({
+    bottom: PT.string,
+  }),
   baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
   communityId: PT.string.isRequired,
@@ -342,6 +363,8 @@ Header.propTypes = {
     title: PT.string,
     url: PT.string,
     navigationMenu: PT.string,
+    spaceName: PT.string,
+    environment: PT.string,
   })),
   logos: PT.arrayOf(PT.oneOfType([
     PT.string,
@@ -358,7 +381,11 @@ Header.propTypes = {
   openMenu: PT.func.isRequired,
   pageId: PT.string.isRequired,
   onMobileToggleClick: PT.func.isRequired,
-  profile: PT.shape({}),
+  profile: PT.shape({
+    photoURL: PT.string,
+    groups: PT.any,
+    handle: PT.string,
+  }),
   theme: PT.shape().isRequired,
   logoutRedirect: PT.string,
   meta: PT.shape().isRequired,

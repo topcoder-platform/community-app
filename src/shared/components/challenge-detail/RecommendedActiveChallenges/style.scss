@@ -1,0 +1,59 @@
+@import '~styles/mixins';
+
+.container {
+  @include roboto-regular;
+
+  max-width: 1240px;
+  width: 100%;
+  display: flex;
+  background-color: $tc-white;
+  flex-direction: column;
+  border-radius: (3 * $corner-radius);
+  padding: 22px 11px 28px;
+  margin: 50px auto 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -20px;
+  padding: 0 13px;
+  flex-wrap: wrap;
+}
+
+.header {
+  @include roboto-bold;
+
+  font-size: 20px;
+  color: $tc-black;
+  margin-top: 20px;
+}
+
+.right-url {
+  font-size: 15px;
+  color: $tc-dark-blue-110;
+  margin-top: 20px;
+}
+
+.challenges {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.challenge-card {
+  margin: 0 13px;
+  margin-top: 20px;
+  width: 380px;
+}
+
+@include xs-to-md {
+  .challenges {
+    flex-direction: column;
+  }
+
+  .challenge-card {
+    flex: 1;
+    width: auto;
+  }
+}

@@ -1,7 +1,7 @@
 /**
  * Actions related to the UI state of challenge details page.
  */
-
+import _ from 'lodash';
 import { createActions } from 'redux-actions';
 
 /**
@@ -12,6 +12,7 @@ export const TABS = {
   REGISTRANTS: 'registrants',
   CHECKPOINTS: 'checkpoints',
   SUBMISSIONS: 'submissions',
+  MY_SUBMISSIONS: 'my_submissions',
   WINNERS: 'winners',
   CHALLENGE_FORUM: 'challenge_forum',
 };
@@ -58,8 +59,17 @@ function setSpecsTabState(state) {
  * @param {Boolean} open
  * @return {Object}
  */
-function toggleCheckpointFeedback(id, open) {
+function toggleCheckpointFeedback(id, open = false) {
   return { id, open };
+}
+
+/**
+ * Creates action that toggle the submission testcase..
+ * @param {Number} index of submission testcase.
+ * @return {Action}
+ */
+function toggleSubmissionTestCase(index) {
+  return index;
 }
 
 export default createActions({
@@ -70,6 +80,8 @@ export default createActions({
       TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
       SUBMISSIONS: {
         TOGGLE_SUBMISSION_HISTORY: toggleSubmissionHistory,
+        TOGGLE_SUBMISSION_TESTCASE: toggleSubmissionTestCase,
+        CLEAR_SUBMISSION_TESTCASE_OPEN: _.identity,
       },
     },
   },

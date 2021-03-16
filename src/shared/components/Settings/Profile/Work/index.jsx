@@ -9,28 +9,41 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import DatePicker from 'components/challenge-listing/Filters/DatePicker';
+import ErrorMessage from 'components/Settings/ErrorMessage';
+import { validateStartDate, validateEndDate } from 'utils/settings';
+import ConfirmationModal from '../../CofirmationModal';
 import WorkList from './List';
 
 import './styles.scss';
-
 
 export default class Work extends ConsentComponent {
   constructor(props) {
     super(props);
     this.onHandleDeleteWork = this.onHandleDeleteWork.bind(this);
     this.onDeleteWork = this.onDeleteWork.bind(this);
+    this.onEditWork = this.onEditWork.bind(this);
     this.loadWorkTrait = this.loadWorkTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onHandleAddWork = this.onHandleAddWork.bind(this);
     this.onAddWork = this.onAddWork.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onUpdateDate = this.onUpdateDate.bind(this);
+    this.onCancelEditStatus = this.onCancelEditStatus.bind(this);
+
     const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      errorMessage: '',
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateDisabled: false,
+      endDateInvalidMsg: '',
+      isSumbit: false,
       workTrait: this.loadWorkTrait(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newWork: {
@@ -40,9 +53,13 @@ export default class Work extends ConsentComponent {
         timePeriodFrom: '',
         timePeriodTo: '',
         industry: '',
+        working: false,
       },
       isMobileView: false,
       screenSM: 767,
+      isEdit: false,
+      indexNo: null,
+      showConfirmation: false,
     };
   }
 
@@ -57,8 +74,13 @@ export default class Work extends ConsentComponent {
     this.setState({
       workTrait,
       personalizationTrait,
+      isSubmit: false,
       formInvalid: false,
-      errorMessage: '',
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateDisabled: false,
+      endDateInvalidMsg: '',
       newWork: {
         company: '',
         position: '',
@@ -66,6 +88,7 @@ export default class Work extends ConsentComponent {
         timePeriodFrom: '',
         timePeriodTo: '',
         industry: '',
+        working: false,
       },
     });
   }
@@ -81,6 +104,7 @@ export default class Work extends ConsentComponent {
   onHandleAddWork(e) {
     e.preventDefault();
     const { newWork } = this.state;
+    this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newWork)) {
       return;
     }
@@ -94,77 +118,42 @@ export default class Work extends ConsentComponent {
    */
   onCheckFormValue(newWork) {
     let invalid = false;
-    let dateInvalid = false;
-    let errorMessage = '';
-    let dateCount = 0;
-    let dateError = '';
-    let haveDate = false;
 
     if (!_.trim(newWork.company).length) {
-      errorMessage += 'Company, ';
       invalid = true;
     }
 
-    if (!_.trim(newWork.position).length) {
-      errorMessage += 'Position, ';
-      invalid = true;
-    }
+    const fromDateValidResult = validateStartDate(newWork.working,
+      newWork.timePeriodFrom, newWork.timePeriodTo);
+    const endDateValidResult = validateEndDate(newWork.working,
+      newWork.timePeriodFrom, newWork.timePeriodTo);
+    const formInvalid = invalid || fromDateValidResult.invalid || endDateValidResult.invalid;
 
-    if (!_.trim(newWork.cityTown).length) {
-      errorMessage += 'City, ';
-      invalid = true;
-    }
+    this.setState({
+      formInvalid,
+      startDateInvalid: fromDateValidResult.invalid,
+      startDateInvalidMsg: fromDateValidResult.message,
+      endDateInvalid: endDateValidResult.invalid,
+      endDateInvalidMsg: endDateValidResult.message,
+    });
 
-
-    if (!_.trim(newWork.industry).length) {
-      errorMessage += 'Industry, ';
-      invalid = true;
-    }
-
-    if (errorMessage.length > 0) {
-      errorMessage += ' cannot be empty';
-    }
-
-    const fromDate = new Date(newWork.timePeriodFrom).getTime();
-    const toDate = new Date(newWork.timePeriodTo).getTime();
-
-    if (fromDate > toDate) {
-      dateError += 'From Date value should be smaller than To Date value. ';
-      dateInvalid = true;
-      haveDate = true;
-    }
-
-    if (!haveDate) {
-      if (!_.trim(newWork.timePeriodFrom).length) {
-        dateError += 'From Date, ';
-        dateInvalid = true;
-        dateCount += 1;
-      }
-
-      if (!_.trim(newWork.timePeriodTo).length) {
-        dateError += 'To Date, ';
-        dateInvalid = true;
-        dateCount += 1;
-      }
-      if (dateError.length > 0) {
-        dateError = `The ${dateError} ${dateCount > 1 ? 'are' : 'is'} incomplete or ${dateCount > 1 ? 'have' : 'has'} an invalid date.`;
-      }
-    }
-
-
-    if (errorMessage.length > 0) {
-      errorMessage = `${errorMessage}. ${dateError}`;
-    } else if (dateError.length > 0) {
-      errorMessage = dateError;
-      invalid = dateInvalid;
-    }
-
-    this.setState({ errorMessage, formInvalid: invalid });
-    return invalid;
+    return formInvalid;
   }
 
   onHandleDeleteWork(indexNo) {
-    this.showConsent(this.onDeleteWork.bind(this, indexNo));
+    this.setState({
+      showConfirmation: true,
+      indexNo,
+    });
+  }
+
+  onUpdateDate(date, timePeriod) {
+    if (date) {
+      const { newWork: oldWork } = this.state;
+      const newWork = { ...oldWork };
+      newWork[timePeriod] = date;
+      this.setState({ newWork, isSubmit: false });
+    }
   }
 
   /**
@@ -191,6 +180,46 @@ export default class Work extends ConsentComponent {
     } else {
       deleteUserTrait(handle, 'work', tokenV3);
     }
+
+    this.setState({
+      showConfirmation: false,
+      indexNo: null,
+      isSubmit: false,
+      formInvalid: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateDisabled: false,
+      endDateInvalidMsg: '',
+    });
+  }
+
+  /**
+   * Edit work by index
+   * @param indexNo the work index no
+   */
+  onEditWork(indexNo) {
+    const { workTrait } = this.state;
+    this.setState({
+      newWork: {
+        company: workTrait.traits.data[indexNo].company,
+        position: _.isEmpty(workTrait.traits.data[indexNo].position) ? '' : workTrait.traits.data[indexNo].position,
+        cityTown: _.isEmpty(workTrait.traits.data[indexNo].cityTown) ? '' : workTrait.traits.data[indexNo].cityTown,
+        timePeriodFrom: _.isEmpty(workTrait.traits.data[indexNo].timePeriodFrom) ? '' : workTrait.traits.data[indexNo].timePeriodFrom,
+        timePeriodTo: _.isEmpty(workTrait.traits.data[indexNo].timePeriodTo) ? '' : workTrait.traits.data[indexNo].timePeriodTo,
+        industry: _.isEmpty(workTrait.traits.data[indexNo].industry) ? '' : workTrait.traits.data[indexNo].industry,
+        working: workTrait.traits.data[indexNo].working,
+      },
+      isEdit: true,
+      indexNo,
+      formInvalid: false,
+      startDateInvalid: false,
+      startDateInvalidMsg: '',
+      endDateInvalid: false,
+      endDateDisabled: workTrait.traits.data[indexNo].working,
+      endDateInvalidMsg: '',
+      isSubmit: false,
+    });
   }
 
   /**
@@ -198,7 +227,9 @@ export default class Work extends ConsentComponent {
    * @param answer user consent answer value
    */
   onAddWork(answer) {
-    const { newWork, personalizationTrait } = this.state;
+    const {
+      newWork, personalizationTrait, isEdit, indexNo,
+    } = this.state;
 
     const {
       handle,
@@ -209,23 +240,44 @@ export default class Work extends ConsentComponent {
 
     const { workTrait } = this.state;
 
-    newWork.timePeriodFrom = new Date(newWork.timePeriodFrom).getTime();
-    newWork.timePeriodTo = new Date(newWork.timePeriodTo).getTime();
+    const work = _.clone(newWork);
+    if (_.isEmpty(work.position)) {
+      delete work.position;
+    }
+    if (_.isEmpty(work.cityTown)) {
+      delete work.cityTown;
+    }
+    if (_.isEmpty(work.timePeriodFrom)) {
+      delete work.timePeriodFrom;
+    } else {
+      work.timePeriodFrom = new Date(work.timePeriodFrom).getTime();
+    }
+    if (_.isEmpty(work.timePeriodTo)) {
+      delete work.timePeriodTo;
+    } else {
+      work.timePeriodTo = new Date(work.timePeriodTo).getTime();
+    }
+    if (_.isEmpty(work.industry)) {
+      delete work.industry;
+    }
 
     if (workTrait.traits && workTrait.traits.data.length > 0) {
-      const newWorkTrait = { ...workTrait };
-      newWorkTrait.traits.data.push(newWork);
-      this.setState({ workTrait: newWorkTrait });
+      const newWorkTrait = _.cloneDeep(workTrait);
+      if (isEdit) {
+        newWorkTrait.traits.data.splice(indexNo, 1);
+      }
+      newWorkTrait.traits.data.push(work);
       updateUserTrait(handle, 'work', newWorkTrait.traits.data, tokenV3);
     } else {
       const newWorks = [];
-      newWorks.push(newWork);
-      const traits = {
-        data: newWorks,
-      };
-      this.setState({ workTrait: { traits } });
+      newWorks.push(work);
       addUserTrait(handle, 'work', newWorks, tokenV3);
     }
+    this.setState({
+      isEdit: false,
+      indexNo: null,
+      isSubmit: false,
+    });
     // save personalization
     if (_.isEmpty(personalizationTrait)) {
       const personalizationData = { userConsent: answer };
@@ -246,8 +298,19 @@ export default class Work extends ConsentComponent {
   onUpdateInput(e) {
     const { newWork: oldWork } = this.state;
     const newWork = { ...oldWork };
-    newWork[e.target.name] = e.target.value;
-    this.setState({ newWork });
+    let endDateDisabled = newWork.working;
+    if (e.target.type !== 'checkbox') {
+      newWork[e.target.name] = e.target.value;
+    } else {
+      newWork[e.target.name] = e.target.checked;
+      if (e.target.checked) { // if working nullify toDate
+        newWork.timePeriodTo = '';
+        endDateDisabled = true;
+      } else {
+        endDateDisabled = false;
+      }
+    }
+    this.setState({ newWork, isSubmit: false, endDateDisabled });
   }
 
   /**
@@ -275,6 +338,32 @@ export default class Work extends ConsentComponent {
     this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
+  onCancelEditStatus() {
+    const { isEdit } = this.state;
+    if (isEdit) {
+      this.setState({
+        isEdit: false,
+        isSubmit: false,
+        indexNo: null,
+        newWork: {
+          company: '',
+          position: '',
+          cityTown: '',
+          timePeriodFrom: '',
+          timePeriodTo: '',
+          industry: '',
+          working: false,
+        },
+        formInvalid: false,
+        startDateInvalid: false,
+        startDateInvalidMsg: '',
+        endDateInvalid: false,
+        endDateDisabled: false,
+        endDateInvalidMsg: '',
+      });
+    }
+  }
+
   render() {
     const {
       settingsUI,
@@ -282,23 +371,42 @@ export default class Work extends ConsentComponent {
     const {
       workTrait,
       isMobileView,
+      isEdit,
+      showConfirmation,
+      indexNo,
+      formInvalid,
+      startDateInvalid,
+      startDateInvalidMsg,
+      endDateInvalid,
+      endDateDisabled,
+      endDateInvalidMsg,
+      isSubmit,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.WORK ? '' : 'hide';
     const workItems = workTrait.traits
       ? workTrait.traits.data.slice() : [];
-    const { newWork, formInvalid, errorMessage } = this.state;
+    const { newWork } = this.state;
 
     return (
       <div styleName={containerStyle}>
         {
           this.shouldRenderConsent() && this.renderConsent()
         }
+        {
+          showConfirmation && (
+            <ConfirmationModal
+              onConfirm={() => this.showConsent(this.onDeleteWork.bind(this, indexNo))}
+              onCancel={() => this.setState({
+                showConfirmation: false,
+                indexNo: null,
+              })}
+              name={workTrait.traits.data[indexNo].company}
+            />
+          )
+        }
         <div styleName="work-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
-          </div>
           <h1>
             Work
           </h1>
@@ -310,17 +418,21 @@ export default class Work extends ConsentComponent {
             && (
               <WorkList
                 workList={{ items: workItems }}
-                onDeleteItem={this.onDeleteWork}
+                onDeleteItem={this.onHandleDeleteWork}
+                onEditItem={this.onEditWork}
               />
             )
           }
           <div styleName={`sub-title ${workItems.length > 0 ? 'second' : 'first'}`}>
-            Add a new workplace
+            {
+              isEdit ? (<React.Fragment>Edit workplace</React.Fragment>)
+                : (<React.Fragment>Add a new workplace</React.Fragment>)
+            }
           </div>
           <div styleName="form-container-default">
             <form name="device-form" noValidate autoComplete="off">
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-1-long-text">
                   <label htmlFor="company">
                     Company
                     <input type="hidden" />
@@ -329,92 +441,176 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-2">
                   <span styleName="text-required">* Required</span>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newWork.company)} message="Company cannot be empty" />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-long-text">
                   <label htmlFor="position">
                     Position
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <input id="position" name="position" type="text" placeholder="Position" onChange={this.onUpdateInput} value={newWork.position} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-long-text">
                   <label htmlFor="industry">
                     Industry
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <input id="industry" name="industry" type="text" placeholder="Industry" onChange={this.onUpdateInput} value={newWork.industry} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-long-text">
                   <label htmlFor="cityTown">
                     City
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
                   <input id="cityTown" name="cityTown" type="text" placeholder="City" onChange={this.onUpdateInput} value={newWork.cityTown} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-long-text">
                   <label htmlFor="timePeriodFrom">
-                    From
+                    Start Date
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
-                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodFrom} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment().subtract(1, 'd')}
+                    date={newWork.timePeriodFrom}
+                    id="date-from1"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    placeholder="dd/mm/yyyy"
+                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={startDateInvalid}
+                        message={startDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
               </div>
               <div styleName="row">
-                <div styleName="field col-1">
+                <div styleName="field col-long-text">
                   <label htmlFor="timePeriodTo">
-                    To
+                    End Date
                     <input type="hidden" />
                   </label>
                 </div>
                 <div styleName="field col-2">
-                  <span styleName="text-required">* Required</span>
-                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodTo} required />
+                  <DatePicker
+                    readOnly
+                    disabled={endDateDisabled}
+                    numberOfMonths={1}
+                    isOutsideRange={moment().subtract(1, 'd')}
+                    date={newWork.timePeriodTo}
+                    id="date-to1"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    placeholder="dd/mm/yyyy"
+                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={endDateInvalid}
+                        message={endDateInvalidMsg}
+                      />
+                    )
+                  }
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-long-text">
+                  <label htmlFor="working">
+                    I am currently working in this role
+                    <input type="hidden" />
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <div styleName="tc-checkbox">
+                    <input
+                      name="working"
+                      checked={newWork.working}
+                      id="working"
+                      onChange={this.onUpdateInput}
+                      type="checkbox"
+                    />
+                    <label htmlFor="working">
+                      <div styleName="tc-checkbox-label">
+                        &nbsp;
+                      </div>
+                      <input type="hidden" />
+                    </label>
+                  </div>
                 </div>
               </div>
             </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddWork}
-              >
-                Add workplace to your list
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  onClick={this.onHandleAddWork}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit workplace to your list</React.Fragment>)
+                      : (<React.Fragment>Add workplace to your list</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           <div styleName="form-container-mobile">
             <form name="work-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
-                  Add Workplace
+                  {
+                    isEdit ? (<React.Fragment>Edit Workplace</React.Fragment>)
+                      : (<React.Fragment>Add Workplace</React.Fragment>)
+                  }
                 </p>
               </div>
               <div styleName="row">
                 <div styleName="field col-1">
                   <label htmlFor="company">
                     Company
+                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <input id="company" name="company" type="text" placeholder="Company" onChange={this.onUpdateInput} value={newWork.company} maxLength="64" required />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage invalid={_.isEmpty(newWork.company)} message="Company cannot be empty" />
+                    )
+                  }
                 </div>
                 <div styleName="field col-2">
                   <label htmlFor="position">
@@ -441,27 +637,96 @@ export default class Work extends ConsentComponent {
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodFrom">
-                    From
+                    Start Date
                     <input type="hidden" />
                   </label>
-                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodFrom} required />
+                  <DatePicker
+                    readOnly
+                    numberOfMonths={1}
+                    isOutsideRange={moment().subtract(1, 'd')}
+                    date={newWork.timePeriodFrom}
+                    id="date-from2"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    placeholder="dd/mm/yyyy"
+                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={startDateInvalid}
+                        message={startDateInvalidMsg}
+                      />
+                    )
+                  }
                 </div>
                 <div styleName="field col-date">
                   <label htmlFor="timePeriodTo">
-                    To
+                    End Date
                     <input type="hidden" />
                   </label>
-                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newWork.timePeriodTo} required />
+                  <DatePicker
+                    readOnly
+                    disabled={endDateDisabled}
+                    numberOfMonths={1}
+                    isOutsideRange={moment().subtract(1, 'd')}
+                    date={newWork.timePeriodTo}
+                    id="date-to2"
+                    onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    placeholder="dd/mm/yyyy"
+                  />
+                  {
+                    isSubmit && formInvalid && (
+                      <ErrorMessage
+                        invalid={endDateInvalid}
+                        message={endDateInvalidMsg}
+                      />
+                    )
+                  }
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-checkbox">
+                  <div styleName="tc-checkbox">
+                    <input
+                      name="working"
+                      checked={newWork.working}
+                      id="working"
+                      onChange={this.onUpdateInput}
+                      type="checkbox"
+                    />
+                    <label htmlFor="working">
+                      <div styleName="tc-checkbox-label">
+                        I am currently working in this role
+                      </div>
+                      <input type="hidden" />
+                    </label>
+                  </div>
                 </div>
               </div>
             </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onHandleAddWork}
-              >
-                Add Workplace
-              </PrimaryButton>
+            <div styleName="button-container">
+              <div styleName="button-save">
+                <PrimaryButton
+                  styleName="complete"
+                  onClick={this.onHandleAddWork}
+                >
+                  {
+                    isEdit ? (<React.Fragment>Edit Workplace</React.Fragment>)
+                      : (<React.Fragment>Add Workplace</React.Fragment>)
+                  }
+                </PrimaryButton>
+              </div>
+              {
+                isEdit && (
+                  <div styleName="button-cancel">
+                    <PrimaryButton
+                      styleName="complete"
+                      onClick={this.onCancelEditStatus}
+                    >
+                      Cancel
+                    </PrimaryButton>
+                  </div>
+                )
+              }
             </div>
           </div>
           {
@@ -470,6 +735,7 @@ export default class Work extends ConsentComponent {
               <WorkList
                 workList={{ items: workItems }}
                 onDeleteItem={this.onHandleDeleteWork}
+                onEditItem={this.onEditWork}
               />
             )
           }

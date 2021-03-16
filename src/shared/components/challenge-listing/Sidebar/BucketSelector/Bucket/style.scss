@@ -5,26 +5,25 @@
   cursor: default;
   font-weight: 600;
 
-  @include xs-to-sm {
-    background: $tc-white;
-  }
+  // @include xs-to-sm {
+  //   background: $tc-white;
+  // }
 }
 
 .bucket {
   color: $tc-black;
   border-radius: 2 * $corner-radius;
   cursor: pointer;
-  outline: none;
   padding: 0 2 * $base-unit 0 3 * $base-unit;
 
-  @include xs-to-sm {
-    font-size: 15px;
-    padding: 2px 0;
-  }
+  // @include xs-to-sm {
+  //   font-size: 15px;
+  //   padding: 2px 0;
+  // }
 }
 
 .right {
-  color: $tc-gray-50;
+  color: $tc-gray-70;
   float: right;
   position: static;
   font-weight: 700;

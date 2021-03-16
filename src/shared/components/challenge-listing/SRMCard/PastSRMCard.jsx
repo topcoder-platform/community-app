@@ -29,25 +29,31 @@ function numSubmissionsTipText(number) {
 /*
 * Past SRMCard
 */
+const track = 'Data Science';
+const type = {
+  name: 'Single Round Match',
+  abbreviation: 'SRM',
+};
+
 const PastSRMCard = () => (
   <div className="SRMCard past">
     <div className="upper-row">
       <div className="left-panel past">
         <div className="SRM-track">
-          <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
-            <TrackIcon track="DATA_SCIENCE" subTrack="SRM" />
+          <TrackAbbreviationTooltip track={track} type={type}>
+            <TrackIcon track={track} type={type} />
           </TrackAbbreviationTooltip>
         </div>
         <div className="SRM-details">
           <p className="past-title">
-Competitive Programming - Single Round Match 679
+            Competitive Programming - Single Round Match 679
           </p>
         </div>
       </div>
       <div className="right-panel past">
         <div className="past-info">
           <div className="SRM-date">
-Aug 31, 2015
+            Aug 31, 2015
           </div>
           <span className="challenge-stats">
             <span>

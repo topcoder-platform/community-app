@@ -20,11 +20,12 @@ import shortId from 'shortid';
 
 import { connect } from 'react-redux';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { updateChallengeType } from 'utils/challenge';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 
-import { isTokenExpired } from 'tc-accounts';
+import { isTokenExpired, decodeToken } from '@topcoder-platform/tc-auth-lib';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
@@ -61,11 +62,18 @@ export class DashboardPageContainer extends React.Component {
     const {
       challengeFilter,
       switchChallengeFilter,
+      getMemberResources,
+      tokenV3,
     } = this.props;
 
     this.updateData(this.props);
 
     if (challengeFilter) switchChallengeFilter('');
+
+    if (this.authCheck(tokenV3)) {
+      const user = decodeToken(tokenV3);
+      getMemberResources(user.userId, tokenV3);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -108,15 +116,15 @@ export class DashboardPageContainer extends React.Component {
     getMemberFinances,
     getMemberStats,
     getSrms,
-    getTopcoderBlogFeed,
+    // getTopcoderBlogFeed,
     handle,
     profile,
     srmsLoading,
     srmsTimestamp,
     statsLoading,
     statsTimestamp,
-    tcBlogLoading,
-    tcBlogTimestamp,
+    // tcBlogLoading,
+    // tcBlogTimestamp,
     tokenV3,
   }) {
     if (authenticating || !this.authCheck(tokenV3)) return;
@@ -141,11 +149,10 @@ export class DashboardPageContainer extends React.Component {
     if (now - statsTimestamp > CACHE_MAX_AGE
     && !statsLoading) getMemberStats(handle, tokenV3);
 
-    if (now - tcBlogTimestamp > CACHE_MAX_AGE
-    && !tcBlogLoading) getTopcoderBlogFeed();
+    // if (now - tcBlogTimestamp > CACHE_MAX_AGE
+    // && !tcBlogLoading) getTopcoderBlogFeed();
 
-    if (now - communitiesTimestamp < CACHE_MAX_AGE
-    && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
+    if (now - communitiesTimestamp < CACHE_MAX_AGE) {
       updateCommunityStats(this.props);
     }
   }
@@ -163,7 +170,6 @@ export class DashboardPageContainer extends React.Component {
       communityStats,
       finances,
       financesLoading,
-      handle,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
       showChallengeFilter,
@@ -187,7 +193,12 @@ export class DashboardPageContainer extends React.Component {
       userGroups,
       xlBadge,
       errorLoadingRss,
+      userResources,
+      challengeTypesMap,
+      getTypes,
     } = this.props;
+
+    // console.log('r', userResources);
 
     if (authenticating) return <LoadingIndicator />;
 
@@ -196,13 +207,17 @@ export class DashboardPageContainer extends React.Component {
       ({ announcementPreviewId } = qs.parse(urlQuery));
     }
 
+    if (_.isEmpty(challengeTypesMap)) {
+      getTypes();
+    }
+
     return (
       <Dashboard
         achievements={achievements}
         achievementsLoading={achievementsLoading}
         announcementPreviewId={announcementPreviewId}
         challengeFilter={challengeFilter}
-        challenges={activeChallenges.filter(x => x.users[handle])}
+        challenges={activeChallenges}
         challengesLoading={activeChallengesLoading}
         communities={communities}
         communitiesLoading={communitiesLoading}
@@ -229,6 +244,8 @@ export class DashboardPageContainer extends React.Component {
         userGroups={userGroups.map(x => x.id)}
         xlBadge={xlBadge}
         errorLoadingRss={errorLoadingRss}
+        userResources={userResources ? userResources.resources : []}
+        challengeTypesMap={challengeTypesMap}
       />
     );
   }
@@ -239,7 +256,6 @@ DashboardPageContainer.defaultProps = {
   achievementsTimestamp: 0,
   finances: [],
   financesTimestamp: 0,
-  handle: '',
   profile: null,
   showEarnings:
     isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
@@ -250,6 +266,7 @@ DashboardPageContainer.defaultProps = {
   tokenV2: null,
   tokenV3: null,
   errorLoadingRss: false,
+  userResources: {},
 };
 
 DashboardPageContainer.propTypes = {
@@ -276,7 +293,6 @@ DashboardPageContainer.propTypes = {
   getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getSrms: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getTopcoderBlogFeed: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  handle: PT.string,
   profile: PT.shape(), // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
@@ -304,6 +320,10 @@ DashboardPageContainer.propTypes = {
   userGroups: PT.arrayOf(PT.object).isRequired,
   xlBadge: PT.string.isRequired,
   errorLoadingRss: PT.bool,
+  getMemberResources: PT.func.isRequired,
+  userResources: PT.shape(),
+  challengeTypesMap: PT.shape().isRequired,
+  getTypes: PT.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -318,6 +338,9 @@ function mapStateToProps(state, props) {
   const dash = state.page.dashboard;
 
   const tcBlog = state.rss ? (state.rss[TOPCODER_BLOG_ID] || {}) : {};
+  updateChallengeType(
+    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
+  );
   return {
     achievements: achievements.data,
     achievementsLoading: Boolean(achievements.loadingUuid),
@@ -356,6 +379,8 @@ function mapStateToProps(state, props) {
     userGroups: _.get(state.auth.profile, 'groups', []),
     xlBadge: dash.xlBadge,
     errorLoadingRss: state.rss.errorLoadingRss,
+    userResources: state.members.userResources,
+    challengeTypesMap: state.challengeListing.challengeTypesMap,
   };
 }
 
@@ -365,8 +390,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesInit(uuid));
-      dispatch(challengeListingActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
+      dispatch(challengeListingActions.challengeListing.getAllUserChallengesInit(uuid));
+      dispatch(challengeListingActions.challengeListing.getAllUserChallengesDone(uuid, tokenV3));
     },
     getCommunityList: (auth) => {
       const uuid = shortId();
@@ -382,7 +407,7 @@ function mapDispatchToProps(dispatch) {
     getMemberAchievements: (handle) => {
       const uuid = shortId();
       dispatch(members.getAchievementsInit(handle, uuid));
-      dispatch(members.getAchievementsDone(handle, uuid));
+      dispatch(members.getAchievementsV3Done(handle, uuid));
     },
     getMemberFinances: (handle, tokenV3) => {
       const uuid = shortId();
@@ -393,6 +418,11 @@ function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(members.getStatsInit(handle, uuid));
       dispatch(members.getStatsDone(handle, uuid, tokenV3));
+    },
+    getMemberResources: (memberId, tokenV3) => {
+      const uuid = shortId();
+      dispatch(members.getUserResourcesInit(memberId, uuid));
+      dispatch(members.getUserResourcesDone(memberId, tokenV3, uuid));
     },
     getSrms: (handle, tokenV3) => {
       const uuid = shortId();
@@ -416,7 +446,7 @@ function mapDispatchToProps(dispatch) {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
       dispatch(cl.setFilter(filter));
-      dispatch(cls.selectBucket(BUCKETS.ALL));
+      dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
     },
     showXlBadge: name => dispatch(dash.showXlBadge(name)),
     switchChallengeFilter: filter => dispatch(dash.switchChallengeFilter(filter)),
@@ -428,6 +458,11 @@ function mapDispatchToProps(dispatch) {
       const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
+    },
+    getTypes: () => {
+      const cl = challengeListingActions.challengeListing;
+      dispatch(cl.getChallengeTypesInit());
+      dispatch(cl.getChallengeTypesDone());
     },
   };
 }

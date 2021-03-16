@@ -14,12 +14,14 @@ export default function Bonus({
   prizeUnitSymbol,
 }) {
   return (
-    <div styleName="bonus">
-      <span styleName="name">
-        {name}
+    <div styleName="bonus" aria-label={`${name} bonus is ${prizeUnitSymbol}${prize.toLocaleString()}`}>
+      <span aria-hidden="true">
+        <span styleName="name">
+          {name}
+        </span>
+        {prizeUnitSymbol}
+        {prize.toLocaleString()}
       </span>
-      {prizeUnitSymbol}
-      {prize.toLocaleString()}
     </div>
   );
 }

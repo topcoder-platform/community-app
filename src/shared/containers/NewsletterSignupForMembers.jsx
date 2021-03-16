@@ -31,11 +31,11 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
     // Get interestIds and interest request object for mailchimp api
     // to use in checkSubscription and subscribe function
-    const { tags } = props;
-    this.tagsIds = null;
-    if (tags !== '') {
-      this.tagsIds = tags.split(/ *, */);
-      this.tagsIds[this.tagsIds.length - 1] = this.tagsIds[this.tagsIds.length - 1].replace(/^\s+|\s+$/g, '');
+    const { groups } = props;
+    this.groupsIds = null;
+    if (groups !== '') {
+      this.groupsIds = groups.split(/ *, */);
+      this.groupsIds[this.groupsIds.length - 1] = this.groupsIds[this.groupsIds.length - 1].replace(/^\s+|\s+$/g, '');
     }
     this.isSubscribed = false;
 
@@ -50,9 +50,12 @@ class NewsletterSignupForMembersContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { token } = this.props;
+    const { token, authenticating } = this.props;
     const { signupState } = this.state;
-    if (prevProps.token !== token) this.checkSubscription();
+    if (
+      prevProps.token !== token
+      || prevProps.authenticating !== authenticating
+    ) this.checkSubscription();
     let subscribeMe = window.location.href.match(/(.*\?)(.*)/);
     subscribeMe = subscribeMe && subscribeMe[2].split('=');
     subscribeMe = subscribeMe && subscribeMe[0] === 'subscribeme';
@@ -65,9 +68,9 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
   async checkSubscription() {
     const {
-      listId, user, token,
+      listId, user, token, authenticating,
     } = this.props;
-    if (!token) return;
+    if (!token || authenticating) return;
     const md = forge.md.md5.create();
     md.update(user.email);
 
@@ -86,9 +89,9 @@ class NewsletterSignupForMembersContainer extends React.Component {
       .then((dataResponse) => {
         if (dataResponse.status === 'subscribed') {
           this.isSubscribed = true;
-          const subscribedTags = dataResponse.tags.map(t => t.name);
+          const subscribedTags = _.keys(_.pickBy(dataResponse.interests, v => v));
           if (subscribedTags.length) {
-            if (_.intersection(subscribedTags, this.tagsIds).length) {
+            if (_.intersection(subscribedTags, this.groupsIds).length) {
               this.setState({ signupState: SIGNUP_NEWSLETTER.HIDDEN });
             }
           } else {
@@ -105,7 +108,7 @@ class NewsletterSignupForMembersContainer extends React.Component {
       listId, user,
     } = this.props;
 
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}/tags`;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}`;
 
     let data = {};
     if (!this.isSubscribed) {
@@ -119,18 +122,24 @@ class NewsletterSignupForMembersContainer extends React.Component {
       };
     }
 
-    if (this.tagsIds) data.tags = this.tagsIds.map(t => ({ name: t, status: 'active' }));
+    if (this.groupsIds) {
+      data.interests = {};
+      // eslint-disable-next-line array-callback-return
+      this.groupsIds.map((group) => {
+        data.interests[group] = true;
+      });
+    }
 
     const formData = JSON.stringify(data);
     // use proxy for avoid 'Access-Control-Allow-Origin' bug
     await fetch(fetchUrl, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: formData,
     }).then(result => result.json()).then((dataResponse) => {
-      if (dataResponse.status === 204) {
+      if (dataResponse.status === 'subscribed') {
         // regist success
         this.setState({ signupState: SIGNUP_NEWSLETTER.SIGNEDUP });
       } else {
@@ -180,22 +189,29 @@ class NewsletterSignupForMembersContainer extends React.Component {
 NewsletterSignupForMembersContainer.defaultProps = {
   token: '',
   label: 'Subscribe for Newsletter',
-  tags: '',
+  groups: '',
   user: null,
+  buttonTheme: 'primary-green-md',
+  title: 'Sign up for the Topcoder Newsletter',
+  desc: 'Do you want to subscribe to this newsletter?',
 };
 
 NewsletterSignupForMembersContainer.propTypes = {
+  authenticating: PT.bool.isRequired,
   token: PT.string,
   label: PT.string,
-  tags: PT.string,
+  groups: PT.string,
   listId: PT.string.isRequired,
   user: PT.shape(),
+  buttonTheme: PT.string,
+  title: PT.string,
+  desc: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
   /* We show NewsletterSignup button when a visitor is not authenticated, or when
    * he is authenticated and not subscribed to Newsletter. */
-  const { profile, tokenV3 } = state.auth;
+  const { profile, tokenV3, authenticating } = state.auth;
 
   let userData = null;
   if (profile && profile.email) {
@@ -207,6 +223,7 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
+    authenticating,
     label: ownProps.label,
     theme: ownProps.theme,
     token: tokenV3,

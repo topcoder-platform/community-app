@@ -20,11 +20,10 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 
 import codeFields from 'shared/fields/submissionCodeFields.json';
 import designFields from 'shared/fields/submissionDesignFields.json';
-
-import { config } from 'topcoder-react-utils';
 
 import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 
@@ -53,7 +52,10 @@ export default function ScoreboardTable(props) {
             {index + 1}
           </td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${submission.handle}/`}>
+            <a
+              href={`${window.origin}/members/${submission.handle}/`}
+              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+            >
               {submission.handle}
             </a>
           </td>
@@ -78,10 +80,10 @@ export default function ScoreboardTable(props) {
       <thead>
         <tr>
           <th styleName="styles.col-rank">
-Rank
+            Rank
           </th>
           <th styleName="styles.col-handle">
-Handle
+            Handle
           </th>
           {getTemplateHeader(fields)}
         </tr>
@@ -96,5 +98,7 @@ Handle
 ScoreboardTable.propTypes = {
   challenge: PT.shape({
     id: PT.number,
+    type: PT.any,
+    submissions: PT.any,
   }).isRequired,
 };

@@ -5,6 +5,11 @@ exports[`Snapshot match 1`] = `
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
+    htmlAttributes={
+      Object {
+        "lang": "en",
+      }
+    }
   >
     <meta
       content="#FFFFFF"
@@ -13,6 +18,10 @@ exports[`Snapshot match 1`] = `
     <link
       href="/challenges/manifest.json"
       rel="manifest"
+    />
+    <script
+      async={true}
+      src="https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com"
     />
   </HelmetWrapper>
   <withRouter(Connect(Routes)) />
@@ -34,6 +43,11 @@ exports[`Snapshot match 2`] = `
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
+    htmlAttributes={
+      Object {
+        "lang": "en",
+      }
+    }
   >
     <meta
       content="#FFFFFF"
@@ -42,6 +56,10 @@ exports[`Snapshot match 2`] = `
     <link
       href="/challenges/manifest.json"
       rel="manifest"
+    />
+    <script
+      async={true}
+      src="https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com"
     />
   </HelmetWrapper>
   <withRouter(Connect(Routes)) />

@@ -1,0 +1,95 @@
+@import "~components/GUIKit/Assets/Styles/default";
+
+.container {
+  display: flex;
+  justify-content: center;
+
+  :global {
+    .paginator {
+      display: flex;
+
+      @include xs-to-sm {
+        padding: 0 15px;
+      }
+    }
+
+    .previous-link,
+    .next-link {
+      border-radius: 15px;
+      width: 77px;
+      height: 30px;
+      margin: 0;
+      border: 1px solid #137d60;
+      color: #229174;
+      font-family: Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      outline: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .previous-link {
+      margin-right: 5px;
+
+      &::before {
+        content: '\02039';
+        font-size: 28px;
+        padding-bottom: 5px;
+        margin-right: 4px;
+      }
+    }
+
+    .next-link {
+      margin-left: 5px;
+
+      &::after {
+        content: '\0203A';
+        font-size: 28px;
+        padding-bottom: 5px;
+        margin-left: 4px;
+      }
+    }
+
+    .paginator-btn {
+      background-color: #fff;
+      border: 1px solid #137d60;
+      color: #229174;
+      height: 30px;
+      width: 30px;
+      font-size: 12px;
+      font-family: Roboto, sans-serif;
+      font-weight: bold;
+      outline: none;
+      padding: 0;
+      border-radius: 100%;
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .paginator-btn-active {
+      color: #2a2a2a;
+      border: 1px solid #555;
+    }
+
+    .paginator-break-link {
+      color: #d4d4d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      font-weight: bolder;
+      margin: 0 5px;
+      padding-bottom: 11px;
+      cursor: pointer;
+      outline: none;
+      font-size: 22px;
+    }
+  }
+}

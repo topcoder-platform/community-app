@@ -34,7 +34,7 @@
 }
 
 .main-menu-item {
-  color: $tc-gray-40;
+  color: $tc-gray-70;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -95,6 +95,10 @@
     height: 128px;
     padding: 48px;
     transition: all 0.25s ease-in-out;
+  }
+
+  &:global.closed {
+    display: none;
   }
 
   input,

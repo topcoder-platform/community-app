@@ -9,6 +9,7 @@ import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfileStatsPage from 'components/ProfilePage/Stats';
 import { shouldShowGraph, isValidTrack } from 'utils/memberStats';
+import MetaTags from 'components/MetaTags';
 import _ from 'lodash';
 import qs from 'qs';
 
@@ -23,12 +24,15 @@ class ProfileStatsContainer extends React.Component {
       location,
       loadStats,
       loadStatsHistoryAndDistribution,
+      meta,
     } = this.props;
+
     const trackAndSubTrack = getQueryParamsQuery(location);
-    loadStats(handleParam);
+    loadStats(handleParam, _.join(_.get(meta, 'groupIds', [])));
     if (shouldShowGraph(trackAndSubTrack)) {
       loadStatsHistoryAndDistribution(
         handleParam,
+        _.join(_.get(meta, 'groupIds', [])),
         trackAndSubTrack.track,
         trackAndSubTrack.subTrack,
       );
@@ -41,6 +45,7 @@ class ProfileStatsContainer extends React.Component {
       location: nextLocation,
       loadStats,
       loadStatsHistoryAndDistribution,
+      meta,
     } = nextProps;
     const {
       handleParam,
@@ -51,7 +56,7 @@ class ProfileStatsContainer extends React.Component {
     const trackAndSubTrack = getQueryParamsQuery(location);
 
     if (nextHandleParam !== handleParam) {
-      loadStats(nextHandleParam);
+      loadStats(nextHandleParam, _.join(_.get(meta, 'groupIds', [])));
       if (
         nextQueryParams.track !== trackAndSubTrack.track
         || nextQueryParams.subTrack !== trackAndSubTrack.subTrack
@@ -60,6 +65,7 @@ class ProfileStatsContainer extends React.Component {
           && !nextQueryParams.tab) {
           loadStatsHistoryAndDistribution(
             nextHandleParam,
+            _.join(_.get(meta, 'groupIds', [])),
             nextQueryParams.track,
             nextQueryParams.subTrack,
           );
@@ -73,23 +79,35 @@ class ProfileStatsContainer extends React.Component {
       loadingError,
       location,
       isLoading,
+      handleParam,
     } = this.props;
 
     const { track, subTrack, tab } = getQueryParamsQuery(location);
     if (loadingError || !isValidTrack(track, subTrack)) {
       return <Error404 />;
     }
+    const title = `${handleParam} | Community Profile | Topcoder`;
+    const description = `Meet Topcoder member ${handleParam} and view their skills and development and design activity. You can also see wins and tenure with Topcoder.`;
 
-    return isLoading
-      ? <LoadingIndicator />
-      : (
-        <ProfileStatsPage
-          {...this.props}
-          track={track}
-          subTrack={subTrack}
-          tab={tab}
+    return (
+      <React.Fragment>
+        <MetaTags
+          description={description}
+          title={title}
         />
-      );
+        {
+          isLoading ? <LoadingIndicator />
+            : (
+              <ProfileStatsPage
+                {...this.props}
+                track={track}
+                subTrack={subTrack}
+                tab={tab}
+              />
+            )
+        }
+      </React.Fragment>
+    );
   }
 }
 
@@ -100,6 +118,7 @@ ProfileStatsContainer.defaultProps = {
   stats: null,
   info: null,
   achievements: null,
+  meta: null,
 };
 
 ProfileStatsContainer.propTypes = {
@@ -108,12 +127,13 @@ ProfileStatsContainer.propTypes = {
   loadStats: PT.func.isRequired,
   loadStatsHistoryAndDistribution: PT.func.isRequired,
   handleParam: PT.string.isRequired,
-  statsHistory: PT.shape(),
+  statsHistory: PT.arrayOf(PT.shape()),
   statsDistribution: PT.shape(),
-  stats: PT.shape(),
+  stats: PT.arrayOf(PT.shape()),
   info: PT.shape(),
-  achievements: PT.shape(),
+  achievements: PT.arrayOf(PT.shape()),
   isLoading: PT.bool.isRequired,
+  meta: PT.shape(),
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -131,6 +151,7 @@ const mapStateToProps = (state, ownProps) => {
     statsDistribution: _.get(obj, 'statsDistribution.data'),
     activeChallengesCount: _.get(obj, 'activeChallengesCount'),
     info: state.profile.info,
+    meta: ownProps.meta,
     achievements: state.profile.achievements,
   });
 };
@@ -140,17 +161,17 @@ function mapDispatchToProps(dispatch) {
   const pa = actions.profile;
 
   return {
-    loadStats: (handle) => {
+    loadStats: (handle, groupIds) => {
       dispatch(a.getStatsInit(handle));
-      dispatch(a.getStatsDone(handle));
+      dispatch(a.getStatsDone(handle, groupIds));
       dispatch(pa.getInfoInit(handle));
       dispatch(pa.getInfoDone(handle));
       dispatch(a.getActiveChallengesInit(handle));
       dispatch(a.getActiveChallengesDone(handle));
     },
-    loadStatsHistoryAndDistribution: (handle, track, subTrack) => {
+    loadStatsHistoryAndDistribution: (handle, groupIds, track, subTrack) => {
       dispatch(a.getStatsHistoryInit(handle));
-      dispatch(a.getStatsHistoryDone(handle));
+      dispatch(a.getStatsHistoryDone(handle, groupIds));
       dispatch(a.getStatsDistributionInit(handle));
       dispatch(a.getStatsDistributionDone(handle, track, subTrack));
     },

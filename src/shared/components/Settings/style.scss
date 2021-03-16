@@ -143,6 +143,39 @@ $checkbox-bg-selected: $tc-dark-blue;
         display: flex;
         align-items: center;
       }
+
+      &.col-1-no-padding {
+        max-width: 152px;
+        min-width: 152px;
+        margin-right: 14px;
+        align-self: flex-start;
+        margin-bottom: auto;
+        margin-top: auto;
+        padding-top: 0;
+        white-space: nowrap;
+      }
+
+      &.col-long-text {
+        max-width: 220px;
+        min-width: 220px;
+        margin-right: 14px;
+        align-self: flex-start;
+        margin-bottom: auto;
+        margin-top: auto;
+        padding-top: 0;
+        white-space: nowrap;
+      }
+
+      &.col-1-long-text {
+        max-width: 220px;
+        min-width: 220px;
+        margin-right: 14px;
+        align-self: left;
+        margin-bottom: auto;
+        margin-top: auto;
+        padding-top: 10px;
+        white-space: nowrap;
+      }
     }
 
     &.hide {

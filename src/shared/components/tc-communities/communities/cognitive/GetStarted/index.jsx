@@ -20,8 +20,6 @@ import cardImg02 from
 
 import MarchMadnessBanner from '../MarchMadnessBanner';
 
-import NewsSignup from '../NewsSignup';
-
 import style from './style.scss';
 
 export default function GetStarted({ baseUrl }) {
@@ -41,7 +39,7 @@ export default function GetStarted({ baseUrl }) {
           }}
         >
           <h1 styleName="style.cardHeading">
-Current Cognitive Challenges
+            Current Cognitive Challenges
           </h1>
           <p styleName="style.cardText">
             Topcoder and IBM have partnered to roll out a series of educational
@@ -54,7 +52,7 @@ Current Cognitive Challenges
             theme={{ button: style.cardButton }}
             to={`${baseUrl}/challenges`}
           >
-View Challenges
+            View Challenges
           </PrimaryButton>
         </ImageText>
         <ImageText
@@ -66,7 +64,7 @@ View Challenges
           }}
         >
           <h1 styleName="style.cardHeading">
-Perks and Prizes
+            Perks and Prizes
           </h1>
           <p styleName="style.cardText">
             The Topcoder Cognitive Community is free to join — no strings
@@ -88,7 +86,6 @@ Perks and Prizes
           />
         </ImageText>
       </div>
-      <NewsSignup />
     </main>
   );
 }

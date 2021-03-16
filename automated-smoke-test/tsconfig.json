@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "es6", "dom"],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "configFile": "./tslint.json",
+        "suppressWhileTypeErrorsPresent": false
+      }
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "inlineSourceMap": true,
+    "declaration": false,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "outDir": "temp",
+    "types": ["jasmine", "node"],
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"]
+}

@@ -8,10 +8,12 @@ import Header from 'containers/tc-communities/Header';
 import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Profile from 'routes/Profile';
+import ProfileStats from 'routes/ProfileStats';
 
 import headerTheme from 'components/tc-communities/communities/tco/themes/header.scss';
 
-export default function TCO18({ base }) {
+export default function TCO18({ base, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -22,27 +24,18 @@ export default function TCO18({ base }) {
             theme={headerTheme}
           />
           <Switch>
-            {/* Competition Rules */}
-            <ContentfulRoute
-              path={`${base}/competition-rules`}
-              error404={<Error404 />}
-              id="7ILa27AKAXfnXvxG10YuUb"
+            <Route
+              render={props => <Profile {...props} meta={meta} />}
+              exact
+              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
             />
-            {/* Tracks */}
-            <ContentfulRoute
-              path={`${base}/tracks`}
-              error404={<Error404 />}
-              id="fPxQ2U23WkkAPTEIj4WVM"
+            <Route
+              render={props => <ProfileStats {...props} meta={meta} />}
+              exact
+              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
             />
-            {/* Regional events */}
             <ContentfulRoute
-              path={`${base}/regional-events`}
-              error404={<Error404 />}
-              id="3g6g5UDJXDM1qMZGH2cKY1"
-            />
-            {/* Home route */}
-            <ContentfulRoute
-              path={base || '/'}
+              baseUrl={base}
               error404={<Error404 />}
               id="5MK8iGUoAy7CTwGsJ7QtIE"
             />
@@ -64,4 +57,5 @@ TCO18.defaultProps = {
 
 TCO18.propTypes = {
   base: PT.string,
+  meta: PT.shape().isRequired,
 };

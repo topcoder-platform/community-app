@@ -50,7 +50,7 @@ export default function Item({
       >
         <UiSimpleRemove styleName="icon-cross" />
         <div styleName="cross-tooltip">
-Delete Filter
+          Delete Filter
         </div>
       </span>
       { Boolean(error) && (

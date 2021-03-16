@@ -53,6 +53,7 @@ code {
 pre {
   code {
     background-color: transparent;
+    color: #2a2a2a;
   }
 }
 
@@ -61,4 +62,8 @@ pre {
     content: '\A';
     white-space: pre;
   }
+}
+
+strong a {
+  font-weight: 600 !important;
 }

@@ -1,0 +1,18 @@
+{
+  "Timeout": {
+    "FieldVisibility": 15000,
+    "ElementVisibility": 15000,
+    "ElementInvisibility": 15000,
+    "ElementPresence": 15000,
+    "ElementClickable": 15000,
+    "PageLoad": 300000
+  },
+
+  "LoggerErrors": {
+    "ElementVisibilty": "Element did not display within timeout",
+    "ElementInvisibilty": "Element did not become invisible within timeout",
+    "ElementPresence": "Element was not present within timeout",
+    "ElementClickable": "Element was not clickable within timeout",
+    "PageLoad": "Page did not load within timeout"
+  }
+}

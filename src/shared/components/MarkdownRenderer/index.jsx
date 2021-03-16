@@ -5,12 +5,14 @@
  *
  * Support for additional components can be added to the above file.
  */
+import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import md from 'utils/markdown';
 
-export default class MarkdownRenderer extends React.Component {
+class MarkdownRenderer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,9 +33,17 @@ export default class MarkdownRenderer extends React.Component {
   }
 
   renderElements(markdown) {
+    const {
+      preview,
+      spaceName,
+      environment,
+      profile,
+    } = this.props;
     if (markdown) {
+      const compiled = _.template(markdown, { variable: 'profile' });
+      const interpolated = compiled(profile);
       this.setState({
-        elements: md(markdown),
+        elements: md(interpolated, { preview, spaceName, environment }),
       });
     }
   }
@@ -54,8 +64,27 @@ export default class MarkdownRenderer extends React.Component {
 
 MarkdownRenderer.defaultProps = {
   markdown: '',
+  preview: false,
+  spaceName: null,
+  environment: null,
+  profile: {},
 };
 
 MarkdownRenderer.propTypes = {
   markdown: PT.string,
+  preview: PT.bool,
+  spaceName: PT.string,
+  environment: PT.string,
+  profile: PT.shape(),
 };
+
+function mapStateToProps(state) {
+  const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
+  return { profile };
+}
+
+const MarkdownRendererContainer = connect(
+  mapStateToProps,
+)(MarkdownRenderer);
+
+export default MarkdownRendererContainer;

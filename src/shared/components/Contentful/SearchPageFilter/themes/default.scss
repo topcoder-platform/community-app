@@ -1,0 +1,160 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+$green-color: #137d60;
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: column;
+  color: $text-black;
+  background-color: $tc-white;
+  box-shadow: 1px 0 0 0 #eaeaea, 0 1px 0 0 #eaeaea;
+  max-width: 271px;
+  width: 100%;
+  padding: 0 20px 20px;
+  min-height: 100%;
+
+  button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    margin: 0;
+  }
+}
+
+.is-mobile {
+  display: none !important;
+}
+
+.track-date-container {
+  margin-top: 27px;
+}
+
+.author-container {
+  margin-top: 42px;
+}
+
+.bottom {
+  margin-top: 32px;
+  display: flex;
+
+  button {
+    @include roboto-bold;
+
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 14px !important;
+    letter-spacing: 0.8px;
+  }
+}
+
+.btn-apply {
+  color: $tc-white !important;
+  background: $green-color !important;
+  border-radius: 20px;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #e9e9e9;
+  margin-bottom: 8px;
+
+  &:nth-child(2) {
+    border-top: none;
+  }
+
+  button {
+    background: transparent !important;
+  }
+}
+
+.section-title {
+  @include roboto-bold;
+
+  font-size: 12px;
+  letter-spacing: 1.3px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px !important;
+  margin-top: 11px !important;
+
+  svg {
+    -moz-transform: none;
+    -o-transform: none;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.expanded {
+  svg {
+    -moz-transform: scale(-1, -1);
+    -o-transform: scale(-1, -1);
+    -webkit-transform: scale(-1, -1);
+    transform: scale(-1, -1);
+  }
+}
+
+@include xs-to-sm {
+  .is-mobile {
+    display: flex !important;
+  }
+
+  .is-desktop {
+    display: none !important;
+  }
+
+  .container {
+    padding: 20px 20px 30px;
+    box-shadow: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    max-width: none;
+    z-index: 999999;
+  }
+
+  .header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    span {
+      @include barlow-semi-bold;
+
+      font-size: 24px;
+      letter-spacing: 0.2px;
+      line-height: 26px;
+      text-transform: uppercase;
+    }
+
+    button {
+      background: transparent !important;
+    }
+  }
+
+  .btn-apply {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+}

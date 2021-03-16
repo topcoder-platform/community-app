@@ -4,11 +4,11 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-SortingSelectBar-___style__sortingBar___3esqf"
 >
-  <h1
+  <h2
     className="src-shared-components-SortingSelectBar-___style__title___36eG5"
   >
     title
-  </h1>
+  </h2>
   <div
     className="src-shared-components-SortingSelectBar-___style__view-options-toggle-container___1N4rY"
   >
@@ -80,10 +80,10 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className="src-shared-components-SortingSelectBar-___style__sortingBar___3esqf"
 >
-  <h1
+  <h2
     className="src-shared-components-SortingSelectBar-___style__title___36eG5"
   >
     title
-  </h1>
+  </h2>
 </div>
 `;

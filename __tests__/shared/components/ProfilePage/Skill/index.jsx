@@ -9,6 +9,7 @@ it('renders a skill correctly', () => {
   rnd.render((<Skill
     tagId="1"
     tagName="Test Skill"
+    isVerified
   />));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

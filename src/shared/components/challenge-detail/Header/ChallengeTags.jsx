@@ -6,9 +6,10 @@
 */
 
 
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
+import { config } from 'topcoder-react-utils';
 
 import {
   Tag,
@@ -18,64 +19,72 @@ import {
   DesignTrackEventTag,
   DevelopmentTrackTag,
   DevelopmentTrackEventTag,
+  QATrackTag,
+  QATrackEventTag,
 } from 'topcoder-react-ui-kit';
 
 import { COMPETITION_TRACKS } from 'utils/tc';
+import VerifiedTag from 'components/challenge-listing/VerifiedTag';
+import MatchScore from 'components/challenge-listing/ChallengeCard/MatchScore';
+import { calculateScore } from '../../../utils/challenge-listing/helper';
+import './style.scss';
 
 export default function ChallengeTags(props) {
   const {
+    challengeId,
     challengesUrl,
-    subTrack,
     track,
+    challengeType,
     events,
     technPlatforms,
     setChallengeListingFilter,
-    challengeSubtracksMap,
+    openForRegistrationChallenges,
   } = props;
-
-  /* TODO: Probably, we don't need this anymore, if we use correct data from
-   * APIs (they should contain human-readable names, I believe). */
-  const stylizedSubTrack = (t) => {
-    if (challengeSubtracksMap[t]) {
-      return challengeSubtracksMap[t].name;
-    }
-    return (t || '').replace(/_/g, ' ')
-      .replace(/\w\S*/g, txt => _.capitalize(txt));
-  };
 
   let EventTag;
   let TrackTag;
   switch (track) {
-    case 'datasci':
-    case COMPETITION_TRACKS.DATA_SCIENCE:
+    case COMPETITION_TRACKS.DS:
       EventTag = DataScienceTrackEventTag;
       TrackTag = DataScienceTrackTag;
       break;
-    case COMPETITION_TRACKS.DESIGN:
+    case COMPETITION_TRACKS.DES:
       EventTag = DesignTrackEventTag;
       TrackTag = DesignTrackTag;
       break;
-    case COMPETITION_TRACKS.DEVELOP:
+    case COMPETITION_TRACKS.DEV:
       EventTag = DevelopmentTrackEventTag;
-      TrackTag = subTrack === 'DEVELOP_MARATHON_MATCH' ? DataScienceTrackTag : DevelopmentTrackTag;
+      TrackTag = DevelopmentTrackTag;
+      break;
+    case COMPETITION_TRACKS.QA:
+      EventTag = QATrackEventTag;
+      TrackTag = QATrackTag;
       break;
     default:
       throw new Error('Wrong competition track value');
   }
 
+
+  const filteredChallenge = _.find(openForRegistrationChallenges, { id: challengeId });
+  const matchSkills = filteredChallenge ? filteredChallenge.match_skills || [] : [];
+  const matchScore = filteredChallenge ? filteredChallenge.jaccard_index || [] : 0;
+
+  const tags = technPlatforms.filter(tag => !matchSkills.includes(tag));
+
   return (
     <div>
       {
-        subTrack
+        challengeType
         && (
-        <TrackTag
-          onClick={() => setImmediate(() => setChallengeListingFilter({ subtracks: [subTrack] }))
-          }
-          to={`${challengesUrl}?filter[subtracks][0]=${
-            encodeURIComponent(subTrack)}`}
-        >
-          {stylizedSubTrack(subTrack)}
-        </TrackTag>
+          <TrackTag
+            onClick={() => (
+              setImmediate(() => setChallengeListingFilter({ types: [challengeType.abbreviation] }))
+            )
+            }
+            to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
+          >
+            {challengeType.name}
+          </TrackTag>
         )
       }
       {
@@ -89,14 +98,29 @@ export default function ChallengeTags(props) {
         ))
       }
       {
-        technPlatforms.map(tag => (
+        matchScore > 0 && config.ENABLE_RECOMMENDER && (
+          <span styleName="matchScoreWrap">
+            <MatchScore score={calculateScore(matchScore)} />
+          </span>
+        )
+      }
+      {
+        matchSkills.map(item => (
+          <VerifiedTag
+            item={item}
+            challengesUrl={challengesUrl}
+          />
+        ))
+      }
+      {
+        tags.map(tag => (
           tag
               && (
               <Tag
                 key={tag}
-                onClick={() => setImmediate(() => setChallengeListingFilter({ tags: [tag] }))
+                onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
                 }
-                to={`${challengesUrl}?filter[tags][0]=${
+                to={`${challengesUrl}?search=${
                   encodeURIComponent(tag)}`}
               >
                 {tag}
@@ -109,17 +133,17 @@ export default function ChallengeTags(props) {
 }
 
 ChallengeTags.defaultProps = {
-  subTrack: undefined,
   events: [],
   technPlatforms: [],
 };
 
 ChallengeTags.propTypes = {
+  challengeId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
-  subTrack: PT.string,
   track: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
   setChallengeListingFilter: PT.func.isRequired,
-  challengeSubtracksMap: PT.shape().isRequired,
+  challengeType: PT.shape().isRequired,
+  openForRegistrationChallenges: PT.shape().isRequired,
 };

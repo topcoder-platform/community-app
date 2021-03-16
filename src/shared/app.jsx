@@ -11,7 +11,7 @@ import Routes from 'routes';
 import ErrorMessage from 'containers/ErrorMessage';
 import ErrorIcons from 'containers/ErrorIcons';
 
-import { DevTools, isomorphy } from 'topcoder-react-utils';
+import { DevTools, isomorphy, config } from 'topcoder-react-utils';
 
 import ExtendedReduxToastr from 'containers/toastr';
 
@@ -34,9 +34,10 @@ if (process.env.NODE_ENV === 'production') {
 export default function App() {
   return (
     <div>
-      <Helmet>
+      <Helmet htmlAttributes={{ lang: 'en' }}>
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="manifest" href="/challenges/manifest.json" />
+        <script src={config.URL.ABANDONMENT_EMBED} async />
       </Helmet>
       <Routes />
       <ErrorMessage />

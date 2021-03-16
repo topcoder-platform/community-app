@@ -21,7 +21,6 @@ $submission-space-50: $base-unit * 10;
     padding: $submission-space-20;
     background: $tc-white;
     border-top: 1px solid $tc-gray-10;
-    line-height: 12px;
 
     @include xs-to-lg {
       padding: $submission-space-10;
@@ -76,6 +75,10 @@ $submission-space-50: $base-unit * 10;
     @include xs-to-sm {
       padding: 0 10px;
     }
+  }
+
+  .legacy-id {
+    color: $tc-gray-50;
   }
 
   .status-col {

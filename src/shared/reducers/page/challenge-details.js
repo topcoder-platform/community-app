@@ -8,19 +8,8 @@ import { updateQuery } from 'utils/url';
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
-function onToggleCheckpointFeedback(state, action) {
-  const { payload: { id, open } } = action;
-  const newCheckpointResults = _.clone(state.checkpoints.checkpointResults);
-  newCheckpointResults[id].expanded = _.isUndefined(open)
-    ? !newCheckpointResults[id].expanded : open;
-  const newCheckpoints = {
-    ...state.checkpoints,
-    checkpointResults: newCheckpointResults,
-  };
-  return {
-    ...state,
-    checkpoints: newCheckpoints,
-  };
+function onToggleCheckpointFeedback(state, { payload }) {
+  return { ...state, feedbackOpen: payload };
 }
 
 /**
@@ -57,6 +46,27 @@ function toggleSubmissionHistory(state, { payload }) {
 }
 
 /**
+ * Handler for open state of testcase of submission.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function toggleSubmissionTestcase(state, { payload }) {
+  const newSubmissionTestcaseOpen = _.clone(state.submissionTestcaseOpen);
+  newSubmissionTestcaseOpen[payload.toString()] = !newSubmissionTestcaseOpen[payload.toString()];
+  return { ...state, submissionTestcaseOpen: newSubmissionTestcaseOpen };
+}
+
+/**
+ * Handler for clear state of testcase open of submission.
+ * @param {Object} state
+ * @return {Object} New state.
+ */
+function clearSubmissionTestcaseOpen(state) {
+  return { ...state, submissionTestcaseOpen: {} };
+}
+
+/**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
  * @return {Function} Reducer.
@@ -68,10 +78,13 @@ function create(state = {}) {
     [a.setSpecsTabState]: onSetSpecsTabState,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
     [a.submissions.toggleSubmissionHistory]: toggleSubmissionHistory,
+    [a.submissions.toggleSubmissionTestcase]: toggleSubmissionTestcase,
+    [a.submissions.clearSubmissionTestcaseOpen]: clearSubmissionTestcaseOpen,
   }, _.defaults(state, {
-    checkpoints: {},
+    feedbackOpen: {},
     specsTabState: SPECS_TAB_STATES.VIEW,
     submissionHistoryOpen: {},
+    submissionTestcaseOpen: {},
   }));
 }
 

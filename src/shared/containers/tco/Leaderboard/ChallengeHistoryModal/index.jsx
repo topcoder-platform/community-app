@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ChallengeHistoryModal from 'components/Leaderboard/ChallengeHistoryModal';
 import PT from 'prop-types';
 import actions from 'actions/leaderboard';
@@ -14,9 +14,9 @@ function ChallengeHistoryModalContainer({
   isCopilot,
   isAlgo,
 }) {
-  if (!challenges.length) {
+  useEffect(() => {
     getChallengesHistory(dataUrl, competitor);
-  }
+  }, [competitor]);
 
   return (
     <ChallengeHistoryModal
@@ -32,8 +32,8 @@ function ChallengeHistoryModalContainer({
 
 ChallengeHistoryModalContainer.defaultProps = {
   dataUrl: 'http://www.mocky.io/v2/5bbec82f3400006e006fcba6?mocky-delay=5000ms',
-  challenges: [],
-  loading: true,
+  challenges: null,
+  loading: false,
   isCopilot: false,
   isAlgo: false,
 };
@@ -64,7 +64,7 @@ ChallengeHistoryModalContainer.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const { challenges, loading } = state.leaderboard;
+  const { challenges, loading } = state.leaderboard[ownProps.dataUrl] || {};
   return {
     challenges: ownProps.challenges || challenges,
     loading,
@@ -74,7 +74,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     getChallengesHistory: (url, competitor) => {
-      dispatch(actions.leaderboard.getTcoHistoryChallengesInit());
+      dispatch(actions.leaderboard.getTcoHistoryChallengesInit(url));
       dispatch(actions.leaderboard.getTcoHistoryChallengesDone(url, competitor));
     },
   };

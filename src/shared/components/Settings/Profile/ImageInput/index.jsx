@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
@@ -113,32 +113,13 @@ export default class ImageInput extends React.Component {
                 uploadingPhoto && <i className="fa fa-spinner fa-spin" />
               }
               {
-                !uploadingPhoto && newBasicInfo.photoURL && 'Browse...'
+                !uploadingPhoto && newBasicInfo.photoURL && 'Upload a new avatar'
               }
               {
-                !uploadingPhoto && !newBasicInfo.photoURL && 'Browse...'
+                !uploadingPhoto && !newBasicInfo.photoURL && 'Upload a new avatar'
               }
             </PrimaryButton>
             <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
-            {
-              newBasicInfo.photoURL
-              && (
-                <div>
-                  <SecondaryButton
-                    onClick={this.onDeletePhoto}
-                    disabled={uploadingPhoto || deletingPhoto}
-                    theme={{ button: Styles['file-delete'] }}
-                  >
-                    {
-                      deletingPhoto && <i className="fa fa-spinner fa-spin" />
-                    }
-                    {
-                      !deletingPhoto && 'Delete'
-                    }
-                  </SecondaryButton>
-                </div>
-              )
-            }
           </div>
         </div>
       </div>

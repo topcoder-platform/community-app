@@ -4,35 +4,38 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
 >
+  <ul
+    className="src-shared-components-challenge-listing-Sidebar-___style__StatusBar___3d-0u"
+  >
+    <li
+      className="src-shared-components-challenge-listing-Sidebar-___style__Status___2_KAp src-shared-components-challenge-listing-Sidebar-___style__active___2oOZN"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="presentation"
+    >
+      Active
+    </li>
+    <li
+      className="src-shared-components-challenge-listing-Sidebar-___style__Status___2_KAp"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="presentation"
+    >
+      Past Challenges
+    </li>
+  </ul>
   <div
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
     <BucketSelector
       activeBucket="activeBucket"
-      activeSavedFilter={3}
-      buckets={Object {}}
-      challenges={
-        Array [
-          Object {
-            "id": "1",
-            "registrationOpen": "open",
-          },
-        ]
-      }
-      communityFilter={Object {}}
       disabled={false}
-      extraBucket={null}
-      filterState={Object {}}
+      expanding={false}
       isAuth={false}
-      savedFilters={Array []}
+      past={false}
       selectBucket={[MockFunction]}
-      selectSavedFilter={[MockFunction]}
-      setEditSavedFiltersMode={[MockFunction]}
     />
   </div>
-  <Footer
-    hideTcLinksInFooter={false}
-  />
 </div>
 `;
 
@@ -40,24 +43,37 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
 >
+  <ul
+    className="src-shared-components-challenge-listing-Sidebar-___style__StatusBar___3d-0u"
+  >
+    <li
+      className="src-shared-components-challenge-listing-Sidebar-___style__Status___2_KAp src-shared-components-challenge-listing-Sidebar-___style__active___2oOZN"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="presentation"
+    >
+      Active
+    </li>
+    <li
+      className="src-shared-components-challenge-listing-Sidebar-___style__Status___2_KAp"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="presentation"
+    >
+      Past Challenges
+    </li>
+  </ul>
   <div
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
-    <FiltersEditor
-      changeFilterName={[MockFunction]}
-      deleteSavedFilter={[MockFunction]}
-      dragSavedFilterMove={[MockFunction]}
-      dragSavedFilterStart={[MockFunction]}
-      dragState={Object {}}
-      resetFilterName={[MockFunction]}
-      savedFilters={Array []}
-      setEditSavedFiltersMode={[MockFunction]}
-      updateAllSavedFilters={[MockFunction]}
-      updateSavedFilter={[MockFunction]}
+    <BucketSelector
+      activeBucket="activeBucket"
+      disabled={false}
+      expanding={false}
+      isAuth={false}
+      past={false}
+      selectBucket={[MockFunction]}
     />
   </div>
-  <Footer
-    hideTcLinksInFooter={false}
-  />
 </div>
 `;

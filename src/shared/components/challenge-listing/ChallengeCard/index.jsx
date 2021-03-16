@@ -1,37 +1,21 @@
 import _ from 'lodash';
-import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
-import { convertNow as convertMoney } from 'services/money';
-import { config, Link } from 'topcoder-react-utils';
+import { Link } from 'topcoder-react-utils';
+import {
+  getEndDate,
+  getPrizePointsUI,
+} from 'utils/challenge-detail/helper';
 
 import Tags from '../Tags';
 
-import Prize from './Prize';
 import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
+import MatchScore from './MatchScore';
+import { calculateScore } from '../../../utils/challenge-listing/helper';
 import './style.scss';
-
-export const PRIZE_MODE = {
-  HIDDEN: 'hidden',
-  MONEY_EUR: 'money-eur',
-  MONEY_INR: 'money-inr',
-  MONEY_USD: 'money-usd',
-};
-
-// Constants
-
-// Get the End date of a challenge
-const getEndDate = (c) => {
-  let phases = c.allPhases;
-  if (c.subTrack === 'FIRST_2_FINISH' && c.status === 'COMPLETED') {
-    phases = c.allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
-  }
-  const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
-  return moment(endPhaseDate).format('MMM DD');
-};
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
  * able to modify an argument: it aliases challenge prop, then mutates it in
@@ -40,140 +24,100 @@ const getEndDate = (c) => {
 
 function ChallengeCard({
   challenge: passedInChallenge,
+  challengeType,
   challengesUrl,
   expandedTags,
   expandTag,
   newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
-  prizeMode,
   sampleWinnerProfile,
   selectChallengeDetailsTab,
-  userHandle,
+  userId,
+  domRef,
+  isLoggedIn,
 }) {
   const challenge = passedInChallenge;
   const {
     id,
-    subTrack,
     track,
-    status,
   } = challenge;
 
-  challenge.isDataScience = false;
-  if (challenge.technologies.includes('Data Science') || subTrack === 'DEVELOP_MARATHON_MATCH') {
-    challenge.isDataScience = true;
-  }
   challenge.prize = challenge.prizes || [];
 
-  let challengeDetailLink = `${challengesUrl}/${id}`;
-  if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH' && status === 'ACTIVE') {
-    challengeDetailLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${id}`;
-  }
+  const challengeDetailLink = `${challengesUrl}/${id}`;
 
-  const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
-  const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
-
-  /* Preparation of data to show in the prize component,
-   * depending on options. */
-  const bonuses = [];
-  if (challenge.reliabilityBonus) {
-    bonuses.push({
-      name: 'Reliability',
-      prize: challenge.reliabilityBonus,
-    });
-  }
-  let prizeUnitSymbol = '';
-  let { prizes } = challenge;
-  let totalPrize;
-  switch (prizeMode) {
-    case PRIZE_MODE.MONEY_EUR:
-      prizeUnitSymbol = '€';
-      bonuses.forEach((bonus) => {
-        bonus.prize = Math.round(convertMoney(bonus.prize, 'EUR')); // eslint-disable-line no-param-reassign
-      });
-      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'EUR'));
-      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'EUR')));
-      break;
-    case PRIZE_MODE.MONEY_INR:
-      prizeUnitSymbol = '₹';
-      bonuses.forEach((bonus) => {
-        bonus.prize = Math.round(convertMoney(bonus.prize, 'INR')); // eslint-disable-line no-param-reassign
-      });
-      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'INR'));
-      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'INR')));
-      break;
-    case PRIZE_MODE.MONEY_USD:
-      prizeUnitSymbol = '$';
-      ({ totalPrize } = challenge);
-      break;
-    default: throw new Error('Unknown prize mode!');
-  }
+  const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
+  const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
+  const isRecommendedChallenge = challenge.jaccard_index;
 
   return (
-    <div styleName="challengeCard">
+    <div ref={domRef} styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
+          <TrackAbbreviationTooltip
+            track={track}
+            type={challengeType}
+          >
             <span>
               <TrackIcon
-                track={challenge.track}
-                subTrack={challenge.subTrack}
-                tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
-                isDataScience={challenge.isDataScience}
+                track={track}
+                type={challengeType}
+                tcoEligible={challenge.events && challenge.events.length > 0 ? challenge.events[0].key : ''}
               />
             </span>
           </TrackAbbreviationTooltip>
         </div>
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
-          <Link
-            onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
-            to={challengeDetailLink}
-            styleName="challenge-title"
-            openNewTab={openChallengesInNewTabs}
-          >
-            {challenge.name}
-          </Link>
+          <div styleName="challenge-detail-header">
+            <Link
+              onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
+              to={challengeDetailLink}
+              styleName="challenge-title"
+              openNewTab={openChallengesInNewTabs}
+            ><p>{challenge.name}</p>
+            </Link>
+          </div>
           <div styleName="details-footer">
             <span styleName="date">
-              {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
+              {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge)}
             </span>
-            <Tags
-              technologies={challenge.technologies}
-              platforms={challenge.platforms}
-              onTechTagClicked={onTechTagClicked}
-              isExpanded={expandedTags.includes(challenge.id)}
-              expand={() => expandTag(challenge.id)}
-            />
+            {
+              isRecommendedChallenge
+              && <MatchScore score={calculateScore(challenge.jaccard_index)} />
+            }
+            {
+              isRecommendedChallenge
+              && challenge.match_skills.length > 0
+                && (
+                <Tags
+                  tags={challenge.tags}
+                  onTechTagClicked={onTechTagClicked}
+                  isExpanded={expandedTags.includes(challenge.id)}
+                  expand={() => expandTag(challenge.id)}
+                  verifiedTags={challenge.match_skills}
+                  recommended
+                />
+                )
+            }
+            { !isRecommendedChallenge
+              && challenge.tags.length > 0
+              && (
+              <Tags
+                tags={challenge.tags}
+                onTechTagClicked={onTechTagClicked}
+                isExpanded={expandedTags.includes(challenge.id)}
+                expand={() => expandTag(challenge.id)}
+              />
+              ) }
           </div>
         </div>
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {
-            totalPrize >= 1
-              && (
-              <Prize
-                bonuses={bonuses}
-                label="Purse"
-                prizes={prizes}
-                prizeUnitSymbol={prizeUnitSymbol}
-                totalPrize={totalPrize}
-              />
-              )
-          }
-          {
-            challenge.pointPrizes && challenge.pointPrizes.length > 0
-              && (
-              <Prize
-                label="Points"
-                prizes={challenge.pointPrizes}
-                prizeUnitSymbol=""
-                totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
-              />
-              )
-          }
+          {getPrizePointsUI(challenge)}
         </div>
 
         <ChallengeStatus
@@ -184,7 +128,8 @@ function ChallengeCard({
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
-          userHandle={userHandle}
+          userId={userId}
+          isLoggedIn={isLoggedIn}
         />
       </div>
     </div>
@@ -196,25 +141,27 @@ ChallengeCard.defaultProps = {
   newChallengeDetails: false,
   onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
-  prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
-  userHandle: '',
+  userId: '',
   expandedTags: [],
   expandTag: null,
+  domRef: null,
 };
 
 ChallengeCard.propTypes = {
   challenge: PT.shape(),
+  challengeType: PT.shape().isRequired,
   challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,
   openChallengesInNewTabs: PT.bool,
-  prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
-  userHandle: PT.string,
+  userId: PT.number,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  domRef: PT.func,
+  isLoggedIn: PT.bool.isRequired,
 };
 
 export default ChallengeCard;

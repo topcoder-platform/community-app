@@ -4,26 +4,14 @@
 import React from 'react';
 import PT from 'prop-types';
 import { NavLink } from 'topcoder-react-utils';
+import { linkText, target } from 'utils/contentful';
 
 export default function MenuItem(props) {
   const {
     item, theme, isActive, baseUrl,
   } = props;
-  // use/prefer url if available
-  let to = '';
-  if (item.fields.url) {
-    to = item.fields.url.startsWith('http') ? item.fields.url : `${baseUrl}${item.fields.url}`;
-  } else if (item.fields.viewport) {
-    // for viewports use
-    // menu item slug to build the url
-    to = `${baseUrl}/${item.fields.slug}`;
-  } else {
-    // case when nor url either viewport
-    // of item are specified. Bad link!?
-    to = '#';
-  }
 
-  return (
+  return item.fields.excludeFromNavigationMenus !== true ? (
     <li
       className={theme.menuItemLevel}
       key={item.url}
@@ -32,13 +20,13 @@ export default function MenuItem(props) {
         activeClassName={theme.menuItemLinkActive}
         className={theme.menuItemLink}
         isActive={() => isActive}
-        to={to}
+        to={target(baseUrl, item)}
         openNewTab={item.fields.inNewTab}
       >
-        {item.fields.linkText || item.fields.name}
+        {linkText(item)}
       </NavLink>
     </li>
-  );
+  ) : null;
 }
 
 

@@ -34,7 +34,7 @@ function Card({
         target="_blank"
         rel="noopener noreferrer"
       >
-Read More...
+        Read More...
       </a>
       <div className={theme.mask} />
     </div>

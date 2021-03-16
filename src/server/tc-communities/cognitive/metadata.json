@@ -6,6 +6,7 @@
     }]
   },
   "challengeListing": {
+    "ignoreCommunityFilterByDefault": true,
     "openChallengesInNewTabs": false
   },
   "communityId": "cognitive",
@@ -16,6 +17,7 @@
     "url": "https://www.topcoder.com"
   }],
   "hideSearch": true,
+  "hideFilter": true,
   "menuItems": [
     {
       "title": "Home",

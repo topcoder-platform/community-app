@@ -1,6 +1,7 @@
 /* TCO19 banner styling. */
 
 @import "~styles/mixins";
+@import "~components/Contentful/default";
 $contentWrapperPadding: 0;
 
 .container {
@@ -35,41 +36,36 @@ $contentWrapperPadding: 0;
 
       h1,
       h2,
-      h3 {
-        font-weight: 300;
+      h3,
+      h4,
+      h5,
+      h6 {
         margin: 30px 0;
+        text-transform: uppercase;
       }
 
-      h1 {
-        font-size: 42px;
-        font-weight: 300;
-      }
-
-      h2 {
-        font-size: 20px;
-      }
-
-      h3 {
-        font-size: 24px;
-      }
+      @include gui-kit-headers;
 
       p {
-        font-size: 15px;
+        font-size: 16px;
+        line-height: 26px;
         margin-bottom: 1em;
-        line-height: 25px;
+
+        strong {
+          @include roboto-medium;
+
+          line-height: 20px;
+        }
+
+        em {
+          font-style: italic;
+        }
       }
 
       ul {
         list-style: disc;
         margin-bottom: 1em;
         margin-left: 20px;
-
-        li {
-          p {
-            font-size: 16px;
-            line-height: 27px;
-          }
-        }
       }
 
       input {
@@ -79,6 +75,22 @@ $contentWrapperPadding: 0;
 
       button {
         margin-left: 0;
+      }
+
+      a,
+      a:hover,
+      a:visited,
+      a:focus {
+        @include roboto-regular;
+
+        font-size: 16px;
+        line-height: 19px;
+        color: #5fb7ee;
+        text-decoration: underline;
+      }
+
+      a:hover {
+        text-decoration: none;
       }
     }
   }

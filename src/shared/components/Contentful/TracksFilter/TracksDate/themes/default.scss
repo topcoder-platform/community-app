@@ -1,0 +1,35 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex: 0 0 270px;
+  flex-direction: row;
+  color: $text-black;
+  position: relative;
+  min-width: 245px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.separator {
+  margin: 0 6px;
+  width: 6px;
+  height: 1px;
+  background-color: #aaa;
+
+  @include xs-to-sm {
+    width: 30px;
+    background-color: #fff;
+  }
+}

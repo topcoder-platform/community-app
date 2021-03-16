@@ -28,7 +28,7 @@
     }
 
     &.col-1 {
-      flex: 20;
+      flex: 22;
       display: flex;
 
       @include xs-to-sm {
@@ -45,7 +45,7 @@
     }
 
     &.col-2 {
-      flex: 15;
+      flex: 40;
       text-align: left;
       color: $tc-gray-50;
 
@@ -114,6 +114,18 @@
           flex: 1;
         }
       }
+
+      &.mm {
+        flex: 25;
+      }
+    }
+
+    &.col-5 {
+      flex: 10;
+      color: #0a71e6;
+      cursor: pointer;
+      min-width: 83px;
+      outline: none;
     }
   }
 }

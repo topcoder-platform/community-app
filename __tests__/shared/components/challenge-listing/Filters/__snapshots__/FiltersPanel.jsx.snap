@@ -2,227 +2,19 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1XPn6 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidden___JoKmL"
+  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-btn___1f3VV"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex={0}
 >
-  <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___dbqVu"
-  >
-    <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___n4gdC"
-    >
-      Filters
-    </span>
-    <span
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-    >
-      <UiSimpleRemove
-        className="cross"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-    </span>
-  </div>
-  <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___3zhaT"
-  >
-    <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
-    >
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___3Os3o"
-      >
-        <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="keyword-select"
-        >
-          Keywords
-          <input
-            type="hidden"
-          />
-        </label>
-        <Select
-          id="keyword-select"
-          multi={true}
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "label": "key",
-                "value": "key",
-              },
-              Object {
-                "label": "word",
-                "value": "word",
-              },
-            ]
-          }
-          selectRef={[Function]}
-          simpleValue={true}
-          value={null}
-        />
-      </div>
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
-      >
-        <label
-          htmlFor="community-select"
-        >
-          Sub community
-          <input
-            type="hidden"
-          />
-        </label>
-        <Select
-          autoBlur={true}
-          clearable={false}
-          id="community-select"
-          onChange={[MockFunction]}
-          options={
-            Array [
-              Object {
-                "label": <div>
-                  Sample community
-                </div>,
-                "name": "Sample community",
-                "value": "123",
-              },
-            ]
-          }
-          selectRef={[Function]}
-          simpleValue={true}
-          value="1"
-          valueRenderer={[Function]}
-        />
-      </div>
-    </div>
-    <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
-    >
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
-      >
-        <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="track-select"
-        >
-          Subtrack
-          <input
-            type="hidden"
-          />
-        </label>
-        <Select
-          id="track-select"
-          multi={true}
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "label": "sub",
-                "value": "sub",
-              },
-              Object {
-                "label": "track",
-                "value": "track",
-              },
-            ]
-          }
-          selectRef={[Function]}
-          simpleValue={true}
-          value={null}
-        />
-      </div>
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
-      >
-        <label
-          htmlFor="date-range-picker-one-month"
-        >
-          Date range
-          <input
-            type="hidden"
-          />
-        </label>
-        <DateRangePicker
-          id="date-range-picker-one-month"
-          numberOfMonths={1}
-          onDatesChange={[Function]}
-          readOnly={true}
-        />
-      </div>
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
-      >
-        <label
-          htmlFor="date-range-picker-two-months"
-        >
-          Date range
-          <input
-            type="hidden"
-          />
-        </label>
-        <DateRangePicker
-          id="date-range-picker-two-months"
-          numberOfMonths={2}
-          onDatesChange={[Function]}
-          readOnly={true}
-        />
-      </div>
-    </div>
-  </div>
-  <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
-  >
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={false}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[Function]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
-      theme={
-        Object {
-          "button": undefined,
-        }
-      }
-      themePriority="adhoc-default-context"
-      to={null}
-      type="button"
-    >
-      Clear filters
-    </ThemedButton>
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={true}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[MockFunction]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
-      theme={
-        Object {
-          "button": undefined,
-        }
-      }
-      themePriority="adhoc-context-default"
-      to={null}
-      type="button"
-    >
-      Save filter
-    </ThemedButton>
-  </div>
+  <FiltersIcon
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersIcon___taLss"
+    height="16"
+    viewBox="0 0 16 16"
+    width="16"
+  />
+   More Filters
 </div>
 `;
 
@@ -253,37 +45,113 @@ exports[`Matches shallow shapshot 2`] = `
     </span>
   </div>
   <div
-    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___3zhaT"
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W"
   >
     <div
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
     >
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___3Os3o"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
       >
-        <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="keyword-select"
+        <span
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
         >
-          Keywords
-          <input
-            type="hidden"
-          />
-        </label>
-        <Select
-          id="keyword-select"
-          multi={true}
-          onChange={[Function]}
-          options={Array []}
-          selectRef={[Function]}
-          simpleValue={true}
-          value={null}
+          Track
+        </span>
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__switches___10Wrx"
+        >
+          <span
+            aria-label="Design toggle button pressed Off"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+            role="switch"
+          >
+            <ThemedSwitchWithLabel
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              enabled={false}
+              labelAfter=""
+              labelBefore="Design"
+              mapThemrProps={[Function]}
+              onSwitch={[Function]}
+              themePriority="adhoc-context-default"
+            />
+          </span>
+          <span
+            aria-label="Development toggle button pressed Off"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+            role="switch"
+          >
+            <ThemedSwitchWithLabel
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              enabled={false}
+              labelAfter=""
+              labelBefore="Development"
+              mapThemrProps={[Function]}
+              onSwitch={[Function]}
+              themePriority="adhoc-context-default"
+            />
+          </span>
+          <span
+            aria-label="Data Science toggle button pressed Off"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+            role="switch"
+          >
+            <ThemedSwitchWithLabel
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              enabled={false}
+              labelAfter=""
+              labelBefore="Data Science"
+              mapThemrProps={[Function]}
+              onSwitch={[Function]}
+              themePriority="adhoc-context-default"
+            />
+          </span>
+          <span
+            aria-label="QA toggle button pressed Off"
+            className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-switch-with-label___l-b1a"
+            role="switch"
+          >
+            <ThemedSwitchWithLabel
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              enabled={false}
+              labelAfter=""
+              labelBefore="QA"
+              mapThemrProps={[Function]}
+              onSwitch={[Function]}
+              themePriority="adhoc-context-default"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__challenge-type___30Q7l"
+      >
+        <span
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
+        >
+          Type
+        </span>
+        <div
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__checkboxes___3ukXp"
         />
       </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
       <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
       >
         <label
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__label___3W9TU"
           htmlFor="community-select"
         >
           Sub community
@@ -295,13 +163,14 @@ exports[`Matches shallow shapshot 2`] = `
           autoBlur={true}
           clearable={false}
           id="community-select"
-          onChange={[MockFunction]}
+          onChange={[Function]}
           options={
             Array [
               Object {
-                "label": <div>
+                "data": <div>
                   Sample community
                 </div>,
+                "label": "Sample community",
                 "name": "Sample community",
                 "value": "123",
               },
@@ -309,70 +178,8 @@ exports[`Matches shallow shapshot 2`] = `
           }
           selectRef={[Function]}
           simpleValue={true}
-          value="1"
+          value=""
           valueRenderer={[Function]}
-        />
-      </div>
-    </div>
-    <div
-      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
-    >
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
-      >
-        <label
-          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
-          htmlFor="track-select"
-        >
-          Subtrack
-          <input
-            type="hidden"
-          />
-        </label>
-        <Select
-          id="track-select"
-          multi={true}
-          onChange={[Function]}
-          options={Array []}
-          selectRef={[Function]}
-          simpleValue={true}
-          value={null}
-        />
-      </div>
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
-      >
-        <label
-          htmlFor="date-range-picker-one-month"
-        >
-          Date range
-          <input
-            type="hidden"
-          />
-        </label>
-        <DateRangePicker
-          id="date-range-picker-one-month"
-          numberOfMonths={1}
-          onDatesChange={[Function]}
-          readOnly={true}
-        />
-      </div>
-      <div
-        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
-      >
-        <label
-          htmlFor="date-range-picker-two-months"
-        >
-          Date range
-          <input
-            type="hidden"
-          />
-        </label>
-        <DateRangePicker
-          id="date-range-picker-two-months"
-          numberOfMonths={2}
-          onDatesChange={[Function]}
-          readOnly={true}
         />
       </div>
     </div>
@@ -402,29 +209,6 @@ exports[`Matches shallow shapshot 2`] = `
       type="button"
     >
       Clear filters
-    </ThemedButton>
-    <ThemedButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={true}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={[MockFunction]}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size="sm"
-      theme={
-        Object {
-          "button": undefined,
-        }
-      }
-      themePriority="adhoc-context-default"
-      to={null}
-      type="button"
-    >
-      Save filter
     </ThemedButton>
   </div>
 </div>

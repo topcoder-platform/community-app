@@ -1,0 +1,12 @@
+@import "~styles/mixins";
+
+.container {
+  background: lightgray;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  h1 {
+    margin: 50px;
+  }
+}

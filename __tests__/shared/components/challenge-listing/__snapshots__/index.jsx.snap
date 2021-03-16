@@ -6,68 +6,23 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   id="challengeFilterContainer"
 >
   <Connect(Container)
-    challenges={Array []}
-    communityName={null}
-    isAuth={false}
-    isCardTypeSet="Challenges"
-    setCardType={[Function]}
+    setFilterState={[MockFunction]}
   />
-  <div
-    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF src-shared-components-challenge-listing-___style__hidden___4C3Up"
-  >
-    <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
-    />
-    <div
-      className="src-shared-components-challenge-listing-___style__challenges-container___1invl src-shared-components-challenge-listing-___style__SRMs-container___1Kmjf"
-    >
-      <div>
-        <SRMCard
-          category="now"
-          srmChallenge={null}
-        />
-      </div>
-      <div>
-        <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
-        >
-          Upcoming SRMs
-        </div>
-      </div>
-      <div>
-        <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
-        >
-          Past SRMs
-        </div>
-        <SRMCard
-          category="past"
-          srmChallenge={null}
-        />
-      </div>
-    </div>
-    <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
-    >
-      <Sticky
-        activeClass="active"
-        bottomBoundary={0}
-        enableTransforms={true}
-        enabled={true}
-        onStateChange={null}
-        releasedClass="released"
-        shouldFreeze={[Function]}
-        top={20}
-      />
-    </div>
-  </div>
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >
     <div
       className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
     >
-      <Connect(SidebarContainer) />
+      <Connect(SidebarContainer)
+        expanding={false}
+      />
+      <Connect(Container)
+        communityName={null}
+        hidden={true}
+        isAuth={false}
+        setFilterState={[MockFunction]}
+      />
     </div>
     <Connect(Listing)
       activeBucket="abc"
@@ -76,12 +31,16 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       communityName={null}
       expandTag={null}
       expandedTags={Array []}
-      extraBucket={null}
+      expanding={false}
       filterState={Object {}}
       loadMoreActive={null}
+      loadMoreAll={null}
+      loadMoreMy={null}
+      loadMoreMyPast={null}
+      loadMoreOnGoing={null}
+      loadMoreOpenForRegistration={null}
       loadMorePast={null}
       loadMoreReviewOpportunities={null}
-      loadingActiveChallenges={false}
       loadingPastChallenges={false}
       newChallengeDetails={false}
       openChallengesInNewTabs={false}
@@ -93,25 +52,6 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       setSort={[MockFunction]}
       sorts={Object {}}
     />
-    <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
-    >
-      <Sticky
-        activeClass="active"
-        bottomBoundary="#challengeFilterContainer"
-        enableTransforms={true}
-        enabled={true}
-        onStateChange={null}
-        releasedClass="released"
-        shouldFreeze={[Function]}
-        top={20}
-      >
-        <Connect(SidebarContainer)
-          extraBucket={null}
-          hideTcLinksInFooter={false}
-        />
-      </Sticky>
-    </div>
   </div>
 </div>
 `;
@@ -122,120 +62,52 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   id="challengeFilterContainer"
 >
   <Connect(Container)
-    challenges={Array []}
-    communityName={null}
-    isAuth={false}
-    isCardTypeSet="Challenges"
-    setCardType={[Function]}
+    setFilterState={[MockFunction]}
   />
-  <div
-    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF src-shared-components-challenge-listing-___style__hidden___4C3Up"
-  >
-    <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
-    />
-    <div
-      className="src-shared-components-challenge-listing-___style__challenges-container___1invl src-shared-components-challenge-listing-___style__SRMs-container___1Kmjf"
-    >
-      <div>
-        <SRMCard
-          category="now"
-          srmChallenge={null}
-        />
-      </div>
-      <div>
-        <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
-        >
-          Upcoming SRMs
-        </div>
-      </div>
-      <div>
-        <div
-          className="src-shared-components-challenge-listing-___style__title___2KPNT"
-        >
-          Past SRMs
-        </div>
-        <SRMCard
-          category="past"
-          srmChallenge={null}
-        />
-      </div>
-    </div>
-    <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
-    >
-      <Sticky
-        activeClass="active"
-        bottomBoundary={0}
-        enableTransforms={true}
-        enabled={true}
-        onStateChange={null}
-        releasedClass="released"
-        shouldFreeze={[Function]}
-        top={20}
-      />
-    </div>
-  </div>
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >
     <div
-      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
-    >
-      <Connect(SidebarContainer) />
-    </div>
-    <div
-      className="src-shared-components-challenge-listing-___style__challenge-cards-container___37tl8"
-    >
-      <div
-        className="src-shared-components-challenge-listing-___style__ChallengeCardExamples___EHRPE"
-      >
-        <ChallengeCardPlaceholder
-          id={0}
-        />
-        <ChallengeCardPlaceholder
-          id={1}
-        />
-        <ChallengeCardPlaceholder
-          id={2}
-        />
-        <ChallengeCardPlaceholder
-          id={3}
-        />
-        <ChallengeCardPlaceholder
-          id={4}
-        />
-        <ChallengeCardPlaceholder
-          id={5}
-        />
-        <ChallengeCardPlaceholder
-          id={6}
-        />
-        <ChallengeCardPlaceholder
-          id={7}
-        />
-      </div>
-    </div>
-    <div
       className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
     >
-      <Sticky
-        activeClass="active"
-        bottomBoundary="#challengeFilterContainer"
-        enableTransforms={true}
-        enabled={true}
-        onStateChange={null}
-        releasedClass="released"
-        shouldFreeze={[Function]}
-        top={20}
-      >
-        <Connect(SidebarContainer)
-          extraBucket={null}
-          hideTcLinksInFooter={false}
-        />
-      </Sticky>
+      <Connect(SidebarContainer)
+        expanding={false}
+      />
+      <Connect(Container)
+        communityName={null}
+        hidden={false}
+        isAuth={false}
+        setFilterState={[MockFunction]}
+      />
     </div>
+    <Connect(Listing)
+      activeBucket="abc"
+      auth={Object {}}
+      challenges={Array []}
+      communityName={null}
+      expandTag={null}
+      expandedTags={Array []}
+      expanding={false}
+      filterState={Object {}}
+      loadMoreActive={null}
+      loadMoreAll={null}
+      loadMoreMy={null}
+      loadMoreMyPast={null}
+      loadMoreOnGoing={null}
+      loadMoreOpenForRegistration={null}
+      loadMorePast={null}
+      loadMoreReviewOpportunities={null}
+      loadingPastChallenges={false}
+      newChallengeDetails={false}
+      openChallengesInNewTabs={false}
+      preListingMsg={null}
+      prizeMode="money-usd"
+      reviewOpportunities={Array []}
+      selectBucket={[MockFunction]}
+      setFilterState={[MockFunction]}
+      setSort={[MockFunction]}
+      sorts={Object {}}
+    />
   </div>
 </div>
 `;

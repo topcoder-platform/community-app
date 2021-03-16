@@ -170,7 +170,7 @@ class FilestackFilePicker extends React.Component {
           {
             mandatory && (
             <p styleName="mandatory">
-*mandatory
+              *mandatory
             </p>
             )
           }
@@ -181,17 +181,17 @@ class FilestackFilePicker extends React.Component {
           {
             !fileName && !isChallengeBelongToTopgearGroup && (
             <p>
-Drag and drop your
+              Drag and drop your
               {fileExtensions.join(' or ')}
               {' '}
-file here.
+              file here.
             </p>
             )
           }
           {
             !fileName && !isChallengeBelongToTopgearGroup && (
             <span>
-or
+              or
             </span>
             )
           }
@@ -205,9 +205,9 @@ or
           {
             _.isNumber(uploadProgress) && uploadProgress < 100 ? (
               <p styleName="file-name">
-Uploading:
+                Uploading:
                 {uploadProgress}
-%
+                %
               </p>
             ) : null
           }
@@ -301,9 +301,10 @@ Uploading:
                 }).then(file => this.onSuccess(file, path));
                 return undefined;
               }}
-              role="button"
+              role="tab"
               styleName="drop-zone-mask"
               tabIndex={0}
+              aria-label="Select file to upload"
             />
           )}
         </div>
@@ -333,7 +334,7 @@ FilestackFilePicker.defaultProps = {
 FilestackFilePicker.propTypes = {
   error: PT.string,
   userId: PT.string.isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,

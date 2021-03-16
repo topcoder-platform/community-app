@@ -27,7 +27,7 @@ function Checkpoints(props) {
                 document
                   .getElementsByClassName(style['challenge-checkpoint-winners'])[index]
                   .scrollIntoView(true);
-                toggleCheckpointFeedback(index, true);
+                toggleCheckpointFeedback(item.submissionId, true);
               }}
               type="button"
             >
@@ -39,7 +39,7 @@ function Checkpoints(props) {
       </div>
       <div styleName="challenge-checkpoint-detail">
         <h2>
-Checkpoint Winners & General Feedback
+          Checkpoint Winners & General Feedback
         </h2>
         <p
           dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
@@ -47,22 +47,22 @@ Checkpoint Winners & General Feedback
           }}
         />
         {
-          checkpointResults && checkpointResults.map((item, index) => (
+          checkpointResults && checkpointResults.map(item => (
             <div key={item.submissionId} styleName="challenge-checkpoint-winners">
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  toggleCheckpointFeedback(index);
+                  toggleCheckpointFeedback(item.submissionId, !item.expanded);
                 }}
                 styleName="challenge-checkpoint-submission"
                 type="button"
               >
                 <span>
                   <span styleName="feedback-text">
-Feedback
+                    Feedback
                     {' '}
                   </span>
-#
+                  #
                   {item.submissionId}
                 </span>
                 <span styleName="challenge-checkpoint-expander">

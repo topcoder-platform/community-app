@@ -9,11 +9,11 @@ import settingsActions from 'actions/page/ui/settings';
 const TABS = {
   PROFILE: {
     BASIC: 'basic info',
-    // LANGUAGE: 'language',
-    SKILL: 'skills',
-    // EDUCATION: 'education',
-    // WORK: 'work',
+    LANGUAGE: 'language',
+    EDUCATION: 'education',
+    WORK: 'work',
     // ORGANIZATION: 'organization',
+    SKILL: 'skills',
     HOBBY: 'hobbies',
     COMMUNITY: 'communities',
   },

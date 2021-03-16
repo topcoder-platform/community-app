@@ -17,41 +17,102 @@
 
 import React from 'react';
 import PT from 'prop-types';
-
+// import _ from 'lodash';
+import { BUCKETS, isPastBucket } from 'utils/challenge-listing/buckets';
 import BucketSelector from './BucketSelector';
-import FiltersEditor from './FiltersEditor';
-import Footer from './Footer';
+// import FiltersEditor from './FiltersEditor';
+// import Footer from './Footer';
 import './style.scss';
 
 export default function SideBarFilters({
   activeBucket,
-  activeSavedFilter,
-  buckets,
-  challenges,
-  changeFilterName,
-  communityFilter,
-  deleteSavedFilter,
+  // activeSavedFilter,
+  // buckets,
+  // challenges,
+  // changeFilterName,
+  // communityFilter,
+  // deleteSavedFilter,
   disabled,
-  dragSavedFilterMove,
-  dragSavedFilterStart,
-  dragState,
-  editSavedFiltersMode,
-  extraBucket,
-  filterState,
-  hideTcLinksInFooter,
+  expanding,
+  // dragSavedFilterMove,
+  // dragSavedFilterStart,
+  // dragState,
+  // editSavedFiltersMode,
+  // extraBucket,
+  // filterState,
+  // hideTcLinksInFooter,
   isAuth,
-  resetFilterName,
-  savedFilters,
+  // resetFilterName,
+  // savedFilters,
   selectBucket,
-  selectSavedFilter,
-  setEditSavedFiltersMode,
-  updateAllSavedFilters,
-  updateSavedFilter,
+  // selectSavedFilter,
+  // setEditSavedFiltersMode,
+  // updateAllSavedFilters,
+  // updateSavedFilter,
+  // setFilter,
+  previousBucketOfActiveTab,
+  previousBucketOfPastChallengesTab,
+  setPreviousBucketOfActiveTab,
+  setPreviousBucketOfPastChallengesTab,
 }) {
+  const past = isPastBucket(activeBucket);
+
+  const onActiveClick = () => {
+    if (!past) {
+      return;
+    }
+    setPreviousBucketOfPastChallengesTab(activeBucket);
+    if (previousBucketOfActiveTab) {
+      selectBucket(previousBucketOfActiveTab);
+    } else {
+      selectBucket(BUCKETS.OPEN_FOR_REGISTRATION);
+    }
+  };
+
+  const onPastChallengesClick = () => {
+    if (past) {
+      return;
+    }
+    setPreviousBucketOfActiveTab(activeBucket);
+    if (previousBucketOfPastChallengesTab) {
+      selectBucket(previousBucketOfPastChallengesTab);
+    } else {
+      selectBucket(BUCKETS.ALL_PAST);
+    }
+  };
+
   return (
     <div styleName="SideBarFilters">
+      <ul styleName="StatusBar">
+        <li
+          styleName={`Status ${!past ? 'active' : ''}`}
+          onClick={onActiveClick}
+          onKeyDown={(e) => {
+            if (e.key !== 'Enter') {
+              return;
+            }
+            onActiveClick();
+          }}
+          role="presentation"
+        >
+          Active
+        </li>
+        <li
+          styleName={`Status ${past ? 'active' : ''}`}
+          onClick={onPastChallengesClick}
+          onKeyDown={(e) => {
+            if (e.key !== 'Enter') {
+              return;
+            }
+            onPastChallengesClick();
+          }}
+          role="presentation"
+        >
+          Past Challenges
+        </li>
+      </ul>
       <div styleName="FilterBox">
-        { editSavedFiltersMode ? (
+        {/* { editSavedFiltersMode ? (
           <FiltersEditor
             changeFilterName={changeFilterName}
             deleteSavedFilter={deleteSavedFilter}
@@ -64,62 +125,74 @@ export default function SideBarFilters({
             updateAllSavedFilters={updateAllSavedFilters}
             updateSavedFilter={updateSavedFilter}
           />
-        ) : (
-          <BucketSelector
-            activeBucket={activeBucket}
-            activeSavedFilter={activeSavedFilter}
-            buckets={buckets}
-            challenges={challenges}
-            communityFilter={communityFilter}
-            disabled={disabled}
-            extraBucket={extraBucket}
-            filterState={filterState}
-            isAuth={isAuth}
-            savedFilters={savedFilters}
-            selectBucket={selectBucket}
-            selectSavedFilter={selectSavedFilter}
-            setEditSavedFiltersMode={setEditSavedFiltersMode}
-          />
-        )}
+        ) : ( */}
+        <BucketSelector
+          activeBucket={activeBucket}
+          // activeSavedFilter={activeSavedFilter}
+          // buckets={buckets}
+          // challenges={challenges}
+          // communityFilter={communityFilter}
+          disabled={disabled}
+          expanding={expanding}
+          // extraBucket={extraBucket}
+          // filterState={filterState}
+          isAuth={isAuth}
+          // savedFilters={savedFilters}
+          selectBucket={selectBucket}
+          // selectSavedFilter={selectSavedFilter}
+          // setEditSavedFiltersMode={setEditSavedFiltersMode}
+          past={past}
+        />
+        {/* )} */}
       </div>
-      <Footer hideTcLinksInFooter={hideTcLinksInFooter} />
+      {/* <Footer hideTcLinksInFooter /> */}
     </div>
   );
 }
 
 SideBarFilters.defaultProps = {
-  communityFilter: null,
+  // communityFilter: null,
   disabled: false,
-  dragState: {},
-  extraBucket: null,
-  hideTcLinksInFooter: false,
+  // dragState: {},
+  // extraBucket: null,
+  // hideTcLinksInFooter: false,
   isAuth: false,
+  expanding: false,
+  previousBucketOfActiveTab: null,
+  previousBucketOfPastChallengesTab: null,
+  setPreviousBucketOfActiveTab: () => {},
+  setPreviousBucketOfPastChallengesTab: () => {},
 };
 
 SideBarFilters.propTypes = {
   activeBucket: PT.string.isRequired,
-  activeSavedFilter: PT.number.isRequired,
-  buckets: PT.shape().isRequired,
-  challenges: PT.arrayOf(PT.shape({
-    registrationOpen: PT.string.isRequired,
-  })).isRequired,
-  changeFilterName: PT.func.isRequired,
-  communityFilter: PT.shape(),
-  deleteSavedFilter: PT.func.isRequired,
+  expanding: PT.bool,
+  // activeSavedFilter: PT.number.isRequired,
+  // buckets: PT.shape().isRequired,
+  // challenges: PT.arrayOf(PT.shape({
+  // })).isRequired,
+  // changeFilterName: PT.func.isRequired,
+  // communityFilter: PT.shape(),
+  // deleteSavedFilter: PT.func.isRequired,
   disabled: PT.bool,
-  dragState: PT.shape(),
-  dragSavedFilterMove: PT.func.isRequired,
-  dragSavedFilterStart: PT.func.isRequired,
-  editSavedFiltersMode: PT.bool.isRequired,
-  extraBucket: PT.string,
-  filterState: PT.shape().isRequired,
-  hideTcLinksInFooter: PT.bool,
+  // dragState: PT.shape(),
+  // dragSavedFilterMove: PT.func.isRequired,
+  // dragSavedFilterStart: PT.func.isRequired,
+  // editSavedFiltersMode: PT.bool.isRequired,
+  // extraBucket: PT.string,
+  // filterState: PT.shape().isRequired,
+  // hideTcLinksInFooter: PT.bool,
   isAuth: PT.bool,
-  resetFilterName: PT.func.isRequired,
-  savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  // resetFilterName: PT.func.isRequired,
+  // savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
-  selectSavedFilter: PT.func.isRequired,
-  setEditSavedFiltersMode: PT.func.isRequired,
-  updateAllSavedFilters: PT.func.isRequired,
-  updateSavedFilter: PT.func.isRequired,
+  // selectSavedFilter: PT.func.isRequired,
+  // setEditSavedFiltersMode: PT.func.isRequired,
+  // updateAllSavedFilters: PT.func.isRequired,
+  // updateSavedFilter: PT.func.isRequired,
+  // setFilter: PT.func.isRequired,
+  previousBucketOfActiveTab: PT.string,
+  previousBucketOfPastChallengesTab: PT.string,
+  setPreviousBucketOfActiveTab: PT.func,
+  setPreviousBucketOfPastChallengesTab: PT.func,
 };

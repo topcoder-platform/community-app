@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 62 (101010) - https://sketch.com -->
+    <desc>Created with sketchtool.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-fb" fill="#AAAAAA">
+            <path d="M12,2 C17.514,2 22,6.486 22,12 C22,17.514 17.514,22 12,22 C6.486,22 2,17.514 2,12 C2,6.486 6.486,2 12,2 Z M12,0 C5.373,0 0,5.373 0,12 C0,18.627 5.373,24 12,24 C18.627,24 24,18.627 24,12 C24,5.373 18.627,0 12,0 Z M10,10 L8,10 L8,12 L10,12 L10,18 L13,18 L13,12 L14.82,12 L15,10 L13,10 L13,9.167 C13,8.689 13.096,8.5 13.558,8.5 L15,8.5 L15,6 L12.596,6 C10.798,6 10,6.792 10,8.308 L10,10 Z"></path>
+        </g>
+    </g>
+</svg>

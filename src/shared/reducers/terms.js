@@ -154,7 +154,7 @@ function onAgreeTermDone(state, action) {
   }
   if (action.payload.success) {
     const terms = _.cloneDeep(state.terms);
-    const term = _.find(terms, ['termsOfUseId', action.payload.termId]);
+    const term = _.find(terms, ['id', action.payload.termId]);
     term.agreed = true;
     const selectedTerm = _.find(terms, t => !t.agreed);
     return {
@@ -216,7 +216,7 @@ function onCloseTermsModal(state, { payload }) {
  */
 function onSignDocu(state, action) {
   const terms = _.cloneDeep(state.terms);
-  const term = _.find(terms, ['termsOfUseId', action.payload]);
+  const term = _.find(terms, ['id', action.payload]);
   term.agreed = true;
   const selectedTerm = _.find(terms, t => !t.agreed);
   return {
@@ -322,8 +322,8 @@ export function factory(req) {
     let entity;
 
     // if it's challenge details page
-    if (req.url.match(/^\/challenges\/\d+/)) {
-      const challengeId = req.url.match(/\d+/)[0];
+    if (req.url.match(/^\/challenges\/([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/)) {
+      const challengeId = req.url.match(/([\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}|\d{5,8})/)[0];
       entity = { type: 'challenge', id: challengeId };
     }
 

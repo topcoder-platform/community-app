@@ -1,0 +1,109 @@
+/* General banner styling. */
+
+@import "~styles/mixins";
+$contentWrapperPadding: 0;
+
+.container {
+  background-position: 50% 50%;
+  background-size: cover;
+  overflow: hidden;
+  height: auto;
+  display: flex;
+  justify-content: center;
+
+  .contentWrapper {
+    background: none;
+    opacity: 1;
+    position: static;
+    transform: none;
+    padding: 120px $contentWrapperPadding;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include xs-to-md {
+      padding: 60px 15px;
+    }
+
+    width: $screen-lg;
+
+    .content {
+      @include roboto-regular;
+
+      color: white;
+
+      h1,
+      h2,
+      h3 {
+        font-weight: 300;
+        margin: 30px 0;
+      }
+
+      h1 {
+        font-size: 42px;
+        font-weight: 300;
+        line-height: 50px;
+      }
+
+      h2 {
+        font-size: 36px;
+        font-weight: 300;
+        line-height: 45px;
+      }
+
+      h3 {
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 35px;
+      }
+
+      h4 {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 30px;
+      }
+
+      h5 {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 25px;
+      }
+
+      h6 {
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 25px;
+      }
+
+      p {
+        font-size: 15px;
+        margin-bottom: 1em;
+        line-height: 25px;
+
+        strong {
+          font-weight: bold;
+        }
+
+        em {
+          font-style: italic;
+        }
+      }
+
+      ul {
+        list-style: disc;
+        margin-bottom: 1em;
+        margin-left: 20px;
+      }
+
+      input {
+        max-width: 350px;
+        margin-right: 5px;
+      }
+
+      button {
+        margin-left: 0;
+      }
+    }
+  }
+}

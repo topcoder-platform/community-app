@@ -21,20 +21,26 @@ export default function Prizes({ pointPrizes, prizes }) {
         _.range(prizeLength).map((index) => {
           const rank = index + 1;
           const pair = [];
-          if (!_.isUndefined(prizes[index])) pair.push(prizes[index].toLocaleString());
+          const isPrizeIndexNotUndefined = !_.isUndefined(prizes[index])
+            && !_.isUndefined(prizes[index].value);
+          if (isPrizeIndexNotUndefined) pair.push(prizes[index].value.toLocaleString());
           if (!_.isUndefined(pointPrizes[index])) pair.push(`${pointPrizes[index]}pts`);
           return (
-            <div key={rank} styleName="prize-fill">
-              <div id={`rank${rank}`} styleName="prize-card">
-                <p styleName="prize-rank">
+            <div
+              styleName="prize-fill"
+              key={rank}
+            >
+              {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+              <div id={`rank${rank}`} tabIndex={0} styleName="prize-card" aria-label={`${rank}${getOrdinal(rank)} prize is ${!_.isUndefined(prizes[index]) ? '$' : ''}${pair.join(' + ')}`}>
+                <p styleName="prize-rank" aria-hidden="true">
                   {rank}
                   <span styleName="rank-ordinal">
                     {getOrdinal(rank)}
                   </span>
                 </p>
-                <p styleName="prize-money">
+                <p styleName="prize-money" aria-hidden="true">
                   {
-                    !_.isUndefined(prizes[index]) && (
+                    isPrizeIndexNotUndefined && (
                     <span styleName="prize-currency">
                       $
                     </span>
@@ -58,5 +64,5 @@ Prizes.defaultProps = {
 
 Prizes.propTypes = {
   pointPrizes: PT.arrayOf(PT.number),
-  prizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.shape()),
 };

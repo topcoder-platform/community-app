@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PT from 'prop-types';
-import { MetaTags } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 
 import { TABS } from 'actions/page/settings';
 
@@ -45,7 +45,7 @@ export default function Settings(props) {
   }
 
   return (
-    <div styleName="container" className="profile-settings">
+    <div styleName="container" className="profile-settings" role="presentation" onClick={() => {}}>
       <MetaTags
         title={`${title} | TopCoder`}
         description="Profile setting page for Topcoder member"

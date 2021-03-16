@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>UI Kit/Selects/Checkbox LG/selected Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-10.0%" y="-10.0%" width="120.0%" height="120.0%" filterUnits="objectBoundingBox" id="tc-edu-icon-checked-filter-2">
+            <feGaussianBlur stdDeviation="1" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.29 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <filter x="-15.9%" y="-7.3%" width="131.6%" height="144.8%" filterUnits="objectBoundingBox" id="tc-edu-icon-checked-filter-4">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.35 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="D02_6_Search-Result" transform="translate(-30.000000, -697.000000)">
+            <g id="Group-5" transform="translate(16.000000, 511.000000)">
+                <g id="UI-Kit/Selects/Checkbox-SM/selected" transform="translate(14.000000, 186.000000)">
+                    <g id="background">
+                        <path fill="#0AB88A" fill-rule="evenodd" d="M2,0 L13,0 C14.1045695,-1.18396092e-15 15,0.8954305 15,2 L15,13 C15,14.1045695 14.1045695,15 13,15 L2,15 C0.8954305,15 1.3527075e-16,14.1045695 0,13 L-2.22044605e-16,2 C-3.57315355e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="path-1"></path>
+                        <path fill="black" fill-opacity="1" filter="url(#tc-edu-icon-checked-filter-2)" d="M2,0 L13,0 C14.1045695,-1.18396092e-15 15,0.8954305 15,2 L15,13 C15,14.1045695 14.1045695,15 13,15 L2,15 C0.8954305,15 1.3527075e-16,14.1045695 0,13 L-2.22044605e-16,2 C-3.57315355e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z"></path>
+                    </g>
+                    <g id="Shape" fill-rule="nonzero">
+                        <path fill="black" fill-opacity="1" filter="url(#tc-edu-icon-checked-filter-4)" d="M6.5,8 L5.20710678,6.70710678 C4.81658249,6.31658249 4.18341751,6.31658249 3.79289322,6.70710678 L3.70710678,6.79289322 C3.31658249,7.18341751 3.31658249,7.81658249 3.70710678,8.20710678 L6.5,11 L12.2928932,5.20710678 C12.6834175,4.81658249 12.6834175,4.18341751 12.2928932,3.79289322 L12.2071068,3.70710678 C11.8165825,3.31658249 11.1834175,3.31658249 10.7928932,3.70710678 L6.5,8 Z"></path>
+                        <path fill="#FFFFFF" d="M6.5,8 L5.20710678,6.70710678 C4.81658249,6.31658249 4.18341751,6.31658249 3.79289322,6.70710678 L3.70710678,6.79289322 C3.31658249,7.18341751 3.31658249,7.81658249 3.70710678,8.20710678 L6.5,11 L12.2928932,5.20710678 C12.6834175,4.81658249 12.6834175,4.18341751 12.2928932,3.79289322 L12.2071068,3.70710678 C11.8165825,3.31658249 11.1834175,3.31658249 10.7928932,3.70710678 L6.5,8 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

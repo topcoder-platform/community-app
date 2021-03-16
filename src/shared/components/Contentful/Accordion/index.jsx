@@ -29,14 +29,22 @@ function AccordionItemsLoader(props) {
     theme,
   } = props;
 
+  const contentfulConfig = {
+    spaceName,
+    environment,
+    preview,
+  };
   return (
     <ContentfulLoader
       entryIds={ids}
-      preview={preview}
-      spaceName={spaceName}
-      environment={environment}
+      {...contentfulConfig}
       render={data => (
-        <Accordion title={title} description={description} theme={THEMES[theme]}>
+        <Accordion
+          title={title}
+          description={description}
+          theme={THEMES[theme]}
+          {...contentfulConfig}
+        >
           {
             ids.map(itemId => (
               <AccordionItem
@@ -46,7 +54,10 @@ function AccordionItemsLoader(props) {
                   || data.entries.items[itemId].fields.name
                  }
               >
-                <MarkdownRenderer markdown={data.entries.items[itemId].fields.text} />
+                <MarkdownRenderer
+                  markdown={data.entries.items[itemId].fields.text}
+                  {...contentfulConfig}
+                />
               </AccordionItem>
             ))
           }

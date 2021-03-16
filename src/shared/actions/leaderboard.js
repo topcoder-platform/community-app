@@ -1,8 +1,7 @@
+/* eslint-disable no-param-reassign */
 /**
  * Leaderboard actions.
  */
-
-/* global fetch */ /* eslint no-param-reassign: ["error", { "props": false }] */
 
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
@@ -34,17 +33,33 @@ function fetchLeaderboard(auth, apiUrl, id) {
     });
 }
 
+/**
+ * Prepare loading looker for TCO history modal
+ * @param {string} url the url to load data from
+ */
 function getTcoHistoryChallengesInit(url) {
   return _.toString(url);
 }
 
+/**
+ * Loads looker for TCO history modal
+ * @param {string} url the url to load data from
+ * @param {object} competitor the competitor data
+ */
 async function getTcoHistoryChallengesDone(url, competitor) {
   const res = await fetch(url)
     .then(response => response.json())
     .then(jsonResponse => ({
-      challenges: _.filter(jsonResponse, challenge => challenge.userid === competitor.userid),
+      challenges: _.filter(jsonResponse, challenge => (
+        challenge['member_profile_basic.user_id']
+          ? (challenge['member_profile_basic.user_id'] === competitor['member_profile_basic.user_id'])
+          : (challenge.userid === (competitor['member_profile_basic.user_id'] || competitor.userid))
+      )),
     }));
-  return res;
+  return {
+    url,
+    challenges: res.challenges,
+  };
 }
 
 export default createActions({

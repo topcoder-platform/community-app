@@ -1,0 +1,20 @@
+{
+  "challengeFilter": {
+    "events": ["tco21"]
+  },
+  "communityId": "tco21",
+  "communityName": "TCO21",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco/TCO21.svg",
+    "url": "https://tco21.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "3UBKZJ0qMHAkqrobue73NB"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco21"],
+  "description": "2021 Topcoder Open. The Ultimate Programming & Design Tournament",
+  "image": "tco21.jpg"
+}

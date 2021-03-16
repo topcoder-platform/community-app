@@ -28,7 +28,7 @@ class Wrapper extends React.Component {
       <Provider store={store}>
         <Section {...this.props}>
           <div>
-content
+            content
           </div>
         </Section>
       </Provider>

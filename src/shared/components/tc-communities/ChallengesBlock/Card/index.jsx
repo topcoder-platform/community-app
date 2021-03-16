@@ -7,6 +7,7 @@ import {
   DataScienceTrackTag,
   DesignTrackTag,
   DevelopmentTrackTag,
+  QATrackTag,
 } from 'topcoder-react-ui-kit';
 
 import { Link } from 'topcoder-react-utils';
@@ -24,19 +25,23 @@ export default function Card({
 }) {
   const {
     subTrack,
+    track,
   } = challenge;
 
   let TrackTag;
-  switch (challenge.track.toLowerCase()) {
+  switch (track.toLowerCase()) {
     case 'datasci':
-    case COMPETITION_TRACKS.DATA_SCIENCE:
+    case COMPETITION_TRACKS.DS:
       TrackTag = DataScienceTrackTag;
       break;
-    case COMPETITION_TRACKS.DESIGN:
+    case COMPETITION_TRACKS.DES:
       TrackTag = DesignTrackTag;
       break;
-    case COMPETITION_TRACKS.DEVELOP:
+    case COMPETITION_TRACKS.DEV:
       TrackTag = DevelopmentTrackTag;
+      break;
+    case COMPETITION_TRACKS.QA:
+      TrackTag = QATrackTag;
       break;
     default:
       throw new Error('Wrong competition track value');
@@ -98,6 +103,7 @@ Card.propTypes = {
     technologies: PT.string.isRequired,
     registrationStartDate: PT.string.isRequired,
     submissionEndDate: PT.string.isRequired,
+    subTrack: PT.string.isRequired,
     track: PT.string.isRequired,
   }).isRequired,
   setChallengeListingFilter: PT.func.isRequired,

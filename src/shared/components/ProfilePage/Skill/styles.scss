@@ -44,16 +44,27 @@
     }
   }
 
-  .name {
-    @include sofia-pro-light;
-
+  .name-wrapper {
     margin-top: 8px;
-    font-size: 12px;
-    color: $tc-gray-90;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    @media (min-width: 768px) {
-      font-size: 14px;
+    .name {
+      @include sofia-pro-light;
+
+      font-size: 12px;
+      color: $tc-gray-90;
+      text-align: center;
+
+      @media (min-width: 768px) {
+        font-size: 14px;
+      }
+    }
+
+    .verified-badge {
+      padding-left: 5px;
+      font-size: 0;
     }
   }
 }

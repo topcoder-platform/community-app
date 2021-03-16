@@ -1,11 +1,13 @@
 /**
  * Connects the Redux store to the Profile display components.
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
 import { actions } from 'topcoder-react-lib';
+import MetaTags from 'components/MetaTags';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
@@ -14,13 +16,11 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     const {
       handleParam,
-      profileForHandle,
       loadProfile,
+      meta,
     } = this.props;
 
-    if (handleParam !== profileForHandle) {
-      loadProfile(handleParam);
-    }
+    loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,10 +28,11 @@ class ProfileContainer extends React.Component {
       handleParam,
       profileForHandle,
       loadProfile,
+      meta,
     } = nextProps;
 
     if (handleParam !== profileForHandle) {
-      loadProfile(handleParam);
+      loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
     }
   }
 
@@ -39,6 +40,7 @@ class ProfileContainer extends React.Component {
     const {
       info,
       loadingError,
+      handleParam,
     } = this.props;
 
     if (loadingError) {
@@ -58,13 +60,24 @@ class ProfileContainer extends React.Component {
         return track2Ranking - track1Ranking;
       });
     }
+    const title = `${handleParam} | Community Profile | Topcoder`;
+    const description = `Meet Topcoder member ${handleParam} and view their skills and development and design activity. You can also see wins and tenure with Topcoder.`;
 
-    return info
-      ? (
-        <ProfilePage
-          {...this.props}
+    return (
+      <React.Fragment>
+        <MetaTags
+          description={description}
+          title={title}
         />
-      ) : <LoadingIndicator />;
+        {
+          info ? (
+            <ProfilePage
+              {...this.props}
+            />
+          ) : <LoadingIndicator />
+        }
+      </React.Fragment>
+    );
   }
 }
 
@@ -78,6 +91,7 @@ ProfileContainer.defaultProps = {
   profileForHandle: '',
   skills: null,
   stats: null,
+  meta: null,
 };
 
 ProfileContainer.propTypes = {
@@ -92,7 +106,9 @@ ProfileContainer.propTypes = {
   loadProfile: PT.func.isRequired,
   profileForHandle: PT.string,
   skills: PT.shape(),
-  stats: PT.shape(),
+  stats: PT.arrayOf(PT.shape()),
+  lookupData: PT.shape().isRequired,
+  meta: PT.shape(),
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -102,17 +118,20 @@ const mapStateToProps = (state, ownProps) => ({
   externalAccounts: state.profile.externalAccounts,
   externalLinks: state.profile.externalLinks,
   handleParam: ownProps.match.params.handle,
+  meta: ownProps.meta,
   info: state.profile.info,
   loadingError: state.profile.loadingError,
   profileForHandle: state.profile.profileForHandle,
   skills: state.profile.skills,
   stats: state.profile.stats,
+  lookupData: state.lookup,
 });
 
 function mapDispatchToProps(dispatch) {
   const a = actions.profile;
+  const lookupActions = actions.lookup;
   return {
-    loadProfile: (handle) => {
+    loadProfile: (handle, groupIds) => {
       dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
@@ -121,12 +140,14 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getInfoInit());
       dispatch(a.getSkillsInit());
       dispatch(a.getStatsInit());
-      dispatch(a.getAchievementsDone(handle));
+      dispatch(lookupActions.getCountriesInit());
+      dispatch(a.getAchievementsV3Done(handle));
       dispatch(a.getExternalAccountsDone(handle));
       dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
       dispatch(a.getSkillsDone(handle));
-      dispatch(a.getStatsDone(handle));
+      dispatch(a.getStatsDone(handle, groupIds));
+      dispatch(lookupActions.getCountriesDone());
     },
   };
 }

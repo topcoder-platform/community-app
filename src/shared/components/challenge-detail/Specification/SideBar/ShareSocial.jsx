@@ -5,6 +5,7 @@
 import React from 'react';
 
 import TwitterIcon from '../../../../../assets/images/social/icon_twitter.svg';
+import FacebookIcon from '../../../../../assets/images/social/icon_facebook.svg';
 import PrintIcon from '../../../../../assets/images/social/icon_print.svg';
 import EmailIcon from '../../../../../assets/images/social/icon_email.svg';
 import MoreIcon from '../../../../../assets/images/social/icon_plus.svg';
@@ -35,17 +36,15 @@ export default class ShareSocial extends React.Component {
           <a
             className="addthis_button_facebook"
             title="Facebook"
+            aria-label="Share via Facebook"
             href="#"
           >
-            <div styleName="facebook-icon">
-              <span>
-f
-              </span>
-            </div>
+            <FacebookIcon styleName="facebook-icon" />
           </a>
           <a
             className="addthis_button_twitter"
             title="Twitter"
+            aria-label="Share via Twitter"
             href="#"
           >
             <TwitterIcon />
@@ -53,6 +52,7 @@ f
           <a
             className="addthis_button_print"
             title="Print"
+            aria-label="Print this challenge"
             href="#"
           >
             <PrintIcon />
@@ -61,6 +61,7 @@ f
             className="addthis_button_email"
             target="_blank"
             title="Email"
+            aria-label="Email this challenge"
             href="#"
           >
             <EmailIcon />
@@ -68,6 +69,7 @@ f
           <a
             className="addthis_button_compact"
             href="#"
+            aria-label="More sharing options"
           >
             <MoreIcon />
           </a>

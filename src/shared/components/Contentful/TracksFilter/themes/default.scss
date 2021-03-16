@@ -1,0 +1,154 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+$green-color: #137d60;
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: column;
+  color: $text-black;
+  width: 100%;
+  margin-top: 16px;
+  border-top: 1px solid #e9e9e9;
+  padding-top: 21px;
+  background-color: #fff;
+
+  @include xs-to-sm {
+    border-top: none;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    margin: 0;
+  }
+}
+
+.is-mobile {
+  display: none !important;
+}
+
+.is-mobile-hidden {
+  display: flex;
+}
+
+.author-date-container {
+  display: flex;
+  margin-top: 31px;
+  margin-bottom: 57px;
+}
+
+.track-date-container {
+  margin-left: 20px;
+}
+
+.track-sortBy {
+  margin-left: 34px;
+  flex: 1;
+}
+
+.bottom {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: 0;
+
+  button {
+    @include roboto-bold;
+
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+  }
+}
+
+.btn-reset {
+  color: #229174;
+  border: 1px solid $green-color !important;
+  border-radius: 20px;
+  background: $tc-white !important;
+}
+
+.btn-apply {
+  color: $tc-white !important;
+  background: $green-color !important;
+  border-radius: 20px;
+  margin-left: 15px !important;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 21px;
+
+  span {
+    @include barlow-semi-bold;
+
+    font-size: 20px;
+    line-height: 24px;
+    text-transform: uppercase;
+  }
+
+  button {
+    background: $tc-white;
+  }
+}
+
+@include xs-to-sm {
+  .is-mobile {
+    display: flex !important;
+  }
+
+  .is-mobile-hidden {
+    display: none !important;
+  }
+
+  .container {
+    padding: 20px 20px 30px;
+    box-shadow: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    z-index: 999999;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .author-date-container {
+    flex-direction: column;
+  }
+
+  .track-author-container {
+    min-width: 250px;
+  }
+
+  .track-date-container {
+    margin: 31px 0;
+    flex: auto;
+  }
+
+  .track-sortBy {
+    margin-left: 0;
+  }
+}
+
+.clear-filter {
+  color: #229174;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 17.58px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  font-family: Roboto, sans-serif;
+}

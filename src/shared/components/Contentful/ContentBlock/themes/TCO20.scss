@@ -1,0 +1,64 @@
+@import "~styles/mixins";
+@import "~components/Contentful/default";
+
+.contentWrapper {
+  display: flex;
+  margin: 0 auto;
+  max-width: $screen-lg;
+  padding: 15px 0;
+  color: $tc-black;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.container {
+  align-content: center;
+  background: white;
+  padding: 10px 0;
+
+  &:nth-child(even) .contentWrapper {
+    flex-direction: row-reverse;
+
+    @include xs-to-sm {
+      flex-direction: column;
+    }
+  }
+}
+
+strong a {
+  font-weight: 600 !important;
+}
+
+.content {
+  flex: 1;
+  padding: 0;
+
+  @include xs-to-md {
+    padding: 15px;
+  }
+
+  @include roboto-regular;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $tco-black;
+  }
+
+  @include gui-kit-headers;
+  @include gui-kit-content;
+}
+
+.image {
+  flex: 1;
+  margin: 15px;
+
+  img {
+    width: 100%;
+  }
+}

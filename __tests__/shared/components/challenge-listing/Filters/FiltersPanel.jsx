@@ -15,9 +15,15 @@ const mockDatas = [{
     {
       communityId: '123',
       communityName: 'Sample community',
+      groupIds: ['123'],
     },
   ],
-  filterState: {},
+  challengeFilter: {
+    groupIds: ['123'],
+  },
+  filterState: {
+    groups: [],
+  },
   hidden: true,
   onSaveFilter,
   selectCommunity,
@@ -25,16 +31,22 @@ const mockDatas = [{
   setFilterState,
   setSearchText,
   validKeywords: ['key', 'word'],
-  validSubtracks: [{ name: 'sub', subTrack: 'sub' }, { name: 'track', subTrack: 'track' }],
+  validTypes: [{ name: 'sub', subTrack: 'sub' }, { name: 'track', subTrack: 'track' }],
   onClose,
 }, {
   communityFilters: [
     {
       communityId: '123',
       communityName: 'Sample community',
+      groupIds: ['123'],
     },
   ],
-  filterState: {},
+  challengeFilter: {
+    groupIds: ['123'],
+  },
+  filterState: {
+    groups: [],
+  },
   hidden: false,
   onSaveFilter,
   selectCommunity,
@@ -42,7 +54,7 @@ const mockDatas = [{
   setFilterState,
   setSearchText,
   validKeywords: [],
-  validSubtracks: [],
+  validTypes: [],
   onClose,
 }];
 

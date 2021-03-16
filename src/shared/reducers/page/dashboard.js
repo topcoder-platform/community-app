@@ -93,7 +93,7 @@ function create(state = {}) {
     [a.switchTab]: onSwitchTab,
   }, _.defaults(state, {
     challengeFilter: '',
-    tab: TABS.MY_ACTIVE_CHALLENGES,
+    tab: TABS.SRMS, // Temporary hide MY ACTIVE CHALLENGES - community-app#5004
     showAnnouncement: true,
     showChallengeFilter: false,
     xlBadge: '',

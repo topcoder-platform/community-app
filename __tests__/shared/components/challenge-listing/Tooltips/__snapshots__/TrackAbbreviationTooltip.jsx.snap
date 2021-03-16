@@ -6,11 +6,17 @@ exports[`Matches shallow shapshot 1`] = `
   className="track-abbreviation-tooltip"
   content={
     <Tip
-      subTrack="F2F"
-      track="DEVELOP"
+      track="Development"
+      type={
+        Object {
+          "abbreviation": "F2F",
+          "name": "First2Finish",
+        }
+      }
     />
   }
   defaultVisible={false}
+  id=""
   onTooltipHover={[Function]}
   placeArrow={[Function]}
   position="topLeft"
@@ -35,11 +41,17 @@ exports[`Matches shallow shapshot 2`] = `
   className="track-abbreviation-tooltip"
   content={
     <Tip
-      subTrack="CODE"
-      track="DEVELOP"
+      track="Design"
+      type={
+        Object {
+          "abbreviation": "CH",
+          "name": "Challenge",
+        }
+      }
     />
   }
   defaultVisible={false}
+  id=""
   onTooltipHover={[Function]}
   placeArrow={[Function]}
   position="topLeft"

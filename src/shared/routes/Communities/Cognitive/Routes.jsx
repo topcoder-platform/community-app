@@ -16,12 +16,15 @@ import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
-
+import Profile from 'routes/Profile';
+import ProfileStats from 'routes/ProfileStats';
+import Settings from 'routes/Settings';
 import socialImage from 'assets/images/communities/cognitive/social.jpg';
 
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
-import { config, MetaTags } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
+import MetaTags from 'components/MetaTags';
 
 export default function Cognitive({ base, member, meta }) {
   return (
@@ -38,6 +41,7 @@ export default function Cognitive({ base, member, meta }) {
           <Header
             baseUrl={base}
             pageId={match.params.pageId || 'home'}
+            logoutRedirect={config.URL.COMMUNITIES.COGNITIVE}
           />
           <Switch>
             <Route
@@ -73,7 +77,7 @@ export default function Cognitive({ base, member, meta }) {
                 communityId: meta.communityId,
               })}
               exact
-              path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})`}
+              path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})`}
             />
             <Route
               component={routeProps => Submission({
@@ -81,7 +85,7 @@ export default function Cognitive({ base, member, meta }) {
                 challengesUrl: `${base}/challenges`,
               })}
               exact
-              path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/submit`}
+              path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/submit`}
             />
             <Route
               component={routeProps => SubmissionManagement({
@@ -89,12 +93,26 @@ export default function Cognitive({ base, member, meta }) {
                 challengesUrl: `${base}/challenges`,
               })}
               exact
-              path={`${base}/challenges/:challengeId(\\d{8}|\\d{5})/my-submissions`}
+              path={`${base}/challenges/:challengeId([\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}|\\d{5,8})/my-submissions`}
             />
             <Route
               component={TermsDetail}
               exact
               path={`${base}/challenges/terms/detail/:termId`}
+            />
+            <Route
+              render={props => <Profile {...props} meta={meta} />}
+              exact
+              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})`}
+            />
+            <Route
+              render={props => <ProfileStats {...props} meta={meta} />}
+              exact
+              path={`${base}/members/:handle([\\w\\-\\[\\].{}]{2,15})/details`}
+            />
+            <Route
+              component={() => <Settings base={`${base}/settings`} />}
+              path={`${base}/settings`}
             />
             <Route
               component={() => <Resources baseUrl={base} member={member} />}

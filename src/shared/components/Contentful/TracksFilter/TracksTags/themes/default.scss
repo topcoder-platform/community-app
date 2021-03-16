@@ -1,0 +1,78 @@
+@import "~styles/mixins";
+
+$text-black: #2a2a2a;
+
+.container {
+  @include roboto-regular;
+
+  display: flex;
+  flex-direction: row;
+  color: $text-black;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #aaa;
+  position: relative;
+  padding: 0 10px;
+  flex-shrink: 0;
+  align-items: flex-start;
+}
+
+.tag-container {
+  display: flex;
+  width: 100%;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.item {
+  @include min-ellipsis;
+
+  display: flex;
+  padding-left: 13px;
+  height: 26px;
+  align-items: center;
+  background: #e0e0e0;
+  border-radius: 5px;
+  margin-top: 6px;
+  margin-right: 5px;
+  max-width: 100%;
+  padding-bottom: 2px;
+
+  span {
+    @include min-ellipsis;
+
+    font-size: 12px;
+    line-height: normal;
+  }
+}
+
+.btn-close {
+  background: transparent;
+  height: 100%;
+  padding-left: 16px !important;
+  padding-right: 13px !important;
+
+  svg > path {
+    fill: #2a2a2a;
+  }
+}
+
+.tags-field {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  height: 30px !important;
+  width: auto !important;
+  flex: 1;
+  margin: 4px 0 !important;
+  padding: 0 10px;
+  min-width: 50px;
+  color: #2a2a2a !important;
+  font-size: 16px !important;
+
+  &::placeholder {
+    color: #aaa;
+    text-transform: none;
+    font-size: 14px;
+  }
+}

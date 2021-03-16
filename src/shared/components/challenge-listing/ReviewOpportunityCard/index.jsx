@@ -45,27 +45,34 @@ function ReviewOpportunityCard({
   expandTag,
   onTechTagClicked,
   opportunity,
+  challengeType,
 }) {
   const { challenge } = opportunity;
+  let tags = challenge.tags || challenge.technologies;
+  tags = tags.filter(tag => tag.trim().length);
+  const { track } = challenge.track;
   const start = moment(opportunity.startDate);
-
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
+        { /* START - DISABLED UNTIL REVIEW OPPORTUNITY RECEIVE UPDATE TO API V5 */
+        false
+        && (
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
-            track={challenge.track}
-            subTrack={challenge.subTrack || 'REVIEW_OPPORTUNITY'}
+            track={track}
+            type={challengeType}
           >
             <span>
               <TrackIcon
-                track={challenge.track}
-                subTrack={challenge.subTrack || 'REVIEW_OPPORTUNITY'}
-                isDataScience={challenge.technologies.includes('Data Science')}
+                track={track}
+                type={challengeType}
+                isDataScience={tags.includes('Data Science')}
               />
             </span>
           </TrackAbbreviationTooltip>
         </div>
+        ) /* END - DISABLED UNTIL REVIEW OPPORTUNITY RECEIVE UPDATE TO API V5 */ }
         <div styleName="challenge-details">
           <Link
             to={`${challengesUrl}/${challenge.id}`}
@@ -78,13 +85,15 @@ function ReviewOpportunityCard({
               {' '}
               {start.format('MMM DD')}
             </span>
-            <Tags
-              technologies={challenge.technologies.join(',')}
-              platforms={challenge.platforms.join(',')}
-              isExpanded={expandedTags.includes(challenge.id)}
-              expand={() => expandTag(challenge.id)}
-              onTechTagClicked={onTechTagClicked}
-            />
+            { tags.length > 0
+              && (
+              <Tags
+                tags={tags}
+                isExpanded={(expandedTags || []).includes(challenge.id)}
+                expand={() => expandTag(challenge.id)}
+                onTechTagClicked={onTechTagClicked}
+              />
+              ) }
           </div>
         </div>
       </div>
@@ -96,7 +105,7 @@ function ReviewOpportunityCard({
                 <div key={payment.role}>
                   {payment.role}
                   {' '}
-- $
+                  - $
                   {payment.payment.toLocaleString()}
                 </div>
               ))}
@@ -105,11 +114,11 @@ function ReviewOpportunityCard({
         >
           <div styleName="payment">
             <span>
-$
+              $
             </span>
             {_.sumBy(opportunity.payments, 'payment').toLocaleString()}
             <div styleName="payment-type">
-Payment
+              Payment
             </div>
           </div>
         </Tooltip>
@@ -143,14 +152,14 @@ Payment
           </Tooltip>
         </div>
         <Link
-          to={`/challenges/${challenge.id}/review-opportunities`}
+          to={`/challenges/${challenge.legacyId || challenge.id}/review-opportunities`}
           styleName="register-button"
         >
           <span>
             { start.isAfter() ? formatDuration(start.diff()) : `Late by ${formatDuration(-start.diff())}` }
           </span>
           <span styleName="to-register">
-to apply
+            to apply
           </span>
         </Link>
       </div>
@@ -172,6 +181,7 @@ ReviewOpportunityCard.propTypes = {
   challengesUrl: PT.string.isRequired,
   onTechTagClicked: PT.func,
   opportunity: PT.shape().isRequired,
+  challengeType: PT.shape().isRequired,
 };
 
 export default ReviewOpportunityCard;

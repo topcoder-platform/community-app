@@ -1,0 +1,93 @@
+// GUIKit colors
+$gui-kit-gray-30: #aaa;
+$gui-kit-gray-90: #2a2a2a;
+$gui-kit-level-2: #0ab88a;
+$gui-kit-level-5: #ef476f;
+$gui-kit-active-label: #229174;
+
+@mixin textInputLabel {
+  font-size: 12px;
+  line-height: 24px;
+  background-color: $tc-white;
+  position: absolute;
+  top: 0;
+  left: 8px;
+  padding: 0 8px;
+  color: $gui-kit-gray-30;
+  display: none;
+}
+
+@mixin textInput {
+  border: 1px solid $gui-kit-gray-30;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 15px;
+  margin-bottom: 0;
+  margin-top: 12px;
+  color: $gui-kit-gray-90;
+
+  &::-webkit-input-placeholder {
+    /* Edge */
+    color: $gui-kit-gray-30;
+    opacity: 1;
+    text-transform: none;
+    font-size: 16px;
+  }
+
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $gui-kit-gray-30;
+    opacity: 1;
+    text-transform: none;
+    font-size: 16px;
+  }
+
+  &::placeholder {
+    color: $gui-kit-gray-30;
+    opacity: 1;
+    text-transform: none;
+    font-size: 16px;
+  }
+
+  &:focus {
+    border: 1px solid $gui-kit-gray-30;
+    box-shadow: none;
+  }
+
+  &:focus-within {
+    label {
+      color: #229174;
+    }
+  }
+}
+
+@mixin textInputXs {
+  font-size: 14px;
+
+  &::-webkit-input-placeholder {
+    /* Edge */
+    font-size: 14px;
+  }
+
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 14px;
+  }
+
+  &::placeholder {
+    font-size: 14px;
+  }
+}
+
+@mixin errorMessage {
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 10px;
+  margin-left: 15px;
+  color: $gui-kit-gray-90;
+}
+
+@mixin errorMessageXs {
+  margin-top: 8px;
+  color: $gui-kit-gray-90;
+}

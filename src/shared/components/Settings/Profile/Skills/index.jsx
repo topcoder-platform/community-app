@@ -17,10 +17,13 @@ import requireContext from 'require-context';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import ConsentComponent from 'components/Settings/ConsentComponent';
+import ErrorMessage from 'components/Settings/ErrorMessage';
 import DevFallbackIcon from 'assets/images/profile/skills/id-develop.svg';
 import DesignFallbackIcon from 'assets/images/profile/skills/id-design.svg';
 import DataFallbackIcon from 'assets/images/profile/skills/id-data.svg';
+import VerifiedBadgeIcon from 'assets/images/verified-skill-badge.svg';
 import { isomorphy } from 'topcoder-react-utils';
+import ConfirmationModal from '../../CofirmationModal';
 
 import './styles.scss';
 
@@ -62,6 +65,7 @@ export default class Skills extends ConsentComponent {
   constructor(props) {
     super(props);
     this.onHandleAddSkill = this.onHandleAddSkill.bind(this);
+    this.onHandleDeleteSkill = this.onHandleDeleteSkill.bind(this);
     this.onAddSkill = this.onAddSkill.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.toggleSkill = this.toggleSkill.bind(this);
@@ -77,7 +81,6 @@ export default class Skills extends ConsentComponent {
     this.state = {
       formInvalid: false,
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
-      errorMessage: '',
       userSkills: [],
       selectedSkill: {},
       newSkill: {
@@ -91,6 +94,10 @@ export default class Skills extends ConsentComponent {
       totalPage: 0,
       isMobileView: false,
       screenSM: 767,
+      deleteSkill: null,
+      deleteSelector: null,
+      showConfirmation: false,
+      inputChanged: false,
     };
   }
 
@@ -115,7 +122,6 @@ export default class Skills extends ConsentComponent {
     this.setState({
       personalizationTrait,
       formInvalid: false,
-      errorMessage: '',
       userSkills: [],
       selectedSkill: {},
       newSkill: {
@@ -143,17 +149,16 @@ export default class Skills extends ConsentComponent {
    */
   onHandleAddSkill(e) {
     e.preventDefault();
+    this.setState({ inputChanged: true });
     const { selectedSkill } = this.state;
     if (!selectedSkill.name) {
       this.setState({
-        errorMessage: 'Skill can not be empty',
         formInvalid: true,
       });
       return;
     }
 
     this.setState({
-      errorMessage: '',
       formInvalid: false,
     });
     this.showConsent(this.onAddSkill.bind(this));
@@ -167,6 +172,7 @@ export default class Skills extends ConsentComponent {
     if (option) {
       this.setState({
         selectedSkill: option,
+        inputChanged: true,
       });
     }
   }
@@ -185,15 +191,14 @@ export default class Skills extends ConsentComponent {
 
     if (!selectedSkill.name) {
       this.setState({
-        errorMessage: 'Skill can not be empty',
         formInvalid: true,
       });
       return;
     }
 
     this.setState({
-      errorMessage: '',
       formInvalid: false,
+      inputChanged: false,
     });
 
     let category = '';
@@ -243,7 +248,6 @@ export default class Skills extends ConsentComponent {
     });
   }
 
-
   /*
     handle swipe in the skills section on mobile
    */
@@ -268,6 +272,14 @@ export default class Skills extends ConsentComponent {
           break;
       }
     }
+  }
+
+  onHandleDeleteSkill(skill, selector) {
+    this.setState({
+      showConfirmation: true,
+      deleteSkill: skill,
+      deleteSelector: selector,
+    });
   }
 
   /**
@@ -303,6 +315,7 @@ export default class Skills extends ConsentComponent {
           skill.id === arraySkill[i].tagId
         ));
         if (result && result.length > 0) {
+          result[0].sources = arraySkill[i].sources;
           filterUserSkills.push(result[0]);
           if (_.some(result[0].categories, category => category.toLowerCase() === 'design')) {
             design.push(result[0].name);
@@ -389,6 +402,12 @@ export default class Skills extends ConsentComponent {
     ));
     newSkill[category] = result.length > 0 ? result.slice() : [];
     deleteUserSkill(handle, skill, tokenV3);
+    this.setState({
+      deleteSkill: null,
+      deleteSelector: null,
+      showConfirmation: false,
+      inputChanged: false,
+    });
   };
 
   updatePredicate() {
@@ -425,15 +444,19 @@ export default class Skills extends ConsentComponent {
 
     const {
       userSkills,
-      formInvalid,
-      errorMessage,
       selectedSkill,
       currentIndex,
       isMobileView,
       totalPage,
       indexList,
+      showConfirmation,
+      deleteSkill,
+      deleteSelector,
+      inputChanged,
+      formInvalid,
     } = this.state;
 
+    const canModifyTrait = !this.props.traitRequestCount;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.SKILL ? '' : 'hide';
@@ -453,6 +476,20 @@ export default class Skills extends ConsentComponent {
       <div styleName={containerStyle}>
         {
           this.shouldRenderConsent() && this.renderConsent()
+        }
+        {
+          showConfirmation && (
+            <ConfirmationModal
+              onConfirm={() => this.showConsent(this.toggleSkill
+                .bind(this, deleteSkill, deleteSelector))}
+              onCancel={() => this.setState({
+                showConfirmation: false,
+                deleteSkill: null,
+                deleteSelector: null,
+              })}
+              name={deleteSelector.name}
+            />
+          )
         }
         <div styleName={`skill-container ${list.length > 0 ? '' : 'no-skills'}`}>
           <h1>
@@ -496,7 +533,7 @@ export default class Skills extends ConsentComponent {
                           <a
                             id={`skill-a-${skill.id}`}
                             role="link"
-                            onClick={e => this.toggleSkill(e, skill, `#skill-a-${skill.id}`)}
+                            onClick={e => this.onHandleDeleteSkill(e, skill, `#skill-a-${skill.id}`)}
                             styleName={linkStyle}
                           >
                             <div styleName="skill-icon">
@@ -504,10 +541,13 @@ export default class Skills extends ConsentComponent {
                               <div styleName="hidden-indicator" />
                               { imageExist(`id-${skill.id}.svg`) ? getImage(`id-${skill.id}.svg`) : <FallbackIcon /> }
                             </div>
+                          </a>
+                          <div styleName="name-wrapper">
                             <div styleName="name">
                               {_.truncate(skill.name, { length: 18, separator: ' ' })}
                             </div>
-                          </a>
+                            {_.includes(skill.sources, 'CHALLENGE') && <div styleName="verified-badge"><VerifiedBadgeIcon /></div> }
+                          </div>
                         </div>
                       </li>
                     );
@@ -560,17 +600,17 @@ export default class Skills extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                     value={selectedSkill.name}
+                    disabled={!canModifyTrait}
                   />
+                  <ErrorMessage invalid={_.isEmpty(selectedSkill.name) && formInvalid} addMargin message="Skill cannot be empty" />
                 </div>
               </div>
             </form>
-            <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-              { errorMessage }
-            </div>
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddSkill}
+                disabled={!canModifyTrait}
               >
                 Add skill to your list
               </PrimaryButton>
@@ -587,6 +627,7 @@ export default class Skills extends ConsentComponent {
                 <div styleName="field">
                   <label htmlFor="skills">
                     Skill
+                    <span styleName="text-required">* Required</span>
                     <input type="hidden" />
                   </label>
                   <Select
@@ -601,7 +642,9 @@ export default class Skills extends ConsentComponent {
                     valueKey="name"
                     clearable={false}
                     value={selectedSkill.name}
+                    disabled={!canModifyTrait}
                   />
+                  <ErrorMessage invalid={_.isEmpty(selectedSkill.name) && inputChanged} addMargin message="Skill cannot be empty" />
                 </div>
               </div>
             </form>
@@ -609,6 +652,7 @@ export default class Skills extends ConsentComponent {
               <PrimaryButton
                 styleName="complete"
                 onClick={this.onHandleAddSkill}
+                disabled={!canModifyTrait}
               >
                 Add Skill
               </PrimaryButton>
@@ -635,4 +679,5 @@ Skills.propTypes = {
   /* eslint-disable react/no-unused-prop-types */
   settingsUI: PT.shape().isRequired,
   userTraits: PT.array.isRequired,
+  traitRequestCount: PT.number.isRequired,
 };

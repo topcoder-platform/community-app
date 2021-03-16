@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "093e51f1-1207-41e7-89d6-4e71d5513a7d",
+		"name": "TC MM Broker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{base}}/v5/submissions?challengeId=30055457",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base}}/api/v5/submissions?challengeId=30055457",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v5",
+						"submissions"
+					],
+					"query": [
+						{
+							"key": "challengeId",
+							"value": "30055457"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{base}}/v5/submissions/8816e023-c824-4c3d-a4a7-0dca66333d3c",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base}}/api/v5/submissions/8816e023-c824-4c3d-a4a7-0dca66333d3c",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v5",
+						"submissions",
+						"8816e023-c824-4c3d-a4a7-0dca66333d3c"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
