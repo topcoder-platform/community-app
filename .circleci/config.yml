@@ -1,4 +1,11 @@
 version: 2.1
+parameters:
+    run_basedeployment:
+        default: true
+        type: boolean
+    run_smoketesting:
+        default: false
+        type: boolean
 
 defaults: &defaults
     docker:
@@ -37,7 +44,7 @@ build_docker_image: &build_docker_image
             ./build.sh
 jobs:
   # Build & Deploy against development backend
-  "build-dev":
+  deployDev:
     <<: *defaults
     steps:
       # Initialization.
@@ -65,7 +72,7 @@ jobs:
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
 
   # Build & Deploy against testing backend
-  "build-test":
+  deployTest:
     <<: *defaults
     steps:
       # Initialization.
@@ -93,7 +100,7 @@ jobs:
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
   
   # Build & Deploy against testing backend
-  "build-qa":
+  deployQA:
     <<: *defaults
     steps:
       # Initialization.
@@ -121,7 +128,7 @@ jobs:
             ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
 
   # Build & Deploy against prod api backend
-  "build-prod-beta":
+  deployBeta:
     <<: *defaults
     steps:
       # Initialization.
@@ -149,7 +156,7 @@ jobs:
             ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
   
   # Build & Deploy against prod api backend
-  "build-prod-staging":
+  deployStag:
     <<: *defaults
     steps:
       # Initialization.
@@ -177,7 +184,7 @@ jobs:
             ./master_deploy.sh -d ECS -e PROD -t latest -s staging_communityapp_taskvar, -i communityapp            
   
   # Build & Deploy against production backend
-  "build-prod":
+  deployProd:
     <<: *defaults
     steps:
       # Initialization.
@@ -204,7 +211,7 @@ jobs:
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
 
-  "smoke-test-on-staging":
+  Smoke-Testing-On-Staging:
     <<: *defaults
     steps: 
       # Initialization.
@@ -226,7 +233,7 @@ jobs:
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
 
-  "smoke-test-on-production":
+  Smoke-Testing-On-Production:
     <<: *defaults
     steps: 
       # Initialization.
@@ -268,9 +275,10 @@ jobs:
 workflows:
   version: 2
   build:
+    when: << pipeline.parameters.run_basedeployment >>
     jobs:
       # Development builds are executed on "new-develop" branch only.
-      - "build-dev":
+      - deployDev:
           context : org-global
           filters:
             branches:
@@ -278,62 +286,46 @@ workflows:
                 - develop
                 - feature/recommender-sync-develop
       # This is alternate dev env for parallel testing
-      - "build-test":
+      - deployTest:
           context : org-global      
           filters:
             branches:
               only:                
                 - route-redirects
       # This is alternate dev env for parallel testing
-      - "build-qa":
+      - deployQA:
           context : org-global      
           filters:
             branches:
               only:
                 - tco-leaderboard-fix
       # This is beta env for production soft releases
-      - "build-prod-beta":
+      - deployBeta:
           context : org-global
           filters:
             branches:
               only:
                 - free
       # This is stage env for production QA releases
-      - "build-prod-staging":
+      - deployStag:
           context : org-global         
           filters:
             branches:
               only:
                 - develop
                 - feature/recommender-sync-develop
-      - "approve-smoke-test-on-staging":
-          type: approval
-          requires:
-            - build-prod-staging
-      - "smoke-test-on-staging":
-          context : org-global
-          requires:
-            - approve-smoke-test-on-staging
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
       # That might trigger wrong branch to be 
       # deployed on the production
       # master branch.
-      - "build-prod":
+      - deployProd:
           context : org-global      
           filters:
             branches:
               only:
                 - master
-      - "approve-smoke-test-on-production":
-          type: approval
-          requires:
-            - build-prod
-      - "smoke-test-on-production":
-          context : org-global
-          requires:
-            - approve-smoke-test-on-production
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
@@ -341,3 +333,24 @@ workflows:
             branches:
               ignore:
                 - develop
+
+  Smoke Testing:
+    when: << pipeline.parameters.run_smoketesting >>
+    jobs:
+      - Hold [Smoke-Testing]:
+          type: approval
+      - Smoke-Testing-On-Staging:
+          requires:
+            - Hold [Smoke-Testing]
+          filters:
+            branches:
+              only:
+                - develop
+                - circleci-test-flow
+      - Smoke-Testing-On-Production:
+          requires:
+            - Hold [Smoke-Testing]
+          filters:
+            branches:
+              only:
+                - master
