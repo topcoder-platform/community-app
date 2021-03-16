@@ -15,6 +15,7 @@ import iconBlackSkills from 'assets/images/icon-skills.png';
 export default function JobListCard({
   job,
 }) {
+  const duration = getCustomField(job.custom_fields, 'Duration');
   let skills = getCustomField(job.custom_fields, 'Technologies Required');
   if (skills !== 'n/a') {
     skills = skills.split(',');
@@ -39,7 +40,7 @@ export default function JobListCard({
           <IconBlackPayment /> ${job.min_annual_salary} - {job.max_annual_salary} (USD) / {getSalaryType(job.salary_type)}
         </div>
         <div styleName="icon-val">
-          <IconBlackDuration /> {getCustomField(job.custom_fields, 'Duration')}
+          <IconBlackDuration /> {/^\d+$/.test(duration) ? `${duration} Weeks` : duration}
         </div>
         <div styleName="row-btn">
           <Link styleName="primary-green-md" to={`${config.GIGS_PAGES_PATH}/${job.slug}`}>VIEW DETAILS</Link>
