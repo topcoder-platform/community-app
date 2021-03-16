@@ -284,7 +284,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/recommender-sync-develop
+                - circleci-test-flow
       # This is alternate dev env for parallel testing
       - deployTest:
           context : org-global      
