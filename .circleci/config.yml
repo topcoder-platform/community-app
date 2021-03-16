@@ -317,7 +317,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/recommender-sync-develop
+                - circleci-test-flow
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
