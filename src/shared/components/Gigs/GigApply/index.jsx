@@ -27,7 +27,7 @@ export default function GigApply(props) {
   } = props;
   const retUrl = window.location.href;
 
-  console.log('GigApply', recruitProfile)
+  console.log('GigApply', recruitProfile, formErrors);
 
   return user ? (
     <div styleName="container">
@@ -94,8 +94,16 @@ export default function GigApply(props) {
             {
               !application && !applying ? (
                 <div styleName="form-wrap">
+                  {!_.isEmpty(recruitProfile)
+                  && (
+                  <p styleName="info-text">It looks like you have applied to a gig previously.
+                    Perfect! We have most of your information.
+                    Is there anything you would like to update to your Gig Work Profile?
+                  </p>
+                  )}
                   <h4>PERSONAL INFORMATION</h4>
-                  <p>Welcome to Topcoder Gigs! We’d like to get to know you.</p>
+                  {_.isEmpty(recruitProfile)
+                  && <p>Welcome to Topcoder Gigs! We’d like to get to know you.</p>}
                   <div styleName="form-section">
                     <div styleName="form-row">
                       <TextInput
@@ -153,7 +161,8 @@ export default function GigApply(props) {
                       />
                     </div>
                   </div>
-                  <h4>TOPCODER INFORMATION</h4>
+                  {_.isEmpty(recruitProfile) && <h4>TOPCODER INFORMATION</h4>}
+                  {_.isEmpty(recruitProfile) && (
                   <div styleName="form-section">
                     <div styleName="form-row">
                       <TextInput
@@ -174,8 +183,9 @@ export default function GigApply(props) {
                       />
                     </div>
                   </div>
+                  )}
                   <h4>SHARE YOUR EXPECTATIONS</h4>
-                  <p>Your Professional Work History</p>
+                  {_.isEmpty(recruitProfile) && <p>Your Professional Work History</p>}
                   <div styleName="form-section">
                     <div styleName="form-row">
                       <TextInput
@@ -214,6 +224,7 @@ export default function GigApply(props) {
                   <h4>FINAL QUESTIONS</h4>
                   <p>Please Complete the Following Questions</p>
                   <div styleName="form-section">
+                    {_.isEmpty(recruitProfile) && (
                     <Dropdown
                       placeholder="How did you find out about Topcoder Gig Work?"
                       label="How did you find out about Topcoder Gig Work?"
@@ -222,8 +233,9 @@ export default function GigApply(props) {
                       options={formData.reffereal}
                       required
                     />
+                    )}
                     <div styleName="input-bot-margin" />
-                    <p>Are you able to work during the specified timezone? (<strong>{`${getCustomField(job.custom_fields, 'Timezone')}`}</strong>)</p>
+                    <p>Are you able to work during the specified timezone? (<strong>{`${getCustomField(job.custom_fields, 'Timezone')}`}</strong>) *</p>
                     <RadioButton
                       onChange={val => onFormInputChange('timezoneConfirm', val)}
                       errorMsg={formErrors.timezoneConfirm}
@@ -231,7 +243,7 @@ export default function GigApply(props) {
                       size="lg"
                     />
                     <div styleName="last-input">
-                      <p>Are you ok to work with the duration of the gig? (<strong>{`${getCustomField(job.custom_fields, 'Duration')}`}</strong>)</p>
+                      <p>Are you ok to work with the duration of the gig? (<strong>{`${getCustomField(job.custom_fields, 'Duration')}`}</strong>) *</p>
                       <RadioButton
                         onChange={val => onFormInputChange('durationConfirm', val)}
                         errorMsg={formErrors.durationConfirm}

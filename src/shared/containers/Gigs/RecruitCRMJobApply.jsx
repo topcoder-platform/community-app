@@ -77,6 +77,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
   validateForm(prop) {
     this.setState((state) => {
       const { formData, formErrors } = state;
+      const { recruitProfile } = this.props;
       // Form validation happens here
       const requiredTextFields = [
         'fname', 'lname', 'city', 'phone', 'email',
@@ -110,8 +111,10 @@ class RecruitCRMJobApplyContainer extends React.Component {
       }
       // check for selected reffereal
       if (!prop || prop === 'reffereal') {
-        if (!_.find(formData.reffereal, { selected: true })) formErrors.reffereal = 'Please, select your reffereal';
-        else delete formErrors.reffereal;
+        if (!recruitProfile) {
+          if (!_.find(formData.reffereal, { selected: true })) formErrors.reffereal = 'Please, select your reffereal';
+          else delete formErrors.reffereal;
+        }
       }
       // check payExpectation to be a number
       if (!prop || prop === 'payExpectation') {
@@ -154,13 +157,23 @@ class RecruitCRMJobApplyContainer extends React.Component {
           }
         }
       }
-      // timezone & duration
-      if (!prop || prop === 'timezoneConfirm' || prop === 'durationConfirm') {
+      // timezone
+      if (!prop || prop === 'timezoneConfirm') {
         const a = _.find(formData[prop], { value: true });
         if (a) {
           if (a.label === 'No') formErrors[prop] = 'Sorry, we are only looking for candidates that can work the hours and duration listed';
           else delete formErrors[prop];
-        }
+        } else if (prop) formErrors[prop] = 'Required field';
+        else if (!prop && !_.find(formData.timezoneConfirm, { value: true })) formErrors.timezoneConfirm = 'Required field';
+      }
+      // duration
+      if (!prop || prop === 'durationConfirm') {
+        const a = _.find(formData[prop], { value: true });
+        if (a) {
+          if (a.label === 'No') formErrors[prop] = 'Sorry, we are only looking for candidates that can work the hours and duration listed';
+          else delete formErrors[prop];
+        } else if (prop) formErrors[prop] = 'Required field';
+        else if (!prop && !_.find(formData.durationConfirm, { value: true })) formErrors.durationConfirm = 'Required field';
       }
       // updated state
       return {
