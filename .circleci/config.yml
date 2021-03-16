@@ -4,7 +4,7 @@ parameters:
         default: true
         type: boolean
     run_smoketesting:
-        default: true
+        default: false
         type: boolean
 
 defaults: &defaults
@@ -181,7 +181,11 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s staging_communityapp_taskvar, -i communityapp            
+            ./master_deploy.sh -d ECS -e PROD -t latest -s staging_communityapp_taskvar, -i communityapp     
+            curl --request POST \
+            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
+            --header 'content-type: application/json' \
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_performancetesting":true , "run_basedeployment": false}}'       
   
   # Build & Deploy against production backend
   deployProd:
@@ -274,7 +278,7 @@ jobs:
 
 workflows:
   version: 2
-  build:
+  Build:
     when: << pipeline.parameters.run_basedeployment >>
     jobs:
       # Development builds are executed on "new-develop" branch only.
