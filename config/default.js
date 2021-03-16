@@ -111,6 +111,7 @@ module.exports = {
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
+    DISCUSSION_FORUM: 'https://discussions.topcoder.com',
     FORUMS_VANILLA: 'https://vanilla.topcoder-dev.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     SUBMISSION_REVIEW: 'https://submission-review.topcoder-dev.com',
