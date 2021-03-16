@@ -173,6 +173,7 @@ $tc-link-visited: #0c4e98;
       text-align: right;
       content: counter(item) ".";
       padding: 0 10px 0 0;
+      width: 32px;
     }
   }
 
@@ -356,6 +357,7 @@ $tc-link-visited: #0c4e98;
           text-align: right;
           content: counter(item) ".";
           padding: 0 10px 0 0;
+          width: 32px;
         }
       }
     }
