@@ -85,6 +85,32 @@ function onApplyForJobDone(state, { payload }) {
 }
 
 /**
+ * Handles recruit.applyForJobInit action.
+ * @param {Object} state Previous state.
+ */
+function onSearchCandidatesInit(state, { payload }) {
+  const r = {
+    ...state,
+  };
+  r[payload.email] = {};
+  return r;
+}
+
+/**
+ * Handles recruit.applyForJobDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action The action.
+ */
+function onSearchCandidatesDone(state, { payload }) {
+  const r = {
+    ...state,
+  };
+  const profile = _.isArray(payload.data) ? {} : payload.data.data[0];
+  r[payload.email].profile = profile;
+  return r;
+}
+
+/**
  * Creates recruitCRM reducer with the specified initial state.
  * @param {Object} state Optional. If not given, the default one is
  *  generated automatically.
@@ -98,6 +124,8 @@ function create(state = {}) {
     [actions.recruit.getJobDone]: onJobDone,
     [actions.recruit.applyForJobInit]: onApplyForJobInit,
     [actions.recruit.applyForJobDone]: onApplyForJobDone,
+    [actions.recruit.searchCandidatesInit]: onSearchCandidatesInit,
+    [actions.recruit.searchCandidatesDone]: onSearchCandidatesDone,
   }, state);
 }
 

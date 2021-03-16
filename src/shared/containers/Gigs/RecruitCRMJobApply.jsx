@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import actions from 'actions/recruitCRM';
 import GigApply from 'components/Gigs/GigApply';
+import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -21,12 +22,14 @@ class RecruitCRMJobApplyContainer extends React.Component {
     this.state = {
       formErrors: {},
       formData: {
-        availFrom: new Date().toISOString(),
         skills: _.map(techSkills, label => ({ label, selected: false })),
         durationConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
         timezoneConfirm: [{ label: 'Yes', value: false }, { label: 'No', value: false }],
         agreedTerms: false,
         country: _.map(countries.getNames('en'), val => ({ label: val, selected: false })),
+        reffereal: [
+          { label: 'Google', selected: false },
+        ],
         // eslint-disable-next-line react/destructuring-assignment
       },
     };
@@ -39,10 +42,13 @@ class RecruitCRMJobApplyContainer extends React.Component {
 
   componentDidMount() {
     const { formData } = this.state;
-    const { user } = this.props;
+    const { user, recruitProfile, searchCandidates } = this.props;
     this.setState({
       formData: _.merge(formData, user),
     });
+    if (user && !recruitProfile) {
+      searchCandidates(user.email);
+    }
   }
 
   onFormInputChange(key, value) {
@@ -73,7 +79,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
       const { formData, formErrors } = state;
       // Form validation happens here
       const requiredTextFields = [
-        'fname', 'lname', 'city', 'reffereal', 'phone', 'email',
+        'fname', 'lname', 'city', 'phone', 'email',
       ];
       // check required text fields for value
       // check min/max lengths
@@ -85,10 +91,6 @@ class RecruitCRMJobApplyContainer extends React.Component {
         else if (formData[key] && _.trim(formData[key]).length < 2) formErrors[key] = 'Must be at least 2 characters';
         else if (formData[key] && _.trim(formData[key]).length > 2) {
           switch (key) {
-            case 'reffereal':
-              if (_.trim(formData[key]).length > 2000) formErrors[key] = 'Must be max 2000 characters';
-              else delete formErrors[key];
-              break;
             case 'city':
             case 'phone':
               if (_.trim(formData[key]).length > 50) formErrors[key] = 'Must be max 50 characters';
@@ -106,12 +108,17 @@ class RecruitCRMJobApplyContainer extends React.Component {
         if (!_.find(formData.country, { selected: true })) formErrors.country = 'Please, select your country';
         else delete formErrors.country;
       }
+      // check for selected reffereal
+      if (!prop || prop === 'reffereal') {
+        if (!_.find(formData.reffereal, { selected: true })) formErrors.reffereal = 'Please, select your reffereal';
+        else delete formErrors.reffereal;
+      }
       // check payExpectation to be a number
       if (!prop || prop === 'payExpectation') {
         if (formData.payExpectation && _.trim(formData.payExpectation)) {
           if (!_.isInteger(_.toNumber(formData.payExpectation))) formErrors.payExpectation = 'Must be integer value in $';
           else delete formErrors.payExpectation;
-        } else delete formErrors.payExpectation;
+        } else formErrors.payExpectation = 'Required field';
       }
       // check for valid email
       if (!prop || prop === 'email') {
@@ -147,6 +154,14 @@ class RecruitCRMJobApplyContainer extends React.Component {
           }
         }
       }
+      // timezone & duration
+      if (!prop || prop === 'timezoneConfirm' || prop === 'durationConfirm') {
+        const a = _.find(formData[prop], { value: true });
+        if (a) {
+          if (a.label === 'No') formErrors[prop] = 'Sorry, we are only looking for candidates that can work the hours and duration listed';
+          else delete formErrors[prop];
+        }
+      }
       // updated state
       return {
         ...state,
@@ -157,7 +172,8 @@ class RecruitCRMJobApplyContainer extends React.Component {
 
   render() {
     const { formErrors, formData } = this.state;
-    return (
+    const { recruitProfile } = this.props;
+    return !recruitProfile ? <LoadingIndicator /> : (
       <GigApply
         {...this.props}
         onFormInputChange={this.onFormInputChange}
@@ -173,6 +189,7 @@ RecruitCRMJobApplyContainer.defaultProps = {
   user: null,
   applying: false,
   application: null,
+  recruitProfile: null,
 };
 
 RecruitCRMJobApplyContainer.propTypes = {
@@ -181,6 +198,8 @@ RecruitCRMJobApplyContainer.propTypes = {
   applyForJob: PT.func.isRequired,
   applying: PT.bool,
   application: PT.shape(),
+  searchCandidates: PT.func.isRequired,
+  recruitProfile: PT.shape(),
 };
 
 function mapStateToProps(state, ownProps) {
@@ -202,6 +221,8 @@ function mapStateToProps(state, ownProps) {
       ? state.recruitCRM[job.slug].applying : false,
     application: state.recruitCRM && state.recruitCRM[job.slug]
       ? state.recruitCRM[job.slug].application : null,
+    recruitProfile: state.recruitCRM && state.recruitCRM[profile.email]
+      ? state.recruitCRM[profile.email].profile : null,
   };
 }
 
@@ -211,6 +232,10 @@ function mapDispatchToActions(dispatch) {
     applyForJob: (job, payload) => {
       dispatch(a.applyForJobInit(job, payload));
       dispatch(a.applyForJobDone(job, payload));
+    },
+    searchCandidates: (email) => {
+      dispatch(a.searchCandidatesInit(email));
+      dispatch(a.searchCandidatesDone(email));
     },
   };
 }

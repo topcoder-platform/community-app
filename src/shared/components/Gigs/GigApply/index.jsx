@@ -7,7 +7,6 @@ import React from 'react';
 import PT from 'prop-types';
 import { Link, config } from 'topcoder-react-utils';
 import TextInput from 'components/GUIKit/TextInput';
-import Datepicker from 'components/GUIKit/Datepicker';
 import DropdownTerms from 'components/GUIKit/DropdownTerms';
 import RadioButton from 'components/GUIKit/RadioButton';
 import Checkbox from 'components/GUIKit/Checkbox';
@@ -24,8 +23,11 @@ import BackArrowGig from 'assets/images/back-arrow-gig-apply.svg';
 export default function GigApply(props) {
   const {
     job, onFormInputChange, formData, formErrors, onApplyClick, applying, application, user,
+    recruitProfile,
   } = props;
   const retUrl = window.location.href;
+
+  console.log('GigApply', recruitProfile)
 
   return user ? (
     <div styleName="container">
@@ -182,13 +184,7 @@ export default function GigApply(props) {
                         onChange={val => onFormInputChange('payExpectation', val)}
                         errorMsg={formErrors.payExpectation}
                         value={formData.payExpectation}
-                      />
-                      <Datepicker
-                        placeholder="Available From"
-                        label="Available From"
-                        onChange={val => onFormInputChange('availFrom', val ? val.toISOString() : null)}
-                        errorMsg={formErrors.availFrom}
-                        value={formData.availFrom}
+                        required
                       />
                     </div>
                   </div>
@@ -218,22 +214,15 @@ export default function GigApply(props) {
                   <h4>FINAL QUESTIONS</h4>
                   <p>Please Complete the Following Questions</p>
                   <div styleName="form-section">
-                    <TextInput
-                      placeholder="How did you hear about this gig?"
-                      label="How did you hear about this gig?"
+                    <Dropdown
+                      placeholder="How did you find out about Topcoder Gig Work?"
+                      label="How did you find out about Topcoder Gig Work?"
                       onChange={val => onFormInputChange('reffereal', val)}
                       errorMsg={formErrors.reffereal}
-                      value={formData.reffereal}
+                      options={formData.reffereal}
                       required
                     />
                     <div styleName="input-bot-margin" />
-                    <TextInput
-                      placeholder="Why do you think you're a good fit for this gig?"
-                      label="Why do you think you're a good fit for this gig?"
-                      onChange={val => onFormInputChange('whyFit', val)}
-                      errorMsg={formErrors.whyFit}
-                      value={formData.whyFit}
-                    />
                     <p>Are you able to work during the specified timezone? (<strong>{`${getCustomField(job.custom_fields, 'Timezone')}`}</strong>)</p>
                     <RadioButton
                       onChange={val => onFormInputChange('timezoneConfirm', val)}
@@ -241,19 +230,13 @@ export default function GigApply(props) {
                       options={formData.timezoneConfirm}
                       size="lg"
                     />
-                    <p>Are you ok to work with the duration of the gig? (<strong>{`${getCustomField(job.custom_fields, 'Duration')}`}</strong>)</p>
-                    <RadioButton
-                      onChange={val => onFormInputChange('durationConfirm', val)}
-                      errorMsg={formErrors.durationConfirm}
-                      options={formData.durationConfirm}
-                      size="lg"
-                    />
                     <div styleName="last-input">
-                      <TextInput
-                        placeholder="Add any other notes you might have"
-                        label="Notes"
-                        onChange={val => onFormInputChange('notes', val)}
-                        errorMsg={formErrors.notes}
+                      <p>Are you ok to work with the duration of the gig? (<strong>{`${getCustomField(job.custom_fields, 'Duration')}`}</strong>)</p>
+                      <RadioButton
+                        onChange={val => onFormInputChange('durationConfirm', val)}
+                        errorMsg={formErrors.durationConfirm}
+                        options={formData.durationConfirm}
+                        size="lg"
                       />
                     </div>
                   </div>
@@ -313,4 +296,5 @@ GigApply.propTypes = {
   applying: PT.bool,
   application: PT.shape(),
   user: PT.shape(),
+  recruitProfile: PT.shape().isRequired,
 };

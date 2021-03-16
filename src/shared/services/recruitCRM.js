@@ -67,4 +67,17 @@ export default class Service {
     }
     return res.json();
   }
+
+  /**
+   * Search for candidate
+   * @param {object} email The email to search with
+   */
+  async searchCandidates(email) {
+    const res = await fetch(`${this.baseUrl}/candidates/search?email=${email}`);
+    if (!res.ok) {
+      const error = new Error('Failed to search for candidates');
+      logger.error(error, res);
+    }
+    return res.json();
+  }
 }
