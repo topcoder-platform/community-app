@@ -325,6 +325,7 @@ workflows:
             branches:
               only:
                 - develop
+                - performance-testing-1
       # This is alternate dev env for parallel testing
       - deployTest:
           context : org-global      
@@ -387,6 +388,7 @@ workflows:
               only:
                 - develop
                 - circleci-test-flow
+                - performance-testing-1
       - Smoke-Testing-On-Production:
           requires:
             - Hold [Smoke-Testing]
