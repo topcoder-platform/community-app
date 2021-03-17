@@ -85,13 +85,15 @@ function normalizeRecruitPayload(job, payload) {
         value: perJob.join(','),
       },
     ],
-    resume: payload.fileCV,
   };
   if (referral) {
     normalized.custom_fields.push({
       field_id: 13,
       value: referral.label,
     });
+  }
+  if (payload.fileCV) {
+    normalized.resume = payload.fileCV;
   }
 
   return normalized;

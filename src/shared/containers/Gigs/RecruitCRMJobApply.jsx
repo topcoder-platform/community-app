@@ -29,6 +29,11 @@ class RecruitCRMJobApplyContainer extends React.Component {
         country: _.map(countries.getNames('en'), val => ({ label: val, selected: false })),
         reffereal: [
           { label: 'Google', selected: false },
+          { label: 'LinkedIn', selected: false },
+          { label: 'Other Ad or Promotion', selected: false },
+          { label: 'Quora', selected: false },
+          { label: 'Uprisor Podcast', selected: false },
+          { label: 'YouTube or Video Ad', selected: false },
         ],
         // eslint-disable-next-line react/destructuring-assignment
       },
@@ -48,6 +53,36 @@ class RecruitCRMJobApplyContainer extends React.Component {
     });
     if (user && !recruitProfile) {
       searchCandidates(user.email);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { recruitProfile } = this.props;
+    if (recruitProfile !== prevProps.recruitProfile && !_.isEmpty(recruitProfile)) {
+      // when recruit profile loaded
+      const { formData } = this.state;
+      const { country, skills } = formData;
+      const recruitSkills = recruitProfile.skill.split(',').map(s => s.toLowerCase());
+      const updatedForm = {
+        formData: {
+          ...formData,
+          phone: recruitProfile.contact_number,
+          country: _.map(
+            country,
+            c => ({
+              label: c.label,
+              selected: c.label.toLowerCase() === recruitProfile.locality.toLowerCase(),
+            }),
+          ),
+          skills: skills.map(s => ({
+            label: s.label,
+            selected: recruitSkills.includes(s.label.toLowerCase()),
+          })),
+          payExpectation: recruitProfile.salary_expectation,
+        },
+      };
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState(updatedForm);
     }
   }
 
@@ -111,7 +146,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
       }
       // check for selected reffereal
       if (!prop || prop === 'reffereal') {
-        if (!recruitProfile) {
+        if (_.isEmpty(recruitProfile)) {
           if (!_.find(formData.reffereal, { selected: true })) formErrors.reffereal = 'Please, select your reffereal';
           else delete formErrors.reffereal;
         }
@@ -144,8 +179,8 @@ class RecruitCRMJobApplyContainer extends React.Component {
       }
       // has CV file ready for upload
       if (!prop || prop === 'fileCV') {
-        if (!formData.fileCV) formErrors.fileCV = 'Please, pick your CV file for uploading';
-        else {
+        if (!formData.fileCV && _.isEmpty(recruitProfile)) formErrors.fileCV = 'Please, pick your CV file for uploading';
+        else if (formData.fileCV) {
           const sizeInMB = (formData.fileCV.size / (1024 * 1024)).toFixed(2);
           if (sizeInMB > 8) {
             formErrors.fileCV = 'Max file size is limited to 8 MB';
@@ -185,8 +220,8 @@ class RecruitCRMJobApplyContainer extends React.Component {
 
   render() {
     const { formErrors, formData } = this.state;
-    const { recruitProfile } = this.props;
-    return !recruitProfile ? <LoadingIndicator /> : (
+    const { recruitProfile, user } = this.props;
+    return !recruitProfile && user ? <LoadingIndicator /> : (
       <GigApply
         {...this.props}
         onFormInputChange={this.onFormInputChange}
@@ -234,7 +269,7 @@ function mapStateToProps(state, ownProps) {
       ? state.recruitCRM[job.slug].applying : false,
     application: state.recruitCRM && state.recruitCRM[job.slug]
       ? state.recruitCRM[job.slug].application : null,
-    recruitProfile: state.recruitCRM && state.recruitCRM[profile.email]
+    recruitProfile: state.recruitCRM && profile && state.recruitCRM[profile.email]
       ? state.recruitCRM[profile.email].profile : null,
   };
 }

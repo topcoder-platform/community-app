@@ -27,8 +27,6 @@ export default function GigApply(props) {
   } = props;
   const retUrl = window.location.href;
 
-  console.log('GigApply', recruitProfile, formErrors);
-
   return user ? (
     <div styleName="container">
       {
@@ -76,7 +74,7 @@ export default function GigApply(props) {
                           <Link to={`${config.GIGS_PAGES_PATH}`}>VIEW OTHER GIGS</Link>
                         </React.Fragment>
                       ) : (
-                        <Link to={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIG LIST</Link>
+                        <Link to={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIGS LIST</Link>
                       )
                     }
                   </div>
@@ -113,6 +111,7 @@ export default function GigApply(props) {
                         errorMsg={formErrors.fname}
                         value={formData.fname}
                         required
+                        readonly
                       />
                       <TextInput
                         placeholder="Last Name"
@@ -121,6 +120,7 @@ export default function GigApply(props) {
                         errorMsg={formErrors.lname}
                         value={formData.lname}
                         required
+                        readonly
                       />
                     </div>
                     <div styleName="form-row">
@@ -184,8 +184,7 @@ export default function GigApply(props) {
                     </div>
                   </div>
                   )}
-                  <h4>SHARE YOUR EXPECTATIONS</h4>
-                  {_.isEmpty(recruitProfile) && <p>Your Professional Work History</p>}
+                  <h4>SHARE YOUR WEEKLY PAY EXPECTATIONS</h4>
                   <div styleName="form-section">
                     <div styleName="form-row">
                       <TextInput
@@ -199,7 +198,13 @@ export default function GigApply(props) {
                     </div>
                   </div>
                   <h4>RESUME & SKILLS</h4>
-                  <p>Upload Your Resume or CV</p>
+                  {
+                    recruitProfile.resume ? (
+                      <p>Upload Your Resume or CV, <a href={recruitProfile.resume.file_link} target="_blank" rel="noreferrer">{recruitProfile.resume.filename}</a></p>
+                    ) : (
+                      <p>Upload Your Resume or CV</p>
+                    )
+                  }
                   <div styleName="form-section">
                     <FilestackFilePicker
                       file={formData.fileCV}
@@ -222,7 +227,6 @@ export default function GigApply(props) {
                     />
                   </div>
                   <h4>FINAL QUESTIONS</h4>
-                  <p>Please Complete the Following Questions</p>
                   <div styleName="form-section">
                     {_.isEmpty(recruitProfile) && (
                     <Dropdown

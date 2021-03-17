@@ -41,6 +41,9 @@ function DropdownTerms({
       selectInput[0].style.borderTop = 'none';
     }
   }, [focused, selectedOption]);
+  useEffect(() => {
+    setInternalTerms(terms);
+  }, [terms]);
 
   const CustomReactSelectRow = React.forwardRef(({
     className,
