@@ -191,6 +191,9 @@ given credentials relate to.
 * **XXX**_TC_M2M_AUDIENCE
 * **XXX**_TC_M2M_GRANT_TYPE
 
+## Performance Testing
+
+- [Performance Testing Readme](JMeter_README.md)
 
 ### Changelog
 

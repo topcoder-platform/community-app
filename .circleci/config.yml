@@ -6,6 +6,9 @@ parameters:
     run_smoketesting:
         default: false
         type: boolean
+    run_performancetesting:
+        default: false
+        type: boolean
 
 defaults: &defaults
     docker:
@@ -186,7 +189,7 @@ jobs:
             --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
             --header "Circle-Token: ${CIRCLE_TOKEN}" \
             --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_basedeployment": false}}'
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":true, "run_basedeployment": false}}'
     
   # Build & Deploy against production backend
   deployProd:
@@ -276,7 +279,45 @@ jobs:
           paths:
             - node_modules
       - run: npm test
+     
+  Performance-Testing:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
 
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run: mvn verify
+
+      - store_artifacts:
+          path: target/jmeter/reports     
+      
 workflows:
   version: 2
   Build:
@@ -358,3 +399,17 @@ workflows:
             branches:
               only:
                 - master
+
+  Performance Testing:
+    when: << pipeline.parameters.run_performancetesting >>
+    jobs:
+      - Hold [Performance-Testing]:
+          type: approval
+      - Performance-Testing:
+          requires:
+            - Hold [Performance-Testing]
+          filters:
+            branches:
+              only:
+                - master
+                - circleci-test-flow
