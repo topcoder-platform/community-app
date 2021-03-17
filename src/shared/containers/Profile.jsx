@@ -20,7 +20,7 @@ class ProfileContainer extends React.Component {
       meta,
     } = this.props;
 
-    loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
+    loadProfile(handleParam, _.get(meta, 'groupIds', []));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,7 +32,7 @@ class ProfileContainer extends React.Component {
     } = nextProps;
 
     if (handleParam !== profileForHandle) {
-      loadProfile(handleParam, _.join(_.get(meta, 'groupIds', [])));
+      loadProfile(handleParam, _.get(meta, 'groupIds', []));
     }
   }
 
