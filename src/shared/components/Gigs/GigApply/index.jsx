@@ -27,6 +27,7 @@ export default function GigApply(props) {
     recruitProfile,
   } = props;
   const retUrl = window.location.href;
+  const duration = getCustomField(job.custom_fields, 'Duration');
 
   return user ? (
     <div styleName="container">
@@ -248,7 +249,7 @@ export default function GigApply(props) {
                       size="lg"
                     />
                     <div styleName="last-input">
-                      <p>Are you ok to work with the duration of the gig? (<strong>{`${getCustomField(job.custom_fields, 'Duration')}`}</strong>) *</p>
+                      <p>Are you ok to work with the duration of the gig? (<strong>{/^\d+$/.test(duration) ? `${duration} Weeks` : duration}</strong>) *</p>
                       <RadioButton
                         onChange={val => onFormInputChange('durationConfirm', val)}
                         errorMsg={formErrors.durationConfirm}
