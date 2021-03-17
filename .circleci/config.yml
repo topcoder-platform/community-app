@@ -4,10 +4,10 @@ parameters:
         default: true
         type: boolean
     run_smoketesting:
-        default: false
+        default: true
         type: boolean
     run_performancetesting:
-        default: false
+        default: true
         type: boolean
 
 defaults: &defaults
