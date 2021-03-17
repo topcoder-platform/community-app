@@ -4,10 +4,10 @@ parameters:
         default: true
         type: boolean
     run_smoketesting:
-        default: true
+        default: false
         type: boolean
     run_performancetesting:
-        default: true
+        default: false
         type: boolean
 
 defaults: &defaults
@@ -73,6 +73,11 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+            curl --request POST \
+            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
+            --header "Circle-Token: ${CIRCLE_TOKEN}" \
+            --header 'content-type: application/json' \
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":true, "run_basedeployment": false}}'
   # Build & Deploy against testing backend
   deployTest:
     <<: *defaults
