@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * The Gig apply page.
  */
@@ -94,9 +95,9 @@ export default function GigApply(props) {
                 <div styleName="form-wrap">
                   {!_.isEmpty(recruitProfile)
                   && (
-                  <p styleName="info-text">It looks like you have applied to a gig previously.
-                    Perfect! We have most of your information.
-                    Is there anything you would like to update to your Gig Work Profile?
+                  <p styleName="info-text">
+                    <strong>It looks like you have applied to a gig previously. Perfect!&#10003;</strong><br />
+                    We have most of your information. Is there anything you would like to update to your Gig Work Profile?
                   </p>
                   )}
                   <h4>PERSONAL INFORMATION</h4>
