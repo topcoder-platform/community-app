@@ -20,6 +20,7 @@ import './style.scss';
 import bigCheckmark from 'assets/images/big-checkmark.png';
 import SadFace from 'assets/images/sad-face-icon.svg';
 import BackArrowGig from 'assets/images/back-arrow-gig-apply.svg';
+import CheckmarkGreen from 'assets/images/checkmark-green.svg';
 
 export default function GigApply(props) {
   const {
@@ -96,10 +97,10 @@ export default function GigApply(props) {
                 <div styleName="form-wrap">
                   {!_.isEmpty(recruitProfile)
                   && (
-                  <p styleName="info-text">
-                    <strong>It looks like you have applied to a gig previously. Perfect!&#10003;</strong><br />
-                    We have most of your information. Is there anything you would like to update to your Gig Work Profile?
-                  </p>
+                  <div styleName="info-text">
+                    <h6>It looks like you have applied to a gig previously. Perfect!<CheckmarkGreen /></h6>
+                    <p>We have most of your information. Is there anything you would like to update to your Gig Work Profile?</p>
+                  </div>
                   )}
                   <h4>PERSONAL INFORMATION</h4>
                   {_.isEmpty(recruitProfile)

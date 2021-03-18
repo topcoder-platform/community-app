@@ -45,27 +45,48 @@ class RecruitCRMJobApplyContainer extends React.Component {
     this.validateForm = this.validateForm.bind(this);
   }
 
+  // eslint-disable-next-line consistent-return
   componentDidMount() {
     const { formData } = this.state;
     const { user, recruitProfile, searchCandidates } = this.props;
-    this.setState({
-      formData: _.merge(formData, user),
-    });
-    if (user && !recruitProfile) {
-      searchCandidates(user.email);
+    if (user) {
+      if (!recruitProfile) searchCandidates(user.email);
+      else {
+        const { country, skills } = formData;
+        const recruitSkills = recruitProfile.skill.split(',').map(s => s.toLowerCase());
+        return this.setState({
+          formData: _.merge(formData, user, {
+            phone: recruitProfile.contact_number,
+            country: _.map(
+              country,
+              c => ({
+                label: c.label,
+                selected: c.label.toLowerCase() === recruitProfile.locality.toLowerCase(),
+              }),
+            ),
+            skills: skills.map(s => ({
+              label: s.label,
+              selected: recruitSkills.includes(s.label.toLowerCase()),
+            })),
+            payExpectation: recruitProfile.salary_expectation,
+          }),
+        });
+      }
+      this.setState({
+        formData: _.merge(formData, user),
+      });
     }
   }
 
   componentDidUpdate(prevProps) {
-    const { recruitProfile } = this.props;
+    const { recruitProfile, user } = this.props;
     if (recruitProfile !== prevProps.recruitProfile && !_.isEmpty(recruitProfile)) {
       // when recruit profile loaded
       const { formData } = this.state;
       const { country, skills } = formData;
       const recruitSkills = recruitProfile.skill.split(',').map(s => s.toLowerCase());
       const updatedForm = {
-        formData: {
-          ...formData,
+        formData: _.merge(formData, user, {
           phone: recruitProfile.contact_number,
           country: _.map(
             country,
@@ -79,7 +100,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
             selected: recruitSkills.includes(s.label.toLowerCase()),
           })),
           payExpectation: recruitProfile.salary_expectation,
-        },
+        }),
       };
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState(updatedForm);
