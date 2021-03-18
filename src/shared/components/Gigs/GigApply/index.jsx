@@ -77,7 +77,7 @@ export default function GigApply(props) {
                           <Link to={`${config.GIGS_PAGES_PATH}`}>VIEW OTHER GIGS</Link>
                         </React.Fragment>
                       ) : (
-                        <Link to={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIGS LIST</Link>
+                        <a href={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIGS LIST</a>
                       )
                     }
                   </div>
