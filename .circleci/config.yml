@@ -297,7 +297,7 @@ workflows:
           filters:
             branches:
               only:
-                - social-image-fix
+                - develop
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
