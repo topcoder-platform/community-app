@@ -187,7 +187,9 @@ export default class RecruitCRMService {
     const { body, file } = req;
     const form = JSON.parse(body.form);
     const fileData = new FormData();
-    fileData.append('resume', file.buffer, file.originalname);
+    if (file) {
+      fileData.append('resume', file.buffer, file.originalname);
+    }
     let candidateSlug;
     let referralCookie = req.cookies[config.GROWSURF_COOKIE];
     if (referralCookie) referralCookie = JSON.parse(referralCookie);
@@ -272,29 +274,31 @@ export default class RecruitCRMService {
         });
       }
       candidateData = await workCandidateResponse.json();
-      // Attach resume to candidate
-      const formHeaders = fileData.getHeaders();
-      const fileCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}`, {
-        method: 'POST',
-        headers: {
-          Authorization: this.private.authorization,
-          ...formHeaders,
-        },
-        body: fileData,
-      });
-      if (fileCandidateResponse.status >= 300) {
-        return res.send({
-          error: true,
-          status: fileCandidateResponse.status,
-          url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}`,
-          form,
-          fileData,
-          file,
-          formHeaders,
-          errObj: await fileCandidateResponse.json(),
+      // Attach resume to candidate if uploaded
+      if (file) {
+        const formHeaders = fileData.getHeaders();
+        const fileCandidateResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}`, {
+          method: 'POST',
+          headers: {
+            Authorization: this.private.authorization,
+            ...formHeaders,
+          },
+          body: fileData,
         });
+        if (fileCandidateResponse.status >= 300) {
+          return res.send({
+            error: true,
+            status: fileCandidateResponse.status,
+            url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}`,
+            form,
+            fileData,
+            file,
+            formHeaders,
+            errObj: await fileCandidateResponse.json(),
+          });
+        }
+        candidateData = await fileCandidateResponse.json();
       }
-      candidateData = await fileCandidateResponse.json();
       // Candidate ready to apply for job
       const applyResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}/assign?job_slug=${id}`, {
         method: 'POST',

@@ -40,6 +40,14 @@
     }
   }
 
+  // readonly
+  &.readonly {
+    input:not([type='checkbox']) {
+      border: 1px solid $gui-kit-readonly;
+      color: $gui-kit-gray-30;
+    }
+  }
+
   input:not([type='checkbox']).haveValue + label,
   input:not([type='checkbox']).haveError + label,
   input:not([type='checkbox']):focus + label {
