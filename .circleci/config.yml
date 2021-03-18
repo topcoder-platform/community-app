@@ -290,7 +290,7 @@ workflows:
           filters:
             branches:
               only:
-                - social-image-fix
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

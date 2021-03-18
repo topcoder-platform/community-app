@@ -57,6 +57,7 @@ export default function GigDetails(props) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   let inputRef;
+  const duration = getCustomField(job.custom_fields, 'Duration');
 
   useEffect(() => {
     if (referralId && formData.email && isEmpty(formErrors)) onSendClick();
@@ -95,7 +96,7 @@ export default function GigDetails(props) {
                 <IconDuration />
                 <div styleName="infos-data">
                   Duration
-                  <strong>{getCustomField(job.custom_fields, 'Duration')}</strong>
+                  <strong>{/^\d+$/.test(duration) ? `${duration} Weeks` : duration}</strong>
                 </div>
               </div>
               <div styleName="infos-item">
