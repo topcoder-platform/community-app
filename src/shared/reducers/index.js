@@ -124,7 +124,7 @@ function generateUserIdHash(user) {
   const now = Math.floor(Date.now() / 1000);
 
   return [
-    crypto.createHmac('sha256', secret).update(`${user.id}-${now}`).digest('hex'),
+    crypto.createHmac('sha256', secret).update(`${user.userId}-${now}`).digest('hex'),
     now,
   ].join('-');
 }

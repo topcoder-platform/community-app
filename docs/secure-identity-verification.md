@@ -6,4 +6,8 @@
 4. Run community app
 
 ## Verification
-1. When you reload the page you will notice in the network tab there will be 2 requests POST to https://api.segment.io/v1/i, one will send it to segment and one will send only to chameleon (with request payload `{ integrations: { All: false, Chameleon: true }}`)
+1. Log in to topcoder-dev account
+2. Access http://local.topcoder-dev.com/challenges
+3. You will notice in the network tab there will be 2 requests POST to https://api.segment.io/v1/i, one will send it to segment and one will send only to chameleon (with request payload `{ integrations: { All: false, Chameleon: true }}`)
+
+Repeat the proses and log in to different account and make sure the `uid_hash` is different for each different user.
