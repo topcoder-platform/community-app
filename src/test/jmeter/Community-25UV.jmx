@@ -98,7 +98,7 @@
         </BeanShellAssertion>
         <hashTree/>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 10 VU (6:45min) [Develop]" enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 25 VU (6:45min) [Develop]" enabled="false">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="474627902">
             <stringProp name="53">5</stringProp>
@@ -140,7 +140,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="TestPlan.comments">Check the server is holding for 10 VU (6:45min) [Develop]
+        <stringProp name="TestPlan.comments">Check the server is holding for 25 VU (6:45min) [Develop]
 Running the fixed number of users for longer time
 
 Have to indentify the peek load and then put a UV - 23/30 less than the peek load
@@ -2222,10 +2222,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Sort the list by Title (A-Z) (Page 05) [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2255,10 +2251,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Sort the list by Most Recent (Page 05) [All Challenges]" enabled="true">
@@ -2290,10 +2282,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Load Open for Registration Challenges" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2323,10 +2311,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Load Open for Review Challenges" enabled="true">
@@ -2358,10 +2342,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Load All Completed Challenges" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2391,10 +2371,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Load All Challenges" enabled="true">
@@ -2426,10 +2402,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + Challenges [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2459,10 +2431,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + Challenges [Registration]" enabled="true">
@@ -2494,10 +2462,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + Challenges [Completed]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2527,10 +2491,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + F2F [All Challenges]" enabled="true">
@@ -2562,10 +2522,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + F2F [Registration]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2595,10 +2551,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + F2F [Completed]" enabled="true">
@@ -2630,10 +2582,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + Task [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2663,10 +2611,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + Task [Registration]" enabled="true">
@@ -2698,10 +2642,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Design + Task [Completed]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2731,10 +2671,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + Challenges [All Challenges]" enabled="true">
@@ -2766,10 +2702,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + Challenges [Registration]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2799,10 +2731,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + Challenges [Completed]" enabled="true">
@@ -2834,10 +2762,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + F2F [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2867,10 +2791,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + Dev [Registration]" enabled="true">
@@ -2902,10 +2822,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + F2F [Completed]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -2935,10 +2851,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + Task [All Challenges]" enabled="true">
@@ -2970,10 +2882,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + Task [Registration]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3003,10 +2911,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Dev + Task [Completed]" enabled="true">
@@ -3038,10 +2942,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + Challenges [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3071,10 +2971,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + Challenges [Registration]" enabled="true">
@@ -3106,10 +3002,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + Challenges [Completed]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3139,10 +3031,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + F2F [All Challenges]" enabled="true">
@@ -3174,10 +3062,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + Dev [Registration]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3207,10 +3091,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + F2F [Completed]" enabled="true">
@@ -3242,10 +3122,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + Task [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3275,10 +3151,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + Task [Registration]" enabled="true">
@@ -3310,10 +3182,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter DS + Task [Completed]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3343,10 +3211,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + Challenges [All Challenges]" enabled="true">
@@ -3378,10 +3242,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + Challenges [Registration]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3411,10 +3271,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + Challenges [Completed]" enabled="true">
@@ -3446,10 +3302,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + F2F [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3479,10 +3331,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + Dev [Registration]" enabled="true">
@@ -3514,10 +3362,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + F2F [Completed]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3547,10 +3391,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + Task [All Challenges]" enabled="true">
@@ -3582,10 +3422,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + Task [Registration]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3615,10 +3451,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter QA + Task [Completed]" enabled="true">
@@ -3650,10 +3482,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Complex Filter QA + Dev + Challenges + Task [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3684,10 +3512,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Filter Challenges with Custom Dates [Past Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3717,10 +3541,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Details Tab [Challenge]" enabled="true">
@@ -3764,10 +3584,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Registration Tab [Challenge]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3809,10 +3625,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Submissions Tab [Challenge]" enabled="true">
@@ -3856,10 +3668,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Winners Tab [Challenge]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3901,10 +3709,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Access Different Tags [Completed Challenge]" enabled="true">
@@ -3948,10 +3752,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search [All Challenges]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -3981,10 +3781,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search [Open for Registration]" enabled="true">
@@ -4016,10 +3812,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search [Completed]" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -4049,10 +3841,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Access Different Pages" enabled="true">
@@ -4096,10 +3884,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
-            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Access Different Member Statistics Pages" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -4141,10 +3925,6 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
                 </elementProp>
               </collectionProp>
             </HeaderManager>
-            <hashTree/>
-            <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-              <stringProp name="DurationAssertion.duration">5500</stringProp>
-            </DurationAssertion>
             <hashTree/>
           </hashTree>
         </hashTree>
