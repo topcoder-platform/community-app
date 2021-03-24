@@ -238,6 +238,7 @@ jobs:
             ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar
       - run:
           name: "Run automation"
+          no_output_timeout: 20m
           command: |
             source awsenvconf
             source buildenvvar
@@ -259,6 +260,7 @@ jobs:
             ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
       - run:
           name: "Run automation"
+          no_output_timeout: 20m
           command: |
             source awsenvconf
             source buildenvvar
