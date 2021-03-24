@@ -339,21 +339,21 @@ workflows:
           filters:
             branches:
               only:                
-                - route-redirects
+                - gig-application-update
       # This is alternate dev env for parallel testing
       - deployQA:
           context : org-global      
           filters:
             branches:
               only:
-                - tco-leaderboard-fix
+                - free
       # This is beta env for production soft releases
       - deployBeta:
           context : org-global
           filters:
             branches:
               only:
-                - free
+                - develop
       # This is stage env for production QA releases
       - deployStag:
           context : org-global         

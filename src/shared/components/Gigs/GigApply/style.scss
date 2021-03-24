@@ -148,6 +148,25 @@
         }
       }
 
+      .info-text {
+        font-size: 16px;
+        margin-top: 55px;
+
+        h6 {
+          font-family: Barlow, sans-serif;
+          font-size: 16px;
+          line-height: 20px;
+          font-weight: 600;
+          margin-bottom: 8px;
+          display: flex;
+          align-items: center;
+
+          svg {
+            margin-left: 5px;
+          }
+        }
+      }
+
       .form-section {
         margin: 13px 0 50px;
 

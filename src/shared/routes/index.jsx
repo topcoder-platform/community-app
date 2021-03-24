@@ -18,7 +18,7 @@ import PT from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import socialImage from 'assets/images/social.jpg';
+import socialImage from 'assets/images/social.png';
 
 import Communities from './Communities';
 import Examples from './Examples';

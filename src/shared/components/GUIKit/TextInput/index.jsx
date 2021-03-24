@@ -28,7 +28,7 @@ function TextInput({
   const sizeStyle = size === 'lg' ? 'lgSize' : 'xsSize';
 
   return (
-    <div className="textInputContainer" styleName={`container ${sizeStyle}`}>
+    <div className="textInputContainer" styleName={`container ${sizeStyle}${readonly ? ' readonly' : ''}`}>
       <input
         readOnly={readonly}
         defaultValue={value}
