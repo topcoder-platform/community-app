@@ -317,7 +317,7 @@ jobs:
 
       - run: mvn verify
 
-      - store_test_results:
+      - store_artifacts:
           path: target/jmeter/reports
       
 workflows:
