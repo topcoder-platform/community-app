@@ -1,13 +1,13 @@
 version: 2.1
 parameters:
     run_basedeployment:
-        default: true
+        default: false
         type: boolean
     run_smoketesting:
         default: false
         type: boolean
     run_performancetesting:
-        default: false
+        default: true
         type: boolean
 
 defaults: &defaults
