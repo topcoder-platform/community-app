@@ -386,6 +386,7 @@ workflows:
       - Hold [Smoke-Testing]:
           type: approval
       - Smoke-Testing-On-Staging:
+          context : org-global
           requires:
             - Hold [Smoke-Testing]
           filters:
@@ -395,6 +396,7 @@ workflows:
                 - circleci-test-flow
                 - performance-testing-1
       - Smoke-Testing-On-Production:
+          context : org-global
           requires:
             - Hold [Smoke-Testing]
           filters:
