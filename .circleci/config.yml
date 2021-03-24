@@ -419,3 +419,4 @@ workflows:
                 - master
                 - develop
                 - performance-testing-1
+                - performance-testing-2
