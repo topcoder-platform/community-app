@@ -318,7 +318,7 @@ jobs:
       - run: mvn verify
 
       - store_artifacts:
-          path: target/jmeter/reports     
+          path: target/jmeter/reports
       
 workflows:
   version: 2
