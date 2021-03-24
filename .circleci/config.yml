@@ -359,7 +359,7 @@ workflows:
             branches:
               only:
                 - develop
-                - circleci-test-flow
+                - performance-testing-1
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
@@ -393,7 +393,6 @@ workflows:
             branches:
               only:
                 - develop
-                - circleci-test-flow
                 - performance-testing-1
       - Smoke-Testing-On-Production:
           context : org-global
@@ -416,6 +415,5 @@ workflows:
             branches:
               only:
                 - master
-                - circleci-test-flow
                 - develop
                 - performance-testing-1
