@@ -4085,7 +4085,7 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
           </hashTree>
         </hashTree>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 75 VU (26min 20s) [Develop]" enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 75 VU (26min 20s) [Develop]" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="474627902">
             <stringProp name="53">5</stringProp>
@@ -13237,7 +13237,7 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
           </hashTree>
         </hashTree>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 20 VU (5min 15s) [Develop] [Only Logged Out Cases]" enabled="true">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 20 VU (5min 15s) [Develop] [Only Logged Out Cases]" enabled="false">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="474627902">
             <stringProp name="53">5</stringProp>
