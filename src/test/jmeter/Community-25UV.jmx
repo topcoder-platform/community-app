@@ -2167,7 +2167,7 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
         </PreciseThroughputTimer>
         <hashTree/>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 50 VU (1hr) [Develop]" enabled="true">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 50 VU (1hr) [Develop]" enabled="false">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="474627902">
             <stringProp name="53">5</stringProp>
@@ -4008,11 +4008,11 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
           <intProp name="exactLimit">10000</intProp>
           <doubleProp>
             <name>throughput</name>
-            <value>10.0</value>
+            <value>30.0</value>
             <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="throughputPeriod">60</intProp>
-          <longProp name="duration">120</longProp>
+          <longProp name="duration">60</longProp>
           <intProp name="batchSize">1</intProp>
           <intProp name="batchThreadDelay">0</intProp>
           <longProp name="randomSeed">0</longProp>
@@ -5815,7 +5815,7 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
         </PreciseThroughputTimer>
         <hashTree/>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 05 VU (1hr) [Develop]" enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Performance Testing 05 VU (1hr) [Develop]" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="-1759371463">
             <stringProp name="53">5</stringProp>
@@ -7593,11 +7593,11 @@ start up time/ramp-up time = Shutdown time/ramp-down time of the previous record
           <intProp name="exactLimit">10000</intProp>
           <doubleProp>
             <name>throughput</name>
-            <value>10.0</value>
+            <value>30.0</value>
             <savedValue>0.0</savedValue>
           </doubleProp>
           <intProp name="throughputPeriod">60</intProp>
-          <longProp name="duration">120</longProp>
+          <longProp name="duration">60</longProp>
           <intProp name="batchSize">1</intProp>
           <intProp name="batchThreadDelay">0</intProp>
           <longProp name="randomSeed">0</longProp>
