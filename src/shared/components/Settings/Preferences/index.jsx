@@ -88,7 +88,7 @@ export default class Preferences extends React.Component {
       case 'e-mail':
         return <NewsletterPreferencesContainer email={email} />;
       case 'forum':
-        return (window.location.href = `${config.URL.DISCUSSION_FORUM}/profile/preferences`) && <LoadingIndicator />;
+        return (window.location.href = `${config.URL.FORUMS_VANILLA}/profile/preferences`) && <LoadingIndicator />;
       case 'payment':
         return (window.location.href = `${config.URL.COMMUNITY}/tc?module=EditPaymentPreferences`) && <LoadingIndicator />;
       default:
