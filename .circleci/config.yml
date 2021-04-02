@@ -276,7 +276,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/recommender-sync-develop
+                - update-segment-script
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -305,7 +305,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/recommender-sync-develop
+                - update-segment-script
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
