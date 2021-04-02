@@ -1,0 +1,74 @@
+@import "~styles/mixins";
+@import "~components/Contentful/default";
+
+.container {
+  width: 100%;
+}
+
+.question,
+.question-active {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 82px;
+  outline: none;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(212, 212, 212, 0.4);
+}
+
+.question-active {
+  border-bottom: none;
+  height: 81px;
+}
+
+.answer,
+.answer-active {
+  @include gui-kit-content;
+  @include gui-kit-headers;
+
+  display: none;
+  padding: 5px 70px 24px 0;
+  color: #fff;
+
+  @include xs-to-sm {
+    padding-right: 0;
+  }
+
+  p {
+    color: #fff;
+  }
+}
+
+.answer-active {
+  display: block;
+  border-bottom: 1px solid rgba(212, 212, 212, 0.4);
+}
+
+.text {
+  color: #fff;
+  font-family: BarlowCondensed, sans-serif;
+  font-size: 31px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  font-weight: 500;
+
+  @include xs-to-sm {
+    max-width: 350px;
+    flex: 1;
+    margin-right: 20px;
+    font-size: 21px;
+  }
+}
+
+.toggle-arrow,
+.toggle-arrow-active {
+  background-image: url(assets/images/minimal-down-white.svg);
+  background-repeat: no-repeat;
+  align-self: right;
+  width: 24px;
+  height: 15px;
+}
+
+.toggle-arrow-active {
+  transform: scale(1, -1);
+}
