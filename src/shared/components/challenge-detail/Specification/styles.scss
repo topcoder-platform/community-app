@@ -157,7 +157,7 @@ $tc-link-visited: #0c4e98;
     line-height: 25px;
     display: table;
 
-    li {
+    > li {
       list-style-type: none;
       font-weight: 400;
       counter-increment: item;
@@ -165,15 +165,15 @@ $tc-link-visited: #0c4e98;
       white-space: normal;
 
       @include linkStyle;
-    }
 
-    li::before {
-      display: table-cell;
-      font-weight: 700;
-      text-align: right;
-      content: counter(item) ".";
-      padding: 0 8px 0 0;
-      width: 30px;
+      &::before {
+        display: table-cell;
+        font-weight: 700;
+        text-align: right;
+        content: counter(item) ".";
+        padding: 0 8px 0 0;
+        width: 30px;
+      }
     }
   }
 
@@ -186,7 +186,7 @@ $tc-link-visited: #0c4e98;
     line-height: 25px;
     list-style: disc outside none;
 
-    li {
+    > li {
       font-weight: 400;
 
       @include linkStyle;
@@ -316,7 +316,7 @@ $tc-link-visited: #0c4e98;
       line-height: 25px;
       list-style: disc outside none;
 
-      li {
+      > li {
         font-weight: 400;
 
         @include linkStyle;
@@ -344,7 +344,7 @@ $tc-link-visited: #0c4e98;
       counter-reset: item;
       display: table;
 
-      li {
+      > li {
         list-style-type: none;
         font-weight: 400;
         counter-increment: item;
