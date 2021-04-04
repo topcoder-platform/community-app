@@ -240,7 +240,7 @@ export class ChallengeListingPageObject {
   static async findSkillsForChallenge(challenge: TcElementImpl) {
     const buttons = await ElementHelper.getAllElementsByTag(
       'button',
-      ElementHelper.getElementByXPath('..', challenge)
+      ElementHelper.getElementByXPath('../..', challenge)
     );
     const skills = [];
     for (let j = 0; j < buttons.length; j++) {
