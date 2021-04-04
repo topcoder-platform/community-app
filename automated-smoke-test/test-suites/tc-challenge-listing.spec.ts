@@ -46,12 +46,8 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.fillAndVerifySearchResults();
     });
 
-    it('[TC-007] should verify that the "Filter" button is working correctly', async () => {
-      await ChallengeListingPageHelper.verifyFilterToggle();
-    });
-
     it('[TC-008] should verify that the "Filter" option "keywords" is working correctly', async () => {
-      await ChallengeListingPageHelper.verifyFilterByKeywords();
+      await ChallengeListingPageHelper.verifyFilterByKeywordSearch();
     });
 
     it('[TC-009] should verify that the "Filter" option "Type" is working correctly', async () => {
@@ -75,17 +71,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     });
 
     it('[TC_013] should verify whether the user is able to select more than one keyword/Type under the filter function', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      // await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
       await ChallengeListingPageHelper.verifyFilterByMultipleTypes();
-    });
-
-    it('[TC_014] should verify whether the cross symbol inside the textbox keyword/Type filters removes the selected keyword/Type', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
-      await ChallengeListingPageHelper.verifyFilterByMultipleTypes();
-      await ChallengeListingPageHelper.verifyRemovalOfKeyword();
-      await ChallengeListingPageHelper.verifyRemovalOfType();
     });
 
     it('[TC_018] should verify whether the Sort by select option under the Open for registration list sorts the challenges according to the selected option', async () => {
