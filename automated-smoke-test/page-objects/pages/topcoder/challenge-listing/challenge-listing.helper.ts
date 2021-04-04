@@ -283,7 +283,6 @@ export class ChallengeListingPageHelper {
   }
 
   static async verifyFilterBySubCommunity() {
-    await this.openFiltersPanel();
     await CommonHelper.waitUntilVisibilityOf(
       () => ChallengeListingPageObject.subCommunityLabel,
       'Wait for sub community label',
@@ -639,8 +638,12 @@ export class ChallengeListingPageHelper {
     const challenges = await ChallengeListingPageObject.filterChallengesBy(
       tabName
     );
-    let challengesText = await challenges.getText();
-    challengesText = challengesText.replace(/(\r\n|\n|\r)/gm, ' ');
+    let challengesText = '';
+    if (challenges) {
+      challengesText = await challenges.getText();
+      challengesText = challengesText.replace(/(\r\n|\n|\r)/gm, ' ');
+    }
+
     const count = parseInt(challengesText.split(tabName)[1]);
     return count || 0;
   }
