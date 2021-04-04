@@ -88,37 +88,6 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.verifyRemovalOfType();
     });
 
-    it('[TC_015] should verify whether the number of filters applied are shown into Filter button according to the keyword/Type/Sub community/Date range fields selected', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectType('Challenge');
-      const subComunityClicked = await ChallengeListingPageHelper.selectSubCommunity(1);
-      let expectedFilterNumber = 3;
-      if (!subComunityClicked) expectedFilterNumber = 2; 
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(expectedFilterNumber);
-    });
-
-    it('[TC_016] should verify whether the clear filter button clears all the filters selected and all the challenges are displayed', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectType('Challenge');
-      const subComunityClicked = await ChallengeListingPageHelper.selectSubCommunity(1);
-      let expectedFilterNumber = 3;
-      if (!subComunityClicked) expectedFilterNumber = 2; 
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(expectedFilterNumber);
-      await ChallengeListingPageHelper.clearFilters();
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(0);
-    });
-
-    it('[TC_017] should verify whether the Clear filter button is deactivated into filter function', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.dropdownForKeywordIsDisplayed();
-      await ChallengeListingPageHelper.dropdownForTypeIsDisplayed();
-      await ChallengeListingPageHelper.dropdownForSubCommunityIsDisplayed();
-      await ChallengeListingPageHelper.dropdownForDateRangeIsDisplayed();
-      await ChallengeListingPageHelper.verifyClearFilterState(false);
-    });
-
     it('[TC_018] should verify whether the Sort by select option under the Open for registration list sorts the challenges according to the selected option', async () => {
       await ChallengeListingPageHelper.verifySortingFunctionality();
     });
