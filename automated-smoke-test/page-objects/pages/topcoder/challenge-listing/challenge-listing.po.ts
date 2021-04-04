@@ -94,6 +94,35 @@ export class ChallengeListingPageObject {
   }
 
   /**
+   * Get past challenges tab
+   */
+  static get pastChallengesTab() {
+    return ElementHelper.getTagElementContainingText('li', 'Past Challenges');
+  }
+
+  /**
+   * Get challenge checkbox
+   */
+  static get challengeCheckbox() {
+    return ElementHelper.getElementByCss('label[for=Challenge]');
+  }
+
+  /**
+   * Get F2F checkbox
+   */
+  static get first2FinishCheckbox() {
+    return ElementHelper.getElementByCss('label[for=First2Finish]');
+  }
+
+  /**
+   * Get Task checkbox
+   */
+   static get taskCheckbox() {
+    return ElementHelper.getElementByCss('label[for=Task]');
+  }
+
+
+  /**
    * Get view more challenges button
    */
   static get viewMoreChallenges() {
@@ -110,6 +139,14 @@ export class ChallengeListingPageObject {
       '//div[contains(text(), "' + filter + '")]'
     );
     return els[1];
+  }
+
+  /**
+   * Get open for registration count
+   */
+   static async openForRegistrationCount() {
+    const els =  await ElementHelper.getAllElementsByClassName('_23WWoe');
+    return els[0];
   }
 
   /**

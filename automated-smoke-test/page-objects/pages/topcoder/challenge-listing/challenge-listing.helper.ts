@@ -242,22 +242,25 @@ export class ChallengeListingPageHelper {
   }
 
   static async verifyFilterByType() {
-    await this.openFiltersPanel();
     await CommonHelper.waitUntilVisibilityOf(
-      () => ChallengeListingPageObject.typeLabel,
-      'Wait for type label',
+      () => ChallengeListingPageObject.subCommunityLabel,
+      'Wait for type sub community label',
       false
     );
-    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.typeLabel);
+    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subCommunityLabel);
     expect(filtersVisibility).toBe(true);
-    await this.selectType('First2Finish');
 
+    await ChallengeListingPageObject.challengeCheckbox.click();
+    await ChallengeListingPageObject.taskCheckbox.click();
+
+    await BrowserHelper.sleep(5000);
     await this.viewMoreChallenges();
 
     // need to sleep to wait for ajax calls to be completed to filter using the above type
     await this.waitForLoadingNewChallengeList();
-    const count = await this.getOpenForRegistrationChallengesCount();
-    await this.verifyChallengesMatchingType(count, [{ name: 'F2F' }]);
+    const openForRegistrationCount = await ChallengeListingPageObject.openForRegistrationCount();
+    const count = await openForRegistrationCount.getText();
+    await this.verifyChallengesMatchingType(parseInt(count), [{ name: 'F2F' }]);
   }
 
   static async selectSubCommunity(index: number) {
@@ -411,11 +414,9 @@ export class ChallengeListingPageHelper {
   }
 
   static async verifyFilterByKeywordsAndType() {
-    await this.selectKeyword('Java');
     await this.selectType('Challenge');
-    await this.verifyChallengesMatchingKeyword(['Java']);
-    const count = await this.getOpenForRegistrationChallengesCount();
-    await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
+    // const count = await this.getOpenForRegistrationChallengesCount();
+    // await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
   }
 
   /**
