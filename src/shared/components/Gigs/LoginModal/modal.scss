@@ -4,9 +4,9 @@
 .container {
   padding: 0;
   width: auto;
-  max-width: 95vw;
+  max-width: 727px;
   height: auto;
-  max-height: 95vh;
+  max-height: 532px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -15,21 +15,51 @@
   @include gui-kit-headers;
   @include gui-kit-content;
 
+  @media (max-width: 768px) and (min-width: 630px) {
+    width: 600px;
+    max-height: 596px;
+  }
+
+  @media (max-width: 630px) {
+    width: calc(100vw - 30px);
+    max-height: none;
+  }
+
   .title {
-    color: #1e94a3;
+    color: #9d41c9;
     font-family: BarlowCondensed, sans-serif;
-    font-size: 34px;
-    line-height: 38px;
+    font-size: 60px;
+    line-height: 58px;
     font-weight: 500;
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+
+    @include xs-to-sm {
+      max-width: 400px;
+      margin: auto;
+      font-size: 60px !important;
+      line-height: 58px !important;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 425px) {
+      max-width: 230px;
+      margin: auto;
+      font-size: 36px !important;
+      line-height: 34px !important;
+      margin-bottom: 30px;
+    }
   }
 
   .loginMsg {
-    color: #ef476f;
+    color: #2a2a2a;
     font-size: 24px;
     line-height: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+
+    @media (max-width: 425px) {
+      text-align: 425px !important;
+    }
   }
 
   .ctaButtons {
@@ -61,20 +91,65 @@
     }
   }
 
-  .loginRequired,
-  .referrSucess {
+  .loginRequired {
     display: flex;
     flex-direction: column;
-    padding: 100px 80px;
+    padding: 80px 55px 40px 60px;
     text-align: center;
+    position: relative;
 
     @include xs-to-sm {
-      padding: 50px 40px;
+      padding: 50px 35px 40px;
+    }
+
+    @media (max-width: 425px) {
+      padding: 50px 15px 70px;
+    }
+
+    .progressBar {
+      width: 100%;
+
+      @include xs {
+        margin-bottom: 40px;
+      }
+
+      svg {
+        max-width: 100%;
+      }
+    }
+
+    .blobYellow,
+    .blobPurple {
+      position: absolute;
+      z-index: -1;
+
+      svg {
+        max-width: 100%;
+      }
+    }
+
+    .blobYellow {
+      top: 0;
+      right: 0;
+
+      @include xs {
+        max-width: 62px;
+      }
+    }
+
+    .blobPurple {
+      bottom: -5px;
+      left: 0;
+
+      @include xs {
+        max-width: 84px;
+        bottom: -40px;
+      }
     }
 
     .regTxt {
-      font-size: 14px;
-      margin: 10px 0 0;
+      font-size: 16px;
+      margin: 30px 0 0;
     }
   }
 }
