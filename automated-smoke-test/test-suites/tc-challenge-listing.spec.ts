@@ -65,9 +65,7 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     });
 
     it('[TC_012] should verify whether the challenges are filtered according to the keyword/Type/Sub community/Date range fields selected under the Filter function', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.verifyFilterByKeywordsAndType();
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(2);
     });
 
     it('[TC_013] should verify whether the user is able to select more than one keyword/Type under the filter function', async () => {

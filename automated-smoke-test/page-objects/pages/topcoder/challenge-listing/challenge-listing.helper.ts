@@ -400,9 +400,7 @@ export class ChallengeListingPageHelper {
   }
 
   static async verifyFilterByKeywordsAndType() {
-    await this.selectType('Challenge');
-    // const count = await this.getOpenForRegistrationChallengesCount();
-    // await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
+    await this.verifyFilterByKeywordSearch();
   }
 
   /**
