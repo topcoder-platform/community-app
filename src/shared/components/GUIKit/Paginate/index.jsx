@@ -5,6 +5,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import PT from 'prop-types';
+import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 
 function Paginate({
@@ -12,14 +13,17 @@ function Paginate({
   page,
   onChange,
 }) {
+  const isMobile = useMediaQuery({
+    query: '(max-device-width: 768px)',
+  });
   return (
     <div styleName="container">
       <ReactPaginate
         pageCount={pages}
         initialPage={page}
         forcePage={page}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
+        pageRangeDisplayed={isMobile ? 1 : 3}
+        marginPagesDisplayed={isMobile ? 1 : 2}
         onPageChange={onChange}
         activeClassName="active"
         previousLabel="PREV"
