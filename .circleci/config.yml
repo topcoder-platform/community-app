@@ -283,7 +283,7 @@ workflows:
           filters:
             branches:
               only:                
-                - FAQ-theme
+                - gig-login-modal-update
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
