@@ -58,7 +58,10 @@
     margin-bottom: 40px;
 
     @media (max-width: 425px) {
-      text-align: 425px !important;
+      text-align: left !important;
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 30px;
     }
   }
 
@@ -144,6 +147,17 @@
       @include xs {
         max-width: 84px;
         bottom: -40px;
+      }
+    }
+
+    .thinkingFace {
+      width: 23px;
+      margin: 0 5px;
+      transform: translateY(4px);
+
+      @media (max-width: 425px) {
+        width: 21px;
+        transform: translateY(2px);
       }
     }
 

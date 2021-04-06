@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * The modal used for login enforcing
  */
@@ -11,6 +12,8 @@ import { config } from 'topcoder-react-utils';
 import SVG from 'react-inlinesvg';
 import MediaQuery from 'react-responsive';
 import tc from 'components/buttons/themed/tc.scss';
+import ThinkingFaceMobile from 'assets/images/thinking-face-mobile.svg';
+import ThinkingFace from 'assets/images/thinking-face-laptop-tablet.svg';
 import modalStyle from './modal.scss';
 
 /** Themes for buttons
@@ -26,7 +29,6 @@ const progressBar = 'https://images.ctfassets.net/b5f1djy59z3a/2BX7LOrvVzKEarIJ8
 const progressBarMid = 'https://images.ctfassets.net/b5f1djy59z3a/517ZRt9geweW3QTtzlUqJu/11e33e876426f97e0725ba5fff9755f8/progress-bar-mid.svg';
 const progressBarXS = 'https://images.ctfassets.net/b5f1djy59z3a/6QxH7uVKCngtzBaXDn3Od1/3e0222a1ce773cead3f3a45f291f43a6/progress-bar-mobile.svg';
 const blobPurple = 'https://images.ctfassets.net/b5f1djy59z3a/1ZRCwp1uoShcES16lQmeu/ba084734120ffedebcb92b4e3fa2d667/blob-purple.svg';
-const thinkingFace = 'https://images.ctfassets.net/b5f1djy59z3a/1ARy0M8tnHLo5baDRY1GcB/7d15b488029574a8de7adeeda41d38d9/thinking_icon_-_desktop_and_tablet.png';
 
 function LoginModal({ retUrl, onCancel }) {
   return (
@@ -39,7 +41,7 @@ function LoginModal({ retUrl, onCancel }) {
         <h3 className={modalStyle.title}>YAY! You are almost done!</h3>
         <p className={modalStyle.loginMsg}>
           Looks like you&apos;re not a Topcoder member yet. Or maybe
-          you&apos;re not logged in? <img src={thinkingFace} alt="face icon" />&nbsp;
+          you&apos;re not logged in?<MediaQuery maxDeviceWidth={425}><ThinkingFaceMobile className={modalStyle.thinkingFace} /></MediaQuery><MediaQuery minDeviceWidth={426}><ThinkingFace className={modalStyle.thinkingFace} /></MediaQuery>
           It&apos;s quick to register and it&apos;s free!
         </p>
         <MediaQuery minDeviceWidth={769}>
