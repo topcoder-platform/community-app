@@ -275,7 +275,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - recruit-apis
                 - feature/recommender-sync-develop
       # This is alternate dev env for parallel testing
       - "build-test":
@@ -283,7 +283,7 @@ workflows:
           filters:
             branches:
               only:                
-                - recruit-apis
+                - empty
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
