@@ -101,6 +101,13 @@ export class ChallengeListingPageObject {
   }
 
   /**
+   * Get past month select option
+   */
+  static get pastMonth() {
+    return ElementHelper.getElementByCss('label[for="Past Month"]');
+  }
+
+  /**
    * Get challenge checkbox
    */
   static get challengeCheckbox() {

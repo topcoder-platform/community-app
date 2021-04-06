@@ -59,9 +59,8 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     });
 
     it('[TC-011] should verify that the "Filter" option for "Date range" is working correctly', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectDateRange();
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(1);
+      await ChallengeListingPageHelper.verifyPastChallenges();
     });
 
     it('[TC_012] should verify whether the challenges are filtered according to the keyword/Type/Sub community/Date range fields selected under the Filter function', async () => {

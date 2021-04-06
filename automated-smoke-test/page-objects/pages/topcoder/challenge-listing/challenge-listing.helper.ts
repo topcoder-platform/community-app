@@ -4,6 +4,7 @@ import { CommonHelper } from '../common-page/common.helper';
 import { HeaderPage } from '../header/header.po';
 import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
 import { logger } from '../../../../logger/logger';
+import { ChallengeDetailPageObject } from '../challenge-detail/challenge-detail.po';
 
 export class ChallengeListingPageHelper {
   /**
@@ -309,94 +310,30 @@ export class ChallengeListingPageHelper {
   }
 
   static async selectDateRange() {
-    await CommonHelper.waitUntil(
-      () => async () => {
-        const daterange = await ChallengeListingPageObject.dateRangeStartDate();
-        if (!(await CommonHelper.isDisplayed(daterange))) {
-          return false;
-        }
-        return await CommonHelper.isDisplayed(daterange);
-      },
-      'wait for day range field',
-      true
+    await CommonHelper.waitUntilVisibilityOf(
+      () => ChallengeListingPageObject.subCommunityLabel,
+      'Wait for sub community label',
+      false
     );
+    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subCommunityLabel);
+    expect(filtersVisibility).toBe(true);
 
-    const days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-
-    const now = new Date();
-    const currentDay = days[now.getDay()];
-    const currentMonth = months[now.getMonth()];
-    const currentYear = now.getFullYear();
-
-    const nowPlusOne = new Date();
-    nowPlusOne.setDate(nowPlusOne.getDate() + 1);
-
-    const nextDay = days[nowPlusOne.getDay()];
-    const nextDayMonth = months[nowPlusOne.getMonth()];
-    const nextDayYear = nowPlusOne.getFullYear();
-
-    const currentDayAriaText =
-      'Choose ' +
-      currentDay +
-      ', ' +
-      currentMonth +
-      ' ' +
-      now.getDate() +
-      ', ' +
-      currentYear +
-      ' as your check-in date. It’s available.';
-    const nextDayAriaText =
-      'Choose ' +
-      nextDay +
-      ', ' +
-      nextDayMonth +
-      ' ' +
-      nowPlusOne.getDate() +
-      ', ' +
-      nextDayYear +
-      ' as your check-out date. It’s available.';
-
-    const dateRangeStartDate = await ChallengeListingPageObject.dateRangeStartDate();
-    await dateRangeStartDate.click();
-    await BrowserHelper.sleep(1000);
-    await CommonHelper.getLinkByAriaLabel(currentDayAriaText).click();
-    await CommonHelper.getLinkByAriaLabel(nextDayAriaText).click();
-    await BrowserHelper.sleep(1000);
+    await ChallengeListingPageObject.pastChallengesTab.click();
   }
 
-  static async verifyNumberOfAppliedFilters(
-    expectedNumberOfAppliedFilters: number
-  ) {
-    const appliedFiltersText = await ChallengeListingPageObject.appliedFilters.getText();
-    if (expectedNumberOfAppliedFilters === 0) {
-      expect(appliedFiltersText).toEqual('Filters');
-    } else {
-      expect(appliedFiltersText).toEqual(
-        'Filters' + expectedNumberOfAppliedFilters
-      );
+  static async verifyPastChallenges() {
+    await ChallengeListingPageObject.pastMonth.click();
+    await this.waitForLoadingNewChallengeList();
+    const challenges = await ChallengeListingPageObject.challengeLinks;
+    for (let i = 0; i < challenges.length; i++) {
+      let dates = await ElementHelper.getAllElementsByClassName('JV6Mui');
+
+      for (let i = 0; i < dates.length; i++) {
+        const skill = await dates[i].getText();
+        expect(skill).toContain('Ended');
+      }
     }
+
   }
 
   static async verifyFilterByKeywordsAndType() {
