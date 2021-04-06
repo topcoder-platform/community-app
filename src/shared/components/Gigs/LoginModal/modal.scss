@@ -6,7 +6,7 @@
   width: auto;
   max-width: 727px;
   height: auto;
-  max-height: 532px;
+  max-height: none;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -15,9 +15,12 @@
   @include gui-kit-headers;
   @include gui-kit-content;
 
-  @media (max-width: 768px) and (min-width: 630px) {
+  @media (min-width: 757px) {
+    width: 727px;
+  }
+
+  @media (min-width: 630px) and (max-width: 757px) {
     width: 600px;
-    max-height: 596px;
   }
 
   @media (max-width: 630px) {
