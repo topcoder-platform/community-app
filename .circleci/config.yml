@@ -1,13 +1,13 @@
 version: 2.1
 parameters:
     run_basedeployment:
-        default: false
+        default: true
         type: boolean
     run_smoketesting:
         default: false
         type: boolean
     run_performancetesting:
-        default: true
+        default: false
         type: boolean
 
 defaults: &defaults
@@ -332,14 +332,13 @@ workflows:
             branches:
               only:
                 - develop
-                - performance-testing-1
       # This is alternate dev env for parallel testing
       - deployTest:
           context : org-global      
           filters:
             branches:
               only:                
-                - gig-application-update
+                - free
       # This is alternate dev env for parallel testing
       - deployQA:
           context : org-global      
@@ -353,7 +352,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - free
       # This is stage env for production QA releases
       - deployStag:
           context : org-global         
@@ -361,7 +360,7 @@ workflows:
             branches:
               only:
                 - develop
-                - performance-testing-1
+                - circleci-automation-testing
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
@@ -395,7 +394,7 @@ workflows:
             branches:
               only:
                 - develop
-                - performance-testing-1
+                - circleci-automation-testing
       - Smoke-Testing-On-Production:
           context : org-global
           requires:
@@ -418,5 +417,3 @@ workflows:
               only:
                 - master
                 - develop
-                - performance-testing-1
-                - performance-testing-2
