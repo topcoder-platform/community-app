@@ -4,6 +4,7 @@ import { CommonHelper } from '../common-page/common.helper';
 import { HeaderPage } from '../header/header.po';
 import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
 import { logger } from '../../../../logger/logger';
+import { ChallengeDetailPageObject } from '../challenge-detail/challenge-detail.po';
 
 export class ChallengeListingPageHelper {
   /**
@@ -62,20 +63,6 @@ export class ChallengeListingPageHelper {
     const firstChallenge = ChallengeListingPageObject.firstChallengeLink;
     const firstChallengeName = await firstChallenge.getText();
     expect(firstChallengeName).toEqual(searchString);
-  }
-
-  /**
-   * verify filter by toggle
-   */
-  static async verifyFilterToggle() {
-    await this.openFiltersPanel();
-    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.keywordsLabel);
-    expect(filtersVisibility).toBe(true);
-    await ChallengeListingPageObject.filterButton.click();
-    filtersVisibility = await CommonHelper.isDisplayed(
-      ChallengeListingPageObject.keywordsLabel
-    );
-    expect(filtersVisibility).toBe(false);
   }
 
   /**
@@ -174,7 +161,7 @@ export class ChallengeListingPageHelper {
     await this.waitForLoadingNewChallengeList();
     const challenges = await ChallengeListingPageObject.challengeLinks;
     for (let i = 0; i < challenges.length; i++) {
-      const parentDiv = ElementHelper.getElementByXPath('..', challenges[i]);
+      const parentDiv = ElementHelper.getElementByXPath('../..', challenges[i]);
       let skills = await ElementHelper.getAllElementsByCss(
         'button[type=button]',
         parentDiv
@@ -208,17 +195,17 @@ export class ChallengeListingPageHelper {
     }
   }
 
-  static async verifyFilterByKeywords() {
-    await this.openFiltersPanel();
+  static async verifyFilterByKeywordSearch() {
     await CommonHelper.waitUntilVisibilityOf(
-      () => ChallengeListingPageObject.keywordsLabel,
-      'Wait for keywords label',
+      () => ChallengeListingPageObject.subCommunityLabel,
+      'Wait for sub community label',
       false
     );
-    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.keywordsLabel);
+    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subCommunityLabel);
     expect(filtersVisibility).toBe(true);
 
-    await this.selectKeyword('Java');
+    await ChallengeListingPageObject.challengeSearchBox.sendKeys('Java');
+    await BrowserHelper.sleep(5000);
     await this.verifyChallengesMatchingKeyword(['Java']);
   }
 
@@ -242,22 +229,25 @@ export class ChallengeListingPageHelper {
   }
 
   static async verifyFilterByType() {
-    await this.openFiltersPanel();
     await CommonHelper.waitUntilVisibilityOf(
-      () => ChallengeListingPageObject.typeLabel,
-      'Wait for type label',
+      () => ChallengeListingPageObject.subCommunityLabel,
+      'Wait for type sub community label',
       false
     );
-    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.typeLabel);
+    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subCommunityLabel);
     expect(filtersVisibility).toBe(true);
-    await this.selectType('First2Finish');
 
+    await ChallengeListingPageObject.challengeCheckbox.click();
+    await ChallengeListingPageObject.taskCheckbox.click();
+
+    await BrowserHelper.sleep(5000);
     await this.viewMoreChallenges();
 
     // need to sleep to wait for ajax calls to be completed to filter using the above type
     await this.waitForLoadingNewChallengeList();
-    const count = await this.getOpenForRegistrationChallengesCount();
-    await this.verifyChallengesMatchingType(count, [{ name: 'F2F' }]);
+    const openForRegistrationCount = await ChallengeListingPageObject.openForRegistrationCount();
+    const count = await openForRegistrationCount.getText();
+    await this.verifyChallengesMatchingType(parseInt(count), [{ name: 'F2F' }]);
   }
 
   static async selectSubCommunity(index: number) {
@@ -283,7 +273,6 @@ export class ChallengeListingPageHelper {
   }
 
   static async verifyFilterBySubCommunity() {
-    await this.openFiltersPanel();
     await CommonHelper.waitUntilVisibilityOf(
       () => ChallengeListingPageObject.subCommunityLabel,
       'Wait for sub community label',
@@ -321,111 +310,34 @@ export class ChallengeListingPageHelper {
   }
 
   static async selectDateRange() {
-    await CommonHelper.waitUntil(
-      () => async () => {
-        const daterange = await ChallengeListingPageObject.dateRangeStartDate();
-        if (!(await CommonHelper.isDisplayed(daterange))) {
-          return false;
-        }
-        return await CommonHelper.isDisplayed(daterange);
-      },
-      'wait for day range field',
-      true
+    await CommonHelper.waitUntilVisibilityOf(
+      () => ChallengeListingPageObject.subCommunityLabel,
+      'Wait for sub community label',
+      false
     );
+    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subCommunityLabel);
+    expect(filtersVisibility).toBe(true);
 
-    const days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-
-    const now = new Date();
-    const currentDay = days[now.getDay()];
-    const currentMonth = months[now.getMonth()];
-    const currentYear = now.getFullYear();
-
-    const nowPlusOne = new Date();
-    nowPlusOne.setDate(nowPlusOne.getDate() + 1);
-
-    const nextDay = days[nowPlusOne.getDay()];
-    const nextDayMonth = months[nowPlusOne.getMonth()];
-    const nextDayYear = nowPlusOne.getFullYear();
-
-    const currentDayAriaText =
-      'Choose ' +
-      currentDay +
-      ', ' +
-      currentMonth +
-      ' ' +
-      now.getDate() +
-      ', ' +
-      currentYear +
-      ' as your check-in date. It’s available.';
-    const nextDayAriaText =
-      'Choose ' +
-      nextDay +
-      ', ' +
-      nextDayMonth +
-      ' ' +
-      nowPlusOne.getDate() +
-      ', ' +
-      nextDayYear +
-      ' as your check-out date. It’s available.';
-
-    const dateRangeStartDate = await ChallengeListingPageObject.dateRangeStartDate();
-    await dateRangeStartDate.click();
-    await BrowserHelper.sleep(1000);
-    await CommonHelper.getLinkByAriaLabel(currentDayAriaText).click();
-    await CommonHelper.getLinkByAriaLabel(nextDayAriaText).click();
-    await BrowserHelper.sleep(1000);
+    await ChallengeListingPageObject.pastChallengesTab.click();
   }
 
-  static async verifyNumberOfAppliedFilters(
-    expectedNumberOfAppliedFilters: number
-  ) {
-    const appliedFiltersText = await ChallengeListingPageObject.appliedFilters.getText();
-    if (expectedNumberOfAppliedFilters === 0) {
-      expect(appliedFiltersText).toEqual('Filters');
-    } else {
-      expect(appliedFiltersText).toEqual(
-        'Filters' + expectedNumberOfAppliedFilters
-      );
+  static async verifyPastChallenges() {
+    await ChallengeListingPageObject.pastMonth.click();
+    await this.waitForLoadingNewChallengeList();
+    const challenges = await ChallengeListingPageObject.challengeLinks;
+    for (let i = 0; i < challenges.length; i++) {
+      let dates = await ElementHelper.getAllElementsByClassName('JV6Mui');
+
+      for (let i = 0; i < dates.length; i++) {
+        const skill = await dates[i].getText();
+        expect(skill).toContain('Ended');
+      }
     }
+
   }
 
   static async verifyFilterByKeywordsAndType() {
-    await this.selectKeyword('Java');
-    await this.selectType('Challenge');
-    await this.verifyChallengesMatchingKeyword(['Java']);
-    const count = await this.getOpenForRegistrationChallengesCount();
-    await this.verifyChallengesMatchingType(count, [{ name: 'CH' }]);
-  }
-
-  /**
-   * verify filter by multiple keywords
-   */
-  static async verifyFilterByMultipleKeywords() {
-    await this.selectKeyword('Java');
-    await this.selectKeyword('HTML5');
-    await this.verifyChallengesMatchingKeyword(['Java', 'HTML5']);
+    await this.verifyFilterByKeywordSearch();
   }
 
   /**
@@ -446,14 +358,12 @@ export class ChallengeListingPageHelper {
    * verify filter by multiple types
    */
   static async verifyFilterByMultipleTypes() {
-    await this.selectType('Challenge');
-    await this.selectType('First2Finish');
+    await ChallengeListingPageObject.taskCheckbox.click();
 
-    // await this.viewMoreChallenges();
+    const openForRegistrationCount = await ChallengeListingPageObject.openForRegistrationCount();
+    const count = await openForRegistrationCount.getText();
 
-    const count = await this.getOpenForRegistrationChallengesCount();
-
-    await this.verifyChallengesMatchingType(count, [
+    await this.verifyChallengesMatchingType(parseInt(count), [
       { name: 'F2F' },
       { name: 'CH' },
     ]);
@@ -639,8 +549,12 @@ export class ChallengeListingPageHelper {
     const challenges = await ChallengeListingPageObject.filterChallengesBy(
       tabName
     );
-    let challengesText = await challenges.getText();
-    challengesText = challengesText.replace(/(\r\n|\n|\r)/gm, ' ');
+    let challengesText = '';
+    if (challenges) {
+      challengesText = await challenges.getText();
+      challengesText = challengesText.replace(/(\r\n|\n|\r)/gm, ' ');
+    }
+
     const count = parseInt(challengesText.split(tabName)[1]);
     return count || 0;
   }

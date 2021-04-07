@@ -69,7 +69,7 @@ export class ChallengeListingPageObject {
    * Get filter sub community label field
    */
   static get subCommunityDropdown() {
-    return ElementHelper.getElementById('react-select-3--value-item');
+    return ElementHelper.getElementById('react-select-2--value-item');
   }
 
   /**
@@ -94,6 +94,42 @@ export class ChallengeListingPageObject {
   }
 
   /**
+   * Get past challenges tab
+   */
+  static get pastChallengesTab() {
+    return ElementHelper.getTagElementContainingText('li', 'Past Challenges');
+  }
+
+  /**
+   * Get past month select option
+   */
+  static get pastMonth() {
+    return ElementHelper.getElementByCss('label[for="Past Month"]');
+  }
+
+  /**
+   * Get challenge checkbox
+   */
+  static get challengeCheckbox() {
+    return ElementHelper.getElementByCss('label[for=Challenge]');
+  }
+
+  /**
+   * Get F2F checkbox
+   */
+  static get first2FinishCheckbox() {
+    return ElementHelper.getElementByCss('label[for=First2Finish]');
+  }
+
+  /**
+   * Get Task checkbox
+   */
+   static get taskCheckbox() {
+    return ElementHelper.getElementByCss('label[for=Task]');
+  }
+
+
+  /**
    * Get view more challenges button
    */
   static get viewMoreChallenges() {
@@ -110,6 +146,14 @@ export class ChallengeListingPageObject {
       '//div[contains(text(), "' + filter + '")]'
     );
     return els[1];
+  }
+
+  /**
+   * Get open for registration count
+   */
+   static async openForRegistrationCount() {
+    const els =  await ElementHelper.getAllElementsByClassName('_23WWoe');
+    return els[0];
   }
 
   /**
@@ -240,7 +284,7 @@ export class ChallengeListingPageObject {
   static async findSkillsForChallenge(challenge: TcElementImpl) {
     const buttons = await ElementHelper.getAllElementsByTag(
       'button',
-      ElementHelper.getElementByXPath('..', challenge)
+      ElementHelper.getElementByXPath('../..', challenge)
     );
     const skills = [];
     for (let j = 0; j < buttons.length; j++) {
