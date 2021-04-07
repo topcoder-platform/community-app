@@ -47,10 +47,10 @@ function LoginModal({ retUrl, onCancel }) {
         <MediaQuery minDeviceWidth={769}>
           <SVG src={progressBar} className={modalStyle.progressBar} />
         </MediaQuery>
-        <MediaQuery maxDeviceWidth={768} minDeviceWidth={321}>
+        <MediaQuery maxDeviceWidth={768} minDeviceWidth={630}>
           <SVG src={progressBarMid} className={modalStyle.progressBar} />
         </MediaQuery>
-        <MediaQuery maxDeviceWidth={320}>
+        <MediaQuery maxDeviceWidth={630}>
           <SVG src={progressBarXS} className={modalStyle.progressBar} />
         </MediaQuery>
         <div className={modalStyle.ctaButtons}>
