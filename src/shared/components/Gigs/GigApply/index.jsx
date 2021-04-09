@@ -53,7 +53,11 @@ export default function GigApply(props) {
                   {
                     application.error ? (
                       <React.Fragment>
-                        <p styleName="error-text">{application.errorObj.message || JSON.stringify(application.errorObj)}</p>
+                        {
+                          application.errorObj ? (
+                            <p styleName="error-text">{application.errorObj.message || JSON.stringify(application.errorObj)}</p>
+                          ) : null
+                        }
                         <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
                         <p>Please send us an email at <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a> with the subject ‘Gig Error’<br />and paste the URL for the gig you are attempting to apply for so that we know of your interest.</p>
                       </React.Fragment>

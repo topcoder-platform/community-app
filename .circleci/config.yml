@@ -276,28 +276,28 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/recommender-sync-develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
-              only:                
-                - FAQ-theme
+              only:
+                - free
+
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - bug-bash
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - bug-bash
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
@@ -305,7 +305,6 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/recommender-sync-develop
       - "approve-smoke-test-on-staging":
           type: approval
           requires:

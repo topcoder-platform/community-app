@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /**
- * SearchCombo component.
+ * Job card component.
  */
 import React from 'react';
 import PT from 'prop-types';

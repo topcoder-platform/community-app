@@ -36,3 +36,22 @@
   text-align: center;
   width: 100%;
 }
+
+.outage-banner {
+  margin: auto;
+  max-width: 1240px;
+  padding: 4 * $base-unit;
+  width: 100%;
+
+  @include roboto-regular;
+
+  font-size: 13px;
+  line-height: 20px;
+  background-color: #fdf6d5;
+
+  strong {
+    color: $tc-red;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
