@@ -5,9 +5,14 @@
 import React from 'react';
 import PT from 'prop-types';
 import MarkdownRenderer from 'components/MarkdownRenderer';
+import { themr } from 'react-css-super-themr';
+import defaultTheme from './themes/item.scss';
+import darkTheme from './themes/item-dark.scss';
 
-import './item.scss';
-
+const THEMES = {
+  Default: defaultTheme,
+  'Dark mode': darkTheme,
+};
 class DropdownItem extends React.Component {
   constructor(props) {
     super(props);
@@ -24,24 +29,24 @@ class DropdownItem extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, baseTheme } = this.props;
     const { isActive } = this.state;
     return (
-      <div styleName="container" id={data.sys.id}>
+      <div className={THEMES[baseTheme].container} id={data.sys.id}>
         <div
           tabIndex={0}
           role="button"
           onKeyPress={e => (e.key === 'Enter' ? null : null)}
-          styleName={isActive ? 'question active' : 'question'}
+          className={isActive ? THEMES[baseTheme]['question-active'] : THEMES[baseTheme].question}
           onClick={() => this.toggleActive()}
         >
-          <div styleName="text">
+          <div className={THEMES[baseTheme].text}>
             {data.fields.title}
           </div>
-          <div styleName={isActive ? 'toggle-arrow active' : 'toggle-arrow'} />
+          <div className={isActive ? THEMES[baseTheme]['toggle-arrow-active'] : THEMES[baseTheme]['toggle-arrow']} />
         </div>
         <div
-          styleName={isActive ? 'answer active' : 'answer'}
+          className={isActive ? THEMES[baseTheme]['answer-active'] : THEMES[baseTheme].answer}
         >
           <MarkdownRenderer markdown={data.fields.text} {...this.props} />
         </div>
@@ -55,6 +60,7 @@ DropdownItem.defaultProps = {
   spaceName: null,
   environment: null,
   isActive: false,
+  baseTheme: 'Default',
 };
 
 DropdownItem.propTypes = {
@@ -63,6 +69,7 @@ DropdownItem.propTypes = {
   preview: PT.bool,
   spaceName: PT.string,
   environment: PT.string,
+  baseTheme: PT.string,
 };
 
-export default DropdownItem;
+export default themr('DropdownItem', defaultTheme)(DropdownItem);

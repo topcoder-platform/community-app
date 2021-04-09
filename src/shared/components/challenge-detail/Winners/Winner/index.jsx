@@ -1,6 +1,6 @@
 import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 
@@ -20,6 +20,11 @@ export default function Winner({
   viewable,
   winner,
 }) {
+  const [windowOrigin, setWindowOrigin] = useState();
+  useEffect(() => {
+    setWindowOrigin(window.origin);
+  }, []);
+
   const submissionId = viewable && getId(submissions, winner.placement);
 
   let placeStyle = winner.placement < 4 ? `place-${winner.placement}` : '';
@@ -69,9 +74,9 @@ export default function Winner({
           />
           <div>
             <a
-              href={`${window.origin}/members/${winner.handle}`}
+              href={`${windowOrigin}/members/${winner.handle}`}
               styleName="handle"
-              target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`}
+              target={`${_.includes(windowOrigin, 'www') ? '_self' : '_blank'}`}
             >
               {winner.handle}
             </a>

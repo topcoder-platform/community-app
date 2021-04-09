@@ -282,22 +282,23 @@ workflows:
           context : org-global      
           filters:
             branches:
-              only:                
-                - empty
+              only:
+                - free
+
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - free
+                - bug-bash
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - develop
+                - bug-bash
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         

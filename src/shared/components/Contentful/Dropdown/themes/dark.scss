@@ -12,7 +12,7 @@
   display: flex;
   margin: 0 auto;
   max-width: $screen-md;
-  color: black;
+  color: #fff;
   flex-direction: column;
-  border-top: 1px solid #d4d4d4;
+  border-top: 1px solid rgba(212, 212, 212, 0.4);
 }
