@@ -75,12 +75,14 @@ function onApplyForJobInit(state, { payload }) {
  * @param {Object} state Previous state.
  * @param {Object} action The action.
  */
-function onApplyForJobDone(state, { payload }) {
+function onApplyForJobDone(state, action) {
   const r = {
     ...state,
   };
-  r[payload.id].applying = false;
-  r[payload.id].application = payload.data;
+  if (!action.error) {
+    r[action.payload.id].applying = false;
+    r[action.payload.id].application = action.payload.data;
+  }
   return r;
 }
 
