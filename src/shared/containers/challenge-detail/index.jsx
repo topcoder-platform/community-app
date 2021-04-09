@@ -414,6 +414,12 @@ class ChallengeDetailPageContainer extends React.Component {
 
     return (
       <div styleName="outer-container">
+        <div styleName="outage-banner">
+          <strong>Heads up!</strong> We will be doing testing work on our Community Platform on
+          April 12, 2021 between 7:30-9:30 UTC-4. We will do our best to ensure a smooth experience
+          for our users but please be aware there may be unforeseen issues during that time.
+          Thank you!
+        </div>
         <div styleName="challenge-detail-container" role="main">
           { Boolean(isEmpty) && (
             <div styleName="page">
