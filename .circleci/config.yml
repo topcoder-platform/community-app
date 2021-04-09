@@ -275,15 +275,16 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - recruit-apis
                 - feature/recommender-sync-develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
-              only:                
-                - gig-login-modal-update
+              only:
+                - free
+
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
