@@ -4,7 +4,6 @@ import { CommonHelper } from '../common-page/common.helper';
 import { HeaderPage } from '../header/header.po';
 import { BrowserHelper, ElementHelper } from 'topcoder-testing-lib';
 import { logger } from '../../../../logger/logger';
-import { ChallengeDetailPageObject } from '../challenge-detail/challenge-detail.po';
 
 export class ChallengeListingPageHelper {
   /**
@@ -29,6 +28,19 @@ export class ChallengeListingPageHelper {
     const expectedUrl = ConfigHelper.getLoginUrl();
     await this.headerPageObject.clickOnLoginLink();
     await CommonHelper.verifyCurrentUrlToContain(expectedUrl);
+  }
+
+  /**
+   * Wait for sub community input appear
+   */
+  public static async waitForSubCommunity() {
+    await CommonHelper.waitUntilVisibilityOf(
+      () => ChallengeListingPageObject.subCommunityLabel,
+      'Wait for sub community label',
+      false
+    );
+    let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subCommunityLabel);
+    expect(filtersVisibility).toBe(true);
   }
 
   /**
@@ -57,7 +69,6 @@ export class ChallengeListingPageHelper {
 
     const searchString = ConfigHelper.getChallengeDetail().challengeName;
     await ChallengeListingPageObject.challengeSearchBox.sendKeys(searchString);
-    await ChallengeListingPageObject.challengeSearchButton.click();
     await BrowserHelper.sleep(2000);
 
     const firstChallenge = ChallengeListingPageObject.firstChallengeLink;
@@ -283,11 +294,12 @@ export class ChallengeListingPageHelper {
 
     await this.selectSubCommunity(1);
 
-    let count = await this.getOpenForRegistrationChallengesCount();
-    await this.scrollDownToPage(count);
+    let countEl = await ChallengeListingPageObject.openForRegistrationCount();
+    const count = await countEl.getText();
+    await this.scrollDownToPage(parseInt(count));
     let challenges = await ChallengeListingPageObject.challengeLinks;
 
-    expect(challenges.length).toEqual(count);
+    expect(challenges.length).toEqual(parseInt(count));
 
     await this.selectSubCommunity(0);
     challenges = await ChallengeListingPageObject.challengeLinks;
@@ -487,6 +499,9 @@ export class ChallengeListingPageHelper {
    */
   static async verifyChallengesByChallengeTag() {
     const tagText = ConfigHelper.getChallengeDetail().challengeTag;
+    await this.waitForSubCommunity();
+    await ChallengeListingPageObject.challengeSearchBox.sendKeys(tagText);
+    await BrowserHelper.sleep(2000);
 
     await CommonHelper.waitUntilVisibilityOf(
       () => ChallengeListingPageObject.getChallengeTag(tagText),
@@ -513,11 +528,12 @@ export class ChallengeListingPageHelper {
    * Veirfy challenge count by toggling development
    */
   static async verifyChallengeCountByTogglingDevelopment() {
-    let openForRegistrationChallenges = await ChallengeListingPageObject.filterChallengesBy(
-      'Open for registration'
-    );
-    await openForRegistrationChallenges.click();
-    await this.waitTillOnlyOneHeaderPresentWithText('Open for registration');
+    await this.waitForSubCommunity();
+    // let openForRegistrationChallenges = await ChallengeListingPageObject.filterChallengesBy(
+    //   'Open for registration'
+    // );
+    // await openForRegistrationChallenges.click();
+    // await this.waitTillOnlyOneHeaderPresentWithText('Open for registration');
 
     // switch off development
     let el = await ChallengeListingPageObject.developmentSwitch();
@@ -532,8 +548,9 @@ export class ChallengeListingPageHelper {
     await this.waitForLoadingNewChallengeList();
 
     let challenges = await ChallengeListingPageObject.openForRegistrationChallenges;
-    const afterOpenForRegistrationChallengesCount = await this.getOpenForRegistrationChallengesCount();
-    expect(afterOpenForRegistrationChallengesCount).toEqual(challenges.length);
+    const countEl = await ChallengeListingPageObject.openForRegistrationCount();
+    const afterOpenForRegistrationChallengesCount = await countEl.getText();
+    expect(parseInt(afterOpenForRegistrationChallengesCount)).toEqual(challenges.length);
   }
 
   /**
@@ -599,10 +616,6 @@ export class ChallengeListingPageHelper {
    * verify open for registration challenges only
    */
   static async verifyOpenForRegistrationChallengesOnly() {
-    const openForRegistrationLink = await ChallengeListingPageObject.filterChallengesBy(
-      'Open for registration'
-    );
-    await openForRegistrationLink.click();
     await this.waitTillOnlyOneHeaderPresentWithText('Open for registration');
     await this.verifyOpenForRegistrationChallenges();
   }
@@ -641,6 +654,7 @@ export class ChallengeListingPageHelper {
    * verify open for review challenges only
    */
   static async verifyOpenForReviewChallengesOnly() {
+    await this.waitForSubCommunity();
     const openForReviewLink = await ChallengeListingPageObject.filterChallengesBy(
       'Open for review'
     );
