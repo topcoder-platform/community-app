@@ -11,7 +11,15 @@ import IconBlackDuration from 'assets/images/icon-black-duration.svg';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import IconBlackPayment from 'assets/images/icon-black-payment.svg';
 import iconBlackSkills from 'assets/images/icon-skills.png';
+import newTag from 'assets/images/gig-work/tag-new.png';
+import hotTag from 'assets/images/gig-work/tag-hot.png';
+import dolarsTag from 'assets/images/gig-work/tag-dolars.png';
 
+const TAGS = {
+  New: newTag,
+  Hot: hotTag,
+  $$$: dolarsTag,
+};
 export default function JobListCard({
   job,
 }) {
@@ -25,9 +33,13 @@ export default function JobListCard({
       skills = skills.join(', ');
     }
   }
+  const tag = getCustomField(job.custom_fields, 'Job Tag');
 
   return (
     <div styleName="container">
+      {
+        tag !== 'n/a' && <img src={TAGS[tag]} alt="gig-job-tag" styleName="gig-tag" />
+      }
       <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="gig-name">{job.name}</Link>
       <div styleName="job-infos">
         <div styleName="icon-val">
