@@ -16,6 +16,7 @@ import { getSalaryType, getCustomField } from 'utils/gigs';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import { config, Link } from 'topcoder-react-utils';
 import { getQuery, updateQuery } from 'utils/url';
+import { withOptimizely } from '@optimizely/react-sdk';
 import './jobLisingStyles.scss';
 
 const CONTENT_PREVIEW_LENGTH = 175;
@@ -46,6 +47,7 @@ class RecruitCRMJobsContainer extends React.Component {
     this.onFilter = this.onFilter.bind(this);
     this.onLocation = this.onLocation.bind(this);
     this.onSort = this.onSort.bind(this);
+    this.onHotlistApply = this.onHotlistApply.bind(this);
   }
 
   componentDidMount() {
@@ -119,10 +121,16 @@ class RecruitCRMJobsContainer extends React.Component {
     });
   }
 
+  onHotlistApply() {
+    const { optimizely } = this.props;
+    optimizely.track('Hotlist ads click');
+  }
+
   render() {
     const {
       loading,
       jobs,
+      optimizely,
     } = this.props;
     const {
       term,
@@ -140,6 +148,8 @@ class RecruitCRMJobsContainer extends React.Component {
       );
     }
 
+    // optimizely decide
+    const decision = optimizely.decide('gig_listing_hotlist');
     let jobsToDisplay = jobs;
     // build hotlist of jobs if present
     let hotlistJobs = _.filter(jobs, (job) => {
@@ -205,7 +215,7 @@ class RecruitCRMJobsContainer extends React.Component {
     );
 
     return (
-      <div styleName={hotlistJobs.length ? 'container-with-hotlist' : 'container'}>
+      <div styleName={hotlistJobs.length && decision.enabled ? 'container-with-hotlist' : 'container'}>
         <div styleName="gigs">
           <div styleName="filters">
             <SearchCombo placeholder="Search Gig Listings by Name or Skills" onSearch={this.onSearch} term={term} />
@@ -225,13 +235,13 @@ class RecruitCRMJobsContainer extends React.Component {
           }
         </div>
         {
-          hotlistJobs.length && (
+          hotlistJobs.length && decision.enabled && (
             <div styleName="hotlist">
               <h5>HOT THIS WEEK</h5>
               <div styleName="hotlist-items">
                 {
                   hotlistJobs.map((hjob, indx) => (indx <= 1 ? (
-                    <Link styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`}>
+                    <Link styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`} onClick={this.onHotlistApply}>
                       <div styleName="location"><IconBlackLocation /> {hjob.country}</div>
                       <h5 styleName="job-title">{hjob.name}</h5>
                       <div styleName="job-money">${hjob.min_annual_salary} - ${hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
@@ -246,7 +256,7 @@ class RecruitCRMJobsContainer extends React.Component {
                           `${getCustomField(hjob.custom_fields, 'Hotlist excerpt') === 'n/a' ? '' : `${getCustomField(hjob.custom_fields, 'Hotlist excerpt').substring(0, CONTENT_PREVIEW_LENGTH)}...`}`
                         }
                       </div>
-                      <Link styleName={`hotlist-item-button-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`}>Apply Now</Link>
+                      <Link styleName={`hotlist-item-button-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} onClick={this.onHotlistApply}>Apply Now</Link>
                     </div>
                   )))
                 }
@@ -268,6 +278,7 @@ RecruitCRMJobsContainer.propTypes = {
   getJobs: PT.func.isRequired,
   loading: PT.bool,
   jobs: PT.arrayOf(PT.shape),
+  optimizely: PT.shape().isRequired,
 };
 
 function mapStateToProps(state) {
@@ -291,4 +302,4 @@ function mapDispatchToActions(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToActions,
-)(RecruitCRMJobsContainer);
+)(withOptimizely(RecruitCRMJobsContainer));

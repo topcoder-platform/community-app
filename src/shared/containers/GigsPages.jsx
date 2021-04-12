@@ -11,12 +11,40 @@ import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 import { Helmet } from 'react-helmet';
 import MetaTags from 'components/MetaTags';
 import { OptimizelyProvider, createInstance } from '@optimizely/react-sdk';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 const optimizelyClient = createInstance({
   sdkKey: config.OPTIMIZELY.SDK_KEY,
 });
-export default function GigsPagesContainer(props) {
-  const { match } = props;
+const cookies = require('browser-cookies');
+
+function GigsPagesContainer(props) {
+  const { match, profile } = props;
+  const optProfile = {
+    attributes: {},
+  };
+  if (!_.isEmpty(profile)) {
+    optProfile.id = String(profile.userId);
+    optProfile.attributes.TC_Handle = profile.handle;
+    optProfile.attributes.HomeCountryCode = profile.homeCountryCode;
+    optProfile.attributes.email = profile.email;
+  } else {
+    const idCookie = cookies.get('_tc.aid');
+    if (idCookie) {
+      optProfile.id = JSON.parse(idCookie).aid;
+    } else {
+      optProfile.id = uuidv4();
+      cookies.set('_tc.aid', JSON.stringify({
+        aid: optProfile.id,
+      }), {
+        secure: true,
+        domain: '',
+        expires: 365, // days
+      });
+    }
+  }
   const { id, type } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   const title = 'Gig Work | Topcoder Community | Topcoder';
@@ -57,16 +85,30 @@ window._chatlio = window._chatlio||[];
       <Footer />
     </div>
   );
+
   return isomorphy.isClientSide() ? (
-    <OptimizelyProvider optimizely={optimizelyClient} user={{ id: 123 }}>
+    <OptimizelyProvider optimizely={optimizelyClient} user={optProfile} timeout={500}>
       {inner}
     </OptimizelyProvider>
   ) : inner;
 }
 
 GigsPagesContainer.defaultProps = {
+  profile: null,
 };
 
 GigsPagesContainer.propTypes = {
   match: PT.shape().isRequired,
+  profile: PT.shape(),
 };
+
+function mapStateToProps(state) {
+  const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
+  return {
+    profile,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(GigsPagesContainer);
