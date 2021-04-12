@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { getSalaryType, getCustomField } from 'utils/gigs';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import { config, Link } from 'topcoder-react-utils';
+import { getQuery, updateQuery } from 'utils/url';
 import './jobLisingStyles.scss';
 
 const CONTENT_PREVIEW_LENGTH = 175;
@@ -52,13 +53,22 @@ class RecruitCRMJobsContainer extends React.Component {
       getJobs,
       jobs,
     } = this.props;
-
+    const { state } = this;
+    const q = getQuery();
     // This gets all jobs.
     // Pagination and filtering on front-side
     if (!jobs.length) {
       getJobs({
         job_status: 1, // Open jobs only
       });
+    }
+    // handle URL query if present
+    if (q && q.search) {
+      const stateUpdate = {
+        ...state,
+        term: q.search,
+      };
+      this.setState(stateUpdate);
     }
   }
 
@@ -68,7 +78,6 @@ class RecruitCRMJobsContainer extends React.Component {
    */
   onFilter(newState) {
     // Do updates
-
     // update the state
     this.setState(newState);
   }
@@ -78,11 +87,19 @@ class RecruitCRMJobsContainer extends React.Component {
       term: newTerm,
       page: 0,
     });
+    // update the URL query
+    updateQuery({
+      search: newTerm,
+    });
   }
 
   onPaginate(newPage) {
     this.onFilter({
       page: newPage.selected,
+    });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
     });
   }
 
