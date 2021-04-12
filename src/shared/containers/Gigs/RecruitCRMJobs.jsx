@@ -14,7 +14,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getSalaryType, getCustomField } from 'utils/gigs';
 import IconBlackLocation from 'assets/images/icon-black-location.svg';
-import { config, Link } from 'topcoder-react-utils';
+import { config, Link, isomorphy } from 'topcoder-react-utils';
 import { getQuery, updateQuery } from 'utils/url';
 import { withOptimizely } from '@optimizely/react-sdk';
 import './jobLisingStyles.scss';
@@ -149,7 +149,10 @@ class RecruitCRMJobsContainer extends React.Component {
     }
 
     // optimizely decide
-    const decision = optimizely.decide('gig_listing_hotlist');
+    let decision = { enabled: true };
+    if (isomorphy.isClientSide()) {
+      decision = optimizely.decide('gig_listing_hotlist');
+    }
     let jobsToDisplay = jobs;
     // build hotlist of jobs if present
     let hotlistJobs = _.filter(jobs, (job) => {

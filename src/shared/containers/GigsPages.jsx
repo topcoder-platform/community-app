@@ -30,7 +30,7 @@ function GigsPagesContainer(props) {
     optProfile.attributes.TC_Handle = profile.handle;
     optProfile.attributes.HomeCountryCode = profile.homeCountryCode;
     optProfile.attributes.email = profile.email;
-  } else {
+  } else if (isomorphy.isClientSide()) {
     const idCookie = cookies.get('_tc.aid');
     if (idCookie) {
       optProfile.id = JSON.parse(idCookie).aid;
@@ -86,11 +86,16 @@ window._chatlio = window._chatlio||[];
     </div>
   );
 
-  return isomorphy.isClientSide() ? (
-    <OptimizelyProvider optimizely={optimizelyClient} user={optProfile} timeout={500}>
+  return (
+    <OptimizelyProvider
+      optimizely={optimizelyClient}
+      user={optProfile}
+      timeout={500}
+      isServerSide={isomorphy.isClientSide()}
+    >
       {inner}
     </OptimizelyProvider>
-  ) : inner;
+  );
 }
 
 GigsPagesContainer.defaultProps = {
