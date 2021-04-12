@@ -91,7 +91,7 @@ window._chatlio = window._chatlio||[];
       optimizely={optimizelyClient}
       user={optProfile}
       timeout={500}
-      isServerSide={isomorphy.isClientSide()}
+      isServerSide={!isomorphy.isClientSide()}
     >
       {inner}
     </OptimizelyProvider>
