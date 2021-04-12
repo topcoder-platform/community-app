@@ -132,21 +132,3 @@ $challenge-radius-4: $corner-radius * 2;
   margin-left: 3px;
   display: inline-block;
 }
-
-.outage-banner {
-  margin: 15px 15px 0 15px;
-  padding: 10px;
-  margin-bottom: -15px;
-
-  @include roboto-regular;
-
-  font-size: 13px;
-  line-height: 20px;
-  background-color: #fdf6d5;
-
-  strong {
-    color: $tc-red;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-}
