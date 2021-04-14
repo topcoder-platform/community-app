@@ -253,12 +253,16 @@ class RecruitCRMJobsContainer extends React.Component {
                     <div styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`}>
                       <div styleName="location"><IconBlackLocation /> {hjob.country}</div>
                       <h5 styleName="job-title">{hjob.name}</h5>
-                      <div styleName="job-money">${hjob.min_annual_salary} - ${hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
-                      <div styleName="job-desc">
-                        {
-                          `${getCustomField(hjob.custom_fields, 'Hotlist excerpt') === 'n/a' ? '' : `${getCustomField(hjob.custom_fields, 'Hotlist excerpt').substring(0, CONTENT_PREVIEW_LENGTH)}...`}`
-                        }
-                      </div>
+                      <div styleName="job-money">${hjob.min_annual_salary} - {hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
+                      {
+                        getCustomField(hjob.custom_fields, 'Hotlist excerpt') !== 'n/a' ? (
+                          <div styleName="job-desc">
+                            {
+                              `${getCustomField(hjob.custom_fields, 'Hotlist excerpt').substring(0, CONTENT_PREVIEW_LENGTH)}${getCustomField(hjob.custom_fields, 'Hotlist excerpt').length > CONTENT_PREVIEW_LENGTH ? '...' : ''}`
+                            }
+                          </div>
+                        ) : null
+                      }
                       <Link styleName={`hotlist-item-button-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} onClick={this.onHotlistApply}>Apply Now</Link>
                     </div>
                   )))
