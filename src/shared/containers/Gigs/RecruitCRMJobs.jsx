@@ -247,7 +247,7 @@ class RecruitCRMJobsContainer extends React.Component {
                     <Link styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`} onClick={this.onHotlistApply}>
                       <div styleName="location"><IconBlackLocation /> {hjob.country}</div>
                       <h5 styleName="job-title">{hjob.name}</h5>
-                      <div styleName="job-money">${hjob.min_annual_salary} - ${hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
+                      <div styleName="job-money">${hjob.min_annual_salary} - {hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
                     </Link>
                   ) : (
                     <div styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`}>
