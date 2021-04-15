@@ -426,4 +426,7 @@ module.exports = {
     DEBOUNCE_ON_CHANGE_TIME: 150,
   },
   ENABLE_RECOMMENDER: true,
+  OPTIMIZELY: {
+    SDK_KEY: '7V4CJhurXT3Y3bnzv1hv1',
+  },
 };

@@ -73,6 +73,9 @@ ARG SENDGRID_API_KEY
 ARG GROWSURF_API_KEY
 ARG GROWSURF_CAMPAIGN_ID
 
+# Optimizely
+ARG OPTIMIZELY_SDK_KEY
+
 ################################################################################
 # Setting of environment variables in the Docker image.
 
@@ -132,6 +135,9 @@ ENV SENDGRID_API_KEY=$SENDGRID_API_KEY
 ENV GROWSURF_API_KEY=$GROWSURF_API_KEY
 ENV GROWSURF_CAMPAIGN_ID=$GROWSURF_CAMPAIGN_ID
 ENV GSHEETS_API_KEY=$GSHEETS_API_KEY
+
+# Optimizely
+ENV OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY
 
 ################################################################################
 # Testing and build of the application inside the container.

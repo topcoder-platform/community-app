@@ -6,6 +6,7 @@ import CommunityLoader from 'containers/tc-communities/Loader';
 import ContentfulRoute from 'components/Contentful/Route';
 import Content from 'components/Content';
 import Footer from 'components/TopcoderFooter';
+import Header from 'containers/TopcoderHeader';
 import React from 'react';
 
 import {
@@ -27,6 +28,8 @@ import Topcoder from './Topcoder';
 import TrackHomePages from './TrackHomePages';
 import PolicyPages from './PolicyPages';
 import GigsPages from './GigsPages';
+
+import './Topcoder/styles.scss';
 
 function Routes({ communityId }) {
   const metaTags = (
@@ -107,6 +110,19 @@ function Routes({ communityId }) {
           path={`${config.POLICY_PAGES_PATH}/:slug?`}
         />
         <Route
+          render={() => (
+            <div styleName="container">
+              <Header />
+              <ContentfulRoute
+                baseUrl={`${config.GIGS_PAGES_PATH}/roles`}
+                id="2UgfR6GJvIO2tmLdo9ITVt"
+              />
+              <Footer />
+            </div>
+          )}
+          path={`${config.GIGS_PAGES_PATH}/roles`}
+        />
+        <Route
           component={GigsPages}
           exact
           path={`${config.GIGS_PAGES_PATH}/:id?`}
@@ -128,15 +144,6 @@ function Routes({ communityId }) {
           )}
           exact
           path={config.START_PAGE_PATH}
-        />
-        <Route
-          render={() => (
-            <ContentfulRoute
-              baseUrl="/wipro-apollo"
-              id="4Ie8cLj2OvuFqbU46HBGQM"
-            />
-          )}
-          path="/wipro-apollo"
         />
         <Topcoder />
       </Switch>

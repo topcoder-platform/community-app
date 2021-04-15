@@ -49,6 +49,7 @@ docker build -t $TAG \
   --build-arg GROWSURF_API_KEY=$GROWSURF_API_KEY \
   --build-arg GROWSURF_CAMPAIGN_ID=$GROWSURF_CAMPAIGN_ID \
   --build-arg GSHEETS_API_KEY=$GSHEETS_API_KEY \
+  --build-arg OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY \
   --build-arg COMMUNITY_APP_URL=$COMMUNITY_APP_URL .
 
 # Copies "node_modules" from the created image, if necessary for caching.

@@ -109,4 +109,7 @@ module.exports = {
     TOKEN_CACHE_TIME: 'TOKEN_CACHE_TIME',
   },
   GSHEETS_API_KEY: 'GSHEETS_API_KEY',
+  OPTIMIZELY: {
+    SDK_KEY: 'OPTIMIZELY_SDK_KEY',
+  },
 };
