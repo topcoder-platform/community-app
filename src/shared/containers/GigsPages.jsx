@@ -6,19 +6,50 @@ import PT from 'prop-types';
 import Header from 'containers/TopcoderHeader';
 import Footer from 'components/TopcoderFooter';
 import Viewport from 'components/Contentful/Viewport';
-import { config } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 import RecruitCRMJobDetails from 'containers/Gigs/RecruitCRMJobDetails';
 import { Helmet } from 'react-helmet';
 import MetaTags from 'components/MetaTags';
+import { OptimizelyProvider, createInstance } from '@optimizely/react-sdk';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
+const optimizelyClient = createInstance({
+  sdkKey: config.OPTIMIZELY.SDK_KEY,
+});
+const cookies = require('browser-cookies');
 
-export default function GigsPagesContainer(props) {
-  const { match } = props;
-  const { id } = match.params;
+function GigsPagesContainer(props) {
+  const { match, profile } = props;
+  const optProfile = {
+    attributes: {},
+  };
+  if (!_.isEmpty(profile)) {
+    optProfile.id = String(profile.userId);
+    optProfile.attributes.TC_Handle = profile.handle;
+    optProfile.attributes.HomeCountryCode = profile.homeCountryCode;
+    optProfile.attributes.email = profile.email;
+  } else if (isomorphy.isClientSide()) {
+    const idCookie = cookies.get('_tc.aid');
+    if (idCookie) {
+      optProfile.id = JSON.parse(idCookie).aid;
+    } else {
+      optProfile.id = uuidv4();
+      cookies.set('_tc.aid', JSON.stringify({
+        aid: optProfile.id,
+      }), {
+        secure: true,
+        domain: '',
+        expires: 365, // days
+      });
+    }
+  }
+  const { id, type } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
   const title = 'Gig Work | Topcoder Community | Topcoder';
   const description = 'Compete and build up your profiles and skills! Topcoder members become eligible to work on Gig Work projects by first proving themselves in various skill sets through Topcoder competitions.';
-  return (
+  const inner = (
     <div>
       <Helmet>
         <script type="text/javascript">{`
@@ -41,21 +72,48 @@ window._chatlio = window._chatlio||[];
             id={id}
             isApply={isApply}
           />
-        ) : (
+        ) : null
+      }
+      {
+        !id && !type ? (
           <Viewport
             id="3X6GfJZl3eDU0m4joSJZpN"
             baseUrl={config.GIGS_PAGES_PATH}
           />
-        )
+        ) : null
       }
       <Footer />
     </div>
   );
+
+  return (
+    <OptimizelyProvider
+      optimizely={optimizelyClient}
+      user={optProfile}
+      timeout={500}
+      isServerSide={!isomorphy.isClientSide()}
+    >
+      {inner}
+    </OptimizelyProvider>
+  );
 }
 
 GigsPagesContainer.defaultProps = {
+  profile: null,
 };
 
 GigsPagesContainer.propTypes = {
   match: PT.shape().isRequired,
+  profile: PT.shape(),
 };
+
+function mapStateToProps(state) {
+  const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
+  return {
+    profile,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(GigsPagesContainer);

@@ -12,9 +12,14 @@ import Dropdown from 'components/GUIKit/Dropdown';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { getSalaryType, getCustomField } from 'utils/gigs';
+import IconBlackLocation from 'assets/images/icon-black-location.svg';
+import { config, Link, isomorphy } from 'topcoder-react-utils';
 import { getQuery, updateQuery } from 'utils/url';
+import { withOptimizely } from '@optimizely/react-sdk';
 import './jobLisingStyles.scss';
 
+const CONTENT_PREVIEW_LENGTH = 175;
 const GIGS_PER_PAGE = 10;
 // Sort by dropdown
 const sortByOptions = [
@@ -42,6 +47,7 @@ class RecruitCRMJobsContainer extends React.Component {
     this.onFilter = this.onFilter.bind(this);
     this.onLocation = this.onLocation.bind(this);
     this.onSort = this.onSort.bind(this);
+    this.onHotlistApply = this.onHotlistApply.bind(this);
   }
 
   componentDidMount() {
@@ -115,10 +121,16 @@ class RecruitCRMJobsContainer extends React.Component {
     });
   }
 
+  onHotlistApply() {
+    const { optimizely } = this.props;
+    optimizely.track('Hotlist ads click');
+  }
+
   render() {
     const {
       loading,
       jobs,
+      optimizely,
     } = this.props;
     const {
       term,
@@ -136,7 +148,19 @@ class RecruitCRMJobsContainer extends React.Component {
       );
     }
 
+    // optimizely decide
+    let decision = { enabled: true };
+    if (isomorphy.isClientSide()) {
+      decision = optimizely.decide('gig_listing_hotlist');
+    }
     let jobsToDisplay = jobs;
+    // build hotlist of jobs if present
+    let hotlistJobs = _.filter(jobs, (job) => {
+      const showInHotlist = _.find(job.custom_fields, ['field_name', 'Show in Hotlist']);
+      return showInHotlist && showInHotlist.value;
+    });
+    hotlistJobs = hotlistJobs.sort((a, b) => new Date(b.updated_on) - new Date(a.updated_on));
+    hotlistJobs = _.slice(hotlistJobs, 0, 4);
     // build current locations dropdown based on all data
     // and filter by selected location
     jobsToDisplay = _.filter(jobs, (job) => {
@@ -177,7 +201,14 @@ class RecruitCRMJobsContainer extends React.Component {
       });
     }
     // Sort controlled by sortBy state
-    jobsToDisplay = jobsToDisplay.sort((a, b) => new Date(b[sortBy]) - new Date(a[sortBy]));
+    jobsToDisplay = jobsToDisplay.sort((a, b) => {
+      // sort tags first no matter the sortBy
+      const tagA = getCustomField(a.custom_fields, 'Job Tag');
+      const tagB = getCustomField(b.custom_fields, 'Job Tag');
+      if (tagB !== 'n/a' && tagA === 'n/a') return Number.MAX_VALUE;
+      if (tagB === 'n/a' && tagA !== 'n/a') return -Number.MIN_VALUE;
+      return new Date(b[sortBy]) - new Date(a[sortBy]);
+    });
     // Calc pages
     const pages = Math.ceil(jobsToDisplay.length / GIGS_PER_PAGE);
     // Paginate the results
@@ -187,22 +218,58 @@ class RecruitCRMJobsContainer extends React.Component {
     );
 
     return (
-      <div styleName="container">
-        <div styleName="filters">
-          <SearchCombo placeholder="Search Gig Listings by Name, Skills, or Location" onSearch={this.onSearch} term={term} />
-          <Dropdown label="Location" onChange={this.onLocation} options={locations} size="xs" />
-          <Dropdown label="Sort by" onChange={this.onSort} options={sortByOptions} size="xs" />
-        </div>
-        <div styleName="jobs-list-container">
+      <div styleName={hotlistJobs.length && decision.enabled ? 'container-with-hotlist' : 'container'}>
+        <div styleName="gigs">
+          <div styleName="filters">
+            <SearchCombo placeholder="Search Gig Listings by Name or Skills" onSearch={this.onSearch} term={term} />
+            <Dropdown label="Location" onChange={this.onLocation} options={locations} size="xs" />
+            <Dropdown label="Sort by" onChange={this.onSort} options={sortByOptions} size="xs" />
+          </div>
+          <div styleName="jobs-list-container">
+            {
+              jobsToDisplay.length
+                ? jobsToDisplay.map(job => <JobListCard job={job} key={job.slug} />)
+                : <span styleName="no-results">No Results</span>
+            }
+          </div>
           {
             jobsToDisplay.length
-              ? jobsToDisplay.map(job => <JobListCard job={job} key={job.slug} />)
-              : <span styleName="no-results">No Results</span>
+              ? <Paginate onChange={this.onPaginate} pages={pages} page={page} /> : null
           }
         </div>
         {
-          jobsToDisplay.length
-            ? <Paginate onChange={this.onPaginate} pages={pages} page={page} /> : null
+          hotlistJobs.length && decision.enabled && (
+            <div styleName="hotlist">
+              <h5>HOT THIS WEEK</h5>
+              <div styleName="hotlist-items">
+                {
+                  hotlistJobs.map((hjob, indx) => (indx <= 1 ? (
+                    <Link styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`} onClick={this.onHotlistApply}>
+                      <div styleName="location"><IconBlackLocation /> {hjob.country}</div>
+                      <h5 styleName="job-title">{hjob.name}</h5>
+                      <div styleName="job-money">${hjob.min_annual_salary} - {hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
+                    </Link>
+                  ) : (
+                    <div styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`}>
+                      <div styleName="location"><IconBlackLocation /> {hjob.country}</div>
+                      <h5 styleName="job-title">{hjob.name}</h5>
+                      <div styleName="job-money">${hjob.min_annual_salary} - {hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
+                      {
+                        getCustomField(hjob.custom_fields, 'Hotlist excerpt') !== 'n/a' ? (
+                          <div styleName="job-desc">
+                            {
+                              `${getCustomField(hjob.custom_fields, 'Hotlist excerpt').substring(0, CONTENT_PREVIEW_LENGTH)}${getCustomField(hjob.custom_fields, 'Hotlist excerpt').length > CONTENT_PREVIEW_LENGTH ? '...' : ''}`
+                            }
+                          </div>
+                        ) : null
+                      }
+                      <Link styleName={`hotlist-item-button-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} onClick={this.onHotlistApply}>Apply Now</Link>
+                    </div>
+                  )))
+                }
+              </div>
+            </div>
+          )
         }
       </div>
     );
@@ -218,6 +285,7 @@ RecruitCRMJobsContainer.propTypes = {
   getJobs: PT.func.isRequired,
   loading: PT.bool,
   jobs: PT.arrayOf(PT.shape),
+  optimizely: PT.shape().isRequired,
 };
 
 function mapStateToProps(state) {
@@ -241,4 +309,4 @@ function mapDispatchToActions(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToActions,
-)(RecruitCRMJobsContainer);
+)(withOptimizely(RecruitCRMJobsContainer));

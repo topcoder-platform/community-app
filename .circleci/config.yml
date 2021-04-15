@@ -276,15 +276,13 @@ workflows:
             branches:
               only:
                 - develop
-                - remove-outage-banner
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
-              only:
+              only:                
                 - free
-
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -306,7 +304,6 @@ workflows:
             branches:
               only:
                 - develop
-                - remove-outage-banner
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
