@@ -66,7 +66,7 @@ export default function GigDetails(props) {
   return (
     <div styleName="container">
       {
-        job.error || job.enable_job_application_form !== 1 ? (
+        job.error || job.job_status.id !== 1 || job.enable_job_application_form !== 1 ? (
           <div styleName="error">
             { job.error ? <SadFace /> : null }
             <h3>{ job.error ? 'Gig does not exist' : 'This Gig has been Fulfilled'}</h3>

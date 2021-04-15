@@ -26,6 +26,7 @@ const JOB_FIELDS_RESPONSE = [
   'salary_type',
   'max_annual_salary',
   'job_description_text',
+  'job_status',
 ];
 const CANDIDATE_FIELDS_RESPONSE = [
   'id',
