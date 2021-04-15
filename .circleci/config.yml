@@ -282,7 +282,7 @@ workflows:
           filters:
             branches:
               only:                
-                - gig-mkt-ab
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -296,14 +296,14 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - gig-mkt-ab
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
           filters:
             branches:
               only:
-                - develop
+                - gig-mkt-ab
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
