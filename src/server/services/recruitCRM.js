@@ -5,9 +5,61 @@ import fetch from 'isomorphic-fetch';
 import config from 'config';
 import qs from 'qs';
 import _ from 'lodash';
+import { logger } from 'topcoder-react-lib';
 import GrowsurfService from './growsurf';
+import { sendEmailDirect } from './sendGrid';
 
 const FormData = require('form-data');
+
+const JOB_FIELDS_RESPONSE = [
+  'id',
+  'slug',
+  'country',
+  'locality',
+  'city',
+  'name',
+  'custom_fields',
+  'enable_job_application_form',
+  'created_on',
+  'updated_on',
+  'min_annual_salary',
+  'salary_type',
+  'max_annual_salary',
+  'job_description_text',
+];
+const CANDIDATE_FIELDS_RESPONSE = [
+  'id',
+  'slug',
+  'first_name',
+  'last_name',
+  'email',
+  'contact_number',
+  'skill',
+  'resume',
+  'locality',
+  'salary_expectation',
+  'custom_fields',
+];
+
+/**
+ * Send email to Kiril/Nick for debuging gig application errors
+ * @param {Object} error the error
+ */
+function notifyKirilAndNick(error) {
+  logger.error(error);
+  sendEmailDirect({
+    personalizations: [
+      {
+        to: [{ email: 'kiril.kartunov@gmail.com' }, { email: 'ncastillo@topcoder.com' }],
+        subject: 'Gig application error alert',
+      },
+    ],
+    from: { email: 'noreply@topcoder.com' },
+    content: [{
+      type: 'text/plain', value: `The error occured as JSON string:\n\n ${JSON.stringify(error)}`,
+    }],
+  });
+}
 
 /**
  * Auxiliary class that handles communication with recruitCRM
@@ -44,13 +96,17 @@ export default class RecruitCRMService {
         return this.getJobs(req, res, next);
       }
       if (response.status >= 400) {
-        return res.send({
+        const error = {
           error: true,
           status: response.status,
           url: `${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}`,
-        });
+          errObj: await response.json(),
+        };
+        logger.error(error);
+        return res.send(error);
       }
       const data = await response.json();
+      data.data = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
       return res.send(data);
     } catch (err) {
       return next(err);
@@ -76,14 +132,17 @@ export default class RecruitCRMService {
         return this.getJob(req, res, next);
       }
       if (response.status >= 400) {
-        return res.send({
+        const error = {
           error: true,
           status: response.status,
           url: `${this.private.baseUrl}/v1/jobs/${req.params.id}`,
-        });
+          errObj: await response.json(),
+        };
+        logger.error(error);
+        return res.send(error);
       }
       const data = await response.json();
-      return res.send(data);
+      return res.send(_.pick(data, JOB_FIELDS_RESPONSE));
     } catch (err) {
       return next(err);
     }
@@ -108,11 +167,14 @@ export default class RecruitCRMService {
         return this.getJobs(req, res, next);
       }
       if (response.status >= 400) {
-        return res.send({
+        const error = {
           error: true,
           status: response.status,
           url: `${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}`,
-        });
+          errObj: await response.json(),
+        };
+        logger.error(error);
+        return res.send(error);
       }
       const data = await response.json();
       if (data.current_page < data.last_page) {
@@ -133,13 +195,17 @@ export default class RecruitCRMService {
               const pageData = await pageDataRsp.json();
               data.data = _.flatten(data.data.concat(pageData.data));
             }
-            return res.send(data.data);
+            return res.send(
+              _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE)),
+            );
           })
           .catch(e => res.send({
             error: e,
           }));
       }
-      return res.send(data.data);
+      return res.send(
+        _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE)),
+      );
     } catch (err) {
       return next(err);
     }
@@ -164,13 +230,17 @@ export default class RecruitCRMService {
         return this.searchCandidates(req, res, next);
       }
       if (response.status >= 400) {
-        return res.send({
+        const error = {
           error: true,
           status: response.status,
           url: `${this.private.baseUrl}/v1/candidates/search?${qs.stringify(req.query)}`,
-        });
+          errObj: await response.json(),
+        };
+        logger.error(error);
+        return res.send(error);
       }
       const data = await response.json();
+      data.data = _.map(data.data, j => _.pick(j, CANDIDATE_FIELDS_RESPONSE));
       return res.send(data);
     } catch (err) {
       return next(err);
@@ -215,6 +285,8 @@ export default class RecruitCRMService {
           form.custom_fields.push({
             field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
           });
+        } else {
+          notifyKirilAndNick(growRes);
         }
         // clear the cookie
         res.cookie(config.GROWSURF_COOKIE, '', {
@@ -231,12 +303,14 @@ export default class RecruitCRMService {
         },
       });
       if (candidateResponse.status >= 300) {
-        return res.send({
+        const error = {
           error: true,
           status: candidateResponse.status,
           url: `${this.private.baseUrl}/v1/candidates/search?email=${form.email}`,
           errObj: await candidateResponse.json(),
-        });
+        };
+        notifyKirilAndNick(error);
+        return res.send(error);
       }
       let candidateData = await candidateResponse.json();
       if (candidateData.data) {
@@ -265,13 +339,15 @@ export default class RecruitCRMService {
         body: JSON.stringify(form),
       });
       if (workCandidateResponse.status >= 300) {
-        return res.send({
+        const error = {
           error: true,
           status: workCandidateResponse.status,
           url: `${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${candidateSlug}` : ''}`,
           form,
           errObj: await workCandidateResponse.json(),
-        });
+        };
+        notifyKirilAndNick(error);
+        return res.send(error);
       }
       candidateData = await workCandidateResponse.json();
       // Attach resume to candidate if uploaded
@@ -286,7 +362,7 @@ export default class RecruitCRMService {
           body: fileData,
         });
         if (fileCandidateResponse.status >= 300) {
-          return res.send({
+          const error = {
             error: true,
             status: fileCandidateResponse.status,
             url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}`,
@@ -295,7 +371,9 @@ export default class RecruitCRMService {
             file,
             formHeaders,
             errObj: await fileCandidateResponse.json(),
-          });
+          };
+          notifyKirilAndNick(error);
+          return res.send(error);
         }
         candidateData = await fileCandidateResponse.json();
       }
@@ -314,14 +392,16 @@ export default class RecruitCRMService {
             success: true,
           });
         }
-        return res.send({
+        const error = {
           error: true,
           status: applyResponse.status,
           url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}/assign?job_slug=${id}`,
           form,
           candidateData,
           errObj,
-        });
+        };
+        notifyKirilAndNick(error);
+        return res.send(error);
       }
       // Set hired-stage
       const hireStageResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`, {
@@ -337,13 +417,15 @@ export default class RecruitCRMService {
         }),
       });
       if (hireStageResponse.status >= 300) {
-        return res.send({
+        const error = {
           error: true,
           status: hireStageResponse.status,
           url: `$${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`,
           form,
           errObj: await hireStageResponse.json(),
-        });
+        };
+        notifyKirilAndNick(error);
+        return res.send(error);
       }
       // respond to API call
       const data = await applyResponse.json();
