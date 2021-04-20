@@ -10,7 +10,9 @@ import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { isValidEmail } from 'utils/tc';
+import { withOptimizely } from '@optimizely/react-sdk';
 import techSkills from './techSkills';
+
 
 const countries = require('i18n-iso-countries');
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
@@ -120,12 +122,13 @@ class RecruitCRMJobApplyContainer extends React.Component {
   }
 
   onApplyClick() {
-    const { applyForJob, job } = this.props;
+    const { applyForJob, job, optimizely } = this.props;
     const { formData } = this.state;
     this.validateForm();
     this.setState((state) => {
       if (_.isEmpty(state.formErrors)) {
         applyForJob(job, formData);
+        optimizely.track('Submit Application Form');
       }
     });
   }
@@ -269,6 +272,7 @@ RecruitCRMJobApplyContainer.propTypes = {
   application: PT.shape(),
   searchCandidates: PT.func.isRequired,
   recruitProfile: PT.shape(),
+  optimizely: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -312,4 +316,4 @@ function mapDispatchToActions(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToActions,
-)(RecruitCRMJobApplyContainer);
+)(withOptimizely(RecruitCRMJobApplyContainer));

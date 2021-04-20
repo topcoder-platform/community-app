@@ -23,9 +23,10 @@ const { setErrorsStore } = errors;
  * Performs AnalyticsJS identification of the user.
  * @param {Object} profile TC user profile.
  * @param {Array} roles User roles.
+ * @param {String} userIdHash Unique Hash per user.
  */
-function identify(profile, roles) {
-  analytics.identify(profile.userId, {
+function identify(profile, roles, userIdHash) {
+  const payload = {
     avatar: profile.photoURL,
     createdAt: profile.createdAt,
     email: profile.email,
@@ -39,7 +40,21 @@ function identify(profile, roles) {
     })),
     tracks: profile.tracks || [],
     username: profile.handle,
-  });
+  };
+  analytics.identify(
+    profile.userId,
+    payload,
+    {
+      integrations: { Chameleon: false },
+    },
+  );
+  analytics.identify(
+    profile.userId,
+    { uid_hash: userIdHash, ...payload },
+    {
+      integrations: { All: false, Chameleon: true },
+    },
+  );
 }
 
 /**
@@ -74,7 +89,7 @@ function authenticate(store) {
   }).then(({ tctV2, tctV3 }) => {
     const { auth } = store.getState();
     if (auth.profile && !analyticsIdentitySet) {
-      identify(auth.profile, _.get(auth, 'user.roles'));
+      identify(auth.profile, _.get(auth, 'user.roles'), auth.userIdHash);
       analyticsIdentitySet = true;
     }
     if (auth.tokenV3 !== (tctV3 || null)) {
@@ -85,7 +100,7 @@ function authenticate(store) {
         const userId = profile && profile.userId;
         const prevUserId = _.get(store.getState(), 'auth.profile.userId');
         if (userId && userId !== prevUserId) {
-          identify(profile, _.get(auth, user.roles));
+          identify(profile, _.get(auth, user.roles), auth.userIdHash);
           analyticsIdentitySet = true;
         }
       });
