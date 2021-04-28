@@ -49,30 +49,22 @@ import { getService } from 'services/contentful';
 // getRecommendedTags,
 // } from 'utils/challenge-detail/helper';
 
-import ogWireframe from
-  '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
 import ogUiDesign from
-  '../../../assets/images/open-graph/challenges/02-ui-design.jpg';
-import ogUiPrototype from
-  '../../../assets/images/open-graph/challenges/03-ui-prototype.jpg';
+  '../../../assets/images/open-graph/challenges/02-Design-Preview.png';
 import ogFirst2Finish from
-  '../../../assets/images/open-graph/challenges/04-first-2-finish.jpg';
+  '../../../assets/images/open-graph/challenges/09-First2Finish.png';
 import ogDevelopment from
-  '../../../assets/images/open-graph/challenges/05-development.jpg';
+  '../../../assets/images/open-graph/challenges/03-Development.png';
 import ogBigPrizesChallenge from
-  '../../../assets/images/open-graph/challenges/09-big-prizes-challenge.jpg';
-import ogLuxChallenge from
-  '../../../assets/images/open-graph/challenges/10-lux-challenge.jpg';
-import ogRuxChallenge from
-  '../../../assets/images/open-graph/challenges/11-rux-challenge.jpg';
-import og24hUiPrototype from
-  '../../../assets/images/open-graph/challenges/12-24h-ui-prototype-challenge.jpg';
-import og48hUiPrototype from
-  '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
+  '../../../assets/images/open-graph/challenges/06-Big-Prize.png';
+import ogQAChallenge from
+  '../../../assets/images/open-graph/challenges/05-QA.png';
+import ogDSChallenge from
+  '../../../assets/images/open-graph/challenges/04-Data-Science.png';
 
 /* A fallback image, just in case we missed some corner case. */
 import ogImage from
-  '../../../assets/images/og_image.jpg';
+  '../../../assets/images/social.png';
 
 import './styles.scss';
 
@@ -89,8 +81,8 @@ const DAY = 24 * 60 * MIN;
 function getOgImage(challenge) {
   const { legacy } = challenge;
   const { track, subTrack } = legacy;
-  if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
-  if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
+  if (challenge.name.startsWith('LUX -')) return ogBigPrizesChallenge;
+  if (challenge.name.startsWith('RUX -')) return ogBigPrizesChallenge;
   if (challenge.prizes) {
     const totalPrize = challenge.prizes.reduce((p, sum) => p + sum, 0);
     if (totalPrize > 2500) return ogBigPrizesChallenge;
@@ -102,12 +94,14 @@ function getOgImage(challenge) {
       const submission = (challenge.phases || [])
         .find(p => p.name === CHALLENGE_PHASE_TYPES.SUBMISSION);
       if (submission) {
-        if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
-        if (submission.duration < 2.1 * DAY) return og48hUiPrototype;
+        if (submission.duration < 1.1 * DAY) return ogDevelopment;
+        if (submission.duration < 2.1 * DAY) return ogDevelopment;
       }
-      return ogUiPrototype;
+      return ogDevelopment;
     }
-    case SUBTRACKS.WIREFRAMES: return ogWireframe;
+    case SUBTRACKS.WIREFRAMES: return ogUiDesign;
+    case SUBTRACKS.QA: return ogQAChallenge;
+    case SUBTRACKS.DS: return ogDSChallenge;
     default:
   }
   switch (track) {

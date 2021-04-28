@@ -41,6 +41,8 @@ export const SUBTRACKS = {
   FIRST_2_FINISH: 'FIRST_2_FINISH',
   UI_PROTOTYPE_COMPETITION: 'UI_PROTOTYPE_COMPETITION',
   WIREFRAMES: 'WIREFRAMES',
+  QA: 'Quality Assurance',
+  DS: 'Data Science',
 };
 
 /**
