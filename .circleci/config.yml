@@ -303,7 +303,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - social-share-images
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
