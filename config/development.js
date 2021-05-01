@@ -4,4 +4,5 @@ module.exports = {
   URL: {
     USER_SETTINGS: '', /* No dev server is available for saved searches */
   },
+  PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
 };

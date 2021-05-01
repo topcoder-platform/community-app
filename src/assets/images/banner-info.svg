@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic clock</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Banner-top-challenge-listings-3" transform="translate(-20.000000, -12.000000)" fill="#FFFFFF">
+            <g id="ic-clock" transform="translate(20.000000, 12.000000)">
+                <path d="M12,24 C5.372583,24 -2.88657986e-15,18.627417 -2.88657986e-15,12 C-2.88657986e-15,5.372583 5.372583,-2.88657986e-15 12,-2.88657986e-15 C18.627417,-2.88657986e-15 24,5.372583 24,12 C23.9922852,18.6242188 18.6242188,23.9922852 12,24 Z M12,1.6 C6.2562386,1.6 1.6,6.2562386 1.6,12 C1.6,17.7437614 6.2562386,22.4 12,22.4 C17.7437614,22.4 22.4,17.7437614 22.4,12 C22.3933872,6.25897995 17.74102,1.60661282 12,1.6 Z" id="Shape" fill-rule="nonzero"></path>
+                <rect id="Rectangle" x="11.0650589" y="11" width="2" height="6" rx="1"></rect>
+                <rect id="Rectangle-Copy-8" x="11.0650589" y="7" width="2" height="2" rx="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
