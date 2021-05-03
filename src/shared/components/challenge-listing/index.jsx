@@ -18,6 +18,7 @@ import { useMediaQuery } from 'react-responsive';
 import NoChallengeCard from './NoChallengeCard';
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
+import Banner from './Banner';
 
 import './style.scss';
 
@@ -166,6 +167,8 @@ export default function ChallengeListing(props) {
             />
           )
       }
+
+      <Banner />
 
       <div styleName="tc-content-wrapper">
         <div styleName={desktop ? 'sidebar-container-desktop' : 'sidebar-container-mobile'}>
