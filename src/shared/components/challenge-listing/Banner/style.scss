@@ -1,6 +1,14 @@
 @import "~styles/mixins";
 
 .banner {
+  @include roboto-medium;
+
+  @include xs-to-sm {
+    height: 81px;
+    line-height: 22px;
+    padding-left: 20px;
+  }
+
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -8,17 +16,9 @@
   margin: 10px 15px 0 15px;
   height: 50px;
   background: linear-gradient(90deg, #2c95d7 0%, #06d6a0 100%);
-
   border-radius: 10px;
   color: #fff;
-  @include roboto-medium;
   font-size: 16px;
-
-  @include xs-to-sm {
-    height: 81px;
-    line-height: 22px;
-    padding-left: 20px;
-  }
 
   .content {
     display: flex;
