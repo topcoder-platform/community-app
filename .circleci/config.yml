@@ -296,14 +296,14 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - social-share-images
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
           filters:
             branches:
               only:
-                - social-share-images
+                - free
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
