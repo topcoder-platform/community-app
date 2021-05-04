@@ -115,7 +115,7 @@ class RecruitCRMJobApplyContainer extends React.Component {
       ...state,
       formData: {
         ...state.formData,
-        [key]: value,
+        [key]: _.trim(value),
       },
     }));
     this.validateForm(key);
