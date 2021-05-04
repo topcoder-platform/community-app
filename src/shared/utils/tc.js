@@ -31,8 +31,9 @@ export const CHALLENGE_PHASE_TYPES = {
  */
 
 export const COMPETITION_TRACKS_V3 = {
-  DESIGN: 'DESIGN',
-  DEVELOP: 'DEVELOP',
+  DESIGN: 'Design',
+  DEVELOP: 'Development',
+  DS: 'Data Science',
 };
 
 /* Holds valid subtracks (only some of possible values are included into this
@@ -41,8 +42,9 @@ export const SUBTRACKS = {
   FIRST_2_FINISH: 'FIRST_2_FINISH',
   UI_PROTOTYPE_COMPETITION: 'UI_PROTOTYPE_COMPETITION',
   WIREFRAMES: 'WIREFRAMES',
-  QA: 'Quality Assurance',
-  DS: 'Data Science',
+  QA: 'BUG_HUNT',
+  TEST_SUITES: 'TEST_SUITES',
+  DS: 'DEVELOP_MARATHON_MATCH',
 };
 
 /**

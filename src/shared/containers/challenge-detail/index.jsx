@@ -80,7 +80,7 @@ const DAY = 24 * 60 * MIN;
  */
 function getOgImage(challenge) {
   const { legacy } = challenge;
-  const { track, subTrack } = legacy;
+  const { subTrack } = legacy;
   if (challenge.name.startsWith('LUX -')) return ogBigPrizesChallenge;
   if (challenge.name.startsWith('RUX -')) return ogBigPrizesChallenge;
   if (challenge.prizes) {
@@ -100,13 +100,16 @@ function getOgImage(challenge) {
       return ogDevelopment;
     }
     case SUBTRACKS.WIREFRAMES: return ogUiDesign;
-    case SUBTRACKS.QA: return ogQAChallenge;
+    case SUBTRACKS.QA:
+    case SUBTRACKS.TEST_SUITES:
+      return ogQAChallenge;
     case SUBTRACKS.DS: return ogDSChallenge;
     default:
   }
-  switch (track) {
+  switch (challenge.track) {
     case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
     case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
+    case COMPETITION_TRACKS_V3.DS: return ogDSChallenge;
     default: return ogImage;
   }
 }
