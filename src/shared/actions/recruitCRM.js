@@ -69,7 +69,7 @@ function normalizeRecruitPayload(job, payload) {
     contact_number: payload.phone,
     city: payload.city,
     locality: _.find(payload.country, { selected: true }).label,
-    salary_expectation: payload.payExpectation,
+    salary_expectation: _.trim(payload.payExpectation),
     skill: payload.skills.filter(s => s.selected).map(s => s.label).join(','),
     custom_fields: [
       {
