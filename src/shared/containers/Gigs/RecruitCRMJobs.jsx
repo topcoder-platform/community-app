@@ -202,11 +202,11 @@ class RecruitCRMJobsContainer extends React.Component {
     }
     // Sort controlled by sortBy state
     jobsToDisplay = jobsToDisplay.sort((a, b) => {
-      // sort tags first no matter the sortBy
-      const tagA = getCustomField(a.custom_fields, 'Job Tag');
-      const tagB = getCustomField(b.custom_fields, 'Job Tag');
-      if (tagB !== 'n/a' && tagA === 'n/a') return Number.MAX_VALUE;
-      if (tagB === 'n/a' && tagA !== 'n/a') return -Number.MIN_VALUE;
+      // sort featured gigs first no matter the sortBy
+      const featuredA = getCustomField(a.custom_fields, 'Featured');
+      const featuredB = getCustomField(b.custom_fields, 'Featured');
+      if (featuredB !== 'n/a' && featuredA === 'n/a') return Number.MAX_VALUE;
+      if (featuredB === 'n/a' && featuredA !== 'n/a') return -Number.MIN_VALUE;
       return new Date(b[sortBy]) - new Date(a[sortBy]);
     });
     // Calc pages
@@ -248,6 +248,15 @@ class RecruitCRMJobsContainer extends React.Component {
                       <div styleName="location"><IconBlackLocation /> {hjob.country}</div>
                       <h5 styleName="job-title">{hjob.name}</h5>
                       <div styleName="job-money">${hjob.min_annual_salary} - {hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
+                      {
+                        getCustomField(hjob.custom_fields, 'Hotlist excerpt') !== 'n/a' ? (
+                          <div styleName="job-desc">
+                            {
+                              `${getCustomField(hjob.custom_fields, 'Hotlist excerpt').substring(0, CONTENT_PREVIEW_LENGTH)}${getCustomField(hjob.custom_fields, 'Hotlist excerpt').length > CONTENT_PREVIEW_LENGTH ? '...' : ''}`
+                            }
+                          </div>
+                        ) : null
+                      }
                     </Link>
                   ) : (
                     <div styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`}>
