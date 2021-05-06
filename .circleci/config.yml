@@ -276,7 +276,6 @@ workflows:
             branches:
               only:
                 - develop
-                - fix-topgear-profile
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -290,14 +289,14 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - fix-topgear-profile
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - free
+                - fix-topgear-profile
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
@@ -305,7 +304,6 @@ workflows:
             branches:
               only:
                 - develop
-                - fix-topgear-profile
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
