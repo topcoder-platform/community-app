@@ -276,6 +276,7 @@ workflows:
             branches:
               only:
                 - develop
+                - nursoltan-s-issue-5490
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -296,14 +297,14 @@ workflows:
           filters:
             branches:
               only:
-                - social-share-images
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
           filters:
             branches:
               only:
-                - free
+                - develop
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
