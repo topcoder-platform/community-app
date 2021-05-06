@@ -297,7 +297,7 @@ workflows:
           filters:
             branches:
               only:
-                - gig-tags
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
@@ -305,7 +305,6 @@ workflows:
             branches:
               only:
                 - develop
-                - nursoltan-s-issue-5490
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
