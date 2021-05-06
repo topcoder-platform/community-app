@@ -207,9 +207,9 @@ export default function GigApply(props) {
                   <h4>RESUME & SKILLS</h4>
                   {
                     recruitProfile.resume ? (
-                      <p>Upload Your Resume or CV, <a href={recruitProfile.resume.file_link} target="_blank" rel="noreferrer">{recruitProfile.resume.filename}</a></p>
+                      <p>Please upload your resume/CV. Double-check that all of your tech skills are listed in your resume/CV and add them to the tech skills section below, <a href={recruitProfile.resume.file_link} target="_blank" rel="noreferrer">{recruitProfile.resume.filename}</a></p>
                     ) : (
-                      <p>Upload Your Resume or CV</p>
+                      <p>Please upload your resume/CV. Double-check that all of your tech skills are listed in your resume/CV and add them to the tech skills section below.</p>
                     )
                   }
                   <div styleName="form-section">

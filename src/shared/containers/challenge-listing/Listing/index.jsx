@@ -31,7 +31,7 @@ import MetaTags from 'components/MetaTags';
 import { USER_GROUP_MAXAGE } from 'config';
 import { updateChallengeType } from 'utils/challenge';
 
-import ogImage from '../../../../assets/images/og_image.jpg';
+import ogImage from '../../../../assets/images/social.png';
 import style from './styles.scss';
 
 // const { combine, mapToBackend } = challengeUtils.filter;
