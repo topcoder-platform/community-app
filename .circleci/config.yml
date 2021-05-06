@@ -403,7 +403,6 @@ workflows:
             branches:
               only:
                 - master
-                - circleci-automation-testing
 
   Performance Testing:
     when: << pipeline.parameters.run_performancetesting >>
