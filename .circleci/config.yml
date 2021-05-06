@@ -297,7 +297,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - gig-tags
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
