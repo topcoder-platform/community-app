@@ -297,7 +297,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - gig-application-trim-fields
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
