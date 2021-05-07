@@ -305,7 +305,6 @@ workflows:
             branches:
               only:
                 - develop
-                - nursoltan-s-issue-5490
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
