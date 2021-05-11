@@ -283,7 +283,7 @@ workflows:
           filters:
             branches:
               only:                
-                - gig-apply-restrict
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -297,7 +297,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - gig-apply-restrict
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
