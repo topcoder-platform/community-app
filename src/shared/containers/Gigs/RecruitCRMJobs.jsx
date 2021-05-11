@@ -19,6 +19,8 @@ import { getQuery, updateQuery } from 'utils/url';
 import { withOptimizely } from '@optimizely/react-sdk';
 import './jobLisingStyles.scss';
 
+const cookies = require('browser-cookies');
+
 const CONTENT_PREVIEW_LENGTH = 175;
 const GIGS_PER_PAGE = 10;
 // Sort by dropdown
@@ -47,7 +49,7 @@ class RecruitCRMJobsContainer extends React.Component {
     this.onFilter = this.onFilter.bind(this);
     this.onLocation = this.onLocation.bind(this);
     this.onSort = this.onSort.bind(this);
-    this.onHotlistApply = this.onHotlistApply.bind(this);
+    this.onHotlistClick = this.onHotlistClick.bind(this);
   }
 
   componentDidMount() {
@@ -121,9 +123,14 @@ class RecruitCRMJobsContainer extends React.Component {
     });
   }
 
-  onHotlistApply() {
+  onHotlistClick(job) {
     const { optimizely } = this.props;
     optimizely.track('Hotlist ads click');
+    cookies.set('_tc.hcl', JSON.stringify({
+      slug: job.slug,
+    }), {
+      expires: 0,
+    });
   }
 
   render() {
@@ -151,7 +158,8 @@ class RecruitCRMJobsContainer extends React.Component {
     // optimizely decide
     let decision = { enabled: true };
     if (isomorphy.isClientSide()) {
-      decision = optimizely.decide('gig_listing_hotlist');
+      // decision = optimizely.decide('gig_listing_hotlist');
+      decision = optimizely.decide('gig_listing_hotlist_center');
     }
     let jobsToDisplay = jobs;
     // build hotlist of jobs if present
@@ -244,7 +252,7 @@ class RecruitCRMJobsContainer extends React.Component {
               <div styleName="hotlist-items">
                 {
                   hotlistJobs.map((hjob, indx) => (indx <= 1 ? (
-                    <Link styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`} onClick={this.onHotlistApply}>
+                    <Link styleName={`hotlist-item-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} key={`hotlist-item-${indx + 1}`} onClick={() => this.onHotlistClick(hjob)}>
                       <div styleName="location"><IconBlackLocation /> {hjob.country}</div>
                       <h5 styleName="job-title">{hjob.name}</h5>
                       <div styleName="job-money">${hjob.min_annual_salary} - {hjob.max_annual_salary} / {getSalaryType(hjob.salary_type)}</div>
@@ -272,7 +280,7 @@ class RecruitCRMJobsContainer extends React.Component {
                           </div>
                         ) : null
                       }
-                      <Link styleName={`hotlist-item-button-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} onClick={this.onHotlistApply}>Apply Now</Link>
+                      <Link styleName={`hotlist-item-button-${indx + 1}`} to={`${config.GIGS_PAGES_PATH}/${hjob.slug}`} onClick={() => this.onHotlistClick(hjob)}>Apply Now</Link>
                     </div>
                   )))
                 }
