@@ -50,12 +50,12 @@ export default function GigApply(props) {
               isPlaced && isPlaced.value === 'Placed' ? (
                 <div styleName="apply-state">
                   <SadFace />
-                  <h2>OOPS!</h2>
+                  <h2>One Gig Limit!</h2>
                   <React.Fragment>
-                    <p>Apologies, you are not allowed to apply to gigs if you are already placed on a gig.<br />If you have any questions or feel this is an error, please email <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a>.</p>
+                    <p>Apologies, you are not allowed to apply to gigs if you are already placed on a gig.<br /><br />You can however refer a friend to this gig and receive $500 if they get placed in that gig. To do that, you can enter their email on the right side of the Gigs Description page.<br /><br />If you have any questions or feel this is an error, please email <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a>.</p>
                   </React.Fragment>
                   <div styleName="cta-buttons">
-                    <a href={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIGS LIST</a>
+                    <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="primaryBtn">Back To Gig</Link>
                   </div>
                 </div>
               ) : null
