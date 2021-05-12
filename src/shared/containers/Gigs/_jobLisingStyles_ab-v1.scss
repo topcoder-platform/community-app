@@ -20,7 +20,6 @@
 
   .gigs {
     display: block;
-    flex: 1;
   }
 
   .filters {
@@ -65,10 +64,47 @@
 .container-with-hotlist {
   display: flex;
 
+  .gigs {
+    width: 956px;
+
+    @media (max-width: 1280px) {
+      max-width: none;
+      flex: 1;
+    }
+  }
+
+  .filters {
+    > div {
+      margin-right: 20px;
+
+      @include xs-to-sm {
+        margin-right: 0;
+      }
+
+      &:nth-child(2) {
+        min-width: 194px;
+      }
+
+      &:last-child {
+        flex: 2;
+        max-width: 223px;
+
+        @include xs-to-sm {
+          max-width: none;
+        }
+      }
+    }
+  }
+
   .hotlist {
     display: flex;
+    flex-direction: column;
+    margin-left: 28px;
     flex: 1;
-    margin: 15px 0;
+
+    @media (max-width: 1280px) {
+      display: none;
+    }
 
     h5 {
       font-family: Barlow, sans-serif;
@@ -81,20 +117,6 @@
     }
 
     .hotlist-items {
-      display: grid;
-      align-items: stretch;
-      gap: 0 20px;
-      width: 100%;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-
-      @include md-to-lg {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      @include xs-to-sm {
-        grid-template-columns: 1fr;
-      }
-
       .hotlist-item-1,
       .hotlist-item-2,
       .hotlist-item-3,
@@ -111,7 +133,6 @@
           font-size: 14px;
           display: flex;
           align-items: center;
-          line-height: 30px;
 
           svg {
             margin-right: 5px;
