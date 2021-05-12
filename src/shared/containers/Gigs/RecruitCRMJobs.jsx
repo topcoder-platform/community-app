@@ -252,9 +252,9 @@ class RecruitCRMJobsContainer extends React.Component {
           <div styleName="jobs-list-container">
             {
               jobsToDisplay.length
-                ? jobsToDisplay.map((job) => {
+                ? jobsToDisplay.map((job, indx) => {
                   const featured = getCustomField(job.custom_fields, 'Featured');
-                  if (featured === 'n/a' && !isHotlistRendered && hotlistJobs.length && decision.enabled) {
+                  if ((featured === 'n/a' || indx === 2) && !isHotlistRendered && hotlistJobs.length && decision.enabled) {
                     isHotlistRendered = true;
                     return (
                       <React.Fragment>
