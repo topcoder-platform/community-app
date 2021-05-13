@@ -15,8 +15,9 @@
  */
 
 import _ from 'lodash';
+import crypto from 'crypto';
 import { getCommunityId } from 'server/services/communities';
-import { redux } from 'topcoder-react-utils';
+import { redux, config, isomorphy } from 'topcoder-react-utils';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 import { reducerFactory } from 'topcoder-react-lib';
 import { getAuthTokens } from 'utils/tc';
@@ -113,6 +114,21 @@ function generateSsrOptions(req) {
   return res;
 }
 
+/**
+ * Generate user id hash for secure Identity verification
+ * @param {Object} user
+ * @return {String} User Id Hash.
+ */
+function generateUserIdHash(user) {
+  const secret = _.get(config, 'SECRET.CHAMELEON_VERIFICATION_SECRET');
+  const now = Math.floor(Date.now() / 1000);
+
+  return [
+    crypto.createHmac('sha256', secret).update(`${user.userId}-${now}`).digest('hex'),
+    now,
+  ].join('-');
+}
+
 export function factory(req) {
   return redux.resolveReducers({
     standard: reducerFactory(req && generateSsrOptions(req)),
@@ -125,6 +141,12 @@ export function factory(req) {
     page: pageFactory(req),
   }).then(resolvedReducers => redux.combineReducers((state) => {
     const res = { ...state };
+
+    const user = _.get(res, 'auth.user');
+    if (user && isomorphy.isServerSide()) {
+      res.auth.userIdHash = generateUserIdHash(user);
+    }
+
     if (req) {
       res.domain = `${req.protocol}://${req.headers.host || req.hostname}`;
       res.subdomainCommunity = getCommunityId(req.subdomains);

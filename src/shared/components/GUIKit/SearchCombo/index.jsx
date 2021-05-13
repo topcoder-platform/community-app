@@ -1,7 +1,7 @@
 /**
  * SearchCombo component.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import './style.scss';
 import IconClearSearch from 'assets/images/icon-clear-search.svg';
@@ -13,6 +13,7 @@ function SearchCombo({
   onSearch,
 }) {
   const [inputVal, setVal] = useState(term);
+  useEffect(() => setVal(term), [term]);
   const clearSearch = () => {
     setVal('');
     onSearch('');

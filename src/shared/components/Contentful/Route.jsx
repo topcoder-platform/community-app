@@ -14,6 +14,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
 import PasswordScreen from 'components/Contentful/PasswordScreen';
 import { isomorphy } from 'topcoder-react-utils';
+import { removeTrailingSlash } from 'utils/url';
 
 // Concatenates a base and segment and handles optional trailing slashes
 const buildUrl = (base, segment) => `${_.trimEnd(base, '/')}/${_.trim(segment, '/')}`;
@@ -169,8 +170,10 @@ export default function ContentfulRoute(props) {
       render={(data) => {
         const { fields } = Object.values(data.entries.items)[0];
         const url = path || buildUrl(baseUrl, fields.url);
+        // eslint-disable-next-line no-restricted-globals
+        const currentPathname = typeof location === 'undefined' ? '' : removeTrailingSlash(location.pathname);
         const redirectToUrl = _.trim(fields.redirectToUrl);
-        return redirectToUrl ? (
+        return redirectToUrl && currentPathname === url ? (
           <RedirectWithStatus status={301} from={url} to={redirectToUrl} />
         ) : (
           <Route

@@ -8,6 +8,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   <Connect(Container)
     setFilterState={[MockFunction]}
   />
+  <Banner />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >
@@ -64,6 +65,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   <Connect(Container)
     setFilterState={[MockFunction]}
   />
+  <Banner />
   <div
     className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
   >

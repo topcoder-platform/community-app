@@ -32,6 +32,8 @@ docker build -t $TAG \
   --build-arg NODE_CONFIG_ENV=$NODE_CONFIG_ENV \
   --build-arg OPEN_EXCHANGE_RATES_KEY=$OPEN_EXCHANGE_RATES_KEY \
   --build-arg SEGMENT_IO_API_KEY=$SEGMENT_IO_API_KEY \
+  --build-arg CHAMELEON_VERIFICATION_SECRET=$CHAMELEON_VERIFICATION_SECRET \
+  --build-arg PLATFORM_SITE_URL=$PLATFORM_SITE_URL \
   --build-arg SERVER_API_KEY=$SERVER_API_KEY \
   --build-arg TC_M2M_CLIENT_ID=$TC_M2M_CLIENT_ID \
   --build-arg TC_M2M_CLIENT_SECRET=$TC_M2M_CLIENT_SECRET \
@@ -48,6 +50,7 @@ docker build -t $TAG \
   --build-arg GROWSURF_API_KEY=$GROWSURF_API_KEY \
   --build-arg GROWSURF_CAMPAIGN_ID=$GROWSURF_CAMPAIGN_ID \
   --build-arg GSHEETS_API_KEY=$GSHEETS_API_KEY \
+  --build-arg OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY \
   --build-arg COMMUNITY_APP_URL=$COMMUNITY_APP_URL .
 
 # Copies "node_modules" from the created image, if necessary for caching.

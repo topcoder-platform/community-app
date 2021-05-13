@@ -10,7 +10,13 @@ import React from 'react';
 import { fixStyle } from 'utils/contentful';
 import DropdownItem from './DropdownItem';
 
-import defaultTheme from './default.scss';
+import defaultTheme from './themes/default.scss';
+import darkTheme from './themes/dark.scss';
+
+const THEMES = {
+  Default: defaultTheme,
+  'Dark mode': darkTheme,
+};
 
 function DropdownItemsLoader(props) {
   const {
@@ -18,6 +24,7 @@ function DropdownItemsLoader(props) {
     preview,
     spaceName,
     environment,
+    baseTheme,
   } = props;
 
   return (
@@ -34,6 +41,7 @@ function DropdownItemsLoader(props) {
             spaceName={spaceName}
             environment={environment}
             key={item.sys.id}
+            baseTheme={baseTheme}
           />
         ))
       )}
@@ -53,6 +61,7 @@ DropdownItemsLoader.propTypes = {
   preview: PT.bool,
   spaceName: PT.string,
   environment: PT.string,
+  baseTheme: PT.string.isRequired,
 };
 
 /* Loads the dropdown entry. */
@@ -69,13 +78,15 @@ export default function DropdownLoader(props) {
       render={(data) => {
         const { fields } = Object.values(data.entries.items)[0];
         if (!fields) return null;
+        let { theme } = fields;
+        theme = theme || 'Default';
         return (
           <div
-            className={defaultTheme.container}
+            className={THEMES[theme].container}
             style={fixStyle(fields.extraStylesForContainer)}
           >
             <div
-              className={defaultTheme.contentWrapper}
+              className={THEMES[theme].contentWrapper}
               style={fixStyle(fields.extraStylesForContentWrapper)}
             >
               <DropdownItemsLoader
@@ -83,6 +94,7 @@ export default function DropdownLoader(props) {
                 preview={preview}
                 spaceName={spaceName}
                 environment={environment}
+                baseTheme={theme}
               />
             </div>
           </div>
