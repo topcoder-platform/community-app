@@ -276,7 +276,6 @@ workflows:
             branches:
               only:
                 - develop
-                - nursoltan-s-issue-5490
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -290,14 +289,14 @@ workflows:
           filters:
             branches:
               only:
-                - gig-ab-v2
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - gig-apply-restrict
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
