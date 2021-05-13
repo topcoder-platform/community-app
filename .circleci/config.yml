@@ -73,11 +73,6 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
-            curl --request POST \
-            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-            --header "Circle-Token: ${CIRCLE_TOKEN}" \
-            --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
   # Build & Deploy against testing backend
   deployTest:
     <<: *defaults
@@ -105,12 +100,6 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-            curl --request POST \
-            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-            --header "Circle-Token: ${CIRCLE_TOKEN}" \
-            --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
-  
   # Build & Deploy against testing backend
   deployQA:
     <<: *defaults
@@ -226,6 +215,11 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
+            curl --request POST \
+            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
+            --header "Circle-Token: ${CIRCLE_TOKEN}" \
+            --header 'content-type: application/json' \
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
   Smoke-Testing-On-Staging:
     <<: *defaults
     steps: 
@@ -344,7 +338,6 @@ workflows:
             branches:
               only:                
                 - free
-                - circleci-automation-testing
       # This is alternate dev env for parallel testing
       - deployQA:
           context : org-global      
@@ -366,6 +359,7 @@ workflows:
             branches:
               only:
                 - develop
+                - circleci-automation-testing
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
@@ -399,6 +393,7 @@ workflows:
             branches:
               only:
                 - develop
+                - circleci-automation-testing
       - Smoke-Testing-On-Production:
           context : org-global
           requires:
@@ -407,7 +402,6 @@ workflows:
             branches:
               only:
                 - master
-                - circleci-automation-testing
 
   Performance Testing:
     when: << pipeline.parameters.run_performancetesting >>
