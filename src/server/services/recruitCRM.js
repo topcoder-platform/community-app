@@ -308,15 +308,29 @@ export default class RecruitCRMService {
           error: true,
           status: candidateResponse.status,
           url: `${this.private.baseUrl}/v1/candidates/search?email=${form.email}`,
-          errObj: await candidateResponse.json(),
+          errorObj: await candidateResponse.json(),
         };
         notifyKirilAndNick(error);
         return res.send(error);
       }
       let candidateData = await candidateResponse.json();
       if (candidateData.data) {
-        // Candidate exists we will update profile fields
-        // otherwise we create it
+        // Candidate exists in recruitCRM
+        // We will update profile fields, otherwise we create new candidate below
+        // Check if candidate is placed in gig currently
+        const candStatusIndex = _.findIndex(
+          candidateData.data[0].custom_fields, { field_id: 12 },
+        );
+        if (candStatusIndex !== -1 && candidateData.data[0].custom_fields[candStatusIndex].value === 'Placed') {
+          // reject application
+          return res.send({
+            error: true,
+            errorObj: {
+              notAllowed: true,
+              message: 'Apologies, you are not allowed to apply to gigs if you are already placed on a gig.',
+            },
+          });
+        }
         candidateSlug = candidateData.data[0].slug;
         const fieldIndexProfile = _.findIndex(
           candidateData.data[0].custom_fields, { field_id: 14 },
@@ -345,7 +359,7 @@ export default class RecruitCRMService {
           status: workCandidateResponse.status,
           url: `${this.private.baseUrl}/v1/candidates${candidateSlug ? `/${candidateSlug}` : ''}`,
           form,
-          errObj: await workCandidateResponse.json(),
+          errorObj: await workCandidateResponse.json(),
         };
         notifyKirilAndNick(error);
         return res.send(error);
@@ -371,7 +385,7 @@ export default class RecruitCRMService {
             fileData,
             file,
             formHeaders,
-            errObj: await fileCandidateResponse.json(),
+            errorObj: await fileCandidateResponse.json(),
           };
           notifyKirilAndNick(error);
           return res.send(error);
@@ -399,7 +413,7 @@ export default class RecruitCRMService {
           url: `${this.private.baseUrl}/v1/candidates/${candidateData.slug}/assign?job_slug=${id}`,
           form,
           candidateData,
-          errObj,
+          errorObj: errObj,
         };
         notifyKirilAndNick(error);
         return res.send(error);
@@ -423,7 +437,7 @@ export default class RecruitCRMService {
           status: hireStageResponse.status,
           url: `$${this.private.baseUrl}/v1/candidates/${candidateData.slug}/hiring-stages/${id}`,
           form,
-          errObj: await hireStageResponse.json(),
+          errorObj: await hireStageResponse.json(),
         };
         notifyKirilAndNick(error);
         return res.send(error);

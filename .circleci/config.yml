@@ -276,7 +276,6 @@ workflows:
             branches:
               only:
                 - develop
-                - nursoltan-s-issue-5490
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
