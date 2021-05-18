@@ -276,6 +276,7 @@ workflows:
             branches:
               only:
                 - develop
+                - member-settings-country
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -304,6 +305,7 @@ workflows:
             branches:
               only:
                 - develop
+                - member-settings-country
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
