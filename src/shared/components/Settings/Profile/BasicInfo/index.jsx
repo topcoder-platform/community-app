@@ -314,7 +314,8 @@ export default class BasicInfo extends ConsentComponent {
    */
   processBasicInfo = (value) => {
     const { newBasicInfo } = this.state;
-    const { handle, profile } = this.props;
+    const { handle, profile, lookupData } = this.props;
+    const countries = _.get(lookupData, 'countries', []);
     if (_.has(value, 'handle')) {
       newBasicInfo.handle = value.handle;
       if (_.has(value, 'addresses') && value.addresses.length > 0) {
@@ -345,6 +346,14 @@ export default class BasicInfo extends ConsentComponent {
       }
       if (_.has(value, 'country')) {
         newBasicInfo.country = value.country;
+      } else {
+        let country;
+        if (!_.isEmpty(value.homeCountryCode)) {
+          country = countries.find(c => c.countryCode === value.homeCountryCode);
+        } else if (!_.isEmpty(value.competitionCountryCode)) {
+          country = countries.find(c => c.countryCode === value.competitionCountryCode);
+        }
+        newBasicInfo.country = country.country;
       }
       if (_.has(value, 'currentLocation')) {
         newBasicInfo.currentLocation = value.currentLocation;
