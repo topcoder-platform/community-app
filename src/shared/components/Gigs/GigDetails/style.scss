@@ -21,6 +21,7 @@
 
   @include xs-to-sm {
     margin-bottom: 20px;
+    margin-right: 0;
   }
 }
 
@@ -128,6 +129,7 @@
 
         @include xs-to-md {
           margin-top: 47px;
+          min-width: auto;
         }
 
         .shareButtons {
@@ -350,7 +352,7 @@
       font-weight: bolder;
       text-decoration: none;
       text-transform: uppercase;
-      line-height: 40px;
+      line-height: 38px;
       padding: 0 20px;
 
       &:hover {
