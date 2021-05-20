@@ -242,6 +242,8 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
+      - store_artifacts:
+          path: automated-smoke-test/test-results
   Smoke-Testing-On-Production:
     <<: *defaults
     steps: 
