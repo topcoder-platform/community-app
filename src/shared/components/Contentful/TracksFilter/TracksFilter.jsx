@@ -50,8 +50,16 @@ export class TracksFilterInner extends Component {
           const { authorList } = this.state;
           this.setState({
             authorList: _.concat(authorList, _.map(
-              _.sortBy(results.items, i => i.fields.name.toLowerCase()),
-              item => ({ label: item.fields.name, selected: false }),
+              _.sortBy(
+                results.items,
+                i => (i.fields.tcHandle
+                  ? i.fields.tcHandle.toLowerCase() : i.fields.name.toLowerCase()),
+              ),
+              item => ({
+                label: item.fields.tcHandle
+                  ? item.fields.tcHandle : item.fields.name,
+                selected: false,
+              }),
             )),
           });
         }
@@ -149,6 +157,7 @@ export class TracksFilterInner extends Component {
               {mediaMatches => (
                 <Dropdown
                   label="Authors"
+                  placeholder="Type author name or handle"
                   options={updatedAuthorList}
                   size="xs"
                   onChange={(authors) => {
@@ -231,8 +240,8 @@ export class TracksFilterInner extends Component {
 TracksFilterInner.defaultProps = {
   onClose: () => {},
   onApply: () => {},
-  selectedAuthor: DEF_SELECTED_AUTHOR,
-  authorList: [{ label: DEF_SELECTED_AUTHOR, selected: true }],
+  selectedAuthor: '',
+  authorList: [{ label: DEF_SELECTED_AUTHOR, selected: false }],
   startDate: moment('2001-01-02'),
   endDate: moment(),
   tags: [],
