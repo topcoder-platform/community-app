@@ -1,4 +1,14 @@
 version: 2.1
+parameters:
+    run_basedeployment:
+        default: true
+        type: boolean
+    run_smoketesting:
+        default: false
+        type: boolean
+    run_performancetesting:
+        default: false
+        type: boolean
 
 defaults: &defaults
     docker:
@@ -37,7 +47,7 @@ build_docker_image: &build_docker_image
             ./build.sh
 jobs:
   # Build & Deploy against development backend
-  "build-dev":
+  deployDev:
     <<: *defaults
     steps:
       # Initialization.
@@ -63,9 +73,8 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
-
   # Build & Deploy against testing backend
-  "build-test":
+  deployTest:
     <<: *defaults
     steps:
       # Initialization.
@@ -91,9 +100,8 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
-  
   # Build & Deploy against testing backend
-  "build-qa":
+  deployQA:
     <<: *defaults
     steps:
       # Initialization.
@@ -119,9 +127,8 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
-
   # Build & Deploy against prod api backend
-  "build-prod-beta":
+  deployBeta:
     <<: *defaults
     steps:
       # Initialization.
@@ -149,7 +156,7 @@ jobs:
             ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
   
   # Build & Deploy against prod api backend
-  "build-prod-staging":
+  deployStag:
     <<: *defaults
     steps:
       # Initialization.
@@ -174,10 +181,15 @@ jobs:
           command: |
             source awsenvconf
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s staging_communityapp_taskvar, -i communityapp            
-  
+            ./master_deploy.sh -d ECS -e PROD -t latest -s staging_communityapp_taskvar, -i communityapp     
+            curl --request POST \
+            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
+            --header "Circle-Token: ${CIRCLE_TOKEN}" \
+            --header 'content-type: application/json' \
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
+    
   # Build & Deploy against production backend
-  "build-prod":
+  deployProd:
     <<: *defaults
     steps:
       # Initialization.
@@ -203,8 +215,12 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
-
-  "smoke-test-on-staging":
+            curl --request POST \
+            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
+            --header "Circle-Token: ${CIRCLE_TOKEN}" \
+            --header 'content-type: application/json' \
+            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
+  Smoke-Testing-On-Staging:
     <<: *defaults
     steps: 
       # Initialization.
@@ -221,12 +237,14 @@ jobs:
             ./buildenv.sh -e PROD -b staging_communityapp_buildvar,staging_communityapp_deployvar
       - run:
           name: "Run automation"
+          no_output_timeout: 20m
           command: |
             source awsenvconf
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
-
-  "smoke-test-on-production":
+      - store_artifacts:
+          path: /automated-smoke-test/test-results
+  Smoke-Testing-On-Production:
     <<: *defaults
     steps: 
       # Initialization.
@@ -243,11 +261,11 @@ jobs:
             ./buildenv.sh -e PROD -b prod_communityapp_buildvar,prod_communityapp_deployvar
       - run:
           name: "Run automation"
+          no_output_timeout: 20m
           command: |
             source awsenvconf
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
-
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
@@ -264,78 +282,137 @@ jobs:
           paths:
             - node_modules
       - run: npm test
+     
+  Performance-Testing:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
 
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run: mvn verify
+
+      - store_artifacts:
+          path: target/jmeter/reports
+      
 workflows:
   version: 2
-  build:
+  Build:
+    when: << pipeline.parameters.run_basedeployment >>
     jobs:
       # Development builds are executed on "new-develop" branch only.
-      - "build-dev":
+      - deployDev:
           context : org-global
           filters:
             branches:
               only:
                 - develop
       # This is alternate dev env for parallel testing
-      - "build-test":
+      - deployTest:
           context : org-global      
           filters:
             branches:
               only:                
                 - free
       # This is alternate dev env for parallel testing
-      - "build-qa":
+      - deployQA:
           context : org-global      
           filters:
             branches:
               only:
                 - free
       # This is beta env for production soft releases
-      - "build-prod-beta":
+      - deployBeta:
           context : org-global
           filters:
             branches:
               only:
                 - free
       # This is stage env for production QA releases
-      - "build-prod-staging":
+      - deployStag:
           context : org-global         
           filters:
             branches:
               only:
                 - develop
-      - "approve-smoke-test-on-staging":
-          type: approval
-          requires:
-            - build-prod-staging
-      - "smoke-test-on-staging":
-          context : org-global
-          requires:
-            - approve-smoke-test-on-staging
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
       # That might trigger wrong branch to be 
       # deployed on the production
       # master branch.
-      - "build-prod":
+      - deployProd:
           context : org-global      
           filters:
             branches:
               only:
                 - master
-      - "approve-smoke-test-on-production":
-          type: approval
-          requires:
-            - build-prod
-      - "smoke-test-on-production":
-          context : org-global
-          requires:
-            - approve-smoke-test-on-production
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
           filters:
             branches:
               ignore:
+                - develop
+
+  Smoke Testing:
+    when: << pipeline.parameters.run_smoketesting >>
+    jobs:
+      - Hold [Smoke-Testing]:
+          type: approval
+      - Smoke-Testing-On-Staging:
+          context : org-global
+          requires:
+            - Hold [Smoke-Testing]
+          filters:
+            branches:
+              only:
+                - develop
+      - Smoke-Testing-On-Production:
+          context : org-global
+          requires:
+            - Hold [Smoke-Testing]
+          filters:
+            branches:
+              only:
+                - master
+
+  Performance Testing:
+    when: << pipeline.parameters.run_performancetesting >>
+    jobs:
+      - Hold [Performance-Testing]:
+          type: approval
+      - Performance-Testing:
+          requires:
+            - Hold [Performance-Testing]
+          filters:
+            branches:
+              only:
+                - master
                 - develop
