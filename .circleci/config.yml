@@ -361,14 +361,6 @@ workflows:
             branches:
               only:
                 - develop
-      - "approve-smoke-test-on-staging":
-          type: approval
-          requires:
-            - build-prod-staging
-      - "smoke-test-on-staging":
-          context : org-global
-          requires:
-            - approve-smoke-test-on-staging
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
