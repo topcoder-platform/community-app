@@ -46,12 +46,8 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
       await ChallengeListingPageHelper.fillAndVerifySearchResults();
     });
 
-    it('[TC-007] should verify that the "Filter" button is working correctly', async () => {
-      await ChallengeListingPageHelper.verifyFilterToggle();
-    });
-
     it('[TC-008] should verify that the "Filter" option "keywords" is working correctly', async () => {
-      await ChallengeListingPageHelper.verifyFilterByKeywords();
+      await ChallengeListingPageHelper.verifyFilterByKeywordSearch();
     });
 
     it('[TC-009] should verify that the "Filter" option "Type" is working correctly', async () => {
@@ -63,60 +59,16 @@ describe('Topcoder Challenge Listing Page Tests: ', () => {
     });
 
     it('[TC-011] should verify that the "Filter" option for "Date range" is working correctly', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.selectDateRange();
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(1);
+      await ChallengeListingPageHelper.verifyPastChallenges();
     });
 
     it('[TC_012] should verify whether the challenges are filtered according to the keyword/Type/Sub community/Date range fields selected under the Filter function', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
       await ChallengeListingPageHelper.verifyFilterByKeywordsAndType();
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(2);
     });
 
     it('[TC_013] should verify whether the user is able to select more than one keyword/Type under the filter function', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      // await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
       await ChallengeListingPageHelper.verifyFilterByMultipleTypes();
-    });
-
-    it('[TC_014] should verify whether the cross symbol inside the textbox keyword/Type filters removes the selected keyword/Type', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.verifyFilterByMultipleKeywords();
-      await ChallengeListingPageHelper.verifyFilterByMultipleTypes();
-      await ChallengeListingPageHelper.verifyRemovalOfKeyword();
-      await ChallengeListingPageHelper.verifyRemovalOfType();
-    });
-
-    it('[TC_015] should verify whether the number of filters applied are shown into Filter button according to the keyword/Type/Sub community/Date range fields selected', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectType('Challenge');
-      const subComunityClicked = await ChallengeListingPageHelper.selectSubCommunity(1);
-      let expectedFilterNumber = 3;
-      if (!subComunityClicked) expectedFilterNumber = 2; 
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(expectedFilterNumber);
-    });
-
-    it('[TC_016] should verify whether the clear filter button clears all the filters selected and all the challenges are displayed', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.selectKeyword('Java');
-      await ChallengeListingPageHelper.selectType('Challenge');
-      const subComunityClicked = await ChallengeListingPageHelper.selectSubCommunity(1);
-      let expectedFilterNumber = 3;
-      if (!subComunityClicked) expectedFilterNumber = 2; 
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(expectedFilterNumber);
-      await ChallengeListingPageHelper.clearFilters();
-      await ChallengeListingPageHelper.verifyNumberOfAppliedFilters(0);
-    });
-
-    it('[TC_017] should verify whether the Clear filter button is deactivated into filter function', async () => {
-      await ChallengeListingPageHelper.openFiltersPanel();
-      await ChallengeListingPageHelper.dropdownForKeywordIsDisplayed();
-      await ChallengeListingPageHelper.dropdownForTypeIsDisplayed();
-      await ChallengeListingPageHelper.dropdownForSubCommunityIsDisplayed();
-      await ChallengeListingPageHelper.dropdownForDateRangeIsDisplayed();
-      await ChallengeListingPageHelper.verifyClearFilterState(false);
     });
 
     it('[TC_018] should verify whether the Sort by select option under the Open for registration list sorts the challenges according to the selected option', async () => {
