@@ -116,7 +116,7 @@ export default function GigDetails(props) {
             </div>
             <div styleName="content">
               <div styleName="left">
-                <h4>Skills</h4>
+                <h4>Required Skills</h4>
                 <p styleName="skills"><img src={iconSkills} alt="skills-icon" /> {skills}</p>
                 <h4>Description</h4>
                 <p>{ReactHtmlParser(job.job_description_text, ReactHtmlParserOptions)}
