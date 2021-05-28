@@ -10,8 +10,11 @@ import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { isValidEmail } from 'utils/tc';
+import { withOptimizely } from '@optimizely/react-sdk';
 import techSkills from './techSkills';
 
+
+const cookies = require('browser-cookies');
 const countries = require('i18n-iso-countries');
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
@@ -120,12 +123,29 @@ class RecruitCRMJobApplyContainer extends React.Component {
   }
 
   onApplyClick() {
-    const { applyForJob, job } = this.props;
+    const { applyForJob, job, optimizely } = this.props;
     const { formData } = this.state;
     this.validateForm();
     this.setState((state) => {
       if (_.isEmpty(state.formErrors)) {
         applyForJob(job, formData);
+        optimizely.track('Submit Application Form');
+        const isFeatured = _.find(job.custom_fields, ['field_name', 'Featured']);
+        const jobTags = _.find(job.custom_fields, ['field_name', 'Job Tag']);
+        let hotListCookie = cookies.get('_tc.hcl');
+        if (isFeatured && isFeatured.value) {
+          optimizely.track('Submit to Featured Gigs');
+        }
+        if (jobTags && jobTags.value) {
+          optimizely.track('Submit to Tagged Gigs');
+        }
+        if (hotListCookie) {
+          hotListCookie = JSON.parse(hotListCookie);
+          if (hotListCookie.slug === job.slug) {
+            optimizely.track('Submit to Hotlist Gigs');
+            cookies.erase('_tc.hcl');
+          }
+        }
       }
     });
   }
@@ -269,6 +289,7 @@ RecruitCRMJobApplyContainer.propTypes = {
   application: PT.shape(),
   searchCandidates: PT.func.isRequired,
   recruitProfile: PT.shape(),
+  optimizely: PT.shape().isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -312,4 +333,4 @@ function mapDispatchToActions(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToActions,
-)(RecruitCRMJobApplyContainer);
+)(withOptimizely(RecruitCRMJobApplyContainer));

@@ -52,10 +52,8 @@ export default class TabsItemsLoader extends Component {
     const q = getQuery();
     const { tabId } = this.props;
     const { tabIndex } = this.state;
-    if (q.tabs && q.tabs[tabId] && Number(q.tabs[tabId]) !== tabIndex) {
-      this.setState({ tabIndex: Number(q.tabs[tabId]) });
-    } else {
-      this.updatePageUrl();
+    if (q.tracks && q.tracks[tabId] && Number(q.tracks[tabId]) !== tabIndex) {
+      this.setState({ tabIndex: Number(q.tracks[tabId]) });
     }
   }
 
@@ -64,14 +62,16 @@ export default class TabsItemsLoader extends Component {
   }
 
   updatePageUrl() {
-    const q = getQuery();
-    const { tabId } = this.props;
-    const { tabIndex } = this.state;
-    updateQuery({
-      tabs: {
-        ...q.tabs,
-        [tabId]: tabIndex || 0,
-      },
+    this.setState((state) => {
+      const q = getQuery();
+      const { tabId } = this.props;
+      const { tabIndex } = state;
+      updateQuery({
+        tabs: {
+          ...q.tracks,
+          [tabId]: tabIndex || 0,
+        },
+      });
     });
   }
 

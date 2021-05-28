@@ -29,6 +29,7 @@ export default function GigApply(props) {
   } = props;
   const retUrl = window.location.href;
   const duration = getCustomField(job.custom_fields, 'Duration');
+  const isPlaced = _.find(_.isEmpty(recruitProfile) ? [] : recruitProfile.custom_fields, { field_id: 12 });
 
   return user ? (
     <div styleName="container">
@@ -46,16 +47,42 @@ export default function GigApply(props) {
             <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="back-link"><BackArrowGig /> GIG DETAILS</Link>
             <div styleName="separator" />
             {
+              isPlaced && isPlaced.value === 'Placed' ? (
+                <div styleName="apply-state">
+                  <SadFace />
+                  <h2>One Gig Limit!</h2>
+                  <React.Fragment>
+                    <p>Apologies, you are not allowed to apply to gigs if you are already placed on a gig.<br /><br />You can however refer a friend to this gig and receive $500 if they get placed in that gig. To do that, you can enter their email on the right side of the Gigs Description page.<br /><br />If you have any questions or feel this is an error, please email <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a>.</p>
+                  </React.Fragment>
+                  <div styleName="cta-buttons">
+                    <Link to={`${config.GIGS_PAGES_PATH}/${job.slug}`} styleName="primaryBtn">Back To Gig</Link>
+                  </div>
+                </div>
+              ) : null
+            }
+            {
               application ? (
                 <div styleName="apply-state">
-                  { application.error ? <SadFace /> : <img src={bigCheckmark} alt="bigCheckmark OK" /> }
+                  { application.error ? <SadFace /> : <img src={bigCheckmark} alt="bigCheckmark OK" />}
                   <h2>{application.error ? 'OOPS!' : 'APPLICATION SUBMITTED'}</h2>
                   {
                     application.error ? (
                       <React.Fragment>
-                        <p styleName="error-text">{application.errorObj.message || JSON.stringify(application.errorObj)}</p>
-                        <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
-                        <p>Please send us an email at <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a> with the subject ‘Gig Error’<br />and paste the URL for the gig you are attempting to apply for so that we know of your interest.</p>
+                        {
+                          application.errorObj ? (
+                            <p styleName="error-text">{application.errorObj.message || JSON.stringify(application.errorObj)}</p>
+                          ) : null
+                        }
+                        {
+                          application.errorObj && application.errorObj.notAllowed ? (
+                            <p>If you have any questions or feel this is an error, please email <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a>.</p>
+                          ) : (
+                            <React.Fragment>
+                              <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
+                              <p>Please send us an email at <a href="mailto:gigwork@topcoder.com">gigwork@topcoder.com</a> with the subject ‘Gig Error’<br />and paste the URL for the gig you are attempting to apply for so that we know of your interest.</p>
+                            </React.Fragment>
+                          )
+                        }
                       </React.Fragment>
                     ) : (
                       <p>We will contact you via email if it seems like a fit!</p>
@@ -65,15 +92,19 @@ export default function GigApply(props) {
                     {
                       application.error ? (
                         <React.Fragment>
-                          <a
-                            href="#"
-                            styleName="primaryBtn"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              window.location.reload();
-                            }}
-                          >APPLY AGAIN
-                          </a>
+                          {
+                            !application.errorObj.notAllowed ? (
+                              <a
+                                href="#"
+                                styleName="primaryBtn"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  window.location.reload();
+                                }}
+                              >APPLY AGAIN
+                              </a>
+                            ) : null
+                          }
                           <Link to={`${config.GIGS_PAGES_PATH}`}>VIEW OTHER GIGS</Link>
                         </React.Fragment>
                       ) : (
@@ -93,18 +124,18 @@ export default function GigApply(props) {
               ) : null
             }
             {
-              !application && !applying ? (
+              !application && !applying && (!isPlaced || isPlaced.value !== 'Placed') ? (
                 <div styleName="form-wrap">
                   {!_.isEmpty(recruitProfile)
-                  && (
-                  <div styleName="info-text">
-                    <h6>It looks like you have applied to a gig previously. Perfect!<CheckmarkGreen /></h6>
-                    <p>We have most of your information. Is there anything you would like to update to your Gig Work Profile?</p>
-                  </div>
-                  )}
+                    && (
+                      <div styleName="info-text">
+                        <h6>It looks like you have applied to a gig previously. Perfect!<CheckmarkGreen /></h6>
+                        <p>We have most of your information. Is there anything you would like to update to your Gig Work Profile?</p>
+                      </div>
+                    )}
                   <h4>PERSONAL INFORMATION</h4>
                   {_.isEmpty(recruitProfile)
-                  && <p>Welcome to Topcoder Gigs! We’d like to get to know you.</p>}
+                    && <p>Welcome to Topcoder Gigs! We’d like to get to know you.</p>}
                   <div styleName="form-section">
                     <div styleName="form-row">
                       <TextInput
@@ -166,26 +197,26 @@ export default function GigApply(props) {
                   </div>
                   {_.isEmpty(recruitProfile) && <h4>TOPCODER INFORMATION</h4>}
                   {_.isEmpty(recruitProfile) && (
-                  <div styleName="form-section">
-                    <div styleName="form-row">
-                      <TextInput
-                        placeholder="Topcoder Username"
-                        label="Topcoder Username"
-                        onChange={val => onFormInputChange('handle', val)}
-                        errorMsg={formErrors.handle}
-                        value={formData.handle}
-                        readonly
-                      />
-                      <TextInput
-                        placeholder="Topcoder Profile (topcoder.com/members/[username])"
-                        label="Topcoder Profile"
-                        onChange={val => onFormInputChange('tcProfileLink', val)}
-                        errorMsg={formErrors.tcProfileLink}
-                        value={formData.handle ? `https://topcoder.com/members/${formData.handle}` : null}
-                        readonly
-                      />
+                    <div styleName="form-section">
+                      <div styleName="form-row">
+                        <TextInput
+                          placeholder="Topcoder Username"
+                          label="Topcoder Username"
+                          onChange={val => onFormInputChange('handle', val)}
+                          errorMsg={formErrors.handle}
+                          value={formData.handle}
+                          readonly
+                        />
+                        <TextInput
+                          placeholder="Topcoder Profile (topcoder.com/members/[username])"
+                          label="Topcoder Profile"
+                          onChange={val => onFormInputChange('tcProfileLink', val)}
+                          errorMsg={formErrors.tcProfileLink}
+                          value={formData.handle ? `https://topcoder.com/members/${formData.handle}` : null}
+                          readonly
+                        />
+                      </div>
                     </div>
-                  </div>
                   )}
                   <h4>SHARE YOUR WEEKLY PAY EXPECTATIONS</h4>
                   <div styleName="form-section">
@@ -203,9 +234,9 @@ export default function GigApply(props) {
                   <h4>RESUME & SKILLS</h4>
                   {
                     recruitProfile.resume ? (
-                      <p>Upload Your Resume or CV, <a href={recruitProfile.resume.file_link} target="_blank" rel="noreferrer">{recruitProfile.resume.filename}</a></p>
+                      <p>Please upload your resume/CV. Double-check that all of your tech skills are listed in your resume/CV and add them to the tech skills section below, <a href={recruitProfile.resume.file_link} target="_blank" rel="noreferrer">{recruitProfile.resume.filename}</a></p>
                     ) : (
-                      <p>Upload Your Resume or CV</p>
+                      <p>Please upload your resume/CV. Double-check that all of your tech skills are listed in your resume/CV and add them to the tech skills section below.</p>
                     )
                   }
                   <div styleName="form-section">
@@ -232,14 +263,14 @@ export default function GigApply(props) {
                   <h4>FINAL QUESTIONS</h4>
                   <div styleName="form-section">
                     {_.isEmpty(recruitProfile) && (
-                    <Dropdown
-                      placeholder="How did you find out about Topcoder Gig Work?"
-                      label="How did you find out about Topcoder Gig Work?"
-                      onChange={val => onFormInputChange('reffereal', val)}
-                      errorMsg={formErrors.reffereal}
-                      options={formData.reffereal}
-                      required
-                    />
+                      <Dropdown
+                        placeholder="How did you find out about Topcoder Gig Work?"
+                        label="How did you find out about Topcoder Gig Work?"
+                        onChange={val => onFormInputChange('reffereal', val)}
+                        errorMsg={formErrors.reffereal}
+                        options={formData.reffereal}
+                        required
+                      />
                     )}
                     <div styleName="input-bot-margin" />
                     <p>Are you able to work during the specified timezone? (<strong>{`${getCustomField(job.custom_fields, 'Timezone')}`}</strong>) *</p>
@@ -279,7 +310,7 @@ export default function GigApply(props) {
                   </button>
                 </div>
               ) : null
-          }
+            }
           </div>
         )
       }

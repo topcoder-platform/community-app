@@ -432,6 +432,16 @@ export default function SideBar({
               </div>
             </Tooltip>
           </span>
+          <span styleName="link-like-paragraph tooltip-container">
+            <a
+              href={config.URL.INFO.TEMPLATES_REPO}
+              title="Topcoder Templates repository"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Topcoder Templates <br /> repository
+            </a>
+          </span>
         </div>
         { shareable && (
           <div>

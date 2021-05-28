@@ -140,6 +140,7 @@ module.exports = {
       HOWTOCOMPETEINMARATHON: 'https://www.topcoder.com/thrive/articles/How%20To%20Compete%20in%20a%20Marathon%20Match',
       USABLECODEDEV: 'https://www.topcoder.com/thrive/articles/Usable%20Code%20in%20Dev%20Challenges',
       EXTENSIONVSCODE: 'https://marketplace.visualstudio.com/items?itemName=Topcoder.topcoder-workflow&ssr=false#overview',
+      TEMPLATES_REPO: 'https://github.com/topcoder-platform-templates',
     },
 
     IOS: 'https://ios.topcoder-dev.com',
@@ -425,4 +426,8 @@ module.exports = {
     DEBOUNCE_ON_CHANGE_TIME: 150,
   },
   ENABLE_RECOMMENDER: true,
+  OPTIMIZELY: {
+    SDK_KEY: '7V4CJhurXT3Y3bnzv1hv1',
+  },
+  PLATFORM_SITE_URL: 'https://platform.topcoder.com',
 };
