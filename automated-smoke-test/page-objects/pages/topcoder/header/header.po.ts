@@ -107,7 +107,7 @@ export class HeaderPage {
    * Gets the login link
    */
   private get loginLink() {
-    return ElementHelper.getElementByLinkText('LOGIN');
+    return ElementHelper.getElementByLinkText('LOGI N');
   }
 
   /**
