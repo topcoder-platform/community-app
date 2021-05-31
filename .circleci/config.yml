@@ -296,7 +296,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - feature/winner-tab
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
