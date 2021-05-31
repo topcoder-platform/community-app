@@ -207,6 +207,7 @@
 
           @include xs-to-sm {
             margin: 32px 0 0 0;
+            text-align: center;
           }
 
           .trackTitle {
@@ -219,7 +220,7 @@
             text-align: left;
             text-transform: uppercase;
             margin-bottom: 13px;
-            display: block;
+            display: inline-block;
 
             @include xs-to-sm {
               text-align: center;
