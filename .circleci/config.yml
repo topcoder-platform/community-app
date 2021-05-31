@@ -353,7 +353,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - thrive-bug-fixes
       # This is stage env for production QA releases
       - deployStag:
           context : org-global         
