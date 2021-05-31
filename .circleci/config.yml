@@ -353,14 +353,14 @@ workflows:
           filters:
             branches:
               only:
-                - thrive-bug-fixes
+                - free
       # This is stage env for production QA releases
       - deployStag:
           context : org-global         
           filters:
             branches:
               only:
-                - develop
+                - thrive-bug-fixes
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
