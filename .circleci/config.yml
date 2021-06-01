@@ -361,7 +361,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - thrive-bug-fixes
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
@@ -369,7 +369,6 @@ workflows:
             branches:
               only:
                 - develop
-                - fix-circleci-deployment
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

@@ -102,6 +102,8 @@ $green-color: #137d60;
 }
 
 .expanded {
+  margin-bottom: 0 !important;
+
   svg {
     -moz-transform: scale(-1, -1);
     -o-transform: scale(-1, -1);

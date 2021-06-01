@@ -363,8 +363,12 @@ class ChallengeDetailPageContainer extends React.Component {
       metadata,
     } = challenge;
 
-    const { track } = legacy || {};
+    let { track } = legacy || {};
 
+    if (!track) {
+      /* eslint-disable prefer-destructuring */
+      track = challenge.track || '';
+    }
     const submissionsViewable = _.find(metadata, { type: 'submissionsViewable' });
 
     const isLoggedIn = !_.isEmpty(auth.tokenV3);
