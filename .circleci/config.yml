@@ -47,7 +47,7 @@ build_docker_image: &build_docker_image
             ./build.sh
 jobs:
   # Build & Deploy against development backend
-  deployDev:
+  "build-dev":
     <<: *defaults
     steps:
       # Initialization.
@@ -74,7 +74,7 @@ jobs:
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
   # Build & Deploy against testing backend
-  deployTest:
+  "build-test":
     <<: *defaults
     steps:
       # Initialization.
@@ -101,7 +101,7 @@ jobs:
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
   # Build & Deploy against testing backend
-  deployQA:
+  "build-qa":
     <<: *defaults
     steps:
       # Initialization.
@@ -128,7 +128,7 @@ jobs:
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
   # Build & Deploy against prod api backend
-  deployBeta:
+  "build-prod-beta":
     <<: *defaults
     steps:
       # Initialization.
@@ -156,7 +156,7 @@ jobs:
             ./master_deploy.sh -d ECS -e PROD -t latest -s beta_communityapp_taskvar, -i communityapp
   
   # Build & Deploy against prod api backend
-  deployStag:
+  "build-prod-staging":
     <<: *defaults
     steps:
       # Initialization.
@@ -189,7 +189,7 @@ jobs:
             --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
     
   # Build & Deploy against production backend
-  deployProd:
+  "build-prod":
     <<: *defaults
     steps:
       # Initialization.
@@ -327,35 +327,35 @@ workflows:
     when: << pipeline.parameters.run_basedeployment >>
     jobs:
       # Development builds are executed on "new-develop" branch only.
-      - deployDev:
+      - "build-dev":
           context : org-global
           filters:
             branches:
               only:
                 - develop
       # This is alternate dev env for parallel testing
-      - deployTest:
+      - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
                 - free
       # This is alternate dev env for parallel testing
-      - deployQA:
+      - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
                 - free
       # This is beta env for production soft releases
-      - deployBeta:
+      - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
                 - free
       # This is stage env for production QA releases
-      - deployStag:
+      - "build-prod-staging":
           context : org-global         
           filters:
             branches:
@@ -367,7 +367,7 @@ workflows:
       # That might trigger wrong branch to be 
       # deployed on the production
       # master branch.
-      - deployProd:
+      - "build-prod":
           context : org-global      
           filters:
             branches:
