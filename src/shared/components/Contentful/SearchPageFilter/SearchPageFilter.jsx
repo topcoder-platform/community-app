@@ -110,7 +110,7 @@ export class SearchPageFilterInner extends Component {
             <div className={theme.section}>
               <button
                 type="button"
-                className={`${theme['section-header']} ${isShowSubCategory ? theme.expanded : ''}`}
+                className={`${theme['section-header']} ${!isShowSubCategory ? theme.expanded : ''}`}
                 onClick={() => { this.setState({ isShowSubCategory: !isShowSubCategory }); }}
               >
                 <span className={theme['section-title']}>sub category</span>
