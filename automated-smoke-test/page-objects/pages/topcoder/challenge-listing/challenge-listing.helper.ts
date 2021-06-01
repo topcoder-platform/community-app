@@ -67,7 +67,7 @@ export class ChallengeListingPageHelper {
       false
     );
 
-    const searchString = ConfigHelper.getChallengeDetail().challengeName;
+    const searchString = ConfigHelper.getChallengeDetail().searchText;
     await ChallengeListingPageObject.challengeSearchBox.sendKeys(searchString);
     await BrowserHelper.sleep(5000);
 

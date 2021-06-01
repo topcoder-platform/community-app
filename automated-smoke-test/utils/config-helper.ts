@@ -20,6 +20,7 @@ export interface ChallengeDetail {
   forumUrl: string;
   submissionUrl: string;
   scorecardUrl: string;
+  searchText: string,
 }
 
 export interface CommunityCardInfo {
