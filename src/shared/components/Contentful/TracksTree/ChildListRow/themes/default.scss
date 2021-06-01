@@ -77,7 +77,7 @@ $text-gray: #7f7f7f;
   flex-direction: column;
   margin-left: 22px;
   color: $text-black;
-  cursor: pointer;
+  align-items: flex-start;
 
   > div {
     position: relative;
