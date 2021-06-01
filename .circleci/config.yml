@@ -289,14 +289,14 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - feature/winner-tab
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - feature/winner-tab
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
