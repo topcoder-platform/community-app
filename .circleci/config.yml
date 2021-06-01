@@ -382,7 +382,12 @@ workflows:
                 - develop
 
   Smoke Testing:
-    when: << pipeline.parameters.run_smoketesting >>
+    when: 
+      and:
+        - << pipeline.parameters.run_smoketesting >>
+        - or:
+          - equal: [ develop, << pipeline.git.branch >> ]
+          - equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - Hold [Smoke-Testing]:
           type: approval
