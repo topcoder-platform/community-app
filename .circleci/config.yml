@@ -333,6 +333,7 @@ workflows:
             branches:
               only:
                 - develop
+                - topgear-app
       # This is alternate dev env for parallel testing
       - deployTest:
           context : org-global      
@@ -361,6 +362,7 @@ workflows:
             branches:
               only:
                 - develop
+                - topgear-app
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
