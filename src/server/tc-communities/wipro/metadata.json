@@ -29,10 +29,6 @@
   "menuItems": [
     {
       "title": "Home",
-      "url": "/"
-    }, {
-      "title": "TopGear Operations",
-      "openNewTab": true,
       "url": "https://topgear-app.wipro.com"
     }, {
       "title": "Challenges",
@@ -40,9 +36,6 @@
     }, {
       "title": "Leaderboard",
       "url": "/leaderboard"
-    }, {
-      "title": "FAQ",
-      "url": "https://topgear-app.wipro.com/faq-categories"
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
