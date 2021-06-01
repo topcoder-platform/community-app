@@ -346,7 +346,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - feature/pride-logo
       # This is beta env for production soft releases
       - deployBeta:
           context : org-global
