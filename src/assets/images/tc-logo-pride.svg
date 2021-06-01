@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="20px" viewBox="0 0 54 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M9,6.22C4.17,5.8,1,6.69.19,9S.9,14.8,4,18.76A3.09,3.09,0,0,0,6,20a25,25,0,0,1,3-8Z" style="fill:#760088;fill-rule:evenodd"></path>
+  <path d="M45,6.22v6.4c.3.63.6,1.28.9,2,.6,1.35,1.17,2.71,1.68,4,.22.56.4,1,.53,1.39A3.1,3.1,0,0,0,50,18.76c3.14-4,4.59-7.57,3.85-9.78S49.83,5.8,45,6.22Z" style="fill:#ff1e26;fill-rule:evenodd"></path>
+  <path d="M45,15.21v4.05c.22.12.44.23.69.34A5.52,5.52,0,0,0,47,20c-.19-.5-.4-1.05-.64-1.64C45.9,17.28,45.45,16.24,45,15.21Z" style="fill:#ff1e26;fill-rule:evenodd"></path>
+  <path d="M36,6.92c1.19-.34,2.38-.65,3.56-.91A21.69,21.69,0,0,0,36,2.89Z" style="fill:#fe941d;fill-rule:evenodd"></path>
+  <path d="M18,13.65a23.42,23.42,0,0,1,7.17-3A69.27,69.27,0,0,0,18,8Z" style="fill:#07bd01;fill-rule:evenodd"></path>
+  <path d="M9,12A33.83,33.83,0,0,1,12.45,6.7c-1.22-.22-2.38-.38-3.45-.48Z" style="fill:#011a98;fill-rule:evenodd"></path>
+  <path d="M36,8a66.83,66.83,0,0,0-7.22,2.6l-.09,0A22.91,22.91,0,0,1,32.74,12c.62.27,1.14.5,1.64.74l.22.11c.44.22.88.45,1.4.75Z" style="fill:#ffff01;fill-rule:evenodd"></path>
+  <path d="M36,13.59c1.54.89,3.74,2.3,8.37,5.29.22.14.43.27.63.38V15.21c-.33-.74-.66-1.47-1-2.18a35.49,35.49,0,0,0-3-5.26,10.49,10.49,0,0,0-.66-.85A38.64,38.64,0,0,0,36,8Z" style="fill:#fe941d;fill-rule:evenodd"></path>
+  <path d="M45,6.23c-1.07.09-2.22.25-3.44.47A33.69,33.69,0,0,1,45,12.62Z" style="fill:#fe941d;fill-rule:evenodd"></path>
+  <path d="M9,14.33A20.52,20.52,0,0,0,7.08,20,7.43,7.43,0,0,0,9,19.32Z" style="fill:#760088;fill-rule:evenodd"></path>
+  <path d="M18,8A36.84,36.84,0,0,0,13.66,7,34.3,34.3,0,0,0,9,14.34v5c.27-.13.55-.27.83-.43.71-.42,1.46-.89,2.37-1.48l2.45-1.63C15.86,15,17,14.28,18,13.67Z" style="fill:#011a98;fill-rule:evenodd"></path>
+  <path d="M18,3.11A24.12,24.12,0,0,0,14.5,6c1.16.26,2.33.56,3.5.9Z" style="fill:#011a98;fill-rule:evenodd"></path>
+  <path d="M18,6.92a59,59,0,0,1,7.86,2.84l1.14.52V0a16.23,16.23,0,0,0-9,3.11Z" style="fill:#07bd01;fill-rule:evenodd"></path>
+  <path d="M27,10.28h0l1.15-.52A58.17,58.17,0,0,1,36,6.92v-4A15.49,15.49,0,0,0,27,0h0Z" style="fill:#ffff01;fill-rule:evenodd"></path>
+</svg>
