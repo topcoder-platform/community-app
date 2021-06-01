@@ -304,6 +304,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature/winner-tab
       - "approve-smoke-test-on-staging":
           type: approval
           requires:
