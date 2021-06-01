@@ -3,9 +3,6 @@ parameters:
     run_basedeployment:
         default: true
         type: boolean
-    run_smoketesting:
-        default: false
-        type: boolean
     run_performancetesting:
         default: false
         type: boolean
@@ -73,6 +70,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s dev_communityapp_taskvar -i communityapp
+
   # Build & Deploy against testing backend
   "build-test":
     <<: *defaults
@@ -100,6 +98,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s test_communityapp_taskvar -i communityapp
+
   # Build & Deploy against testing backend
   "build-qa":
     <<: *defaults
@@ -127,6 +126,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e DEV -t latest -s qa_communityapp_taskvar -i communityapp
+
   # Build & Deploy against prod api backend
   "build-prod-beta":
     <<: *defaults
@@ -182,11 +182,6 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s staging_communityapp_taskvar, -i communityapp     
-            curl --request POST \
-            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-            --header "Circle-Token: ${CIRCLE_TOKEN}" \
-            --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
     
   # Build & Deploy against production backend
   "build-prod":
@@ -215,11 +210,8 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./master_deploy.sh -d ECS -e PROD -t latest -s prod_communityapp_taskvar -i communityapp
-            curl --request POST \
-            --url https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline \
-            --header "Circle-Token: ${CIRCLE_TOKEN}" \
-            --header 'content-type: application/json' \
-            --data '{"branch":"'"$CIRCLE_BRANCH"'","parameters":{"run_smoketesting":true , "run_performancetesting":false, "run_basedeployment": false}}'
+
+  # Automated Smoke Testing against Staging
   Smoke-Testing-On-Staging:
     <<: *defaults
     steps: 
@@ -244,6 +236,8 @@ jobs:
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
       - store_artifacts:
           path: /automated-smoke-test/test-results
+
+  # Automated Smoke Testing against Production
   Smoke-Testing-On-Production:
     <<: *defaults
     steps: 
@@ -266,6 +260,7 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
+
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
   # Jest unit-tests).
@@ -282,7 +277,7 @@ jobs:
           paths:
             - node_modules
       - run: npm test
-     
+
   Performance-Testing:
     docker:
       # specify the version you desire here
@@ -320,7 +315,7 @@ jobs:
 
       - store_artifacts:
           path: target/jmeter/reports
-      
+
 workflows:
   version: 2
   Build:
@@ -384,11 +379,9 @@ workflows:
 
   Smoke Testing:
     when: 
-      and:
-        - << pipeline.parameters.run_smoketesting >>
-        - or:
-          - equal: [ develop, << pipeline.git.branch >> ]
-          - equal: [ master, << pipeline.git.branch >> ]
+      or:
+        - equal: [ develop, << pipeline.git.branch >> ]
+        - equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - Hold [Smoke-Testing]:
           type: approval
