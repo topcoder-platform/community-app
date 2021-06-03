@@ -56,6 +56,12 @@ class Loader extends React.Component {
       }
       window.location = `${config.URL.AUTH}/member?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
+
+    /* Redirect odl TopGear home to new TopGear App */
+    if (communityId === 'wipro'
+      && (window.location.pathname === '/' || window.location.pathname === '/__community__/wipro')) {
+      window.location = config.URL.TOPGEAR;
+    }
   }
 
   render() {
