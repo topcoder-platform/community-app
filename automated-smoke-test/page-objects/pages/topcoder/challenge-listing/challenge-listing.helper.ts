@@ -503,7 +503,7 @@ export class ChallengeListingPageHelper {
    */
   static async verifyChallengesByChallengeTag() {
     // const tagText = ConfigHelper.getChallengeDetail().challengeTag;
-    const tagText = 'ReactJS';
+    const tagText = 'EdgeNet';
     await this.waitForSubCommunity();
     await ChallengeListingPageObject.challengeSearchBox.sendKeys(tagText);
     await BrowserHelper.sleep(2000);
