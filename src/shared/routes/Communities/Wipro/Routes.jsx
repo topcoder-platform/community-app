@@ -5,7 +5,7 @@
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
 import ChallengeListingBanner from 'components/tc-communities/communities/wipro/ChallengeListingBanner';
-import ContentfulRoute from 'components/Contentful/Route';
+// import ContentfulRoute from 'components/Contentful/Route';
 import Header from 'containers/tc-communities/Header';
 import LeaderboardBanner from 'components/tc-communities/communities/wipro/LeaderboardBanner';
 import PT from 'prop-types';
@@ -20,7 +20,7 @@ import Viewport from 'components/Contentful/Viewport';
 import theme from 'components/tc-communities/communities/wipro/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
-import { config } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 import Leaderboard from '../Leaderboard';
 
@@ -115,10 +115,21 @@ export default function Wipro({ base, meta }) {
                 exact
                 path={`${base}/leaderboard`}
               />
+              {/*
               <ContentfulRoute
                 baseUrl={base}
                 id="1VXRAIxJdi6eCeeyKCmicK"
                 spaceName="topgear"
+              />
+              */}
+              <Route
+                path={base}
+                component={() => {
+                  if (isomorphy.isClientSide()) {
+                    window.location = config.URL.TOPGEAR;
+                  }
+                  return null;
+                }}
               />
             </Switch>
             <Viewport

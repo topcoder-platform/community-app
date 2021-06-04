@@ -51,11 +51,10 @@ class Loader extends React.Component {
      * clear, what exactly do we need to support it in general. */
     if ((communityId === 'wipro' || communityId === 'comcast') && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
-      let subpath = 'member';
       if (communityId === 'wipro') {
-        subpath = 'sso-login/';
+        window.location = `${config.URL.AUTH}/?retUrl=${config.URL.TOPGEAR}`;
       }
-      window.location = `${config.URL.AUTH}/${subpath}?retUrl=${returnUrl}&utm_source=${communityId}`;
+      window.location = `${config.URL.AUTH}/member?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
   }
 
