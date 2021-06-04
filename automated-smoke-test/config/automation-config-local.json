@@ -99,7 +99,8 @@
     "termUrl": "http://localhost:3000/challenges/terms/detail/9ef9dec4-dddb-48c9-9cce-659db68bc5ac",
     "forumUrl": "https://apps.topcoder.com/forums/?module=Category&categoryID=82117",
     "submissionUrl": "http://localhost:3000/challenges/4bd5cf15-41ee-4932-927d-fda5731ec023/submit",
-    "scorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133"
+    "scorecardUrl": "https://software.topcoder.com/review/actions/ViewScorecard?scid=30002133",
+    "searchText": "KGuTnJmJ"
   },
   "myDashboard": {
     "url": "http://localhost:3000/my-dashboard",

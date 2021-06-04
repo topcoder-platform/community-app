@@ -67,7 +67,7 @@ export class ChallengeListingPageHelper {
       false
     );
 
-    const searchString = ConfigHelper.getChallengeDetail().challengeName;
+    const searchString = ConfigHelper.getChallengeDetail().searchText;
     await ChallengeListingPageObject.challengeSearchBox.sendKeys(searchString);
     await BrowserHelper.sleep(5000);
 
@@ -503,7 +503,7 @@ export class ChallengeListingPageHelper {
    */
   static async verifyChallengesByChallengeTag() {
     // const tagText = ConfigHelper.getChallengeDetail().challengeTag;
-    const tagText = 'ReactJS';
+    const tagText = 'EdgeNet';
     await this.waitForSubCommunity();
     await ChallengeListingPageObject.challengeSearchBox.sendKeys(tagText);
     await BrowserHelper.sleep(2000);
