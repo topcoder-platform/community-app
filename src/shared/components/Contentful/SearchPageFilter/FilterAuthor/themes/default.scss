@@ -53,6 +53,17 @@ $text-black: #2a2a2a;
   }
 }
 
+.icon-arrow-popup {
+  -moz-transform: none;
+  -o-transform: none;
+  -webkit-transform: none;
+  transform: none;
+
+  polygon {
+    fill: #aaa;
+  }
+}
+
 .popup {
   position: absolute;
   left: 0;
