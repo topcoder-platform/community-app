@@ -52,9 +52,10 @@ class Loader extends React.Component {
     if ((communityId === 'wipro' || communityId === 'comcast') && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
       if (communityId === 'wipro') {
-        window.location = `${config.URL.AUTH}/?retUrl=${config.URL.TOPGEAR}`;
+        window.location = `${config.URL.AUTH}/?retUrl=${config.URL.TOPGEAR}&utm_source=${communityId}`;
+      } else {
+        window.location = `${config.URL.AUTH}/member?retUrl=${returnUrl}&utm_source=${communityId}`;
       }
-      window.location = `${config.URL.AUTH}/member?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
 
     /* Redirect odl TopGear home to new TopGear App */
