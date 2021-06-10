@@ -1,0 +1,20 @@
+{
+  "challengeFilter": {
+    "events": ["tco22"]
+  },
+  "communityId": "tco22",
+  "communityName": "TCO22",
+  "groupIds": [],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/tco/TCO22.svg",
+    "url": "https://tco22.topcoder.com"
+  }],
+  "menuItems": [{
+    "navigationMenu": "5zZw57ZcKXWfOwwWbk5VnL"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["tco22"],
+  "description": "2022 Topcoder Open. The Ultimate Programming & Design Tournament",
+  "image": "tco22.jpg"
+}
