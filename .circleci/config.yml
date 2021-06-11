@@ -355,7 +355,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - feature/profile-add-edgenet
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
