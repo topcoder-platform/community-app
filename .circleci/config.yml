@@ -362,7 +362,7 @@ workflows:
           filters:
             branches:
               only:
-                - thrive-bug-fixes
+                - feature/profile-add-edgenet
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
