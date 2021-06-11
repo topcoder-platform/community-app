@@ -340,11 +340,7 @@ class Service {
     }
     if (track) query['fields.trackCategory'] = track;
     if (!_.isEmpty(tags)) {
-      if (tags.length === 1) {
-        query['fields.tags[match]'] = tags.join(',');
-      } else {
-        query.query = tags.join(' ');
-      }
+      query['fields.tags[all]'] = tags.join(',');
     }
     if (startDate) query['fields.creationDate[gte]'] = startDate;
     if (endDate) query['fields.creationDate[lte]'] = endDate;
