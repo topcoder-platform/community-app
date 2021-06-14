@@ -24,7 +24,7 @@ export function TracksDateInner(props) {
       <Datepicker
         label="Date Start"
         value={startDate}
-        onChange={(date) => { onSelectStartDate(date); }}
+        onChange={(date) => { if (date instanceof Date) onSelectStartDate(date); }}
         size="xs"
         isOutsideRange={day => moment().isSameOrBefore(day)}
       />
@@ -32,7 +32,7 @@ export function TracksDateInner(props) {
       <Datepicker
         label="Date End"
         value={endDate}
-        onChange={(date) => { onSelectEndDate(date); }}
+        onChange={(date) => { if (date instanceof Date) onSelectEndDate(date); }}
         size="xs"
         isOutsideRange={day => moment().isSameOrBefore(day)}
       />
