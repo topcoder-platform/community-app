@@ -355,14 +355,14 @@ workflows:
           filters:
             branches:
               only:
-                - feature/profile-add-edgenet
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - feature/profile-add-edgenet
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
@@ -370,7 +370,7 @@ workflows:
             branches:
               only:
                 - develop
-                - topgear-app
+                - feature/profile-add-edgenet
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
