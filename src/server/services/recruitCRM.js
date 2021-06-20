@@ -6,6 +6,7 @@ import config from 'config';
 import qs from 'qs';
 import _ from 'lodash';
 import { logger } from 'topcoder-react-lib';
+import Joi from 'joi';
 import GrowsurfService from './growsurf';
 import { sendEmailDirect } from './sendGrid';
 
@@ -61,6 +62,11 @@ function notifyKirilAndNick(error) {
     }],
   });
 }
+
+const updateProfileSchema = Joi.object().keys({
+  phone: Joi.string().required(),
+  availability: Joi.boolean().required(),
+}).required();
 
 /**
  * Auxiliary class that handles communication with recruitCRM
@@ -448,5 +454,158 @@ export default class RecruitCRMService {
     } catch (err) {
       return next(err);
     }
+  }
+
+  /**
+   * Get user profile endpoint.
+   * @return {Promise}
+   * @param {Object} the request.
+   */
+  async getProfile(req, res, next) {
+    try {
+      // get candidate by email
+      const candidate = await this.getCandidateByEmail(req.authUser.email);
+      // return error if getCandidateByEmail operation failed
+      if (candidate.error) {
+        const error = candidate;
+        logger.error(error);
+        return res.status(error.status).send(error);
+      }
+      // apply desired response format
+      const responseMapping = {
+        phone: candidate.contact_number,
+        resume: candidate.resume,
+        availability: _.isNill(candidate.available_from) ? true
+          : new Date(candidate.available_from) <= new Date(),
+      };
+      return res.send(responseMapping);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  /**
+   * Update user profile endpoint.
+   * @return {Promise}
+   * @param {Object} the request.
+   */
+  async updateProfile(req, res, next) {
+    const { body, file } = req;
+    // validate provided data
+    const validationResult = updateProfileSchema.validate(body);
+    if (validationResult.error) {
+      return res.status(400).send({ message: validationResult.error.message });
+    }
+    const fileData = new FormData();
+    if (file) {
+      fileData.append('resume', file.buffer, file.originalname);
+    }
+    try {
+      // get candidate by email
+      const candidate = await this.getCandidateByEmail(req.authUser.email);
+      // return error if getCandidateByEmail operation failed
+      if (candidate.error) {
+        const error = candidate;
+        logger.error(error);
+        return res.status(error.status).send(error);
+      }
+      const candidateSlug = candidate.slug;
+      const form = {
+        contact_number: body.phone,
+        available_from: body.availability ? new Date().toISOString() : new Date('2100-01-01').toISOString(),
+      };
+      // assign required fields for update operation
+      _.assign(form, _.pick(candidate, ['first_name', 'last_name', 'email', 'language_skills']));
+      // update candidate profile
+      const response = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateSlug}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.private.authorization,
+        },
+        body: JSON.stringify(form),
+      });
+      if (response.status >= 300) {
+        const error = {
+          error: true,
+          status: response.status,
+          url: `${this.private.baseUrl}/v1/candidates${candidateSlug}`,
+          form,
+          errorObj: await response.json(),
+        };
+        logger.error(error);
+        return res.status(error.status).send(error);
+      }
+      // Attach resume to candidate if uploaded
+      if (file) {
+        const formHeaders = fileData.getHeaders();
+        const fileResponse = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateSlug}`, {
+          method: 'POST',
+          headers: {
+            Authorization: this.private.authorization,
+            ...formHeaders,
+          },
+          body: fileData,
+        });
+        if (fileResponse.status >= 300) {
+          const error = {
+            error: true,
+            status: fileResponse.status,
+            url: `${this.private.baseUrl}/v1/candidates/${candidateSlug}`,
+            file,
+            formHeaders,
+            errorObj: await fileResponse.json(),
+          };
+          logger.error(error);
+          return res.status(error.status).send(error);
+        }
+      }
+      return res.status(204).end();
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  /**
+   * Get candidate by email
+   * @return {object} result of the search operation
+   * @param {string} email email address of the user.
+   */
+  async getCandidateByEmail(email) {
+    const url = `${this.private.baseUrl}/v1/candidates/search?email=${email}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: this.private.authorization,
+      },
+    });
+    if (response.status === 429) {
+      await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
+      return this.getCandidateByEmail(email);
+    }
+    if (response.status >= 300) {
+      const error = {
+        error: true,
+        status: response.status,
+        url,
+        errObj: await response.json(),
+      };
+      return error;
+    }
+    const data = await response.json();
+    // return error object if candidate with provided email not found
+    if (data.data.length === 0) {
+      const error = {
+        error: true,
+        status: 404,
+        url,
+        errObj: {
+          message: `No candidate was found with email: ${email}`,
+        },
+      };
+      return error;
+    }
+    // return first candidate
+    return data.data[0];
   }
 }
