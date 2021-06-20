@@ -32,6 +32,7 @@ routes.get('/jobs/search', (req, res, next) => new RecruitCRMService().getJobs(r
 routes.get('/jobs/:id', (req, res, next) => new RecruitCRMService().getJob(req, res, next));
 routes.post('/jobs/:id/apply', upload.single('resume'), (req, res, next) => new RecruitCRMService().applyForJob(req, res, next));
 routes.get('/candidates/search', (req, res, next) => new RecruitCRMService().searchCandidates(req, res, next));
+// new router added
 routes.get('/profile', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => new RecruitCRMService().getProfile(req, res, next));
 routes.post('/profile', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), upload.single('resume'), (req, res, next) => new RecruitCRMService().updateProfile(req, res, next));
 export default routes;
