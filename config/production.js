@@ -214,4 +214,9 @@ module.exports = {
   TC_EDU_SEARCH_PATH: '/search',
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   ENABLE_RECOMMENDER: true,
+  JWT_AUTH: {
+    SECRET: 'mysecret',
+    AUTH_SECRET: 'mysecret',
+    VALID_ISSUERS: '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/", "https://auth.topcoder-dev.com/"]',
+  },
 };
