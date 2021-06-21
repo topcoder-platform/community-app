@@ -5,9 +5,4 @@ module.exports = {
     USER_SETTINGS: '', /* No dev server is available for saved searches */
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
-  JWT_AUTH: {
-    SECRET: 'mysecret',
-    AUTH_SECRET: 'mysecret',
-    VALID_ISSUERS: '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/", "https://auth.topcoder-dev.com/"]',
-  },
 };
