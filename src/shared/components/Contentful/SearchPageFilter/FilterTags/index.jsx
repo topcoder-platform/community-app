@@ -66,11 +66,12 @@ export class FilterTagsInner extends Component {
           value={inputValue}
           onChange={(e) => { this.setState({ inputValue: e.target.value }); }}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' && inputValue && inputValue.trim() && !isTagExist(inputValue)) {
+            if (e.key === 'Enter' && inputValue && inputValue.trim() && !isTagExist(inputValue) && tags.length <= 4) {
               onAddNewTag(inputValue);
               this.setState({ inputValue: '' });
             }
           }}
+          maxLength="40"
         />
         <div className={theme['tag-container']}>
           {

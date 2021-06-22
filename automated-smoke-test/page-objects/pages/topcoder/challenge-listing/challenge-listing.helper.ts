@@ -67,14 +67,17 @@ export class ChallengeListingPageHelper {
       false
     );
 
-    const searchString = ConfigHelper.getChallengeDetail().challengeName;
+    const searchString = ConfigHelper.getChallengeDetail().searchText;
     await ChallengeListingPageObject.challengeSearchBox.sendKeys(searchString);
     await BrowserHelper.sleep(5000);
 
     const firstChallenge = ChallengeListingPageObject.firstChallengeLink;
-    let firstChallengeName = '';
-    if (await firstChallenge.isPresent()) {
-      firstChallengeName = await firstChallenge.getText();
+
+    const isPresent = await firstChallenge.isPresent();
+    expect(isPresent).toEqual(true);
+
+    if (isPresent) {
+      const firstChallengeName = await firstChallenge.getText();
       expect(firstChallengeName).toEqual(searchString);
     }
   }
@@ -217,6 +220,35 @@ export class ChallengeListingPageHelper {
     );
     let filtersVisibility = await CommonHelper.isDisplayed(ChallengeListingPageObject.subCommunityLabel);
     expect(filtersVisibility).toBe(true);
+
+    // Filter by Development Challenges
+    let el = await ChallengeListingPageObject.designSwitch();
+    await el.click();
+    await CommonHelper.waitUntilPresenceOf(
+      () => ChallengeListingPageObject.designSwitchTurnedOff,
+      'wait for design switch turn off',
+      false
+    );
+
+    el = await ChallengeListingPageObject.dataScienceSwitch();
+    await el.click();
+    await CommonHelper.waitUntilPresenceOf(
+      () => ChallengeListingPageObject.dataScienceSwitchTurnedOff,
+      'wait for data science switch turn off',
+      false
+    );
+
+    el = await ChallengeListingPageObject.qaSwitch();
+    await el.click();
+    await CommonHelper.waitUntilPresenceOf(
+      () => ChallengeListingPageObject.qaSwitchTurnedOff,
+      'wait for qa switch turn off',
+      false
+    );
+
+    // Filter by Challenge type
+    await ChallengeListingPageObject.first2FinishCheckbox.click();
+    await ChallengeListingPageObject.taskCheckbox.click();
 
     await ChallengeListingPageObject.challengeSearchBox.sendKeys('ReactJS');
     await BrowserHelper.sleep(5000);
@@ -503,8 +535,9 @@ export class ChallengeListingPageHelper {
    */
   static async verifyChallengesByChallengeTag() {
     // const tagText = ConfigHelper.getChallengeDetail().challengeTag;
-    const tagText = 'ReactJS';
+    const tagText = 'EdgeNet';
     await this.waitForSubCommunity();
+
     await ChallengeListingPageObject.challengeSearchBox.sendKeys(tagText);
     await BrowserHelper.sleep(2000);
 
@@ -514,6 +547,36 @@ export class ChallengeListingPageHelper {
       false
     );
     await ChallengeListingPageObject.getChallengeTag(tagText).click();
+
+    // Filter by Development Challenges
+    let el = await ChallengeListingPageObject.designSwitch();
+    await el.click();
+    await CommonHelper.waitUntilPresenceOf(
+      () => ChallengeListingPageObject.designSwitchTurnedOff,
+      'wait for design switch turn off',
+      false
+    );
+
+    el = await ChallengeListingPageObject.dataScienceSwitch();
+    await el.click();
+    await CommonHelper.waitUntilPresenceOf(
+      () => ChallengeListingPageObject.dataScienceSwitchTurnedOff,
+      'wait for data science switch turn off',
+      false
+    );
+
+    el = await ChallengeListingPageObject.qaSwitch();
+    await el.click();
+    await CommonHelper.waitUntilPresenceOf(
+      () => ChallengeListingPageObject.qaSwitchTurnedOff,
+      'wait for qa switch turn off',
+      false
+    );
+
+    // Filter by Challenge type
+    await ChallengeListingPageObject.first2FinishCheckbox.click();
+    await ChallengeListingPageObject.taskCheckbox.click();
+
     // waiting for re-render to happen
     await BrowserHelper.sleep(15000);
 

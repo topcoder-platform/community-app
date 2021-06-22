@@ -324,7 +324,7 @@ export class SearchBarInner extends Component {
                     <a className={theme.authorLink} href={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?author=${item.name}`}>
                       {item.tcHandle}
                       {
-                        item.tcHandle ? (
+                        item.name ? (
                           <span className={theme.authorName}>
                             {item.name}
                           </span>

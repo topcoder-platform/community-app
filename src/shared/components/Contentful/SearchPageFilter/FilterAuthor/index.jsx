@@ -72,7 +72,7 @@ export class FilterAuthorInner extends Component {
           }}
         >
           <span>{selected}</span>
-          <IconArrow className={theme['icon-arrow']} />
+          <IconArrow className={theme[isShowPopup ? 'icon-arrow-popup' : 'icon-arrow']} />
         </button>
         {isShowPopup && (
           <div className={theme.popup}>

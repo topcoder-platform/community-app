@@ -104,7 +104,8 @@
     "termUrl": "https://test-community-app.topcoder-dev.com/challenges/terms/detail/b11da5cd-713f-478d-90f4-f679ef53ee95",
     "forumUrl": "https://apps.topcoder-dev.com/forums/?module=Category&categoryID=0",
     "submissionUrl": "https://test-community-app.topcoder-dev.com/challenges/ee951f3e-8c3d-41d7-b232-aa8774ff7f27/submit",
-    "scorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001610"
+    "scorecardUrl": "https://software.topcoder-dev.com/review/actions/ViewScorecard?scid=30001610",
+    "searchText": "KGuTnJmJ"
   },
   "myDashboard": {
     "url": "https://test-community-app.topcoder-dev.com/my-dashboard",
