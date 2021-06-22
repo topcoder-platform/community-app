@@ -361,7 +361,7 @@ workflows:
           filters:
             branches:
               only:
-                - tco22
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
