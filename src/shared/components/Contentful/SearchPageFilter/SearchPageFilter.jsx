@@ -201,7 +201,7 @@ SearchPageFilterInner.defaultProps = {
   onApply: () => { },
   selectedAuthor: DEF_SELECTED_AUTHOR,
   authorList: [DEF_SELECTED_AUTHOR],
-  startDate: moment('2001-01-02'),
+  startDate: moment('2001-01-01'),
   endDate: moment(),
   tags: [],
   selectedCategory: '',

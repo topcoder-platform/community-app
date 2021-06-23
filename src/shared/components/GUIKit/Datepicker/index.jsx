@@ -27,6 +27,11 @@ function Datepicker({
   required,
   size,
   isOutsideRange,
+  hideCustomInputIcon,
+  isDayBlocked,
+  displayFormat,
+  minDate,
+  maxDate,
 }) {
   const sizeStyle = size === 'lg' ? 'lgSize' : 'xsSize';
   const [date, setDate] = useState(value ? moment(value) : null);
@@ -43,7 +48,7 @@ function Datepicker({
     >
       <SingleDatePicker
         hideKeyboardShortcutsPanel
-        customInputIcon={<IconCalendar />}
+        customInputIcon={hideCustomInputIcon ? null : <IconCalendar />}
         date={date}
         onDateChange={(changedDate) => {
           setDate(changedDate);
@@ -58,13 +63,16 @@ function Datepicker({
         numberOfMonths={1}
         navPrev={<IconPrev />}
         navNext={<IconNext />}
-        displayFormat="MMM DD, YYYY"
+        displayFormat={displayFormat}
         daySize={width > 600 ? 47 : 35}
         renderDayContents={d => (<div>{d.date ? d.date() : ''}</div>)}
         enableOutsideDays
         firstDayOfWeek={1}
         weekDayFormat="ddd"
         isOutsideRange={isOutsideRange}
+        isDayBlocked={isDayBlocked}
+        minDate={minDate}
+        maxDate={maxDate}
       />
       {label ? (
         <span styleName="label">
@@ -86,6 +94,11 @@ Datepicker.defaultProps = {
   required: false,
   size: 'lg',
   isOutsideRange: day => moment().isSameOrAfter(day),
+  hideCustomInputIcon: false,
+  isDayBlocked: () => false,
+  displayFormat: 'MMM DD, YYYY',
+  minDate: null,
+  maxDate: null,
 };
 
 Datepicker.propTypes = {
@@ -97,6 +110,11 @@ Datepicker.propTypes = {
   required: PT.bool,
   size: PT.oneOf(['xs', 'lg']),
   isOutsideRange: PT.func,
+  hideCustomInputIcon: PT.bool,
+  isDayBlocked: PT.func,
+  displayFormat: PT.string,
+  minDate: PT.instanceOf(moment),
+  maxDate: PT.instanceOf(moment),
 };
 
 export default Datepicker;
