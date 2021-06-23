@@ -475,7 +475,7 @@ export default class RecruitCRMService {
       const responseMapping = {
         phone: candidate.contact_number,
         resume: candidate.resume,
-        availability: _.isNill(candidate.available_from) ? true
+        availability: _.isNil(candidate.available_from) ? true
           : new Date(candidate.available_from) <= new Date(),
       };
       return res.send(responseMapping);
@@ -512,10 +512,8 @@ export default class RecruitCRMService {
       const candidateSlug = candidate.slug;
       const form = {
         contact_number: body.phone,
-        available_from: body.availability ? new Date().toISOString() : new Date('2100-01-01').toISOString(),
+        available_from: body.availability === 'true' ? new Date().toISOString() : new Date('2100-01-01').toISOString(),
       };
-      // assign required fields for update operation
-      _.assign(form, _.pick(candidate, ['first_name', 'last_name', 'email', 'language_skills']));
       // update candidate profile
       const response = await fetch(`${this.private.baseUrl}/v1/candidates/${candidateSlug}`, {
         method: 'POST',
@@ -572,7 +570,10 @@ export default class RecruitCRMService {
    * @param {string} email email address of the user.
    */
   async getCandidateByEmail(email) {
-    const url = `${this.private.baseUrl}/v1/candidates/search?email=${email}`;
+    const query = {
+      email,
+    };
+    const url = `${this.private.baseUrl}/v1/candidates/search?${qs.stringify(query)}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
