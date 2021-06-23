@@ -38,6 +38,8 @@ exports[`Default render 1`] = `
     isRTL={false}
     keepFocusOnInput={false}
     keepOpenOnDateSelect={false}
+    maxDate={null}
+    minDate={null}
     monthFormat="MMMM YYYY"
     navNext={
       <IconNext
