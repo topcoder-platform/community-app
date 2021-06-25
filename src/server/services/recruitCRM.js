@@ -469,10 +469,14 @@ export default class RecruitCRMService {
       if (candidate.error) {
         const error = candidate;
         logger.error(error);
-        return res.status(error.status).send(error);
+        const responseNoProfileMapping = {
+          hasProfile: false,
+        };
+        return res.send(responseNoProfileMapping);
       }
       // apply desired response format
       const responseMapping = {
+        hasProfile: true,
         phone: candidate.contact_number,
         resume: candidate.resume,
         availability: _.isNil(candidate.available_from) ? true
@@ -595,7 +599,7 @@ export default class RecruitCRMService {
     }
     const data = await response.json();
     // return error object if candidate with provided email not found
-    if (data.data.length === 0) {
+    if ((_.isArray(data) && data.length === 0) || data.data.length === 0) {
       const error = {
         error: true,
         status: 404,

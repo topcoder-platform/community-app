@@ -44,7 +44,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/Profile"
         "500":
           description: Internal Server Error
           content:
@@ -122,6 +122,9 @@ components:
           description: "The availability of the user"
           default: true
           example: true
+        hasProfile:
+          type: boolean
+          description: "Whether has profile for the user"
     ProfileUpdate:
       required:
         - phone
