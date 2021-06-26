@@ -515,6 +515,8 @@ export default class RecruitCRMService {
       }
       const candidateSlug = candidate.slug;
       const form = {
+        city: body.city,
+        locality: body.countryName,
         contact_number: body.phone,
         available_from: body.availability === 'true' ? new Date().toISOString() : new Date('2100-01-01').toISOString(),
       };
