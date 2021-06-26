@@ -455,6 +455,8 @@ export default class BasicInfo extends ConsentComponent {
       key: country.countryCode,
       name: country.country,
     }));
+    const countryCode = newBasicInfo.homeCountryCode || newBasicInfo.competitionCountryCode;
+    const currentCountry = newBasicInfo.country || countries.find(c => c.key === countryCode);
 
     return (
       <div styleName="basic-info-container">
@@ -591,7 +593,7 @@ export default class BasicInfo extends ConsentComponent {
                 <Select
                   name="country"
                   options={countries}
-                  value={newBasicInfo.country}
+                  value={currentCountry}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
                   matchPos="start"
@@ -801,7 +803,7 @@ export default class BasicInfo extends ConsentComponent {
                   <Select
                     name="countryId"
                     options={countries}
-                    value={newBasicInfo.country}
+                    value={currentCountry}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
                     matchPos="start"
