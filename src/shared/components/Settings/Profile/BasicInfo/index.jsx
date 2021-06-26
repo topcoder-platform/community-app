@@ -801,7 +801,7 @@ export default class BasicInfo extends ConsentComponent {
                   <Select
                     name="countryId"
                     options={countries}
-                    value={newBasicInfo.country}
+                    value={newBasicInfo.homeCountryCode || newBasicInfo.competitionCountryCode || newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
                     matchPos="start"

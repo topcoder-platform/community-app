@@ -369,6 +369,7 @@ workflows:
             branches:
               only:
                 - develop
+                - fix-country-setting-page
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
