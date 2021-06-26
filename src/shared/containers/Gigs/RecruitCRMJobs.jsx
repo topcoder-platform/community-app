@@ -17,6 +17,7 @@ import IconBlackLocation from 'assets/images/icon-black-location.svg';
 import { config, Link, isomorphy } from 'topcoder-react-utils';
 import { getQuery, updateQuery } from 'utils/url';
 import { withOptimizely } from '@optimizely/react-sdk';
+import GigHeader from 'components/Gigs/GigHeader';
 import './jobLisingStyles.scss';
 
 const cookies = require('browser-cookies');
@@ -249,6 +250,7 @@ class RecruitCRMJobsContainer extends React.Component {
             <Dropdown label="Location" onChange={this.onLocation} options={locations} size="xs" />
             <Dropdown label="Sort by" onChange={this.onSort} options={sortByOptions} size="xs" />
           </div>
+          <GigHeader />
           <div styleName="jobs-list-container">
             {
               jobsToDisplay.length
