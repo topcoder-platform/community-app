@@ -341,6 +341,7 @@ workflows:
             branches:
               only:
                 - develop
+                - tco22
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
