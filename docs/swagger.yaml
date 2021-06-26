@@ -129,11 +129,19 @@ components:
       required:
         - phone
         - availability
+        - city
+        - countryName
       properties:
         phone:
           type: string
           description: "The phone number of the user"
           example: "(123) 456-7890"
+        city:
+          type: string
+          description: "The member's city"
+        countryName:
+          type: string
+          description: "The member's country"
         resume:
           type: string
           format: binary

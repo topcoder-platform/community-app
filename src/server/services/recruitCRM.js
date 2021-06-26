@@ -66,6 +66,8 @@ function notifyKirilAndNick(error) {
 const updateProfileSchema = Joi.object().keys({
   phone: Joi.string().required(),
   availability: Joi.boolean().required(),
+  city: Joi.string().required(),
+  countryName: Joi.string().required(),
 }).required();
 
 /**

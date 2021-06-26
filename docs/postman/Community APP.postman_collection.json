@@ -1,8 +1,8 @@
 {
     "info": {
-        "_postman_id": "cc8d34ce-b72f-4340-a4c1-737f89157b31",
+        "_postman_id": "95d8a75d-2520-494b-becd-f9f2e8537707",
         "name": "Community APP",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
     },
     "item": [
         {
@@ -35,16 +35,7 @@
                                         "type": "text"
                                     }
                                 ],
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -72,16 +63,7 @@
                                         "type": "text"
                                     }
                                 ],
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -109,16 +91,7 @@
                                         "type": "text"
                                     }
                                 ],
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -146,16 +119,7 @@
                                         "type": "text"
                                     }
                                 ],
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -183,16 +147,7 @@
                                         "type": "text"
                                     }
                                 ],
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -226,7 +181,7 @@
                                         {
                                             "key": "resume",
                                             "type": "file",
-                                            "src": "./docs/postman/resume.txt"
+                                            "src": []
                                         },
                                         {
                                             "key": "phone",
@@ -235,21 +190,22 @@
                                         },
                                         {
                                             "key": "availability",
-                                            "value": "true",
+                                            "value": "false",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "city",
+                                            "value": "ABC",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "countryName",
+                                            "value": "India",
                                             "type": "text"
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -297,16 +253,7 @@
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -354,16 +301,7 @@
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -411,16 +349,7 @@
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -468,16 +397,7 @@
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -527,16 +447,7 @@
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -581,16 +492,7 @@
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         },
@@ -635,16 +537,7 @@
                                         }
                                     ]
                                 },
-                                "url": {
-                                    "raw": "{{URL}}/recruit/profile",
-                                    "host": [
-                                        "{{URL}}"
-                                    ],
-                                    "path": [
-                                        "recruit",
-                                        "profile"
-                                    ]
-                                }
+                                "url": "{{URL}}/recruit/profile"
                             },
                             "response": []
                         }
