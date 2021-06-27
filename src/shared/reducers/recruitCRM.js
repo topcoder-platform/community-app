@@ -112,6 +112,20 @@ function onSearchCandidatesDone(state, { payload }) {
   return r;
 }
 
+function onGetJobApplicationsInit(state) {
+  return {
+    ...state,
+    applications: 0,
+  };
+}
+
+function onGetJobApplicationsDone(state, { payload }) {
+  return {
+    ...state,
+    applications: payload.data,
+  };
+}
+
 /**
  * Creates recruitCRM reducer with the specified initial state.
  * @param {Object} state Optional. If not given, the default one is
@@ -128,6 +142,8 @@ function create(state = {}) {
     [actions.recruit.applyForJobDone]: onApplyForJobDone,
     [actions.recruit.searchCandidatesInit]: onSearchCandidatesInit,
     [actions.recruit.searchCandidatesDone]: onSearchCandidatesDone,
+    [actions.recruit.getJobApplicationsInit]: onGetJobApplicationsInit,
+    [actions.recruit.getJobApplicationsDone]: onGetJobApplicationsDone,
   }, state);
 }
 

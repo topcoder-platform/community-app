@@ -1,9 +1,10 @@
 import React from 'react';
 import { config, Link } from 'topcoder-react-utils';
+import PT from 'prop-types';
 import BannerInfoIcon from 'assets/images/banner-info.svg';
 import './style.scss';
 
-const GigHeader = () => (
+const GigHeader = ({ appNum }) => (
   <div
     styleName="gig-header"
   >
@@ -12,7 +13,7 @@ const GigHeader = () => (
         <BannerInfoIcon />
       </div>
       <span>
-        You have 3 applied Gigs in the system
+        You have {appNum} applied Gigs in the system
       </span>
     </div>
 
@@ -22,4 +23,11 @@ const GigHeader = () => (
   </div>
 );
 
+GigHeader.defaultProps = {
+  appNum: 0,
+};
+
+GigHeader.propTypes = {
+  appNum: PT.number,
+};
 export default GigHeader;

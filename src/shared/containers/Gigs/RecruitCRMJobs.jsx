@@ -56,6 +56,8 @@ class RecruitCRMJobsContainer extends React.Component {
     const {
       getJobs,
       jobs,
+      getJobApplications,
+      auth,
     } = this.props;
     const { state } = this;
     const q = getQuery();
@@ -73,6 +75,9 @@ class RecruitCRMJobsContainer extends React.Component {
         term: q.search,
       };
       this.setState(stateUpdate);
+    }
+    if (auth.tokenV3) {
+      getJobApplications(auth.tokenV3);
     }
   }
 
@@ -138,6 +143,7 @@ class RecruitCRMJobsContainer extends React.Component {
       loading,
       jobs,
       optimizely,
+      applications,
     } = this.props;
     const {
       term,
@@ -250,7 +256,7 @@ class RecruitCRMJobsContainer extends React.Component {
             <Dropdown label="Location" onChange={this.onLocation} options={locations} size="xs" />
             <Dropdown label="Sort by" onChange={this.onSort} options={sortByOptions} size="xs" />
           </div>
-          <GigHeader />
+          <GigHeader appNum={applications} />
           <div styleName="jobs-list-container">
             {
               jobsToDisplay.length
@@ -290,6 +296,8 @@ class RecruitCRMJobsContainer extends React.Component {
 RecruitCRMJobsContainer.defaultProps = {
   jobs: [],
   loading: true,
+  applications: 0,
+  auth: {},
 };
 
 RecruitCRMJobsContainer.propTypes = {
@@ -297,6 +305,9 @@ RecruitCRMJobsContainer.propTypes = {
   loading: PT.bool,
   jobs: PT.arrayOf(PT.shape),
   optimizely: PT.shape().isRequired,
+  getJobApplications: PT.func.isRequired,
+  applications: PT.number,
+  auth: PT.object,
 };
 
 function mapStateToProps(state) {
@@ -304,6 +315,10 @@ function mapStateToProps(state) {
   return {
     jobs: data ? data.jobs : [],
     loading: data ? data.loading : true,
+    applications: data.applications,
+    auth: {
+      ...state.auth,
+    },
   };
 }
 
@@ -313,6 +328,10 @@ function mapDispatchToActions(dispatch) {
     getJobs: (ownProps) => {
       dispatch(a.getJobsInit(ownProps));
       dispatch(a.getJobsDone(ownProps));
+    },
+    getJobApplications: (tokenV3) => {
+      dispatch(a.getJobApplicationsInit());
+      dispatch(a.getJobApplicationsDone(tokenV3));
     },
   };
 }

@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { logger } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
 import qs from 'qs';
 import _ from 'lodash';
 
@@ -45,6 +46,29 @@ export default class Service {
       logger.error(error, res);
     }
     return res.json();
+  }
+
+  /**
+   * get member applications
+   * @param {*} tokenV3
+   * @returns
+   */
+  /* eslint-disable class-methods-use-this */
+  async getJobApplications(tokenV3) {
+    const res = await fetch(
+      `${config.PLATFORM_SITE_URL}/earn-app/api/my-gigs/myJobApplications?page=1&perPage=1`,
+      {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${tokenV3}`,
+        }),
+      },
+    );
+    if (!res.ok) {
+      const error = new Error('Failed to get job applications');
+      logger.error(error, res);
+    }
+    return parseInt(res.headers.get('x-total'), 10) || 0;
   }
 
   /**
