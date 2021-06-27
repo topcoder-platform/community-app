@@ -5,9 +5,8 @@ import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
-import DatePicker from 'components/challenge-listing/Filters/DatePicker';
+import Datepicker from 'components/GUIKit/Datepicker';
 import CalendarWeek from 'react-dates/lib/components/CalendarWeek';
-import IconCalendar from 'assets/images/tc-edu/icon-calendar.svg';
 import defaultTheme from './themes/default.scss';
 
 // eslint-disable-next-line no-unused-expressions, react/forbid-foreign-prop-types
@@ -25,22 +24,29 @@ export function FilterDateInner(props) {
 
   return (
     <div className={`${theme.container} ${className}`}>
-      <span className={theme.title}>From</span>
-      <IconCalendar />
-      <DatePicker
-        displayFormat="MMM D, YYYY"
-        date={startDate}
-        numberOfMonths={1}
-        id="date-picker-start-date"
-        onDateChange={(date) => { onSelectStartDate(date); }}
+      <Datepicker
+        label="Date Start"
+        value={startDate}
+        onChange={(date) => {
+          if (date instanceof Date) onSelectStartDate(moment(date));
+        }}
+        size="xs"
+        isOutsideRange={day => moment().isBefore(day)}
+        displayFormat="M/DD/YYYY"
+        hideCustomInputIcon
+        errorMsg={startDate > endDate ? 'From should be before end' : null}
       />
-      <span className={theme.separator}>-</span>
-      <DatePicker
-        displayFormat="MMM D, YYYY"
-        date={endDate}
-        numberOfMonths={1}
-        id="date-picker-end-date"
-        onDateChange={(date) => { onSelectEndDate(date); }}
+      <div className={theme.separator} />
+      <Datepicker
+        label="Date End"
+        value={endDate}
+        onChange={(date) => {
+          if (date instanceof Date) onSelectEndDate(moment(date));
+        }}
+        size="xs"
+        isOutsideRange={day => moment().isSameOrBefore(day)}
+        displayFormat="M/DD/YYYY"
+        hideCustomInputIcon
       />
     </div>
   );
