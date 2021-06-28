@@ -340,7 +340,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - recruit-proxy-api-aggapi
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
