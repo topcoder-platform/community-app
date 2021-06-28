@@ -251,6 +251,12 @@ module.exports = {
     RECRUITCRM_API_KEY: '',
     GROWSURF_API_KEY: '',
     SENDGRID_API_KEY: '',
+
+    JWT_AUTH: {
+      SECRET: 'mysecret',
+      AUTH_SECRET: 'mysecret',
+      VALID_ISSUERS: '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/", "https://auth.topcoder-dev.com/"]',
+    },
   },
 
   GROWSURF_CAMPAIGN_ID: '',
