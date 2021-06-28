@@ -144,6 +144,7 @@ class RecruitCRMJobsContainer extends React.Component {
       jobs,
       optimizely,
       applications,
+      auth,
     } = this.props;
     const {
       term,
@@ -256,7 +257,7 @@ class RecruitCRMJobsContainer extends React.Component {
             <Dropdown label="Location" onChange={this.onLocation} options={locations} size="xs" />
             <Dropdown label="Sort by" onChange={this.onSort} options={sortByOptions} size="xs" />
           </div>
-          <GigHeader appNum={applications} />
+          {auth.tokenV3 && applications > 0 && <GigHeader appNum={applications} />}
           <div styleName="jobs-list-container">
             {
               jobsToDisplay.length
