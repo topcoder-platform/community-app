@@ -108,7 +108,10 @@ export default function GigApply(props) {
                           <Link to={`${config.GIGS_PAGES_PATH}`}>VIEW OTHER GIGS</Link>
                         </React.Fragment>
                       ) : (
-                        <a href={`${config.GIGS_PAGES_PATH}`} styleName="primaryBtn">GO TO GIGS LIST</a>
+                        <React.Fragment>
+                          <a href={`${config.GIGS_PAGES_PATH}`} styleName="gig-list-btn">GO TO GIGS LIST</a>
+                          <a href={`${config.PLATFORM_SITE_URL}/earn/my-gigs`} styleName="primaryBtn">CHECK GIG APPLICATION STATUS</a>
+                        </React.Fragment>
                       )
                     }
                   </div>

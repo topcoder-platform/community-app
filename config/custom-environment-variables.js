@@ -83,6 +83,7 @@ module.exports = {
 
     JWT_AUTH: {
       SECRET: 'AUTH_SECRET',
+      AUTH_SECRET: 'AUTH_SECRET',
       VALID_ISSUERS: 'VALID_ISSUERS',
     },
 

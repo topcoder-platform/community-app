@@ -22,6 +22,18 @@ async function getJobsDone(query) {
   };
 }
 
+function getJobApplicationsInit() {
+  return {};
+}
+
+async function getJobApplicationsDone(tokenV3) {
+  const ss = new Service();
+  const res = await ss.getJobApplications(tokenV3);
+  return {
+    data: res,
+  };
+}
+
 /**
  * Job fetch init
  */
@@ -163,5 +175,7 @@ export default redux.createActions({
     APPLY_FOR_JOB_DONE: applyForJobDone,
     SEARCH_CANDIDATES_INIT: searchCandidatesInit,
     SEARCH_CANDIDATES_DONE: searchCandidatesDone,
+    GET_JOB_APPLICATIONS_INIT: getJobApplicationsInit,
+    GET_JOB_APPLICATIONS_DONE: getJobApplicationsDone,
   },
 });
