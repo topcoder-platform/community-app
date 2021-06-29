@@ -95,6 +95,16 @@ export default class BasicInfo extends ConsentComponent {
         inputChanged: false,
       });
     }
+    if (nextProps.lookupData) {
+      const { countries } = nextProps.lookupData;
+      const { newBasicInfo } = this.state;
+      if (!newBasicInfo.country) {
+        const code = newBasicInfo.homeCountryCode || newBasicInfo.competitionCountryCode;
+        const { country } = countries.find(c => c.countryCode === code) || {};
+        newBasicInfo.country = country;
+        this.setState({ newBasicInfo });
+      }
+    }
   }
 
   onCheckFormValue(newBasicInfo) {
@@ -455,8 +465,6 @@ export default class BasicInfo extends ConsentComponent {
       key: country.countryCode,
       name: country.country,
     }));
-    const countryCode = newBasicInfo.homeCountryCode || newBasicInfo.competitionCountryCode;
-    const currentCountry = newBasicInfo.country || countries.find(c => c.key === countryCode);
 
     return (
       <div styleName="basic-info-container">
@@ -593,7 +601,7 @@ export default class BasicInfo extends ConsentComponent {
                 <Select
                   name="country"
                   options={countries}
-                  value={currentCountry}
+                  value={newBasicInfo.country}
                   onChange={this.onUpdateCountry}
                   placeholder="Country"
                   matchPos="start"
@@ -803,7 +811,7 @@ export default class BasicInfo extends ConsentComponent {
                   <Select
                     name="countryId"
                     options={countries}
-                    value={currentCountry}
+                    value={newBasicInfo.country}
                     onChange={this.onUpdateCountry}
                     placeholder="Country"
                     matchPos="start"
