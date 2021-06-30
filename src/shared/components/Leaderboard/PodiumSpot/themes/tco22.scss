@@ -2,16 +2,18 @@
 $podium-border-color: #ededf2;
 
 .PodiumSpot {
-  border-radius: 6px;
-  padding: 23px 15px;
+  border-radius: 12px;
+  padding: 22px 17px 12px;
   display: flex;
   width: auto;
+  box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.1);
+  min-width: 300px;
 
   .leaderboard-avatar {
     display: inline-block;
     position: relative;
     margin-bottom: 12px;
-    margin-right: 11px;
+    margin-right: 23px;
     overflow: visible;
   }
 
@@ -42,7 +44,8 @@ $podium-border-color: #ededf2;
     justify-content: center;
     flex-direction: column;
 
-    .stats {
+    .stats,
+    .stats-count {
       color: #747480;
       font-size: 16px;
       font-weight: 400;
@@ -52,9 +55,9 @@ $podium-border-color: #ededf2;
 
       .value-title {
         color: #2a2a2a;
-        font-family: Roboto, sans-serif;
+        font-family: Barlow, sans-serif;
         font-size: 16px;
-        font-weight: 400;
+        font-weight: 500;
         line-height: 26px;
         text-align: left;
         white-space: nowrap;
@@ -62,13 +65,12 @@ $podium-border-color: #ededf2;
 
       .value {
         color: #2a2a2a;
-        font-family: Roboto, sans-serif;
+        font-family: Barlow, sans-serif;
         font-size: 16px;
-        font-weight: 500;
-        letter-spacing: 0.5px;
+        font-weight: 700;
         line-height: 20px;
         text-align: left;
-        margin-right: 3px;
+        margin-right: 6px;
       }
 
       span {
@@ -78,7 +80,14 @@ $podium-border-color: #ededf2;
     }
 
     .stats-count {
-      color: #747480;
+      .value-title,
+      .value {
+        color: #7f7f7f;
+      }
+      .value {
+        font-family: Roboto, sans-serif;
+        font-weight: 500;
+      }
     }
 
     @include xs-to-sm {
@@ -100,13 +109,13 @@ $podium-border-color: #ededf2;
   a.profile-link {
     color: #0d61bf;
     font-family: Roboto, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 36px;
     text-align: left;
-    text-decoration: underline;
-    margin-top: 11px;
-    margin-bottom: 13px;
+    text-decoration: none;
+    margin-top: -6px;
+    margin-bottom: 5px;
 
     &:hover {
       text-decoration: none;
@@ -119,35 +128,33 @@ $podium-border-color: #ededf2;
 }
 
 .PodiumSpot--first {
-  background-color: #f4f4f4;
+  border-bottom: 8px solid #ffd84d;
 
   .ranking {
     background-color: #ffd84d;
-    color: #fff;
+    color: #2a2a2a;
   }
 }
 
 .PodiumSpot--second {
-  background-color: #f4f4f4;
+  border-bottom: 8px solid #7f7f7f;
 
   .ranking {
-    background-color: #746b65;
+    background-color: #7f7f7f;
     color: #fff;
   }
 }
 
 .PodiumSpot--third {
-  background-color: #f4f4f4;
+  border-bottom: 8px solid #d98f64;
 
   .ranking {
-    background-color: #854e29;
+    background-color: #d98f64;
     color: #fff;
   }
 }
 
 .PodiumSpot--fourth {
-  background-color: #f4f4f4;
-
   .ranking {
     background-color: #1e94a3;
     color: #fff;

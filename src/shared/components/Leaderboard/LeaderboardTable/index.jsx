@@ -23,7 +23,7 @@
  *   - isTopGear: Topgear leaderboards have special fileds
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
@@ -35,10 +35,12 @@ import { getRatingColor } from 'utils/tc';
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
 import tco20Styles from './themes/tco20.scss'; // eslint-disable-line
+import tco22Styles from './themes/tco22.scss'; // eslint-disable-line
 
 const THEME = {
   Default: 'defaultStyles',
   TCO20: 'tco20Styles',
+  TCO22: 'tco22Styles',
 };
 
 /**
@@ -58,6 +60,8 @@ export default function LeaderboardTable(props) {
     isAlgo,
     themeName,
   } = props;
+  const [order, setOrder] = useState('');
+  const [field, setOrderField] = useState('');
   const stylesName = THEME[themeName];
   const renderTableRows = comps => (
     comps.map((competitor) => {

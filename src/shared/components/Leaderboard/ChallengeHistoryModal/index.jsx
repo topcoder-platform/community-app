@@ -44,7 +44,7 @@ class ChallengeHistoryModal extends Component {
             competitor={competitor}
             isCopilot={isCopilot}
             isAlgo={isAlgo}
-            themeName="TCO20"
+            themeName="TCO22"
           />
         </div>
         <table styleName="history-table">
