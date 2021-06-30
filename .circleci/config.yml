@@ -348,6 +348,7 @@ workflows:
             branches:
               only:                
                 - free
+                - fix-country-setting-page
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -368,7 +369,7 @@ workflows:
           filters: &filters-staging
             branches:
               only:
-                - fix-env-value-issuer
+                - develop                
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
