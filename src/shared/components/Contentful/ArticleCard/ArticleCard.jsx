@@ -250,7 +250,7 @@ class ArticleCard extends React.Component {
                       {
                         showArticleInfo() && (
                           <p className={theme.readTimeInfo}>
-                            {themeName === 'Article large' ? <span>&nbsp;.&nbsp;</span> : null}
+                            {themeName === 'Article large' && contentAuthor && contentAuthor.length > 0 ? <span>&nbsp;.&nbsp;</span> : null}
                             {
                               contentAuthor && contentAuthor.length > 0 ? (
                                 <Link

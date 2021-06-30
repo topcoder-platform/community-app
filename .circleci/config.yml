@@ -363,7 +363,6 @@ workflows:
             branches:
               only:
                 - free
-                - fix-country-setting-page
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         

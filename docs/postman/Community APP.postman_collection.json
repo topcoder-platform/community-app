@@ -1,0 +1,549 @@
+{
+    "info": {
+        "_postman_id": "95d8a75d-2520-494b-becd-f9f2e8537707",
+        "name": "Community APP",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Recruit Api",
+            "item": [
+                {
+                    "name": "Profile",
+                    "item": [
+                        {
+                            "name": "get profile successfully",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 200', function () {\r",
+                                            "    pm.response.to.have.status(200);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get profile with invalid token 1",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_1}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get profile with invalid token 2",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_2}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get profile with invalid token 3",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_3}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "get profile with invalid token 4",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_4}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile successfully",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 204', function () {\r",
+                                            "    pm.response.to.have.status(204);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": []
+                                        },
+                                        {
+                                            "key": "phone",
+                                            "value": "+1123226666",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "availability",
+                                            "value": "false",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "city",
+                                            "value": "ABC",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "countryName",
+                                            "value": "India",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile with invalid token 1",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_1}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": "./docs/postman/resume.txt"
+                                        },
+                                        {
+                                            "key": "phone",
+                                            "value": "+1123226666",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "availability",
+                                            "value": "true",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile with invalid token 2",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_2}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": "./docs/postman/resume.txt"
+                                        },
+                                        {
+                                            "key": "phone",
+                                            "value": "+1123226666",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "availability",
+                                            "value": "true",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile with invalid token 3",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_3}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": "./docs/postman/resume.txt"
+                                        },
+                                        {
+                                            "key": "phone",
+                                            "value": "+1123226666",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "availability",
+                                            "value": "true",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile with invalid token 4",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 403', function () {\r",
+                                            "    pm.response.to.have.status(403);\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{invalid_token_4}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": "./docs/postman/resume.txt"
+                                        },
+                                        {
+                                            "key": "phone",
+                                            "value": "+1123226666",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "availability",
+                                            "value": "true",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile with invalid field",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 400', function () {\r",
+                                            "    pm.response.to.have.status(400);\r",
+                                            "    const response = pm.response.json()\r",
+                                            "    pm.expect(response.message).to.eq(\"\\\"availability\\\" must be a boolean\")\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": "./docs/postman/resume.txt"
+                                        },
+                                        {
+                                            "key": "phone",
+                                            "value": "+1123226666",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "availability",
+                                            "value": "asdd",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile with missing field 1",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 400', function () {\r",
+                                            "    pm.response.to.have.status(400);\r",
+                                            "    const response = pm.response.json()\r",
+                                            "    pm.expect(response.message).to.eq(\"\\\"phone\\\" is required\")\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": "./docs/postman/resume.txt"
+                                        },
+                                        {
+                                            "key": "availability",
+                                            "value": "asdd",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "update profile with missing field 2",
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "exec": [
+                                            "pm.test('Status code is 400', function () {\r",
+                                            "    pm.response.to.have.status(400);\r",
+                                            "    const response = pm.response.json()\r",
+                                            "    pm.expect(response.message).to.eq(\"\\\"availability\\\" is required\")\r",
+                                            "});"
+                                        ],
+                                        "type": "text/javascript"
+                                    }
+                                }
+                            ],
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "resume",
+                                            "type": "file",
+                                            "src": "./docs/postman/resume.txt"
+                                        },
+                                        {
+                                            "key": "phone",
+                                            "value": "+1123226666",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": "{{URL}}/recruit/profile"
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
