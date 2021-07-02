@@ -244,7 +244,12 @@ export default function ContentfulMenu(props) {
       render={(menuData) => {
         const { fields } = Object.values(menuData.entries.items)[0];
         if (!fields) return null;
-        if (fields.theme === 'General - light' || fields.theme === 'General - dark') {
+        if (
+          fields.theme === 'General - light'
+          || fields.theme === 'General - dark'
+          || fields.theme === 'TCO22 - dark'
+          || fields.theme === 'TCO22 - light'
+        ) {
           // New navi style menu
           // we deligate to special custom component and lib
           return (
