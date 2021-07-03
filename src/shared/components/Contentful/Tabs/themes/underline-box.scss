@@ -6,14 +6,17 @@ $text-color-gray: #888894;
 $text-color-pannel: #4a4a4a;
 
 .container {
-  @include roboto-regular;
-
   margin: auto;
+
+  @include xs-to-sm {
+    margin-top: 65px;
+  }
 }
 
 .tabListWrap {
   display: flex;
   justify-content: center;
+  position: relative;
 
   .tablist {
     @include roboto-regular;
@@ -29,17 +32,57 @@ $text-color-pannel: #4a4a4a;
     align-items: center;
     background-color: white;
     padding: 0 25px;
+    border: 1px solid #e4e4e4;
 
     @include xs-to-sm {
-      overflow-x: auto;
       white-space: nowrap;
-      border: none;
       flex-direction: column;
-      overflow: hidden;
+      padding: 28px 15px 0;
+      align-items: flex-start;
+      border-radius: 8px;
+      min-width: 85vw;
+      overflow: visible;
+      position: absolute;
+      z-index: 999;
+      display: none; // by default
+
+      &.visible {
+        display: flex;
+      }
+    }
+  }
+
+  .tabListMobileTrigger {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position: absolute;
+    top: -65px;
+    width: 85vw;
+    left: calc(50% - 42.5vw);
+    outline: none;
+    border: navajowhite;
+    min-height: 60px;
+    font-family: Barlow, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    color: #2a2a2a;
+
+    @media (max-width: 768px) {
+      display: flex;
     }
 
-    @media (max-width: 425px) {
-      justify-content: space-between;
+    .tabListMobileTriggerSVG,
+    .tabListMobileTriggerSVGOpen {
+      margin-left: 9px;
+    }
+
+    .tabListMobileTriggerSVGOpen {
+      transform: scaleY(-1);
     }
   }
 }
@@ -47,7 +90,7 @@ $text-color-pannel: #4a4a4a;
 .tab {
   text-align: center;
   margin: 0 25px;
-  color: #555555;
+  color: #555;
   font-family: Barlow, sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -59,6 +102,19 @@ $text-color-pannel: #4a4a4a;
 
   @include xs-to-sm {
     margin: 0;
+    margin-bottom: 23px;
+    padding: 0;
+    padding-left: 5px;
+
+    &::after {
+      display: none;
+    }
+
+    &:hover,
+    &.selected {
+      border-left: 3px solid #43d7b0;
+      margin-left: -3px;
+    }
   }
 
   &:hover,

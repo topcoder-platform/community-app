@@ -45,6 +45,7 @@ export default class TabsItemsLoader extends Component {
     super(props);
     this.state = {
       tabIndex: props.selected || 0,
+      mobileTabsShow: false,
     };
 
     this.updatePageUrl.bind(this);
@@ -85,8 +86,9 @@ export default class TabsItemsLoader extends Component {
       environment,
       theme,
       tabId,
+      themeName,
     } = this.props;
-    const { tabIndex } = this.state;
+    const { tabIndex, mobileTabsShow } = this.state;
 
     return (
       <ContentfulLoader
@@ -99,11 +101,39 @@ export default class TabsItemsLoader extends Component {
             className={theme.container}
             selectedIndex={tabIndex}
             selectedTabClassName={theme.selected}
-            onSelect={tIndx => this.setState({ tabIndex: tIndx })}
+            onSelect={tIndx => this.setState({ tabIndex: tIndx, mobileTabsShow: false })}
             forceRenderTabPanel
           >
             <div className={theme.tabListWrap}>
-              <TabList className={theme.tablist}>
+              {
+                themeName === 'Underline box' ? (
+                  <button type="button" className={theme.tabListMobileTrigger} onClick={() => this.setState({ mobileTabsShow: !mobileTabsShow })}>
+                    <MarkdownRenderer
+                      markdown={_.toArray(data.entries.items)[tabIndex].fields.tab}
+                    />
+                    <svg className={mobileTabsShow ? theme.tabListMobileTriggerSVGOpen : theme.tabListMobileTriggerSVG} width="16px" height="10px" viewBox="0 0 16 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <polygon id="path-1" points="7.7 9.2 0 1.5 1.4 0 7.7 6.3 14 0 15.4 1.5" />
+                      </defs>
+                      <g id="Mobile" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                        <g id="01" transform="translate(-228.000000, -315.000000)">
+                          <g id="Group-6" transform="translate(16.000000, 289.000000)">
+                            <g id="Group-4" transform="translate(126.000000, 21.000000)">
+                              <g id="icons/arrow/minimal-down" transform="translate(86.300000, 5.400000)">
+                                <mask id="mask-2" fill="white">
+                                  <use xlinkHref="#path-1" />
+                                </mask>
+                                <use id="icon-color" fill="#2A2A2A" xlinkHref="#path-1" />
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </button>
+                ) : null
+              }
+              <TabList className={[theme.tablist, mobileTabsShow ? theme.visible : null]}>
                 {
                   _.map(data.entries.items, tabItem => (
                     <Tab
@@ -210,4 +240,5 @@ TabsItemsLoader.propTypes = {
   selected: PT.number,
   theme: PT.shape().isRequired,
   tabId: PT.string.isRequired,
+  themeName: PT.string.isRequired,
 };
