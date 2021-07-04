@@ -1,0 +1,11 @@
+@import "~styles/mixins";
+
+.container {
+  margin: 0 auto;
+  max-width: $screen-lg;
+  padding: 0;
+
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+  }
+}

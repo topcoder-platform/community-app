@@ -1,0 +1,95 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-regular;
+  color: #2A2A2A;
+  font-size: 16px;
+  line-height: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.entry {
+  margin: 50px;
+  transition: all 0.4s;
+
+  img {
+    cursor: pointer;
+  }
+}
+
+.active {
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+
+  img {
+    width: 120px;
+    height: 120px;
+    z-index: 2;
+  }
+}
+
+.blob {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border-radius: 100%;
+  padding: 120px 50px 50px 50px;
+  text-align: center;
+  margin-top: -100px;
+  z-index: 1;
+
+  svg {
+    z-index: -1;
+    overflow: visible;
+    position: absolute;
+    top: 0;
+    left: 0
+  }
+}
+
+@include xs-to-sm {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .entry {
+    margin: 10px !important;
+
+    img {
+      max-width: 70px;
+      max-height: 70px;
+    }
+  }
+
+  .active {
+    max-width: 350px;
+    margin: 30px !important;
+
+    svg {
+      transform: scale(0.85, 1) translate(-20px, 10px);
+    }
+  }
+
+  .blob {
+    max-width: 350px;
+  }
+}
