@@ -2,94 +2,104 @@
 
 .container {
   @include roboto-regular;
-  color: #2A2A2A;
+
+  color: #2a2a2a;
   font-size: 16px;
   line-height: 26px;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}
+  margin: auto;
+  overflow: hidden;
 
-.entry {
-  margin: 50px;
-  transition: all 0.4s;
+  @include xs-to-sm {
+    flex-direction: column;
+    align-items: center;
+  }
 
-  img {
-    cursor: pointer;
+  .left,
+  .right {
+    @include xs-to-sm {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  .right {
+    @include xs-to-sm {
+      flex-wrap: wrap;
+      margin-top: -40px;
+    }
   }
 }
 
-.active {
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-
+.entry {
   img {
-    width: 120px;
-    height: 120px;
-    z-index: 2;
+    cursor: pointer;
+    max-width: 100px;
+  }
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+
+    @include xs-to-sm {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    img {
+      z-index: 2;
+      cursor: default;
+      max-width: none;
+    }
   }
 }
 
 .blob {
   position: relative;
-  width: 350px;
-  height: 350px;
   border-radius: 100%;
-  padding: 120px 50px 50px 50px;
   text-align: center;
-  margin-top: -100px;
+  margin-top: -150px;
   z-index: 1;
+  width: 480px;
+  height: 443px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include xs-to-sm {
+    height: auto;
+  }
 
   svg {
     z-index: -1;
     overflow: visible;
+    width: 100%;
+  }
+
+  .blobText {
+    max-width: 340px;
+    margin: auto;
     position: absolute;
-    top: 0;
-    left: 0
-  }
-}
+    top: calc(50% - 25px);
 
-@include xs-to-sm {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .left {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .right {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .entry {
-    margin: 10px !important;
-
-    img {
-      max-width: 70px;
-      max-height: 70px;
+    @media screen and (max-width: 425px) {
+      max-width: 80vw;
+      top: calc(50% - 50px);
     }
-  }
 
-  .active {
-    max-width: 350px;
-    margin: 30px !important;
-
-    svg {
-      transform: scale(0.85, 1) translate(-20px, 10px);
+    a {
+      display: block;
+      margin-top: 9px;
+      color: #137d60;
+      font-weight: 500;
     }
-  }
-
-  .blob {
-    max-width: 350px;
   }
 }

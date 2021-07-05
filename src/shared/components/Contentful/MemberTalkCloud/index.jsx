@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /**
  * Member talk cloud component
  */
@@ -8,22 +9,24 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
+import { isomorphy } from 'topcoder-react-utils';
 import defaultTheme from './themes/default.scss';
 
-const ITEMS_ON_LEFT_SIDE = 3;
-const ITEMS_ON_RIGHT_SIDE = 2;
-
-const MIN_AVATAR_SIZE = 70;
-const MAX_AVATAR_SIZE = 120;
-
 const MIN_MARGIN = 10;
-const MAX_MARGIN = 50;
+const MAX_MARGIN = 30;
 
-const getRandomSize = () => _.random(MIN_AVATAR_SIZE, MAX_AVATAR_SIZE, false);
-const getRandomMargin = () => ({
-  marginTop: _.random(MIN_MARGIN, MAX_MARGIN, false),
-  marginLeft: _.random(MIN_MARGIN, MAX_MARGIN, false),
-});
+const getRandomMargin = (index, side, isMobile) => {
+  if (isMobile) {
+    return {
+      marginTop: _.random(index !== 1 && side === 'right' ? -MIN_MARGIN : MIN_MARGIN, MAX_MARGIN, false),
+      marginLeft: _.random(MIN_MARGIN, MAX_MARGIN, false),
+    };
+  }
+  return {
+    marginTop: _.random(MIN_MARGIN, MAX_MARGIN, false),
+    marginLeft: _.random(MIN_MARGIN, MAX_MARGIN, false),
+  };
+};
 
 export class MemberTalkCloud extends React.Component {
   constructor(props) {
@@ -31,10 +34,24 @@ export class MemberTalkCloud extends React.Component {
 
     this.state = {
       selectedMember: 0,
+      width: null,
     };
 
     this.onSelect = this.onSelect.bind(this);
     this.getData = this.getData.bind(this);
+    this.onResize = this.onResize.bind(this);
+  }
+
+  componentDidMount() {
+    return isomorphy.isClientSide() && window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() {
+    return isomorphy.isClientSide() && window.removeEventListener('resize', this.onResize);
+  }
+
+  onResize() {
+    this.setState({ width: window.width });
   }
 
   onSelect(selectedMember) {
@@ -44,6 +61,9 @@ export class MemberTalkCloud extends React.Component {
   getData(newActiveIndex) {
     const { content } = this.props;
     const temp = content[newActiveIndex];
+    const isMobile = isomorphy.isClientSide() && window.matchMedia('(max-width: 768px)').matches;
+    const ITEMS_ON_LEFT_SIDE = isMobile ? 2 : 3;
+    const ITEMS_ON_RIGHT_SIDE = isMobile ? 3 : 2;
     content[newActiveIndex] = content[0];
     content[0] = temp;
 
@@ -68,14 +88,16 @@ export class MemberTalkCloud extends React.Component {
       blob,
       left,
       right,
+      blobText,
     } = theme;
+    const isMobile = isomorphy.isClientSide() && window.matchMedia('(max-width: 768px)').matches;
+    const ITEMS_ON_LEFT_SIDE = isMobile ? 2 : 3;
 
     return (
       <div className={theme.container}>
         <div className={left}>
           {_.map(leftSide, (item, index) => {
-            const size = getRandomSize();
-            const { marginTop, marginLeft } = getRandomMargin();
+            const { marginTop, marginLeft } = getRandomMargin(index, 'left', isMobile);
             return (
               <div className={entry} key={index}>
                 <img
@@ -83,8 +105,6 @@ export class MemberTalkCloud extends React.Component {
                   src={item.imageURL}
                   onClick={() => this.onSelect(index + 1)}
                   style={{
-                    width: `${size}px`,
-                    height: `${size}px`,
                     marginTop: `${marginTop}px`,
                     marginLeft: `${marginLeft}px`,
                   }}
@@ -102,14 +122,19 @@ export class MemberTalkCloud extends React.Component {
             <svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg">
               <path fill="#F4F4F4" d="M46.3,-62.4C60.7,-53.3,73.5,-40.7,79.5,-25.2C85.4,-9.7,84.5,8.7,77.8,24C71.1,39.3,58.7,51.5,44.8,60.9C30.8,70.3,15.4,76.9,0.2,76.6C-15,76.3,-30.1,69.2,-45.8,60.4C-61.6,51.6,-78,41.2,-84.7,26.2C-91.3,11.3,-88.2,-8.2,-80,-23.8C-71.9,-39.4,-58.8,-51.1,-44.6,-60.4C-30.5,-69.6,-15.2,-76.4,0.4,-76.9C16,-77.3,31.9,-71.6,46.3,-62.4Z" transform="scale(1.75 1.75) translate(100 100)" />
             </svg>
-            {activeBlob.text}
-            {activeBlob.ReadMoreURL && <a href={activeBlob.ReadMoreURL}>Read More</a>}
+            <div className={blobText}>
+              <span>&quot;{isMobile ? `${activeBlob.text.substr(0, 167)}${activeBlob.text.length > 167 ? '...' : ''}` : activeBlob.text}&quot;</span>
+              {activeBlob.ReadMoreURL && (
+              <a href={activeBlob.ReadMoreURL}>
+                {activeBlob.ReadMoreText ? activeBlob.ReadMoreText : 'Read more'}
+              </a>
+              )}
+            </div>
           </div>
         </div>
         <div className={right}>
           {_.map(rightSide, (item, index) => {
-            const size = getRandomSize();
-            const { marginTop, marginLeft } = getRandomMargin();
+            const { marginTop, marginLeft } = getRandomMargin(index, 'right', isMobile);
             return (
               <div className={entry} key={index}>
                 <img
@@ -117,8 +142,6 @@ export class MemberTalkCloud extends React.Component {
                   src={item.imageURL}
                   onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)}
                   style={{
-                    width: `${size}px`,
-                    height: `${size}px`,
                     marginTop: `${marginTop}px`,
                     marginLeft: `${marginLeft}px`,
                   }}
@@ -145,6 +168,7 @@ MemberTalkCloud.propTypes = {
     blob: PT.string.isRequired,
     left: PT.string.isRequired,
     right: PT.string.isRequired,
+    blobText: PT.string.isRequired,
   }).isRequired,
   content: PT.arrayOf(PT.shape({
     imageURL: PT.string.isRequired,

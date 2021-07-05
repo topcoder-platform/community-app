@@ -1,3 +1,213 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Default render 1`] = `<div />`;
+exports[`Default render 1`] = `
+<div
+  className="src-shared-components-Header-___style__nav-header-wrapper___3oH9J"
+>
+  <TopNav
+    loggedIn={true}
+    logo={
+      <Logo
+        height="20"
+        viewBox="0 0 54 20"
+        width="54"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    }
+    menu={
+      Array [
+        Object {
+          "href": "https://www.topcoder-dev.com",
+          "id": "business",
+          "title": "BUSINESS",
+        },
+        Object {
+          "id": "community",
+          "secondaryMenu": Array [
+            Object {
+              "href": "/my-dashboard",
+              "logged": true,
+              "title": "Dashboard",
+            },
+            Object {
+              "href": "/members/willFilledByUserName",
+              "id": "myprofile",
+              "logged": true,
+              "title": "My Profile",
+            },
+            Object {
+              "href": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+              "logged": true,
+              "openNewTab": true,
+              "title": "Payments",
+            },
+            Object {
+              "href": "/community/learn",
+              "logged": false,
+              "title": "Overview",
+            },
+            Object {
+              "href": "/thrive/tracks?track=Topcoder",
+              "logged": false,
+              "title": "How It Works",
+            },
+          ],
+          "subMenu": Array [
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "/challenges",
+                  "title": "All Challenges",
+                },
+                Object {
+                  "href": "/community/arena",
+                  "title": "Competitive Programming",
+                },
+                Object {
+                  "href": "/gigs",
+                  "title": "Gig Work",
+                },
+                Object {
+                  "href": "/community/practice",
+                  "title": "Practice",
+                },
+              ],
+              "title": "Compete",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "/thrive/tracks?track=Competitive%20Programming",
+                  "title": "Competitive Programming",
+                },
+                Object {
+                  "href": "/thrive/tracks?track=Data%20Science&tax=",
+                  "title": "Data Science",
+                },
+                Object {
+                  "href": "/thrive/tracks?track=Design&tax=",
+                  "title": "Design",
+                },
+                Object {
+                  "href": "/thrive/tracks?track=Development&tax=",
+                  "title": "Development",
+                },
+                Object {
+                  "href": "/thrive/tracks?track=QA&tax=",
+                  "title": "QA",
+                },
+              ],
+              "title": "Tracks",
+            },
+            Object {
+              "subMenu": Array [
+                Object {
+                  "href": "/community/member-programs/topcoder-open",
+                  "title": "TCO",
+                },
+                Object {
+                  "href": "/community/member-programs",
+                  "title": "Programs",
+                },
+                Object {
+                  "href": "https://vanilla.topcoder-dev.com",
+                  "title": "Forums",
+                },
+                Object {
+                  "href": "/community/statistics",
+                  "title": "Statistics",
+                },
+                Object {
+                  "href": "https://www.topcoder-dev.com/blog",
+                  "openNewTab": true,
+                  "title": "Blog",
+                },
+                Object {
+                  "href": "/thrive",
+                  "title": "Thrive",
+                },
+              ],
+              "title": "Explore",
+            },
+          ],
+          "title": "COMMUNITY",
+        },
+      ]
+    }
+    onChangeLevel1Id={[Function]}
+    openMore={true}
+    profileHandle="huanner"
+    rightMenu={
+      <LoginNav
+        accountMenu={
+          Array [
+            Object {
+              "href": "/settings/profile",
+              "title": "Settings",
+            },
+            Object {
+              "separator": true,
+            },
+            Object {
+              "href": "https://community-app.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Help%20Articles",
+              "title": "Help",
+            },
+            Object {
+              "separator": true,
+            },
+            Object {
+              "href": "https://www.topcoder-dev.com/logout",
+              "title": "Log Out",
+            },
+          ]
+        }
+        auth={null}
+        authURLs={
+          Object {
+            "href": "https://accounts-auth0.topcoder-dev.com?utm_source=community-app-main",
+            "location": "https://accounts-auth0.topcoder-dev.com?retUrl=%S&utm_source=community-app-main",
+          }
+        }
+        loggedIn={true}
+        notificationButtonState="new"
+        notifications={Array []}
+        onMenuOpen={[Function]}
+        onSwitch={[Function]}
+        profile={
+          Object {
+            "description": "devxxxxxx",
+            "email": "liwanxiang@gmail.com",
+            "handle": "huanner",
+            "photoURL": "https://d1aahxkjiobka8.cloudfront.net/avatar/https%3A%2F%2Ftopcoder-dev-media.s3.amazonaws.com%2Fmember%2Fprofile%2Fhuanner-1552562543506.png?size=32",
+          }
+        }
+        showNotification={true}
+        switchText={
+          Object {
+            "href": "https://connect.topcoder-dev.com",
+            "title": "Switch to BUSINESS",
+          }
+        }
+        tracking={
+          Object {
+            "default": undefined,
+            "event": [Function],
+            "init": [Function],
+            "pageView": [Function],
+          }
+        }
+      />
+    }
+    setOpenMore={[Function]}
+    theme="light"
+    tracking={
+      Object {
+        "default": undefined,
+        "event": [Function],
+        "init": [Function],
+        "pageView": [Function],
+      }
+    }
+  />
+</div>
+`;
