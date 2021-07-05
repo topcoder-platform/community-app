@@ -32,11 +32,11 @@ describe('Topcoder Login Page Tests: ', () => {
    * Verifies User cannot login using invalid username
    */
   it('[TC_002] should Verify User cannot login using invalid username', async () => {
-    const invalidUsername = testData.login.invalidUsername;
+    const { invalidUsername } = testData.login;
     const password = ConfigHelper.getPassword();
     await LoginPageHelper.verifyLoginWithInvalidUserName(
       invalidUsername,
-      password
+      password,
     );
   });
 
@@ -45,10 +45,10 @@ describe('Topcoder Login Page Tests: ', () => {
    */
   it('[TC_003] should Verify User cannot login using invalid password', async () => {
     const username = ConfigHelper.getUserName();
-    const inavlidPassword = testData.login.invalidPassword;
+    const { invalidPassword } = testData.login;
     await LoginPageHelper.verifyLoginWithInvalidPassword(
       username,
-      inavlidPassword
+      invalidPassword,
     );
   });
 
