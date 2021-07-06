@@ -248,7 +248,7 @@ jobs:
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
       - store_artifacts:
-          path: /test-results
+          path: /tmp/_circleci_local_build_repo/automated-smoke-test/test-results
   
    # Automated Smoke Testing against Production
   Smoke-Testing-On-Production:
@@ -274,7 +274,7 @@ jobs:
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
       - store_artifacts:
-          path: /test-results
+          path: /tmp/_circleci_local_build_repo/automated-smoke-test/test-results
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
