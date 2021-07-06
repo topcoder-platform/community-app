@@ -364,7 +364,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - new-tabs-theme
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
