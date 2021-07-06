@@ -248,7 +248,7 @@ jobs:
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
       - store_artifacts:
-          path: /automated-smoke-test/test-results
+          path: ./automated-smoke-test/test-results
   
    # Automated Smoke Testing against Production
   Smoke-Testing-On-Production:
@@ -273,6 +273,8 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-prod.json prod
+      - store_artifacts:
+          path: ./automated-smoke-test/test-results
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
@@ -362,14 +364,15 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - new-tabs-theme
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
           filters: &filters-staging
             branches:
               only:
-                - develop                
+                - develop
+                - ast-member-profile
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

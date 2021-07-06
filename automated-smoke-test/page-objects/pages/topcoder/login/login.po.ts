@@ -48,7 +48,7 @@ export class LoginPage {
    * Get Error message
    */
   public get errorMessage() {
-    return ElementHelper.getElementByClassName('form-error');
+    return ElementHelper.getElementByCss('.auth0-global-message.auth0-global-message-error .animated.fadeInUp span');
   }
 
   /**

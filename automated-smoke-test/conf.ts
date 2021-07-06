@@ -34,7 +34,7 @@ exports.config = {
   framework: 'jasmine2',
 
   specs: [
-    // '../temp/test-suites/tc-login.spec.js'
+    '../temp/test-suites/tc-login.spec.js',
     // '../temp/test-suites/tc-tools.spec.js',
     // '../temp/test-suites/tc-account.spec.js',
     // '../temp/test-suites/tc-profile.spec.js',
@@ -44,7 +44,7 @@ exports.config = {
     '../temp/test-suites/tc-challenge-listing.spec.js',
     '../temp/test-suites/tc-challenge-detail.spec.js',
     // '../temp/test-suites/tc-my-dashboard.spec.js',
-    // '../temp/test-suites/tc-member-profile.spec.js',
+    '../temp/test-suites/tc-member-profile.spec.js',
   ],
 
   // Options to be passed to Jasmine.
