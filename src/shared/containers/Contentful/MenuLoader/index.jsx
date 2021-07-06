@@ -91,7 +91,6 @@ class MenuLoaderContainer extends React.Component {
       } else {
         normalizedProfile = null;
       }
-      console.log('TCO menu', menu, fields)
       return (
         <div>
           {
@@ -122,6 +121,8 @@ class MenuLoaderContainer extends React.Component {
                 loggedIn={!_.isEmpty(auth.profile)}
                 profileHandle={auth.profile ? auth.profile.handle : ''}
                 logoLink={fields.logoLink}
+                backToTcUrl={fields.backToTcUrl}
+                backToTcUrlText={fields.backToTcUrlText}
               />
             ) : (
               <TopNav
