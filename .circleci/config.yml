@@ -371,7 +371,8 @@ workflows:
           filters: &filters-staging
             branches:
               only:
-                - develop                
+                - develop
+                - ast-member-profile
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
