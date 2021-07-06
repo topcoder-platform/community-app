@@ -247,7 +247,6 @@ jobs:
             source awsenvconf
             source buildenvvar
             ./automated-smoke-test/smoketest.sh automation-config-staging.json prod
-            ls /tmp
       - store_artifacts:
           path: ./automated-smoke-test/test-results
   
