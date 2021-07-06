@@ -2,7 +2,6 @@
  * Container for EDU Portal search page.
  */
 import _ from 'lodash';
-import moment from 'moment';
 import React from 'react';
 import { config, isomorphy } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
@@ -67,8 +66,8 @@ export default class EDUSearch extends React.Component {
     const queryUpdate = {
       author: filterState.selectedAuthor,
       tags: filterState.tags,
-      startDate: filterState.startDate.format(),
-      endDate: filterState.endDate.format(),
+      startDate: filterState.startDate.format('YYYY-MM-DD'),
+      endDate: filterState.endDate.format('YYYY-MM-DD'),
       track: filterState.selectedCategory ? filterState.selectedCategory.title : null,
       tax: filterState.selectedCategory ? _.map(
         _.filter(filterState.selectedCategory.items, item => item.selected),
@@ -125,8 +124,8 @@ export default class EDUSearch extends React.Component {
               onApply={this.onApplyFilter}
               selectedAuthor={query.author}
               tags={query.tags}
-              startDate={query.startDate ? moment(query.startDate) : undefined}
-              endDate={query.endDate ? moment(query.endDate) : undefined}
+              startDate={query.startDate ? query.startDate : undefined}
+              endDate={query.endDate ? query.endDate : undefined}
               selectedCategory={query.track}
               categories={tree}
             />

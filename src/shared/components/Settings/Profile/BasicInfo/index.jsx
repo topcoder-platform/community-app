@@ -95,6 +95,16 @@ export default class BasicInfo extends ConsentComponent {
         inputChanged: false,
       });
     }
+    if (nextProps.lookupData) {
+      const { countries } = nextProps.lookupData;
+      const { newBasicInfo } = this.state;
+      if (!newBasicInfo.country) {
+        const code = newBasicInfo.homeCountryCode || newBasicInfo.competitionCountryCode;
+        const { country } = countries.find(c => c.countryCode === code) || {};
+        newBasicInfo.country = country;
+        this.setState({ newBasicInfo });
+      }
+    }
   }
 
   onCheckFormValue(newBasicInfo) {
