@@ -34,7 +34,7 @@ exports.config = {
   framework: 'jasmine2',
 
   specs: [
-    // '../temp/test-suites/tc-login.spec.js'
+    '../temp/test-suites/tc-login.spec.js',
     // '../temp/test-suites/tc-tools.spec.js',
     // '../temp/test-suites/tc-account.spec.js',
     // '../temp/test-suites/tc-profile.spec.js',
