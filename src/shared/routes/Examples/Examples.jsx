@@ -26,6 +26,7 @@ import Tags from 'components/examples/Tags';
 import Themr from 'components/examples/Themr';
 import Typography from 'components/examples/Typography';
 import CountdownExample from 'components/examples/CountdownExample';
+import MemberTalkCloudExample from 'components/examples/MemberTalkCloudExample';
 import SearchBarExample from 'components/examples/SearchBar';
 import TracksTreeExample from 'components/examples/TracksTree';
 import TracksFilterExample from 'components/examples/TracksFilter';
@@ -52,6 +53,7 @@ export default function Examples({
       <Route path={`${base}/buttons`} component={Buttons} />
       <Route path={`${base}/carousel`} component={Carousel} />
       <Route path={`${base}/countdown`} component={CountdownExample} />
+      <Route path={`${base}/member-talk-cloud`} component={MemberTalkCloudExample} />
       <AppChunk
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
