@@ -48,7 +48,7 @@ export class LoginPageHelper {
    * @param {String} password
    */
   public static async verifyLogin(username: string, password: string) {
-    await CommonHelper.verifyCurrentUrl(ConfigHelper.getLoginUrl());
+    await CommonHelper.verifyCurrentUrlToContain(ConfigHelper.getLoginUrl());
     await this.loginPageObject.waitForLoginForm();
     await this.loginPageObject.fillLoginForm(username, password);
     const homePage = await this.loginPageObject.waitForHomePage();

@@ -35,6 +35,7 @@ function ContentfulTabs(props) {
             selected={fields.selected}
             theme={TAB_THEMES[fields.theme || 'Default']}
             tabId={fields.urlQueryName || id}
+            themeName={fields.theme}
           />
         );
       }}
