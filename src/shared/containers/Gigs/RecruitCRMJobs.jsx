@@ -179,7 +179,7 @@ class RecruitCRMJobsContainer extends React.Component {
     // build current locations dropdown based on all data
     // and filter by selected location
     jobsToDisplay = _.filter(jobs, (job) => {
-      const country = job.country === 'Anywhere' || job.country === 'Any' ? 'All' : job.country;
+      const country = !job.country || job.country === 'Anywhere' || job.country === 'Any' ? 'All' : job.country;
       // build dropdown
       const found = _.findIndex(locations, { label: country });
       if (found === -1) {
@@ -202,7 +202,7 @@ class RecruitCRMJobsContainer extends React.Component {
         // eslint-disable-next-line no-underscore-dangle
         const _term = term.toLowerCase();
         // name search
-        if (job.name.toLowerCase().includes(_term)) return true;
+        if (job && job.name && job.name.toLowerCase().includes(_term)) return true;
         // skills search
         const skills = _.find(job.custom_fields, ['field_name', 'Technologies Required']);
         if (skills && skills.value && skills.value.toLowerCase().includes(_term)) return true;
