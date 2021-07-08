@@ -78,10 +78,6 @@ class MenuLoaderContainer extends React.Component {
       return <LoadingIndicator />;
     }
     if (isomorphy.isClientSide()) {
-      // eslint-disable-next-line global-require
-      const { TopNav, LoginNav } = require('navigation-component');
-      // eslint-disable-next-line global-require
-      const { TopNav: TopNavTCO, LoginNav: LoginNavTCO } = require('navigation-component-tco');
       const logoToUse = !_.isEmpty(menuLogo) ? <img src={menuLogo.fields.file.url} alt="menu logo" /> : <Logo />;
       const menuTheme = fields.theme.split('- ');
       let normalizedProfile = auth.profile && _.clone(auth.profile);
@@ -91,70 +87,71 @@ class MenuLoaderContainer extends React.Component {
       } else {
         normalizedProfile = null;
       }
+      if (fields.theme.indexOf('TCO22') !== -1) {
+        // eslint-disable-next-line global-require
+        const { TopNav: TopNavTCO, LoginNav: LoginNavTCO } = require('navigation-component-tco');
+        return (
+          <TopNavTCO
+            menu={menu}
+            rightMenu={(
+              <LoginNavTCO
+                loggedIn={!_.isEmpty(auth.profile)}
+                notificationButtonState="none"
+                notifications={[]}
+                accountMenu={config.ACCOUNT_MENU}
+                switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
+                onSwitch={this.handleSwitchMenu}
+                onMenuOpen={this.handleCloseOpenMore}
+                profile={normalizedProfile}
+                auth={auth}
+                authURLs={config.HEADER_AUTH_URLS}
+              />
+            )}
+            logo={logoToUse}
+            theme={menuTheme[1]}
+            currentLevel1Id={activeLevel1Id}
+            onChangeLevel1Id={this.handleChangeLevel1Id}
+            path={path}
+            openMore={openMore}
+            setOpenMore={this.handleChangeOpenMore}
+            loggedIn={!_.isEmpty(auth.profile)}
+            profileHandle={auth.profile ? auth.profile.handle : ''}
+            logoLink={fields.logoLink}
+            backToTcUrl={fields.backToTcUrl}
+            backToTcUrlText={fields.backToTcUrlText}
+          />
+        );
+      }
+      // eslint-disable-next-line global-require
+      const { TopNav, LoginNav } = require('navigation-component');
       return (
-        <div>
-          {
-            fields.theme.indexOf('TCO22') !== -1 ? (
-              <TopNavTCO
-                menu={menu}
-                rightMenu={(
-                  <LoginNavTCO
-                    loggedIn={!_.isEmpty(auth.profile)}
-                    notificationButtonState="none"
-                    notifications={[]}
-                    accountMenu={config.ACCOUNT_MENU}
-                    switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
-                    onSwitch={this.handleSwitchMenu}
-                    onMenuOpen={this.handleCloseOpenMore}
-                    profile={normalizedProfile}
-                    auth={auth}
-                    authURLs={config.HEADER_AUTH_URLS}
-                  />
-            )}
-                logo={logoToUse}
-                theme={menuTheme[1]}
-                currentLevel1Id={activeLevel1Id}
-                onChangeLevel1Id={this.handleChangeLevel1Id}
-                path={path}
-                openMore={openMore}
-                setOpenMore={this.handleChangeOpenMore}
-                loggedIn={!_.isEmpty(auth.profile)}
-                profileHandle={auth.profile ? auth.profile.handle : ''}
-                logoLink={fields.logoLink}
-                backToTcUrl={fields.backToTcUrl}
-                backToTcUrlText={fields.backToTcUrlText}
-              />
-            ) : (
-              <TopNav
-                menu={menu}
-                rightMenu={(
-                  <LoginNav
-                    loggedIn={!_.isEmpty(auth.profile)}
-                    notificationButtonState="none"
-                    notifications={[]}
-                    accountMenu={config.ACCOUNT_MENU}
-                    switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
-                    onSwitch={this.handleSwitchMenu}
-                    onMenuOpen={this.handleCloseOpenMore}
-                    profile={normalizedProfile}
-                    auth={auth}
-                    authURLs={config.HEADER_AUTH_URLS}
-                  />
-            )}
-                logo={logoToUse}
-                theme={menuTheme[1]}
-                currentLevel1Id={activeLevel1Id}
-                onChangeLevel1Id={this.handleChangeLevel1Id}
-                path={path}
-                openMore={openMore}
-                setOpenMore={this.handleChangeOpenMore}
-                loggedIn={!_.isEmpty(auth.profile)}
-                profileHandle={auth.profile ? auth.profile.handle : ''}
-                logoLink={fields.logoLink}
-              />
-            )
-          }
-        </div>
+        <TopNav
+          menu={menu}
+          rightMenu={(
+            <LoginNav
+              loggedIn={!_.isEmpty(auth.profile)}
+              notificationButtonState="none"
+              notifications={[]}
+              accountMenu={config.ACCOUNT_MENU}
+              switchText={config.ACCOUNT_MENU_SWITCH_TEXT}
+              onSwitch={this.handleSwitchMenu}
+              onMenuOpen={this.handleCloseOpenMore}
+              profile={normalizedProfile}
+              auth={auth}
+              authURLs={config.HEADER_AUTH_URLS}
+            />
+              )}
+          logo={logoToUse}
+          theme={menuTheme[1]}
+          currentLevel1Id={activeLevel1Id}
+          onChangeLevel1Id={this.handleChangeLevel1Id}
+          path={path}
+          openMore={openMore}
+          setOpenMore={this.handleChangeOpenMore}
+          loggedIn={!_.isEmpty(auth.profile)}
+          profileHandle={auth.profile ? auth.profile.handle : ''}
+          logoLink={fields.logoLink}
+        />
       );
     }
     // no SSR for navi component yet
