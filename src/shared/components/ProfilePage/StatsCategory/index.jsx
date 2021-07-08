@@ -35,10 +35,25 @@ const isActiveSubtrack = (subtrack) => {
   }
   if (subtrack.rank && subtrack.rank.rating > 0) {
     return true;
-  } if (_.isNumber(subtrack.submissions)) {
+  }
+  if (_.isNumber(subtrack.submissions)) {
     return subtrack.submissions > 0;
   }
   return subtrack.submissions && subtrack.submissions.submissions > 0;
+};
+
+/**
+ * Inspects a subtrack and determines if it should be hidden
+ *
+ * @param {Object} subtrack Subtrack object
+ * @returns {Boolean}
+ */
+const isHidden = (subtrack) => {
+  if (subtrack.name === 'DEVELOP_MARATHON_MATCH') {
+    return true;
+  }
+
+  return false;
 };
 
 class StatsCategory extends React.Component {
@@ -72,7 +87,7 @@ class StatsCategory extends React.Component {
       }
 
       subTracks.forEach((subtrack) => {
-        if (isActiveSubtrack(subtrack)) {
+        if (isActiveSubtrack(subtrack) && !isHidden(subtrack)) {
           active.push({ ...subtrack, active: true });
         }
       });
