@@ -256,6 +256,7 @@ module.exports = {
       AUTH_SECRET: 'mysecret',
       VALID_ISSUERS: '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/", "https://auth.topcoder-dev.com/","https://topcoder.auth0.com/","https://auth.topcoder.com/"]',
     },
+    CHAMELEON_VERIFICATION_SECRET: 'mysecret',
   },
   GROWSURF_CAMPAIGN_ID: '',
   GROWSURF_COOKIE: '_tc_gigs_ref',
