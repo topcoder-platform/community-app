@@ -103,6 +103,7 @@ export function menuItemBuilder(baseUrl, item) {
         title: item.fields.naviMenuLinkText || item.fields.name,
         href: item.fields.viewport ? target(baseUrl, item) : null,
         id: item.sys.id,
+        imageSrc: item.fields.naviMenuLinkImage ? `https:${item.fields.naviMenuLinkImage.fields.file.url}` : null,
       };
     case 'navigationMenuItem':
       return {
