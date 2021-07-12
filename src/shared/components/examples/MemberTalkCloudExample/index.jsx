@@ -36,6 +36,15 @@ export default function MemberTalkCloudExample() {
             imageURL: 'https://images.ctfassets.net/b5f1djy59z3a/3jZouACTJ4VctLmdUAQ0Ce/6b223a906523909bd41136e591b0f6e4/63ABD44E-CE36-4D9A-9EE3-23BFA55374BF.webp',
             text: 'I read on social media about the TCO event and was curious about how to qualify for it, so I joined a challenge and got a 3rd place in my first challenge. It gave me an adrenaline rush and it was my first love with Topcoder.',
           },
+          {
+            imageURL: 'https://images.ctfassets.net/b5f1djy59z3a/68fFchpHv5N4ww0DX7BjhK/f1a98135eab7586b1dbf46d3d79d7750/18CF78FB-D7F2-4DBA-B44C-0EB866642A21.webp',
+            text: 'I read on social media about the TCO event and was curious about how to qualify for it, so I joined a challenge and got a 3rd place in my first challenge. It gave me an adrenaline rush and it was my first love with Topcoder.',
+            ReadMoreURL: 'www.topcoder.com',
+          },
+          {
+            imageURL: 'https://images.ctfassets.net/b5f1djy59z3a/3jZouACTJ4VctLmdUAQ0Ce/6b223a906523909bd41136e591b0f6e4/63ABD44E-CE36-4D9A-9EE3-23BFA55374BF.webp',
+            text: 'I read on social media about the TCO event and was curious about how to qualify for it, so I joined a challenge and got a 3rd place in my first challenge. It gave me an adrenaline rush and it was my first love with Topcoder.',
+          },
         ]}
       />
     </div>
