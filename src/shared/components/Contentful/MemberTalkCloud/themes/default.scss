@@ -1,8 +1,21 @@
 @import "~styles/mixins";
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+
+  100% {
+    opacity: 1;
+    width: 209px;
+  }
+}
+
 .container {
   @include roboto-regular;
-  color: #2A2A2A;
+
+  color: #2a2a2a;
   font-size: 16px;
   line-height: 26px;
   display: flex;
@@ -14,10 +27,12 @@
 
 .entry {
   transition: all 0.4s;
+  margin: 20px;
 
   img {
     cursor: pointer;
     max-width: 100px;
+    transition: all 0.4s;
   }
 }
 
@@ -34,6 +49,8 @@
     max-width: none;
     z-index: 2;
     cursor: default;
+    transition: all 0.4s;
+    animation: fadeIn 0.5s;
   }
 }
 
@@ -93,6 +110,6 @@
 
   .blob {
     width: auto;
-    padding-bottom: 0;
+    padding-bottom: 50px;
   }
 }

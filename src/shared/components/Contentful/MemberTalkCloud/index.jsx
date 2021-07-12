@@ -10,15 +10,14 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 import defaultTheme from './themes/default.scss';
 
-const MIN_MARGIN_TOP = 0;
 const MAX_MARGIN_TOP = 0;
-const MIN_MARGIN_LEFT = 0;
-const MAX_MARGIN_LEFT = 0;
+const MIN_MARGIN_LEFT = -20;
+const MAX_MARGIN_LEFT = 20;
 
-const getRandomMargin = _.once(() => ({
-  marginTop: _.random(MIN_MARGIN_TOP, MAX_MARGIN_TOP, false),
-  marginLeft: _.random(MIN_MARGIN_LEFT, MAX_MARGIN_LEFT, false),
-}));
+const getRandomTranslate = () => ({
+  y: MAX_MARGIN_TOP,
+  x: _.random(MIN_MARGIN_LEFT, MAX_MARGIN_LEFT, false),
+});
 
 export class MemberTalkCloud extends React.Component {
   constructor(props) {
@@ -26,19 +25,11 @@ export class MemberTalkCloud extends React.Component {
 
     this.state = {
       selectedMember: 0,
+      context: _.map(props.content, item => ({ ...item, margins: getRandomTranslate() })),
     };
 
     this.onSelect = this.onSelect.bind(this);
     this.getData = this.getData.bind(this);
-    this.updateDimensions = this.updateDimensions.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
   }
 
   onSelect(selectedMember) {
@@ -46,15 +37,15 @@ export class MemberTalkCloud extends React.Component {
   }
 
   getData(newActiveIndex) {
-    const { content } = this.props;
-    const temp = content[newActiveIndex];
-    content[newActiveIndex] = content[0];
-    content[0] = temp;
-    const ITEMS_ON_LEFT_SIDE = Math.floor(content.length / 2);
+    const { context } = this.state;
+    const temp = context[newActiveIndex];
+    context[newActiveIndex] = context[0];
+    context[0] = temp;
+    const ITEMS_ON_LEFT_SIDE = Math.floor(context.length / 2);
 
-    const [activeBlob] = content;
-    const leftSide = content.slice(1, ITEMS_ON_LEFT_SIDE + 1);
-    const rightSide = content
+    const [activeBlob] = context;
+    const leftSide = context.slice(1, ITEMS_ON_LEFT_SIDE + 1);
+    const rightSide = context
       .slice(ITEMS_ON_LEFT_SIDE + 1);
     return {
       activeBlob,
@@ -63,15 +54,11 @@ export class MemberTalkCloud extends React.Component {
     };
   }
 
-  updateDimensions() {
-
-  }
-
   render() {
-    const { theme, content } = this.props;
-    const { selectedMember } = this.state;
+    const { theme } = this.props;
+    const { selectedMember, context } = this.state;
     const { activeBlob, leftSide, rightSide } = this.getData(selectedMember);
-    const ITEMS_ON_LEFT_SIDE = Math.floor(content.length / 2);
+    const ITEMS_ON_LEFT_SIDE = Math.floor(context.length / 2);
     const {
       entry,
       active,
@@ -83,27 +70,24 @@ export class MemberTalkCloud extends React.Component {
     return (
       <div className={theme.container}>
         <div className={left}>
-          {_.map(leftSide, (item, index) => {
-            const { marginTop, marginLeft } = getRandomMargin();
-            return (
-              <div className={entry} key={index}>
-                <img
-                  alt={item.text}
-                  src={item.imageURL}
-                  onClick={() => this.onSelect(index + 1)}
-                  style={{
-                    marginTop: `${marginTop}px`,
-                    marginLeft: `${marginLeft}px`,
-                  }}
-                />
-              </div>
-            );
-          })}
+          {_.map(leftSide, (item, index) => (
+            <div className={entry} key={index}>
+              <img
+                alt={item.text}
+                src={item.imageURL}
+                onClick={() => this.onSelect(index + 1)}
+                style={{
+                  transform: `translate(${item.margins.x}px, ${item.margins.y}px)`,
+                }}
+              />
+            </div>
+          ))}
         </div>
         <div className={`${entry} ${active}`}>
           <img
             alt={activeBlob.text}
             src={activeBlob.imageURL}
+            key={Math.random()}
           />
           <div className={blob}>
             <span>{`"${activeBlob.text}"`}</span>
@@ -111,22 +95,18 @@ export class MemberTalkCloud extends React.Component {
           </div>
         </div>
         <div className={right}>
-          {_.map(rightSide, (item, index) => {
-            const { marginTop, marginLeft } = getRandomMargin();
-            return (
-              <div className={entry} key={index}>
-                <img
-                  alt={item.text}
-                  src={item.imageURL}
-                  onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)}
-                  style={{
-                    marginTop: `${marginTop}px`,
-                    marginLeft: `${marginLeft}px`,
-                  }}
-                />
-              </div>
-            );
-          })}
+          {_.map(rightSide, (item, index) => (
+            <div className={entry} key={index}>
+              <img
+                alt={item.text}
+                src={item.imageURL}
+                onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)}
+                style={{
+                  transform: `translate(${item.margins.x}px, ${item.margins.y}px)`,
+                }}
+              />
+            </div>
+          ))}
         </div>
       </div>
     );
