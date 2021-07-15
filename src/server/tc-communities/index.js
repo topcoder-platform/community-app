@@ -4,6 +4,7 @@
 
 import _ from 'lodash';
 import { getList, getMetadata } from 'server/services/communities';
+import { logger } from 'topcoder-react-lib';
 import express from 'express';
 
 const router = express.Router();
@@ -27,6 +28,7 @@ router.get('/', (req, res) => {
  */
 router.get('/:communityId/meta', (req, res) => {
   const { communityId } = req.params;
+  logger.log('getMetadata::origin : ', req.headers.referer);
   getMetadata(communityId)
     .catch(err => res.status(404).send(err))
     .then(data => res.json(data));

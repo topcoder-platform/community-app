@@ -340,6 +340,7 @@ export function factory(req) {
 
     // load terms for the entity
     if (entity) {
+      logger.log('terms::reducer::origin ', req.headers.referer);
       return redux.resolveAction(actions.terms.getTermsDone(entity, tokens))
         .then((termsDoneAction) => {
           // we have to init first, otherwise results will be ignored by onGetTermsDone
