@@ -329,7 +329,7 @@ export function factory(req) {
 
     // if it's commynity page
     let communityId = getCommunityId(req.subdomains);
-    if (!communityId && req.url.match(/\/community\/.*/)) {
+    if (!communityId && req.url.startsWith('/__community__')) {
       [,, communityId] = req.url.split('/');
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
@@ -340,7 +340,6 @@ export function factory(req) {
 
     // load terms for the entity
     if (entity) {
-      logger.log('terms::reducer::origin ', req.headers.referer);
       return redux.resolveAction(actions.terms.getTermsDone(entity, tokens))
         .then((termsDoneAction) => {
           // we have to init first, otherwise results will be ignored by onGetTermsDone
