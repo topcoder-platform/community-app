@@ -8,7 +8,6 @@ import ArticleCard from 'components/Contentful/ArticleCard';
 import Banner from 'components/Contentful/Banner';
 import ChallengesBlock from 'containers/Contentful/ChallengesBlock';
 import ContentBlock from 'components/Contentful/ContentBlock';
-import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
@@ -29,6 +28,7 @@ import Dropdown from 'components/Contentful/Dropdown';
 import MemberCard from 'components/Contentful/MemberCard';
 import Article from 'components/Contentful/Article';
 import { isomorphy } from 'topcoder-react-utils';
+import MemberTalkCloud from 'components/Contentful/MemberTalkCloud';
 
 // AOS
 import AOS from 'aos';
@@ -48,7 +48,7 @@ const COMPONENTS = {
   articleCard: ArticleCard,
   appComponent: AppComponentLoader,
   banner: Banner,
-  blogPost: BlogPost,
+  // blogPost: BlogPost, deprecated in favor of MemberTalkCloud
   blogFeed: BlogFeed,
   challengesBlock: ChallengesBlock,
   contentBlock: ContentBlock,
@@ -64,6 +64,8 @@ const COMPONENTS = {
   image: Image,
   shape: Shape,
   article: Article,
+  // eslint-disable-next-line max-len
+  blogPost: MemberTalkCloud, // This is so because we ran out of models in Contentful nd need to reuse!
 };
 
 const THEMES = {
