@@ -116,7 +116,7 @@ class ChallengeHistoryModal extends Component {
               challengesOrdered.map(challenge => (
                 <tr styleName="row" key={`${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}`}>
                   <td styleName="name">
-                    <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}/`} styleName="link" target="_blank" rel="noopener noreferrer">
+                    <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id || challenge['challenge.challenge_GUID']}/`} styleName="link" target="_blank" rel="noopener noreferrer">
                       {challenge.challenge_name || challenge['challenge.challenge_name'] || challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}
                     </a>
                   </td>

@@ -188,7 +188,7 @@ export default function PodiumSpot(props) {
         }
         {
           isCopilot ? (
-            <div styleName={`${stylesName}.stats`}>
+            <div styleName={`${stylesName}.stats-count`}>
               <span styleName={`${stylesName}.value`}>{fulfillment}</span>
               <span styleName={`${stylesName}.value-title`}>fulfillment</span>
             </div>

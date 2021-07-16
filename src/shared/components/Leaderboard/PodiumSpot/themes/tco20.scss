@@ -79,6 +79,15 @@ $podium-border-color: #ededf2;
 
     .stats-count {
       color: #747480;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 25px;
+      display: flex;
+      margin-bottom: 4px;
+
+      .value {
+        margin-right: 5px;
+      }
     }
 
     @include xs-to-sm {

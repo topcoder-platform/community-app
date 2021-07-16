@@ -23,7 +23,7 @@
  *   - isTopGear: Topgear leaderboards have special fileds
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
@@ -60,8 +60,6 @@ export default function LeaderboardTable(props) {
     isAlgo,
     themeName,
   } = props;
-  const [order, setOrder] = useState('');
-  const [field, setOrderField] = useState('');
   const stylesName = THEME[themeName];
   const renderTableRows = comps => (
     comps.map((competitor) => {
