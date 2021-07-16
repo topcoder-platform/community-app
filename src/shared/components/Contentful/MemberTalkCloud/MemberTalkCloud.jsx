@@ -13,7 +13,7 @@ import defaultTheme from './themes/default.scss';
 
 const MAX_MARGIN_TOP = 0;
 const MIN_MARGIN_LEFT = -20;
-const MAX_MARGIN_LEFT = 20;
+const MAX_MARGIN_LEFT = 30;
 
 const getRandomTranslate = () => ({
   y: MAX_MARGIN_TOP,
@@ -72,15 +72,19 @@ export class MemberTalkCloud extends React.Component {
       <div id={id} className={theme.container} style={fixStyle(extraStylesForContainer)}>
         <div className={left}>
           {_.map(leftSide, (item, index) => (
-            <div className={entry} key={index}>
+            <div
+              className={entry}
+              key={index}
+              style={{
+                transform: `translate(${item.margins.x}px, ${item.margins.y}px)`,
+              }}
+            >
               <img
                 alt={item.text}
                 src={item.imageURL}
                 onClick={() => this.onSelect(index + 1)}
-                style={{
-                  transform: `translate(${item.margins.x}px, ${item.margins.y}px)`,
-                }}
               />
+              <button onClick={() => this.onSelect(index + 1)} type="button" style={{ color: item.handleColor }}>{item.handle}</button>
             </div>
           ))}
         </div>
@@ -90,6 +94,7 @@ export class MemberTalkCloud extends React.Component {
             src={activeBlob.imageURL}
             key={Math.random()}
           />
+          <span className={theme.activeHandle}>{activeBlob.handle}</span>
           <div className={blob}>
             <span>{`"${activeBlob.text}"`}</span>
             {activeBlob.ReadMoreURL && <a href={activeBlob.ReadMoreURL}>{activeBlob.ReadMoreText || 'Read More'}</a>}
@@ -97,15 +102,19 @@ export class MemberTalkCloud extends React.Component {
         </div>
         <div className={right}>
           {_.map(rightSide, (item, index) => (
-            <div className={entry} key={index}>
+            <div
+              className={entry}
+              key={index}
+              style={{
+                transform: `translate(${item.margins.x}px, ${item.margins.y}px)`,
+              }}
+            >
               <img
                 alt={item.text}
                 src={item.imageURL}
                 onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)}
-                style={{
-                  transform: `translate(${item.margins.x}px, ${item.margins.y}px)`,
-                }}
               />
+              <button onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)} type="button" style={{ color: item.handleColor }}>{item.handle}</button>
             </div>
           ))}
         </div>
@@ -128,12 +137,15 @@ MemberTalkCloud.propTypes = {
     blob: PT.string.isRequired,
     left: PT.string.isRequired,
     right: PT.string.isRequired,
+    activeHandle: PT.string.isRequired,
   }).isRequired,
   content: PT.arrayOf(PT.shape({
     imageURL: PT.string.isRequired,
     text: PT.string.isRequired,
     ReadMoreURL: PT.string,
     ReadMoreText: PT.string,
+    handle: PT.string.isRequired,
+    handleColor: PT.string.isRequired,
   })),
   extraStylesForContainer: PT.shape(),
   id: PT.string.isRequired,

@@ -27,12 +27,24 @@
 
 .entry {
   transition: all 0.4s;
-  margin: 40px 20px;
+  margin: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   img {
     cursor: pointer;
     max-width: 100px;
     transition: all 0.4s;
+  }
+
+  button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    margin-top: 8px;
+    text-decoration: underline;
   }
 }
 
@@ -51,6 +63,15 @@
     cursor: default;
     transition: all 0.4s;
     animation: fadeIn 0.5s;
+  }
+
+  .activeHandle {
+    position: relative;
+    z-index: 2;
+    color: #555;
+    font-size: 24px;
+    line-height: 36px;
+    margin-top: 20px;
   }
 }
 

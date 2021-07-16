@@ -38,6 +38,8 @@ export default function MemberTalkCloudLoader(props) {
                   text: item.fields.text || item.fields.name,
                   ReadMoreURL: item.fields.linkURL,
                   ReadMoreText: item.fields.linkText,
+                  handle: item.fields.handle,
+                  handleColor: item.fields.handleColor,
                 }))}
                 extraStylesForContainer={fields.extraStylesForContainer}
               />
