@@ -371,7 +371,7 @@ workflows:
             branches:
               only:
                 - develop
-                - ast-store-artifacts
+                - tc-api-issue
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
