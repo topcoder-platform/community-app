@@ -81,7 +81,7 @@ export default function LeaderboardTable(props) {
                 photoUrl ? (
                   <Avatar
                     theme={{
-                      avatar: avatarStyles.default,
+                      avatar: themeName === 'TCO22' ? avatarStyles['default-tco22'] : avatarStyles.default,
                     }}
                     url={photoUrl}
                   />
