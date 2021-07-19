@@ -12,6 +12,12 @@
   border-color: rgba(0, 0, 0, 0.05);
 }
 
+.default-tco22 {
+  @include avatar;
+
+  border-color: #fff;
+}
+
 .gold {
   @include avatar;
 
@@ -40,6 +46,15 @@
 .tco20-2,
 .tco20-3,
 .tco20-4 {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+}
+
+.tco22-1,
+.tco22-2,
+.tco22-3,
+.tco22-4 {
   border-radius: 50%;
   height: 100%;
   width: 100%;
