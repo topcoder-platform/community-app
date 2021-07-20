@@ -15,7 +15,8 @@ $light-gray: #d4d4d4;
   padding: 80px 78px;
 
   @media (max-width: 768px) {
-    width: 80%;
+    width: 90%;
+    padding: 30px 15px;
   }
 
   h3 {
@@ -98,6 +99,10 @@ $light-gray: #d4d4d4;
         font-weight: 400;
         line-height: 51px;
         text-decoration: underline;
+
+        @media (max-width: 768px) {
+          line-height: 30px;
+        }
 
         &:hover {
           text-decoration: none;

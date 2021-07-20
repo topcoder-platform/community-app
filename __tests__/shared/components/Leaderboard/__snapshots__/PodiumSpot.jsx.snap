@@ -30,7 +30,7 @@ exports[`Matches shallow shapshot 1`] = `
     style={null}
   >
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats___1iYej"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats-count___XuYEf"
     >
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"
@@ -89,7 +89,7 @@ exports[`Matches shallow shapshot 2`] = `
     style={null}
   >
     <div
-      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats___1iYej"
+      className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__stats-count___XuYEf"
     >
       <span
         className="src-shared-components-Leaderboard-PodiumSpot-themes-___styles__value___2shA5"

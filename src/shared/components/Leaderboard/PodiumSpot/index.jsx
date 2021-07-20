@@ -35,6 +35,7 @@ import { getRatingColor } from 'utils/tc';
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
 import tco20Styles from './themes/tco20.scss'; // eslint-disable-line
+import tco22Styles from './themes/tco22.scss'; // eslint-disable-line
 
 /**
  * Object used to add a CSS modifier (PodiumSpot--first) that will
@@ -65,6 +66,12 @@ const CUSTOM_STYLES = {
     3: avatarStyles['tco20-3'],
     4: avatarStyles['tco20-4'],
   },
+  TCO22: {
+    1: avatarStyles['tco22-1'],
+    2: avatarStyles['tco22-2'],
+    3: avatarStyles['tco22-3'],
+    4: avatarStyles['tco22-4'],
+  },
 };
 
 /**
@@ -80,6 +87,7 @@ const DISPLAY_RANKING = {
 const THEME = {
   Default: 'defaultStyles',
   TCO20: 'tco20Styles',
+  TCO22: 'tco22Styles',
 };
 
 /**
@@ -180,13 +188,13 @@ export default function PodiumSpot(props) {
         }
         {
           isCopilot ? (
-            <div styleName={`${stylesName}.stats`}>
+            <div styleName={`${stylesName}.stats-count`}>
               <span styleName={`${stylesName}.value`}>{fulfillment}</span>
               <span styleName={`${stylesName}.value-title`}>fulfillment</span>
             </div>
           ) : null
         }
-        <div styleName={`${stylesName}.stats`}>
+        <div styleName={`${stylesName}.stats-count`}>
           <span styleName={`${stylesName}.value`}>{competitor['tco_leaderboard.challenge_count'] || competitor.challengecount}</span>
           {
             isAlgo ? (
