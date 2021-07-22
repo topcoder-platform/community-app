@@ -348,7 +348,6 @@ workflows:
             branches:
               only:                
                 - free
-                - fix-country-setting-page
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -362,7 +361,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - fix/hide-developer-marathon-match-subtrack
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
