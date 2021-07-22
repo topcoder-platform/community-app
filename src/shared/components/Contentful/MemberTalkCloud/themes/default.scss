@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import "~styles/mixins";
 
 @keyframes fadeIn {
@@ -23,6 +24,32 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  .left,
+  .right {
+    div.entry {
+      @include xs-to-sm {
+        transform: none !important;
+        margin: 10px;
+      }
+    }
+  }
+}
+
+.left .entry:first-child {
+  transform: translate(100px, 20px) !important;
+}
+
+.left .entry:last-child {
+  transform: translateX(60px) !important;
+}
+
+.right .entry:first-child {
+  transform: translate(-80px, -10px) !important;
+}
+
+.right .entry:last-child {
+  transform: translate(-40px, 30px) !important;
 }
 
 .entry {
@@ -132,5 +159,6 @@
   .blob {
     width: auto;
     padding-bottom: 50px;
+    margin-top: -180px;
   }
 }
