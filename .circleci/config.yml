@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - tco21-leaderboard-fix
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
