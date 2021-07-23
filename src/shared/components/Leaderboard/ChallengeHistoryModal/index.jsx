@@ -28,6 +28,7 @@ class ChallengeHistoryModal extends Component {
       loading,
       isCopilot,
       isAlgo,
+      themeName,
     } = this.props;
     const { sortParam } = this.state;
     const challengesOrdered = _.orderBy(challenges, [sortParam.field], [sortParam.order]);
@@ -44,7 +45,7 @@ class ChallengeHistoryModal extends Component {
             competitor={competitor}
             isCopilot={isCopilot}
             isAlgo={isAlgo}
-            themeName="TCO20"
+            themeName={themeName}
           />
         </div>
         <table styleName="history-table">
@@ -116,7 +117,7 @@ class ChallengeHistoryModal extends Component {
               challengesOrdered.map(challenge => (
                 <tr styleName="row" key={`${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}`}>
                   <td styleName="name">
-                    <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id}/`} styleName="link" target="_blank" rel="noopener noreferrer">
+                    <a href={`${config.URL.BASE}/challenges/${challenge['tco_leaderboard.challenge_id'] || challenge['challenge.challenge_id'] || challenge.challenge_id || challenge['challenge.challenge_GUID']}/`} styleName="link" target="_blank" rel="noopener noreferrer">
                       {challenge.challenge_name || challenge['challenge.challenge_name'] || challenge['tco_leaderboard.challenge_id'] || challenge.challenge_id}
                     </a>
                   </td>
@@ -178,6 +179,7 @@ ChallengeHistoryModal.propTypes = {
   loading: PT.bool.isRequired,
   isAlgo: PT.bool,
   isCopilot: PT.bool,
+  themeName: PT.string.isRequired,
 };
 
 export default ChallengeHistoryModal;

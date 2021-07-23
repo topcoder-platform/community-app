@@ -35,10 +35,12 @@ import { getRatingColor } from 'utils/tc';
 import avatarStyles from '../avatarStyles.scss';
 import defaultStyles from './themes/styles.scss'; // eslint-disable-line
 import tco20Styles from './themes/tco20.scss'; // eslint-disable-line
+import tco22Styles from './themes/tco22.scss'; // eslint-disable-line
 
 const THEME = {
   Default: 'defaultStyles',
   TCO20: 'tco20Styles',
+  TCO22: 'tco22Styles',
 };
 
 /**
@@ -79,7 +81,7 @@ export default function LeaderboardTable(props) {
                 photoUrl ? (
                   <Avatar
                     theme={{
-                      avatar: avatarStyles.default,
+                      avatar: themeName === 'TCO22' ? avatarStyles['default-tco22'] : avatarStyles.default,
                     }}
                     url={photoUrl}
                   />

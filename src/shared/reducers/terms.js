@@ -329,7 +329,7 @@ export function factory(req) {
 
     // if it's commynity page
     let communityId = getCommunityId(req.subdomains);
-    if (!communityId && req.url.match(/\/community\/.*/)) {
+    if (!communityId && req.url.startsWith('/__community__')) {
       [,, communityId] = req.url.split('/');
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;

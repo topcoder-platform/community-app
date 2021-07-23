@@ -97,6 +97,7 @@ class LeaderboardPageContainer extends React.Component {
                   dataUrl={tcoPointsApiUrl}
                   isCopilot={isCopilot}
                   isAlgo={isAlgo}
+                  themeName={themeName}
                 />
               ) : null
             }

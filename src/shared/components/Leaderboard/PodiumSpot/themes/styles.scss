@@ -64,6 +64,10 @@ $podium-border-color: #ededf2;
       }
     }
 
+    .stats-count {
+      color: #747480;
+    }
+
     @include xs-to-sm {
       font-size: 12px;
     }
