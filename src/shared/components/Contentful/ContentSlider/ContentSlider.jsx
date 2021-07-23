@@ -101,7 +101,7 @@ ContentSlider.defaultProps = {
   cellSpacing: null,
   cellAlign: 'center',
   wrapAround: true,
-  heightMode: 'current',
+  heightMode: 'max',
   arrowTheme: 'Gray',
 };
 

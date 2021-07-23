@@ -28,6 +28,7 @@ class ChallengeHistoryModal extends Component {
       loading,
       isCopilot,
       isAlgo,
+      themeName,
     } = this.props;
     const { sortParam } = this.state;
     const challengesOrdered = _.orderBy(challenges, [sortParam.field], [sortParam.order]);
@@ -44,7 +45,7 @@ class ChallengeHistoryModal extends Component {
             competitor={competitor}
             isCopilot={isCopilot}
             isAlgo={isAlgo}
-            themeName="TCO22"
+            themeName={themeName}
           />
         </div>
         <table styleName="history-table">
@@ -178,6 +179,7 @@ ChallengeHistoryModal.propTypes = {
   loading: PT.bool.isRequired,
   isAlgo: PT.bool,
   isCopilot: PT.bool,
+  themeName: PT.string.isRequired,
 };
 
 export default ChallengeHistoryModal;
