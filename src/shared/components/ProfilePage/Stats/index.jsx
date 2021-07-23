@@ -78,6 +78,8 @@ class ProfileStats extends React.Component {
     const subTrackSummary = getSummary(stats, track, subTrack) || [];
     const subTrackDetails = getDetails(stats, track, subTrack) || [];
     const ratingObj = subTrackSummary.filter(k => k.label === 'rating');
+    const trackHistory = getHistory(statsHistory, track, subTrack);
+    const latestTrackHistory = trackHistory.history.pop();
     let subTrackRating = ratingObj && ratingObj[0] ? ratingObj[0].value : 0;
     if (subTrackRating === 0 || !subTrackRating) { // if subtrack has no rating, pick default rating
       subTrackRating = info.maxRating ? info.maxRating.rating : 0;
@@ -185,7 +187,7 @@ class ProfileStats extends React.Component {
                             className={label === 'rating' ? styles.rating : ''}
                             style={{ color: label === 'rating' ? getRatingColor(parseInt(value.replace(/\D/g, ''), 10)) : undefined }}
                           >
-                            {value || '-'}
+                            {(label === 'rating' && latestTrackHistory) ? latestTrackHistory.newRating : (value || '-')}
                             {label === 'rating' && <span styleName="square" style={{ backgroundColor: getRatingColor((parseInt(value.replace(/\D/g, ''), 10))) }} />}
                           </div>
                         )
@@ -230,7 +232,7 @@ class ProfileStats extends React.Component {
                       activeGraph === 'history'
                         ? (
                           <HistoryGraph
-                            history={getHistory(statsHistory, track, subTrack)}
+                            history={trackHistory}
                             track={track}
                             subTrack={subTrack}
                           />
