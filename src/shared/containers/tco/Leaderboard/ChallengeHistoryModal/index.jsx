@@ -13,6 +13,7 @@ function ChallengeHistoryModalContainer({
   loading,
   isCopilot,
   isAlgo,
+  themeName,
 }) {
   useEffect(() => {
     getChallengesHistory(dataUrl, competitor);
@@ -26,6 +27,7 @@ function ChallengeHistoryModalContainer({
       loading={loading}
       isCopilot={isCopilot}
       isAlgo={isAlgo}
+      themeName={themeName}
     />
   );
 }
@@ -36,6 +38,7 @@ ChallengeHistoryModalContainer.defaultProps = {
   loading: false,
   isCopilot: false,
   isAlgo: false,
+  themeName: 'Default',
 };
 
 const CHALLENGES_TYPE = PT.arrayOf(PT.shape({
@@ -61,6 +64,7 @@ ChallengeHistoryModalContainer.propTypes = {
   loading: PT.bool,
   isAlgo: PT.bool,
   isCopilot: PT.bool,
+  themeName: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
