@@ -17,7 +17,7 @@ export function phaseEndDate(phase) {
     return new Date(phase.scheduledEndDate);
   }
   // for other cases, take the `actualEndDate` as phase is already closed
-  return new Date(phase.actualEndDate);
+  return new Date(phase.actualEndDate || phase.scheduledEndDate);
 }
 
 /**
