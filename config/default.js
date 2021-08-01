@@ -160,6 +160,11 @@ module.exports = {
     COMMUNITY_APP_GITHUB_ISSUES: 'https://github.com/topcoder-platform/community-app/issues',
     EMAIL_VERIFY_URL: 'http://www.topcoder-dev.com/settings/account/changeEmail',
     ABANDONMENT_EMBED: 'https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com',
+    // If a logged in user is a member of any of these groups, when they land on
+    // their profile page (members/:handle), they'll be redirected to the "userProfile" url
+    SUBDOMAIN_PROFILE_CONFIG: [
+      { groupId: '20000000', userProfile: 'https://topgear-app.wipro.com/user-details' },
+    ],
   },
 
   /* Information about Topcoder user groups can be cached in various places.
