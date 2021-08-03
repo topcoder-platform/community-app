@@ -34,6 +34,7 @@ export default function MemberTalkCloudLoader(props) {
               <MemberTalkCloud
                 id={id}
                 content={_.map(cloudItemsData.entries.items, item => ({
+                  smallImageURL: item.fields.avatarSmall.fields.file.url,
                   imageURL: item.fields.avatar.fields.file.url,
                   text: item.fields.text || item.fields.name,
                   ReadMoreURL: item.fields.linkURL,

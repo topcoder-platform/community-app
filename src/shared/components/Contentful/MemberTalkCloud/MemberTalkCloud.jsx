@@ -81,7 +81,7 @@ export class MemberTalkCloud extends React.Component {
             >
               <img
                 alt={item.text}
-                src={item.imageURL}
+                src={item.smallImageURL}
                 onClick={() => this.onSelect(index + 1)}
               />
               <button onClick={() => this.onSelect(index + 1)} type="button" style={{ color: item.handleColor }}>{item.handle}</button>
@@ -111,7 +111,7 @@ export class MemberTalkCloud extends React.Component {
             >
               <img
                 alt={item.text}
-                src={item.imageURL}
+                src={item.smallImageURL}
                 onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)}
               />
               <button onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)} type="button" style={{ color: item.handleColor }}>{item.handle}</button>
@@ -140,6 +140,7 @@ MemberTalkCloud.propTypes = {
     activeHandle: PT.string.isRequired,
   }).isRequired,
   content: PT.arrayOf(PT.shape({
+    smllImageURL: PT.string.isRequired,
     imageURL: PT.string.isRequired,
     text: PT.string.isRequired,
     ReadMoreURL: PT.string,
