@@ -149,6 +149,19 @@
       letter-spacing: 0.4px;
       line-height: 15px;
       text-align: left;
+
+      .catLink {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .leftSidebarContent {
+    margin-top: 23px;
+
+    @include xs-to-sm {
+      margin-top: 0;
+      margin-bottom: 40px;
     }
   }
 
@@ -480,7 +493,7 @@
       background-color: #555;
       border-radius: 10px;
       width: 413px;
-      height: 457px;
+      min-height: 477px;
       display: flex;
       flex-direction: column;
 
@@ -496,6 +509,10 @@
         }
       }
 
+      @media screen and (max-width: 413px) {
+        width: auto;
+      }
+
       .recommendedImage {
         width: 413px;
         height: 200px;
@@ -503,6 +520,10 @@
         border-top-right-radius: 10px;
         background-size: cover;
         background-position: 0 center;
+
+        @media screen and (max-width: 413px) {
+          width: auto;
+        }
       }
 
       .recommendedImageBottomShape {
@@ -511,7 +532,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         margin-top: -40px;
-        background-position: 0 -184px;
+        background-position: bottom;
         transform: scaleY(-1);
       }
 

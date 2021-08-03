@@ -13,6 +13,7 @@ import markdown from 'utils/markdown';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import YouTubeVideo from 'components/YouTubeVideo';
+import Viewport from 'components/Contentful/Viewport';
 import moment from 'moment';
 import localStorage from 'localStorage';
 import { Helmet } from 'react-helmet';
@@ -123,6 +124,8 @@ export default class Article extends React.Component {
       },
     ).substring(0, CONTENT_PREVIEW_LENGTH);
 
+    console.log('article fields', fields);
+
     return (
       <React.Fragment>
         <Helmet>
@@ -198,6 +201,13 @@ export default class Article extends React.Component {
             {/* Tags */}
             <div className={theme.tagContainer}>
               {
+                _.map(fields.contentCategory, cat => (
+                  <div className={theme.tagItem} key={cat.sys.id} title={`Search for articles in ${cat.fields.trackParent}:${cat.fields.name} category`}>
+                    <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track: cat.fields.trackParent, tax: cat.fields.name })}`} key={`${cat.sys.id}`} className={theme.catLink}>{cat.fields.name}</Link>
+                  </div>
+                ))
+              }
+              {
                 _.map(fields.tags, tag => (
                   <div className={theme.tagItem} key={tag} title={`Search for articles labelled as ${tag}`}>
                     <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</Link>
@@ -219,6 +229,18 @@ export default class Article extends React.Component {
               </a>
             </div>
             <div className={theme.mobileSeparator} />
+            {
+              fields.leftSidebarContent && (
+                <div className={theme.leftSidebarContent}>
+                  <Viewport
+                    id={fields.leftSidebarContent.sys.id}
+                    preview={preview}
+                    spaceName={spaceName}
+                    environment={environment}
+                  />
+                </div>
+              )
+            }
           </div>
           {/* Content */}
           <div className={theme.articleContent}>
