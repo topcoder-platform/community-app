@@ -263,7 +263,7 @@ module.exports = {
   GROWSURF_COOKIE_SETTINGS: {
     secure: true,
     domain: '',
-    expires: 7, // days
+    expires: 30, // days
   },
 
   GSHEETS_API_KEY: 'AIzaSyBRdKySN5JNCb2H6ZxJdTTvp3cWU51jiOQ',

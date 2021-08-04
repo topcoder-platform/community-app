@@ -10,13 +10,10 @@ import GigDetails from 'components/Gigs/GigDetails';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getQuery } from 'utils/url';
 import { isValidEmail } from 'utils/tc';
 import { config } from 'topcoder-react-utils';
 import fetch from 'isomorphic-fetch';
 import RecruitCRMJobApply from './RecruitCRMJobApply';
-
-const cookies = require('browser-cookies');
 
 const PROXY_ENDPOINT = `${config.URL.COMMUNITY_APP}/api`;
 
@@ -52,13 +49,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
 
     if (isEmpty(job)) {
       getJob(id);
-    }
-    const query = getQuery();
-    if (query.referralId) {
-      cookies.set(config.GROWSURF_COOKIE, JSON.stringify({
-        referralId: query.referralId,
-        gigId: id,
-      }), config.GROWSURF_COOKIE_SETTINGS);
     }
   }
 

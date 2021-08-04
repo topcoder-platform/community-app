@@ -14,6 +14,8 @@ import { OptimizelyProvider, createInstance } from '@optimizely/react-sdk';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import { getQuery } from 'utils/url';
+import ReferralCode from 'components/Gigs/ReferralCode';
 
 const optimizelyClient = createInstance({
   sdkKey: config.OPTIMIZELY.SDK_KEY,
@@ -43,6 +45,13 @@ function GigsPagesContainer(props) {
         domain: '',
         expires: 365, // days
       });
+    }
+    // check for referral code in the URL and set it to cookie
+    const query = getQuery();
+    if (query.referralId) {
+      cookies.set(config.GROWSURF_COOKIE, JSON.stringify({
+        referralId: query.referralId,
+      }), config.GROWSURF_COOKIE_SETTINGS);
     }
   }
   const { id, type } = match.params;
@@ -76,10 +85,13 @@ window._chatlio = window._chatlio||[];
       }
       {
         !id && !type ? (
-          <Viewport
-            id="3X6GfJZl3eDU0m4joSJZpN"
-            baseUrl={config.GIGS_PAGES_PATH}
-          />
+          <React.Fragment>
+            <ReferralCode profile={profile} />
+            <Viewport
+              id="3X6GfJZl3eDU0m4joSJZpN"
+              baseUrl={config.GIGS_PAGES_PATH}
+            />
+          </React.Fragment>
         ) : null
       }
       <Footer />

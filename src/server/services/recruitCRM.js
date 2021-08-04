@@ -274,7 +274,7 @@ export default class RecruitCRMService {
     if (referralCookie) referralCookie = JSON.parse(referralCookie);
     try {
       // referral tracking via growsurf
-      if (referralCookie && referralCookie.gigId === id) {
+      if (referralCookie) {
         const gs = new GrowsurfService();
         const tcHandle = _.findIndex(form.custom_fields, { field_id: 2 });
         const growRes = await gs.addParticipant(JSON.stringify({

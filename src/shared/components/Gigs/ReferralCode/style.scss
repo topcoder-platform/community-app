@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  background-image: linear-gradient(97.21deg, #2984BD 0%, #0AB88A 100%);
+  border-radius: 10px;
+  width: 100%;  
+  max-width: 1280px;
+  margin: 30px auto 0;
+  align-items: center;
+  padding: 13px 25px 11px;
+
+  .title {
+    font-weight: bold;
+  }
+
+  span {
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    color: #fff;
+    line-height: 22px;
+    margin-right: 5px;
+  }
+
+  button {
+    margin-left: 10px !important;
+    &:hover {
+      margin-left: 10px !important;
+    }
+  }
+}

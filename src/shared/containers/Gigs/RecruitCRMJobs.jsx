@@ -156,7 +156,7 @@ class RecruitCRMJobsContainer extends React.Component {
     if (loading) {
       return (
         <React.Fragment>
-          <LoadingIndicator />;
+          <LoadingIndicator />
           <p styleName="loading-text">Searching our database for the best gigs…</p>
         </React.Fragment>
       );
