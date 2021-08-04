@@ -1,4 +1,5 @@
-.container {
+.container,
+.containerWithLink {
   display: flex;
   background-image: linear-gradient(97.21deg, #2984BD 0%, #0AB88A 100%);
   border-radius: 10px;
@@ -25,5 +26,24 @@
     &:hover {
       margin-left: 10px !important;
     }
+  }
+
+  .rondedArea {
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 2px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+  }
+}
+
+.containerWithLink {
+  padding: 10px 25px 9px;
+
+  svg {
+    width: 34px;
+    height: 34px;
+    margin: initial;
   }
 }

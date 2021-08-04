@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import LoadingIndicator from 'components/LoadingIndicator';
 import tc from 'components/buttons/themed/tc.scss';
 import ReferralModal from '../ReferralModal';
 import defautlStyle from './style.scss';
@@ -21,8 +22,9 @@ const buttonThemes = {
 function ReferralCode(props) {
   const { profile } = props;
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [referralCode, setReferralCode] = useState('abcXYZ');
   return (
-    <div className={defautlStyle.container}>
+    <div className={_.isEmpty(profile) ? defautlStyle.container : defautlStyle.containerWithLink}>
       <span className={defautlStyle.title}>Topcoder Referral Program:</span>
       {
         _.isEmpty(profile) ? (
@@ -46,7 +48,7 @@ function ReferralCode(props) {
                   onCloseButton={() => setLoginModalOpen(false)}
                   isReferrSucess={false}
                   isReferrError={false}
-                  onReferralDone={() => {}}
+                  onReferralDone={() => { }}
                 />
               )
             }
@@ -54,6 +56,29 @@ function ReferralCode(props) {
         ) : (
           <React.Fragment>
             <span>Your referral link:</span>
+            {
+              referralCode ? (
+                <div className={defautlStyle.rondedArea}>
+                  <span>{`https://www.topcoder.com/gigs/${referralCode}`}</span>
+                  <PrimaryButton
+                    onClick={() => {
+                      const copyhelper = document.createElement('input');
+                      copyhelper.className = 'copyhelper';
+                      document.body.appendChild(copyhelper);
+                      copyhelper.value = `https://www.topcoder.com/gigs/${referralCode}`;
+                      copyhelper.select();
+                      document.execCommand('copy');
+                      document.body.removeChild(copyhelper);
+                    }}
+                    theme={{
+                      button: buttonThemes.tc['primary-borderless-xs'],
+                    }}
+                  >
+                    COPY
+                  </PrimaryButton>
+                </div>
+              ) : <LoadingIndicator />
+            }
           </React.Fragment>
         )
       }
