@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/no-unused-state */
 /**
  * The core article rendering.
@@ -141,7 +142,7 @@ export default class Article extends React.Component {
           <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
         </Helmet>
         {/* Banner */}
-        <div className={theme.bannerContainer}>
+        <div className={fields.featuredImage ? theme.bannerContainer : theme.bannerContainerDefaultImage}>
           <div className={theme.bannerInner}>
             <div className={theme.bannerInnerLeft}>
               <h4 className={theme.articleDate}>{moment(fields.creationDate).format('MMMM D, YYYY')}</h4>
@@ -150,14 +151,14 @@ export default class Article extends React.Component {
             <div className={theme.bannerInnerRight}>
               {
                 fields.featuredImage ? (
-                  <svg viewBox="0 25 1050 600" version="1.1" preserveAspectRatio="none" className={theme['site-header-background']}>
-                    <defs>
-                      <clipPath id="user-space" clipPathUnits="userSpaceOnUse">
-                        <path id="jagged-top" d="M955.643,455.426c113.929-152.899,130.923-281.812-19.966-387.73 C883.769,31.258,814.91-10.997,685,3c-87.558,9.434-218,32-332,9c-48.207-9.726-146.137-5.765-167.796,6.768 C45.296,99.719-82.626,352.551,69.262,473.459c151.887,120.908,379.734,0.979,533.623,75.92 C756.773,624.319,841.715,608.326,955.643,455.426" />
+                  <div className={theme['site-header-background']}>
+                    <svg className={theme.bannerSvg}>
+                      <clipPath id="thrive-banner-clip-path" clipPathUnits="objectBoundingBox">
+                        <path d="M0.477,1 C0.72,0.999,1,0.804,1,0.56 C1,0.316,0.766,-0.067,0.528,0.021 C0.343,0.089,0.145,-0.088,0.076,0.063 C0.016,0.193,-0.071,0.456,0.101,0.618 C0.274,0.782,0.234,1,0.477,1" />
                       </clipPath>
-                    </defs>
-                    <image width="100%" height="100%" preserveAspectRatio="none" href={subData.assets.items[fields.featuredImage.sys.id].fields.file.url} clipPath="url(#user-space)" />
-                  </svg>
+                    </svg>
+                    <div className={theme.bannerClippedImageHolder} style={{ backgroundImage: `url(${subData.assets.items[fields.featuredImage.sys.id].fields.file.url})` }} />
+                  </div>
                 ) : (
                   <img src={DEFAULT_BANNER_IMAGE} alt="Thrive - default banner" className={theme['site-header-background']} />
                 )

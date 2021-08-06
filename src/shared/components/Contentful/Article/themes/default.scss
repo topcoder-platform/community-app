@@ -192,6 +192,10 @@
       text-transform: uppercase;
     }
 
+    > *:first-child {
+      margin-top: 0;
+    }
+
     @include gui-kit-headers;
 
     p {
@@ -409,7 +413,8 @@
   margin-top: 0;
 }
 
-.bannerContainer {
+.bannerContainer,
+.bannerContainerDefaultImage {
   margin: auto;
   width: 100%;
   background-color: #e9e9e9;
@@ -421,6 +426,10 @@
 
   @media screen and (min-width: 1024px) and (max-width: 1440px) {
     margin-bottom: 50px;
+  }
+
+  @media screen and (max-width: 425px) {
+    margin-bottom: 300px;
   }
 
   .bannerInner {
@@ -488,14 +497,53 @@
         width: 100%;
         height: 355px;
         position: absolute;
-        top: -116px;
+        top: -95px;
 
         @include xs-to-sm {
           height: auto;
           top: 0;
         }
+
+        .bannerSvg {
+          position: absolute;
+          width: 0;
+          height: 0;
+
+          /* stylelint-disable */
+          > clipPath {
+            transform: translate(445px, 0) scaleX(-1);
+
+            @media screen and (max-width: 425px) and (min-width: 375px) {
+              transform: translate(380px, 0) scaleX(-1);
+            }
+
+            @media screen and (max-width: 375px) and (min-width: 320px) {
+              transform: translate(330px, 0) scaleX(-1);
+            }
+
+            @media screen and (max-width: 320px) {
+              transform: translate(275px, 0) scaleX(-1);
+            }
+          }
+          /* stylelint-enable */
+        }
+
+        .bannerClippedImageHolder {
+          width: 100%;
+          height: 355px;
+          background-size: cover;
+          background-position: center center;
+          -webkit-clip-path: url(#thrive-banner-clip-path);
+          clip-path: url(#thrive-banner-clip-path);
+        }
       }
     }
+  }
+}
+
+.bannerContainerDefaultImage {
+  @media screen and (max-width: 425px) {
+    margin-bottom: 180px;
   }
 }
 
