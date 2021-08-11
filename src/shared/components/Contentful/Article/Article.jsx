@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/no-unused-state */
 /**
  * The core article rendering.
@@ -13,6 +14,7 @@ import markdown from 'utils/markdown';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import YouTubeVideo from 'components/YouTubeVideo';
+import Viewport from 'components/Contentful/Viewport';
 import moment from 'moment';
 import localStorage from 'localStorage';
 import { Helmet } from 'react-helmet';
@@ -33,6 +35,11 @@ const htmlToText = require('html-to-text');
 const CONTENT_PREVIEW_LENGTH = 110;
 // Votes local storage key
 const LOCAL_STORAGE_KEY = 'VENBcnRpY2xlVm90ZXM=';
+// def banner image
+const DEFAULT_BANNER_IMAGE = 'https://images.ctfassets.net/piwi0eufbb2g/7v2hlDsVep7FWufHw0lXpQ/2505e61a880e68fab4e80cd0e8ec1814/0C37CB5E-B253-4804-8935-78E64E67589E.png';
+// random ads banner - left sidebar
+const RANDOM_BANNERS = ['6G8mjiTC1mzeSQ2YoUG1gB', '1DnDD02xX1liHfSTf5Vsn8', 'HQZ3mN0rR92CbNTkKTHJ5', '1OLoX8ZsvjAnn4TdGbZESD', '77jn01UGoQe2gqA7x0coQD'];
+const RANDOM_BANNER = RANDOM_BANNERS[_.random(0, 4)];
 
 export default class Article extends React.Component {
   componentDidMount() {
@@ -131,33 +138,45 @@ export default class Article extends React.Component {
           <meta name="description" property="og:description" content={description} />
           <meta name="description" property="description" content={description} />
           <meta name="twitter:description" content={description} />
-          <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : null} />
-          <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : null} />
+          <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
+          <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
         </Helmet>
-        {/* Banner */}
-        {
-          fields.featuredImage ? (
-            <div className={theme.bannerContainer}>
-              <svg viewBox="0 25 1050 600" version="1.1" preserveAspectRatio="none" className={theme['site-header-background']}>
-                <defs>
-                  <clipPath id="user-space" clipPathUnits="userSpaceOnUse">
-                    <path id="jagged-top" d="M955.643,455.426c113.929-152.899,130.923-281.812-19.966-387.73 C883.769,31.258,814.91-10.997,685,3c-87.558,9.434-218,32-332,9c-48.207-9.726-146.137-5.765-167.796,6.768 C45.296,99.719-82.626,352.551,69.262,473.459c151.887,120.908,379.734,0.979,533.623,75.92 C756.773,624.319,841.715,608.326,955.643,455.426" />
-                  </clipPath>
-                </defs>
-                <image width="100%" height="100%" preserveAspectRatio="none" href={subData.assets.items[fields.featuredImage.sys.id].fields.file.url} clipPath="url(#user-space)" />
-              </svg>
+        <div className={theme.wrapper}>
+          {/* Banner */}
+          <div className={fields.featuredImage ? theme.bannerContainer : theme.bannerContainerDefaultImage}>
+            <div className={theme.bannerInner}>
+              <div className={theme.bannerInnerLeft}>
+                <h4 className={theme.articleDate}>{moment(fields.creationDate).format('MMMM D, YYYY')}</h4>
+                <h1 className={theme.articleTitle}>{fields.title}</h1>
+              </div>
+              <div className={theme.bannerInnerRight}>
+                {
+                fields.featuredImage ? (
+                  <div className={theme['site-header-background']}>
+                    <svg className={theme.bannerSvg}>
+                      <clipPath id="thrive-banner-clip-path" clipPathUnits="objectBoundingBox">
+                        <path d="M0.477,1 C0.72,0.999,1,0.804,1,0.56 C1,0.316,0.766,-0.067,0.528,0.021 C0.343,0.089,0.145,-0.088,0.076,0.063 C0.016,0.193,-0.071,0.456,0.101,0.618 C0.274,0.782,0.234,1,0.477,1" />
+                      </clipPath>
+                    </svg>
+                    <div className={theme.bannerClippedImageHolder} style={{ backgroundImage: `url(${subData.assets.items[fields.featuredImage.sys.id].fields.file.url})` }} />
+                  </div>
+                ) : (
+                  <img src={DEFAULT_BANNER_IMAGE} alt="Thrive - default banner" className={theme['site-header-background']} />
+                )
+              }
+              </div>
             </div>
-          ) : null
-        }
-        <div
-          className={fields.featuredImage
-            ? theme.contentContainerWithBanner : theme.contentContainer}
-          style={fixStyle(fields.extraStylesForContainer)}
-        >
-          <div className={theme.contentLeftBar}>
-            {/* Authors */}
-            <div className={theme.authorContainer}>
-              {
+            <img src="https://images.ctfassets.net/piwi0eufbb2g/3StLyQh5ne1Lk9H7C1oVxv/52f17a02122212052e44585d3e79fcf7/29320408-E820-48E1-B0FD-539EAC296910.svg" alt="Thrive banner shape" className={theme.bannerBottShape} />
+          </div>
+          <div
+            className={fields.featuredImage
+              ? theme.contentContainerWithBanner : theme.contentContainer}
+            style={fixStyle(fields.extraStylesForContainer)}
+          >
+            <div className={theme.contentLeftBar}>
+              {/* Authors */}
+              <div className={theme.authorContainer}>
+                {
                 _.map(fields.contentAuthor, author => (
                   <div key={author.sys.id} className={theme.authorWrapper}>
                     {
@@ -189,72 +208,89 @@ export default class Article extends React.Component {
                   </div>
                 ))
               }
-            </div>
-            <div className={theme.separator} />
-            <h3 className={theme.label}>DURATION</h3>
-            <span className={theme.duration}>{fields.readTime}</span>
-            <div className={theme.separator} />
-            <h3 className={theme.label}>categories & Tags</h3>
-            {/* Tags */}
-            <div className={theme.tagContainer}>
-              {
+              </div>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>DURATION</h3>
+              <span className={theme.duration}>{fields.readTime}</span>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>categories</h3>
+              {/* Cats */}
+              <div className={theme.tagContainer}>
+                {
+                _.map(fields.contentCategory, cat => (
+                  <div className={theme.tagItem} key={cat.sys.id} title={`Search for articles in ${cat.fields.trackParent}:${cat.fields.name} category`}>
+                    <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track: cat.fields.trackParent, tax: cat.fields.name })}`} key={`${cat.sys.id}`} className={theme.catLink}>{cat.fields.name}</Link>
+                  </div>
+                ))
+              }
+              </div>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>Tags</h3>
+              {/* Tags */}
+              <div className={theme.tagContainer}>
+                {
                 _.map(fields.tags, tag => (
                   <div className={theme.tagItem} key={tag} title={`Search for articles labelled as ${tag}`}>
                     <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</Link>
                   </div>
                 ))
               }
+              </div>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>share</h3>
+              <div className={theme.shareButtons}>
+                <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                  <IconLinkedIn />
+                </a>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
+                  <IconFacebook />
+                </a>
+                <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                  <IconTwitter />
+                </a>
+              </div>
+              <div className={theme.mobileSeparator} />
+              <div className={theme.leftSidebarContent}>
+                <Viewport
+                  id={fields.leftSidebarContent
+                    ? fields.leftSidebarContent.sys.id : RANDOM_BANNER}
+                  preview={preview}
+                  spaceName={spaceName}
+                  environment={environment}
+                />
+              </div>
             </div>
-            <div className={theme.separator} />
-            <h3 className={theme.label}>share</h3>
-            <div className={theme.shareButtons}>
-              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                <IconLinkedIn />
-              </a>
-              <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
-                <IconFacebook />
-              </a>
-              <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                <IconTwitter />
-              </a>
-            </div>
-            <div className={theme.mobileSeparator} />
-          </div>
-          {/* Content */}
-          <div className={theme.articleContent}>
-            <div className={theme.articleContentTop}>
-              <h4 className={theme.articleDate}>{moment(fields.creationDate).format('MMMM D, YYYY')}</h4>
-              <h1 className={theme.articleTitle}>{fields.title}</h1>
-            </div>
-            <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
-            {
+            {/* Content */}
+            <div className={theme.articleContent}>
+              <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
+              {
               fields.type === 'Video' && fields.contentUrl ? (
                 <YouTubeVideo src={fields.contentUrl} />
               ) : null
             }
-            {/* Voting */}
-            <div className={theme.actionContainer}>
-              <div className={theme.action}>
-                <div tabIndex={0} role="button" className={theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
-                  <GestureIcon />
-                </div>
-                <span>
-                  {
+              {/* Voting */}
+              <div className={theme.actionContainer}>
+                <div className={theme.action}>
+                  <div tabIndex={0} role="button" className={theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
+                    <GestureIcon />
+                  </div>
+                  <span>
+                    {
                     upvotes
                   }
-                </span>
-              </div>
-              <div className={theme.action}>
-                <div tabIndex={0} role="button" className={theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
-                  <GestureIcon />
+                  </span>
                 </div>
-                <span>{downvotes}</span>
+                <div className={theme.action}>
+                  <div tabIndex={0} role="button" className={theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
+                    <GestureIcon />
+                  </div>
+                  <span>{downvotes}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* Recommended */}
-        {
+          {/* Recommended */}
+          {
           fields.recommended ? (
             <div className={theme.recommendedContainer}>
               <div className={theme.recommendedTopShape} />
@@ -331,6 +367,7 @@ export default class Article extends React.Component {
             </div>
           ) : null
         }
+        </div>
       </React.Fragment>
     );
   }
