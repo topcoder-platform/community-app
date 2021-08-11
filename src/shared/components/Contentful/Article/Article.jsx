@@ -141,15 +141,16 @@ export default class Article extends React.Component {
           <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
           <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
         </Helmet>
-        {/* Banner */}
-        <div className={fields.featuredImage ? theme.bannerContainer : theme.bannerContainerDefaultImage}>
-          <div className={theme.bannerInner}>
-            <div className={theme.bannerInnerLeft}>
-              <h4 className={theme.articleDate}>{moment(fields.creationDate).format('MMMM D, YYYY')}</h4>
-              <h1 className={theme.articleTitle}>{fields.title}</h1>
-            </div>
-            <div className={theme.bannerInnerRight}>
-              {
+        <div className={theme.wrapper}>
+          {/* Banner */}
+          <div className={fields.featuredImage ? theme.bannerContainer : theme.bannerContainerDefaultImage}>
+            <div className={theme.bannerInner}>
+              <div className={theme.bannerInnerLeft}>
+                <h4 className={theme.articleDate}>{moment(fields.creationDate).format('MMMM D, YYYY')}</h4>
+                <h1 className={theme.articleTitle}>{fields.title}</h1>
+              </div>
+              <div className={theme.bannerInnerRight}>
+                {
                 fields.featuredImage ? (
                   <div className={theme['site-header-background']}>
                     <svg className={theme.bannerSvg}>
@@ -163,19 +164,19 @@ export default class Article extends React.Component {
                   <img src={DEFAULT_BANNER_IMAGE} alt="Thrive - default banner" className={theme['site-header-background']} />
                 )
               }
+              </div>
             </div>
+            <img src="https://images.ctfassets.net/piwi0eufbb2g/3StLyQh5ne1Lk9H7C1oVxv/52f17a02122212052e44585d3e79fcf7/29320408-E820-48E1-B0FD-539EAC296910.svg" alt="Thrive banner shape" className={theme.bannerBottShape} />
           </div>
-          <img src="https://images.ctfassets.net/piwi0eufbb2g/3StLyQh5ne1Lk9H7C1oVxv/52f17a02122212052e44585d3e79fcf7/29320408-E820-48E1-B0FD-539EAC296910.svg" alt="Thrive banner shape" className={theme.bannerBottShape} />
-        </div>
-        <div
-          className={fields.featuredImage
-            ? theme.contentContainerWithBanner : theme.contentContainer}
-          style={fixStyle(fields.extraStylesForContainer)}
-        >
-          <div className={theme.contentLeftBar}>
-            {/* Authors */}
-            <div className={theme.authorContainer}>
-              {
+          <div
+            className={fields.featuredImage
+              ? theme.contentContainerWithBanner : theme.contentContainer}
+            style={fixStyle(fields.extraStylesForContainer)}
+          >
+            <div className={theme.contentLeftBar}>
+              {/* Authors */}
+              <div className={theme.authorContainer}>
+                {
                 _.map(fields.contentAuthor, author => (
                   <div key={author.sys.id} className={theme.authorWrapper}>
                     {
@@ -207,89 +208,89 @@ export default class Article extends React.Component {
                   </div>
                 ))
               }
-            </div>
-            <div className={theme.separator} />
-            <h3 className={theme.label}>DURATION</h3>
-            <span className={theme.duration}>{fields.readTime}</span>
-            <div className={theme.separator} />
-            <h3 className={theme.label}>categories</h3>
-            {/* Cats */}
-            <div className={theme.tagContainer}>
-              {
+              </div>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>DURATION</h3>
+              <span className={theme.duration}>{fields.readTime}</span>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>categories</h3>
+              {/* Cats */}
+              <div className={theme.tagContainer}>
+                {
                 _.map(fields.contentCategory, cat => (
                   <div className={theme.tagItem} key={cat.sys.id} title={`Search for articles in ${cat.fields.trackParent}:${cat.fields.name} category`}>
                     <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track: cat.fields.trackParent, tax: cat.fields.name })}`} key={`${cat.sys.id}`} className={theme.catLink}>{cat.fields.name}</Link>
                   </div>
                 ))
               }
-            </div>
-            <div className={theme.separator} />
-            <h3 className={theme.label}>Tags</h3>
-            {/* Tags */}
-            <div className={theme.tagContainer}>
-              {
+              </div>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>Tags</h3>
+              {/* Tags */}
+              <div className={theme.tagContainer}>
+                {
                 _.map(fields.tags, tag => (
                   <div className={theme.tagItem} key={tag} title={`Search for articles labelled as ${tag}`}>
                     <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</Link>
                   </div>
                 ))
               }
+              </div>
+              <div className={theme.separator} />
+              <h3 className={theme.label}>share</h3>
+              <div className={theme.shareButtons}>
+                <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                  <IconLinkedIn />
+                </a>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
+                  <IconFacebook />
+                </a>
+                <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
+                  <IconTwitter />
+                </a>
+              </div>
+              <div className={theme.mobileSeparator} />
+              <div className={theme.leftSidebarContent}>
+                <Viewport
+                  id={fields.leftSidebarContent
+                    ? fields.leftSidebarContent.sys.id : RANDOM_BANNER}
+                  preview={preview}
+                  spaceName={spaceName}
+                  environment={environment}
+                />
+              </div>
             </div>
-            <div className={theme.separator} />
-            <h3 className={theme.label}>share</h3>
-            <div className={theme.shareButtons}>
-              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                <IconLinkedIn />
-              </a>
-              <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&src=share_button`} target="_blank" rel="noopener noreferrer">
-                <IconFacebook />
-              </a>
-              <a href={`https://twitter.com/intent/tweet?url=${shareUrl}`} target="_blank" rel="noopener noreferrer">
-                <IconTwitter />
-              </a>
-            </div>
-            <div className={theme.mobileSeparator} />
-            <div className={theme.leftSidebarContent}>
-              <Viewport
-                id={fields.leftSidebarContent
-                  ? fields.leftSidebarContent.sys.id : RANDOM_BANNER}
-                preview={preview}
-                spaceName={spaceName}
-                environment={environment}
-              />
-            </div>
-          </div>
-          {/* Content */}
-          <div className={theme.articleContent}>
-            <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
-            {
+            {/* Content */}
+            <div className={theme.articleContent}>
+              <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
+              {
               fields.type === 'Video' && fields.contentUrl ? (
                 <YouTubeVideo src={fields.contentUrl} />
               ) : null
             }
-            {/* Voting */}
-            <div className={theme.actionContainer}>
-              <div className={theme.action}>
-                <div tabIndex={0} role="button" className={theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
-                  <GestureIcon />
-                </div>
-                <span>
-                  {
+              {/* Voting */}
+              <div className={theme.actionContainer}>
+                <div className={theme.action}>
+                  <div tabIndex={0} role="button" className={theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
+                    <GestureIcon />
+                  </div>
+                  <span>
+                    {
                     upvotes
                   }
-                </span>
-              </div>
-              <div className={theme.action}>
-                <div tabIndex={0} role="button" className={theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
-                  <GestureIcon />
+                  </span>
                 </div>
-                <span>{downvotes}</span>
+                <div className={theme.action}>
+                  <div tabIndex={0} role="button" className={theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
+                    <GestureIcon />
+                  </div>
+                  <span>{downvotes}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* Recommended */}
-        {
+          {/* Recommended */}
+          {
           fields.recommended ? (
             <div className={theme.recommendedContainer}>
               <div className={theme.recommendedTopShape} />
@@ -366,6 +367,7 @@ export default class Article extends React.Component {
             </div>
           ) : null
         }
+        </div>
       </React.Fragment>
     );
   }
