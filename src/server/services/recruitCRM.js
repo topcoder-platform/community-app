@@ -270,6 +270,8 @@ export default class RecruitCRMService {
       fileData.append('resume', file.buffer, file.originalname);
     }
     let candidateSlug;
+    let isNewCandidate = true;
+    let isReferred = false;
     let referralCookie = req.cookies[config.GROWSURF_COOKIE];
     if (referralCookie) referralCookie = JSON.parse(referralCookie);
     try {
@@ -277,27 +279,52 @@ export default class RecruitCRMService {
       if (referralCookie) {
         const gs = new GrowsurfService();
         const tcHandle = _.findIndex(form.custom_fields, { field_id: 2 });
-        const growRes = await gs.addParticipant(JSON.stringify({
-          email: form.email,
-          referredBy: referralCookie.referralId,
-          referralStatus: 'CREDIT_PENDING',
-          firstName: form.first_name,
-          lastName: form.last_name,
-          metadata: {
-            gigId: id,
-            tcHandle: form.custom_fields[tcHandle].value,
-          },
-        }));
-        // If everything set in Growsurf
-        // add referral link to candidate profile in recruitCRM
-        if (!growRes.error) {
-          form.custom_fields.push({
-            field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
-          });
+        // check if candidate exists in growsurf
+        const existRes = await gs.getParticipantByIdOREmail(form.email);
+        if (existRes.id) {
+          // candidate exists in growsurf
+          // update candidate to set referrer only if it is not set already
+          if (!existRes.referrer) {
+            isReferred = true;
+            const updateRes = await gs.updateParticipant(form.email, JSON.stringify({
+              referredBy: referralCookie.referralId,
+              referralStatus: 'CREDIT_PENDING',
+              metadata: {
+                gigID: id,
+              },
+            }));
+            // add referral link to candidate profile in recruitCRM
+            if (!updateRes.error) {
+              form.custom_fields.push({
+                field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${updateRes.id}`,
+              });
+            } else {
+              notifyKirilAndNick(updateRes);
+            }
+          }
         } else {
-          notifyKirilAndNick(growRes);
+          isReferred = true;
+          const growRes = await gs.addParticipant(JSON.stringify({
+            email: form.email,
+            referredBy: referralCookie.referralId,
+            referralStatus: 'CREDIT_PENDING',
+            firstName: form.first_name,
+            lastName: form.last_name,
+            metadata: {
+              gigId: id,
+              tcHandle: form.custom_fields[tcHandle].value,
+            },
+          }));
+          // add referral link to candidate profile in recruitCRM
+          if (!growRes.error) {
+            form.custom_fields.push({
+              field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
+            });
+          } else {
+            notifyKirilAndNick(growRes);
+          }
         }
-        // clear the cookie
+        // finally, clear the cookie
         res.cookie(config.GROWSURF_COOKIE, '', {
           maxAge: 0,
           overwrite: true,
@@ -326,6 +353,7 @@ export default class RecruitCRMService {
         // Candidate exists in recruitCRM
         // We will update profile fields, otherwise we create new candidate below
         // Check if candidate is placed in gig currently
+        isNewCandidate = false;
         const candStatusIndex = _.findIndex(
           candidateData.data[0].custom_fields, { field_id: 12 },
         );
@@ -449,6 +477,11 @@ export default class RecruitCRMService {
         };
         notifyKirilAndNick(error);
         return res.send(error);
+      }
+      // For new candidates that apply via referral link
+      // aka triggered referral state step 1 - notify and etc.
+      if (isNewCandidate && isReferred) {
+        // console.log('isNewCandidate');
       }
       // respond to API call
       const data = await applyResponse.json();

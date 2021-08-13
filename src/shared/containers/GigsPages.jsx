@@ -16,6 +16,7 @@ import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { getQuery } from 'utils/url';
 import ReferralCode from 'components/Gigs/ReferralCode';
+import actions from 'actions/growSurf';
 
 const optimizelyClient = createInstance({
   sdkKey: config.OPTIMIZELY.SDK_KEY,
@@ -23,7 +24,9 @@ const optimizelyClient = createInstance({
 const cookies = require('browser-cookies');
 
 function GigsPagesContainer(props) {
-  const { match, profile } = props;
+  const {
+    match, profile, growSurf, getReferralId,
+  } = props;
   const optProfile = {
     attributes: {},
   };
@@ -32,6 +35,12 @@ function GigsPagesContainer(props) {
     optProfile.attributes.TC_Handle = profile.handle;
     optProfile.attributes.HomeCountryCode = profile.homeCountryCode;
     optProfile.attributes.email = profile.email;
+    // trigger referral id fetching when profile is loaded
+    if (isomorphy.isClientSide()) {
+      if (_.isEmpty(growSurf) || (!growSurf.loading && !growSurf.data)) {
+        getReferralId(profile);
+      }
+    }
   } else if (isomorphy.isClientSide()) {
     const idCookie = cookies.get('_tc.aid');
     if (idCookie) {
@@ -46,7 +55,9 @@ function GigsPagesContainer(props) {
         expires: 365, // days
       });
     }
-    // check for referral code in the URL and set it to cookie
+  }
+  // check for referral code in the URL and set it to cookie
+  if (isomorphy.isClientSide()) {
     const query = getQuery();
     if (query.referralId) {
       cookies.set(config.GROWSURF_COOKIE, JSON.stringify({
@@ -86,7 +97,7 @@ window._chatlio = window._chatlio||[];
       {
         !id && !type ? (
           <React.Fragment>
-            <ReferralCode profile={profile} />
+            <ReferralCode profile={profile} growSurf={growSurf} />
             <Viewport
               id="3X6GfJZl3eDU0m4joSJZpN"
               baseUrl={config.GIGS_PAGES_PATH}
@@ -112,20 +123,36 @@ window._chatlio = window._chatlio||[];
 
 GigsPagesContainer.defaultProps = {
   profile: null,
+  growSurf: null,
 };
 
 GigsPagesContainer.propTypes = {
   match: PT.shape().isRequired,
   profile: PT.shape(),
+  growSurf: PT.shape(),
+  getReferralId: PT.func.isRequired,
 };
 
 function mapStateToProps(state) {
   const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
+  const { growSurf } = state;
   return {
     profile,
+    growSurf,
+  };
+}
+
+function mapDispatchToActions(dispatch) {
+  const a = actions.growsurf;
+  return {
+    getReferralId: (profile) => {
+      dispatch(a.getReferralidInit());
+      dispatch(a.getReferralidDone(profile));
+    },
   };
 }
 
 export default connect(
   mapStateToProps,
+  mapDispatchToActions,
 )(GigsPagesContainer);

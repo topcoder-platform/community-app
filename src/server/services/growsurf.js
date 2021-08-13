@@ -21,6 +21,30 @@ export default class GrowsurfService {
   }
 
   /**
+   * Gets get participant.
+   * @return {Promise}
+   * @param {String} idOrEmail growsurf id or email
+   */
+  async getParticipantByIdOREmail(idOrEmail) {
+    const response = await fetch(`${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${idOrEmail}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: this.private.authorization,
+      },
+    });
+    if (response.status >= 300) {
+      return {
+        error: await response.json(),
+        code: response.status,
+        url: `${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${idOrEmail}`,
+      };
+    }
+    const data = await response.json();
+    return data;
+  }
+
+  /**
    * Gets get participant by email or id.
    * @return {Promise}
    * @param {Object} req the request.
@@ -67,7 +91,6 @@ export default class GrowsurfService {
         code: response.status,
         url: `${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant`,
         body,
-        private: this.private, // to remove in final release
       };
     }
     const data = await response.json();
@@ -95,5 +118,32 @@ export default class GrowsurfService {
       res.status(result.code);
     }
     return result;
+  }
+
+  /**
+   * Update participant in growSurf
+   * @param {string} idOrEmail id or email
+   * @param {string} body payload
+   * @returns {Promise}
+   */
+  async updateParticipant(idOrEmail, body) {
+    const response = await fetch(`${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${idOrEmail}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: this.private.authorization,
+      },
+      body,
+    });
+    if (response.status >= 300) {
+      return {
+        error: await response.json(),
+        code: response.status,
+        url: `${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${idOrEmail}`,
+        body,
+      };
+    }
+    const data = await response.json();
+    return data;
   }
 }

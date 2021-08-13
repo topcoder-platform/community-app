@@ -2,7 +2,7 @@
 /**
  * Connects the Redux store to the GigsPages component.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
@@ -20,9 +20,14 @@ const buttonThemes = {
 };
 
 function ReferralCode(props) {
-  const { profile } = props;
+  const { profile, growSurf } = props;
   const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const [referralCode, setReferralCode] = useState('abcXYZ');
+  const [growSurfState, setGrowSurfState] = useState(growSurf);
+  const [copyBtnText, setCopyBtnText] = useState('COPY');
+  useEffect(() => {
+    setGrowSurfState(props.growSurf);
+  }, [growSurf]);
+
   return (
     <div className={_.isEmpty(profile) ? defautlStyle.container : defautlStyle.containerWithLink}>
       <span className={defautlStyle.title}>Topcoder Referral Program:</span>
@@ -57,24 +62,28 @@ function ReferralCode(props) {
           <React.Fragment>
             <span>Your referral link:</span>
             {
-              referralCode ? (
+              growSurfState.data ? (
                 <div className={defautlStyle.rondedArea}>
-                  <span>{`https://www.topcoder.com/gigs/${referralCode}`}</span>
+                  <span>{`https://www.topcoder.com/gigs?referralId=${growSurfState.data.id}`}</span>
                   <PrimaryButton
                     onClick={() => {
                       const copyhelper = document.createElement('input');
                       copyhelper.className = 'copyhelper';
                       document.body.appendChild(copyhelper);
-                      copyhelper.value = `https://www.topcoder.com/gigs/${referralCode}`;
+                      copyhelper.value = `https://www.topcoder.com/gigs?referralId=${growSurfState.data.id}`;
                       copyhelper.select();
                       document.execCommand('copy');
                       document.body.removeChild(copyhelper);
+                      setCopyBtnText('COPIED');
+                      setTimeout(() => {
+                        setCopyBtnText('COPY');
+                      }, 3000);
                     }}
                     theme={{
                       button: buttonThemes.tc['primary-borderless-xs'],
                     }}
                   >
-                    COPY
+                    {copyBtnText}
                   </PrimaryButton>
                 </div>
               ) : <LoadingIndicator />
@@ -87,11 +96,13 @@ function ReferralCode(props) {
 }
 
 ReferralCode.defaultProps = {
-  profile: null,
+  profile: {},
+  growSurf: {},
 };
 
 ReferralCode.propTypes = {
   profile: PT.shape(),
+  growSurf: PT.shape(),
 };
 
 export default ReferralCode;
