@@ -65,7 +65,7 @@ class StatsCategory extends React.Component {
     }
     const activeTracks = [];
 
-    if (stats.COPILOT && stats.COPILOT.fulfillment) {
+    if (stats && stats.COPILOT && stats.COPILOT.fulfillment) {
       activeTracks.push({
         name: 'COPILOT',
         subTracks: [{
@@ -77,12 +77,12 @@ class StatsCategory extends React.Component {
 
     ['DEVELOP', 'DESIGN', 'DATA_SCIENCE'].forEach((track) => {
       const active = [];
-      const subTracks = stats[track] ? stats[track].subTracks || [] : [];
+      const subTracks = stats && stats[track] ? stats[track].subTracks || [] : [];
 
-      if (stats[track] && stats[track].SRM) {
+      if (stats && stats[track] && stats[track].SRM) {
         subTracks.push({ ...stats[track].SRM, name: 'SRM' });
       }
-      if (stats[track] && stats[track].MARATHON_MATCH) {
+      if (stats && stats[track] && stats[track].MARATHON_MATCH) {
         subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
       }
 

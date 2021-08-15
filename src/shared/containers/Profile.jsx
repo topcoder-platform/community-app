@@ -5,13 +5,13 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-
 import { config } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
 import MetaTags from 'components/MetaTags';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
+import { loadPublicStatsOnly } from 'utils/memberStats';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -19,15 +19,20 @@ class ProfileContainer extends React.Component {
       handleParam,
       loadProfile,
       meta,
-      memberGroups,
-      loadMemberGroups,
       auth,
     } = this.props;
 
-    loadProfile(handleParam, _.get(meta, 'groupIds', []));
-    if (memberGroups.length === 0 && auth.tokenV3 && auth.user
-        && handleParam === auth.user.handle) {
-      loadMemberGroups(auth.user.userId, auth.tokenV3);
+    loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
+    if (auth.tokenV3 && auth.memberGroups && auth.memberGroups.length > 0
+      && auth.user && auth.user.handle === handleParam) {
+      _.forEach(auth.memberGroups, (memberGroup) => { /* eslint consistent-return: off */
+        const profileConfig = _.find(config.URL.SUBDOMAIN_PROFILE_CONFIG, { groupId: memberGroup });
+        if (profileConfig && profileConfig.userProfile) {
+          // redirect user to configured profile url
+          window.location.href = profileConfig.userProfile;
+          return false;
+        }
+      });
     }
   }
 
@@ -37,23 +42,11 @@ class ProfileContainer extends React.Component {
       profileForHandle,
       loadProfile,
       meta,
-      memberGroups,
       auth,
     } = nextProps;
 
     if (handleParam !== profileForHandle) {
-      loadProfile(handleParam, _.get(meta, 'groupIds', []));
-    }
-
-    if (memberGroups.length !== 0 && auth.user && handleParam === auth.user.handle) {
-      _.forEach(memberGroups, (memberGroup) => { /* eslint consistent-return: off */
-        const profileConfig = _.find(config.URL.SUBDOMAIN_PROFILE_CONFIG, { groupId: memberGroup });
-        if (profileConfig && profileConfig.userProfile) {
-          // redirect user to configured profile url
-          window.location.href = profileConfig.userProfile;
-          return false;
-        }
-      });
+      loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
     }
   }
 
@@ -114,7 +107,6 @@ ProfileContainer.defaultProps = {
   stats: null,
   meta: null,
   auth: {},
-  memberGroups: [],
 };
 
 ProfileContainer.propTypes = {
@@ -133,8 +125,6 @@ ProfileContainer.propTypes = {
   lookupData: PT.shape().isRequired,
   meta: PT.shape(),
   auth: PT.shape(),
-  loadMemberGroups: PT.func.isRequired,
-  memberGroups: PT.arrayOf(PT.string),
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -151,7 +141,6 @@ const mapStateToProps = (state, ownProps) => ({
   skills: state.profile.skills,
   stats: state.profile.stats,
   lookupData: state.lookup,
-  memberGroups: state.groups.memberGroups,
   auth: {
     ...state.auth,
   },
@@ -159,10 +148,9 @@ const mapStateToProps = (state, ownProps) => ({
 
 function mapDispatchToProps(dispatch) {
   const a = actions.profile;
-  const ag = actions.groups;
   const lookupActions = actions.lookup;
   return {
-    loadProfile: (handle, groupIds) => {
+    loadProfile: (handle, groupIds, tokenV3, showPublicStats) => {
       dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
@@ -177,11 +165,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
       dispatch(a.getSkillsDone(handle));
-      dispatch(a.getStatsDone(handle, groupIds));
+      dispatch(a.getStatsDone(handle, showPublicStats ? undefined : groupIds, tokenV3));
       dispatch(lookupActions.getCountriesDone());
-    },
-    loadMemberGroups: (userId, tokenV3) => {
-      dispatch(ag.getMemberGroups(userId, tokenV3));
     },
   };
 }

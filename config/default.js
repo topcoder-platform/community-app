@@ -163,7 +163,7 @@ module.exports = {
     // If a logged in user is a member of any of these groups, when they land on
     // their profile page (members/:handle), they'll be redirected to the "userProfile" url
     SUBDOMAIN_PROFILE_CONFIG: [
-      { groupId: '20000000', userProfile: 'https://topgear-app.wipro.com/user-details' },
+      { groupId: '20000000', communityId: 'wipro', userProfile: 'https://topgear-app.wipro.com/user-details' },
     ],
   },
 
