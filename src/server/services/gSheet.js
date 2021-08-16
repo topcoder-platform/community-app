@@ -30,7 +30,7 @@ export default class GSheetService {
    * @param {Object} req the request
    * @param {Object} res the response
    */
-  async getSheet(req, res) {
+  async getSheetAPI(req, res) {
     const { index } = req.query;
     const { id } = req.params;
     const doc = new GoogleSpreadsheet(id);
@@ -47,6 +47,65 @@ export default class GSheetService {
     } catch (e) {
       res.status((e.response && e.response.status) || 500);
       return res.send((e.response && e.response.data) || { ...e, message: e.message });
+    }
+  }
+
+  /**
+   * Adds rows to gsheet by ID
+   * Needs to be shared with the service account to work
+   * This is the controler method with req/res objects
+   * @param {Object} req the request
+   * @param {Object} res the response
+   */
+  async addToSheetAPI(req, res) {
+    const { index } = req.query;
+    const { id } = req.params;
+    const doc = new GoogleSpreadsheet(id);
+    try {
+      // set credentials for working
+      await doc.useServiceAccountAuth({
+        client_email: config.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        private_key: config.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(new RegExp('\\\\n', 'g'), '\n'),
+      });
+      // load doc infos
+      await doc.loadInfo();
+      // get 1st sheet
+      const sheet = doc.sheetsByIndex[index || 0];
+      const moreRows = await sheet.addRows(req.body);
+      const rowsJson = JSON.stringify(moreRows, getCircularReplacer());
+      return res.send({
+        rows: JSON.parse(rowsJson),
+      });
+    } catch (e) {
+      res.status((e.response && e.response.status) || 500);
+      return res.send((e.response && e.response.data) || { ...e, message: e.message });
+    }
+  }
+
+  /**
+   * Adds rows to gsheet by ID
+   * Needs to be shared with the service account to work
+   * @param {string} id the doc id
+   * @param {Array} paylod the body to send
+   * @param {string} index sheet index in the doc. Defaults to 0
+   */
+  async addToSheet(id, payload, index = 0) {
+    const doc = new GoogleSpreadsheet(id);
+    try {
+      // set credentials for working
+      await doc.useServiceAccountAuth({
+        client_email: config.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        private_key: config.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(new RegExp('\\\\n', 'g'), '\n'),
+      });
+      // load doc infos
+      await doc.loadInfo();
+      // get 1st sheet
+      const sheet = doc.sheetsByIndex[index || 0];
+      const moreRows = await sheet.addRows(payload);
+      const rowsJson = JSON.stringify(moreRows, getCircularReplacer());
+      return rowsJson;
+    } catch (e) {
+      return e;
     }
   }
 }

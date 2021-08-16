@@ -9,6 +9,7 @@ import { logger } from 'topcoder-react-lib';
 import Joi from 'joi';
 import GrowsurfService from './growsurf';
 import { sendEmailDirect } from './sendGrid';
+import GSheetService from './gSheet';
 
 const FormData = require('form-data');
 
@@ -274,19 +275,19 @@ export default class RecruitCRMService {
     let isReferred = false;
     let referralCookie = req.cookies[config.GROWSURF_COOKIE];
     if (referralCookie) referralCookie = JSON.parse(referralCookie);
+    const tcHandle = _.findIndex(form.custom_fields, { field_id: 2 });
+    let growRes;
     try {
       // referral tracking via growsurf
       if (referralCookie) {
         const gs = new GrowsurfService();
-        const tcHandle = _.findIndex(form.custom_fields, { field_id: 2 });
         // check if candidate exists in growsurf
         const existRes = await gs.getParticipantByIdOREmail(form.email);
         if (existRes.id) {
           // candidate exists in growsurf
           // update candidate to set referrer only if it is not set already
           if (!existRes.referrer) {
-            isReferred = true;
-            const updateRes = await gs.updateParticipant(form.email, JSON.stringify({
+            growRes = await gs.updateParticipant(form.email, JSON.stringify({
               referredBy: referralCookie.referralId,
               referralStatus: 'CREDIT_PENDING',
               metadata: {
@@ -294,17 +295,15 @@ export default class RecruitCRMService {
               },
             }));
             // add referral link to candidate profile in recruitCRM
-            if (!updateRes.error) {
+            if (!growRes.error) {
+              isReferred = true;
               form.custom_fields.push({
-                field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${updateRes.id}`,
+                field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
               });
-            } else {
-              notifyKirilAndNick(updateRes);
             }
           }
         } else {
-          isReferred = true;
-          const growRes = await gs.addParticipant(JSON.stringify({
+          growRes = await gs.addParticipant(JSON.stringify({
             email: form.email,
             referredBy: referralCookie.referralId,
             referralStatus: 'CREDIT_PENDING',
@@ -317,11 +316,10 @@ export default class RecruitCRMService {
           }));
           // add referral link to candidate profile in recruitCRM
           if (!growRes.error) {
+            isReferred = true;
             form.custom_fields.push({
               field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
             });
-          } else {
-            notifyKirilAndNick(growRes);
           }
         }
         // finally, clear the cookie
@@ -479,9 +477,21 @@ export default class RecruitCRMService {
         return res.send(error);
       }
       // For new candidates that apply via referral link
-      // aka triggered referral state step 1 - notify and etc.
-      if (isNewCandidate && isReferred) {
-        // console.log('isNewCandidate');
+      // aka triggered referral state step 1 - notify and etc. housekeeping tasks
+      if (isNewCandidate && isReferred && !growRes.error) {
+        // update the tracking sheet
+        const gs = new GSheetService();
+        await gs.addToSheet(config.GIG_REFERRALS_SHEET, [[
+          `${form.first_name} ${form.last_name}`,
+          form.email,
+          `https://app.recruitcrm.io/candidate/${candidateData.slug}`,
+          `https://topcoder.com/members/${form.custom_fields[tcHandle].value}`,
+          `https://app.growsurf.com/dashboard/campaign/u9frbx/participant/${growRes.referrer.id}`,
+          `${growRes.referrer.firstName} ${growRes.referrer.lastName}`,
+          growRes.referrer.email,
+          `https://topcoder.com/members/${growRes.referrer.metadata.tcHandle}`,
+          `https://app.recruitcrm.io/job/${id}`,
+        ]]);
       }
       // respond to API call
       const data = await applyResponse.json();

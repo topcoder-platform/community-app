@@ -267,6 +267,9 @@ module.exports = {
   },
 
   GSHEETS_API_KEY: 'AIzaSyBRdKySN5JNCb2H6ZxJdTTvp3cWU51jiOQ',
+  GOOGLE_SERVICE_ACCOUNT_EMAIL: 'communityappserviceacc@tc-sheets-to-contentful.iam.gserviceaccount.com',
+  GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: '',
+  GIG_REFERRALS_SHEET: '1xilx7NxDAvzAzOTbPpvb3lL3RWv1VD5W24OEMAoF9HU',
 
   AUTH_CONFIG: {
     AUTH0_URL: 'TC_M2M_AUTH0_URL',
