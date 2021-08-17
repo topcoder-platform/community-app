@@ -95,7 +95,7 @@ export default class GSheetService {
       // set credentials for working
       await doc.useServiceAccountAuth({
         client_email: config.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: config.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(new RegExp('\\\\n', 'g'), '\n'),
+        private_key: config.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\m/g, '\n'),
       });
       // load doc infos
       await doc.loadInfo();
