@@ -141,7 +141,7 @@ class StatsCategory extends React.Component {
                       {subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}
                     </div>
                     {
-                      subtrack.rank && !_.isNull(subtrack.rank.rating)
+                      subtrack.rank && !_.isUndefined(subtrack.rank.rating)
                       && (
                       <div styleName="ranking">
                         <div
@@ -157,7 +157,7 @@ class StatsCategory extends React.Component {
                       )
                     }
                     {
-                      (!subtrack.rank || _.isNull(subtrack.rank.rating))
+                      (!subtrack.rank || _.isUndefined(subtrack.rank.rating))
                       && !subtrack.fulfillment
                       && (
                       <div styleName="ranking">
