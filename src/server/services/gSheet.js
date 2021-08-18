@@ -25,6 +25,12 @@ const getCircularReplacer = () => {
  * APIs in the same uniform manner.
  */
 export default class GSheetService {
+  constructor() {
+    this.getSheetAPI = this.getSheetAPI.bind(this);
+    this.addToSheetAPI = this.getSheetAPI.bind(this);
+    this.addToSheet = this.getSheetAPI.bind(this);
+  }
+
   /**
    * getSheet
    * @param {Object} req the request
@@ -45,7 +51,13 @@ export default class GSheetService {
         rows: JSON.parse(rowsJson),
       });
     } catch (e) {
-      res.status((e.response && e.response.status) || 500);
+      const status = (e.response && e.response.status) || 500;
+      if (status === 429) {
+        // rate limit issue - wait 15sec and retry
+        await new Promise(resolve => setTimeout(resolve, 15000));
+        return this.getSheetAPI(req, res);
+      }
+      res.status(status);
       return res.send((e.response && e.response.data) || { ...e, message: e.message });
     }
   }
@@ -65,7 +77,7 @@ export default class GSheetService {
       // set credentials for working
       await doc.useServiceAccountAuth({
         client_email: config.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: config.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(new RegExp('\\\\n', 'g'), '\n'),
+        private_key: config.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\m/g, '\n'),
       });
       // load doc infos
       await doc.loadInfo();
@@ -77,7 +89,13 @@ export default class GSheetService {
         rows: JSON.parse(rowsJson),
       });
     } catch (e) {
-      res.status((e.response && e.response.status) || 500);
+      const status = (e.response && e.response.status) || 500;
+      if (status === 429) {
+        // rate limit issue - wait 15sec and retry
+        await new Promise(resolve => setTimeout(resolve, 15000));
+        return this.addToSheetAPI(req, res);
+      }
+      res.status(status);
       return res.send((e.response && e.response.data) || { ...e, message: e.message });
     }
   }
@@ -105,6 +123,12 @@ export default class GSheetService {
       const rowsJson = JSON.stringify(moreRows, getCircularReplacer());
       return rowsJson;
     } catch (e) {
+      const status = (e.response && e.response.status) || 500;
+      if (status === 429) {
+        // rate limit issue - wait 15sec and retry
+        await new Promise(resolve => setTimeout(resolve, 15000));
+        return this.addToSheet(id, payload, index);
+      }
       return e;
     }
   }
