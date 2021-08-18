@@ -9,7 +9,7 @@ import { logger } from 'topcoder-react-lib';
 import Joi from 'joi';
 import GrowsurfService from './growsurf';
 import { sendEmailDirect } from './sendGrid';
-import GSheetService from './gSheet';
+// import GSheetService from './gSheet';
 
 const FormData = require('form-data');
 
@@ -480,18 +480,32 @@ export default class RecruitCRMService {
       // aka triggered referral state step 1 - notify and etc. housekeeping tasks
       if (isNewCandidate && isReferred && !growRes.error) {
         // update the tracking sheet
-        const gs = new GSheetService();
-        await gs.addToSheet(config.GIG_REFERRALS_SHEET, [[
-          `${form.first_name} ${form.last_name}`,
-          form.email,
-          `https://app.recruitcrm.io/candidate/${candidateData.slug}`,
-          `https://topcoder.com/members/${form.custom_fields[tcHandle].value}`,
-          `https://app.growsurf.com/dashboard/campaign/u9frbx/participant/${growRes.referrer.id}`,
-          `${growRes.referrer.firstName} ${growRes.referrer.lastName}`,
-          growRes.referrer.email,
-          `https://topcoder.com/members/${growRes.referrer.metadata.tcHandle}`,
-          `https://app.recruitcrm.io/job/${id}`,
-        ]]);
+        // enable that code when issue with service account key structure is resolved
+        // const gs = new GSheetService();
+        // await gs.addToSheet(config.GIG_REFERRALS_SHEET, [[
+        //   `${form.first_name} ${form.last_name}`,
+        //   form.email,
+        //   `https://app.recruitcrm.io/candidate/${candidateData.slug}`,
+        //   `https://topcoder.com/members/${form.custom_fields[tcHandle].value}`,
+        //   `https://app.growsurf.com/dashboard/campaign/u9frbx/participant/${growRes.referrer.id}`,
+        //   `${growRes.referrer.firstName} ${growRes.referrer.lastName}`,
+        //   growRes.referrer.email,
+        //   `https://topcoder.com/members/${growRes.referrer.metadata.tcHandle}`,
+        //   `https://app.recruitcrm.io/job/${id}`,
+        // ]]);
+        // Notify the person who referred
+        sendEmailDirect({
+          personalizations: [
+            {
+              to: [{ email: growRes.referrer.email }],
+              subject: 'Thanks for your Topcoder referral!',
+            },
+          ],
+          from: { email: 'noreply@topcoder.com', name: 'The Topcoder Community Team' },
+          content: [{
+            type: 'text/html', value: `<p>Hello ${growRes.referrer.metadata.tcHandle},<p/><p>You just made our day! Sharing a Topcoder Gig Work opportunity is the BEST compliment you can give us. So pat yourself on the back, give yourself a hi-five, or just stand up and dance like no one is watching. You deserve it!</p><p>Did you know many of our Topcoder members consider earning through Topcoder to be life changing? There must be <a href="https://www.youtube.com/watch?v=8J7yTze4Xbs" target="_blank">something in the air</a>. You have just taken the first step into helping someone you know change their life for the better.</p><p>Because of that, we are excited to reward you. $500 is earned for every referral you send us that gets the gig. <a href="https://www.topcoder.com/community/gig-referral">Learn more here</a>.</p><p>Thank you for sharing Topcoder Gigs and hope to see you around here again soon!</p><p>- The Topcoder Community Team</p>`,
+          }],
+        });
       }
       // respond to API call
       const data = await applyResponse.json();
