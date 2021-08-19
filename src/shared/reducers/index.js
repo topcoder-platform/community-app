@@ -40,6 +40,7 @@ import newsletterPreferences from './newsletterPreferences';
 import mmLeaderboard from './mmLeaderboard';
 import recruitCRM from './recruitCRM';
 import gSheet from './gSheet';
+import growSurf from './growSurf';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -168,6 +169,7 @@ export function factory(req) {
     recruitCRM,
     mmLeaderboard,
     gSheet,
+    growSurf,
   }));
 }
 
