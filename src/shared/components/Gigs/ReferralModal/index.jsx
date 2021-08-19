@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * The modal used for gig referral flow
  */
@@ -41,7 +42,7 @@ function ReferralModal({
       { !isEmpty(profile) ? (
         <div className={modalStyle.referrals}>
           {
-            !referralId && !isReferrError && (
+            referralId && !isReferrError && !isReferrSucess && (
             <div className={modalStyle.referrForm}>
               <p style={{ textAlign: 'center' }}>Sending your referral...</p>
               <LoadingIndicator />
@@ -90,10 +91,9 @@ function ReferralModal({
         </div>
       ) : (
         <div className={modalStyle.loginRequired}>
-          <h3 className={modalStyle.title}>WARNING</h3>
-          <p className={modalStyle.loginMsg}>You must be a Topcoder member to refer!</p>
+          <h3 className={modalStyle.title}>REFERRAL PROGRAM</h3>
+          <p className={modalStyle.loginMsg}>Please login to receive your referral code.</p>
           <div className={modalStyle.ctaButtons}>
-            <Link to={HELP_INFO_LINK} className={buttonThemes.tc['primary-white-md']} openNewTab="true">FIND OUT MORE</Link>
             <PrimaryButton
               onClick={() => {
                 window.location = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`;
@@ -104,8 +104,9 @@ function ReferralModal({
             >
               LOGIN
             </PrimaryButton>
+            <Link to={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing`} className={buttonThemes.tc['primary-white-md']} openNewTab="true">REGISTER</Link>
           </div>
-          <p className={modalStyle.regTxt}>Not a member? It is free to <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing`}>register</a>!</p>
+          <p className={modalStyle.regTxt}>Find out how the referral program works <a href={HELP_INFO_LINK} target="_blank" rel="noreferrer">here</a>.</p>
         </div>
       )}
     </Modal>

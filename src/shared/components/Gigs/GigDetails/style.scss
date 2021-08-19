@@ -1,5 +1,7 @@
+/* stylelint-disable no-descending-specificity */
 @import '~styles/mixins';
 @import "~components/Contentful/default";
+@import "~components/buttons/themed/tc";
 
 @mixin primaryBtn {
   background-color: #137d60;
@@ -135,7 +137,8 @@
         .shareButtons {
           display: flex;
           align-items: center;
-          margin-bottom: 12px;
+          margin: 20px 0 12px;
+          color: #fff;
 
           a {
             margin-right: 5px;
@@ -144,12 +147,16 @@
               margin-right: 0;
             }
           }
+
+          svg > path {
+            fill: #fff;
+          }
         }
 
         .referr-area {
           background-image: linear-gradient(135.29deg, #2c95d7 0%, #06d6a0 100%);
           border-radius: 10px;
-          padding: 25px 32px 30px 20px;
+          padding: 25px 20px 30px 20px;
           margin-bottom: 20px;
 
           h6 {
@@ -160,6 +167,69 @@
           p {
             color: #fff;
             margin-bottom: 20px;
+          }
+
+          .referralLinkTitile {
+            font-weight: 500;
+            color: #fff;
+            display: block;
+            margin: 15px 0 5px;
+          }
+
+          .referralLink {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            color: #fff;
+            width: 100%;
+            overflow: auto;
+            padding: 7px;
+            background: transparent;
+            margin: 0;
+          }
+
+          .copyAndShare {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0 4px;
+
+            @media screen and (max-width: 375px) {
+              flex-direction: column;
+              align-items: flex-start;
+            }
+
+            button {
+              @include primary-borderless;
+              @include md;
+
+              &:hover {
+                @include primary-borderless;
+              }
+            }
+
+            .shareButtons {
+              margin: 0;
+            }
+          }
+
+          .sepWrap {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+
+            .sepLine {
+              height: 1px;
+              background-color: #000;
+              opacity: 0.13;
+              flex: 2;
+            }
+
+            span {
+              margin: 0 9px;
+              display: inline-block;
+              color: #fff;
+              font-weight: 500;
+            }
           }
 
           .referr-form {

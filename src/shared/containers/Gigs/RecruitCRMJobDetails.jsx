@@ -3,20 +3,16 @@
  * driven by recruitCRM
  */
 
-import { isEmpty, trim } from 'lodash';
+import { isEmpty } from 'lodash';
 import actions from 'actions/recruitCRM';
 import LoadingIndicator from 'components/LoadingIndicator';
 import GigDetails from 'components/Gigs/GigDetails';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getQuery } from 'utils/url';
-import { isValidEmail } from 'utils/tc';
 import { config } from 'topcoder-react-utils';
 import fetch from 'isomorphic-fetch';
 import RecruitCRMJobApply from './RecruitCRMJobApply';
-
-const cookies = require('browser-cookies');
 
 const PROXY_ENDPOINT = `${config.URL.COMMUNITY_APP}/api`;
 
@@ -38,8 +34,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
     };
 
     this.onSendClick = this.onSendClick.bind(this);
-    this.onFormInputChange = this.onFormInputChange.bind(this);
-    this.getReferralId = this.getReferralId.bind(this);
     this.onReferralDone = this.onReferralDone.bind(this);
   }
 
@@ -53,65 +47,27 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
     if (isEmpty(job)) {
       getJob(id);
     }
-    const query = getQuery();
-    if (query.referralId) {
-      cookies.set(config.GROWSURF_COOKIE, JSON.stringify({
-        referralId: query.referralId,
-        gigId: id,
-      }), config.GROWSURF_COOKIE_SETTINGS);
-    }
-  }
-
-  /**
-   * Form state setter
-   * @param {*} key key
-   * @param {*} update value
-   */
-  onFormInputChange(key, update) {
-    this.setState((state) => {
-      const { formData, formErrors } = state;
-      if (key === 'email') {
-        formData.email = update;
-        if (trim(update)) {
-          if (!(isValidEmail(update))) formErrors.email = 'Invalid email';
-          else {
-            delete formErrors.email;
-          }
-        } else formErrors.email = 'Email is required field';
-      }
-      return {
-        formData,
-        formErrors,
-      };
-    });
   }
 
   /**
    * Send gig referral invite
    */
-  async onSendClick() {
-    const { profile } = this.props;
-    const { formData, formErrors } = this.state;
-    if (!formData.email) {
-      formErrors.email = 'Email is required field';
-      this.setState({
-        formErrors,
-      });
-      return;
-    }
+  async onSendClick(email) {
+    const { profile, growSurf } = this.props;
+    const { formData } = this.state;
     // email the invite
     const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
       method: 'POST',
       body: JSON.stringify({
         personalizations: [
           {
-            to: [{ email: formData.email }],
+            to: [{ email }],
             subject: `${profile.firstName} ${profile.lastName} Thinks This Topcoder Gig Is For You!`,
           },
         ],
         from: { email: 'noreply@topcoder.com', name: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork` },
         content: [{
-          type: 'text/plain', value: formData.body,
+          type: 'text/plain', value: `${formData.body}?referralId=${growSurf.data.id}`,
         }],
       }),
       headers: {
@@ -142,43 +98,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
     });
   }
 
-  /**
-   * Get referral id for the logged user
-   */
-  async getReferralId() {
-    const { profile } = this.props;
-    const { referralId, formData } = this.state;
-    if (!referralId && profile.email) {
-      const res = await fetch(`${PROXY_ENDPOINT}/growsurf/participants?participantId=${profile.email}`, {
-        method: 'POST',
-        body: JSON.stringify({
-          email: profile.email,
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          tcHandle: profile.handle,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.status >= 300) {
-        this.setState({
-          isReferrError: { message: 'Failed to get your referralId.' },
-        });
-      } else {
-        const data = await res.json();
-        formData.body += `?referralId=${data.id}`;
-        this.setState({
-          referralId: data.id,
-          formData: {
-            ...formData,
-            body: formData.body,
-          },
-        });
-      }
-    }
-  }
-
   render() {
     const {
       loading,
@@ -186,13 +105,14 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       isApply,
       application,
       profile,
+      growSurf,
     } = this.props;
     const {
       formErrors,
       formData,
       isReferrSucess,
       isReferrError,
-      referralId,
+      // referralId,
     } = this.state;
 
     if (loading) {
@@ -210,11 +130,9 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
           isReferrSucess={isReferrSucess}
           formErrors={formErrors}
           formData={formData}
-          onFormInputChange={this.onFormInputChange}
           isReferrError={isReferrError}
-          getReferralId={this.getReferralId}
-          referralId={referralId}
           onReferralDone={this.onReferralDone}
+          growSurf={growSurf}
         />
       );
   }
@@ -224,6 +142,7 @@ RecruitCRMJobDetailsContainer.defaultProps = {
   job: {},
   application: null,
   profile: {},
+  growSurf: {},
 };
 
 RecruitCRMJobDetailsContainer.propTypes = {
@@ -234,16 +153,19 @@ RecruitCRMJobDetailsContainer.propTypes = {
   isApply: PT.bool.isRequired,
   application: PT.shape(),
   profile: PT.shape(),
+  growSurf: PT.shape(),
 };
 
 function mapStateToProps(state, ownProps) {
   const data = state.recruitCRM[ownProps.id];
   const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
+  const { growSurf } = state;
   return {
     job: data ? data.job : {},
     loading: data ? data.loading : true,
     application: data ? data.application : null,
     profile,
+    growSurf,
   };
 }
 
