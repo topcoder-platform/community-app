@@ -74,6 +74,7 @@ export default class HistoryGraph extends React.Component {
       if (h.date) {
         h.ratingDate = h.date;
       }
+      h.ratingDate = new Date(h.ratingDate).toISOString();
       return h;
     }) : [];
 
