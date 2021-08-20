@@ -21,18 +21,21 @@ class ProfileContainer extends React.Component {
       meta,
       auth,
     } = this.props;
-
     loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
-    if (auth.tokenV3 && auth.memberGroups && auth.memberGroups.length > 0
-      && auth.user && auth.user.handle === handleParam) {
-      _.forEach(auth.memberGroups, (memberGroup) => { /* eslint consistent-return: off */
-        const profileConfig = _.find(config.URL.SUBDOMAIN_PROFILE_CONFIG, { groupId: memberGroup });
-        if (profileConfig && profileConfig.userProfile) {
-          // redirect user to configured profile url
-          window.location.href = profileConfig.userProfile;
-          return false;
-        }
-      });
+    if (auth.tokenV3 && auth.memberGroups && auth.memberGroups.length > 0 && auth.user) {
+      if (auth.user.handle === handleParam) {
+        _.forEach(auth.memberGroups, (memberGroup) => { /* eslint consistent-return: off */
+          const profileConfig = _.find(
+            config.URL.SUBDOMAIN_PROFILE_CONFIG,
+            { groupId: memberGroup },
+          );
+          if (profileConfig && profileConfig.userProfile) {
+            // redirect user to configured profile url
+            window.location.href = profileConfig.userProfile;
+            return false;
+          }
+        });
+      }
     }
   }
 
@@ -41,12 +44,39 @@ class ProfileContainer extends React.Component {
       handleParam,
       profileForHandle,
       loadProfile,
+      loadMemberGroups,
       meta,
       auth,
+      info,
+      memberGroups,
     } = nextProps;
+
+    const {
+      info: prevInfo,
+      memberGroups: prevMemberGroups,
+    } = this.props;
 
     if (handleParam !== profileForHandle) {
       loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
+    }
+
+    if (auth.tokenV3 && auth.user && auth.user.handle !== handleParam
+      && info != null && info.userId != null
+      && (prevInfo == null || info.userId !== prevInfo.userId)) {
+      loadMemberGroups(info.userId, auth.tokenV3);
+    }
+
+    if (memberGroups && memberGroups !== prevMemberGroups) {
+      _.forEach(auth.memberGroups, (memberGroup) => { /* eslint consistent-return: off */
+        const profileConfig = _.find(config.URL.SUBDOMAIN_PROFILE_CONFIG, { groupId: memberGroup });
+        if (profileConfig && profileConfig.userProfile
+          && memberGroups.indexOf(profileConfig.groupId) === -1) {
+          if (window.location.href.indexOf(profileConfig.communityName) !== -1) {
+            window.location.href = `${config.URL.BASE}/members/${handleParam}`;
+          }
+          return false;
+        }
+      });
     }
   }
 
@@ -106,6 +136,7 @@ ProfileContainer.defaultProps = {
   skills: null,
   stats: null,
   meta: null,
+  memberGroups: null,
   auth: {},
 };
 
@@ -119,9 +150,11 @@ ProfileContainer.propTypes = {
   info: PT.shape(),
   loadingError: PT.bool.isRequired,
   loadProfile: PT.func.isRequired,
+  loadMemberGroups: PT.func.isRequired,
   profileForHandle: PT.string,
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
+  memberGroups: PT.arrayOf(PT.string),
   lookupData: PT.shape().isRequired,
   meta: PT.shape(),
   auth: PT.shape(),
@@ -140,6 +173,7 @@ const mapStateToProps = (state, ownProps) => ({
   profileForHandle: state.profile.profileForHandle,
   skills: state.profile.skills,
   stats: state.profile.stats,
+  memberGroups: state.groups.memberGroups,
   lookupData: state.lookup,
   auth: {
     ...state.auth,
@@ -150,6 +184,9 @@ function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   const lookupActions = actions.lookup;
   return {
+    loadMemberGroups: (userId, tokenV3) => {
+      dispatch(actions.groups.getMemberGroups(userId, tokenV3));
+    },
     loadProfile: (handle, groupIds, tokenV3, showPublicStats) => {
       dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
