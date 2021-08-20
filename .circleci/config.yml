@@ -343,7 +343,6 @@ workflows:
             branches:
               only:
                 - develop
-                - fix-challenge-end-date
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -372,7 +371,6 @@ workflows:
             branches:
               only:
                 - develop
-                - fix-challenge-end-date
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment/moment';
+import { config } from 'topcoder-react-utils';
 
 /**
  * check whether graph is needed.
@@ -469,6 +470,15 @@ export function isValidTrack(track, subTrack) {
   }
 }
 
+/**
+ * Checks if only public stats should be loaded for the provided community.
+ */
+export function loadPublicStatsOnly(meta) {
+  const communityId = _.get(meta, 'communityId');
+  return communityId != null
+  && _.find(config.URL.SUBDOMAIN_PROFILE_CONFIG, { communityId }) != null;
+}
+
 export default {
   shouldShowGraph,
   getDivisions,
@@ -477,4 +487,5 @@ export default {
   getSummary,
   getDetails,
   isValidTrack,
+  loadPublicStatsOnly,
 };

@@ -270,7 +270,7 @@ class ProfilePage extends React.Component {
                 )
               }
               {
-                stats && (
+                !_.isEmpty(stats) && (
                   <div id="profile-activity">
                     <StatsCategory handle={info.handle} stats={stats} />
                   </div>
