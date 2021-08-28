@@ -32,6 +32,7 @@ import TracksTreeExample from 'components/examples/TracksTree';
 import TracksFilterExample from 'components/examples/TracksFilter';
 import SearchPageFilterExample from 'components/examples/SearchPageFilter';
 import GUIKit from 'components/examples/GUIKit';
+import TCOLeaderboardsExample from 'components/examples/TCOLeaderboards';
 
 import {
   Switch,
@@ -98,6 +99,7 @@ export default function Examples({
       <Route path={`${base}/tracks-tree`} component={TracksTreeExample} />
       <Route path={`${base}/tracks-filter`} component={TracksFilterExample} />
       <Route path={`${base}/search-page-filter`} component={SearchPageFilterExample} />
+      <Route path={`${base}/tco-leaderboards`} component={TCOLeaderboardsExample} />
       <Content />
     </Switch>
   );
