@@ -38,6 +38,7 @@ import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as termsFactory } from './terms';
 import newsletterPreferences from './newsletterPreferences';
 import mmLeaderboard from './mmLeaderboard';
+import tcoLeaderboards from './tco/leaderboards';
 import recruitCRM from './recruitCRM';
 import gSheet from './gSheet';
 
@@ -168,6 +169,7 @@ export function factory(req) {
     recruitCRM,
     mmLeaderboard,
     gSheet,
+    tcoLeaderboards,
   }));
 }
 

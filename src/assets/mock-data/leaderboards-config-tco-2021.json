@@ -1,0 +1,46 @@
+{
+  "Algorithm": {
+    "stageText": "Stage 4",
+    "titleText": "TCO21 Leaderboard",
+    "selectText": "Algorithm",
+    "api": "https://api.topcoder.com/v4/looks/2205/run/json",
+    "leaderboardUrl": "https://tco21.topcoder.com/competition-overview/algorithm/leaderboard?tracks[algo]=3"
+  },
+  "Development": {
+    "stageText": "Stage 4",
+    "titleText": "TCO21 Leaderboard",
+    "selectText": "Development",
+    "api": "https://api.topcoder.com/v4/looks/2193/run/json",
+    "leaderboardUrl": "https://tco21.topcoder.com/competition-overview/development/leaderboard?tracks[dev]=3"
+
+  },
+  "F2F": {
+    "stageText": "Stage 4",
+    "titleText": "TCO21 Leaderboard",
+    "selectText": "First2Finish",
+    "api": "https://api.topcoder.com/v4/looks/2204/run/json",
+    "leaderboardUrl": "https://tco21.topcoder.com/competition-overview/first2finish/leaderboard?tracks[f2f]=3"
+
+  },
+  "Marathon": {
+    "stageText": "Stage 4",
+    "titleText": "TCO21 Leaderboard",
+    "selectText": "Marathon",
+    "api": "https://api.topcoder.com/v4/looks/2208/run/json",
+    "leaderboardUrl": "https://tco21.topcoder.com/competition-overview/marathon/leaderboard?tracks[mm]=3"
+  },
+  "QA": {
+    "stageText": "Stage 4",
+    "titleText": "TCO21 Leaderboard",
+    "selectText": "QA",
+    "api": "https://api.topcoder.com/v4/looks/2203/run/json",
+    "leaderboardUrl": "https://tco21.topcoder.com/competition-overview/qa/leaderboard?tracks[qa]=3"
+  },
+  "Design": {
+    "stageText": "Stage 4",
+    "titleText": "TCO21 Leaderboard",
+    "selectText": "Design",
+    "api": "https://api.topcoder.com/v4/looks/2202/run/json",
+    "leaderboardUrl": "https://tco21.topcoder.com/competition-overview/ui-design/leaderboard?tracks[design]=3"
+  }
+}

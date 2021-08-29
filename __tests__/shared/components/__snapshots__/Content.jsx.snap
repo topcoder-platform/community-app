@@ -1039,6 +1039,16 @@ exports[`Matches shallow shapshot 1`] = `
        
       - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/tco-leaderboards"
+      >
+        TCO Leaderboards
+      </Link>
+       
+      Demo for TCO leaderboards component
+    </li>
   </ul>
 </div>
 `;

@@ -1,0 +1,166 @@
+@import '~styles/mixins';
+
+.container {
+  background-image: linear-gradient(225deg, #31a0ca 0%, #16679a 100%);
+  border-radius: 8px;
+  width: 260px;
+  padding: 12px 6px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px 10px 8px;
+}
+
+.titles {
+  margin-right: 8px;
+  min-height: 33px;
+}
+
+.stageText {
+  @include barlow-semi-bold;
+
+  display: block;
+  font-size: 16px;
+  color: $tc-white;
+  text-transform: uppercase;
+}
+
+.titleText {
+  @include barlow;
+
+  font-size: 12px;
+  margin-top: 8px;
+  line-height: 16px;
+  color: $tc-white;
+  text-decoration: underline;
+
+  &:visited {
+    color: $tc-white;
+  }
+}
+
+.dropdown-wrapper {
+  position: relative;
+  width: 108px;
+  height: 26px;
+
+  .chevronDown {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    margin-top: -3px;
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+  }
+
+  .dropdown {
+    width: 100%;
+    height: 26px;
+
+    :global {
+      .Select-control {
+        background: rgba(0, 0, 0, 0.1) !important;
+        border-radius: 13px !important;
+        border: none !important;
+        height: 26px;
+        width: 100%;
+
+        .Select-value {
+          line-height: 26px;
+        }
+
+        .Select-value-label {
+          @include roboto-regular;
+
+          font-size: 13px;
+          color: $tc-white !important;
+        }
+
+        .Select-arrow {
+          display: none;
+        }
+      }
+
+      .Select-input {
+        height: 26px;
+        background: none !important;
+      }
+
+      .Select-menu-outer,
+      .Select-menu {
+        border-radius: 8px;
+        border: none;
+      }
+
+      .Select-menu {
+        padding: 4px 0;
+      }
+
+      .Select-option {
+        @include roboto-regular;
+
+        font-size: 13px;
+        line-height: 26px;
+        margin: 0;
+        padding: 0 15px;
+        color: $tc-gray-90;
+
+        &.is-focused {
+          background-color: #229174;
+          color: $tc-white;
+        }
+
+        &.is-selected:not(.is-focused) {
+          @include roboto-bold;
+
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.leaderboard {
+  width: 100%;
+  margin: 0;
+}
+
+.leaderboardRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 6px 0;
+  padding: 0 8px;
+  width: 100%;
+
+  span {
+    @include roboto-regular;
+
+    font-size: 14px;
+    color: $tc-white;
+    margin: 0 6px;
+    text-overflow: ellipsis;
+  }
+
+  > .index {
+    text-align: left;
+    width: 15px;
+  }
+
+  > .handle {
+    flex: 1;
+  }
+
+  > .avatar {
+    width: 30px;
+  }
+
+  > .tcoPoints {
+    text-align: right;
+  }
+}
