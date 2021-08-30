@@ -435,4 +435,8 @@ module.exports = {
     SDK_KEY: '7V4CJhurXT3Y3bnzv1hv1',
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
+  DASHBOARD: {
+    VISIBLE_CHALLENGES: 5,
+    CHALLENGES_URL: 'https://platform.topcoder.com/earn/find/challenges',
+  },
 };
