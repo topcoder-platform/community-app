@@ -57,8 +57,8 @@ function create(init) {
     const { error, payload } = action;
 
     const newState = _.clone(state);
-    const spaceName = payload.spaceName || config.CONTENTFUL.DEFAULT_SPACE_NAME;
-    const environment = payload.environment || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
+    const spaceName = _.get(payload, 'spaceName') || config.CONTENTFUL.DEFAULT_SPACE_NAME;
+    const environment = _.get(payload, 'environment') || config.CONTENTFUL.DEFAULT_ENVIRONMENT;
     const res = _.get(newState, `${spaceName}.${environment}`);
     if (error || !res) {
       logger.log('CMS-related error');

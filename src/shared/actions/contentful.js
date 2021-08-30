@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { getService } from 'services/contentful';
-import { redux, config } from 'topcoder-react-utils';
+import { config, redux } from 'topcoder-react-utils';
 import { removeTrailingSlash } from 'utils/url';
 import { menuItemBuilder, target as urlTarget } from 'utils/contentful';
 import { services } from 'topcoder-react-lib';
@@ -14,13 +14,21 @@ export const TARGETS = {
 
 function bookContent(ids, target, preview, spaceName, environment) {
   return {
-    ids, preview, spaceName, environment, target,
+    ids,
+    preview,
+    spaceName,
+    environment,
+    target,
   };
 }
 
 function bookQuery(id, target, preview, spaceName, environment) {
   return {
-    id, preview, spaceName, environment, target,
+    id,
+    preview,
+    spaceName,
+    environment,
+    target,
   };
 }
 
@@ -30,13 +38,21 @@ function cleanState() {
 
 function freeContent(ids, target, preview, spaceName, environment) {
   return {
-    ids, preview, spaceName, environment, target,
+    ids,
+    preview,
+    spaceName,
+    environment,
+    target,
   };
 }
 
 function freeQuery(id, target, preview, spaceName, environment) {
   return {
-    id, preview, spaceName, environment, target,
+    id,
+    preview,
+    spaceName,
+    environment,
+    target,
   };
 }
 
@@ -69,12 +85,21 @@ function getContentInit(operationId, contentId, target, preview, spaceName, envi
  * @return {Object}
  */
 async function getContentDone(operationId, contentId, target, preview, spaceName, environment) {
-  const service = getService({ preview, spaceName, environment });
+  const service = getService({
+    preview,
+    spaceName,
+    environment,
+  });
   let content;
   switch (target) {
-    case TARGETS.ASSETS: content = await service.getAsset(contentId); break;
-    case TARGETS.ENTRIES: content = await service.getEntry(contentId); break;
-    default: throw new Error(ERRMSG_UNKNOWN_TARGET);
+    case TARGETS.ASSETS:
+      content = await service.getAsset(contentId);
+      break;
+    case TARGETS.ENTRIES:
+      content = await service.getEntry(contentId);
+      break;
+    default:
+      throw new Error(ERRMSG_UNKNOWN_TARGET);
   }
 
   return {
@@ -110,12 +135,21 @@ function queryContentInit(operationId, queryId, target, preview, spaceName, envi
  */
 async function queryContentDone(operationId, queryId, target,
   query, preview, spaceName, environment) {
-  const service = getService({ preview, spaceName, environment });
+  const service = getService({
+    preview,
+    spaceName,
+    environment,
+  });
   let data;
   switch (target) {
-    case TARGETS.ASSETS: data = await service.queryAssets(query); break;
-    case TARGETS.ENTRIES: data = await service.queryEntries(query); break;
-    default: throw new Error(ERRMSG_UNKNOWN_TARGET);
+    case TARGETS.ASSETS:
+      data = await service.queryAssets(query);
+      break;
+    case TARGETS.ENTRIES:
+      data = await service.queryEntries(query);
+      break;
+    default:
+      throw new Error(ERRMSG_UNKNOWN_TARGET);
   }
 
   return {
@@ -145,11 +179,18 @@ function getMenuInit(menuProps) {
  */
 async function getMenuDone(menuProps) {
   const {
-    preview, spaceName, environment, fields,
+    preview,
+    spaceName,
+    environment,
+    fields,
   } = menuProps;
   let { baseUrl } = menuProps;
   let menu = []; // will store results here
-  const service = getService({ preview, spaceName, environment });
+  const service = getService({
+    preview,
+    spaceName,
+    environment,
+  });
   // remove trail slash from baseUrl
   baseUrl = fields.baseUrl ? removeTrailingSlash(fields.baseUrl) : baseUrl;
   // different menu strucures depending on title
@@ -165,67 +206,76 @@ async function getMenuDone(menuProps) {
   // Prepare menu loading
   const l1P = _.map(
     fields.items,
-    item => service.getEntry(item.sys.id).then(async (L1Item) => {
-      const mI = menuItemBuilder(baseUrl, L1Item);
-      const { childRoutes, submenu } = L1Item.fields;
-      if (childRoutes) {
-        mI.subMenu = await Promise.all(_.map(
+    item => service.getEntry(item.sys.id)
+      .then(async (L1Item) => {
+        const mI = menuItemBuilder(baseUrl, L1Item);
+        const {
           childRoutes,
-          cR => service.getEntry(cR.sys.id).then(
-            async (cR2) => {
-              const url2 = urlTarget(baseUrl, L1Item);
-              const sI2 = menuItemBuilder(url2, cR2);
-              // no title => 3 level menu supported
-              if (!fields.title && cR2.fields.childRoutes) {
-                sI2.subMenu = await Promise.all(_.map(
-                  cR2.fields.childRoutes,
-                  cR3 => service.getEntry(cR3.sys.id).then(
-                    async (c3) => {
-                      const url3 = urlTarget(url2, cR2);
-                      const sI3 = menuItemBuilder(url3, c3);
-                      if (c3.fields.childRoutes) {
-                        sI3.subMenu = await Promise.all(_.map(
-                          c3.fields.childRoutes,
-                          cR4 => service.getEntry(cR4.sys.id).then(
-                            c4 => menuItemBuilder(url3, c4),
-                          ),
-                        ));
-                      }
-                      return sI3;
-                    },
-                  ),
-                ));
-              }
-              return sI2;
-            },
-          ),
-        ));
-      }
-      if (submenu) {
-        const submenuNavi = await service.getEntry(submenu.sys.id);
-        mI.subMenu = await Promise.all(_.map(
-          submenuNavi.fields.items,
-          subI => service.getEntry(subI.sys.id).then(
-            async (sub2) => {
-              const url2 = urlTarget(baseUrl, L1Item);
-              const sI2 = menuItemBuilder(url2, sub2);
-              // no title => 3 level menu supported
-              if (!fields.title && sub2.fields.submenu) {
-                const submenuNavi2 = await service.getEntry(sub2.fields.submenu.sys.id);
-                sI2.subMenu = await Promise.all(_.map(
-                  submenuNavi2.fields.items,
-                  cR3 => service.getEntry(cR3.sys.id).then(
-                    s3 => menuItemBuilder(urlTarget(url2, sub2), s3),
-                  ),
-                ));
-              }
-              return sI2;
-            },
-          ),
-        ));
-      }
-      return mI;
-    }),
+          submenu,
+        } = L1Item.fields;
+        if (childRoutes) {
+          mI.subMenu = await Promise.all(_.map(
+            childRoutes,
+            cR => service.getEntry(cR.sys.id)
+              .then(
+                async (cR2) => {
+                  const url2 = urlTarget(baseUrl, L1Item);
+                  const sI2 = menuItemBuilder(url2, cR2);
+                  // no title => 3 level menu supported
+                  if (!fields.title && cR2.fields.childRoutes) {
+                    sI2.subMenu = await Promise.all(_.map(
+                      cR2.fields.childRoutes,
+                      cR3 => service.getEntry(cR3.sys.id)
+                        .then(
+                          async (c3) => {
+                            const url3 = urlTarget(url2, cR2);
+                            const sI3 = menuItemBuilder(url3, c3);
+                            if (c3.fields.childRoutes) {
+                              sI3.subMenu = await Promise.all(_.map(
+                                c3.fields.childRoutes,
+                                cR4 => service.getEntry(cR4.sys.id)
+                                  .then(
+                                    c4 => menuItemBuilder(url3, c4),
+                                  ),
+                              ));
+                            }
+                            return sI3;
+                          },
+                        ),
+                    ));
+                  }
+                  return sI2;
+                },
+              ),
+          ));
+        }
+        if (submenu) {
+          const submenuNavi = await service.getEntry(submenu.sys.id);
+          mI.subMenu = await Promise.all(_.map(
+            submenuNavi.fields.items,
+            subI => service.getEntry(subI.sys.id)
+              .then(
+                async (sub2) => {
+                  const url2 = urlTarget(baseUrl, L1Item);
+                  const sI2 = menuItemBuilder(url2, sub2);
+                  // no title => 3 level menu supported
+                  if (!fields.title && sub2.fields.submenu) {
+                    const submenuNavi2 = await service.getEntry(sub2.fields.submenu.sys.id);
+                    sI2.subMenu = await Promise.all(_.map(
+                      submenuNavi2.fields.items,
+                      cR3 => service.getEntry(cR3.sys.id)
+                        .then(
+                          s3 => menuItemBuilder(urlTarget(url2, sub2), s3),
+                        ),
+                    ));
+                  }
+                  return sI2;
+                },
+              ),
+          ));
+        }
+        return mI;
+      }),
   );
   // Load and wait for all menu data
   const menuData = await Promise.all(l1P);
@@ -268,10 +318,17 @@ function getChallengesBlockInit(blockProps) {
  */
 async function getChallengesBlockDone(blockProps) {
   const {
-    id, preview, spaceName, environment,
+    id,
+    preview,
+    spaceName,
+    environment,
   } = blockProps;
   // get the Contentful data
-  const service = getService({ preview, spaceName, environment });
+  const service = getService({
+    preview,
+    spaceName,
+    environment,
+  });
   const block = await service.getEntry(id);
   // prepare for getting the challenges
   const challengesService = services.challenge.getService();
@@ -323,6 +380,26 @@ async function getPolicyPagesDone() {
   };
 }
 
+/**
+ * Thrive feed fetch init
+ */
+function getThriveArticlesInit() {
+  return {};
+}
+
+/**
+ * Thrive feed fetch done
+ */
+async function getThriveArticlesDone({ limit }) {
+  const service = getService({ spaceName: 'EDU' });
+  const res = await service.getEDUContent({
+    limit,
+    types: ['Article'],
+  });
+
+  return _.get(res, 'Article.items', []);
+}
+
 export default redux.createActions({
   CONTENTFUL: {
     BOOK_CONTENT: bookContent,
@@ -340,5 +417,7 @@ export default redux.createActions({
     GET_CHALLENGES_BLOCK_DONE: getChallengesBlockDone,
     GET_POLICY_PAGES_INIT: getPolicyPagesInit,
     GET_POLICY_PAGES_DONE: getPolicyPagesDone,
+    GET_THRIVE_ARTICLES_INIT: getThriveArticlesInit,
+    GET_THRIVE_ARTICLES_DONE: getThriveArticlesDone,
   },
 });
