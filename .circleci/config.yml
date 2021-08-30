@@ -373,6 +373,7 @@ workflows:
               only:
                 - develop
                 - fix-challenge-end-date
+                - thrive-feed-component
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration

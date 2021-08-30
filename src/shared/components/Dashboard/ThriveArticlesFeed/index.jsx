@@ -34,7 +34,7 @@ export default function ThriveArticlesFeed({
           : articles.map(article => (
             <div styleName="row" key={`thrive-articles-feed-${article.fields.slug}`}>
               <a
-                href={`${config.URL.COMMUNITY_APP}/thrive/articles/${article.fields.slug}`}
+                href={`${config.URL.COMMUNITY_APP}/thrive/articles/${article.fields.slug || encodeURIComponent(article.fields.title)}`}
                 target="_blank"
                 rel="noreferrer"
               >{article.fields.title}
