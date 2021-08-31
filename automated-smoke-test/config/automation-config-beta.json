@@ -122,61 +122,61 @@
   "memberProfile": {
     "url": "https://beta-community-app.topcoder.com/members",
     "profileInfo": {
-      "handle": "iamtong",
-      "numberOfCollapsedSkills": 10,
-      "verifiedSkill": "HTML5",
-      "noneVerifiedSkill": "Marvel - Design",
-      "country": "THAILAND",
-      "memberSince": "MEMBER SINCE MAY, 2009",
-      "tracks": ["COPILOT", "DEVELOP", "DESIGN"],
-      "quote": "I'm a designer focusing on designing mobile/ web applications and user experience.",
-      "forumLink": "https://apps.topcoder.com/forums/?module=History&userID=22781893"
+      "handle": "oton",
+      "numberOfCollapsedSkills": 4,
+      "verifiedSkill": "Geometry",
+      "noneVerifiedSkill": "User Experience (Ux)",
+      "country": "INDONESIA",
+      "memberSince": "MEMBER SINCE MAY, 2006",
+      "tracks": ["COPILOT", "DEVELOP", "DESIGN", "DATA_SCIENCE"],
+      "quote": "Indonesian. Dad of two. IA. WordPress/WooCommerce. Rails.",
+      "forumLink": "https://apps.topcoder.com/forums/?module=History&userID=22076237"
     },
     "memberHaveWebSectionInfo": {
       "handle": "oton",
       "webLink": "HTTPS://ARIFWIDIANTO.COM"
     },
     "copilotProfile": {
-      "handle": "iamtong",
+      "handle": "oton",
       "trackName": "COPILOT",
       "fullfillmentInfo": {
         "name": "COPILOT",
-        "info": "100%",
+        "info": "92.31%",
         "infoTitle": "FULFILLMENT",
-        "link": "https://beta-community-app.topcoder.com/members/iamtong/details/?track=COPILOT&subTrack=COPILOT"
+        "link": "https://beta-community-app.topcoder.com/members/oton/details/?track=COPILOT&subTrack=COPILOT"
       }
     },
     "designProfile": {
-      "handle": "iamtong",
+      "handle": "oton",
       "trackName": "DESIGN",
-      "numberOfSubtracks": 11,
+      "numberOfSubtracks": 8,
       "winInfo": {
         "name": "WEB DESIGNS",
-        "info": "268",
+        "info": "4",
         "infoTitle": "WINS",
-        "link": "https://beta-community-app.topcoder.com/members/iamtong/details/?track=DESIGN&subTrack=WEB_DESIGNS"
+        "link": "https://beta-community-app.topcoder.com/members/oton/details/?track=DESIGN&subTrack=WEB_DESIGNS"
       }
     },
     "developmentProfile": {
-      "handle": "iamtong",
+      "handle": "oton",
       "trackName": "DEVELOP",
-      "numberOfSubtracks": 7,
+      "numberOfSubtracks": 2,
       "winInfo": {
-        "name": "FIRST2FINISH",
-        "info": "61",
-        "infoTitle": "WINS",
-        "link": "https://beta-community-app.topcoder.com/members/iamtong/details/?track=DEVELOP&subTrack=FIRST_2_FINISH"
+        "name": "UI PROTOTYPE COMPETITION",
+        "info": "908",
+        "infoTitle": "RATING",
+        "link": "https://beta-community-app.topcoder.com/members/oton/details/?track=DEVELOP&subTrack=UI_PROTOTYPE_COMPETITION"
       }
     },
     "dataScienceProfile": {
-      "handle": "FireIce",
+      "handle": "oton",
       "trackName": "DATA_SCIENCE",
-      "numberOfSubtracks": 2,
+      "numberOfSubtracks": 1,
       "ratingInfo": {
-        "name": "MARATHON MATCH",
-        "info": "999",
+        "name": "SRM",
+        "info": "952",
         "infoTitle": "RATING",
-        "link": "https://beta-community-app.topcoder.com/members/FireIce/details/?track=DATA_SCIENCE&subTrack=MARATHON_MATCH"
+        "link": "https://beta-community-app.topcoder.com/members/oton/details/?track=DATA_SCIENCE&subTrack=SRM"
       }
     }
   }
