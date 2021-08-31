@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-unused-vars */
 /**
  * SlashTC index container
  */
@@ -5,8 +7,9 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import Viewport from 'components/Contentful/Viewport';
-import LoadingIndicator from 'components/LoadingIndicator';
 import TopcoderTime from 'components/SlashTC/TCTime';
+import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
+import NewsFeed from './NewsFeed';
 import darkTheme from './themes/dark.scss';
 
 const THEMES = {
@@ -21,11 +24,13 @@ function SlashTCContainer(props) {
         {/* Left column */}
         <div className={theme.column}>
           <TopcoderTime />
+          <ThriveArticlesFeedContainer itemCount={5} theme="dark" />
           <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
         </div>
         {/* Center column */}
         <div className={theme.column}>
           <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+          <NewsFeed />
         </div>
         {/* Right column */}
         <div className={theme.column}>

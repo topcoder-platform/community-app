@@ -516,7 +516,7 @@
           height: 0;
 
           /* stylelint-disable */
-          > clipPath {
+          > clippath {
             transform: translate(445px, 0) scaleX(-1);
 
             @media screen and (max-width: 425px) and (min-width: 375px) {

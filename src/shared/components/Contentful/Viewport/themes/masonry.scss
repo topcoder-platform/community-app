@@ -1,0 +1,17 @@
+.container {
+  flex-direction: column;
+  width: 100%;
+
+  .viewport-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -20px; /* gutter size offset */
+    width: auto;
+  }
+
+  .viewport-masonry-grid_column {
+    padding-left: 20px; /* gutter size */
+    background-clip: padding-box;
+  }
+}

@@ -195,6 +195,13 @@ module.exports = {
           PREVIEW_API_KEY: '',
         },
       },
+      EDU: {
+        SPACE_ID: '',
+        master: {
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
       /* Space for expert communities. */
       zurich: {
         SPACE_ID: '',
@@ -205,13 +212,6 @@ module.exports = {
       },
       /* Contentful Space for TopGear community content. */
       topgear: {
-        SPACE_ID: '',
-        master: {
-          CDN_API_KEY: '',
-          PREVIEW_API_KEY: '',
-        },
-      },
-      EDU: {
         SPACE_ID: '',
         master: {
           CDN_API_KEY: '',
