@@ -8,15 +8,15 @@ import { actions } from 'topcoder-react-lib';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfileStatsPage from 'components/ProfilePage/Stats';
-import { shouldShowGraph, isValidTrack } from 'utils/memberStats';
+import { shouldShowGraph, isValidTrack, loadPublicStatsOnly } from 'utils/memberStats';
 import MetaTags from 'components/MetaTags';
 import _ from 'lodash';
 import qs from 'qs';
+import shortId from 'shortid';
 
 const getQueryParamsQuery = location => (
   location.search ? qs.parse(location.search.slice(1)) : {}
 );
-
 class ProfileStatsContainer extends React.Component {
   componentDidMount() {
     const {
@@ -25,16 +25,18 @@ class ProfileStatsContainer extends React.Component {
       loadStats,
       loadStatsHistoryAndDistribution,
       meta,
+      auth,
     } = this.props;
 
     const trackAndSubTrack = getQueryParamsQuery(location);
-    loadStats(handleParam, _.join(_.get(meta, 'groupIds', [])));
+    loadStats(handleParam, _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])), auth.tokenV3);
     if (shouldShowGraph(trackAndSubTrack)) {
       loadStatsHistoryAndDistribution(
         handleParam,
-        _.join(_.get(meta, 'groupIds', [])),
+        _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])),
         trackAndSubTrack.track,
         trackAndSubTrack.subTrack,
+        auth.tokenV3,
       );
     }
   }
@@ -46,6 +48,7 @@ class ProfileStatsContainer extends React.Component {
       loadStats,
       loadStatsHistoryAndDistribution,
       meta,
+      auth,
     } = nextProps;
     const {
       handleParam,
@@ -56,7 +59,7 @@ class ProfileStatsContainer extends React.Component {
     const trackAndSubTrack = getQueryParamsQuery(location);
 
     if (nextHandleParam !== handleParam) {
-      loadStats(nextHandleParam, _.join(_.get(meta, 'groupIds', [])));
+      loadStats(nextHandleParam, _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])), auth.tokenV3);
       if (
         nextQueryParams.track !== trackAndSubTrack.track
         || nextQueryParams.subTrack !== trackAndSubTrack.subTrack
@@ -65,9 +68,10 @@ class ProfileStatsContainer extends React.Component {
           && !nextQueryParams.tab) {
           loadStatsHistoryAndDistribution(
             nextHandleParam,
-            _.join(_.get(meta, 'groupIds', [])),
+            _.join(loadPublicStatsOnly(meta) ? undefined : _.get(meta, 'groupIds', [])),
             nextQueryParams.track,
             nextQueryParams.subTrack,
+            auth.tokenV3,
           );
         }
       }
@@ -119,6 +123,7 @@ ProfileStatsContainer.defaultProps = {
   info: null,
   achievements: null,
   meta: null,
+  auth: {},
 };
 
 ProfileStatsContainer.propTypes = {
@@ -134,6 +139,7 @@ ProfileStatsContainer.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   isLoading: PT.bool.isRequired,
   meta: PT.shape(),
+  auth: PT.shape(),
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -153,6 +159,9 @@ const mapStateToProps = (state, ownProps) => {
     info: state.profile.info,
     meta: ownProps.meta,
     achievements: state.profile.achievements,
+    auth: {
+      ...state.auth,
+    },
   });
 };
 
@@ -161,17 +170,19 @@ function mapDispatchToProps(dispatch) {
   const pa = actions.profile;
 
   return {
-    loadStats: (handle, groupIds) => {
-      dispatch(a.getStatsInit(handle));
-      dispatch(a.getStatsDone(handle, groupIds));
+    loadStats: (handle, groupIds, tokenV3) => {
+      const uuid = shortId();
+      dispatch(a.getStatsInit(handle, uuid));
+      dispatch(a.getStatsDone(handle, groupIds, uuid, tokenV3));
       dispatch(pa.getInfoInit(handle));
       dispatch(pa.getInfoDone(handle));
       dispatch(a.getActiveChallengesInit(handle));
       dispatch(a.getActiveChallengesDone(handle));
     },
-    loadStatsHistoryAndDistribution: (handle, groupIds, track, subTrack) => {
-      dispatch(a.getStatsHistoryInit(handle));
-      dispatch(a.getStatsHistoryDone(handle, groupIds));
+    loadStatsHistoryAndDistribution: (handle, groupIds, track, subTrack, tokenV3) => {
+      const uuid = shortId();
+      dispatch(a.getStatsHistoryInit(handle, uuid));
+      dispatch(a.getStatsHistoryDone(handle, groupIds, uuid, tokenV3));
       dispatch(a.getStatsDistributionInit(handle));
       dispatch(a.getStatsDistributionDone(handle, track, subTrack));
     },
