@@ -33,6 +33,7 @@ import TracksFilterExample from 'components/examples/TracksFilter';
 import SearchPageFilterExample from 'components/examples/SearchPageFilter';
 import GUIKit from 'components/examples/GUIKit';
 import ThriveArticlesFeedExample from 'components/examples/ThriveArticlesFeed';
+import GigsFeedExample from 'components/examples/GigsFeed';
 
 import {
   Switch,
@@ -100,6 +101,7 @@ export default function Examples({
       <Route path={`${base}/tracks-filter`} component={TracksFilterExample} />
       <Route path={`${base}/search-page-filter`} component={SearchPageFilterExample} />
       <Route path={`${base}/thrive-articles-feed`} component={ThriveArticlesFeedExample} />
+      <Route path={`${base}/gigs-feed`} component={GigsFeedExample} />
       <Content />
     </Switch>
   );

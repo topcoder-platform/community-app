@@ -35,4 +35,6 @@ routes.get('/candidates/search', (req, res, next) => new RecruitCRMService().sea
 // new router added
 routes.get('/profile', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => new RecruitCRMService().getProfile(req, res, next));
 routes.post('/profile', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), upload.single('resume'), (req, res, next) => new RecruitCRMService().updateProfile(req, res, next));
+routes.get('/taasjobs', (req, res, next) => new RecruitCRMService().getJobsFromTaas(req, res, next));
+
 export default routes;

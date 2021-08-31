@@ -165,6 +165,25 @@ async function searchCandidatesDone(email) {
   }
 }
 
+/**
+ * Gigs fetch init
+ */
+function getGigsInit() {
+  return {};
+}
+
+/**
+ * Gigs fetch done
+ */
+async function getGigsDone(query) {
+  const ss = new Service();
+  const res = await ss.getTaasJobs(query);
+
+  return {
+    data: res.jobs,
+  };
+}
+
 export default redux.createActions({
   RECRUIT: {
     GET_JOBS_INIT: getJobsInit,
@@ -177,5 +196,7 @@ export default redux.createActions({
     SEARCH_CANDIDATES_DONE: searchCandidatesDone,
     GET_JOB_APPLICATIONS_INIT: getJobApplicationsInit,
     GET_JOB_APPLICATIONS_DONE: getJobApplicationsDone,
+    GET_GIGS_INIT: getGigsInit,
+    GET_GIGS_DONE: getGigsDone,
   },
 });

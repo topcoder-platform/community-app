@@ -127,6 +127,31 @@ function onGetJobApplicationsDone(state, { payload }) {
 }
 
 /**
+ * Handles recruit.getGigsInit action.
+ * @param {Object} state Previous state.
+ */
+function onGigsInit(state) {
+  return {
+    ...state,
+    gigs: [],
+    gigsLoading: true,
+  };
+}
+
+/**
+ * Handles recruit.getGigsDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action The action.
+ */
+function onGigsDone(state, { payload }) {
+  return {
+    ...state,
+    gigsLoading: false,
+    gigs: payload.data,
+  };
+}
+
+/**
  * Creates recruitCRM reducer with the specified initial state.
  * @param {Object} state Optional. If not given, the default one is
  *  generated automatically.
@@ -144,6 +169,8 @@ function create(state = {}) {
     [actions.recruit.searchCandidatesDone]: onSearchCandidatesDone,
     [actions.recruit.getJobApplicationsInit]: onGetJobApplicationsInit,
     [actions.recruit.getJobApplicationsDone]: onGetJobApplicationsDone,
+    [actions.recruit.getGigsInit]: onGigsInit,
+    [actions.recruit.getGigsDone]: onGigsDone,
   }, state);
 }
 

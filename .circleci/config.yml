@@ -357,7 +357,7 @@ workflows:
           filters:
             branches:
               only:
-                - thrive-feed-component
+                - free
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

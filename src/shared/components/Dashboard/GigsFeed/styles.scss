@@ -16,31 +16,19 @@
   @include roboto-regular;
 
   color: $tc-gray-90;
-  padding: 13px 12px 3px 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 10px;
+  padding: 12px 0;
 
   .title {
     @include barlow-semi-bold;
 
-    display: flex;
     font-size: 16px;
-    align-items: center;
-
-    .icon {
-      fill: $tc-gray-90;
-      width: 17px;
-      height: 17px;
-      margin-right: 9px;
-      margin-bottom: 3px;
-    }
   }
 
   .allLink {
@@ -60,37 +48,74 @@
   }
 }
 
-.articles {
+.gigs {
+  padding: 0 14px;
+  background-color: $tc-white;
+  border-radius: 8px;
+  height: 195px !important;
   width: 100%;
+  overflow: scroll;
+
+  @include xs-to-sm {
+    height: 285px !important;
+  }
 
   .row {
     display: flex;
     font-size: 14px;
     line-height: 18px;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     padding: 10px 0;
+    margin: 0 14px;
     border-top: 1px solid $tc-gray-05;
+
+    a {
+      margin-right: 8px;
+    }
+
+    .salary {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .amount {
+      text-align: right;
+    }
+
+    .rateType {
+      margin-left: 7px;
+      text-align: right;
+    }
 
     &:first-child {
       border: none;
+    }
+
+    @include xs-to-sm {
+      .salary {
+        display: flex;
+        flex: 1 0 90px;
+        flex-direction: column;
+      }
+
+      .amount {
+        white-space: nowrap;
+      }
     }
   }
 }
 
 .light {
-  background-color: $tc-white;
+  background: transparent;
 }
 
 .container.dark {
   color: $tc-white;
-  background: $dashboard-dark-card-bg;
 
   .header {
-    .icon {
-      fill: $tc-white;
-    }
-
     .allLink {
       color: $dashboard-dark-link;
       text-decoration: underline;
@@ -102,8 +127,10 @@
     }
   }
 
-  .articles {
-    .row:not(:first-child) {
+  .gigs {
+    background: $dashboard-dark-card-bg;
+
+    .row {
       border-top: 1px solid $dashboard-dark-bg;
     }
   }

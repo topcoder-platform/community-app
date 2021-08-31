@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Viewport from 'components/Contentful/Viewport';
 import TopcoderTime from 'components/SlashTC/TCTime';
 import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
+import GigsFeed from 'containers/Dashboard/GigsFeed';
 import NewsFeed from './NewsFeed';
 import darkTheme from './themes/dark.scss';
 
@@ -30,6 +31,7 @@ function SlashTCContainer(props) {
         {/* Center column */}
         <div className={theme.column}>
           <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+          <GigsFeed itemCount={5} theme="dark" />
           <NewsFeed />
         </div>
         {/* Right column */}
