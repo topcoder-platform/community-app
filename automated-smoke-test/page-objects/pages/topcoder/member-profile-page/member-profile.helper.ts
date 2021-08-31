@@ -114,28 +114,30 @@ export class MemberProfilePageHelper {
       })
     ).toBe(true, 'Unverified skill should not be displayed with a check mark');
     const numberOfCollapsedSkills = skills.length;
-    await CommonHelper.findElementByText('button', 'VIEW ALL').click();
-    await CommonHelper.waitUntilVisibilityOf(
-      () => CommonHelper.findElementByText('button', 'VIEW LESS'),
-      'Wait for view less button',
-      false
-    );
     skills = await MemberProfilePageObject.getAllSkills();
     const numberOfAllSkills = skills.length;
-    expect(numberOfCollapsedSkills <= numberOfAllSkills).toBe(
-      true,
-      'Button View All does not work as expected'
-    );
-    await CommonHelper.findElementByText('button', 'VIEW LESS').click();
-    await CommonHelper.waitUntilVisibilityOf(
-      () => CommonHelper.findElementByText('button', 'VIEW ALL'),
-      'Wait for view less button',
-      false
-    );
-    expect(skills.length <= numberOfAllSkills).toBe(
-      true,
-      'Button View Less does not work as expected'
-    );
+    if (numberOfCollapsedSkills !== numberOfAllSkills) {
+      await CommonHelper.findElementByText('button', 'VIEW ALL').click();
+      await CommonHelper.waitUntilVisibilityOf(
+        () => CommonHelper.findElementByText('button', 'VIEW LESS'),
+        'Wait for view less button',
+        false
+      );
+      expect(numberOfCollapsedSkills <= numberOfAllSkills).toBe(
+        true,
+        'Button View All does not work as expected'
+      );
+      await CommonHelper.findElementByText('button', 'VIEW LESS').click();
+      await CommonHelper.waitUntilVisibilityOf(
+        () => CommonHelper.findElementByText('button', 'VIEW ALL'),
+        'Wait for view less button',
+        false
+      );
+      expect(skills.length <= numberOfAllSkills).toBe(
+        true,
+        'Button View Less does not work as expected'
+      );
+    }
   }
 
   /**
