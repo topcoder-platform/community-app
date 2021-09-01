@@ -156,11 +156,13 @@
     flex: 1;
   }
 
-  > .avatar {
-    width: 30px;
-  }
-
   > .tcoPoints {
     text-align: right;
   }
+}
+
+.avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
 }
