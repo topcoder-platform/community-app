@@ -42,20 +42,21 @@ class Loader extends React.Component {
       visitorGroups,
     } = this.props;
 
+    const returnUrl = encodeURIComponent(window.location.href);
+
     if (!loadingMeta && (
       !meta /* || (Date.now() - meta.timestamp) > MAXAGE */
     )) nextProps.loadMetaData(communityId, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear */
     if (communityId === 'comcast' && !visitorGroups) {
-      const returnUrl = encodeURIComponent(window.location.href);
       window.location = `${config.URL.AUTH}/member?retUrl=${returnUrl}&utm_source=${communityId}`;
     }
 
     /* Redirect old TopGear home to new TopGear App and login redirect */
     if (communityId === 'wipro') {
       if (!visitorGroups) {
-        window.location = `${config.URL.AUTH}/?retUrl=${config.URL.TOPGEAR}&utm_source=${communityId}`;
+        window.location = `${config.URL.AUTH}/?retUrl=${returnUrl}&utm_source=${communityId}`;
       } else if (window.location.pathname === '/' || window.location.pathname === '/__community__/wipro') {
         window.location = config.URL.TOPGEAR;
       }

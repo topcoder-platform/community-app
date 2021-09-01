@@ -22,6 +22,11 @@ class ProfileContainer extends React.Component {
       auth,
     } = this.props;
     loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
+
+    // Redirect to the communities own profile page if
+    //  - the member whose profile is being viewed is part of one of the configured communities
+    //  - the user is not a topcoder user (has an email with @topcoder.com)
+    const communityId = _.get(meta, 'communityId'); // null when on topcoder site
     if (auth.tokenV3 && auth.memberGroups && auth.memberGroups.length > 0 && auth.user) {
       if (auth.user.handle === handleParam) {
         _.forEach(auth.memberGroups, (memberGroup) => { /* eslint consistent-return: off */
@@ -30,9 +35,13 @@ class ProfileContainer extends React.Component {
             { groupId: memberGroup },
           );
           if (profileConfig && profileConfig.userProfile) {
-            // redirect user to configured profile url
-            window.location.href = profileConfig.userProfile;
-            return false;
+            if (communityId === profileConfig.communityId // are we on the community page?
+            // are we on topcoder page and user does not have a @topcoder.com email?
+            || (communityId == null && auth.user.email.toLowerCase().indexOf('@topcoder.com') === -1)) {
+              // redirect user to configured profile url
+              window.location.href = profileConfig.userProfile;
+              return false;
+            }
           }
         });
       }
