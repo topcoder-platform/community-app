@@ -7,11 +7,12 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import ChevronDown from 'assets/images/minimal-down-white.svg';
+import DefaultAvatar from 'assets/images/default-avatar-photo-blue.svg';
 import { Scrollbars } from 'react-custom-scrollbars';
-
-import './styles.scss';
-import { Avatar } from 'topcoder-react-ui-kit';
+import { themr } from 'react-css-super-themr';
+import { Avatar } from 'topcoder-react-utils';
 import Select from 'components/Select';
+import styles from './styles.scss';
 
 export default class TCOLeaderboards extends React.Component {
   constructor() {
@@ -34,8 +35,8 @@ export default class TCOLeaderboards extends React.Component {
     } = this.props;
     const { selectedIndex } = this.state;
     // The height of each row
-    const itemHeight = 41;
-
+    const itemHeight = 38;
+    const AvatarComponent = themr('Avatar', styles)(Avatar);
     const options = leaderboards && _.sortBy(leaderboards
       .map((track, index) => ({
         value: index,
@@ -47,7 +48,7 @@ export default class TCOLeaderboards extends React.Component {
       .map((row, index) => (
         <div styleName="leaderboardRow">
           <span styleName="index">{index + 1}</span>
-          <span styleName="avatar"><Avatar url={row['member_profile_basic.photo_url']} /></span>
+          <span><AvatarComponent url={row['member_profile_basic.photo_url']} DefaultAvatar={DefaultAvatar} /></span>
           <span styleName="handle">{row['member_profile_basic.handle']}</span>
           <span styleName="tcoPoints">{row['tco_leaderboard.tco_points']}</span>
         </div>
