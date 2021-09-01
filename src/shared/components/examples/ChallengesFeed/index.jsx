@@ -1,38 +1,34 @@
 import React from 'react';
-
+import Challenges from 'components/Dashboard/Challenges';
 import './styles.scss';
 
-import Challenges from 'components/Dashboard/Challenges';
-import Switch from 'components/Switch';
+import { PrimaryButton } from 'topcoder-react-ui-kit/src/shared/components/buttons';
 
-class ChallengesFeed extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDarkMode: false,
-    };
+export default class ChallengesFeed extends React.Component {
+  constructor() {
+    super();
+    this.state = { theme: 'light' };
+    this.toggleTheme = this.toggleTheme.bind(this);
+  }
+
+  toggleTheme() {
+    const { theme } = this.state;
+
+    this.setState({ theme: theme === 'light' ? 'dark' : 'light' });
   }
 
   render() {
-    const { isDarkMode } = this.state;
+    const { theme } = this.state;
+
     return (
-      <div styleName={`container ${isDarkMode ? 'dark' : ''}`}>
-        <div styleName="header">
+      <div styleName={`page ${theme}`}>
+        <div styleName="container">
           <h1>Challenges Feed Preview</h1>
-          <div>
-            <span>Dark Mode</span>
-            <Switch
-              enabled={isDarkMode}
-              onSwitch={() => this.setState(state => ({
-                isDarkMode: !state.isDarkMode,
-              }))}
-            />
-          </div>
+          <div>Theme: {theme}</div>
+          <PrimaryButton onClick={this.toggleTheme}>Toggle Theme</PrimaryButton>
+          <Challenges theme={theme} />
         </div>
-        <Challenges theme={isDarkMode ? 'dark' : 'light'} />
       </div>
     );
   }
 }
-
-export default ChallengesFeed;
