@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /**
  * Gigs Feed component
  */
@@ -27,8 +28,8 @@ export default function GigsFeed({
         </a>
       </div>
       <Scrollbars styleName="gigs">
-        {loading || !gigs ? <div styleName="loading"><LoadingIndicator /></div>
-          : gigs.map(gig => (
+        {loading ? <div styleName="loading"><LoadingIndicator /></div>
+          : gigs.message ? <span>{gigs.message}</span> : gigs.map(gig => (
             <div styleName="row" key={`dashboard-gigs-feed-${gig.externalId}`}>
               <a
                 href={`${config.URL.COMMUNITY_APP}/gigs/${gig.externalId}`}
