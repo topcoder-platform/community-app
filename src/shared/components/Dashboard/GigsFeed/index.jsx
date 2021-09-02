@@ -27,7 +27,7 @@ export default function GigsFeed({
         </a>
       </div>
       <Scrollbars styleName="gigs">
-        {loading ? <div styleName="loading"><LoadingIndicator /></div>
+        {loading || !gigs ? <div styleName="loading"><LoadingIndicator /></div>
           : gigs.map(gig => (
             <div styleName="row" key={`dashboard-gigs-feed-${gig.externalId}`}>
               <a
