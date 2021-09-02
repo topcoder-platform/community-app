@@ -13,6 +13,7 @@ import GigsFeed from 'containers/Dashboard/GigsFeed';
 import TCOLeaderboardsContainer from 'containers/Dashboard/TCOLeaderboards';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
+import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
 import NewsFeed from './NewsFeed';
 import darkTheme from './themes/dark.scss';
 
@@ -34,6 +35,7 @@ function SlashTCContainer(props) {
         {/* Center column */}
         <div className={theme.column}>
           <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+          <ChallengesFeed theme="dark" />
           <GigsFeed itemCount={5} theme="dark" />
           <NewsFeed />
         </div>
@@ -55,10 +57,6 @@ function SlashTCContainer(props) {
             }}
             renderPlaceholder={LoadingIndicator}
           />
-          {/* <TCOLeaderboardsContainer
-            trackConfig={trackConfig}
-            itemCount={5}
-          /> */}
           <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
         </div>
       </div>

@@ -856,6 +856,10 @@ export default function Content() {
           </Link>
           {' '}
           Demo for TCO leaderboards component
+          <Link to="/examples/challenges">
+            Challenges Feed
+          </Link>
+          {' '} - Demo of Challenges Feed Component
         </li>
       </ul>
     </div>

@@ -342,9 +342,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - fix-challenge-end-date
-                - new-tco-leaderboards-component
+                - free
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      

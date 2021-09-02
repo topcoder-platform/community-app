@@ -102,6 +102,7 @@ module.exports = {
     /* This is the same value as above, but it is used by topcoder-react-lib,
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
+    CHALLENGES_URL: 'https://platform.topcoder.com/earn/find/challenges',
 
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',
@@ -438,4 +439,7 @@ module.exports = {
     SDK_KEY: '7V4CJhurXT3Y3bnzv1hv1',
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
+  DASHBOARD: {
+    NUM_CHALLENGES: 10, // number of challenges to load
+  },
 };
