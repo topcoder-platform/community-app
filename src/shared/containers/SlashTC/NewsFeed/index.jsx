@@ -21,11 +21,14 @@ function NewsFeedContainer() {
   const [newsData, setNewsData] = useState();
   const theme = THEMES.dark; // for v1 only dark theme
 
-  useEffect(async () => {
-    const isProd = config.URL.FORUMS_VANILLA === 'https://discussions.topcoder.com';
-    const result = await fetch(`/api/cdn/public/forums/discussions?categoryID=${isProd ? 1441 : 2716}`);
-    const data = await result.json();
-    setNewsData(data);
+  useEffect(() => {
+    async function fetchData() {
+      const isProd = config.URL.FORUMS_VANILLA === 'https://discussions.topcoder.com';
+      const result = await fetch(`/api/cdn/public/forums/discussions?categoryID=${isProd ? 1441 : 2716}`);
+      const data = await result.json();
+      setNewsData(data);
+    }
+    fetchData();
   }, []);
 
   return !newsData ? <LoadingIndicator /> : (
@@ -55,7 +58,7 @@ function NewsFeedContainer() {
               },
             );
             return (
-              <div className="newsItem">
+              <div className="newsItem" key={item.discussionID}>
                 <div className="date">{moment(item.dateInserted).format('MMM D, YYYY')}</div>
                 <a className="title" target="_blank" rel="noreferrer" href={item.url}>{item.name}</a>
                 <div className="cont">

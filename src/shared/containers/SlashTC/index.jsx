@@ -10,6 +10,9 @@ import Viewport from 'components/Contentful/Viewport';
 import TopcoderTime from 'components/SlashTC/TCTime';
 import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
 import GigsFeed from 'containers/Dashboard/GigsFeed';
+import TCOLeaderboardsContainer from 'containers/Dashboard/TCOLeaderboards';
+import ContentfulLoader from 'containers/ContentfulLoader';
+import LoadingIndicator from 'components/LoadingIndicator';
 import NewsFeed from './NewsFeed';
 import darkTheme from './themes/dark.scss';
 
@@ -36,6 +39,26 @@ function SlashTCContainer(props) {
         </div>
         {/* Right column */}
         <div className={theme.column}>
+          <ContentfulLoader
+            entryIds={['5HmoppBlc79RfxOwb8JAls']}
+            render={(data) => {
+              const confTCO = data.entries.items['5HmoppBlc79RfxOwb8JAls'];
+              if (confTCO) {
+                return (
+                  <TCOLeaderboardsContainer
+                    trackConfig={confTCO.fields.props}
+                    itemCount={5}
+                  />
+                );
+              }
+              return null;
+            }}
+            renderPlaceholder={LoadingIndicator}
+          />
+          {/* <TCOLeaderboardsContainer
+            trackConfig={trackConfig}
+            itemCount={5}
+          /> */}
           <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
         </div>
       </div>

@@ -851,6 +851,11 @@ export default function Content() {
           </Link>
           {' '}
           - Demo of Gigs Feed component
+          <Link to="/examples/tco-leaderboards">
+            TCO Leaderboards
+          </Link>
+          {' '}
+          Demo for TCO leaderboards component
         </li>
       </ul>
     </div>

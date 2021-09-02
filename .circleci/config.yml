@@ -344,6 +344,7 @@ workflows:
               only:
                 - develop
                 - fix-challenge-end-date
+                - new-tco-leaderboards-component
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      

@@ -34,6 +34,7 @@ import SearchPageFilterExample from 'components/examples/SearchPageFilter';
 import GUIKit from 'components/examples/GUIKit';
 import ThriveArticlesFeedExample from 'components/examples/ThriveArticlesFeed';
 import GigsFeedExample from 'components/examples/GigsFeed';
+import TCOLeaderboardsExample from 'components/examples/TCOLeaderboards';
 
 import {
   Switch,
@@ -102,6 +103,7 @@ export default function Examples({
       <Route path={`${base}/search-page-filter`} component={SearchPageFilterExample} />
       <Route path={`${base}/thrive-articles-feed`} component={ThriveArticlesFeedExample} />
       <Route path={`${base}/gigs-feed`} component={GigsFeedExample} />
+      <Route path={`${base}/tco-leaderboards`} component={TCOLeaderboardsExample} />
       <Content />
     </Switch>
   );
