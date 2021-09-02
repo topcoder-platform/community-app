@@ -34,7 +34,6 @@ import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
 import ProfileStats from '../ProfileStats';
 import MemberSearch from '../../containers/MemberSearch';
-import SlashTC from '../SlashTC';
 
 import './styles.scss';
 
@@ -188,11 +187,6 @@ export default function Topcoder() {
                 component={MemberSearch}
                 exact
                 path="/search/members"
-              />
-              <Route
-                component={SlashTC}
-                exact
-                path="/tc"
               />
               <Error404 />
             </Switch>

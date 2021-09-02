@@ -3,7 +3,6 @@
  * available in this App code.
  */
 
-import Announcement from 'components/examples/Announcement';
 import Buttons from 'components/examples/Buttons';
 import Carousel from 'components/examples/Carousel';
 import ColorMixins from 'components/examples/ColorMixins';
@@ -53,7 +52,6 @@ export default function Examples({
 }) {
   return (
     <Switch>
-      <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
       <Route path={`${base}/carousel`} component={Carousel} />
       <Route path={`${base}/countdown`} component={CountdownExample} />

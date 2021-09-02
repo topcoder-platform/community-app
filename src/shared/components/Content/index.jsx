@@ -671,11 +671,6 @@ export default function Content() {
           <Link to="/examples/countdown">Countdown</Link>
         </li>
         <li>
-          <Link
-            to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
-          >
-            Announcement
-          </Link>
           {' '}
           &mdash;
           This is a part of simple PoC for CMS integration (Countentful CMS is
