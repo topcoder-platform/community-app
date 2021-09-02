@@ -26,7 +26,7 @@ function NewsFeedContainer() {
       const isProd = config.URL.FORUMS_VANILLA === 'https://discussions.topcoder.com';
       const result = await fetch(`/api/cdn/public/forums/discussions?categoryID=${isProd ? 1441 : 2716}`);
       const data = await result.json();
-      setNewsData(data);
+      setNewsData(data.slice(0, 6));
     }
     fetchData();
   }, []);
