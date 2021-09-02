@@ -20,9 +20,9 @@ function onDone(state, action) {
 }
 
 /**
- * Creates a new scoreboard reducer with the specified initial state.
+ * Creates a new challenges reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
- * @return scoreboard reducer.
+ * @return challenges reducer.
  */
 function create(initialState) {
   return redux.handleActions({

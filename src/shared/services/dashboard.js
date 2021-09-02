@@ -1,3 +1,4 @@
+import qs from 'qs';
 import { services } from 'topcoder-react-lib';
 
 const { getApi } = services.api;
@@ -15,12 +16,11 @@ class DashboardService {
 
   /**
    *
-   * @param {Number} page page number
-   * @param {Number} perPage total challenges per page
+   * @param {Object} query the request query
    * @returns
    */
-  getChallenges(page = 1, perPage = 10) {
-    return this.private.api.get(`/challenges/?page=${page}&perPage=${perPage}&types[]=CH&types[]=F2F&types[]=TSK&tracks[]=DES&tracks[]=DEV&tracks[]=DS&tracks[]=QA&status=Active&sortBy=updated&sortOrder=desc&isLightweight=true&tPhaseName=Registration`)
+  getChallenges(query) {
+    return this.private.api.get(`/challenges/?${qs.stringify(query)}`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 }

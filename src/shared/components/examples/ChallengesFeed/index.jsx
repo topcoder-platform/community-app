@@ -1,10 +1,10 @@
 import React from 'react';
-import Challenges from 'components/Dashboard/Challenges';
+import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
 import './styles.scss';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit/src/shared/components/buttons';
 
-export default class ChallengesFeed extends React.Component {
+export default class ChallengesFeedExample extends React.Component {
   constructor() {
     super();
     this.state = { theme: 'light' };
@@ -26,7 +26,7 @@ export default class ChallengesFeed extends React.Component {
           <h1>Challenges Feed Preview</h1>
           <div>Theme: {theme}</div>
           <PrimaryButton onClick={this.toggleTheme}>Toggle Theme</PrimaryButton>
-          <Challenges theme={theme} />
+          <ChallengesFeed theme={theme} />
         </div>
       </div>
     );

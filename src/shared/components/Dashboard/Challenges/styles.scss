@@ -1,0 +1,124 @@
+@import "~styles/mixins";
+
+$dashboard-teal: #219174;
+$dashboard-dark-card-bg: #363636;
+$dashboard-dark-link: #5fb7ee;
+$dashboard-dark-bg: #2a2a2a;
+
+.loading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  @include roboto-regular;
+
+  color: $tc-gray-90;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+
+  .title {
+    @include barlow-semi-bold;
+
+    font-size: 16px;
+  }
+
+  .allLink {
+    color: $dashboard-teal;
+    font-size: 13px;
+    line-height: 20px;
+
+    span {
+      @include xs-to-sm {
+        display: none;
+      }
+    }
+  }
+}
+
+.challenges {
+  padding: 0 14px;
+  background-color: $tc-white;
+  border-radius: 8px;
+  width: 100%;
+  overflow: scroll;
+
+  .row {
+    display: flex;
+    font-size: 14px;
+    line-height: 18px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin: 0 14px;
+    border-top: 1px solid $tc-gray-05;
+
+    &:first-child {
+      border: none;
+    }
+  }
+
+  a {
+    margin-right: 8px;
+    max-width: 70%;
+    text-overflow: ellipsis;
+  }
+
+  .prize {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .amount {
+    text-align: right;
+  }
+
+  @include xs-to-sm {
+    .prize {
+      display: flex;
+      flex: 1 0 90px;
+      flex-direction: column;
+    }
+
+    .amount {
+      white-space: nowrap;
+    }
+  }
+}
+
+.light {
+  background-color: transparent;
+}
+
+.container.dark {
+  color: $tc-white;
+
+  .header {
+    .allLink {
+      color: $dashboard-dark-link;
+      text-decoration: underline;
+
+      @include xs-to-sm {
+        color: $dashboard-dark-link;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .challenges {
+    background-color: $dashboard-dark-card-bg;
+
+    .row:not(:first-child) {
+      border-top: 1px solid $dashboard-dark-bg;
+    }
+  }
+}

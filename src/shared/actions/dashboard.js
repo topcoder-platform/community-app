@@ -4,8 +4,8 @@ import { getService } from '../services/dashboard';
 
 const service = getService();
 
-function fetchChallenges() {
-  return service.getChallenges();
+function fetchChallenges(query) {
+  return service.getChallenges(query);
 }
 
 export default createActions({
