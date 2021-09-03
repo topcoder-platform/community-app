@@ -1,0 +1,1830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+
+	<channel>
+		<title>Blog &#8211; Topcoder</title>
+		<atom:link href="https://www.topcoder.com/blog/feed/" rel="self" type="application/rss+xml" />
+		<link>https://www.topcoder.com</link>
+		<description></description>
+		<lastBuildDate>Tue, 31 Aug 2021 14:59:47 +0000</lastBuildDate>
+		<language>en-US</language>
+		<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+		<sy:updateFrequency>
+	1	</sy:updateFrequency>
+		<generator>https://wordpress.org/?v=5.7.2</generator>
+
+		<image>
+			<url>https://www.topcoder.com/wp-content/uploads/2020/05/cropped-TC-Icon-32x32.png</url>
+			<title>Blog &#8211; Topcoder</title>
+			<link>https://www.topcoder.com</link>
+			<width>32</width>
+			<height>32</height>
+		</image>
+		<item>
+			<title>Talent as a Service (TaaS): A Brilliant Solution to the Talent Gap</title>
+			<link>https://www.topcoder.com/blog/talent-as-a-service-taas-a-brilliant-solution-to-the-talent-gap/</link>
+			<comments>https://www.topcoder.com/blog/talent-as-a-service-taas-a-brilliant-solution-to-the-talent-gap/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Kiran Hampapura]]>
+			</dc:creator>
+			<pubDate>Wed, 13 Nov 2019 23:28:35 +0000</pubDate>
+			<category>
+				<![CDATA[Uncategorized]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=35286</guid>
+
+			<description>
+				<![CDATA[<p>In light of the incredible speed of innovation, specialized tech talent has never been more critical to business success. Yet access to that talent remains frustratingly difficult for many companies. According to the Society for Human Resources Management, 83% of businesses are having trouble recruiting suitable candidates for their open positions, particularly when it comes [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/talent-as-a-service-taas-a-brilliant-solution-to-the-talent-gap/">Talent as a Service (TaaS): A Brilliant Solution to the Talent Gap</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>In light of the incredible speed of innovation, specialized tech talent has never been more critical to business success. Yet access to that talent remains frustratingly difficult for many companies. According to the Society for Human Resources Management, <a href="https://www.shrm.org/about-shrm/press-room/press-releases/pages/skills-gap-research-workplace-immigration-report.aspx" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">83% of businesses</a> are having trouble recruiting suitable candidates for their open positions, particularly when it comes to filling highly skilled STEM positions. </p>
+
+
+
+<p>But is it truly a skilled worker shortage?
+Perhaps. At Topcoder, we have witnessed an explosion of available talent, with
+over a million individuals now part of our community which serves businesses
+and organizations like Microsoft, NASA and Harvard. The truth is more
+interesting and more solvable:&nbsp; Talent is
+out there, but businesses lack consistent <em>access</em> to that talent. </p>
+
+
+
+<h2>Agile, Scalable Talent On Demand</h2>
+
+
+
+<p>All it takes is the right technology and infrastructure for companies to connect. For the past 20 years, Topcoder has helped do just that, connecting businesses with emerging on-demand tech experts—coders, designers, and other technologists—solving real-world issues. Today, Topcoder officially launched <a href="https://www.topcoder.com/enterprise-offerings/talent-as-a-service/" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">Talent-as-a-Service (TaaS)</a>, a fast, scalable,&nbsp;outcome-based workforce that&#8217;s highly flexible and ready to meet business demands. </p>
+
+
+
+<p>TaaS is a new way to access a scalable and
+talented team of coders, QA professionals, designers, data scientists or a
+combination of the skills your projects call for. With instant access to vetted
+talent and a managed experience, TaaS is the simplest way to ramp and execute
+on digital projects, and like all offerings on Topcoder, it is crafted for the
+enterprise. </p>
+
+
+
+<h2>A “Go-to Workforce” for Your Digital Projects</h2>
+
+
+
+<p>The TaaS model has already helped Topcoder
+clients like ConsenSys—a global blockchain technology company—to build and
+scale rapidly over the last year. “Talent-as-a-Service from Topcoder allowed us
+to benefit from on-demand, globally based technologists with specialized skill
+sets to be a go-to workforce to get projects off the ground and then help
+complete them,” says Tom Lindeman, Co-founder of ConsenSys Diligence. </p>
+
+
+
+<p>With TaaS, ConsenSys tapped highly-skilled
+technologists focused solely on deliverables and execution, eliminating the
+cost and hassle of hiring, on-boarding, and managing talent. Topcoder’s sizable
+talent pool—including over 14,000 highly-skilled members who truly understand
+development for blockchain projects—helped ConsenSys create scalable solutions
+across their portfolio of projects. And it allowed ConsenSys the flexibility to
+scale rapidly, completing more than 50 projects successfully.</p>
+
+
+
+<p>“The Topcoder Community demonstrated a shared
+sense of ownership where they truly cared about the success of the product and
+would proactively offer input on how to make things better,” says Lindeman.
+“The Topcoder Community really felt like an integrated part of our team.”</p>
+
+
+
+<h2>Solving for the Talent Gap? Use TaaS</h2>
+
+
+
+<p>TaaS is a revolutionary solution for businesses that need unique, customized and flexible talent solutions. To learn more about our TaaS offering and paired services, download our&nbsp;<a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://www.topcoder.com/taasbook" target="_blank">Topcoder TaaS eBook</a>, email us (taas@topcoder.com), or visit our <a href="https://www.topcoder.com/taas" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">Talent-as-a-Service page</a>.</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/talent-as-a-service-taas-a-brilliant-solution-to-the-talent-gap/">Talent as a Service (TaaS): A Brilliant Solution to the Talent Gap</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/talent-as-a-service-taas-a-brilliant-solution-to-the-talent-gap/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>TCO19 Heads to the Bayou City &#8211; Houston, TX</title>
+			<link>https://www.topcoder.com/blog/2019-topcoder-open-houston/</link>
+			<comments>https://www.topcoder.com/blog/2019-topcoder-open-houston/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Clinton Bonner]]>
+			</dc:creator>
+			<pubDate>Thu, 12 Sep 2019 18:15:23 +0000</pubDate>
+			<category>
+				<![CDATA[Community Stories]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=33236</guid>
+
+			<description>
+				<![CDATA[<p>
+				</p>
+				<p>
+					The post
+					<a rel="nofollow" href="https://www.topcoder.com/blog/2019-topcoder-open-houston/">TCO19 Heads to the Bayou City &#8211; Houston, TX</a>
+					appeared first on
+					<a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>
+					.
+				</p>
+				]]>
+			</description>
+			<content:encoded>
+				<![CDATA[<p>This November, the most innovative problem solvers from all over the world will gather in Houston to meet, solve challenges, and compete at the 2019 Topcoder Open. It’s an event like no other, where the best minds in the field of on-demand talent come together for a few days of high-energy camaraderie and competition.<br />
+The <a href="https://tco19.topcoder.com/">2019 Topcoder Open (TCO19)</a>, the Ultimate Programming and Design Tournament, will be held November 13-16 in Houston, Texas. Why Houston? Topcoder chose this mega-city because of the major challenges the tech-led industries in Houston face and the leadership role they continue to play. Aerospace, energy, conservation: The types of solutions and challenges being tackled in Houston are reshaping humanity and serving billions. Big thinking, big data, big solutions. So Topcoder decided to bring its world-class problem solvers to Houston for the TCO19!</p>
+<h2>What is TCO19?</h2>
+<p>The 2019 Topcoder Open (TCO19) is an annual competition for the Topcoder community. Competitions in different categories take place all year on the Topcoder platform and the TCO19 finals in Houston are the culmination of those contests. Top performers from around the world in development, design, data science and algorithm tracks win trips to the TCO19 finals. Additional competitions like Sponsored Marathon Matches offer more opportunities to win a trip to the finals. Being able to join the TCO19 Onsite Finals is an exciting honor for finalists, who are treated like VIPs. Finalists from around the world receive an all-expenses-paid trip to the event, the opportunity to compete live for big cash prizes, networking with recruiters from top global enterprises, and the chance to be crowned a Topcoder champion. Last year&#8217;s event in Dallas yielded incredible fun and impressive results: Check out this <a href="https://www.youtube.com/watch?v=dndeon-khHo">video recap</a> to see the energy and competitive spirit at the event. Competitors from over 34 countries joined us for TCO18, the welcome reception featured an appearance by a live longhorn, and the closing reception included a real rodeo.</p>
+<h2>TCO19 Highlights</h2>
+<p>The Topcoder Open isn&#8217;t just a competition. It&#8217;s a chance for the Topcoder community to come together to learn and grow. At the Innovation Summit, attendees can network with industry leaders, attend panels and meet the Wipro and Topcoder executive teams. Last year&#8217;s panels included sessions on security, GDPR compliance, the future of the gig economy and exciting IoT developments. At TCO19, the Innovation Summit will focus on leaders in scaling the gig economy and practitioners of edge technologies like AI, computer vision and deep learning. As Topcoder CEO Mike Morris <a href="https://www.prnewswire.com/news-releases/topcoder-open-tco-brings-worlds-best-programmers-to-dallas-for-global-software-development-and-design-competition-300751562.html">points out</a>, TCO isn&#8217;t just a great opportunity for competitors—it gives participating organizations direct access to the most coveted IT workforce on the planet while celebrating Topcoder&#8217;s global community of designers, developers, data scientists, and testers. What&#8217;s new for TCO19?</p>
+<ul>
+<li>The QA track: QA is becoming a major pillar of Topcoder&#8217;s principles in 2019</li>
+<li>Copilot trip-winning opportunities for Data Science, Design, &amp; Development copilots</li>
+<li>A year-long algorithm competition</li>
+</ul>
+<p>This year&#8217;s Topcoder Open Finals will bring the best of the world-class Topcoder community back to Texas. We expect great things to emerge from TCO19.</p>
+<h2>Join Us</h2>
+<p>Topcoder is looking for corporate and enterprise sponsors! Become an intimate part of the world&#8217;s most unique technology event. The benefits of sponsorship include:</p>
+<ul>
+<li>Increased loyalty to your brand from the Topcoder community (leading to more community members working on your projects)</li>
+<li>Greater interest in your technology among the Topcoder community</li>
+<li>Exclusive recruiting opportunities within our talent pool</li>
+<li>The chance to showcase your thought leadership in the crowdsourcing field</li>
+</ul>
+<p><a href="https://www.topcoder.com/sponsor-tco?utm_medium=Referral&amp;utm_source=LandingPage&amp;utm_campaign=TCOSponsorshipLP">Contact us</a> today to learn more about joining us for this exciting event &#8212; we hope to see you there.]]&gt;</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/2019-topcoder-open-houston/">TCO19 Heads to the Bayou City &#8211; Houston, TX</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/2019-topcoder-open-houston/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>Topcoder Skill Builder Spree</title>
+			<link>https://www.topcoder.com/blog/topcoder-skill-builder-spree/</link>
+			<comments>https://www.topcoder.com/blog/topcoder-skill-builder-spree/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[jessie]]>
+			</dc:creator>
+			<pubDate>Tue, 31 Aug 2021 14:54:50 +0000</pubDate>
+			<category>
+				<![CDATA[Community Stories]]>
+			</category>
+			<category>
+				<![CDATA[Skill Builder]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=44040</guid>
+
+			<description>
+				<![CDATA[<p>At Topcoder, we are dedicated to helping you grow and learn. As we celebrate our Topcoder Skill Builder Competitions, which began one year ago, we are bringing you a month of bonus prizes plus the commitment to launch a new challenge every month with prizes! Plus you can rely on us to be launching a [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/topcoder-skill-builder-spree/">Topcoder Skill Builder Spree</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>At Topcoder, we are dedicated to helping you grow and learn. As we celebrate our <a href="https://www.topcoder.com/thrive/articles/topcoder-skill-builder-competitions">Topcoder Skill Builder Competitions</a>, which began one year ago, we are bringing you a month of bonus prizes plus the commitment to launch a new challenge every month with prizes! Plus you can rely on us to be launching a new Topcoder Skill Builder Competition the first week of every month going forward!</p>
+
+
+
+<p>The September Topcoder Skill Builder Spree will include:</p>
+
+
+
+<ul><li>9 <a href="https://www.topcoder.com/challenges?search=Topcoder%20Skill%20Builder%20Competition&amp;tracks[Dev]=true&amp;types[]=CH">Topcoder Skill Builder competitions</a> open for the month</li><li>4 New advanced challenges on existing Skill Builder competitions with prizes!</li><li>Topcoder t-shirts and more than $6,000 in prizes</li><li>Bonus prizes for first time submitters, current gig workers, and gig applicants</li><li>Prizes for improving your scores on the leaderboard</li><li>Prizes for gaining new skills</li></ul>
+
+
+
+<p>Start by checking out the variety of Topcoder Skill Builder Competitions and begin working and submitting to them. Once you conquer the easy problem, make sure you upskill with the medium and hard problems. We want you to not only learn but to feel confident with the skills you’re learning.</p>
+
+
+
+<p><strong>Did you know that being successful in a Topcoder Skill Builder Competition, that skill is verified for you on your Topcoder profile making it easier for you to get a Topcoder gig?</strong></p>
+
+
+
+<p>Topcoder Skill Builder competitions are a sure-fire way to be successful at Topcoder through participating in our customer challenges or in getting a gig. They will also help you in your professional life to show proof that you have coding skills. Don’t miss this opportunity to build your development skillset and triumph at Topcoder.</p>
+
+
+
+<p>Above the prizes attached to the new challenges, here are some bonuses for you for September 1 &#8211; 30, 2021.</p>
+
+
+
+<figure class="wp-block-table ticss-ecd2caf4"><table><tbody><tr><td>T-shirt for Everyone</td><td>Every successful submitter on any Skill Builder Competition gets a Topcoder t-shirt.&nbsp;</td></tr><tr><td>First Time Submitter&nbsp;</td><td>The initial 50 successful submitters on any of the Skill Builder Competitions get $50 as a bonus if it’s your first submission on a Topcoder challenge.</td></tr><tr><td>Gig Work Bonus</td><td>Current gig workers or gig work applicants will receive a $50 bonus for every successful submission on any of the Skill Builder Competitions.</td></tr><tr><td>AlefEdge Skill Builder Bonus</td><td>If you successfully submit in any Topcoder Skill Builder Competition plus participate successfully in the AlefEdge Skill Builder Competition, the first 50 members will earn an additional $100 bonus.</td></tr><tr><td>Multiple Skill Builder Submissions</td><td>The more you participate, the more you earn. There are 9 Skill Builder Competitions and we’ll double your September bonus prizes if you successfully submit to all of them.</td></tr></tbody></table></figure>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>*Bonus prizes will only be eligible for those that get 75% (1312 / 1750 points) or higher score on the Topcoder Skill Builder/s Competition and only during September 1 &#8211; 30, 2021.</p>
+
+
+
+<p>*If you have already participated in a Skill Builder, you can improve your scores and become eligible for the t-shirt.</p>
+
+
+
+<p><strong>Did you know</strong></p>
+
+
+
+<ul><li>If you applied for a Topcoder Gig</li><li>Submit to a Topcoder Skill Builder</li><li>Submit to the AlefEdge Skill Builder Competition as your first Topcoder challenge</li></ul>
+
+
+
+<p><strong>You would get a $50 first time submitter bonus + $50 Gig Work bonus + $100 bonus + a Topcoder t-shirt + AlefEdge t-shirt?</strong></p>
+
+
+
+<p><strong>Challenges</strong></p>
+
+
+
+<p>Here are the links to existing Skill Builders, Advance Challenges, and net new Skill Builders with exciting prizes.</p>
+
+
+
+<p><strong>New Skill Builder</strong>: <a href="https://www.topcoder.com/challenges/ec092466-781e-43a6-bb20-0caed0195517">Flutter</a>! With <strong>$1,500</strong> in prizes</p>
+
+
+
+<p><strong>Existing Skill Builders:</strong> <a href="http://www.topcoder.com/challenges/30157738">Angular</a> | <a href="http://www.topcoder.com/challenge-details/30176440/?type=develop">React</a> | <a href="http://www.topcoder.com/challenges/30168990">Java+PostGresSQL</a> | <a href="https://www.topcoder.com/challenges/30203704">Salesforce</a> | <a href="https://www.topcoder.com/challenges/30158253">Appium</a> | <a href="https://www.topcoder.com/challenges/92e75145-4fd6-4ea9-9f28-e48d1d7ca647">GoLang</a> | <a href="https://www.topcoder.com/challenges/efe526e7-d82b-4708-beb4-e3390889bb64">EdgeNet Skill Builder</a> | <a href="https://www.topcoder.com/challenges/ab808f18-995f-4878-b1c6-2619c8d8819d">Figma</a></p>
+
+
+
+<p><strong>New Advance Challenges</strong>: <a href="https://www.topcoder.com/challenges/555073b8-a478-41a7-a85c-09763e39b3e2">Angular Advance Challenge</a> | <a href="https://topcoder.com/challenges/f686ad63-7dcd-4eb7-9e3a-1617af92dc75/">Java+PostgreSQL Advance Challenge</a> | <a href="https://www.topcoder.com/challenges/921801de-073c-40d2-8ee2-33f729fd228b">Golang Advance Challenge</a> | <a href="https://www.topcoder.com/challenges/555073b8-a478-41a7-a85c-09763e39b3e2">Cloud Native Ideation Challenge</a> with <strong>$4,500</strong> in prizes</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/topcoder-skill-builder-spree/">Topcoder Skill Builder Spree</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/topcoder-skill-builder-spree/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>TCO21 Regional Events Recap</title>
+			<link>https://www.topcoder.com/blog/tco21-regional-events-recap/</link>
+			<comments>https://www.topcoder.com/blog/tco21-regional-events-recap/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[DaraK]]>
+			</dc:creator>
+			<pubDate>Tue, 31 Aug 2021 14:47:08 +0000</pubDate>
+			<category>
+				<![CDATA[Community Stories]]>
+			</category>
+			<category>
+				<![CDATA[TCO21]]>
+			</category>
+			<category>
+				<![CDATA[Topcoder Open (TCO)]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=44028</guid>
+
+			<description>
+				<![CDATA[<p>The Topcoder Open Regional Events are one of the best perks of being a Topcoder member. Competing against each other, learning from each other, and chatting virtually are cool. But, it’s the times when we meet face to face to compete, win prizes, and take photos which are the most memorable. Through the years Topcoder [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/tco21-regional-events-recap/">TCO21 Regional Events Recap</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>The Topcoder Open Regional Events are one of the best perks of being a Topcoder member. Competing against each other, learning from each other, and chatting virtually are cool. But, it’s the times when we meet face to face to compete, win prizes, and take photos which are the most memorable. Through the years Topcoder has organized regional events all over the world and gathering community members together to celebrate has been awesome. Although we had to hold the 2021 regional events virtually because of the pandemic, the week was an amazing one, full of adrenaline-pumping competitions and a lot of fun (and prizes and T-shirts)..</p>
+
+
+
+<p><a href="https://tco21.topcoder.com/regional-events/schedule">Here’s what</a> the event looked like: All the regionals were held at the same time, in one week, virtually on Hopin. All seven regionals had dedicated meetups and competitions. Read about all the regional meetups here:&nbsp;</p>
+
+
+
+<ul><li><a href="https://discussions.topcoder.com/discussion/10881/tco21-eastern-asia-regional-meetup">Eastern Asia</a></li><li><a href="https://discussions.topcoder.com/discussion/10873/tco21-europe-and-central-asia-regional-meetup">Europe and Central Asia</a></li><li><a href="https://discussions.topcoder.com/discussion/10850/tco21-south-eastern-asia-and-oceania-regional-meetup">South-Eastern Asia and Oceania</a></li><li><a href="https://discussions.topcoder.com/discussion/10844/tco21-africa-and-western-asia-regional-meetup-recap">Africa and Western Asia</a></li><li><a href="https://discussions.topcoder.com/discussion/10849/tco21-caribbean-and-south-central-america-regionals">Caribbean and South-Central America</a></li><li><a href="https://discussions.topcoder.com/discussion/10848/tco21-north-america-regional-meetup-recap">North America</a></li><li><a href="https://discussions.topcoder.com/discussion/10843/tco21-southern-asia-regional-meetup-recap">Southern Asia</a></li></ul>
+
+
+
+<p>Check out the awesome TCO21 T-shirts (designed by our veteran designer, <a href="https://www.topcoder.com/members/oninkxronda">oninkxronda</a>) that were presented. These will go to all members who attended TCO.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img loading="lazy" src="https://lh4.googleusercontent.com/Z4PnqYGDfvgC50b6cfTnr2m5aiUXNDRv4u94VcU7A2k5BGBgzLhs_RENevp-4biRCww5Ll9WhR-44ByG0iCaFl9nMHFU4TRRde644fyFBBl98GZZpdXtcAitvuBjRkjMvEm3L_Dh=s0" alt="" width="1024" height="575"/></figure></div>
+
+
+
+<p>Challenge highlights included a twenty-four hour Design Seed challenge in which the designers had to rethink Topcoder payments to be more modern and produce a better experience and a seventy-two hour lightning Marathon Match. The problem statement was to minimize the number of moves to obtain exactly <strong>C</strong> 4-connected components. In other words, each colour should form a single 4-connected component.</p>
+
+
+
+<p>Here’s <a href="https://www.topcoder.com/members/wleite/">wleite</a>’s solution showing his visualizer for the seed 10</p>
+
+
+
+<blockquote class="twitter-tweet" style="margin: 0 auto;"><p lang="en" dir="ltr">Topcoder MM128 &#8211; BallSwaps<br>Seed 10 &#8211; 689 moves (running with more time, got 767 in the last example submission). <a href="https://t.co/sgMCLhYETh">pic.twitter.com/sgMCLhYETh</a></p>&mdash; Wladimir Leite (@wleite) <a href="https://twitter.com/wleite/status/1423295924470571017?ref_src=twsrc%5Etfw">August 5, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
+<div style="height:300px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>The end of the match was exciting, as we saw veteran <a href="https://www.topcoder.com/members/wleite/">wleite</a> edging past <a href="https://www.topcoder.com/members/my316g">my316g</a> in the final to win.&nbsp;</p>
+
+
+
+<p>The Development Competition was organized as a hackathon this year and was also launched on the first day. The problem statement was to re-innovate education in the digital world. <a href="https://www.topcoder.com/members/cunhavictor">cunhavictor</a> had the best submission and took the overall reward home, along with the regional champion reward.</p>
+
+
+
+<p>His entire application was a good prototype of an online education platform. It implemented all the basic features, including</p>
+
+
+
+<ul><li>Browse the course list</li><li>Enroll/unenroll in a course</li><li>A course should contain several lectures, each lecture should contain one or more video tutorials.</li><li>A course should contain some quizzes/homework.</li><li>Students should be able to take notes</li></ul>
+
+
+
+<p>Apart from that, it provided two real courses &#8211; math and chemistry. Students can chat with each other and he designed a decompression room to help students have fun for a short break.</p>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img loading="lazy" src="https://lh4.googleusercontent.com/DBbrU6hPPvDuHk311ISTGgdsToYEOqaGDRHecs4-2JMn2ouwDnvwOy_P4PHIywn8SnLcXfEthr6iTwzuEcBa6R7wqHkFfUAACpjaKbN0Nq-60Manx6kQQbZjTi3wSVTFE82692b2=s0" alt="" width="1024" height="551"/></figure></div>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p><strong>Algorithm Competition: Qualifying Round One</strong></p>
+
+
+
+<p>On Wednesday morning it was time for the competitions to start. The first was the Algorithm Competition qualification round one. Things were super close and it was very tough to make it to top 128.</p>
+
+
+
+<p>Here are the <a href="https://www.topcoder.com/challenges/ec092466-781e-43a6-bb20-0caed0195517">round results</a> for you to take a look.</p>
+
+
+
+<p>There was also a&nbsp; post match analysis session for the algorithm round, hosted by misof.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter"><img loading="lazy" src="https://lh6.googleusercontent.com/WoBDynU-SarrJqElqXORbqIMGy89_zBP3F2Z_UnczqLgC27OzEsf7rATO8qdwj7zETs7xwfoGQr-5SqYbiBawS2tnod7lrp9-ibZy9emnDtECqaJ-ahT-g270jJaPe3nzLbgXsrF=s0" alt="" width="NaN" height="NaN"/></figure></div>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p><strong>QA Competition:</strong></p>
+
+
+
+<p>This year&#8217;s QA final was focused on finding bugs in a popular e-commerce site called <a href="http://newegg.com/">newegg.com</a>. The competition was broken down into two phases (bug hunt and challenge phases) and two spot challenges (test case execution and security hunt). In the bug hunt (aka exploratory testing) phase, the user was asked to report functional and UI bugs. In the challenge phase, competitors were given the opportunity to challenge the bugs reported by others and gain some extra points. In addition to that, there was a &#8220;test case execution&#8221; phase so that competitors could execute some test cases and record videos. Next we held a security bug hunt to explore the vulnerabilities of a website.</p>
+
+
+
+<p>From the start it was a close race between youDare, malfoys76, rajanmourya2015 and macs054. But in the challenge phase malfoys76 and rajanmourya2015 scored more points. Then, in spot challenges, all scored full points for the &#8220;test case execution&#8221; and in the &#8220;security hunt&#8221;, r_prakash_2020 and malfoys76 got more points and moved up in the points table.</p>
+
+
+
+<p>youDare won first place, second place went to malfoys76, and third place went to rajanmourya2015. Apart from the overall champions, there were regional champions as well.</p>
+
+
+
+<p><strong>Algorithm Qualifying Round Two</strong></p>
+
+
+
+<p>The Algorithm Competition qualification round two took place a few hours later, and thirty-two qualified for the final round. You can see the Algorithm leaderboard <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQahwd-62CFCM7uoN2SqSgN6C84Jota867zHNpyK8iLNrlD_xRp-76x2mP5EN4zxajO_5kCKO0o5EFN/pubhtml?gid=0&amp;single=true">here</a>.</p>
+
+
+
+<p>Right after the round, we had a post match analysis with <a href="https://www.topcoder.com/members/misof"><strong>misof</strong></a> and it was amazing to see members chat and ask questions.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img loading="lazy" src="https://lh5.googleusercontent.com/Qu0oMsfMsXAtcjZSBztd6ge75WDQ-twNlJq4DXeZ7J1ROahKCFptgl4jTjsgGm8ai2e8pmLCzp3U4Vc6C7A8NxPGOZOZSEl1fz7UVST8BXXrtYECr-dymRNDaK6zcijip-5ksGAY=s0" alt="" width="1074" height="685"/></figure></div>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>On Friday, the first design competition for the regional event began. For this event we ran a bracket tournament with single round elimination. The event was run by Adam, DaraK and Jessie and there were twenty-four designers in total. The members who qualified for round one based on the seed round results were: <a href="https://www.topcoder.com/members/weltmoon">weltmoon</a>, <a href="https://www.topcoder.com/members/ngraphics">ngraphics</a>, <a href="https://www.topcoder.com/members/Brianbinar">Brianbinar</a>, <a href="https://www.topcoder.com/members/Sir_Luis">Sir_Luis</a>, <a href="https://www.topcoder.com/members/nestwasp">nestwasp</a>, joni7sunny, <a href="https://www.topcoder.com/members/d.fachri">d.fachri</a>, <a href="https://www.topcoder.com/members/indra6079">indra6079</a>, <a href="https://www.topcoder.com/members/neenasatija9300">neenasatija9300</a>, <a href="https://www.topcoder.com/members/eng01">eng01</a>, <a href="https://www.topcoder.com/members/deviam">deviam</a>, <a href="https://www.topcoder.com/members/atomicenergy">atomicenergy</a>, <a href="https://www.topcoder.com/members/mosaixel">mosaixel</a>, <a href="https://www.topcoder.com/members/wahyu.ts">wahyu.ts</a>, <a href="https://www.topcoder.com/members/uber">uber</a> and  <a href="https://www.topcoder.com/members/molderacs">molderacs</a>. For round one, the scope of the challenge was to plan and design a way for Topcoder members to celebrate their victories with their friends when they win challenge prizes in one hour. Adam judged the amazing designs and the members with the best advanced further: <a href="http://brianbinar">Brianbinar</a>, joni7sunny, <a href="https://www.topcoder.com/members/d.fachri">d.fachri</a>, <a href="https://www.topcoder.com/members/deviam">deviam</a>, <a href="https://www.topcoder.com/members/wahyu.ts">wahyu.ts</a> and <a href="https://www.topcoder.com/members/molderacs">molderacs</a>.</p>
+
+
+
+<p>The round two challenge was about designing a Slack/Discord chat tool into the existing Topcoder website. This problem was interesting as it’s something the Topcoder team is looking to do. The problem was focused on the desktop experience for a new or existing member who wants to join Slack but doesn’t know anything about it or why he/she should join. This one was more difficult to judge fast as the submissions were even better now but Adam and Jessie did a great job. The advancers of round two were: <a href="https://www.topcoder.com/members/iamtong">iamtong</a>, <a href="https://www.topcoder.com/members/Hari_Om_Pandey">Hari_Om_Pandey</a>, joni7sunny, <a href="https://www.topcoder.com/members/jivkoss">jivkoss</a>, <a href="https://www.topcoder.com/members/iaminfinite">iaminfinite</a>, <a href="https://www.topcoder.com/members/deviam">deviam</a>, <a href="https://www.topcoder.com/members/iqbalhood">iqbalhood</a> and <a href="https://www.topcoder.com/members/rajeshrathod">rajeshrathod</a>.</p>
+
+
+
+<p>The last day of the Regionals event was dedicated to the final competitions for design and algorithm and then was followed by the closing and awards ceremony. The two competitions started early at 06:00 AM UTC-4 on Sunday, August 8th and everyone was excited about finding out the winners.</p>
+
+
+
+<p>For design, we had another three final rounds of thirty minutes each. The round three challenge asked members to design a table application which should guide members on their learning journey for design, development, etc., from a novice to the master level.</p>
+
+
+
+<p>To see the entire tournament check <a href="https://brackethq.com/b/soks/">this link</a>.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img loading="lazy" src="https://lh6.googleusercontent.com/BPr3jlUXP8WlkzOBLKEjCcpbDkW-Q9NXk_H155OzJYC1Ml7sW9M9E8a6mV23dbAt4dKU2SWk0ruonSbZ4Oqgzx0a6ZKy_FqwdIP0_d4_EHfO9QzceapNcLdgQ2x_rZJON_pprWWI=s0" alt="" width="1037" height="941"/></figure></div>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>The designs we received were awesome and judging was even more difficult as we approached the last round. In the end, <a href="https://www.topcoder.com/members/iamtong">iamtong</a>, joni7sunny, <a href="https://www.topcoder.com/members/iaminfinite">iaminfinite</a> and <a href="https://www.topcoder.com/members/rajeshrathod">rajeshrathod</a> were the members who advanced further. </p>
+
+
+
+<p>The bracket tournament round four challenge asked the designers to create a tablet experience for people who come to Topcoder and start their journey but don’t know what Topcoder offers and what they can do on the site. The battle was now even stronger with <a href="https://www.topcoder.com/members/iamtong">iamtong</a> against joni7sunny and <a href="https://www.topcoder.com/members/iaminfinite">iaminfinite</a> against <a href="https://www.topcoder.com/members/rajeshrathod">rajeshrathod</a> . This was a short round of just thirty minutes, with lots of adrenaline, fast thinking and designing. In the end it was <a href="https://www.topcoder.com/members/iamtong">iamtong</a> and <a href="https://www.topcoder.com/members/rajeshrathod">rajeshrathod</a> who advanced to the final round. Some would think this was a replay of the TCO20 finals when the two met again.</p>
+
+
+
+<p>For round five, the championship round, the designers had to work on a mobile application to help coders find more information about competitive programming when they land on Topcoder. In the end both designs from <a href="https://www.topcoder.com/members/iamtong">iamtong</a> and <a href="https://www.topcoder.com/members/rajeshrathod">rajeshrathod</a> were great and impressive for such a short amount of time. Adam and Jessie shared their feedback, however the winner was not announced until the award ceremony.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img loading="lazy" src="https://lh4.googleusercontent.com/m3nViLjqC5Tf8iY3tznYwAkSZv4PGpxMwc6NmWFzrWYKNckFGxX1KblYfZ7doCfgaGRj4to2cU__byIh7jXtjYRaA8e73oViuLRJdRxXJ-NWWiEo_v-WC2-sjDCkqAF8XAsOqDvh=s0" alt="" width="785" height="381"/></figure></div>
+
+
+
+<p>In parallel Algo Wild Card Rounds had begun. It was 1vs1 initially and then in the end eight competed in a TCO Final-styled competition.</p>
+
+
+
+<p>We had some amazing 1 vs 1. One of the very interesting ones was Rubikun vs tourist where tourist made a submission in the last few seconds to win the bracket. Everyone in the chat and commentary was rooting for Rubiken as he was against the best. We saw a very close battle and it was super fun to watch.</p>
+
+
+
+<p>Here’s how the leaderboard looked after two rounds:</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img loading="lazy" src="https://lh6.googleusercontent.com/QAGj53fGhD9XaNWKD_xU745z6c21Z-GXLrCOoWUWm0k7x-IaCP4eC2KYYG18hIz5wE58jrnCkUq1XiEpUzYoYcf2Cn8n7NAJsy3Ox3MULK9n0MBy2tuEUD1P_tkaSw1wyl_IaQbI=s0" alt="" width="1142" height="1536"/></figure></div>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>The last round was pretty interesting. <a href="https://www.topcoder.com/members/tourist">tourist</a> and <a href="https://www.topcoder.com/members/bqi343">bqi343</a> took the top two positions, and because they have already qualified to the finals <a href="https://www.topcoder.com/members/grumpy_gordon">grumpy_gordon</a> and <a href="https://www.topcoder.com/members/krijgertje">krijgertje</a> won the wildcard berth to the TCO21 Algorithm Finals. Here are <a href="https://topcodr.co/TCO21Regionals">region-wise winners</a> and <a href="https://www.topcoder.com/blog/tco-wildcard-elimination-rounds/">editorials</a> of elimination rounds.</p>
+
+
+
+<p>The award ceremony started at 09:00 AM UTC-4 and was much awaited by the members as winners were announced and prizes were shared. As we had several regions and different tracks per region, we had lots of winners.&nbsp; To read about the winners for each region, check the <a href="https://tco21.topcoder.com/regional-events/regions">TCO21 site</a>.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img loading="lazy" src="https://lh4.googleusercontent.com/1j4dSMUEzmV_7btYvEf5V4_IRxaPH8nku7qlaTJ01SYMSNcJ4uK8-HqHXKSR-RTbcG2khBMLEdY-P28pjG36l9hOrg0EH-yWJQkhLDQVFpbGWq8BqmKvmVXi3RhzNyAKMDGa6CfN=s0" alt="" width="986" height="504"/></figure></div>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>Congratulations to the members who were the champions of their tracks:</p>
+
+
+
+<p>Algorithm: <a href="https://www.topcoder.com/members/bqi343">bqi343</a><br>Development: <a href="https://www.topcoder.com/members/cunhavictor">cunhavictor</a><br>Marathon: <a href="https://www.topcoder.com/members/wleite">wleite</a><br>QA: <a href="https://www.topcoder.com/members/youDare">youDare</a><br>UI Design: <a href="https://www.topcoder.com/members/rajeshrathood">rajeshrathod</a></p>
+
+
+
+<p>Based on the results from the competitions as well as playing games, members received points that added up to the overall tournament leaderboard. Congratulations to our overall winners:</p>
+
+
+
+<p>1. <a href="https://www.topcoder.com/members/tourist">tourist</a><br>2. <a href="https://www.topcoder.com/members/wleite">wleite</a><br>3. <a href="https://www.topcoder.com/members/iamtong">iamtong</a><br>4. <a href="https://www.topcoder.com/members/r_prakash_2020">r_prakash_2020</a><br>4. <a href="https://www.topcoder.com/members/Petr">Petr</a><br>6. <a href="https://www.topcoder.com/members/Manoneeta">Manoneeta</a><br>7. <a href="https://www.topcoder.com/members/cdharmateja">cdharmateja</a><br>8. <a href="https://www.topcoder.com/members/malfoys76">malfoys76</a><br>9. <a href="https://www.topcoder.com/members/cunhavictor">cunhavictor</a><br>10. <a href="https://www.topcoder.com/members/blue.nguyen">blue.nguyen</a></p>
+
+
+
+<p>Thank you to the admins <a href="https://www.topcoder.com/members/adroc">adroc</a>, <a href="https://www.topcoder.com/members/jmpld40">jmpld40</a>, and <a href="https://www.topcoder.com/members/hmehta">hmehta</a>, and several other community members who helped make the event so exciting! It is worth noting that they worked hard to accommodate all the different time zones into the structure of the events. </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter"><img src="https://lh4.googleusercontent.com/sD57Qcnhj_rY1AZhNbk5Krks-fCHDmFkL_xzrgFWh3JVVY9mC-OJvsUn4ellUKcOJh0WX8iP0OV4FD_fUfs6cIWM4xHwDmD4vxi5u9qZdNs5IgpMm4zfHViDNrBwh--_Kg0ee2ZT=s0" alt=""/></figure></div>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>This event was a success and we were happy to see everyone at the regionals. Hopefully next year we get to meet each other live. Meanwhile, TCO21 Finals are coming in a few months. Stay tuned for more details about the main event! </p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/tco21-regional-events-recap/">TCO21 Regional Events Recap</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/tco21-regional-events-recap/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>Platform Updates to Improve Gig Workers Experience</title>
+			<link>https://www.topcoder.com/blog/platform-updates-to-improve-gig-workers-experience/</link>
+			<comments>https://www.topcoder.com/blog/platform-updates-to-improve-gig-workers-experience/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Oanh.Tran]]>
+			</dc:creator>
+			<pubDate>Thu, 26 Aug 2021 11:25:00 +0000</pubDate>
+			<category>
+				<![CDATA[Platform]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=44003</guid>
+
+			<description>
+				<![CDATA[<p>We recently released a platform update that drastically improves the user experience for our community. This update makes it easier for members to engage with customer requests, and track their progress as they apply for gig work. It also provides more transparency for members throughout the application and gig process. What&#8217;s New &#38; Improved All [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/platform-updates-to-improve-gig-workers-experience/">Platform Updates to Improve Gig Workers Experience</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>We recently released a platform update that drastically improves the user experience for our community. This update makes it easier for members to engage with customer requests, and track their progress as they apply for gig work. It also provides more transparency for members throughout the application and gig process.</p>
+
+
+
+<p><strong>What&#8217;s New &amp; Improved</strong></p>
+
+
+
+<ul><li>All new user interface for gig workers, which helps you manage your applications more efficiently</li><li>Easier for gig workers to see where they stand in the application process and know what to do next</li><li>Gives gig workers a holistic view of their experience in gig work at Topcoder</li></ul>
+
+
+
+<p><strong>Additional Benefits</strong></p>
+
+
+
+<ul><li>Improved performance of My Gigs pages with faster loading times</li><li>Faster access to your Active Gigs if you&#8217;re on assignment </li><li>Faster access to your Open Applications if you&#8217;re not yet placed in a gig</li><li>Improvements that help eliminate confusion about pending applications</li></ul>
+
+
+
+<p>We hope these updates help create a more enjoyable, useful, and satisfying gig work experience for our community members! Check out these screenshots to see what&#8217;s new.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="681" src="https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.23.19-AM-1024x681.png" alt="" class="wp-image-44005" srcset="https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.23.19-AM-1024x681.png 1024w, https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.23.19-AM-300x199.png 300w, https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.23.19-AM-768x511.png 768w, https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.23.19-AM.png 1280w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="642" src="https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.25.53-AM-1024x642.png" alt="" class="wp-image-44006" srcset="https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.25.53-AM-1024x642.png 1024w, https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.25.53-AM-300x188.png 300w, https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.25.53-AM-768x482.png 768w, https://www.topcoder.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-19-at-11.25.53-AM.png 1269w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p></p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/platform-updates-to-improve-gig-workers-experience/">Platform Updates to Improve Gig Workers Experience</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/platform-updates-to-improve-gig-workers-experience/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>Open Assembly and the Center for the Transformation of Work</title>
+			<link>https://www.topcoder.com/blog/open-assembly-and-the-center-for-the-transformation-of-work/</link>
+			<comments>https://www.topcoder.com/blog/open-assembly-and-the-center-for-the-transformation-of-work/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Annika Nagy]]>
+			</dc:creator>
+			<pubDate>Wed, 25 Aug 2021 13:35:43 +0000</pubDate>
+			<category>
+				<![CDATA[Future of Work]]>
+			</category>
+			<category>
+				<![CDATA[Talent Strategy]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=43985</guid>
+
+			<description>
+				<![CDATA[<p>When John Winsor appeared on the Uprisor podcast to talk about open talent adoption, we called him The Godfather of Crowd. He is a pioneer and global authority on open innovation, and the founder &#38; CEO of Open Assembly, a leading organization in the Open Talent Economy.&#160; Open Assembly helps organizations drive crowdsourcing adoption through [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/open-assembly-and-the-center-for-the-transformation-of-work/">Open Assembly and the Center for the Transformation of Work</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>When <a href="https://www.topcoder.com/blog/john-winsor-keynote-open-talent/" target="_blank" rel="noreferrer noopener">John Winsor</a> appeared on the <a href="http://uprisor.com/podcast" target="_blank" rel="noreferrer noopener">Uprisor</a> podcast to talk about open talent adoption, we called him <a href="https://www.topcoder.com/blog/solving-the-open-talent-adoption-problem-with-the-godfather-of-crowd-john-winsor/" target="_blank" rel="noreferrer noopener">The Godfather of Crowd</a>. He is a pioneer and global authority on open innovation, and the founder &amp; CEO of <a href="http://open-assembly.com/" target="_blank" rel="noreferrer noopener">Open Assembly</a>, a leading organization in the Open Talent Economy.&nbsp;</p>
+
+
+
+<p>Open Assembly helps organizations drive crowdsourcing adoption through content, community, and consulting. They are future of work thought leaders, hosting conversations and connecting organizations and people who want to thrive as digital tools like crowdsourcing, blockchain and artificial intelligence change how we work.&nbsp;</p>
+
+
+
+<h2>The Center for the Transformation of Work</h2>
+
+
+
+<p>Born out of the Open Assembly community, <a href="https://transformationofwork.org/" target="_blank" rel="noreferrer noopener">The Center for the Transformation of Work (CTW)</a> is a community dedicated to transforming work into something more open, inclusive, dynamic, and agile. Digital technologies have radically changed – and continue to change at ever increasing rates – the world we live in. But the way we work remains, stubbornly, an artifact of the past. </p>
+
+
+
+<p>CTW aligns workers, business leaders, talent platforms, and academics to create a shared narrative and standardization around a new way of working. The goal of the CTW is to create common industry terminology, tools, educational resources, and playbooks in order to help organizations and individuals more easily adopt and benefit from using open talent tools.</p>
+
+
+
+<h2>Join the Community</h2>
+
+
+
+<p>The CTW community is open to anyone who is interested in sharing and learning more about the open talent economy. They host calls two times a month to chat about hot topics and trends in the industry, and have enjoyed bringing on special guests including educators and academic researchers, investors, global practitioners, platforms, legal and procurement specialists, DEI leaders, and everything in between. They also host a Clubhouse gathering once a month.</p>
+
+
+
+<p><strong>CTW Community Highlights</strong></p>
+
+
+
+<ul><li>More than 500 members </li><li>75-100 avg. attendees on calls</li><li>Audience includes platform leaders, enterprise leaders and practitioners, consultants, educators and academics interested in collaborating and sharing what they see happening in the open talent economy</li></ul>
+
+
+
+<p><strong>The CTW also provides its community members with:</strong></p>
+
+
+
+<ul><li>An educational library</li><li>A certification program for practitioners</li><li>An accreditation program for platforms</li></ul>
+
+
+
+<p>CTW welcomes anyone interested to sign up for updates on the <a href="https://transformationofwork.org/" target="_blank" rel="noreferrer noopener">CTW website</a>, and you’ll be notified of upcoming calls and events. </p>
+
+
+
+<h2>Thought Leadership from Open Assembly</h2>
+
+
+
+<p>A big part of Open Assembly&#8217;s work is putting out thought leadership content—like the new <a href="https://go.topcoder.com/oa-playbook/" target="_blank" rel="noreferrer noopener">Networked Organization Playbook</a>. This is an awesome, totally free resource that will change how you approach IT staffing. The playbook will show you how to create a repeatable framework for your teams so they can access outside talent whenever they need.</p>
+
+
+
+<p>The Center for the Transformation of Work is a community you should consider joining. Pass this on to your leadership and colleagues and go grab the <a href="https://go.topcoder.com/oa-playbook/" target="_blank" rel="noreferrer noopener">new free world-class ebook</a> right now. No download and no other email required.</p>
+
+
+
+<div id="ebook-banner-block_610d8b36c888a" class="ebook-banner ticss-011e18eb">
+  <div class="container banner-only">
+    <div class="section">
+      <div class="wrapper ">
+        <div class="oaq-block" data-aos="fade-up" style="background:#f4f4f4">
+          <div class="oaq-image" style="background-color:#ffffff">
+            <img src="https://www.topcoder.com/wp-content/uploads/2021/08/oa-playbook-banner-small.png" alt="" />
+          </div>
+          <div class="oaq-content wave-on">
+            <h5>
+              <span class="overline">NETWORKED ORGANIZATION PLAYBOOK</span>
+              Scale Your Use of Open Talent and Freelancers for the Enterprise            </h5>
+
+                        <a href=" https://go.topcoder.com/oa-playbook/" target="" class="link link-seagreen uppercase">Free playbook download <i class="ic ic-right-seagreen-arrow"></i></a>
+
+            <div class="clipping" style="background:#f4f4f4"></div>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookDesktopClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.408,0.96 c0,0,0.363,-0.095,0.363,-0.238 c0,-0.143,-0.627,-0.324,-0.747,-0.453 C-0.097,0.139,0.408,-0.04,0.408,-0.04 h0.597 v1 H0.408"></path>
+              </clipPath>
+            </svg>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookMobileClip" clipPathUnits="objectBoundingBox">
+                <path d="M0,0.384 S0.095,0.747,0.238,0.747 C0.381,0.747,0.562,0.12,0.691,0 C0.821,-0.12,1,0.384,1,0.384 V0.981 H0"></path>
+              </clipPath>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/open-assembly-and-the-center-for-the-transformation-of-work/">Open Assembly and the Center for the Transformation of Work</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/open-assembly-and-the-center-for-the-transformation-of-work/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>2021 TCO Regionals Qualification Rounds Editorials</title>
+			<link>https://www.topcoder.com/blog/2021-tco-regionals-qualification-rounds-editorials/</link>
+			<comments>https://www.topcoder.com/blog/2021-tco-regionals-qualification-rounds-editorials/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[misof]]>
+			</dc:creator>
+			<pubDate>Tue, 24 Aug 2021 08:36:56 +0000</pubDate>
+			<category>
+				<![CDATA[Community Stories]]>
+			</category>
+			<category>
+				<![CDATA[regional]]>
+			</category>
+			<category>
+				<![CDATA[SRM Editorials]]>
+			</category>
+			<category>
+				<![CDATA[TCO21]]>
+			</category>
+			<category>
+				<![CDATA[Topcoder Open (TCO)]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=43999</guid>
+
+			<description>
+				<![CDATA[<p>Qualification Round 1 easy: OlympicShooting The shooters are compared according to the following criteria, in order, with bigger being better: The sum of all results. For each block of 25 shots, going backwards: the sum of that block. For each shot, going backwards: the value of that shot. Negative value of their ID. We can [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/2021-tco-regionals-qualification-rounds-editorials/">2021 TCO Regionals Qualification Rounds Editorials</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<h4>Qualification Round 1 easy: OlympicShooting</h4>
+
+
+
+<p>The shooters are compared according to the following criteria, in order, with bigger being better:</p>
+
+
+
+<ul><li>The sum of all results.</li><li>For each block of 25 shots, going backwards: the sum of that block.</li><li>For each shot, going backwards: the value of that shot.</li><li>Negative value of their ID.</li></ul>
+
+
+
+<p>We can create such a record for each competitor, sort them using a built-in sort function, and then read off and return the sequence of IDs. Alternately, we can implement a custom comparison function that takes two IDs as arguments and compares those shooters by looking at their results. If we do that, we can then use the library sort function with this custom comparison function.</p>
+
+
+
+<p>Of course, the data is so small that a quadratic sorting algorithm (e.g., MinSort) would also be fast enough, so it was also possible to solve the task that way: n times find the best of the remaining shooters and append them to the output sequence.</p>
+
+
+
+<h4>Qualification Round 1 Medium: TreeTokens</h4>
+
+
+
+<p>Suppose we root the tree at the goal vertex G. The opponent must not be able to get a token into G. This means that for each son of G the opponent must be able to reach it with at most one token. Now we can generalize this. Suppose that for some vertex V we know that the opponent must be able to reach it with at most X tokens. How do we proceed?</p>
+
+
+
+<p>If V is a leaf, we simply place X tokens there and we are done. If V has some children, we clearly don’t want to place any tokens at V: instead of placing one token here, we can place two more tokens into one of its children (which has the same effect and a bigger total number of tokens).</p>
+
+
+
+<p>Let C be the child of V with the deepest subtree among all children of V, and let D be the depth of that subtree. We then claim that there is an optimal solution in which all tokens that reach V reach it from C. Why? For each token that reaches V from any other subtree, we can take all the original tokens that produced it and replace them by 2^D new tokens in a deepest leaf in C’s subtree. This clearly doesn’t decrease the total number of tokens. (It increases the total if some of the original tokens was in a depth strictly smaller than D.)</p>
+
+
+
+<p>Thus, we will have a recursive function that will get two arguments: a vertex V and the maximum number M of tokens that can reach it. This function will determine the child C and then it will call itself on C with 2M+1 tokens and on each of the other children with 1 token. Clearly, we can solve the full task by calling this function on G with 0 tokens.</p>
+
+
+
+<h4>Qualification Round 1 Hard: AlmostOptimalBST</h4>
+
+
+
+<p>Worst-case optimal BSTs are those in which the maximum node depth is minimized. Average-case optimal BSTs are those in which the sum of node depths is minimized.</p>
+
+
+
+<p>For each x, the nodes at depth x in the BST are called the layer at depth x. It can easily be shown that in each average-case optimal BST we must have some number of layers completely full (layer at depth x has all 2^x possible nodes), followed by at most one partially-full layer. Thus, clearly, each average-case optimal BST is also worst-case optimal and therefore the second question we were asked has always the answer zero.</p>
+
+
+
+<p>We can count the permutations that produce worst-case optimal BSTs using dynamic programming. One way of doing so: let dp[n][d] be the number of permutations of length n that produce a BST of depth at most d. Then:</p>
+
+
+
+<ul><li>dp[0][d] and dp[1][d] are 1 for all d.&nbsp;</li><li>For a general n, we will iterate over all possible values r of the first value in the permutation. The value r is inserted first and thus it will be in the root of the tree. This splits the problem into two independent subproblems: the values 0..r-1 will form the left subtree and the values r+1..n-1 will produce the right subtree. When computing dp[n][d], each of these new subtrees must have depth at most d-1. Thus, there are dp[r][d-1] good permutations of the small values and dp[n-r-1][d-1] good permutations of the large values. We can take any such pair of permutations and interleave them arbitrarily (alternately adding values to the left and right subtree in any order we like). There are binomial[n-1][r] ways to interleave the two permutations: we choose which r of the n-1 remaining elements of our permutation of size n are the small ones.</li></ul>
+
+
+
+<p>We can count the permutations that produce average-case optimal BSTs in a very similar way. Here, let dp[n] be the number of permutations of size n that produce an optimal tree. We have:</p>
+
+
+
+<ul><li>dp[0] = dp[1] = 1</li><li>In general, we can look at n, determine the depth of the optimal tree and the number of nodes it has in the last layer. These nodes must be split between the left and right subtree. We will iterate over all possibilities for the number of leaves in the left subtree. Once we fix that, we know the size L of the left subtree, and thus the value that must be in the root. That is the first element of our permutation. We then have dp[L] sequences that produce an optimal left subtree, dp[n-1-L] sequences for an optimal right subtree, and we can interleave those in binomial[n-1][L] ways.</li></ul>
+
+
+
+<h4>Qualification Round 2 Easy: RestrictedSwaps</h4>
+
+
+
+<p>Consider a graph in which indices into our array are vertices and allowed swaps are edges.</p>
+
+
+
+<p>Obvious claim: We cannot move elements between connected components of our graph.</p>
+
+
+
+<p>Less obvious claim: Within each component, we can move elements arbitrarily.</p>
+
+
+
+<p>Proof of that: Consider any spanning tree of the component. Repeatedly: pick a leaf of the spanning tree, use swaps along the spanning tree to get the desired element into that leaf, and then forget that the leaf and the element exist.</p>
+
+
+
+<p>Thus, we find the connected components of the above graph, and for each of them we collect the letters, sort them, and return them back to the same places but in this new order.</p>
+
+
+
+<h4>Qualification Round 2 Medium: MergeToSort</h4>
+
+
+
+<p>Each move decreases the length of the sequence by 1, so an equivalent task is to maximize the length of the final sequence. And yet another way to look at it is that you are dividing the input sequence into pieces in such a way that the sums of those pieces are non-decreasing and their number is maximized.</p>
+
+
+
+<p>Given a non-decreasing sequence, let its &#8220;width&#8221; be the size of the last (biggest) element.</p>
+
+
+
+<p>Lemma 1: If you have two options how to make a non-decreasing sequence out of a prefix of input and the options have equal length, the one with the smaller width is better. This is because anything you can append to a wider sequence can also be appended to the narrower one.</p>
+
+
+
+<p>Lemma 2: The optimal solution to a longer prefix of the input sequence always has at least as many elements as the optimal solution to a shorter prefix. (Proof: we can take the optimal solution for the shorter prefix and make the last element bigger.)</p>
+
+
+
+<p>The most important observation of the task is the following one: out of all non-decreasing sequences that can be produced from a given sequence, the minimum possible width is always obtained for some sequence that also has the maximum possible length.</p>
+
+
+
+<p>Proof: By induction. Clearly true for 0 and 1 elements. Now, suppose it’s true for up to n-1 elements and let’s look at n elements. Among all sequences of optimal length, let S be the one with minimum width. Can there be another sequence T that is shorter but has a smaller width? No. Here’s why.</p>
+
+
+
+<p>Let S’ and T’ be the sequences S and T without their last elements. As S is wider than T, S’ is produced from a shorter prefix of our sequence than T’. Now, let T’’ be the optimal solution for the prefix that formed T’. On one hand, T’’ is at least as long as S’ because it is formed from a longer prefix (see Lemma 2). On the other hand, by the induction hypothesis T’’ is at most as wide as T’. Thus, if we take T and swap T’ for T’’, we will get a sequence that is at least as long as S but less wide &#8211; which is impossible.</p>
+
+
+
+<p>Thus, for each prefix of the input sequence we are only interested in one solution: for the least wide among all optimal ones.&nbsp;</p>
+
+
+
+<p>When looking for an optimal solution for a prefix of length n, we are looking for the smallest k such that there is a valid sequence whose width is the sum of the last k values in the prefix. This happens when said sum becomes greater or equal to the width of the optimal solution for the first n-k values. This smallest k can be found using binary search, which gives us an O(n log n) solution.</p>
+
+
+
+<p>It is also possible to improve the time complexity to O(n). Observe that if we have two optimal solutions (length L1, width W1) and (L2, W2) such that W2 &gt;= W1 and L2 &lt;= L1, we can forget about the second one. Once we eliminate all such useless data points, the ones that remain will be sorted both according to their length and according to their width. We can maintain these candidates in a deque. Each time we add a new element to the prefix we are processing, we start at the beginning of the deque (shortest and thinnest candidate) and we pop all candidates that can now be extended by adding one more element. The last popped candidate gives us an optimal solution for the current prefix. We now pop from the back of the deque if we have some candidates of the same length but greater width, and finally we append the new solution as a candidate to the deque.</p>
+
+
+
+<h4>Qualification Round 2 Hard: ParkingSequences</h4>
+
+
+
+<p>Consider the problem backwards. The last car produced anywhere between 0 and N-1 collisions and then it parked in the last empty spot. Before that car we had a contiguous segment of N-1 parked cars. Which one of them was parked last? We can try all possibilities. Each of them will give us a set of solutions, and these sets are clearly disjoint so we can simply sum their sizes.</p>
+
+
+
+<p>Suppose the last car parked in the segment was at 0-based index r along the segment. This car produced between 0 and r collisions, inclusive. Before this car, we had (at most) two separate segments of consecutive parked cars: one consisting of r cars, the other consisting of n-2-r cars.</p>
+
+
+
+<p>The most important observation of this problem is that these two segments are now completely independent: all cars that are parked in the first one must have “lived all their life” within the first one and vice versa.</p>
+
+
+
+<p>Thus, we will solve the task as follows:</p>
+
+
+
+<ul><li>For each k from 0 to n-1 and each c, we will find dp[k] = the count of parking sequences of length k <strong>on a line</strong> that have length k and exactly c collisions.</li><li>Our final solution is then computed as follows: we have N options where the last car parked, and once we fix that we can iterate over all possibilities for the number c of collisions this car caused and then we know that there are exactly dp[n-1][B-c] parking sequences of length n-1 that can be extended into a full solution of this type.</li></ul>
+
+
+
+<p>Computing the values dp[k] has a main idea similar to the hard problem of the previous round (which is precisely why these two problems were used in two consecutive rounds with the same participants). When counting these sequences, we can iterate over all r. Once we fix r (the place where we split the segment), we can take any solution for the left part, any solution for the right part, and we can interleave them arbitrarily.</p>
+
+
+
+<p>A naive implementation of this DP would require also iterating over the number of collisions in each subproblem. We will now show a slightly smarter iteration order that saves one degree in the time complexity polynomial.</p>
+
+
+
+<p>Suppose we already know all the values dp[k’] for k’ &lt; k. We will now compute all values dp[k]. We will initialize all of them to zeros and now we’ll proceed as follows:</p>
+
+
+
+<p>For each r, for each c1, for each c2: we can take any of the dp[r][c1] solutions for r cars and c1 collisions and combine it with any of the dp[k-1-r][c2] solutions for k-1-r cars and c2 collisions in binomial[k-1][r] ways. Let X be the product of those three values, i.e., the number of ways to park the first k-1 cars and produce c1+c2 collisions while we do so. Once we pick any one of those X ways, we have r+1 options for where the last car started. These produce 0, 1, …, r new collisions. Thus, we want to increase each of the values dp[k][c1+c2] to dp[k][c1+c2+r] by X. Instead of doing this in linear time, we can do it in constant time by just making two notes: “do +X starting at c1+c2 collisions” and “do -X starting at c1+c2+r+1 collisions”.</p>
+
+
+
+<p>Once we finish iterating over all (r,c1,c2) we then fill in all values dp[k] in increasing order of c in linear time by looking at those notes.</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/2021-tco-regionals-qualification-rounds-editorials/">2021 TCO Regionals Qualification Rounds Editorials</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/2021-tco-regionals-qualification-rounds-editorials/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>Genetically Unemployable: Mentorship &#038; Collaboration Among Freelancers</title>
+			<link>https://www.topcoder.com/blog/genetically-unemployable-mentorship-collaboration-among-freelancers/</link>
+			<comments>https://www.topcoder.com/blog/genetically-unemployable-mentorship-collaboration-among-freelancers/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Annika Nagy]]>
+			</dc:creator>
+			<pubDate>Mon, 23 Aug 2021 12:00:00 +0000</pubDate>
+			<category>
+				<![CDATA[Future of Work]]>
+			</category>
+			<category>
+				<![CDATA[Talent Strategy]]>
+			</category>
+			<category>
+				<![CDATA[Uprisor Podcast]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=43911</guid>
+
+			<description>
+				<![CDATA[<p>On the Uprisor podcast, we like to look at all different perspectives when it comes to the freelance revolution and the future of work. This week, Topcoder&#8217;s VP of Marketing, Clinton Bonner, connects with Emily Leach, freelancer extraordinaire and founder of The Freelance Conference and Freelance Business Week. She joins Uprisor to discuss the importance [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/genetically-unemployable-mentorship-collaboration-among-freelancers/">Genetically Unemployable: Mentorship &#038; Collaboration Among Freelancers</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>On the <a href="http://uprisor.com/podcast" target="_blank" rel="noreferrer noopener">Uprisor</a> podcast, we like to look at all different perspectives when it comes to the freelance revolution and the future of work. This week, Topcoder&#8217;s VP of Marketing, Clinton Bonner, connects with <a href="https://www.linkedin.com/in/emilyleach" target="_blank" rel="noreferrer noopener">Emily Leach</a>, freelancer extraordinaire and founder of <a href="https://freelanceconference.com/" target="_blank" rel="noreferrer noopener">The Freelance Conference</a> and <a href="https://freelancebusinessweek.com/" target="_blank" rel="noreferrer noopener">Freelance Business Week</a>. </p>
+
+
+
+<p>She joins Uprisor to discuss the importance of mentorship, collaboration, and human connection among freelancers, and the most important skills freelancers need to be successful. Check out the full conversation and top takeaways from the episode. </p>
+
+
+
+<iframe loading="lazy" height="200px" width="100%" frameborder="no" scrolling="no" seamless="" src="https://player.simplecast.com/8c0b1e6c-97f3-41ef-808d-428984155856?dark=true"></iframe>
+
+
+
+<h2>Tethered to the Traditional &#8212; But Not Forever</h2>
+
+
+
+<p>What keeps people tethered to the traditional work environment? Emily believes the answer is multi-faceted. Although workplace stability is a primary factor, she thinks that fear also plays a key role. When she started freelancing over 30 years ago, there wasn&#8217;t even a name for the kind of labor she was providing; she was just someone working for a few different companies all at once. The path can be fraught with uncertainty, something Emily says people struggle to feel okay accepting.</p>
+
+
+
+<p>Over time, freelancing has become more widely accepted and seen greater uptake from Millennials and Gen Z. COVID pushed many people out of their companies, forcing them to find other ways of supporting themselves and their families&#8211;and freelancing was often the solution.</p>
+
+
+
+<p>Without diminishing the effect this sharp pivot had on peoples&#8217; livelihoods, Emily suggests that it&#8217;s actually been an opportunity when viewed through the appropriate lens. She says the transition required individuals to dig deeper to figure out their marketable skills and develop those competencies into something tangible to work in a new way.</p>
+
+
+
+<h2>Pooling Resources: FreeCon</h2>
+
+
+
+<p>Next, Clinton and Emily address some of the best news in freelancing for those new to the workforce. In contrast to when Emily started out, freelancers today don&#8217;t have to go it alone.&nbsp;</p>
+
+
+
+<p>Emily created a private Facebook group in 2014 designed to help freelancers network. With rules prohibiting self-promotion and sales, the community has grown, sparked relationships, and helped those seeking work and looking for guidance running their businesses. As its popularity grew, Emily realized she wanted the opportunity to connect with other freelancers on an even larger stage. She took it upon herself (in true freelancer fashion) to create one. Enter: The Freelance Conference, and later, Freelance Business Week.&nbsp;</p>
+
+
+
+<p>Now in its seventh year, Emily says FreeCon will be virtual in 2021 with hybrid offerings in the future. The event &#8220;strives to find and solve the roadblocks that are holding freelance business owners back from success&#8221;, and features speakers and workshops tailored for the freelance community.&nbsp;</p>
+
+
+
+<h2>Required Skills &amp; Risky Labels</h2>
+
+
+
+<p>What are the top skills someone needs to freelance successfully? According to Emily:</p>
+
+
+
+<ul><li>You have to understand yourself&nbsp;</li><li>Make your business your lifestyle</li><li>Know your boundaries</li><li>Develop relationships with people that do the same work as you at a different level&#8211;and lean on each other</li></ul>
+
+
+
+<p>Wrapping up, Clinton and Emily spend time dissecting the implications of the <a href="https://www.forbes.com/sites/matthewmottola/2021/04/08/from-freelancers-themselves-why-they-say-notoproact/?sh=5df3298d6f5d">PRO Act</a> on the freelancing community. As written, the bill would prevent independent contractors from engaging in work that has anything to do with a company&#8217;s primary business. This would fundamentally change the way that freelancers interact with larger organizations. The two agree that there&#8217;s not enough recognition of just how big the freelance element of the economy is in this country, and how much money flows through. The PRO Act is risky because it could bring that to halt.</p>
+
+
+
+<p>Thank you to Emily Leach for sharing her take on all things freelancing. As always, check out the <a href="https://www.uprisor.com/podcast">Uprisor podcast</a> for more great conversations centering on the future of work.&nbsp;</p>
+
+
+
+<blockquote class="wp-block-quote is-style-large"><p>&#8220;Sometimes we feel like we need to have all the answers. It&#8217;s amazing to have a space where people can ask these vulnerable questions and get feedback.&#8221; —Emily Leach</p></blockquote>
+
+
+
+<div id="ebook-banner-block_61080ba686b9d" class="ebook-banner ticss-8be6ebd1">
+  <div class="container banner-only">
+    <div class="section">
+      <div class="wrapper ">
+        <div class="oaq-block" data-aos="fade-up" style="background:#f4f4f4">
+          <div class="oaq-image" style="background-color:#2a2a2a">
+            <img src="https://www.topcoder.com/wp-content/uploads/2020/06/uprisor-banner-image.png" alt="" />
+          </div>
+          <div class="oaq-content wave-on">
+            <h5>
+              <span class="overline">Uprisor podcast</span>
+              A unique future of work discussion crafted for enterprise leaders            </h5>
+
+                        <a href="https://www.uprisor.com/" target="" class="link link-seagreen uppercase">Listen to the podcast <i class="ic ic-right-seagreen-arrow"></i></a>
+
+            <div class="clipping" style="background:#f4f4f4"></div>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookDesktopClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.408,0.96 c0,0,0.363,-0.095,0.363,-0.238 c0,-0.143,-0.627,-0.324,-0.747,-0.453 C-0.097,0.139,0.408,-0.04,0.408,-0.04 h0.597 v1 H0.408"></path>
+              </clipPath>
+            </svg>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookMobileClip" clipPathUnits="objectBoundingBox">
+                <path d="M0,0.384 S0.095,0.747,0.238,0.747 C0.381,0.747,0.562,0.12,0.691,0 C0.821,-0.12,1,0.384,1,0.384 V0.981 H0"></path>
+              </clipPath>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p></p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/genetically-unemployable-mentorship-collaboration-among-freelancers/">Genetically Unemployable: Mentorship &#038; Collaboration Among Freelancers</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/genetically-unemployable-mentorship-collaboration-among-freelancers/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>Reimagining Collaboration in the Post-COVID World of Work</title>
+			<link>https://www.topcoder.com/blog/reimagining-collaboration-in-the-post-covid-world-of-work/</link>
+			<comments>https://www.topcoder.com/blog/reimagining-collaboration-in-the-post-covid-world-of-work/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Annika Nagy]]>
+			</dc:creator>
+			<pubDate>Thu, 19 Aug 2021 20:09:23 +0000</pubDate>
+			<category>
+				<![CDATA[Future of Work]]>
+			</category>
+			<category>
+				<![CDATA[Talent Strategy]]>
+			</category>
+			<category>
+				<![CDATA[Uprisor Podcast]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=43907</guid>
+
+			<description>
+				<![CDATA[<p>Each episode of the Uprisor podcast bring you perspectives on the freelance revolution, technology, and the future of work. Today, Topcoder VP Clinton Bonner interviews Phil Simon, collaboration tech expert and author. The two focus on topics covered in Phil&#8217;s newest book, &#8220;Reimagining Collaboration: Slack, Microsoft Teams, Zoom, and the Post-COVID World of Work,&#8221; including [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/reimagining-collaboration-in-the-post-covid-world-of-work/">Reimagining Collaboration in the Post-COVID World of Work</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>Each episode of the <a href="https://www.uprisor.com/podcast" target="_blank" rel="noreferrer noopener">Uprisor podcast</a> bring you perspectives on the freelance revolution, technology, and the future of work. Today, Topcoder VP Clinton Bonner interviews <a href="https://www.philsimon.com/" target="_blank" rel="noreferrer noopener">Phil Simon</a>, collaboration tech expert and author. </p>
+
+
+
+<p>The two focus on topics covered in Phil&#8217;s newest book, &#8220;<a href="https://www.amazon.com/Reimagining-Collaboration-Slack-Microsoft-Post-COVID-ebook/dp/B08THRXQ69/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=" target="_blank" rel="noreferrer noopener">Reimagining Collaboration: Slack, Microsoft Teams, Zoom, and the Post-COVID World of Work</a>,&#8221; including the problem with decentralized communications, the power of using a hub and spoke model, and what to look for when hiring in a collaborative environment. Enjoy the full episode and highlights below.</p>
+
+
+
+<iframe loading="lazy" height="200px" width="100%" frameborder="no" scrolling="no" seamless="" src="https://player.simplecast.com/2d9fc5e1-a817-4a2c-8238-28b6d3778e39?dark=true"></iframe>
+
+
+
+<h2>Too Much Email, Too Much Jargon</h2>
+
+
+
+<p>Clinton and Phil start things off with a discussion of the organizational problem Phil is trying to solve in his latest book: too much email, too much jargon.&nbsp;While the idea for Phil&#8217;s book was germinating before COVID-19, the global pandemic accelerated his progress. In March 2020, the world suddenly had to rely on virtual interactions for work, education, medicine, and everything in between&#8211;but few were (or are) doing so efficiently.&nbsp;</p>
+
+
+
+<p>As a proponent of collaboration hubs like Microsoft Teams, Zoom, Google Workspace, and Slack, Phil knew they could solve a host of internal and external communication problems for organizations. And while some teams had already implemented the tools, many were failing to unleash their full power. Rather than point users to a how-to like &#8220;Slack for Dummies,&#8221; he recognized the need for a more conceptual book that explored how collaboration tools will be critical to organizational success in the future. </p>
+
+
+
+<h2>Why A hub and Spoke model is smart</h2>
+
+
+
+<p>Next, the two delve into the advantages collaboration hubs provide over standard communication channels. Phil describes the ideal model: running team communication through a central hub and connecting relevant third-party apps (spokes) directly to the hub to create a truly collaborative environment. When used correctly, this can:</p>
+
+
+
+<ul><li>Capture institutional knowledge</li><li>Mitigate silos and support greater transparency</li><li>Provides valuable insight into how employees work</li></ul>
+
+
+
+<p>In Phil&#8217;s experience, many teams haven&#8217;t implemented collaboration hubs properly. Instead of reaping these benefits, organizations are using the tools as email 2.0. Sending and receiving messages isn&#8217;t enough. Instead of simultaneously sifting through messages, checking a Google Doc for updates, and waiting for a DocuSign alert, collaboration hubs allow everything to flow through one centralized platform.</p>
+
+
+
+<p><em>&#8220;Overall it&#8217;s a more cohesive, less overwhelming way to work, because you spend less time multitasking.&#8221;</em> —Phil Simon</p>
+
+
+
+<h2>What it Means for Remote Workforces</h2>
+
+
+
+<p>Wrapping up, Clinton asks Phil about the most necessary skills for remote and freelance workers in 2021. His top three were:</p>
+
+
+
+<ol><li><strong>Willingness to adapt.</strong> If you used Microsoft Teams in your last gig but your new organization uses Slack, you need to learn the new technology.&nbsp;</li><li><strong>Ability to read the room.</strong> You may not have the opportunity for face-to-face interactions when hiring a remote worker, so individuals must be perceptive in the virtual space.</li><li><strong>Clear communication.</strong> Leave the chatspeak at the door. Not all communication will be synchronous, so clear, consistent written communication is vital to the integrity of your knowledge base.</li></ol>
+
+
+
+<p>Phil points to <a href="https://www.bls.gov/news.release/jolts.t04.htm" target="_blank" rel="noreferrer noopener">numbers from the Bureau of Labor Statistics</a> and <a href="https://www.linkedin.com/pulse/employers-catch-remote-job-posts-rise-457-tech-media-lead-anders/" target="_blank" rel="noreferrer noopener">an article by LinkedIn Economic Research Department</a> as signs of an inversion: employees now want their work lives to revolve around their personal lives instead of the other way around. With this in mind, he believes companies that pivot to a collaborative hub-and-spokes model will fare better in the long-term.&nbsp;</p>
+
+
+
+<p>Thank-you to Phil for joining us to share to discuss how collaboration and communication is changing. For more from Phil, check out his podcast, <a href="https://www.philsimon.com/pod/" target="_blank" rel="noreferrer noopener">Conversations About Collaboration</a>, and as always, check out <a href="https://www.uprisor.com/podcast" target="_blank" rel="noreferrer noopener">Uprisor</a> for more great future of work insights.</p>
+
+
+
+<blockquote class="wp-block-quote is-style-large"><p>&#8220;It&#8217;s going to be a vastly different world with hubs and spokes, and the sooner you recognize it, the sooner you&#8217;ll be able to succeed in it.&#8221; &#8211; Phil Simon</p></blockquote>
+
+
+
+<div id="ebook-banner-block_61080ba686b9d" class="ebook-banner ticss-8be6ebd1">
+  <div class="container banner-only">
+    <div class="section">
+      <div class="wrapper ">
+        <div class="oaq-block" data-aos="fade-up" style="background:#f4f4f4">
+          <div class="oaq-image" style="background-color:#2a2a2a">
+            <img src="https://www.topcoder.com/wp-content/uploads/2020/06/uprisor-banner-image.png" alt="" />
+          </div>
+          <div class="oaq-content wave-on">
+            <h5>
+              <span class="overline">Uprisor podcast</span>
+              A unique future of work discussion crafted for enterprise leaders            </h5>
+
+                        <a href="https://www.uprisor.com/" target="" class="link link-seagreen uppercase">Listen to the podcast <i class="ic ic-right-seagreen-arrow"></i></a>
+
+            <div class="clipping" style="background:#f4f4f4"></div>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookDesktopClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.408,0.96 c0,0,0.363,-0.095,0.363,-0.238 c0,-0.143,-0.627,-0.324,-0.747,-0.453 C-0.097,0.139,0.408,-0.04,0.408,-0.04 h0.597 v1 H0.408"></path>
+              </clipPath>
+            </svg>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookMobileClip" clipPathUnits="objectBoundingBox">
+                <path d="M0,0.384 S0.095,0.747,0.238,0.747 C0.381,0.747,0.562,0.12,0.691,0 C0.821,-0.12,1,0.384,1,0.384 V0.981 H0"></path>
+              </clipPath>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p></p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/reimagining-collaboration-in-the-post-covid-world-of-work/">Reimagining Collaboration in the Post-COVID World of Work</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/reimagining-collaboration-in-the-post-covid-world-of-work/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>TCO Wildcard Elimination Rounds</title>
+			<link>https://www.topcoder.com/blog/tco-wildcard-elimination-rounds/</link>
+			<comments>https://www.topcoder.com/blog/tco-wildcard-elimination-rounds/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[misof]]>
+			</dc:creator>
+			<pubDate>Thu, 19 Aug 2021 05:01:50 +0000</pubDate>
+			<category>
+				<![CDATA[Community Stories]]>
+			</category>
+			<category>
+				<![CDATA[SRM Editorials]]>
+			</category>
+			<category>
+				<![CDATA[TCO21]]>
+			</category>
+			<category>
+				<![CDATA[Topcoder Open (TCO)]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=43922</guid>
+
+			<description>
+				<![CDATA[<p>Round 1 200: FindStringBetween Valid strings are strings of length at most L of lowercase letters. We are given two valid strings A and B, and we are asked to find any one valid string C such that A&#60;C&#60;B, or say that such a string does not exist. In the round the task has seen [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/tco-wildcard-elimination-rounds/">TCO Wildcard Elimination Rounds</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<h4>Round 1 200: FindStringBetween</h4>
+
+
+
+<p>Valid strings are strings of length at most L of lowercase letters. We are given two valid strings A and B, and we are asked to find any one valid string C such that A&lt;C&lt;B, or say that such a string does not exist.</p>
+
+
+
+<p>In the round the task has seen a bunch of resubmissions and then still a bunch of failures by many of the top competitors, so it clearly isn’t as easy as it seems. It pays off to be careful.</p>
+
+
+
+<p>Our approach will be as follows:</p>
+
+
+
+<ul><li>If A &gt;= B, there is clearly no solution.</li><li>Now that we know that A &lt; B, there are some valid strings lexicographically greater than A. Let succ(A) be the successor of A in the sorted list of all valid strings. We will construct succ(A). If succ(A) &lt; B, it’s a valid answer, otherwise we know that a valid answer does not exist.</li></ul>
+
+
+
+<p>What does succ(A) look like? If |A| &lt; L, then succ(A) = A + ‘a’. And if |A|=L, we can construct succ(A) as follows:</p>
+
+
+
+<ol><li>While the last letter of A is ‘z’: remove it.</li><li>Increment the last letter of A.</li></ol>
+
+
+
+<p>For example, succ(“buzz”) = “bv”.</p>
+
+
+
+<p>(Note that the order in which we made the previous steps guarantees that A does not consist of ‘z’s only, so step 1 will eventually terminate and A will still be non-empty. This was one of the spots where it was really easy to make a mistake in the implementation.)</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: plain; light: false; title: ; toolbar: true; notranslate">
+public String generate(int L, String A, String B) {
+    if (A.length() &lt; L) {
+        String C = A + 'a';
+        if (C.compareTo(B) &lt; 0) return C;
+        return &quot;ERROR&quot;;
+    } else {
+        int n = L;
+        while (A.charAt(n-1) == 'z') --n;
+        String kept = A.substring(0, n-1);
+        char increase = A.charAt(n-1);
+        ++increase;
+        String C = kept + increase;
+        if (C.compareTo(B) &lt; 0) return C;
+        return &quot;ERROR&quot;;
+    }
+}
+</pre></div>
+
+
+<h4>Round 1 500: ExamSeating</h4>
+
+
+
+<p>The task: Given a collection of letters, choose the dimensions R, C &lt;= 50 of a rectangle and place all the letters into the rectangle in such a way that no two equal letters are horizontally or vertically adjacent. Some cells may remain empty. Minimize the area of the rectangle.</p>
+
+
+
+<p>Let N[x] denote the number of copies of letter x we have.</p>
+
+
+
+<p>There are two necessary conditions for an RxC rectangle to be a valid choice:</p>
+
+
+
+<ul><li>We must fit all letters inside the rectangle: sum(N) &lt;= R*C.</li><li>We must fit all letters x into the rectangle in such a way that no two touch.</li></ul>
+
+
+
+<p>The second condition is satisfied if and only if max(N) is at most ceil(RC/2). Proof: if RC is even, we can tile the entire rectangle using RC/2 dominoes. If RC is odd, we can do the same and have a single cell left over. Each domino can contain at most one letter of the type that has the most occurrences.</p>
+
+
+
+<p>We will now show that these two conditions together are not just necessary but also sufficient for a solution to exist.</p>
+
+
+
+<p>Main claim: Among all valid rectangles whose area satisfies the above conditions, let’s pick the one with the smallest area, and in case of a tie the one with most rows. This rectangle can always be filled correctly.</p>
+
+
+
+<p>Constructive proof: We will fill the letters in using the following algorithm:</p>
+
+
+
+<ol><li>Let x be the letter with the most occurrences. Going row by row from the top to the bottom, place x onto “black” cells = those with even sum of coordinates.</li><li>Let y be the letter with the second most occurrences. Going row by row <strong>from the bottom to the top</strong>, place y onto the “white” cells.</li><li>Going row by row from the top to the bottom, each time you encounter an empty “black” cell, place the smallest available letter.</li><li>Going row by row from the top to the bottom, each time you encounter an empty “white” cell, place the smallest available letter.</li></ol>
+
+
+
+<p>We can now argue as follows:</p>
+
+
+
+<ul><li>We know that we have enough black cells to fit all x.</li><li>We can easily verify that we have enough while cells to fit all y.</li><li>Each letter except for at most one has all its occurrences on squares of the same color, and therefore no two are adjacent.</li><li>There can be one letter z such that its occurrences are on black cells (in the last few rows of the rectangle) and then also on white cells (in the first few rows of the rectangle). We need to make sure the bottom white ones cannot touch the top black ones.</li></ul>
+
+
+
+<p>Let’s look at that last claim in detail. If rectangle area is at most 50, we have picked a rectangle with 1 column and the claim is obvious. Otherwise, as by symmetry R &gt;= C, our rectangle clearly has at least 8 rows. As N[z] &lt;= N[x] and N[z] &lt;= N[y], we know that N[z] &lt;= RC/3. Each pair of consecutive complete rows has C occurrences of a letter, and thus all occurrences of z will be in at most 2R/3 + 1 &lt; R consecutive rows. Thus, there are always some rows with no z between the top (white) and bottom (black) set of zs.</p>
+
+
+
+<p>To conclude this solution, we note that the simpler strategy given below sometimes fails. Can you find an input where it produces an invalid solution? Hint: make a “black” and a “white” copy of the same letter touch.</p>
+
+
+
+<ol><li>Sort the letters by number of occurrences in decreasing order.</li><li>Going row by row from the top to the bottom, each time you encounter an empty “black” cell, place the letter of the first type that is still available.</li><li>Going row by row from the top to the bottom, each time you encounter an empty “white” cell, place the letter of the first type that is still available.</li></ol>
+
+
+
+<h4>Round 2 200: HangmanSolver</h4>
+
+
+
+<p>We are essentially implementing a simple routine that can check whether a given string can be the solution to a partially-played game of Hangman. There is essentially only one catch that we should not miss: each time we guess a letter, <strong>all</strong> copies of that letter are revealed. Thus, if the word we are guessing is ?????a, this <strong>cannot</strong> be “banana”, because we know that the second and fourth letter <strong>cannot </strong>be ‘a’.</p>
+
+
+
+<p>The sample implementation shown below avoids all complicated deductions by simply implementing a function that simulates the game for a given hidden word. We then try each of the candidate answers as the hidden word, feed in the set of guessed letters and compare whether the revealed part of the word exactly matches the one we actually see.</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: plain; light: false; title: ; toolbar: true; notranslate">
+public String show(String secretWord, String lettersGuessed) {
+    String answer = &quot;&quot;;
+    for (char c : secretWord.toCharArray()) {
+        if (lettersGuessed.indexOf(c) == -1) {
+            answer += '_';
+        } else {
+            answer += c;
+        }
+    }
+    return answer;
+}
+
+public String guess(String lettersGuessed, String revealed, String&#91;] possibleAnswers) {
+    String answer = &quot;&quot;;
+    int countMatching = 0;
+    for (String candidate : possibleAnswers) {
+        if (revealed.equals( show( candidate, lettersGuessed ) )) {
+            ++countMatching;
+            answer = candidate;
+        }
+    }
+    if (countMatching == 1) return answer; else return &quot;&quot;;
+}
+</pre></div>
+
+
+<h4>Round 2 500: CoverSquare</h4>
+
+
+
+<p>Given are square blankets with total area at least 3. Can we cover a unit square completely? The sides of each square are be parallel to coordinate axes.</p>
+
+
+
+<p>One strategy that always works looks as follows: Sort the blankets in decreasing order. Then, repeat the following: take blankets until you get total width &gt;= 1. Let S be the side of the last blanket taken. Use these blankets side-by-side to cover an S times 1 rectangle of the unit square (and pretend their other parts don’t exist, i.e., treat the rest of the square as uncovered).</p>
+
+
+
+<p>Below, in the top part of the figure, is what a covering by this strategy may look like. The unused parts of squares that are in the vertical strip with the square are shown in red, the unused parts outside this strip are shown in yellow. Note that if there is an incomplete last row of squares, it’s all in red, in all other rows only the part that overlaps the previous row is red.</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" src="https://lh4.googleusercontent.com/t3LS_BvYiYr9JeaFgIRyfiLSm0OGpMVnff3BQkD4B1isxGABetKAeFF4-Zss_gGxT5bAQgt1LixAwmj9W3DIF7F7dT8rwNGB2m6jKOgob7z_GXLDANzT47wz-mfxa4ihl0vBLH3a" alt="" width="637" height="705"/></figure>
+
+
+
+<p>We now claim that this strategy always covers the whole square.</p>
+
+
+
+<p>Proof: If there is a blanket with side 1 or more, the first blanket is already enough. Otherwise, suppose the total height of all fully-covered rows is H, as shown in the figure above. We can now argue as follows:</p>
+
+
+
+<ul><li>The total covered area is 1*H.</li><li>The total wasted area shown in yellow is less than 1*H (its height is H and its width is less than 1 everywhere).</li><li>The total wasted area shown in red is at most 1. This is because if we do what’s shown in the figure below (move all rows of squares so that they share the same bottom), we see that the wasted area in different rows does not overlap. This is because if the last square in some row has side S, all wasted area in that row is at height S and more, while all wasted area in the next row is at height at most S (above the corresponding row’s bottom).</li></ul>
+
+
+
+<p>Thus, the total area of all blankets is less than 1+2H. And as we know that the area is at least 3, it follows that H is more than 1, i.e., the entire square is covered.</p>
+
+
+
+<h4>Final Round 200: MinimizeSortedness</h4>
+
+
+
+<p>There is a well-known mathematical puzzle: show that from any sequence of distinct elements of length n^2 + 1 we can select either an increasing or a decreasing sequence of length at least n+1. The construction asked for in this task is a constructive proof that this bound is as tight as possible.</p>
+
+
+
+<p>If we are told that both LIS and LDS should have length at most n, the maximum length of our sequence is at most n^2.</p>
+
+
+
+<p>On one hand, if we have at most n^2 elements, we can create a valid sequence as follows: sort the elements into increasing order, divide them into blocks of length n (the last block is shorter if necessary) and reverse each block. Clearly, each decreasing sequence must be contained in a single block and each increasing sequence can contain at most one element from each block.</p>
+
+
+
+<p>On the other hand, suppose we have a sequence and we go through that sequence from the left to the right. For each index n we will write two numbers I[n] and D[n]: the length of the longest increasing sequence and the longest decreasing sequence that ends at index n.</p>
+
+
+
+<p>For any sequence of distinct elements the pairs (I[n], D[n]) must all be distinct: we cannot have (I[n], D[n]) = (I[m], D[m]) for some n&lt;m. This is because the element at index m is either greater than the element at index n (in which case we can find a longer increasing sequence that ends at index m by appending that element to the longest sequence ending at index n) or vice versa (in which case we can extend the decreasing sequence).</p>
+
+
+
+<p>Thus, we just need to find the smallest n such that n^2 is greater than or equal to the length of the given sequence, and then we do the construction with reversing blocks of length n, as described above.</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: plain; light: false; title: ; toolbar: true; notranslate">
+public int&#91;] permute(int&#91;] sequence) {
+    int N = sequence.length;
+    Arrays.sort(sequence);
+    int ceilsqrt = 1;
+    while (ceilsqrt * ceilsqrt &lt; N) ++ceilsqrt;
+    for (int i=0; i&lt;N; i+=ceilsqrt) reverse( sequence, i, Math.min(N,i+ceilsqrt) );
+    return sequence;
+}
+</pre></div>
+
+
+<h4>Final Round 500: ManhattanSnowPlow</h4>
+
+
+
+<p>This problem is a special case of a problem called the Chinese Postman Problem. (Etymological note: the name should be read as “a Chinese problem about a postman”, not as “a problem about a postman in China”.) This problem is a generalization of the Euler tour: we want to find the shortest walk that traverses each edge of the given graph <em>at least</em> once.</p>
+
+
+
+<p>Clearly, if our graph is Eulerian, an Euler tour is the optimal solution. Now, suppose we have a connected graph with 2k vertices of an odd degree (“odd vertices”) for some k &gt;&nbsp;1. Take any optimal solution. For each edge of the graph, color its first appearance blue and the others red. It can be shown that the red edges must form k-1 edge-disjoint paths, each connecting two odd vertices. And vice versa, we can take any such collection of paths and turn it into a valid solution by realizing that once we duplicate the edges of each path in our collection, we obtain an Eulerian graph. Thus, the extra cost paid by the optimal solution is the minimum cost of such a collection of k-1 paths.</p>
+
+
+
+<p>This is solvable for general graphs in polynomial time: we can compute all-pairs shortest paths and then we are looking for the minimum cost matching of size k-1. However, the algorithm to do that in general is quite complicated.</p>
+
+
+
+<p>Probably the easiest approach to solving this problem is to use the very specific structure of our problem to construct the cheapest matching explicitly, duplicate the corresponding edges, and then to use a general Euler tour algorithm to construct the snow plow program itself.</p>
+
+
+
+<p>If we have a RxC grid, all odd vertices are on its sides: R-2 on each vertical side and C-2 on each horizontal side. As they are next to each other, we will usually take two neighbors and connect them by a path of length 1.</p>
+
+
+
+<p>The cheapest set of paths that connects all but two odd vertices in a grid looks as follows:</p>
+
+
+
+<ul><li>If both R and C are even, we can make pairs along each side separately. The last two odd vertices will remain unpaired, they will be the start and the end of the snow plow’s tour. This is clearly optimal: each path has length 1.</li><li>If one of R and C is even and the other odd: we connect all pairs on the even-length sides and we leave one unpaired odd vertex on each odd-length side. Again, clearly optimal.</li><li>If both R and C are odd, after we make some length-1 paths, we must still have at least one unpaired odd vertex on each side. As we need to pair at least two of them, we need to have at least one path of length at least 2. And that is also sufficient: we connect two odd vertices that are both neighbors of the same corner of the grid by a path of length 2, then we pair up everything else on those two sides, and finally we leave one unpaired odd vertex on each of the other two sides.</li></ul>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/tco-wildcard-elimination-rounds/">TCO Wildcard Elimination Rounds</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/tco-wildcard-elimination-rounds/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>Hybrid Work vs. Hybrid Workforce &#8211; What’s the difference?</title>
+			<link>https://www.topcoder.com/blog/hybrid-work-vs-hybrid-workforce-whats-the-difference/</link>
+			<comments>https://www.topcoder.com/blog/hybrid-work-vs-hybrid-workforce-whats-the-difference/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Annika Nagy]]>
+			</dc:creator>
+			<pubDate>Mon, 16 Aug 2021 11:45:00 +0000</pubDate>
+			<category>
+				<![CDATA[Future of Work]]>
+			</category>
+			<category>
+				<![CDATA[Talent Strategy]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=43885</guid>
+
+			<description>
+				<![CDATA[<p>Microsoft recently put out a great article about the future of work: The Next Great Disruption Is Hybrid Work—Are We Ready? Hybrid work, as they define it, is a blended model where some employees return to the workplace and others continue to work from home. The piece features awesome data from the 2021 Work Trend [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/hybrid-work-vs-hybrid-workforce-whats-the-difference/">Hybrid Work vs. Hybrid Workforce &#8211; What’s the difference?</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>Microsoft recently put out a great article about the future of work: <a href="https://www.microsoft.com/en-us/worklab/work-trend-index/hybrid-work" target="_blank" rel="noreferrer noopener">The Next Great Disruption Is Hybrid Work—Are We Ready?</a> Hybrid work, as they define it, is a blended model where some employees return to the workplace and others continue to work from home. The piece features awesome data from the 2021 Work Trend Index, which outlines findings from a study of more than 30,000 people in 31 countries and an analysis of trillions of productivity and labor signals across Microsoft 365 and LinkedIn. There were a lot of great points, AND there’s more to the story. </p>
+
+
+
+<h2>Hybrid Work vs. Hybrid Workforce</h2>
+
+
+
+<p>We all know that hybrid work is here to stay. People want the freedoms, there are efficiencies, and the tools allow for it. We’ve also experienced critical amounts of isolation and loneliness during the pandemic. Even with the advent of more flexability, the office isn&#8217;t dead. Many people really anchor society-wise to their office life. Hybrid work is a natural progression that blends the best of both worlds.</p>
+
+
+
+<p>So what’s missing? It’s the leap from hybrid work to hybrid work<em>force</em>. You have the opportunity right now to think about a <a href="https://www.topcoder.com/blog/flexible-schedule-is-an-oxymoron-the-results-only-work-environment-with-jody-thompson/" target="_blank" rel="noreferrer noopener">results-driven environment</a> that combines full-timers with skilled contractors and on-demand (crowd) talent, so you can be way more productive. Hybrid work is replacing your office with your home. Hybrid workforce is an actual new way that work is structured. What’s even more interesting is that many of the problems caused by remote work could potentially be solved by adopting a hybrid workforce model.&nbsp;</p>
+
+
+
+<h2>Dissecting the Trends</h2>
+
+
+
+<p>The article outlines seven trends that will shape the future of a hybrid work world. At a high level, they are:</p>
+
+
+
+<ol><li>Flexible work is here to stay</li><li>Leaders are out of touch with employees and need a wake-up call</li><li><strong>High productivity is masking an exhausted workforce</strong></li><li>Gen Z is at risk and will need to be re-energized</li><li><strong>Shrinking networks are endangering innovation</strong></li><li>Authenticity will spur productivity and wellbeing</li><li><strong>Talent is everywhere in a hybrid work world</strong></li></ol>
+
+
+
+<p>We’ll look closely at a few of these trends, and explore how a hybrid workforce continues the narrative into the future of work.</p>
+
+
+
+<h5>High productivity is masking an exhausted workforce</h5>
+
+
+
+<p>The article shares compelling numbers about the human cost of our increased productivity:&nbsp;</p>
+
+
+
+<ul><li>1 in 5 respondents say their employer doesn’t care about their work-life balance&nbsp;</li><li>54% feel overworked&nbsp;</li><li>39% feel exhausted</li></ul>
+
+
+
+<p>The average number of meetings and chats has steadily increased since last year, and our burnout is real. A hybrid workforce can help address this. You can go get talent to help you get your work done. An open talent approach allows you to more easily bring in experts on-demand.&nbsp;&nbsp;</p>
+
+
+
+<h5>Shrinking networks are endangering innovation</h5>
+
+
+
+<p>Data shows that teams are more siloed in a digital work world. People are feeling isolated and removed, even though the technology is there, and that’s making them feel like they don&#8217;t have opportunities to be creative. With a hybrid workforce, you can instantly increase your network to drive innovation. You can tap into <a href="https://www.topcoder.com/on-demand-talent/" target="_blank" rel="noreferrer noopener">different aspects of skill</a> that you might not have access to or know how to get access to.</p>
+
+
+
+<p>In a hybrid workforce world, if you have the thought: &#8220;I want to try something. I want to get something to an <a href="https://www.topcoder.com/blog/the-making-of-wizard-fit-part-4/" target="_blank" rel="noreferrer noopener">MVP or a POC</a>, or just bounce some technical ideas off of people that aren&#8217;t in my office.&#8221; You can go do that. That&#8217;s a way in which people should be thinking about using crowd, using Topcoder, or using talent platforms. </p>
+
+
+
+<h5>Talent is everywhere in a hybrid world&nbsp;</h5>
+
+
+
+<p>As Microsoft rightfully points out, “One of the brightest sides of the shift to remote work is that it widens the talent marketplace.” We’ve been touting this benefit of our model for years. A hybrid workforce creates <a href="https://www.topcoder.com/blog/opportunity-for-all-the-new-topcoder-purpose-video-is-here/" target="_blank" rel="noreferrer noopener">opportunity for all</a>. The scene that’s missing is that they’re still only talking about the talent marketplace in terms of full-time employees. We want to open it up to creating a true <a href="https://www.topcoder.com/blog/inside-the-modern-workforce-part-2-blending-crowd-into-a-traditional-talent-ecosystem/" target="_blank" rel="noreferrer noopener">blended workforce</a>. Using crowd as part of a <a href="https://www.topcoder.com/blog/uprisor-paul-hlivko/" target="_blank" rel="noreferrer noopener">disruption-proof talent strategy</a> is smart. Disruption will inevitably come again, and a more open workforce model benefits both sides of the marketplace.</p>
+
+
+
+<h2>Choosing the Faster Path</h2>
+
+
+
+<p>We’re at a fork in the road. We are at this precipice of a legitimate new future of how work is accomplished. The next few years are going to greatly determine which path we take. The roads will meet up in the same place, but one of them is going to take much longer to get there. The other isn&#8217;t a shortcut, but it&#8217;s a much speedier path. If you choose to settle on hybrid work right now, you&#8217;re diverging at a critical moment, and causing another decade long delay. </p>
+
+
+
+<p></p>
+
+
+
+<div id="ebook-banner-block_610d8b36c888a" class="ebook-banner ticss-011e18eb">
+  <div class="container banner-only">
+    <div class="section">
+      <div class="wrapper ">
+        <div class="oaq-block" data-aos="fade-up" style="background:#f4f4f4">
+          <div class="oaq-image" style="background-color:#ffffff">
+            <img src="https://www.topcoder.com/wp-content/uploads/2021/08/oa-playbook-banner-small.png" alt="" />
+          </div>
+          <div class="oaq-content wave-on">
+            <h5>
+              <span class="overline">NETWORKED ORGANIZATION PLAYBOOK</span>
+              Scale Your Use of Open Talent and Freelancers for the Enterprise            </h5>
+
+                        <a href=" https://go.topcoder.com/oa-playbook/" target="" class="link link-seagreen uppercase">Free playbook download <i class="ic ic-right-seagreen-arrow"></i></a>
+
+            <div class="clipping" style="background:#f4f4f4"></div>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookDesktopClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.408,0.96 c0,0,0.363,-0.095,0.363,-0.238 c0,-0.143,-0.627,-0.324,-0.747,-0.453 C-0.097,0.139,0.408,-0.04,0.408,-0.04 h0.597 v1 H0.408"></path>
+              </clipPath>
+            </svg>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookMobileClip" clipPathUnits="objectBoundingBox">
+                <path d="M0,0.384 S0.095,0.747,0.238,0.747 C0.381,0.747,0.562,0.12,0.691,0 C0.821,-0.12,1,0.384,1,0.384 V0.981 H0"></path>
+              </clipPath>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/hybrid-work-vs-hybrid-workforce-whats-the-difference/">Hybrid Work vs. Hybrid Workforce &#8211; What’s the difference?</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/hybrid-work-vs-hybrid-workforce-whats-the-difference/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+		<item>
+			<title>Why Giving Clear Feedback is the #1 Skill You Need for the Future of Work</title>
+			<link>https://www.topcoder.com/blog/why-giving-clear-feedback-is-the-1-skill-you-need-for-the-future-of-work/</link>
+			<comments>https://www.topcoder.com/blog/why-giving-clear-feedback-is-the-1-skill-you-need-for-the-future-of-work/#respond</comments>
+
+			<dc:creator>
+				<![CDATA[Annika Nagy]]>
+			</dc:creator>
+			<pubDate>Wed, 11 Aug 2021 16:39:16 +0000</pubDate>
+			<category>
+				<![CDATA[Future of Work]]>
+			</category>
+			<category>
+				<![CDATA[Talent Strategy]]>
+			</category>
+			<category>
+				<![CDATA[Uprisor Podcast]]>
+			</category>
+			<guid isPermaLink="false">https://www.topcoder.com/staging/?p=43858</guid>
+
+			<description>
+				<![CDATA[<p>Each week on the&#160;Uprisor podcast we talk with future of work thought leaders about technology and on-demand talent. In this episode, I&#8217;m continuing my conversation with Topcoder VP Clinton Bonner (Uprisor&#8217;s usual host), and Creative Director Trevor Gerring. In Part 1, I interviewed the guys about their experience working with&#160;Tongal&#160;to produce a live-action commercial. Today [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/why-giving-clear-feedback-is-the-1-skill-you-need-for-the-future-of-work/">Why Giving Clear Feedback is the #1 Skill You Need for the Future of Work</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</description>
+			<content:encoded>
+				<![CDATA[
+<p>Each week on the&nbsp;<a href="https://www.uprisor.com/podcast" target="_blank" rel="noreferrer noopener">Uprisor</a> podcast we talk with future of work thought leaders about technology and on-demand talent. In this episode, I&#8217;m continuing my conversation with Topcoder VP Clinton Bonner (Uprisor&#8217;s usual host), and Creative Director Trevor Gerring. In <a href="https://www.topcoder.com/blog/how-to-make-a-world-class-commercial-without-an-agency/" target="_blank" rel="noreferrer noopener">Part 1</a>, I interviewed the guys about their experience working with&nbsp;<a href="https://tongal.com/" target="_blank" rel="noreferrer noopener">Tongal</a>&nbsp;to produce a live-action commercial. </p>
+
+
+
+<p>Today in Part 2,  we discuss feedback and why it&#8217;s so important. Listen in to discover how to gather, refine, and provide crystal clear feedback, and why the ability to do so is a vital 21st century skill. &nbsp;</p>
+
+
+
+<iframe loading="lazy" height="200px" width="100%" frameborder="no" scrolling="no" seamless="" src="https://player.simplecast.com/5fc619d4-e6d5-4907-8862-948488f62ec8?dark=true"></iframe>
+
+
+
+<h2>Clear Feedback is Critical</h2>
+
+
+
+<p>In&nbsp;<a href="https://www.topcoder.com/blog/how-to-make-a-world-class-commercial-without-an-agency/" target="_blank" rel="noreferrer noopener">Part I</a>, Clinton and Trevor suggested that one of the keys to success in Topcoder&#8217;s relationship with Tongal was the ability on both sides of the partnership to provide and receive clear feedback. To kick off today&#8217;s conversation, we delved into why this is crucial, especially in a collaborative, remote setting.</p>
+
+
+
+<p>Clinton and Trevor agreed that expert talent is out there but that communicating effectively is often a barrier to project success. That&#8217;s because, in their experience, ambiguity slows progress. For example, when someone can&#8217;t articulate a stronger critique than &#8220;I don&#8217;t like this,&#8221; it&#8217;s difficult for anyone else to know how to proceed.&nbsp;</p>
+
+
+
+<p>Instead, the pair believe that clear, concise feedback is the key to keeping projects moving quickly. Rather than expecting others to read between the lines, feedback has to be presented with outcome-based intent and with the goal of driving next steps.&nbsp;</p>
+
+
+
+<p><em>&#8220;Everyone involved is trying to get to some outcome&#8230; We&#8217;re all working on it together and feedback is the one thing that gets you to that end result.&#8221;</em> —Trevor Gerring, Creative Director</p>
+
+
+
+<h2>The Three Tenets of Good Feedback</h2>
+
+
+
+<p>Moving from theory into action, Clinton outlines three tenets of good feedback:</p>
+
+
+
+<ol><li><strong>Have an ownership mentality.</strong>&nbsp;Feedback isn&#8217;t given to burn bridges or bolster egos; it&#8217;s offered in pursuit of an outcome. It&#8217;s your responsibility to speak up for the items that fall within your wheelhouse. If you don&#8217;t, you set yourself up for difficult discussions further down the line and potential project delays to boot.</li><li><strong>Take pleasure in being specific.</strong>&nbsp;Without micromanaging or over-engineering a solution, don&#8217;t be afraid to speak up about what you want. Guidance as simple as, &#8220;This element is off-brand because&#8230;&#8221; can steer the project in the right direction without boxing anyone in.&nbsp;</li><li><strong>Be organized.</strong>&nbsp;Get aligned at the beginning of the project. Define expectations surrounding when/where/how to present feedback. Spraying bits and pieces across multiple channels will make it more difficult to digest and take action.</li></ol>
+
+
+
+<h2>When &#8220;Good&#8221; is Good Enough</h2>
+
+
+
+<p>Wrapping up, I asked Clinton and Trevor how they decide when to call it—how do you know when to end the feedback process and call a project done? They stepped through a few of the factors they weigh, including:</p>
+
+
+
+<ul><li><strong>Scope</strong>&nbsp;— Is it a high-volume blog/podcast series or a one-off live-action commercial?</li><li><strong>Audience</strong>&nbsp;— Is it for internal or external consumption?</li><li><strong>Lifespan</strong>&nbsp;— Is it a short-lived promotion or something expected to serve as a marketing centerpiece?</li></ul>
+
+
+
+<p>Without clear feedback, projects can be delayed&#8211;or worse&#8211;derailed. That&#8217;s why Clinton and Trevor agree that the ability to give clear feedback is the number one skill they look for when hiring someone for a team.&nbsp;If you haven&#8217;t already, tune in to&nbsp;<a href="https://www.topcoder.com/blog/how-to-make-a-world-class-commercial-without-an-agency/" target="_blank" rel="noreferrer noopener">Part I</a>&nbsp;of this series, and check out the&nbsp;<a href="https://www.uprisor.com/podcast" target="_blank" rel="noreferrer noopener">Uprisor podcast</a>&nbsp;for more great future of work conversations.</p>
+
+
+
+<blockquote class="wp-block-quote is-style-large"><p>&#8220;Being clear about what you want is the most effective way to get there.&#8221; —Clinton Bonner</p></blockquote>
+
+
+
+<p></p>
+
+
+
+<div id="ebook-banner-block_61080ba686b9d" class="ebook-banner ticss-8be6ebd1">
+  <div class="container banner-only">
+    <div class="section">
+      <div class="wrapper ">
+        <div class="oaq-block" data-aos="fade-up" style="background:#f4f4f4">
+          <div class="oaq-image" style="background-color:#2a2a2a">
+            <img src="https://www.topcoder.com/wp-content/uploads/2020/06/uprisor-banner-image.png" alt="" />
+          </div>
+          <div class="oaq-content wave-on">
+            <h5>
+              <span class="overline">Uprisor podcast</span>
+              A unique future of work discussion crafted for enterprise leaders            </h5>
+
+                        <a href="https://www.uprisor.com/" target="" class="link link-seagreen uppercase">Listen to the podcast <i class="ic ic-right-seagreen-arrow"></i></a>
+
+            <div class="clipping" style="background:#f4f4f4"></div>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookDesktopClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.408,0.96 c0,0,0.363,-0.095,0.363,-0.238 c0,-0.143,-0.627,-0.324,-0.747,-0.453 C-0.097,0.139,0.408,-0.04,0.408,-0.04 h0.597 v1 H0.408"></path>
+              </clipPath>
+            </svg>
+
+            <svg width="0" height="0" class="svg-clip">
+              <clipPath id="ebookMobileClip" clipPathUnits="objectBoundingBox">
+                <path d="M0,0.384 S0.095,0.747,0.238,0.747 C0.381,0.747,0.562,0.12,0.691,0 C0.821,-0.12,1,0.384,1,0.384 V0.981 H0"></path>
+              </clipPath>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><p>The post <a rel="nofollow" href="https://www.topcoder.com/blog/why-giving-clear-feedback-is-the-1-skill-you-need-for-the-future-of-work/">Why Giving Clear Feedback is the #1 Skill You Need for the Future of Work</a> appeared first on <a rel="nofollow" href="https://www.topcoder.com">Topcoder</a>.</p>
+]]>
+			</content:encoded>
+
+			<wfw:commentRss>https://www.topcoder.com/blog/why-giving-clear-feedback-is-the-1-skill-you-need-for-the-future-of-work/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+
+
+		</item>
+	</channel>
+</rss>

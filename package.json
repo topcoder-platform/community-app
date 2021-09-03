@@ -138,6 +138,7 @@
     "redux-promise": "^0.6.0",
     "request-ip": "^2.0.2",
     "require-context": "^1.1.0",
+    "rss-parser": "^3.12.0",
     "serialize-javascript": "^2.1.1",
     "serve-favicon": "^2.5.0",
     "sharp": "^0.20.5",

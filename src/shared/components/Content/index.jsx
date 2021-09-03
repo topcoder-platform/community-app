@@ -840,6 +840,13 @@ export default function Content() {
           For all these styles we have global mixins, which should be used
           whenever possible (but never modified without explicit approval).
         </li>
+        <li>
+          <Link to="/examples/blog-feed">
+            Blog Feed
+          </Link>
+          {' '}
+          - Demo of Blog Feed component
+        </li>
       </ul>
     </div>
   );
