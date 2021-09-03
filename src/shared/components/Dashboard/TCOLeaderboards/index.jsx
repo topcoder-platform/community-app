@@ -6,7 +6,7 @@ import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import ChevronDown from 'assets/images/minimal-down-white.svg';
+import ChevronDown from 'assets/images/chevron-down-white.svg';
 import DefaultAvatar from 'assets/images/default-avatar-photo-blue.svg';
 import { themr } from 'react-css-super-themr';
 import { Avatar } from 'topcoder-react-utils';
