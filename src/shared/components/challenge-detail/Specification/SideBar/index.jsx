@@ -138,9 +138,12 @@ export default function SideBar({
           )
         }
         <div>
+          <h2>
+            LEARN:
+          </h2>
           <p styleName="link-like-paragraph">
             <a href="https://www.topcoder.com/thrive/articles/all-about-topcoder-challenges-tasks-and-gig-work-opportunities">
-              ALL ABOUT TOPCODER CHALLENGES, TASKS AND GIG WORK OPPORTUNITIES
+              Topcoder Challenges Explained
             </a>
           </p>
         </div>
