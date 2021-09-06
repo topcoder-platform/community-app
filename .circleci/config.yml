@@ -343,6 +343,7 @@ workflows:
             branches:
               only:
                 - develop
+                - feature/gigs-api-path
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
