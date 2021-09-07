@@ -30,6 +30,7 @@ import SearchBarExample from 'components/examples/SearchBar';
 import TracksTreeExample from 'components/examples/TracksTree';
 import TracksFilterExample from 'components/examples/TracksFilter';
 import SearchPageFilterExample from 'components/examples/SearchPageFilter';
+import BlogFeedExample from 'components/examples/BlogFeed';
 import GUIKit from 'components/examples/GUIKit';
 import ThriveArticlesFeedExample from 'components/examples/ThriveArticlesFeed';
 import GigsFeedExample from 'components/examples/GigsFeed';
@@ -104,6 +105,7 @@ export default function Examples({
       <Route path={`${base}/gigs-feed`} component={GigsFeedExample} />
       <Route path={`${base}/tco-leaderboards`} component={TCOLeaderboardsExample} />
       <Route path={`${base}/challenges`} component={ChallengesFeed} />
+      <Route path={`${base}/blog-feed`} component={BlogFeedExample} />
       <Content />
     </Switch>
   );

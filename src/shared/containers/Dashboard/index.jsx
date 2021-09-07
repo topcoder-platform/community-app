@@ -14,6 +14,7 @@ import TCOLeaderboardsContainer from 'containers/Dashboard/TCOLeaderboards';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
+import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
 import NewsFeed from './NewsFeed';
 import darkTheme from './themes/dark.scss';
 
@@ -29,7 +30,8 @@ function SlashTCContainer(props) {
         {/* Left column */}
         <div className={theme.column}>
           <TopcoderTime />
-          <ThriveArticlesFeedContainer itemCount={5} theme="dark" />
+          <ThriveArticlesFeedContainer itemCount={4} theme="dark" />
+          <BlogFeedContainer itemCount={4} theme="dark" />
           <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
         </div>
         {/* Center column */}

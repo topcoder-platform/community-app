@@ -1066,6 +1066,14 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
        
        - Demo of Challenges Feed Component
+      <Link
+        replace={false}
+        to="/examples/blog-feed"
+      >
+        Blog Feed
+      </Link>
+       
+      - Demo of Blog Feed component
     </li>
   </ul>
 </div>

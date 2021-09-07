@@ -855,6 +855,11 @@ export default function Content() {
             Challenges Feed
           </Link>
           {' '} - Demo of Challenges Feed Component
+          <Link to="/examples/blog-feed">
+            Blog Feed
+          </Link>
+          {' '}
+          - Demo of Blog Feed component
         </li>
       </ul>
     </div>

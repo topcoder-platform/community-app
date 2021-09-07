@@ -44,6 +44,7 @@ import gSheet from './gSheet';
 import growSurf from './growSurf';
 import thrive from './contentful/thrive';
 import dashboard from './dashboard';
+import blog from './blog';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -176,6 +177,7 @@ export function factory(req) {
     thrive,
     tcoLeaderboards,
     dashboard,
+    blog,
   }));
 }
 

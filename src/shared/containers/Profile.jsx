@@ -5,12 +5,13 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-
+import { config } from 'topcoder-react-utils';
 import { actions } from 'topcoder-react-lib';
 import MetaTags from 'components/MetaTags';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';
+import { loadPublicStatsOnly } from 'utils/memberStats';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -18,9 +19,33 @@ class ProfileContainer extends React.Component {
       handleParam,
       loadProfile,
       meta,
+      auth,
     } = this.props;
+    loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
 
-    loadProfile(handleParam, _.get(meta, 'groupIds', []));
+    // Redirect to the communities own profile page if
+    //  - the member whose profile is being viewed is part of one of the configured communities
+    //  - the user is not a topcoder user (has an email with @topcoder.com)
+    const communityId = _.get(meta, 'communityId'); // null when on topcoder site
+    if (auth.tokenV3 && auth.memberGroups && auth.memberGroups.length > 0 && auth.user) {
+      if (auth.user.handle === handleParam) {
+        _.forEach(auth.memberGroups, (memberGroup) => { /* eslint consistent-return: off */
+          const profileConfig = _.find(
+            config.URL.SUBDOMAIN_PROFILE_CONFIG,
+            { groupId: memberGroup },
+          );
+          if (profileConfig && profileConfig.userProfile) {
+            if (communityId === profileConfig.communityId // are we on the community page?
+            // are we on topcoder page and user does not have a @topcoder.com email?
+            || (communityId == null && auth.user.email.toLowerCase().indexOf('@topcoder.com') === -1)) {
+              // redirect user to configured profile url
+              window.location.href = profileConfig.userProfile;
+              return false;
+            }
+          }
+        });
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,11 +53,39 @@ class ProfileContainer extends React.Component {
       handleParam,
       profileForHandle,
       loadProfile,
+      loadMemberGroups,
       meta,
+      auth,
+      info,
+      memberGroups,
     } = nextProps;
 
+    const {
+      info: prevInfo,
+      memberGroups: prevMemberGroups,
+    } = this.props;
+
     if (handleParam !== profileForHandle) {
-      loadProfile(handleParam, _.get(meta, 'groupIds', []));
+      loadProfile(handleParam, _.get(meta, 'groupIds', []), auth.tokenV3, loadPublicStatsOnly(meta));
+    }
+
+    if (auth.tokenV3 && auth.user && auth.user.handle !== handleParam
+      && info != null && info.userId != null
+      && (prevInfo == null || info.userId !== prevInfo.userId)) {
+      loadMemberGroups(info.userId, auth.tokenV3);
+    }
+
+    if (memberGroups && memberGroups !== prevMemberGroups) {
+      _.forEach(auth.memberGroups, (memberGroup) => { /* eslint consistent-return: off */
+        const profileConfig = _.find(config.URL.SUBDOMAIN_PROFILE_CONFIG, { groupId: memberGroup });
+        if (profileConfig && profileConfig.userProfile
+          && memberGroups.indexOf(profileConfig.groupId) === -1) {
+          if (window.location.href.indexOf(profileConfig.communityName) !== -1) {
+            window.location.href = `${config.URL.BASE}/members/${handleParam}`;
+          }
+          return false;
+        }
+      });
     }
   }
 
@@ -92,6 +145,8 @@ ProfileContainer.defaultProps = {
   skills: null,
   stats: null,
   meta: null,
+  memberGroups: null,
+  auth: {},
 };
 
 ProfileContainer.propTypes = {
@@ -104,11 +159,14 @@ ProfileContainer.propTypes = {
   info: PT.shape(),
   loadingError: PT.bool.isRequired,
   loadProfile: PT.func.isRequired,
+  loadMemberGroups: PT.func.isRequired,
   profileForHandle: PT.string,
   skills: PT.shape(),
   stats: PT.arrayOf(PT.shape()),
+  memberGroups: PT.arrayOf(PT.string),
   lookupData: PT.shape().isRequired,
   meta: PT.shape(),
+  auth: PT.shape(),
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -124,14 +182,21 @@ const mapStateToProps = (state, ownProps) => ({
   profileForHandle: state.profile.profileForHandle,
   skills: state.profile.skills,
   stats: state.profile.stats,
+  memberGroups: state.groups.memberGroups,
   lookupData: state.lookup,
+  auth: {
+    ...state.auth,
+  },
 });
 
 function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   const lookupActions = actions.lookup;
   return {
-    loadProfile: (handle, groupIds) => {
+    loadMemberGroups: (userId, tokenV3) => {
+      dispatch(actions.groups.getMemberGroups(userId, tokenV3));
+    },
+    loadProfile: (handle, groupIds, tokenV3, showPublicStats) => {
       dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
@@ -146,7 +211,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
       dispatch(a.getSkillsDone(handle));
-      dispatch(a.getStatsDone(handle, groupIds));
+      dispatch(a.getStatsDone(handle, showPublicStats ? undefined : groupIds, tokenV3));
       dispatch(lookupActions.getCountriesDone());
     },
   };
