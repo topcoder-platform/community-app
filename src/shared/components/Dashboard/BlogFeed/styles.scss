@@ -48,6 +48,10 @@
     font-size: 13px;
     line-height: 20px;
 
+    &:hover {
+      text-decoration: none !important;
+    }
+
     span {
       @include xs-to-sm {
         display: none;
