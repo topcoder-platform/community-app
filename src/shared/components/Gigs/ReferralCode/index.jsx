@@ -30,7 +30,13 @@ function ReferralCode(props) {
 
   return (
     <div className={_.isEmpty(profile) ? defautlStyle.container : defautlStyle.containerWithLink}>
-      <span className={defautlStyle.title}>Topcoder Referral Program:</span>
+      {
+        _.isEmpty(profile) ? (
+          <span className={defautlStyle.title}>Topcoder Referral Program:</span>
+        ) : (
+          <a className={defautlStyle.title} href="/community/gig-referral" target="_blank" rel="noreferrer">Topcoder Referral Program:</a>
+        )
+      }
       {
         _.isEmpty(profile) ? (
           <React.Fragment>
