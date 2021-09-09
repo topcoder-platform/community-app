@@ -21,6 +21,10 @@
 
   .title {
     font-weight: bold;
+    color: #fff;
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    margin-right: 5px;
 
     @media screen and (max-width: 768px) {
       margin-bottom: 10px;
