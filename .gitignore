@@ -57,9 +57,3 @@ set-test-env.sh
 automated-smoke-test/temp
 automated-smoke-test/test-results
 automated-smoke-test/config/config.json
-
-# local config file
-.classpath
-.factorypath
-.settings
-.project
