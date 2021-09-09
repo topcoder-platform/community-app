@@ -54,11 +54,9 @@ $dashboard-dark-bg: #2a2a2a;
 }
 
 .challenges {
-  padding: 0 14px;
   background-color: $tc-white;
   border-radius: 8px;
   width: 100%;
-  overflow: scroll;
 
   .row {
     display: flex;

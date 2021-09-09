@@ -12,6 +12,10 @@
     padding-right: 15px;
   }
 
+  @media screen and (max-width: 768px) {
+    padding-bottom: 30px;
+  }
+
   .layoutWrapper {
     display: grid;
     gap: 44px;

@@ -2,7 +2,6 @@ import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
 
 import { config } from 'topcoder-react-utils';
 
@@ -13,8 +12,6 @@ export default function ChallengesFeed({
   loading,
   theme,
 }) {
-  const itemHeight = 41;
-
   return (
     <div styleName={`container ${theme}`}>
       <div styleName="header">
@@ -27,7 +24,7 @@ export default function ChallengesFeed({
         >View all <span>challenges</span>
         </a>
       </div>
-      <Scrollbars autoHide styleName="challenges" style={{ height: itemHeight * 5, width: '100%' }}>
+      <div styleName="challenges">
         {loading ? <div styleName="loading"><LoadingIndicator /></div>
           : challenges.map(challenge => (
             <div styleName="row" key={challenge.id}>
@@ -46,7 +43,7 @@ export default function ChallengesFeed({
               </div>
             </div>
           ))}
-      </Scrollbars>
+      </div>
     </div>
   );
 }

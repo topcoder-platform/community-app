@@ -1,10 +1,10 @@
+/**
+ * ChallengesFeed component
+ */
 import React from 'react';
 import PT from 'prop-types';
 import ChallengesFeed from 'components/Dashboard/Challenges';
-
-import { config } from 'topcoder-react-utils';
 import { connect } from 'react-redux';
-
 import actions from '../../actions/dashboard';
 
 class ChallengesFeedContainer extends React.Component {
@@ -36,7 +36,7 @@ class ChallengesFeedContainer extends React.Component {
 }
 
 ChallengesFeedContainer.defaultProps = {
-  itemCount: config.DASHBOARD.NUM_CHALLENGES || 5,
+  itemCount: 5,
   challenges: [],
   loading: true,
   theme: 'light',

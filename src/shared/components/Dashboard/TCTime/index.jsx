@@ -11,12 +11,14 @@ const THEMES = {
 
 function TopcoderTime() {
   const theme = THEMES.dark; // for v1 only dark theme
-  const FORMAT = 'MMM Do, hh:mm A z';
+  let FORMAT = 'MMM Do, HH:mm UTC';
   const TIMEZONE = 'America/New_York';
-  const [tcTime, setTCTime] = useState(`${moment.tz(new Date(), TIMEZONE).format(FORMAT)}`);
+  const now = moment.tz(new Date(), TIMEZONE);
+  FORMAT += now.utcOffset() / 60;
+  const [tcTime, setTCTime] = useState(`${now.format(FORMAT)}`);
   useEffect(() => {
     const interval = setInterval(() => {
-      setTCTime(`${moment.tz(new Date(), TIMEZONE).format(FORMAT)}`);
+      setTCTime(moment.tz(new Date(), TIMEZONE).format(FORMAT));
     }, 60000);
     return () => clearInterval(interval);
   }, []);

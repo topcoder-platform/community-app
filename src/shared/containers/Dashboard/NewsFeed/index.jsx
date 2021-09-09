@@ -1,5 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-/* eslint-disable no-tabs */
 /**
  * SlashTC NewsFeed container component
  */
@@ -26,7 +24,9 @@ function NewsFeedContainer() {
       const isProd = config.URL.FORUMS_VANILLA === 'https://discussions.topcoder.com';
       const result = await fetch(`/api/cdn/public/forums/discussions?categoryID=${isProd ? 1441 : 2716}`);
       const data = await result.json();
-      setNewsData(data.slice(0, 6));
+      setNewsData(
+        data.sort((a, b) => new Date(b.dateInserted) - new Date(a.dateInserted)).slice(0, 6),
+      );
     }
     fetchData();
   }, []);
