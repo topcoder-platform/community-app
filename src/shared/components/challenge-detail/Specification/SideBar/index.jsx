@@ -142,7 +142,7 @@ export default function SideBar({
             LEARN:
           </h2>
           <p styleName="link-like-paragraph">
-            <a href="https://www.topcoder.com/thrive/articles/all-about-topcoder-challenges-tasks-and-gig-work-opportunities">
+            <a href="/thrive/articles/all-about-topcoder-challenges-tasks-and-gig-work-opportunities">
               Topcoder Challenges Explained
             </a>
           </p>
