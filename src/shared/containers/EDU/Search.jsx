@@ -86,7 +86,7 @@ export default class EDUSearch extends React.Component {
     const {
       taxonomy, query, tree, isShowFilter,
     } = this.state;
-    const title = 'Topcoder Thrive | Topcoder Community | Topcoder';
+    const title = 'Tutorials And Workshops That Matter | Thrive | Topcoder';
     const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
 
     const metaTags = (
