@@ -183,7 +183,7 @@ export default class EDUTracks extends React.Component {
       taxonomy, query, tree, isShowFilter,
       articleCnt, videoCnt, forumCnt,
     } = this.state;
-    const title = 'Topcoder Thrive | Topcoder Community | Topcoder';
+    const title = 'Tutorials And Workshops That Matter | Thrive | Topcoder';
     const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
     const metaTags = (
       <MetaTags

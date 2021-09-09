@@ -44,7 +44,7 @@ export default class EDUHome extends React.Component {
 
   render() {
     const { taxonomy } = this.state;
-    const title = 'Topcoder Thrive | Topcoder Community | Topcoder';
+    const title = 'Tutorials And Workshops That Matter | Thrive | Topcoder';
     const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
 
     return (
@@ -64,6 +64,7 @@ export default class EDUHome extends React.Component {
           </div>
           <div className={homeTheme.searchBarWrapp}>
             <SearchBar />
+            <div className={homeTheme.infoTextWrap}>Don’t know what a challenge is? <a className={homeTheme.infoTextLink} href="/thrive/articles/all-about-topcoder-challenges-tasks-and-gig-work-opportunities" target="_blank" rel="noreferrer">Find out here</a>.</div>
           </div>
         </div>
         <div className={homeTheme.shapeBanner} />

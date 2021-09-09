@@ -37,7 +37,7 @@ function GigsPagesContainer(props) {
     optProfile.attributes.email = profile.email;
     // trigger referral id fetching when profile is loaded
     if (isomorphy.isClientSide()) {
-      if (_.isEmpty(growSurf) || (!growSurf.loading && !growSurf.data)) {
+      if (_.isEmpty(growSurf) || (!growSurf.loading && !growSurf.data && !growSurf.error)) {
         getReferralId(profile);
       }
     }
@@ -67,7 +67,7 @@ function GigsPagesContainer(props) {
   }
   const { id, type } = match.params;
   const isApply = `${config.GIGS_PAGES_PATH}/${id}/apply` === match.url;
-  const title = 'Gig Work | Topcoder Community | Topcoder';
+  const title = 'Find Freelance Work | Gigs | Topcoder';
   const description = 'Compete and build up your profiles and skills! Topcoder members become eligible to work on Gig Work projects by first proving themselves in various skill sets through Topcoder competitions.';
   const inner = (
     <div>

@@ -87,6 +87,22 @@
         top: 0;
         margin-left: -20px;
       }
+
+      .infoTextWrap {
+        margin-top: 6px;
+        color: #fff;
+        line-height: 36px;
+        font-size: 16px;
+        font-family: Roboto, sans-serif;
+
+        .infoTextLink {
+          text-decoration: underline;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
     }
   }
 
