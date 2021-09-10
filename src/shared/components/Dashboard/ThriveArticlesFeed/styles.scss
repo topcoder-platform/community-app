@@ -94,11 +94,6 @@
     .allLink {
       color: $dashboard-dark-link;
       text-decoration: underline;
-
-      @include xs-to-sm {
-        color: $dashboard-teal;
-        text-decoration: none;
-      }
     }
   }
 

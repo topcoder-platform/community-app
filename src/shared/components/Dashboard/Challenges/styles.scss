@@ -114,11 +114,6 @@ $dashboard-dark-bg: #2a2a2a;
     .allLink {
       color: $dashboard-dark-link;
       text-decoration: underline;
-
-      @include xs-to-sm {
-        color: $dashboard-dark-link;
-        text-decoration: none;
-      }
     }
   }
 

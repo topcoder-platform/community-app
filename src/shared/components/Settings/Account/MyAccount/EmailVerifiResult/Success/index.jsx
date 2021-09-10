@@ -26,7 +26,7 @@ const Success = () => (
         <div styleName="button-back">
           <PrimaryButton
             styleName="white"
-            to="/my-dashboard"
+            to="/dashboard"
           >
             Back to My Dashboard
           </PrimaryButton>

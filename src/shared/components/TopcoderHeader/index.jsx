@@ -274,7 +274,7 @@ export default class TopcoderHeader extends React.Component {
         items: [{
           enforceA: true,
           icon: <IconNavDashboard />,
-          link: `${BASE_URL}/my-dashboard`,
+          link: `${BASE_URL}/dashboard`,
           title: 'Dashboard',
         }, {
           enforceA: true,

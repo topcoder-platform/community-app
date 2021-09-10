@@ -39,7 +39,7 @@ const AlmostDone = ({ location }) => {
           <div styleName="button-back">
             <PrimaryButton
               styleName="white"
-              to="/my-dashboard"
+              to="/dashboard"
             >
               Back to My Dashboard
             </PrimaryButton>

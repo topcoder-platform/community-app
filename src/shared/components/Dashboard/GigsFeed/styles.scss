@@ -54,7 +54,6 @@
   border-radius: 8px;
   height: 195px !important;
   width: 100%;
-  overflow: scroll;
 
   @include xs-to-sm {
     height: 285px !important;
@@ -119,11 +118,6 @@
     .allLink {
       color: $dashboard-dark-link;
       text-decoration: underline;
-
-      @include xs-to-sm {
-        color: $dashboard-teal;
-        text-decoration: none;
-      }
     }
   }
 

@@ -300,7 +300,7 @@ module.exports = {
       secondaryMenu: [
         {
           title: 'Dashboard',
-          href: '/my-dashboard',
+          href: '/dashboard',
           logged: true,
         },
         {

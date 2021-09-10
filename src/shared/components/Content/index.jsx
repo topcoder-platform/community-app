@@ -228,7 +228,7 @@ export default function Content() {
           </Link>
         </li>
         <li>
-          <Link to="/my-dashboard">
+          <Link to="/dashboard">
             Dashboard
           </Link>
         </li>

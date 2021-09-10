@@ -16,6 +16,7 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
 import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
+import MetaTags from 'components/MetaTags';
 import NewsFeed from './NewsFeed';
 import darkTheme from './themes/dark.scss';
 
@@ -26,8 +27,12 @@ const THEMES = {
 function SlashTCContainer(props) {
   const theme = THEMES.dark; // for v1 only dark theme
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
+  const title = 'Dashboard | Topcoder';
   return (
     <div className={theme.container}>
+      <MetaTags
+        title={title}
+      />
       {
         // Render different stacking of components for tables&mobile devices
         isTabletOrMobile ? (
