@@ -79,6 +79,7 @@ module.exports = {
       title: 'COMMUNITY',
       secondaryMenu: [
         {
+          id: 'dashboard',
           title: 'Dashboard',
           href: '/dashboard',
           logged: true,
