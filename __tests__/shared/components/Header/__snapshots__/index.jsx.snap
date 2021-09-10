@@ -26,6 +26,7 @@ exports[`Default render 1`] = `
           "secondaryMenu": Array [
             Object {
               "href": "/dashboard",
+              "id": "dashboard",
               "logged": true,
               "title": "Dashboard",
             },
