@@ -24,6 +24,7 @@ class GigsFeedContainer extends React.Component {
         sortBy: 'createdAt',
         sortOrder: 'desc',
         status: 'sourcing',
+        isApplicationPageActive: true,
       });
     }
   }
