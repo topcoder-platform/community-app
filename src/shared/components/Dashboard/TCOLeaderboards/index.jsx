@@ -34,12 +34,12 @@ export default class TCOLeaderboards extends React.Component {
     } = this.props;
     const { selectedIndex } = this.state;
     const AvatarComponent = themr('Avatar', styles)(Avatar);
-    const options = leaderboards && _.sortBy(leaderboards
+    const options = leaderboards && leaderboards
       .map((track, index) => ({
         value: index,
         label: track.selectText,
         selected: index === selectedIndex,
-      })), 'label');
+      }));
     const data = _.get(leaderboards, [selectedIndex]);
     const items = (data && !leaderboardsLoading) ? data.leaderboard
       .slice(0, itemCount).map((row, index) => (

@@ -5,7 +5,6 @@
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
 import './styles.scss';
 import { config } from 'topcoder-react-utils';
 
@@ -27,7 +26,7 @@ export default function GigsFeed({
         >View all <span>gigs</span>
         </a>
       </div>
-      <Scrollbars styleName="gigs">
+      <div styleName="gigs">
         {loading ? <div styleName="loading"><LoadingIndicator /></div>
           : gigs.message ? <span>{gigs.message}</span> : gigs.map(gig => (
             <div styleName="row" key={`dashboard-gigs-feed-${gig.externalId}`}>
@@ -39,7 +38,7 @@ export default function GigsFeed({
               </a>
               <div styleName="salary">
                 <span styleName="amount">
-                  ${`${(gig.minSalary || 0).toLocaleString()} - ${
+                  ${`${(gig.minSalary || 0).toLocaleString()} - $${
                   (gig.maxSalary || 0).toLocaleString()}`
                 }
                 </span>
@@ -47,7 +46,7 @@ export default function GigsFeed({
               </div>
             </div>
           ))}
-      </Scrollbars>
+      </div>
     </div>
   );
 }

@@ -15,13 +15,13 @@ class ChallengesFeedContainer extends React.Component {
       getChallenges({
         page: 1,
         perPage: itemCount,
-        types: ['CH', 'F2F', 'TSK'],
+        types: ['CH', 'F2F', 'MM'],
         tracks: ['DES', 'DEV', 'DEV', 'DS', 'QA'],
         status: 'Active',
         sortBy: 'updated',
         sortOrder: 'desc',
         isLightweight: true,
-        tPhaseName: 'Registration',
+        currentPhaseName: 'Registration',
       });
     }
   }

@@ -13,7 +13,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 8px 10px 8px;
+  padding: 0 8px 10px 14px;
 }
 
 .titles {
@@ -79,6 +79,7 @@
 
         .Select-value {
           line-height: 26px;
+          padding-right: 15px;
         }
 
         .Select-value-label {
@@ -102,6 +103,7 @@
       .Select-menu {
         border-radius: 8px;
         border: none;
+        width: auto;
       }
 
       .Select-menu {
@@ -116,6 +118,7 @@
         margin: 0;
         padding: 0 15px;
         color: $tc-gray-90;
+        white-space: nowrap;
 
         &.is-focused {
           background-color: #229174;
