@@ -26,6 +26,7 @@ function onDone(state, { payload }) {
     ...state,
     loading: false,
     data: payload.data,
+    error: payload.error || false,
   };
 }
 

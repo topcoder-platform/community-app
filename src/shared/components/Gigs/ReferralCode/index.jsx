@@ -68,7 +68,10 @@ function ReferralCode(props) {
           <React.Fragment>
             <span>Your referral link:</span>
             {
-              growSurfState.data ? (
+              growSurfState.loading && <LoadingIndicator />
+            }
+            {
+              growSurfState.data && (
                 <div className={defautlStyle.rondedArea}>
                   <span>{`https://www.topcoder.com/gigs?referralId=${growSurfState.data.id}`}</span>
                   <PrimaryButton
@@ -92,7 +95,10 @@ function ReferralCode(props) {
                     {copyBtnText}
                   </PrimaryButton>
                 </div>
-              ) : <LoadingIndicator />
+              )
+            }
+            {
+              growSurfState.error && <span>Ops, we couldn&apos;t load your profile. Please try again later or contact <a href="mailto:support@topcoder.com">support</a>.</span>
             }
           </React.Fragment>
         )
