@@ -56,7 +56,7 @@ export default class Service {
   /* eslint-disable class-methods-use-this */
   async getJobApplications(tokenV3) {
     const res = await fetch(
-      `${config.PLATFORM_SITE_URL}/earn-app/api/my-gigs/myJobApplications?page=1&perPage=1`,
+      `${config.PLATFORM_SITE_URL}/gigs-app/api/my-gigs/myJobApplications?page=1&perPage=1`,
       {
         method: 'GET',
         headers: new Headers({

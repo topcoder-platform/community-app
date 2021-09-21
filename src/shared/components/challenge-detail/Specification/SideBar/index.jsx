@@ -137,6 +137,16 @@ export default function SideBar({
             </div>
           )
         }
+        <div>
+          <h2>
+            LEARN:
+          </h2>
+          <p styleName="link-like-paragraph">
+            <a href="/thrive/articles/all-about-topcoder-challenges-tasks-and-gig-work-opportunities">
+              Topcoder Challenges Explained
+            </a>
+          </p>
+        </div>
         <EligibleEvents eventDetails={eventDetail} />
         {
           !isDesign && !isMM && (

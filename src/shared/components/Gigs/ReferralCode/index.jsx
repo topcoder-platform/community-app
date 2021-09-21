@@ -30,7 +30,13 @@ function ReferralCode(props) {
 
   return (
     <div className={_.isEmpty(profile) ? defautlStyle.container : defautlStyle.containerWithLink}>
-      <span className={defautlStyle.title}>Topcoder Referral Program:</span>
+      {
+        _.isEmpty(profile) ? (
+          <span className={defautlStyle.title}>Topcoder Referral Program:</span>
+        ) : (
+          <a className={defautlStyle.title} href="/community/gig-referral" target="_blank" rel="noreferrer">Topcoder Referral Program:</a>
+        )
+      }
       {
         _.isEmpty(profile) ? (
           <React.Fragment>
@@ -62,7 +68,10 @@ function ReferralCode(props) {
           <React.Fragment>
             <span>Your referral link:</span>
             {
-              growSurfState.data ? (
+              growSurfState.loading && <LoadingIndicator />
+            }
+            {
+              growSurfState.data && (
                 <div className={defautlStyle.rondedArea}>
                   <span>{`https://www.topcoder.com/gigs?referralId=${growSurfState.data.id}`}</span>
                   <PrimaryButton
@@ -86,7 +95,10 @@ function ReferralCode(props) {
                     {copyBtnText}
                   </PrimaryButton>
                 </div>
-              ) : <LoadingIndicator />
+              )
+            }
+            {
+              growSurfState.error && <span>Ops, we couldn&apos;t load your profile. Please try again later or contact <a href="mailto:support@topcoder.com">support</a>.</span>
             }
           </React.Fragment>
         )

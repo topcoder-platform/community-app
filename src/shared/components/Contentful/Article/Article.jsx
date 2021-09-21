@@ -129,6 +129,7 @@ export default class Article extends React.Component {
         uppercaseHeadings: false,
       },
     ).substring(0, CONTENT_PREVIEW_LENGTH);
+    const catsGrouped = _.groupBy(fields.contentCategory, cat => cat.fields.trackParent);
 
     return (
       <React.Fragment>
@@ -215,14 +216,25 @@ export default class Article extends React.Component {
               <div className={theme.separator} />
               <h3 className={theme.label}>categories</h3>
               {/* Cats */}
-              <div className={theme.tagContainer}>
+              <div className={theme.catsWrapper}>
                 {
-                _.map(fields.contentCategory, cat => (
-                  <div className={theme.tagItem} key={cat.sys.id} title={`Search for articles in ${cat.fields.trackParent}:${cat.fields.name} category`}>
-                    <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track: cat.fields.trackParent, tax: cat.fields.name })}`} key={`${cat.sys.id}`} className={theme.catLink}>{cat.fields.name}</Link>
-                  </div>
-                ))
-              }
+                  _.keys(catsGrouped).map(k => (
+                    <React.Fragment>
+                      <div className={theme.catItem} key={k} title={`Search for articles in ${k} category`}>
+                        <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track: k })}`} key={k} className={theme.catLink}>{k}</Link>
+                      </div>
+                      <div className={theme.catsContainer}>
+                        {
+                          _.map(catsGrouped[k], cat => (
+                            <div className={theme.catItem} key={cat.sys.id} title={`Search for articles in ${cat.fields.trackParent}:${cat.fields.name} category`}>
+                              <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_TRACKS_PATH}?${qs.stringify({ track: cat.fields.trackParent, tax: cat.fields.name })}`} key={`${cat.sys.id}`} className={theme.catLink}>{cat.fields.name}</Link>
+                            </div>
+                          ))
+                        }
+                      </div>
+                    </React.Fragment>
+                  ))
+                }
               </div>
               <div className={theme.separator} />
               <h3 className={theme.label}>Tags</h3>

@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - slash-tc
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
