@@ -28,9 +28,11 @@ routes.use(cors());
 routes.options('*', cors());
 
 routes.get('/jobs', (req, res, next) => new RecruitCRMService().getAllJobs(req, res, next));
+routes.get('/jobs/cache', (req, res, next) => new RecruitCRMService().getJobsCacheStats(req, res, next));
+routes.get('/jobs/cache/flush', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => new RecruitCRMService().getJobsCacheFlush(req, res, next));
 routes.get('/jobs/search', (req, res, next) => new RecruitCRMService().getJobs(req, res, next));
 routes.get('/jobs/:id', (req, res, next) => new RecruitCRMService().getJob(req, res, next));
-routes.post('/jobs/:id/apply', upload.single('resume'), (req, res, next) => new RecruitCRMService().applyForJob(req, res, next));
+routes.post('/jobs/:id/apply', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), upload.single('resume'), (req, res, next) => new RecruitCRMService().applyForJob(req, res, next));
 routes.get('/candidates/search', (req, res, next) => new RecruitCRMService().searchCandidates(req, res, next));
 // new router added
 routes.get('/profile', (req, res, next) => authenticator(authenticatorOptions)(req, res, next), (req, res, next) => new RecruitCRMService().getProfile(req, res, next));

@@ -12,6 +12,11 @@ import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
 
 const FormData = require('form-data');
+const NodeCache = require('node-cache');
+
+// gigs list caching
+const gigsCache = new NodeCache({ stdTTL: config.GIGS_LISTING_CACHE_TIME, checkperiod: 10 });
+const CACHE_KEY = 'jobs';
 
 const JOB_FIELDS_RESPONSE = [
   'id',
@@ -85,6 +90,17 @@ export default class RecruitCRMService {
       apiKey: config.SECRET.RECRUITCRM_API_KEY,
       authorization: `Bearer ${config.SECRET.RECRUITCRM_API_KEY}`,
     };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getJobsCacheStats(req, res) {
+    return res.send(gigsCache.getStats());
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getJobsCacheFlush(req, res) {
+    gigsCache.flushAll();
+    return res.send(gigsCache.getStats());
   }
 
   /**
@@ -164,6 +180,9 @@ export default class RecruitCRMService {
    * @param {Object} the request.
    */
   async getAllJobs(req, res, next) {
+    if (gigsCache.has(CACHE_KEY)) {
+      return res.send(gigsCache.get(CACHE_KEY));
+    }
     try {
       const response = await fetch(`${this.private.baseUrl}/v1/jobs/search?${qs.stringify(req.query)}`, {
         method: 'GET',
@@ -205,17 +224,17 @@ export default class RecruitCRMService {
               const pageData = await pageDataRsp.json();
               data.data = _.flatten(data.data.concat(pageData.data));
             }
-            return res.send(
-              _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE)),
-            );
+            const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+            gigsCache.set(CACHE_KEY, toSend);
+            return res.send(toSend);
           })
           .catch(e => res.send({
             error: e,
           }));
       }
-      return res.send(
-        _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE)),
-      );
+      const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+      gigsCache.set(CACHE_KEY, toSend);
+      return res.send(toSend);
     } catch (err) {
       return next(err);
     }

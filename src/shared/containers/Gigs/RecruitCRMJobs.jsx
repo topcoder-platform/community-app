@@ -179,9 +179,9 @@ class RecruitCRMJobsContainer extends React.Component {
     // build current locations dropdown based on all data
     // and filter by selected location
     jobsToDisplay = _.filter(jobs, (job) => {
-      const country = !job.country || job.country === 'Anywhere' || job.country === 'Any' ? 'All' : job.country;
+      const country = _.trim(!job.country || job.country === 'Anywhere' || job.country === 'Any' ? 'All' : job.country);
       // build dropdown
-      const found = _.findIndex(locations, { label: country });
+      const found = _.findIndex(locations, l => l.label.toLowerCase() === country.toLowerCase());
       if (found === -1) {
         locations.push({
           label: country, selected: location.toLowerCase() === country.toLowerCase(),
