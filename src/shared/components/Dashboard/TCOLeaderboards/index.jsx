@@ -48,7 +48,9 @@ export default class TCOLeaderboards extends React.Component {
         <div styleName="leaderboardRow" key={`lb-${index}`}>
           <span styleName="index">{index + 1}</span>
           <span><AvatarComponent url={row['member_profile_basic.photo_url']} DefaultAvatar={DefaultAvatar} /></span>
-          <span styleName="handle">{row['member_profile_basic.handle']}</span>
+          <div styleName="handle">
+            <a href={`https://topcoder.com/members/${row['member_profile_basic.handle']}`} target="_blank" rel="noreferrer">{row['member_profile_basic.handle']}</a>
+          </div>
           <span styleName="tcoPoints">{row['tco_leaderboard.tco_points'].toLocaleString('en-US', { maximumFractionDigits: 2 })}</span>
         </div>
       )) : <LoadingIndicator />;

@@ -228,8 +228,8 @@ export default function Content() {
           </Link>
         </li>
         <li>
-          <Link to="/dashboard">
-            Dashboard
+          <Link to="/home">
+            Home
           </Link>
         </li>
         <li>

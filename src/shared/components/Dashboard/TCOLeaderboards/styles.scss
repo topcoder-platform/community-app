@@ -104,6 +104,8 @@
         border-radius: 8px;
         border: none;
         width: auto;
+        overflow-x: hidden;
+        min-width: 180px;
       }
 
       .Select-menu {
@@ -166,6 +168,17 @@
   > .handle {
     flex: 1;
     margin-left: 0;
+
+    a {
+      text-decoration: underline;
+      color: $tc-white;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 
   > .tcoPoints {

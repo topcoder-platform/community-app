@@ -235,9 +235,9 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/dashboard"
+        to="/home"
       >
-        Dashboard
+        Home
       </Link>
     </li>
     <li>

@@ -25,10 +25,10 @@ exports[`Default render 1`] = `
           "id": "community",
           "secondaryMenu": Array [
             Object {
-              "href": "/dashboard",
-              "id": "dashboard",
+              "href": "/home",
+              "id": "home",
               "logged": true,
-              "title": "Dashboard",
+              "title": "Home",
             },
             Object {
               "href": "/members/willFilledByUserName",

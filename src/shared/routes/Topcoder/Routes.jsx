@@ -66,9 +66,9 @@ export default function Topcoder() {
               <Redirect
                 exact
                 from="/my-dashboard"
-                to="/dashboard"
+                to="/home"
               />
-              <Route component={Dashboard} exact path="/dashboard" />
+              <Route component={Dashboard} exact path="/home" />
               <Route
                 component={ReviewOpportunityDetails}
                 exact

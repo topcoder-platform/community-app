@@ -107,7 +107,7 @@ module.exports = {
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
-    HOME: '/dashboard',
+    HOME: '/home',
     BLOG: 'https://www.topcoder-dev.com/blog',
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
@@ -299,9 +299,9 @@ module.exports = {
       title: 'COMMUNITY',
       secondaryMenu: [
         {
-          id: 'dashboard',
-          title: 'Dashboard',
-          href: '/dashboard',
+          id: 'home',
+          title: 'Home',
+          href: '/home',
           logged: true,
         },
         {

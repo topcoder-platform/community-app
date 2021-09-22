@@ -46,7 +46,7 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  if (req && req.url.endsWith('/dashboard')) {
+  if (req && req.url.endsWith('/home')) {
     return redux.resolveAction(actions.dashboard.fetchChallengesDone())
       .then(res => create(onDone({}, res)));
   }
