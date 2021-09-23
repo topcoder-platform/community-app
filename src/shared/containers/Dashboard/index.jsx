@@ -27,7 +27,7 @@ const THEMES = {
 function SlashTCContainer(props) {
   const theme = THEMES.dark; // for v1 only dark theme
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
-  const title = 'Dashboard | Topcoder';
+  const title = 'Home | Topcoder';
   return (
     <div className={theme.container}>
       <MetaTags

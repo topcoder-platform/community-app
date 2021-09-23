@@ -48,19 +48,24 @@ function NewsFeedContainer() {
       >
         {
           newsData.map((item) => {
+            const opt = {
+              ignoreHref: true,
+              ignoreImage: true,
+              singleNewLineParagraphs: true,
+              uppercaseHeadings: false,
+            };
             const cont = htmlToText.fromString(
               item.body,
-              {
-                ignoreHref: true,
-                ignoreImage: true,
-                singleNewLineParagraphs: true,
-                uppercaseHeadings: false,
-              },
+              opt,
+            );
+            const title = htmlToText.fromString(
+              item.name,
+              opt,
             );
             return (
               <div className="newsItem" key={item.discussionID}>
                 <div className="date">{moment(item.dateInserted).format('MMM D, YYYY')}</div>
-                <a className="title" target="_blank" rel="noreferrer" href={item.url}>{item.name}</a>
+                <a className="title" target="_blank" rel="noreferrer" href={item.url}>{title}</a>
                 <div className="cont">
                   {
                     cont.length > MAX_NEWS_TEXT_LEN ? (

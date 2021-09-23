@@ -38,7 +38,7 @@ export default function ChallengesFeed({
               <div styleName="prize">
                 <span styleName="amount">
                   {`$${_.sum(challenge.prizeSets
-                    .map(item => _.sum(item.prizes.map(prize => prize.value))))}`}
+                    .map(item => _.sum(item.prizes.map(prize => prize.value)))).toLocaleString()}`}
                 </span>
               </div>
             </div>
