@@ -731,7 +731,7 @@ class SubmissionsComponent extends React.Component {
                 </div>
                 <div styleName="col-5">
                   {
-                    (!_.isEmpty(s.review) && s.review[0].score)
+                    (!_.isEmpty(s.review) && !_.isEmpty(s.review[0]) && s.review[0].score)
                       ? s.review[0].score.toFixed(2)
                       : 'N/A'
                   }
