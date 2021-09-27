@@ -108,6 +108,12 @@
         min-width: 180px;
       }
 
+      .Select-menu-outer {
+        @media screen and (max-width: 1786px) {
+          margin-left: -75px;
+        }
+      }
+
       .Select-menu {
         padding: 4px 0;
       }
