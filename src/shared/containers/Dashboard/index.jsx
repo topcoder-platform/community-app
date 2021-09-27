@@ -1,12 +1,16 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable react/destructuring-assignment */
 /**
  * SlashTC index container
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
+import { config } from 'topcoder-react-utils';
 import Viewport from 'components/Contentful/Viewport';
 import TopcoderTime from 'components/Dashboard/TCTime';
 import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
@@ -28,6 +32,14 @@ function SlashTCContainer(props) {
   const theme = THEMES.dark; // for v1 only dark theme
   const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
   const title = 'Home | Topcoder';
+
+  useEffect(() => {
+    if (props.tokenV3 && !isTokenExpired(props.tokenV3)) return;
+    let url = `retUrl=${encodeURIComponent(location.href)}`;
+    url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-home-page`;
+    location.href = url;
+  }, [props.tokenV3]);
+
   return (
     <div className={theme.container}>
       <MetaTags
@@ -110,16 +122,19 @@ function SlashTCContainer(props) {
 
 SlashTCContainer.defaultProps = {
   profile: null,
+  tokenV3: null,
 };
 
 SlashTCContainer.propTypes = {
   profile: PT.shape(),
+  tokenV3: PT.string,
 };
 
 function mapStateToProps(state) {
   const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
   return {
     profile,
+    tokenV3: state.auth.tokenV3,
   };
 }
 
