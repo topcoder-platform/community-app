@@ -15,8 +15,8 @@ const FormData = require('form-data');
 const NodeCache = require('node-cache');
 
 // gigs list caching
-const gigsCache = new NodeCache({ stdTTL: config.GIGS_LISTING_CACHE_TIME, checkperiod: 10 });
 const CACHE_KEY = 'jobs';
+const gigsCache = new NodeCache({ stdTTL: config.GIGS_LISTING_CACHE_TIME, checkperiod: 10 });
 
 const JOB_FIELDS_RESPONSE = [
   'id',
@@ -171,6 +171,63 @@ export default class RecruitCRMService {
       return res.send(_.pick(data, JOB_FIELDS_RESPONSE));
     } catch (err) {
       return next(err);
+    }
+  }
+
+  /**
+   * Gets all jobs method.
+   * @return {Promise}
+   * @param {Object} query the request query.
+   */
+  async getAll(query) {
+    try {
+      const response = await fetch(`${this.private.baseUrl}/v1/jobs/search?${qs.stringify(query)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.private.authorization,
+        },
+      });
+      if (response.status === 429) {
+        await new Promise(resolve => setTimeout(resolve, 30000)); // wait 30sec
+        return this.getAll(query);
+      }
+      if (response.status >= 400) {
+        const error = {
+          error: true,
+          status: response.status,
+          url: `${this.private.baseUrl}/v1/jobs/search?${qs.stringify(query)}`,
+          errObj: await response.json(),
+        };
+        return error;
+      }
+      const data = await response.json();
+      if (data.current_page < data.last_page) {
+        const pages = _.range(2, data.last_page + 1);
+        return Promise.all(
+          pages.map(page => fetch(`${this.private.baseUrl}/v1/jobs/search?${qs.stringify(query)}&page=${page}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.private.authorization,
+            },
+          })),
+        )
+          .then(async (allPages) => {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const pageDataRsp of allPages) {
+              // eslint-disable-next-line no-await-in-loop
+              const pageData = await pageDataRsp.json();
+              data.data = _.flatten(data.data.concat(pageData.data));
+            }
+            const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+            return toSend;
+          });
+      }
+      const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+      return toSend;
+    } catch (err) {
+      return err;
     }
   }
 
@@ -694,3 +751,16 @@ export default class RecruitCRMService {
     return data.data[0];
   }
 }
+
+// Self update cache on expire to keep it fresh
+gigsCache.on('expired', async (key) => {
+  if (key === CACHE_KEY) {
+    const ss = new RecruitCRMService();
+    const gigs = await ss.getAll({
+      job_status: 1,
+    });
+    if (!gigs.error) {
+      gigsCache.set(CACHE_KEY, gigs);
+    }
+  }
+});
