@@ -123,12 +123,14 @@ class RecruitCRMJobApplyContainer extends React.Component {
   }
 
   onApplyClick() {
-    const { applyForJob, job, optimizely } = this.props;
+    const {
+      applyForJob, job, optimizely, auth,
+    } = this.props;
     const { formData } = this.state;
     this.validateForm();
     this.setState((state) => {
       if (_.isEmpty(state.formErrors)) {
-        applyForJob(job, formData);
+        applyForJob(job, formData, auth.tokenV3);
         optimizely.track('Submit Application Form');
         const isFeatured = _.find(job.custom_fields, ['field_name', 'Featured']);
         const jobTags = _.find(job.custom_fields, ['field_name', 'Job Tag']);
@@ -279,6 +281,7 @@ RecruitCRMJobApplyContainer.defaultProps = {
   applying: false,
   application: null,
   recruitProfile: null,
+  auth: {},
 };
 
 RecruitCRMJobApplyContainer.propTypes = {
@@ -290,6 +293,7 @@ RecruitCRMJobApplyContainer.propTypes = {
   searchCandidates: PT.func.isRequired,
   recruitProfile: PT.shape(),
   optimizely: PT.shape().isRequired,
+  auth: PT.object,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -313,15 +317,18 @@ function mapStateToProps(state, ownProps) {
       ? state.recruitCRM[job.slug].application : null,
     recruitProfile: state.recruitCRM && profile && state.recruitCRM[profile.email]
       ? state.recruitCRM[profile.email].profile : null,
+    auth: {
+      ...state.auth,
+    },
   };
 }
 
 function mapDispatchToActions(dispatch) {
   const a = actions.recruit;
   return {
-    applyForJob: (job, payload) => {
+    applyForJob: (job, payload, tokenV3) => {
       dispatch(a.applyForJobInit(job, payload));
-      dispatch(a.applyForJobDone(job, payload));
+      dispatch(a.applyForJobDone(job, payload, tokenV3));
     },
     searchCandidates: (email) => {
       dispatch(a.searchCandidatesInit(email));
