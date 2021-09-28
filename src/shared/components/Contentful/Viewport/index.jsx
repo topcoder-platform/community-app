@@ -29,6 +29,7 @@ import MemberCard from 'components/Contentful/MemberCard';
 import Article from 'components/Contentful/Article';
 import { isomorphy } from 'topcoder-react-utils';
 import MemberTalkCloud from 'components/Contentful/MemberTalkCloud';
+import Masonry from 'react-masonry-css';
 
 // AOS
 import AOS from 'aos';
@@ -40,6 +41,7 @@ import columnTheme from './themes/column.scss';
 import rowTheme from './themes/row.scss';
 import gridTheme from './themes/grid.scss';
 import zurichTheme from './themes/zurich.scss';
+import masonryTheme from './themes/masonry.scss';
 
 const { fireErrorMessage } = errors;
 
@@ -73,6 +75,7 @@ const THEMES = {
   'Row with Max-Width': rowTheme,
   Grid: gridTheme,
   Zurich: zurichTheme,
+  Masonry: masonryTheme,
 };
 
 /* Loads viewport content assets. */
@@ -87,10 +90,32 @@ function ViewportContentLoader(props) {
     baseUrl,
     viewportId,
     animationOnScroll,
+    masonryConfig,
   } = props;
   let {
     extraStylesForContainer,
   } = props;
+
+  const getInner = data => contentIds.map((id) => {
+    const type = data.entries.items[id].sys.contentType.sys.id;
+    const Component = COMPONENTS[type];
+    if (Component) {
+      return (
+        <Component
+          baseUrl={baseUrl}
+          environment={environment}
+          id={id}
+          key={id}
+          preview={preview}
+          spaceName={spaceName}
+        />
+      );
+    }
+    return fireErrorMessage(
+      'Unsupported content type from contentful',
+      '',
+    );
+  });
 
   const theme = THEMES[themeName];
   if (!theme) {
@@ -129,26 +154,11 @@ function ViewportContentLoader(props) {
             animation={animation}
           >
             {
-              contentIds.map((id) => {
-                const type = data.entries.items[id].sys.contentType.sys.id;
-                const Component = COMPONENTS[type];
-                if (Component) {
-                  return (
-                    <Component
-                      baseUrl={baseUrl}
-                      environment={environment}
-                      id={id}
-                      key={id}
-                      preview={preview}
-                      spaceName={spaceName}
-                    />
-                  );
-                }
-                return fireErrorMessage(
-                  'Unsupported content type from contentful',
-                  '',
-                );
-              })
+              themeName === 'Masonry' && masonryConfig ? (
+                <Masonry breakpointCols={masonryConfig} className="viewport-masonry-grid" columnClassName="viewport-masonry-grid_column">
+                  {getInner(data)}
+                </Masonry>
+              ) : getInner(data)
             }
           </Viewport>
         );
@@ -169,6 +179,7 @@ ViewportContentLoader.defaultProps = {
     gap: 10,
   }),
   animationOnScroll: null,
+  masonryConfig: null,
 };
 
 ViewportContentLoader.propTypes = {
@@ -182,6 +193,7 @@ ViewportContentLoader.propTypes = {
   grid: PT.shape(),
   baseUrl: PT.string.isRequired,
   animationOnScroll: PT.shape(),
+  masonryConfig: PT.shape(),
 };
 
 /* Loads the main viewport entry. */
@@ -234,6 +246,7 @@ export function ViewportLoader(props) {
             }}
             baseUrl={baseUrl}
             animationOnScroll={viewport.fields.animationOnScroll}
+            masonryConfig={viewport.fields.masonryConfig}
           />
         );
       })}

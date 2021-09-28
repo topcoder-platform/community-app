@@ -16,7 +16,7 @@ import React from 'react';
 import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { config, isomorphy } from 'topcoder-react-utils';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -63,7 +63,12 @@ export default function Topcoder() {
               />
               <Route component={ChallengeListing} exact path="/challenges" />
               <Route component={Notifications} exact path="/notifications" />
-              <Route component={Dashboard} exact path="/my-dashboard" />
+              <Redirect
+                exact
+                from="/my-dashboard"
+                to="/home"
+              />
+              <Route component={Dashboard} exact path="/home" />
               <Route
                 component={ReviewOpportunityDetails}
                 exact

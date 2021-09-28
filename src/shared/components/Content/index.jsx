@@ -228,8 +228,8 @@ export default function Content() {
           </Link>
         </li>
         <li>
-          <Link to="/my-dashboard">
-            Dashboard
+          <Link to="/home">
+            Home
           </Link>
         </li>
         <li>
@@ -671,11 +671,6 @@ export default function Content() {
           <Link to="/examples/countdown">Countdown</Link>
         </li>
         <li>
-          <Link
-            to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
-          >
-            Announcement
-          </Link>
           {' '}
           &mdash;
           This is a part of simple PoC for CMS integration (Countentful CMS is
@@ -839,6 +834,32 @@ export default function Content() {
           typography is supposed to use the set of styles from this example.
           For all these styles we have global mixins, which should be used
           whenever possible (but never modified without explicit approval).
+        </li>
+        <li>
+          <Link to="/examples/thrive-articles-feed">
+            Thrive Articles Feed
+          </Link>
+          {' '}
+          - Demo of Thrive Articles Feed component
+          <Link to="/examples/gigs-feed">
+            Gigs Feed
+          </Link>
+          {' '}
+          - Demo of Gigs Feed component
+          <Link to="/examples/tco-leaderboards">
+            TCO Leaderboards
+          </Link>
+          {' '}
+          Demo for TCO leaderboards component
+          <Link to="/examples/challenges">
+            Challenges Feed
+          </Link>
+          {' '} - Demo of Challenges Feed Component
+          <Link to="/examples/blog-feed">
+            Blog Feed
+          </Link>
+          {' '}
+          - Demo of Blog Feed component
         </li>
       </ul>
     </div>

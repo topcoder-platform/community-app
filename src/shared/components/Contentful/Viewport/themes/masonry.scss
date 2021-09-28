@@ -1,0 +1,23 @@
+$gutterSize: 20px;
+
+.container {
+  flex-direction: column;
+  width: 100%;
+
+  :global {
+    .viewport-masonry-grid {
+      display: flex;
+      margin-left: -$gutterSize; /* gutter size offset */
+      width: auto;
+    }
+
+    .viewport-masonry-grid_column {
+      padding-left: $gutterSize; /* gutter size */
+      background-clip: padding-box;
+    }
+
+    .viewport-masonry-grid_column > * {
+      margin-bottom: $gutterSize;
+    }
+  }
+}
