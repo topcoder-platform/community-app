@@ -28,7 +28,7 @@ module.exports = {
 
     AUTH: 'https://accounts-auth0.topcoder.com',
     BASE: 'https://www.topcoder.com',
-    HOME: '/my-dashboard',
+    HOME: '/home',
     COMMUNITY: 'https://community.topcoder.com',
     FORUMS: 'https://apps.topcoder.com/forums',
     FORUMS_VANILLA: 'https://discussions.topcoder.com',
@@ -79,8 +79,9 @@ module.exports = {
       title: 'COMMUNITY',
       secondaryMenu: [
         {
-          title: 'Dashboard',
-          href: '/my-dashboard',
+          id: 'home',
+          title: 'Home',
+          href: '/home',
           logged: true,
         },
         {

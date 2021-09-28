@@ -24,12 +24,25 @@
   color: white;
   cursor: pointer;
   display: flex;
+
+  @media screen and (max-width: 768px) {
+    max-width: 24px;
+    max-height: 46px;
+  }
 }
 
 .controlLeft {
   margin-left: 25px;
+
+  @media screen and (max-width: 768px) {
+    margin-left: 15px;
+  }
 }
 
 .controlRight {
   margin-right: 25px;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 15px;
+  }
 }

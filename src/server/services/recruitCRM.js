@@ -5,11 +5,14 @@ import fetch from 'isomorphic-fetch';
 import config from 'config';
 import qs from 'qs';
 import _ from 'lodash';
-import { logger } from 'topcoder-react-lib';
+import { logger, services } from 'topcoder-react-lib';
 import Joi from 'joi';
 import GrowsurfService from './growsurf';
 import { sendEmailDirect } from './sendGrid';
 // import GSheetService from './gSheet';
+
+
+const { api } = services;
 
 const FormData = require('form-data');
 const NodeCache = require('node-cache');
@@ -101,6 +104,25 @@ export default class RecruitCRMService {
   getJobsCacheFlush(req, res) {
     gigsCache.flushAll();
     return res.send(gigsCache.getStats());
+  }
+
+  /**
+   * getJobsFromTaas endpoint.
+   * @return {Promise}
+   * @param {Object} the request.
+   */
+  // eslint-disable-next-line class-methods-use-this
+  async getJobsFromTaas(req, res, next) {
+    try {
+      const m2mToken = await api.getTcM2mToken();
+      const v5api = api.getApiV5(m2mToken);
+      const jobs = await v5api.get(`/jobs?${qs.stringify(req.query)}`);
+      return res.send({
+        jobs: await jobs.json(),
+      });
+    } catch (err) {
+      return next(err);
+    }
   }
 
   /**

@@ -1,475 +1,143 @@
-/**
- * Container for the dashboard page.
- */
-/* global location */
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-globals */
-
-import _ from 'lodash';
-import challengeDetailsActions from 'actions/page/challenge-details';
-import cookies from 'browser-cookies';
-import Dashboard from 'components/Dashboard';
-import dashActions from 'actions/page/dashboard';
-import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
-import LoadingIndicator from 'components/LoadingIndicator';
-import { actions } from 'topcoder-react-lib';
+/* eslint-disable react/destructuring-assignment */
+/**
+ * SlashTC index container
+ */
+import React, { useEffect } from 'react';
 import PT from 'prop-types';
-import qs from 'qs';
-import React from 'react';
-import rssActions from 'actions/rss';
-import shortId from 'shortid';
-
 import { connect } from 'react-redux';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { updateChallengeType } from 'utils/challenge';
+import { useMediaQuery } from 'react-responsive';
+import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
+import { config } from 'topcoder-react-utils';
+import Viewport from 'components/Contentful/Viewport';
+import TopcoderTime from 'components/Dashboard/TCTime';
+import ThriveArticlesFeedContainer from 'containers/Dashboard/ThriveArticlesFeed';
+import GigsFeed from 'containers/Dashboard/GigsFeed';
+import TCOLeaderboardsContainer from 'containers/Dashboard/TCOLeaderboards';
+import ContentfulLoader from 'containers/ContentfulLoader';
+import LoadingIndicator from 'components/LoadingIndicator';
+import ChallengesFeed from 'containers/Dashboard/ChallengesFeed';
+import BlogFeedContainer from 'containers/Dashboard/BlogFeed';
+import MetaTags from 'components/MetaTags';
+import NewsFeed from './NewsFeed';
+import darkTheme from './themes/dark.scss';
 
-import challengeListingActions from 'actions/challenge-listing';
-import communityActions from 'actions/tc-communities';
+const THEMES = {
+  dark: darkTheme,
+};
 
-import { isTokenExpired, decodeToken } from '@topcoder-platform/tc-auth-lib';
-import { config, isomorphy } from 'topcoder-react-utils';
+function SlashTCContainer(props) {
+  const theme = THEMES.dark; // for v1 only dark theme
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 768 });
+  const title = 'Home | Topcoder';
 
-import './styles.scss';
-
-/* When mounted, this container triggers (re-)loading of various data it needs.
- * It will not reload any data already present in the Redux store, if they were
- * fetched more recently than this max age [ms]. */
-const CACHE_MAX_AGE = 10 * 60 * 1000;
-
-/* Constants for loading Topcoder blog. */
-const TOPCODER_BLOG_ID = 'TOPCODER_BLOG';
-const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
-  encodeURIComponent(config.URL.BLOG_FEED)}`;
-
-function updateCommunityStats(props) {
-  const {
-    activeChallenges,
-    communities,
-    communityStats,
-    getCommunityStats,
-    tokenV3,
-  } = props;
-  const now = Date.now();
-  communities.forEach((community) => {
-    const stats = communityStats[community.communityId];
-    if (stats && (stats.loadingUuid
-    || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
-    getCommunityStats(community, activeChallenges, tokenV3);
-  });
-}
-
-export class DashboardPageContainer extends React.Component {
-  componentDidMount() {
-    const {
-      challengeFilter,
-      switchChallengeFilter,
-      getMemberResources,
-      tokenV3,
-    } = this.props;
-
-    this.updateData(this.props);
-
-    if (challengeFilter) switchChallengeFilter('');
-
-    if (this.authCheck(tokenV3)) {
-      const user = decodeToken(tokenV3);
-      getMemberResources(user.userId, tokenV3);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.updateData(nextProps);
-  }
-
-  /**
-   * Does nothing if a valid TC API v3 token is passed in; otherwise redirects
-   * user to the TC auth page, with proper return URL.
-   * @param {String} tokenV3
-   * @return {Boolean} `true` if the user is authenticated; `false` otherwise.
-   */
-  authCheck(tokenV3) {
-    if (tokenV3 && !isTokenExpired(tokenV3)) return true;
-
-    /* This implements front-end redirection. Once the server-side rendering of
-     * the Dashboard is in place, this should be updated to work for the server
-     * side rendering as well. */
+  useEffect(() => {
+    if (props.tokenV3 && !isTokenExpired(props.tokenV3)) return;
     let url = `retUrl=${encodeURIComponent(location.href)}`;
-    url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-main`;
+    url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-home-page`;
     location.href = url;
+  }, [props.tokenV3]);
 
-    _.noop(this);
-    return false;
-  }
-
-  updateData({
-    achievementsLoading,
-    achievementsTimestamp,
-    activeChallengesLoading,
-    activeChallengesTimestamp,
-    authenticating,
-    communitiesLoading,
-    communitiesTimestamp,
-    financesLoading,
-    financesTimestamp,
-    getAllActiveChallenges,
-    getCommunityList,
-    getMemberAchievements,
-    getMemberFinances,
-    getMemberStats,
-    getSrms,
-    // getTopcoderBlogFeed,
-    handle,
-    profile,
-    srmsLoading,
-    srmsTimestamp,
-    statsLoading,
-    statsTimestamp,
-    // tcBlogLoading,
-    // tcBlogTimestamp,
-    tokenV3,
-  }) {
-    if (authenticating || !this.authCheck(tokenV3)) return;
-
-    const now = Date.now();
-
-    if (now - achievementsTimestamp > CACHE_MAX_AGE
-    && !achievementsLoading) getMemberAchievements(handle);
-
-    if (now - activeChallengesTimestamp > CACHE_MAX_AGE
-    && !activeChallengesLoading) getAllActiveChallenges(tokenV3);
-
-    if (now - communitiesTimestamp > CACHE_MAX_AGE
-    && !communitiesLoading) getCommunityList({ profile, tokenV3 });
-
-    if (now - financesTimestamp > CACHE_MAX_AGE
-    && !financesLoading) getMemberFinances(handle, tokenV3);
-
-    if (now - srmsTimestamp > CACHE_MAX_AGE
-    && !srmsLoading) getSrms(handle, tokenV3);
-
-    if (now - statsTimestamp > CACHE_MAX_AGE
-    && !statsLoading) getMemberStats(handle, tokenV3);
-
-    // if (now - tcBlogTimestamp > CACHE_MAX_AGE
-    // && !tcBlogLoading) getTopcoderBlogFeed();
-
-    if (now - communitiesTimestamp < CACHE_MAX_AGE) {
-      updateCommunityStats(this.props);
-    }
-  }
-
-  render() {
-    const {
-      achievements,
-      achievementsLoading,
-      activeChallenges,
-      activeChallengesLoading,
-      authenticating,
-      challengeFilter,
-      communities,
-      communitiesLoading,
-      communityStats,
-      finances,
-      financesLoading,
-      selectChallengeDetailsTab,
-      setChallengeListingFilter,
-      showChallengeFilter,
-      showEarnings,
-      showXlBadge,
-      srms,
-      srmsLoading,
-      stats,
-      statsLoading,
-      switchChallengeFilter,
-      switchShowChallengeFilter,
-      switchShowEarnings,
-      switchTab,
-      tab,
-      tcBlogLoading,
-      tcBlogPosts,
-      tokenV2,
-      tokenV3,
-      unregisterFromChallenge,
-      urlQuery,
-      userGroups,
-      xlBadge,
-      errorLoadingRss,
-      userResources,
-      challengeTypesMap,
-      getTypes,
-    } = this.props;
-
-    // console.log('r', userResources);
-
-    if (authenticating) return <LoadingIndicator />;
-
-    let announcementPreviewId;
-    if (urlQuery) {
-      ({ announcementPreviewId } = qs.parse(urlQuery));
-    }
-
-    if (_.isEmpty(challengeTypesMap)) {
-      getTypes();
-    }
-
-    return (
-      <Dashboard
-        achievements={achievements}
-        achievementsLoading={achievementsLoading}
-        announcementPreviewId={announcementPreviewId}
-        challengeFilter={challengeFilter}
-        challenges={activeChallenges}
-        challengesLoading={activeChallengesLoading}
-        communities={communities}
-        communitiesLoading={communitiesLoading}
-        communityStats={communityStats}
-        finances={finances}
-        financesLoading={financesLoading}
-        selectChallengeDetailsTab={selectChallengeDetailsTab}
-        setChallengeListingFilter={setChallengeListingFilter}
-        showChallengeFilter={showChallengeFilter}
-        showEarnings={showEarnings}
-        showXlBadge={showXlBadge}
-        srms={srms}
-        srmsLoading={srmsLoading}
-        stats={stats}
-        statsLoading={statsLoading}
-        switchChallengeFilter={switchChallengeFilter}
-        switchShowChallengeFilter={switchShowChallengeFilter}
-        switchShowEarnings={switchShowEarnings}
-        switchTab={switchTab}
-        tab={tab}
-        tcBlogLoading={tcBlogLoading}
-        tcBlogPosts={tcBlogPosts}
-        unregisterFromChallenge={id => unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
-        userGroups={userGroups.map(x => x.id)}
-        xlBadge={xlBadge}
-        errorLoadingRss={errorLoadingRss}
-        userResources={userResources ? userResources.resources : []}
-        challengeTypesMap={challengeTypesMap}
+  return (
+    <div className={theme.container}>
+      <MetaTags
+        title={title}
       />
-    );
-  }
-}
-
-DashboardPageContainer.defaultProps = {
-  achievements: [],
-  achievementsTimestamp: 0,
-  finances: [],
-  financesTimestamp: 0,
-  profile: null,
-  showEarnings:
-    isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
-  stats: {},
-  statsTimestamp: 0,
-  tcBlogPosts: [],
-  tcBlogTimestamp: 0,
-  tokenV2: null,
-  tokenV3: null,
-  errorLoadingRss: false,
-  userResources: {},
-};
-
-DashboardPageContainer.propTypes = {
-  achievements: PT.arrayOf(PT.object),
-  achievementsLoading: PT.bool.isRequired,
-  achievementsTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
-  activeChallenges: PT.arrayOf(PT.object).isRequired,
-  activeChallengesLoading: PT.bool.isRequired,
-  activeChallengesTimestamp: PT.number.isRequired, // eslint-disable-line react/no-unused-prop-types
-  authenticating: PT.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
-  challengeFilter: PT.string.isRequired,
-  communities: PT.arrayOf(PT.object).isRequired,
-  communitiesLoading: PT.bool.isRequired,
-  communityStats: PT.shape().isRequired,
-  communitiesTimestamp: PT.number.isRequired, // eslint-disable-line react/no-unused-prop-types
-  finances: PT.arrayOf(PT.object),
-  financesLoading: PT.bool.isRequired,
-  financesTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
-  getAllActiveChallenges: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getCommunityList: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getCommunityStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getMemberAchievements: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getMemberFinances: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getSrms: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getTopcoderBlogFeed: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  profile: PT.shape(), // eslint-disable-line react/no-unused-prop-types
-  selectChallengeDetailsTab: PT.func.isRequired,
-  setChallengeListingFilter: PT.func.isRequired,
-  showChallengeFilter: PT.bool.isRequired,
-  showEarnings: PT.bool,
-  showXlBadge: PT.func.isRequired,
-  srms: PT.arrayOf(PT.object).isRequired,
-  srmsLoading: PT.bool.isRequired,
-  srmsTimestamp: PT.number.isRequired, // eslint-disable-line react/no-unused-prop-types
-  stats: PT.shape(),
-  statsLoading: PT.bool.isRequired,
-  statsTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
-  switchChallengeFilter: PT.func.isRequired,
-  switchShowChallengeFilter: PT.func.isRequired,
-  switchShowEarnings: PT.func.isRequired,
-  switchTab: PT.func.isRequired,
-  tab: PT.string.isRequired,
-  tcBlogLoading: PT.bool.isRequired,
-  tcBlogPosts: PT.arrayOf(PT.object),
-  tcBlogTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
-  tokenV2: PT.string,
-  tokenV3: PT.string,
-  unregisterFromChallenge: PT.func.isRequired,
-  urlQuery: PT.string.isRequired,
-  userGroups: PT.arrayOf(PT.object).isRequired,
-  xlBadge: PT.string.isRequired,
-  errorLoadingRss: PT.bool,
-  getMemberResources: PT.func.isRequired,
-  userResources: PT.shape(),
-  challengeTypesMap: PT.shape().isRequired,
-  getTypes: PT.func.isRequired,
-};
-
-function mapStateToProps(state, props) {
-  const communities = state.tcCommunities.list;
-
-  const userHandle = _.get(state.auth, 'user.handle');
-  const member = state.members[userHandle] || {};
-  const achievements = member.achievements || {};
-  const finances = member.finances || {};
-  const stats = member.stats || {};
-
-  const dash = state.page.dashboard;
-
-  const tcBlog = state.rss ? (state.rss[TOPCODER_BLOG_ID] || {}) : {};
-  updateChallengeType(
-    state.challengeListing.challenges, state.challengeListing.challengeTypesMap,
+      {
+        // Render different stacking of components for tables&mobile devices
+        isTabletOrMobile ? (
+          <div className={theme.layoutWrapper}>
+            <div className={theme.column}>
+              <TopcoderTime />
+              <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+              <ChallengesFeed theme="dark" />
+              <GigsFeed itemCount={5} theme="dark" />
+              <NewsFeed />
+              <ContentfulLoader
+                entryIds={['5HmoppBlc79RfxOwb8JAls']}
+                render={(data) => {
+                  const confTCO = data.entries.items['5HmoppBlc79RfxOwb8JAls'];
+                  if (confTCO) {
+                    return (
+                      <TCOLeaderboardsContainer
+                        trackConfig={confTCO.fields.props}
+                        itemCount={5}
+                      />
+                    );
+                  }
+                  return null;
+                }}
+                renderPlaceholder={LoadingIndicator}
+              />
+              <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
+              <ThriveArticlesFeedContainer itemCount={4} theme="dark" />
+              <BlogFeedContainer itemCount={4} theme="dark" />
+              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
+            </div>
+          </div>
+        ) : (
+          <div className={theme.layoutWrapper}>
+            {/* Left column */}
+            <div className={theme.column}>
+              <TopcoderTime />
+              <ThriveArticlesFeedContainer itemCount={4} theme="dark" />
+              <BlogFeedContainer itemCount={4} theme="dark" />
+              <Viewport id="6sjlJHboX3aG3mFS5FnZND" />
+            </div>
+            {/* Center column */}
+            <div className={theme.column}>
+              <Viewport id="1BK50OyMT29IOavUC7wSEB" />
+              <ChallengesFeed theme="dark" />
+              <GigsFeed itemCount={5} theme="dark" />
+              <NewsFeed />
+            </div>
+            {/* Right column */}
+            <div className={theme.column}>
+              <ContentfulLoader
+                entryIds={['5HmoppBlc79RfxOwb8JAls']}
+                render={(data) => {
+                  const confTCO = data.entries.items['5HmoppBlc79RfxOwb8JAls'];
+                  if (confTCO) {
+                    return (
+                      <TCOLeaderboardsContainer
+                        trackConfig={confTCO.fields.props}
+                        itemCount={5}
+                      />
+                    );
+                  }
+                  return null;
+                }}
+                renderPlaceholder={LoadingIndicator}
+              />
+              <Viewport id="SSwOFPT8l0WpGhqCBRISG" />
+            </div>
+          </div>
+        )
+      }
+    </div>
   );
+}
+
+SlashTCContainer.defaultProps = {
+  profile: null,
+  tokenV3: null,
+};
+
+SlashTCContainer.propTypes = {
+  profile: PT.shape(),
+  tokenV3: PT.string,
+};
+
+function mapStateToProps(state) {
+  const profile = state.auth && state.auth.profile ? { ...state.auth.profile } : {};
   return {
-    achievements: achievements.data,
-    achievementsLoading: Boolean(achievements.loadingUuid),
-    achievementsTimestamp: achievements.timestamp,
-    activeChallenges: state.challengeListing.challenges,
-    activeChallengesLoading:
-      Boolean(state.challengeListing.loadingActiveChallengesUUID),
-    activeChallengesTimestamp:
-      state.challengeListing.lastUpdateOfActiveChallenges,
-    authenticating: state.auth.authenticating,
-    challengeFilter: dash.challengeFilter,
-    communities: communities.data,
-    communitiesLoading: Boolean(communities.loadingUuid),
-    communitiesTimestamp: communities.timestamp,
-    communityStats: state.stats.communities,
-    finances: finances.data,
-    financesLoading: Boolean(finances.loadingUuid),
-    financesTimestamp: finances.timestamp,
-    handle: userHandle,
-    profile: state.auth.profile,
-    showChallengeFilter: dash.showChallengeFilter,
-    showEarnings: dash.showEarnings,
-    srms: state.challengeListing.srms.data,
-    srmsLoading: Boolean(state.challengeListing.srms.loadingUuid),
-    srmsTimestamp: state.challengeListing.srms.timestamp,
-    stats: stats.data,
-    statsLoading: Boolean(stats.loadingUuid),
-    statsTimestamp: stats.timestamp,
-    tab: dash.tab,
-    tcBlogLoading: Boolean(tcBlog.loadingUuid),
-    tcBlogPosts: _.get(tcBlog, 'data.item'),
-    tcBlogTimestamp: tcBlog.timestamp,
-    tokenV2: state.auth.tokenV2,
+    profile,
     tokenV3: state.auth.tokenV3,
-    urlQuery: props.location.search.slice(1),
-    userGroups: _.get(state.auth.profile, 'groups', []),
-    xlBadge: dash.xlBadge,
-    errorLoadingRss: state.rss.errorLoadingRss,
-    userResources: state.members.userResources,
-    challengeTypesMap: state.challengeListing.challengeTypesMap,
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  const dash = dashActions.page.dashboard;
-  const { members } = actions;
-  return {
-    getAllActiveChallenges: (tokenV3) => {
-      const uuid = shortId();
-      dispatch(challengeListingActions.challengeListing.getAllUserChallengesInit(uuid));
-      dispatch(challengeListingActions.challengeListing.getAllUserChallengesDone(uuid, tokenV3));
-    },
-    getCommunityList: (auth) => {
-      const uuid = shortId();
-      dispatch(communityActions.tcCommunity.getListInit(uuid));
-      dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
-    },
-    getCommunityStats: (community, challenges, token) => {
-      const uuid = shortId();
-      const a = actions.stats;
-      dispatch(a.getCommunityStatsInit(community, uuid));
-      dispatch(a.getCommunityStatsDone(community, uuid, challenges, token));
-    },
-    getMemberAchievements: (handle) => {
-      const uuid = shortId();
-      dispatch(members.getAchievementsInit(handle, uuid));
-      dispatch(members.getAchievementsV3Done(handle, uuid));
-    },
-    getMemberFinances: (handle, tokenV3) => {
-      const uuid = shortId();
-      dispatch(members.getFinancesInit(handle, uuid));
-      dispatch(members.getFinancesDone(handle, uuid, tokenV3));
-    },
-    getMemberStats: (handle, tokenV3) => {
-      const uuid = shortId();
-      dispatch(members.getStatsInit(handle, uuid));
-      dispatch(members.getStatsDone(handle, uuid, tokenV3));
-    },
-    getMemberResources: (memberId, tokenV3) => {
-      const uuid = shortId();
-      dispatch(members.getUserResourcesInit(memberId, uuid));
-      dispatch(members.getUserResourcesDone(memberId, tokenV3, uuid));
-    },
-    getSrms: (handle, tokenV3) => {
-      const uuid = shortId();
-      const a = challengeListingActions.challengeListing;
-      dispatch(a.getSrmsInit(uuid));
-      dispatch(a.getSrmsDone(uuid, handle, {
-        filter: 'status=future',
-        orderBy: 'registrationStartAt',
-        limit: 3,
-      }, tokenV3));
-    },
-    getTopcoderBlogFeed: () => {
-      const uuid = shortId();
-      const a = rssActions.rss;
-      dispatch(a.getInit(TOPCODER_BLOG_ID, uuid));
-      dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
-    },
-    selectChallengeDetailsTab:
-      tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
-    setChallengeListingFilter: (filter) => {
-      const cl = challengeListingActions.challengeListing;
-      const cls = challengeListingSidebarActions.challengeListing.sidebar;
-      dispatch(cl.setFilter(filter));
-      dispatch(cls.selectBucket(BUCKETS.OPEN_FOR_REGISTRATION));
-    },
-    showXlBadge: name => dispatch(dash.showXlBadge(name)),
-    switchChallengeFilter: filter => dispatch(dash.switchChallengeFilter(filter)),
-    switchShowChallengeFilter:
-      show => dispatch(dash.showChallengeFilter(show)),
-    switchShowEarnings: show => dispatch(dash.showEarnings(show)),
-    switchTab: tab => dispatch(dash.switchTab(tab)),
-    unregisterFromChallenge: (auth, challengeId) => {
-      const a = actions.challenge;
-      dispatch(a.unregisterInit());
-      dispatch(a.unregisterDone(auth, challengeId));
-    },
-    getTypes: () => {
-      const cl = challengeListingActions.challengeListing;
-      dispatch(cl.getChallengeTypesInit());
-      dispatch(cl.getChallengeTypesDone());
-    },
-  };
-}
-
-const DashboardContainer = connect(
+export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(DashboardPageContainer);
-
-export default DashboardContainer;
+)(SlashTCContainer);

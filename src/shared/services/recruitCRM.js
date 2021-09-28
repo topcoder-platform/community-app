@@ -108,4 +108,17 @@ export default class Service {
     }
     return res.json();
   }
+
+  /**
+   * Get TAAS jobs
+   * @param {object} query The request query
+   */
+  async getTaasJobs(query) {
+    const res = await fetch(`${this.baseUrl}/taasjobs?${qs.stringify(query)}`);
+    if (!res.ok) {
+      const error = new Error('Failed to get taas jobs');
+      logger.error(error, res);
+    }
+    return res.json();
+  }
 }

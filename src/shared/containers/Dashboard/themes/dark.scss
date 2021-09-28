@@ -1,0 +1,35 @@
+@import "~styles/mixins";
+
+.container {
+  background-color: #2a2a2a;
+  padding-top: 32px;
+  padding-bottom: 100px;
+  width: 100%;
+  border-bottom: 1px solid #555;
+
+  @media screen and (max-width: 1280px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-bottom: 30px;
+  }
+
+  .layoutWrapper {
+    display: grid;
+    gap: 44px;
+    grid-template-columns: 260px 1fr 260px;
+    margin: auto;
+    max-width: 1280px;
+
+    @media screen and (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
