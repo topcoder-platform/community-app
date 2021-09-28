@@ -114,10 +114,10 @@ function normalizeRecruitPayload(job, payload) {
 /**
  * Apply for Job done
  */
-async function applyForJobDone(job, payload) {
+async function applyForJobDone(job, payload, tokenV3) {
   const ss = new Service();
   try {
-    const res = await ss.applyForJob(job.slug, normalizeRecruitPayload(job, payload));
+    const res = await ss.applyForJob(job.slug, normalizeRecruitPayload(job, payload), tokenV3);
 
     return {
       id: job.slug,

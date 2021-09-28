@@ -436,6 +436,7 @@ module.exports = {
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/policy',
   GIGS_PAGES_PATH: '/gigs',
+  GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',
   GUIKIT: {
     DEBOUNCE_ON_CHANGE_TIME: 150,

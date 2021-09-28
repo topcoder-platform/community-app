@@ -49,7 +49,7 @@ function ReferralCode(props) {
                 button: buttonThemes.tc['primary-borderless-sm'],
               }}
             >
-              REFFER A FRIEND
+              REFER A FRIEND
             </PrimaryButton>
             {
               loginModalOpen
@@ -98,7 +98,7 @@ function ReferralCode(props) {
               )
             }
             {
-              growSurfState.error && <span>Ops, we couldn&apos;t load your profile. Please try again later or contact <a href="mailto:support@topcoder.com">support</a>.</span>
+              growSurfState.error && <span>Oops, we couldn&apos;t load your profile. Please try again later or contact <a href="mailto:support@topcoder.com">support</a>.</span>
             }
           </React.Fragment>
         )

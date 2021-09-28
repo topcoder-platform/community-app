@@ -75,8 +75,9 @@ export default class Service {
    * applyForJob for candidate
    * @param {string} id The job id to apply to
    * @param {object} payload The apply payload
+   * @param {string} tokenV3 User token
    */
-  async applyForJob(id, payload) {
+  async applyForJob(id, payload, tokenV3) {
     const { resume } = payload;
     const data = new FormData();
     data.append('resume', resume);
@@ -84,6 +85,9 @@ export default class Service {
     const res = await fetch(`${this.baseUrl}/jobs/${id}/apply`, {
       method: 'POST',
       body: data,
+      headers: new Headers({
+        Authorization: `Bearer ${tokenV3}`,
+      }),
     });
     if (!res.ok) {
       const error = new Error('Failed to apply for job');
