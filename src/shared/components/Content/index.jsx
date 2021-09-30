@@ -840,6 +840,16 @@ export default function Content() {
           For all these styles we have global mixins, which should be used
           whenever possible (but never modified without explicit approval).
         </li>
+        <li>
+          <Link
+            to="/examples/member-path-selector"
+          >
+            Member Path - Path Selector
+          </Link>
+          {' '}
+          &mdash;
+          Demo for path selector component on member path page
+        </li>
       </ul>
     </div>
   );
