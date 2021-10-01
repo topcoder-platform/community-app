@@ -185,7 +185,6 @@
 
 .content {
   background: linear-gradient(305deg, #9d41c9 0%, #ef476f 100%);
-  height: 238px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -212,7 +211,6 @@
   }
 
   @include xs-to-sm {
-    height: 206px;
     padding: 30px 0;
   }
 }
