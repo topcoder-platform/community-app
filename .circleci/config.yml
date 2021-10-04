@@ -349,7 +349,7 @@ workflows:
           filters:
             branches:
               only:                
-                - free
+                - gig-apply-new-options-dropdown
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
