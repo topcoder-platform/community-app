@@ -85,10 +85,10 @@
   .icon,
   .activeIcon {
     display: block;
-    content: '';
     height: 64px;
     width: 64px;
     margin-bottom: 19px;
+    content: unset;
   }
 
   .activeIcon {
