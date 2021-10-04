@@ -18,8 +18,10 @@ function getReferralIdInit() {
 /**
  * Get referral id for the logged user
  * if this member does not exist in growsurf it creates it in the system
+ * @param {Object} profile the member auth profile
+ * @param {String} token the auth token
  */
-async function getReferralIdDone(profile) {
+async function getReferralIdDone(profile, tokenV3) {
   if (profile.email) {
     const res = await fetch(`${PROXY_ENDPOINT}/growsurf/participants?participantId=${profile.email}`, {
       method: 'POST',
@@ -31,6 +33,7 @@ async function getReferralIdDone(profile) {
       }),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenV3}`,
       },
     });
     if (res.status >= 300) {

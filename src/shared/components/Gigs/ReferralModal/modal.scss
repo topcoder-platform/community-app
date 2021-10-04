@@ -105,9 +105,23 @@
       padding: 50px 40px;
     }
 
+    .loginMsg {
+      font-size: 20px;
+    }
+
     .regTxt {
       font-size: 14px;
       margin: 10px 0 0;
+    }
+
+    .ctaButtons {
+      @include xs-to-sm {
+        flex-direction: column;
+
+        > button {
+          margin: 0 0 20px !important;
+        }
+      }
     }
   }
 }

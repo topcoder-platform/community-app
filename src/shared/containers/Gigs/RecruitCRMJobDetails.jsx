@@ -53,8 +53,25 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
    * Send gig referral invite
    */
   async onSendClick(email) {
-    const { profile, growSurf } = this.props;
+    const {
+      profile, growSurf, tokenV3,
+    } = this.props;
     const { formData } = this.state;
+    // check if email is already referred?
+    const growCheck = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${email}`);
+    if (growCheck.status === 200) {
+      const growCheckData = await growCheck.json();
+      if (growCheckData.referrer) {
+        this.setState({
+          isReferrError: {
+            message: `${email} has already been referred.`,
+            isReferred: true,
+          },
+        });
+        // exit no email sending
+        return;
+      }
+    }
     // email the invite
     const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
       method: 'POST',
@@ -79,11 +96,34 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       this.setState({
         isReferrError: await res.json(),
       });
-    } else {
-      this.setState({
-        isReferrSucess: true,
-      });
+      // exit no email tracking due to the error
+      return;
     }
+    // put tracking in growsurf
+    // let { emailInvitesLog } = growSurf.data.metadata;
+    // if (!emailInvitesLog) emailInvitesLog = [];
+    // else emailInvitesLog = JSON.parse(JSON.parse(emailInvitesLog));
+    // const updateGrowProfile = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${growSurf.data}`, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${tokenV3}`,
+    //   },
+    //   body: JSON.stringify({
+    //     ...growSurf.data,
+    //     metadata: {
+    //       ...growSurf.data.metadata,
+    //       emailInvitesSent: Number(growSurf.data.metadata.emailInvitesSent || 0) + 1,
+    //       emailInvitesLog: JSON.stringify(JSON.stringify(emailInvitesLog.concat({
+    //         e: email, d: new Date().toISOString(),
+    //       }))),
+    //     },
+    //   }),
+    // });
+    // finally do:
+    this.setState({
+      isReferrSucess: true,
+    });
   }
 
   /**
@@ -94,6 +134,7 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
     delete formData.email;
     this.setState({
       isReferrSucess: false,
+      isReferrError: false,
       formData,
     });
   }
@@ -143,6 +184,7 @@ RecruitCRMJobDetailsContainer.defaultProps = {
   application: null,
   profile: {},
   growSurf: {},
+  tokenV3: null,
 };
 
 RecruitCRMJobDetailsContainer.propTypes = {
@@ -154,6 +196,7 @@ RecruitCRMJobDetailsContainer.propTypes = {
   application: PT.shape(),
   profile: PT.shape(),
   growSurf: PT.shape(),
+  tokenV3: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -166,6 +209,7 @@ function mapStateToProps(state, ownProps) {
     application: data ? data.application : null,
     profile,
     growSurf,
+    tokenV3: state.auth ? state.auth.tokenV3 : null,
   };
 }
 
