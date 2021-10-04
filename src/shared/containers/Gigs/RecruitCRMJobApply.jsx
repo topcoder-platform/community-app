@@ -35,6 +35,8 @@ class RecruitCRMJobApplyContainer extends React.Component {
           { label: 'LinkedIn', selected: false },
           { label: 'Other Ad or Promotion', selected: false },
           { label: 'Quora', selected: false },
+          { label: 'Referral', selected: false },
+          { label: 'Topcoder Newsletter', selected: false },
           { label: 'Uprisor Podcast', selected: false },
           { label: 'YouTube or Video Ad', selected: false },
         ],
