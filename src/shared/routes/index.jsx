@@ -134,13 +134,14 @@ function Routes({ communityId }) {
         />
         <Route
           render={() => (
-            <React.Fragment>
+            <div styleName="container">
+              <Header />
               <ContentfulRoute
                 baseUrl={config.START_PAGE_PATH}
                 id="vpcfRkUPoTtxXoEIBvCRl"
               />
               <Footer />
-            </React.Fragment>
+            </div>
           )}
           exact
           path={config.START_PAGE_PATH}

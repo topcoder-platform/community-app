@@ -36,6 +36,7 @@ import ThriveArticlesFeedExample from 'components/examples/ThriveArticlesFeed';
 import GigsFeedExample from 'components/examples/GigsFeed';
 import TCOLeaderboardsExample from 'components/examples/TCOLeaderboards';
 import ChallengesFeed from 'components/examples/ChallengesFeed';
+import MemberPathSelectorExample from 'components/examples/MemberPathSelector';
 
 import {
   Switch,
@@ -106,6 +107,7 @@ export default function Examples({
       <Route path={`${base}/tco-leaderboards`} component={TCOLeaderboardsExample} />
       <Route path={`${base}/challenges`} component={ChallengesFeed} />
       <Route path={`${base}/blog-feed`} component={BlogFeedExample} />
+      <Route path={`${base}/member-path-selector`} component={MemberPathSelectorExample} />
       <Content />
     </Switch>
   );

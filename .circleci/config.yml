@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - gig-cache-layer
+                - member-path-component
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global

@@ -12,6 +12,7 @@ import Leaderboard from 'containers/tco/Leaderboard';
 import RecruitCRMJobs from 'containers/Gigs/RecruitCRMJobs';
 import EmailSubscribeForm from 'containers/EmailSubscribeForm';
 import GSheet from 'containers/GSheet';
+import PathSelector from 'components/MemberPath/PathSelector';
 
 
 const { fireErrorMessage } = errors;
@@ -42,6 +43,14 @@ export function AppComponentSwitch(appComponent) {
   }
   if (appComponent.fields.type === 'GSheet') {
     return <GSheet {...appComponent.fields.props} key={appComponent.sys.id} />;
+  }
+  if (appComponent.fields.type === 'MemberPath') {
+    return (
+      <PathSelector
+        {...appComponent.fields.props}
+        key={appComponent.sys.id}
+      />
+    );
   }
   fireErrorMessage(`Unsupported app component type ${appComponent.fields.type}`, '');
   return null;
