@@ -349,14 +349,14 @@ workflows:
           filters:
             branches:
               only:                
-                - ref-email-tracking
+                - free
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - member-path-component
+                - ref-email-tracking
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
