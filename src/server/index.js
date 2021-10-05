@@ -209,9 +209,25 @@ async function onExpressJsSetup(server) {
 
   /* Receive the signing result from DocuSign server, and then send result to client
    */
-  server.use('/community-app-assets/iframe-break', (req, res) => {
-    res.send(`<script>parent.postMessage(${serializeJs({ ...req.query, type: 'DocuSign' })}, '*')</script>`);
-  });
+  server.use(
+    '/community-app-assets/iframe-break',
+    (req, res) => {
+      const allowedOrigins = [
+        `https://${config.URL.COMMUNITY_APP}`,
+        `https://${config.URL.PLATFORM_SITE_URL}`,
+      ];
+      const { origin } = req.headers;
+      if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+      }
+      res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS');
+      res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+      );
+      res.send(`<script>parent.postMessage(${serializeJs({ ...req.query, type: 'DocuSign' })}, '*')</script>`);
+    },
+  );
 
   /* Serves a mock DocuSign page. Which is, actually, just a simple local
    * HTML document (/src/shared/services/__mocks__/data/docu-sign-mock.html)
