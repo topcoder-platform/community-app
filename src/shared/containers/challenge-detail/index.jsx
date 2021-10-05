@@ -401,7 +401,9 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
     let winners = challenge.winners || [];
-    winners = winners.filter(w => !w.type || w.type === 'final');
+    if (challenge.type !== 'Task') {
+      winners = winners.filter(w => !w.type || w.type === 'final');
+    }
 
     let hasFirstPlacement = false;
     if (!_.isEmpty(winners)) {

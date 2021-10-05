@@ -77,6 +77,19 @@ export default function Bucket({
   } else {
     sortedChallenges = _.clone(challenges);
   }
+
+  let filteredChallenges = sortedChallenges;
+  filteredChallenges = sortedChallenges.filter((ch) => {
+    if (ch.type === 'Task'
+        && ch.task
+        && ch.task.isTask
+        && ch.task.isAssigned
+        && toString(ch.task.memberId) !== toString(userId)) {
+      return null;
+    }
+    return ch;
+  });
+
   // sortedChallenges.sort(Sort[activeSort].func);
 
   // const bucketQuery = qs.stringify({
@@ -118,14 +131,14 @@ export default function Bucket({
   //   );
   // }
 
-  if (!loading && sortedChallenges.length === 0) {
+  if (!loading && filteredChallenges.length === 0) {
     return (
       <div styleName="no-results">
         { (filterState.recommended && activeBucket === 'openForRegistration') ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
       </div>
     );
   }
-  const cards = sortedChallenges.map(challenge => (
+  const cards = filteredChallenges.map(challenge => (
     <ChallengeCard
       challenge={challenge}
       challengeType={_.find(challengeTypes, { name: challenge.type })}
