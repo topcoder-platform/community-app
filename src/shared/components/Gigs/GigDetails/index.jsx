@@ -270,7 +270,7 @@ function GigDetails(props) {
                       isReferrError={isReferrError}
                       referralId={growSurf && growSurf.data ? growSurf.data.id : null}
                       onReferralDone={() => {
-                        onReferralDone();
+                        onReferralDone(true);
                         setModalOpen(false);
                       }}
                     />

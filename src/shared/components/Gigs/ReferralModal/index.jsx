@@ -74,7 +74,7 @@ function ReferralModal({
                 <h3 className={modalStyle.title}>OOPS!</h3>
                 <p className={modalStyle.loginMsg}>{isReferrError.message}</p>
                 {
-                  isReferrError.isReferred ? (
+                  isReferrError.userError ? (
                     <p>If you think this is an error please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
                   ) : (
                     <p>Looks like there is a problem on our end. Please try again.<br />If this persists please contact <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
