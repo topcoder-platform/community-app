@@ -349,21 +349,21 @@ workflows:
           filters:
             branches:
               only:                
-                - free
+                - gig-apply-new-options-dropdown
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
           filters:
             branches:
               only:
-                - gig-cache-layer
+                - member-path-component
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
           filters:
             branches:
               only:
-                - slash-tc
+                - slash-home-hotfix
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         

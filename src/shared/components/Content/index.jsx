@@ -861,6 +861,16 @@ export default function Content() {
           {' '}
           - Demo of Blog Feed component
         </li>
+        <li>
+          <Link
+            to="/examples/member-path-selector"
+          >
+            Member Path - Path Selector
+          </Link>
+          {' '}
+          &mdash;
+          Demo for path selector component on member path page
+        </li>
       </ul>
     </div>
   );
