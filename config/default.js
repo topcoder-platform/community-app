@@ -102,11 +102,12 @@ module.exports = {
     /* This is the same value as above, but it is used by topcoder-react-lib,
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
+    CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
 
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
-    HOME: '/my-dashboard',
+    HOME: '/home',
     BLOG: 'https://www.topcoder-dev.com/blog',
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
@@ -200,6 +201,13 @@ module.exports = {
           PREVIEW_API_KEY: '',
         },
       },
+      EDU: {
+        SPACE_ID: '',
+        master: {
+          CDN_API_KEY: '',
+          PREVIEW_API_KEY: '',
+        },
+      },
       /* Space for expert communities. */
       zurich: {
         SPACE_ID: '',
@@ -210,13 +218,6 @@ module.exports = {
       },
       /* Contentful Space for TopGear community content. */
       topgear: {
-        SPACE_ID: '',
-        master: {
-          CDN_API_KEY: '',
-          PREVIEW_API_KEY: '',
-        },
-      },
-      EDU: {
         SPACE_ID: '',
         master: {
           CDN_API_KEY: '',
@@ -298,8 +299,9 @@ module.exports = {
       title: 'COMMUNITY',
       secondaryMenu: [
         {
-          title: 'Dashboard',
-          href: '/my-dashboard',
+          id: 'home',
+          title: 'Home',
+          href: '/home',
           logged: true,
         },
         {
@@ -434,6 +436,7 @@ module.exports = {
   TC_EDU_SEARCH_BAR_MAX_RESULTS_EACH_GROUP: 3,
   POLICY_PAGES_PATH: '/policy',
   GIGS_PAGES_PATH: '/gigs',
+  GIGS_LISTING_CACHE_TIME: 300, // in seconds
   START_PAGE_PATH: '/start',
   GUIKIT: {
     DEBOUNCE_ON_CHANGE_TIME: 150,

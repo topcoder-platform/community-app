@@ -3,7 +3,6 @@
  * available in this App code.
  */
 
-import Announcement from 'components/examples/Announcement';
 import Buttons from 'components/examples/Buttons';
 import Carousel from 'components/examples/Carousel';
 import ColorMixins from 'components/examples/ColorMixins';
@@ -31,7 +30,12 @@ import SearchBarExample from 'components/examples/SearchBar';
 import TracksTreeExample from 'components/examples/TracksTree';
 import TracksFilterExample from 'components/examples/TracksFilter';
 import SearchPageFilterExample from 'components/examples/SearchPageFilter';
+import BlogFeedExample from 'components/examples/BlogFeed';
 import GUIKit from 'components/examples/GUIKit';
+import ThriveArticlesFeedExample from 'components/examples/ThriveArticlesFeed';
+import GigsFeedExample from 'components/examples/GigsFeed';
+import TCOLeaderboardsExample from 'components/examples/TCOLeaderboards';
+import ChallengesFeed from 'components/examples/ChallengesFeed';
 import MemberPathSelectorExample from 'components/examples/MemberPathSelector';
 
 import {
@@ -50,7 +54,6 @@ export default function Examples({
 }) {
   return (
     <Switch>
-      <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
       <Route path={`${base}/carousel`} component={Carousel} />
       <Route path={`${base}/countdown`} component={CountdownExample} />
@@ -99,6 +102,11 @@ export default function Examples({
       <Route path={`${base}/tracks-tree`} component={TracksTreeExample} />
       <Route path={`${base}/tracks-filter`} component={TracksFilterExample} />
       <Route path={`${base}/search-page-filter`} component={SearchPageFilterExample} />
+      <Route path={`${base}/thrive-articles-feed`} component={ThriveArticlesFeedExample} />
+      <Route path={`${base}/gigs-feed`} component={GigsFeedExample} />
+      <Route path={`${base}/tco-leaderboards`} component={TCOLeaderboardsExample} />
+      <Route path={`${base}/challenges`} component={ChallengesFeed} />
+      <Route path={`${base}/blog-feed`} component={BlogFeedExample} />
       <Route path={`${base}/member-path-selector`} component={MemberPathSelectorExample} />
       <Content />
     </Switch>

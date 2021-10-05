@@ -1,0 +1,25 @@
+@import "~styles/mixins";
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 58px 50px;
+  max-width: 375px;
+
+  @include xs-to-sm {
+    padding: 25px 15px;
+  }
+}
+
+.light {
+  background: $tc-white;
+}
+
+.dark {
+  background: $dashboard-dark-bg;
+  color: $tc-white;
+}

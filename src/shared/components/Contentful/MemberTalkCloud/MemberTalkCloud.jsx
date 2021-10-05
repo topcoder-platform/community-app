@@ -80,7 +80,7 @@ export class MemberTalkCloud extends React.Component {
               }}
             >
               <img
-                alt={item.text}
+                alt={item.handle}
                 src={item.smallImageURL}
                 onClick={() => this.onSelect(index + 1)}
               />
@@ -90,7 +90,7 @@ export class MemberTalkCloud extends React.Component {
         </div>
         <div className={`${entry} ${active}`}>
           <img
-            alt={activeBlob.text}
+            alt={activeBlob.handle}
             src={activeBlob.imageURL}
             key={Math.random()}
           />
@@ -110,7 +110,7 @@ export class MemberTalkCloud extends React.Component {
               }}
             >
               <img
-                alt={item.text}
+                alt={item.handle}
                 src={item.smallImageURL}
                 onClick={() => this.onSelect(index + ITEMS_ON_LEFT_SIDE + 1)}
               />

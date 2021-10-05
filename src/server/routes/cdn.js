@@ -4,6 +4,8 @@
 
 import express from 'express';
 import path from 'path';
+import { config } from 'topcoder-react-utils';
+import qs from 'qs';
 
 import avatarRoutes from './avatar';
 import contentfulRoutes from './contentful';
@@ -40,6 +42,15 @@ router.use('/public/static-assets', (req, res, next) => {
   const error = new Error('Not found');
   error.status = 404;
   next(error);
+});
+
+// proxy to new forums API
+// used to avoid CORS issues when community-app needs fetch data from it
+router.get('/public/forums/discussions', (req, res, next) => {
+  fetch(`${config.URL.FORUMS_VANILLA}/api/v2/discussions?${qs.stringify(req.query)}`)
+    .then(rsp => rsp.json(rsp))
+    .then(data => res.json(data))
+    .catch(next);
 });
 
 export default router;

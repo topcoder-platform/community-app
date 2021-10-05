@@ -235,9 +235,9 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/my-dashboard"
+        to="/home"
       >
-        Dashboard
+        Home
       </Link>
     </li>
     <li>
@@ -841,12 +841,6 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
-      <Link
-        replace={false}
-        to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
-      >
-        Announcement
-      </Link>
        
       — This is a part of simple PoC for CMS integration (Countentful CMS is the currently tested option);
     </li>
@@ -1038,6 +1032,48 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
        
       - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/thrive-articles-feed"
+      >
+        Thrive Articles Feed
+      </Link>
+       
+      - Demo of Thrive Articles Feed component
+      <Link
+        replace={false}
+        to="/examples/gigs-feed"
+      >
+        Gigs Feed
+      </Link>
+       
+      - Demo of Gigs Feed component
+      <Link
+        replace={false}
+        to="/examples/tco-leaderboards"
+      >
+        TCO Leaderboards
+      </Link>
+       
+      Demo for TCO leaderboards component
+      <Link
+        replace={false}
+        to="/examples/challenges"
+      >
+        Challenges Feed
+      </Link>
+       
+       - Demo of Challenges Feed Component
+      <Link
+        replace={false}
+        to="/examples/blog-feed"
+      >
+        Blog Feed
+      </Link>
+       
+      - Demo of Blog Feed component
     </li>
     <li>
       <Link
