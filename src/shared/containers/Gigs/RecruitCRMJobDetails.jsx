@@ -109,32 +109,32 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       }
     }
     // email the invite
-    // const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     personalizations: [
-    //       {
-    //         to: [{ email }],
-    //         subject: `${profile.firstName} ${profile.lastName} Thinks This Topcoder Gig Is For You!`,
-    //       },
-    //     ],
-    //     from: { email: 'noreply@topcoder.com', name: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork` },
-    //     content: [{
-    //       type: 'text/plain', value: `${formData.body}?referralId=${growSurf.data.id}`,
-    //     }],
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   redirect: 'follow',
-    // });
-    // if (res.status >= 300) {
-    //   this.setState({
-    //     isReferrError: await res.json(),
-    //   });
-    //   // exit no email tracking due to the error
-    //   return;
-    // }
+    const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
+      method: 'POST',
+      body: JSON.stringify({
+        personalizations: [
+          {
+            to: [{ email }],
+            subject: `${profile.firstName} ${profile.lastName} Thinks This Topcoder Gig Is For You!`,
+          },
+        ],
+        from: { email: 'noreply@topcoder.com', name: `${profile.firstName} ${profile.lastName} via Topcoder Gigwork` },
+        content: [{
+          type: 'text/plain', value: `${formData.body}?referralId=${growSurf.data.id}`,
+        }],
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+    });
+    if (res.status >= 300) {
+      this.setState({
+        isReferrError: await res.json(),
+      });
+      // exit no email tracking due to the error
+      return;
+    }
     // put tracking in growsurf
     const updateRed = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${growSurf.data.id}`, {
       method: 'PATCH',

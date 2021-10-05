@@ -101,7 +101,7 @@ export default function PathSelector({
         </div>
         <a
           href={data.items[activeItemIndex].btnURL}
-          target="_blank"
+          target={data.items[activeItemIndex].btnNewTab ? '_blank' : '_self'}
           rel="noopener noreferrer"
           className={styles.contentButton}
         >
