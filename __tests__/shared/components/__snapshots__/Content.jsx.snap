@@ -1075,6 +1075,16 @@ exports[`Matches shallow shapshot 1`] = `
        
       - Demo of Blog Feed component
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/member-path-selector"
+      >
+        Member Path - Path Selector
+      </Link>
+       
+      — Demo for path selector component on member path page
+    </li>
   </ul>
 </div>
 `;

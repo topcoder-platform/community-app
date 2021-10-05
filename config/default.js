@@ -102,7 +102,7 @@ module.exports = {
     /* This is the same value as above, but it is used by topcoder-react-lib,
      * as a more verbose name for the param. */
     COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
-    CHALLENGES_URL: 'https://platform.topcoder.com/earn/find/challenges',
+    CHALLENGES_URL: 'https://www.topcoder-dev.com/challenges',
 
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'https://accounts-auth0.topcoder-dev.com',

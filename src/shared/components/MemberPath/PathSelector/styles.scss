@@ -1,0 +1,242 @@
+@import "~styles/mixins";
+@import "~components/buttons/themed/tc";
+
+.container {
+  width: 100%;
+  height: 618px;
+
+  @include xs-to-sm {
+    height: 504px;
+  }
+}
+
+.header {
+  background-color: #011423;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px 32px;
+  height: 380px;
+
+  @include xs-to-sm {
+    padding: 20px 32px 28px 32px;
+    height: 298px;
+  }
+}
+
+.title {
+  @include barlow-condensed-medium;
+
+  color: $tc-white;
+  margin-bottom: 61px;
+  font-size: 48px;
+  text-align: center;
+
+  @include xs-to-sm {
+    margin-bottom: 20px;
+    font-size: 31px;
+    line-height: 33px;
+  }
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .arrowIcon {
+    display: none;
+  }
+
+  @include xs-to-sm {
+    .arrowIcon {
+      display: block;
+      margin: 16px;
+    }
+  }
+}
+
+.option {
+  @include barlow-condensed-semi-bold;
+
+  font-size: 24px;
+  width: 168px;
+  height: 168px;
+  border-radius: 12px;
+  margin: 0 8px;
+  border: none;
+  background: $tc-white;
+  color: $tc-gray-70;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  @include xs-to-sm {
+    &:not(.active) {
+      display: none;
+    }
+  }
+
+  .icon,
+  .activeIcon {
+    display: block;
+    height: 64px;
+    width: 64px;
+    margin-bottom: 19px;
+    content: unset;
+  }
+
+  .activeIcon {
+    display: none;
+  }
+
+  &.active {
+    color: $tc-white;
+    display: flex;
+
+    .activeIcon {
+      display: block;
+    }
+
+    .icon {
+      display: none;
+    }
+
+    @include md-to-xl {
+      &.purple {
+        background: linear-gradient(305deg, #9d41c9 0%, #ef476f 100%);
+
+        &::before {
+          background: linear-gradient(305.22deg, #e6477a 0.01%, #e3467c 100%);
+        }
+      }
+
+      &.blue {
+        background: linear-gradient(90deg, #26b3c5 0%, #2984bd 100%);
+
+        &::before {
+          background: linear-gradient(90deg, #27a2c2 0%, #27a1c1 100%);
+        }
+      }
+
+      &.teal {
+        background: linear-gradient(270deg, #26b3c5 0%, #06d6a0 100%);
+
+        &::before {
+          background: linear-gradient(270deg, #1ac0b7 0%, #1ac0b8 100%);
+        }
+      }
+
+      &.orange {
+        background: linear-gradient(90deg, #ffc43d 0%, #f37593 100%);
+
+        &::before {
+          background: linear-gradient(86.76deg, #f58186 0%, #f47e89 100%);
+        }
+      }
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -58px;
+      width: 32px;
+      height: 16px;
+      border-left: 16px solid #011423;
+      border-right: 16px solid #011423;
+      border-top: 16px solid #011423;
+      border-bottom: 16px solid transparent;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -59px;
+      width: 31px;
+      height: 17px;
+    }
+
+    @include xs-to-sm {
+      background: $tc-white;
+      color: $tc-gray-70;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      .icon {
+        display: block;
+      }
+
+      .activeIcon {
+        display: none;
+      }
+    }
+  }
+}
+
+.content {
+  background: linear-gradient(305deg, #9d41c9 0%, #ef476f 100%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 41px 0 49px;
+
+  &.purple {
+    background: linear-gradient(305deg, #9d41c9 0%, #ef476f 100%);
+  }
+
+  &.blue {
+    background: linear-gradient(90deg, #26b3c5 0%, #2984bd 100%);
+  }
+
+  &.teal {
+    background: linear-gradient(270deg, #26b3c5 0%, #06d6a0 100%);
+  }
+
+  &.orange {
+    background: linear-gradient(90deg, #ffc43d 0%, #f37593 100%);
+  }
+
+  @include xs-to-sm {
+    padding: 30px 0;
+  }
+}
+
+.contentText {
+  @include roboto-regular;
+
+  color: $tc-white;
+  font-size: 24px;
+  line-height: 29px;
+  margin-bottom: 26px;
+  padding: 0 40px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include xs-to-sm {
+    margin-bottom: 15px;
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
+.contentButton {
+  @include primary-borderless;
+  @include md;
+}
