@@ -3,7 +3,7 @@
  * driven by recruitCRM
  */
 
-import { isEmpty, find } from 'lodash';
+import { isEmpty } from 'lodash';
 import actions from 'actions/recruitCRM';
 import LoadingIndicator from 'components/LoadingIndicator';
 import GigDetails from 'components/Gigs/GigDetails';
@@ -12,7 +12,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
 import fetch from 'isomorphic-fetch';
-import moment from 'moment';
 import RecruitCRMJobApply from './RecruitCRMJobApply';
 
 const PROXY_ENDPOINT = `${config.URL.COMMUNITY_APP}/api`;
@@ -62,7 +61,7 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
     if (profile.email === email) {
       this.setState({
         isReferrError: {
-          message: 'We not allow sending to yourself.',
+          message: 'You are not allowed to send to yourself.',
           userError: true,
         },
       });
@@ -70,28 +69,19 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       return;
     }
     // process sent log
-    let { emailInvitesLog } = growSurf.data.metadata;
-    if (!emailInvitesLog) emailInvitesLog = [];
+    let { emailInvitesLog, emailInvitesStatus } = growSurf.data.metadata;
+    if (!emailInvitesLog) emailInvitesLog = '';
     // check if email is in sent log alredy?
-    const foundInLog = find(emailInvitesLog, ['e', email]);
-    if (foundInLog) {
+    const foundInLog = emailInvitesLog.indexOf(email);
+    if (foundInLog !== -1) {
       this.setState({
         isReferrError: {
-          message: `${email} was already invited on ${foundInLog.d}.`,
+          message: `${email} was already invited.`,
           userError: true,
         },
       });
       // exit no email sending
       return;
-    }
-    // prepare new log payload
-    emailInvitesLog.unshift({
-      e: email, d: moment().format('MM-DD-YY'),
-    });
-    let newEmailInvitesLog = `${JSON.stringify(emailInvitesLog)}`;
-    if (newEmailInvitesLog.length >= 500) {
-      emailInvitesLog.pop();
-      newEmailInvitesLog = `${JSON.stringify(emailInvitesLog)}`;
     }
     // check if email is already referred?
     const growCheck = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${email}`);
@@ -108,7 +98,7 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
         return;
       }
     }
-    // email the invite
+    // // email the invite
     const res = await fetch(`${PROXY_ENDPOINT}/mailchimp/email`, {
       method: 'POST',
       body: JSON.stringify({
@@ -135,7 +125,20 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       // exit no email tracking due to the error
       return;
     }
-    // put tracking in growsurf
+    // parse the log to array of emails
+    if (emailInvitesLog.length) {
+      emailInvitesLog = emailInvitesLog.split(',');
+    } else emailInvitesLog = [];
+    // prepare growSurf update payload
+    // we keep only 10 emails in the log to justify program rules
+    if (emailInvitesLog.length < 10) {
+      emailInvitesLog.push(email);
+    }
+    // Auto change status when 10 emails sent
+    if (emailInvitesLog.length === 10 && emailInvitesStatus !== 'Paid' && emailInvitesStatus !== 'Payment Pending') {
+      emailInvitesStatus = 'Payment Pending';
+    }
+    // put the tracking update in growsurf
     const updateRed = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${growSurf.data.id}`, {
       method: 'PATCH',
       headers: {
@@ -147,7 +150,8 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
         metadata: {
           ...growSurf.data.metadata,
           emailInvitesSent: Number(growSurf.data.metadata.emailInvitesSent || 0) + 1,
-          emailInvitesLog: newEmailInvitesLog,
+          emailInvitesLog: emailInvitesLog.join(),
+          emailInvitesStatus,
         },
       }),
     });
