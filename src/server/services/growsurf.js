@@ -21,7 +21,7 @@ export default class GrowsurfService {
   }
 
   /**
-   * Gets get participant.
+   * Gets participant by email or id
    * @return {Promise}
    * @param {String} idOrEmail growsurf id or email
    */
@@ -45,14 +45,28 @@ export default class GrowsurfService {
   }
 
   /**
-   * Gets get participant by email or id.
+   * Controller - Gets get participant by email or id
    * @return {Promise}
    * @param {Object} req the request.
    * @param {Object} res the response.
    */
-  async getParticipant(req, res) {
-    const { participantId } = req.query;
-    const response = await fetch(`${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${participantId}`, {
+  async getParticipantController(req, res) {
+    const { emailOrId } = req.params;
+    const growSurfData = await this.getParticipantByIdOREmail(emailOrId);
+    if (growSurfData.error) {
+      res.status(growSurfData.code);
+    }
+    return growSurfData;
+  }
+
+  /**
+   * Controller - Gets get participants in the campaign
+   * @return {Promise}
+   * @param {Object} req the request.
+   * @param {Object} res the response.
+   */
+  async getParticipantsController(req, res) {
+    const response = await fetch(`${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participants`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +78,7 @@ export default class GrowsurfService {
       return {
         error: await response.json(),
         code: response.status,
-        url: `${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${participantId}`,
+        url: `${this.private.baseUrl}/campaign/${config.GROWSURF_CAMPAIGN_ID}/participants`,
       };
     }
     const data = await response.json();
@@ -98,13 +112,13 @@ export default class GrowsurfService {
   }
 
   /**
-   * Gets get participant by email or id
+   * Controller - Gets get participant by email or id
    * if not exxists create it
    * @return {Promise}
    * @param {Object} req the request.
    * @param {Object} res the response.
    */
-  async getOrCreateParticipant(req, res) {
+  async getOrCreateParticipantController(req, res) {
     const { body } = req;
     const result = await this.addParticipant(JSON.stringify({
       email: body.email,
@@ -133,7 +147,7 @@ export default class GrowsurfService {
         'Content-Type': 'application/json',
         Authorization: this.private.authorization,
       },
-      body,
+      body: JSON.stringify(body),
     });
     if (response.status >= 300) {
       return {
@@ -145,5 +159,19 @@ export default class GrowsurfService {
     }
     const data = await response.json();
     return data;
+  }
+
+  /**
+   * Controller - update participant in the system
+   * @param {Object} req request
+   * @param {Object} res respons
+   */
+  async updateParticipantController(req, res) {
+    const { emailOrId } = req.params;
+    const updateGrowRes = await this.updateParticipant(emailOrId, req.body);
+    if (updateGrowRes.error) {
+      res.status(updateGrowRes.code);
+    }
+    return updateGrowRes;
   }
 }

@@ -25,7 +25,7 @@ const cookies = require('browser-cookies');
 
 function GigsPagesContainer(props) {
   const {
-    match, profile, growSurf, getReferralId,
+    match, profile, growSurf, getReferralId, tokenV3,
   } = props;
   const optProfile = {
     attributes: {},
@@ -38,7 +38,7 @@ function GigsPagesContainer(props) {
     // trigger referral id fetching when profile is loaded
     if (isomorphy.isClientSide()) {
       if (_.isEmpty(growSurf) || (!growSurf.loading && !growSurf.data && !growSurf.error)) {
-        getReferralId(profile);
+        getReferralId(profile, tokenV3);
       }
     }
   } else if (isomorphy.isClientSide()) {
@@ -124,6 +124,7 @@ window._chatlio = window._chatlio||[];
 GigsPagesContainer.defaultProps = {
   profile: null,
   growSurf: null,
+  tokenV3: null,
 };
 
 GigsPagesContainer.propTypes = {
@@ -131,6 +132,7 @@ GigsPagesContainer.propTypes = {
   profile: PT.shape(),
   growSurf: PT.shape(),
   getReferralId: PT.func.isRequired,
+  tokenV3: PT.string,
 };
 
 function mapStateToProps(state) {
@@ -139,15 +141,16 @@ function mapStateToProps(state) {
   return {
     profile,
     growSurf,
+    tokenV3: state.auth ? state.auth.tokenV3 : null,
   };
 }
 
 function mapDispatchToActions(dispatch) {
   const a = actions.growsurf;
   return {
-    getReferralId: (profile) => {
+    getReferralId: (profile, tokenV3) => {
       dispatch(a.getReferralidInit());
-      dispatch(a.getReferralidDone(profile));
+      dispatch(a.getReferralidDone(profile, tokenV3));
     },
   };
 }

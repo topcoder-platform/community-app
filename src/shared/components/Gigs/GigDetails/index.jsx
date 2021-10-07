@@ -262,12 +262,15 @@ function GigDetails(props) {
                     && (
                     <ReferralModal
                       profile={profile}
-                      onCloseButton={() => setModalOpen(false)}
+                      onCloseButton={() => {
+                        onReferralDone();
+                        setModalOpen(false);
+                      }}
                       isReferrSucess={isReferrSucess}
                       isReferrError={isReferrError}
                       referralId={growSurf && growSurf.data ? growSurf.data.id : null}
                       onReferralDone={() => {
-                        onReferralDone();
+                        onReferralDone(true);
                         setModalOpen(false);
                       }}
                     />
