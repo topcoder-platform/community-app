@@ -419,7 +419,8 @@
       padding: 8px 9px;
       margin-right: 10px;
 
-      .circleGreenIcon {
+      .circleGreenIcon,
+      .circleGreenIconDisabled {
         border-radius: 100%;
         width: 42px;
         height: 42px;
@@ -431,7 +432,8 @@
         background-color: #12c188;
       }
 
-      .circleRedIcon {
+      .circleRedIcon,
+      .circleRedIconDisabled {
         border-radius: 100%;
         width: 42px;
         height: 42px;
@@ -442,6 +444,12 @@
         cursor: pointer;
         background-color: #e90c5a;
         transform: rotateX(-180deg);
+      }
+
+      .circleGreenIconDisabled,
+      .circleRedIconDisabled {
+        pointer-events: none;
+        opacity: 0.5;
       }
 
       span {

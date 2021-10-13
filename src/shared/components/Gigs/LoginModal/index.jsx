@@ -30,7 +30,7 @@ const progressBarMid = 'https://images.ctfassets.net/b5f1djy59z3a/517ZRt9geweW3Q
 const progressBarXS = 'https://images.ctfassets.net/b5f1djy59z3a/6QxH7uVKCngtzBaXDn3Od1/3e0222a1ce773cead3f3a45f291f43a6/progress-bar-mobile.svg';
 const blobPurple = 'https://images.ctfassets.net/b5f1djy59z3a/1ZRCwp1uoShcES16lQmeu/ba084734120ffedebcb92b4e3fa2d667/blob-purple.svg';
 
-function LoginModal({ retUrl, onCancel }) {
+function LoginModal({ retUrl, onCancel, utmSource }) {
   return (
     <Modal
       theme={modalStyle}
@@ -56,7 +56,7 @@ function LoginModal({ retUrl, onCancel }) {
         <div className={modalStyle.ctaButtons}>
           <PrimaryButton
             onClick={() => {
-              window.location = `${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=${utmSource}`;
             }}
             theme={{
               button: buttonThemes.tc['primary-green-md'],
@@ -72,9 +72,14 @@ function LoginModal({ retUrl, onCancel }) {
   );
 }
 
+LoginModal.defaultProps = {
+  utmSource: 'gig_listing',
+};
+
 LoginModal.propTypes = {
   retUrl: PT.string.isRequired,
   onCancel: PT.func.isRequired,
+  utmSource: PT.string,
 };
 
 export default LoginModal;

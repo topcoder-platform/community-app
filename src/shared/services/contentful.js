@@ -258,15 +258,17 @@ class Service {
    * Vote on article
    * @param {String} id Entry ID.
    * @param {Array} data The updated data array
+   * @param {String} tokenV3 user's auth token
    * @returns {Promise<void>}
    */
-  async articleVote(id, votes) {
+  async articleVote(id, votes, tokenV3) {
     // eslint-disable-next-line prefer-template
     const url = this.private.baseUrl + '/votes';
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${tokenV3}`,
       },
       body: JSON.stringify({
         id, votes,
