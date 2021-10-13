@@ -343,6 +343,7 @@ workflows:
             branches:
               only:
                 - develop
+                - fix/issue-5739
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
