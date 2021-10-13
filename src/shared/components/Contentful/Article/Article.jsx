@@ -23,7 +23,8 @@ import {
   config, Link, isomorphy,
 } from 'topcoder-react-utils';
 import qs from 'qs';
-import LoginModal from 'components/Gigs/LoginModal';
+import LoginModal from 'components/LoginModal';
+import modalStyle from 'components/LoginModal/modal.scss';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
@@ -398,8 +399,17 @@ class Article extends React.Component {
         }
         </div>
         {
-          // eslint-disable-next-line no-restricted-globals
-          showLogin && <LoginModal retUrl={isomorphy.isClientSide() ? location.href : null} onCancel={() => this.setState({ showLogin: false })} utmSource="thrive_article" />
+          showLogin && (
+          <LoginModal
+            // eslint-disable-next-line no-restricted-globals
+            retUrl={isomorphy.isClientSide() ? location.href : null}
+            onCancel={() => this.setState({ showLogin: false })}
+            modalTitle="Want to vote?"
+            modalText="You must be a Topcoder member to do that."
+            utmSource="thrive_article"
+            infoNode={<p className={modalStyle.regTxt}>Discover <a href="/community/learn" target="_blank" rel="noreferrer">other features</a> you can access by becoming a member.</p>}
+          />
+          )
         }
       </React.Fragment>
     );
