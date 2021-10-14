@@ -5,6 +5,7 @@
  */
 import _ from 'lodash';
 import React from 'react';
+import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { fixStyle } from 'utils/contentful';
 import { getService } from 'services/contentful';
@@ -22,6 +23,8 @@ import {
   config, Link, isomorphy,
 } from 'topcoder-react-utils';
 import qs from 'qs';
+import LoginModal from 'components/LoginModal';
+import modalStyle from 'components/LoginModal/modal.scss';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
@@ -41,21 +44,30 @@ const DEFAULT_BANNER_IMAGE = 'https://images.ctfassets.net/piwi0eufbb2g/7v2hlDsV
 const RANDOM_BANNERS = ['6G8mjiTC1mzeSQ2YoUG1gB', '1DnDD02xX1liHfSTf5Vsn8', 'HQZ3mN0rR92CbNTkKTHJ5', '1OLoX8ZsvjAnn4TdGbZESD', '77jn01UGoQe2gqA7x0coQD'];
 const RANDOM_BANNER = RANDOM_BANNERS[_.random(0, 4)];
 
-export default class Article extends React.Component {
+class Article extends React.Component {
   componentDidMount() {
     const { fields } = this.props;
     this.setState({
       upvotes: fields.upvotes || 0,
       downvotes: fields.downvotes || 0,
+      showLogin: false,
+      voting: false,
     });
   }
 
+  // eslint-disable-next-line consistent-return
   updateVote(type) {
+    const {
+      id, spaceName, environment, preview, auth,
+    } = this.props;
+    // check for auth?
+    if (!auth) {
+      return this.setState({
+        showLogin: true,
+      });
+    }
     let userVotes = localStorage.getItem(LOCAL_STORAGE_KEY);
     userVotes = userVotes ? JSON.parse(userVotes) : {};
-    const {
-      id, spaceName, environment, preview,
-    } = this.props;
     const articleVote = userVotes[id];
     let { upvotes, downvotes } = this.state;
     // Check if user alredy voted on this article?
@@ -93,10 +105,13 @@ export default class Article extends React.Component {
       }
     }
     // Store user action
+    this.setState({
+      voting: true,
+    });
     getService({ spaceName, environment, preview }).articleVote(id, {
       upvotes,
       downvotes,
-    })
+    }, auth.tokenV3)
       .then(() => {
         // Only when Contentful enntry was succesfully updated
         // then we update the local store and the state
@@ -104,6 +119,7 @@ export default class Article extends React.Component {
         this.setState({
           upvotes,
           downvotes,
+          voting: false,
         });
       });
   }
@@ -115,7 +131,9 @@ export default class Article extends React.Component {
     const contentfulConfig = {
       spaceName, environment, preview,
     };
-    const { upvotes, downvotes } = this.state || {};
+    const {
+      upvotes, downvotes, showLogin, voting,
+    } = this.state || {};
     let shareUrl;
     if (isomorphy.isClientSide()) {
       shareUrl = encodeURIComponent(window.location.href);
@@ -283,7 +301,7 @@ export default class Article extends React.Component {
               {/* Voting */}
               <div className={theme.actionContainer}>
                 <div className={theme.action}>
-                  <div tabIndex={0} role="button" className={theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
+                  <div tabIndex={0} role="button" className={voting ? theme.circleGreenIconDisabled : theme.circleGreenIcon} onClick={() => this.updateVote('up')} onKeyPress={() => this.updateVote('up')}>
                     <GestureIcon />
                   </div>
                   <span>
@@ -293,7 +311,7 @@ export default class Article extends React.Component {
                   </span>
                 </div>
                 <div className={theme.action}>
-                  <div tabIndex={0} role="button" className={theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
+                  <div tabIndex={0} role="button" className={voting ? theme.circleRedIconDisabled : theme.circleRedIcon} onClick={() => this.updateVote('down')} onKeyPress={() => this.updateVote('down')}>
                     <GestureIcon />
                   </div>
                   <span>{downvotes}</span>
@@ -380,6 +398,19 @@ export default class Article extends React.Component {
           ) : null
         }
         </div>
+        {
+          showLogin && (
+          <LoginModal
+            // eslint-disable-next-line no-restricted-globals
+            retUrl={isomorphy.isClientSide() ? location.href : null}
+            onCancel={() => this.setState({ showLogin: false })}
+            modalTitle="Want to vote?"
+            modalText="You must be a Topcoder member to do that."
+            utmSource="thrive_article"
+            infoNode={<p className={modalStyle.regTxt}>Discover <a href="/community/learn" target="_blank" rel="noreferrer">other features</a> you can access by becoming a member.</p>}
+          />
+          )
+        }
       </React.Fragment>
     );
   }
@@ -388,6 +419,7 @@ export default class Article extends React.Component {
 Article.defaultProps = {
   spaceName: null,
   environment: null,
+  auth: null,
 };
 
 Article.propTypes = {
@@ -398,4 +430,16 @@ Article.propTypes = {
   preview: PT.bool.isRequired,
   spaceName: PT.string,
   environment: PT.string,
+  auth: PT.shape(),
 };
+
+function mapStateToProps(state) {
+  const auth = state.auth && state.auth.profile ? { ...state.auth } : null;
+  return {
+    auth,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(Article);
