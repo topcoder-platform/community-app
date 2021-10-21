@@ -398,7 +398,7 @@ export default class RecruitCRMService {
               form.custom_fields.push({
                 field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
               });
-            }
+            } else notifyKirilAndNick(growRes);
           }
         } else {
           growRes = await gs.addParticipant(JSON.stringify({
@@ -418,7 +418,7 @@ export default class RecruitCRMService {
             form.custom_fields.push({
               field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
             });
-          }
+          } else notifyKirilAndNick(growRes);
         }
         // finally, clear the cookie
         res.cookie(config.GROWSURF_COOKIE, '', {
