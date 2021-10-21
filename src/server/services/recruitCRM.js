@@ -385,13 +385,13 @@ export default class RecruitCRMService {
           // candidate exists in growsurf
           // update candidate to set referrer only if it is not set already
           if (!existRes.referrer) {
-            growRes = await gs.updateParticipant(form.email, JSON.stringify({
+            growRes = await gs.updateParticipant(form.email, {
               referredBy: referralCookie.referralId,
               referralStatus: 'CREDIT_PENDING',
               metadata: {
                 gigID: id,
               },
-            }));
+            });
             // add referral link to candidate profile in recruitCRM
             if (!growRes.error) {
               isReferred = true;
