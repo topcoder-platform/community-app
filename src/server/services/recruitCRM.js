@@ -385,20 +385,20 @@ export default class RecruitCRMService {
           // candidate exists in growsurf
           // update candidate to set referrer only if it is not set already
           if (!existRes.referrer) {
-            growRes = await gs.updateParticipant(form.email, JSON.stringify({
+            growRes = await gs.updateParticipant(form.email, {
               referredBy: referralCookie.referralId,
               referralStatus: 'CREDIT_PENDING',
               metadata: {
                 gigID: id,
               },
-            }));
+            });
             // add referral link to candidate profile in recruitCRM
             if (!growRes.error) {
               isReferred = true;
               form.custom_fields.push({
                 field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
               });
-            }
+            } else notifyKirilAndNick(growRes);
           }
         } else {
           growRes = await gs.addParticipant(JSON.stringify({
@@ -418,7 +418,7 @@ export default class RecruitCRMService {
             form.custom_fields.push({
               field_id: 6, value: `https://app.growsurf.com/dashboard/campaign/${config.GROWSURF_CAMPAIGN_ID}/participant/${growRes.id}`,
             });
-          }
+          } else notifyKirilAndNick(growRes);
         }
         // finally, clear the cookie
         res.cookie(config.GROWSURF_COOKIE, '', {
