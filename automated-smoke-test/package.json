@@ -16,7 +16,7 @@
     "protractor-beautiful-reporter": "^1.2.8",
     "topcoder-testing-lib": "git+https://github.com/topcoder-platform/topcoder-testing-lib.git#develop",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.3",
+    "typescript": "^3.9.10",
     "webdriver-manager": "^12.1.7",
     "winston": "^3.2.1"
   },
