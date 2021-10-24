@@ -343,7 +343,7 @@ workflows:
             branches:
               only:
                 - develop
-                - fix/issue-5739
+                - gigs-apply-integration
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
