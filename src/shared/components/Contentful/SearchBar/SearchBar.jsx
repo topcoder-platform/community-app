@@ -379,12 +379,13 @@ export class SearchBarInner extends Component {
    * Update suggestion list with new search text
    * This function use debounce delay to avoid processing or requesting too much
    *
-   * @param {String} searchText Search text
+   * @param {String} searchTerm Search text
    */
-  updateSuggestionListWithNewSearch(searchText) {
+  updateSuggestionListWithNewSearch(searchTerm) {
     const {
       selectedFilter,
     } = this.state;
+    const searchText = searchTerm ? encodeURIComponent(searchTerm) : '';
 
     if (searchText) {
       const query = {
