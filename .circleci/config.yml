@@ -364,7 +364,7 @@ workflows:
           filters:
             branches:
               only:
-                - thrive-vulnerability-1
+                - thrive-spooky1-p0
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
