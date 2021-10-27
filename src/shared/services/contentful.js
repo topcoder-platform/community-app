@@ -319,9 +319,7 @@ class Service {
         query: author,
       })
         .then((result) => {
-          if (result.total) {
-            query['fields.contentAuthor.sys.id'] = result.items[0].sys.id;
-          }
+          query['fields.contentAuthor.sys.id'] = result.total ? result.items[0].sys.id : 'NO_SUCH_ID';
         });
     }
     if (tax && track && taxonomy && taxonomy[track]) {
