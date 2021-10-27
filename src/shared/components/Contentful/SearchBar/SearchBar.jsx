@@ -500,6 +500,7 @@ export class SearchBarInner extends Component {
           <IconSearch className={theme['icon-search']} />
           <input
             value={inputlVal}
+            maxLength={115}
             ref={this.setSearchFieldRef}
             type="text"
             placeholder="Search..."
