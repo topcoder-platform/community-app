@@ -23,7 +23,7 @@
     display: flex;
 
     .title {
-      @include sofia-pro-light;
+      @include roboto-light;
 
       font-size: 18px;
       line-height: 23px;
@@ -36,7 +36,7 @@
     }
 
     span {
-      font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "BarlowCondensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 11px;
       line-height: 15px;
@@ -52,7 +52,7 @@
     display: flex;
 
     .title {
-      @include sofia-pro-light;
+      @include roboto-light;
 
       font-size: 18px;
       line-height: 23px;
@@ -65,7 +65,7 @@
     }
 
     span {
-      font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 11px;
       line-height: 15px;
@@ -154,7 +154,7 @@
     align-items: center;
 
     .place {
-      @include sofia-pro-regular;
+      @include roboto-regular;
 
       font-size: 20px;
       color: #3d3d3d;
@@ -206,7 +206,7 @@
         .num-images {
           margin-left: 8px;
 
-          @include sofia-pro-regular;
+          @include roboto-regular;
 
           font-size: 10px;
           color: #f6f6f6;
@@ -225,7 +225,7 @@ div .dev-challenge-user-place {
     align-items: center;
 
     .place {
-      @include sofia-pro-light;
+      @include roboto-light;
 
       font-size: 18px;
       line-height: 23px;
@@ -257,14 +257,14 @@ div .dev-challenge-user-place {
         margin-top: 28px;
         margin-bottom: 5px;
 
-        @include sofia-pro-bold;
+        @include roboto-bold;
 
         font-size: 18px;
         color: #3d3d3d;
       }
 
       .last-child {
-        @include sofia-pro-medium;
+        @include roboto-medium;
 
         font-size: 9px;
         color: #a3a3ae;
@@ -287,7 +287,7 @@ div .challenge.tile-view {
     a.name,
     span.name {
       display: block;
-      font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 500;
       font-size: 12px;
       line-height: 16px;
@@ -306,7 +306,7 @@ div .challenge.tile-view {
     }
 
     p.subtrack-color {
-      font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 500;
       font-size: 10px;
       line-height: 14px;
@@ -349,7 +349,7 @@ div .challenge.tile-view {
     // }
 
     .title {
-      @include sofia-pro-light;
+      @include roboto-light;
 
       font-size: 18px;
       line-height: 23px;
@@ -362,7 +362,7 @@ div .challenge.tile-view {
     }
 
     span {
-      font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 11px;
       line-height: 15px;
@@ -383,7 +383,7 @@ div .challenge.tile-view {
 
     .title {
       margin-bottom: 60px;
-      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-family: 'BarlowCondensed', Arial, Helvetica, sans-serif;
       font-weight: 300;
       font-size: 18px;
       line-height: 23px;
@@ -393,7 +393,7 @@ div .challenge.tile-view {
 
     span {
       margin-top: 20px;
-      font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 11px;
       line-height: 15px;
@@ -447,7 +447,7 @@ div .challenge.tile-view {
     .challenge-details {
       .currentPhase {
         margin-bottom: 20px;
-        font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 300;
         font-size: 18px;
         line-height: 23px;
@@ -464,7 +464,7 @@ div .challenge.tile-view {
         background-image: url(assets/images/ico-calendar.svg);
 
         > p {
-          font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-weight: 700;
         }
 
@@ -501,7 +501,7 @@ div .challenge.tile-view {
       .stalled-challenge {
         min-height: 83px;
         padding: 21px 20px 0 20px;
-        font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 500;
         font-size: 12px;
         line-height: 18px;
@@ -545,7 +545,7 @@ div .challenge.tile-view {
           border: 1px solid #f0f0f0;
           border-radius: 4px;
           background-color: $tc-white;
-          font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-weight: 400;
           font-size: 12px;
           text-transform: uppercase;
@@ -583,7 +583,7 @@ div .challenge.tile-view {
       position: relative;
 
       .date-completed {
-        font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 500;
         font-size: 10px;
         line-height: 14px;
@@ -643,7 +643,7 @@ div .challenge.tile-view {
 
         .score {
           margin-bottom: 5px;
-          font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-weight: 400;
           font-size: 32px;
           line-height: 38px;
@@ -651,7 +651,7 @@ div .challenge.tile-view {
         }
 
         p:last-child {
-          font-family: 'Sofia Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-family: 'BarlowCondensed', "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-weight: 400;
           font-size: 12px;
           line-height: 14px;
@@ -689,7 +689,7 @@ div .challenge.tile-view {
     margin: 30px auto 0;
     text-align: center;
 
-    @include sofia-pro-regular;
+    @include roboto-regular;
 
     font-size: 24px;
     line-height: 30px;
@@ -702,7 +702,7 @@ div .challenge.tile-view {
     margin-top: 30px;
 
     li {
-      @include sofia-pro-regular;
+      @include roboto-regular;
 
       font-size: 15px;
       line-height: 18px;
@@ -720,7 +720,7 @@ div .challenge.tile-view {
   }
 
   ul.divisions {
-    @include sofia-pro-regular;
+    @include roboto-regular;
 
     li.division {
       border-bottom: 1px solid #f0f0f0;
@@ -844,7 +844,7 @@ div .challenge.tile-view {
     .no-challenges {
       margin: 30px;
 
-      @include sofia-pro-regular;
+      @include roboto-regular;
 
       font-size: 16px;
       color: #a3a3ae;
@@ -877,7 +877,7 @@ div .challenge.tile-view {
     h2.detailed {
       margin: 30px auto 0;
 
-      @include sofia-pro-regular;
+      @include roboto-regular;
 
       font-size: 24px;
       line-height: 30px;
@@ -897,7 +897,7 @@ div .challenge.tile-view {
         width: 28%;
         margin: 0 15px;
 
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         font-size: 15px;
         line-height: 18px;
