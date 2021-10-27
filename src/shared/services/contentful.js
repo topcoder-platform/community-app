@@ -335,8 +335,8 @@ class Service {
           }
         });
       } else {
-        const taxId = _.find(taxonomy[track], ['name', tax]).id;
-        taxIDs.push(taxId);
+        const taxId = _.find(taxonomy[track], ['name', tax]);
+        if (taxId) taxIDs.push(taxId.id);
       }
       if (taxIDs.length) query['fields.contentCategory.sys.id[in]'] = taxIDs.join(',');
     }
