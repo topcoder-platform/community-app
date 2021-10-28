@@ -19,7 +19,7 @@
 }
 
 .empty-profile {
-  @include sofia-pro-light;
+  @include roboto-light;
 
   align-items: center;
   background-color: $tc-white;
@@ -107,7 +107,7 @@ hr {
     line-height: 21px;
     margin-bottom: 20px;
 
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     text-transform: uppercase;
   }
@@ -231,7 +231,7 @@ hr {
     font-size: 18px;
     line-height: 21px;
 
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     text-transform: uppercase;
     margin-top: 20px;
@@ -267,7 +267,7 @@ hr {
         line-height: 24px;
         margin-bottom: 10.6px;
 
-        @include sofia-pro-extra-light;
+        @include roboto-extra-light;
       }
 
       svg {
@@ -312,7 +312,7 @@ hr {
           justify-content: flex-start;
           margin-top: 12px;
 
-          @include sofia-pro-light;
+          @include roboto-light;
         }
 
         .ranking {
@@ -323,7 +323,7 @@ hr {
           flex-direction: column;
           align-items: flex-end;
 
-          @include sofia-pro-medium;
+          @include roboto-medium;
 
           .number {
             text-align: center;
@@ -342,7 +342,7 @@ hr {
             text-transform: uppercase;
             margin: 5px auto 0 auto;
 
-            @include sofia-pro-regular;
+            @include roboto-regular;
 
             font-size: 12px;
             line-height: 10px;
@@ -351,7 +351,7 @@ hr {
         }
 
         .arrow {
-          @include sofia-pro-extra-light;
+          @include roboto-extra-light;
 
           color: $tc-gray-80;
           height: 12px;
@@ -440,7 +440,7 @@ hr {
         font-size: 28px;
         line-height: 34px;
 
-        @include sofia-pro-bold;
+        @include roboto-bold;
 
         text-transform: uppercase;
       }
@@ -465,7 +465,7 @@ hr {
           margin-bottom: 30px;
           margin-top: 0;
 
-          @include sofia-pro-medium;
+          @include roboto-medium;
         }
 
         .subtrack {

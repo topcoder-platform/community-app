@@ -58,7 +58,7 @@
 }
 
 .deletion-confirmation-title {
-  @include sofia-pro-medium;
+  @include roboto-medium;
 
   font-size: 20px;
   line-height: 24px;
@@ -89,7 +89,7 @@
       text-transform: uppercase;
       height: 40px;
 
-      @include sofia-pro-medium;
+      @include roboto-medium;
 
       font-size: 12px;
     }
@@ -101,7 +101,7 @@
       text-transform: uppercase;
       height: 40px;
 
-      @include sofia-pro-medium;
+      @include roboto-medium;
 
       font-size: 12px;
 
