@@ -21,7 +21,7 @@
   margin-bottom: 10px;
   border-radius: 4px;
 
-  @include sofia-pro-medium;
+  @include roboto-medium;
 
   &:hover {
     cursor: pointer;
@@ -63,7 +63,7 @@
     height: 100%;
 
     .handle {
-      @include sofia-pro-light;
+      @include roboto-light;
 
       font-size: 18px;
       height: 20px;
@@ -75,12 +75,12 @@
       font-size: 12px;
       line-height: 14px;
 
-      @include sofia-pro-medium;
+      @include roboto-medium;
     }
 
     .pending {
       p {
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         font-size: 16px;
         color: $tc-gray-10;
@@ -114,7 +114,7 @@
     }
 
     .link-title {
-      @include sofia-pro-medium;
+      @include roboto-medium;
 
       font-size: 12px;
       line-height: 20px;
@@ -165,7 +165,7 @@
     text-align: center;
     padding: 0;
 
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     i {
       color: #7f7f7f;
@@ -223,7 +223,7 @@
           margin: 10px 0 10px 0;
           width: 90px;
 
-          @include sofia-pro-medium;
+          @include roboto-medium;
 
           .value {
             color: $tc-gray-90;

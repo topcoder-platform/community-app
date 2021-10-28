@@ -34,7 +34,7 @@ ul.vertical-stats {
     margin: 30px auto 0;
     text-align: center;
 
-    @include sofia-pro-regular;
+    @include roboto-regular;
 
     font-size: 24px;
     line-height: 30px;
@@ -47,7 +47,7 @@ ul.vertical-stats {
     margin-top: 30px;
 
     li {
-      @include sofia-pro-regular;
+      @include roboto-regular;
 
       font-size: 15px;
       line-height: 18px;
@@ -65,7 +65,7 @@ ul.vertical-stats {
   }
 
   ul.divisions {
-    @include sofia-pro-regular;
+    @include roboto-regular;
 
     li.division {
       border-bottom: 1px solid #f0f0f0;
@@ -191,7 +191,7 @@ ul.vertical-stats {
 .no-challenges {
   margin: 30px;
 
-  @include sofia-pro-regular;
+  @include roboto-regular;
 
   font-size: 16px;
   color: #a3a3ae;
@@ -222,7 +222,7 @@ ul.vertical-stats {
     h2.detailed {
       margin: 30px auto 0;
 
-      @include sofia-pro-regular;
+      @include roboto-regular;
 
       font-size: 24px;
       line-height: 30px;
@@ -242,7 +242,7 @@ ul.vertical-stats {
         width: 28%;
         margin: 0 15px;
 
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         font-size: 15px;
         line-height: 18px;

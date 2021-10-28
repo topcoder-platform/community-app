@@ -11,7 +11,7 @@
     flex-direction: column;
 
     h1 {
-      @include sofia-pro-medium;
+      @include roboto-medium;
 
       font-size: 24px;
       line-height: 31px;
@@ -43,7 +43,7 @@
         margin-left: 40px;
         margin-right: 20px;
 
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         &:not(:first-child)::before {
           content: '';
@@ -78,7 +78,7 @@
         margin-left: 40px;
         margin-right: 20px;
 
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         .value {
           font-size: 24px;
@@ -135,7 +135,7 @@
   flex-direction: column;
   background: #f6f6f6;
 
-  @include sofia-pro-regular;
+  @include roboto-regular;
 
   .content {
     a.selected:hover {
@@ -286,7 +286,7 @@
         flex-direction: column;
         justify-content: center;
 
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         .value {
           font-weight: 700;
@@ -331,7 +331,7 @@
     .details {
       padding-bottom: 40px;
 
-      @include sofia-pro-regular;
+      @include roboto-regular;
 
       .graphs {
         display: flex;
@@ -394,7 +394,7 @@
         .no-challenges {
           margin: 30px;
 
-          @include sofia-pro-regular;
+          @include roboto-regular;
 
           font-size: 16px;
           color: $tc-gray-40;
@@ -487,7 +487,7 @@
         h2.detailed {
           margin: 30px auto 0;
 
-          @include sofia-pro-regular;
+          @include roboto-regular;
 
           font-size: 24px;
           line-height: 30px;
@@ -506,7 +506,7 @@
             width: 28%;
             margin: 0 15px;
 
-            @include sofia-pro-regular;
+            @include roboto-regular;
 
             font-size: 15px;
             line-height: 18px;

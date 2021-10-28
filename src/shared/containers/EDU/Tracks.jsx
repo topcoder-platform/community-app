@@ -84,6 +84,16 @@ export default class EDUTracks extends React.Component {
         ? urlQuery.tags : (urlQuery.tags ? [urlQuery.tags] : []);
       if (urlQuery.startDate) urlQuery.startDate = moment(urlQuery.startDate).format();
       if (urlQuery.endDate) urlQuery.endDate = moment(urlQuery.endDate).format();
+      // validate track string in URL query
+      // set CP if missing or wrong
+      const tracks = _.keys(TRACK_BANNER_BACK_COLORS);
+      if (!urlQuery.track || _.indexOf(tracks, urlQuery.track) === -1) {
+        urlQuery.track = 'Competitive Programming';
+        updateQuery({
+          ...query,
+          ...urlQuery,
+        });
+      }
       this.setState({
         query: {
           ...query,
@@ -96,6 +106,27 @@ export default class EDUTracks extends React.Component {
     // Get the EDU taxonomy
     this.apiService.getEDUTaxonomy()
       .then((taxonomy) => {
+        if (urlQuery.tax) {
+          // check if tax exists or is wrong
+          const foundSome = _.some(
+            _.flatten(
+              _.values(taxonomy),
+            ), cat => cat.name.toLowerCase() === urlQuery.tax.toLowerCase(),
+          );
+          if (!foundSome) {
+            delete urlQuery.tax;
+            updateQuery({
+              ...query,
+              ...urlQuery,
+            });
+            this.setState({
+              query: {
+                ...query,
+                ...urlQuery,
+              },
+            });
+          }
+        }
         const tree = tracksTreeBuilder(taxonomy, urlQuery);
         this.setState({
           tree,

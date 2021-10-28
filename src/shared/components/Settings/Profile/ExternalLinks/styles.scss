@@ -21,7 +21,7 @@
           color: $tc-gray-40;
           font-size: 12px;
 
-          @include sofia-pro-regular;
+          @include roboto-regular;
         }
 
         &:disabled {
@@ -94,7 +94,7 @@
     margin-bottom: 10px;
     border-radius: 4px;
 
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     i {
       color: #7f7f7f;
@@ -175,7 +175,7 @@
       margin-top: 10px;
 
       .handle {
-        @include sofia-pro-light;
+        @include roboto-light;
 
         font-size: 18px;
         height: 20px;
@@ -188,12 +188,12 @@
         font-size: 12px;
         line-height: 14px;
 
-        @include sofia-pro-medium;
+        @include roboto-medium;
       }
 
       .pending {
         p {
-          @include sofia-pro-regular;
+          @include roboto-regular;
 
           font-size: 16px;
           color: $tc-gray-90;
@@ -233,7 +233,7 @@
       }
 
       .link-title {
-        @include sofia-pro-medium;
+        @include roboto-medium;
 
         font-size: 12px;
         line-height: 20px;
@@ -288,7 +288,7 @@
       text-align: center;
       padding: 0;
 
-      @include sofia-pro-medium;
+      @include roboto-medium;
 
       i {
         color: #7f7f7f;
@@ -346,7 +346,7 @@
             margin: 10px 0 10px 0;
             width: 90px;
 
-            @include sofia-pro-medium;
+            @include roboto-medium;
 
             .value {
               color: $tc-gray-90;
@@ -485,7 +485,7 @@
   }
 
   .deletion-confirmation-title {
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     font-size: 20px;
     line-height: 24px;
@@ -511,7 +511,7 @@
       button {
         text-transform: uppercase;
 
-        @include sofia-pro-medium;
+        @include roboto-medium;
 
         font-size: 12px;
       }
@@ -522,7 +522,7 @@
         border: 1px solid $tc-dark-blue;
         text-transform: uppercase;
 
-        @include sofia-pro-medium;
+        @include roboto-medium;
 
         font-size: 12px;
 
@@ -581,7 +581,7 @@
       .provider {
         margin-top: 8px;
 
-        @include sofia-pro-medium;
+        @include roboto-medium;
 
         font-size: 12px;
         line-height: 13px;
@@ -601,7 +601,7 @@
     .status {
       font-size: 10px;
 
-      @include sofia-pro-medium;
+      @include roboto-medium;
 
       margin-top: 10px;
       text-transform: uppercase;
