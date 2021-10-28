@@ -249,7 +249,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       }
 
       h2 {
-        @include sofia-pro-medium;
+        @include roboto-medium;
 
         font-size: 16px;
         text-transform: uppercase;
@@ -292,7 +292,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       }
 
       .form-label {
-        @include sofia-pro-medium;
+        @include roboto-medium;
 
         color: $tc-gray-90;
         font-size: 12px;
@@ -319,7 +319,7 @@ $checkbox-bg-selected: $tc-dark-blue;
       }
 
       .form-input-error {
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         background-color: $tc-red-10;
         border: 1px solid $tc-red-30;
