@@ -635,6 +635,8 @@ export default class RecruitCRMService {
       const responseMapping = {
         hasProfile: true,
         phone: candidate.contact_number,
+        salaryExpectation: candidate.salary_expectation,
+        skill: candidate.skill,
         resume: candidate.resume,
         availability: _.isNil(candidate.available_from) ? true
           : new Date(candidate.available_from) <= new Date(),

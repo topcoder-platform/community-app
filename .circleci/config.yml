@@ -342,7 +342,7 @@ workflows:
           filters:
             branches:
               only:
-                - gigs-apply-integration
+                - develop
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
