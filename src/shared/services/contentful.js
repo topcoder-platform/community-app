@@ -316,12 +316,10 @@ class Service {
       // thus we need to find it first
       await this.queryEntries({
         content_type: 'person',
-        query: author,
+        query: encodeURIComponent(author),
       })
         .then((result) => {
-          if (result.total) {
-            query['fields.contentAuthor.sys.id'] = result.items[0].sys.id;
-          }
+          query['fields.contentAuthor.sys.id'] = result.total ? result.items[0].sys.id : 'NO_SUCH_ID';
         });
     }
     if (tax && track && taxonomy && taxonomy[track]) {
@@ -335,19 +333,19 @@ class Service {
           }
         });
       } else {
-        const taxId = _.find(taxonomy[track], ['name', tax]).id;
-        taxIDs.push(taxId);
+        const taxId = _.find(taxonomy[track], ['name', tax]);
+        if (taxId) taxIDs.push(taxId.id);
       }
       if (taxIDs.length) query['fields.contentCategory.sys.id[in]'] = taxIDs.join(',');
     }
     if (track) query['fields.trackCategory'] = track;
     if (!_.isEmpty(tags)) {
-      query['fields.tags[all]'] = tags.join(',');
+      query['fields.tags[all]'] = tags.map(t => encodeURIComponent(t)).join(',');
     }
     if (startDate) query['fields.creationDate[gte]'] = startDate;
     if (endDate) query['fields.creationDate[lte]'] = endDate;
-    if (phrase) query.query = phrase;
-    if (title) query['fields.title[match]'] = title;
+    if (phrase) query.query = encodeURIComponent(phrase);
+    if (title) query['fields.title[match]'] = encodeURIComponent(title);
     if (sortBy) {
       switch (sortBy) {
         case 'Likes': query.order = '-fields.upvotes,-fields.creationDate'; break;

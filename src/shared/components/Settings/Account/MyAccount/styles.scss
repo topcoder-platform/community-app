@@ -116,7 +116,7 @@
       border: none;
 
       @include placeholder {
-        @include sofia-pro-regular;
+        @include roboto-regular;
 
         color: $tc-gray-40;
         font-size: 12px;
@@ -126,7 +126,7 @@
     }
 
     label {
-      @include sofia-pro-medium;
+      @include roboto-medium;
 
       display: flex !important;
       line-height: 20px !important;
@@ -530,7 +530,7 @@ $tips-background: $tc-gray-neutral-light;
   }
 
   h3 {
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     font-size: 14px;
     padding-bottom: 15px;
@@ -552,7 +552,7 @@ $tips-background: $tc-gray-neutral-light;
   }
 
   p::before {
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     content: '';
     width: 20px;
@@ -650,7 +650,7 @@ $tips-background: $tc-gray-neutral-light;
   padding: 40px;
 
   .verification-send-title {
-    @include sofia-pro-medium;
+    @include roboto-medium;
 
     font-size: 20px;
     line-height: 24px;

@@ -1,7 +1,7 @@
 @import "~styles/mixins";
 
 .container {
-  @include sofia-pro-regular;
+  @include roboto-regular;
 
   border-radius: $corner-radius;
   font-size: 11px;
