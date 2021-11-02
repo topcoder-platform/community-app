@@ -88,6 +88,8 @@ export default class EDUSearch extends React.Component {
     } = this.state;
     const title = 'Tutorials And Workshops That Matter | Thrive | Topcoder';
     const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
+    let inputSelectedFilter = '0';
+    if (query.phrase) inputSelectedFilter = '1';
 
     const metaTags = (
       <MetaTags
@@ -111,7 +113,10 @@ export default class EDUSearch extends React.Component {
         {/* Banner */}
         <div className={searchTheme.bannerContainer}>
           <div className={searchTheme.searchBarWrapp}>
-            <SearchBar inputlVal={query.phrase || query.title} inputSelectedFilter={query.phrase ? '1' : '0'} />
+            <SearchBar
+              inputlVal={query.phrase || query.title}
+              inputSelectedFilter={inputSelectedFilter}
+            />
           </div>
         </div>
         <div className={searchTheme.shapeBanner} />
