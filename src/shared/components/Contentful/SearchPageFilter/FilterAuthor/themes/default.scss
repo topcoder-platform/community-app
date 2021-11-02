@@ -87,6 +87,10 @@ $text-black: #2a2a2a;
     align-items: center;
     width: 100%;
     justify-content: flex-start;
+
+    &:last-child {
+      height: auto;
+    }
   }
 
   span {
