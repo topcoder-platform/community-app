@@ -13,6 +13,7 @@ import { updateQuery } from 'utils/url';
 import qs from 'qs';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SearchPageFilter from 'components/Contentful/SearchPageFilter/SearchPageFilter';
+import moment from 'moment';
 // Partials
 import ResultTabs from './partials/ResultTabs';
 // CSS
@@ -66,8 +67,8 @@ export default class EDUSearch extends React.Component {
     const queryUpdate = {
       author: filterState.selectedAuthor,
       tags: filterState.tags,
-      startDate: filterState.startDate.format('YYYY-MM-DD'),
-      endDate: filterState.endDate.format('YYYY-MM-DD'),
+      startDate: filterState.startDate instanceof moment ? filterState.startDate.format('YYYY-MM-DD') : moment(filterState.startDate).format('YYYY-MM-DD'),
+      endDate: filterState.endDate instanceof moment ? filterState.endDate.format('YYYY-MM-DD') : moment(filterState.endDate).format('YYYY-MM-DD'),
       track: filterState.selectedCategory ? filterState.selectedCategory.title : null,
       tax: filterState.selectedCategory ? _.map(
         _.filter(filterState.selectedCategory.items, item => item.selected),
