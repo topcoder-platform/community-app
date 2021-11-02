@@ -134,7 +134,9 @@ class ApiService {
    * @return {Promise}
    */
   async queryEntries(query) {
-    const res = await this.client.getEntries(query);
+    const decode = o => _.mapValues(o, prop => (typeof prop === 'object' ? decode(prop) : decodeURIComponent(prop)));
+    const decoded = decode(query);
+    const res = await this.client.getEntries(decoded);
     return res.stringifySafe ? JSON.parse(res.stringifySafe()) : res;
   }
 }
