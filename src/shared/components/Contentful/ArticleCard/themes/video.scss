@@ -9,6 +9,7 @@
   min-height: 217px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 
   @include xs-to-sm {
     margin: auto;

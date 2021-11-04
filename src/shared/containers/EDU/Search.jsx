@@ -13,6 +13,7 @@ import { updateQuery } from 'utils/url';
 import qs from 'qs';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SearchPageFilter from 'components/Contentful/SearchPageFilter/SearchPageFilter';
+import moment from 'moment';
 // Partials
 import ResultTabs from './partials/ResultTabs';
 // CSS
@@ -66,8 +67,8 @@ export default class EDUSearch extends React.Component {
     const queryUpdate = {
       author: filterState.selectedAuthor,
       tags: filterState.tags,
-      startDate: filterState.startDate.format('YYYY-MM-DD'),
-      endDate: filterState.endDate.format('YYYY-MM-DD'),
+      startDate: filterState.startDate instanceof moment ? filterState.startDate.format('YYYY-MM-DD') : moment(filterState.startDate).format('YYYY-MM-DD'),
+      endDate: filterState.endDate instanceof moment ? filterState.endDate.format('YYYY-MM-DD') : moment(filterState.endDate).format('YYYY-MM-DD'),
       track: filterState.selectedCategory ? filterState.selectedCategory.title : null,
       tax: filterState.selectedCategory ? _.map(
         _.filter(filterState.selectedCategory.items, item => item.selected),
@@ -88,6 +89,8 @@ export default class EDUSearch extends React.Component {
     } = this.state;
     const title = 'Tutorials And Workshops That Matter | Thrive | Topcoder';
     const description = 'Thrive is our vault of content that we have been gathering over the years. It is full of tutorials and workshops that matter. Grow with us!';
+    let inputSelectedFilter = '0';
+    if (query.phrase) inputSelectedFilter = '1';
 
     const metaTags = (
       <MetaTags
@@ -111,7 +114,10 @@ export default class EDUSearch extends React.Component {
         {/* Banner */}
         <div className={searchTheme.bannerContainer}>
           <div className={searchTheme.searchBarWrapp}>
-            <SearchBar inputlVal={query.phrase || query.title} selectedFilter={query.phrase ? '1' : '0'} />
+            <SearchBar
+              inputlVal={query.phrase || query.title}
+              inputSelectedFilter={inputSelectedFilter}
+            />
           </div>
         </div>
         <div className={searchTheme.shapeBanner} />
