@@ -1,4 +1,4 @@
-FROM node:10.17.0-stretch
+FROM node:10.24-stretch
 RUN apt update
 RUN apt install sudo
 RUN sudo apt-get update; sudo apt-get install -y openjdk-8-jre openjdk-8-jre-headless openjdk-8-jdk openjdk-8-jdk-headless;
