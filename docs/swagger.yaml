@@ -122,6 +122,13 @@ components:
           description: "The availability of the user"
           default: true
           example: true
+        skill:
+          type: string
+          description: "The candidate's skills separated via ,"
+          example: "Java,Angular,SQL Server,JavaScript"
+        salaryExpectation:
+          type: integer
+          description: "The candidate expected salary"
         hasProfile:
           type: boolean
           description: "Whether has profile for the user"

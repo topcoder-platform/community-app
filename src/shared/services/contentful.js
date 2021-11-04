@@ -316,7 +316,7 @@ class Service {
       // thus we need to find it first
       await this.queryEntries({
         content_type: 'person',
-        query: encodeURIComponent(author),
+        query: author,
       })
         .then((result) => {
           query['fields.contentAuthor.sys.id'] = result.total ? result.items[0].sys.id : 'NO_SUCH_ID';
@@ -340,12 +340,12 @@ class Service {
     }
     if (track) query['fields.trackCategory'] = track;
     if (!_.isEmpty(tags)) {
-      query['fields.tags[all]'] = tags.map(t => encodeURIComponent(t)).join(',');
+      query['fields.tags[all]'] = tags.map(t => t).join(',');
     }
     if (startDate) query['fields.creationDate[gte]'] = startDate;
     if (endDate) query['fields.creationDate[lte]'] = endDate;
-    if (phrase) query.query = encodeURIComponent(phrase);
-    if (title) query['fields.title[match]'] = encodeURIComponent(title);
+    if (phrase) query.query = phrase;
+    if (title) query['fields.title[match]'] = title;
     if (sortBy) {
       switch (sortBy) {
         case 'Likes': query.order = '-fields.upvotes,-fields.creationDate'; break;
