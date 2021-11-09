@@ -423,6 +423,8 @@ export default class RecruitCRMService {
         // finally, clear the cookie
         res.cookie(config.GROWSURF_COOKIE, '', {
           maxAge: 0,
+          httpOnly: true,
+          sameSite: 'none',
           overwrite: true,
         });
       }
