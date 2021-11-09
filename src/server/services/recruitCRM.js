@@ -426,6 +426,7 @@ export default class RecruitCRMService {
           httpOnly: true,
           sameSite: 'none',
           overwrite: true,
+          secure: true,
         });
       }
       // Check if candidate exsits in the system?
