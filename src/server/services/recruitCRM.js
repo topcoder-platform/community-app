@@ -423,10 +423,7 @@ export default class RecruitCRMService {
         // finally, clear the cookie
         res.cookie(config.GROWSURF_COOKIE, '', {
           maxAge: 0,
-          httpOnly: true,
-          sameSite: 'none',
           overwrite: true,
-          secure: true,
         });
       }
       // Check if candidate exsits in the system?
