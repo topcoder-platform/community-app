@@ -373,6 +373,10 @@ export default class RecruitCRMService {
     let isReferred = false;
     let referralCookie = req.cookies[config.GROWSURF_COOKIE];
     if (referralCookie) referralCookie = JSON.parse(referralCookie);
+    if (referralCookie) {
+      logger.info(`The referralCookie is: ${referralCookie}`);
+      logger.info(`The referralId is: ${referralCookie.referralId}`);
+    }
     const tcHandle = _.findIndex(form.custom_fields, { field_id: 2 });
     let growRes;
     try {
