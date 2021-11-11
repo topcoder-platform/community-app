@@ -58,6 +58,9 @@ const CANDIDATE_FIELDS_RESPONSE = [
  */
 function notifyKirilAndNick(error) {
   logger.error(error);
+  if (process.env.NODE_ENV !== 'production') {
+    return;
+  }
   sendEmailDirect({
     personalizations: [
       {
