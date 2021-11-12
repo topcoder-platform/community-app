@@ -34,8 +34,6 @@ function ReferralModal({
   onReferralDone,
 }) {
   const retUrl = window.location.href;
-  const signupRetUrl = `${config.PLATFORM_SITE_URL}/onboard`;
-
   return (
     <Modal
       onCancel={onCloseButton}
@@ -112,7 +110,7 @@ function ReferralModal({
             >
               LOGIN
             </PrimaryButton>
-            <Link to={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(signupRetUrl)}&mode=signUp&utm_source=gig_listing`} className={buttonThemes.tc['primary-white-md']} openNewTab="true">REGISTER</Link>
+            <Link to={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing`} className={buttonThemes.tc['primary-white-md']} openNewTab="true">REGISTER</Link>
           </div>
           <p className={modalStyle.regTxt}>Find out how the referral program works <a href={HELP_INFO_LINK} target="_blank" rel="noreferrer">here</a>.</p>
         </div>
