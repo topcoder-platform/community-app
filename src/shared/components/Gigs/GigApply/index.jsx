@@ -28,6 +28,8 @@ export default function GigApply(props) {
     recruitProfile,
   } = props;
   const retUrl = window.location.href;
+  const signupRetUrl = `${config.PLATFORM_SITE_URL}/onboard`;
+
   const duration = getCustomField(job.custom_fields, 'Duration');
   const isPlaced = _.find(_.isEmpty(recruitProfile) ? [] : recruitProfile.custom_fields, { field_id: 12 });
 
@@ -326,7 +328,7 @@ export default function GigApply(props) {
           <div styleName="cta-buttons">
             <Link to={`${config.URL.AUTH}/member?retUrl=${encodeURIComponent(retUrl)}`} styleName="primaryBtn">Login</Link>
           </div>
-          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=gig_listing`}>here</a>.</p>
+          <p styleName="regTxt">Not a member? Register <a href={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(signupRetUrl)}&mode=signUp&utm_source=gig_listing`}>here</a>.</p>
         </div>
       </div>
     </div>

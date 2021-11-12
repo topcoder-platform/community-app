@@ -21,6 +21,7 @@ const buttonThemes = {
 function LoginModal({
   onCancel,
   retUrl,
+  signupRetUrl,
   utmSource,
   modalTitle,
   modalText,
@@ -45,7 +46,7 @@ function LoginModal({
           >
             LOGIN
           </PrimaryButton>
-          <Link to={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp${utmSource ? `&utm_source=${utmSource}` : ''}`} className={buttonThemes.tc['primary-white-md']}>REGISTER</Link>
+          <Link to={`${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(signupRetUrl)}&mode=signUp${utmSource ? `&utm_source=${utmSource}` : ''}`} className={buttonThemes.tc['primary-white-md']}>REGISTER</Link>
         </div>
         {infoNode}
       </div>
@@ -56,11 +57,13 @@ function LoginModal({
 LoginModal.defaultProps = {
   utmSource: null,
   infoNode: null,
+  signupRetUrl: `${config.PLATFORM_SITE_URL}/onboard`,
 };
 
 LoginModal.propTypes = {
   onCancel: PT.func.isRequired,
   retUrl: PT.string.isRequired,
+  signupRetUrl: PT.string,
   utmSource: PT.string,
   modalTitle: PT.string.isRequired,
   modalText: PT.string.isRequired,
