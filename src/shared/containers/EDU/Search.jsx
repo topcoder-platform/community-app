@@ -44,6 +44,12 @@ export default class EDUSearch extends React.Component {
       // eslint-disable-next-line no-nested-ternary
       urlQuery.tags = _.isArray(urlQuery.tags)
         ? urlQuery.tags : (urlQuery.tags ? [urlQuery.tags] : []);
+      if (urlQuery.phrase && urlQuery.phrase.length > 115) {
+        urlQuery.phrase = urlQuery.phrase.substring(0, 114);
+      }
+      if (urlQuery.title && urlQuery.title.length > 115) {
+        urlQuery.title = urlQuery.title.substring(0, 114);
+      }
       this.setState({
         query: urlQuery,
       });

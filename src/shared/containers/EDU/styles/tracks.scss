@@ -55,9 +55,9 @@
         text-transform: uppercase;
 
         @include xs-to-sm {
-          font-size: 70px;
-          letter-spacing: 0.44px;
-          line-height: 60px;
+          font-size: 42px;
+          letter-spacing: 0;
+          line-height: 38px;
           margin-top: 533px;
         }
       }
