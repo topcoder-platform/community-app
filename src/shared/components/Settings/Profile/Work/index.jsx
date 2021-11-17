@@ -81,15 +81,6 @@ export default class Work extends ConsentComponent {
       endDateInvalid: false,
       endDateDisabled: false,
       endDateInvalidMsg: '',
-      newWork: {
-        company: '',
-        position: '',
-        cityTown: '',
-        timePeriodFrom: '',
-        timePeriodTo: '',
-        industry: '',
-        working: false,
-      },
     });
   }
 
