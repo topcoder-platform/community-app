@@ -105,11 +105,13 @@ export default class LinkedAccount extends React.Component {
     if (!linkedAccounts.length) {
       const providers = _.omit(externalAccountsData, ['userId', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy']);
 
-      _.forEach(_.keys(providers), (p) => {
-        if (providers[p]) {
-          linkedAccounts.push({ providerType: p });
-        }
-      });
+      if (_.keys(_.omitBy(providers, _.isNil)).length > 1) {
+        _.forEach(_.keys(providers), (p) => {
+          if (providers[p]) {
+            linkedAccounts.push({ providerType: p });
+          }
+        });
+      }
     }
     _.forEach(linkedAccounts, (linkedAccount) => {
       const providerType = linkedAccount.providerType || linkedAccount.provider;
