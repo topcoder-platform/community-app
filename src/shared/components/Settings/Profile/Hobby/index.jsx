@@ -137,6 +137,7 @@ export default class Hobby extends ConsentComponent {
     }
     this.setState({
       showConfirmation: false,
+      isEdit: false,
       indexNo: null,
       isSubmit: false,
     });
