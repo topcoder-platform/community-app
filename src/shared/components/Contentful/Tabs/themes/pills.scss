@@ -22,9 +22,9 @@ $text-color-black: #262628;
   border-bottom: none;
 
   @include xs-to-sm {
-    -webkit-flex-direction: column; /* Safari */
-    flex-direction: column;
+    overflow: auto;
     align-items: center;
+    justify-content: flex-start;
   }
 }
 
@@ -38,9 +38,11 @@ $text-color-black: #262628;
   cursor: pointer;
   border-radius: 15px;
   padding: 0 15px;
+  white-space: nowrap;
 
   @include xs-to-sm {
     margin: 2px;
+    padding: 0 25px;
   }
 
   &:hover {
