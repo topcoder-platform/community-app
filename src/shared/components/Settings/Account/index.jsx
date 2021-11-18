@@ -13,7 +13,7 @@ import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import SideBar from '../SideBar';
 import ComingSoon from '../ComingSoon';
 import MyAccount from './MyAccount';
-import LinkedAccount from './LinkedAccount';
+// import LinkedAccount from './LinkedAccount';
 import { SCREEN_SIZE } from '../constants';
 import './styles.scss';
 
