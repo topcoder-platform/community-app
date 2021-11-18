@@ -139,19 +139,19 @@ module.exports = {
             },
             {
               title: 'Data Science',
-              href: '/thrive/tracks?track=Data%20Science&tax=',
+              href: '/thrive/tracks?track=Data%20Science',
             },
             {
               title: 'Design',
-              href: '/thrive/tracks?track=Design&tax=',
+              href: '/thrive/tracks?track=Design',
             },
             {
               title: 'Development',
-              href: '/thrive/tracks?track=Development&tax=',
+              href: '/thrive/tracks?track=Development',
             },
             {
               title: 'QA',
-              href: '/thrive/tracks?track=QA&tax=',
+              href: '/thrive/tracks?track=QA',
             },
           ],
         },

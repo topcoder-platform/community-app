@@ -82,19 +82,19 @@ exports[`Default render 1`] = `
                   "title": "Competitive Programming",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=Data%20Science&tax=",
+                  "href": "/thrive/tracks?track=Data%20Science",
                   "title": "Data Science",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=Design&tax=",
+                  "href": "/thrive/tracks?track=Design",
                   "title": "Design",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=Development&tax=",
+                  "href": "/thrive/tracks?track=Development",
                   "title": "Development",
                 },
                 Object {
-                  "href": "/thrive/tracks?track=QA&tax=",
+                  "href": "/thrive/tracks?track=QA",
                   "title": "QA",
                 },
               ],

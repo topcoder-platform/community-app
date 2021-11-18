@@ -342,7 +342,7 @@ workflows:
           filters:
             branches:
               only:
-                - gigs-apply-integration
+                - free
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - contentful-tabs-mobile
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
