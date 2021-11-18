@@ -87,6 +87,7 @@ export default class TabsItemsLoader extends Component {
       theme,
       tabId,
       themeName,
+      forceRenderTabPanel,
     } = this.props;
     const { tabIndex, mobileTabsShow } = this.state;
 
@@ -102,7 +103,7 @@ export default class TabsItemsLoader extends Component {
             selectedIndex={tabIndex}
             selectedTabClassName={theme.selected}
             onSelect={tIndx => this.setState({ tabIndex: tIndx, mobileTabsShow: false })}
-            forceRenderTabPanel
+            forceRenderTabPanel={forceRenderTabPanel}
           >
             <div className={theme.tabListWrap}>
               {
@@ -230,6 +231,7 @@ TabsItemsLoader.defaultProps = {
   selected: 0,
   spaceName: null,
   environment: null,
+  forceRenderTabPanel: true,
 };
 
 TabsItemsLoader.propTypes = {
@@ -241,4 +243,5 @@ TabsItemsLoader.propTypes = {
   theme: PT.shape().isRequired,
   tabId: PT.string.isRequired,
   themeName: PT.string.isRequired,
+  forceRenderTabPanel: PT.bool,
 };
