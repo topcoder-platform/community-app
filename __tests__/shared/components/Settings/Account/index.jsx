@@ -12,6 +12,7 @@ const settingsUI = {
   TABS: {
     ACCOUNT: {
       MYACCOUNT: 'my account',
+      // LINKEDACCOUNT: 'linked account',
     },
   },
 };
