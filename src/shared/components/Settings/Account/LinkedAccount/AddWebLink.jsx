@@ -13,6 +13,7 @@ export default class AddWebLink extends React.Component {
     super(props);
     this.state = {
       webLink: '',
+      webLinkEmpty: false,
     };
 
     this.onUpdateWebLink = this.onUpdateWebLink.bind(this);
@@ -32,6 +33,11 @@ export default class AddWebLink extends React.Component {
   // Set web link
   onUpdateWebLink(e) {
     e.preventDefault();
+    if (e.target.value) {
+      this.setState({
+        webLinkEmpty: false,
+      });
+    }
     this.setState({ webLink: e.target.value });
   }
 
@@ -62,6 +68,11 @@ export default class AddWebLink extends React.Component {
       tokenV3,
     } = this.props;
     const { webLink } = this.state;
+    if (!webLink) {
+      this.setState({
+        webLinkEmpty: true,
+      });
+    }
     if (webLink && this.isWebLinkValid() && !this.webLinkExist()) {
       addWebLink(handle, tokenV3, webLink);
     }
@@ -82,7 +93,7 @@ export default class AddWebLink extends React.Component {
   }
 
   render() {
-    const { webLink } = this.state;
+    const { webLink, webLinkEmpty } = this.state;
 
     const webLinkValid = this.isWebLinkValid();
     const webLinkExist = this.webLinkExist();
@@ -172,6 +183,15 @@ export default class AddWebLink extends React.Component {
                 onKeyDown={this.onAddWebLink}
                 required
               />
+              {
+                webLinkEmpty && (
+                <div styleName="form-input-error">
+                  <p>
+                    Please Enter External Link
+                  </p>
+                </div>
+                )
+              }
               {
                 !webLinkValid && !webLinkExist
                 && (
