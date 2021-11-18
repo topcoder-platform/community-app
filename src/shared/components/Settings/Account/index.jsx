@@ -80,8 +80,8 @@ export default class Account extends React.Component {
       switch (tab) {
         case 'my account':
           return <MyAccount {...this.props} />;
-        case 'linked accounts':
-          return <LinkedAccount {...this.props} />;
+        // case 'linked accounts':
+        //   return <LinkedAccount {...this.props} />;
         default:
           return <ComingSoon />;
       }
