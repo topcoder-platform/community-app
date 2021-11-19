@@ -343,7 +343,6 @@ workflows:
             branches:
               only:
                 - develop
-                - ca-profile-bug-bash
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
