@@ -6,6 +6,7 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 
   @include xs-to-sm {
     background: #f4f4f4;

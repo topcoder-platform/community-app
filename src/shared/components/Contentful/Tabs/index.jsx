@@ -36,6 +36,7 @@ function ContentfulTabs(props) {
             theme={TAB_THEMES[fields.theme || 'Default']}
             tabId={fields.urlQueryName || id}
             themeName={fields.theme}
+            forceRenderTabPanel={fields.forceRenderTabPanel}
           />
         );
       }}
