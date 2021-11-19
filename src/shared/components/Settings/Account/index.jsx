@@ -8,12 +8,12 @@ import _ from 'lodash';
 
 import Accordion from 'components/Settings/Accordion';
 import MyAccountIcon from 'assets/images/account/sideicons/myaccount.svg';
-import LinkedAccountIcon from 'assets/images/account/sideicons/linkedaccount.svg';
+// import LinkedAccountIcon from 'assets/images/account/sideicons/linkedaccount.svg';
 import ErrorWrapper from 'components/Settings/ErrorWrapper';
 import SideBar from '../SideBar';
 import ComingSoon from '../ComingSoon';
 import MyAccount from './MyAccount';
-import LinkedAccount from './LinkedAccount';
+// import LinkedAccount from './LinkedAccount';
 import { SCREEN_SIZE } from '../constants';
 import './styles.scss';
 
@@ -74,14 +74,14 @@ export default class Account extends React.Component {
     const currentTab = this.tablink || settingsUI.currentAccountTab;
     const icons = {
       'my account': <MyAccountIcon />,
-      'linked accounts': <LinkedAccountIcon />,
+      // 'linked accounts': <LinkedAccountIcon />,
     };
     const renderTabContent = (tab) => {
       switch (tab) {
         case 'my account':
           return <MyAccount {...this.props} />;
-        case 'linked accounts':
-          return <LinkedAccount {...this.props} />;
+        // case 'linked accounts':
+        //   return <LinkedAccount {...this.props} />;
         default:
           return <ComingSoon />;
       }

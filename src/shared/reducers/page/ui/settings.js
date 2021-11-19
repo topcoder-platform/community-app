@@ -25,7 +25,7 @@ const TABS = {
   },
   ACCOUNT: {
     MYACCOUNT: 'my account',
-    LINKEDACCOUNT: 'linked accounts',
+    // LINKEDACCOUNT: 'linked accounts',
   },
 };
 
