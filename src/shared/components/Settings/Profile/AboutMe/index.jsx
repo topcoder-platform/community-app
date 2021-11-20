@@ -125,7 +125,7 @@ export default class AboutMe extends React.Component {
                     !uploadingPhoto && !profile.photoURL && 'Add Image'
                   }
                 </PrimaryButton>
-                <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
+                <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" accept="image/png, image/jpeg, image/jpg" />
               </div>
             </div>
           </div>
