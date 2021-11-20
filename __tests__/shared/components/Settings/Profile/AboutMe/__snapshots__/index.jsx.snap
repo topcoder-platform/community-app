@@ -62,6 +62,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
             Change Image
           </ThemedButton>
           <input
+            accept="image/png, image/jpeg, image/jpg"
             className="hidden"
             id="change-image-input"
             name="image"
