@@ -97,7 +97,8 @@ export default class Devices extends ConsentComponent {
     for (const item of deviceItems) {
       if (item.deviceType === newDevice.deviceType
         && item.manufacturer === newDevice.manufacturer
-        && item.model === newDevice.model) {
+        && item.model === newDevice.model
+        && item.operatingSystem === newDevice.operatingSystem) {
         exist = true;
         break;
       }
