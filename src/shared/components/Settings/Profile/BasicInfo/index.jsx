@@ -257,7 +257,7 @@ export default class BasicInfo extends ConsentComponent {
         break;
       case 'firstName':
       case 'lastName':
-        newBasicInfo[e.target.name] = e.target.value.replace(/[^a-zA-Z0-9,.]/g, '');
+        newBasicInfo[e.target.name] = e.target.value.replace(/[^a-zA-Z0-9,.\-\ ]/g, '');
         break;
       default:
         newBasicInfo[e.target.name] = e.target.value;
