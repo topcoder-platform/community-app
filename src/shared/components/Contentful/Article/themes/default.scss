@@ -485,6 +485,10 @@
     margin-bottom: 108px;
   }
 
+  @media screen and (min-width: 1440px) and (max-width: 1900px) {
+    margin-bottom: 70px;
+  }
+
   @media screen and (max-width: 768px) {
     margin-bottom: 300px;
   }
