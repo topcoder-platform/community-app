@@ -13,6 +13,20 @@ $checkbox-bg-selected: $tc-dark-blue;
   flex-direction: column;
   align-items: left;
 
+  :global {
+    .SingleDatePickerInput {
+      &__showClearDate {
+        padding-right: 0;
+      }
+
+      &_clearDate {
+        padding: 8px 10px;
+        top: 20px;
+        background: transparent;
+      }
+    }
+  }
+
   @include upto-sm {
     padding-bottom: 0;
   }

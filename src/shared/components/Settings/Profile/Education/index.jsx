@@ -181,12 +181,10 @@ export default class Education extends ConsentComponent {
   }
 
   onUpdateDate(date, timePeriod) {
-    if (date) {
-      const { newEducation: oldEducation } = this.state;
-      const newEducation = { ...oldEducation };
-      newEducation[timePeriod] = date;
-      this.setState({ newEducation, isSubmit: false });
-    }
+    const { newEducation: oldEducation } = this.state;
+    const newEducation = { ...oldEducation };
+    newEducation[timePeriod] = date || '';
+    this.setState({ newEducation, isSubmit: false });
   }
 
   /**
@@ -530,6 +528,7 @@ export default class Education extends ConsentComponent {
                 <div styleName="field col-2">
                   <DatePicker
                     readOnly
+                    showClearDate
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
                     date={newEducation.timePeriodFrom}
@@ -559,6 +558,7 @@ export default class Education extends ConsentComponent {
                     newEducation.graduated ? (
                       <DatePicker
                         readOnly
+                        showClearDate
                         numberOfMonths={1}
                         isOutsideRange={moment().subtract(1, 'd')}
                         date={newEducation.timePeriodTo}
@@ -569,6 +569,7 @@ export default class Education extends ConsentComponent {
                     ) : (
                       <DatePicker
                         readOnly
+                        showClearDate
                         numberOfMonths={1}
                         date={newEducation.timePeriodTo}
                         id="date-to1"
