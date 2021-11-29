@@ -18,6 +18,7 @@ Instructions are also provided below for developments that want to modify/create
     - [Basics](./content-writer-basics.md)
     - Content Types
         - [Accordion](./accordion.md)
+        - [App Component](./AppComponent.md)
         - [Banner](./banner.md)
         - [ContentBlock](./ContentBlock.md)
         - [Content Slider](./slider.md)
