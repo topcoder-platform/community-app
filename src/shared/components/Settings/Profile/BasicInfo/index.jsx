@@ -41,15 +41,14 @@ export default class BasicInfo extends ConsentComponent {
 
     const { userTraits } = props;
     this.state = {
-      componentMounted: false,
       inputChanged: false,
       formInvalid: false,
       basicInfoTrait: this.loadBasicInfoTraits(userTraits),
       personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newBasicInfo: {
         handle: '',
-        firstName: '',
-        lastName: '',
+        firstName: null,
+        lastName: null,
         gender: '',
         ethnicBackground: null,
         shortBio: '',
@@ -82,9 +81,6 @@ export default class BasicInfo extends ConsentComponent {
     const { basicInfoTrait } = this.state;
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
     this.processBasicInfo(basicInfo);
-    this.setState({
-      componentMounted: true,
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -381,6 +377,8 @@ export default class BasicInfo extends ConsentComponent {
       }
       if (_.has(value, 'firstName')) {
         newBasicInfo.firstName = value.firstName;
+      } else {
+        newBasicInfo.firstName = '';
       }
       if (_.has(value, 'gender')) {
         newBasicInfo.gender = value.gender;
@@ -394,6 +392,8 @@ export default class BasicInfo extends ConsentComponent {
       }
       if (_.has(value, 'lastName')) {
         newBasicInfo.lastName = value.lastName;
+      } else {
+        newBasicInfo.lastName = '';
       }
       if (_.has(value, 'primaryInterestInTopcoder')) {
         newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
@@ -465,7 +465,6 @@ export default class BasicInfo extends ConsentComponent {
     const {
       newBasicInfo,
       inputChanged,
-      componentMounted,
     } = this.state;
 
     const canModifyTrait = !this.props.traitRequestCount;
@@ -506,7 +505,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={newBasicInfo.firstName} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newBasicInfo.firstName) && componentMounted} message="First Name cannot be empty" />
+                <ErrorMessage invalid={_.isEmpty(newBasicInfo.firstName) && !_.isNull(newBasicInfo.firstName) && inputChanged} message="First Name cannot be empty" />
               </div>
             </div>
             <div styleName="row">
@@ -519,7 +518,7 @@ export default class BasicInfo extends ConsentComponent {
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
                 <input disabled={!canModifyTrait} id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={newBasicInfo.lastName} maxLength="64" required />
-                <ErrorMessage invalid={_.isEmpty(newBasicInfo.lastName) && componentMounted} message="Last Name cannot be empty" />
+                <ErrorMessage invalid={_.isEmpty(newBasicInfo.lastName) && !_.isNull(newBasicInfo.lastName) && inputChanged} message="Last Name cannot be empty" />
               </div>
             </div>
             <div styleName="row">
