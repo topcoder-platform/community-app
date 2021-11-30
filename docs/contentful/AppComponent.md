@@ -75,7 +75,7 @@ JSON object needed by 3rd party API.
 
 ### Type = `MemberPath`
 
-Render MemberPath component specificly for http://topcoder.com/start page.
+Render MemberPath component specifically for http://topcoder.com/start page.
 
 ![member-path](./pics/AppComponent/member-path.png)
 
