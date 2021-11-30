@@ -147,6 +147,7 @@ export default class Software extends ConsentComponent {
       showConfirmation: false,
       indexNo: null,
       isSubmit: false,
+	  isEdit: false,
       formInvalid: false,
     });
   }
