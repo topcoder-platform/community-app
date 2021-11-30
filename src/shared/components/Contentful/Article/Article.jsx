@@ -148,6 +148,17 @@ class Article extends React.Component {
       },
     ).substring(0, CONTENT_PREVIEW_LENGTH);
     const catsGrouped = _.groupBy(fields.contentCategory, cat => cat.fields.trackParent);
+    // captures clicks on article
+    // for opening external links in new tab
+    const articleClickHandler = (e) => {
+      if (e.target.href && fields.openExternalLinksInNewTab !== false) {
+        const target = new URL(e.target.href);
+        if (!target.host.includes('topcoder')) {
+          window.open(e.target.href, '_blank');
+          e.preventDefault();
+        }
+      }
+    };
 
     return (
       <React.Fragment>
@@ -291,7 +302,12 @@ class Article extends React.Component {
               </div>
             </div>
             {/* Content */}
-            <div className={theme.articleContent}>
+            <div
+              className={theme.articleContent}
+              role="presentation"
+              onClick={articleClickHandler}
+              onKeyPress={articleClickHandler}
+            >
               <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
               {
               fields.type === 'Video' && fields.contentUrl ? (
