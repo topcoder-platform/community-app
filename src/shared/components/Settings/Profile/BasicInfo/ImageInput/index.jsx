@@ -25,6 +25,7 @@ export default class ImageInput extends React.Component {
     this.state = {
       newBasicInfo: {},
       isImageOversize: false,
+      isImageFile: true,
     };
   }
 
@@ -72,6 +73,13 @@ export default class ImageInput extends React.Component {
     if (file === undefined) {
       return;
     }
+    const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+    if (!allowedTypes.includes(file.type)) {
+      this.setState({
+        isImageFile: false,
+      });
+      return;
+    }
     if (file.size > 2 * 1024 * 1024) {
       // If file size is greater than 2 MB, show error message
       this.setState({
@@ -81,6 +89,7 @@ export default class ImageInput extends React.Component {
     }
     this.setState({
       isImageOversize: false,
+      isImageFile: true,
     });
     uploadPhotoInit();
     loadImage.parseMetaData(file, (data) => {
@@ -126,7 +135,7 @@ export default class ImageInput extends React.Component {
       deletingPhoto,
     } = profileState;
 
-    const { newBasicInfo, isImageOversize } = this.state;
+    const { newBasicInfo, isImageOversize, isImageFile } = this.state;
 
     return (
       <div styleName="image">
@@ -157,7 +166,8 @@ export default class ImageInput extends React.Component {
             <input type="file" name="image" accept="image/*" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
           </div>
         </div>
-        {isImageOversize && <div styleName="error-message">Please select an image smaller than 2MB</div>}
+        {!isImageFile && <div styleName="error-message">Please select jpg, jpeg or png image files only</div>}
+        {isImageFile && isImageOversize && <div styleName="error-message">Please select an image smaller than 2MB</div>}
       </div>
     );
   }
