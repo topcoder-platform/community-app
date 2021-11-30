@@ -64,12 +64,10 @@ Generic subscribe for MailChimp tags component.
 Render table that loads data from Google Sheet.
 
 - **id** | **String (Required).** Google sheet ID.
-- **index** | **Number.** ???.
+- **index** | **Number.** The index of the sheet to render, starts by 0 and counting.
 - **config** | **Object of:**
   - **pick** | **Array of Strings.** Pick sheet header value as table header.
   - **containerStyle** | **CSS Object.** Inline styles object to override the container style.
-- **sheet** | ???.
-- **getGSheet** | **Function.** ???.
 
 ### Type = `JSON`
 
