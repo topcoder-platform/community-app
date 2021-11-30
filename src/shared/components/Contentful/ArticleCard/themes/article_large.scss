@@ -12,6 +12,10 @@
   @include xs-to-sm {
     margin: 5px;
   }
+
+  @media screen and (max-width: 425px) {
+    max-height: none;
+  }
 }
 
 .contentWrapper {
@@ -23,6 +27,10 @@
   display: flex;
   flex-direction: row;
   align-items: stretch;
+
+  @media screen and (max-width: 425px) {
+    flex-direction: column;
+  }
 }
 
 .main {
@@ -225,6 +233,11 @@
     min-width: 150px;
   }
 
+  @media screen and (max-width: 425px) {
+    width: 100%;
+    min-height: 130px;
+  }
+
   &::before {
     content: '';
     width: 35px;
@@ -234,5 +247,12 @@
     background-size: cover;
     background-position: right -2px;
     position: absolute;
+
+    @media screen and (max-width: 425px) {
+      background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 290 31.73' style='enable-background:new 0 0 290 31.73;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill-rule:evenodd;clip-rule:evenodd;fill:%23F4F4F4;%7D%0A%3C/style%3E%3Cg id='Thrive'%3E%3Cg id='Artboard' transform='translate(-22.000000, -20.000000)'%3E%3Cg id='Combined-Shape'%3E%3Cpath class='st0' d='M22,20h290l0,24.11c-60.39,13.64-90.73-0.4-142.15-10.48C118.1,23.5,97,79,22.08,33.64l0,0l0,1.34'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      width: 100%;
+      height: 33px;
+      background-position: 0 -10px;
+    }
   }
 }

@@ -74,7 +74,7 @@ export class SearchBarInner extends Component {
 
   onKeyDown(e) {
     const { inputlVal, selectedFilter } = this.state;
-    if (inputlVal && e.which === 13) {
+    if (_.trim(inputlVal) && e.which === 13) {
       const searchQuery = {};
       if (this.searchFieldRef && this.searchFieldRef.value) {
         if (selectedFilter.name === 'Tags') {
@@ -90,7 +90,7 @@ export class SearchBarInner extends Component {
       if (selectedFilter.name !== 'Author') {
         window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify(searchQuery)}`;
       } else {
-        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?author=${inputlVal}`;
+        window.location.href = `${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?author=${_.trim(inputlVal)}`;
       }
     }
   }
