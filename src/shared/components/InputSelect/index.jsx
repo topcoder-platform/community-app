@@ -111,7 +111,7 @@ export default class InputSelect extends Component {
     let i = 0;
     let node = e.target;
     const REG = new RegExp(_id);
-    while (node && i < 5) {
+    while (node && i < 20) {
       if (REG.test(node.className)) {
         return true;
       }
