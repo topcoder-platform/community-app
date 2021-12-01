@@ -585,7 +585,7 @@ export default class MyAccount extends ConsentComponent {
                     </div>
                   </div>
                   {
-                    get(profileState, 'credential.hasPassword', false) === false && (
+                    get(profileState, 'credential.hasPassword') === false && (
                       <div styleName="error-message">
                         Since you joined Topcoder using your &lt;SSO Service&gt; account,
                         any email updates will need to be handled by logging in to
