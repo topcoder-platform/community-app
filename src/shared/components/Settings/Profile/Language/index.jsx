@@ -244,10 +244,10 @@ export default class Language extends ConsentComponent {
       const newLanguageTrait = _.cloneDeep(languageTrait);
 
       if (isEdit) {
-        newLanguageTrait.traits.data.splice(indexNo, 1);
+        newLanguageTrait.traits.data.splice(indexNo, 1, language);
+      } else {
+        newLanguageTrait.traits.data.push(language);
       }
-
-      newLanguageTrait.traits.data.push(language);
 
       updateUserTrait(handle, 'languages', newLanguageTrait.traits.data, tokenV3);
     } else {
