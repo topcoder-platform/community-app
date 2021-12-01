@@ -174,6 +174,16 @@ export default class Work extends ConsentComponent {
 
     this.setState({
       showConfirmation: false,
+      newWork: {
+        company: '',
+        position: '',
+        cityTown: '',
+        timePeriodFrom: '',
+        timePeriodTo: '',
+        industry: '',
+        working: false,
+      },
+      isEdit: false,
       indexNo: null,
       isSubmit: false,
       formInvalid: false,
