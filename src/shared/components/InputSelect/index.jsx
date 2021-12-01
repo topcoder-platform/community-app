@@ -139,9 +139,10 @@ export default class InputSelect extends Component {
       filterVal,
     } = this.state;
 
+    const escapeRegExp = stringToGoIntoTheRegex => stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     let fiterList = options;
     if (filterVal) {
-      const REG = new RegExp(filterVal, 'i');
+      const REG = new RegExp(escapeRegExp(filterVal), 'i');
       fiterList = filter(options, o => REG.test(o[labelKey]));
     }
     const list = map(fiterList, o => (
