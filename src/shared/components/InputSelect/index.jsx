@@ -139,7 +139,7 @@ export default class InputSelect extends Component {
       filterVal,
     } = this.state;
 
-    const escapeRegExp = stringToGoIntoTheRegex => stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const escapeRegExp = stringToGoIntoTheRegex => stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); /* eslint-disable-line no-useless-escape */
     let fiterList = options;
     if (filterVal) {
       const REG = new RegExp(escapeRegExp(filterVal), 'i');
