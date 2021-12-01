@@ -131,6 +131,7 @@ export default class InputSelect extends Component {
       placeholder,
       labelKey,
       options,
+      onKeyPress,
     } = this.props;
 
     const {
@@ -172,7 +173,7 @@ export default class InputSelect extends Component {
             <div styleName="modal">
               <div styleName="modal-input-container">
 
-                <input type="text" onChange={this.onFilterChange} placeholder="Search" />
+                <input type="text" onChange={this.onFilterChange} placeholder="Search" onKeyPress={onKeyPress} />
               </div>
               <div styleName="modal-list-container" onScroll={this.onLoadMore}>
                 {list}
@@ -196,6 +197,7 @@ InputSelect.defaultProps = {
   isLoading: false,
   onChange: () => {},
   onLoadMore: () => {},
+  onKeyPress: () => {},
 };
 
 InputSelect.propTypes = {
@@ -206,6 +208,7 @@ InputSelect.propTypes = {
   placeholder: PT.string,
   onChange: PT.func,
   onLoadMore: PT.func,
+  onKeyPress: PT.func,
   hasMore: PT.bool,
   isLoading: PT.bool,
   disabled: PT.bool,
