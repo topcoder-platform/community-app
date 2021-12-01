@@ -153,6 +153,7 @@ export default class Subscription extends ConsentComponent {
       showConfirmation: false,
       indexNo: null,
       formInvalid: false,
+      isEdit: false,
       isSubmit: false,
     });
   }
