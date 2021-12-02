@@ -9,9 +9,9 @@ Generic App Component model.
 ## Fields
 
 - **Name** | Name of the entry.
-- **Type** | Type of the App Component. Each type has different props. Please refer to [props](#props) field below.
+- **Type** | Type of the App Component. Each type has different props. Please refer to [props](#props-json-object) field below.
 - **Theme** | Theme specific for `TCO-Leaderboard` type.
-- **Props** | Each type has its own props. Please refer to [props](#props) field below.
+- **Props** | Each type has its own props. Please refer to [props](#props-json-object) field below.
 
 ## TCO-Leaderboard Themes
 
