@@ -10,7 +10,7 @@ Generic Tabs model.
 
 - **Name** | Name of the entry.
 - **TabList** | List of TabsItem type entry. Please refer to [TabsItem docs](./TabsItem.md) for more details.
-- **Theme** | Tabs theme. Please refer to [Theme](#theme) for more details.
+- **Theme** | Tabs theme. Please refer to [theme](#theme) for more details.
 - **Selected** | Default TabsItem selected.
 - **URL Query Name** | Name in URL queries. Defaults to id if not set.
 - **Force Render Tab Panel** | When set to true, tabs will render content even not selected.
