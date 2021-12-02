@@ -496,7 +496,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodFrom}
                     id="date-from1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
-                    onClearDate={date => this.onUpdateDate('', 'timePeriodFrom')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodFrom')} // eslint-disable-line no-unused-vars
                     placeholder="dd/mm/yyyy"
                   />
                   {
@@ -526,7 +526,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodTo}
                     id="date-to1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
-                    onClearDate={date => this.onUpdateDate('', 'timePeriodTo')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodTo')} // eslint-disable-line no-unused-vars
                     placeholder="dd/mm/yyyy"
                   />
                   {
@@ -651,7 +651,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodFrom}
                     id="date-from2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
-                    onClearDate={date => this.onUpdateDate('', 'timePeriodFrom')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodFrom')} // eslint-disable-line no-unused-vars
                     placeholder="dd/mm/yyyy"
                   />
                   {
@@ -677,7 +677,7 @@ export default class Work extends ConsentComponent {
                     date={newWork.timePeriodTo}
                     id="date-to2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
-                    onClearDate={date => this.onUpdateDate('', 'timePeriodTo')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodTo')} // eslint-disable-line no-unused-vars
                     placeholder="dd/mm/yyyy"
                   />
                   {
