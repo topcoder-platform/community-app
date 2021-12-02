@@ -84,45 +84,43 @@ export default class Devices extends ConsentComponent {
    */
   onHandleAddDevice(e) {
     e.preventDefault();
-    const { newDevice, deviceTrait, isEdit } = this.state;
+    const { newDevice, deviceTrait } = this.state;
     const { clearDeviceState } = this.props;
     this.setState({ isSubmit: true });
     if (this.onCheckFormValue(newDevice)) {
       return;
     }
-    if (!isEdit) {
-      const deviceItems = deviceTrait.traits
-        ? deviceTrait.traits.data.slice() : [];
-      let exist = false;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const item of deviceItems) {
-        if (item.deviceType === newDevice.deviceType
-          && item.manufacturer === newDevice.manufacturer
-          && item.model === newDevice.model
-          && item.operatingSystem === newDevice.operatingSystem) {
-          exist = true;
-          break;
-        }
+    const deviceItems = deviceTrait.traits
+      ? deviceTrait.traits.data.slice() : [];
+    let exist = false;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of deviceItems) {
+      if (item.deviceType === newDevice.deviceType
+        && item.manufacturer === newDevice.manufacturer
+        && item.model === newDevice.model
+        && item.operatingSystem === newDevice.operatingSystem) {
+        exist = true;
+        break;
       }
-      if (exist === true) {
-        const empty = {
-          deviceType: '',
-          manufacturer: '',
-          model: '',
-          operatingSystem: '',
-        };
-        this.setState({
-          newDevice: empty,
-          isEdit: false,
-          indexNo: null,
-          isSubmit: false,
-        });
-        clearDeviceState();
-        setImmediate(() => {
-          toastr.error('Looks like you\'ve already entered this device.');
-        });
-        return;
-      }
+    }
+    if (exist === true) {
+      const empty = {
+        deviceType: '',
+        manufacturer: '',
+        model: '',
+        operatingSystem: '',
+      };
+      this.setState({
+        newDevice: empty,
+        isEdit: false,
+        indexNo: null,
+        isSubmit: false,
+      });
+      clearDeviceState();
+      setImmediate(() => {
+        toastr.error('Looks like you\'ve already entered this device.');
+      });
+      return;
     }
     this.showConsent(this.onAddDevice.bind(this));
   }
@@ -518,6 +516,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
                 {
                   isSubmit && (
@@ -543,6 +542,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -566,6 +566,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isModelsLoading}
                   hasMore={hasMoreModels}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -589,6 +590,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isOsesLoading}
                   onLoadMore={this.onLoadMoreOses}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -653,6 +655,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
                 {
                   isSubmit && (
@@ -674,6 +677,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -695,6 +699,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isModelsLoading}
                   hasMore={hasMoreModels}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
               <div styleName="field col-2">
@@ -714,6 +719,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isOsesLoading}
                   onLoadMore={this.onLoadMoreOses}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>

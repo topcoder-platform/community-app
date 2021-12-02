@@ -153,6 +153,7 @@ export default class Subscription extends ConsentComponent {
       showConfirmation: false,
       indexNo: null,
       formInvalid: false,
+      isEdit: false,
       isSubmit: false,
     });
   }
@@ -328,7 +329,18 @@ export default class Subscription extends ConsentComponent {
               </div>
               <div styleName="field col-2">
                 <span styleName="text-required">* Required</span>
-                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
+                <input
+                  disabled={!canModifyTrait}
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  onChange={this.onUpdateInput}
+                  value={newSubscription.name}
+                  maxLength="128"
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+                  required
+                />
                 {
                   isSubmit && (
                     <ErrorMessage invalid={formInvalid} message="Name cannot be empty" />
@@ -380,7 +392,18 @@ export default class Subscription extends ConsentComponent {
                   <span styleName="text-required">* Required</span>
                   <input type="hidden" />
                 </label>
-                <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
+                <input
+                  disabled={!canModifyTrait}
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  onChange={this.onUpdateInput}
+                  value={newSubscription.name}
+                  maxLength="128"
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+                  required
+                />
                 {
                   isSubmit && (
                     <ErrorMessage invalid={formInvalid} message="Name cannot be empty" />

@@ -349,7 +349,7 @@ workflows:
           filters:
             branches:
               only:                
-                - free
+                - ca-profile-bug-bash
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - thrive-spooky1-p0-2
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
