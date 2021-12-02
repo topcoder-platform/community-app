@@ -68,21 +68,6 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       // exit no email sending
       return;
     }
-    // process sent log
-    let { emailInvitesLog, emailInvitesStatus } = growSurf.data.metadata;
-    if (!emailInvitesLog) emailInvitesLog = '';
-    // check if email is in sent log alredy?
-    const foundInLog = emailInvitesLog.indexOf(email);
-    if (foundInLog !== -1) {
-      this.setState({
-        isReferrError: {
-          message: `${email} was already invited.`,
-          userError: true,
-        },
-      });
-      // exit no email sending
-      return;
-    }
     // check if email is already referred?
     const growCheck = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${email}`);
     if (growCheck.status === 200) {
@@ -125,43 +110,51 @@ ${config.URL.BASE}${config.GIGS_PAGES_PATH}/${props.id}`,
       // exit no email tracking due to the error
       return;
     }
-    // parse the log to array of emails
-    if (emailInvitesLog.length) {
-      emailInvitesLog = emailInvitesLog.split(',');
-    } else emailInvitesLog = [];
-    // prepare growSurf update payload
-    // we keep only 10 emails in the log to justify program rules
-    if (emailInvitesLog.length < 10) {
-      emailInvitesLog.push(email);
-    }
-    // Auto change status when 10 emails sent
-    if (emailInvitesLog.length === 10 && emailInvitesStatus !== 'Paid' && emailInvitesStatus !== 'Payment Pending') {
-      emailInvitesStatus = 'Payment Pending';
-    }
-    // put the tracking update in growsurf
-    const updateRed = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${growSurf.data.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenV3}`,
-      },
-      body: JSON.stringify({
-        ...growSurf.data,
-        metadata: {
-          ...growSurf.data.metadata,
-          emailInvitesSent: Number(growSurf.data.metadata.emailInvitesSent || 0) + 1,
-          emailInvitesLog: emailInvitesLog.join(),
-          emailInvitesStatus,
+    // process sent log
+    let { emailInvitesLog, emailInvitesStatus } = growSurf.data.metadata;
+    if (!emailInvitesLog) emailInvitesLog = '';
+    // check if email is in sent log alredy?
+    const foundInLog = emailInvitesLog.indexOf(email);
+    // only when email is new - put it in log, update counters and etc.
+    if (foundInLog === -1) {
+      // parse the log to array of emails
+      if (emailInvitesLog.length) {
+        emailInvitesLog = emailInvitesLog.split(',');
+      } else emailInvitesLog = [];
+      // prepare growSurf update payload
+      // we keep only 10 emails in the log to justify program rules
+      if (emailInvitesLog.length < 10) {
+        emailInvitesLog.push(email);
+      }
+      // Auto change status when 10 emails sent
+      if (emailInvitesLog.length === 10 && emailInvitesStatus !== 'Paid' && emailInvitesStatus !== 'Payment Pending') {
+        emailInvitesStatus = 'Payment Pending';
+      }
+      // put the tracking update in growsurf
+      const updateRed = await fetch(`${PROXY_ENDPOINT}/growsurf/participant/${growSurf.data.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tokenV3}`,
         },
-      }),
-    });
-    if (updateRed.status >= 300) {
-      this.setState({
-        isReferrError: await updateRed.json(),
+        body: JSON.stringify({
+          ...growSurf.data,
+          metadata: {
+            ...growSurf.data.metadata,
+            emailInvitesSent: Number(growSurf.data.metadata.emailInvitesSent || 0) + 1,
+            emailInvitesLog: emailInvitesLog.join(),
+            emailInvitesStatus,
+          },
+        }),
       });
-      // exit no email tracking due to the error
-      // just notify the user about it
-      return;
+      if (updateRed.status >= 300) {
+        this.setState({
+          isReferrError: await updateRed.json(),
+        });
+        // exit no email tracking due to the error
+        // just notify the user about it
+        return;
+      }
     }
     // finally do:
     this.setState({
