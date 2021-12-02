@@ -148,12 +148,10 @@ export default class Work extends ConsentComponent {
   }
 
   onUpdateDate(date, timePeriod) {
-    if (date) {
-      const { newWork: oldWork } = this.state;
-      const newWork = { ...oldWork };
-      newWork[timePeriod] = date;
-      this.setState({ newWork, isSubmit: false });
-    }
+    const { newWork: oldWork } = this.state;
+    const newWork = { ...oldWork };
+    newWork[timePeriod] = date;
+    this.setState({ newWork, isSubmit: false });
   }
 
   /**
@@ -491,11 +489,13 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-2">
                   <DatePicker
                     readOnly
+                    showClearDate
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodFrom}
                     id="date-from1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
                   {
@@ -518,12 +518,14 @@ export default class Work extends ConsentComponent {
                 <div styleName="field col-2">
                   <DatePicker
                     readOnly
+                    showClearDate
                     disabled={endDateDisabled}
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodTo}
                     id="date-to1"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
                   />
                   {
@@ -642,11 +644,13 @@ export default class Work extends ConsentComponent {
                   </label>
                   <DatePicker
                     readOnly
+                    showClearDate
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodFrom}
                     id="date-from2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodFrom')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodFrom')}
                     placeholder="dd/mm/yyyy"
                   />
                   {
@@ -665,12 +669,14 @@ export default class Work extends ConsentComponent {
                   </label>
                   <DatePicker
                     readOnly
+                    showClearDate
                     disabled={endDateDisabled}
                     numberOfMonths={1}
                     isOutsideRange={moment().subtract(1, 'd')}
                     date={newWork.timePeriodTo}
                     id="date-to2"
                     onDateChange={date => this.onUpdateDate(date, 'timePeriodTo')}
+                    onClearDate={date => this.onUpdateDate('', 'timePeriodTo')}
                     placeholder="dd/mm/yyyy"
                   />
                   {

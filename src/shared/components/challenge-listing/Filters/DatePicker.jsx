@@ -12,6 +12,7 @@ import './_fix_SingleDatePicker.css';
 
 const propTypes = {
   autoFocus: PropTypes.bool,
+  showClearDate: PropTypes.bool,
   allowFutureYear: PropTypes.bool,
 
   ...omit({}, [
@@ -25,6 +26,7 @@ const propTypes = {
 const defaultProps = {
   autoFocus: false,
   allowFutureYear: false,
+  showClearDate: false,
 };
 
 class DatePicker extends React.Component {
@@ -53,7 +55,7 @@ class DatePicker extends React.Component {
   render() {
     const { focused, allowFutureYear } = this.state;
     const {
-      id, date, onDateChange, isOutsideRange,
+      id, date, onDateChange, isOutsideRange, showClearDate,
     } = this.props;
 
     const props = omit(this.props, [
@@ -75,6 +77,7 @@ class DatePicker extends React.Component {
         focused={focused}
         onDateChange={onDateChange}
         onFocusChange={this.onFocusChange}
+        showClearDate={showClearDate}
         renderMonthElement={({ month, onMonthSelect, onYearSelect }) => (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div>
