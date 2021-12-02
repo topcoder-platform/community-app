@@ -32,30 +32,31 @@
     margin: 26.68px 10px 0 10px;
   }
 
-  font-size: 16px;
   @include barlow-semi-bold;
+
+  font-size: 16px;
   text-align: center;
   line-height: 16px;
   color: #2a2a2a;
 }
 
 .text {
-  padding: 8px 10px 24px;
-
-  font-size: 16px;
   @include roboto-regular;
+
+  padding: 8px 10px 24px;
+  font-size: 16px;
   text-align: center;
   line-height: 26px;
   color: #2a2a2a;
 }
 
 .challenge-link {
-  color: #2862B9;
+  color: #2862b9;
   text-decoration: underline;
 
   &:hover,
   &:active,
   &:visited {
-    color: #2862B9;
+    color: #2862b9;
   }
 }
