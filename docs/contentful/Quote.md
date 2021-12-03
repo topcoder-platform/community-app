@@ -14,6 +14,6 @@ Generic Quote model.
 - **Author Name** | The name that will be displayed below the quote text.
 - **Author Affiliation** | Affiliation name that will be displayed right after author name.
 - **Quote Style** | Predefined quote style.
-- **Extra styles for container** | CSS inline styles to override the container's style
-- **Extra styles for content wrapper** | CSS inline styles to override the content wrapper's style
-- **Extra styles for content** | CSS inline styles to override the content's style
+- **Extra styles for container** | CSS inline styles to override the container's style.
+- **Extra styles for content wrapper** | CSS inline styles to override the content wrapper's style.
+- **Extra styles for content** | CSS inline styles to override the content's style.
