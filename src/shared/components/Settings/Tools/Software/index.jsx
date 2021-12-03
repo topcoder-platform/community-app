@@ -176,6 +176,8 @@ export default class Software extends ConsentComponent {
     const {
       newSoftware, personalizationTrait, isEdit, indexNo,
     } = this.state;
+    
+    newSoftware.name = newSoftware.name.trim();
 
     const {
       handle,
