@@ -25,6 +25,8 @@ Instructions are also provided below for developments that want to modify/create
         - [Countdown](./Countdown.md)
         - [Dashboard Announcement](./DashboardAnnouncement.md)
         - [Dropdown](./Dropdown.md)
+        - [Tabs](./Tabs.md)
+            - [TabsItem](./TabsItem.md)
         - [Navigation Menu](./NavigationMenu.md)
         - [Route](./Route.md)
         - [Viewport](./viewport.md)
