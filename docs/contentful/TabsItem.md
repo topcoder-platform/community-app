@@ -1,6 +1,6 @@
 # TabsItem
 
-Generic TabsItem model
+Generic TabsItem model used specifically for [Tabs](./Tabs.md) type entry.
 
 ![screenshot](./pics/TabsItem/screenshot.png)
 
