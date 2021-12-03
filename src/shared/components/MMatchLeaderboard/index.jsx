@@ -96,7 +96,7 @@ export default class MMLeaderboard extends Component {
                       <div className={defaultStyles[`topMemberRank${indx + 1}`]}>{member.rank}</div>
                     </div>
                     <div className={defaultStyles.topMemberLink}>
-                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.ratingColor) }}>{member.createdBy}</a>
+                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                       <p className={defaultStyles.topMemberScore}>{member.score}</p>
                     </div>
                   </div>
@@ -108,7 +108,7 @@ export default class MMLeaderboard extends Component {
                   <div className={defaultStyles.topMemberRank3}>{data[2].rank}</div>
                 </div>
                 <div className={defaultStyles.topMemberLink}>
-                  <a href={`${config.URL.BASE}/members/${data[2].createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].ratingColor) }}>{data[2].createdBy}</a>
+                  <a href={`${config.URL.BASE}/members/${data[2].createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].rating) }}>{data[2].createdBy}</a>
                   <p className={defaultStyles.topMemberScore}>{data[2].score}</p>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default class MMLeaderboard extends Component {
                 {_.slice(data, 3, 7).map(member => (
                   <div className={defaultStyles.follower}>
                     <span>{member.rank}.&nbsp;</span>
-                    <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.ratingColor) }}>{member.createdBy}</a>
+                    <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                     <span className={defaultStyles.followerScore}>{member.score}</span>
                   </div>
                 ))}
@@ -129,7 +129,7 @@ export default class MMLeaderboard extends Component {
                   {_.slice(data, 7, 10).map(member => (
                     <div className={defaultStyles.follower}>
                       <span>{member.rank}.&nbsp;</span>
-                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.ratingColor) }}>{member.createdBy}</a>
+                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                       <span className={defaultStyles.followerScore}>{member.score}</span>
                     </div>
                   ))}
