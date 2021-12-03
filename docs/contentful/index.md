@@ -26,6 +26,7 @@ Instructions are also provided below for developments that want to modify/create
         - [Dashboard Announcement](./DashboardAnnouncement.md)
         - [Dropdown](./Dropdown.md)
         - [Image](./Image.md)
+        - [Modal](./Modal.md)
         - [Shape](./Shape.md)
         - [Tabs](./Tabs.md)
             - [TabsItem](./TabsItem.md)
