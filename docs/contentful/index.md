@@ -18,6 +18,7 @@ Instructions are also provided below for developments that want to modify/create
     - [Basics](./content-writer-basics.md)
     - Content Types
         - [Accordion](./accordion.md)
+        - [Animation](./Animation.md)
         - [App Component](./AppComponent.md)
         - [Banner](./banner.md)
         - [ContentBlock](./ContentBlock.md)
@@ -33,7 +34,7 @@ Instructions are also provided below for developments that want to modify/create
         - [Navigation Menu](./NavigationMenu.md)
         - [Quote](./Quote.md)
         - [Route](./Route.md)
-        - [Viewport](./viewport.md)
+        - [Viewport](./Viewport.md)
         - [Member Card](./memberCard.md)
         - [Article](./Article.md)
     - [Preview Content](./preview-content.md)
