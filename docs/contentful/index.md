@@ -31,6 +31,7 @@ Instructions are also provided below for developments that want to modify/create
         - [Tabs](./Tabs.md)
             - [TabsItem](./TabsItem.md)
         - [Navigation Menu](./NavigationMenu.md)
+        - [Quote](./Quote.md)
         - [Route](./Route.md)
         - [Viewport](./viewport.md)
         - [Member Card](./memberCard.md)
