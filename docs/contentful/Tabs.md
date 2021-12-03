@@ -1,6 +1,6 @@
 # Tabs
 
-Generic Tabs model.
+Generic Tabs model. Each tab holds a list of [TabsItem](./TabsItem.md) entry type, that provide content for it.
 
 ![screenshot](./pics/Tabs/screenshot.png)
 
