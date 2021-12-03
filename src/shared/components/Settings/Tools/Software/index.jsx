@@ -178,6 +178,8 @@ export default class Software extends ConsentComponent {
       newSoftware, personalizationTrait, isEdit, indexNo,
     } = this.state;
 
+    newSoftware.name = newSoftware.name.trim();
+
     const {
       handle,
       tokenV3,
@@ -381,7 +383,7 @@ export default class Software extends ConsentComponent {
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
                 {
                   isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newSoftware.name.trim()) && formInvalid} message="Name cannot be empty" />
+                    <ErrorMessage invalid={(_.isEmpty(newSoftware.name.trim()) && formInvalid) || (!_.isEmpty(newSoftware.name) && _.isEmpty(newSoftware.name.trim()))} message="Name cannot be empty" />
                   )
                 }
               </div>
