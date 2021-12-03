@@ -1,6 +1,7 @@
-import { redux } from 'topcoder-react-utils';
+import { redux, config } from 'topcoder-react-utils';
 import Service from 'services/mmLeaderboard';
 import _ from 'lodash';
+
 
 /**
  * Fetch init
@@ -39,6 +40,17 @@ async function getMMLeaderboardDone(id) {
       rank: i + 1,
       score: r.score % 1 ? Number(r.score).toFixed(5) : r.score,
     }));
+    // Fetch member photos for top 3
+    const results = await Promise.all(
+      _.take(data, 3).map(d => fetch(`${config.API.V5}/members/${d.createdBy}`)),
+    );
+    const memberData = await Promise.all(results.map(r => r.json()));
+    // merge with data
+    // eslint-disable-next-line array-callback-return
+    memberData.map((member, indx) => {
+      data[indx].photoUrl = member.photoURL;
+      data[indx].ratingColor = member.maxRating && member.maxRating.ratingColor;
+    });
   }
   return {
     id,
