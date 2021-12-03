@@ -49,7 +49,7 @@ async function getMMLeaderboardDone(id) {
     // eslint-disable-next-line array-callback-return
     memberData.map((member, indx) => {
       data[indx].photoUrl = member.photoURL;
-      data[indx].ratingColor = member.maxRating && member.maxRating.ratingColor;
+      data[indx].rating = member.maxRating && member.maxRating.rating;
     });
   }
   return {
