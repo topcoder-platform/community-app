@@ -93,19 +93,29 @@ export default class EmailPreferences extends React.Component {
       }
       const { emailPreferences, status } = this.state;
       const { id, checked } = updated;
-      emailPreferences[id] = checked;
+      if (emailPreferences[id] !== checked) {
+        emailPreferences[id] = checked;
 
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        emailPreferences,
-        status: updated.resubscribe ? 'subscribed' : status,
-      });
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({
+          emailPreferences,
+          status: updated.resubscribe ? 'subscribed' : status,
+        });
+      }
       toastrSuccess('Success! ', 'Your email preferences were updated.');
     }
   }
 
   onChange(id, checked) {
-    document.querySelectorAll(`#pre-onoffswitch-${id}`).forEach((el) => { el.checked = checked; }); // eslint-disable-line no-param-reassign
+    // document.querySelectorAll(`#pre-onoffswitch-${id}`).forEach((el) => { el.checked = checked; }); // eslint-disable-line no-param-reassign
+    // update local state
+    const { emailPreferences, status } = this.state;
+    emailPreferences[id] = checked;
+    this.setState({
+      emailPreferences,
+      status: checked ? 'subscribed' : status,
+    });
+    // update remote state
     this.saveEmailPreferences(id, checked);
   }
 
@@ -144,7 +154,7 @@ export default class EmailPreferences extends React.Component {
                         checked={checked}
                         primaryText={newsletter.name}
                         secondaryText={newsletter.desc}
-                        onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                        onToggle={c => this.onChange(newsletter.id, c)}
                         disabled={status !== 'subscribed'}
                       />
                     );
@@ -164,7 +174,7 @@ export default class EmailPreferences extends React.Component {
                         checked={checked}
                         primaryText={program.name}
                         secondaryText={program.desc}
-                        onToggle={e => this.onChange(program.id, e.target.checked)}
+                        onToggle={c => this.onChange(program.id, c)}
                         disabled={status !== 'subscribed'}
                       />
                     );
