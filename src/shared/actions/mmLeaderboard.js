@@ -40,9 +40,9 @@ async function getMMLeaderboardDone(id) {
       rank: i + 1,
       score: r.score % 1 ? Number(r.score).toFixed(5) : r.score,
     }));
-    // Fetch member photos for top 3
+    // Fetch member photos anr rating for all
     const results = await Promise.all(
-      _.take(data, 3).map(d => fetch(`${config.API.V5}/members/${d.createdBy}`)),
+      data.map(d => fetch(`${config.API.V5}/members/${d.createdBy}`)),
     );
     const memberData = await Promise.all(results.map(r => r.json()));
     // merge with data
