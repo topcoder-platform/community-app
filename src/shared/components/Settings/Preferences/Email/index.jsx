@@ -72,6 +72,13 @@ const programs = [
 
 export default class EmailPreferences extends React.Component {
   saveEmailPreferences = debounce((id, checked) => {
+    // update local state
+    const { emailPreferences, status } = this.state;
+    emailPreferences[id] = checked;
+    this.setState({
+      emailPreferences,
+      status: checked ? 'subscribed' : status,
+    });
     const { email, saveEmailPreferences } = this.props;
     saveEmailPreferences(email, id, checked);
   }, SAVE_DELAY);
@@ -108,13 +115,6 @@ export default class EmailPreferences extends React.Component {
 
   onChange(id, checked) {
     // document.querySelectorAll(`#pre-onoffswitch-${id}`).forEach((el) => { el.checked = checked; }); // eslint-disable-line no-param-reassign
-    // update local state
-    const { emailPreferences, status } = this.state;
-    emailPreferences[id] = checked;
-    this.setState({
-      emailPreferences,
-      status: checked ? 'subscribed' : status,
-    });
     // update remote state
     this.saveEmailPreferences(id, checked);
   }
