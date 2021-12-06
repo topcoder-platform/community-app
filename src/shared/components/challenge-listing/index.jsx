@@ -15,7 +15,6 @@ import Sidebar from 'containers/challenge-listing/Sidebar';
 // import { config } from 'topcoder-react-utils';
 import { useMediaQuery } from 'react-responsive';
 
-import NoChallengeCard from './NoChallengeCard';
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 import Banner from './Banner';
@@ -51,7 +50,6 @@ export default function ChallengeListing(props) {
     // isBucketSwitching,
     isLoggedIn,
     setSearchText,
-    loadingOpenForRegistrationChallenges,
   } = props;
 
   // const { challenges } = props;
@@ -151,10 +149,6 @@ export default function ChallengeListing(props) {
   );
 
   const desktop = useMediaQuery({ minWidth: 1024 });
-  const isRecommendedOn = filterState.recommended
-                          && !loadingOpenForRegistrationChallenges
-                          && activeBucket === 'openForRegistration'
-                          && !openForRegistrationChallenges.length;
 
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
@@ -186,11 +180,7 @@ export default function ChallengeListing(props) {
           />
         </div>
 
-        {
-          isRecommendedOn
-            ? <NoChallengeCard />
-            : challengeCardContainer
-        }
+        { challengeCardContainer }
 
       </div>
     </div>

@@ -58,7 +58,7 @@ export const BUCKET_DATA = {
     // hideCount: false,
     name: 'Open for registration',
     sorts: [
-      SORTS.BEST_MATCH,
+      // SORTS.BEST_MATCH,
       SORTS.MOST_RECENT_START_DATE,
       // SORTS.TIME_TO_REGISTER,
       // SORTS.TIME_TO_SUBMIT,
