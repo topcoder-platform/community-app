@@ -221,6 +221,7 @@ $light-gray: #d4d4d4;
       .topMemberLink {
         display: flex;
         flex-direction: column;
+        align-items: center;
 
         a {
           font-size: 16px;

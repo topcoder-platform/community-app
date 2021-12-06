@@ -35,7 +35,7 @@ async function getMMLeaderboardDone(id) {
         score: scores && scores.length ? scores[0].score : '...',
       });
     });
-    data = _.orderBy(data, [d => (Number(d.score) ? Number(d.score) : 0)], ['desc']).map((r, i) => ({
+    data = _.orderBy(data, [d => (Number(d.score) ? Number(d.score) : 0), d => d.createdBy.toLowerCase()], ['desc']).map((r, i) => ({
       ...r,
       rank: i + 1,
       score: r.score % 1 ? Number(r.score).toFixed(5) : r.score,
