@@ -58,6 +58,7 @@ module.exports = {
       CS: 'https://cs.topcoder.com',
     },
     EMAIL_VERIFY_URL: 'http://www.topcoder.com/settings/account/changeEmail',
+    THRIVE_FEED: 'https://topcoder.com/api/feeds/thrive',
   },
   /* Filestack configuration for uploading Submissions
    * These are for the production back end */

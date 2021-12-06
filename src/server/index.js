@@ -31,6 +31,7 @@ import mmLeaderboardRouter from './routes/mmLeaderboard';
 import growsurfRouter from './routes/growsurf';
 import gSheetsRouter from './routes/gSheet';
 import blogRouter from './routes/blog';
+import feedsRouter from './routes/feeds';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
@@ -143,6 +144,7 @@ async function onExpressJsSetup(server) {
   server.use('/api/growsurf', growsurfRouter);
   server.use('/api/gsheets', gSheetsRouter);
   server.use('/api/blog', blogRouter);
+  server.use('/api/feeds', feedsRouter);
 
   // serve demo api
   server.use(
