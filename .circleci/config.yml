@@ -356,7 +356,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - thrive-rss
       # This is beta env for production soft releases
       - "build-prod-beta":
           context : org-global
@@ -370,7 +370,7 @@ workflows:
           filters: &filters-staging
             branches:
               only:
-                - thrive-rss
+                - develop
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
