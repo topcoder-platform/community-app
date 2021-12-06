@@ -28,11 +28,11 @@ routes.get('/thrive', async (req, res, next) => {
       include: 2,
     });
     const feed = new RSS({
-      title: 'Topcoder Thrive - RSS feed',
+      title: 'Topcoder Thrive',
       description: 'Tutorials And Workshops That Matter | Thrive | Topcoder',
       feed_url: 'https://topcoder.com/api/feeds/thrive',
       site_url: 'https://topcoder.com/thrive',
-      image_url: 'https://images.ctfassets.net/b5f1djy59z3a/5kicYrFi5GoMqWs0ccsMsM/d3f4a4315588df5bdf0096208eb13581/Topcoder_Logo_200px.png',
+      image_url: 'https://www.topcoder.com/wp-content/uploads/2020/05/cropped-TC-Icon-32x32.png',
       docs: 'https://www.topcoder.com/thrive/tracks?track=Topcoder',
       webMaster: '<kiril@wearetopcoder.com> Kiril Kartunov',
       copyright: '2021 - today, Topcoder',
@@ -45,7 +45,7 @@ routes.get('/thrive', async (req, res, next) => {
         feed.item({
           title: entry.fields.title,
           description: ReactDOMServer.renderToString(md(entry.fields.content)),
-          url: `https://topcoder.com/thrive/articles/${entry.fields.slug || encodeURIComponent(entry.fields.title)}`,
+          url: `https://topcoder.com/thrive/articles/${entry.fields.slug || encodeURIComponent(entry.fields.title)}?utm_source=community&utm_campaign=thrive-feed&utm_medium=promotion`,
           date: entry.fields.creationDate,
           categories: entry.fields.tags,
           author: entry.fields.contentAuthor[0].fields.name,
