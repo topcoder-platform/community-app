@@ -94,6 +94,7 @@ export default class MMLeaderboard extends Component {
                     <div className={defaultStyles.topMemberPhotoAndPlace}>
                       <img src={member.photoUrl || DEFAULT_AVATAR_URL} className={defaultStyles.topMemberPhoto} alt={`Avatar of ${member.createdBy}`} />
                       <div className={defaultStyles[`topMemberRank${indx + 1}`]}>{member.rank}</div>
+                      <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
                     </div>
                     <div className={defaultStyles.topMemberLink}>
                       <a href={`${config.URL.BASE}/members/${member.createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(member.rating) }}>{member.createdBy}</a>
@@ -106,6 +107,7 @@ export default class MMLeaderboard extends Component {
                 <div className={defaultStyles.topMemberPhotoAndPlace}>
                   <img src={data[2].photoUrl || DEFAULT_AVATAR_URL} className={defaultStyles.topMemberPhoto} alt={`Avatar of ${data[2].createdBy}`} />
                   <div className={defaultStyles.topMemberRank3}>{data[2].rank}</div>
+                  <a href={`${config.URL.BASE}/members/${data[2].createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].rating) }}>{data[2].createdBy}</a>
                 </div>
                 <div className={defaultStyles.topMemberLink}>
                   <a href={`${config.URL.BASE}/members/${data[2].createdBy}`} target="_blank" rel="noreferrer" style={{ color: getRatingColor(data[2].rating) }}>{data[2].createdBy}</a>
@@ -135,15 +137,17 @@ export default class MMLeaderboard extends Component {
                   ))}
                   {
                     data.length > 10 && (
-                    <PrimaryButton
-                      to={`${config.URL.BASE}/challenges/${challengeId}?tab=submissions`}
-                      openNewTab
-                      theme={{
-                        button: tc['primary-green-sm'],
-                      }}
-                    >
-                      See Full Leaderbord
-                    </PrimaryButton>
+                      <div className={defaultStyles.moreBtn}>
+                        <PrimaryButton
+                          to={`${config.URL.BASE}/challenges/${challengeId}?tab=submissions`}
+                          openNewTab
+                          theme={{
+                            button: tc['primary-green-sm'],
+                          }}
+                        >
+                          See Full Leaderbord
+                        </PrimaryButton>
+                      </div>
                     )}
                 </div>
                 )}
