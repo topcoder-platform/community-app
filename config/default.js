@@ -110,6 +110,7 @@ module.exports = {
     HOME: '/home',
     BLOG: 'https://www.topcoder-dev.com/blog',
     BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
+    THRIVE_FEED: 'https://topcoder-dev.com/api/feeds/thrive',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     FORUMS_VANILLA: 'https://vanilla.topcoder-dev.com',
