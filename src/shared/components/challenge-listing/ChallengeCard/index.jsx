@@ -49,7 +49,7 @@ function ChallengeCard({
 
   const registrationPhase = (challenge.phases || []).filter(phase => phase.name === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.isOpen : false;
-  const isRecommendedChallenge = challenge.jaccard_index;
+  const isRecommendedChallenge = !!challenge.jaccard_index;
 
   return (
     <div ref={domRef} styleName="challengeCard">

@@ -9,7 +9,7 @@ import PT from 'prop-types';
 // import qs from 'qs';
 import React, { useRef } from 'react';
 // import { config } from 'topcoder-react-utils';
-import Sort, { SORTS } from 'utils/challenge-listing/sort';
+import Sort from 'utils/challenge-listing/sort';
 import {
   NO_LIVE_CHALLENGES_CONFIG, BUCKETS, BUCKET_DATA, isRecommendedChallengeType,
 } from 'utils/challenge-listing/buckets';
@@ -18,6 +18,7 @@ import Waypoint from 'react-waypoint';
 // import { challenge as challengeUtils } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
+import NoRecommenderChallengeCard from '../../NoRecommenderChallengeCard';
 import './style.scss';
 
 // const COLLAPSED_SIZE = 10;
@@ -53,9 +54,6 @@ export default function Bucket({
   isLoggedIn,
   setSearchText,
 }) {
-  const activeBucketData = isRecommendedChallengeType(bucket, filterState)
-    ? [SORTS.BEST_MATCH] : BUCKET_DATA[bucket].sorts.filter(item => item !== 'bestMatch');
-
   const refs = useRef([]);
   refs.current = [];
   const addToRefs = (el) => {
@@ -180,33 +178,50 @@ export default function Bucket({
   //   // instead of waiting for scrolling to hit the react-waypoint to do the loadMore
   //   loadMore();
   // }
-
+  const isRecommended = isRecommendedChallengeType(bucket, filterState);
+  const isHighestPaying = isRecommended && _.sumBy(filteredChallenges, 'jaccard_index') === 0;
+  const sectionTile = isHighestPaying ? 'HIGHEST PAYING OPEN CHALLENGES' : 'Recommended Open Challenges';
   return (
     // challenges.length !== 0
     // && (
-    <div styleName="bucket">
-      <SortingSelectBar
-        onSelect={setSort}
-        options={
-          activeBucketData.map(item => ({
-            label: Sort[item].name,
-            value: item,
-          }))
-        }
-        title={BUCKET_DATA[bucket].name}
-        value={{
-          label: Sort[activeSort].name,
-          value: activeSort,
-        }}
-      />
-      {cards}
+    <div>
       {
-        !expanding && !expandable && loadMore && !loading && activeBucket === bucket ? (
-          <Waypoint onEnter={loadMore} />
-        ) : null
+        isHighestPaying && (!loading || filteredChallenges.length > 0)
+          && <NoRecommenderChallengeCard />
       }
-      {placeholders}
-      {
+      <div styleName="bucket">
+        {
+          isRecommended
+            ? filteredChallenges.length > 0 && (
+              <SortingSelectBar
+                title={sectionTile}
+              />
+            )
+            : (
+              <SortingSelectBar
+                onSelect={setSort}
+                options={
+                  BUCKET_DATA[bucket].sorts.map(item => ({
+                    label: Sort[item].name,
+                    value: item,
+                  }))
+                }
+                title={BUCKET_DATA[bucket].name}
+                value={{
+                  label: Sort[activeSort].name,
+                  value: activeSort,
+                }}
+              />
+            )
+        }
+        {cards}
+        {
+          !expanding && !expandable && loadMore && !loading && activeBucket === bucket ? (
+            <Waypoint onEnter={loadMore} />
+          ) : null
+        }
+        {placeholders}
+        {
       // (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
         (expanding || expandable) && !loading && loadMore && (expandable ? expanded : !expanded) ? (
           <a
@@ -225,7 +240,8 @@ export default function Bucket({
             View more challenges
           </a>
         ) : null
-      }
+        }
+      </div>
     </div>
     // )
   );

@@ -1,0 +1,62 @@
+@import '~styles/mixins';
+
+.container {
+  min-height: 178px;
+  background-color: #fff;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+
+  @include xs-to-sm {
+    padding-top: 37.61px;
+  }
+
+  @include sm-to-xl {
+    padding-top: 46.25px;
+  }
+}
+
+.text-header {
+  @include xs-to-lg {
+    margin: 17.92px 10px 0 10px;
+  }
+
+  @include lg-to-xl {
+    margin: 26.68px 10px 0 10px;
+  }
+
+  @include barlow-semi-bold;
+
+  font-size: 16px;
+  text-align: center;
+  line-height: 16px;
+  color: #2a2a2a;
+}
+
+.text {
+  @include roboto-regular;
+
+  padding: 8px 10px 24px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 26px;
+  color: #2a2a2a;
+}
+
+.challenge-link {
+  color: #2862b9;
+  text-decoration: underline;
+
+  &:hover,
+  &:active,
+  &:visited {
+    color: #2862b9;
+  }
+}
