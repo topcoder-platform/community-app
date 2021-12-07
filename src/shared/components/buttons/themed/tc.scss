@@ -8,6 +8,7 @@
   text-transform: uppercase !important;
   margin: 0 !important;
   white-space: nowrap !important;
+  letter-spacing: 0.8px;
 }
 
 @mixin primary-green {
@@ -110,6 +111,7 @@
   text-transform: uppercase !important;
   margin: 0 !important;
   white-space: nowrap !important;
+  letter-spacing: 0.8px
 }
 
 @mixin secondary-gray {
@@ -137,6 +139,7 @@
   text-transform: uppercase !important;
   margin: 0 !important;
   white-space: nowrap !important;
+  letter-spacing: 0.8px
 }
 
 @mixin warn-red {
