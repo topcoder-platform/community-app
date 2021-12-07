@@ -178,6 +178,12 @@ $light-gray: #d4d4d4;
 
       .topMemberPhotoAndPlace {
         position: relative;
+        display: flex;
+
+        @media screen and (min-width: 768px) {
+          flex-direction: column;
+          align-items: center;
+        }
 
         > a {
           @media screen and (min-width: 768px) {
@@ -198,7 +204,7 @@ $light-gray: #d4d4d4;
           position: absolute;
           width: 25px;
           height: 25px;
-          bottom: 15px;
+          bottom: 8px;
           right: 0;
           border-radius: 50%;
           display: flex;
@@ -206,6 +212,10 @@ $light-gray: #d4d4d4;
           align-content: center;
           font-size: 16px;
           font-weight: 500;
+
+          @media screen and (min-width: 768px) {
+            bottom: 32px;
+          }
         }
 
         .topMemberRank1 {
@@ -241,6 +251,7 @@ $light-gray: #d4d4d4;
           font-weight: 500;
           font-size: 16px;
           text-align: center;
+          margin-bottom: 18px;
 
           @media screen and (max-width: 768px) {
             margin-bottom: 0;
@@ -255,6 +266,7 @@ $light-gray: #d4d4d4;
     justify-content: center;
 
     @media screen and (max-width: 768px) {
+      margin-top: 20px;
       margin-bottom: 0;
       flex-direction: column;
     }
