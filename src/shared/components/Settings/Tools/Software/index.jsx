@@ -147,6 +147,7 @@ export default class Software extends ConsentComponent {
       showConfirmation: false,
       indexNo: null,
       isSubmit: false,
+      isEdit: false,
       formInvalid: false,
     });
   }
@@ -380,7 +381,7 @@ export default class Software extends ConsentComponent {
                 <input disabled={!canModifyTrait} id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
                 {
                   isSubmit && (
-                    <ErrorMessage invalid={_.isEmpty(newSoftware.name) && formInvalid} message="Name cannot be empty" />
+                    <ErrorMessage invalid={_.isEmpty(newSoftware.name.trim()) && formInvalid} message="Name cannot be empty" />
                   )
                 }
               </div>

@@ -244,10 +244,10 @@ export default class Language extends ConsentComponent {
       const newLanguageTrait = _.cloneDeep(languageTrait);
 
       if (isEdit) {
-        newLanguageTrait.traits.data.splice(indexNo, 1);
+        newLanguageTrait.traits.data.splice(indexNo, 1, language);
+      } else {
+        newLanguageTrait.traits.data.push(language);
       }
-
-      newLanguageTrait.traits.data.push(language);
 
       updateUserTrait(handle, 'languages', newLanguageTrait.traits.data, tokenV3);
     } else {
@@ -441,7 +441,13 @@ export default class Language extends ConsentComponent {
                   <Select
                     name="spokenLevel"
                     options={dropdowns.spokenLevel}
-                    onChange={this.onUpdateSelect}
+                    onChange={(option) => {
+                      if (option) {
+                        this.onUpdateSelect(option);
+                      } else {
+                        this.onUpdateSelect({ key: 'spokenLevel', name: '' });
+                      }
+                    }}
                     value={newLanguage.spokenLevel}
                     placeholder="Spoken level"
                     labelKey="name"
@@ -461,7 +467,13 @@ export default class Language extends ConsentComponent {
                   <Select
                     name="writtenLevel"
                     options={dropdowns.writtenLevel}
-                    onChange={this.onUpdateSelect}
+                    onChange={(option) => {
+                      if (option) {
+                        this.onUpdateSelect(option);
+                      } else {
+                        this.onUpdateSelect({ key: 'writtenLevel', name: '' });
+                      }
+                    }}
                     value={newLanguage.writtenLevel}
                     placeholder="Written level"
                     labelKey="name"

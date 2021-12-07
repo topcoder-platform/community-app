@@ -111,7 +111,7 @@ export default class InputSelect extends Component {
     let i = 0;
     let node = e.target;
     const REG = new RegExp(_id);
-    while (node && i < 5) {
+    while (node && i < 20) {
       if (REG.test(node.className)) {
         return true;
       }
@@ -131,6 +131,7 @@ export default class InputSelect extends Component {
       placeholder,
       labelKey,
       options,
+      onKeyPress,
     } = this.props;
 
     const {
@@ -139,9 +140,10 @@ export default class InputSelect extends Component {
       filterVal,
     } = this.state;
 
+    const escapeRegExp = stringToGoIntoTheRegex => stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); /* eslint-disable-line no-useless-escape */
     let fiterList = options;
     if (filterVal) {
-      const REG = new RegExp(filterVal, 'i');
+      const REG = new RegExp(escapeRegExp(filterVal), 'i');
       fiterList = filter(options, o => REG.test(o[labelKey]));
     }
     const list = map(fiterList, o => (
@@ -171,7 +173,7 @@ export default class InputSelect extends Component {
             <div styleName="modal">
               <div styleName="modal-input-container">
 
-                <input type="text" onChange={this.onFilterChange} placeholder="Search" />
+                <input type="text" onChange={this.onFilterChange} placeholder="Search" onKeyPress={onKeyPress} />
               </div>
               <div styleName="modal-list-container" onScroll={this.onLoadMore}>
                 {list}
@@ -195,6 +197,7 @@ InputSelect.defaultProps = {
   isLoading: false,
   onChange: () => {},
   onLoadMore: () => {},
+  onKeyPress: () => {},
 };
 
 InputSelect.propTypes = {
@@ -205,6 +208,7 @@ InputSelect.propTypes = {
   placeholder: PT.string,
   onChange: PT.func,
   onLoadMore: PT.func,
+  onKeyPress: PT.func,
   hasMore: PT.bool,
   isLoading: PT.bool,
   disabled: PT.bool,
