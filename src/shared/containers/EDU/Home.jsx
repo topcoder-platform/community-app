@@ -52,6 +52,8 @@ export default class EDUHome extends React.Component {
         <MetaTags
           description={description}
           title={title}
+          feed={config.URL.THRIVE_FEED}
+          feedTitle="Topcoder Thrive - RSS feed"
         />
         {/* Banner */}
         <div className={homeTheme.bannerContainer}>

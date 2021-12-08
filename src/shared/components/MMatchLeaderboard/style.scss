@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '~styles/mixins';
 
 $light-gray: #d4d4d4;
@@ -115,5 +116,176 @@ $light-gray: #d4d4d4;
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+.podiumTheme {
+  display: block;
+  padding: 0 40px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .top3 {
+    display: flex;
+    justify-content: center;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .swapper {
+      display: flex;
+      flex-direction: row-reverse;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+      }
+
+      .topMember1,
+      .topMember2 {
+        margin-right: 70px;
+
+        @media screen and (max-width: 768px) {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .topMember1 {
+      margin-top: -15px;
+
+      @media screen and (max-width: 768px) {
+        margin-top: 0;
+      }
+    }
+
+    .topMember1,
+    .topMember2,
+    .topMember3 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .topMemberPhotoAndPlace {
+        position: relative;
+
+        .topMemberPhoto {
+          width: 75px;
+          height: 75px;
+          border-radius: 50%;
+          margin-bottom: 7px;
+        }
+
+        .topMemberRank1,
+        .topMemberRank2,
+        .topMemberRank3 {
+          position: absolute;
+          width: 25px;
+          height: 25px;
+          bottom: 15px;
+          right: 0;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        .topMemberRank1 {
+          background: #ffb100;
+          color: #825a00;
+        }
+
+        .topMemberRank2 {
+          background: #8c8c8c;
+          color: #464646;
+        }
+
+        .topMemberRank3 {
+          background: #ff7a00;
+          color: #934600;
+        }
+      }
+
+      .topMemberLink {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        a {
+          font-size: 16px;
+        }
+
+        .topMemberScore {
+          font-weight: 500;
+          font-size: 16px;
+          text-align: center;
+
+          @media screen and (max-width: 768px) {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .followers {
+    display: flex;
+    justify-content: center;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 0;
+      flex-direction: column;
+    }
+
+    .followersLeft,
+    .followersRight {
+      display: flex;
+      flex-direction: column;
+
+      .follower {
+        display: flex;
+        font-size: 16px;
+        margin-bottom: 20px;
+        justify-content: space-between;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        a {
+          margin-right: 50px;
+          flex: 1;
+        }
+
+        .followerScore {
+          font-weight: 500;
+        }
+      }
+    }
+
+    .followersRight {
+      margin-left: 65px;
+
+      @media screen and (max-width: 768px) {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+
+      > div:nth-child(3) {
+        margin-bottom: 12px;
+      }
+    }
   }
 }

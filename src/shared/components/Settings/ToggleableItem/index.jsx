@@ -5,7 +5,7 @@
  * text, a gray secondary text and a toggle that triggers a function
  * passed via props.
  */
-import React from 'react';
+import React, { useRef } from 'react';
 import PT from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -20,6 +20,20 @@ export default function ToggleableItem({
   value,
   disabled,
 }) {
+  const inputRef = useRef();
+  const inputMobileRef = useRef();
+
+  const onChange = () => {
+    if (inputRef.current) {
+      inputRef.current.checked = !inputRef.current.checked;
+      onToggle(inputRef.current.checked);
+    }
+    if (inputMobileRef.current) {
+      inputMobileRef.current.checked = !inputMobileRef.current.checked;
+      onToggle(inputMobileRef.current.checked);
+    }
+  };
+
   return (
     <div styleName="ToggleableItem">
       <div styleName="body">
@@ -32,12 +46,13 @@ export default function ToggleableItem({
       </div>
       <div className="onoffswitch" styleName="onoffswitch-no-padding-right">
         <input
+          ref={inputRef}
           type="checkbox"
           name="eprf-onoffswitch"
           id={`pre-onoffswitch-${id}`}
           value={value}
           checked={checked}
-          onChange={onToggle}
+          onChange={onChange}
           className="onoffswitch-checkbox"
           disabled={disabled}
         />
@@ -49,12 +64,13 @@ export default function ToggleableItem({
       </div>
       <div className="onoffswitch-mobile" styleName="onoffswitch-no-padding-right">
         <input
+          ref={inputMobileRef}
           type="checkbox"
           name="eprf-onoffswitch"
           id={`pre-onoffswitch-${id}`}
           value={value}
           checked={checked}
-          onChange={onToggle}
+          onChange={onChange}
           className="onoffswitch-checkbox"
           disabled={disabled}
         />

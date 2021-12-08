@@ -2,11 +2,15 @@
  * Personalization component.
  */
 import React from 'react';
+import { debounce } from 'lodash';
+
 import PT from 'prop-types';
 
 import ToggleableItem from 'components/Settings/ToggleableItem';
 
 import './styles.scss';
+
+const SAVE_DELAY = 1000;
 
 export default function Personalization({
   addUserTrait,
@@ -51,6 +55,10 @@ export default function Personalization({
     }
   };
 
+  const debounceUpdateConsent = debounce(() => {
+    updateConsent();
+  }, SAVE_DELAY);
+
   return (
     <div styleName="Personalization">
       <div styleName="user-consent-container">
@@ -60,7 +68,7 @@ export default function Personalization({
           checked={getUserConsent()}
           primaryText={primaryText}
           secondaryText={secondaryText}
-          onToggle={updateConsent}
+          onToggle={debounceUpdateConsent}
         />
       </div>
     </div>

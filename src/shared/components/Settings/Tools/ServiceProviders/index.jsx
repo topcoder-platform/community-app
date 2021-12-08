@@ -161,6 +161,7 @@ export default class ServiceProviders extends ConsentComponent {
     }
     this.setState({
       showConfirmation: false,
+      isEdit: false,
       indexNo: null,
       formInvalid: false,
       isSubmit: false,
