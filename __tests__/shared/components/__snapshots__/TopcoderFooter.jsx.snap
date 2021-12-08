@@ -495,7 +495,7 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-TopcoderFooter-___style__mobile-navi-col___3BcW4"
       >
         <a
-          href="https://www.topcoder-dev.com/ommunity/admins"
+          href="https://www.topcoder-dev.com/community/admins"
         >
           ABOUT
         </a>

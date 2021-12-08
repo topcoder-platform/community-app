@@ -45,7 +45,7 @@ routes.get('/thrive', async (req, res, next) => {
         feed.item({
           title: entry.fields.title,
           description: ReactDOMServer.renderToString(md(entry.fields.content)),
-          url: `https://topcoder.com/thrive/articles/${entry.fields.slug || encodeURIComponent(entry.fields.title)}?utm_source=community&utm_campaign=thrive-feed&utm_medium=promotion`,
+          url: `https://topcoder.com/thrive/articles/${entry.fields.slug || encodeURIComponent(entry.fields.title)}?utm_source=thrive&utm_campaign=thrive-feed&utm_medium=rss-feed`,
           date: entry.fields.creationDate,
           categories: entry.fields.tags,
           author: entry.fields.contentAuthor[0].fields.name,
