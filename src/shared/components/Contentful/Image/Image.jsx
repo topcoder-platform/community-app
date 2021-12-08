@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * The core image rendering.
  */
@@ -68,12 +69,13 @@ export class ImageInner extends React.Component {
       theme,
       id,
       image,
-      imageSource,
+      imageSources,
       clipSvg,
       animation,
     } = this.props;
 
-    const imageUrl = _.get(imageSource, 'file.url');
+    // const imageUrl = _.get(imageSources.source, 'file.url');
+    // const contentType = _.get(imageSources, 'file.contentType');
     const clipSvgUrl = _.get(clipSvg, 'file.url');
     const imgStyle = image.extraStylesForImage ? fixStyle(image.extraStylesForImage) : {};
     if (clipSvgUrl) {
@@ -96,25 +98,37 @@ export class ImageInner extends React.Component {
         )}
         {
           animation.animateOnScroll ? (
-            <img
-              src={imageUrl}
-              alt={image.alt || image.name}
-              style={imgStyle}
-              data-aos={animation.animateOnScroll}
-              data-aos-once={animation.animateOnScrollOnce}
-              data-aos-delay={animation.animateOnScrollDelay}
-              data-aos-duration={animation.animateOnScrollDuration}
-              data-aos-easing={animation.animateOnScrollEasing}
-              data-aos-mirror={animation.animateOnScrollMirror}
-              data-aos-anchor-placement={animation.animateOnScrollAnchor}
-              data-aos-offset={animation.animateOnScrollOffset}
-            />
+            <picture>
+              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media={imageSources.sourceMobile ? '(min-width: 769px)' : null} />
+              { imageSources.sourceMobile && <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
+              { imageSources.sourcePolyfill && <source srcSet={imageSources.sourcePolyfill.file.url} type={imageSources.sourcePolyfill.file.contentType} /> }
+              { imageSources.sourcePolyfillMobile && <source srcSet={imageSources.sourcePolyfillMobile.file.url} type={imageSources.sourcePolyfillMobile.file.contentType} media="(max-width: 768px)" /> }
+              <img
+                src={imageSources.sourcePolyfill ? imageSources.sourcePolyfill.file.url : imageSources.source.file.url}
+                alt={image.alt || image.name}
+                style={imgStyle}
+                data-aos={animation.animateOnScroll}
+                data-aos-once={animation.animateOnScrollOnce}
+                data-aos-delay={animation.animateOnScrollDelay}
+                data-aos-duration={animation.animateOnScrollDuration}
+                data-aos-easing={animation.animateOnScrollEasing}
+                data-aos-mirror={animation.animateOnScrollMirror}
+                data-aos-anchor-placement={animation.animateOnScrollAnchor}
+                data-aos-offset={animation.animateOnScrollOffset}
+              />
+            </picture>
           ) : (
-            <img
-              src={imageUrl}
-              alt={image.alt || image.name}
-              style={imgStyle}
-            />
+            <picture>
+              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media={imageSources.sourceMobile ? '(min-width: 769px)' : null} />
+              { imageSources.sourceMobile && <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
+              { imageSources.sourcePolyfill && <source srcSet={imageSources.sourcePolyfill.file.url} type={imageSources.sourcePolyfill.file.contentType} /> }
+              { imageSources.sourcePolyfillMobile && <source srcSet={imageSources.sourcePolyfillMobile.file.url} type={imageSources.sourcePolyfillMobile.file.contentType} media="(max-width: 768px)" /> }
+              <img
+                src={imageSources.sourcePolyfill ? imageSources.sourcePolyfill.file.url : imageSources.source.file.url}
+                alt={image.alt || image.name}
+                style={imgStyle}
+              />
+            </picture>
           )
         }
       </div>
@@ -130,7 +144,7 @@ ImageInner.defaultProps = {
 ImageInner.propTypes = {
   id: PT.string.isRequired,
   image: PT.shape().isRequired,
-  imageSource: PT.shape().isRequired,
+  imageSources: PT.shape().isRequired,
   clipSvg: PT.shape(),
   theme: PT.shape({
     'img-wrap': PT.string,
