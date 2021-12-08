@@ -349,6 +349,20 @@ label {
       display: none;
     }
   }
+
+  :global {
+    .SingleDatePickerInput_clearDate {
+      height: 35px;
+      width: 35px;
+      display: flex;
+      align-items: center;
+      top: calc(50% - 5px);
+    }
+
+    .SingleDatePickerInput__showClearDate {
+      padding-right: 0;
+    }
+  }
 }
 
 .button-container {

@@ -220,6 +220,8 @@ export default class EDUTracks extends React.Component {
       <MetaTags
         description={description}
         title={title}
+        feed={config.URL.THRIVE_FEED}
+        feedTitle="Topcoder Thrive - RSS feed"
       />
     );
     // This container needs at least those variables

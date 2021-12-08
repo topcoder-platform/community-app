@@ -306,7 +306,7 @@ export default function FiltersPanel({
 
   const recommendedCheckboxTip = (
     <div styleName="tctooltiptext">
-      <p>Shows available challenges <br /> that match your skills</p>
+      <p>Show the best challenges for you.</p>
     </div>
   );
 

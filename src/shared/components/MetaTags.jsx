@@ -21,6 +21,8 @@ function MetaTags({
   socialTitle,
   title,
   url,
+  feed,
+  feedTitle,
 }) {
   const img = `${domain}${image}`;
   const socTitle = socialTitle || title;
@@ -32,6 +34,9 @@ function MetaTags({
         {title}
       </title>
       <meta name="description" content={description} />
+      {
+        feed && <link rel="alternate" type="application/rss+xml" title={feedTitle} href={feed} />
+      }
 
       {/* Twitter cards. */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -63,6 +68,8 @@ MetaTags.defaultProps = {
   socialDescription: null,
   socialTitle: null,
   url: null,
+  feed: null,
+  feedTitle: null,
 };
 
 MetaTags.propTypes = {
@@ -74,6 +81,8 @@ MetaTags.propTypes = {
   socialTitle: PT.string,
   title: PT.string.isRequired,
   url: PT.string,
+  feed: PT.string,
+  feedTitle: PT.string,
 };
 
 /* TODO: It is not good to depend on the domain written into redux state here,

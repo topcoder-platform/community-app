@@ -516,6 +516,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
                 {
                   isSubmit && (
@@ -541,6 +542,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -564,6 +566,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isModelsLoading}
                   hasMore={hasMoreModels}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -587,6 +590,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isOsesLoading}
                   onLoadMore={this.onLoadMoreOses}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -651,6 +655,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
                 {
                   isSubmit && (
@@ -672,6 +677,7 @@ export default class Devices extends ConsentComponent {
                   valueKey="name"
                   labelKey="name"
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
@@ -693,6 +699,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isModelsLoading}
                   hasMore={hasMoreModels}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
               <div styleName="field col-2">
@@ -712,6 +719,7 @@ export default class Devices extends ConsentComponent {
                   isLoading={isOsesLoading}
                   onLoadMore={this.onLoadMoreOses}
                   disabled={!canModifyTrait}
+                  onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
                 />
               </div>
             </div>
