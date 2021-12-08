@@ -101,7 +101,7 @@ export class ImageInner extends React.Component {
             <picture>
               <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media={imageSources.sourceMobile ? '(min-width: 769px)' : null} />
               { imageSources.sourceMobile && <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
-              { imageSources.sourcePolyfill && <source srcSet={imageSources.sourcePolyfill.file.url} type={imageSources.sourcePolyfill.file.contentType} /> }
+              { imageSources.sourcePolyfill && <source srcSet={imageSources.sourcePolyfill.file.url} type={imageSources.sourcePolyfill.file.contentType} media={imageSources.sourcePolyfill ? '(min-width: 769px)' : null} /> }
               { imageSources.sourcePolyfillMobile && <source srcSet={imageSources.sourcePolyfillMobile.file.url} type={imageSources.sourcePolyfillMobile.file.contentType} media="(max-width: 768px)" /> }
               <img
                 src={imageSources.sourcePolyfill ? imageSources.sourcePolyfill.file.url : imageSources.source.file.url}
@@ -121,7 +121,7 @@ export class ImageInner extends React.Component {
             <picture>
               <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media={imageSources.sourceMobile ? '(min-width: 769px)' : null} />
               { imageSources.sourceMobile && <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
-              { imageSources.sourcePolyfill && <source srcSet={imageSources.sourcePolyfill.file.url} type={imageSources.sourcePolyfill.file.contentType} /> }
+              { imageSources.sourcePolyfill && <source srcSet={imageSources.sourcePolyfill.file.url} type={imageSources.sourcePolyfill.file.contentType} media={imageSources.sourcePolyfill ? '(min-width: 769px)' : null} /> }
               { imageSources.sourcePolyfillMobile && <source srcSet={imageSources.sourcePolyfillMobile.file.url} type={imageSources.sourcePolyfillMobile.file.contentType} media="(max-width: 768px)" /> }
               <img
                 src={imageSources.sourcePolyfill ? imageSources.sourcePolyfill.file.url : imageSources.source.file.url}
