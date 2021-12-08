@@ -114,6 +114,7 @@ export class ImageInner extends React.Component {
                 data-aos-mirror={animation.animateOnScrollMirror}
                 data-aos-anchor-placement={animation.animateOnScrollAnchor}
                 data-aos-offset={animation.animateOnScrollOffset}
+                loading="lazy"
               />
             </picture>
           ) : (
@@ -125,6 +126,7 @@ export class ImageInner extends React.Component {
                 src={imageSources.sourcePolyfill ? imageSources.sourcePolyfill.file.url : imageSources.source.file.url}
                 alt={image.alt || image.name}
                 style={imgStyle}
+                loading="lazy"
               />
             </picture>
           )
