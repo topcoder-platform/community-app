@@ -73,9 +73,6 @@ export class ImageInner extends React.Component {
       clipSvg,
       animation,
     } = this.props;
-
-    // const imageUrl = _.get(imageSources.source, 'file.url');
-    // const contentType = _.get(imageSources, 'file.contentType');
     const clipSvgUrl = _.get(clipSvg, 'file.url');
     const imgStyle = image.extraStylesForImage ? fixStyle(image.extraStylesForImage) : {};
     if (clipSvgUrl) {
@@ -99,11 +96,11 @@ export class ImageInner extends React.Component {
         {
           animation.animateOnScroll ? (
             <picture>
-              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media={imageSources.sourceMobile ? '(min-width: 769px)' : null} />
-              { imageSources.sourceMobile && <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
-              { imageSources.sourcePolyfillMobile && <source srcSet={imageSources.sourcePolyfillMobile.file.url} type={imageSources.sourcePolyfillMobile.file.contentType} media="(max-width: 768px)" /> }
+              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media="(min-width: 769px)" />
+              { imageSources.sourceMobile && <source srcSet={`${imageSources.sourceMobile.file.url}?w=768`} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
+              <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
               <img
-                src={imageSources.sourcePolyfill ? imageSources.sourcePolyfill.file.url : imageSources.source.file.url}
+                src={`${imageSources.source.file.url}?fm=png`}
                 alt={image.alt || image.name}
                 style={imgStyle}
                 data-aos={animation.animateOnScroll}
@@ -119,11 +116,11 @@ export class ImageInner extends React.Component {
             </picture>
           ) : (
             <picture>
-              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media={imageSources.sourceMobile ? '(min-width: 769px)' : null} />
-              { imageSources.sourceMobile && <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
-              { imageSources.sourcePolyfillMobile && <source srcSet={imageSources.sourcePolyfillMobile.file.url} type={imageSources.sourcePolyfillMobile.file.contentType} media="(max-width: 768px)" /> }
+              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media="(min-width: 769px)" />
+              { imageSources.sourceMobile && <source srcSet={`${imageSources.sourceMobile.file.url}?w=768`} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
+              <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
               <img
-                src={imageSources.sourcePolyfill ? imageSources.sourcePolyfill.file.url : imageSources.source.file.url}
+                src={`${imageSources.source.file.url}?fm=png`}
                 alt={image.alt || image.name}
                 style={imgStyle}
                 loading="lazy"

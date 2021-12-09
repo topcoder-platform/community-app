@@ -28,11 +28,9 @@ export default function ImageLoader(props) {
         const { fields } = data.entries.items[id];
         const imgId = _.get(fields, 'source.sys.id');
         const imgIdMobile = _.get(fields, 'sourceMobile.sys.id');
-        const imgIdPolyfill = _.get(fields, 'sourcePolyfill.sys.id');
-        const imgIdPolyfillMobile = _.get(fields, 'sourceMobilePolyfill.sys.id');
         const clipSvgId = _.get(fields, 'clipSvg.sys.id');
         const assetIds = _.compact(
-          [imgId, imgIdMobile, imgIdPolyfill, imgIdPolyfillMobile, clipSvgId],
+          [imgId, imgIdMobile, clipSvgId],
         );
         const animationId = _.get(fields, 'animationOnScroll.sys.id');
         const entryIds = [];
@@ -53,8 +51,6 @@ export default function ImageLoader(props) {
                 const imageSources = {
                   source: _.get(items, [imgId, 'fields']),
                   sourceMobile: _.get(items, [imgIdMobile, 'fields']),
-                  sourcePolyfill: _.get(items, [imgIdPolyfill, 'fields']),
-                  sourcePolyfillMobile: _.get(items, [imgIdPolyfillMobile, 'fields']),
                 };
                 let animation = {};
                 if (animationId) {
