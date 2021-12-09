@@ -97,8 +97,13 @@ export class ImageInner extends React.Component {
           animation.animateOnScroll ? (
             <picture>
               <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media="(min-width: 769px)" />
-              { imageSources.sourceMobile && <source srcSet={`${imageSources.sourceMobile.file.url}?w=768`} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
-              <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
+              {
+                imageSources.sourceMobile ? (
+                  <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" />
+                ) : (
+                  <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
+                )
+              }
               <img
                 src={`${imageSources.source.file.url}?fm=png`}
                 alt={image.alt || image.name}
@@ -117,8 +122,13 @@ export class ImageInner extends React.Component {
           ) : (
             <picture>
               <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media="(min-width: 769px)" />
-              { imageSources.sourceMobile && <source srcSet={`${imageSources.sourceMobile.file.url}?w=768`} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" /> }
-              <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
+              {
+                imageSources.sourceMobile ? (
+                  <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" />
+                ) : (
+                  <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
+                )
+              }
               <img
                 src={`${imageSources.source.file.url}?fm=png`}
                 alt={image.alt || image.name}
