@@ -186,8 +186,9 @@ class ChallengeDetailPageContainer extends React.Component {
 
     ) {
       loadChallengeDetails(auth, challengeId);
-      fetchChallengeStatistics(auth, challengeId);
     }
+
+    fetchChallengeStatistics(auth, challengeId);
 
     if (!allCountries.length) {
       getAllCountries(auth.tokenV3);
