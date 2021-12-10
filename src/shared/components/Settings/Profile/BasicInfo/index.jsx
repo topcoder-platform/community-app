@@ -135,17 +135,22 @@ export default class BasicInfo extends ConsentComponent {
   async onCheckUserTrait(traitId) {
     const { handle, tokenV3 } = this.props;
     let isExists = false;
-    await fetch(`${config.API.V3}/members/${handle}/traits?traitIds=${traitId}`, {
+    await fetch(`${config.API.V5}/members/${handle}/traits?traitIds=${traitId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokenV3}`,
       },
     })
-      .then(result => result.json())
-      .then((dataResponse) => {
-        if (dataResponse.result && dataResponse.result.content.length > 0) {
-          const trait = dataResponse.result.content[0];
+      .then((result) => {
+        if (result.ok) {
+          return result.json();
+        }
+        throw new Error(result.statusText);
+      })
+      .then((content) => {
+        if (content.length > 0) {
+          const trait = content[0];
           if (trait.createdAt) {
             isExists = true;
           }
@@ -329,107 +334,93 @@ export default class BasicInfo extends ConsentComponent {
   processBasicInfo = (value) => {
     const { newBasicInfo } = this.state;
     const { handle, profile } = this.props;
-    if (_.has(value, 'handle')) {
-      newBasicInfo.handle = value.handle;
-      if (_.has(value, 'addresses') && value.addresses.length > 0) {
-        newBasicInfo.addresses[0].city = value.addresses[0].city ? value.addresses[0].city : '';
-        newBasicInfo.addresses[0].stateCode = value.addresses[0].stateCode ? value.addresses[0].stateCode : '';
-        newBasicInfo.addresses[0].streetAddr1 = value.addresses[0].streetAddr1 ? value.addresses[0].streetAddr1 : '';
-        newBasicInfo.addresses[0].streetAddr2 = value.addresses[0].streetAddr2 ? value.addresses[0].streetAddr2 : '';
-        newBasicInfo.addresses[0].zip = value.addresses[0].zip ? value.addresses[0].zip : '';
-        if (newBasicInfo.addresses[0].streetAddr1 === '' && _.has(value, 'address')) {
-          newBasicInfo.addresses[0].streetAddr1 = value.address;
-        }
-      } else {
-        newBasicInfo.addresses[0].city = _.has(value, 'city') ? value.city : '';
-        newBasicInfo.addresses[0].stateCode = _.has(value, 'state') ? value.state : '';
-        newBasicInfo.addresses[0].streetAddr1 = _.has(value, 'address') ? value.address : '';
-        newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
+    newBasicInfo.handle = handle;
+    if (_.has(value, 'addresses') && value.addresses.length > 0) {
+      newBasicInfo.addresses[0].city = value.addresses[0].city ? value.addresses[0].city : '';
+      newBasicInfo.addresses[0].stateCode = value.addresses[0].stateCode ? value.addresses[0].stateCode : '';
+      newBasicInfo.addresses[0].streetAddr1 = value.addresses[0].streetAddr1 ? value.addresses[0].streetAddr1 : '';
+      newBasicInfo.addresses[0].streetAddr2 = value.addresses[0].streetAddr2 ? value.addresses[0].streetAddr2 : '';
+      newBasicInfo.addresses[0].zip = value.addresses[0].zip ? value.addresses[0].zip : '';
+      if (newBasicInfo.addresses[0].streetAddr1 === '' && _.has(value, 'address')) {
+        newBasicInfo.addresses[0].streetAddr1 = value.address;
       }
-      if (_.has(value, 'birthDate')) {
-        const newDate = moment(value.birthDate).utc();
-        if (newDate.isValid()) {
-          newBasicInfo.birthDate = newDate;
-        }
-      }
-      if (_.has(value, 'competitionCountryCode')) {
-        newBasicInfo.competitionCountryCode = value.competitionCountryCode;
-      } else {
-        newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
-      }
-      if (_.has(value, 'country')) {
-        newBasicInfo.country = value.country;
-      }
-      if (_.has(value, 'currentLocation')) {
-        newBasicInfo.currentLocation = value.currentLocation;
-      }
-      if (_.has(value, 'description')) {
-        if (_.trim(value.description).length) {
-          newBasicInfo.description = value.description;
-        }
-      } else {
-        newBasicInfo.description = profile.description ? profile.description : '';
-      }
-      if (_.has(value, 'email')) {
-        newBasicInfo.email = value.email;
-      } else {
-        newBasicInfo.email = profile.email;
-      }
-      if (_.has(value, 'firstName')) {
-        newBasicInfo.firstName = value.firstName;
-      } else {
-        newBasicInfo.firstName = '';
-      }
-      if (_.has(value, 'gender')) {
-        newBasicInfo.gender = value.gender;
-      } else {
-        newBasicInfo.gender = profile.gender;
-      }
-      if (_.has(value, 'homeCountryCode')) {
-        newBasicInfo.homeCountryCode = value.homeCountryCode;
-      } else {
-        newBasicInfo.homeCountryCode = profile.homeCountryCode;
-      }
-      if (_.has(value, 'lastName')) {
-        newBasicInfo.lastName = value.lastName;
-      } else {
-        newBasicInfo.lastName = '';
-      }
-      if (_.has(value, 'primaryInterestInTopcoder')) {
-        newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
-      }
-      if (_.has(value, 'status')) {
-        newBasicInfo.status = value.status;
-      } else {
-        newBasicInfo.status = profile.status;
-      }
-      if (_.has(value, 'tracks')) {
-        newBasicInfo.tracks = value.tracks ? value.tracks : [];
-      } else {
-        newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
-      }
-      if (_.has(value, 'tshirtSize')) {
-        newBasicInfo.tshirtSize = value.tshirtSize;
-      }
-      if (_.has(value, 'userId')) {
-        newBasicInfo.userId = value.userId;
-      } else {
-        newBasicInfo.userId = profile.userId;
-      }
-      this.setState({ newBasicInfo });
     } else {
-      newBasicInfo.handle = handle;
-      newBasicInfo.gender = '';
-      newBasicInfo.tshirtSize = '';
-      newBasicInfo.userId = profile.userId;
-      newBasicInfo.status = profile.status;
-      newBasicInfo.email = profile.email;
-      newBasicInfo.homeCountryCode = profile.homeCountryCode;
-      newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
-      newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
-      newBasicInfo.description = profile.description ? profile.description : '';
-      this.setState({ newBasicInfo });
+      newBasicInfo.addresses[0].city = _.has(value, 'city') ? value.city : '';
+      newBasicInfo.addresses[0].stateCode = _.has(value, 'state') ? value.state : '';
+      newBasicInfo.addresses[0].streetAddr1 = _.has(value, 'address') ? value.address : '';
+      newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
     }
+    if (_.has(value, 'birthDate')) {
+      const newDate = moment(value.birthDate).utc();
+      if (newDate.isValid()) {
+        newBasicInfo.birthDate = newDate;
+      }
+    }
+    if (_.has(value, 'competitionCountryCode')) {
+      newBasicInfo.competitionCountryCode = value.competitionCountryCode;
+    } else {
+      newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
+    }
+    if (_.has(value, 'country')) {
+      newBasicInfo.country = value.country;
+    }
+    if (_.has(value, 'currentLocation')) {
+      newBasicInfo.currentLocation = value.currentLocation;
+    }
+    if (_.has(value, 'description')) {
+      if (_.trim(value.description).length) {
+        newBasicInfo.description = value.description;
+      }
+    } else {
+      newBasicInfo.description = profile.description ? profile.description : '';
+    }
+    if (_.has(value, 'email')) {
+      newBasicInfo.email = value.email;
+    } else {
+      newBasicInfo.email = profile.email;
+    }
+    if (_.has(value, 'firstName')) {
+      newBasicInfo.firstName = value.firstName;
+    } else {
+      newBasicInfo.firstName = '';
+    }
+    if (_.has(value, 'gender')) {
+      newBasicInfo.gender = value.gender;
+    } else {
+      newBasicInfo.gender = profile.gender;
+    }
+    if (_.has(value, 'homeCountryCode')) {
+      newBasicInfo.homeCountryCode = value.homeCountryCode;
+    } else {
+      newBasicInfo.homeCountryCode = profile.homeCountryCode;
+    }
+    if (_.has(value, 'lastName')) {
+      newBasicInfo.lastName = value.lastName;
+    } else {
+      newBasicInfo.lastName = '';
+    }
+    if (_.has(value, 'primaryInterestInTopcoder')) {
+      newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
+    }
+    if (_.has(value, 'status')) {
+      newBasicInfo.status = value.status;
+    } else {
+      newBasicInfo.status = profile.status;
+    }
+    if (_.has(value, 'tracks')) {
+      newBasicInfo.tracks = value.tracks ? value.tracks : [];
+    } else {
+      newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
+    }
+    if (_.has(value, 'tshirtSize')) {
+      newBasicInfo.tshirtSize = value.tshirtSize;
+    }
+    if (_.has(value, 'userId')) {
+      newBasicInfo.userId = value.userId;
+    } else {
+      newBasicInfo.userId = profile.userId;
+    }
+    this.setState({ newBasicInfo });
   }
 
   /**
