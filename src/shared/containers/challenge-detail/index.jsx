@@ -20,6 +20,7 @@ import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
 import MySubmissions from 'components/challenge-detail/MySubmissions';
 import Winners from 'components/challenge-detail/Winners';
+import MMDashboardGraph from 'components/challenge-detail/MMDashboard/Graph';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
 import RecommendedThriveArticles from 'components/challenge-detail/ThriveArticles';
 // eslint-disable-next-line max-len
@@ -151,6 +152,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       getCommunitiesList,
       loadChallengeDetails,
+      fetchChallengeStatistics,
       challengeId,
       challengeTypesMap,
       getTypes,
@@ -184,6 +186,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     ) {
       loadChallengeDetails(auth, challengeId);
+      fetchChallengeStatistics(auth, challengeId);
     }
 
     if (!allCountries.length) {
@@ -338,6 +341,7 @@ class ChallengeDetailPageContainer extends React.Component {
       mySubmissions,
       reviewTypes,
       openForRegistrationChallenges,
+      statisticsData,
     } = this.props;
 
     // const displayRecommendedChallenges = getDisplayRecommendedChallenges(
@@ -572,6 +576,26 @@ class ChallengeDetailPageContainer extends React.Component {
             )
           }
           {
+            !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
+            && (!statisticsData || statisticsData.length === 0)
+            && (
+              <div styleName="page">
+                Dashboard data is not available!
+              </div>
+            )
+          }
+          {
+            !isEmpty && selectedTab === DETAIL_TABS.MM_DASHBOARD
+            && statisticsData && statisticsData.length > 0
+            && (
+              <MMDashboardGraph
+                statisticsData={[]}
+                baseline={_.get(_.find(_.get(challenge, 'metadta', []), meta => meta.name === 'baseline'), 'value', 0)}
+                awardLine={_.get(_.find(_.get(challenge, 'metadta', []), meta => meta.name === 'awardLine'), 'value', 0)}
+              />
+            )
+          }
+          {
             !isEmpty && !isLegacyMM && selectedTab === DETAIL_TABS.WINNERS
             && (
               <Winners
@@ -641,6 +665,7 @@ ChallengeDetailPageContainer.defaultProps = {
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
   // prizeMode: 'money-usd',
+  statisticsData: [],
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -665,6 +690,7 @@ ChallengeDetailPageContainer.propTypes = {
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
+  fetchChallengeStatistics: PT.func.isRequired,
   getAllCountries: PT.func.isRequired,
   getReviewTypes: PT.func.isRequired,
   // loadResults: PT.func.isRequired,
@@ -705,6 +731,7 @@ ChallengeDetailPageContainer.propTypes = {
   // loadingRecommendedChallengesUUID: PT.string.isRequired,
   history: PT.shape().isRequired,
   openForRegistrationChallenges: PT.shape().isRequired,
+  statisticsData: PT.arrayOf(PT.shape()),
 };
 
 function mapStateToProps(state, props) {
@@ -815,6 +842,7 @@ function mapStateToProps(state, props) {
     mySubmissions,
     reviewTypes,
     openForRegistrationChallenges: state.challengeListing.openForRegistrationChallenges,
+    statisticsData: state.statisticsData,
   };
 }
 
@@ -953,6 +981,11 @@ const mapDispatchToProps = (dispatch) => {
     expandTag: (id) => {
       const a = challengeListingActions.challengeListing;
       dispatch(a.expandTag(id));
+    },
+    fetchChallengeStatistics: (tokens, challengeId) => {
+      const a = actions.challenge;
+      dispatch(a.fetchChallengeStatisticsInit());
+      dispatch(a.fetchChallengeStatisticsDone(challengeId, tokens.tokenV3));
     },
   };
 };
