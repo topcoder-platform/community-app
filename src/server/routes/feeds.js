@@ -26,6 +26,7 @@ routes.get('/thrive', async (req, res, next) => {
       limit: 20,
       order: '-sys.createdAt',
       include: 2,
+      'sys.firstPublishedAt[exists]': true,
     });
     const feed = new RSS({
       title: 'Topcoder Thrive',
