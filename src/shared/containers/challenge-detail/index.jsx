@@ -843,7 +843,7 @@ function mapStateToProps(state, props) {
     mySubmissions,
     reviewTypes,
     openForRegistrationChallenges: state.challengeListing.openForRegistrationChallenges,
-    statisticsData: state.statisticsData,
+    statisticsData: state.challenge.statisticsData,
   };
 }
 
