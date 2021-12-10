@@ -590,7 +590,7 @@ class ChallengeDetailPageContainer extends React.Component {
             && statisticsData && statisticsData.length > 0
             && (
               <MMDashboardGraph
-                statisticsData={[]}
+                statisticsData={statisticsData}
                 baseline={_.get(_.find(_.get(challenge, 'metadta', []), meta => meta.name === 'baseline'), 'value', 0)}
                 awardLine={_.get(_.find(_.get(challenge, 'metadta', []), meta => meta.name === 'awardLine'), 'value', 0)}
               />
