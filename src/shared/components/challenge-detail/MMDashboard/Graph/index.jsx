@@ -5,17 +5,10 @@ import HighchartsReact from 'highcharts-react-official';
 import PT from 'prop-types';
 import moment from 'moment';
 import { getRatingColor } from 'utils/tc';
-import ReactSVG from 'react-svg';
-import { isomorphy } from 'topcoder-react-utils';
+import DefaultUserImage from 'assets/images/ico-user-default.png';
 
 import './styles.scss';
 import _ from 'lodash';
-
-
-let assets;
-if (isomorphy.isClientSide()) {
-  assets = require.context('assets/images', false, /svg/);
-}
 
 export default function Graph({ statisticsData, baseline, awardLine }) {
   const flatData = [];
@@ -112,10 +105,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
       formatter() {
         const str = `
           <div style="border-radius:4px;">
-            ${this.point.customData.photoUrl
-    ? `<img height="30" width="30" src="${this.point.customData.photoUrl}" style="position: absolute; border-radius: 50%;" />`
-    : <ReactSVG path={assets('./ico-user-default.svg')} />}
-            
+            <img height="30" width="30" src="${this.point.customData.photoUrl || DefaultUserImage}" style="position: absolute; border-radius: 50%;" />
             <p style="margin-left: 50px">${this.point.customData.handle}</p>
             <br />
             <p style="margin-left: 50px;">${this.point.customData.submissionCount} submissions</p>
