@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * The core image rendering.
  */
@@ -68,12 +69,10 @@ export class ImageInner extends React.Component {
       theme,
       id,
       image,
-      imageSource,
+      imageSources,
       clipSvg,
       animation,
     } = this.props;
-
-    const imageUrl = _.get(imageSource, 'file.url');
     const clipSvgUrl = _.get(clipSvg, 'file.url');
     const imgStyle = image.extraStylesForImage ? fixStyle(image.extraStylesForImage) : {};
     if (clipSvgUrl) {
@@ -96,25 +95,47 @@ export class ImageInner extends React.Component {
         )}
         {
           animation.animateOnScroll ? (
-            <img
-              src={imageUrl}
-              alt={image.alt || image.name}
-              style={imgStyle}
-              data-aos={animation.animateOnScroll}
-              data-aos-once={animation.animateOnScrollOnce}
-              data-aos-delay={animation.animateOnScrollDelay}
-              data-aos-duration={animation.animateOnScrollDuration}
-              data-aos-easing={animation.animateOnScrollEasing}
-              data-aos-mirror={animation.animateOnScrollMirror}
-              data-aos-anchor-placement={animation.animateOnScrollAnchor}
-              data-aos-offset={animation.animateOnScrollOffset}
-            />
+            <picture>
+              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media="(min-width: 769px)" />
+              {
+                imageSources.sourceMobile ? (
+                  <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" />
+                ) : (
+                  <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
+                )
+              }
+              <img
+                src={`${imageSources.source.file.url}?fm=png`}
+                alt={image.alt || image.name}
+                style={imgStyle}
+                data-aos={animation.animateOnScroll}
+                data-aos-once={animation.animateOnScrollOnce}
+                data-aos-delay={animation.animateOnScrollDelay}
+                data-aos-duration={animation.animateOnScrollDuration}
+                data-aos-easing={animation.animateOnScrollEasing}
+                data-aos-mirror={animation.animateOnScrollMirror}
+                data-aos-anchor-placement={animation.animateOnScrollAnchor}
+                data-aos-offset={animation.animateOnScrollOffset}
+                loading="lazy"
+              />
+            </picture>
           ) : (
-            <img
-              src={imageUrl}
-              alt={image.alt || image.name}
-              style={imgStyle}
-            />
+            <picture>
+              <source srcSet={imageSources.source.file.url} type={imageSources.source.file.contentType} media="(min-width: 769px)" />
+              {
+                imageSources.sourceMobile ? (
+                  <source srcSet={imageSources.sourceMobile.file.url} type={imageSources.sourceMobile.file.contentType} media="(max-width: 768px)" />
+                ) : (
+                  <source srcSet={`${imageSources.source.file.url}?w=768`} type={imageSources.source.file.contentType} media="(max-width: 768px)" />
+                )
+              }
+              <img
+                src={`${imageSources.source.file.url}?fm=png`}
+                alt={image.alt || image.name}
+                style={imgStyle}
+                loading="lazy"
+              />
+            </picture>
           )
         }
       </div>
@@ -130,7 +151,7 @@ ImageInner.defaultProps = {
 ImageInner.propTypes = {
   id: PT.string.isRequired,
   image: PT.shape().isRequired,
-  imageSource: PT.shape().isRequired,
+  imageSources: PT.shape().isRequired,
   clipSvg: PT.shape(),
   theme: PT.shape({
     'img-wrap': PT.string,

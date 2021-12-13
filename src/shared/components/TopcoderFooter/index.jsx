@@ -125,7 +125,7 @@ export default function TopcoderFooter() {
             <a href={`${base}/thrive/tracks?track=Topcoder&tax=Help%20Articles`}>HELP CENTER</a>
           </div>
           <div styleName="mobile-navi-col">
-            <a href={`${base}/ommunity/admins`}>ABOUT</a>
+            <a href={`${base}/community/admins`}>ABOUT</a>
           </div>
         </div>
         <div styleName="mobile-only social-icons">
