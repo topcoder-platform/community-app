@@ -180,14 +180,6 @@ export function getRecommendedTags(challenge) {
 }
 
 /**
- * Checks if current challenge is Marathon and Challenge type
- * @param {Object} challenge challenge info
- */
-export function isMMChallenge(challenge) {
-  return challenge.track === 'Data Science' && challenge.type === 'Challenge';
-}
-
-/**
  * Get display recommended challenge
  * @param {Object} challenge challenge info
  * @param {Object} recommendedChallenges all recommended challenges

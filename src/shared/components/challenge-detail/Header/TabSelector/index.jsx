@@ -10,7 +10,6 @@ import PT from 'prop-types';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config } from 'topcoder-react-utils';
 
-import { isMMChallenge } from 'utils/challenge-detail/helper';
 import style from './style.scss';
 
 function getSelectorStyle(selectedView, currentView) {
@@ -221,7 +220,7 @@ export default function ChallengeViewSelector(props) {
           return '';
         })()}
         {
-          (isMMChallenge(challenge)) && (
+          isMM && (
             <a
               tabIndex="0"
               role="tab"

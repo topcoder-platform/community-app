@@ -23,6 +23,7 @@ import Winners from 'components/challenge-detail/Winners';
 import MMDashboardGraph from 'components/challenge-detail/MMDashboard/Graph';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
 import RecommendedThriveArticles from 'components/challenge-detail/ThriveArticles';
+import LoadingIndicator from 'components/LoadingIndicator';
 // eslint-disable-next-line max-len
 // import RecommendedActiveChallenges from 'components/challenge-detail/RecommendedActiveChallenges';
 import Terms from 'containers/Terms';
@@ -215,11 +216,17 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       // loadingRecommendedChallengesUUID,
       history,
+      selectedTab,
+      onSelectorClicked,
     } = this.props;
 
     if (challenge.isLegacyChallenge && !history.location.pathname.includes(challenge.id)) {
       history.location.pathname = `/challenges/${challenge.id}`; // eslint-disable-line no-param-reassign
       history.push(history.location.pathname, history.state);
+    }
+
+    if (!checkIsMM(challenge) && selectedTab === DETAIL_TABS.MM_DASHBOARD) {
+      onSelectorClicked(DETAIL_TABS.DETAILS);
     }
 
     // const recommendedTechnology = getRecommendedTags(challenge);
@@ -581,7 +588,9 @@ class ChallengeDetailPageContainer extends React.Component {
             && (!statisticsData || statisticsData.length === 0)
             && (
               <div styleName="page">
-                Dashboard data is not available!
+                {
+                  !statisticsData ? <LoadingIndicator /> : 'Dashboard data is not available!'
+                }
               </div>
             )
           }
@@ -591,8 +600,8 @@ class ChallengeDetailPageContainer extends React.Component {
             && (
               <MMDashboardGraph
                 statisticsData={statisticsData}
-                baseline={_.get(_.find(_.get(challenge, 'metadta', []), meta => meta.name === 'baseline'), 'value', 0)}
-                awardLine={_.get(_.find(_.get(challenge, 'metadta', []), meta => meta.name === 'awardLine'), 'value', 0)}
+                baseline={_.get(_.find(_.get(challenge, 'metadata', []), meta => meta.name === 'baseline'), 'value', 0)}
+                awardLine={_.get(_.find(_.get(challenge, 'metadata', []), meta => meta.name === 'awardLine'), 'value', 0)}
               />
             )
           }
