@@ -343,7 +343,7 @@ workflows:
             branches:
               only:
                 - develop
-                - feature/recommended-challenges-update
+                - features/mm-dashboard
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
@@ -372,7 +372,6 @@ workflows:
             branches:
               only:
                 - develop
-                - ast-timeline-fix
                 - features/mm-dashboard
       # Production builds are exectuted 
       # when PR is merged to the master
