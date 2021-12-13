@@ -675,7 +675,7 @@ ChallengeDetailPageContainer.defaultProps = {
   isLoadingSubmissionInformation: false,
   submissionInformation: null,
   // prizeMode: 'money-usd',
-  statisticsData: [],
+  statisticsData: null,
 };
 
 ChallengeDetailPageContainer.propTypes = {
