@@ -121,12 +121,12 @@ $light-gray: #d4d4d4;
 
 .podiumTheme {
   display: block;
-  padding: 0 40px;
+  padding: 0 35px;
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 45px;
   }
 
   .top3 {
@@ -178,6 +178,18 @@ $light-gray: #d4d4d4;
 
       .topMemberPhotoAndPlace {
         position: relative;
+        display: flex;
+
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        > a {
+          @media screen and (min-width: 768px) {
+            display: none;
+          }
+        }
 
         .topMemberPhoto {
           width: 75px;
@@ -192,7 +204,7 @@ $light-gray: #d4d4d4;
           position: absolute;
           width: 25px;
           height: 25px;
-          bottom: 15px;
+          bottom: 8px;
           right: 0;
           border-radius: 50%;
           display: flex;
@@ -200,6 +212,10 @@ $light-gray: #d4d4d4;
           align-content: center;
           font-size: 16px;
           font-weight: 500;
+
+          @media screen and (max-width: 768px) {
+            bottom: 32px;
+          }
         }
 
         .topMemberRank1 {
@@ -225,12 +241,17 @@ $light-gray: #d4d4d4;
 
         a {
           font-size: 16px;
+
+          @media screen and (max-width: 768px) {
+            display: none;
+          }
         }
 
         .topMemberScore {
           font-weight: 500;
           font-size: 16px;
           text-align: center;
+          margin-bottom: 18px;
 
           @media screen and (max-width: 768px) {
             margin-bottom: 0;
@@ -245,6 +266,7 @@ $light-gray: #d4d4d4;
     justify-content: center;
 
     @media screen and (max-width: 768px) {
+      margin-top: 20px;
       margin-bottom: 0;
       flex-direction: column;
     }
@@ -265,18 +287,22 @@ $light-gray: #d4d4d4;
         }
 
         a {
-          margin-right: 50px;
+          margin-right: 20px;
           flex: 1;
+          font-weight: 500;
+          white-space: nowrap;
         }
 
-        .followerScore {
+        .followerScore,
+        span {
           font-weight: 500;
+          color: #2a2a2a;
         }
       }
     }
 
     .followersRight {
-      margin-left: 65px;
+      margin-left: 60px;
 
       @media screen and (max-width: 768px) {
         margin-left: 0;
@@ -285,6 +311,13 @@ $light-gray: #d4d4d4;
 
       > div:nth-child(3) {
         margin-bottom: 12px;
+        margin-left: -9px;
+      }
+
+      .moreBtn {
+        @media screen and (max-width: 768px) {
+          text-align: center;
+        }
       }
     }
   }

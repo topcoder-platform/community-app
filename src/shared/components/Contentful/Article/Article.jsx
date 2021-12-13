@@ -170,6 +170,7 @@ class Article extends React.Component {
           <meta name="twitter:description" content={description} />
           <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
           <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
+          <link rel="alternate" type="application/rss+xml" title="Topcoder Thrive - RSS feed" href="https://topcoder.com/api/feeds/thrive" />
         </Helmet>
         <div className={theme.wrapper}>
           {/* Banner */}

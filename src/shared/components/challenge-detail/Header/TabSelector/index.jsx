@@ -219,6 +219,20 @@ export default function ChallengeViewSelector(props) {
           }
           return '';
         })()}
+        {
+          isMM && (
+            <a
+              tabIndex="0"
+              role="tab"
+              aria-selected={selectedView === DETAIL_TABS.MM_DASHBOARD}
+              onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.MM_DASHBOARD); }}
+              onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.MM_DASHBOARD); }}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.MM_DASHBOARD)}
+            >
+              DASHBOARD
+            </a>
+          )
+        }
       </div>
     </div>
   );
@@ -237,6 +251,7 @@ ChallengeViewSelector.defaultProps = {
 ChallengeViewSelector.propTypes = {
   isLoggedIn: PT.bool,
   challenge: PT.shape({
+    id: PT.string,
     legacyId: PT.string,
     legacy: PT.shape({
       forumId: PT.number,
@@ -244,6 +259,8 @@ ChallengeViewSelector.propTypes = {
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string),
     }),
+    type: PT.string,
+    track: PT.string,
   }),
   isMM: PT.bool,
   checkpointCount: PT.number,
