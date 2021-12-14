@@ -38,6 +38,7 @@ export default function App() {
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="manifest" href="/challenges/manifest.json" />
         <script src={config.URL.ABANDONMENT_EMBED} async />
+        <link rel="preload" as="font" />
       </Helmet>
       <Routes />
       <ErrorMessage />
