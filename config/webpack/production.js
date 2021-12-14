@@ -3,7 +3,7 @@ const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-
 const path = require('path');
 
 const configFactory = require('topcoder-react-utils/config/webpack/app-production');
-
+const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 
 const defaultConfig = require('./default');
@@ -20,6 +20,10 @@ const standardDevelopmentConfig = configFactory({
   },
   keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
   publicPath,
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
 });
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule => rule.loader === 'babel-loader');
