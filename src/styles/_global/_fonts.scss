@@ -1,5 +1,17 @@
 // FONT STACK
 // --------------------------------------------------------------------------------------------
+// Using the implementation of this mixin provided by topcoder-react-utils
+// is not loading fonts correctly.  This may be a webpack related issue.
+@mixin font-family-ttf(
+  $font-name, $font-weight, $font-style, $font-url) {
+  @font-face {
+    font-family: $font-name;
+    font-style: $font-style;
+    font-weight: $font-weight;
+    src: url('#{$font-url}.ttf') format('truetype');
+    font-display: swap;
+  }
+}
 
 /* Roboto mono. */
 
@@ -49,6 +61,7 @@
       url('#{$font-url}#{$font-file}.svg##{$font-name}') format('svg');
     font-weight: $font-weight;
     font-style: $font-style;
+    font-display: swap;
   }
 }
 
