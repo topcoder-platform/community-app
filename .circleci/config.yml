@@ -364,7 +364,7 @@ workflows:
           filters:
             branches:
               only:
-                - mm-leaderboard-theme
+                - reduce-js
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
