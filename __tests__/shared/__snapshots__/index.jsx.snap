@@ -23,6 +23,10 @@ exports[`Snapshot match 1`] = `
       async={true}
       src="https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com"
     />
+    <link
+      as="font"
+      rel="preload"
+    />
   </HelmetWrapper>
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
@@ -60,6 +64,10 @@ exports[`Snapshot match 2`] = `
     <script
       async={true}
       src="https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com"
+    />
+    <link
+      as="font"
+      rel="preload"
     />
   </HelmetWrapper>
   <withRouter(Connect(Routes)) />
