@@ -47,9 +47,9 @@ module.exports = {
       },
     ],
   },
-  // Marking optimization as false to cut time in terser plugin minification step
+  // Should optimize bundle as it is too big
   optimization: {
-    minimize: false,
+    minimize: true,
   },
   plugins: [
     new CopyWebpackPlugin([{
