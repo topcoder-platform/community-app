@@ -56,7 +56,7 @@ function LoginModal({ retUrl, onCancel, utmSource }) {
         <div className={modalStyle.ctaButtons}>
           <PrimaryButton
             onClick={() => {
-              window.location = `${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utm_source=${utmSource}`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${encodeURIComponent(retUrl)}&mode=signUp&utmSource=${utmSource}&regSource=gigs`;
             }}
             theme={{
               button: buttonThemes.tc['primary-green-md'],
