@@ -343,7 +343,7 @@ workflows:
             branches:
               only:
                 - develop
-                - features/mm-dashboard
+                - "fix/v5-settings"
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
