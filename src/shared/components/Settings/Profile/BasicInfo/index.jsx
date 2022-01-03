@@ -80,9 +80,12 @@ export default class BasicInfo extends ConsentComponent {
 
   componentWillReceiveProps(nextProps) {
     const basicInfoTrait = this.loadBasicInfoTraits(nextProps.userTraits);
+
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
+    const previousBasicInfoTrait = this.loadBasicInfoTraits(this.props.userTraits);
+
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
-    if (basicInfoTrait.updatedAt !== this.loadBasicInfoTraits(this.props.userTraits).updatedAt) {
+    if (!_.isEqual(basicInfoTrait, previousBasicInfoTrait)) {
       this.processBasicInfo(basicInfo, nextProps.profile);
       this.setState({
         basicInfoTrait,
@@ -90,7 +93,7 @@ export default class BasicInfo extends ConsentComponent {
         inputChanged: false,
       });
     }
-    if (this.state.profile.updatedAt !== nextProps.profile.updatedAt) {
+    if (!_.isEqual(this.state.profile, nextProps.profile)) {
       this.processBasicInfo(basicInfo, nextProps.profile);
       this.setState({ profile: nextProps.profile });
     }
@@ -118,6 +121,10 @@ export default class BasicInfo extends ConsentComponent {
     }
 
     if (!_.trim(newBasicInfo.country).length) {
+      invalid = true;
+    }
+
+    if (!_.trim(newProfileInfo.description).length) {
       invalid = true;
     }
 
@@ -280,6 +287,15 @@ export default class BasicInfo extends ConsentComponent {
       case 'city':
       case 'streetAddr1':
       case 'streetAddr2':
+        if (newProfileInfo.addresses.length === 0) {
+          newProfileInfo.addresses.push({
+            stateCode: '',
+            zip: '',
+            city: '',
+            streetAddr1: '',
+            streetAddr2: '',
+          });
+        }
         newProfileInfo.addresses[0][name] = value;
         break;
       case 'firstName':
@@ -388,6 +404,7 @@ export default class BasicInfo extends ConsentComponent {
 
     const invalid = !_.trim(newProfileInfo.firstName).length
       || !_.trim(newProfileInfo.lastName).length
+      || !_.trim(newProfileInfo.description).length
       || !_.trim(newBasicInfo.gender).length
       || !_.trim(newBasicInfo.tshirtSize).length
       || !_.trim(newBasicInfo.country).length
@@ -399,6 +416,7 @@ export default class BasicInfo extends ConsentComponent {
       || (addresses.length > 0 && !_.trim(addresses[0].zip).length)
       || (addresses.length > 0
         && !_.trim(addresses[0].streetAddr1).length);
+
     // Invalid value, can not save
     if (invalid) {
       return true;
@@ -498,7 +516,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-2">
-                <input disabled={!canModifyTrait} id="address" name="streetAddr1" type="text" placeholder="Your address" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 ? newProfileInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="address" name="streetAddr1" type="text" placeholder="Your address" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 && newProfileInfo.addresses[0].streetAddr1 != null ? newProfileInfo.addresses[0].streetAddr1 : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
@@ -509,7 +527,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-2">
-                <input disabled={!canModifyTrait} id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Your address continued" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 ? newProfileInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
+                <input disabled={!canModifyTrait} id="address" name="streetAddr2" type="text" styleName="second-addr" placeholder="Your address continued" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 && newProfileInfo.addresses[0].streetAddr2 != null ? newProfileInfo.addresses[0].streetAddr2 : ''}`} maxLength="64" />
               </div>
             </div>
             <div styleName="row">
@@ -520,7 +538,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-2">
-                <input disabled={!canModifyTrait} id="city" name="city" type="text" placeholder="Which city do you live in?" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 ? newProfileInfo.addresses[0].city : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="city" name="city" type="text" placeholder="Which city do you live in?" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 && newProfileInfo.addresses[0].city != null ? newProfileInfo.addresses[0].city : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
@@ -531,7 +549,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-2">
-                <input disabled={!canModifyTrait} id="state" name="stateCode" type="text" placeholder="State" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 ? newProfileInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="state" name="stateCode" type="text" placeholder="State" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 && newProfileInfo.addresses[0].stateCode != null ? newProfileInfo.addresses[0].stateCode : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
@@ -542,7 +560,7 @@ export default class BasicInfo extends ConsentComponent {
                 </label>
               </div>
               <div styleName="field col-2">
-                <input disabled={!canModifyTrait} id="zipCode" name="zip" type="text" placeholder="ZIP/Postal Code" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 ? newProfileInfo.addresses[0].zip : ''}`} maxLength="64" required />
+                <input disabled={!canModifyTrait} id="zipCode" name="zip" type="text" placeholder="ZIP/Postal Code" onChange={this.onUpdateInput} value={`${newProfileInfo.addresses.length > 0 && newProfileInfo.addresses[0].zip != null ? newProfileInfo.addresses[0].zip : ''}`} maxLength="64" required />
               </div>
             </div>
             <div styleName="row">
@@ -655,6 +673,7 @@ export default class BasicInfo extends ConsentComponent {
                   </span>
                 </div>
                 <textarea disabled={!canModifyTrait} id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newProfileInfo.description} maxLength="240" cols="3" rows="10" />
+                <ErrorMessage invalid={_.isEmpty(newProfileInfo.description) && inputChanged} message="Short bio cannot be empty" addMargin />
               </div>
             </div>
           </form>
