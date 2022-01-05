@@ -185,13 +185,6 @@ function onUpdateProfileDone(state, { error }) {
   return state;
 }
 
-function onUpdateProfileDoneV5(state, { error }) {
-  if (!error) {
-    toastrSuccess('Success! ', 'Your account information was updated.');
-  }
-  return state;
-}
-
 function onUploadPhotoDone(state, { error }) {
   if (!error) {
     toastrSuccess('Success! ', 'Your profile image has been updated.');
@@ -238,7 +231,6 @@ function create(defaultState = {}) {
     [actions.profile.addSkillDone]: mergeSkills,
     [actions.profile.hideSkillDone]: mergeSkills,
     [actions.profile.updateProfileDone]: onUpdateProfileDone,
-    [actions.profile.updateProfileDoneV5]: onUpdateProfileDoneV5,
     [actions.profile.updatePasswordDone]: onUpdatePasswordDone,
     [actions.profile.uploadPhotoDone]: onUploadPhotoDone,
     [actions.profile.deletePhotoDone]: onDeletePhotoDone,

@@ -124,10 +124,6 @@ export default class BasicInfo extends ConsentComponent {
       invalid = true;
     }
 
-    if (!_.trim(newProfileInfo.description).length) {
-      invalid = true;
-    }
-
     if (_.trim(newBasicInfo.birthDate).length > 0) {
       if (!moment().isAfter(newBasicInfo.birthDate)) {
         invalid = true;
@@ -390,7 +386,6 @@ export default class BasicInfo extends ConsentComponent {
 
     const invalid = !_.trim(newProfileInfo.firstName).length
       || !_.trim(newProfileInfo.lastName).length
-      || !_.trim(newProfileInfo.description).length
       || !_.trim(newBasicInfo.gender).length
       || !_.trim(newBasicInfo.tshirtSize).length
       || !_.trim(newBasicInfo.country).length
@@ -659,7 +654,6 @@ export default class BasicInfo extends ConsentComponent {
                   </span>
                 </div>
                 <textarea disabled={!canModifyTrait} id="description" styleName="bio-text" name="description" placeholder="In 240 characters or less, tell the Topcoder community a bit about yourself" onChange={this.onUpdateInput} value={newProfileInfo.description} maxLength="240" cols="3" rows="10" />
-                <ErrorMessage invalid={_.isEmpty(newProfileInfo.description) && inputChanged} message="Short bio cannot be empty" addMargin />
               </div>
             </div>
           </form>
