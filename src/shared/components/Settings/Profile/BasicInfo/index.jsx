@@ -190,7 +190,6 @@ export default class BasicInfo extends ConsentComponent {
       addUserTrait,
       updateUserTrait,
       updateProfileV5,
-      profile,
     } = this.props;
     try {
       const parsedDate = moment(newBasicInfo.birthDate).utc();
@@ -248,20 +247,7 @@ export default class BasicInfo extends ConsentComponent {
     const updateProfileData = {
       ...newProfileInfo,
     };
-    updateProfileData.addresses.forEach((address, idx) => {
-      if (!address.createdAt) {
-        updateProfileData.addresses[idx].createdAt = new Date();
-      }
-      if (!address.updatedAt) {
-        updateProfileData.addresses[idx].updatedAt = new Date();
-      }
-      if (!address.createdBy) {
-        updateProfileData.addresses[idx].createdBy = profile.handle;
-      }
-      if (!address.updatedBy) {
-        updateProfileData.addresses[idx].updatedBy = profile.handle;
-      }
-    });
+
     await updateProfileV5(updateProfileData, handle, tokenV3);
 
     this.setState({ isSaving: false });
