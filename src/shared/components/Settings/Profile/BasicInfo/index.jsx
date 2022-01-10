@@ -355,88 +355,6 @@ export default class BasicInfo extends ConsentComponent {
   /**
    * Process basic info state
    */
-<<<<<<< HEAD
-  processBasicInfo = (value) => {
-    const { newBasicInfo } = this.state;
-    const { handle, profile } = this.props;
-    newBasicInfo.handle = handle;
-    if (_.has(value, 'addresses') && value.addresses.length > 0) {
-      newBasicInfo.addresses[0].city = value.addresses[0].city ? value.addresses[0].city : '';
-      newBasicInfo.addresses[0].stateCode = value.addresses[0].stateCode ? value.addresses[0].stateCode : '';
-      newBasicInfo.addresses[0].streetAddr1 = value.addresses[0].streetAddr1 ? value.addresses[0].streetAddr1 : '';
-      newBasicInfo.addresses[0].streetAddr2 = value.addresses[0].streetAddr2 ? value.addresses[0].streetAddr2 : '';
-      newBasicInfo.addresses[0].zip = value.addresses[0].zip ? value.addresses[0].zip : '';
-      if (newBasicInfo.addresses[0].streetAddr1 === '' && _.has(value, 'address')) {
-        newBasicInfo.addresses[0].streetAddr1 = value.address;
-      }
-    } else {
-      newBasicInfo.addresses[0].city = _.has(value, 'city') ? value.city : '';
-      newBasicInfo.addresses[0].stateCode = _.has(value, 'state') ? value.state : '';
-      newBasicInfo.addresses[0].streetAddr1 = _.has(value, 'address') ? value.address : '';
-      newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
-    }
-    if (_.has(value, 'birthDate')) {
-      const newDate = moment(value.birthDate).utc();
-      if (newDate.isValid()) {
-        newBasicInfo.birthDate = newDate;
-      }
-    }
-    if (_.has(value, 'competitionCountryCode')) {
-      newBasicInfo.competitionCountryCode = value.competitionCountryCode;
-    } else {
-      newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
-    }
-    if (_.has(value, 'country')) {
-      newBasicInfo.country = value.country;
-    }
-    if (_.has(value, 'currentLocation')) {
-      newBasicInfo.currentLocation = value.currentLocation;
-    }
-    if (_.has(value, 'description')) {
-      if (_.trim(value.description).length) {
-        newBasicInfo.description = value.description;
-      }
-    } else {
-      newBasicInfo.description = profile.description ? profile.description : '';
-    }
-    if (_.has(value, 'email')) {
-      newBasicInfo.email = value.email;
-    } else {
-      newBasicInfo.email = profile.email;
-    }
-    if (_.has(value, 'firstName')) {
-      newBasicInfo.firstName = value.firstName;
-    } else {
-      newBasicInfo.firstName = '';
-    }
-    if (_.has(value, 'gender')) {
-      newBasicInfo.gender = value.gender;
-    } else {
-      newBasicInfo.gender = profile.gender;
-    }
-    if (_.has(value, 'homeCountryCode')) {
-      newBasicInfo.homeCountryCode = value.homeCountryCode;
-    } else {
-      newBasicInfo.homeCountryCode = profile.homeCountryCode;
-    }
-    if (_.has(value, 'lastName')) {
-      newBasicInfo.lastName = value.lastName;
-    } else {
-      newBasicInfo.lastName = '';
-    }
-    if (_.has(value, 'primaryInterestInTopcoder')) {
-      newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
-    }
-    if (_.has(value, 'status')) {
-      newBasicInfo.status = value.status;
-    } else {
-      newBasicInfo.status = profile.status;
-    }
-    if (_.has(value, 'tracks')) {
-      newBasicInfo.tracks = value.tracks ? value.tracks : [];
-    } else {
-      newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
-=======
   processBasicInfo = (value, profile) => {
     const { newBasicInfo, newProfileInfo: profileInfo } = this.state;
     if (_.has(profile, 'handle')) {
@@ -454,7 +372,6 @@ export default class BasicInfo extends ConsentComponent {
         return acc;
       }, {});
       this.setState({ newBasicInfo: basicInfo, newProfileInfo });
->>>>>>> fix/v5-settings
     }
     if (_.has(value, 'tshirtSize')) {
       newBasicInfo.tshirtSize = value.tshirtSize;
