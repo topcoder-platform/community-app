@@ -343,7 +343,6 @@ workflows:
             branches:
               only:
                 - develop
-                - features/mm-dashboard
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
