@@ -99,6 +99,7 @@ SettingsContainer.propTypes = {
   uploadPhoto: PT.func.isRequired,
   deletePhoto: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
+  updateProfileV5: PT.func.isRequired,
   addWebLink: PT.func.isRequired,
   deleteWebLink: PT.func.isRequired,
   linkExternalAccount: PT.func.isRequired,
@@ -222,6 +223,10 @@ function mapDispatchToProps(dispatch) {
     updateProfile: (profile, tokenV3) => {
       dispatch(profileActions.updateProfileInit());
       dispatch(profileActions.updateProfileDone(profile, tokenV3));
+    },
+    updateProfileV5: (profile, handle, tokenV5) => {
+      dispatch(profileActions.updateProfileInitV5());
+      dispatch(profileActions.updateProfileDoneV5(profile, handle, tokenV5));
     },
     linkExternalAccount: (profile, tokenV3, providerType, callbackUrl) => {
       dispatch(profileActions.linkExternalAccountInit());
