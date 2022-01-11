@@ -169,7 +169,7 @@ export default class Looker extends Component {
                 return value ? (
                   <td key={record[prop]} style={fixStyle(styles)} title={value} styleName="body-row">
                     {memberLinks ? (
-                      <a styleName="handle-link" href={`${window.origin}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`} style={{ color: ratingProp ? `${getRatingColor(record[ratingProp])} !important` : null }}>
+                      <a styleName="handle-link" href={`${window.origin}/members/${value}`} target={`${_.includes(window.origin, 'www') ? '_self' : '_blank'}`} style={{ color: ratingProp ? getRatingColor(record[ratingProp]) : null }}>
                         {value}
                       </a>
                     ) : value}
