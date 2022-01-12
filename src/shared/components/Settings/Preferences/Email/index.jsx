@@ -61,6 +61,11 @@ const newsletters = [
     name: 'Rapid Development Match (RDM) Reminders',
     desc: 'Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!',
   },
+  {
+    id: 'ee26600945',
+    name: 'NASA Community',
+    desc: 'Receive email notifications for all the latest news and announcements of our <a href="https://www.topcoder.com/community/nasa" style="color:#0d61bf;text-decoration:underline">NASA Member Program</a>.',
+  },
 ];
 const programs = [
   {
