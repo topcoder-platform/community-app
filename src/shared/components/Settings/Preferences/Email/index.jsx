@@ -27,11 +27,6 @@ const SAVE_DELAY = 1000;
 
 const newsletters = [
   {
-    id: '9f950b43a1',
-    name: 'Challenge Pipeline',
-    desc: 'Subscribe to this newsletter if you want to get updates on the types of challenges coming up in the future. To view these challenges at your leisure you can always visit the <a href="https://www.topcoder.com/community/pipeline" style="color:#0d61bf;text-decoration:underline">Challenge Pipeline</a> page.',
-  },
-  {
     id: 'd0c48e9da3',
     name: 'Gig Work',
     desc: 'This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href="https://www.topcoder.com/community/taas" style="color:#0d61bf;text-decoration:underline">Gig Work</a> page.',
