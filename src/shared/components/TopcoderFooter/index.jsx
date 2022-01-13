@@ -69,7 +69,6 @@ export default function TopcoderFooter() {
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
               <Link to={`${base}/blog`}>Blog</Link>
-              <Link to={`${base}/community/pipeline`}>Challenge Pipeline</Link>
               <Link to={`${base}/community/events`}>Events Calendar</Link>
               <Link to={`${config.URL.FORUMS_VANILLA}`}>Forums</Link>
               <Link to={`${base}/community/member-programs`}>Programs</Link>

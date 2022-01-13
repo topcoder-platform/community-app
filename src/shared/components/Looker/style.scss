@@ -106,7 +106,7 @@ $light-gray: #d4d4d4;
   @include roboto-medium;
 
   font-weight: 500;
-  color: #0d61bf !important;
+  color: #0d61bf;
   text-decoration: underline;
 
   &:hover {

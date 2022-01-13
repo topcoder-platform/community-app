@@ -31,11 +31,15 @@ class NewsletterSignupForMembersContainer extends React.Component {
 
     // Get interestIds and interest request object for mailchimp api
     // to use in checkSubscription and subscribe function
-    const { groups } = props;
+    const { groups, tags } = props;
     this.groupsIds = null;
+    this.tagNames = null;
     if (groups !== '') {
       this.groupsIds = groups.split(/ *, */);
       this.groupsIds[this.groupsIds.length - 1] = this.groupsIds[this.groupsIds.length - 1].replace(/^\s+|\s+$/g, '');
+    }
+    if (tags) {
+      this.tagNames = tags.split(',');
     }
     this.isSubscribed = false;
 
@@ -89,13 +93,25 @@ class NewsletterSignupForMembersContainer extends React.Component {
       .then((dataResponse) => {
         if (dataResponse.status === 'subscribed') {
           this.isSubscribed = true;
-          const subscribedTags = _.keys(_.pickBy(dataResponse.interests, v => v));
-          if (subscribedTags.length) {
-            if (_.intersection(subscribedTags, this.groupsIds).length) {
-              this.setState({ signupState: SIGNUP_NEWSLETTER.HIDDEN });
+          if (this.groupsIds) {
+            const subscribedGroups = _.keys(_.pickBy(dataResponse.interests, v => v));
+            if (subscribedGroups.length) {
+              if (_.intersection(subscribedGroups, this.groupsIds).length) {
+                this.setState({ signupState: SIGNUP_NEWSLETTER.HIDDEN });
+              }
+            } else {
+              this.setState({ signupState: SIGNUP_NEWSLETTER.DEFAULT });
             }
-          } else {
-            this.setState({ signupState: SIGNUP_NEWSLETTER.DEFAULT });
+          }
+          if (!this.groupsIds && this.tagNames) {
+            const subscribedTags = _.map(dataResponse.tags, t => t.name);
+            if (subscribedTags.length) {
+              if (_.intersection(subscribedTags, this.tagNames).length) {
+                this.setState({ signupState: SIGNUP_NEWSLETTER.HIDDEN });
+              }
+            } else {
+              this.setState({ signupState: SIGNUP_NEWSLETTER.DEFAULT });
+            }
           }
         } else {
           this.setState({ signupState: SIGNUP_NEWSLETTER.DEFAULT });
@@ -107,49 +123,75 @@ class NewsletterSignupForMembersContainer extends React.Component {
     const {
       listId, user,
     } = this.props;
-
-    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}`;
-
-    let data = {};
-    if (!this.isSubscribed) {
-      data = {
-        email_address: user.email,
-        status: 'subscribed',
-        merge_fields: {
-          FNAME: user.FNAME,
-          LNAME: user.LNAME,
-        },
-      };
-    }
+    const isTagsUpdate = !!this.tagNames;
+    const fetchUrl = `${PROXY_ENDPOINT}/${listId}/members/${this.emailHash}${isTagsUpdate ? '/tags' : ''}`;
 
     if (this.groupsIds) {
+      let data = {};
+      if (!this.isSubscribed) {
+        data = {
+          email_address: user.email,
+          status: 'subscribed',
+          merge_fields: {
+            FNAME: user.FNAME,
+            LNAME: user.LNAME,
+          },
+        };
+      }
       data.interests = {};
       // eslint-disable-next-line array-callback-return
       this.groupsIds.map((group) => {
         data.interests[group] = true;
       });
-    }
 
-    const formData = JSON.stringify(data);
-    // use proxy for avoid 'Access-Control-Allow-Origin' bug
-    await fetch(fetchUrl, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: formData,
-    }).then(result => result.json()).then((dataResponse) => {
-      if (dataResponse.status === 'subscribed') {
-        // regist success
-        this.setState({ signupState: SIGNUP_NEWSLETTER.SIGNEDUP });
-      } else {
-        // regist fail
-        this.setState({
-          signupState: SIGNUP_NEWSLETTER.ERROR,
-          message: dataResponse.detail,
-        });
-      }
-    });
+      const formData = JSON.stringify(data);
+      // use proxy for avoid 'Access-Control-Allow-Origin' bug
+      await fetch(fetchUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: formData,
+      }).then(result => result.json()).then((dataResponse) => {
+        if (dataResponse.status === 'subscribed') {
+          // regist success
+          this.setState({ signupState: SIGNUP_NEWSLETTER.SIGNEDUP });
+        } else {
+          // regist fail
+          this.setState({
+            signupState: SIGNUP_NEWSLETTER.ERROR,
+            message: dataResponse.detail,
+          });
+        }
+      });
+    }
+    if (!this.groupsIds && this.tagNames) {
+      const formData = JSON.stringify({
+        tags: this.tagNames.map(tName => ({
+          name: tName,
+          status: 'active',
+        })),
+      });
+      // use proxy for avoid 'Access-Control-Allow-Origin' bug
+      await fetch(fetchUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: formData,
+      }).then(result => result.json()).then((dataResponse) => {
+        if (dataResponse.status === 204) {
+          // regist success
+          this.setState({ signupState: SIGNUP_NEWSLETTER.SIGNEDUP });
+        } else {
+          // regist fail
+          this.setState({
+            signupState: SIGNUP_NEWSLETTER.ERROR,
+            message: dataResponse.detail,
+          });
+        }
+      });
+    }
   }
 
   showSignupConfirmModal() {
@@ -194,6 +236,7 @@ NewsletterSignupForMembersContainer.defaultProps = {
   buttonTheme: 'primary-green-md',
   title: 'Sign up for the Topcoder Newsletter',
   desc: 'Do you want to subscribe to this newsletter?',
+  tags: null,
 };
 
 NewsletterSignupForMembersContainer.propTypes = {
@@ -206,6 +249,7 @@ NewsletterSignupForMembersContainer.propTypes = {
   buttonTheme: PT.string,
   title: PT.string,
   desc: PT.string,
+  tags: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {
