@@ -27,11 +27,6 @@ const SAVE_DELAY = 1000;
 
 const newsletters = [
   {
-    id: '9f950b43a1',
-    name: 'Challenge Pipeline',
-    desc: 'Subscribe to this newsletter if you want to get updates on the types of challenges coming up in the future. To view these challenges at your leisure you can always visit the <a href="https://www.topcoder.com/community/pipeline" style="color:#0d61bf;text-decoration:underline">Challenge Pipeline</a> page.',
-  },
-  {
     id: 'd0c48e9da3',
     name: 'Gig Work',
     desc: 'This newsletter gets sent out at various times, specifically when we have an opportunity of mass appeal. For more information you can visit the <a href="https://www.topcoder.com/community/taas" style="color:#0d61bf;text-decoration:underline">Gig Work</a> page.',
@@ -60,6 +55,11 @@ const newsletters = [
     id: '3460574ddd',
     name: 'Rapid Development Match (RDM) Reminders',
     desc: 'Receive notifications of our brand new RDMs! These rated, development matches will be a fun new way to engage with us!',
+  },
+  {
+    id: 'ee26600945',
+    name: 'NASA Community',
+    desc: 'Receive email notifications for all the latest news and announcements of our <a href="https://www.topcoder.com/community/nasa" style="color:#0d61bf;text-decoration:underline">NASA Member Program</a>.',
   },
 ];
 const programs = [
