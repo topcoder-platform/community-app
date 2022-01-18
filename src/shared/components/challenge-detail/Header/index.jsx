@@ -264,6 +264,7 @@ export default function ChallengeHeader(props) {
             </h1>
             <div styleName="tag-container">
               <ChallengeTags
+                isSelfService={challenge.legacy.selfService}
                 challengeId={challengeId}
                 track={track}
                 challengeType={_.find(challengeTypesMap, { name: type }) || {}}

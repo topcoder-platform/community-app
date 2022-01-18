@@ -31,6 +31,7 @@ import './style.scss';
 
 export default function ChallengeTags(props) {
   const {
+    isSelfService,
     challengeId,
     challengesUrl,
     track,
@@ -113,6 +114,13 @@ export default function ChallengeTags(props) {
         ))
       }
       {
+        isSelfService && (
+          <DevelopmentTrackTag>
+            <span>Customer Self-Service</span>
+          </DevelopmentTrackTag>
+        )
+      }
+      {
         tags.map(tag => (
           tag
               && (
@@ -135,9 +143,11 @@ export default function ChallengeTags(props) {
 ChallengeTags.defaultProps = {
   events: [],
   technPlatforms: [],
+  isSelfService: false,
 };
 
 ChallengeTags.propTypes = {
+  isSelfService: PT.bool,
   challengeId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
   track: PT.string.isRequired,
