@@ -36,6 +36,9 @@ function ContentSliderItemsLoader(props) {
     environment,
     heightMode,
     arrowTheme,
+    hideSliderDots,
+    arrowLeftImage,
+    arrowRightImage,
   } = props;
 
   return (
@@ -58,6 +61,10 @@ function ContentSliderItemsLoader(props) {
           wrapAround={wrapAround}
           heightMode={heightMode}
           arrowTheme={arrowTheme}
+          hideSliderDots={hideSliderDots}
+          themeName={theme}
+          arrowLeftImage={arrowLeftImage}
+          arrowRightImage={arrowRightImage}
         >
           {
             ids.map(itemId => (
@@ -94,6 +101,9 @@ ContentSliderItemsLoader.defaultProps = {
   environment: null,
   heightMode: 'current',
   arrowTheme: 'Gray',
+  hideSliderDots: false,
+  arrowLeftImage: null,
+  arrowRightImage: null,
 };
 
 ContentSliderItemsLoader.propTypes = {
@@ -115,6 +125,9 @@ ContentSliderItemsLoader.propTypes = {
   wrapAround: PT.bool,
   heightMode: PT.string,
   arrowTheme: PT.string,
+  hideSliderDots: PT.bool,
+  arrowLeftImage: PT.shape(),
+  arrowRightImage: PT.shape(),
 };
 
 export default function ContentfulSlider(props) {
@@ -152,6 +165,9 @@ export default function ContentfulSlider(props) {
             wrapAround={fields.wrapAround}
             heightMode={fields.heightMode}
             arrowTheme={fields.arrowTheme}
+            hideSliderDots={fields.hideSliderDots}
+            arrowLeftImage={fields.arrowLeftImage}
+            arrowRightImage={fields.arrowRightImage}
           />
         );
       }}
