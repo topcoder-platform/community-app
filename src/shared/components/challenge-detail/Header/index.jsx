@@ -489,6 +489,9 @@ ChallengeHeader.propTypes = {
   checkpoints: PT.shape(),
   challenge: PT.shape({
     id: PT.string.isRequired,
+    legacy: PT.shape({
+      selfService: PT.bool,
+    }),
     type: PT.any,
     track: PT.string,
     drPoints: PT.any,
