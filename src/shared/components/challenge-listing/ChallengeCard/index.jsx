@@ -104,7 +104,7 @@ function ChallengeCard({
                 )
             }
             {
-              challenge.legacy.selfService && (
+              _.get(challenge, 'legacy.selfService') && (
                 <DevelopmentTrackTag>
                   <span>Customer Self-Service</span>
                 </DevelopmentTrackTag>
