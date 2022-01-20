@@ -167,6 +167,7 @@ class Article extends React.Component {
           <meta name="title" property="og:title" content={fields.title} />
           <meta name="description" property="og:description" content={description} />
           <meta name="description" property="description" content={description} />
+          <meta name="twitter:title" content={fields.title} />
           <meta name="twitter:description" content={description} />
           <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
           <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
