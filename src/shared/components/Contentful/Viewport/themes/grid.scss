@@ -24,3 +24,14 @@
     }
   }
 }
+
+.loadMoreWrapper {
+  display: flex;
+  flex-direction: column;
+
+  .loadMoreButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

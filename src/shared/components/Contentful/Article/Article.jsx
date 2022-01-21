@@ -39,7 +39,7 @@ const CONTENT_PREVIEW_LENGTH = 110;
 // Votes local storage key
 const LOCAL_STORAGE_KEY = 'VENBcnRpY2xlVm90ZXM=';
 // def banner image
-const DEFAULT_BANNER_IMAGE = 'https://images.ctfassets.net/piwi0eufbb2g/7v2hlDsVep7FWufHw0lXpQ/2505e61a880e68fab4e80cd0e8ec1814/0C37CB5E-B253-4804-8935-78E64E67589E.png';
+const DEFAULT_BANNER_IMAGE = 'https://images.ctfassets.net/piwi0eufbb2g/7v2hlDsVep7FWufHw0lXpQ/2505e61a880e68fab4e80cd0e8ec1814/0C37CB5E-B253-4804-8935-78E64E67589E.png?w=1200&h=630';
 // random ads banner - left sidebar
 const RANDOM_BANNERS = ['6G8mjiTC1mzeSQ2YoUG1gB', '1DnDD02xX1liHfSTf5Vsn8', 'HQZ3mN0rR92CbNTkKTHJ5', '1OLoX8ZsvjAnn4TdGbZESD', '77jn01UGoQe2gqA7x0coQD'];
 const RANDOM_BANNER = RANDOM_BANNERS[_.random(0, 4)];
@@ -167,9 +167,10 @@ class Article extends React.Component {
           <meta name="title" property="og:title" content={fields.title} />
           <meta name="description" property="og:description" content={description} />
           <meta name="description" property="description" content={description} />
+          <meta name="twitter:title" content={fields.title} />
           <meta name="twitter:description" content={description} />
-          <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
-          <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}` : DEFAULT_BANNER_IMAGE} />
+          <meta name="image" property="og:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}?w=1200&h=630` : DEFAULT_BANNER_IMAGE} />
+          <meta name="twitter:image" content={fields.featuredImage ? `https:${subData.assets.items[fields.featuredImage.sys.id].fields.file.url}?w=1200&h=630` : DEFAULT_BANNER_IMAGE} />
           <link rel="alternate" type="application/rss+xml" title="Topcoder Thrive - RSS feed" href="https://topcoder.com/api/feeds/thrive" />
         </Helmet>
         <div className={theme.wrapper}>

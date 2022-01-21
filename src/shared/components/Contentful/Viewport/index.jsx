@@ -17,7 +17,7 @@ import BlogFeed from 'containers/Contentful/BlogFeed';
 import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import Countdown from 'components/Contentful/Countdown';
 import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
@@ -30,11 +30,13 @@ import Article from 'components/Contentful/Article';
 import { isomorphy } from 'topcoder-react-utils';
 import MemberTalkCloud from 'components/Contentful/MemberTalkCloud';
 import Masonry from 'react-masonry-css';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 // AOS
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import tc from 'components/buttons/themed/tc.scss';
 import Viewport from './Viewport';
 
 import columnTheme from './themes/column.scss';
@@ -78,6 +80,10 @@ const THEMES = {
   Masonry: masonryTheme,
 };
 
+const buttonThemes = {
+  tc,
+};
+
 /* Loads viewport content assets. */
 function ViewportContentLoader(props) {
   const {
@@ -91,12 +97,19 @@ function ViewportContentLoader(props) {
     viewportId,
     animationOnScroll,
     masonryConfig,
+    itemsPerPage,
+    loadMoreButtonText,
+    loadMoreButtonTheme,
+    loadMoreButtonContainerStyles,
   } = props;
   let {
     extraStylesForContainer,
   } = props;
+  const [page, setPage] = useState(1);
 
-  const getInner = data => contentIds.map((id) => {
+  const getInner = data => contentIds.slice(
+    0, (itemsPerPage ? itemsPerPage * page : contentIds.length),
+  ).map((id) => {
     const type = data.entries.items[id].sys.contentType.sys.id;
     const Component = COMPONENTS[type];
     if (Component) {
@@ -146,7 +159,44 @@ function ViewportContentLoader(props) {
             AOS.init();
           }
         }
-        return (
+        return itemsPerPage ? (
+          <div className={theme.loadMoreWrapper}>
+            <Viewport
+              viewportId={viewportId}
+              extraStylesForContainer={fixStyle(extraStylesForContainer)}
+              theme={theme}
+              animation={animation}
+            >
+              {
+              themeName === 'Masonry' && masonryConfig ? (
+                <Masonry breakpointCols={masonryConfig} className="viewport-masonry-grid" columnClassName="viewport-masonry-grid_column">
+                  {getInner(data)}
+                </Masonry>
+              ) : getInner(data)
+            }
+            </Viewport>
+            {
+              page * itemsPerPage < contentIds.length && (
+                <div
+                  className={theme.loadMoreButtonContainer}
+                  style={fixStyle(loadMoreButtonContainerStyles)}
+                >
+                  <PrimaryButton
+                    onClick={() => {
+                      setPage(page + 1);
+                    }}
+                    theme={{
+                      button: buttonThemes.tc[loadMoreButtonTheme],
+                      disabled: buttonThemes.tc.themedButtonDisabled,
+                    }}
+                  >
+                    {loadMoreButtonText}
+                  </PrimaryButton>
+                </div>
+              )
+            }
+          </div>
+        ) : (
           <Viewport
             viewportId={viewportId}
             extraStylesForContainer={fixStyle(extraStylesForContainer)}
@@ -180,6 +230,10 @@ ViewportContentLoader.defaultProps = {
   }),
   animationOnScroll: null,
   masonryConfig: null,
+  itemsPerPage: null,
+  loadMoreButtonText: null,
+  loadMoreButtonTheme: null,
+  loadMoreButtonContainerStyles: null,
 };
 
 ViewportContentLoader.propTypes = {
@@ -194,6 +248,10 @@ ViewportContentLoader.propTypes = {
   baseUrl: PT.string.isRequired,
   animationOnScroll: PT.shape(),
   masonryConfig: PT.shape(),
+  itemsPerPage: PT.string,
+  loadMoreButtonText: PT.string,
+  loadMoreButtonTheme: PT.string,
+  loadMoreButtonContainerStyles: PT.shape(),
 };
 
 /* Loads the main viewport entry. */
@@ -247,6 +305,10 @@ export function ViewportLoader(props) {
             baseUrl={baseUrl}
             animationOnScroll={viewport.fields.animationOnScroll}
             masonryConfig={viewport.fields.masonryConfig}
+            itemsPerPage={viewport.fields.itemsPerPage}
+            loadMoreButtonText={viewport.fields.loadMoreButtonText}
+            loadMoreButtonTheme={viewport.fields.loadMoreButtonTheme}
+            loadMoreButtonContainerStyles={viewport.fields.loadMoreButtonContainerStyles}
           />
         );
       })}
