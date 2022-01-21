@@ -46,3 +46,19 @@
     margin-right: 15px;
   }
 }
+
+.bottomRightControls {
+  display: flex;
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+
+  a.controlLeft {
+    margin: 0;
+    margin-right: 20px;
+  }
+
+  a.controlRight {
+    margin: 0;
+  }
+}

@@ -36,8 +36,66 @@ class ContentSlider extends Component {
     const {
       children, theme, autoStart, duration, id, containerStyle,
       slidesToShow, framePadding, withoutControls, vertical, cellSpacing,
-      cellAlign, wrapAround, heightMode, arrowTheme,
+      cellAlign, wrapAround, heightMode, arrowTheme, hideSliderDots, themeName,
+      arrowLeftImage, arrowRightImage,
     } = this.props;
+    const renderControls = {
+      renderCenterLeftControls: ({ previousSlide }) => (
+        <a
+          onClick={previousSlide}
+          onKeyPress={previousSlide}
+          role="button"
+          tabIndex={0}
+          className={theme.controlLeft}
+        >
+          {arrowRightImage && <img src={arrowRightImage.fields.file.url} alt="Slider left arrow" />}
+          {!arrowRightImage && (arrowTheme === 'Gray' ? <GrayArrowNext /> : <WhiteArrowNext />)}
+        </a>
+      ),
+      renderCenterRightControls: ({ nextSlide }) => (
+        <a
+          onClick={nextSlide}
+          onKeyPress={nextSlide}
+          role="button"
+          tabIndex={0}
+          className={theme.controlRight}
+        >
+          {arrowLeftImage && <img src={arrowLeftImage.fields.file.url} alt="Slider right arrow" />}
+          {!arrowLeftImage && (arrowTheme === 'Gray' ? <GrayArrowPrev /> : <WhiteArrowPrev />)}
+        </a>
+      ),
+    };
+    if (hideSliderDots) {
+      renderControls.renderBottomCenterControls = () => null;
+    }
+    if (themeName === 'Controls Bottom Right') {
+      renderControls.renderCenterLeftControls = () => null;
+      renderControls.renderCenterRightControls = () => null;
+      renderControls.renderBottomRightControls = ({ previousSlide, nextSlide }) => (
+        <div className={theme.bottomRightControls}>
+          <a
+            onClick={previousSlide}
+            onKeyPress={previousSlide}
+            role="button"
+            tabIndex={0}
+            className={theme.controlLeft}
+          >
+            {arrowLeftImage && <img src={arrowLeftImage.fields.file.url} alt="Slider left arrow" />}
+            {!arrowLeftImage && (arrowTheme === 'Gray' ? <GrayArrowPrev /> : <WhiteArrowPrev />)}
+          </a>
+          <a
+            onClick={nextSlide}
+            onKeyPress={nextSlide}
+            role="button"
+            tabIndex={0}
+            className={theme.controlRight}
+          >
+            {arrowRightImage && <img src={arrowRightImage.fields.file.url} alt="Slider right arrow" />}
+            {!arrowRightImage && (arrowTheme === 'Gray' ? <GrayArrowNext /> : <WhiteArrowNext />)}
+          </a>
+        </div>
+      );
+    }
 
     return (
       <div
@@ -59,28 +117,7 @@ class ContentSlider extends Component {
           vertical={vertical}
           cellSpacing={cellSpacing}
           wrapAround={wrapAround}
-          renderCenterLeftControls={({ previousSlide }) => (
-            <a
-              onClick={previousSlide}
-              onKeyPress={previousSlide}
-              role="button"
-              tabIndex={0}
-              className={theme.controlLeft}
-            >
-              {arrowTheme === 'Gray' ? <GrayArrowPrev /> : <WhiteArrowPrev />}
-            </a>
-          )}
-          renderCenterRightControls={({ nextSlide }) => (
-            <a
-              onClick={nextSlide}
-              onKeyPress={nextSlide}
-              role="button"
-              tabIndex={0}
-              className={theme.controlRight}
-            >
-              {arrowTheme === 'Gray' ? <GrayArrowNext /> : <WhiteArrowNext />}
-            </a>
-          )}
+          {...renderControls}
         >
           {children}
         </CarouselInject>
@@ -103,6 +140,10 @@ ContentSlider.defaultProps = {
   wrapAround: true,
   heightMode: 'max',
   arrowTheme: 'Gray',
+  hideSliderDots: false,
+  themeName: 'Default',
+  arrowLeftImage: null,
+  arrowRightImage: null,
 };
 
 ContentSlider.propTypes = {
@@ -110,14 +151,7 @@ ContentSlider.propTypes = {
   children: PT.node.isRequired,
   autoStart: PT.bool,
   duration: PT.number,
-  theme: PT.shape({
-    container: PT.string,
-    content: PT.string,
-    controlLeft: PT.string,
-    controlRight: PT.string,
-    multiContent: PT.any,
-    singleContent: PT.any,
-  }),
+  theme: PT.shape(),
   containerStyle: PT.shape(),
   slidesToShow: PT.number,
   framePadding: PT.string,
@@ -128,6 +162,10 @@ ContentSlider.propTypes = {
   wrapAround: PT.bool,
   heightMode: PT.string,
   arrowTheme: PT.string,
+  hideSliderDots: PT.bool,
+  themeName: PT.string,
+  arrowLeftImage: PT.shape(),
+  arrowRightImage: PT.shape(),
 };
 
 export default themr('Contentful-Slider', defaultTheme)(ContentSlider);

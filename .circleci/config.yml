@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - jan-updates-1
+                - jan-fixes-2
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
