@@ -116,7 +116,7 @@ export default function ChallengeTags(props) {
       {
         isSelfService && (
           <DevelopmentTrackTag>
-            <span>Customer Self-Service</span>
+            <span>On Demand</span>
           </DevelopmentTrackTag>
         )
       }
