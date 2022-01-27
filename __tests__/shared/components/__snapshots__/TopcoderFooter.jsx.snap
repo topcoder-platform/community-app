@@ -289,15 +289,6 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://www.topcoder-dev.com/community/admins"
-            >
-              Admins
-            </a>
-          </li>
-          <li
-            className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
-          >
-            <a
               href="https://www.topcoder-dev.com/community/contact"
             >
               Contact Us
@@ -486,9 +477,9 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-TopcoderFooter-___style__mobile-navi-col___3BcW4"
       >
         <a
-          href="https://www.topcoder-dev.com/community/admins"
+          href="https://www.topcoder-dev.com/community/contact"
         >
-          ABOUT
+          Contact Us
         </a>
       </div>
     </div>

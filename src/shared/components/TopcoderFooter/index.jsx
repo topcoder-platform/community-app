@@ -91,7 +91,6 @@ export default function TopcoderFooter() {
             <h4 styleName="navi-col-title">ABOUT</h4>
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
-              <Link to={`${base}/community/admins`}>Admins</Link>
               <Link to={`${base}/community/contact`}>Contact Us</Link>
               {!loggedIn
                 && <Link to={`${authUrl}?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion&retUrl=${retUrl}`}>Join Community</Link>
@@ -124,7 +123,7 @@ export default function TopcoderFooter() {
             <a href={`${base}/thrive/tracks?track=Topcoder&tax=Help%20Articles`}>HELP CENTER</a>
           </div>
           <div styleName="mobile-navi-col">
-            <a href={`${base}/community/admins`}>ABOUT</a>
+            <a href={`${base}/community/contact`}>Contact Us</a>
           </div>
         </div>
         <div styleName="mobile-only social-icons">
