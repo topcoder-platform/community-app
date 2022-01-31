@@ -49,7 +49,7 @@ class ContentSlider extends Component {
           className={theme.controlLeft}
         >
           {arrowRightImage && <img src={arrowRightImage.fields.file.url} alt="Slider left arrow" />}
-          {!arrowRightImage && (arrowTheme === 'Gray' ? <GrayArrowNext /> : <WhiteArrowNext />)}
+          {!arrowRightImage && (arrowTheme === 'Gray' ? <GrayArrowPrev /> : <WhiteArrowPrev />)}
         </a>
       ),
       renderCenterRightControls: ({ nextSlide }) => (
@@ -61,7 +61,7 @@ class ContentSlider extends Component {
           className={theme.controlRight}
         >
           {arrowLeftImage && <img src={arrowLeftImage.fields.file.url} alt="Slider right arrow" />}
-          {!arrowLeftImage && (arrowTheme === 'Gray' ? <GrayArrowPrev /> : <WhiteArrowPrev />)}
+          {!arrowLeftImage && (arrowTheme === 'Gray' ? <GrayArrowNext /> : <WhiteArrowNext />)}
         </a>
       ),
     };
