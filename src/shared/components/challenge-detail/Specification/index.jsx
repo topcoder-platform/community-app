@@ -435,6 +435,7 @@ ChallengeDetailsView.propTypes = {
       reviewScorecardId: PT.oneOfType([PT.string, PT.number]),
       screeningScorecardId: PT.string,
       forumId: PT.number,
+      selfService: PT.bool,
     }),
     track: PT.string.isRequired,
     legacyId: PT.oneOfType([PT.string, PT.number]),
