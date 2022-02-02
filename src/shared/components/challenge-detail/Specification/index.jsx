@@ -56,6 +56,7 @@ export default function ChallengeDetailsView(props) {
     reviewScorecardId,
     screeningScorecardId,
     forumId,
+    selfService,
   } = legacy;
 
   let stockArtValue = '';
@@ -173,7 +174,7 @@ export default function ChallengeDetailsView(props) {
         <div styleName="challenge-specifications">
           <div styleName={`challenge-specs-main ${accentedStyle}`}>
             {
-              track.toLowerCase() !== 'design'
+              track.toLowerCase() !== 'design' && !selfService
                 ? (
                   <div>
                     {
@@ -434,6 +435,7 @@ ChallengeDetailsView.propTypes = {
       reviewScorecardId: PT.oneOfType([PT.string, PT.number]),
       screeningScorecardId: PT.string,
       forumId: PT.number,
+      selfService: PT.bool,
     }),
     track: PT.string.isRequired,
     legacyId: PT.oneOfType([PT.string, PT.number]),
