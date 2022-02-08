@@ -54,6 +54,13 @@ exports[`Default render 1`] = `
             },
             Object {
               "href": "https://discord.gg/topcoder",
+              "logged": false,
+              "openNewTab": true,
+              "title": "Join Discord",
+            },
+            Object {
+              "href": "https://discord.gg/topcoder",
+              "logged": true,
               "openNewTab": true,
               "title": "Join Discord",
             },

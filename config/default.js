@@ -331,6 +331,13 @@ module.exports = {
           title: 'Join Discord',
           href: 'https://discord.gg/topcoder',
           openNewTab: true,
+          logged: false,
+        },
+        {
+          title: 'Join Discord',
+          href: 'https://discord.gg/topcoder',
+          openNewTab: true,
+          logged: true,
         },
       ],
       subMenu: [
