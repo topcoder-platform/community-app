@@ -46,6 +46,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/challenges"
+              target="_self"
             >
               All Challenges
             </a>
@@ -55,6 +56,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/arena"
+              target="_self"
             >
               Competitive Programming
             </a>
@@ -64,6 +66,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/gigs"
+              target="_self"
             >
               Gig Work
             </a>
@@ -73,6 +76,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/practice"
+              target="_self"
             >
               Practice
             </a>
@@ -98,6 +102,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=Competitive%20Programming"
+              target="_self"
             >
               Competitive Programming
             </a>
@@ -107,6 +112,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=Data%20Science&tax="
+              target="_self"
             >
               Data Science
             </a>
@@ -116,6 +122,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=Design&tax="
+              target="_self"
             >
               Design
             </a>
@@ -125,6 +132,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=Development&tax="
+              target="_self"
             >
               Development
             </a>
@@ -134,6 +142,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=QA&tax="
+              target="_self"
             >
               QA
             </a>
@@ -159,6 +168,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/blog"
+              target="_self"
             >
               Blog
             </a>
@@ -168,6 +178,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/events"
+              target="_self"
             >
               Events Calendar
             </a>
@@ -177,6 +188,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://vanilla.topcoder-dev.com"
+              target="_self"
             >
               Forums
             </a>
@@ -186,6 +198,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/member-programs"
+              target="_self"
             >
               Programs
             </a>
@@ -195,6 +208,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/statistics"
+              target="_self"
             >
               Statistics
             </a>
@@ -204,6 +218,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/member-programs/topcoder-open"
+              target="_self"
             >
               TCO
             </a>
@@ -213,8 +228,19 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive"
+              target="_self"
             >
               Thrive
+            </a>
+          </li>
+          <li
+            className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+          >
+            <a
+              href="https://discord.gg/topcoder"
+              target="_blank"
+            >
+              Join Discord
             </a>
           </li>
         </ul>
@@ -238,6 +264,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=Getting%20Paid"
+              target="_self"
             >
               Getting Paid
             </a>
@@ -247,6 +274,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=Topcoder&tax=FAQ"
+              target="_self"
             >
               FAQ
             </a>
@@ -256,6 +284,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/thrive/tracks?track=Topcoder"
+              target="_self"
             >
               General Info
             </a>
@@ -265,6 +294,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="mailto:support@topcoder.com"
+              target="_self"
             >
               Website Help
             </a>
@@ -290,6 +320,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/contact"
+              target="_self"
             >
               Contact Us
             </a>
@@ -299,6 +330,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://accounts-auth0.topcoder-dev.com?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion&retUrl="
+              target="_self"
             >
               Join Community
             </a>
@@ -308,6 +340,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/learn"
+              target="_self"
             >
               About Community
             </a>
@@ -317,6 +350,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/community/changelog"
+              target="_self"
             >
               Changelog
             </a>
@@ -326,6 +360,7 @@ exports[`Matches shallow shapshot 1`] = `
           >
             <a
               href="https://www.topcoder-dev.com/contact-us/"
+              target="_self"
             >
               Talk to Sales
             </a>

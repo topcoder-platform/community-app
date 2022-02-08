@@ -108,6 +108,11 @@ module.exports = {
           href: '/thrive/tracks?track=Topcoder',
           logged: false,
         },
+        {
+          title: 'Join Discord',
+          href: 'https://discord.gg/topcoder',
+          openNewTab: true,
+        },
       ],
       subMenu: [
         {

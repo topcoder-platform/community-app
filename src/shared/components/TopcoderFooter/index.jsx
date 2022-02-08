@@ -17,19 +17,25 @@ import './style.scss';
 function Link({
   children,
   to,
+  openNewTab,
 }) {
   return (
     <li styleName="link">
-      <a href={to}>
+      <a href={to} target={openNewTab ? '_blank' : '_self'}>
         {children}
       </a>
     </li>
   );
 }
 
+Link.defaultProps = {
+  openNewTab: false,
+};
+
 Link.propTypes = {
   to: PT.string.isRequired,
   children: PT.node.isRequired,
+  openNewTab: PT.bool,
 };
 
 export default function TopcoderFooter() {
@@ -75,6 +81,7 @@ export default function TopcoderFooter() {
               <Link to={`${base}/community/statistics`}>Statistics</Link>
               <Link to={`${base}/community/member-programs/topcoder-open`}>TCO</Link>
               <Link to={`${base}/thrive`}>Thrive</Link>
+              <Link to="https://discord.gg/topcoder" openNewTab>Join Discord</Link>
             </ul>
           </div>
           <div styleName="navi-col">

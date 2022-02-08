@@ -52,6 +52,11 @@ exports[`Default render 1`] = `
               "logged": false,
               "title": "How It Works",
             },
+            Object {
+              "href": "https://discord.gg/topcoder",
+              "openNewTab": true,
+              "title": "Join Discord",
+            },
           ],
           "subMenu": Array [
             Object {
