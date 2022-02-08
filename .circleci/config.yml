@@ -343,7 +343,7 @@ workflows:
             branches:
               only:
                 - develop
-                - fix/settings-save-fail
+                - fix/regsource
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
