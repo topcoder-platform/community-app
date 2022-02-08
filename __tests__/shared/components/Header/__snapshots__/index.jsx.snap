@@ -52,18 +52,6 @@ exports[`Default render 1`] = `
               "logged": false,
               "title": "How It Works",
             },
-            Object {
-              "href": "https://discord.gg/topcoder",
-              "logged": false,
-              "openNewTab": true,
-              "title": "Join Discord",
-            },
-            Object {
-              "href": "https://discord.gg/topcoder",
-              "logged": true,
-              "openNewTab": true,
-              "title": "Join Discord",
-            },
           ],
           "subMenu": Array [
             Object {
@@ -141,6 +129,11 @@ exports[`Default render 1`] = `
                 },
               ],
               "title": "Explore",
+            },
+            Object {
+              "href": "https://discord.gg/topcoder",
+              "openNewTab": true,
+              "title": "Join Discord",
             },
           ],
           "title": "COMMUNITY",
