@@ -11,6 +11,7 @@ import LinkedInIcon from './icons/icon-linkedln.svg';
 import TwitterIcon from './icons/icon-twitter.svg';
 import InstagramIcon from './icons/icon-instagram.svg';
 import TCLogo from './icons/TC-logo-inverted.svg';
+import DiscordIcon from './icons/icon-discord.svg';
 
 import './style.scss';
 
@@ -116,6 +117,7 @@ export default function TopcoderFooter() {
               <a href="https://www.linkedin.com/company/topcoder" target="_blank" rel="noopener noreferrer"><LinkedInIcon /></a>
               <a href="https://twitter.com/topcoder" target="_blank" rel="noopener noreferrer"><TwitterIcon /></a>
               <a href="https://www.instagram.com/topcoder" target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
+              <a href="https://discord.gg/topcoder" target="_blank" rel="noopener noreferrer"><DiscordIcon /></a>
             </div>
           </div>
         </div>
@@ -139,6 +141,7 @@ export default function TopcoderFooter() {
           <a href="https://www.linkedin.com/company/topcoder" target="_blank" rel="noopener noreferrer"><LinkedInIcon /></a>
           <a href="https://twitter.com/topcoder" target="_blank" rel="noopener noreferrer"><TwitterIcon /></a>
           <a href="https://www.instagram.com/topcoder" target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
+          <a href="https://discord.gg/topcoder" target="_blank" rel="noopener noreferrer"><DiscordIcon /></a>
         </div>
         <div styleName="bottom">
           <span styleName="copyright-notice">
