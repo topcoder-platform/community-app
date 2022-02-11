@@ -133,7 +133,7 @@ exports[`Default render 1`] = `
             Object {
               "href": "https://discord.gg/topcoder",
               "openNewTab": true,
-              "title": "Join Discord",
+              "title": "Discord",
             },
           ],
           "title": "COMMUNITY",

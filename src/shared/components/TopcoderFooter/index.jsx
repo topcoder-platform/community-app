@@ -82,7 +82,7 @@ export default function TopcoderFooter() {
               <Link to={`${base}/community/statistics`}>Statistics</Link>
               <Link to={`${base}/community/member-programs/topcoder-open`}>TCO</Link>
               <Link to={`${base}/thrive`}>Thrive</Link>
-              <Link to="https://discord.gg/topcoder" openNewTab>Join Discord</Link>
+              <Link to="https://discord.gg/topcoder" openNewTab>Discord</Link>
             </ul>
           </div>
           <div styleName="navi-col">

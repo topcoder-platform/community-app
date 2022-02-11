@@ -187,7 +187,7 @@ module.exports = {
           ],
         },
         {
-          title: 'Join Discord',
+          title: 'Discord',
           href: 'https://discord.gg/topcoder',
           openNewTab: true,
         },
