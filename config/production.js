@@ -186,6 +186,11 @@ module.exports = {
             },
           ],
         },
+        {
+          title: 'Discord',
+          href: 'https://discord.gg/topcoder',
+          openNewTab: true,
+        },
       ],
     },
   ],
