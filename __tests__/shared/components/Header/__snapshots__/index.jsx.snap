@@ -130,6 +130,11 @@ exports[`Default render 1`] = `
               ],
               "title": "Explore",
             },
+            Object {
+              "href": "https://discord.gg/topcoder",
+              "openNewTab": true,
+              "title": "Discord",
+            },
           ],
           "title": "COMMUNITY",
         },
