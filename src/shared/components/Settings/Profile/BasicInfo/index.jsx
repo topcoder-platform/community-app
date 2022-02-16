@@ -241,6 +241,10 @@ export default class BasicInfo extends ConsentComponent {
       }
     }
 
+    if (newProfileInfo.homeCountryCode == null) {
+      delete newProfileInfo.homeCountryCode;
+    }
+
     const updateProfileData = {
       ...newProfileInfo,
     };
