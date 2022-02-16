@@ -174,13 +174,45 @@ export default function ChallengeDetailsView(props) {
         <div styleName="challenge-specifications">
           <div styleName={`challenge-specs-main ${accentedStyle}`}>
             {
-              track.toLowerCase() !== 'design' && !selfService
+              track.toLowerCase() !== 'design' || selfService
                 ? (
                   <div>
                     {
                       description
                       && (
                       <article>
+                        {
+                          selfService && (
+                            <p styleName="note">
+                              <strong>
+                                On Demand Challenges are customer-initiated single round design challenges.
+                              </strong>
+                              <br />
+                              Please note the following important information for Topcoder competitors who participate in this challenge:
+                              <ul>
+                                <li>Any communication needed, should be done directly with the customer in the Challenge Forum.</li>
+                                <li>In order to pass challenge screening and review, all challenge requirements and requested screens must be completed as described below.</li>
+                                <li>Submission source files must be created with the application(s) listed in the requirements.</li>
+                                <li>There will be no appeals or final fixes.</li>
+                                <li>The challenge winner selections will be based upon completed requirements and associated Topcoder review scoring.</li>
+                              </ul>
+                              <br />
+                              <strong>
+                                REQUEST MARVEL PROTOTYPES HERE:
+                              </strong>
+                              <br />
+                              <a href="https://discussions.topcoder.com/15528/request-marvel-access-for-design-challenges?new=1">
+                                Request Marvel for On Demand Challenges
+                              </a>
+                              <br />
+                              <strong>
+                                DO NOT request Marvel access in the challenge forum with the customer.
+                              </strong>
+                              <br />
+                              Figma or XD Prototypes are acceptable for submissions created with those applications.
+                            </p>
+                          )
+                        }
                         <h2>
                           Challenge Overview
                         </h2>
