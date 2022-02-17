@@ -206,6 +206,7 @@ export default class BasicInfo extends ConsentComponent {
       newBasicInfo.tshirtSize = null;
     }
 
+    newProfileInfo.addresses[0] = _.omit(newProfileInfo.addresses[0], ['createdAt', 'updatedBy', 'createdBy', 'updatedAt']);
     _.forEach(newProfileInfo.addresses[0], (value, key) => {
       newProfileInfo.addresses[0][key] = _.trim(value);
     });
@@ -238,6 +239,10 @@ export default class BasicInfo extends ConsentComponent {
         const personalizationData = { userConsent: answer };
         await updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
       }
+    }
+
+    if (newProfileInfo.homeCountryCode == null) {
+      delete newProfileInfo.homeCountryCode;
     }
 
     const updateProfileData = {
