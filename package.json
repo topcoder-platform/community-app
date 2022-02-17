@@ -148,7 +148,7 @@
     "serve-favicon": "^2.5.0",
     "sharp": "^0.20.5",
     "shortid": "^2.2.8",
-    "showdown": "^1.8.6",
+    "showdown": "^2.0.0",
     "slick-carousel": "^1.8.1",
     "supertest": "^3.1.0",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.3",
