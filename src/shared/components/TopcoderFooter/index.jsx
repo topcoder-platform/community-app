@@ -75,7 +75,7 @@ export default function TopcoderFooter() {
             <h4 styleName="navi-col-title">COMMUNITY</h4>
             <div styleName="sep-line" />
             <ul styleName="navi-col-links">
-              <Link to={`${base}/blog`}>Blog</Link>
+              <Link to={`${base}/blog?ref=navb`}>Blog</Link>
               <Link to={`${base}/community/events?ref=navb`}>Events Calendar</Link>
               <Link to={`${config.URL.FORUMS_VANILLA}?ref=navb`}>Forums</Link>
               <Link to={`${base}/community/member-programs?ref=navb`}>Programs</Link>
