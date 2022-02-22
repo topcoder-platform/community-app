@@ -359,7 +359,7 @@ exports[`Matches shallow shapshot 1`] = `
             className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
           >
             <a
-              href="https://www.topcoder-dev.com/contact-us/?ref=navb"
+              href="https://go.topcoder.com/contact/?ref=navb"
               target="_self"
             >
               Talk to Sales

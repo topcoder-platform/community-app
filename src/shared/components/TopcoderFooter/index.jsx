@@ -105,7 +105,7 @@ export default function TopcoderFooter() {
               }
               <Link to={`${base}/community/learn?ref=navb`}>About Community</Link>
               <Link to={`${base}/community/changelog?ref=navb`}>Changelog</Link>
-              <Link to={`${base}/contact-us/?ref=navb`}>Talk to Sales</Link>
+              <Link to="https://go.topcoder.com/contact/?ref=navb">Talk to Sales</Link>
             </ul>
           </div>
           <div styleName="navi-col">
