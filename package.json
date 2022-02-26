@@ -133,7 +133,7 @@
     "react-slick": "^0.15.4",
     "react-stickynode": "^1.4.1",
     "react-svg": "^4.1.1",
-    "react-syntax-highlighter": "^12.2.1",
+    "react-syntax-highlighter": "^13.0.0",
     "react-tabs": "^2.2.2",
     "react-touch-events": "^2.1.0",
     "react-waypoint": "^7.1.0",
