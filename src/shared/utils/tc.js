@@ -305,4 +305,13 @@ export function isValidEmail(email) {
   return pattern.test(email);
 }
 
+/**
+ * Test if the file is safe for download. This patch currently checks the location of the submission
+ * to determine if the file is infected or not. This is an immedaite patch, and should be updated to
+ * check the review scan score for review type virus scan.
+ */
+export function safeForDownload(url) {
+  return url != null && url.indexOf('submissions-quarantine/') === -1;
+}
+
 export default undefined;
