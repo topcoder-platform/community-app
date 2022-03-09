@@ -45,6 +45,7 @@ export default function ChallengeHeader(props) {
     onToggleDeadlines,
     registering,
     registerForChallenge,
+    submitForChallenge,
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
@@ -392,6 +393,7 @@ export default function ChallengeHeader(props) {
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
                 theme={{ button: style.challengeAction }}
+                onClick={submitForChallenge}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
                 Submit
@@ -523,6 +525,7 @@ ChallengeHeader.propTypes = {
   onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,
   registerForChallenge: PT.func.isRequired,
+  submitForChallenge: PT.func.isRequired,
   registering: PT.bool.isRequired,
   selectedView: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,

@@ -44,6 +44,8 @@ class ReviewOpportunityDetailsContainer extends React.Component {
       terms,
       termsFailure,
       toggleApplyModal,
+      auth,
+      challenge,
     } = this.props;
     if (termsFailure) {
       fireErrorMessage('Error Getting Terms Details', '');
@@ -52,6 +54,13 @@ class ReviewOpportunityDetailsContainer extends React.Component {
     if (terms.find(term => !term.agreed)) {
       openTermsModal();
     } else {
+      if (auth && auth.profile && auth.profile.userId && challenge && challenge.submissions) {
+        const submitted = challenge.submissions.find(sub => sub.memberId === auth.profile.userId);
+        if (submitted) {
+          fireErrorMessage('You have made a submission in the challenge', 'You are not allowed to be the reviewer for it, please try to pick another review opportunity.');
+          return;
+        }
+      }
       toggleApplyModal();
     }
   }
@@ -130,6 +139,8 @@ ReviewOpportunityDetailsContainer.defaultProps = {
   termsFailure: false,
   phasesExpanded: false,
   tokenV3: null,
+  auth: null,
+  challenge: null,
 };
 
 /**
@@ -157,6 +168,8 @@ ReviewOpportunityDetailsContainer.propTypes = {
   toggleRole: PT.func.isRequired,
   onPhaseExpand: PT.func.isRequired,
   tokenV3: PT.string,
+  auth: PT.shape(),
+  challenge: PT.shape(),
 };
 
 /**
@@ -184,6 +197,8 @@ const mapStateToProps = (state, ownProps) => {
     terms: terms.terms,
     termsFailure: terms.getTermsFailure,
     tokenV3: state.auth.tokenV3,
+    auth: state.auth,
+    challenge: state.challenge.details,
   };
 };
 

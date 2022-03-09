@@ -44,7 +44,7 @@ import {
 } from 'utils/tc';
 import { config } from 'topcoder-react-utils';
 import MetaTags from 'components/MetaTags';
-import { actions } from 'topcoder-react-lib';
+import { actions, errors } from 'topcoder-react-lib';
 import { getService } from 'services/contentful';
 // import {
 // getDisplayRecommendedChallenges,
@@ -69,6 +69,9 @@ import ogImage from
   '../../../assets/images/social.png';
 
 import './styles.scss';
+
+
+const { fireErrorMessage } = errors;
 
 /* Holds various time ranges in milliseconds. */
 const MIN = 60 * 1000;
@@ -145,6 +148,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     this.onToggleDeadlines = this.onToggleDeadlines.bind(this);
     this.registerForChallenge = this.registerForChallenge.bind(this);
+    this.submitForChallenge = this.submitForChallenge.bind(this);
   }
 
   componentDidMount() {
@@ -153,6 +157,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       getCommunitiesList,
       loadChallengeDetails,
+      loadReviewOpportunities,
       fetchChallengeStatistics,
       challengeId,
       challengeTypesMap,
@@ -187,6 +192,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     ) {
       loadChallengeDetails(auth, challengeId);
+    }
+
+    if (auth.tokenV2 && auth.tokenV3 && challenge.legacyId) {
+      loadReviewOpportunities(auth, challenge.legacyId);
     }
 
     fetchChallengeStatistics(auth, challengeId);
@@ -284,6 +293,20 @@ class ChallengeDetailPageContainer extends React.Component {
     this.setState({
       showDeadlineDetail: !showDeadlineDetail,
     });
+  }
+
+  submitForChallenge(event) {
+    const {
+      auth,
+      roDetails,
+    } = this.props;
+    if (auth && auth.profile && auth.profile.handle && roDetails && roDetails.applications) {
+      const applyingReviewer = roDetails.applications.find(ro => ro.handle === auth.profile.handle);
+      if (applyingReviewer) {
+        event.preventDefault();
+        fireErrorMessage('You have applied the reviewer role for the challenge', 'Please withdraw your review application before making a submission for this challenge.');
+      }
+    }
   }
 
   registerForChallenge() {
@@ -465,6 +488,7 @@ class ChallengeDetailPageContainer extends React.Component {
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={onSelectorClicked}
               registerForChallenge={this.registerForChallenge}
+              submitForChallenge={this.submitForChallenge}
               registering={registering}
               selectedView={selectedTab}
               // hasRecommendedChallenges={displayRecommendedChallenges.length > 0}
@@ -676,10 +700,12 @@ ChallengeDetailPageContainer.defaultProps = {
   submissionInformation: null,
   // prizeMode: 'money-usd',
   statisticsData: null,
+  roDetails: null,
 };
 
 ChallengeDetailPageContainer.propTypes = {
   auth: PT.shape().isRequired,
+  roDetails: PT.shape(),
   challenge: PT.shape().isRequired,
   challengeTypes: PT.arrayOf(PT.shape()),
   challengeId: PT.string.isRequired,
@@ -700,6 +726,7 @@ ChallengeDetailPageContainer.propTypes = {
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
+  loadReviewOpportunities: PT.func.isRequired,
   fetchChallengeStatistics: PT.func.isRequired,
   getAllCountries: PT.func.isRequired,
   getReviewTypes: PT.func.isRequired,
@@ -810,6 +837,7 @@ function mapStateToProps(state, props) {
   }
   return {
     auth: state.auth,
+    roDetails: state.reviewOpportunity.details,
     challenge,
     challengeTypes: cl.challengeTypes,
     // recommendedChallenges: cl.recommendedChallenges,
@@ -903,6 +931,11 @@ const mapDispatchToProps = (dispatch) => {
           } else dispatch(a.dropResults());
           return res;
         });
+    },
+    loadReviewOpportunities: (tokens, challengeId) => {
+      const roActions = actions.reviewOpportunity;
+      dispatch(roActions.getDetailsInit());
+      dispatch(roActions.getDetailsDone(challengeId, tokens.tokenV3));
     },
     registerForChallenge: (auth, challengeId) => {
       const a = actions.challenge;
