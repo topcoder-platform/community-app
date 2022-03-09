@@ -364,7 +364,7 @@ workflows:
           filters:
             branches:
               only:
-                - 404-page
+                - free
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         

@@ -68,13 +68,13 @@ module.exports = {
 
   ACCOUNT_MENU_SWITCH_TEXT: {
     title: 'Switch to BUSINESS',
-    href: 'https://connect.topcoder.com',
+    href: 'https://connect.topcoder.com?ref=nav',
   },
   HEADER_MENU: [
     {
       id: 'business',
       title: 'BUSINESS',
-      href: 'https://www.topcoder.com',
+      href: 'https://www.topcoder.com?ref=nav',
     },
     {
       id: 'community', // required for 'Switch to BUSINESS' to work
@@ -83,29 +83,29 @@ module.exports = {
         {
           id: 'home',
           title: 'Home',
-          href: '/home',
+          href: '/home?ref=nav',
           logged: true,
         },
         {
           id: 'myprofile',
           title: 'My Profile',
-          href: '/members/willFilledByUserName',
+          href: '/members/willFilledByUserName?ref=nav',
           logged: true,
         },
         {
           title: 'Payments',
-          href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false',
+          href: 'https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false&ref=nav',
           logged: true,
           openNewTab: true,
         },
         {
           title: 'Overview',
-          href: '/community/learn',
+          href: '/community/learn?ref=nav',
           logged: false,
         },
         {
           title: 'How It Works',
-          href: '/thrive/tracks?track=Topcoder',
+          href: '/thrive/tracks?track=Topcoder&ref=nav',
           logged: false,
         },
       ],
@@ -115,19 +115,19 @@ module.exports = {
           subMenu: [
             {
               title: 'All Challenges',
-              href: '/challenges',
+              href: '/challenges?ref=nav',
             },
             {
               title: 'Competitive Programming',
-              href: '/community/arena',
+              href: '/community/arena?ref=nav',
             },
             {
               title: 'Gig Work',
-              href: '/gigs',
+              href: '/gigs?ref=nav',
             },
             {
               title: 'Practice',
-              href: '/community/practice',
+              href: '/community/practice?ref=nav',
             },
           ],
         },
@@ -136,23 +136,23 @@ module.exports = {
           subMenu: [
             {
               title: 'Competitive Programming',
-              href: '/thrive/tracks?track=Competitive%20Programming',
+              href: '/thrive/tracks?track=Competitive%20Programming&ref=nav',
             },
             {
               title: 'Data Science',
-              href: '/thrive/tracks?track=Data%20Science',
+              href: '/thrive/tracks?track=Data%20Science&ref=nav',
             },
             {
               title: 'Design',
-              href: '/thrive/tracks?track=Design',
+              href: '/thrive/tracks?track=Design&ref=nav',
             },
             {
               title: 'Development',
-              href: '/thrive/tracks?track=Development',
+              href: '/thrive/tracks?track=Development&ref=nav',
             },
             {
               title: 'QA',
-              href: '/thrive/tracks?track=QA',
+              href: '/thrive/tracks?track=QA&ref=nav',
             },
           ],
         },
@@ -161,34 +161,34 @@ module.exports = {
           subMenu: [
             {
               title: 'TCO',
-              href: '/community/member-programs/topcoder-open',
+              href: '/community/member-programs/topcoder-open?ref=nav',
             },
             {
               title: 'Programs',
-              href: '/community/member-programs',
+              href: '/community/member-programs?ref=nav',
             },
             {
               title: 'Forums',
-              href: 'https://discussions.topcoder.com',
+              href: 'https://discussions.topcoder.com?ref=nav',
             },
             {
               title: 'Statistics',
-              href: '/community/statistics',
+              href: '/community/statistics?ref=nav',
             },
             {
               title: 'Blog',
-              href: 'https://www.topcoder.com/blog',
+              href: 'https://www.topcoder.com/blog?ref=nav',
               openNewTab: true,
             },
             {
               title: 'Thrive',
-              href: '/thrive',
+              href: '/thrive?ref=nav',
             },
           ],
         },
         {
           title: 'Discord',
-          href: 'https://discord.gg/topcoder',
+          href: 'https://discord.gg/topcoder?ref=nav',
           openNewTab: true,
         },
       ],
@@ -202,17 +202,17 @@ module.exports = {
   ACCOUNT_MENU: [
     {
       title: 'Settings',
-      href: '/settings/profile',
+      href: '/settings/profile?ref=nav',
     },
     { separator: true },
     {
       title: 'Help',
-      href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
+      href: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles&ref=nav',
     },
     { separator: true },
     {
       title: 'Log Out',
-      href: 'https://www.topcoder.com/logout',
+      href: 'https://www.topcoder.com/logout?ref=nav',
     },
   ],
   // Config for TC EDU - THRIVE
