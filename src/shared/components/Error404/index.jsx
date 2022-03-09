@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Viewport from 'components/Contentful/Viewport';
 import './style.scss';
 
 export default function Page404() {
@@ -16,12 +17,9 @@ export default function Page404() {
           return null;
         }}
       />
-      <h1 styleName="message">
-        404 HTTP Error
-      </h1>
-      <p styleName="details">
-        The resource you are looking for does not exist in Topcoder community App :(
-      </p>
+      <Viewport
+        id="3fB4UivAs6Nn5WbhREuqrn"
+      />
     </div>
   );
 }
