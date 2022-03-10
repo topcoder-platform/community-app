@@ -5,4 +5,5 @@ module.exports = {
     USER_SETTINGS: '', /* No dev server is available for saved searches */
   },
   PLATFORM_SITE_URL: 'https://platform.topcoder-dev.com',
+  REVIEWER_ROLE_ID: '318b9c07-079a-42d9-a81f-b96be1dc1099',
 };

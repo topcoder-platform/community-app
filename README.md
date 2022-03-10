@@ -172,6 +172,7 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * DEV_AWS_SECRET_ACCESS_KEY
 * DEV_SERVER_API_KEY
 * DEV_AUTH0_CLIENT_ID
+* DEV_REVIEWER_ROLE_ID
 * PROD_AWS_ACCESS_KEY_ID
 * PROD_AWS_ACCOUNT_ID
 * PROD_AWS_ECS_CLUSTER
@@ -179,6 +180,7 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * PROD_AWS_SECRET_ACCESS_KEY
 * PROD_SERVER_API_KEY
 * PROD_AUTH0_CLIENT_ID
+* PROD_REVIEWER_ROLE_ID
 
 Folowing environment variables should be set to configure M2M communication
 between Community App server and TC APIs. At the moment of writing, it is

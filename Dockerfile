@@ -78,6 +78,9 @@ ARG GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
 # Optimizely
 ARG OPTIMIZELY_SDK_KEY
 
+# ReviewerRoleID
+ARG REVIEWER_ROLE_ID
+
 ################################################################################
 # Setting of environment variables in the Docker image.
 
@@ -142,6 +145,9 @@ ENV GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY=$GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
 
 # Optimizely
 ENV OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY
+
+# ReviewerRoleID
+ENV REVIEWER_ROLE_ID=${REVIEWER_ROLE_ID}
 
 ################################################################################
 # Testing and build of the application inside the container.

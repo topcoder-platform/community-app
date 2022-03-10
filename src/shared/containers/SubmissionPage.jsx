@@ -7,7 +7,7 @@
  *   Passes the relevent state and setters as properties to the UI components.
  */
 import actions from 'actions/page/submission';
-import { actions as api } from 'topcoder-react-lib';
+import { actions as api, errors } from 'topcoder-react-lib';
 import { isMM } from 'utils/challenge';
 import communityActions from 'actions/tc-communities';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
@@ -16,8 +16,11 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
+import { config } from 'topcoder-react-utils';
 import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import LoadingIndicator from 'components/LoadingIndicator';
+
+const { fireErrorMessage } = errors;
 
 /**
  * SubmissionsPage Container
@@ -63,7 +66,23 @@ class SubmissionsPageContainer extends React.Component {
       challengeId,
       challenge,
       track,
+      auth,
+      roDetails,
     } = this.props;
+    if (auth && auth.profile && auth.profile.handle && roDetails && roDetails.applications) {
+      const applyingReviewer = roDetails.applications.find(ro => ro.handle === auth.profile.handle);
+      if (applyingReviewer) {
+        fireErrorMessage('You have applied the reviewer role for the challenge', 'Please withdraw your review application before making a submission for this challenge.');
+        return;
+      }
+    }
+    if (challenge && challenge.details && challenge.details.userDetails) {
+      const userRoles = challenge.details.userDetails.roles || [];
+      if (userRoles.indexOf(config.REVIEWER_ROLE_ID) >= 0) {
+        fireErrorMessage('You have been assigned as the reviewer for the challenge', 'If you wish to be a compeititor in this challenge, please contact support to withdraw your reviewer application first.');
+        return;
+      }
+    }
 
     submit(tokenV3, tokenV2, challengeId, body, isMM(challenge) ? 'DEVELOP' : track);
   }
@@ -104,6 +123,7 @@ class SubmissionsPageContainer extends React.Component {
 SubmissionsPageContainer.defaultProps = {
   challengesUrl: '/challenges',
   uploadProgress: 0,
+  roDetails: null,
 };
 
 /* Reusable prop validation for Filestack data objects */
@@ -164,6 +184,7 @@ SubmissionsPageContainer.propTypes = {
   winners: PT.arrayOf(PT.object).isRequired,
   loadChallengeDetails: PT.func.isRequired,
   history: PT.shape().isRequired,
+  roDetails: PT.shape(),
 };
 
 /**
@@ -178,6 +199,7 @@ const mapStateToProps = (state, ownProps) => {
   const details = state.challenge.details || {};
   return {
     auth: state.auth,
+    roDetails: state.reviewOpportunity.details,
     phases: details.phases || [],
     communitiesList: state.tcCommunities.list,
     /* Older stuff below. */

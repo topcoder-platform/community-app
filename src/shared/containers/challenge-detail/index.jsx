@@ -298,6 +298,7 @@ class ChallengeDetailPageContainer extends React.Component {
   submitForChallenge(event) {
     const {
       auth,
+      challenge,
       roDetails,
     } = this.props;
     if (auth && auth.profile && auth.profile.handle && roDetails && roDetails.applications) {
@@ -305,6 +306,13 @@ class ChallengeDetailPageContainer extends React.Component {
       if (applyingReviewer) {
         event.preventDefault();
         fireErrorMessage('You have applied the reviewer role for the challenge', 'Please withdraw your review application before making a submission for this challenge.');
+      }
+    }
+    if (challenge && challenge.details && challenge.details.userDetails) {
+      const userRoles = challenge.details.userDetails.roles || [];
+      if (userRoles.indexOf(config.REVIEWER_ROLE_ID) >= 0) {
+        event.preventDefault();
+        fireErrorMessage('You have been assigned as the reviewer for the challenge', 'If you wish to be a compeititor in this challenge, please contact support to withdraw your reviewer application first.');
       }
     }
   }
