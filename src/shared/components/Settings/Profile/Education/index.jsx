@@ -279,12 +279,12 @@ export default class Education extends ConsentComponent {
     if (_.isEmpty(education.timePeriodFrom)) {
       delete education.timePeriodFrom;
     } else {
-      education.timePeriodFrom = new Date(newEducation.timePeriodFrom).getTime();
+      education.timePeriodFrom = newEducation.timePeriodFrom;
     }
     if (_.isEmpty(education.timePeriodTo)) {
       delete education.timePeriodTo;
     } else {
-      education.timePeriodTo = new Date(newEducation.timePeriodTo).getTime();
+      education.timePeriodTo = newEducation.timePeriodTo;
     }
 
     if (educationTrait.traits && educationTrait.traits.data.length > 0) {
