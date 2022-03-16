@@ -243,7 +243,7 @@ export default function ChallengeDetailsView(props) {
                                 REQUEST MARVEL PROTOTYPES HERE:
                               </strong>
                               <br />
-                              <a href="https://discussions.topcoder.com/15528/request-marvel-access-for-design-challenges?new=1">
+                              <a href="https://discussions.topcoder.com/discussion/15528/request-marvel-access-for-on-demand-challenges">
                                 Request Marvel for On Demand Challenges
                               </a>
                               <br />
