@@ -309,9 +309,22 @@ export function isValidEmail(email) {
  * Test if the file is safe for download. This patch currently checks the location of the submission
  * to determine if the file is infected or not. This is an immedaite patch, and should be updated to
  * check the review scan score for review type virus scan.
+ *
+ * @returns {String|Boolean} true if submission is safe for download,
+ * otherwise string describing reason for not being safe for download
  */
 export function safeForDownload(url) {
-  return url != null && url.toLowerCase().indexOf('submissions-quarantine/') === -1 && url.toLowerCase().indexOf('submissions-dmz/') === -1;
+  if (url == null) return 'Download link unavailable';
+
+  if (url.toLowerCase().indexOf('submissions-quarantine/') !== -1) {
+    return 'Malware found in submission';
+  }
+
+  if (url.toLowerCase().indexOf('submissions-dmz/') === -1) {
+    return 'AV Scan in progress';
+  }
+
+  return true;
 }
 
 export default undefined;

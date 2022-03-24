@@ -38,6 +38,7 @@ export default function Submission(props) {
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
+  const safeForDownloadCheck = safeForDownload(submissionObject.url);
 
   return (
     <tr styleName="submission-row">
@@ -54,7 +55,7 @@ export default function Submission(props) {
       {
         track === COMPETITION_TRACKS.DES && (
           <td styleName="status-col">
-            {!safeForDownload(submissionObject.url) ? 'Malware found in submission' : submissionObject.screening
+            {safeForDownloadCheck !== true ? safeForDownloadCheck : submissionObject.screening
               && (
               <ScreeningStatus
                 screeningObject={submissionObject.screening}
@@ -71,7 +72,7 @@ export default function Submission(props) {
             onClick={() => onDownloadSubmission(submissionObject.id)}
             type="button"
           >
-            { safeForDownload(submissionObject.url) && <DownloadIcon /> }
+            { safeForDownloadCheck === true && <DownloadIcon /> }
           </button>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
