@@ -320,7 +320,7 @@ export function safeForDownload(url) {
     return 'Malware found in submission';
   }
 
-  if (url.toLowerCase().indexOf('submissions-dmz/') === -1) {
+  if (url.toLowerCase().indexOf('submissions-dmz/') !== -1) {
     return 'AV Scan in progress';
   }
 
