@@ -311,7 +311,7 @@ export function isValidEmail(email) {
  * check the review scan score for review type virus scan.
  */
 export function safeForDownload(url) {
-  return url != null && (url.toLowerCase().indexOf('submissions-quarantine/') === -1 || url.toLowerCase().indexOf('submissions-dmz/') === -1);
+  return url != null && url.toLowerCase().indexOf('submissions-quarantine/') === -1 && url.toLowerCase().indexOf('submissions-dmz/') === -1;
 }
 
 export default undefined;
