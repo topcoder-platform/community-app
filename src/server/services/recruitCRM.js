@@ -161,11 +161,11 @@ export default class RecruitCRMService {
 
       // Sanitize Data
       data.data = _.map(data.data, (j) => {
-        const sanitizeJobs = _.pick(j, JOB_FIELDS_RESPONSE);
-        sanitizeJobs.custom_fields = _.filter(
-          sanitizeJobs.custom_fields, f => !_.contains(OMIT_CUSTOM_FIELDS, f.field_name),
+        const sanitizeJob = _.pick(j, JOB_FIELDS_RESPONSE);
+        sanitizeJob.custom_fields = _.filter(
+          sanitizeJob.custom_fields, f => !_.includes(OMIT_CUSTOM_FIELDS, f.field_name),
         );
-        return sanitizeJobs;
+        return sanitizeJob;
       });
 
       return res.send(data);
