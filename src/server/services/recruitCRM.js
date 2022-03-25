@@ -51,6 +51,10 @@ const CANDIDATE_FIELDS_RESPONSE = [
   'salary_expectation',
   'custom_fields',
 ];
+const OMIT_CUSTOM_FIELDS = [
+  'Candidates Link',
+  'Wipro Centralization SPOC',
+];
 
 /**
  * Send email to Kiril/Nick for debuging gig application errors
@@ -154,7 +158,16 @@ export default class RecruitCRMService {
         return res.send(error);
       }
       const data = await response.json();
-      data.data = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+
+      // Sanitize Data
+      data.data = _.map(data.data, (j) => {
+        const sanitizeJobs = _.pick(j, JOB_FIELDS_RESPONSE);
+        sanitizeJobs.custom_fields = _.filter(
+          sanitizeJobs.custom_fields, f => !_.contains(OMIT_CUSTOM_FIELDS, f.field_name),
+        );
+        return sanitizeJobs;
+      });
+
       return res.send(data);
     } catch (err) {
       return next(err);
