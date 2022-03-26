@@ -9,7 +9,7 @@
     "jasmine": "^3.4.0",
     "jasmine-reporters": "^2.3.2",
     "jsdom": "^15.1.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "mail-listener2": "^0.3.1",
     "papaparse": "^4.6.3",
     "protractor": "^5.4.2",
@@ -18,7 +18,8 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3",
     "webdriver-manager": "^12.1.7",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@types/jasmine": "^3.3.16",
@@ -33,11 +34,14 @@
     "webdriver-update": "node node_modules/protractor/bin/webdriver-manager update",
     "pretest": "npm run webdriver-update && npm run clean && npm run tsc",
     "test": "protractor temp/conf.js",
-    "local-test":"cp config/automation-config-local.json config/config.json && protractor temp/conf.js"
+    "local-test": "cp config/automation-config-local.json config/config.json && protractor temp/conf.js",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "keywords": [
     "protractor",
     "jasmine",
     "typescript"
-  ]
+  ],
+  "snyk": true
 }
