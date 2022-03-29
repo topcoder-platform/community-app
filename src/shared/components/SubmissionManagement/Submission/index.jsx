@@ -14,7 +14,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { COMPETITION_TRACKS, CHALLENGE_STATUS } from 'utils/tc';
+import { COMPETITION_TRACKS, CHALLENGE_STATUS, safeForDownload } from 'utils/tc';
 
 import PT from 'prop-types';
 
@@ -38,6 +38,7 @@ export default function Submission(props) {
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
+  const safeForDownloadCheck = safeForDownload(submissionObject.url);
 
   return (
     <tr styleName="submission-row">
@@ -54,7 +55,7 @@ export default function Submission(props) {
       {
         track === COMPETITION_TRACKS.DES && (
           <td styleName="status-col">
-            {submissionObject.screening
+            {safeForDownloadCheck !== true ? safeForDownloadCheck : submissionObject.screening
               && (
               <ScreeningStatus
                 screeningObject={submissionObject.screening}
@@ -71,7 +72,7 @@ export default function Submission(props) {
             onClick={() => onDownloadSubmission(submissionObject.id)}
             type="button"
           >
-            <DownloadIcon />
+            { safeForDownloadCheck === true && <DownloadIcon /> }
           </button>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
@@ -127,6 +128,7 @@ Submission.propTypes = {
     type: PT.string,
     created: PT.any,
     download: PT.any,
+    url: PT.string,
   }),
   showScreeningDetails: PT.bool,
   track: PT.string.isRequired,

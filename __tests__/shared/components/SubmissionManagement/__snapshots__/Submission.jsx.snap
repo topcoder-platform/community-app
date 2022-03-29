@@ -24,14 +24,7 @@ exports[`Snapshot match 1`] = `
       <button
         onClick={[Function]}
         type="button"
-      >
-        <DownloadIcon
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-      </button>
+      />
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
         disabled={true}
@@ -87,14 +80,7 @@ exports[`Snapshot match 2`] = `
       <button
         onClick={[Function]}
         type="button"
-      >
-        <DownloadIcon
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-      </button>
+      />
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
         disabled={true}
