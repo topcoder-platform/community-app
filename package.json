@@ -232,5 +232,8 @@
     "webpack-pwa-manifest": "^3.7.1",
     "webpack-stats-plugin": "^0.2.1",
     "workbox-webpack-plugin": "^3.6.2"
+  },
+  "volta": {
+    "node": "8.11.2"
   }
 }
