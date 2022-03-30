@@ -53,6 +53,7 @@ const CANDIDATE_FIELDS_RESPONSE = [
 ];
 const OMIT_CUSTOM_FIELDS = [
   'Candidates Link',
+  'Account Executive',
   'Wipro Centralization SPOC',
 ];
 
