@@ -51,6 +51,11 @@ const CANDIDATE_FIELDS_RESPONSE = [
   'salary_expectation',
   'custom_fields',
 ];
+const OMIT_CUSTOM_FIELDS = [
+  'Candidates Link',
+  'Account Executive',
+  'Wipro Centralization SPOC',
+];
 
 /**
  * Send email to Kiril/Nick for debuging gig application errors
@@ -70,6 +75,18 @@ function notifyKirilAndNick(error) {
       type: 'text/plain', value: `The error occured as JSON string:\n\n ${JSON.stringify(error)}`,
     }],
   });
+}
+
+/**
+ * Sanitize Job before return
+ * @param {Object} job data from recuitcrm api
+ */
+function sanitizeJob(job) {
+  const sJob = _.pick(job, JOB_FIELDS_RESPONSE);
+  sJob.custom_fields = _.filter(
+    sJob.custom_fields, f => !_.includes(OMIT_CUSTOM_FIELDS, f.field_name),
+  );
+  return sJob;
 }
 
 const updateProfileSchema = Joi.object().keys({
@@ -154,7 +171,9 @@ export default class RecruitCRMService {
         return res.send(error);
       }
       const data = await response.json();
-      data.data = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+
+      data.data = _.map(data.data, j => sanitizeJob(j));
+
       return res.send(data);
     } catch (err) {
       return next(err);
@@ -190,7 +209,7 @@ export default class RecruitCRMService {
         return res.send(error);
       }
       const data = await response.json();
-      return res.send(_.pick(data, JOB_FIELDS_RESPONSE));
+      return res.send(sanitizeJob(data));
     } catch (err) {
       return next(err);
     }
@@ -242,11 +261,11 @@ export default class RecruitCRMService {
               const pageData = await pageDataRsp.json();
               data.data = _.flatten(data.data.concat(pageData.data));
             }
-            const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+            const toSend = _.map(data.data, j => sanitizeJob(j));
             return toSend;
           });
       }
-      const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+      const toSend = _.map(data.data, j => sanitizeJob(j));
       return toSend;
     } catch (err) {
       return err;
@@ -303,7 +322,7 @@ export default class RecruitCRMService {
               const pageData = await pageDataRsp.json();
               data.data = _.flatten(data.data.concat(pageData.data));
             }
-            const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+            const toSend = _.map(data.data, j => sanitizeJob(j));
             gigsCache.set(CACHE_KEY, toSend);
             return res.send(toSend);
           })
@@ -311,7 +330,7 @@ export default class RecruitCRMService {
             error: e,
           }));
       }
-      const toSend = _.map(data.data, j => _.pick(j, JOB_FIELDS_RESPONSE));
+      const toSend = _.map(data.data, j => sanitizeJob(j));
       gigsCache.set(CACHE_KEY, toSend);
       return res.send(toSend);
     } catch (err) {
