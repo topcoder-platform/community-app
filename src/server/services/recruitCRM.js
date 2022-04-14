@@ -210,8 +210,9 @@ export default class RecruitCRMService {
       }
       const data = await response.json();
 
-      // If job not open return just job status
-      if (data.job_status && data.job_status.id !== 1) {
+      // If job or form not open return just job status
+      if ((data.job_status && data.job_status.id !== 1)
+        || data.enable_job_application_form !== 1) {
         return res.send({
           job_status: data.job_status,
         });
