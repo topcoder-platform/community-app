@@ -26,7 +26,7 @@ function onDone(state, { payload }) {
   return {
     ...state,
     loading: false,
-    jobs: _.filter(payload.data, job => job.enable_job_application_form === 1),
+    jobs: payload.data,
   };
 }
 

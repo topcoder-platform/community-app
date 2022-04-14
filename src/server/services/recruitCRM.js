@@ -271,10 +271,18 @@ export default class RecruitCRMService {
               const pageData = await pageDataRsp.json();
               data.data = _.flatten(data.data.concat(pageData.data));
             }
+
+            // Filter by Job Application active
+            data.data = _.filter(data.data, job => job.enable_job_application_form === 1);
+
             const toSend = _.map(data.data, j => sanitizeJob(j));
             return toSend;
           });
       }
+
+      // Filter by Job Application active
+      data.data = _.filter(data.data, job => job.enable_job_application_form === 1);
+
       const toSend = _.map(data.data, j => sanitizeJob(j));
       return toSend;
     } catch (err) {
@@ -332,6 +340,10 @@ export default class RecruitCRMService {
               const pageData = await pageDataRsp.json();
               data.data = _.flatten(data.data.concat(pageData.data));
             }
+
+            // Filter by Job Application active
+            data.data = _.filter(data.data, job => job.enable_job_application_form === 1);
+
             const toSend = _.map(data.data, j => sanitizeJob(j));
             gigsCache.set(CACHE_KEY, toSend);
             return res.send(toSend);
@@ -340,6 +352,10 @@ export default class RecruitCRMService {
             error: e,
           }));
       }
+
+      // Filter by Job Application active
+      data.data = _.filter(data.data, job => job.enable_job_application_form === 1);
+
       const toSend = _.map(data.data, j => sanitizeJob(j));
       gigsCache.set(CACHE_KEY, toSend);
       return res.send(toSend);
