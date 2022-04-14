@@ -215,6 +215,7 @@ export default class RecruitCRMService {
         || data.enable_job_application_form !== 1) {
         return res.send({
           job_status: data.job_status,
+          enable_job_application_form: data.enable_job_application_form,
         });
       }
 
