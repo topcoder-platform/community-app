@@ -209,6 +209,14 @@ export default class RecruitCRMService {
         return res.send(error);
       }
       const data = await response.json();
+
+      // If job not open return just job status
+      if (data.job_status && data.job_status.id !== 1) {
+        return res.send({
+          job_status: data.job_status,
+        });
+      }
+
       return res.send(sanitizeJob(data));
     } catch (err) {
       return next(err);
