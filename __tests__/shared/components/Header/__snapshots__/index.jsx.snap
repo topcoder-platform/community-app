@@ -6,14 +6,7 @@ exports[`Default render 1`] = `
 >
   <TopNav
     loggedIn={true}
-    logo={
-      <Logo
-        height="20"
-        viewBox="0 0 54 20"
-        width="54"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-    }
+    logo={</community-app-assets/images/ee661e33bc5ba2843518a30db4995418.png />}
     menu={
       Array [
         Object {
