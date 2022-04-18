@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
 import PT from 'prop-types';
 import { config } from 'topcoder-react-utils';
-import Logo from 'assets/images/tc-logo.svg';
+import Logo from 'assets/images/TC-logo-new.png';
 import { tracking } from '../../actions';
 
 import './style.scss';
