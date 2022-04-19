@@ -146,11 +146,18 @@ async function onExpressJsSetup(server) {
           + ' https://assets.ubembed.com'
           + ' https://assets.zendesk.com'
           + ' https://browser.sentry-cdn.com'
+          + ' https://cdn.heapanalytics.com'
           + ' https://cdn.segment.com'
+          + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d24oibycet9bsb.cloudfront.net'
           + ' https://fast.trychameleon.com'
-          + ' https://static.zdassets.com;'
+          + ' https://static.zdassets.com'
+          + ' https://www.googletagmanager.com;'
         + " style-src 'report-sample' 'self' 'unsafe-inline'"
-          + ` ${config.CDN.PUBLIC};`
+          + ` ${config.CDN.PUBLIC}`
+          + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d24oibycet9bsb.cloudfront.net'
+          + ' https://d2nl5eqipnb33q.cloudfront.net;'
         + " object-src 'none';"
         + " base-uri 'self';"
         + " connect-src 'self'"
@@ -174,11 +181,12 @@ async function onExpressJsSetup(server) {
           + ` ${config.URL.AUTH};`
         + " img-src 'self'"
           + ` ${config.CDN.PUBLIC}`
-          + ' https://www.facebook.com'
-          + ' https://images.ctfassets.net'
           + ' https://cdn.segment.com'
-          + ' https://www.google.com'
-          + ' https://topcoder-prod-media.s3.amazonaws.com;'
+          + ' https://d2nl5eqipnb33q.cloudfront.net'
+          + ' https://images.ctfassets.net'
+          + ' https://topcoder-prod-media.s3.amazonaws.com'
+          + ' https://www.facebook.com'
+          + ' https://www.google.com;'
         + " manifest-src 'self';"
         + " media-src 'self';"
         + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'
