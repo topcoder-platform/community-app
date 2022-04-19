@@ -8,9 +8,10 @@ exports[`Default render 1`] = `
     loggedIn={true}
     logo={
       <Logo
-        height="20"
-        viewBox="0 0 54 20"
-        width="54"
+        fill="none"
+        height="39"
+        viewBox="0 0 162 39"
+        width="162"
         xmlns="http://www.w3.org/2000/svg"
       />
     }
