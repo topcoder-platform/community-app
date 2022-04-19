@@ -140,6 +140,7 @@ async function onExpressJsSetup(server) {
         'Content-Security-Policy',
         "default-src 'self';"
         + " script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'"
+          + ` ${config.CDN.PUBLIC}`
           + ' http://www.google-analytics.com'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
           + ' https://assets.ubembed.com'
@@ -153,12 +154,12 @@ async function onExpressJsSetup(server) {
         + " object-src 'none';"
         + " base-uri 'self';"
         + " connect-src 'self'"
-          + ` ${config.URL.COMMUNITY_APP}`
-          + ` ${config.CDN.PUBLIC}`
           + ` ${config.API.V2}/`
           + ` ${config.API.V3}/`
           + ` ${config.API.V4}/`
           + ` ${config.API.V5}/`
+          + ` ${config.CDN.PUBLIC}`
+          + ` ${config.URL.COMMUNITY_APP}`
           + ' https://api.segment.io'
           + ' https://cdn.segment.com'
           + ' https://ekr.zdassets.com'
@@ -172,9 +173,9 @@ async function onExpressJsSetup(server) {
         + " frame-src 'self'"
           + ` ${config.URL.AUTH};`
         + " img-src 'self'"
+          + ` ${config.CDN.PUBLIC}`
           + ' https://www.facebook.com'
           + ' https://images.ctfassets.net'
-          + ' https://d2nl5eqipnb33q.cloudfront.net'
           + ' https://cdn.segment.com'
           + ' https://www.google.com'
           + ' https://topcoder-prod-media.s3.amazonaws.com;'
