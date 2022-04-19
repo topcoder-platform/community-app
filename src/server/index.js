@@ -197,7 +197,8 @@ async function onExpressJsSetup(server) {
           + ' https://www.facebook.com'
           + ' https://www.google-analytics.com'
           + ' https://www.google.com'
-          + ' https://www.googletagmanager.com;'
+          + ' https://www.googletagmanager.com'
+          + ' https://i.ytimg.com;'
         + " manifest-src 'self';"
         + " media-src 'self';"
         + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'
