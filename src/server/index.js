@@ -183,7 +183,7 @@ async function onExpressJsSetup(server) {
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com;'
         + " frame-src 'self'"
           + ` ${config.URL.AUTH}`
-          + 'https://www.youtube.com;'
+          + ' https://www.youtube.com;'
         + " img-src 'self'"
           + ` ${config.CDN.PUBLIC}`
           + ' https://cdn.segment.com'
