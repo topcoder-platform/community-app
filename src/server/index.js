@@ -131,6 +131,12 @@ async function onExpressJsSetup(server) {
     return next();
   };
 
+  server.use(function(req, res, next) {
+    res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.header('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+    next();
+  });
+
   /* Log Entries service proxy. */
   server.use('/community-app-assets/api/logger', checkAuthorizationHeader, (req, res) => {
     logger.log(`${req.clientIp} > `, ...req.body.data);
