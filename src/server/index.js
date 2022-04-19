@@ -182,7 +182,8 @@ async function onExpressJsSetup(server) {
           + ' https://d24oibycet9bsb.cloudfront.net'
           + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com;'
         + " frame-src 'self'"
-          + ` ${config.URL.AUTH};`
+          + ` ${config.URL.AUTH}`
+          + 'https://www.youtube.com;'
         + " img-src 'self'"
           + ` ${config.CDN.PUBLIC}`
           + ' https://cdn.segment.com'
@@ -195,7 +196,8 @@ async function onExpressJsSetup(server) {
           + ' https://topcoder-prod-media.s3.amazonaws.com'
           + ' https://www.facebook.com'
           + ' https://www.google-analytics.com'
-          + ' https://www.google.com;'
+          + ' https://www.google.com'
+          + ' https://www.googletagmanager.com;'
         + " manifest-src 'self';"
         + " media-src 'self';"
         + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'
