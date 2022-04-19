@@ -134,6 +134,57 @@ async function onExpressJsSetup(server) {
   server.use(function(req, res, next) {
     res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.header('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+
+    if (req.url.startsWith('/__community__/veterans') || req.hostname === 'veterans.topcoder.com') {
+      res.header(
+        'Content-Security-Policy',
+        `default-src 'self';`
+        + ` script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'`
+          + ` http://www.google-analytics.com`
+          + ` https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com`
+          + ` https://assets.ubembed.com`
+          + ` https://assets.zendesk.com`
+          + ` https://browser.sentry-cdn.com`
+          + ` https://cdn.segment.com`
+          + ` https://fast.trychameleon.com`
+          + ` https://static.zdassets.com;`          
+        + ` style-src 'report-sample' 'self' 'unsafe-inline'`
+          + ` ${config.CDN.PUBLIC};`
+        + ` object-src 'none';`
+        + ` base-uri 'self';`
+        + ` connect-src 'self'`
+          + ` ${config.URL.COMMUNITY_APP}`
+          + ` ${config.CDN.PUBLIC}`
+          + ` ${config.API.V2}/`
+          + ` ${config.API.V3}/`
+          + ` ${config.API.V4}/`
+          + ` ${config.API.V5}/`
+          + ` https://api.segment.io`
+          + ` https://cdn.segment.com`
+          + ` https://ekr.zdassets.com`
+          + ` https://topcoder.zendesk.com`
+          + ` https://stats.g.doubleclick.net`
+          + ` https://www.google-analytics.com;`
+        + ` font-src 'self'`
+          + ` data:`
+          + ` ${config.CDN.PUBLIC}`
+          + ` https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com;`
+        + ` frame-src 'self'`
+          + ` ${config.URL.AUTH};`
+        + ` img-src 'self'`
+          + ` https://www.facebook.com`
+          + ` https://images.ctfassets.net`
+          + ` https://d2nl5eqipnb33q.cloudfront.net`
+          + ` https://cdn.segment.com`
+          + ` https://www.google.com`
+          + ` https://topcoder-prod-media.s3.amazonaws.com;`
+        + ` manifest-src 'self';`
+        + ` media-src 'self';`
+        + ` report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;`
+        + ` worker-src 'self';`
+      );
+    }
+
     next();
   });
 
