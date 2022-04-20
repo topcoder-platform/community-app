@@ -5,10 +5,11 @@
 import React from 'react';
 import PT from 'prop-types';
 import './styles.scss';
+import _ from 'lodash';
 
 const ChartTooltip = ({
   show, left, top, challengeName,
-  challengeData, rating, ratingColor, href,
+  challengeData, rating, ratingColor, href, onClick,
 }) => (
   <a
     styleName="chart-tooltip"
@@ -19,6 +20,10 @@ const ChartTooltip = ({
       pointerEvents: href ? 'all' : 'none',
     }}
     href={href}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick();
+    }}
   >
     <div styleName="tooltip-rating" style={{ backgroundColor: ratingColor }}>
       {rating}
@@ -44,6 +49,7 @@ ChartTooltip.defaultProps = {
   rating: 0,
   ratingColor: '',
   href: null,
+  onClick: _.noop,
 };
 
 ChartTooltip.propTypes = {
@@ -55,6 +61,7 @@ ChartTooltip.propTypes = {
   rating: PT.number,
   ratingColor: PT.string,
   href: PT.string,
+  onClick: PT.func,
 };
 
 export default ChartTooltip;
