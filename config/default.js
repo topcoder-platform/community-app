@@ -117,7 +117,7 @@ module.exports = {
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     SUBMISSION_REVIEW: 'https://submission-review.topcoder-dev.com',
 
-    THRIVE: 'https://www.topcoder.com/thrive',
+    THRIVE: 'https://community-app.topcoder-dev.com/thrive',
 
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder-dev.com',
