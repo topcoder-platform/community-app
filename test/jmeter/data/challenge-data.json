@@ -1,0 +1,27 @@
+[
+    {
+      "Copilot_resource_role_id": "838b231b-8ab6-4e4f-96d3-f1d483e0c30e",
+      "challenge_id": "b197d41c-92f1-4d94-911a-87a13e83e053",
+      "challenge_id_2": "a494c004-d303-48e2-afe0-0ce9786ab2d2",
+      "challenge_id_3": "53383a29-80ef-4230-b48f-08a6d302f1ed",
+      "phase_id": "aa5a3f78-79e0-4bf7-93ff-b11e8f5b398b",
+      "handle_1": "TCConnCopilot",
+      "member_id_1": 41002174,
+      "handle_2": "ghostar",
+      "member_id_2": 151743,
+      "handle_3": "pshah_copilot",
+      "member_id_3": 41002174,
+      "handle_4": "TopConnCustomer",
+      "member_id_4": 40158997,
+      "handle_5": "mess",
+      "member_id_5": 305384,  
+      "handle_Invalid": "abc",
+      "challenge_id_not_found": "xxxd0a58-ce7d-4521-8501-b8132b1c0391",
+      "id_resource_role_1": "d663fc84-5c37-43d1-a537-793feffb7667",
+      "id_resource_role_2": "92276e89-08cb-4071-a59b-ffc8f10b0ec4",
+      "id_resource_role_copilot": "cfe12b3f-2a24-4639-9d8b-ec86726f76bd",
+      "id_resource_role_review": "318b9c07-079a-42d9-a81f-b96be1dc1099",
+      "id_resource_role_submitter": "732339e7-8e30-49d7-9198-cccf9451e221",
+      "id_resource_role_observer": "2a4dc376-a31c-4d00-b173-13934d89e286"
+    }
+  ]

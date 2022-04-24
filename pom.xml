@@ -7,7 +7,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jmeter-maven-plugin.version>2.9.0</jmeter-maven-plugin.version>
-		<jmeterScript>Community-25UV.jmx</jmeterScript>
+		<jmeterScript>Community-App.jmx</jmeterScript>
     </properties>
     <dependencies>
         <dependency>
@@ -70,14 +70,15 @@
                             </excludedArtifacts>
                             <jMeterProcessJVMSettings>
                                 <arguments>
-                                    <argument>-XX:MaxMetaspaceSize=256m</argument>
-                                    <argument>-Xmx1024m</argument>
-                                    <argument>-Xms1024m</argument>
+                                    <argument>-XX:MaxMetaspaceSize=512m</argument>
+                                    <argument>-Xmx2048m</argument>
+                                    <argument>-Xms2048m</argument>
                                 </arguments>
                             </jMeterProcessJVMSettings>
 							<testFilesIncluded>
 								<jMeterTestFile>${jmeterScript}</jMeterTestFile>
 							</testFilesIncluded>
+							<testFilesDirectory>./test/jmeter</testFilesDirectory>
                         </configuration>
                         <executions>
                             <execution>
@@ -141,9 +142,9 @@
                             </excludedArtifacts>
                             <jMeterProcessJVMSettings>
                                 <arguments>
-                                    <argument>-XX:MaxMetaspaceSize=256m</argument>
-                                    <argument>-Xmx1024m</argument>
-                                    <argument>-Xms1024m</argument>
+									<argument>-XX:MaxMetaspaceSize=512m</argument>
+                                    <argument>-Xmx2048m</argument>
+                                    <argument>-Xms2048m</argument>
                                 </arguments>
                             </jMeterProcessJVMSettings>
                             <exportedRmiHostname>${hostname}</exportedRmiHostname>
@@ -201,9 +202,9 @@
                             </excludedArtifacts>
                             <jMeterProcessJVMSettings>
                                 <arguments>
-                                    <argument>-XX:MaxMetaspaceSize=256m</argument>
-                                    <argument>-Xmx1024m</argument>
-                                    <argument>-Xms1024m</argument>
+									<argument>-XX:MaxMetaspaceSize=512m</argument>
+                                    <argument>-Xmx2048m</argument>
+                                    <argument>-Xms2048m</argument>
                                 </arguments>
                             </jMeterProcessJVMSettings>
                             <remoteConfig>
