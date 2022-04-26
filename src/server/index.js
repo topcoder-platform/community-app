@@ -150,6 +150,7 @@ async function onExpressJsSetup(server) {
           + ' https://cdn.segment.com'
           + ' https://connect.facebook.net'
           + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d1mwkvp2xbqfs9.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
           + ' https://fast.trychameleon.com'
           + ' https://static.zdassets.com'
@@ -157,6 +158,7 @@ async function onExpressJsSetup(server) {
         + " style-src 'report-sample' 'self' 'unsafe-inline'"
           + ` ${config.CDN.PUBLIC}`
           + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d1mwkvp2xbqfs9.cloudfront.net'
           + ' https://d24oibycet9bsb.cloudfront.net'
           + ' https://d2nl5eqipnb33q.cloudfront.net;'
         + " object-src 'none';"
