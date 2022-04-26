@@ -131,6 +131,84 @@ async function onExpressJsSetup(server) {
     return next();
   };
 
+  server.use((req, res, next) => {
+    res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.header('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+
+    if (req.url.startsWith('/__community__/veterans') || req.hostname === 'veterans.topcoder.com') {
+      res.header(
+        'Content-Security-Policy',
+        "default-src 'self';"
+        + " script-src 'report-sample' 'self' 'unsafe-inline' 'unsafe-eval'"
+          + ` ${config.CDN.PUBLIC}`
+          + ' http://www.google-analytics.com'
+          + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com'
+          + ' https://assets.ubembed.com'
+          + ' https://assets.zendesk.com'
+          + ' https://browser.sentry-cdn.com'
+          + ' https://cdn.heapanalytics.com'
+          + ' https://cdn.segment.com'
+          + ' https://connect.facebook.net'
+          + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d24oibycet9bsb.cloudfront.net'
+          + ' https://fast.trychameleon.com'
+          + ' https://static.zdassets.com'
+          + ' https://www.googletagmanager.com;'
+        + " style-src 'report-sample' 'self' 'unsafe-inline'"
+          + ` ${config.CDN.PUBLIC}`
+          + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d24oibycet9bsb.cloudfront.net'
+          + ' https://d2nl5eqipnb33q.cloudfront.net;'
+        + " object-src 'none';"
+        + " base-uri 'self';"
+        + " connect-src 'self'"
+          + ` ${config.API.V2}/`
+          + ` ${config.API.V3}/`
+          + ` ${config.API.V4}/`
+          + ` ${config.API.V5}/`
+          + ` ${config.CDN.PUBLIC}`
+          + ` ${config.URL.COMMUNITY_APP}`
+          + ' https://api.segment.io'
+          + ' https://cdn.segment.com'
+          + ' https://ekr.zdassets.com'
+          + ' https://fast.trychameleon.com'
+          + ' https://topcoder.zendesk.com'
+          + ' https://stats.g.doubleclick.net'
+          + ' https://www.google-analytics.com;'
+        + " font-src 'self'"
+          + ' data:'
+          + ` ${config.CDN.PUBLIC}`
+          + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d24oibycet9bsb.cloudfront.net'
+          + ' https://43d132d5dbff47c59d9d53ad448f93c2.js.ubembed.com;'
+        + " frame-src 'self'"
+          + ` ${config.URL.AUTH}`
+          + ' https://www.youtube.com;'
+        + " img-src 'self'"
+          + ` ${config.CDN.PUBLIC}`
+          + ' https://cdn.segment.com'
+          + ' https://d1of0acg2orgco.cloudfront.net'
+          + ' https://d24oibycet9bsb.cloudfront.net'
+          + ' https://d2nl5eqipnb33q.cloudfront.net'
+          + ' https://images.ctfassets.net'
+          + ' https://heapanalytics.com'
+          + ' https://q.quora.com'
+          + ' https://topcoder-prod-media.s3.amazonaws.com'
+          + ' https://www.facebook.com'
+          + ' https://www.google-analytics.com'
+          + ' https://www.google.com'
+          + ' https://www.googletagmanager.com'
+          + ' https://i.ytimg.com;'
+        + " manifest-src 'self';"
+        + " media-src 'self';"
+        + ' report-uri https://623d4c23f90d055298b24042.endpoint.csper.io/?v=0;'
+        + " worker-src 'self';",
+      );
+    }
+
+    next();
+  });
+
   /* Log Entries service proxy. */
   server.use('/community-app-assets/api/logger', checkAuthorizationHeader, (req, res) => {
     logger.log(`${req.clientIp} > `, ...req.body.data);
