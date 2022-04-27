@@ -96,7 +96,7 @@ class ProfileContainer extends React.Component {
       handleParam,
     } = this.props;
 
-    if (loadingError) {
+    if (loadingError || (info && info.status !== 'ACTIVE')) {
       return <Error404 />;
     }
 

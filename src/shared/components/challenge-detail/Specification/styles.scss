@@ -421,6 +421,7 @@ $tc-link-visited: #0c4e98;
 .challenge-specs-main {
   @include roboto-regular;
 
+  width: 100%;
   padding: 0 20px;
   max-width: 720px;
   align-self: center;
