@@ -343,14 +343,13 @@ workflows:
             branches:
               only:
                 - develop
-                - fix/infected-submission
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
           filters:
             branches:
               only:                
-                - ca-profile-bug-bash
+                - csp-headers
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
@@ -364,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - new-tc-logo
+                - csp-headers
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
@@ -372,8 +371,6 @@ workflows:
             branches:
               only:
                 - develop
-                - features/mm-dashboard
-                - fix/settings-save-fail
       # Production builds are exectuted 
       # when PR is merged to the master
       # Don't change anything in this configuration
