@@ -363,53 +363,37 @@ export default function ChallengeDetailsView(props) {
                   </div>
                 )
             }
-            <article>
-              <h2>
-                Payments
-              </h2>
-              {
-                isWipro ? (
-                  <div>
-                    <p>
-                      For employees of Wipro Technologies, following are the
-                      payment terms. Winner/s would be awarded the prize money on
-                      successful completion and acceptance of the submission by
-                      the stakeholder. Accumulated prize money for the month will
-                      be paid through Wipro payroll as part of subsequent month’s
-                      salary (eg. Aug month challenge winners payment will be
-                      credited as part Sept month salary). For payment of prize
-                      money, respective country currency conversion shall be
-                      considered as per Wipro standard currency conversion
-                      guidelines. Please refer to policy document at
-                      &zwnj;
-                      <a
-                        href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
-                      </a>
-                      &zwnj;
-                      for details regarding the policy.
-                    </p>
-                  </div>
-                ) : (
+            {isWipro && (
+              <article>
+                <h2>
+                  Payments
+                </h2>
+                <div>
                   <p>
-                    Topcoder will compensate members in accordance with our standard payment policies, unless
-                    otherwise specified in this challenge. For information on payment policies, setting up your profile to
-                    receive payments, and general payment questions, please refer to
+                    For employees of Wipro Technologies, following are the
+                    payment terms. Winner/s would be awarded the prize money on
+                    successful completion and acceptance of the submission by
+                    the stakeholder. Accumulated prize money for the month will
+                    be paid through Wipro payroll as part of subsequent month’s
+                    salary (eg. Aug month challenge winners payment will be
+                    credited as part Sept month salary). For payment of prize
+                    money, respective country currency conversion shall be
+                    considered as per Wipro standard currency conversion
+                    guidelines. Please refer to policy document at
                     &zwnj;
                     <a
-                      href="https://www.topcoder.com/thrive/articles/Payment%20Policies%20and%20Instructions"
+                      href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      Payment Policies and Instructions
-                    </a>.
+                      https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
+                    </a>
+                    &zwnj;
+                    for details regarding the policy.
                   </p>
-                )
-              }
-            </article>
+                </div>
+              </article>
+            )}
           </div>
         </div>
         <SideBar

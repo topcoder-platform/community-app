@@ -50,6 +50,8 @@ module.exports = {
 
     COMMUNITY_API: 'http://localhost:8000',
 
+    THRIVE: 'https://www.topcoder.com/thrive',
+
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder.com',
       COGNITIVE: 'https://cognitive.topcoder.com',
