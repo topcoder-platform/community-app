@@ -15,6 +15,7 @@ export default class HistoryGraph extends React.Component {
     this.state = {};
     this.mobileWidth = 0;
     this.graphRef = React.createRef();
+    this.onHandleDataPointClicked = this.onHandleDataPointClicked.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +58,23 @@ export default class HistoryGraph extends React.Component {
     }
     return 300;
   }
+
+  onHandleDataPointClicked() {
+    const { challengeId, href } = this.state;
+    fetch(`${config.API.V5}/challenges?legacyId=${challengeId}`)
+      .then(result => result.json())
+      .then((dataResponse) => {
+        if (dataResponse.length > 0) {
+          const challenge = dataResponse[0];
+          window.location.href = `${config.URL.CHALLENGES_URL}/${challenge.id}`;
+        } else {
+          window.location.href = href;
+        }
+      }).catch(() => {
+        window.location.href = href;
+      });
+  }
+
 
   draw() {
     const $scope = this;
@@ -247,6 +265,7 @@ export default class HistoryGraph extends React.Component {
           show: true,
           left: e.pageX,
           top: e.pageY,
+          challengeId: d.challengeId,
           challengeName: d.challengeName,
           challengeData: moment(d.ratingDate).format('MMM DD, YYYY'),
           rating: d.newRating,
@@ -259,7 +278,18 @@ export default class HistoryGraph extends React.Component {
   render() {
     return (
       <div styleName="history-graph" ref={this.graphRef}>
-        <ChartTooltip {...this.state} />
+        <ChartTooltip
+          {...this.state}
+          onClick={() => {
+            const { track } = this.props;
+            const { href } = this.state;
+            if (track === 'DATA_SCIENCE') {
+              this.onHandleDataPointClicked();
+            } else {
+              window.location.href = href;
+            }
+          }}
+        />
       </div>
     );
   }
