@@ -31,6 +31,7 @@ import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
 import IconFacebook from 'assets/images/icon-facebook.svg';
 import IconTwitter from 'assets/images/icon-twitter.svg';
 import IconLinkedIn from 'assets/images/icon-linkedIn.svg';
+import DiscordIconWhite from 'assets/images/tc-edu/discord-icon-white.svg';
 
 const htmlToText = require('html-to-text');
 
@@ -334,6 +335,10 @@ class Article extends React.Component {
                   </div>
                   <span>{downvotes}</span>
                 </div>
+              </div>
+              {/* Discord */}
+              <div className={theme.actionContainer}>
+                <a class="primary-green-md" href="https://discord.gg/topcoder?ref=thrive-article" rel="noopener noreferrer" target="_blank"><DiscordIconWhite /> Chat on Discord</a>
               </div>
             </div>
           </div>
