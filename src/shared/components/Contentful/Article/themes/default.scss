@@ -1,30 +1,9 @@
 @import "~styles/mixins";
 @import "~components/Contentful/default";
-@import "~components/buttons/themed/tc.scss";
 
 .wrapper {
   overflow-x: hidden;
   flex-direction: column;
-}
-
-.primaryGreenMd {
-  outline: none;
-
-  @include primary-green;
-  @include md;
-
-  &:hover {
-    @include primary-green;
-  }
-
-  &:disabled,
-  &:hover:disabled {
-    background-color: #e9e9e9 !important;
-    border: none !important;
-    text-decoration: none !important;
-    color: #fafafb !important;
-    box-shadow: none !important;
-  }
 }
 
 .shareButtons {
