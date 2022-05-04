@@ -338,7 +338,7 @@ class Article extends React.Component {
               </div>
               {/* Discord */}
               <div className={theme.actionContainer}>
-                <a className={theme['primary-green-md']} href="https://discord.gg/topcoder?ref=thrive-article" rel="noopener noreferrer" target="_blank"><DiscordIconWhite /> Chat on Discord</a>
+                <a className={theme.primaryGreenMd} href="https://discord.gg/topcoder?ref=thrive-article" rel="noopener noreferrer" target="_blank"><DiscordIconWhite /> Chat on Discord</a>
               </div>
             </div>
           </div>
