@@ -347,7 +347,7 @@ class Article extends React.Component {
                     button: tc['primary-green-md'],
                   }}
                 >
-                  <DiscordIconWhite /> Chat on Discord
+                  <DiscordIconWhite style={{marginRight: '5px'}} /> Chat on Discord
                 </PrimaryButton>
               </div>
             </div>
