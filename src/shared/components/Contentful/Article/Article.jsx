@@ -25,6 +25,8 @@ import {
 import qs from 'qs';
 import LoginModal from 'components/LoginModal';
 import modalStyle from 'components/LoginModal/modal.scss';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
+import tc from 'components/buttons/themed/tc.scss';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
@@ -184,19 +186,19 @@ class Article extends React.Component {
               </div>
               <div className={theme.bannerInnerRight}>
                 {
-                fields.featuredImage ? (
-                  <div className={theme['site-header-background']}>
-                    <svg className={theme.bannerSvg}>
-                      <clipPath id="thrive-banner-clip-path" clipPathUnits="objectBoundingBox">
-                        <path d="M0.477,1 C0.72,0.999,1,0.804,1,0.56 C1,0.316,0.766,-0.067,0.528,0.021 C0.343,0.089,0.145,-0.088,0.076,0.063 C0.016,0.193,-0.071,0.456,0.101,0.618 C0.274,0.782,0.234,1,0.477,1" />
-                      </clipPath>
-                    </svg>
-                    <div className={theme.bannerClippedImageHolder} style={{ backgroundImage: `url(${subData.assets.items[fields.featuredImage.sys.id].fields.file.url})` }} />
-                  </div>
-                ) : (
-                  <img src={DEFAULT_BANNER_IMAGE} alt="Thrive - default banner" className={theme['site-header-background']} />
-                )
-              }
+                  fields.featuredImage ? (
+                    <div className={theme['site-header-background']}>
+                      <svg className={theme.bannerSvg}>
+                        <clipPath id="thrive-banner-clip-path" clipPathUnits="objectBoundingBox">
+                          <path d="M0.477,1 C0.72,0.999,1,0.804,1,0.56 C1,0.316,0.766,-0.067,0.528,0.021 C0.343,0.089,0.145,-0.088,0.076,0.063 C0.016,0.193,-0.071,0.456,0.101,0.618 C0.274,0.782,0.234,1,0.477,1" />
+                        </clipPath>
+                      </svg>
+                      <div className={theme.bannerClippedImageHolder} style={{ backgroundImage: `url(${subData.assets.items[fields.featuredImage.sys.id].fields.file.url})` }} />
+                    </div>
+                  ) : (
+                    <img src={DEFAULT_BANNER_IMAGE} alt="Thrive - default banner" className={theme['site-header-background']} />
+                  )
+                }
               </div>
             </div>
             <img src="https://images.ctfassets.net/piwi0eufbb2g/3StLyQh5ne1Lk9H7C1oVxv/52f17a02122212052e44585d3e79fcf7/29320408-E820-48E1-B0FD-539EAC296910.svg" alt="Thrive banner shape" className={theme.bannerBottShape} />
@@ -210,37 +212,37 @@ class Article extends React.Component {
               {/* Authors */}
               <div className={theme.authorContainer}>
                 {
-                _.map(fields.contentAuthor, author => (
-                  <div key={author.sys.id} className={theme.authorWrapper}>
-                    {
-                      subData.entries.items[author.sys.id].fields.avatar ? (
-                        <ContentfulLoader
-                          assetIds={subData.entries.items[author.sys.id].fields.avatar.sys.id}
-                          preview={preview}
-                          spaceName={spaceName}
-                          environment={environment}
-                          render={avatarData => (
-                            <img src={avatarData.assets.items[subData.entries.items[author.sys.id].fields.avatar.sys.id].fields.file.url} alt="article author avatar" className={theme.avatar} />
-                          )}
-                          renderPlaceholder={LoadingIndicator}
-                        />
-                      ) : null
-                    }
-                    <div className={theme.authorInfos}>
-                      <span className={theme.name}>
-                        {subData.entries.items[author.sys.id].fields.name}
-                      </span>
+                  _.map(fields.contentAuthor, author => (
+                    <div key={author.sys.id} className={theme.authorWrapper}>
                       {
-                        subData.entries.items[author.sys.id].fields.tcHandle ? (
-                          <span className={theme.handle}>
-                            {subData.entries.items[author.sys.id].fields.tcHandle}
-                          </span>
+                        subData.entries.items[author.sys.id].fields.avatar ? (
+                          <ContentfulLoader
+                            assetIds={subData.entries.items[author.sys.id].fields.avatar.sys.id}
+                            preview={preview}
+                            spaceName={spaceName}
+                            environment={environment}
+                            render={avatarData => (
+                              <img src={avatarData.assets.items[subData.entries.items[author.sys.id].fields.avatar.sys.id].fields.file.url} alt="article author avatar" className={theme.avatar} />
+                            )}
+                            renderPlaceholder={LoadingIndicator}
+                          />
                         ) : null
                       }
+                      <div className={theme.authorInfos}>
+                        <span className={theme.name}>
+                          {subData.entries.items[author.sys.id].fields.name}
+                        </span>
+                        {
+                          subData.entries.items[author.sys.id].fields.tcHandle ? (
+                            <span className={theme.handle}>
+                              {subData.entries.items[author.sys.id].fields.tcHandle}
+                            </span>
+                          ) : null
+                        }
+                      </div>
                     </div>
-                  </div>
-                ))
-              }
+                  ))
+                }
               </div>
               <div className={theme.separator} />
               <h3 className={theme.label}>DURATION</h3>
@@ -273,12 +275,12 @@ class Article extends React.Component {
               {/* Tags */}
               <div className={theme.tagContainer}>
                 {
-                _.map(fields.tags, tag => (
-                  <div className={theme.tagItem} key={tag} title={`Search for articles labelled as ${tag}`}>
-                    <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</Link>
-                  </div>
-                ))
-              }
+                  _.map(fields.tags, tag => (
+                    <div className={theme.tagItem} key={tag} title={`Search for articles labelled as ${tag}`}>
+                      <Link to={`${config.TC_EDU_BASE_PATH}${config.TC_EDU_SEARCH_PATH}?${qs.stringify({ tags: tag })}`} key={`${tag}`}>{tag}</Link>
+                    </div>
+                  ))
+                }
               </div>
               <div className={theme.separator} />
               <h3 className={theme.label}>share</h3>
@@ -313,10 +315,10 @@ class Article extends React.Component {
             >
               <MarkdownRenderer markdown={fields.content} {...contentfulConfig} />
               {
-              fields.type === 'Video' && fields.contentUrl ? (
-                <YouTubeVideo src={fields.contentUrl} />
-              ) : null
-            }
+                fields.type === 'Video' && fields.contentUrl ? (
+                  <YouTubeVideo src={fields.contentUrl} />
+                ) : null
+              }
               {/* Voting */}
               <div className={theme.actionContainer}>
                 <div className={theme.action}>
@@ -325,8 +327,8 @@ class Article extends React.Component {
                   </div>
                   <span>
                     {
-                    upvotes
-                  }
+                      upvotes
+                    }
                   </span>
                 </div>
                 <div className={theme.action}>
@@ -338,44 +340,52 @@ class Article extends React.Component {
               </div>
               {/* Discord */}
               <div className={theme.actionContainer}>
-                <a href="https://discord.gg/topcoder?ref=thrive-article" rel="noopener noreferrer" target="_blank"><DiscordIconWhite /> Chat on Discord</a>
+                <PrimaryButton
+                  to="https://discord.gg/topcoder?ref=thrive-article"
+                  openNewTab
+                  theme={{
+                    button: tc['primary-green-md'],
+                  }}
+                >
+                  <DiscordIconWhite /> Chat on Discord
+                </PrimaryButton>
               </div>
             </div>
           </div>
           {/* Recommended */}
           {
-          fields.recommended ? (
-            <div className={theme.recommendedContainer}>
-              <div className={theme.recommendedTopShape} />
-              <h3 className={theme.recommendedTitle}>Recommended for you</h3>
-              <div className={theme.recommended}>
-                {
-                  _.map(fields.recommended, rec => (
-                    <div key={rec.sys.id} className={theme.recommendedCard}>
-                      {
-                        subData.entries.items[rec.sys.id].fields.featuredImage ? (
-                          <ContentfulLoader
-                            assetIds={subData.entries.items[rec.sys.id].fields.featuredImage.sys.id}
-                            preview={preview}
-                            spaceName={spaceName}
-                            environment={environment}
-                            render={imageData => (
-                              <React.Fragment>
-                                <div
-                                  style={{ backgroundImage: `url(${imageData.assets.items[subData.entries.items[rec.sys.id].fields.featuredImage.sys.id].fields.file.url})` }}
-                                  className={theme.recommendedImage}
-                                />
-                                <div className={theme.recommendedImageBottomShape} />
-                              </React.Fragment>
-                            )}
-                            renderPlaceholder={LoadingIndicator}
-                          />
-                        ) : null
-                      }
-                      <h3 className={theme.recommendedCardTitle}>
+            fields.recommended ? (
+              <div className={theme.recommendedContainer}>
+                <div className={theme.recommendedTopShape} />
+                <h3 className={theme.recommendedTitle}>Recommended for you</h3>
+                <div className={theme.recommended}>
+                  {
+                    _.map(fields.recommended, rec => (
+                      <div key={rec.sys.id} className={theme.recommendedCard}>
                         {
-                          subData.entries.items[rec.sys.id].fields.externalArticle
-                            && subData.entries.items[rec.sys.id].fields.contentUrl ? (
+                          subData.entries.items[rec.sys.id].fields.featuredImage ? (
+                            <ContentfulLoader
+                              assetIds={subData.entries.items[rec.sys.id].fields.featuredImage.sys.id}
+                              preview={preview}
+                              spaceName={spaceName}
+                              environment={environment}
+                              render={imageData => (
+                                <React.Fragment>
+                                  <div
+                                    style={{ backgroundImage: `url(${imageData.assets.items[subData.entries.items[rec.sys.id].fields.featuredImage.sys.id].fields.file.url})` }}
+                                    className={theme.recommendedImage}
+                                  />
+                                  <div className={theme.recommendedImageBottomShape} />
+                                </React.Fragment>
+                              )}
+                              renderPlaceholder={LoadingIndicator}
+                            />
+                          ) : null
+                        }
+                        <h3 className={theme.recommendedCardTitle}>
+                          {
+                            subData.entries.items[rec.sys.id].fields.externalArticle
+                              && subData.entries.items[rec.sys.id].fields.contentUrl ? (
                               <a href={subData.entries.items[rec.sys.id].fields.contentUrl} target="_blank" rel="noopener noreferrer">
                                 {subData.entries.items[rec.sys.id].fields.title}
                               </a>
@@ -384,26 +394,26 @@ class Article extends React.Component {
                                 {subData.entries.items[rec.sys.id].fields.title}
                               </Link>
                             )
-                        }
-                      </h3>
-                      <div className={theme.recommendedCardContent}>
+                          }
+                        </h3>
+                        <div className={theme.recommendedCardContent}>
+                          {
+                            `${htmlToText.fromString(
+                              ReactDOMServer.renderToString(markdown(
+                                subData.entries.items[rec.sys.id].fields.content,
+                              )),
+                              {
+                                ignoreHref: true,
+                                ignoreImage: true,
+                                singleNewLineParagraphs: true,
+                                uppercaseHeadings: false,
+                              },
+                            ).substring(0, CONTENT_PREVIEW_LENGTH)}...`
+                          }
+                        </div>
                         {
-                          `${htmlToText.fromString(
-                            ReactDOMServer.renderToString(markdown(
-                              subData.entries.items[rec.sys.id].fields.content,
-                            )),
-                            {
-                              ignoreHref: true,
-                              ignoreImage: true,
-                              singleNewLineParagraphs: true,
-                              uppercaseHeadings: false,
-                            },
-                          ).substring(0, CONTENT_PREVIEW_LENGTH)}...`
-                        }
-                      </div>
-                      {
-                        subData.entries.items[rec.sys.id].fields.externalArticle
-                          && subData.entries.items[rec.sys.id].fields.contentUrl ? (
+                          subData.entries.items[rec.sys.id].fields.externalArticle
+                            && subData.entries.items[rec.sys.id].fields.contentUrl ? (
                             <a href={subData.entries.items[rec.sys.id].fields.contentUrl} target="_blank" rel="noopener noreferrer" className={theme.readMore}>
                               Read More <ReadMoreArrow />
                             </a>
@@ -412,26 +422,26 @@ class Article extends React.Component {
                               Read More <ReadMoreArrow />
                             </Link>
                           )
-                      }
-                    </div>
-                  ))
-                }
+                        }
+                      </div>
+                    ))
+                  }
+                </div>
               </div>
-            </div>
-          ) : null
-        }
+            ) : null
+          }
         </div>
         {
           showLogin && (
-          <LoginModal
-            // eslint-disable-next-line no-restricted-globals
-            retUrl={isomorphy.isClientSide() ? location.href : null}
-            onCancel={() => this.setState({ showLogin: false })}
-            modalTitle="Want to vote?"
-            modalText="You must be a Topcoder member to do that."
-            utmSource="thrive_article"
-            infoNode={<p className={modalStyle.regTxt}>Discover <a href="/community/learn" target="_blank" rel="noreferrer">other features</a> you can access by becoming a member.</p>}
-          />
+            <LoginModal
+              // eslint-disable-next-line no-restricted-globals
+              retUrl={isomorphy.isClientSide() ? location.href : null}
+              onCancel={() => this.setState({ showLogin: false })}
+              modalTitle="Want to vote?"
+              modalText="You must be a Topcoder member to do that."
+              utmSource="thrive_article"
+              infoNode={<p className={modalStyle.regTxt}>Discover <a href="/community/learn" target="_blank" rel="noreferrer">other features</a> you can access by becoming a member.</p>}
+            />
           )
         }
       </React.Fragment>
