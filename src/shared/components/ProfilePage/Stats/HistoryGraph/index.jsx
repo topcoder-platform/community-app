@@ -259,7 +259,7 @@ export default class HistoryGraph extends React.Component {
   render() {
     return (
       <div styleName="history-graph" ref={this.graphRef}>
-          <ChartTooltip {...this.state} />
+        <ChartTooltip {...this.state} />
       </div>
     );
   }
