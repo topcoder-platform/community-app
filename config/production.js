@@ -35,6 +35,7 @@ module.exports = {
     FORUMS_VANILLA: 'https://discussions.topcoder.com',
     HELP: 'https://www.topcoder.com/thrive/tracks?track=Topcoder&tax=Help%20Articles',
     SUBMISSION_REVIEW: 'https://submission-review.topcoder.com',
+    SUBMISSION_REVIEW_API_URL: 'https://submission-review-api.topcoder.com',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
     PAYMENT_TOOL: 'https://payment.topcoder.com',
@@ -49,6 +50,8 @@ module.exports = {
     TOPGEAR: 'https://topgear-app.wipro.com',
 
     COMMUNITY_API: 'http://localhost:8000',
+
+    THRIVE: 'https://www.topcoder.com/thrive',
 
     COMMUNITIES: {
       BLOCKCHAIN: 'https://blockchain.topcoder.com',
