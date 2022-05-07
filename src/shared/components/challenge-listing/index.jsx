@@ -5,7 +5,6 @@
 
 // import _ from 'lodash';
 import FilterPanel from 'containers/challenge-listing/FilterPanel';
-import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
 // import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
@@ -17,7 +16,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import Listing from './Listing';
 // import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
-import Banner from './Banner';
+import ChallengeTab from './ChallengeTab';
 
 import './style.scss';
 
@@ -41,7 +40,7 @@ export default function ChallengeListing(props) {
     defaultCommunityId,
     expanding,
     // extraBucket,
-    filterState,
+    // filterState,
     hideSrm,
     // hideTcLinksInFooter,
     keepPastPlaceholders,
@@ -50,6 +49,11 @@ export default function ChallengeListing(props) {
     // isBucketSwitching,
     isLoggedIn,
     setSearchText,
+    selectBucket,
+    setPreviousBucketOfActiveTab,
+    setPreviousBucketOfPastChallengesTab,
+    previousBucketOfPastChallengesTab,
+    previousBucketOfActiveTab,
   } = props;
 
   // const { challenges } = props;
@@ -152,22 +156,24 @@ export default function ChallengeListing(props) {
 
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
-      {
-        filterState.recommended && activeBucket === 'openForRegistration'
-          ? null
-          : (
-            <ChallengeSearchBar
-              setFilterState={props.setFilterState}
-            />
-          )
-      }
 
-      <Banner />
+      <h1 styleName="tc-title">CHALLENGES</h1>
+      <hr styleName="tc-seperator" />
+
+      <ChallengeTab
+        activeBucket={activeBucket}
+        setPreviousBucketOfActiveTab={setPreviousBucketOfActiveTab}
+        setPreviousBucketOfPastChallengesTab={setPreviousBucketOfPastChallengesTab}
+        previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
+        previousBucketOfActiveTab={previousBucketOfActiveTab}
+        selectBucket={selectBucket}
+      />
 
       <div styleName="tc-content-wrapper">
         <div styleName={desktop ? 'sidebar-container-desktop' : 'sidebar-container-mobile'}>
           <Sidebar
             expanding={expanding}
+            setFilterState={props.setFilterState}
           />
 
           <FilterPanel
@@ -266,4 +272,8 @@ ChallengeListing.propTypes = {
   // userChallenges: PT.arrayOf(PT.string),
   isLoggedIn: PT.bool.isRequired,
   setSearchText: PT.func.isRequired,
+  setPreviousBucketOfActiveTab: PT.func.isRequired,
+  setPreviousBucketOfPastChallengesTab: PT.func.isRequired,
+  previousBucketOfPastChallengesTab: PT.string.isRequired,
+  previousBucketOfActiveTab: PT.string.isRequired,
 };

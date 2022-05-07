@@ -40,6 +40,15 @@ const { mapToBackend } = challengeUtils.filter;
 let mounted = false;
 
 export class ListingContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      previousBucketOfActiveTab: null,
+      previousBucketOfPastChallengesTab: null,
+    };
+  }
+
   componentDidMount() {
     const {
       activeBucket,
@@ -470,6 +479,11 @@ export class ListingContainer extends React.Component {
       filterState,
     } = this.props;
 
+    const {
+      previousBucketOfActiveTab,
+      previousBucketOfPastChallengesTab,
+    } = this.state;
+
     const { tokenV3 } = auth;
     const handle = _.get(auth, 'user.handle');
 
@@ -642,6 +656,14 @@ export class ListingContainer extends React.Component {
           isLoggedIn={isLoggedIn}
           meta={meta}
           setSearchText={setSearchText}
+          previousBucketOfActiveTab={previousBucketOfActiveTab}
+          previousBucketOfPastChallengesTab={previousBucketOfPastChallengesTab}
+          setPreviousBucketOfActiveTab={(bucket) => {
+            this.setState({ previousBucketOfActiveTab: bucket });
+          }}
+          setPreviousBucketOfPastChallengesTab={(bucket) => {
+            this.setState({ previousBucketOfPastChallengesTab: bucket });
+          }}
         />
       </div>
     );

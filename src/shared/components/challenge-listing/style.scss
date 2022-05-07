@@ -18,12 +18,43 @@ $challenge-radius-4: $corner-radius * 2;
 // }
 
 .ChallengeFiltersExample {
-  background: $tc-gray-neutral-dark;
+  background: $tc-white;
   flex: 1;
+  margin: 0 32px;
+
+  @include xs-to-md {
+    margin: 0;
+  }
+
+  .tc-title {
+    @include barlow-condensed;
+
+    color: $tco-black;
+    font-size: 32px;
+    margin: 32px 0 24px 0;
+    line-height: 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    @include xs-to-md {
+      margin: 16px;
+    }
+  }
+
+  .tc-seperator {
+    background-color: $listing-gray;
+    height: 2px;
+    opacity: 0.5;
+    margin: 0;
+
+    @include xs-to-md {
+      margin: 0 16px;
+    }
+  }
 
   .tc-content-wrapper {
     display: flex;
-    padding: $challenge-space-10;
+    padding: 0;
 
     @include xs-to-md {
       display: block;
@@ -71,25 +102,27 @@ $challenge-radius-4: $corner-radius * 2;
   .sidebar-container-mobile {
     margin: $challenge-space-20 $challenge-space-10 $challenge-space-10;
     display: none;
+    background-color: $listing-filter-bg;
+    border-radius: 8px;
 
     @include xs-to-md {
       display: block;
-      margin: 0;
       padding: $challenge-space-10;
-      width: 100%;
+      padding: 0;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      margin-left: 16px;
+      margin-right: 16px;
+      padding-bottom: 16px;
     }
   }
 
   .sidebar-container-desktop {
-    margin: $challenge-space-20 $challenge-space-5 $challenge-space-10;
-    width: 30%;
+    margin: 35px 0 10px;
+    width: 23.5%;
 
     @include xs-to-md {
       display: none;
-    }
-
-    > * + * {
-      margin-top: 12px;
     }
   }
 
@@ -104,12 +137,25 @@ $challenge-radius-4: $corner-radius * 2;
   background-color: $tc-white;
 }
 
+.tag {
+  button {
+    border-radius: 2px;
+    max-width: 400px;
+    font-size: 11px;
+    color: $tco-black;
+    font-weight: 500;
+  }
+}
+
 .additionalTagWrapper {
   background: $tc-white;
   display: inline-block;
-  border-radius: 3px;
-  padding: 5px 5px 10px 5px;
+  border-radius: 2px;
+  padding: 3px 4px;
   max-width: 400px;
+  font-size: 11px;
+  color: $tco-black;
+  font-weight: 500;
 }
 
 .additionalTagWrapper::after {
@@ -131,4 +177,9 @@ $challenge-radius-4: $corner-radius * 2;
   margin-top: 5px;
   margin-left: 3px;
   display: inline-block;
+}
+
+.tagContainer {
+  display: flex;
+  margin-top: -2px;
 }

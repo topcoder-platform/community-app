@@ -49,13 +49,17 @@ div.progress-bar-tooltip {
     }
 
     .inner-bar {
-      background: $tc-light-blue;
+      background: #b671d7;
       position: relative;
       border-radius: $corner-radius * 4;
       border: 2px solid $tc-gray-80;
       top: -(($tip-space-15) - 1);
       height: $tip-space-10 - 2;
       z-index: 1;
+
+      &.red {
+        background: #ef476f;
+      }
     }
 
     .point {
@@ -72,7 +76,11 @@ div.progress-bar-tooltip {
 
     &.started {
       .point {
-        background: $tc-light-blue;
+        background: #b671d7;
+
+        &.red {
+          background: #ef476f;
+        }
       }
     }
   }

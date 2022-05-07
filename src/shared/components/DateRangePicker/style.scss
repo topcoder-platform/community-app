@@ -22,13 +22,13 @@
 .isRange {
   :global {
     .rdrDay {
-      .rdrInRange {
-        background: $tc-dark-blue-30 !important;
-      }
-
       .rdrStartEdge,
       .rdrEndEdge {
-        background: $tc-dark-blue-30 !important;
+        background: $listing-checkbox-green !important;
+      }
+
+      .rdrInRange {
+        background: $listing-checkbox-green !important;
       }
     }
   }
@@ -123,7 +123,7 @@
       width: 22px;
       height: 23px;
       background: none;
-      border: 1px solid #0681ff;
+      border: 1px solid $listing-checkbox-green;
       border-radius: 50%;
 
       i {
@@ -135,8 +135,8 @@
         height: 8px;
         margin: 0;
         border: 0;
-        border-top: 2px solid #0681ff;
-        border-left: 2px solid #0681ff;
+        border-top: 2px solid $listing-checkbox-green;
+        border-left: 2px solid $listing-checkbox-green;
         transform: none;
       }
 

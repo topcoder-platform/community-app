@@ -1,7 +1,7 @@
 @import "~styles/mixins";
 
 .bucket {
-  background: $tc-gray-neutral-light;
+  background: $tc-white;
   margin: 20px 0;
 }
 
@@ -39,4 +39,11 @@
   align-items: center;
   justify-content: center;
   padding: $base-unit * 5;
+
+  @include roboto-regular;
+
+  font-size: 24px;
+  line-height: 32px;
+  color: $tco-black;
+  margin-top: 80px;
 }
