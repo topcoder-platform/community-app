@@ -37,7 +37,7 @@ import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar'
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
 import ArrowIcon from 'assets/images/ico-arrow-down.svg';
-import CircleIcon from 'assets/images/icon-circle.png';
+import CircleIcon from 'assets/images/icon-circle.svg';
 import Button from '../Button';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 import BucketSelector from '../../Sidebar/BucketSelector';
@@ -646,7 +646,7 @@ export default function FiltersPanel({
                     className={style['tooltip-overlay']}
                     trigger={['hover', 'focus']}
                   >
-                    <img src={CircleIcon} alt="circle-icon" />
+                    <CircleIcon />
                   </Tooltip>
                 </div>
               </div>

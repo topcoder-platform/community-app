@@ -14,6 +14,7 @@ div.progress-bar-tooltip {
   color: $tc-white;
   max-width: none;
   padding: 0 $base-unit * 3;
+  background-color: #2a2a2a;
 
   .rc-tooltip-inner {
     padding: 0 $base-unit * 3;
@@ -28,7 +29,7 @@ div.progress-bar-tooltip {
       line-height: $tip-space-15;
       min-width: $tip-offset;
       padding: $tip-space-15 0;
-      background: $tc-gray-80;
+      background: #2a2a2a;
       width: $tip-space-95;
 
       &:last-child {
