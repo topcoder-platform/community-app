@@ -8,6 +8,7 @@ import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
 import { config } from 'topcoder-react-utils';
 
+import TooltipIcon from 'assets/images/tooltip-info.svg';
 import EligibleEvents from './EligibleEvents';
 
 import ShareSocial from './ShareSocial';
@@ -160,8 +161,8 @@ export default function SideBar({
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip id="review-tip" content={reviewTip} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="review-tip">
-                  ?
+                <div styleName="tctooltip">
+                  <TooltipIcon />
                 </div>
               </Tooltip>
             </span>
@@ -171,8 +172,8 @@ export default function SideBar({
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip id="approval-tip" content={approvalTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="approval-tip">
-                  ?
+                <div styleName="tctooltip">
+                  <TooltipIcon />
                 </div>
               </Tooltip>
             </span>
@@ -223,8 +224,8 @@ export default function SideBar({
                   Review Scorecard
                 </a>
                 <Tooltip id="reviewscorecard-tip" content={reviewScorecardTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="reviewscorecard-tip">
-                    ?
+                  <div styleName="tctooltip">
+                    <TooltipIcon />
                   </div>
                 </Tooltip>
               </span>
@@ -242,8 +243,8 @@ export default function SideBar({
                   Useable Code Rules
                 </a>
                 <Tooltip id="usablecode-tip" content={usableCodeArticle} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-                  <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="usablecode-tip">
-                    ?
+                  <div styleName="tctooltip">
+                    <TooltipIcon />
                   </div>
                 </Tooltip>
               </span>
@@ -437,8 +438,8 @@ export default function SideBar({
               Topcoder Extension <br /> for VSCode
             </a>
             <Tooltip id="vscode-tip" content={vscodeTip} className={styles['tooltip-overlay']} trigger={['hover', 'focus']}>
-              <div styleName="tctooltip" tabIndex="0" role="button" aria-describedby="vscode-tip">
-                ?
+              <div styleName="tctooltip">
+                <TooltipIcon />
               </div>
             </Tooltip>
           </span>

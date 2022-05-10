@@ -1,5 +1,22 @@
 @import "~styles/mixins";
 
+.button {
+  align-self: center !important;
+  margin: 20px 0 !important;
+  position: relative !important;
+  white-space: nowrap !important;
+  border-color: #137d60 !important;
+  color: #137d60 !important;
+  border-radius: 24px !important;
+  border-width: 2px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+
+  @include xs-to-sm {
+    align-self: flex-start !important;
+  }
+}
+
 .container {
   @include roboto-regular;
 
@@ -25,6 +42,8 @@
   margin-left: 13px;
   font-size: 20px;
   color: $tc-black;
+  text-transform: uppercase;
+  width: 50%;
 }
 
 .right-url {
@@ -56,13 +75,12 @@
 }
 
 .article-read-time {
-  @include roboto-regular;
+  @include roboto-bold;
 
   margin-top: 13px;
   font-size: 12px;
-  font-weight: 500;
-  letter-spacing: -0.33px;
-  color: $tc-gray-70;
+  font-weight: 700;
+  color: #555;
 }
 
 .article-title {
@@ -70,8 +88,8 @@
 
   margin-top: 1px;
   font-size: 20px;
-  line-height: 1.1;
-  color: $tc-gray-70;
+  line-height: 26px;
+  color: #2a2a2a;
 }
 
 .article-create-time {
@@ -80,10 +98,10 @@
   display: flex;
   align-items: center;
   margin-top: 11px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.33px;
-  color: $tc-gray-70;
+  color: #2a2a2a;
 
   svg {
     margin-right: 5px;

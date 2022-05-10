@@ -12,7 +12,7 @@ import { isMM } from 'utils/challenge';
 
 import PT from 'prop-types';
 import React from 'react';
-import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
@@ -251,11 +251,13 @@ export default function ChallengeHeader(props) {
     _.some(allPhases, { phaseType: 'Final Fix', phaseStatus: 'Open' });
   }
 
+  const disabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
+
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
         <div styleName="title-wrapper" aria-hidden={isMenuOpened}>
-          <Link to={challengesUrl} aria-label="Back to challenge list">
+          <Link to={challengesUrl} aria-label="Back to challenge list" styleName="back-arrow">
             <LeftArrow styleName="left-arrow" />
           </Link>
           <div>
@@ -370,28 +372,28 @@ export default function ChallengeHeader(props) {
           <div styleName="challenge-ops-wrapper">
             <div styleName="challenge-ops-container">
               {hasRegistered ? (
-                <DangerButton
+                <PrimaryButton
                   disabled={unregistering || registrationEnded
                   || hasSubmissions || isLegacyMM}
                   forceA
                   onClick={unregisterFromChallenge}
-                  theme={{ button: style.challengeAction }}
+                  theme={{ button: style.unregisterButton }}
                 >
                   Unregister
-                </DangerButton>
+                </PrimaryButton>
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded || isLegacyMM}
                   forceA
                   onClick={registerForChallenge}
-                  theme={{ button: style.challengeAction }}
+                  theme={{ button: style.registerBtn }}
                 >
                   Register
                 </PrimaryButton>
               )}
               <PrimaryButton
-                disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
-                theme={{ button: style.challengeAction }}
+                disabled={disabled}
+                theme={{ button: disabled ? style.submitButtonDisabled : style.submitButton }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >
                 Submit
@@ -411,18 +413,17 @@ export default function ChallengeHeader(props) {
           </div>
         </div>
         <div styleName="deadlines-view">
-          <div styleName="deadlines-overview">
+          <div styleName={`deadlines-overview ${showDeadlineDetail ? 'opened' : ''}`}>
             <div styleName="deadlines-overview-text">
               {nextDeadlineMsg}
               {
                 (status || '').toLowerCase() === 'active'
                 && (
                 <div styleName="current-phase">
+                  Current Deadline Ends:{' '}
                   <span styleName="deadline-highlighted">
                     {timeLeft}
                   </span>
-                  {' '}
-                  until current deadline ends
                 </div>
                 )
               }
@@ -437,13 +438,11 @@ export default function ChallengeHeader(props) {
               {showDeadlineDetail
                 ? (
                   <span styleName="collapse-text">
-                    Hide Deadlines
                     <ArrowDown />
                   </span>
                 )
                 : (
                   <span styleName="collapse-text">
-                    Show Deadlines
                     <ArrowUp />
                   </span>
                 )

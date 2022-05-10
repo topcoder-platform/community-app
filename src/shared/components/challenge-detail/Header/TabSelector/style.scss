@@ -1,10 +1,88 @@
 @import "~styles/mixins";
 
+.challenge-view-selector-mobile {
+  .mobile-tab-container {
+    background-color: #eaf6fd;
+    height: 40px;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 1px solid #d4d4d4;
+
+    .title {
+      @include barlow-bold;
+
+      font-weight: 700;
+      color: $tco-black;
+      font-size: 14px;
+      line-height: 20px;
+      text-transform: uppercase;
+      padding-left: 16px;
+      padding-top: 10px;
+    }
+
+    .icon {
+      width: 16px;
+      height: 9px;
+      margin-right: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-self: center;
+      cursor: pointer;
+      transform: scale(1.5);
+    }
+
+    .down {
+      transform: scale(1.5) rotate(180deg);
+      margin-right: 20px !important;
+    }
+
+    @include xs-to-md {
+      margin: 0 16px;
+    }
+  }
+}
+
+.mobile-tab-expanded {
+  margin: 0 16px;
+  background-color: #eaf6fd;
+  flex-direction: column;
+  display: flex;
+
+  a {
+    width: 100%;
+    height: 40px;
+    margin: 0;
+
+    @include barlow-bold;
+
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: uppercase;
+    padding-left: 16px;
+    padding-top: 10px;
+  }
+
+  .active {
+    background-color: #bae1f9;
+
+    p {
+      color: $tco-black;
+      font-weight: 700;
+    }
+  }
+}
+
 .challenge-view-selector {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   position: relative;
+  padding-bottom: 10px;
+  border-bottom: silver solid 1px;
 
   @include xs-to-sm {
     flex-wrap: nowrap;
@@ -13,30 +91,55 @@
   }
 
   .challenge-selector-common {
-    font-family: roboto, sans-serif;
-    font-size: 13px;
-    line-height: 30px;
+    @include barlow-bold;
+
+    font-weight: 700;
+    line-height: 20px;
+    font-size: 14px;
     margin: 10px 20px 0;
     cursor: pointer;
     white-space: nowrap;
+    position: relative;
   }
 
   .challenge-selected-view {
     font-weight: 700;
-    color: $tc-dark-blue;
-    border-bottom: 3px solid $tc-dark-blue;
+    color: #2a2a2a;
+
+    &::after {
+      content: "";
+      background-image: url(assets/images/nav-active-item.svg);
+      height: 10px;
+      width: 40px;
+      justify-content: center;
+      z-index: 100;
+      display: block;
+      position: absolute;
+      top: 30px;
+      left: 20%;
+    }
   }
 
   .challenge-unselected-view {
-    font-weight: 400;
-    color: $tc-gray-70;
-    border-bottom: 3px hidden $tc-white;
+    font-weight: 600;
+    color: #555;
+    position: relative;
   }
 }
 
+.num {
+  background: #2c95d7;
+  border-radius: 50px;
+  padding: 0 8px;
+  text-align: center;
+  color: $tc-white;
+  margin-left: 4px;
+}
+
 .container {
-  margin-top: 4 * $base-unit;
+  margin-top: 28px;
   position: relative;
+  background-color: #eaf6fd;
 }
 
 .mask {

@@ -124,15 +124,17 @@ export default function ChallengeTags(props) {
         tags.map(tag => (
           tag
               && (
-              <Tag
-                key={tag}
-                onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
-                }
-                to={`${challengesUrl}?search=${
-                  encodeURIComponent(tag)}`}
-              >
-                {tag}
-              </Tag>
+              <span>
+                <Tag
+                  key={tag}
+                  onClick={() => setImmediate(() => setChallengeListingFilter({ search: tag }))
+                  }
+                  to={`${challengesUrl}?search=${
+                    encodeURIComponent(tag)}`}
+                >
+                  {tag}
+                </Tag>
+              </span>
               )
         ))
       }
