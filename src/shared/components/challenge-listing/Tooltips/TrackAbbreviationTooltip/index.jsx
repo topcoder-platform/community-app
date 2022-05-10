@@ -32,11 +32,11 @@ function Tip({
 }
 
 Tip.defaultProps = {
-  track: 'Development',
+  // track: 'Development',
 };
 
 Tip.propTypes = {
-  track: PT.string,
+  // track: PT.string,
   type: PT.shape().isRequired,
 };
 
