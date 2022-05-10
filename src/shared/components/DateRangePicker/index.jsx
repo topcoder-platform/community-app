@@ -455,8 +455,8 @@ function DateRangePicker(props) {
                 shownDate={getShownDate()}
                 preview={preview}
                 onPreviewChange={onPreviewChange}
-                rangeColors={'#137d60'}
-                color='#137d60'
+                rangeColors={"#137d60"}
+                color="#137d60"
               />
               <button
                 type="button"
