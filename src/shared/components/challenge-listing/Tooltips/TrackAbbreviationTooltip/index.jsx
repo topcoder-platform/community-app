@@ -15,7 +15,7 @@ import './style.scss';
   * Renders the tooltip's content.
   */
 function Tip({
-  track,
+  // track,
   type,
 }) {
   // const trackStyle = track.replace(' ', '-').toLowerCase();
