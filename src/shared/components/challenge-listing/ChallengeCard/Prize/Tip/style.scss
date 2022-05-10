@@ -16,6 +16,7 @@ $prize-space-10: $base-unit * 2;
 
   h1 {
     @include roboto-regular;
+
     border: none;
     color: $tc-white;
     font-size: 14px;
