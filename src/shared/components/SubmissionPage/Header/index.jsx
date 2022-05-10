@@ -8,6 +8,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LeftArrow from 'assets/images/arrow-prev-green.svg';
 import './styles.scss';
 
 /**
@@ -19,17 +20,14 @@ const Header = ({
   title,
 }) => (
   <div styleName="header">
-    <Link to={`${challengesUrl}/${challengeId}`}>
-      <span>
-        &#x2039;
-      </span>
+    <Link to={`${challengesUrl}/${challengeId}`} styleName="header-link">
+      <div styleName="back-arrow">
+        <LeftArrow styleName="left-arrow" />
+      </div>
       <p>
-        Back to challenge
+        {title}
       </p>
     </Link>
-    <h1>
-      {title}
-    </h1>
   </div>
 );
 

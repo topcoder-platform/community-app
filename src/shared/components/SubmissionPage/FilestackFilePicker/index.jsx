@@ -18,7 +18,7 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
 import { errors } from 'topcoder-react-lib';
 
-import './styles.scss';
+import style from './styles.scss';
 
 const { fireErrorMessage } = errors;
 
@@ -181,7 +181,7 @@ class FilestackFilePicker extends React.Component {
           {
             !fileName && !isChallengeBelongToTopgearGroup && (
             <p>
-              Drag and drop your
+              Drag and drop your{' '}
               {fileExtensions.join(' or ')}
               {' '}
               file here.
@@ -219,8 +219,8 @@ class FilestackFilePicker extends React.Component {
               </div>
             )
           }
-          <PrimaryButton onClick={this.onClickPick}>
-            {isChallengeBelongToTopgearGroup ? 'Set URL' : 'Pick a File'}
+          <PrimaryButton onClick={this.onClickPick} theme={{ button: style.button }}>
+            {isChallengeBelongToTopgearGroup ? 'Set URL' : 'SELECT A FILE'}
           </PrimaryButton>
           {!isChallengeBelongToTopgearGroup && (
             <div
