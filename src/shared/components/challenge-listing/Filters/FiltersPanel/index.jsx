@@ -510,7 +510,7 @@ export default function FiltersPanel({
                             onSwitch={(e) => {
                               let { types } = filterState;
 
-                              if (e.target.checked) {
+                              if (e) {
                                 types = types.concat(option.value);
                               } else {
                                 types = types.filter(type => type !== option.value);
