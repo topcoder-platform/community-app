@@ -133,6 +133,10 @@ $down-arrow-size: $base-unit;
       overflow: visible;
     }
 
+    .Select.is-focused:not(.is-open) > .Select-control {
+      border-color: #137d60 !important;
+    }
+
     .Select-value-label {
       @include roboto-regular;
 

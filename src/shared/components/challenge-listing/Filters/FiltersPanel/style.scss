@@ -332,7 +332,7 @@ hr.hr {
           display: inline-block;
           line-height: 30px;
           min-width: 96px;
-          width: 128px;
+          width: 50%;
           margin-bottom: 6px;
 
           @include xs-to-md {
@@ -467,8 +467,8 @@ hr.hr {
 
             &:checked + .checkbox-label {
               &::before {
-                background-color: #0681ff;
-                border-color: #0681ff;
+                background-color: $listing-checkbox-green;
+                border-color: $listing-checkbox-green;
               }
 
               &::after {
@@ -590,6 +590,7 @@ hr.hr {
 
         .Select-menu-outer {
           margin-top: 1px;
+          font-size: 14px;
         }
       }
     }
@@ -610,11 +611,15 @@ hr.hr {
 
     .recommended-challenge-tooltip {
       position: absolute;
-      right: 48px;
+      right: 54px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       height: 100%;
+
+      @include xs-to-md {
+        left: 210px;
+      }
     }
   }
 }

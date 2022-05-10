@@ -144,6 +144,10 @@ $challenge-radius-4: $corner-radius * 2;
     font-size: 11px;
     color: $tco-black;
     font-weight: 500;
+
+    &:hover {
+      background-color: #d4d4d4;
+    }
   }
 }
 

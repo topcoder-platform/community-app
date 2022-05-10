@@ -2,12 +2,12 @@
 
 .container {
   min-height: 178px;
-  background-color: #fff;
+  background-color: #f4f4f4;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-top: 20px;
+  margin: 16px 24px 24px 24px;
 }
 
 .icon {
@@ -52,7 +52,6 @@
 
 .challenge-link {
   color: #2862b9;
-  text-decoration: underline;
 
   &:hover,
   &:active,
