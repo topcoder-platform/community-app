@@ -18,7 +18,7 @@ function Tip({
   track,
   type,
 }) {
-  const trackStyle = track.replace(' ', '-').toLowerCase();
+  // const trackStyle = track.replace(' ', '-').toLowerCase();
   return (
     <div styleName="track-abbreviation-tooltip">
       <div styleName="header">
