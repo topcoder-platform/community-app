@@ -131,12 +131,6 @@ $challenge-radius-4: $corner-radius * 2;
   }
 }
 
-.recommended-plus-tag {
-  margin-left: 3px;
-  display: inline-block;
-  background-color: $tc-white;
-}
-
 .tag {
   button {
     border-radius: 2px;
@@ -146,13 +140,23 @@ $challenge-radius-4: $corner-radius * 2;
     font-weight: 500;
 
     &:hover {
-      background-color: #d4d4d4;
+      background-color: #d4d4d4 !important;
     }
   }
 }
 
+.recommended-plus-tag {
+  margin-left: 3px;
+  display: inline-block;
+  background-color: $tc-white;
+
+  button:hover {
+    background-color: #d4d4d4 !important;
+  }
+}
+
 .additionalTagWrapper {
-  background: $tc-white;
+  background: $tc-black;
   display: inline-block;
   border-radius: 2px;
   padding: 3px 4px;
@@ -181,6 +185,10 @@ $challenge-radius-4: $corner-radius * 2;
   margin-top: 5px;
   margin-left: 3px;
   display: inline-block;
+
+  & > button:hover {
+    background-color: #d4d4d4 !important;
+  }
 }
 
 .tagContainer {

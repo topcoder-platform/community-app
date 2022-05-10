@@ -339,6 +339,10 @@ hr.hr {
             width: 130px;
           }
 
+          @include md-to-lg {
+            width: 26%;
+          }
+
           .radio-label {
             display: inline-block;
             padding-left: 24px;
@@ -362,6 +366,7 @@ hr.hr {
               border: 1px solid #aaa;
               border-radius: 50%;
               box-shadow: 0 1px 2px 0 rgba($tc-black, 0.29);
+              background: #fff;
             }
 
             &::after {
@@ -585,12 +590,17 @@ hr.hr {
         .Select.is-focused > .Select-control {
           outline: none;
           box-shadow: none;
-          border-color: #137d60 !important;
+          border-color: #151516 !important;
         }
 
         .Select-menu-outer {
           margin-top: 1px;
           font-size: 14px;
+
+          .Select-option.is-selected {
+            background-color: #137d60 !important;
+            color: $tc-white !important;
+          }
         }
       }
     }
@@ -611,7 +621,7 @@ hr.hr {
 
     .recommended-challenge-tooltip {
       position: absolute;
-      right: 54px;
+      left: 210px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -625,9 +635,9 @@ hr.hr {
 }
 
 .tctooltiptext {
-  background: $tc-white;
-  color: $tc-gray-90;
-  border-radius: 3px;
+  background: $tc-black;
+  color: $tc-white;
+  border-radius: 8px;
   padding: 10px;
 }
 
@@ -642,6 +652,6 @@ hr.hr {
   margin-left: -5px;
   border-width: 5px 5px 0;
   left: 50%;
-  border-top-color: $tc-white;
+  border-top-color: $tc-black;
   z-index: 1000;
 }
