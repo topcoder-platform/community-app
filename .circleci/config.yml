@@ -363,7 +363,7 @@ workflows:
           filters:
             branches:
               only:
-                - free
+                - thrive-discord-button
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
