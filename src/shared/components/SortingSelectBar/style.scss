@@ -196,6 +196,9 @@ $down-arrow-size: $base-unit;
       display: block;
       padding: 8px 20px;
       z-index: 100000;
+      border-bottom: 1px solid #aaa;
+      border-left: 1px solid #aaa;
+      border-right: 1px solid #aaa;
     }
 
     .Select-option:last-child {
