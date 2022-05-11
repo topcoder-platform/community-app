@@ -12,8 +12,8 @@ import LeftArrow from 'assets/images/arrow-prev-green.svg';
 import './styles.scss';
 
 /**
- * Header shown on Submissions Page
- */
+  * Header shown on Submissions Page
+  */
 const Header = ({
   challengeId,
   challengesUrl,
@@ -30,8 +30,8 @@ const Header = ({
 );
 
 /**
- * Prop Validation
- */
+  * Prop Validation
+  */
 Header.propTypes = {
   challengeId: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
