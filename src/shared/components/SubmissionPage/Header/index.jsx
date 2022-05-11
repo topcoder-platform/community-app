@@ -21,9 +21,7 @@ const Header = ({
 }) => (
   <div styleName="header">
     <Link to={`${challengesUrl}/${challengeId}`} styleName="header-link">
-      <div styleName="back-arrow">
-        <LeftArrow styleName="left-arrow" />
-      </div>
+      <LeftArrow styleName="left-arrow" />
       <p>
         {title}
       </p>
