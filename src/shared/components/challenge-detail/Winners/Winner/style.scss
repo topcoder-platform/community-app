@@ -1,6 +1,6 @@
 @import "~styles/mixins";
 
-.avatar1 {
+.user-avatar {
   height: 48px;
   width: 48px;
   margin-left: 32px;
@@ -9,6 +9,22 @@
   @include xs-to-sm {
     height: 40px;
     width: 40px;
+    margin-left: 16px;
+    margin-right: 8px;
+  }
+}
+
+.default-user-avatar {
+  width: 48px;
+  height: 48px;
+  background: url(assets/images/user-default-avatar.svg);
+  background-size: 48px 48px;
+  margin-left: 32px;
+  margin-right: 16px;
+  @include xs-to-sm {
+    height: 40px;
+    width: 40px;
+    background-size: 40px 40px;
     margin-left: 16px;
     margin-right: 8px;
   }

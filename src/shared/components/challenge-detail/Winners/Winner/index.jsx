@@ -20,6 +20,7 @@ export default function Winner({
   viewable,
   winner,
 }) {
+  const [imageUrl, setImageUrl] = useState(winner.photoURL);
   const [windowOrigin, setWindowOrigin] = useState();
   useEffect(() => {
     setWindowOrigin(window.origin);
@@ -59,10 +60,11 @@ export default function Winner({
           </p>
         </div>
 
-        <Avatar
-          theme={{ avatar: style.avatar1 }}
-          url={avatarUrl}
-        />
+        {
+          imageUrl
+            ? <img src={imageUrl} onError={() => setImageUrl(null)} styleName="user-avatar" alt="User Photo" />
+            : <div styleName="default-user-avatar"></div>
+        }
 
         <a
           href={`${windowOrigin}/members/${winner.handle}`}
