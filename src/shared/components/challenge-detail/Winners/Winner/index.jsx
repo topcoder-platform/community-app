@@ -40,6 +40,47 @@ export default function Winner({
   const prizeIndex = parseInt(winner.placement, 10) - 1;
   if (prizes[prizeIndex]) prize = prizes[prizeIndex].value;
 
+  // NOTE: borrow this strange func from outside
+  function getOrdinal(num) {
+    const ordinals = ['th', 'st', 'nd', 'rd'];
+    const v = num % 100;
+    return ordinals[(v - 20) % 10] || ordinals[v] || ordinals[0];
+  }
+
+  return (
+    <div styleName="winner-row">
+      <div styleName="rank-avatar-handle-left">
+        <div id={`rank${winner.placement}`} styleName="prize-card">
+          <p styleName="prize-rank">
+            {winner.placement}
+            <span styleName="rank-ordinal">
+              {getOrdinal(winner.placement)}
+            </span>
+          </p>
+        </div>
+
+        <Avatar
+          theme={{ avatar: style.avatar1 }}
+          url={avatarUrl}
+        />
+
+        <a
+          href={`${windowOrigin}/members/${winner.handle}`}
+          styleName="handle"
+          target={`${_.includes(windowOrigin, 'www') ? '_self' : '_blank'}`}
+        >
+          {winner.handle}
+        </a>
+      </div>
+
+      <div styleName="prize-right">
+        $
+        {prize}
+      </div>
+    </div>
+  );
+
+  // NOTE: old version reserved for reference
   return (
     <div styleName={`winner ${placeStyle}`}>
       <div styleName="thumbnail">

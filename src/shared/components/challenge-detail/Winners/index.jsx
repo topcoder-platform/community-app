@@ -17,6 +17,7 @@ export default function Winners({
 }) {
   return (
     <div styleName="container">
+      <hr />
       {
         winners.map((w, index) => (
           <Winner

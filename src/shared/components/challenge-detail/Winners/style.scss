@@ -3,8 +3,24 @@
 .container {
   @include roboto-regular;
 
+  width: 100%;
+  padding: 34px 32px 48px 32px;
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+
+  @include xs-to-sm {
+    padding: 16px 16px 24px 16px;
+  }
+
+  hr {
+    width: 100%;
+    height: 0;
+    border: 0;
+    border-bottom: 2px solid #e5e5e5;
+  }
+
 }
 
 .section-title {
