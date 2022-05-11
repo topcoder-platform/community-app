@@ -511,6 +511,13 @@
   right: 35%;
   top: 35%;
   bottom: 25%;
+  border: 1.5px solid #137d60;
+  border-radius: 24px;
+
+  @include xs-to-md {
+    margin-left: 0;
+    margin-bottom: 22px;
+  }
 }
 
 .title-wrapper {
@@ -535,16 +542,6 @@
 
   @include xs-to-md {
     margin-left: 15px;
-    margin-bottom: 22px;
-  }
-}
-
-.left-arrow {
-  border: 1.5px solid #137d60;
-  border-radius: 24px;
-
-  @include xs-to-md {
-    margin-left: 0;
     margin-bottom: 22px;
   }
 }
