@@ -39,9 +39,6 @@
       margin-right: 20px !important;
     }
 
-    @include xs-to-md {
-      margin: 0 16px;
-    }
   }
 }
 
@@ -65,6 +62,10 @@
     text-transform: uppercase;
     padding-left: 16px;
     padding-top: 10px;
+
+    @include xs-to-sm {
+      padding-left: 0;
+    }
   }
 
   .active {
@@ -138,6 +139,7 @@
 
 .container {
   margin-top: 28px;
+  margin-right: 12px;
   position: relative;
   background-color: #eaf6fd;
 }

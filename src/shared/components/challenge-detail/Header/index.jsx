@@ -17,8 +17,7 @@ import { Link } from 'topcoder-react-utils';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
 
-import LeftArrow from 'assets/images/arrow-prev.svg';
-
+import LeftArrow from 'assets/images/arrow-prev-green.svg';
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';
 
@@ -257,8 +256,10 @@ export default function ChallengeHeader(props) {
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
         <div styleName="title-wrapper" aria-hidden={isMenuOpened}>
-          <Link to={challengesUrl} aria-label="Back to challenge list" styleName="back-arrow">
-            <LeftArrow styleName="left-arrow" />
+          <Link to={challengesUrl} aria-label="Back to challenge list">
+            <div styleName="back-arrow">
+              <LeftArrow styleName="left-arrow" />
+            </div>
           </Link>
           <div>
             <h1 styleName="challenge-header">

@@ -125,9 +125,8 @@ export default function ChallengeViewSelector(props) {
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
         >
-          CHECKPOINTS (
-          {checkpointCount}
-          )
+          CHECKPOINTS
+          <span styleName="num">{checkpointCount}</span>
         </a>
         )
       }
@@ -242,7 +241,6 @@ export default function ChallengeViewSelector(props) {
       onScroll={handleScroll}
     >
       <div styleName="mask left" />
-      <div styleName="mask right" />
       {
         !desktop && (
           <div styleName="challenge-view-selector-mobile">
