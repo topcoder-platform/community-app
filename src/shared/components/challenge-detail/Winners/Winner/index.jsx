@@ -3,6 +3,8 @@ import PT from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
+import { connect } from 'react-redux';
+import { actions } from 'topcoder-react-lib';
 
 import Lock from '../../icons/lock.svg';
 
@@ -12,19 +14,28 @@ function getId(submissions, placement) {
   return submissions.find(s => s.placement === placement).submissionId;
 }
 
-export default function Winner({
+function Winner({
+  loadInfo,
   isDesign,
   last,
   prizes,
   submissions,
   viewable,
   winner,
+  info,
 }) {
   const [imageUrl, setImageUrl] = useState(winner.photoURL);
   const [windowOrigin, setWindowOrigin] = useState();
   useEffect(() => {
     setWindowOrigin(window.origin);
+    loadInfo(winner.handle);
   }, []);
+
+  useEffect(() => {
+    if (info && info.photoURL) {
+      setImageUrl(info.photoURL);
+    }
+  }, [info]);
 
   const submissionId = viewable && getId(submissions, winner.placement);
 
@@ -171,6 +182,7 @@ export default function Winner({
 
 Winner.defaultProps = {
   prizes: [],
+  info: null,
 };
 
 Winner.propTypes = {
@@ -185,4 +197,27 @@ Winner.propTypes = {
     photoURL: PT.any,
     submissionDownloadLink: PT.any,
   }).isRequired,
+  info: PT.shape(),
+  loadInfo: PT.func.isRequired,
 };
+
+function mapStateToProps(state) {
+  return {
+    info: state.profile.info,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  const a = actions.profile;
+  return {
+    loadInfo: (handle) => {
+      dispatch(a.getInfoInit(handle));
+      dispatch(a.getInfoDone(handle));
+    },
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Winner);
