@@ -343,7 +343,7 @@ workflows:
             branches:
               only:
                 - develop
-                - new-challenge-listing
+                - reskin
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
