@@ -3,8 +3,7 @@ import PT from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
-
-import Lock from '../../icons/lock.svg';
+import { formatOrdinals, numberWithCommas } from 'utils/challenge-detail/helper';
 
 import style from './style.scss';
 
@@ -14,7 +13,6 @@ function getId(submissions, placement) {
 
 export default function Winner({
   isDesign,
-  last,
   prizes,
   submissions,
   viewable,
@@ -27,9 +25,6 @@ export default function Winner({
 
   const submissionId = viewable && getId(submissions, winner.placement);
 
-  let placeStyle = winner.placement < 4 ? `place-${winner.placement}` : '';
-  if (last) placeStyle += ' last';
-
   let avatarUrl = winner.photoURL;
   if (avatarUrl) {
     avatarUrl = `${config.CDN.PUBLIC}/avatar/${
@@ -41,85 +36,69 @@ export default function Winner({
   if (prizes[prizeIndex]) prize = prizes[prizeIndex].value;
 
   return (
-    <div styleName={`winner ${placeStyle}`}>
-      <div styleName="thumbnail">
-        <div styleName="flag">
-          {winner.placement}
+    <div styleName="winner">
+      <div styleName="left">
+        <div styleName={`placement ${(winner.placement && winner.placement < 4) ? `placement-${winner.placement}` : ''}`}>
+          <span>{formatOrdinals(winner.placement)}</span>
         </div>
-        {
-          (viewable && isDesign)
-            ? (
-              <img
-                styleName="preview"
-                alt=""
-                src={`${config.URL.STUDIO}/studio.jpg`
-                  + `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
-              />
-            )
-            : (
-              <div styleName="lock">
-                <Lock styleName="lock-icon" />
-                <div styleName="text">
-                  LOCKED
-                </div>
-              </div>
-            )
-        }
-      </div>
-      <div styleName="info">
-        <div styleName="avatar-prize">
-          <Avatar
-            theme={{ avatar: style.avatar }}
-            url={avatarUrl}
-          />
-          <div>
-            <a
-              href={`${windowOrigin}/members/${winner.handle}`}
-              styleName="handle"
-              target={`${_.includes(windowOrigin, 'www') ? '_self' : '_blank'}`}
-            >
-              {winner.handle}
-            </a>
-            <div styleName="prize">
-              $
-              {prize}
+        <div styleName="info">
+          <div styleName="avatar-prize">
+            <Avatar
+              theme={{ avatar: style.avatar }}
+              url={avatarUrl}
+            />
+            <div>
+              <a
+                href={`${windowOrigin}/members/${winner.handle}`}
+                styleName="handle"
+                target={`${_.includes(windowOrigin, 'www') ? '_self' : '_blank'}`}
+              >
+                {winner.handle}
+              </a>
             </div>
           </div>
+          {
+            submissionId
+            && (
+            <div styleName="id">
+              ID:
+              <span>
+                #
+                {getId(submissions, winner.placement)}
+              </span>
+            </div>
+            )
+          }
+          {
+            (winner.submissionDownloadLink && viewable)
+            && (
+            <a
+              href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
+              styleName="download"
+              target="_blank"
+              challenge
+              rel="noopener noreferrer"
+            >
+              Download
+            </a>
+            )
+          }
+          {
+            /*
+            <div styleName="date">
+              <span>Submitted&nbsp;on:</span>&zwnj;
+              &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')}</span>
+            </div>
+            */
+          }
         </div>
-        {
-          submissionId
-          && (
-          <div styleName="id">
-            ID:
-            <span>
-              #
-              {getId(submissions, winner.placement)}
-            </span>
-          </div>
-          )
-        }
-        {
-          (winner.submissionDownloadLink && viewable)
-          && (
-          <a
-            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
-            styleName="download"
-            target="_blank"
-            challenge
-            rel="noopener noreferrer"
-          >
-            Download
-          </a>
-          )
-        }
-        {
-          /*
-          <div styleName="date">
-            <span>Submitted&nbsp;on:</span>&zwnj;
-            &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')}</span>
-          </div>
-          */
-        }
+      </div>
+
+      <div styleName="right">
+        <div styleName="prize">
+          $
+          {numberWithCommas(prize)}
+        </div>
       </div>
     </div>
   );
@@ -131,7 +110,6 @@ Winner.defaultProps = {
 
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
-  last: PT.bool.isRequired,
   prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,

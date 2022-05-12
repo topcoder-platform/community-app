@@ -222,3 +222,31 @@ export function getDisplayRecommendedChallenges(
 }
 
 export default getEndDate;
+
+/**
+ * Format number to ordinals.
+ * @param {Number} n
+ */
+export const formatOrdinals = (n) => {
+  let ord = '';
+  switch (n) {
+    case '1': ord = '1st';
+      break;
+    case '2': ord = '2nd';
+      break;
+    case '3': ord = '3rd';
+      break;
+    default:
+      ord = `${n}th`;
+  }
+
+  return ord;
+};
+
+/**
+ * Format number to currency format.
+ * @param {Number} n
+ */
+export function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
