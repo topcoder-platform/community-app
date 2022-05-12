@@ -2,22 +2,21 @@
 
 .challengeCardContainer {
   border-radius: $corner-radius;
-  width: 70%;
-  padding: 0 $base-unit;
+  width: 76.5%;
 
   @include xs-to-md {
     width: 100%;
-    padding: 0 $base-unit + 5;
+    padding: 0;
   }
 
   .category-challenges-container {
-    background: $tc-gray-neutral-light;
+    background: $tc-white;
     margin: 20px 0;
   }
 
   .view-more {
     width: 100%;
-    background: $tc-gray-neutral-light;
+    background: $tc-white;
     border-top: 1px solid $tc-gray-10;
     border-bottom: 1px solid $tc-gray-10;
     border-left: 0;
@@ -49,5 +48,12 @@
     justify-content: center;
     padding: $base-unit * 5;
     border-radius: $corner-radius;
+
+    @include roboto-regular;
+
+    font-size: 24px;
+    line-height: 32px;
+    color: $tco-black;
+    margin-top: 80px;
   }
 }

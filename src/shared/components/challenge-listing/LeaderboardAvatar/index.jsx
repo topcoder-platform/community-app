@@ -1,10 +1,10 @@
 // TODO: All uses of this component MUST be replaced by Avatar component!
 
-import { Avatar } from 'topcoder-react-ui-kit';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { config, Link } from 'topcoder-react-utils';
 import _ from 'lodash';
+import { formatOrdinals } from 'utils/challenge-listing/helper';
 import './style.scss';
 
 /* TODO: Should be functional component! */
@@ -18,7 +18,7 @@ class LeaderboardAvatar extends Component {
 
   render() {
     const {
-      onClick, plusOne, url,
+      onClick, url,
     } = this.props;
     const { member } = this.state;
     const targetURL = url || `${window.origin}/members/${member.handle}`;
@@ -40,9 +40,8 @@ class LeaderboardAvatar extends Component {
         openNewTab={!_.includes(window.origin, 'www')}
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? '' : 'light-gray'}`}
       >
-        { plusOne ? member.handle : <Avatar url={photoURL} />}
         <span styleName={member.position ? `placement placement-${member.position}` : 'hidden'}>
-          {member.position}
+          {formatOrdinals(member.position)}
         </span>
       </Link>
     );
@@ -52,14 +51,14 @@ class LeaderboardAvatar extends Component {
 LeaderboardAvatar.defaultProps = {
   member: {},
   onClick: null,
-  plusOne: false,
+  // plusOne: false,
   url: '',
 };
 
 LeaderboardAvatar.propTypes = {
   member: PT.shape({}),
   onClick: PT.func,
-  plusOne: PT.bool,
+  // plusOne: PT.bool,
   url: PT.string,
 };
 

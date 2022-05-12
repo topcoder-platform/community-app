@@ -2,10 +2,11 @@
 
 .label {
   cursor: default;
-  padding: 0 (2 * $base-unit);
-  background: $tc-gray-neutral-light;
-  font-size: 10px;
-  color: $tc-gray-70;
+  padding-top: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 10px;
+  color: $tco-black;
   white-space: nowrap;
 
   @include xs-to-sm {
@@ -19,5 +20,5 @@
 
 .symbol {
   display: inline-block;
-  color: $tc-gray-80;
+  color: $tco-black;
 }
