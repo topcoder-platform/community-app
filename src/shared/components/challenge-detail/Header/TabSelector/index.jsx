@@ -249,7 +249,7 @@ export default function ChallengeViewSelector(props) {
               role="presentation"
               onClick={() => setIsTabClosed(!isTabClosed)}
             >
-              <p styleName="title">{currentSelected}</p>
+              <p styleName="title">{currentSelected === 'mm_dashboard' ? 'DASHBOARD' : currentSelected}</p>
               <div
                 role="presentation"
                 styleName={cn('icon', { down: !isTabClosed })}

@@ -27,6 +27,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
   const options = {
     chart: {
       type: 'scatter',
+      backgroundColor: '#fff',
     },
     title: {
       text: '',
@@ -44,6 +45,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
         })),
         pointStart: moment(_.min(dates)).valueOf(),
         pointInterval: 24 * 3600 * 1000,
+        backgroundColor: 'rgb(51,51,51)',
       },
     ],
     legend: {
@@ -72,6 +74,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
       title: {
         enabled: false,
       },
+      backgroundColor: '#fff',
       plotLines: [
         ...(awardLine > 0 ? [
           {
@@ -94,7 +97,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
           },
         ] : []),
         {
-          color: 'rgba(51, 51, 51, 1)',
+          color: '#fff',
           value: 0,
           width: 3,
         },
@@ -104,7 +107,7 @@ export default function Graph({ statisticsData, baseline, awardLine }) {
     tooltip: {
       formatter() {
         const str = `
-          <div style="border-radius:4px;">
+          <div style="border-radius:4px; padding-top: 15px; padding-left: 10px;">
             <img height="30" width="30" src="${this.point.customData.photoUrl || DefaultUserImage}" style="position: absolute; border-radius: 50%;" />
             <p style="margin-left: 50px">${this.point.customData.handle}</p>
             <br />
