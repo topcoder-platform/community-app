@@ -188,12 +188,12 @@ Winner.defaultProps = {
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
   last: PT.bool.isRequired,
-  prizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.object),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,
   winner: PT.shape({
     handle: PT.string.isRequired,
-    placement: PT.number.isRequired,
+    placement: PT.string.isRequired,
     photoURL: PT.any,
     submissionDownloadLink: PT.any,
   }).isRequired,

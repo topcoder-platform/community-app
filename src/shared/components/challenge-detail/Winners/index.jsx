@@ -45,7 +45,7 @@ Winners.defaultProps = {
 
 Winners.propTypes = {
   winners: PT.arrayOf(PT.shape()),
-  prizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.object),
   submissions: PT.arrayOf(PT.shape()),
   viewable: PT.bool,
   isDesign: PT.bool,
