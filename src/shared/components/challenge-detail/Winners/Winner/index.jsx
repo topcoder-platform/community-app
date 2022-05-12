@@ -62,8 +62,8 @@ export default function Winner({
 
         {
           imageUrl
-            ? <img src={imageUrl} onError={() => setImageUrl(null)} styleName="user-avatar" alt="User Photo" />
-            : <div styleName="default-user-avatar"></div>
+            ? <img src={imageUrl} onError={() => setImageUrl(null)} styleName="user-avatar" alt="User Avatar" />
+            : <div styleName="default-user-avatar" />
         }
 
         <a
@@ -83,6 +83,7 @@ export default function Winner({
   );
 
   // NOTE: old version reserved for reference
+  /* eslint-disable no-unreachable */
   return (
     <div styleName={`winner ${placeStyle}`}>
       <div styleName="thumbnail">
