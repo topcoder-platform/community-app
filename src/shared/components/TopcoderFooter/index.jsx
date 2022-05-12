@@ -104,7 +104,7 @@ export default function TopcoderFooter() {
                 && <Link to={`${authUrl}?utm_source=community&utm_campaign=tc-footer&utm_medium=promotion&retUrl=${retUrl}&ref=navb`}>Join Community</Link>
               }
               <Link to={`${base}/community/learn?ref=navb`}>About Community</Link>
-              <Link to={`${base}/community/changelog?ref=navb`}>Changelog</Link>
+              <Link to={`${base}/releases/?ref=navb`} openNewTab>Releases &amp; Updates</Link>
               <Link to="https://go.topcoder.com/contact/?ref=navb">Talk to Sales</Link>
             </ul>
           </div>
