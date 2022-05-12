@@ -8,13 +8,12 @@
  */
 import React from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
-import RobotHappy from 'assets/images/robot-happy.svg';
-import RobotSad from 'assets/images/robot-embarassed.svg';
+import UploadSuccess from 'assets/images/upload-success.svg';
+import UploadLoading from 'assets/images/upload-loading.svg';
+import UploadFail from 'assets/images/upload-fail.svg';
 import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
-import './styles.scss';
-
 import { COMPETITION_TRACKS } from 'utils/tc';
+import style from './styles.scss';
 
 const Uploading = ({
   challengeId,
@@ -43,7 +42,7 @@ const Uploading = ({
         submitDone
         && (
         <h3>
-          SUBMISSION COMPLETED FOR
+          UPLOADING COMPLETED FOR
         </h3>
         )
       }
@@ -68,28 +67,29 @@ const Uploading = ({
       {
         (submitDone || error)
           && (
-          <Link
+          <h4
             styleName="link"
-            to={`${challengesUrl}/${challengeId}`}
           >
             {challengeName}
-          </Link>
+          </h4>
           )
       }
       {
-        (isSubmitting || submitDone)
-          && <RobotHappy />
+        (isSubmitting && !submitDone) && <div styleName="animate"><UploadLoading /></div>
+      }
+      {
+        (!isSubmitting && submitDone) && <UploadSuccess />
       }
       {
         error
-          && <RobotSad />
+          && <UploadFail />
       }
       {
         isSubmitting
           && (
           <p>
-            Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
-            working, you&#39;ll lose all files!
+            Hey, your work is AWESOME! Please don&#39;t close this window while uploading,
+            Your progress will be lost.
           </p>
           )
       }
@@ -105,7 +105,7 @@ const Uploading = ({
         isSubmitting && !submitDone
           && (
           <p styleName="submitting">
-            Uploaded:
+            Uploading:
             {(100 * uploadProgress).toFixed()}
             %
           </p>
@@ -116,7 +116,7 @@ const Uploading = ({
           && (
           <p>
             Oh, that’s embarrassing! The file couldn’t be
-            uploaded, I’m so sorry.
+            uploaded.
           </p>
           )
       }
@@ -134,11 +134,13 @@ const Uploading = ({
           <div styleName="button-container">
             <Button
               onClick={() => reset()}
+              theme={{ button: style.buttonOutlined }}
             >
               Cancel
             </Button>
             <PrimaryButton
               onClick={() => retry()}
+              theme={{ button: style.button }}
             >
               Try Again
             </PrimaryButton>
@@ -162,30 +164,34 @@ const Uploading = ({
               <span>
                 <Button
                   onClick={() => reset()}
+                  theme={{ button: style.buttonOutlined }}
                 >
                   Add Another Submission
                 </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}/my-submissions`}
                   onClick={() => back()}
+                  theme={{ button: style.button }}
                 >
                   View My Submissions
                 </PrimaryButton>
               </span>
             ) : (
-              <span>
+              <React.Fragment>
                 <Button
                   onClick={() => reset()}
+                  theme={{ button: style.buttonOutlined }}
                 >
-                  Submit Again
+                  ADD SUBMISSION
                 </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}`}
                   onClick={() => back()}
+                  theme={{ button: style.button }}
                 >
-                  Back to Challenge
+                  MY SUBMISSIONS
                 </PrimaryButton>
-              </span>
+              </React.Fragment>
             )}
           </div>
           )

@@ -18,6 +18,8 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import { Link } from 'topcoder-react-utils';
+import LeftArrow from 'assets/images/arrow-prev-green.svg';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { phaseEndDate } from 'utils/challenge-listing/helper';
 import SubmissionsTable from '../SubmissionsTable';
@@ -73,43 +75,17 @@ export default function SubmissionManagement(props) {
     <div styleName="submission-management">
       <div styleName="submission-management-header">
         <div styleName="left-col">
+          <Link
+            to={challengeUrl}
+            aria-label="Back to challenge list"
+            styleName="back-btn"
+          >
+            <LeftArrow />
+          </Link>
+
           <h4 styleName="name">
             {challenge.name}
           </h4>
-          <a href={challengeUrl} styleName="back-btn">
-            &lt; Back
-          </a>
-        </div>
-        <div styleName="right-col">
-          {
-            currentPhase && (
-            <p styleName="round">
-              {currentPhase.name}
-            </p>
-            )
-          }
-          {
-            challenge.status !== 'Completed' ? (
-              <div>
-                <p styleName="time-left">
-                  {days > 0 && (`${days}D`)}
-                  {' '}
-                  {hours}
-                  H
-                  {' '}
-                  {minutes}
-                  M
-                </p>
-                <p styleName="left-label">
-                  left
-                </p>
-              </div>
-            ) : (
-              <p styleName="time-left">
-                The challenge has ended
-              </p>
-            )
-          }
         </div>
       </div>
       <div styleName="submission-management-content">
@@ -117,69 +93,103 @@ export default function SubmissionManagement(props) {
           <p styleName="title">
             Manage your submissions
           </p>
+
+          {/* {
+             isDesign && currentPhase && (
+               <p styleName="round-ends">
+                 <span styleName="ends-label">
+                   {currentPhase.name}
+                   {' '}
+                   Ends:
+                 </span>
+                 {' '}
+                 {end.format('dddd MM/DD/YY hh:mm A')}
+               </p>
+             )
+           } */}
+        </div>
+        <div styleName="subTitle">
           {
-            isDesign && currentPhase && (
-              <p styleName="round-ends">
-                <span styleName="ends-label">
-                  {currentPhase.name}
-                  {' '}
-                  Ends:
-                </span>
-                {' '}
-                {end.format('dddd MM/DD/YY hh:mm A')}
-              </p>
-            )
-          }
+             currentPhase && (
+             <p styleName="round">
+               Current Deadline:{' '}
+               <span>{currentPhase.name}</span>
+             </p>
+             )
+           }
+          <span styleName="seperator" />
+          {
+             challenge.status !== 'Completed' ? (
+               <div>
+                 <p styleName="round">
+                   Current Deadline Ends: {' '}
+                   <span>
+                     {days > 0 && (`${days}D`)}
+                     {' '}
+                     {hours}
+                     H
+                     {' '}
+                     {minutes}
+                     M
+                   </span>
+                 </p>
+               </div>
+             ) : (
+               <p styleName="time-left">
+                 The challenge has ended
+               </p>
+             )
+           }
         </div>
         {
-          isDesign && (
-            <p styleName="recommend-info">
-              We always recommend to download your submission to check you uploaded the correct
-              zip files and also verify the photos and fonts declarations.
-              If you don’t want to see a submission, simply delete. If you have a new submission,
-              use the Upload Submission button to add one at the top of the list.
-            </p>
-          )
-        }
+           isDesign && (
+             <p styleName="recommend-info">
+               We always recommend to download your submission to check you uploaded the correct
+               zip files and also verify the photos and fonts declarations.
+               If you don’t want to see a submission, simply delete. If you have a new submission,
+               use the Upload Submission button to add one at the top of the list.
+             </p>
+           )
+         }
         {
-          isDevelop && (
-            <p styleName="recommend-info">
-              We always recommend to download your submission to check you uploaded
-              the correct zip file.
-              If you don’t want to see the submission, simply delete.
-              If you have a new submission, use the Upload Submission button to
-              overwrite the current one.
-            </p>
-          )
-        }
+           isDevelop && (
+             <p styleName="recommend-info">
+               We always recommend to download your submission to check you uploaded
+               the correct zip file.
+               If you don’t want to see the submission, simply delete.
+               If you have a new submission, use the Upload Submission button to
+               overwrite the current one.
+             </p>
+           )
+         }
         {loadingSubmissions && <LoadingIndicator />}
         {!loadingSubmissions
-          && (
-          <SubmissionsTable
-            submissionObjects={submissions}
-            showDetails={showDetails}
-            track={track}
-            status={challenge.status}
-            submissionPhaseStartDate={submissionPhaseStartDate}
-            {...componentConfig}
-          />
-          )
-        }
+           && (
+           <SubmissionsTable
+             submissionObjects={submissions}
+             showDetails={showDetails}
+             track={track}
+             status={challenge.status}
+             submissionPhaseStartDate={submissionPhaseStartDate}
+             {...componentConfig}
+           />
+           )
+         }
       </div>
       {now.isBefore(submissionEndDate) && (
-        <div styleName="btn-wrap">
-          <PrimaryButton
-            theme={{
-              button: style['add-sub-btn'],
-            }}
-            to={`${challengeUrl}/submit`}
-          >
-            {
-              (!isDevelop || !submissions || submissions.length === 0)
-                ? 'Add Submission' : 'Update Submission'
-            }
-          </PrimaryButton>
-        </div>
+      <div styleName="btn-wrap">
+        <PrimaryButton
+          theme={{
+            button: style['add-sub-btn'],
+          }}
+          to={`${challengeUrl}/submit`}
+        >
+          {
+               (!isDevelop || !submissions || submissions.length === 0)
+                 ? 'Add Submission' : 'Update Submission'
+             }
+        </PrimaryButton>
+      </div>
       )}
     </div>
   );
