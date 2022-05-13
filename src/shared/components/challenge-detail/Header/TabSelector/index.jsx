@@ -1,4 +1,5 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /*
   Stateless tab control to switch between various views available in
   challenge detail page.
@@ -12,6 +13,8 @@ import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config } from 'topcoder-react-utils';
 import { useMediaQuery } from 'react-responsive';
 import ArrowIcon from 'assets/images/ico-arrow-down.svg';
+import CloseIcon from 'assets/images/icon-close-green.svg';
+import SortIcon from 'assets/images/icon-sort-mobile.svg';
 
 import style from './style.scss';
 
@@ -35,10 +38,50 @@ export default function ChallengeViewSelector(props) {
     trackLower,
     hasRegistered,
     mySubmissions,
+    onSort,
   } = props;
+
+  const { type, tags } = challenge;
 
   const [currentSelected, setCurrentSelected] = useState('Details');
   const [isTabClosed, setIsTabClosed] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+  const [selectedSortOption, setSelectedSortOption] = useState('Rating: High to Low');
+  const isF2F = type === 'First2Finish';
+  const isBugHunt = _.includes(tags, 'Bug Hunt');
+  const isDesign = trackLower === 'design';
+
+  let SubmissionSortOptions = [
+    { field: 'Rating', sort: 'asc', name: 'Rating: High to Low' },
+    { field: 'Rating', sort: 'desc', name: 'Rating: Low to High' },
+    { field: 'Username', sort: 'asc', name: 'Username' },
+    { field: 'Submission Date', sort: 'asc', name: 'Submission Date: New to Old' },
+    { field: 'Submission Date', sort: 'desc', name: 'Submission Date: Old to New' },
+    { field: 'Initial Score', sort: 'desc', name: 'Initial Score: High to Low' },
+    { field: 'Initial Score', sort: 'asc', name: 'Initial Score: Low to High' },
+    { field: 'Final Score', sort: 'desc', name: 'Final Score: High to Low' },
+    { field: 'Final Score', sort: 'asc', name: 'Final Score: Low to High' },
+  ];
+
+  let RegistrationSortOptions = [
+    { field: 'Rating', sort: 'asc', name: 'Rating: High to Low' },
+    { field: 'Rating', sort: 'desc', name: 'Rating: Low to High' },
+    { field: 'Username', sort: 'asc', name: 'Username' },
+    { field: 'Registration Date', sort: 'asc', name: 'Registration Date: New to Old' },
+    { field: 'Registration Date', sort: 'desc', name: 'Registration Date: Old to New' },
+    { field: 'Submitted Date', sort: 'asc', name: 'Submitted Date: New to Old' },
+    { field: 'Submitted Date', sort: 'desc', name: 'Submitted Date: Old to New' },
+  ];
+
+  if (isF2F || isBugHunt) {
+    SubmissionSortOptions = SubmissionSortOptions.slice(2);
+  }
+
+  if (isDesign) {
+    RegistrationSortOptions = RegistrationSortOptions.slice(2);
+  }
+
+  const sortOptions = currentSelected === 'submissions' ? SubmissionSortOptions : RegistrationSortOptions;
 
   const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
@@ -46,7 +89,6 @@ export default function ChallengeViewSelector(props) {
     d.type === 'challenge' && !_.isEmpty(d.url)
   ));
   const roles = _.get(challenge, 'userDetails.roles') || [];
-  const isDesign = trackLower === 'design';
 
   const forumEndpoint = isDesign
     ? `/?module=ThreadList&forumID=${forumId}`
@@ -125,8 +167,9 @@ export default function ChallengeViewSelector(props) {
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
         >
-          CHECKPOINTS
-          <span styleName="num">{checkpointCount}</span>
+          CHECKPOINTS (
+          {checkpointCount}
+          )
         </a>
         )
       }
@@ -240,31 +283,73 @@ export default function ChallengeViewSelector(props) {
       styleName="container"
       onScroll={handleScroll}
     >
-      <div styleName="mask left" />
       {
         !desktop && (
-          <div styleName="challenge-view-selector-mobile">
-            <div
-              styleName="mobile-tab-container"
-              role="presentation"
-              onClick={() => setIsTabClosed(!isTabClosed)}
-            >
-              <p styleName="title">{currentSelected === 'mm_dashboard' ? 'DASHBOARD' : currentSelected}</p>
+          <div styleName="mobile-wrapper">
+            <div styleName="challenge-view-selector-mobile">
               <div
+                styleName="mobile-tab-container"
                 role="presentation"
-                styleName={cn('icon', { down: !isTabClosed })}
                 onClick={() => setIsTabClosed(!isTabClosed)}
               >
-                <ArrowIcon />
+                <p styleName="title">{currentSelected}</p>
+                <div
+                  role="presentation"
+                  styleName={cn('icon', { down: !isTabClosed })}
+                  onClick={() => setIsTabClosed(!isTabClosed)}
+                >
+                  <ArrowIcon />
+                </div>
               </div>
+              {
+          !isTabClosed && (
+            <div styleName="mobile-tab-expanded">
+              {tabDetail}
+            </div>
+          )
+        }
             </div>
             {
-        !isTabClosed && (
-          <div styleName="mobile-tab-expanded">
-            {tabDetail}
-          </div>
-        )
-      }
+              (currentSelected === 'submissions' || currentSelected === 'registrants') && (
+                <div
+                  styleName="mobile-sort-icon"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setExpanded(!expanded)}
+                >
+                  <SortIcon />
+                </div>
+              )
+            }
+            {
+              expanded && (
+                <div styleName="sort-overlay">
+                  <div styleName="sort-header">
+                    <p>SORT</p>
+                    <div role="button" onClick={() => setExpanded(false)} tabIndex={0}>
+                      <CloseIcon />
+                    </div>
+                  </div>
+                  <div styleName="sort-body">
+                    {
+                      sortOptions.map((option, index) => (
+                        <div
+                          map={`sort-option-${index}`}
+                          styleName="sort-item"
+                          onClick={() => {
+                            setSelectedSortOption(option.name);
+                            onSort(currentSelected, option);
+                            setExpanded(false);
+                          }}
+                        >
+                          <span styleName={`${option.name === selectedSortOption ? 'bold' : ''}`}>{option.name}</span>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+              )
+            }
           </div>
         )
       }
@@ -302,6 +387,7 @@ ChallengeViewSelector.propTypes = {
     }),
     type: PT.string,
     track: PT.string,
+    tags: PT.arrayOf(PT.shape()),
   }),
   isMM: PT.bool,
   checkpointCount: PT.number,
@@ -314,4 +400,5 @@ ChallengeViewSelector.propTypes = {
   trackLower: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()).isRequired,
+  onSort: PT.func.isRequired,
 };

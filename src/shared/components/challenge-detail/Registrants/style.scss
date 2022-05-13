@@ -3,24 +3,24 @@
 .container {
   @include roboto-regular;
 
-  padding-top: 66px;
-  padding-bottom: 197px;
-  max-width: 966px;
-  margin: 0 auto;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  margin: 0 41px;
 
   @include xs-to-sm {
-    padding: 0 30px 30px;
+    padding: 0;
+    margin: 0 16px;
   }
 }
 
 .head {
   font-weight: 500;
-  font-size: 13px;
-  line-height: 15px;
   padding-bottom: 14px;
-  color: $tc-gray-50;
+  color: #767676;
+  font-size: 11px;
+  line-height: 14px;
   display: flex;
-  border-bottom: 1px solid $tc-gray-10;
+  text-transform: uppercase;
 
   @include xs-to-sm {
     display: none;
@@ -32,26 +32,49 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 18px;
   }
 }
 
 .row {
+  @include roboto-medium;
+
   display: flex;
-  line-height: 50px;
-  color: $tc-gray-70;
-  font-size: 15px;
-  border-bottom: 1px solid $tc-gray-10;
+  line-height: 22px;
+  color: $tc-black;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 15px;
+  padding-top: 5px;
+  padding-bottom: 15px;
+  border-top: 1px solid $tc-gray-10;
+
+  &:last-child {
+    border-bottom: 1px solid $tc-gray-10;
+  }
+
+  &:first-child {
+    @include xs-to-sm {
+      margin-top: 24px;
+    }
+  }
 
   @include xs-to-sm {
     flex-direction: column;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 16px;
+    padding-left: 4px;
     width: 100%;
+    margin-top: 0;
+    padding-bottom: 12px !important;
   }
 }
 
 .sm-only {
   display: none;
+
+  .cell {
+    padding-top: 5px;
+  }
 
   @include xs-to-sm {
     display: block;
@@ -59,10 +82,17 @@
 }
 
 .title {
-  color: $tc-gray-50;
-  font-size: 13px;
-  line-height: 15px;
-  font-weight: 500;
+  @include barlow-bold;
+
+  color: $tc-black;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @include xs-to-sm {
+    padding-top: 2px;
+  }
 }
 
 .col-1,
@@ -140,7 +170,8 @@
 }
 
 .col-2 {
-  width: 150px;
+  width: 25%;
+  padding-left: 5px;
 
   @include xs-to-sm {
     padding-left: 0;
@@ -151,12 +182,14 @@
 }
 
 .col-3 {
-  width: 298px;
+  width: 26%;
+  padding-left: 10px !important;
 
   @include xs-to-sm {
     font-size: 15px;
     line-height: 25px;
     margin-bottom: 10px;
+    padding-left: 0 !important;
     width: auto;
   }
 
@@ -170,11 +203,13 @@
 }
 
 .col-4 {
-  width: 317px;
+  width: 24%;
+  padding-left: 10px;
 
   @include xs-to-sm {
     margin-bottom: 15px;
     line-height: 20px;
+    padding-left: 0;
     width: auto;
   }
 }
@@ -182,10 +217,12 @@
 .col-5 {
   display: flex;
   align-items: center;
+  padding-left: 10px;
 
   @include xs-to-sm {
     margin-bottom: 15px;
     line-height: 20px;
+    padding-left: 0;
     flex-direction: column;
     align-items: flex-start;
     width: auto;
@@ -196,11 +233,13 @@
   display: flex;
   align-items: center;
   width: 351px;
+  padding-left: 10px;
 
   @include xs-to-sm {
     line-height: 20px;
     flex-direction: column;
     align-items: flex-start;
+    padding-left: 0;
     width: auto;
   }
 }
@@ -208,13 +247,16 @@
 .table-header {
   cursor: pointer;
   background: transparent;
+  text-transform: uppercase;
 
+  &:focus,
   &:hover {
-    color: $tc-dark-blue;
+    color: $tc-black;
+    font-weight: 700;
 
     :global {
-      g {
-        fill: $tc-dark-blue;
+      path {
+        fill: $tc-black;
       }
     }
   }
