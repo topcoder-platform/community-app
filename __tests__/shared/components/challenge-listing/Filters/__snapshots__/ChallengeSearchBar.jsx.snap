@@ -25,9 +25,10 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <ZoomIcon
           className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
+          fill="none"
+          height="12"
+          viewBox="0 0 12 12"
+          width="12"
           xmlns="http://www.w3.org/2000/svg"
         />
       </span>
@@ -61,9 +62,10 @@ exports[`Matches shallow shapshot 2`] = `
       >
         <ZoomIcon
           className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
+          fill="none"
+          height="12"
+          viewBox="0 0 12 12"
+          width="12"
           xmlns="http://www.w3.org/2000/svg"
         />
       </span>

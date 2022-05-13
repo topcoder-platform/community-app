@@ -246,11 +246,13 @@ function DateRangePicker(props) {
       setPreview({
         startDate: date,
         endDate: range.endDate || date,
+        color: '#137d60',
       });
     } else if (isEndDateFocused && date) {
       setPreview({
         startDate: range.startDate || date,
         endDate: date,
+        color: '#137d60',
       });
     }
 
@@ -368,13 +370,13 @@ function DateRangePicker(props) {
         {
           ...range,
           key: 'selection',
-          color: '#0B71E6',
+          color: '#137d60',
         },
         {
           startDate: activeDate,
           endDate: activeDate,
           key: 'active',
-          color: '#59A7FF',
+          color: '#137d60',
         },
       ];
     }
@@ -382,7 +384,7 @@ function DateRangePicker(props) {
       {
         ...range,
         key: 'selection',
-        color: '#0A81FF',
+        color: '#137d60',
       },
     ];
   };
@@ -453,6 +455,8 @@ function DateRangePicker(props) {
                 shownDate={getShownDate()}
                 preview={preview}
                 onPreviewChange={onPreviewChange}
+                rangeColors="#137d60"
+                color="#137d60"
               />
               <button
                 type="button"

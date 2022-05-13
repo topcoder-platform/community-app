@@ -56,7 +56,7 @@ export const BUCKET_DATA = {
     //   status: ['Active'],
     // },
     // hideCount: false,
-    name: 'Open for registration',
+    name: 'Open for Registration',
     sorts: [
       // SORTS.BEST_MATCH,
       SORTS.MOST_RECENT_START_DATE,
@@ -109,7 +109,7 @@ export const BUCKET_DATA = {
   [BUCKETS.REVIEW_OPPORTUNITIES]: {
     filter: {},
     // hideCount: true,
-    name: 'Open for review',
+    name: 'Open for Review',
     sorts: [
       SORTS.REVIEW_OPPORTUNITIES_START_DATE,
       SORTS.REVIEW_OPPORTUNITIES_PAYMENT,

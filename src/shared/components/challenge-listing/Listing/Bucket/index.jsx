@@ -180,15 +180,11 @@ export default function Bucket({
   // }
   const isRecommended = isRecommendedChallengeType(bucket, filterState);
   const isHighestPaying = isRecommended && _.sumBy(filteredChallenges, 'jaccard_index') === 0;
-  const sectionTile = isHighestPaying ? 'HIGHEST PAYING OPEN CHALLENGES' : 'Recommended Open Challenges';
+  const sectionTile = isHighestPaying ? 'HIGHEST PAYING OPEN CHALLENGES' : 'OPEN FOR REGISTRATION';
   return (
     // challenges.length !== 0
     // && (
     <div>
-      {
-        isHighestPaying && (!loading || filteredChallenges.length > 0)
-          && <NoRecommenderChallengeCard />
-      }
       <div styleName="bucket">
         {
           isRecommended
@@ -213,6 +209,10 @@ export default function Bucket({
                 }}
               />
             )
+        }
+        {
+          isHighestPaying && (!loading || filteredChallenges.length > 0)
+            && <NoRecommenderChallengeCard />
         }
         {cards}
         {

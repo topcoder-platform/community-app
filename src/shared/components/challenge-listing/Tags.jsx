@@ -13,8 +13,8 @@ import './style.scss';
 const VISIBLE_TAGS = 3;
 
 /**
- * Implements <Tags> component
- */
+  * Implements <Tags> component
+  */
 export default function Tags({
   expand, isExpanded, tags, onTechTagClicked, challengesUrl, recommended, verifiedTags,
 }) {
@@ -38,33 +38,33 @@ export default function Tags({
   const additionalTags = (items, verifiedTagIndex) => (
     <div styleName="additionalTagWrapper">
       {
-        items.map((item, index) => {
-          if (index < verifiedTagIndex) {
-            return (
-              <VerifiedTag
-                challengesUrl={challengesUrl}
-                item={item}
-                onClick={onClick}
-                recommended={recommended}
-              />
-            );
-          }
-          return (
-            (
-              <div styleName="additionalTag">
-                <Tag
-                  onClick={() => onClick(item.trim())}
-                  key={item}
-                  role="button"
-                  to={tagRedirectLink(item)}
-                >
-                  <span>{item}</span>
-                </Tag>
-              </div>
-            )
-          );
-        })
-      }
+         items.map((item, index) => {
+           if (index < verifiedTagIndex) {
+             return (
+               <VerifiedTag
+                 challengesUrl={challengesUrl}
+                 item={item}
+                 onClick={onClick}
+                 recommended={recommended}
+               />
+             );
+           }
+           return (
+             (
+               <div styleName="additionalTag">
+                 <Tag
+                   onClick={() => onClick(item.trim())}
+                   key={item}
+                   role="button"
+                   to={tagRedirectLink(item)}
+                 >
+                   <span>{item}</span>
+                 </Tag>
+               </div>
+             )
+           );
+         })
+       }
     </div>
   );
 
@@ -83,57 +83,62 @@ export default function Tags({
         display.push(expandItem);
       }
       return display.map((item, index) => {
-        if ((recommended && index < verifiedTags.length) || item[0] === '+') {
-          return (
-            item[0] === '+' ? (
-              <div styleName="recommended-plus-tag">
-                <Tooltip
-                  id="recommended-tip"
-                  content={additionalTags(
-                    allTags.slice(VISIBLE_TAGS), verifiedTags.length - VISIBLE_TAGS,
-                  )}
-                  trigger={['hover', 'focus']}
-                  className="overlayTagBg"
-                >
-                  <Tag
-                    onClick={() => onClick(item.trim())}
-                    key={item}
-                    role="button"
-                    to={tagRedirectLink(item)}
+        if (item) {
+          if ((recommended && index < verifiedTags.length) || item[0] === '+') {
+            return (
+              item[0] === '+' ? (
+                <div styleName="recommended-plus-tag">
+                  <Tooltip
+                    id="recommended-tip"
+                    content={additionalTags(
+                      allTags.slice(VISIBLE_TAGS), verifiedTags.length - VISIBLE_TAGS,
+                    )}
+                    trigger={['hover', 'focus']}
                   >
-                    <span>{item}</span>
-                  </Tag>
-                </Tooltip>
-              </div>
-            )
-              : (
-                <VerifiedTag
-                  challengesUrl={challengesUrl}
-                  item={item}
-                  onClick={onClick}
-                  recommended={recommended}
-                />
+                    <Tag
+                      onClick={() => onClick(item.trim())}
+                      key={item}
+                      role="button"
+                      to={tagRedirectLink(item)}
+                    >
+                      <span>{item}</span>
+                    </Tag>
+                  </Tooltip>
+                </div>
               )
+                : (
+                  <VerifiedTag
+                    challengesUrl={challengesUrl}
+                    item={item}
+                    onClick={onClick}
+                    recommended={recommended}
+                  />
+                )
+            );
+          }
+
+          return (
+            <div styleName="tag">
+              <Tag
+                onClick={() => onClick(item.trim())}
+                key={item}
+                role="button"
+                to={tagRedirectLink(item)}
+              >
+                <span>{item}</span>
+              </Tag>
+            </div>
           );
         }
 
-        return (
-          <Tag
-            onClick={() => onClick(item.trim())}
-            key={item}
-            role="button"
-            to={tagRedirectLink(item)}
-          >
-            <span>{item}</span>
-          </Tag>
-        );
+        return null;
       });
     }
     return '';
   };
 
   return (
-    <span>
+    <span styleName="tagContainer">
       { renderTags() }
     </span>
   );

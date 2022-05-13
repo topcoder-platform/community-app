@@ -1,6 +1,5 @@
 import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
-import TU from 'react-dom/test-utils';
 import SortingSelectBar from 'components/SortingSelectBar';
 
 const mockData = {
@@ -29,22 +28,4 @@ test('Matches shallow shapshot', () => {
     <SortingSelectBar {...mockData2} />
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
-});
-
-class Wrapper extends React.Component {
-  componentDidMount() {}
-
-  render() {
-    return <SortingSelectBar {...this.props} />;
-  }
-}
-
-const instance = TU.renderIntoDocument((<Wrapper {...mockData} />));
-
-test('Render properly', () => {
-  const dropdown = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('Select-control'));
-  TU.Simulate.touchEnd(dropdown[0]);
-  const options = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('Select-option'));
-  expect(options).toHaveLength(1);
-  TU.Simulate.click(options[0]);
 });

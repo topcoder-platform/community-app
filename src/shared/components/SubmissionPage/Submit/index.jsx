@@ -19,7 +19,7 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 import FilestackFilePicker from '../FilestackFilePicker';
 
 import Uploading from '../Uploading';
-import './styles.scss';
+import style from './styles.scss';
 
 /**
  * Submissions Page shown to develop challengers.
@@ -171,6 +171,8 @@ class Submit extends React.Component {
       dragged: false,
     });
 
+    const disabled = !agreed || !!fpState.error || !fpState.fileName;
+
     return (
       (!isSubmitting && !submitDone && !errorMsg) ? (
         <div styleName="design-content">
@@ -184,14 +186,18 @@ class Submit extends React.Component {
             <div styleName="row">
               <div styleName="left">
                 <h2>
-                  { isChallengeBelongToTopgearGroup ? 'URL' : 'FILES'}
+                  { isChallengeBelongToTopgearGroup ? 'URL' : 'SUBMISSION UPLOAD'}
                 </h2>
-                <p>
+                <p styleName="note">
                   Please follow the instructions on the Challenge Details page regarding
                   what your submission should contain and how it should be organized.
                 </p>
-              </div>
-              <div styleName="right">
+                { track === COMPETITION_TRACKS.DEV ? (
+                  <p styleName="additional-note">
+                    Upload your entire submission as a single zip file. If you are having
+                    trouble uploading your file, please send your submission to <a href="mailto:support@topcoder.com">support@topcoder.com</a>
+                  </p>
+                ) : null }
                 <div styleName="submission-hints">
                   { track === COMPETITION_TRACKS.DEV ? (
                     <div>
@@ -201,7 +207,7 @@ class Submit extends React.Component {
                     </div>
                   ) : null }
                   { track === COMPETITION_TRACKS.DES ? (
-                    <div>
+                    <div styleName="additional-note">
                       <ol>
                         <li>Place your submission files into a &quot;Submission.zip&quot; file.</li>
                         <li>Place all of your source files into a &quot;Source.zip&quot; file.</li>
@@ -215,25 +221,27 @@ class Submit extends React.Component {
                           into a single zip file and upload below.
                         </li>
                       </ol>
-                      <p>For detailed information on packaging your submission, please visit the
-                        &zwnj;
+                      <p>
+                        For detailed information on packaging your submissions, please visit the
                         <a
                           href="https://help.topcoder.com/hc/en-us/articles/
                             219122667-Formatting-Your-Submission-for-Design-Challenges"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          help center.
+                          Help Center.
                         </a>
+                        If you are having trouble uploading your file, please send your submission to <a href="mailto:support@topcoder.com">support@topcoder.com</a>
                       </p>
                     </div>
                   ) : null }
                 </div>
+              </div>
+              <div styleName="right">
                 <div styleName="file-picker-container">
                   { isLoadingCommunitiesList ? (<LoadingIndicator />) : (
                     <FilestackFilePicker
                       mandatory
-                      title={isChallengeBelongToTopgearGroup ? '' : 'Submission Upload'}
                       fileExtensions={['.zip']}
                       id={id}
                       challengeId={challengeId}
@@ -253,33 +261,9 @@ class Submit extends React.Component {
                     />
                   )}
                 </div>
-                { isChallengeBelongToTopgearGroup
-                  ? (
-                    <p>
-                      If you are having trouble submitting, please send
-                      your submission to
-                      &zwnj;
-                      <a
-                        href="mailto://support@topcoder.com"
-                      >
-                        support@topcoder.com
-                      </a>
-                    </p>
-                  )
-                  : (
-                    <p>
-                      If you are having trouble uploading your file, please send
-                      your submission to
-                      &zwnj;
-                      <a
-                        href="mailto://support@topcoder.com"
-                      >
-                        support@topcoder.com
-                      </a>
-                    </p>
-                  )}
               </div>
             </div>
+            <hr styleName="hr" />
             <div styleName="row agree">
               <p>
                 Submitting your files means you hereby agree to the
@@ -308,14 +292,18 @@ class Submit extends React.Component {
                   <input type="hidden" />
                 </label>
                 <div styleName="tc-checkbox-label">
-                  I UNDERSTAND AND AGREE
+                  I understand and agree
                 </div>
               </div>
+            </div>
+            <hr styleName="hr" />
+            <div styleName="submitArea">
               <PrimaryButton
                 type="submit"
-                disabled={!agreed || !!fpState.error || !fpState.fileName}
+                disabled={disabled}
+                theme={{ button: disabled ? style.buttonDisabled : style.button }}
               >
-                Submit
+                SUBMIT
               </PrimaryButton>
             </div>
           </form>

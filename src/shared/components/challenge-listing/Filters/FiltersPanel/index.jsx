@@ -27,18 +27,20 @@ import PT from 'prop-types';
 import Select from 'components/Select';
 import DateRangePicker from 'components/DateRangePicker';
 import moment from 'moment';
-import { Button } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
 import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import { isFilterEmpty, isPastBucket, BUCKETS } from 'utils/challenge-listing/buckets';
 import SwitchWithLabel from 'components/SwitchWithLabel';
+import ChallengeSearchBar from 'containers/challenge-listing/ChallengeSearchBar';
 import { challenge as challengeUtils } from 'topcoder-react-lib';
 import { createStaticRanges } from 'utils/challenge-listing/date-range';
-import circleIcon from 'assets/images/icon-circle.png';
+import ArrowIcon from 'assets/images/ico-arrow-down.svg';
+import CircleIcon from 'assets/images/icon-circle.svg';
+import Button from '../Button';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
-import FiltersIcon from '../../Icons/filters-icon.svg';
+import BucketSelector from '../../Sidebar/BucketSelector';
 import CheckmarkIcon from './CheckmarkIcon';
 import style from './style.scss';
 
@@ -49,6 +51,8 @@ export default function FiltersPanel({
   defaultCommunityId,
   filterState,
   // challenges,
+  disabled,
+  expanding,
   hidden,
   isAuth,
   auth,
@@ -70,7 +74,7 @@ export default function FiltersPanel({
 }) {
   if (hidden && !expanded) {
     return (
-      <div
+      <Button
         styleName="filter-btn"
         onClick={() => {
           setExpanded(!expanded);
@@ -84,8 +88,8 @@ export default function FiltersPanel({
         tabIndex={0}
         role="button"
       >
-        <FiltersIcon styleName="FiltersIcon" /> More Filters
-      </div>
+        More Filters
+      </Button>
     );
   }
 
@@ -348,36 +352,55 @@ export default function FiltersPanel({
         </div> */}
 
         <div styleName="filter-row">
+          <div styleName="search-bar">
+            <ChallengeSearchBar setFilterState={setFilterState} />
+          </div>
+        </div>
+
+        <div styleName="filter-row">
+          <div styleName="bucket-selector-mobile">
+            <BucketSelector
+              activeBucket={activeBucket}
+              disabled={disabled}
+              expanding={expanding}
+              isAuth={isAuth}
+              selectBucket={selectBucket}
+              past={past}
+            />
+          </div>
+        </div>
+
+        <div styleName="filter-row">
           <div styleName="filter track">
             <span styleName="label">
-              Track
+              Challenge Category
             </span>
             <div styleName="switches">
               <span styleName="filter-switch-with-label" aria-label={`Design toggle button pressed ${isTrackOn('Des') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Des')}>
                 <SwitchWithLabel
                   enabled={isTrackOn('Des')}
-                  labelBefore="Design"
+                  labelAfter="Design"
                   onSwitch={on => switchTrack('Des', on)}
                 />
               </span>
               <span styleName="filter-switch-with-label" aria-label={`Development toggle button pressed ${isTrackOn('Dev') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('Dev')}>
                 <SwitchWithLabel
                   enabled={isTrackOn('Dev')}
-                  labelBefore="Development"
+                  labelAfter="Development"
                   onSwitch={on => switchTrack('Dev', on)}
                 />
               </span>
               <span styleName="filter-switch-with-label" aria-label={`Data Science toggle button pressed ${isTrackOn('DS') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('DS')}>
                 <SwitchWithLabel
                   enabled={isTrackOn('DS')}
-                  labelBefore="Data Science"
+                  labelAfter="Data Science"
                   onSwitch={on => switchTrack('DS', on)}
                 />
               </span>
               <span styleName="filter-switch-with-label" aria-label={`QA toggle button pressed ${isTrackOn('QA') ? 'On' : 'Off'}`} role="switch" aria-checked={isTrackOn('QA')}>
                 <SwitchWithLabel
                   enabled={isTrackOn('QA')}
-                  labelBefore="QA"
+                  labelAfter="QA"
                   onSwitch={on => switchTrack('QA', on)}
                 />
               </span>
@@ -442,7 +465,7 @@ export default function FiltersPanel({
               <div styleName="filter dates">
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <label htmlFor="input-start-date-range" styleName="label">
-                  Date range
+                  Custom Date range
                 </label>
                 <DateRangePicker
                   onChange={(range) => {
@@ -473,7 +496,7 @@ export default function FiltersPanel({
             <div styleName="filter-row">
               <div styleName="filter challenge-type">
                 <span styleName="label">
-                  Type
+                  Challenge Type
                 </span>
                 <div styleName="checkboxes">
                   {
@@ -481,16 +504,13 @@ export default function FiltersPanel({
                       .map(mapTypes)
                       .map(option => (
                         <span styleName="checkbox" key={option.value}>
-                          <input
-                            type="checkbox"
-                            styleName="input-control"
-                            name={option.label}
-                            id={option.label}
-                            checked={filterState.types.includes(option.value)}
-                            onChange={(e) => {
+                          <SwitchWithLabel
+                            enabled={filterState.types.includes(option.value)}
+                            labelAfter={option.label}
+                            onSwitch={(e) => {
                               let { types } = filterState;
 
-                              if (e.target.checked) {
+                              if (e) {
                                 types = types.concat(option.value);
                               } else {
                                 types = types.filter(type => type !== option.value);
@@ -499,7 +519,6 @@ export default function FiltersPanel({
                               setFilterState({ ..._.clone(filterState), types });
                             }}
                           />
-                          <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
                         </span>
                       ))
                   }
@@ -560,7 +579,7 @@ export default function FiltersPanel({
             <div styleName="filter-row">
               <div styleName="filter filter community">
                 <label htmlFor="community-select" styleName="label">
-                  Sub community
+                  Sub communities
                   <input type="hidden" />
                 </label>
                 <Select
@@ -594,6 +613,7 @@ export default function FiltersPanel({
                       {option.name}
                     </span>
                   )}
+                  arrowRenderer={ArrowIcon}
                 />
               </div>
             </div>
@@ -603,38 +623,41 @@ export default function FiltersPanel({
         {
           isRecommendedChallengesVisible && _.get(auth, 'user.userId')
           && (
-            <div styleName="filter-row recommended-challenges-filter">
-              <span
-                styleName="filter-switch-with-label"
-                aria-label={`Recommended challenge toggle button pressed ${recommendedToggle ? 'On' : 'Off'}`}
-                role="switch"
-                aria-checked={recommendedToggle}
-              >
-                <SwitchWithLabel
-                  enabled={recommendedToggle}
-                  labelAfter="Recommended Challenges"
-                  onSwitch={onSwitchRecommendedChallenge}
-                />
-              </span>
-
-              <div styleName="recommended-challenge-tooltip">
-                <Tooltip
-                  id="recommended-tip"
-                  content={recommendedCheckboxTip}
-                  className={style['tooltip-overlay']}
-                  trigger={['hover', 'focus']}
+            <React.Fragment>
+              <hr styleName="hr" />
+              <div styleName="filter-row recommended-challenges-filter">
+                <span
+                  styleName="recommended-select-label"
+                  aria-label={`Recommended challenge toggle button pressed ${recommendedToggle ? 'On' : 'Off'}`}
+                  role="switch"
+                  aria-checked={recommendedToggle}
                 >
-                  <img src={circleIcon} alt="circle-icon" />
-                </Tooltip>
+                  <SwitchWithLabel
+                    enabled={recommendedToggle}
+                    labelAfter="Recommended Challenges"
+                    onSwitch={onSwitchRecommendedChallenge}
+                  />
+                </span>
+
+                <div styleName="recommended-challenge-tooltip">
+                  <Tooltip
+                    id="recommended-tip"
+                    content={recommendedCheckboxTip}
+                    className={style['tooltip-overlay']}
+                    trigger={['hover', 'focus']}
+                  >
+                    <CircleIcon />
+                  </Tooltip>
+                </div>
               </div>
-            </div>
+            </React.Fragment>
           )
         }
       </div>
 
       {
         isRecommendedChallengesVisible && _.get(auth, 'user.userId')
-          && (<hr />)
+          && (<hr styleName="hr" />)
       }
 
       <div styleName="buttons">
@@ -667,11 +690,10 @@ export default function FiltersPanel({
             setSearchText('');
             // localStorage.setItem('trackStatus', JSON.stringify({}));
           }}
-          size="sm"
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >
-          Clear filters
+          RESET FILTERS
         </Button>
       </div>
     </div>
@@ -686,6 +708,8 @@ FiltersPanel.defaultProps = {
   isReviewOpportunitiesBucket: false,
   // onSaveFilter: _.noop,
   onClose: _.noop,
+  expanding: false,
+  disabled: false,
 };
 
 FiltersPanel.propTypes = {
@@ -714,4 +738,6 @@ FiltersPanel.propTypes = {
   setExpanded: PT.func.isRequired,
   setSort: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
+  expanding: PT.bool,
+  disabled: PT.bool,
 };

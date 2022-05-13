@@ -25,12 +25,15 @@ import {
 import qs from 'qs';
 import LoginModal from 'components/LoginModal';
 import modalStyle from 'components/LoginModal/modal.scss';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
+import tc from 'components/buttons/themed/tc.scss';
 // SVGs and assets
 import GestureIcon from 'assets/images/icon-gesture.svg';
 import ReadMoreArrow from 'assets/images/read-more-arrow.svg';
 import IconFacebook from 'assets/images/icon-facebook.svg';
 import IconTwitter from 'assets/images/icon-twitter.svg';
 import IconLinkedIn from 'assets/images/icon-linkedIn.svg';
+import DiscordIconWhite from 'assets/images/tc-edu/discord-icon-white.svg';
 
 const htmlToText = require('html-to-text');
 
@@ -334,6 +337,18 @@ class Article extends React.Component {
                   </div>
                   <span>{downvotes}</span>
                 </div>
+              </div>
+              {/* Discord */}
+              <div className={theme.actionContainer}>
+                <PrimaryButton
+                  to="https://discord.gg/topcoder?ref=thrive-article"
+                  openNewTab
+                  theme={{
+                    button: tc['primary-green-md'],
+                  }}
+                >
+                  <DiscordIconWhite style={{ marginRight: '5px' }} /> Chat on Discord
+                </PrimaryButton>
               </div>
             </div>
           </div>

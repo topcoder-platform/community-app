@@ -57,6 +57,7 @@ function Phase({
 }) {
   const limitProgress = parseFloat(_.replace(progress, '%', ''));
   const limitWidth = limitProgress <= 100 ? limitProgress : 100;
+
   return (
     <div styleName="phase">
       <div>

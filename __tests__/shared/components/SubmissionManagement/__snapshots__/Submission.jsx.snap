@@ -7,14 +7,29 @@ exports[`Snapshot match 1`] = `
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   >
-    <div
-      className="src-shared-components-SubmissionManagement-Submission-___styles__legacy-id___3T2Ay"
-    />
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      ID
+    </span>
   </td>
-  <td />
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__type-col___25OJ8"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      TYPE
+    </span>
+  </td>
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
   >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      Submission Date
+    </span>
     Invalid date
   </td>
   <td
@@ -32,8 +47,9 @@ exports[`Snapshot match 1`] = `
         type="button"
       >
         <DeleteIcon
-          height="16"
-          viewBox="0 0 16 16"
+          fill="none"
+          height="9"
+          viewBox="0 0 16 9"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
@@ -44,8 +60,9 @@ exports[`Snapshot match 1`] = `
         type="button"
       >
         <ExpandIcon
-          height="16"
-          viewBox="0 0 16 16"
+          fill="none"
+          height="9"
+          viewBox="0 0 16 9"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
@@ -62,15 +79,30 @@ exports[`Snapshot match 2`] = `
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
   >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      ID
+    </span>
     12345
-    <div
-      className="src-shared-components-SubmissionManagement-Submission-___styles__legacy-id___3T2Ay"
-    />
   </td>
-  <td />
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__type-col___25OJ8"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      TYPE
+    </span>
+  </td>
   <td
     className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
   >
+    <span
+      className="src-shared-components-SubmissionManagement-Submission-___styles__mobile-header___23v4J"
+    >
+      Submission Date
+    </span>
     Invalid date
   </td>
   <td
@@ -88,8 +120,9 @@ exports[`Snapshot match 2`] = `
         type="button"
       >
         <DeleteIcon
-          height="16"
-          viewBox="0 0 16 16"
+          fill="none"
+          height="9"
+          viewBox="0 0 16 9"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
@@ -100,8 +133,9 @@ exports[`Snapshot match 2`] = `
         type="button"
       >
         <ExpandIcon
-          height="16"
-          viewBox="0 0 16 16"
+          fill="none"
+          height="9"
+          viewBox="0 0 16 9"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
