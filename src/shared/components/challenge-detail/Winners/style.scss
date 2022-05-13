@@ -3,8 +3,15 @@
 .container {
   @include roboto-regular;
 
-  display: flex;
-  flex-wrap: wrap;
+  margin: 35px 32px 0 32px;
+  padding-bottom: 48px;
+
+  @include xs-to-sm {
+    margin: 24px 16px 0 16px;
+    padding-bottom: 24px;
+    padding-right: 15px;
+    padding-left: 0;
+  }
 }
 
 .section-title {

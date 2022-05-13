@@ -2,10 +2,11 @@ import React from 'react';
 import PT from 'prop-types';
 import { map } from 'lodash';
 import { config } from 'topcoder-react-utils';
+import { Button } from 'topcoder-react-ui-kit';
 import moment from 'moment';
 import CalendarIcon from '../../../../assets/images/calendar.svg';
 
-import './style.scss';
+import style from './style.scss';
 
 export default function ThriveArticles({ articles }) {
   const formatTitle = (title) => {
@@ -43,9 +44,16 @@ export default function ThriveArticles({ articles }) {
         <div styleName="header">
           Recommended THRIVE Articles
         </div>
-        <div styleName="right-url">
-          <a href={config.URL.THRIVE} rel="noopener noreferrer" target="_blank">Explore THRIVE</a>
-        </div>
+        <Button
+          theme={{
+            button: style.button,
+          }}
+          openNewTab
+          to={config.URL.THRIVE}
+        >
+          EXPLORE THRIVE
+          {/* <a href={config.URL.THRIVE} rel="noopener noreferrer" target="_blank"></a> */}
+        </Button>
       </div>
       <div styleName="articles">
         {items}

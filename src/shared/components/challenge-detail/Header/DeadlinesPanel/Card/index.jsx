@@ -5,12 +5,17 @@
 import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
+import CalendarIcon from 'assets/images/icon-calendar-2.svg';
+import CalendarIconActive from 'assets/images/icon-calendar-2-active.svg';
+import TimeIcon from 'assets/images/icon-time.svg';
+import TimeIconActive from 'assets/images/icon-time-active.svg';
 
 import './style.scss';
 
 /* Date/time format to use in the card. */
-const FORMAT = 'MMM DD, HH:mm';
-const FORMAT_YEAR = 'MMM DD YYYY, HH:mm';
+const FORMAT = 'MMM DD';
+const FORMAT_YEAR = 'MMM DD YYYY';
+const TIME = 'HH:mm';
 
 export default function Card({ past, time, title }) {
   const time2 = moment(time);
@@ -20,9 +25,20 @@ export default function Card({ past, time, title }) {
       <p styleName="title">
         {title}
       </p>
-      <p styleName="date">
-        {time2.format(time2.year() !== moment().year() ? FORMAT_YEAR : FORMAT)}
-      </p>
+      <div>
+        <p styleName="date">
+          { past ? <CalendarIcon /> : <CalendarIconActive /> }
+          <span>
+            {time2.format(time2.year() !== moment().year() ? FORMAT_YEAR : FORMAT)}
+          </span>
+        </p>
+        <p styleName="time">
+          { past ? <TimeIcon /> : <TimeIconActive /> }
+          <span>
+            {time2.format(TIME)}
+          </span>
+        </p>
+      </div>
     </div>
   );
 }

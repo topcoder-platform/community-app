@@ -6,7 +6,6 @@ import React from 'react';
 
 import TwitterIcon from '../../../../../assets/images/social/icon_twitter.svg';
 import FacebookIcon from '../../../../../assets/images/social/icon_facebook.svg';
-import PrintIcon from '../../../../../assets/images/social/icon_print.svg';
 import EmailIcon from '../../../../../assets/images/social/icon_email.svg';
 import MoreIcon from '../../../../../assets/images/social/icon_plus.svg';
 
@@ -32,14 +31,14 @@ export default class ShareSocial extends React.Component {
   render() {
     return (
       <div ref={(htmlDiv) => { this.shareDiv = htmlDiv; }} styleName="tc-share-social">
-        <div className="addthis_toolbox addthis_default_style addthis_32x32_style">
+        <div className="addthis_toolbox addthis_default_style">
           <a
             className="addthis_button_facebook"
             title="Facebook"
             aria-label="Share via Facebook"
             href="#"
           >
-            <FacebookIcon styleName="facebook-icon" />
+            <FacebookIcon />
           </a>
           <a
             className="addthis_button_twitter"
@@ -48,14 +47,6 @@ export default class ShareSocial extends React.Component {
             href="#"
           >
             <TwitterIcon />
-          </a>
-          <a
-            className="addthis_button_print"
-            title="Print"
-            aria-label="Print this challenge"
-            href="#"
-          >
-            <PrintIcon />
           </a>
           <a
             className="addthis_button_email"
