@@ -1,5 +1,20 @@
 @import "~styles/mixins";
 
+.mobile-wrapper {
+  @include xs-to-sm {
+    display: flex;
+  }
+}
+
+.mobile-sort-icon {
+  display: none;
+
+  @include xs-to-sm {
+    display: inline-block;
+    margin-left: 8px;
+  }
+}
+
 .challenge-view-selector-mobile {
   .mobile-tab-container {
     background-color: #eaf6fd;
@@ -38,6 +53,15 @@
       transform: scale(1.5) rotate(180deg);
       margin-right: 20px !important;
     }
+
+    @include xs-to-md {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  @include xs-to-md {
+    width: 100%;
   }
 }
 
@@ -61,10 +85,6 @@
     text-transform: uppercase;
     padding-left: 16px;
     padding-top: 10px;
-
-    @include xs-to-sm {
-      padding-left: 0;
-    }
   }
 
   .active {
@@ -74,6 +94,10 @@
       color: $tco-black;
       font-weight: 700;
     }
+  }
+
+  @include xs-to-sm {
+    margin: 0;
   }
 }
 
@@ -138,9 +162,14 @@
 
 .container {
   margin-top: 28px;
-  margin-right: 12px;
+  margin-left: 2px;
+  margin-right: 14px;
   position: relative;
   background-color: #eaf6fd;
+
+  @include xs-to-md {
+    background-color: transparent;
+  }
 }
 
 .mask {
@@ -152,11 +181,72 @@
 
 .mask.left {
   display: none;
-  background: linear-gradient(-90deg, rgba(250, 250, 251, 0) 3%, #fafafb 49%, #fafafb 98%);
+  background: transparent;
   left: 0;
+
+  @include xs-to-sm {
+    background: transparent;
+  }
 }
 
 .mask.right {
-  background: linear-gradient(90deg, rgba(250, 250, 251, 0) 3%, #fafafb 49%, #fafafb 98%);
+  background: transparent;
   right: 0;
+
+  @include xs-to-sm {
+    background: transparent;
+  }
+}
+
+.sort-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-color: #fff;
+  top: 0;
+
+  .sort-header {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+
+    p {
+      @include barlow-bold;
+
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: $tc-black;
+    }
+  }
+
+  .sort-body {
+    background-color: #fff;
+    margin-left: -2px;
+    filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
+
+    .sort-item {
+      @include roboto-regular;
+
+      padding: 7.5px 0 0;
+      margin: 0 12px;
+      height: 40px;
+      color: #555;
+      font-size: 14px;
+      line-height: 20px;
+      border-bottom: 1px solid #d4d4d4;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      & .bold {
+        font-weight: 500;
+        color: $tc-black;
+      }
+    }
+  }
 }

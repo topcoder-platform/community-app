@@ -481,6 +481,13 @@ class ChallengeDetailPageContainer extends React.Component {
               submissionEnded={submissionEnded}
               mySubmissions={challenge.isRegistered ? mySubmissions : []}
               openForRegistrationChallenges={openForRegistrationChallenges}
+              onSort={(currenctSelected, sort) => {
+                if (currenctSelected === 'submissions') {
+                  this.setState({ submissionsSort: sort });
+                } else {
+                  this.setState({ registrantsSort: sort });
+                }
+              }}
             />
             )
           }
@@ -553,7 +560,9 @@ class ChallengeDetailPageContainer extends React.Component {
                   notFoundCountryFlagUrl[countryInfo.countryCode] = true;
                   this.setState({ notFoundCountryFlagUrl });
                 }}
-                onSortChange={sort => this.setState({ submissionsSort: sort })}
+                onSortChange={(sort) => {
+                  this.setState({ submissionsSort: sort });
+                }}
                 hasRegistered={challenge.isRegistered}
                 unregistering={unregistering}
                 isLegacyMM={isLegacyMM}
