@@ -13,7 +13,8 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
 import PasswordScreen from 'components/Contentful/PasswordScreen';
-import { isomorphy } from 'topcoder-react-utils';
+import { isomorphy, config } from 'topcoder-react-utils';
+import { connect } from 'react-redux';
 import { removeTrailingSlash } from 'utils/url';
 
 // Concatenates a base and segment and handles optional trailing slashes
@@ -142,7 +143,7 @@ RedirectWithStatus.propTypes = {
   status: PT.number.isRequired,
 };
 
-export default function ContentfulRoute(props) {
+function ContentfulRoute(props) {
   const {
     baseUrl,
     error404,
@@ -152,6 +153,7 @@ export default function ContentfulRoute(props) {
     preview,
     spaceName,
     environment,
+    auth,
   } = props;
 
   const queries = [];
@@ -173,6 +175,13 @@ export default function ContentfulRoute(props) {
         // eslint-disable-next-line no-restricted-globals
         const currentPathname = typeof location === 'undefined' ? '' : removeTrailingSlash(location.pathname);
         const redirectToUrl = _.trim(fields.redirectToUrl);
+        const requireLogin = fields.protected;
+        if (requireLogin && (!auth || !auth.tokenV3)) {
+          // route is protected by TC Login
+          // send to login/register with proper retUrl set
+          const authUrl = config.URL.AUTH;
+          return <RedirectWithStatus status={401} from={url} to={`${authUrl}?retUrl=${encodeURIComponent(url)}`} />
+        }
         return redirectToUrl && currentPathname === url ? (
           <RedirectWithStatus status={301} from={url} to={redirectToUrl} />
         ) : (
@@ -207,6 +216,7 @@ ContentfulRoute.defaultProps = {
   preview: false,
   spaceName: null,
   environment: null,
+  auth: null,
 };
 
 ContentfulRoute.propTypes = {
@@ -218,4 +228,16 @@ ContentfulRoute.propTypes = {
   preview: PT.bool,
   spaceName: PT.string,
   environment: PT.string,
+  auth: PT.shape(),
 };
+
+function mapStateToProps(state) {
+  const auth = state.auth && state.auth.profile ? { ...state.auth } : null;
+  return {
+    auth,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(ContentfulRoute);
