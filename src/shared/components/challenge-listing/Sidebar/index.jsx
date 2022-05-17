@@ -122,6 +122,7 @@ export default function SideBarFilters({
         {/* )} */}
       </div>
       {/* <Footer hideTcLinksInFooter /> */}
+      <hr styleName="hr" />
     </div>
   );
 }

@@ -117,7 +117,6 @@ export default function BucketSelector({
               </div>
             ) : ''
         } */}
-        <hr />
         {/* DISABLED: Until feeds.topcoder.com domain fixed community-app#4606 */}
         {/*
         <div styleName="get-rss">

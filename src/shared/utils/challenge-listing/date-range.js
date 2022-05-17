@@ -33,7 +33,7 @@ export function createStaticRanges() {
       endDate: now.clone().endOf('day').toDate(),
     },
     {
-      label: 'Past 3 Month',
+      label: 'Past 3 Months',
       startDate: past3Months.startOf('day').toDate(),
       endDate: now.clone().endOf('day').toDate(),
     },

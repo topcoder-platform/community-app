@@ -42,10 +42,10 @@ $leader-radius-4: $corner-radius * 2;
     bottom: -($leader-space-10 - 3);
     text-align: center;
     border-radius: $leader-radius-50;
-    border: 2px solid $tc-white;
     font-size: 11px;
     flex-direction: column;
     justify-content: center;
+    padding: 4px;
 
     &.placement-1 {
       background: #ffd84d;

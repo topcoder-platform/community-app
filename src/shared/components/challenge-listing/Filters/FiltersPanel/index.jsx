@@ -369,7 +369,6 @@ export default function FiltersPanel({
             />
           </div>
         </div>
-
         <div styleName="filter-row">
           <div styleName="filter track">
             <span styleName="label">
@@ -407,6 +406,43 @@ export default function FiltersPanel({
             </div>
           </div>
         </div>
+
+        { !isReviewOpportunitiesBucket
+          && (
+            <div styleName="filter-row">
+              <div styleName="filter challenge-type">
+                <span styleName="label">
+                  Challenge Type
+                </span>
+                <div styleName="checkboxes">
+                  {
+                    validTypes
+                      .map(mapTypes)
+                      .map(option => (
+                        <span styleName="checkbox" key={option.value}>
+                          <SwitchWithLabel
+                            enabled={filterState.types.includes(option.value)}
+                            labelAfter={option.label}
+                            onSwitch={(e) => {
+                              let { types } = filterState;
+
+                              if (e) {
+                                types = types.concat(option.value);
+                              } else {
+                                types = types.filter(type => type !== option.value);
+                              }
+
+                              setFilterState({ ..._.clone(filterState), types });
+                            }}
+                          />
+                        </span>
+                      ))
+                  }
+                </div>
+              </div>
+            </div>
+          )
+        }
 
         { past
           && (
@@ -486,43 +522,6 @@ export default function FiltersPanel({
                       : null,
                   }}
                 />
-              </div>
-            </div>
-          )
-        }
-
-        { !isReviewOpportunitiesBucket
-          && (
-            <div styleName="filter-row">
-              <div styleName="filter challenge-type">
-                <span styleName="label">
-                  Challenge Type
-                </span>
-                <div styleName="checkboxes">
-                  {
-                    validTypes
-                      .map(mapTypes)
-                      .map(option => (
-                        <span styleName="checkbox" key={option.value}>
-                          <SwitchWithLabel
-                            enabled={filterState.types.includes(option.value)}
-                            labelAfter={option.label}
-                            onSwitch={(e) => {
-                              let { types } = filterState;
-
-                              if (e) {
-                                types = types.concat(option.value);
-                              } else {
-                                types = types.filter(type => type !== option.value);
-                              }
-
-                              setFilterState({ ..._.clone(filterState), types });
-                            }}
-                          />
-                        </span>
-                      ))
-                  }
-                </div>
               </div>
             </div>
           )
@@ -619,12 +618,12 @@ export default function FiltersPanel({
             </div>
           )
         }
+        <hr styleName="hr" />
 
         {
           isRecommendedChallengesVisible && _.get(auth, 'user.userId')
           && (
             <React.Fragment>
-              <hr styleName="hr" />
               <div styleName="filter-row recommended-challenges-filter">
                 <span
                   styleName="recommended-select-label"
