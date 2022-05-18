@@ -286,7 +286,10 @@ jobs:
       - checkout
       - restore_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
-      - run: npm install
+      - run: 
+          name: app npm install
+          command: npm install
+          no_output_timeout: 20m
       - save_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
           paths:
