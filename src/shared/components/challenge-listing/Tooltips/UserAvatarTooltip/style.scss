@@ -16,7 +16,7 @@ $avatar-radius-4: $corner-radius * 2;
   max-width: 640px;
   overflow: auto;
   padding: 10px;
-  background-color: linear-gradient(0deg, rgba(0,0,0,0.2),rgba(0,0,0,0.2)), #2a2a2a;
+  background-color: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #2a2a2a;
 
   .achievements {
     border-top: 1px solid $tc-gray-70;
@@ -56,7 +56,7 @@ $avatar-radius-4: $corner-radius * 2;
 
   .handle {
     @include roboto-regular;
-    
+
     margin-left: $avatar-space-15;
     display: inline-block;
     font-weight: 500;

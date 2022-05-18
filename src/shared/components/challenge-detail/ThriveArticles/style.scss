@@ -1,16 +1,33 @@
 @import "~styles/mixins";
 
+.hr {
+  background-color: #d4d4d4;
+  border-radius: 0;
+  height: 2px;
+  margin: 48px 0;
+
+  @include xs-to-sm {
+    margin: 24px 0;
+  }
+}
+
 .button {
+  @include roboto-bold;
+
   align-self: center !important;
-  margin: 20px 0 !important;
   position: relative !important;
   white-space: nowrap !important;
   border-color: #137d60 !important;
   color: #137d60 !important;
+  margin: 0 !important;
   border-radius: 24px !important;
   border-width: 2px !important;
   font-size: 13px !important;
   font-weight: 700 !important;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  min-height: 32px !important;
+  padding: 3px 17px !important;
 
   @include xs-to-sm {
     align-self: flex-start !important;
@@ -20,30 +37,33 @@
 .container {
   @include roboto-regular;
 
-  max-width: 1240px;
   width: 100%;
   display: flex;
   background-color: $tc-white;
   flex-direction: column;
   border-radius: (3 * $corner-radius);
-  padding: 22px 11px 28px;
-  margin: 50px auto 0;
+  padding: 0 32px 48px 32px;
+
+  @include xs-to-sm {
+    padding: 0 16px 24px 16px;
+  }
 }
 
 .header-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+
 }
 
 .header {
-  @include roboto-bold;
+  @include barlow-bold;
 
-  margin-left: 13px;
-  font-size: 20px;
+  font-size: 24px;
+  line-height: 28px;
   color: $tc-black;
   text-transform: uppercase;
-  width: 50%;
+  width: 55%;
 }
 
 .right-url {
@@ -55,16 +75,23 @@
 .articles {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 .article {
   display: flex;
-  width: 380px;
+  flex:1;
   position: relative;
   overflow: hidden;
-  margin: 20px 13px 0;
+  margin-top: 20px;
+  margin-right: 20px;
   border-radius: (5 * $corner-radius);
   background-color: #f4f4f4;
+}
+
+.article:nth-child(3n) {
+  margin-right: 0;
 }
 
 .article-left {
@@ -77,10 +104,12 @@
 .article-read-time {
   @include roboto-bold;
 
-  margin-top: 13px;
+  margin-top: 16px;
   font-size: 12px;
+  line-height: 16px;
   font-weight: 700;
   color: #555;
+  text-transform: uppercase;
 }
 
 .article-title {
@@ -130,6 +159,9 @@
 }
 
 @include xs-to-md {
+  .articles {
+    flex-direction: column;
+  }
   .article {
     width: 100%;
   }

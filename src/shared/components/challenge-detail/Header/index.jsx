@@ -253,6 +253,9 @@ export default function ChallengeHeader(props) {
   }
 
   const disabled = !hasRegistered || unregistering || submissionEnded || isLegacyMM;
+  const registerButtonDisabled = registering || registrationEnded || isLegacyMM;
+  const unregisterButtonDisabled = unregistering
+    || registrationEnded || hasSubmissions || isLegacyMM;
 
   return (
     <div styleName="challenge-outer-container">
@@ -374,20 +377,25 @@ export default function ChallengeHeader(props) {
             <div styleName="challenge-ops-container">
               {hasRegistered ? (
                 <PrimaryButton
-                  disabled={unregistering || registrationEnded
-                    || hasSubmissions || isLegacyMM}
+                  disabled={unregisterButtonDisabled}
                   forceA
                   onClick={unregisterFromChallenge}
-                  theme={{ button: style.unregisterButton }}
+                  theme={{
+                    button: unregisterButtonDisabled
+                      ? style.submitButtonDisabled
+                      : style.unregisterButton,
+                  }}
                 >
                   Unregister
                 </PrimaryButton>
               ) : (
                 <PrimaryButton
-                  disabled={registering || registrationEnded || isLegacyMM}
+                  disabled={registerButtonDisabled}
+                  theme={{
+                    button: registerButtonDisabled ? style.submitButtonDisabled : style.registerBtn,
+                  }}
                   forceA
                   onClick={registerForChallenge}
-                  theme={{ button: style.registerBtn }}
                 >
                   Register
                 </PrimaryButton>

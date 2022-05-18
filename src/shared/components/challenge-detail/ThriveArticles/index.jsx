@@ -40,6 +40,7 @@ export default function ThriveArticles({ articles }) {
   ));
   return (
     <div id="recommendedThriveArticles" styleName="container">
+      <hr styleName="hr" />
       <div styleName="header-container">
         <div styleName="header">
           Recommended THRIVE Articles
