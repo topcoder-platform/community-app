@@ -43,6 +43,7 @@ save_cache_settings: &save_cache_settings
 build_docker_image: &build_docker_image
           name: Build of Docker image
           command: |
+            git config --global url."https://git@".insteadOf git://
             source buildenvvar
             ./build.sh
           no_output_timeout: 20m
@@ -287,6 +288,9 @@ jobs:
       - checkout
       - restore_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
+      - run:
+          name: Config github
+          command: git config --global url."https://git@".insteadOf git://
       - run: 
           name: App npm install
           command: npm install
