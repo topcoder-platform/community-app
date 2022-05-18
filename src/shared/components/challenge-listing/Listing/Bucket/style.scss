@@ -38,12 +38,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $base-unit * 5;
+
 
   @include roboto-regular;
 
   font-size: 24px;
   line-height: 32px;
   color: $tco-black;
-  margin-top: 80px;
+  padding-top: 80px;
+  border-top: 2px solid $listing-gray;
+  border-radius: 1px;
+  margin-left: 24px;
+
+  @include xs-to-md {
+    margin-left: 0;
+  }
 }

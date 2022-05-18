@@ -353,6 +353,13 @@
 
     .col-3 {
       width: 18.6%;
+      a {
+        padding-left: 20px;
+
+        @include xs-to-sm {
+          padding-left: 0;
+        }
+      }
 
       @include xs-to-sm {
         text-align: left;
@@ -409,7 +416,6 @@
 
     .handle {
       color: $tc-black;
-      padding-right: 42px;
     }
   }
 }

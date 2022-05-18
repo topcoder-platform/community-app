@@ -16,7 +16,7 @@ import './style.scss';
 
 const Filter = challengeUtils.filter;
 
-const NO_RESULTS_MESSAGE = 'There are no review opportunities available';
+const NO_RESULTS_MESSAGE = 'No challenges found';
 
 // Functional implementation of ReviewOpportunityBucket component
 export default function ReviewOpportunityBucket({
@@ -78,25 +78,42 @@ export default function ReviewOpportunityBucket({
 
   return (
     <div styleName="review-opportunity-bucket">
-      <SortingSelectBar
-        title="Open for review"
-        onSelect={setSort}
-        options={
-          BUCKET_DATA[bucket].sorts.map(item => ({
-            label: Sort[item].name,
-            value: item,
-          }))
-        }
-        value={{
-          label: Sort[activeSort].name,
-          value: activeSort,
-        }}
-      />
+      {
+        filteredOpportunities
+          ? filteredOpportunities.length > 0 && (
+            <SortingSelectBar
+              title="Open for review"
+            />
+          )
+          : (
+            <SortingSelectBar
+              title="Open for review"
+              onSelect={setSort}
+              options={
+                BUCKET_DATA[bucket].sorts.map(item => ({
+                  label: Sort[item].name,
+                  value: item,
+                }))
+              }
+              value={{
+                label: Sort[activeSort].name,
+                value: activeSort,
+              }}
+            />
+          )
+      }
       {cards}
       {
         !loading && filteredOpportunities.length === 0 && (
-          <div styleName="no-results">
-            {NO_RESULTS_MESSAGE}
+          <div>
+            <div styleName="review-opportunity-bucket">
+              <SortingSelectBar
+                title={BUCKET_DATA[bucket].name}
+              />
+              <h1 styleName="no-results">
+                {NO_RESULTS_MESSAGE}
+              </h1>
+            </div>
           </div>
         )
       }

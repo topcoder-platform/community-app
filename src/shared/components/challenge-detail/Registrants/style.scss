@@ -15,12 +15,13 @@
 
 .head {
   font-weight: 500;
-  padding-bottom: 14px;
   color: #767676;
   font-size: 11px;
   line-height: 14px;
   display: flex;
   text-transform: uppercase;
+  padding-top: 14px;
+  padding-bottom: 17px;
 
   @include xs-to-sm {
     display: none;
@@ -44,8 +45,7 @@
   color: $tc-black;
   font-size: 14px;
   font-weight: 500;
-  margin-top: 15px;
-  padding-top: 5px;
+  padding-top: 16px;
   padding-bottom: 15px;
   border-top: 1px solid $tc-gray-10;
 
@@ -107,7 +107,6 @@
   outline: none;
   font: inherit;
   color: inherit;
-  padding: 10;
 
   @include xs-to-sm {
     padding-left: 0;

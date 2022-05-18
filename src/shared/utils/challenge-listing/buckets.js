@@ -141,15 +141,15 @@ export const BUCKET_DATA = {
 };
 
 export const NO_LIVE_CHALLENGES_CONFIG = {
-  [BUCKETS.ALL]: 'No Live Challenges found in All Challenges',
-  [BUCKETS.MY]: 'No challenges found in My Challenges',
-  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found in Open for Registration Challenges',
-  [BUCKETS.ONGOING]: 'No challenges found in Ongoing Challenges',
+  [BUCKETS.ALL]: 'No Live Challenges found',
+  [BUCKETS.MY]: 'No challenges found',
+  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found',
+  [BUCKETS.ONGOING]: 'No challenges found',
   // [BUCKETS.PAST]: 'No challenges found in Past Challenges',
   // [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
   // [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
-  [BUCKETS.ALL_PAST]: 'No challenges found in All Past Challenges',
-  [BUCKETS.MY_PAST]: 'No challenges found in My Past Challenges',
+  [BUCKETS.ALL_PAST]: 'No challenges found',
+  [BUCKETS.MY_PAST]: 'No challenges found',
 };
 
 /**

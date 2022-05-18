@@ -542,16 +542,13 @@ export default function FiltersPanel({
                       .map(([value, label]) => ({ value, label }))
                       .map(option => (
                         <span styleName="checkbox" key={option.value}>
-                          <input
-                            type="checkbox"
-                            styleName="input-control"
-                            name={option.label}
-                            id={option.label}
-                            checked={_.includes(filterState.reviewOpportunityTypes, option.value)}
-                            onChange={(e) => {
+                          <SwitchWithLabel
+                            enabled={filterState.reviewOpportunityTypes.includes(option.value)}
+                            labelAfter={option.label}
+                            onSwitch={(e) => {
                               let { reviewOpportunityTypes = [] } = filterState;
 
-                              if (e.target.checked) {
+                              if (e) {
                                 reviewOpportunityTypes = reviewOpportunityTypes
                                   .concat(option.value);
                               } else {
@@ -563,7 +560,6 @@ export default function FiltersPanel({
                               setFilterState({ ..._.clone(filterState), reviewOpportunityTypes });
                             }}
                           />
-                          <label styleName="checkbox-label" htmlFor={option.label}>{option.label}</label>
                         </span>
                       ))
                   }

@@ -156,7 +156,8 @@ function ReviewOpportunityCard({
           styleName="register-button"
         >
           <span>
-            { start.isAfter() ? formatDuration(start.diff()) : `Late by ${formatDuration(-start.diff())}` }
+            Late by<br />
+            { start.isAfter() ? formatDuration(start.diff()) : ` ${formatDuration(-start.diff())}` }
           </span>
           <span styleName="to-register">
             to apply

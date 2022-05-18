@@ -15,7 +15,8 @@ $avatar-radius-4: $corner-radius * 2;
   align-items: center;
   max-width: 640px;
   overflow: auto;
-  padding: 15px;
+  padding: 10px;
+  background-color: linear-gradient(0deg, rgba(0,0,0,0.2),rgba(0,0,0,0.2)), #2a2a2a;
 
   .achievements {
     border-top: 1px solid $tc-gray-70;
@@ -47,18 +48,21 @@ $avatar-radius-4: $corner-radius * 2;
 
   .avatar {
     border-radius: $avatar-radius-50;
-    width: $base-unit * 10;
-    height: $base-unit * 10;
+    width: 32px;
+    height: 32px;
     overflow: hidden;
+    background-color: $listing-avatar-white;
   }
 
   .handle {
+    @include roboto-regular;
+    
     margin-left: $avatar-space-15;
     display: inline-block;
     font-weight: 500;
-    font-size: 20px;
-    color: $tc-level-4;
-    line-height: $base-unit * 6;
+    font-size: 11px;
+    color: $listing-white;
+    line-height: 14px;
     text-shadow: none;
   }
 

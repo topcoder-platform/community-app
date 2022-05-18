@@ -131,8 +131,15 @@ export default function Bucket({
 
   if (!loading && filteredChallenges.length === 0) {
     return (
-      <div styleName="no-results">
-        { (filterState.recommended && activeBucket === 'openForRegistration') ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
+      <div>
+        <div styleName="bucket">
+          <SortingSelectBar
+            title={BUCKET_DATA[bucket].name}
+          />
+          <h1 styleName="no-results">
+            { (filterState.recommended && activeBucket === 'openForRegistration') ? null : `${NO_LIVE_CHALLENGES_CONFIG[activeBucket]}` }
+          </h1>
+        </div>
       </div>
     );
   }
