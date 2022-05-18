@@ -45,6 +45,7 @@ build_docker_image: &build_docker_image
           command: |
             source buildenvvar
             ./build.sh
+          no_output_timeout: 20m
 jobs:
   # Build & Deploy against development backend
   "build-dev":
@@ -286,7 +287,10 @@ jobs:
       - checkout
       - restore_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
-      - run: npm install
+      - run: 
+          name: App npm install
+          command: npm install
+          no_output_timeout: 20m
       - save_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
           paths:
@@ -350,7 +354,7 @@ workflows:
           filters:
             branches:
               only:                
-                - free
+                - circleci-fix
       # This is alternate dev env for parallel testing
       - "build-qa":
           context : org-global      
