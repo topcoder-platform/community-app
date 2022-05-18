@@ -147,6 +147,7 @@ ENV OPTIMIZELY_SDK_KEY=$OPTIMIZELY_SDK_KEY
 # Testing and build of the application inside the container.
 
 RUN npm config set unsafe-perm true
+RUN git config --global url."https://git@".insteadOf git://
 RUN npm install
 RUN npm test
 RUN npm run build

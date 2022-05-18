@@ -43,7 +43,6 @@ save_cache_settings: &save_cache_settings
 build_docker_image: &build_docker_image
           name: Build of Docker image
           command: |
-            git config --global url."https://git@".insteadOf git://
             source buildenvvar
             ./build.sh
           no_output_timeout: 20m
