@@ -56,7 +56,7 @@ jobs:
       - run: *install_dependency
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
-      - restore_cache: *restore_cache_settings_for_build
+      # - restore_cache: *restore_cache_settings_for_build
       # Build of Docker image.
       - run: 
           name: "configuring environment"
