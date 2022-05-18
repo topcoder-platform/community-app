@@ -158,8 +158,8 @@ $challenge-radius-4: $corner-radius * 2;
 .additionalTagWrapper {
   background: $tc-black;
   display: inline-block;
-  border-radius: 2px;
-  padding: 3px 4px;
+  border-radius: 8px;
+  padding: 10px;
   max-width: 400px;
   font-size: 11px;
   color: $tco-black;
@@ -177,7 +177,7 @@ $challenge-radius-4: $corner-radius * 2;
   margin-left: -5px;
   border-width: 5px 5px 0;
   left: 50%;
-  border-top-color: $tc-white;
+  border-top-color: $tc-black;
   z-index: 1000;
 }
 
@@ -194,4 +194,5 @@ $challenge-radius-4: $corner-radius * 2;
 .tagContainer {
   display: flex;
   margin-top: -2px;
+  flex-wrap: wrap;
 }

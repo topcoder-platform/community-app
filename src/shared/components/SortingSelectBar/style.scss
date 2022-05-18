@@ -100,7 +100,7 @@ $down-arrow-size: $base-unit;
     }
 
     .is-focused {
-      outline: 3px auto $listing-checkbox-green !important;
+      font-weight: 700;
     }
 
     .Select-control {
@@ -168,17 +168,15 @@ $down-arrow-size: $base-unit;
       font-weight: 400;
       font-size: 12px;
       background-color: $tc-white;
-      border: 1px solid #aaa;
-      border-radius: $base-unit;
-      box-shadow: 1px 5px 15px $tc-gray-20;
       box-sizing: border-box;
-      margin-top: 5px;
-      padding: 8px 0;
+      margin-top: 2px;
+      padding: 4px 0;
       position: absolute;
       top: 100%;
       right: 0;
       z-index: 1000;
       -webkit-overflow-scrolling: touch;
+      border: none !important;
     }
 
     .Select-menu {
@@ -186,7 +184,6 @@ $down-arrow-size: $base-unit;
       overflow-y: visible;
       height: 22px;
       font-size: 14px;
-      z-index: 10000;
     }
 
     .Select-option {
@@ -194,16 +191,21 @@ $down-arrow-size: $base-unit;
       color: rgba(51, 51, 51, 0.8);
       cursor: pointer;
       display: block;
-      padding: 8px 20px;
-      z-index: 100000;
-      border-bottom: 1px solid #aaa;
+      padding: 6px 16px;
       border-left: 1px solid #aaa;
       border-right: 1px solid #aaa;
     }
 
     .Select-option:last-child {
-      border-bottom-right-radius: 2px;
-      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 5px !important;
+      border-bottom-left-radius: 5px !important;
+      border-bottom: 1px solid #aaa;
+    }
+
+    .Select-option:first-child {
+      border-top: 1px solid #aaa;
+      border-top-left-radius: $base-unit;
+      border-top-right-radius: $base-unit;
     }
 
     .Select-option:hover {

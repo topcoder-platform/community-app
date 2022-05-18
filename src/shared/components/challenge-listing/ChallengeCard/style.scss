@@ -130,6 +130,8 @@ $challenge-radius-4: $corner-radius * 2;
       margin-right: $challenge-space-10;
       line-height: ($challenge-space-10) + 2;
       font-weight: normal;
+      min-width: 70px;
+      margin-top: 2px;
     }
 
     .technology {
