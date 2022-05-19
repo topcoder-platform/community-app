@@ -144,21 +144,20 @@ export default function SubmissionManagement(props) {
         {
            isDesign && (
              <p styleName="recommend-info">
-               We always recommend to download your submission to check you uploaded the correct
-               zip files and also verify the photos and fonts declarations.
-               If you don’t want to see a submission, simply delete. If you have a new submission,
-               use the Upload Submission button to add one at the top of the list.
+               We always recommend to download your submission to check you uploaded the correct .zip files
+               and also to verify your declarations file is accurate. If you don’t want to see a submission
+               simply delete it. If you have a new submissions, use the “Add Submission” button to add one
+               to the top of the list.
              </p>
            )
          }
         {
            isDevelop && (
              <p styleName="recommend-info">
-               We always recommend to download your submission to check you uploaded
-               the correct zip file.
-               If you don’t want to see the submission, simply delete.
-               If you have a new submission, use the Upload Submission button to
-               overwrite the current one.
+               We always recommend to download your submission to check you uploaded the correct .zip files
+               and also to verify your declarations file is accurate. If you don’t want to see a submission
+               simply delete it. If you have a new submissions, use the “Add Submission” button to add one
+               to the top of the list.
              </p>
            )
          }

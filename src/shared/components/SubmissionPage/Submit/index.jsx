@@ -201,9 +201,8 @@ class Submit extends React.Component {
                 <div styleName="submission-hints">
                   { track === COMPETITION_TRACKS.DEV ? (
                     <div>
-                      {isChallengeBelongToTopgearGroup
-                        ? (<p>Enter the URL to your submission.</p>)
-                        : (<p>Upload your entire submission as a single zip file.</p>)}
+                      {!!isChallengeBelongToTopgearGroup
+                      && (<p>Enter the URL to your submission.</p>)}
                     </div>
                   ) : null }
                   { track === COMPETITION_TRACKS.DES ? (
@@ -211,18 +210,13 @@ class Submit extends React.Component {
                       <ol>
                         <li>Place your submission files into a &quot;Submission.zip&quot; file.</li>
                         <li>Place all of your source files into a &quot;Source.zip&quot; file.</li>
-                        <li>Create a JPG preview file.</li>
-                        <li>
-                          Create a declaration.txt file. Document fonts, stock art
-                          and icons used.
-                        </li>
-                        <li>
-                          Zip the 4 files from the previous steps
-                          into a single zip file and upload below.
-                        </li>
+                        <li>Create a .jpg preview file</li>
+                        <li>Create a “Declaration.txt” file that documents all fonts, stock art, and icons used</li>
+                        <li>Zip the 4 files from the previous steps into a single .zip file and upload.</li>
                       </ol>
                       <p>
                         For detailed information on packaging your submissions, please visit the
+                        &nbsp;
                         <a
                           href="https://help.topcoder.com/hc/en-us/articles/
                             219122667-Formatting-Your-Submission-for-Design-Challenges"
@@ -231,6 +225,7 @@ class Submit extends React.Component {
                         >
                           Help Center.
                         </a>
+                        &nbsp;
                         If you are having trouble uploading your file, please send your submission to <a href="mailto:support@topcoder.com">support@topcoder.com</a>
                       </p>
                     </div>
