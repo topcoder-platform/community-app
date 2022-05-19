@@ -176,11 +176,12 @@ function ContentfulRoute(props) {
         const currentPathname = typeof location === 'undefined' ? '' : removeTrailingSlash(location.pathname);
         const redirectToUrl = _.trim(fields.redirectToUrl);
         const requireLogin = fields.protected;
+        console.log('check route', requireLogin, auth, encodeURIComponent(url))
         if (requireLogin && (!auth || !auth.tokenV3)) {
           // route is protected by TC Login
           // send to login/register with proper retUrl set
           const authUrl = config.URL.AUTH;
-          return <RedirectWithStatus status={401} from={url} to={`${authUrl}?retUrl=${encodeURIComponent(url)}`} />;
+          return <RedirectWithStatus status={401} from={url} to={`${authUrl}?retUrl=${encodeURIComponent(config.URL.BASE + url)}`} />;
         }
         return redirectToUrl && currentPathname === url ? (
           <RedirectWithStatus status={301} from={url} to={redirectToUrl} />
