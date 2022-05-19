@@ -15,6 +15,7 @@ import Viewport from 'components/Contentful/Viewport';
 import PasswordScreen from 'components/Contentful/PasswordScreen';
 import { isomorphy, config } from 'topcoder-react-utils';
 import { connect } from 'react-redux';
+import cookies from 'browser-cookies';
 import { removeTrailingSlash } from 'utils/url';
 
 // Concatenates a base and segment and handles optional trailing slashes
@@ -153,7 +154,6 @@ function ContentfulRoute(props) {
     preview,
     spaceName,
     environment,
-    auth,
   } = props;
 
   const queries = [];
