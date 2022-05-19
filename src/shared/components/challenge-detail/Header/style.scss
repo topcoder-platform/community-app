@@ -65,6 +65,13 @@
 
   @include xs-to-sm {
     margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    div,
+    a {
+      width: fit-content !important;
+    }
   }
 }
 
@@ -131,6 +138,22 @@
 @mixin datasci-accent-btm-border {
   .datasci-accent-bottom-border {
     border-bottom: 3px solid $tc-orange;
+  }
+}
+
+.type-tag {
+  display: inline-block;
+}
+
+.qa {
+  :global {
+    a {
+      background-color: #0ab88a !important;
+
+      &:hover {
+        background-color: darken(#0ab88a, 10%) !important;
+      }
+    }
   }
 }
 

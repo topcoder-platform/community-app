@@ -411,7 +411,7 @@ export default function ChallengeHeader(props) {
                   track === COMPETITION_TRACKS.DES && hasRegistered && !unregistering
                   && hasSubmissions && (
                     <PrimaryButton
-                      theme={{ button: style.challengeAction }}
+                      theme={{ button: style.submitButton }}
                       to={`${challengesUrl}/${challengeId}/my-submissions`}
                     >
                       View Submissions

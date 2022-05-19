@@ -28,6 +28,10 @@
     .title {
       @include barlow-bold;
 
+      display: flex;
+      justify-content: center;
+      align-self: center;
+      height: 100%;
       font-weight: 700;
       color: $tco-black;
       font-size: 14px;
@@ -58,6 +62,31 @@
       width: 100%;
       margin: 0;
     }
+  }
+
+  .challenge-selected-view {
+    font-weight: 700 !important;
+    background-color: #bae1f9 !important;
+  }
+
+  .mobile-tab-left-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-tab-num {
+    @include roboto-regular;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    background: #2c95d7;
+    border-radius: 50px;
+    padding: 0 8px;
+    text-align: center;
+    color: $tc-white;
+    margin-left: 4px;
+    margin-top: 1px;
   }
 
   @include xs-to-md {
@@ -127,7 +156,7 @@
   }
 
   .challenge-selected-view {
-    font-weight: 700;
+    font-weight: 700 !important;
     color: #2a2a2a;
 
     &::after {
@@ -226,26 +255,30 @@
     background-color: #fff;
     margin-left: -2px;
     filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.1));
+    -webkit-filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.1));
     border-radius: 4px;
 
     .sort-item {
       @include roboto-regular;
 
       padding: 7.5px 0 0;
-      margin: 0 12px;
       height: 40px;
       color: #555;
       font-size: 14px;
       line-height: 20px;
       border-bottom: 1px solid #d4d4d4;
 
+      span {
+        margin: 0 12px;
+      }
+
       &:last-child {
         border-bottom: 0;
       }
 
       & .bold {
-        font-weight: 500;
-        color: $tc-black;
+        font-weight: 700 !important;
+        color: #000 !important;
       }
     }
   }

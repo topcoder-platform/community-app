@@ -77,15 +77,19 @@ export default function ChallengeTags(props) {
       {
         challengeType
         && (
-          <TrackTag
-            onClick={() => (
-              setImmediate(() => setChallengeListingFilter({ types: [challengeType.abbreviation] }))
-            )
-            }
-            to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
-          >
-            {challengeType.name}
-          </TrackTag>
+          <div styleName={`type-tag ${track === COMPETITION_TRACKS.QA ? 'qa' : ''}`}>
+            <TrackTag
+              onClick={() => (
+                setImmediate(() => setChallengeListingFilter(
+                  { types: [challengeType.abbreviation] },
+                ))
+              )
+              }
+              to={`${challengesUrl}?types[]=${encodeURIComponent(challengeType.abbreviation)}`}
+            >
+              {challengeType.name}
+            </TrackTag>
+          </div>
         )
       }
       {

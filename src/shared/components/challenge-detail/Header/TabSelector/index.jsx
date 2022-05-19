@@ -278,6 +278,8 @@ export default function ChallengeViewSelector(props) {
     </React.Fragment>
   );
 
+  const isSubmissionTabSelected = currentSelected === 'submissions' || currentSelected === 'registrants';
+
   return (
     <div
       styleName="container"
@@ -292,7 +294,31 @@ export default function ChallengeViewSelector(props) {
                 role="presentation"
                 onClick={() => setIsTabClosed(!isTabClosed)}
               >
-                <p styleName="title">{currentSelected}</p>
+                <div styleName="mobile-tab-left-content">
+                  <p styleName="title">{currentSelected}</p>
+                  {
+                    currentSelected === DETAIL_TABS.REGISTRANTS && numOfRegistrants && (
+                      <span styleName="mobile-tab-num">{numOfRegistrants}</span>
+                    )
+                  }
+                  {
+                    currentSelected === DETAIL_TABS.SUBMISSIONS && numOfSub && isLoggedIn && (
+                      <span styleName="mobile-tab-num">{numOfSub}</span>
+                    )
+                  }
+                  {
+                    currentSelected === DETAIL_TABS.MY_SUBMISSIONS && hasRegistered
+                    && isMM && mySubmissions && (
+                      <span styleName="mobile-tab-num">{numOfSub}</span>
+                    )
+                  }
+                  {
+                    currentSelected === DETAIL_TABS.WINNERS && numWinners
+                    && (
+                      <span styleName="mobile-tab-num">{numWinners}</span>
+                    )
+                  }
+                </div>
                 <div
                   role="presentation"
                   styleName={cn('icon', { down: !isTabClosed })}
@@ -310,7 +336,7 @@ export default function ChallengeViewSelector(props) {
         }
             </div>
             {
-              (currentSelected === 'submissions' || currentSelected === 'registrants') && (
+              isSubmissionTabSelected && !isDesign && (
                 <div
                   styleName="mobile-sort-icon"
                   role="button"
@@ -388,6 +414,7 @@ ChallengeViewSelector.propTypes = {
     type: PT.string,
     track: PT.string,
     tags: PT.arrayOf(PT.shape()),
+    submissionViewable: PT.string,
   }),
   isMM: PT.bool,
   checkpointCount: PT.number,
