@@ -76,7 +76,7 @@ export function getTimeLeft(
   else format = 'm[min] s[s]';
 
   time = moment.duration(time).format(format);
-  time = late ? `Late by ${time}` : `${time} ${toGoText}`;
+  time = late ? `${time} Past Due` : `${time} ${toGoText}`;
   return { late, text: time };
 }
 

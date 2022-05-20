@@ -275,10 +275,8 @@ export default function ChallengeStatus(props) {
                   color="green"
                   value={getPhaseProgress(statusPhase)}
                   isLate={moment().isAfter(phaseEndDate(statusPhase))}
+                  timeLeft={getTimeLeft(statusPhase, 'to go').text}
                 />
-                <div styleName="time-left">
-                  {getTimeLeft(statusPhase, 'to go').text}
-                </div>
               </div>
             ) : <ChallengeProgressBar color="gray" value="100" />
           }

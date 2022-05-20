@@ -177,7 +177,7 @@ $challenge-radius-4: $corner-radius * 2;
     @include xs-to-sm {
       position: relative;
       width: 100%;
-      margin-top: $challenge-space-20;
+      margin-top: 15px;
       padding-left: 16px;
       top: 0;
     }
