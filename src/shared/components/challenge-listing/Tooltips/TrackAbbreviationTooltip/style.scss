@@ -27,7 +27,7 @@ $track-radius-4: $corner-radius * 2;
     text-transform: lowercase;
   }
 
-  .body:first-letter{
+  .body::first-letter {
     text-transform: capitalize;
   }
 }

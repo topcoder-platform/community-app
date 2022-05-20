@@ -10,6 +10,8 @@
 .view-more:focus,
 .view-more:hover,
 .view-more:visited {
+  @include roboto-medium;
+
   background: $tc-gray-neutral-light;
   border-top: 1px solid $tc-gray-10;
   border-bottom: 1px solid $tc-gray-10;
@@ -19,7 +21,6 @@
   color: $tco-black;
   cursor: pointer;
   display: block;
-  font-family: 'Roboto';
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
