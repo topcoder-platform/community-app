@@ -14,7 +14,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
 import PasswordScreen from 'components/Contentful/PasswordScreen';
 import { isomorphy, config } from 'topcoder-react-utils';
-import { connect } from 'react-redux';
 import cookies from 'browser-cookies';
 import { removeTrailingSlash } from 'utils/url';
 
@@ -144,7 +143,7 @@ RedirectWithStatus.propTypes = {
   status: PT.number.isRequired,
 };
 
-function ContentfulRoute(props) {
+export default function ContentfulRoute(props) {
   const {
     baseUrl,
     error404,
@@ -217,7 +216,6 @@ ContentfulRoute.defaultProps = {
   preview: false,
   spaceName: null,
   environment: null,
-  auth: null,
 };
 
 ContentfulRoute.propTypes = {
@@ -229,16 +227,4 @@ ContentfulRoute.propTypes = {
   preview: PT.bool,
   spaceName: PT.string,
   environment: PT.string,
-  auth: PT.shape(),
 };
-
-function mapStateToProps(state) {
-  const auth = state.auth && state.auth.profile ? { ...state.auth } : null;
-  return {
-    auth,
-  };
-}
-
-export default connect(
-  mapStateToProps,
-)(ContentfulRoute);
