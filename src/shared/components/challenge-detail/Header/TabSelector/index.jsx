@@ -46,17 +46,17 @@ export default function ChallengeViewSelector(props) {
   const [currentSelected, setCurrentSelected] = useState('Details');
   const [isTabClosed, setIsTabClosed] = useState(true);
   const [expanded, setExpanded] = useState(false);
-  const [selectedSortOption, setSelectedSortOption] = useState('Rating: High to Low');
+  const [selectedSortOption, setSelectedSortOption] = useState();
   const isF2F = type === 'First2Finish';
   const isBugHunt = _.includes(tags, 'Bug Hunt');
   const isDesign = trackLower === 'design';
 
   let SubmissionSortOptions = [
-    { field: 'Rating', sort: 'asc', name: 'Rating: High to Low' },
-    { field: 'Rating', sort: 'desc', name: 'Rating: Low to High' },
+    { field: 'Rating', sort: 'desc', name: 'Rating: High to Low' },
+    { field: 'Rating', sort: 'asc', name: 'Rating: Low to High' },
     { field: 'Username', sort: 'asc', name: 'Username' },
-    { field: 'Submission Date', sort: 'asc', name: 'Submission Date: New to Old' },
-    { field: 'Submission Date', sort: 'desc', name: 'Submission Date: Old to New' },
+    { field: 'Submission Date', sort: 'desc', name: 'Submission Date: New to Old' },
+    { field: 'Submission Date', sort: 'asc', name: 'Submission Date: Old to New' },
     { field: 'Initial Score', sort: 'desc', name: 'Initial Score: High to Low' },
     { field: 'Initial Score', sort: 'asc', name: 'Initial Score: Low to High' },
     { field: 'Final Score', sort: 'desc', name: 'Final Score: High to Low' },
@@ -64,13 +64,13 @@ export default function ChallengeViewSelector(props) {
   ];
 
   let RegistrationSortOptions = [
-    { field: 'Rating', sort: 'asc', name: 'Rating: High to Low' },
-    { field: 'Rating', sort: 'desc', name: 'Rating: Low to High' },
+    { field: 'Rating', sort: 'desc', name: 'Rating: High to Low' },
+    { field: 'Rating', sort: 'asc', name: 'Rating: Low to High' },
     { field: 'Username', sort: 'asc', name: 'Username' },
-    { field: 'Registration Date', sort: 'asc', name: 'Registration Date: New to Old' },
-    { field: 'Registration Date', sort: 'desc', name: 'Registration Date: Old to New' },
-    { field: 'Submitted Date', sort: 'asc', name: 'Submitted Date: New to Old' },
-    { field: 'Submitted Date', sort: 'desc', name: 'Submitted Date: Old to New' },
+    { field: 'Registration Date', sort: 'desc', name: 'Registration Date: New to Old' },
+    { field: 'Registration Date', sort: 'asc', name: 'Registration Date: Old to New' },
+    { field: 'Submitted Date', sort: 'desc', name: 'Submitted Date: New to Old' },
+    { field: 'Submitted Date', sort: 'asc', name: 'Submitted Date: Old to New' },
   ];
 
   if (isF2F || isBugHunt) {
