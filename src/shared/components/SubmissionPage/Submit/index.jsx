@@ -211,7 +211,9 @@ class Submit extends React.Component {
                         <li>Place your submission files into a &quot;Submission.zip&quot; file.</li>
                         <li>Place all of your source files into a &quot;Source.zip&quot; file.</li>
                         <li>Create a .jpg preview file</li>
+                        {/* eslint-disable-next-line max-len */}
                         <li>Create a “Declaration.txt” file that documents all fonts, stock art, and icons used</li>
+                        {/* eslint-disable-next-line max-len */}
                         <li>Zip the 4 files from the previous steps into a single .zip file and upload.</li>
                       </ol>
                       <p>
