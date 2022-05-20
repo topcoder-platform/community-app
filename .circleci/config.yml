@@ -346,7 +346,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - free
       # This is alternate dev env for parallel testing
       - "build-test":
           context : org-global      
