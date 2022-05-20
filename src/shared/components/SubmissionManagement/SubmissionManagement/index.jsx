@@ -145,11 +145,11 @@ export default function SubmissionManagement(props) {
            isDesign && (
              <p styleName="recommend-info">
                {/* eslint-disable-next-line max-len */}
-               We always recommend to download your submission to check you uploaded the correct .zip files
+               We always recommend to download your submission to check you uploaded the correct .zip files&nbsp;
                {/* eslint-disable-next-line max-len */}
-               and also to verify your declarations file is accurate. If you don’t want to see a submission
+               and also to verify your declarations file is accurate. If you don’t want to see a submission&nbsp;
                {/* eslint-disable-next-line max-len */}
-               simply delete it. If you have a new submissions, use the “Add Submission” button to add one
+               simply delete it. If you have a new submissions, use the “Add Submission” button to add one&nbsp;
                to the top of the list.
              </p>
            )
@@ -158,11 +158,11 @@ export default function SubmissionManagement(props) {
            isDevelop && (
              <p styleName="recommend-info">
                {/* eslint-disable-next-line max-len */}
-               We always recommend to download your submission to check you uploaded the correct .zip files
+               We always recommend to download your submission to check you uploaded the correct .zip files&nbsp;
                {/* eslint-disable-next-line max-len */}
-               and also to verify your declarations file is accurate. If you don’t want to see a submission
+               and also to verify your declarations file is accurate. If you don’t want to see a submission&nbsp;
                {/* eslint-disable-next-line max-len */}
-               simply delete it. If you have a new submissions, use the “Add Submission” button to add one
+               simply delete it. If you have a new submissions, use the “Add Submission” button to add one&nbsp;
                to the top of the list.
              </p>
            )
