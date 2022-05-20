@@ -287,6 +287,9 @@ jobs:
       - checkout
       - restore_cache:
           key: test-node-modules-{{ checksum "package-lock.json" }}
+      - run:
+          name: Config Git
+          command: git config --global url."https://git@".insteadOf git://
       - run: 
           name: App npm install
           command: npm install
