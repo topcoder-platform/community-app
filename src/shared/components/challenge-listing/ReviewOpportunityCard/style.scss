@@ -116,6 +116,7 @@ $status-radius-4: $corner-radius * 2;
       margin-right: $challenge-space-10;
       line-height: ($challenge-space-10) + 2;
       font-weight: normal;
+      margin-top: 2px;
     }
 
     .technology {
@@ -164,7 +165,9 @@ $status-radius-4: $corner-radius * 2;
     @include xs-to-sm {
       position: relative;
       display: block;
-      margin-top: $challenge-space-20;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-left: $challenge-space-15;
       top: 0;
     }
 
@@ -210,6 +213,7 @@ $status-radius-4: $corner-radius * 2;
     line-height: 24px;
 
     @include xs-to-sm {
+      margin-top: 0;
       position: absolute;
       height: 42px;
       width: auto;
@@ -232,10 +236,15 @@ $status-radius-4: $corner-radius * 2;
       margin-top: -$challenge-space-10;
 
       @include xs-to-sm {
+        top: calc(50% - 5px);
         display: inline-block;
         position: relative;
         margin-top: 0;
         color: $tco-black;
+
+        br {
+          display: none;
+        }
       }
     }
 
@@ -285,8 +294,12 @@ $status-radius-4: $corner-radius * 2;
     @include xs-to-sm {
       display: block;
       vertical-align: top;
-      margin-bottom: $challenge-space-20;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
       width: 66%;
+      padding-top: 2px;
+      padding-left: 0;
+      text-align: center;
     }
   }
 
@@ -298,8 +311,9 @@ $status-radius-4: $corner-radius * 2;
     margin-right: $challenge-space-90;
 
     @include xs-to-sm {
-      padding-bottom: $challenge-space-30 * 2;
-      margin-right: 0;
+      margin-top: $challenge-space-30;
+      margin-bottom: $challenge-space-45;
+      margin-right: 10px;
     }
 
     // Tooltip component adds this div before its children
