@@ -110,6 +110,36 @@
       }
     }
 
+    #input-end-date-range-calendar-icon,
+    #input-start-date-range-calendar-icon {
+      outline: none !important;
+    }
+
+    .rdrYearPicker,
+    .rdrMonthPicker {
+      position: relative;
+
+      &::after {
+        content: "\f078";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 6px;
+        top: 46%;
+        height: 34px;
+        font-family: "FontAwesome", serif;
+        font-size: 12px;
+        color: $listing-checkbox-green;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+
+      select {
+        font-weight: 700;
+      }
+    }
+
     .rdrDateRangePickerWrapper {
       z-index: 15;
       position: relative;
@@ -128,13 +158,13 @@
       width: 22px;
       height: 23px;
       background: none;
-      border: 1px solid $listing-checkbox-green;
+      border: 2px solid $listing-checkbox-green;
       border-radius: 50%;
 
       i {
         position: absolute;
-        top: 7px;
-        left: 7px;
+        top: 5px;
+        left: 5px;
         display: block;
         width: 8px;
         height: 8px;
@@ -143,6 +173,18 @@
         border-top: 2px solid $listing-checkbox-green;
         border-left: 2px solid $listing-checkbox-green;
         transform: none;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 2px;
+          left: -3px;
+          width: 11px;
+          height: 2px;
+          background: #137d60;
+          transform: rotateZ(45deg);
+          border-radius: 999rem;
+        }
       }
 
       &.rdrPprevButton {
@@ -262,7 +304,7 @@
           width: 36px;
           height: 36px;
           left: 4px;
-          border: 1px solid lighten($listing-checkbox-green, 70%);
+          border-color: transparent;
         }
 
         .rdrSelected,
