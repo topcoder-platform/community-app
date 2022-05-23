@@ -28,10 +28,46 @@ $sm-space-40: $base-unit * 8;
   margin: auto;
 }
 
+.add-sub-btn {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: #137d60 !important;
+  color: #fff !important;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.add-sub-btn-warning {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: $tc-red-70 !important;
+  color: #fff !important;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
 .modal-content {
   @include roboto-regular;
 
   text-align: center;
+  border-radius: 8px;
+  padding: 20px 0;
 
   .are-you-sure {
     font-weight: 400;

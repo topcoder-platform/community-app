@@ -38,6 +38,23 @@ $light-gray-color: $tc-gray-neutral-light;
   }
 }
 
+.add-sub-btn-warning {
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 50px !important;
+  background: $tc-red-70 !important;
+  color: #fff !important;
+  text-transform: uppercase;
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
 .submission-management {
   padding-bottom: 40px;
 }

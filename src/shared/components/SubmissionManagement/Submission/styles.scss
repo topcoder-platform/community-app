@@ -88,10 +88,18 @@ $submission-space-50: $base-unit * 10;
   .id-col {
     font-weight: 700;
     width: 32%;
+
+    @include xs-to-sm {
+      width: 80%;
+    }
   }
 
   .type-col {
     width: 21%;
+
+    @include xs-to-sm {
+      width: 80%;
+    }
   }
 
   .date-col {
@@ -103,6 +111,7 @@ $submission-space-50: $base-unit * 10;
 
     @include xs-to-sm {
       padding: 0 10px;
+      width: 80%;
     }
   }
 

@@ -146,7 +146,6 @@ class FilestackFilePicker extends React.Component {
       fileName,
       fileExtensions,
       title,
-      mandatory,
       error,
       dragged,
       setDragged,
@@ -167,13 +166,6 @@ class FilestackFilePicker extends React.Component {
           <p>
             {title}
           </p>
-          {
-            mandatory && (
-            <p styleName="mandatory">
-              *mandatory
-            </p>
-            )
-          }
         </div>
         <div
           styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
@@ -338,7 +330,6 @@ FilestackFilePicker.propTypes = {
   fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,
-  mandatory: PT.bool.isRequired,
   setError: PT.func.isRequired,
   setFileName: PT.func.isRequired,
   setUploadProgress: PT.func.isRequired,

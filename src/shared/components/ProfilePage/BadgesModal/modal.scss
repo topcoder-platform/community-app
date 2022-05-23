@@ -12,12 +12,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 999;
+  border-radius: 8px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 0;
 
   @include xs-to-lg {
     max-width: 95vw;

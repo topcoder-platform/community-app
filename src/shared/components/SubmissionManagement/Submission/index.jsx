@@ -14,11 +14,12 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { COMPETITION_TRACKS, CHALLENGE_STATUS, safeForDownload } from 'utils/tc';
+// CHALLENGE_STATUS
+import { COMPETITION_TRACKS, safeForDownload } from 'utils/tc';
 
 import PT from 'prop-types';
 
-import DeleteIcon from '../Icons/IconTrashSimple.svg';
+// import DeleteIcon from '../Icons/IconTrashSimple.svg';
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
@@ -31,10 +32,10 @@ export default function Submission(props) {
     showScreeningDetails,
     track,
     onDownload,
-    onDelete,
+    // onDelete,
     onShowDetails,
-    status,
-    allowDelete,
+    // status,
+    // allowDelete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
   const onDownloadSubmission = onDownload.bind(1, submissionObject.id);
@@ -88,19 +89,19 @@ export default function Submission(props) {
              onClick={() => onDownload(submissionObject.id)}
            ><DownloadIcon /></button>
            */ }
-          {status !== CHALLENGE_STATUS.COMPLETED
-             && track !== COMPETITION_TRACKS.DES
-             && (
-             <button
-               styleName="delete-icon"
-               onClick={() => onDelete(submissionObject.id)}
-               disabled={!allowDelete}
-               type="button"
-             >
-               <DeleteIcon />
-             </button>
-             )
-           }
+          {/* {status !== CHALLENGE_STATUS.COMPLETED */}
+          {/*    && track !== COMPETITION_TRACKS.DES */}
+          {/*    && ( */}
+          {/*    <button */}
+          {/*      styleName="delete-icon" */}
+          {/*      onClick={() => onDelete(submissionObject.id)} */}
+          {/*      disabled={!allowDelete} */}
+          {/*      type="button" */}
+          {/*    > */}
+          {/*      <DeleteIcon /> */}
+          {/*    </button> */}
+          {/*    ) */}
+          {/*  } */}
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.id)}
@@ -137,8 +138,8 @@ Submission.propTypes = {
   showScreeningDetails: PT.bool,
   track: PT.string.isRequired,
   onDownload: PT.func.isRequired,
-  onDelete: PT.func.isRequired,
+  // onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
-  status: PT.string.isRequired,
-  allowDelete: PT.bool.isRequired,
+  // status: PT.string.isRequired,
+  // allowDelete: PT.bool.isRequired,
 };

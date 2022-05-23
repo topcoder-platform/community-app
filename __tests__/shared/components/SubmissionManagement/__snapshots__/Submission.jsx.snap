@@ -47,9 +47,8 @@ exports[`Snapshot match 1`] = `
         type="button"
       >
         <DeleteIcon
-          fill="none"
-          height="9"
-          viewBox="0 0 16 9"
+          height="16"
+          viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
@@ -120,9 +119,8 @@ exports[`Snapshot match 2`] = `
         type="button"
       >
         <DeleteIcon
-          fill="none"
-          height="9"
-          viewBox="0 0 16 9"
+          height="16"
+          viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         />
