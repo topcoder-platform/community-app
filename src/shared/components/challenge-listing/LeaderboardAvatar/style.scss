@@ -33,8 +33,25 @@ $leader-radius-4: $corner-radius * 2;
     }
   }
 
+  .plus {
+    @include roboto-medium;
+
+    width: 25px;
+    height: 25px;
+    background-color: #e0faf3;
+    font-size: 11px;
+    color: #2a2a2a;
+    font-weight: 500;
+    border-radius: $leader-radius-50;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 0;
+    padding: 4px;
+  }
+
   .placement {
-    position: absolute;
     display: flex;
     width: 24px;
     height: 24px;

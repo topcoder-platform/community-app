@@ -30,6 +30,7 @@ exports[`Matches shallow shapshot 1`] = `
       }
     }
     onClick={null}
+    plusOne={false}
     url="url"
   />
 </Router>

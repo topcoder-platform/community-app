@@ -89,21 +89,24 @@ export default function ChallengeStatus(props) {
       winners = winners.slice(0, MAX_VISIBLE_WINNERS);
       winners.push(lastItem);
     }
+
     const leaderboard = winners && winners.map((winner) => {
       if (winner.isLastItem) {
         return (
           /* TODO: No, should not reuse avatar for displaying "+1" in
            * a circle. Should be a separate component for that. */
-          <LeaderboardAvatar
-            key={winner.handle}
-            member={winner}
-            onClick={() => (
-              setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.WINNERS))
-            )}
-            openNewTab={openChallengesInNewTabs}
-            url={detailLink}
-            plusOne
-          />
+          <div styleName="avatar-container" key={winner.handle}>
+            <LeaderboardAvatar
+              key={winner.handle}
+              member={winner}
+              onClick={() => (
+                setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.WINNERS))
+              )}
+              openNewTab={openChallengesInNewTabs}
+              url={`${detailLink}?tab=winners`}
+              plusOne
+            />
+          </div>
         );
       }
       const userProfile = getProfile(winner);

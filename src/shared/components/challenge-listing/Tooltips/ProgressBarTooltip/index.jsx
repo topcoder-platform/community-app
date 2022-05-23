@@ -192,8 +192,6 @@ function placeArrow(TooltipNode) {
   if (rootTopOffset < tooltipTopOffset) {
     toolTip.style.top = `${parseInt(toolTip.style.top, 10) - 20}px`;
     arrow.style.top = '-5px';
-  } else {
-    arrow.style.top = '100%';
   }
 }
 

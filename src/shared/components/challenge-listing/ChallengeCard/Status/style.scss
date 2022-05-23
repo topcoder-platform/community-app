@@ -45,10 +45,12 @@ $status-radius-4: $corner-radius * 2;
   }
 
   .avatar-container {
-    margin-right: 30px;
+    margin-right: 0;
+    margin-left: 10px;
 
     @include xl {
-      margin-right: 30px;
+      margin-right: 0;
+      margin-left: 10px;
     }
 
     > span {

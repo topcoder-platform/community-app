@@ -7,6 +7,8 @@ $prize-space-10: $base-unit * 2;
   max-width: 480px;
   padding: 10px 10px 0 10px;
   overflow: hidden;
+  background-color: #2a2a2a;
+  border-radius: 8px;
 
   .bonuses {
     border-top: 1px solid $tc-gray-70;

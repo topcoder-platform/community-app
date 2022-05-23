@@ -16,7 +16,8 @@ $avatar-radius-4: $corner-radius * 2;
   max-width: 640px;
   overflow: auto;
   padding: 10px;
-  background-color: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #2a2a2a;
+  background-color: #2a2a2a;
+  border-radius: 8px;
 
   .achievements {
     border-top: 1px solid $tc-gray-70;
