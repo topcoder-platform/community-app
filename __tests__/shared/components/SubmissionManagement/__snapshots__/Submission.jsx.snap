@@ -41,19 +41,6 @@ exports[`Snapshot match 1`] = `
         type="button"
       />
       <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
-      >
-        <DeleteIcon
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-      </button>
-      <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
         onClick={[Function]}
         type="button"
@@ -112,19 +99,6 @@ exports[`Snapshot match 2`] = `
         onClick={[Function]}
         type="button"
       />
-      <button
-        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
-      >
-        <DeleteIcon
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-      </button>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
         onClick={[Function]}
