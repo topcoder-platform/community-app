@@ -167,9 +167,8 @@ export default function ChallengeViewSelector(props) {
           onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
         >
-          CHECKPOINTS (
-          {checkpointCount}
-          )
+          CHECKPOINTS
+          <span styleName="num">{checkpointCount}</span>
         </a>
         )
       }

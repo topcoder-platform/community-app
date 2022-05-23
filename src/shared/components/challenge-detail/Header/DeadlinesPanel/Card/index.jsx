@@ -13,8 +13,7 @@ import TimeIconActive from 'assets/images/icon-time-active.svg';
 import './style.scss';
 
 /* Date/time format to use in the card. */
-const FORMAT = 'MMM DD';
-const FORMAT_YEAR = 'MMM DD YYYY';
+const FORMAT_YEAR = 'MMM DD, YYYY';
 const TIME = 'HH:mm';
 
 export default function Card({ past, time, title }) {
@@ -27,13 +26,13 @@ export default function Card({ past, time, title }) {
       </p>
       <div>
         <p styleName="date">
-          { past ? <CalendarIcon /> : <CalendarIconActive /> }
+          { past2 ? <CalendarIcon /> : <CalendarIconActive /> }
           <span>
-            {time2.format(time2.year() !== moment().year() ? FORMAT_YEAR : FORMAT)}
+            {time2.format(FORMAT_YEAR)}
           </span>
         </p>
         <p styleName="time">
-          { past ? <TimeIcon /> : <TimeIconActive /> }
+          { past2 ? <TimeIcon /> : <TimeIconActive /> }
           <span>
             {time2.format(TIME)}
           </span>

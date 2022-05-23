@@ -123,9 +123,7 @@ $tc-gray-border: #aaaab5;
         }
 
         .feedback-text {
-          @include xs-to-sm {
-            display: none;
-          }
+          @include xs-to-sm;
         }
       }
 

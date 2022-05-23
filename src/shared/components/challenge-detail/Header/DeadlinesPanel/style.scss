@@ -10,6 +10,7 @@
 
   @include xs-to-md {
     flex-direction: column;
+    padding-top: 0;
     padding-right: 16px;
     padding-left: 16px;
   }

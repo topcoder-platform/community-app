@@ -135,7 +135,7 @@
 
     margin: 0 0 5px;
     counter-reset: item;
-    font-size: 16px;
+    font-size: 13px;
     color: $tc-gray-90;
     line-height: 20px;
     display: table;
@@ -155,7 +155,8 @@
       font-weight: 700;
       text-align: right;
       content: counter(item) ".";
-      padding: 0 10px 0 0;
+      padding: 0 8px 0 0;
+      width: 20px;
     }
   }
 
@@ -163,7 +164,7 @@
     @include roboto-regular;
 
     margin: 0 0 5px;
-    font-size: 16px;
+    font-size: 13px;
     color: $tc-gray-90;
     line-height: 20px;
     display: table;
