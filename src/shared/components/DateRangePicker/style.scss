@@ -21,23 +21,18 @@
 
 .isRange {
   :global {
-    .rdrStartEdge,
-    .rdrEndEdge {
-      color: $listing-checkbox-green !important;
-    }
-
     .rdrDayHovered {
-      background: $listing-checkbox-green !important;
+      color: #fff !important;
     }
 
     .rdrDay {
       .rdrInRange {
-        background: lighten($listing-checkbox-green, 30%) !important;
+        background: #e7f2ef !important;
       }
 
       .rdrStartEdge,
       .rdrEndEdge {
-        background: lighten($listing-checkbox-green, 30%) !important;
+        background: #e7f2ef !important;
       }
     }
   }
@@ -62,6 +57,10 @@
   color: $tc-black;
 
   :global {
+    .rdrMonth {
+      padding: 0 !important;
+    }
+
     @include phone {
       .rdrDateRangePickerWrapper {
         position: relative;
@@ -91,6 +90,10 @@
           }
 
           .rdrMonths {
+            .rdrMonth {
+              padding: 0 !important;
+            }
+
             .rdrWeekDay {
               font-size: 15px;
               margin-bottom: 10px;
@@ -136,7 +139,15 @@
       }
 
       select {
-        font-weight: 700;
+        option {
+          font-weight: 700;
+          background: #fff;
+          border-radius: 4px;
+          border: 1px solid #aaa;
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+          width: 131px;
+          padding: 8px 0;
+        }
       }
     }
 
@@ -227,10 +238,6 @@
         .rdrDayEndPreview {
           display: block;
         }
-
-        .rdrInRange ~ .rdrDayNumber span {
-          opacity: 0.5;
-        }
       }
 
       .rdrDayEndOfMonth .rdrInRange,
@@ -276,7 +283,6 @@
         margin-bottom: 6px;
 
         .rdrInRange {
-          color: transparent;
           background: transparent;
 
           & ~ .rdrDayNumber span {
@@ -298,13 +304,15 @@
           border-left: none;
         }
 
-        .rdrDayStartPreview.rdrDayEndPreview,
+        .rdrDayStartPreview,
+        .rdrDayEndPreview,
         .rdrDayHovered {
           border-radius: 50%;
           width: 36px;
           height: 36px;
           left: 4px;
           border-color: transparent;
+          background-color: #09b286 !important;
         }
 
         .rdrSelected,
@@ -319,15 +327,17 @@
         .rdrDayInPreview,
         .rdrDayStartPreview,
         .rdrDayEndPreview {
-          border-color: lighten($listing-checkbox-green, 70%);
+          border: none;
           top: 0;
           bottom: 0;
+          left: 5px;
         }
 
         .rdrDayStartPreview,
         .rdrDayEndPreview {
           & ~ .rdrDayNumber span {
-            color: $tc-white;
+            color: $tc-white !important;
+            z-index: 100;
           }
         }
 
@@ -421,15 +431,20 @@
     @include roboto-bold;
 
     width: 71px;
-    height: 24px;
-    line-height: 22px;
-    margin: 9px 4px 16px;
-    padding: 0;
-    font-size: 10.5px;
+    margin: 16px 16px 16px 0;
+    padding: 0 16px;
+    font-size: 12px;
+    line-height: 24px;
+    letter-spacing: 0.8px;
+    color: #137d60;
     text-align: center;
     background: transparent;
-    border: 1px solid #ccc;
-    border-radius: 2px;
+    border: 1.5px solid #137d60;
+    border-radius: 24px;
+    display: flex;
+    align-self: flex-start;
+    text-transform: uppercase;
+    height: 26px;
 
     @include phone {
       width: 79px;
@@ -460,11 +475,6 @@
 }
 
 .endDate {
-  .calendar-container,
-  .calendar-inner-container {
-    right: 0;
-  }
-
   @include tablet {
     .calendar-container,
     .calendar-inner-container {
