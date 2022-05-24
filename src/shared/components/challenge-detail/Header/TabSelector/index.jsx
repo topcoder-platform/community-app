@@ -308,7 +308,7 @@ export default function ChallengeViewSelector(props) {
                   {
                     currentSelected === DETAIL_TABS.MY_SUBMISSIONS && hasRegistered
                     && isMM && mySubmissions && (
-                      <span styleName="mobile-tab-num">{numOfSub}</span>
+                      <span styleName="mobile-tab-num">{mySubmissions.length}</span>
                     )
                   }
                   {
@@ -335,7 +335,7 @@ export default function ChallengeViewSelector(props) {
         }
             </div>
             {
-              isSubmissionTabSelected && !isDesign && (
+              isSubmissionTabSelected && (
                 <div
                   styleName="mobile-sort-icon"
                   role="button"

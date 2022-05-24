@@ -7,6 +7,7 @@ $sm-space-40: $base-unit * 8;
 .outer-container {
   background: $tc-gray-10;
   padding: 24px;
+  width: 100%;
 
   @include xs-to-sm {
     padding: 15px;
