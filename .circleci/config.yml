@@ -370,7 +370,7 @@ workflows:
           filters:
             branches:
               only:
-                - footer-update
+                - social-share-thumb
       # This is stage env for production QA releases
       - "build-prod-staging":
           context : org-global         
