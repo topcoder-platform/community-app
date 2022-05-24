@@ -173,7 +173,7 @@ const Uploading = ({
                    onClick={() => back()}
                    theme={{ button: style.button }}
                  >
-                   View My Submissions
+                   My Submissions
                  </PrimaryButton>
                </span>
              ) : (

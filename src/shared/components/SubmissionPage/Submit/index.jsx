@@ -192,7 +192,8 @@ class Submit extends React.Component {
                   Please follow the instructions on the Challenge Details page regarding
                   what your submission should contain and how it should be organized.
                 </p>
-                { track === COMPETITION_TRACKS.DEV ? (
+                {/* eslint-disable-next-line max-len */}
+                { track === COMPETITION_TRACKS.DEV || track === COMPETITION_TRACKS.DS || track === COMPETITION_TRACKS.QA ? (
                   <p styleName="additional-note">
                     Upload your entire submission as a single zip file. If you are having
                     trouble uploading your file, please send your submission to <a href="mailto:support@topcoder.com">support@topcoder.com</a>
