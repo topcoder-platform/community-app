@@ -83,6 +83,17 @@ export default function ReviewOpportunityBucket({
           ? filteredOpportunities.length > 0 && (
             <SortingSelectBar
               title="Open for review"
+              options={
+                BUCKET_DATA[bucket].sorts.map(item => ({
+                  label: Sort[item].name,
+                  value: item,
+                }))
+              }
+              value={{
+                label: Sort[activeSort].name,
+                value: activeSort,
+              }}
+              onSelect={setSort}
             />
           )
           : (
@@ -109,6 +120,17 @@ export default function ReviewOpportunityBucket({
             <div styleName="review-opportunity-bucket">
               <SortingSelectBar
                 title={BUCKET_DATA[bucket].name}
+                options={
+                  BUCKET_DATA[bucket].sorts.map(item => ({
+                    label: Sort[item].name,
+                    value: item,
+                  }))
+                }
+                value={{
+                  label: Sort[activeSort].name,
+                  value: activeSort,
+                }}
+                onSelect={setSort}
               />
               <h1 styleName="no-results">
                 {NO_RESULTS_MESSAGE}

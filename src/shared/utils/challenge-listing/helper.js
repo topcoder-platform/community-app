@@ -48,7 +48,8 @@ export function calculateScore(score) {
  */
 export const formatOrdinals = (n) => {
   let ord = '';
-  switch (n) {
+  const place = String(n);
+  switch (place) {
     case '1': ord = '1st';
       break;
     case '2': ord = '2nd';
