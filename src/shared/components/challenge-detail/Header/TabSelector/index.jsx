@@ -277,7 +277,8 @@ export default function ChallengeViewSelector(props) {
     </React.Fragment>
   );
 
-  const isSubmissionTabSelected = currentSelected === 'submissions' || currentSelected === 'registrants';
+  const isSubmissionTabSelected = (isDesign && !(challenge.submissionViewable === 'true')) ? currentSelected === 'registrants'
+    : currentSelected === 'submissions' || currentSelected === 'registrants';
 
   return (
     <div
