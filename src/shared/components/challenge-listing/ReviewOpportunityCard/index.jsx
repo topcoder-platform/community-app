@@ -110,7 +110,7 @@ function ReviewOpportunityCard({
                 </div>
               ))}
             </div>
-)}
+          )}
         >
           <div styleName="payment">
             <span>
@@ -131,7 +131,7 @@ function ReviewOpportunityCard({
               <div styleName="tooltip">
                 {quantityText(opportunity.openPositions, 'open position')}
               </div>
-)}
+            )}
           >
             <OpenPositionsIcon />
             <span styleName="number">
@@ -143,7 +143,7 @@ function ReviewOpportunityCard({
               <div styleName="tooltip">
                 {quantityText(opportunity.submissions, 'submission')}
               </div>
-)}
+            )}
           >
             <SubmissionsIcon />
             <span styleName="number">
@@ -156,10 +156,11 @@ function ReviewOpportunityCard({
           styleName="register-button"
         >
           <span>
-            { start.isAfter() ? formatDuration(start.diff()) : `Late by ${formatDuration(-start.diff())}` }
+            Late by<br />
+            { start.isAfter() ? formatDuration(start.diff()) : ` ${formatDuration(-start.diff())}` }
           </span>
           <span styleName="to-register">
-            to apply
+            to Apply
           </span>
         </Link>
       </div>

@@ -38,17 +38,17 @@ export default function Prizes({ pointPrizes, prizes }) {
                     {getOrdinal(rank)}
                   </span>
                 </p>
-                <p styleName="prize-money" aria-hidden="true">
-                  {
-                    isPrizeIndexNotUndefined && (
-                    <span styleName="prize-currency">
-                      $
-                    </span>
-                    )
-                  }
-                  {pair.join(' + ')}
-                </p>
               </div>
+              <p styleName="prize-money" aria-hidden="true">
+                {
+                  isPrizeIndexNotUndefined && (
+                  <span styleName="prize-currency">
+                    $
+                  </span>
+                  )
+                }
+                {pair.join(' + ')}
+              </p>
             </div>
           );
         })

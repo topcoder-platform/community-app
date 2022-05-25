@@ -2,13 +2,21 @@
 
 .recommended-challenge-tooltip {
   display: inline-block;
-  margin: 3px 0 0 3px;
+  white-space: nowrap;
+  margin-bottom: 5px;
 }
 
 .tctooltiptext {
-  background: $tc-white;
-  color: $tc-gray-90;
-  border-radius: 3px;
+  @include roboto-regular;
+
+  background: $tc-black;
+  display: inline-block;
+  max-width: 400px;
+  font-size: 14px;
+  color: $tc-white;
+  line-height: 22px;
+  font-weight: 500;
+  border-radius: 8px;
   padding: 10px;
 }
 
@@ -23,7 +31,7 @@
   margin-left: -5px;
   border-width: 5px 5px 0;
   left: 50%;
-  border-top-color: $tc-white;
+  border-top-color: $tc-black;
   z-index: 1000;
 }
 

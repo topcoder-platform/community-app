@@ -56,7 +56,7 @@ export const BUCKET_DATA = {
     //   status: ['Active'],
     // },
     // hideCount: false,
-    name: 'Open for registration',
+    name: 'Open for Registration',
     sorts: [
       // SORTS.BEST_MATCH,
       SORTS.MOST_RECENT_START_DATE,
@@ -109,7 +109,7 @@ export const BUCKET_DATA = {
   [BUCKETS.REVIEW_OPPORTUNITIES]: {
     filter: {},
     // hideCount: true,
-    name: 'Open for review',
+    name: 'Open for Review',
     sorts: [
       SORTS.REVIEW_OPPORTUNITIES_START_DATE,
       SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
@@ -141,15 +141,15 @@ export const BUCKET_DATA = {
 };
 
 export const NO_LIVE_CHALLENGES_CONFIG = {
-  [BUCKETS.ALL]: 'No Live Challenges found in All Challenges',
-  [BUCKETS.MY]: 'No challenges found in My Challenges',
-  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found in Open for Registration Challenges',
-  [BUCKETS.ONGOING]: 'No challenges found in Ongoing Challenges',
+  [BUCKETS.ALL]: 'No Live Challenges found',
+  [BUCKETS.MY]: 'No challenges found',
+  [BUCKETS.OPEN_FOR_REGISTRATION]: 'No challenges found',
+  [BUCKETS.ONGOING]: 'No challenges found',
   // [BUCKETS.PAST]: 'No challenges found in Past Challenges',
   // [BUCKETS.SAVED_FILTER]: 'No challenges found in Saved filter Challenges',
   // [BUCKETS.UPCOMING]: 'No challenges found in Upcoming Challenges',
-  [BUCKETS.ALL_PAST]: 'No challenges found in All Past Challenges',
-  [BUCKETS.MY_PAST]: 'No challenges found in My Past Challenges',
+  [BUCKETS.ALL_PAST]: 'No challenges found',
+  [BUCKETS.MY_PAST]: 'No challenges found',
 };
 
 /**

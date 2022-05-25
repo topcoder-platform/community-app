@@ -33,8 +33,18 @@ export function createStaticRanges() {
       endDate: now.clone().endOf('day').toDate(),
     },
     {
+      label: 'Past 3 Months',
+      startDate: past3Months.startOf('day').toDate(),
+      endDate: now.clone().endOf('day').toDate(),
+    },
+    {
       label: 'Past 6 Months',
       startDate: past6Months.startOf('day').toDate(),
+      endDate: now.clone().endOf('day').toDate(),
+    },
+    {
+      label: 'Past 1 Year',
+      startDate: pastYear.startOf('day').toDate(),
       endDate: now.clone().endOf('day').toDate(),
     },
     {
@@ -43,17 +53,6 @@ export function createStaticRanges() {
       endDate: null,
       isCustom: true,
     },
-    {
-      label: 'Past 3 Month',
-      startDate: past3Months.startOf('day').toDate(),
-      endDate: now.clone().endOf('day').toDate(),
-    },
-    {
-      label: 'Past 1 Year',
-      startDate: pastYear.startOf('day').toDate(),
-      endDate: now.clone().endOf('day').toDate(),
-    },
-
   ];
 
   return ranges.map(range => ({ ...staticRangeHandler, ...range }));

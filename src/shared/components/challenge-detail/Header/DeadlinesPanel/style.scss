@@ -1,11 +1,19 @@
 @import "~styles/mixins";
 
 .panel {
-  background-color: $tc-gray-80;
+  background-color: #555;
   display: flex;
   flex-wrap: wrap;
-  padding: 30px 0 15px;
+  justify-content: space-between;
+  padding: 30px 150px 15px 0;
   position: relative;
+
+  @include xs-to-md {
+    flex-direction: column;
+    padding-top: 0;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
 }
 
 .timezone {

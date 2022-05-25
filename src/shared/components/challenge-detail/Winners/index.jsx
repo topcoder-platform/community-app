@@ -18,11 +18,10 @@ export default function Winners({
   return (
     <div styleName="container">
       {
-        winners.map((w, index) => (
+        winners.map(w => (
           <Winner
             isDesign={isDesign}
             key={`${w.handle}-${w.placement}`}
-            last={index === winners.length - 1}
             prizes={prizes}
             submissions={submissions}
             viewable={viewable}

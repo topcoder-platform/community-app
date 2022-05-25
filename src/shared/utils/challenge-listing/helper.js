@@ -41,3 +41,24 @@ export function phaseStartDate(phase) {
 export function calculateScore(score) {
   return Math.ceil(parseFloat(score) * 100.0);
 }
+
+/**
+ * Format number to ordinals.
+ * @param {Number} n
+ */
+export const formatOrdinals = (n) => {
+  let ord = '';
+  const place = String(n);
+  switch (place) {
+    case '1': ord = '1st';
+      break;
+    case '2': ord = '2nd';
+      break;
+    case '3': ord = '3rd';
+      break;
+    default:
+      ord = `${n}th`;
+  }
+
+  return ord;
+};

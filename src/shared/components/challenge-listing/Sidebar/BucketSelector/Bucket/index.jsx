@@ -54,11 +54,6 @@ function Bucket({
     default:
   }
   // }
-  const countEl = (
-    <span styleName="right">
-      {count}
-    </span>
-  );
   // }
 
   // const error = Boolean(bucket.error) && (
@@ -67,27 +62,35 @@ function Bucket({
   //   </div>
   // );
 
-  if (active) {
-    return (
-      <div styleName="active bucket">
-        {BUCKET_DATA[bucket].name}
-        {bucket !== BUCKETS.ALL && countEl}
-        {/* {error} */}
-      </div>
-    );
-  }
+  // if (active) {
+  //   return (
+  //     <div styleName="active bucket">
+  //       {BUCKET_DATA[bucket].name}
+  //       {bucket !== BUCKETS.ALL && countEl}
+  //     </div>
+  //   );
+  // }
 
   return (
     <div
       onClick={disabled ? _.noop : onClick}
-      onKeyPress={e => (e.key === 'Enter' ? onClick() : null)}
+      onKeyPress={(e) => {
+        e.stopPropagation();
+        return (e.key === 'Enter' ? onClick() : null);
+      }}
       role="button"
       styleName="bucket"
       tabIndex={0}
     >
-      {BUCKET_DATA[bucket].name}
-      {bucket !== BUCKETS.ALL && countEl}
-      {/* {error} */}
+      <input
+        type="radio"
+        checked={active}
+        onClick={() => {
+          onClick();
+        }}
+      />
+      <span styleName="bucketName">{BUCKET_DATA[bucket].name}</span>
+      {(bucket !== BUCKETS.ALL && count > 0) ? <span styleName="count">{count}</span> : null}
     </div>
   );
 }

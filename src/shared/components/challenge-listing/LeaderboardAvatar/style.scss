@@ -14,10 +14,6 @@ $leader-radius-4: $corner-radius * 2;
   text-align: center;
   font-size: 12px;
   color: $tc-white;
-  line-height: $leader-space-30;
-  display: inline-block;
-  width: $leader-space-30;
-  height: $leader-space-30;
   border-radius: $leader-radius-50;
   vertical-align: text-bottom;
 
@@ -37,31 +33,50 @@ $leader-radius-4: $corner-radius * 2;
     }
   }
 
+  .plus {
+    @include roboto-medium;
+
+    width: 25px;
+    height: 25px;
+    background-color: #e0faf3;
+    font-size: 11px;
+    color: #2a2a2a;
+    font-weight: 500;
+    border-radius: $leader-radius-50;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 0;
+    padding: 4px;
+  }
+
   .placement {
-    position: absolute;
-    display: block;
-    width: $leader-space-15 + 2;
-    height: $leader-space-15 + 2;
+    display: flex;
+    width: 24px;
+    height: 24px;
     right: -($leader-space-10 - 3);
     bottom: -($leader-space-10 - 3);
     text-align: center;
-    line-height: $leader-space-10 + 3;
     border-radius: $leader-radius-50;
-    border: 2px solid $tc-white;
+    font-size: 11px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4px;
 
     &.placement-1 {
-      background: $tc-gold;
-      color: $tc-gold-130;
+      background: #ffd84d;
+      color: $tco-black;
     }
 
     &.placement-2 {
-      background: $tc-silver;
-      color: $tc-silver-130;
+      background: #d1d0cf;
+      color: $tco-black;
     }
 
     &.placement-3 {
-      background: $tc-bronze;
-      color: $tc-bronze-130;
+      background: #d98f64;
+      color: $tco-black;
     }
 
     &.placement-4 {

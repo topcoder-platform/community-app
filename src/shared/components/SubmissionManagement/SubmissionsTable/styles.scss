@@ -8,33 +8,31 @@ $submission-space-25: $base-unit * 5;
 $submission-space-50: $base-unit * 10;
 
 .submissions-table {
-  border: 1px solid $tc-gray-10;
+  // border: 1px solid $tc-gray-10;
   overflow: hidden;
-  border-radius: 4px 4px 0 0;
+  // border-radius: 4px 4px 0 0;
 
   @include xs-to-sm {
     border: none;
     border-radius: 0;
     border-top: 1px solid $tc-gray-10;
     border-bottom: 1px solid $tc-gray-10;
+    margin: 0 16px;
   }
 
   table {
     width: 100%;
 
-    thead {
-      tr {
-        background: $tc-gray-neutral-light;
-      }
-    }
-
     th {
-      font-size: 13px;
-      color: $tc-gray-50;
-      font-weight: 500;
+      @include barlow-bold;
+
+      font-size: 11px;
+      color: #767676;
+      font-weight: 600;
       line-height: $status-space-20;
       text-align: left;
-      padding: $status-space-25 $status-space-20;
+      padding: 0 15px 11px 15px;
+      text-transform: uppercase;
 
       &.status,
       &.actions {
@@ -70,10 +68,17 @@ $submission-space-50: $base-unit * 10;
 
   td {
     vertical-align: middle;
-    padding: $submission-space-20;
+    padding: 16px 16px 2px 16px;
     background: $tc-white;
+    font-size: 14px;
+    color: $tc-black;
+    font-weight: 500;
     border-top: 1px solid $tc-gray-10;
     line-height: 12px;
+
+    @include xs-to-md {
+      padding: 16px 16px 2px 8px;
+    }
 
     &.no-submission {
       line-height: $submission-space-20;
@@ -82,19 +87,27 @@ $submission-space-50: $base-unit * 10;
     }
 
     &.dev-details {
-      background: $tc-gray-neutral-light;
       padding-right: 60px;
+      border-top: 0;
+      padding-top: 0;
     }
   }
 
   .id-col {
     font-weight: 700;
+    width: 32%;
+  }
+
+  .type-col {
+    width: 21%;
   }
 
   .date-col {
-    color: $tc-gray-50;
-    font-weight: 400;
-    line-height: $submission-space-20;
+    width: 20%;
+    color: $tc-black;
+    font-weight: 500;
+    line-height: 22px;
+    font-size: 14px;
   }
 
   .status-col {
@@ -128,6 +141,8 @@ $submission-space-50: $base-unit * 10;
       padding: 0;
       line-height: 0;
       display: inline-block;
+      margin-left: 15px;
+      margin-top: 3px;
 
       &:focus {
         outline: none;
