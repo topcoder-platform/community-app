@@ -11,7 +11,9 @@
 .content {
   display: flex;
   flex-direction: column;
-  margin: 50px 20px;
-  max-width: 960px;
   width: 100%;
+}
+
+.loading {
+  margin-top: 30px;
 }

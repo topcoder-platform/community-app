@@ -13,7 +13,7 @@ import { config } from 'topcoder-react-utils';
 import { submission as submissionUtils } from 'topcoder-react-lib';
 import { isTokenExpired } from '@topcoder-platform/tc-auth-lib';
 import cn from 'classnames';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { Button } from 'topcoder-react-ui-kit';
 import DateSortIcon from 'assets/images/icon-date-sort.svg';
 import SortIcon from 'assets/images/icon-sort.svg';
 
@@ -40,6 +40,9 @@ class SubmissionsComponent extends React.Component {
       dateClicked: false,
       initialScoreClicked: false,
       finalScoreClicked: false,
+      finalRankClicked: false,
+      provisionalRankClicked: false,
+      provisionalScoreClicked: false,
     };
     this.onHandleInformationPopup = this.onHandleInformationPopup.bind(this);
     this.getSubmissionsSortParam = this.getSubmissionsSortParam.bind(this);
@@ -305,6 +308,9 @@ class SubmissionsComponent extends React.Component {
       dateClicked,
       initialScoreClicked,
       finalScoreClicked,
+      finalRankClicked,
+      provisionalRankClicked,
+      provisionalScoreClicked,
     } = this.state;
 
     const sortOptionClicked = {
@@ -313,6 +319,9 @@ class SubmissionsComponent extends React.Component {
       dateClicked: false,
       initialScoreClicked: false,
       finalScoreClicked: false,
+      finalRankClicked: false,
+      provisionalRankClicked: false,
+      provisionalScoreClicked: false,
     };
 
     const modalSubmissionBasicInfo = () => _.find(mmSubmissions,
@@ -425,26 +434,13 @@ class SubmissionsComponent extends React.Component {
     }
 
     if (!_.isEmpty(loadingMMSubmissionsForChallengeId)) {
-      return <LoadingIndicator />;
+      return <div styleName="loading"><LoadingIndicator /></div>;
     }
 
     return (
-      <div styleName={`container dev ${isMM ? '' : 'non-mm'}`}>
+      <div styleName={`container dev ${isMM ? 'mm' : 'non-mm'}`}>
         {
-            isMM ? (
-              <div styleName="head">
-                <div styleName="col-1 col">
-                  Rank
-                </div>
-                <div styleName="col-2 col">
-                  User
-                </div>
-                <div styleName="col-3 col">
-                  Score
-                </div>
-                <div styleName="col-4 col" />
-              </div>
-            ) : (
+            !isMM && (
               <div styleName="head">
                 {
                   !isF2F && !isBugHunt && (
@@ -579,10 +575,11 @@ class SubmissionsComponent extends React.Component {
                         field: 'Final Rank',
                         sort: (field === 'Final Rank') ? revertSort : 'desc',
                       });
+                      this.setState({ ...sortOptionClicked, finalRankClicked: true });
                     }}
                     styleName="col header-sort"
                   >
-                    <span>Final</span>
+                    <span>FINAL RANK</span>
                     <div
                       styleName={cn(
                         'col-arrow',
@@ -591,29 +588,7 @@ class SubmissionsComponent extends React.Component {
                           'col-arrow-is-sorting': field === 'Final Rank',
                         },
                       )}
-                    ><SortIcon />
-                    </div>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onSortChange({
-                        field: 'Provisional Rank',
-                        sort: (field === 'Provisional Rank') ? revertSort : 'desc',
-                      });
-                    }}
-                    styleName="col header-sort"
-                  >
-                    <span>Provisional</span>
-                    <div
-                      styleName={cn(
-                        'col-arrow',
-                        {
-                          'col-arrow-sort-asc': (field === 'Provisional Rank') && (sort === 'asc'),
-                          'col-arrow-is-sorting': field === 'Provisional Rank',
-                        },
-                      )}
-                    ><SortIcon />
+                    >{finalRankClicked ? <DateSortIcon /> : <SortIcon />}
                     </div>
                   </button>
                 </div>
@@ -622,44 +597,23 @@ class SubmissionsComponent extends React.Component {
                     type="button"
                     onClick={() => {
                       onSortChange({
-                        field: 'Rating',
-                        sort: (field === 'Rating') ? revertSort : 'desc',
+                        field: 'Provisional Rank',
+                        sort: (field === 'Provisional Rank') ? revertSort : 'desc',
                       });
+                      this.setState({ ...sortOptionClicked, provisionalRankClicked: true });
                     }}
                     styleName="col header-sort"
                   >
-                    <span>Rating</span>
+                    <span>PROVISIONAL RANK</span>
                     <div
                       styleName={cn(
                         'col-arrow',
                         {
-                          'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
-                          'col-arrow-is-sorting': field === 'Rating',
+                          'col-arrow-sort-asc': (field === 'Provisional Rank') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Provisional Rank',
                         },
                       )}
-                    ><SortIcon />
-                    </div>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onSortChange({
-                        field: 'Username',
-                        sort: (field === 'Username') ? revertSort : 'desc',
-                      });
-                    }}
-                    styleName="col header-sort"
-                  >
-                    <span>Username</span>
-                    <div
-                      styleName={cn(
-                        'col-arrow',
-                        {
-                          'col-arrow-sort-asc': (field === 'Username') && (sort === 'asc'),
-                          'col-arrow-is-sorting': field === 'Username',
-                        },
-                      )}
-                    ><SortIcon />
+                    >{provisionalRankClicked ? <DateSortIcon /> : <SortIcon /> }
                     </div>
                   </button>
                 </div>
@@ -668,13 +622,64 @@ class SubmissionsComponent extends React.Component {
                     type="button"
                     onClick={() => {
                       onSortChange({
-                        field: 'Final Score',
-                        sort: (field === 'Final Score') ? revertSort : 'desc',
+                        field: 'Rating',
+                        sort: (field === 'Rating') ? revertSort : 'desc',
                       });
+                      this.setState({ ...sortOptionClicked, ratingClicked: true });
+                    }}
+                    styleName="header-sort"
+                  >
+                    <span>RATING</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Rating') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Rating',
+                        },
+                      )}
+                    >{ ratingClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
+                </div>
+                <div styleName="col-4 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Username',
+                        sort: (field === 'Username') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, usernameClicked: true });
                     }}
                     styleName="col header-sort"
                   >
-                    <span>Final</span>
+                    <span>USERNAME</span>
+                    <div
+                      styleName={cn(
+                        'col-arrow',
+                        {
+                          'col-arrow-sort-asc': (field === 'Username') && (sort === 'asc'),
+                          'col-arrow-is-sorting': field === 'Username',
+                        },
+                      )}
+                    >{ usernameClicked ? <DateSortIcon /> : <SortIcon /> }
+                    </div>
+                  </button>
+                </div>
+                <div styleName="col-5 col">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSortChange({
+                        field: 'Final Score',
+                        sort: (field === 'Final Score') ? revertSort : 'desc',
+                      });
+                      this.setState({ ...sortOptionClicked, finalScoreClicked: true });
+                    }}
+                    styleName="col header-sort"
+                  >
+                    <span>FINAL SCORE</span>
                     <div
                       styleName={cn(
                         'col-arrow',
@@ -683,9 +688,11 @@ class SubmissionsComponent extends React.Component {
                           'col-arrow-is-sorting': field === 'Final Score',
                         },
                       )}
-                    ><DateSortIcon />
+                    >{ finalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                     </div>
                   </button>
+                </div>
+                <div styleName="col-6 col">
                   <button
                     type="button"
                     onClick={() => {
@@ -693,10 +700,11 @@ class SubmissionsComponent extends React.Component {
                         field: 'Provisional Score',
                         sort: (field === 'Provisional Score') ? revertSort : 'desc',
                       });
+                      this.setState({ ...sortOptionClicked, provisionalScoreClicked: true });
                     }}
                     styleName="col header-sort"
                   >
-                    <span>Provisional</span>
+                    <span>PROVISIONAL SCORE</span>
                     <div
                       styleName={cn(
                         'col-arrow',
@@ -705,9 +713,11 @@ class SubmissionsComponent extends React.Component {
                           'col-arrow-is-sorting': field === 'Provisional Score',
                         },
                       )}
-                    ><DateSortIcon />
+                    >{ provisionalScoreClicked ? <DateSortIcon /> : <SortIcon /> }
                     </div>
                   </button>
+                </div>
+                <div styleName="col-7 col">
                   <button
                     type="button"
                     onClick={() => {
@@ -715,10 +725,11 @@ class SubmissionsComponent extends React.Component {
                         field: 'Time',
                         sort: (field === 'Time') ? revertSort : 'desc',
                       });
+                      this.setState({ ...sortOptionClicked, dateClicked: true });
                     }}
                     styleName="col header-sort"
                   >
-                    <span>Time</span>
+                    <span>TIME</span>
                     <div
                       styleName={cn(
                         'col-arrow',
@@ -727,11 +738,13 @@ class SubmissionsComponent extends React.Component {
                           'col-arrow-is-sorting': field === 'Time',
                         },
                       )}
-                    ><DateSortIcon />
+                    >{ dateClicked ? <DateSortIcon /> : <SortIcon /> }
                     </div>
                   </button>
                 </div>
-                <div styleName="col-4 col" />
+                <div styleName="col-8 col">
+                  <span>ACTIONS</span>
+                </div>
               </div>
             )
           }
@@ -751,6 +764,7 @@ class SubmissionsComponent extends React.Component {
                   onShowPopup={this.onHandleInformationPopup}
                   getFlagFirstTry={this.getFlagFirstTry}
                   onGetFlagImageFail={onGetFlagImageFail}
+                  submissionDetail={submission}
                 />
               ))
             )
@@ -810,14 +824,17 @@ class SubmissionsComponent extends React.Component {
               ))
             )
           }
+        {
+          isMM && <div styleName="bottom-line" />
+        }
         {isMM && (
-        <PrimaryButton
+        <Button
           disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
           theme={{ button: style.challengeAction }}
           to={`${challengesUrl}/${challengeId}/submit`}
         >
           Add Submission
-        </PrimaryButton>
+        </Button>
         )}
         {
             isMM && isShowInformation && (

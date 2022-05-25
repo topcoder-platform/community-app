@@ -151,10 +151,9 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 15px;
-    padding-bottom: 7px;
+    padding-bottom: 17px;
     padding-top: 7px;
     color: $tc-gray-50;
-    background: #faf9fa;
     display: flex;
     border-bottom: 1px solid $tc-gray-10;
 
@@ -217,7 +216,7 @@
 
 .container.dev {
   margin: 0 46px;
-  padding-bottom: 30px;
+  padding-bottom: 0;
   line-height: 50px;
   text-align: center;
 
@@ -227,50 +226,62 @@
   }
 
   .col {
-    text-align: center;
+    text-align: left;
 
     &.col-1 {
-      flex: 22;
+      flex: 20;
       display: flex;
-
-      .col {
-        flex: 1;
-      }
     }
 
     &.col-2 {
-      flex: 35;
+      flex: 20;
       display: flex;
       color: $tc-gray-50;
       padding-left: 10px;
-
-      a {
-        color: black;
-      }
-
-      .col {
-        flex: 1;
-      }
     }
 
     &.col-3 {
-      flex: 45;
+      flex: 20;
       display: flex;
       color: $tc-gray-50;
-
-      .col {
-        flex: 1;
-      }
     }
 
     &.col-4 {
       flex: 20;
       color: $tc-gray-50;
     }
+
+    &.col-5 {
+      flex: 19;
+      color: $tc-gray-50;
+    }
+
+    &.col-6 {
+      flex: 20;
+      color: $tc-gray-50;
+    }
+
+    &.col-7 {
+      flex: 20;
+      color: $tc-gray-50;
+    }
+
+    &.col-8 {
+      flex: 13;
+      color: $tc-gray-50;
+    }
   }
 
   .handle {
     color: $tc-dark-blue;
+  }
+
+  &.mm {
+    margin: 28px 32px 0 32px;
+
+    @include xs-to-sm {
+      margin: 0;
+    }
   }
 
   &.non-mm {
@@ -485,6 +496,23 @@
   width: 181px;
   margin-top: 25px !important;
   align-self: center;
+  background-color: #137d60 !important;
+  border-radius: 50px !important;
+  padding: 12px 24px;
+  text-transform: uppercase;
+
+  @include roboto-bold;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff !important;
+  border: 0;
+
+  &:hover {
+    background-color: lighten(#137d60, 5%) !important;
+    background-image: none !important;
+  }
 }
 
 .level-1 {
@@ -505,4 +533,19 @@
 
 .level-5 {
   color: $member-red !important;
+}
+
+.loading {
+  margin-top: 30px;
+}
+
+.bottom-line {
+  display: none;
+
+  @include xs-to-sm {
+    display: block;
+    width: 100%;
+    border-top: 1px solid #e9e9e9 !important;
+    margin: 16px 16px 0 16px;
+  }
 }

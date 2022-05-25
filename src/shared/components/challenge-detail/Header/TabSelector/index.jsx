@@ -73,15 +73,53 @@ export default function ChallengeViewSelector(props) {
     { field: 'Submitted Date', sort: 'asc', name: 'Submitted Date: Old to New' },
   ];
 
+  const MarathonSortOptions = [
+    { field: 'Final Rank', sort: 'desc', name: 'Final Rank: High to Low' },
+    { field: 'Final Rank', sort: 'asc', name: 'Final Rank: Low to High' },
+    { field: 'Provisional Rank', sort: 'desc', name: 'Provisional Rank: High to Low' },
+    { field: 'Provisional Rank', sort: 'asc', name: 'Provisional Rank: Low to High' },
+    { field: 'Rating', sort: 'desc', name: 'Rating: High to Low' },
+    { field: 'Rating', sort: 'asc', name: 'Rating: Low to High' },
+    { field: 'Username', sort: 'asc', name: 'Username' },
+    { field: 'Final Score', sort: 'desc', name: 'Final Score: High to Low' },
+    { field: 'Final Score', sort: 'asc', name: 'Final Score: Low to High' },
+    { field: 'Provisional Score', sort: 'desc', name: 'Provisional Score: High to Low' },
+    { field: 'Provisional Score', sort: 'asc', name: 'Provisional Score: Low to High' },
+    { field: 'Submission Date', sort: 'desc', name: 'Submission Date: New to Old' },
+    { field: 'Submission Date', sort: 'asc', name: 'Submission Date: Old to New' },
+  ];
+
+  const MySubmissionsSortOptions = [
+    { field: 'Submission ID', sort: 'desc', name: 'Submission ID: High to Low' },
+    { field: 'Submission ID', sort: 'asc', name: 'Submission ID: Low to High' },
+    { field: 'Status', sort: 'desc', name: 'Status: High to Low' },
+    { field: 'Status', sort: 'asc', name: 'Status: Low to High' },
+    { field: 'Final', sort: 'desc', name: 'Final Score: High to Low' },
+    { field: 'Final', sort: 'asc', name: 'Final Score: Low to High' },
+    { field: 'Provision', sort: 'desc', name: 'Provisional Score: High to Low' },
+    { field: 'Provision', sort: 'asc', name: 'Provisional Score: Low to High' },
+    { field: 'Time', sort: 'desc', name: 'Time: New to Old' },
+    { field: 'Time', sort: 'asc', name: 'Time: Old to New' },
+  ];
+
   if (isF2F || isBugHunt) {
     SubmissionSortOptions = SubmissionSortOptions.slice(2);
+  }
+
+  if (isMM) {
+    SubmissionSortOptions = MarathonSortOptions;
   }
 
   if (isDesign) {
     RegistrationSortOptions = RegistrationSortOptions.slice(2);
   }
 
-  const sortOptions = currentSelected === 'submissions' ? SubmissionSortOptions : RegistrationSortOptions;
+  let sortOptions = currentSelected === DETAIL_TABS.SUBMISSIONS
+    ? SubmissionSortOptions : RegistrationSortOptions;
+
+  if (currentSelected === DETAIL_TABS.MY_SUBMISSIONS) {
+    sortOptions = MySubmissionsSortOptions;
+  }
 
   const numOfSub = numOfSubmissions + (numOfCheckpointSubmissions || 0);
   const forumId = _.get(challenge, 'legacy.forumId') || 0;
@@ -277,8 +315,10 @@ export default function ChallengeViewSelector(props) {
     </React.Fragment>
   );
 
-  const isSubmissionTabSelected = (isDesign && !(challenge.submissionViewable === 'true')) ? currentSelected === 'registrants'
-    : currentSelected === 'submissions' || currentSelected === 'registrants';
+  const isSubmissionTabSelected = (isDesign && !(challenge.submissionViewable === 'true')) ? currentSelected === DETAIL_TABS.REGISTRANTS
+    : currentSelected === DETAIL_TABS.SUBMISSIONS
+  || currentSelected === DETAIL_TABS.REGISTRANTS
+  || currentSelected === DETAIL_TABS.MY_SUBMISSIONS;
 
   return (
     <div
