@@ -30,6 +30,7 @@ exports[`renders a full Profile correctly 1`] = `
             <ProfileHeader
               copilot={true}
               country=""
+              hasMM={null}
               info={
                 Object {
                   "competitionCountryCode": "USA",
@@ -198,6 +199,7 @@ exports[`renders a full Profile correctly 1`] = `
           <StatsCategory
             className=""
             handle="testHandle"
+            hasMM={null}
             inModal={false}
             stats={
               Object {
@@ -644,6 +646,7 @@ exports[`renders an empty Profile correctly 1`] = `
             <ProfileHeader
               copilot={false}
               country=""
+              hasMM={null}
               info={
                 Object {
                   "competitionCountryCode": "USA",
@@ -698,6 +701,7 @@ exports[`renders an empty Profile correctly 1`] = `
           <StatsCategory
             className=""
             handle="testHandle"
+            hasMM={null}
             inModal={false}
             stats={
               Object {

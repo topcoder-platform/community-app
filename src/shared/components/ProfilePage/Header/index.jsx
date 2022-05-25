@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PT from 'prop-types';
-import { noop, get } from 'lodash';
+import { noop, get, indexOf } from 'lodash';
 import moment from 'moment';
 import ReactSVG from 'react-svg';
 
@@ -57,6 +57,7 @@ class ProfileHeader extends React.Component {
       info,
       onShowBadges,
       showBadgesButton,
+      hasMM,
       wins,
     } = this.props;
     const { imageUrl } = this.state;
@@ -94,7 +95,7 @@ class ProfileHeader extends React.Component {
           <div styleName="tracks-links">
             <div styleName="tracks">
               {
-                [...info.tracks, ...(copilot ? ['COPILOT'] : [])].map(track => (
+                [...info.tracks, ...(indexOf(info.track, 'DATA_SCIENCE') === -1 && hasMM ? ['DATA_SCIENCE'] : []), ...(copilot ? ['COPILOT'] : [])].map(track => (
                   <a href={`#${track}`} key={track} styleName="track">
                     { track === 'COPILOT' && <CopilotIcon styleName="track-icon" /> }
                     { track === 'DATA_SCIENCE' && <DataScienceIcon styleName="track-icon" /> }
@@ -140,6 +141,7 @@ class ProfileHeader extends React.Component {
 
 ProfileHeader.defaultProps = {
   copilot: false,
+  hasMM: false,
   country: '',
   info: {},
   onShowBadges: noop,
@@ -149,6 +151,7 @@ ProfileHeader.defaultProps = {
 
 ProfileHeader.propTypes = {
   copilot: PT.bool,
+  hasMM: PT.bool,
   country: PT.string,
   info: PT.shape(),
   onShowBadges: PT.func,
