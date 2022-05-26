@@ -3,8 +3,14 @@
 .container {
   @include roboto-regular;
 
-  margin-left: auto;
-  margin-right: auto;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  margin: 0 41px;
+
+  @include xs-to-sm {
+    padding: 0;
+    margin: 0 16px;
+  }
 
   div {
     white-space: nowrap;
@@ -152,7 +158,7 @@
     font-size: 13px;
     line-height: 15px;
     padding-bottom: 17px;
-    padding-top: 7px;
+    padding-top: 14px;
     color: $tc-gray-50;
     display: flex;
     border-bottom: 1px solid $tc-gray-10;
@@ -215,13 +221,10 @@
 }
 
 .container.dev {
-  margin: 0 46px;
-  padding-bottom: 0;
   line-height: 50px;
   text-align: center;
 
   @include xs-to-sm {
-    margin: 30px 0;
     line-height: 20px;
   }
 
@@ -277,10 +280,8 @@
   }
 
   &.mm {
-    margin: 28px 32px 0 32px;
-
     @include xs-to-sm {
-      margin: 0;
+      margin: 0 16px;
     }
   }
 
