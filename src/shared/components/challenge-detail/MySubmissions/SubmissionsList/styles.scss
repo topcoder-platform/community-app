@@ -96,10 +96,13 @@
   flex-direction: column;
   font-size: 13px;
   line-height: 20px;
-  margin: 16px 40px 0 40px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  margin: 0 41px;
 
   @include xs-to-sm {
-    margin: 16px 0 0 0;
+    padding: 0;
+    margin: 0 16px;
   }
 }
 
@@ -176,6 +179,10 @@ button.column-1-1,
     border-top: 1px solid #ededf2;
     margin: 0 32px 0 16px;
     height: auto;
+  }
+
+  @include xs-to-sm {
+    margin-top: 24px;
   }
 }
 
